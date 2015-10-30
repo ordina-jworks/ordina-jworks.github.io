@@ -10,24 +10,6 @@ layout: default
         <div class="col-md-4">
             <!-- Sidebar -->
             <div class="sidebar">
-
-                <!-- Search Widget -->
-                <div class="s-widget">
-                    <!-- Heading -->
-                    <h5><i class="fa fa-search color"></i>&nbsp; Search</h5>
-                    <!-- Widgets Content -->
-                    <div class="widget-content search">
-                        <form role="form">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Type Something">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-color" type="button">Search</button>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
                 <!-- Categories Widget -->
                 <div class="s-widget">
                     <!-- Heading -->
@@ -35,12 +17,9 @@ layout: default
                     <!-- Widgets Content -->
                     <div class="widget-content categories">
                         <ul class="list-6">
-                            <li><a href="#">Web Designing <span class="color">(5)</span></a></li>
-                            <li><a href="#">Graphic Design <span class="color">(5)</span></a></li>
-                            <li><a href="#">PHP Dev <span class="color">(5)</span></a></li>
-                            <li><a href="#">Android Dev <span class="color">(5)</span></a></li>
-                            <li><a href="#">Photoshop <span class="color">(5)</span></a></li>
-                            <li><a href="#">WordPress <span class="color">(5)</span></a></li>
+                            {% for cat in site.data.categories %}
+                            <li><a href="/category/{{cat[0]}}.html">{{cat.name}}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
