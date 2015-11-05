@@ -1,0 +1,13 @@
+---
+layout: default
+---
+{% assign author = site.data.authors[page.author] %}
+<div class="post">
+    <header class="post-header">
+        <h1 class="post-title">{{ author.name }}</h1>
+        {% if author.avatar %}<img class="img-circle" src="{{ site.baseurl }}/img/author/{{ author.avatar }}" />{% endif %}
+    </header>
+    <article class="post-content">
+        {{ content }}
+    </article>
+</div>
