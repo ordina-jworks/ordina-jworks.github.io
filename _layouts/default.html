@@ -84,9 +84,7 @@
         <!-- Page heading two ends -->
 
         <div class="container">
-
             {{content}}
-
         </div>
     </div>
     <!-- Main content ends -->
@@ -190,7 +188,18 @@
 <script src="{{page.root}}/js/html5shiv.js"></script>
 <script src="{{page.root}}/js/main.js"></script>
 
+<script src="{{page.root}}/js/imagesloaded.min.js"></script>
+<script src="{{page.root}}/js/masonry.js"></script>
+
 <!-- Javascript for this page -->
+<script>
+    // Initialize Masonry
+    var $box = $('.blog-masonry').masonry();
+    // Layout Masonry again after all images have loaded
+    $box.imagesLoaded( function() {
+        $box.masonry();
+    });
+</script>
 
 <!-- Custom JS. Type your JS code in custom.js file -->
 <script src="{{page.root}}/js/custom.js"></script>
