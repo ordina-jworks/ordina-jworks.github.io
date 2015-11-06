@@ -1,17 +1,32 @@
 ---
 layout: default
+title: About
+permalink: /about/
+root: ..
 ---
-{% assign author = site.data.authors[page.author] %}
-<div class="row">
-    <div class="col-md-3 col-sm-12">
-        <div class="team-six">
+<!-- Our Team starts -->
+
+<!-- Heading -->
+<div class="block-heading-six">
+    <h4 class="bg-color">Authors</h4>
+</div>
+<br />
+
+<div class="team-six">
+    {% assign index = 0 %}
+    {% for authorEntry in site.data.authors %}
+    {% capture modulo %}{{ forloop.index0 | mod:4 }}{% endcapture %}
+    {% assign author = authorEntry[1] %}
+    {% if modulo == '0' or forloop.first %}
+    <div class="row">
+    {% endif %}
+        <div class="col-md-3 col-sm-6">
             <!-- Team Member -->
             <div class="team-member">
                 <!-- Image -->
-                <img class="img-responsive" src="{{ page.root }}/img/author/{{ author.avatar }}"
-                     alt="{{ author.name }}"/>
+                <img class="img-responsive" src="{{ page.root }}/img/author/{{ author.avatar }}" alt="{{ author.name }}" />
                 <!-- Name -->
-                <h4>{{ author.name }}</h4>
+                <h4><a href="{{ page.root }}/{{ author.permalink }}">{{ author.name }}</a></h4>
                 <span class="deg">{{ author.title }}</span>
                 {% if author.title2 %}
                 <div class="clearfix"></div>
@@ -37,8 +52,8 @@ layout: default
                 </div>
             </div>
         </div>
+    {% if modulo == '3' or forloop.last %}
     </div>
-    <div class="col-md-9 col-sm-12">
-        {{ content }}
-    </div>
+    {% endif %}
+    {% endfor %}
 </div>
