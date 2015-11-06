@@ -3,7 +3,8 @@ layout: post
 title: Test Post
 heading: My first blog post on our ORAJ tech blog!
 author: dieter_hubau
-root: ../../..
+category: java
+tag: java
 ---
 ## My first blog post
 

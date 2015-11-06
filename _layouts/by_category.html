@@ -1,15 +1,15 @@
 ---
 layout: default
 ---
-
+{% assign category = site.data.categories[page.category] %}
 <header id="post-header">
-    <h1 id="post-title">{{ page.category }}</h1>
+    <h1 id="post-title">{{ category.name }}</h1>
     <h4 id="post-subtitle">Articles by category</h4>
 </header>
 
 <div id="post-content">
     {% if site.categories[page.category] %}
-    {% for post in site.categories[page.category] %}
+    {% for post in site.categories.[page.category] %}
     {% capture post_year %}{{ post.date | date: '%Y' }}{% endcapture %}
     {% if forloop.first %}
     <h3>{{ post_year }}</h3>
