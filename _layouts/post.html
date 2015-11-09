@@ -4,16 +4,22 @@ layout: default
 
 <div class="post">
     {% assign author = site.data.authors[page.author] %}
-    <header class="post-header">
-        <h1 class="post-title">{{ page.title }}</h1>
-        <p class="post-meta">Posted on {{ page.date | date: "%b %-d, %Y" }}{% if author %} by <a href="{{ author.permalink | prepend: site.baseurl }}">{{author.name}}</a> {% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
-    </header>
-    <article class="post-content">
-        <div class="row">
-            <div class="col-md-12">
-                <img src="{{ page.image | prepend: site.baseurl }}" class="img-responsive"/>
+    <div class="image-block">
+        <!-- Image style five starts -->
+        <div class="image-style-five">
+            <!-- Image -->
+            <img class="img-responsive" src="{{ page.image | prepend: site.baseurl }}" alt="">
+            <div class="image-hover"></div>
+            <!-- Image caption -->
+            <div class="image-caption">
+                <!-- Heading -->
+                <h4>{{ page.title }}</h4>
+                <p>on {{ page.date | date: "%b %-d, %Y" }}{% if author %} by <a href="{{ author.permalink | prepend: site.baseurl }}">{{author.name}}</a> {% endif %}</a></p>
             </div>
         </div>
+        <!-- Image style five starts -->
+    </div>
+    <article class="post-content">
         {{ content }}
     </article>
 </div>
