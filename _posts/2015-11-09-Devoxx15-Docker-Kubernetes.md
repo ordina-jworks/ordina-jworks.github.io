@@ -43,7 +43,7 @@ title: 'Devoxx15: Docker and Kubernates at Google'
 - `docker images`to check your images
 - `docker build`for quick build
 - `docker run -it ubuntu sh` for quick running an image in a shell
-- 
+ 
 > Docker images are like diapers: if yoshit in them, throw them away and just take a new one
 
 ## Docker Compose
@@ -59,7 +59,4 @@ title: 'Devoxx15: Docker and Kubernates at Google'
 - **Bridge ** network span single host
 - **Overlay ** network spans multiple hosts
 - Software defined networking is possible and preferred!
-
-
-
 
