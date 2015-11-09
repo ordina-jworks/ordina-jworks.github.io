@@ -1,7 +1,7 @@
 ---
 layout: post
 author: dieter_hubau
-title: 'Devoxx15: Docker by Arun Gupta'
+title: 'Devoxx15: Arun Gupta talks Docker'
 image: /img/docker.png
 ---
 ## Docker
