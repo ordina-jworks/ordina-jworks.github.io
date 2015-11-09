@@ -27,3 +27,13 @@ title: Devoxx15: Docker and Kubernates at Google
 - start, stop, restart containers
 - upgrade Docker itself
 - many plugins exist for various cloud providers
+- advice: don't use in production (yet!)
+
+## Boot2Docker
+- earlier version of docker-machine
+- being used by docker-machine in the background
+- advice: migrate to docker-machine
+
+## Docker Toolbox
+- easiest tool to get started with Docker
+- 
