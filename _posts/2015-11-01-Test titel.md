@@ -1,7 +1,7 @@
 ---
 layout: post
 author: dieter_hubau
-title: Devoxx15: Docker and Kubernates at Google
+title: 'Devoxx15: Docker and Kubernates at Google'
 ---
 # Docker & Kubernetes at Google
 
