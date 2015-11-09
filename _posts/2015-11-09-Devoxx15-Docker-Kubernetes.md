@@ -39,4 +39,5 @@ title: 'Devoxx15: Docker and Kubernates at Google'
 
 ## Hands-on Docker
 - `docker help`for all your docker needs!
-- 
+- `docker ps`to check the running containers
+- `docker images`to check your images
