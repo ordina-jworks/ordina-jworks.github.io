@@ -1,7 +1,7 @@
 ---
 layout: post
 author: dieter_hubau
-title: 'Devoxx15: Arun Gupta talks Docker'
+title: '#Devoxx Arun Gupta talks Docker'
 image: /img/docker.png
 ---
 ## Docker
@@ -43,7 +43,7 @@ image: /img/docker.png
 - `docker build`for quick build
 - `docker run -it ubuntu sh` for quick running an image in a shell
  
-> Docker images are like diapers: if you shit in them, throw them away and just take a new one
+> Docker images are like diapers: if they get shitty, throw'em away and take a fresh one
 
 ## Docker Compose
 - defining and running multi-container applications
