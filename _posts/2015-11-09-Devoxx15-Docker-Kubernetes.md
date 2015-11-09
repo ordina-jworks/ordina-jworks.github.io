@@ -3,6 +3,7 @@ layout: post
 author: dieter_hubau
 title: '#Devoxx Arun Gupta talks Docker'
 image: /img/docker.png
+tags: [docker, devops, devoxx]
 ---
 ## Docker
 - Open Source
@@ -64,11 +65,13 @@ image: /img/docker.png
 - Native clustering for Docker
 - Fully integrated with Machine & Compose
 - Serves standard Docker API so anything that works on Docker, will work on multi-host environments
-- Version 1.0.0 is out: advice: I have my doubts!
+- Version 1.0.0 is out
+
+> They say Docker Swarm v1.0.0 is production ready: I have my doubts!
 
 ## References
-- Docker Docs are the de facto standard reference: https://docs.docker.com/
-- Samples: https://github.com/javaee-samples/docker-java
+- Docker Docs are the de facto standard reference: [https://docs.docker.com/](https://docs.docker.com/)
+- Samples: [https://github.com/javaee-samples/docker-java](https://github.com/javaee-samples/docker-java)
 
 ## Questions or Remarks
 - Contact [@arungupta](https://twitter.com/arungupta) on Twitter
