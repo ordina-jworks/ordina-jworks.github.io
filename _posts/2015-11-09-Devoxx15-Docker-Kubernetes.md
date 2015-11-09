@@ -43,14 +43,23 @@ title: 'Devoxx15: Docker and Kubernates at Google'
 - `docker images`to check your images
 - `docker build`for quick build
 - `docker run -it ubuntu sh` for quick running an image in a shell
-> Docker images are like diapers: if you shit in them, throw them away and just take a new one
+- 
+> Docker images are like diapers: if yoshit in them, throw them away and just take a new one
 
 ## Docker Compose
 - defining and running multi-container applications
 - new way to link containers
+
 > Docker container linking is so passé
+
 - docker-compose.yml (default) or docker-compose.override.yml (default)
 - great for setting up Dev, Stg and CI environments
 - problem with linking: no possible way to work with different hosts
+- volume mapping can help with multi-host environments
+- **Bridge ** network span single host
+- **Overlay ** network spans multiple hosts
+- Software defined networking is possible and preferred!
+
+
 
 
