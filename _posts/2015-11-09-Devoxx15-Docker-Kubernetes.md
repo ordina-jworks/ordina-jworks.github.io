@@ -2,6 +2,7 @@
 layout: post
 author: dieter_hubau
 title: 'Devoxx15: Docker and Kubernates at Google'
+image: img/
 ---
 # Docker & Kubernetes at Google
 
@@ -38,13 +39,13 @@ title: 'Devoxx15: Docker and Kubernates at Google'
 - easiest tool to get started with Docker
 
 ## Hands-on Docker
-- `docker help`for all your docker needs!
-- `docker ps`to check the running containers
-- `docker images`to check your images
-- `docker build`for quick build
-- `docker run -it ubuntu sh` for quick running an image in a shell
+`docker help`for all your docker needs!
+`docker ps`to check the running containers
+`docker images`to check your images
+`docker build`for quick build
+`docker run -it ubuntu sh` for quick running an image in a shell
  
-> Docker images are like diapers: if yoshit in them, throw them away and just take a new one
+> Docker images are like diapers: if you shit in them, throw them away and just take a new one
 
 ## Docker Compose
 - defining and running multi-container applications
