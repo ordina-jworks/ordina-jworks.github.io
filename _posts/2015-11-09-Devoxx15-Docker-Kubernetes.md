@@ -61,3 +61,8 @@ title: 'Devoxx15: Docker and Kubernates at Google'
 - Software defined networking is possible and preferred!
 - advice: don't use in production (yet!)
 
+## Docker Swarm
+- Native clustering for Docker
+- Fully integrated with Machine & Compose
+- Serves standard Docker API so anything that works on Docker, will work on multi-host environments
+- Version 1.0.0 is out: advice: I have my doubts!
