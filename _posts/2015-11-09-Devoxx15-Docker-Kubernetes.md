@@ -1,13 +1,13 @@
 ---
 layout: post
 author: dieter_hubau
-title: 'Devoxx15: Docker'
+title: 'Devoxx15: Docker by Arun Gupta'
 image: /img/docker.png
 ---
 ## Docker
 - Open Source
-- Container Creation for applications
-- Build, Ship, Run
+- Container creation for applications
+- Build, Ship, Run your software
 - DockerHub to share docker images (because sharing is caring)
 - Docker engine runs on minimal operating system
 - Docker app runs on the Docker engine
@@ -67,9 +67,9 @@ image: /img/docker.png
 - Version 1.0.0 is out: advice: I have my doubts!
 
 ## References
-- https://docs.docker.com/
-- https://github.com/javaee-samples/docker-java
+- Docker Docs are the de facto standard reference: https://docs.docker.com/
+- Samples: https://github.com/javaee-samples/docker-java
 
 ## Questions or Remarks
-- Contact @arungupta on Twitter
-- Create an issue or start a discussion on Github
+- Contact [@arungupta](https://twitter.com/arungupta) on Twitter
+- Create an issue or start a discussion on the Github repository
