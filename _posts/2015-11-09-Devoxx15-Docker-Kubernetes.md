@@ -59,4 +59,5 @@ title: 'Devoxx15: Docker and Kubernates at Google'
 - **Bridge ** network span single host
 - **Overlay ** network spans multiple hosts
 - Software defined networking is possible and preferred!
+- advice: don't use in production (yet!)
 
