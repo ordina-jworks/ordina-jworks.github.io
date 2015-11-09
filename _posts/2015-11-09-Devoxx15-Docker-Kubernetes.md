@@ -56,8 +56,8 @@ title: 'Devoxx15: Docker and Kubernates at Google'
 - great for setting up Dev, Stg and CI environments
 - problem with linking: no possible way to work with different hosts
 - volume mapping can help with multi-host environments
-- **Bridge ** network span single host
-- **Overlay ** network spans multiple hosts
+- **Bridge** network span single host
+- **Overlay** network spans multiple hosts
 - Software defined networking is possible and preferred!
 - advice: don't use in production (yet!)
 
