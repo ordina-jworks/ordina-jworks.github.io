@@ -1,18 +1,7 @@
----
-layout: post
-title: Test Post
-heading: My first blog post on our ORAJ tech blog!
-author: dieter_hubau
-category: java
-tag: java
----
-## My first blog post
+# Docker & Kubernetes at Google
 
-Congratulations, you're editing your first blog post via Classeur!
-
-> **Note:** You can use *Markdown* to format your text.
-
-Adding some extra text here
-
-* Testing out another edit
-* Hmm
+## Docker
+- Open Source
+- Container Creation for applications
+- Build, Ship, Run
+- 
