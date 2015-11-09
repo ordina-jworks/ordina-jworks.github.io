@@ -1,6 +1,7 @@
 ---
 layout: post
 author: dieter_hubau
+title: Devoxx15: Docker and Kubernates at Google
 ---
 # Docker & Kubernetes at Google
 
@@ -20,4 +21,9 @@ author: dieter_hubau
 - All commands are compressed into one, customized docker image for you
 
 ## Docker machine (docker-machine CLI)
-- docker-machine create 
+- docker-machine create --driver=virtualbox myhost
+- CLI to configure Docker client,
+- creates and pulls images
+- start, stop, restart containers
+- upgrade Docker itself
+- many plugins exist for various cloud providers
