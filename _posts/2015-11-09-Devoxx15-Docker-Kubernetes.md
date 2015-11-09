@@ -1,10 +1,10 @@
 ---
 layout: post
 author: dieter_hubau
-title: 'Devoxx15: Docker and Kubernates at Google'
-image: img/
+title: 'Devoxx15: Docker'
+image: img/docker.png
 ---
-# Docker & Kubernetes at Google
+# Docker
 
 ## Docker
 - Open Source
@@ -68,4 +68,10 @@ image: img/
 - Serves standard Docker API so anything that works on Docker, will work on multi-host environments
 - Version 1.0.0 is out: advice: I have my doubts!
 
-That's it!
+## References
+- https://docs.docker.com/
+- https://github.com/javaee-samples/docker-java
+
+## Questions or Remarks
+- Contact @arungupta on Twitter
+- Create an issue or start a discussion on Github
