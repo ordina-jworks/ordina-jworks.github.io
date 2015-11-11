@@ -3,8 +3,8 @@ layout: default
 ---
 {% assign category = site.data.categories[page.category] %}
 <header id="post-header">
-    <h1 id="post-title">{{ category.name }}</h1>
     <h4 id="post-subtitle">Articles by category</h4>
+    <h1 id="post-title">{{ category.name }}</h1>
 </header>
 
 <div id="post-content">
@@ -14,22 +14,25 @@ layout: default
     {% if forloop.first %}
     <h3>{{ post_year }}</h3>
 
-    <div class="list-group">
-    {% endif %}
+    <div class="box-shadow-outer">
+        {% endif %}
 
-    {% if forloop.first == false %}
-    {% assign previous_index = forloop.index0 | minus: 1 %}
-    {% capture previous_post_year %}{{ site.categories[page.category][previous_index].date | date: '%Y' }}{% endcapture %}
-    {% if post_year != previous_post_year %}
+        {% if forloop.first == false %}
+        {% assign previous_index = forloop.index0 | minus: 1 %}
+        {% capture previous_post_year %}{{ site.categories[page.category][previous_index].date | date: '%Y' }}{% endcapture %}
+        {% if post_year != previous_post_year %}
     </div>
     <h3>{{ post_year }}</h3>
 
-    <div class="list-group">
+    <div class="box-shadow-outer">
         {% endif %}
         {% endif %}
 
-        <a href="{{ post.url }}" class="list-group-item">
-            <h4 class="list-group-item-heading">{{ post.title }}</h4>
+        <a href="{{ post.url }}">
+            <div class="box-shadow-block box-shadow-1 text-center">
+                <h5>{{ post.date | date: "%b %-d, %Y" }}</h5>
+                <p>{{ post.title }} </p>
+            </div>
         </a>
 
         {% if forloop.last %}
