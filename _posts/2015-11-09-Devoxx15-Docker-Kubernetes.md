@@ -3,7 +3,8 @@ layout: post
 author: dieter_hubau
 title: '#Devoxx Arun Gupta talks Docker'
 image: /img/docker.png
-tags: [docker, devops, devoxx]
+tags: [docker, devoxx]
+category: devoxx
 ---
 ## Docker
 - Open Source
@@ -75,4 +76,4 @@ tags: [docker, devops, devoxx]
 
 ## Questions or Remarks
 - Contact [@arungupta](https://twitter.com/arungupta) on Twitter
-- Create an issue or start a discussion on the Github repository
+- Create an issue or start a discussion on the Github repository (or on [Gitter](https://gitter.im/docker/docker))
