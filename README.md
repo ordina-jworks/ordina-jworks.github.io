@@ -15,3 +15,9 @@
 - Be sure to publish as **plain text**! (Jekyll will generate the static HTML for us)
 - Tweak your post and publish until you feel satisfied with it
 - Add an post image to the *img* folder
+
+## Add yourself as an author
+- Add yourself to the **_data/authors.yml** file
+- Create an **index.md** Markdown file in **authors/your-name** folder (your-name must match the key you created in the **_data/authors.yml** file
+- Add a picture of yourself to the **img** folder
+- Whenever you want to set yourself as an author to a post, add the **author: your-name** Frontmatter tag at the top of the Markdown file
