@@ -14,7 +14,7 @@
 	- **example**: *_posts/2015-11-09-Awesome-Blogpost.md*
 - Be sure to publish as **plain text**! (Jekyll will generate the static HTML for us)
 - Tweak your post and publish until you feel satisfied with it
-- Add an post image to the *img* folder
+- Add a post image to the *img* folder
 
 ## Add yourself as an author
 - Add yourself to the **_data/authors.yml** file
