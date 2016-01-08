@@ -15,10 +15,10 @@ During the week of October 12th, my colleagues Andreas Evers and Tim De Bruyn an
 <img style="float: left; margin: 10px 15px 5px 0" alt="Chris Richardson" src="https://www.ordina.be/~/media/images/ordinabe/blogs/ken2.jpg?la=nl-nl">
 [Chris Richardson](http://www.chrisrichardson.net/) is the author of [POJOs in Action](https://www.manning.com/books/pojos-in-action) and is founder of the original CloudFoundry, which was later acquired by VMWare and then SpringSource. Nowadays he is constantly thinking about microservices and founded a startup that is creating a platform for aiding the development of event-driven microservices (http://eventuate.io/). He also launched http://microservices.io/, describing microservice responsibilities and commonly accepted solutions as patterns.
 
+<p style="clear:both;"></p>
 
 ----------
 
-<p style="clear:both;"></p>
 
 Problems in software engineering
 ==================
