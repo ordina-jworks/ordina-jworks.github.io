@@ -18,6 +18,7 @@ During the week of October 12th, my colleagues Andreas Evers and Tim De Bruyn an
 
 ----------
 
+<p style="clear:both;"></p>
 
 Problems in software engineering
 ==================
