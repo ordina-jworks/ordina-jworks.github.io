@@ -27,7 +27,9 @@ Chris started his presentation by pointing out a few problems in software engine
 
 A second problem is that we have **a lot of new technologies** these days. Typically, these technologies go through the *Gartner Hype Cycle*.
 
-<img style="float: left; margin: 15px 0" alt="Gartner Hype Cycle" src="https://www.ordina.be/~/media/images/ordinabe/blogs/ken3v2.png?la=nl-nl">
+<img style="float: left; margin: 20px 0" alt="Gartner Hype Cycle" src="https://www.ordina.be/~/media/images/ordinabe/blogs/ken3v2.png?la=nl-nl">
+
+<p style="clear:both;"></p>
 
 At first, people discover an innovative technology and everybody wants to use it, which drives the technology into the *Peak of Inflated Expectations*. Docker is a good example of a technology in this phase. Then a huge drop follows, because people didn’t really understand the technology and misused it. When we start to **understand the subject**, that’s when productivity on the market increases.
 
