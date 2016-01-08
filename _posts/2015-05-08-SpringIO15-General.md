@@ -9,8 +9,7 @@ category: spring
 
 Last week Barcelona was the place to be for Spring enthusiasts. With tons of Pivotal speakers and many more community leaders it was a two-day goldmine for anyone looking to update their Spring knowledge. This is my report ranging many different topics, including quite some one on one discussions and hacking sessions with the people behind the Spring ecosystem.
 
-![Spring I/O Logo](https://www.ordina.be/~/media/images/ordinabe/blogs/andreas1.jpg)
-![Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)](https://www.ordina.be/~/media/images/ordinabe/blogs/andreas2.jpg?la=nl-nl&h=429&w=763)
+<img style="float: right;" alt="Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas2.jpg?la=nl-nl&amp;h=429&amp;w=763">
 >Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)
 ### One on one talk with Juergen Hoeller:
 
