@@ -9,8 +9,9 @@ category: spring
 
 Last week Barcelona was the place to be for Spring enthusiasts. With tons of Pivotal speakers and many more community leaders it was a two-day goldmine for anyone looking to update their Spring knowledge. This is my report ranging many different topics, including quite some one on one discussions and hacking sessions with the people behind the Spring ecosystem.
 
-<img style="float: right;" alt="Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas2.jpg?la=nl-nl&amp;h=429&amp;w=763">
+<img style="float: left;" alt="Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas2.jpg?la=nl-nl&amp;h=429&amp;w=763">
 >Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)
+
 ### One on one talk with Juergen Hoeller:
 
 ![Juergen Hoeller](https://www.ordina.be/~/media/images/ordinabe/blogs/andreas3.jpg?la=nl-nl)Groovy has now become an Apache Incubator project, as Pivotal decided Groovy isn't a core project for them. Most of the people behind Groovy are not working for Pivotal anymore but for other companies which means they can only work on it part-time. Juergen doesn't like this but it wasn't his decision. Luckily Groovy has a huge userbase and they truly love the language. That's why Juergen is not too concerned about Groovy dying, but of course the speed of new developments will be a lot slower than the past two or three years.
