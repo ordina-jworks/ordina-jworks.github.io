@@ -24,7 +24,7 @@ Currently it's hard to find decent books about microservices but they should be 
 
 ### One on one hacking session with Oliver Gierke:
 
-![Oliver Gierke](https://www.ordina.be/~/media/images/ordinabe/blogs/andreas5.png?la=nl-nl)Lots of stuff can still be moved from Spring Data REST to Spring Hateoas. This afternoon I'm sitting down with Oliver Gierke to do some hacking on the subject.
+<img style="float: left; margin: 10px 15px 5px 0" alt="Oliver Gierke" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas5.png?la=nl-nl">Lots of stuff can still be moved from Spring Data REST to Spring Hateoas. This afternoon I'm sitting down with Oliver Gierke to do some hacking on the subject.
 
 It's possible to have a resource with many different embedded resources inside by nesting domain POJOs in eachother. The thing Spring Data REST is missing is the possibility to distinguish between domain model nested classes and resource model nested classes (aka embedded resources). There is no way to embed a Car resource as an embedded resource into a Person resource without actually having Car as a property of Person in the domain model. Having the possibility to manually add embedded resources to a resource would solve this.
 To achieve this we should have an extension of ResourceSupport with a Set of EmbeddedWrappers inside. Using the EmbeddedWrappers class, we can add embedded resources to our resource in its Assembler. This Wrapper will take care of relation resolving, especially handy when dealing with collections which require plural-forms. The relation value can be annotated in the model or passed along as a second parameter.
@@ -44,46 +44,52 @@ Implementation of the [hypertext cache pattern of HAL](https://tools.ietf.org/ht
 
 ## More on Spring I/O 2015 Barcelona ....
 
-![Christoph Strobl](https://www.ordina.be/~/media/images/ordinabe/blogs/andreas4.png?la=nl-nl)
+<img style="float: left; margin: 10px 15px 5px 0" alt="Christoph Strobl" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas4.png?la=nl-nl">
+
 #### Boot your Search with Spring talk:
+
 Speaker: Christoph Strobl - [Talk & speaker description](http://www.springio.net/boot-your-search-with-spring/)
 
 Solr feels like an old kitchen sink for anything you want to do. Not exactly a fancy 2015 tool. They are catching up though and documentation is getting better. It's scheme based. MongoDB does much more out-of-the-box which you have to do manually with xml configuration. Solr schemaless support exists but as long as it's lucene-based, there's no such thing as a schema-less index. Their type-guessing only goes so far until you try to add a record with a different type.
 
 Spring Data Solr does just what you expect: clean to-the-point interfaces with annotations that do the DAO magic for you. Spring Data Elasticsearch does that as well for the complexity of Elasticsearch. I never really liked the query system that Elasticsearch has so having this abstraction layer could prove really useful.
 
-![Brian Clozel](https://www.ordina.be/~/media/images/ordinabe/blogs/andreas6.jpg?la=nl-nl&h=227&w=227)
+<img style="float: left; margin: 10px 15px 5px 0" alt="Brian Clozel" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas6.jpg?la=nl-nl&h=227&w=227">
+
 #### Inside http://spring.io - a production spring reference application & one on one talk with Brian Clozel
 
 on this blog
 
-![Sergi Almar](https://www.ordina.be/~/media/images/ordinabe/blogs/andreas7.jpg?la=nl-nl&h=224&w=227)
+<img style="float: left; margin: 10px 15px 5px 0" alt="Sergi Almar" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas7.jpg?la=nl-nl&h=224&w=227">
+
 #### Real-time with Spring: SSE and WebSockets talk
 
 Speaker: Sergi Almar - [Talk & speaker description](http://www.springio.net/real-time-with-spring-sse-and-websockets/)
 
 Spring WebSockets is better than JSR356 because: there is a fallback with SockJS, there is support for STOMP subprotocol, Spring Security can jump in, and of course flawless integration with messaging components and the Spring messaging style. Security is important because there are no URLs anymore. We have to secure at message level.
 
-![Oliver Gierke](https://www.ordina.be/~/media/images/ordinabe/blogs/andreas8.png?la=nl-nl&h=223&w=223)
+<img style="float: left; margin: 10px 15px 5px 0" alt="Oliver Gierke" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas8.png?la=nl-nl&h=223&w=223">
+
 #### Spring Data REST - Repositories meet hypermedia talk
 
 Speaker: Oliver Gierke - [Talk & speaker description](http://www.springio.net/spring-data-rest-repositories-meet-hypermedia/)
 
 Recommended reading: Domain Driven Design. Although very boring, it introduces vital concepts in the repository world. When combining ALPS and JSON Schema, it should be possible to create a client that is smart enough to discover verbs and even fields of the payload.
 
-![Dave Syer](https://www.ordina.be/~/media/images/ordinabe/blogs/andreas9.jpg?la=nl-nl)
+<img style="float: left; margin: 10px 15px 5px 0" alt="Dave Syer" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas9.jpg?la=nl-nl">
+
 #### Building Microservices with Spring Cloud and Netflix OSS talk
 
-Speaker: Dr. Dave Syer  - [Talk & speaker description](http://www.springio.net/building-microservices-with-spring-cloud-and-netflix-oss/)
+Speaker: Dr. Dave Syer  - [Talk & speaker description](http://www.springio.net/building-microservices-with-spring-cloud-and-netflix-oss)
 
 Another great book is Release It!. It describes a lot of the patterns microservices use such as circuit breaker. It's definitely a great book for devops.
 
-![Stéphane Nicoll](https://www.ordina.be/~/media/images/ordinabe/blogs/andreas10.png?la=nl-nl)
+<img style="float: left; margin: 10px 15px 5px 0" alt="Stéphane Nicoll" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas10.png?la=nl-nl">
 #### Master Spring Boot autoconfiguration talk
 
 on this blog
 
-![Josh Long](https://www.ordina.be/~/media/images/ordinabe/blogs/andreas11.jpg?la=nl-nl)
+<img style="float: left; margin: 10px 15px 5px 0" alt="Josh Long" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas11.jpg?la=nl-nl">
 #### Can Your Cloud Do This? Getting started with Cloud Foundry talk
 #### & Building "Bootiful"Microservices with Spring Cloud workshop
 #### & One one one talk with Josh Long
