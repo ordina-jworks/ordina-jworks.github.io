@@ -1,7 +1,7 @@
 ---
 layout: post
 author: andreasevers
-title: '#Spring I/O 2015 Barcelona'
+title: 'Spring I/O 2015 Barcelona'
 image: /img/springio.jpg
 tags: [spring]
 category: spring
