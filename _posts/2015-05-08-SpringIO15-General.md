@@ -7,10 +7,10 @@ tags: [spring]
 category: spring
 ---
 
-Last week Barcelona was the place to be for Spring enthusiasts. With tons of Pivotal speakers and many more community leaders it was a two-day goldmine for anyone looking to update their Spring knowledge. This is my report ranging many different topics, including quite some one on one discussions and hacking sessions with the people behind the Spring ecosystem.
+>Last week Barcelona was the place to be for Spring enthusiasts. With tons of Pivotal speakers and many more community leaders it was a two-day goldmine for anyone looking to update their Spring knowledge. This is my report ranging many different topics, including quite some one on one discussions and hacking sessions with the people behind the Spring ecosystem.
 
 <img style="float: left;" alt="Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas2.jpg?la=nl-nl&amp;h=429&amp;w=763">
->Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)
+*Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)*
 
 ### One on one talk with Juergen Hoeller:
 
