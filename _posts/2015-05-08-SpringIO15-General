@@ -1,0 +1,72 @@
+<hr>
+<p>layout: post<br>
+author: andreasevers<br>
+title: ‘#Spring I/O 2015 Barcelona’<br>
+image: /img/docker.png<br>
+tags: [spring]<br>
+category: spring</p>
+<hr>
+<h1 id="spring-io-2015-barcelona">Spring I/O 2015 Barcelona</h1>
+<p>Last week Barcelona was the place to be for Spring enthusiasts. With tons of Pivotal speakers and many more community leaders it was a two-day goldmine for anyone looking to update their Spring knowledge. This is my report ranging many different topics, including quite some one on one discussions and hacking sessions with the people behind the Spring ecosystem.</p>
+<p><img src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas1.jpg" alt="Spring I/O Logo"><br>
+<img src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas2.jpg?la=nl-nl&amp;h=429&amp;w=763" alt="Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)"></p>
+<blockquote>
+<p>Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)</p>
+</blockquote>
+<h3 id="one-on-one-talk-with-juergen-hoeller">One on one talk with Juergen Hoeller:</h3>
+<p><img src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas3.jpg?la=nl-nl" alt="Juergen Hoeller">Groovy has now become an Apache Incubator project, as Pivotal decided Groovy isn’t a core project for them. Most of the people behind Groovy are not working for Pivotal anymore but for other companies which means they can only work on it part-time. Juergen doesn’t like this but it wasn’t his decision. Luckily Groovy has a huge userbase and they truly love the language. That’s why Juergen is not too concerned about Groovy dying, but of course the speed of new developments will be a lot slower than the past two or three years.<br>
+Gradle has strong dependencies on Groovy, as it’s using a Groovy-based DSL language. The story is different here however, as Gradle is backed by Gradleware, a Silicon Valley company with its own vision. Spring is using Gradle for most of its projects, because for one the devs like to use Groovy, but foremost because it offers more flexibility compared to maven which is necessary when dealing with an open-source framework.</p>
+<p>The Netflix stack is Amazon based as it’s the most important player in the market at the moment. Of course there is support for Cloud Foundry but there are no guarantees it will work on all clouds. Especially Google App Engine is kind of a mess as the team behind it doesn’t really cooperate with Pivotal or anyone else as far as Juergen knows.</p>
+<p>Currently it’s hard to find decent books about microservices but they should be coming up soon. For cloud there are some books out there but they could feel outdated already. What’s written in 2013 isn’t always completely valid anymore in 2015, especially in a field like Cloud computing.</p>
+<h3 id="one-on-one-hacking-session-with-oliver-gierke">One on one hacking session with Oliver Gierke:</h3>
+<p><img src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas5.png?la=nl-nl" alt="Oliver Gierke">Lots of stuff can still be moved from Spring Data REST to Spring Hateoas. This afternoon I’m sitting down with Oliver Gierke to do some hacking on the subject.</p>
+<p>It’s possible to have a resource with many different embedded resources inside by nesting domain POJOs in eachother. The thing Spring Data REST is missing is the possibility to distinguish between domain model nested classes and resource model nested classes (aka embedded resources). There is no way to embed a Car resource as an embedded resource into a Person resource without actually having Car as a property of Person in the domain model. Having the possibility to manually add embedded resources to a resource would solve this.<br>
+To achieve this we should have an extension of ResourceSupport with a Set of EmbeddedWrappers inside. Using the EmbeddedWrappers class, we can add embedded resources to our resource in its Assembler. This Wrapper will take care of relation resolving, especially handy when dealing with collections which require plural-forms. The relation value can be annotated in the model or passed along as a second parameter.</p>
+<p>I will go into more detail with examples as a comment on <a href="https://github.com/spring-projects/spring-hateoas/issues/270">the GitHub ticket about embedded resources</a> which Oliver will try to follow up. An existing stackoverflow issue about the subject can be found here: <a href="http://stackoverflow.com/questions/25858698/spring-hateoas-embedded-resource-support">http://stackoverflow.com/questions/25858698/spring-hateoas-embedded-resource-support</a></p>
+<p>Having different representations of the same resource with different fields (e.g. summary and full view) can be achieved using jsonViews. However, those jsonViews can be used for versioning as well, and having both at the same time could interfere. The Projection abstraction is a very nice feature of Spring Data REST that was moved to the Spring Data Commons package. This enables us to use this abstraction without the need of a persistence. We can use it in conjunction with Spring Hateoas without Spring Data REST.<br>
+The main class to use is the SpelAwareProxyProjectionFactory. This factory can be used to create projections. It’s also possible to use the Page functionality and especially its page.map() function, which can link a projection interface with a domain class. This approach allows us to define an interface with the selection of fields from the domain class as getter methods. This defines the selection of fields which that projection should expose.<br>
+This pattern is applied as well in the latest Spring MVC where a UserForm is used as a parameter of a POST endpoint method. Defining the UserForm as an interface works exactly by the same principle as the Projections of Spring Data. You can even have default methods in the interface for validation of that form.</p>
+<p>At my client I am integrating most of the stuff you can find in <a href="https://api-sandbox.foxycart.com/hal-browser/browser.html">foxycart’s HAL browser</a> but in a dynamic way. Exposing <a href="https://api-sandbox.foxycart.com/hal-browser/browser.html">a graph of resources</a> can be done using Spring Restdocs’ link documents generated in asciidoc. By parsing the results of these asciidocs and merging the results, a resulting json is aggregated and used to generate a graph of resources and their links using <a href="http://d3js.org/">d3js</a>. This graph is integrated in the HAL browser, and each resource links to its documentation. That documentation per resource can of course also be reached from the regular HAL browser documentation links using curies. To generate that documentation we are in turn using Spring Restdocs to show examples with their links, request and response fields and error scenarios. All of this is generated and guaranteed up-to-date (if it weren’t, it would have failed the build).<br>
+The improvement which is still possible to do here, is to have our own hook into Spring Restdocs so we wouldn’t need to go through asciidoc links to generate the full relationship graph. Oliver asked me to open a ticket for Andy Wilkinson to allow hooks in the generation model.</p>
+<p>Oliver doesn’t fully agree with versioning on resource level. He prefers versioning APIs or not versioning at all, to avoid having a higher cost later due to legacy and lots of old versions we’ll need to support. The initial win of versioning would be insignificant compared to the technical debt it creates.</p>
+<p>Implementation of the <a href="https://tools.ietf.org/html/draft-kelly-json-hal-06#section-8.3">hypertext cache pattern of HAL</a> is quite straight forward according to Oliver. The client should be smart enough to search for the field it needs in the embedded resource, and if that field isn’t there, he should follow the link to the full resource. Keeping track of which representation is shown in which place (embedded vs linked) becomes unnecessary using that approach.</p>
+<h2 id="more-on-spring-io-2015-barcelona-....">More on Spring I/O 2015 Barcelona …</h2>
+<p><img src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas4.png?la=nl-nl" alt="Christoph Strobl"></p>
+<h4 id="boot-your-search-with-spring-talk">Boot your Search with Spring talk:</h4>
+<p>Speaker: Christoph Strobl - <a href="http://www.springio.net/boot-your-search-with-spring/">Talk &amp; speaker description</a></p>
+<p>Solr feels like an old kitchen sink for anything you want to do. Not exactly a fancy 2015 tool. They are catching up though and documentation is getting better. It’s scheme based. MongoDB does much more out-of-the-box which you have to do manually with xml configuration. Solr schemaless support exists but as long as it’s lucene-based, there’s no such thing as a schema-less index. Their type-guessing only goes so far until you try to add a record with a different type.</p>
+<p>Spring Data Solr does just what you expect: clean to-the-point interfaces with annotations that do the DAO magic for you. Spring Data Elasticsearch does that as well for the complexity of Elasticsearch. I never really liked the query system that Elasticsearch has so having this abstraction layer could prove really useful.</p>
+<p><img src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas6.jpg?la=nl-nl&amp;h=227&amp;w=227" alt="Brian Clozel"></p>
+<h4 id="inside-httpspring.io---a-production-spring-reference-application--one-on-one-talk-with-brian-clozel">Inside <a href="http://spring.io">http://spring.io</a> - a production spring reference application &amp; one on one talk with Brian Clozel</h4>
+<p>on this blog</p>
+<p><img src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas7.jpg?la=nl-nl&amp;h=224&amp;w=227" alt="Sergi Almar"></p>
+<h4 id="real-time-with-spring-sse-and-websockets-talk">Real-time with Spring: SSE and WebSockets talk</h4>
+<p>Speaker: Sergi Almar - <a href="http://www.springio.net/real-time-with-spring-sse-and-websockets/">Talk &amp; speaker description</a></p>
+<p>Spring WebSockets is better than JSR356 because: there is a fallback with SockJS, there is support for STOMP subprotocol, Spring Security can jump in, and of course flawless integration with messaging components and the Spring messaging style. Security is important because there are no URLs anymore. We have to secure at message level.</p>
+<p><img src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas8.png?la=nl-nl&amp;h=223&amp;w=223" alt="Oliver Gierke"></p>
+<h4 id="spring-data-rest---repositories-meet-hypermedia-talk">Spring Data REST - Repositories meet hypermedia talk</h4>
+<p>Speaker: Oliver Gierke - <a href="http://www.springio.net/spring-data-rest-repositories-meet-hypermedia/">Talk &amp; speaker description</a></p>
+<p>Recommended reading: Domain Driven Design. Although very boring, it introduces vital concepts in the repository world. When combining ALPS and JSON Schema, it should be possible to create a client that is smart enough to discover verbs and even fields of the payload.</p>
+<p><img src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas9.jpg?la=nl-nl" alt="Dave Syer"></p>
+<h4 id="building-microservices-with-spring-cloud-and-netflix-oss-talk">Building Microservices with Spring Cloud and Netflix OSS talk</h4>
+<p>Speaker: Dr. Dave Syer  - <a href="http://www.springio.net/building-microservices-with-spring-cloud-and-netflix-oss/">Talk &amp; speaker description</a></p>
+<p>Another great book is Release It!. It describes a lot of the patterns microservices use such as circuit breaker. It’s definitely a great book for devops.</p>
+<p><img src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas10.png?la=nl-nl" alt="Stéphane Nicoll"></p>
+<h4 id="master-spring-boot-autoconfiguration-talk">Master Spring Boot autoconfiguration talk</h4>
+<p>on this blog</p>
+<p><img src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas11.jpg?la=nl-nl" alt="Josh Long"></p>
+<h4 id="can-your-cloud-do-this-getting-started-with-cloud-foundry-talk">Can Your Cloud Do This? Getting started with Cloud Foundry talk</h4>
+<h4 id="building-bootifulmicroservices-with-spring-cloud-workshop">&amp; Building "Bootiful"Microservices with Spring Cloud workshop</h4>
+<h4 id="one-one-one-talk-with-josh-long">&amp; One one one talk with Josh Long</h4>
+<p>on this blog</p>
+<p>Enjoy reading!</p>
+<p>About the author:<br>
+Andreas Evers</p>
+<blockquote>
+<p>Andreas Evers is a principal Java consultant at Ordina, passionate<br>
+about the Spring ecosystem, microservices, REST, clean code and best<br>
+practices in general. An avid open source enthusiast and Spring<br>
+contributor. Helps fellow developers as Competence Center leader for<br>
+architecture and best practices by giving workshops, talks and courses<br>
+about the newest technologies.</p>
+</blockquote>
