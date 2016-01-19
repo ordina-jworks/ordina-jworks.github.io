@@ -88,7 +88,7 @@ Another great book is Release It!. It describes a lot of the patterns microservi
 
 #### Master Spring Boot autoconfiguration talk
 
-on [this blog](http://ordina-oraj.github.io/spring/2015/05/08/SpringIO15-Autoconfig.html)
+[on this blog](http://ordina-oraj.github.io/spring/2015/05/08/SpringIO15-Autoconfig.html)
 <p style="clear:both"></p>
 <img style="float: left; margin: 10px 15px 5px 0" alt="Josh Long" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas11.jpg?la=nl-nl">
 
