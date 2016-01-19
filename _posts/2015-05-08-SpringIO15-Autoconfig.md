@@ -33,3 +33,15 @@ Conditions are being executed in two phases: PARSE_CONFIGURATION phase and REGIS
 
 
 The slidedeck of this talk can be found here: [https://speakerdeck.com/snicoll/master-spring-boot-auto-configuration](https://speakerdeck.com/snicoll/master-spring-boot-auto-configuration)
+
+<br/>
+<br/>
+<br/>
+About the author:
+
+> Andreas Evers is a principal Java consultant at Ordina, passionate
+> about the Spring ecosystem, microservices, REST, clean code and best
+> practices in general. An avid open source enthusiast and Spring
+> contributor. Helps fellow developers as Competence Center leader for
+> architecture and best practices by giving workshops, talks and courses
+> about the newest technologies.
