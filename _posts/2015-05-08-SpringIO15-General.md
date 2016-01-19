@@ -97,9 +97,13 @@ on this blog
 on this blog
 <p style="clear:both"></p>
 
- Enjoy reading!
+
+
+
+Enjoy reading!
 
 About the author:
+
 Andreas Evers
 
 > Andreas Evers is a principal Java consultant at Ordina, passionate
