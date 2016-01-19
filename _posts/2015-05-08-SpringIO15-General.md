@@ -59,7 +59,7 @@ Spring Data Solr does just what you expect: clean to-the-point interfaces with a
 #### Inside http://spring.io - a production spring reference application & one on one talk with Brian Clozel
 
 on this blog
-
+<p style="clear:both"></p>
 <img style="float: left; margin: 10px 15px 5px 0" alt="Sergi Almar" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas7.jpg?la=nl-nl&h=224&w=227">
 
 #### Real-time with Spring: SSE and WebSockets talk
@@ -67,7 +67,7 @@ on this blog
 Speaker: Sergi Almar - [Talk & speaker description](http://www.springio.net/real-time-with-spring-sse-and-websockets/)
 
 Spring WebSockets is better than JSR356 because: there is a fallback with SockJS, there is support for STOMP subprotocol, Spring Security can jump in, and of course flawless integration with messaging components and the Spring messaging style. Security is important because there are no URLs anymore. We have to secure at message level.
-
+<p style="clear:both"></p>
 <img style="float: left; margin: 10px 15px 5px 0" alt="Oliver Gierke" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas8.png?la=nl-nl&h=223&w=223">
 
 #### Spring Data REST - Repositories meet hypermedia talk
@@ -75,7 +75,7 @@ Spring WebSockets is better than JSR356 because: there is a fallback with SockJS
 Speaker: Oliver Gierke - [Talk & speaker description](http://www.springio.net/spring-data-rest-repositories-meet-hypermedia/)
 
 Recommended reading: Domain Driven Design. Although very boring, it introduces vital concepts in the repository world. When combining ALPS and JSON Schema, it should be possible to create a client that is smart enough to discover verbs and even fields of the payload.
-
+<p style="clear:both"></p>
 <img style="float: left; margin: 10px 15px 5px 0" alt="Dave Syer" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas9.jpg?la=nl-nl">
 
 #### Building Microservices with Spring Cloud and Netflix OSS talk
@@ -83,19 +83,19 @@ Recommended reading: Domain Driven Design. Although very boring, it introduces v
 Speaker: Dr. Dave Syer  - [Talk & speaker description](http://www.springio.net/building-microservices-with-spring-cloud-and-netflix-oss)
 
 Another great book is Release It!. It describes a lot of the patterns microservices use such as circuit breaker. It's definitely a great book for devops.
-
+<p style="clear:both"></p>
 <img style="float: left; margin: 10px 15px 5px 0" alt="Stéphane Nicoll" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas10.png?la=nl-nl">
 #### Master Spring Boot autoconfiguration talk
 
 on this blog
-
+<p style="clear:both"></p>
 <img style="float: left; margin: 10px 15px 5px 0" alt="Josh Long" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas11.jpg?la=nl-nl">
 #### Can Your Cloud Do This? Getting started with Cloud Foundry talk
 #### & Building "Bootiful"Microservices with Spring Cloud workshop
 #### & One one one talk with Josh Long
 
 on this blog
-
+<p style="clear:both"></p>
 
  Enjoy reading!
 
