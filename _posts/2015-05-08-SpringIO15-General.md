@@ -107,6 +107,7 @@ Enjoy reading!
 About the author:
 <br/>
 Andreas Evers
+
 > Andreas Evers is a principal Java consultant at Ordina, passionate
 > about the Spring ecosystem, microservices, REST, clean code and best
 > practices in general. An avid open source enthusiast and Spring
