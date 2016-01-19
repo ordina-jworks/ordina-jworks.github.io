@@ -102,6 +102,8 @@ on this blog
 <br/>
 Enjoy reading!
 <br/>
+<br/>
+<br/>
 About the author:
 <br/>
 Andreas Evers
