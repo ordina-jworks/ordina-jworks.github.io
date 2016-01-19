@@ -1,6 +1,6 @@
 ---
 layout: post
-author: andreasevers
+author: andreas_evers
 title: 'A production Spring reference application & One on One talk with Brian Clozel'
 image: /img/springio.jpg
 tags: [spring]
