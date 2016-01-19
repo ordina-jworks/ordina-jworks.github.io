@@ -36,8 +36,6 @@ Brian will check with the Netflix guys and let me know what they do for database
 <br/>
 <br/>
 About the author:
-<br/>
-Andreas Evers
 
 > Andreas Evers is a principal Java consultant at Ordina, passionate
 > about the Spring ecosystem, microservices, REST, clean code and best
