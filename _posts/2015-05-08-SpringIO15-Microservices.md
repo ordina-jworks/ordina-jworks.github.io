@@ -65,8 +65,6 @@ Aside from Eureka, Spring Cloud also supports other registries such as Zookeeper
 <br/>
 <br/>
 About the author:
-<br/>
-Andreas Evers
 
 > Andreas Evers is a principal Java consultant at Ordina, passionate
 > about the Spring ecosystem, microservices, REST, clean code and best
