@@ -9,7 +9,7 @@ category: spring
 
 >Spring boot allows you to extend its convention-over-configuration approach by creating your own autoconfigurations. There are some important details you shouldn't forget.
 
-<img alt="Stéphane Nicoll" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas10.png" style="max-width:50%;">
+<img alt="Stéphane Nicoll" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas10.png">
 
 ### Master Spring Boot auto-configuration
 
