@@ -85,14 +85,14 @@ Speaker: Dr. Dave Syer  - [Talk & speaker description](http://www.springio.net/b
 Another great book is Release It!. It describes a lot of the patterns microservices use such as circuit breaker. It's definitely a great book for devops.
 <p style="clear:both"></p>
 <img style="float: left; margin: 10px 15px 5px 0" alt="Stéphane Nicoll" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas10.png?la=nl-nl">
+
 #### Master Spring Boot autoconfiguration talk
 
 on this blog
 <p style="clear:both"></p>
 <img style="float: left; margin: 10px 15px 5px 0" alt="Josh Long" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas11.jpg?la=nl-nl">
-#### Can Your Cloud Do This? Getting started with Cloud Foundry talk
-#### & Building "Bootiful"Microservices with Spring Cloud workshop
-#### & One one one talk with Josh Long
+
+#### Can Your Cloud Do This? Getting started with Cloud Foundry talk & Building "Bootiful" Microservices with Spring Cloud workshop & One one one talk with Josh Long
 
 on this blog
 <p style="clear:both"></p>
