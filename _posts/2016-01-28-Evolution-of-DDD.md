@@ -45,8 +45,7 @@ Nowadays, we have a lot of new tools available to implement a project: We can st
 
 Better tools and a vivid community which masters these tools cause Domain-Driven Design to become more and more popular in ways of designing software. So maybe we can do better now than back in 2003. Maybe… Or maybe we’re not there yet. Fact is that everyday we are learning from mistakes in the past to do better in the future.
 
---------
-
+<br/>
+<br/>
 > Ken Coenen is a Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he helps fellow developers as a Competence Leader for Architecture and Best Practices by giving workshops, talks and courses about the newest technologies.
->
 > <img style="float: right;" alt="Ken Coenen" src="/img/author/ken-coenen-small.png">
