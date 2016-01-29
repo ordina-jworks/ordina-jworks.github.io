@@ -1,7 +1,7 @@
 ---
 layout: post
 author: tom_verelst
-title: 'oDDs and enDs: Vaugh Vernon  on software projects in peril'
+title: 'oDDs and enDs: Vaughn Vernon  on software projects in peril'
 image: /img/DDDEurope2015.jpg
 tags: [domain-driven design, software craftmanship]
 category: domain-driven design
@@ -13,7 +13,7 @@ category: domain-driven design
 > Almost every organization is dealing with this kind of situation.
 > Obviously this is not the situation we want to be stuck in, but how do we alleviate ourselves from this?
 
-Vaugh Vernon gave a presentation today at Domain-Driven Design Europe.
+Vaughn Vernon gave a presentation today at Domain-Driven Design Europe.
 He started his presentation about the odd things that happen in software projects.
 Then he shed some light on the (future) solutions using Domain-Driven Design,
 the so called *ends* of the problems caused by the *odds*.
@@ -280,7 +280,7 @@ The Actor model is a new way to leverage this power because it fully utilizes th
 
 ## One more thing
 
-Vaugh Vernon announced an additional new book called *Domain-Driven Design Distilled*.
+Vaughn Vernon announced an additional new book called *Domain-Driven Design Distilled*.
 It is a 200 page thick book that explains all of the core concepts of DDD.
 This is very light weight book, intended to rapidly not only teach your team members,
 but also the business about DDD. This book will be available within a month.
