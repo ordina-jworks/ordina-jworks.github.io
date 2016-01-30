@@ -10,7 +10,6 @@ linkedin: tomverelst
 
 Tom is a senior developer and coach at Ordina Belgium.
 Some friends like to refer to him as a Java code monkey, which is not completely true!
-
 Tom is familiar with many different domains. 
 He loves to learn about everything.
 Currently he is very fond of Docker, Go and all things DevOps.
