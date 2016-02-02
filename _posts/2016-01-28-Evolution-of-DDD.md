@@ -11,7 +11,7 @@ category: domain-driven design
 
 ----------
 
-###But what is DDD?
+### But what is DDD?
 
 The subtitle of Evans’ book, *Tackling Complexity in the Heart of Software*, bundles two core principles of Domain-Driven Design:
 
@@ -26,7 +26,7 @@ When discussing with others about the domain, we must speak a **ubiquitous langu
 
 Domain-Driven Design is more like an attitude. Although it gives us principles and terminology to enable talking about it and have discussions, different people will do things differently. Each approach will be slightly different.
 
-###Bounded contexts?
+### Bounded contexts?
 
 A bounded context is an important principle when applying Domain-Driven Design. As i said earlier, language in itself doesn’t mean anything. It only means something when it’s used within a certain context. eg. Item can be a Stock Item, Sale Item, …
 
@@ -37,7 +37,7 @@ Bounded contexts have the following characteristics:
 
 Another benefit of working with separate bounded contexts is that separate teams could take responsibility on separate bounded contexts.
 
-###Conclusion
+### Conclusion
 
 When [Erics book](http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215) was released in 2003, only Java 5 and J2EE were used as a programming language for implementing projects. We only had EJB’s to solve problems and there was no other way of storing data but with SQL. If the technology is so complex and limited to implement something, you can’t focus on the real problem of software design.
 
