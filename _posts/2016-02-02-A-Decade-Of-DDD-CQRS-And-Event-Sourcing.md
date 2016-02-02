@@ -62,7 +62,7 @@ A lot of other things also pushed Event Sourcing forward:
 
 Some people see CQRS as a full-blown architecture, but it’s not. This is wrong. CQRS and event sourcing is not a top level architecture. You cannot build an Event Sourced system. Instead, you end up into building a monolith which is event sourced internally. Event sourcing is simply not a good solution to every problem. For example, once you deal with immutable events, you need to think about corrections to data. Whenever a user corrects a value and hits the save button again, you would need to have an event for that and it would be too complex to handle.
 
-A lot of little things are misinterpreted by the community and this caused dogmas to pop up:
+A lot of little things are misinterpreted by the community and this caused **dogmas** to pop up:
 
  - *"Value objects can be mutable in some use cases”* - It’s not because Eric Evans once said "Value objects are normally immutable” that you have to think that in some situations, you can justify mutable objects. There is never an excuse to create mutable objects and they should be avoided at all times.
  - *"The Write side cannot query the Read side”* - There are times that you have to. When you have an invariant that crosses thousands of aggregates, you cannot avoid it.
