@@ -87,6 +87,7 @@ Greg wrote a book about this matter, called [Event Centric - Finding Simplicity 
 
 ![Event Centric]({{ '/img/cqrs/event-centric.png' | prepend: site.baseurl }})
 <br/>
+<br/>
 
 ### Other sources
 
