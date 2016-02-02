@@ -24,6 +24,7 @@ We can apply CQRS principles in many levels of our application, but when people 
 ![CQRS]({{ '/img/cqrs/customerservice.png' | prepend: site.baseurl }})
 
 Although this doesn’t seem very interesting to do at first, architecturally we can do many interesting things by applying this pattern:
+
  - One example is that the separation is more explicit and programmers will not find it odd to use **different data models** which use the same data. Reading records from the database must be fast and there’s no problem at all if you can achieve this by using multiple representations of the same data.
  - CQRS is also an **enabler for event-based programming models**. It's common to see CQRS system split into separate services communicating with Event Collaboration. This allows these services to easily take advantage of Event Sourcing.
 
@@ -52,6 +53,7 @@ Another good thing about event sourcing, once you model events, you are forced t
 Ideas about Event Sourcing have been spreading. Functional programming gained popularity in parallel with event sourcing. Event sourcing is a **natural functional model**. Every state is a left fold of your previous history.
 
 A lot of other things also pushed Event Sourcing forward:
+
  - Cloud computing
  - Popularity of Actor Models
  - Microservices
@@ -61,6 +63,7 @@ A lot of other things also pushed Event Sourcing forward:
 Some people see CQRS as a full-blown architecture, but it’s not. This is wrong. CQRS and event sourcing is not a top level architecture. You cannot build an Event Sourced system. Instead, you end up into building a monolith which is event sourced internally. Event sourcing is simply not a good solution to every problem. For example, once you deal with immutable events, you need to think about corrections to data. Whenever a user corrects a value and hits the save button again, you would need to have an event for that and it would be too complex to handle.
 
 A lot of little things are misinterpreted by the community and this caused dogmas to pop up:
+
  - *"Value objects can be mutable in some use cases”* - It’s not because Eric Evans once said "Value objects are normally immutable” that you have to think that in some situations, you can justify mutable objects. There is never an excuse to create mutable objects and they should be avoided at all times.
  - *"The Write side cannot query the Read side”* - There are times that you have to. When you have an invariant that crosses thousands of aggregates, you cannot avoid it.
  - *"Inputs should always equal Outputs” eg. if i have an order command, an order event should be the result* - This is not always the case and there are situations where input and output aren’t one on one.
@@ -80,9 +83,13 @@ Greg concluded with a quote of Ernest Hemingway.
 
 ### Recommended reading
 
- - [Event Centric - Finding Simplicity in Complex Systems](http://www.amazon.com/Event-Centric-Simplicity-Addison-Wesley-Signature/dp/0321768221)
- ![Event Centric]({{ '/img/cqrs/event-centric.png' | prepend: site.baseurl }})
- In this new book, leading practitioner Greg Young explains how to use DDD with Command-Query Responsibility Separation (CQRS) to select the right design solutions and make them work in the real world.
+Greg wrote a book about this matter, called [Event Centric - Finding Simplicity in Complex Systems](http://www.amazon.com/Event-Centric-Simplicity-Addison-Wesley-Signature/dp/0321768221). In this new book, leading practitioner Greg Young explains how to use DDD with Command-Query Responsibility Separation (CQRS) to select the right design solutions and make them work in the real world.
+
+![Event Centric]({{ '/img/cqrs/event-centric.png' | prepend: site.baseurl }})
+
+
+### Other sources
+
  - Martin Fowler on CQRS: [http://martinfowler.com/bliki/CQRS.html](http://martinfowler.com/bliki/CQRS.html)
  - Greg Young on CQRS: [http://codebetter.com/gregyoung/2010/02/16/cqrs-task-based-uis-event-sourcing-agh/](http://codebetter.com/gregyoung/2010/02/16/cqrs-task-based-uis-event-sourcing-agh/) and [http://www.squarewidget.com/greg-young-on-cqrs](http://www.squarewidget.com/greg-young-on-cqrs)
 
