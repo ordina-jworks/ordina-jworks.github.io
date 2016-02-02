@@ -13,7 +13,7 @@ category: domain-driven design
 
 ----------
 
-###CQRS?
+### CQRS?
 
 Before I go any further, let's start explaining what CQRS really is. It’s all about **applying a design pattern** when you notice that your class contains both query- and command methods. It’s not a new principle. Bertrand Meyer described **Command-Query Separation** in his book Object-oriented Software Construction as follows:
 
@@ -29,7 +29,7 @@ Although this doesn’t seem very interesting to do at first, architecturally we
 
 You should be cautious however not to use it everywhere and only in some **Bounded Contexts** that need it, as everyone agrees that applying the CQRS principle adds complexity.
 
-###History
+### History
 
 > "When you searched CQRS on Google a decade ago, it thought it was just Cars misspelled."
 
@@ -41,7 +41,7 @@ It's QCon San Francisco in 2006 which really gave a boost to the popularity of C
 
 CQRS is more of a **stepping stone** and you have to put it in its historical context. It was a **natural consequence of what was happening with Domain-Driven Design** at that time. CQRS is not an end goal, it should be seen as a stepping stone for going to an event sourced system.
 
-###Good things
+### Good things
 
 The community around CQRS and event sourcing is growing to about **3000 people**. More and more domains are involved with event sourcing. In other domains, other added values were discovered. These people had breakthroughs by practicing CQRS, eg. in a warehouse system, instead of denying a user’s request because the system couldn’t handle the requests anymore, it accepts an event and processes it a later time.
 
@@ -56,7 +56,7 @@ A lot of other things also pushed Event Sourcing forward:
  - Popularity of Actor Models
  - Microservices
 
-###Bad things
+### Bad things
 
 Some people see CQRS as a full-blown architecture, but it’s not. This is wrong. CQRS and event sourcing is not a top level architecture. You cannot build an Event Sourced system. Instead, you end up into building a monolith which is event sourced internally. Event sourcing is simply not a good solution to every problem. For example, once you deal with immutable events, you need to think about corrections to data. Whenever a user corrects a value and hits the save button again, you would need to have an event for that and it would be too complex to handle.
 
@@ -70,7 +70,7 @@ Over the years some CQRS frameworks have been created. Greg’s advice is... **D
 
 A **queue of messages** doesn’t work for all kinds of systems. You can probably linearize in 90% of the use cases, it will also probably be cheaper. For the other 10%, interesting things are happening. We’re gonna see a push to **occasionally connected systems**. When you choose availability and high throughput, you’ll have to move to message-driven architectures and linearization is not an option.
 
-###Future things
+### Future things
 
 A lot of interesting things are happening in the software world. We’re growing to **N-Temporal systems**, where multiple things happen at multiple timeframes.
 
@@ -78,7 +78,7 @@ Greg concluded with a quote of Ernest Hemingway.
 
 >"We are all apprentices in a craft where no one ever becomes a master.”
 
-###Recommended reading
+### Recommended reading
 
  - [Event Centric - Finding Simplicity in Complex Systems](http://www.amazon.com/Event-Centric-Simplicity-Addison-Wesley-Signature/dp/0321768221)
  ![Event Centric]({{ '/img/cqrs/event-centric.png' | prepend: site.baseurl }})
