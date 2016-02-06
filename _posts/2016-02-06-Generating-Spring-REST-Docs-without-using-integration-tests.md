@@ -13,10 +13,10 @@ A couple of days ago I was working on a project of one of our customers.
 One of their new applications needed to expose a public API, and of course we needed to hand over a set of documentation about those REST endpoints.
 Some people were already starting to do this manually in Confluence, but after a while (and we're talking about a timespan just under 2 hours) this became a tedious job. 
 We had to continuously adjust the input & output contracts, the different endpoints,...
-
+<br />
 Using Spring REST Docs I wanted to automatically document all of the public API endpoints, while we were also testing all of the components in the whole application.
 For some undisclosed reasons we simply couldn't write integration tests, so we were stuck with our unit tests and mocked objects.
-
+<br /><br />
 Imagine you have following service and controller in a simple Spring Boot application:
 
     @Service
@@ -49,7 +49,7 @@ Imagine you have following service and controller in a simple Spring Boot applic
             return this.deviceService.getDevices();
         }
     }
-
+<br /><br />
 Since this is a Spring Boot application both classes will automagically be instantiated.
 Because you need to annotate your unit tests at class level with **@WebAppConfiguration** and **@SpringApplicationConfiguration**, we can easily create a new Spring Boot application and use this for our documentation.
 In this new application we set the base package that needs to be scanned to our controller sub package, and create a mock implementation of our DeviceService.
@@ -63,7 +63,7 @@ In this new application we set the base package that needs to be scanned to our 
         }
     }
 
-
+<br /><br />
 Our test class will then look something like this:
 
     @RunWith(SpringJUnit4ClassRunner.class)
@@ -116,7 +116,7 @@ Our test class will then look something like this:
                         .andDo(document("device"));
         }
     }
-
+<br /><br />
 So this is how I managed to get rid of the manual, tedious work and keep my unit tests - and got back to the more serious part of my life: coding like a monkey. =)
 
 > PS: All of the code above is checked in at our public github repo, so you are free to clone the working application! You can find it [here](https://github.com/ordina-oraj/spring-rest-docs-without-integration-tests)!
