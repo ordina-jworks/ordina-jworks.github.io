@@ -48,7 +48,7 @@ Imagine you have following service and controller in a simple Spring Boot applic
             return this.deviceService.getDevices();
         }
     }
-<br /><br />
+<br />
 Since this is a Spring Boot application both classes will automagically be instantiated.
 Because you need to annotate your unit tests at class level with **@WebAppConfiguration** and **@SpringApplicationConfiguration**, we can easily create a new Spring Boot application and use this for our documentation.
 In this new application we set the base package that needs to be scanned to our controller sub package, and create a mock implementation of our DeviceService.
@@ -62,7 +62,7 @@ In this new application we set the base package that needs to be scanned to our 
         }
     }
 
-<br /><br />
+<br />
 Our test class will then look something like this:
 
     @RunWith(SpringJUnit4ClassRunner.class)
@@ -116,10 +116,13 @@ Our test class will then look something like this:
         }
     }
 
-<br /><br />
+<br />
 So this is how I managed to get rid of the manual, tedious work and keep my unit tests - and got back to the more serious part of my life: coding like a monkey. =)
+<br />
 
 > PS: All of the code above is checked in at our public github repo, so you are free to clone the working application! You can find it [here](https://github.com/ordina-oraj/spring-rest-docs-without-integration-tests)!
+
+<br />
 
 --------
 
