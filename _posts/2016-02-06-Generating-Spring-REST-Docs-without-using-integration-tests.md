@@ -13,7 +13,6 @@ A couple of days ago I was working on a project of one of our customers.
 One of their new applications needed to expose a public API, and of course we needed to hand over a set of documentation about those REST endpoints.
 Some people were already starting to do this manually in Confluence, but after a while (and we're talking about a timespan just under 2 hours) this became a tedious job. 
 We had to continuously adjust the input & output contracts, the different endpoints,...
-<br />
 Using Spring REST Docs I wanted to automatically document all of the public API endpoints, while we were also testing all of the components in the whole application.
 For some undisclosed reasons we simply couldn't write integration tests, so we were stuck with our unit tests and mocked objects.
 <br /><br />
@@ -116,6 +115,7 @@ Our test class will then look something like this:
                         .andDo(document("device"));
         }
     }
+
 <br /><br />
 So this is how I managed to get rid of the manual, tedious work and keep my unit tests - and got back to the more serious part of my life: coding like a monkey. =)
 
