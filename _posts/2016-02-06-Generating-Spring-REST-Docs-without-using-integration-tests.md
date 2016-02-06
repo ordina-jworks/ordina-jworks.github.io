@@ -1,4 +1,3 @@
-
 ---
 layout: post
 category: spring
@@ -7,6 +6,7 @@ image: /img/spring.png
 title: 'Generating Spring REST Docs without using integration tests'
 tags: [spring, rest docs, spring rest docs, test, integration, integration test, unit test]
 ---
+
 # Generating Spring REST Docs without using integration tests
 
 A couple of days ago I was working on a project of one of our customers.
