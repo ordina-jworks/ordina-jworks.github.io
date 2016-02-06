@@ -52,7 +52,7 @@ Imagine you have following service and controller in a simple Spring Boot applic
 <br />
 Since this is a Spring Boot application both classes will automagically be instantiated.
 Because you need to annotate your unit tests at class level with **@WebAppConfiguration** and **@SpringApplicationConfiguration**, we can easily create a new Spring Boot application and use this for our documentation.
-In this new application we set the base package that needs to be scanned to our controller sub package, and create a mock implementation of our DeviceService.
+In this new application we set the base package that needs to be scanned to our controller sub package, and create a mock implementation of our `DeviceService`.
 
 
     @SpringBootApplication(scanBasePackages = { "be.ordina.blog.controller" } )
@@ -65,7 +65,7 @@ In this new application we set the base package that needs to be scanned to our 
     }
 
 <br />
-Our test class will then look something like this:
+Our `DeviceControllerTests` class will then look something like this:
 
     @RunWith(SpringJUnit4ClassRunner.class)
     @SpringApplicationConfiguration(classes = { Application.class })
