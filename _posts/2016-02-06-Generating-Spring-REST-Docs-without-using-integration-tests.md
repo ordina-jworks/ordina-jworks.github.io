@@ -17,7 +17,7 @@ Using Spring REST Docs I wanted to automatically document all of the public API 
 For some undisclosed reasons we simply couldn't write integration tests, so we were stuck with our unit tests and mocked objects.
 <br /><br />
 Imagine you have following service and controller in a simple Spring Boot application:
-
+    {% highlight java %}
     @Service
     public class DeviceService {
 
@@ -48,13 +48,13 @@ Imagine you have following service and controller in a simple Spring Boot applic
             return this.deviceService.getDevices();
         }
     }
-    
+    {% endhighlight %}
+
 <br />
 Since this is a Spring Boot application both classes will automagically be instantiated.
 Because you need to annotate your unit tests at class level with **@WebAppConfiguration** and **@SpringApplicationConfiguration**, we can easily create a new Spring Boot application and use this for our documentation.
 In this new application we set the base package that needs to be scanned to our controller sub package, and create a mock implementation of our `DeviceService`.
-
-
+    {% highlight java %}
     @SpringBootApplication(scanBasePackages = { "be.ordina.blog.controller" } )
     public class Application {
 
@@ -63,10 +63,11 @@ In this new application we set the base package that needs to be scanned to our 
             return EasyMock.createStrictMock(DeviceService.class);
         }
     }
-
+    {% endhighlight %}
+    
 <br />
 Our `DeviceControllerTests` class will then look something like this:
-
+    {% highlight java %}
     @RunWith(SpringJUnit4ClassRunner.class)
     @SpringApplicationConfiguration(classes = { Application.class })
     @WebAppConfiguration
@@ -117,7 +118,8 @@ Our `DeviceControllerTests` class will then look something like this:
                         .andDo(document("device"));
         }
     }
-
+    {% endhighlight %}
+    
 <br />
 So this is how I managed to get rid of the manual, tedious work and keep my unit tests - and got back to the more serious part of my life: coding like a monkey. =)
 <br />
