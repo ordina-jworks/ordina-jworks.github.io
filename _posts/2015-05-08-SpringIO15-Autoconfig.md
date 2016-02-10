@@ -13,7 +13,7 @@ category: spring
 
 *Speaker: Stéphane Nicoll - [Talk & speaker description](http://www.springio.net/master-spring-boot-auto-configuration/)*
 
-<img style="float: left; margin: 10px 15px 5px 0" alt="Stéphane Nicoll" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas10.png">In order to create your own autoconfiguration, it's important to remember the **spring.factories** file in the META-INF folder of the autoconfiguration project.
+<img class="p-image float-image" alt="Stéphane Nicoll" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas10.png">In order to create your own autoconfiguration, it's important to remember the **spring.factories** file in the META-INF folder of the autoconfiguration project.
 
 The autoconfiguration class itself should have @Configuration (of course) and utilise conditional annotations as much as possible. Especially on the bean initializations the rule of thumb is the more **conditionals** the better. This enables users of your autoconfiguration to override specific elements of the autoconfiguration class. Aside from fully overriding beans, you can also expose properties under your own namespace. Together both these concepts allow small configuration-based modifications and bigger bean-overriding modifications by the user. 
 

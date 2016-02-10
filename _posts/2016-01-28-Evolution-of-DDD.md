@@ -49,4 +49,4 @@ Better tools and a vivid community which masters these tools cause Domain-Driven
 
 > Ken Coenen is a Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he helps fellow developers as a Competence Leader for Architecture and Best Practices by giving workshops, talks and courses about the newest technologies.
 >
-> <img style="float: right;" alt="Ken Coenen" src="/img/author/ken-coenen-small.png">
+> <img style="float: right" class="p-image" alt="Ken Coenen" src="/img/author/ken-coenen-small.png">
