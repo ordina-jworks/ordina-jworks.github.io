@@ -27,7 +27,7 @@ Chris started his presentation by pointing out a few problems in software engine
 
 A second problem is that we have **a lot of new technologies** these days. Typically, these technologies go through the *Gartner Hype Cycle*.
 
-<img  class="p-image float-image" alt="Gartner Hype Cycle" src="https://www.ordina.be/~/media/images/ordinabe/blogs/ken3v2.png?la=nl-nl">
+<img  class="float-image" alt="Gartner Hype Cycle" src="https://www.ordina.be/~/media/images/ordinabe/blogs/ken3v2.png?la=nl-nl">
 
 <p style="clear:both;"></p>
 
