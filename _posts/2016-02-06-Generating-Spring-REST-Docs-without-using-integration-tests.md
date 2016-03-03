@@ -124,7 +124,7 @@ Our `DeviceControllerTests` class will then look something like this:
 So this is how I managed to get rid of the manual, tedious work and keep my unit tests - and got back to the more serious part of my life: coding like a monkey. =)
 <br />
 
-> PS: All of the code above is checked in at our public github repo, so you are free to clone the working application! You can find it [here](https://github.com/ordina-oraj/spring-rest-docs-without-integration-tests)!
+> PS: All of the code above is checked in at our public github repo, so you are free to clone the working application! You can find it [here](https://github.com/ordina-jworks/spring-rest-docs-without-integration-tests)!
 
 <br />
 

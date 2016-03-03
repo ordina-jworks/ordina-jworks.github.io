@@ -58,7 +58,7 @@ Spring Data Solr does just what you expect: clean to-the-point interfaces with a
 
 #### Inside http://spring.io - a production spring reference application & one on one talk with Brian Clozel
 
-[on this blog](http://ordina-oraj.github.io/spring/2015/05/08/SpringIO15-Sagan.html)
+[on this blog](http://ordina-jworks.github.io/spring/2015/05/08/SpringIO15-Sagan.html)
 <p style="clear:both"></p>
 <img  class="p-image float-image" alt="Sergi Almar" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas7.jpg?la=nl-nl&h=224&w=227">
 
@@ -88,13 +88,13 @@ Another great book is Release It!. It describes a lot of the patterns microservi
 
 #### Master Spring Boot autoconfiguration talk
 
-[on this blog](http://ordina-oraj.github.io/spring/2015/05/08/SpringIO15-Autoconfig.html)
+[on this blog](http://ordina-jworks.github.io/spring/2015/05/08/SpringIO15-Autoconfig.html)
 <p style="clear:both"></p>
 <img  class="p-image float-image" alt="Josh Long" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas11.jpg?la=nl-nl">
 
 #### Can Your Cloud Do This? Getting started with Cloud Foundry talk & Building "Bootiful" Microservices with Spring Cloud workshop & One one one talk with Josh Long
 
-[on this blog](http://ordina-oraj.github.io/spring/2015/05/08/SpringIO15-Microservices.html)
+[on this blog](http://ordina-jworks.github.io/spring/2015/05/08/SpringIO15-Microservices.html)
 <p style="clear:both"></p>
 <br/>
 <br/>
