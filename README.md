@@ -1,6 +1,6 @@
-# Ordina ORAJ Tech Blog
+# Ordina JWorks Tech Blog
 ## Simplest way to blog
-- Request write access to [the github repository](https://github.com/ordina-oraj/ordina-oraj.github.io)
+- Request write access to [the github repository](https://github.com/ordina-jworks/ordina-jworks.github.io)
 - Go to any online Markdown editor (for example [classeur.io](https://app.classeur.io))
 - Write your blog
 - Don't forget the [FrontMatter](http://jekyllrb.com/docs/frontmatter/) tags at the top of your page
