@@ -60,15 +60,3 @@ Cloud Foundry can be pretty expensive since it's primarily aimed towards big ent
 Pivotal has a division called Pivotal Labs. It's a super agile company that only takes clients that align with their agile views. They have a proven trackrecord that is pretty much unmatched and allows them to stick to their values. Although super expensive, they're fast and deliver quality. Aside from taking projects on, the also help companies become more agile.  
 
 Aside from Eureka, Spring Cloud also supports other registries such as Zookeeper and Consul. The difference between for example Eureka and Zookeeper is that Zookeeper is a shared hierarchical name space of data registers (also called registers znodes). It can be used very well as a service registry, but it offers a lot more features on top of that. One easy example is leader election. Due to the Spring Cloud annotation abstractions it's possible to switch out Eureka with any other supported service registry.
-
-<br/>
-<br/>
-<br/>
-About the author:
-
-> Andreas Evers is a principal Java consultant at Ordina, passionate
-> about the Spring ecosystem, microservices, REST, clean code and best
-> practices in general. An avid open source enthusiast and Spring
-> contributor. Helps fellow developers as Competence Center leader for
-> architecture and best practices by giving workshops, talks and courses
-> about the newest technologies.

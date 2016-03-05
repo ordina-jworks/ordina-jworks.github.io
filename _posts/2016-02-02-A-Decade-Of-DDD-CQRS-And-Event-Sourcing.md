@@ -93,9 +93,3 @@ Greg wrote a book about this matter, called [Event Centric - Finding Simplicity 
 
  - Martin Fowler on CQRS: [http://martinfowler.com/bliki/CQRS.html](http://martinfowler.com/bliki/CQRS.html)
  - Greg Young on CQRS: [http://codebetter.com/gregyoung/2010/02/16/cqrs-task-based-uis-event-sourcing-agh/](http://codebetter.com/gregyoung/2010/02/16/cqrs-task-based-uis-event-sourcing-agh/) and [http://www.squarewidget.com/greg-young-on-cqrs](http://www.squarewidget.com/greg-young-on-cqrs)
-
---------
-
-> Ken Coenen is a Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he helps fellow developers as a Competence Leader for Architecture and Best Practices by giving workshops, talks and courses about the newest technologies.
->
-> <img style="float: right;" alt="Ken Coenen" src="/img/author/ken-coenen-small.png">

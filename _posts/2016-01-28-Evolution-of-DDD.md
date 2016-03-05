@@ -44,9 +44,3 @@ When [Erics book](http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity
 Nowadays, we have a lot of new tools available to implement a project: We can store data with a NoSQL database or not store it at all and keep it in-memory. We can explore other ways of approaching data with eg. **event sourcing**. On certain levels, **Spring** makes the technical aspect of writing software components a breeze. With the upcoming of **microservices** and each microservice having its own database, bounded contexts are much clearer to the teams working on the software. And there are probably tons of other examples on how today’s tools can help us achieving our goal: write good software.
 
 Better tools and a vivid community which masters these tools cause Domain-Driven Design to become more and more popular in ways of designing software. So maybe we can do better now than back in 2003. Maybe… Or maybe we’re not there yet. Fact is that everyday we are learning from mistakes in the past to do better in the future.
-
---------
-
-> Ken Coenen is a Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he helps fellow developers as a Competence Leader for Architecture and Best Practices by giving workshops, talks and courses about the newest technologies.
->
-> <img style="float: right" class="p-image" alt="Ken Coenen" src="/img/author/ken-coenen-small.png">
