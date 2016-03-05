@@ -1,46 +1,47 @@
 ---
 layout: default
 ---
+{% assign author = site.data.authors[page.author] %}
 <div class="row">
     <div class="col-md-3 col-sm-12">
         <div class="team-six">
             <!-- Team Member -->
             <div class="team-member">
                 <!-- Image -->
-                <img class="img-responsive p-image" src="{{ '/img/author/' | append: page.author.avatar | prepend: site.baseurl }}"
-                     alt="{{ page.author.name }}"/>
+                <img class="img-responsive p-image" src="{{ '/img/author/' | append: author.avatar | prepend: site.baseurl }}"
+                     alt="{{ author.name }}"/>
                 <!-- Name -->
-                <h4>{{ page.author.first_name }} {{ page.author.last_name }}</h4>
-                <span class="deg">{{ page.author.title }}</span>
-                {% if page.author.title2 %}
+                <h4>{{ author.first_name }} {{ author.last_name }}</h4>
+                <span class="deg">{{ author.title }}</span>
+                {% if author.title2 %}
                 <div class="clearfix"></div>
-                <span class="deg">{{ page.author.title2 }}</span>
+                <span class="deg">{{ author.title2 }}</span>
                 {% endif %}
                 <!-- Team Links -->
                 <div class="team-links">
-                    {% if page.author.email %}
-                    <a href="mailto:{{ page.author.email }}"><i class="fa fa-envelope"></i></a>
+                    {% if author.email %}
+                    <a href="mailto:{{ author.email }}"><i class="fa fa-envelope"></i></a>
                     {% endif %}
-                    {% if page.author.twitter %}
-                    <a href="https://www.twitter.com/{{ page.author.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>
+                    {% if author.twitter %}
+                    <a href="https://www.twitter.com/{{ author.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>
                     {% endif %}
-                    {% if page.author.github %}
-                    <a href="https://www.github.com/{{ page.author.github }}" target="_blank"><i class="fa fa-github"></i></a>
+                    {% if author.github %}
+                    <a href="https://www.github.com/{{ author.github }}" target="_blank"><i class="fa fa-github"></i></a>
                     {% endif %}
-                    {% if page.author.linkedin %}
-                    <a href="https://be.linkedin.com/in/{{ page.author.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a>
+                    {% if author.linkedin %}
+                    <a href="https://be.linkedin.com/in/{{ author.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a>
                     {% endif %}
-                    {% if page.author.phone %}
-                    <a href="tel:{{ page.author.phone }}"><i class="fa fa-phone"></i></a>
+                    {% if author.phone %}
+                    <a href="tel:{{ author.phone }}"><i class="fa fa-phone"></i></a>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-9 col-sm-12">
-        <h1>More information about {{ page.author.first_name }}</h1>
-        {% if page.author.bio %}
-            {{ page.author.bio | markdownify }}
+        <h1>More information about {{ author.first_name }}</h1>
+        {% if author.bio %}
+            {{ author.bio | markdownify }}
         {% endif %}
     </div>
 </div>
