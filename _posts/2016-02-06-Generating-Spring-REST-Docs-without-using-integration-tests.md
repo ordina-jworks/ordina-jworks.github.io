@@ -126,11 +126,3 @@ So this is how I managed to get rid of the manual, tedious work and keep my unit
 <br />
 
 > PS: All of the code above is checked in at our public github repo, so you are free to clone the working application! You can find it [here](https://github.com/ordina-jworks/spring-rest-docs-without-integration-tests)!
-
-<br />
-
---------
-
-> Tim Ysewyn is a Senior Principal Consultant at Ordina, where he helps fellow developers discovering top-notch technologies and methodologies as a Competence Leader for Microservices. He also enjoys the different challenges while developing iOS applications with Objective-C and Swift.
->
->

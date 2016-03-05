@@ -31,15 +31,3 @@ The slidedeck of this talk can be found here: [https://speakerdeck.com/bclozel/s
 
 Regarding database evolution Brian suggests the Netflix guys could have some good ideas about handling backwards-compatibility breaking evolution in a green-blue deployment with zero downtime. In any case there are many cases where teams use feature-switches to make certain user interactions read-only for a short time during migration. This avoids having transactions that have to be forcibly destroyed. After successful deployment the feature is turned on again ensuring the user has a seamless experience.
 Brian will check with the Netflix guys and let me know what they do for database migration
-
-<br/>
-<br/>
-<br/>
-About the author:
-
-> Andreas Evers is a principal Java consultant at Ordina, passionate
-> about the Spring ecosystem, microservices, REST, clean code and best
-> practices in general. An avid open source enthusiast and Spring
-> contributor. Helps fellow developers as Competence Center leader for
-> architecture and best practices by giving workshops, talks and courses
-> about the newest technologies.
