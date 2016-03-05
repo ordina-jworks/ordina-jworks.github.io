@@ -80,7 +80,7 @@ For now we will assume we got 2 public keys:
 * Our backup production certificate: `E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=`
 
 ### Configuring Spring Security
-As of version **4.1.0.RC1**, which will be released March 24th 2016, the `HpkpHeaderWriter` has been added to the security module. There are 2 ways to implement this feature, either by **Java configuration** or by using the older, but still supported, **XML configuration**. Below you can find both solutions:
+As of version **4.1.0.RC1**, which will be released March 24th 2016, the `HpkpHeaderWriter` has been added to the security module. The 2 easiest ways to implement this feature is either by **Java configuration** or by using the older, but still supported, **XML configuration**. Below you can find both solutions:
 
 ##### Java config
 {% highlight java %}
