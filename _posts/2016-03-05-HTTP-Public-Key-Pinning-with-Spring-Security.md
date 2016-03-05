@@ -6,10 +6,6 @@ image: /img/spring-security-logo.png
 title: 'HTTP Public Key Pinning with Spring Security'
 tags: [spring, security, spring security, hpkp, public key pinning]
 ---
-
-
-# HTTP Public Key Pinning with Spring Security
-
 ## What kind of sorcery is this?
 
 HTTP Public Key Pinning, or short HPKP, is a security mechanism which allows HTTPS websites to resist impersonation by attackers using mis-issued or otherwise fraudulent certificates.
