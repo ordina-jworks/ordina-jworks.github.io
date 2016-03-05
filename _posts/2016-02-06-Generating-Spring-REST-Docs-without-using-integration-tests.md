@@ -6,8 +6,7 @@ image: /img/spring.png
 title: 'Generating Spring REST Docs without using integration tests'
 tags: [spring, rest docs, spring rest docs, test, integration, integration test, unit test]
 ---
-
-# Generating Spring REST Docs without using integration tests
+## The problem
 
 A couple of days ago I was working on a project of one of our customers.
 One of their new applications needed to expose a public API, and of course we needed to hand over a set of documentation about those REST endpoints.
@@ -15,7 +14,9 @@ Some people were already starting to do this manually in Confluence, but after a
 We had to continuously adjust the input & output contracts, the different endpoints,...
 Using Spring REST Docs I wanted to automatically document all of the public API endpoints, while we were also testing all of the components in the whole application.
 For some undisclosed reasons we simply couldn't write integration tests, so we were stuck with our unit tests and mocked objects.
-<br /><br />
+
+## The solution
+
 Imagine you have following service and controller in a simple Spring Boot application:
     {% highlight java %}
     @Service
