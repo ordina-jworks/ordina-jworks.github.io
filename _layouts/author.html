@@ -43,4 +43,14 @@ layout: default
             {{ page.author.bio | markdownify }}
         {% endif %}
     </div>
+    <div class="col-md-9 col-sm-12">
+        <h1>Articles</h1>
+        {% for post in site.posts %}
+            {% if post.author == page.author.username %}
+                <div class="post">
+                    <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 </div>

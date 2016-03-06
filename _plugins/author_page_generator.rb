@@ -31,8 +31,9 @@ module Jekyll
 
         def generate( site )
             if site.layouts.key? 'author'
-                site.data["authors"].each_value do |author|
-                    site.pages << AuthorPage.new( site, site.source, author )
+                site.data["authors"].each do |author, data|
+                    data["username"] = author
+                    site.pages << AuthorPage.new( site, site.source, data )
                 end
             end
         end
