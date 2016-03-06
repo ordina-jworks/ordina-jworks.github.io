@@ -13,7 +13,7 @@ layout: default
                     <br />
                     <i class="fa fa-tags"></i>
                         {% for tag in page.tags %}
-                            {{ tag }}{% if forloop.index < forloop.length %},{% endif %}
+                            <a href="/tags/{{ tag | downcase | replace:' ','-' }}/">{{ tag }}</a>{% if forloop.index < forloop.length %},{% endif %}
                         {% endfor %}
                 {% endif %}
             </p>

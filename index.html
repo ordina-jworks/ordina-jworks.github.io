@@ -27,8 +27,8 @@ layout: default
                 <h5><i class="fa fa-tags color"></i>&nbsp; Tags</h5>
                 <!-- Widgets Content -->
                 <div class="widget-content">
-                    {% for tag in site.data.tags %}
-                    <a href="/tag/{{tag[0]}}.html" class="label label-color">{{tag[1].name}}</a>
+                    {% for tag in site.tags %}
+                    <a href="/tags/{{tag[0] | downcase | replace:' ','-' }}.html" class="label label-color">{{tag[0]}}</a>
                     {% endfor %}
                 </div>
             </div>
