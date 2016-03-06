@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ordina JWorks Tech Blog</title>
+    <description>Ordina JWorks Tech blog
+</description>
+    <link>https://ordina-jworks.github.io/</link>
+    <atom:link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 06 Mar 2016 16:29:16 +0000</pubDate>
+    <lastBuildDate>Sun, 06 Mar 2016 16:29:16 +0000</lastBuildDate>
+    <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>HTTP Public Key Pinning with Spring Security</title>
+        <description>&lt;h2 id=&quot;what-kind-of-sorcery-is-this&quot;&gt;What kind of sorcery is this?&lt;/h2&gt;
+
+&lt;p&gt;HTTP Public Key Pinning, or short HPKP, is a security mechanism which allows HTTPS websites to resist impersonation by attackers using mis-issued or otherwise fraudulent certificates.
+This was standardized in &lt;a href=&quot;http://tools.ietf.org/html/rfc7469&quot;&gt;RFC 7469&lt;/a&gt; and creates a new opportunity for server validation. Instead of using static certificate pinning, where public key hashes are hardcoded within an application, we can now use a more dynamic way of providing this public key hashes.
+One caveat to remember is that HPKP uses a Trust On First Use (&lt;a href=&quot;https://en.wikipedia.org/wiki/Trust_on_first_use&quot;&gt;TOFU&lt;/a&gt;) technique.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;how-does-this-work&quot;&gt;How does this work?&lt;/h2&gt;
+
+&lt;p&gt;A list of public key hashes will be served to the client via a special HTTP header by the web server, so clients can store this information for a given period of time.
+On subsequent connections within previous given period of time, the client expects a certificate containing a public key whose fingerprint is already known via HPKP.
+I &lt;strong&gt;strongly&lt;/strong&gt; encourage you to read &lt;a href=&quot;https://timtaubert.de/blog/2014/10/http-public-key-pinning-explained/&quot;&gt;this article&lt;/a&gt; by Tim Taubert, where he explains what keys you should pin and what the different tradeoffs are.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Imagine you want to terminate the connection between the client and a malicious server for your main domain and all of your subdomains, but also want to be notified when such events happen.
+In the next paragraph you can find the implementation details.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The web server needs to send following header to the connecting client with the first response&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    Public-Key-Pins:
+        max-age&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5184000;
+        pin-sha256&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=&quot;&lt;/span&gt;;
+        pin-sha256&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=&quot;&lt;/span&gt;;
+        report-uri&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.net/hpkp-report&quot;&lt;/span&gt;;
+        includeSubdomains&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;By specifying the &lt;strong&gt;Public-Key-Pins&lt;/strong&gt; header the client MUST terminate the connection without allowing the user to proceed anyway. In this example, &lt;strong&gt;pin-sha256=”d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=”&lt;/strong&gt; pins the server’s public key used in production. The second pin declaration &lt;strong&gt;pin-sha256=”E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=”&lt;/strong&gt; also pins the backup key. &lt;strong&gt;max-age=5184000&lt;/strong&gt; tells the client to store this information for two month, which is a reasonable time limit according to the IETF RFC. This key pinning is also valid for all subdomains, which is told by the &lt;strong&gt;includeSubdomains&lt;/strong&gt; declaration. Finally, &lt;strong&gt;report-uri=”https://www.example.net/hpkp-report”&lt;/strong&gt; explains where to report pin validation failures.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;so-how-can-we-implement-this-with-spring-security&quot;&gt;So how can we implement this with Spring Security?&lt;/h2&gt;
+
+&lt;h3 id=&quot;retrieving--the-list-of-public-key-hashes&quot;&gt;Retrieving  the list of public key hashes&lt;/h3&gt;
+&lt;p&gt;We first need to get a list of public key hashes. Currently the standard only supports the SHA256 hashing algorithm. The following commands will help you extract the Base64 encoded information:&lt;/p&gt;
+
+&lt;h5 id=&quot;from-a-key-file&quot;&gt;From a key file&lt;/h5&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;	openssl rsa -in my-key-file.key -outform der -pubout | openssl dgst -sha256 -binary | openssl enc -base64&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h5 id=&quot;from-a-certificate-signing-request-csr&quot;&gt;From a Certificate Signing Request (CSR)&lt;/h5&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;	openssl req -in my-signing-request.csr -pubkey -noout | openssl rsa -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h5 id=&quot;from-a-certificate&quot;&gt;From a certificate&lt;/h5&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;	openssl x509 -in my-certificate.crt -pubkey -noout | openssl rsa -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h5 id=&quot;from-a-running-web-server&quot;&gt;From a running web server&lt;/h5&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;	openssl s_client -servername www.example.com -connect www.example.com:443 | openssl x509 -pubkey -noout | openssl rsa -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;
+For now we will assume we got 2 public keys:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Our active production certificate: &lt;code class=&quot;highlighter-rouge&quot;&gt;d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Our backup production certificate: &lt;code class=&quot;highlighter-rouge&quot;&gt;E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;configuring-spring-security&quot;&gt;Configuring Spring Security&lt;/h3&gt;
+&lt;p&gt;As of version &lt;strong&gt;4.1.0.RC1&lt;/strong&gt;, which will be released March 24th 2016, the &lt;code class=&quot;highlighter-rouge&quot;&gt;HpkpHeaderWriter&lt;/code&gt; has been added to the security module. The 2 easiest ways to implement this feature is either by &lt;strong&gt;Java configuration&lt;/strong&gt; or by using the older, but still supported, &lt;strong&gt;XML configuration&lt;/strong&gt;. Below you can find both solutions:&lt;/p&gt;
+
+&lt;h5 id=&quot;java-config&quot;&gt;Java config&lt;/h5&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;	&lt;span class=&quot;nd&quot;&gt;@EnableWebSecurity&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HpkpConfig&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WebSecurityConfigurerAdapter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+		&lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HttpSecurity&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;httpPublicKeyPinning&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+				&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addSha256Pins&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+				&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;reportOnly&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+				&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;reportUri&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://example.net/hpkp-report&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+				&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;includeSubDomains&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h5 id=&quot;xml-config&quot;&gt;XML config&lt;/h5&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;	&lt;span class=&quot;nt&quot;&gt;&amp;lt;http&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;c&quot;&gt;&amp;lt;!-- ... --&amp;gt;&lt;/span&gt;
+
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;headers&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;hpkp&lt;/span&gt;
+				&lt;span class=&quot;na&quot;&gt;report-only=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;
+				&lt;span class=&quot;na&quot;&gt;report-uri=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://example.net/hpkp-report&quot;&lt;/span&gt;
+				&lt;span class=&quot;na&quot;&gt;include-subdomains=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+				&lt;span class=&quot;nt&quot;&gt;&amp;lt;pins&amp;gt;&lt;/span&gt;
+					&lt;span class=&quot;nt&quot;&gt;&amp;lt;pin&amp;gt;&lt;/span&gt;d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=&lt;span class=&quot;nt&quot;&gt;&amp;lt;/pin&amp;gt;&lt;/span&gt;
+					&lt;span class=&quot;nt&quot;&gt;&amp;lt;pin&amp;gt;&lt;/span&gt;E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=&lt;span class=&quot;nt&quot;&gt;&amp;lt;/pin&amp;gt;&lt;/span&gt;
+				&lt;span class=&quot;nt&quot;&gt;&amp;lt;/pins&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;/hpkp&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;/headers&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/http&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+</description>
+        <pubDate>Sat, 05 Mar 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/spring/2016/03/05/HTTP-Public-Key-Pinning-with-Spring-Security.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/spring/2016/03/05/HTTP-Public-Key-Pinning-with-Spring-Security.html</guid>
+        
+        <category>spring</category>
+        
+        <category>security</category>
+        
+        <category>spring security</category>
+        
+        <category>hpkp</category>
+        
+        <category>public key pinning</category>
+        
+        
+        <category>spring</category>
+        
+      </item>
+    
+      <item>
+        <title>Generating Spring REST Docs without using integration tests</title>
+        <description>&lt;h2 id=&quot;the-problem&quot;&gt;The problem&lt;/h2&gt;
+
+&lt;p&gt;A couple of days ago I was working on a project of one of our customers.
+One of their new applications needed to expose a public API, and of course we needed to hand over a set of documentation about those REST endpoints.
+Some people were already starting to do this manually in Confluence, but after a while (and we’re talking about a timespan just under 2 hours) this became a tedious job. 
+We had to continuously adjust the input &amp;amp; output contracts, the different endpoints,…
+Using Spring REST Docs I wanted to automatically document all of the public API endpoints, while we were also testing all of the components in the whole application.
+For some undisclosed reasons we simply couldn’t write integration tests, so we were stuck with our unit tests and mocked objects.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-solution&quot;&gt;The solution&lt;/h2&gt;
+
+&lt;p&gt;Imagine you have following service and controller in a simple Spring Boot application:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;nd&quot;&gt;@Service&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DeviceService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Device&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getDevices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Device&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+
+            &lt;span class=&quot;cm&quot;&gt;/*
+                Some business logic here...
+            */&lt;/span&gt;
+
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@RestController&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;devices&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DeviceController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DeviceService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deviceService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DeviceController&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DeviceService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deviceService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;deviceService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deviceService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;method&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RequestMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;produces&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON_VALUE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Device&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getDevices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;deviceService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getDevices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;
+Since this is a Spring Boot application both classes will automagically be instantiated.
+Because you need to annotate your unit tests at class level with &lt;strong&gt;@WebAppConfiguration&lt;/strong&gt; and &lt;strong&gt;@SpringApplicationConfiguration&lt;/strong&gt;, we can easily create a new Spring Boot application and use this for our documentation.
+In this new application we set the base package that needs to be scanned to our controller sub package, and create a mock implementation of our &lt;code class=&quot;highlighter-rouge&quot;&gt;DeviceService&lt;/code&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;nd&quot;&gt;@SpringBootApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scanBasePackages&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;be.ordina.blog.controller&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Application&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+        &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DeviceService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getDeviceService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EasyMock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createStrictMock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DeviceService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;
+Our &lt;code class=&quot;highlighter-rouge&quot;&gt;DeviceControllerTests&lt;/code&gt; class will then look something like this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;nd&quot;&gt;@RunWith&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SpringJUnit4ClassRunner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@SpringApplicationConfiguration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;classes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@WebAppConfiguration&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DeviceControllerTests&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+        &lt;span class=&quot;nd&quot;&gt;@Rule&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RestDocumentation&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;restDocumentation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RestDocumentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;target/generated-snippets&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WebApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DeviceService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deviceService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MockMvc&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mockMvc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;nd&quot;&gt;@Before&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;setUp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mockMvc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MockMvcBuilders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;webAppContextSetup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                                            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;documentationConfiguration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;restDocumentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+                                            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;nd&quot;&gt;@After&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cleanup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;EasyMock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;verify&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deviceService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;EasyMock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;reset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deviceService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getDevices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Device&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;firstDevice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Device&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;iPhone 6&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Device&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;secondDevice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Device&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Nexus 5&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            
+            &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Device&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;firstDevice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;secondDevice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;EasyMock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deviceService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getDevices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;EasyMock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;replay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deviceService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mockMvc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/devices&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;accept&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andExpect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isOk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andExpect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jsonPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;$&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hasSize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andExpect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jsonPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;$[0].name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;firstDevice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())))&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andExpect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jsonPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;$[1].name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;secondDevice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())))&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andDo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;device&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;
+So this is how I managed to get rid of the manual, tedious work and keep my unit tests - and got back to the more serious part of my life: coding like a monkey. =)
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;PS: All of the code above is checked in at our public github repo, so you are free to clone the working application! You can find it &lt;a href=&quot;https://github.com/ordina-jworks/spring-rest-docs-without-integration-tests&quot;&gt;here&lt;/a&gt;!&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Sat, 06 Feb 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/spring/2016/02/06/Generating-Spring-REST-Docs-without-using-integration-tests.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/spring/2016/02/06/Generating-Spring-REST-Docs-without-using-integration-tests.html</guid>
+        
+        <category>spring</category>
+        
+        <category>rest docs</category>
+        
+        <category>spring rest docs</category>
+        
+        <category>test</category>
+        
+        <category>integration</category>
+        
+        <category>integration test</category>
+        
+        <category>unit test</category>
+        
+        
+        <category>spring</category>
+        
+      </item>
+    
+      <item>
+        <title>A decade of DDD, CQRS and Event Sourcing</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Command and Query Responsibility Segregation is the &lt;strong&gt;most misinterpreted pattern&lt;/strong&gt; in software design. CQRS doesn’t mean eventual consistency, it’s not about eventing and messaging. It’s not even what most people believe about having separate models for reading and writing.&lt;/p&gt;
+
+  &lt;p&gt;In his talk &lt;a href=&quot;http://dddeurope.com/2016/greg-young.html&quot;&gt;A decade of DDD, CQRS and Event Sourcing&lt;/a&gt; on DDDEurope 2016, Greg Young gives us a retrospective over the last ten years practicing CQRS and event sourcing.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;cqrs&quot;&gt;CQRS?&lt;/h3&gt;
+
+&lt;p&gt;Before I go any further, let’s start explaining what CQRS really is. It’s all about &lt;strong&gt;applying a design pattern&lt;/strong&gt; when you notice that your class contains both query- and command methods. It’s not a new principle. Bertrand Meyer described &lt;strong&gt;Command-Query Separation&lt;/strong&gt; in his book Object-oriented Software Construction as follows:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“Every method should either be a command that performs an action, or a query that returns data to the caller, but not both. In other words, Asking a question should not change the answer.”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We can apply CQRS principles in many levels of our application, but when people talk about CQRS they are really speaking about applying the CQRS pattern to the object that represents the service boundary of the application. The following example illustrates this.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/cqrs/customerservice.png&quot; alt=&quot;CQRS&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Although this doesn’t seem very interesting to do at first, architecturally we can do many interesting things by applying this pattern:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;One example is that the separation is more explicit and programmers will not find it odd to use &lt;strong&gt;different data models&lt;/strong&gt; which use the same data. Reading records from the database must be fast and there’s no problem at all if you can achieve this by using multiple representations of the same data.&lt;/li&gt;
+  &lt;li&gt;CQRS is also an &lt;strong&gt;enabler for event-based programming models&lt;/strong&gt;. It’s common to see CQRS system split into separate services communicating with Event Collaboration. This allows these services to easily take advantage of Event Sourcing.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You should be cautious however not to use it everywhere and only in some &lt;strong&gt;Bounded Contexts&lt;/strong&gt; that need it, as everyone agrees that applying the CQRS principle adds complexity.&lt;/p&gt;
+
+&lt;h3 id=&quot;history&quot;&gt;History&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“When you searched CQRS on Google a decade ago, it thought it was just Cars misspelled.”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;CQRS is not a new concept. You might even say that event sourcing has been around for thousands of years. The ancient Sumerians wrote accounting info on &lt;strong&gt;clay tablets&lt;/strong&gt; and baked them. That document stored events in time. Immutable events. And documents are built up of this event information.&lt;/p&gt;
+
+&lt;p&gt;As I said earlier, Meyer talked about the principle in his book which was released in 1988.&lt;/p&gt;
+
+&lt;p&gt;It’s QCon San Francisco in 2006 which really gave a boost to the popularity of CQRS and event sourcing. Martin Fowler picked up &lt;a href=&quot;http://martinfowler.com/bliki/CommandQuerySeparation.html&quot;&gt;CommandQuerySeparation in his Bliki&lt;/a&gt; and after that, things began to grow.&lt;/p&gt;
+
+&lt;p&gt;CQRS is more of a &lt;strong&gt;stepping stone&lt;/strong&gt; and you have to put it in its historical context. It was a &lt;strong&gt;natural consequence of what was happening with Domain-Driven Design&lt;/strong&gt; at that time. CQRS is not an end goal, it should be seen as a stepping stone for going to an event sourced system.&lt;/p&gt;
+
+&lt;h3 id=&quot;good-things&quot;&gt;Good things&lt;/h3&gt;
+
+&lt;p&gt;The community around CQRS and event sourcing is growing to about &lt;strong&gt;3000 people&lt;/strong&gt;. More and more domains are involved with event sourcing. In other domains, other added values were discovered. These people had breakthroughs by practicing CQRS, eg. in a warehouse system, instead of denying a user’s request because the system couldn’t handle the requests anymore, it accepts an event and processes it a later time.&lt;/p&gt;
+
+&lt;p&gt;Another good thing about event sourcing, once you model events, you are forced to think about the &lt;strong&gt;temporality of systems&lt;/strong&gt;: what happens at a specific time? how will this object behave in this situation?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Event Storming&lt;/strong&gt; exercises help you to figure out which domains you have in your system and give you a clear view on the different events. You can then formalize events and commands.&lt;/p&gt;
+
+&lt;p&gt;Ideas about Event Sourcing have been spreading. Functional programming gained popularity in parallel with event sourcing. Event sourcing is a &lt;strong&gt;natural functional model&lt;/strong&gt;. Every state is a left fold of your previous history.&lt;/p&gt;
+
+&lt;p&gt;A lot of other things also pushed Event Sourcing forward:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Cloud computing&lt;/li&gt;
+  &lt;li&gt;Popularity of Actor Models&lt;/li&gt;
+  &lt;li&gt;Microservices&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;bad-things&quot;&gt;Bad things&lt;/h3&gt;
+
+&lt;p&gt;Some people see CQRS as a full-blown architecture, but it’s not. This is wrong. CQRS and event sourcing is not a top level architecture. You cannot build an Event Sourced system. Instead, you end up into building a monolith which is event sourced internally. Event sourcing is simply not a good solution to every problem. For example, once you deal with immutable events, you need to think about corrections to data. Whenever a user corrects a value and hits the save button again, you would need to have an event for that and it would be too complex to handle.&lt;/p&gt;
+
+&lt;p&gt;A lot of little things are misinterpreted by the community and this caused &lt;strong&gt;dogmas&lt;/strong&gt; to pop up:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;“Value objects can be mutable in some use cases”&lt;/em&gt; - It’s not because Eric Evans once said “Value objects are normally immutable” that you have to think that in some situations, you can justify mutable objects. There is never an excuse to create mutable objects and they should be avoided at all times.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;“The Write side cannot query the Read side”&lt;/em&gt; - There are times that you have to. When you have an invariant that crosses thousands of aggregates, you cannot avoid it.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;“Inputs should always equal Outputs” eg. if i have an order command, an order event should be the result&lt;/em&gt; - This is not always the case and there are situations where input and output aren’t one on one.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;“Must use one-way commands”&lt;/em&gt; There’s no such way as fire your command, put it on a queue and forget. One way commands don’t exist! They happened in the real world. They cannot be rolled back. Using commands gives you the opportunity to respond to it. One-way commands can however be changed in events in an event sourced system.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Over the years some CQRS frameworks have been created. Greg’s advice is… &lt;strong&gt;Don’t write a CQRS framework&lt;/strong&gt;! It will guaranteed be abandoned after a year. It’s not a framework, it’s more like a reference implementation. We also need to pull back away from &lt;strong&gt;Process Manager frameworks&lt;/strong&gt;. You can probably solve your problem with an &lt;strong&gt;Actor Model&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;queue of messages&lt;/strong&gt; doesn’t work for all kinds of systems. You can probably linearize in 90% of the use cases, it will also probably be cheaper. For the other 10%, interesting things are happening. We’re gonna see a push to &lt;strong&gt;occasionally connected systems&lt;/strong&gt;. When you choose availability and high throughput, you’ll have to move to message-driven architectures and linearization is not an option.&lt;/p&gt;
+
+&lt;h3 id=&quot;future-things&quot;&gt;Future things&lt;/h3&gt;
+
+&lt;p&gt;A lot of interesting things are happening in the software world. We’re growing to &lt;strong&gt;N-Temporal systems&lt;/strong&gt;, where multiple things happen at multiple timeframes.&lt;/p&gt;
+
+&lt;p&gt;Greg concluded with a quote of Ernest Hemingway.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“We are all apprentices in a craft where no one ever becomes a master.”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;recommended-reading&quot;&gt;Recommended reading&lt;/h3&gt;
+
+&lt;p&gt;Greg wrote a book about this matter, called &lt;a href=&quot;http://www.amazon.com/Event-Centric-Simplicity-Addison-Wesley-Signature/dp/0321768221&quot;&gt;Event Centric - Finding Simplicity in Complex Systems&lt;/a&gt;. In this book, he explains how to use DDD with Command-Query Responsibility Separation to select the right design solutions and make them work in the real world.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/cqrs/event-centric.png&quot; alt=&quot;Event Centric&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;other-sources&quot;&gt;Other sources&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Martin Fowler on CQRS: &lt;a href=&quot;http://martinfowler.com/bliki/CQRS.html&quot;&gt;http://martinfowler.com/bliki/CQRS.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Greg Young on CQRS: &lt;a href=&quot;http://codebetter.com/gregyoung/2010/02/16/cqrs-task-based-uis-event-sourcing-agh/&quot;&gt;http://codebetter.com/gregyoung/2010/02/16/cqrs-task-based-uis-event-sourcing-agh/&lt;/a&gt; and &lt;a href=&quot;http://www.squarewidget.com/greg-young-on-cqrs&quot;&gt;http://www.squarewidget.com/greg-young-on-cqrs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Tue, 02 Feb 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/domain-driven%20design/2016/02/02/A-Decade-Of-DDD-CQRS-And-Event-Sourcing.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/domain-driven%20design/2016/02/02/A-Decade-Of-DDD-CQRS-And-Event-Sourcing.html</guid>
+        
+        <category>domain-driven design</category>
+        
+        <category>cqrs</category>
+        
+        <category>event sourcing</category>
+        
+        <category>software craftmanship</category>
+        
+        
+        <category>domain-driven design</category>
+        
+      </item>
+    
+      <item>
+        <title>oDDs and enDs: Vaughn Vernon  on software projects in peril</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;There’s an interesting situation you will find in many software development projects.
+Often there is a team dedicated to keep the software alive.
+The team patches the system and deals with emergencies day after day.
+Almost every organization is dealing with this kind of situation.
+Obviously this is not the situation we want to be stuck in, but how do we alleviate ourselves from this?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Vaughn Vernon gave a presentation today at Domain-Driven Design Europe.
+He started his presentation about the odd things that happen in software projects.
+Then he shed some light on the (future) solutions using Domain-Driven Design,
+the so called &lt;em&gt;ends&lt;/em&gt; of the problems caused by the &lt;em&gt;odds&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;odds&quot;&gt;oDDs&lt;/h1&gt;
+&lt;p&gt;What are the odd things that happen in software development projects?&lt;/p&gt;
+
+&lt;h4 id=&quot;cost-centers&quot;&gt;Cost centers&lt;/h4&gt;
+
+&lt;p&gt;An insidious problem is that &lt;em&gt;an IT organization within a company is considered a cost center&lt;/em&gt;.
+The business views software as something that costs a lot of money.
+You can almost say that the business almost wished they did not have to use computers,
+or employ software developers.&lt;/p&gt;
+
+&lt;p&gt;What about the company and you?
+How does the business view you?
+Do they view you as a hacker?
+Someone who is thrilled about technology?
+If that’s the case, then you may be viewed as a cost center instead of a profit center.&lt;/p&gt;
+
+&lt;h4 id=&quot;budgets-for-software-development-projects-are-minimal&quot;&gt;Budgets for software development projects are minimal&lt;/h4&gt;
+
+&lt;p&gt;Often a team only contains one senior developer and a lot of juniors developers.
+The senior developer must keep everything running and moving.&lt;/p&gt;
+
+&lt;h4 id=&quot;database-driven&quot;&gt;Database-Driven&lt;/h4&gt;
+&lt;p&gt;Looking at the business like a database might be a problem.
+How often does a developer think like this?
+Data needs to go from a view into a database and out of a database to a view like this.
+That is how a lot of developers think.
+We must be careful to be focused so hard on technology and not on business value.&lt;/p&gt;
+
+&lt;h4 id=&quot;shiny-objects&quot;&gt;Shiny Objects&lt;/h4&gt;
+&lt;p&gt;Software developers are always looking for shiny objects.
+They want to learn about the latest technologies and work with them.
+DDD, BDD, TDD, Big Data, Machine Learning, Deep Learning, AI, Reactive, …
+How do we justify those things to the business?&lt;/p&gt;
+
+&lt;p&gt;Big Data was a big buzzword 5 or 6 years ago.
+It is still a buzzword, but if you’re not saying &lt;em&gt;Machine Learning&lt;/em&gt; as well, you’re not cool anymore.&lt;/p&gt;
+
+&lt;p&gt;Are we using technology when it is appropiate?
+Sometimes the latest technology isn’t always the correct solution for the problem.&lt;/p&gt;
+
+&lt;h4 id=&quot;a-not-so-ubiquitous-language&quot;&gt;A Not-So-Ubiquitous Language&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;It doesn’t matter what you name it. It’s just code.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;It is very true for the common developer that they think it doesn’t matter.
+But it does matter.&lt;/p&gt;
+
+&lt;p&gt;The business wants to talk about something &lt;em&gt;this way&lt;/em&gt;,
+but the developer calls it differently anyway. &lt;em&gt;“It’s just code”&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;poor-collaboration&quot;&gt;Poor Collaboration&lt;/h4&gt;
+
+&lt;p&gt;How many organizations use JIRA as a collaboration tool and fail at it?
+Often someone spends days writing specifications and creating JIRA issues,
+yet developers don’t use them.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Estimates are a big deal&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Sometimes it takes longer to estimate than to fix the problem.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Task Board Shuffle&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;This is where software design is entirely comprised of moving sticky notes.
+You move a sticky note from the Todo column to the In Progress column.
+After we have done this, we run back to our machine and start coding.
+Without thoughtful design, the code comes out of our fingertips.&lt;/p&gt;
+
+&lt;p&gt;If you have a team compromised of a few developers working on the same problem,
+there will be multiple translations in one day of the same thing.
+Using the same terms is very important, but often neglected.&lt;/p&gt;
+
+&lt;h4 id=&quot;big-ball-of-mud&quot;&gt;Big Ball of Mud&lt;/h4&gt;
+&lt;p&gt;Many organizations are deducing a Big Ball of Mud as software architecture.
+Everything is part of the same namespace and there are no bounded contexts.
+The software consists of entangled models that should be separate,
+but they are all in one place.&lt;/p&gt;
+
+&lt;p&gt;This is the cause of many problems in the industry.
+You have to recognize a situation when a Big Ball of Mud is being developed and stay out of it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/odds-and-ends/ballofmud.png&quot; alt=&quot;Big Ball of Mud&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;business-logic-is-escaping-to-everywhere&quot;&gt;Business logic is escaping to everywhere&lt;/h4&gt;
+
+&lt;p&gt;Business logic can be found in places outside of the core domain.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Business logic in persistence logic&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;You often see business logic inside of persistence logic.
+Someone is ready to save an object to the backend storage and there is business logic in the persistence logic.
+The persistence logic is hiding the important business logic.
+You lose trace of your business logic because of this.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Queries in business logic&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;You see business logic creating decisions by querying the database.
+Some part of the decision that is being made is hidden to the business logic, because it is inside that query.
+These queries can also be broken.
+Sometimes queries are so expensive, they shut down other operations because the tables are locked.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Business logic in the UI&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The biggest crime against business logic is putting it inside the UI.
+The business logic is put inside the view template or model instead of the domain model.&lt;/p&gt;
+
+&lt;h4 id=&quot;crud&quot;&gt;CRUD&lt;/h4&gt;
+&lt;p&gt;CRUD does not work with complexity.
+It’s also an insidious problem where software developments teams think they can solve any problem with a database.&lt;/p&gt;
+
+&lt;h4 id=&quot;anemic-domain-model&quot;&gt;Anemic Domain Model&lt;/h4&gt;
+
+&lt;p&gt;The Anemic Domain Model is one of the most widespread and adapted architectures.
+Often there is a domain model with objects which are connected with relationships.
+This all looks nice on paper, but there is no domain logic or any behavior inside these objects!
+Services live on top of the domain model. This is often called the Service Layer or the Application Layer.
+They contain most of the domain logic and use the domain objects for data.
+This is very contrary to object-oriented design.
+The data and the processes are combined together and it looks very much like procedural programming.
+This anti-pattern is so common, because most people have not worked with a real domain model.&lt;/p&gt;
+
+&lt;h4 id=&quot;wrong-abstractions&quot;&gt;Wrong abstractions&lt;/h4&gt;
+
+&lt;p&gt;A lot of times developers are thinking too much about abstractions
+instead of getting down to the business.
+They form a lot of &lt;em&gt;“cool”&lt;/em&gt; abstractions that will make it better in the future.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“What if we have this sort of situation in the future?
+If we come up with this kind of abstraction, then this abstraction will take care
+of the situation in the future.”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We cannot predict the future.
+The future of software is unknown.&lt;/p&gt;
+
+&lt;h4 id=&quot;coupled-services&quot;&gt;Coupled Services&lt;/h4&gt;
+
+&lt;p&gt;Coupled services are horrible. What if, for example, a REST controller calls a service, which calls another system.
+If the other system does not respond, you have a gap in your business logic, even if you use global XA transactions.&lt;/p&gt;
+
+&lt;h4 id=&quot;what-to-do&quot;&gt;What to do?&lt;/h4&gt;
+
+&lt;p&gt;It really could be that everybody else is normal.
+What if writing systems with the odd things actually is the norm?
+If that is normal, then wouldn’t you like to be the oddball in the crowd?&lt;/p&gt;
+
+&lt;h1 id=&quot;ends&quot;&gt;enDs&lt;/h1&gt;
+
+&lt;p&gt;You want to be the furthest point away from these problems.
+You want to come up with solutions that work.
+The business must not view you as a technologist,
+but as someone who is interested in  the business.
+You can’t just keep throwing technologies at the problem.
+You must come up with beneficial business solutions.&lt;/p&gt;
+
+&lt;h4 id=&quot;developer-maturity&quot;&gt;Developer maturity&lt;/h4&gt;
+
+&lt;p&gt;If you are a cost center, then you must come up with a way to make your advances
+more economical. You have to develop your maturity.&lt;/p&gt;
+
+&lt;p&gt;You have to seek other ways to get the rest of your team to maturity.
+Urge them to go to DDD and software meetups.
+Do whatever you can, because you can only benefit if those around you are more mature than you.&lt;/p&gt;
+
+&lt;p&gt;Passion is something we can’t always teach.
+But you must try to work with people who are passionate about their job.&lt;/p&gt;
+
+&lt;h4 id=&quot;profit-center&quot;&gt;Profit center&lt;/h4&gt;
+
+&lt;p&gt;You must try to become a profit center.
+An entire unit of the business is a profit center.
+You can only become a profit center if you keep adding business value in a timely manner.&lt;/p&gt;
+
+&lt;h4 id=&quot;collaborate-with-the-business&quot;&gt;Collaborate with the business&lt;/h4&gt;
+
+&lt;p&gt;Don’t use JIRA to collaborate with the business.
+You will be amazed what you can learn if you get away from the desk and into a room.
+The business will tell you what they problems they have hated for years.&lt;/p&gt;
+
+&lt;h4 id=&quot;use-an-ubiquitous-language&quot;&gt;Use an ubiquitous language&lt;/h4&gt;
+
+&lt;p&gt;Some things cannot be explained by anybody. &lt;em&gt;“Why do we call it this? Can we call it this instead?”&lt;/em&gt;
+You can learn those interesting and beneficial details by forming an ubiquitous language.
+Make it your goal to find that ubiquitous language with a bounded context.&lt;/p&gt;
+
+&lt;h4 id=&quot;concrete-scenario&quot;&gt;Concrete Scenario&lt;/h4&gt;
+
+&lt;p&gt;Show concrete users in a concrete scenario and what goal that has to achieve.
+As developers we have to chase after deep models as shiny objects.
+It’s not just technologies.
+Technology matters.
+Try to experience with deep modeling through an ubiquitous language.
+You can use the Gherkin language to achieve this.
+With these concrete scenarios you can model your domain model and test it.&lt;/p&gt;
+
+&lt;pre&gt;
+Feature: Coffee Machine
+    Scenario: Buy Coffee
+        Given there is coffee left in the machine
+        When I deposit 1 euro
+        And I press the coffee button
+        Then I should be served a coffee
+&lt;/pre&gt;
+
+&lt;h4 id=&quot;use-bounded-contexts&quot;&gt;Use bounded contexts&lt;/h4&gt;
+
+&lt;p&gt;To avoid the Big Ball of Mud, you must introduce bounded contexts and separate models.&lt;/p&gt;
+
+&lt;p&gt;It is equally important to separate the models as it is to introduce core concepts in the core domain.&lt;/p&gt;
+
+&lt;p&gt;You have to learn about event storming.
+You can understand what your bounded contexts are from an event storming event.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/odds-and-ends/event-storming.jpg&quot; alt=&quot;Event Storming&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;metrics-based-estimates&quot;&gt;Metrics-based Estimates&lt;/h4&gt;
+
+&lt;p&gt;The artifacts that come out of an Event Storming event, you can use those as estimation units.&lt;/p&gt;
+
+&lt;p&gt;If you can’t finish an iteration according what you’ve planned,
+move these estimation units in a retrospective and encur modeling debt.
+This modeling debt must be fixed as soon as possible.&lt;/p&gt;
+
+&lt;h4 id=&quot;know-architecture&quot;&gt;Know architecture&lt;/h4&gt;
+
+&lt;p&gt;You must know good architectures, like the hexagonal architecture or CQRS. 
+These architecture solve many of the above problems.
+They enforce bounded contexts and give the ability to do context mapping.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/odds-and-ends/hexagonal.jpg&quot; alt=&quot;Hexagonal Architecture&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;decoupled-services&quot;&gt;Decoupled Services&lt;/h4&gt;
+&lt;p&gt;Services have to be decoupled.
+A service which calls a peer service directly, is tightly coupled.
+It cannot work without the other service.
+What if the other service times out?
+You can use domain events and messaging systems to fix this problem.&lt;/p&gt;
+
+&lt;h4 id=&quot;microservices&quot;&gt;Microservices&lt;/h4&gt;
+
+&lt;p&gt;The microservices architecture is another shiny object that a lot of people are chasing.
+The thing is, they are extremely similar to bounded contexts.
+Every microservice is master of their own model and usually has one point of access, like an aggregate root in Domain-Driven Design.&lt;/p&gt;
+
+&lt;h4 id=&quot;actor-model&quot;&gt;Actor Model&lt;/h4&gt;
+
+&lt;p&gt;The Actor Model is an extremely powerful tool that we need to use in the very near future
+by the majority of software development teams.
+CPU processing power is not increasing, but the amount of cores keeps increasing.
+The Actor model is a new way to leverage this power because it fully utilizes these cores with threads.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/odds-and-ends/actor-model.png&quot; alt=&quot;Actor Model&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Many teams are in peril over poorly designed systems&lt;/li&gt;
+  &lt;li&gt;Software development culture is broken&lt;/li&gt;
+  &lt;li&gt;Developers must gain maturity and passion&lt;/li&gt;
+  &lt;li&gt;DDD can be used to make a difference&lt;/li&gt;
+  &lt;li&gt;Use the Actor model to design DDD based microservices&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;one-more-thing&quot;&gt;One more thing&lt;/h2&gt;
+
+&lt;p&gt;Vaughn Vernon announced an additional new book called &lt;em&gt;Domain-Driven Design Distilled&lt;/em&gt;.
+It is a 200 page thick book that explains all of the core concepts of DDD.
+This is very light weight book, intended to rapidly not only teach your team members,
+but also the business about DDD. This book will be available within a month.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 29 Jan 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/domain-driven%20design/2016/01/29/DDDEU16-Odds-and-Ends.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/domain-driven%20design/2016/01/29/DDDEU16-Odds-and-Ends.html</guid>
+        
+        <category>domain-driven design</category>
+        
+        <category>software craftmanship</category>
+        
+        
+        <category>domain-driven design</category>
+        
+      </item>
+    
+      <item>
+        <title>Heuristics from the Trenches by Cyrille Martraire</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;“Communication usually fails, except by accident” - Osmo Wiio&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;With this quote of the Finnish researcher &lt;a href=&quot;https://en.wikipedia.org/wiki/Osmo_Antero_Wiio&quot;&gt;Osmo Wiio&lt;/a&gt;, Cyrille opened the second day of the &lt;a href=&quot;http://dddeurope.com&quot;&gt;DDD Europe&lt;/a&gt; conference. Osmo’s laws of communication are the &lt;strong&gt;human communications equivalent&lt;/strong&gt; of Murphy’s law. Basically if communication can fail, it will and if a message can be understood in several different ways it is quite possible that it will be understood in a harmful way. With the quote Cyrille immediately wants to stress that with Domain-Driven Design, deep conversations with domain experts and careful attention to the language are key.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Business domains&lt;/strong&gt; are often very complex and hard to get into for individuals not familiar with the domain. The &lt;strong&gt;conversations’ game&lt;/strong&gt; with &lt;strong&gt;domain experts&lt;/strong&gt; is a game that takes many years and many failures in order to get better at. Cyrille explained that, even though it’s hard, it’s perfectly possible over time to extract a growing set of techniques, heuristics and best practices to boost the effectiveness of the interviews with domain experts, to learn faster and to converge more quickly to better models.&lt;/p&gt;
+
+&lt;h3 id=&quot;practices-and-tricks-for-talking-to-the-domain-experts&quot;&gt;Practices and tricks for talking to the domain experts&lt;/h3&gt;
+&lt;p&gt;“Why is it so hard?” you might ask yourself or “We don’t talk the same language as them and they don’t have time for us!”. While it is true that the people with the highest expertise within a certain domain often don’t have a lot of time for interviews or meetings, it is up to us, the developers, to make the &lt;strong&gt;necessary preparations&lt;/strong&gt; prior to seeing them. You should first take some time in order to teach yourself some &lt;strong&gt;basic domain knowledge&lt;/strong&gt;. It all starts with &lt;strong&gt;genuine curiosity&lt;/strong&gt;, successful people are curious about their business domains. You may not believe this but here this will help you too! Without this you will have a bad time! &lt;strong&gt;Do your homework&lt;/strong&gt;: perform the necessary research about the domain on the internet, Google around, read books, check Oasis, … Usage of &lt;strong&gt;ubiquitous language&lt;/strong&gt; is very important.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note taking&lt;/strong&gt; is also a very important aspect in the whole story. You need to be able to take notes like a pro! Learn to take notes effectively. &lt;strong&gt;Listen actively&lt;/strong&gt; and &lt;strong&gt;don’t distort&lt;/strong&gt; the stories the domain experts tells you. Keep the words as they are. It really is harder than you would think, so you should turn it into a game:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Write down the stories&lt;/strong&gt; the domain experts tell you&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Underline new words&lt;/strong&gt; and &lt;strong&gt;add a definition&lt;/strong&gt; for yourself, get familiar with all the domain terms&lt;/li&gt;
+  &lt;li&gt;Take note of &lt;strong&gt;side remarks&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;If you think that you’ve encountered a synonym for an existing new word &lt;strong&gt;dig into it&lt;/strong&gt; and &lt;strong&gt;ask for more detail&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Show your knowledge&lt;/strong&gt; to the domain user to &lt;strong&gt;establish credibility&lt;/strong&gt; and to challenge them&lt;/li&gt;
+  &lt;li&gt;But… Challenge them &lt;strong&gt;respectfully&lt;/strong&gt;!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All this is &lt;strong&gt;Domain-Driven Design&lt;/strong&gt;!&lt;/p&gt;
+
+&lt;h3 id=&quot;talking-to-people-is-hard&quot;&gt;Talking to people is hard&lt;/h3&gt;
+&lt;p&gt;It is not easy talking to people and it will often be hard to have &lt;strong&gt;productive conversations&lt;/strong&gt;. However this is also something you can &lt;strong&gt;grow into&lt;/strong&gt; and for which you can develop the &lt;strong&gt;right toolset&lt;/strong&gt;. Have &lt;strong&gt;interactive conversations&lt;/strong&gt;, that way you have control over the conversation and the way you can steer it. Start with “what exactly is the goal?”. &lt;strong&gt;Be precise&lt;/strong&gt; when asking questions, we want to avoid having to reverse engineer the true need from an expressed solution. Be sure to &lt;strong&gt;scan the notes&lt;/strong&gt; you took during a previous conversation and &lt;strong&gt;decide&lt;/strong&gt; where you want the conversation to go next.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;“I keep developers out of conversations about the domain because they always want to know ‘why this’ and ‘why that’. Just write your code.” - &lt;a href=&quot;https://twitter.com/expertbeginner1/status/656122859773820929&quot;&gt;The Expert Beginner&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;You should &lt;strong&gt;question everything&lt;/strong&gt;: ask why but don’t go too far!&lt;/p&gt;
+
+&lt;p&gt;Combine Domain-Driven Development with &lt;strong&gt;Behaviour-Driven Development&lt;/strong&gt;. Both go hand in hand to interview domain experts. You want to &lt;strong&gt;discover the “unknown unknowns”&lt;/strong&gt; as early as possible and to &lt;strong&gt;avoid misunderstandings&lt;/strong&gt; as often as possible. Be sure to &lt;strong&gt;ask for concrete examples&lt;/strong&gt; and &lt;strong&gt;genuine sample documents and data&lt;/strong&gt; and although this doesn’t always come easy, ask and insist but as mentioned before know your limits and be sure not to push it.&lt;/p&gt;
+
+&lt;p&gt;People always think that talking abstract is faster and will save time but think about it and ask yourself: “Is it truly faster if we were wrong or missed stuff that matters?”. If the domain expert seems hesitant about something also take note of this to take into account that the feature in question might be eligible for change later on, this way we can &lt;strong&gt;model our software design correctly&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-domain-expert-delusion&quot;&gt;The domain expert delusion&lt;/h3&gt;
+&lt;p&gt;You might assume that the person, you’re having a conversation with, is an actual system expert within the domain but chances are that he/she is not. The worst expert is the one whose expertise was built from the intricacies of the existing systems. It is therefor also our duty to help out the domain expert where possible:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Have empathy&lt;/strong&gt;, try to put yourself in their shoes&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Build a partnership&lt;/strong&gt;, it should be a two-way conversation you’re having with the expert&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Make it clear&lt;/strong&gt; that the domain expert is always safe with you, that you have no plan to steal their job&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Propose things&lt;/strong&gt;, it doesn’t always have to be right but this way you will get somewhere&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Look for invariants&lt;/strong&gt;, for example: “Is there any other outcome that is also important?”&lt;/li&gt;
+  &lt;li&gt;Always &lt;strong&gt;ask for validation&lt;/strong&gt; of everything, even if you’re sure about it&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It is common in companies that businesses often don’t want all power concentrated into the same hands. This also accounts for domains, you should therefor &lt;strong&gt;assume and probe&lt;/strong&gt;. Get to know the business you are dealing with and their mentality. Not that if you happen to discover that there are multiple domain experts the situation gets a bit more tricky. Having multiple domain experts may lead to more confusion and makes it even more important asking for validation and challenging the experts. Something we want to achieve is that we want to suggest features from our code which could be very useful for the business. Instead of having software to support the domain we want to have &lt;strong&gt;software augmenting the domain&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;keep-improving-yourself&quot;&gt;Keep improving yourself&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Grow into it&lt;/strong&gt; and &lt;strong&gt;build your own toolbox&lt;/strong&gt; for implementing Domain-Driven Design. You might ask yourself why you should bother so much with all of this, after all we just want to get to it and write code. This however is a wrong approach because the complexity of the domain is there, it is just hiding behind a wall, you just don’t see it yet. You will discover the complexity sooner or later so you may as well want to get into it as early as possible to save precious time. After all, you want to become a &lt;strong&gt;domain expert&lt;/strong&gt; too!&lt;/p&gt;
+
+&lt;h3 id=&quot;other-useful-resources-mentioned-by-cyrille&quot;&gt;Other useful resources mentioned by Cyrille:&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://schd.ws/hosted_files/agile2014/d5/1571_Agile2014__Conversation_Patterns_for_Software_Professionals.pdf&quot;&gt;Conversation Patterns for Software Professionals&lt;/a&gt; by Michael Bartyzel&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/books/ap.html&quot;&gt;Analysis Patterns&lt;/a&gt; by Martin Fowler&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://leanpub.com/livingdocumentation&quot;&gt;Living Documentation&lt;/a&gt; by Cyrille Martraire&lt;/li&gt;
+  &lt;li&gt;Slides: &lt;a href=&quot;http://www.slideshare.net/cyriux&quot;&gt;http://www.slideshare.net/cyriux&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Blog: &lt;a href=&quot;http://cyrille.martraire.com&quot;&gt;http://cyrille.martraire.com&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Twitter: &lt;a href=&quot;https://twitter.com/cyriux&quot;&gt;@cyriux&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 29 Jan 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/domain-driven%20design/2016/01/29/DDD-Europe-Heuristics-from-the-Trenches.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/domain-driven%20design/2016/01/29/DDD-Europe-Heuristics-from-the-Trenches.html</guid>
+        
+        <category>domain-driven design</category>
+        
+        <category>software craftmanship</category>
+        
+        
+        <category>domain-driven design</category>
+        
+      </item>
+    
+      <item>
+        <title>Eric Evans about the evolution of Domain-Driven Design</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Why is it that DDD only has its own conference after 13 years? Why is this becoming a sudden hype? Why does it gain popularity and is it mentioned so many times in microservices presentations? Eric Evans talks on &lt;a href=&quot;http://dddeurope.com/2016/eric-evans.html&quot;&gt;DDDEurope&lt;/a&gt; about the core idea behind Domain-Driven Design and its evolution over the last few years.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;but-what-is-ddd&quot;&gt;But what is DDD?&lt;/h3&gt;
+
+&lt;p&gt;The subtitle of Evans’ book, &lt;em&gt;Tackling Complexity in the Heart of Software&lt;/em&gt;, bundles two core principles of Domain-Driven Design:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;It describes the process of translating complex real-life problems into software&lt;/li&gt;
+  &lt;li&gt;The heart of software entails the domain that we’re working on&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Key in this activity is finding the core complexity in the critical part of the domain and focus on this and only this piece of complexity. &lt;strong&gt;Software developers and domain experts collaborate&lt;/strong&gt; to develop models, simplified representations of the real-life problem. The written software should eventually explicitly reflect the model. Whenever a brainstorm session occurs, it almost always results in an adaptation of the models within the software.&lt;/p&gt;
+
+&lt;p&gt;When we encounter multiple complex problems, we must think about them separately. Each problem requires its own model representation.&lt;/p&gt;
+
+&lt;p&gt;When discussing with others about the domain, we must speak a &lt;strong&gt;ubiquitous language&lt;/strong&gt;. You should use the &lt;strong&gt;same vocabulary&lt;/strong&gt; for describing the problem you’re solving. However, when somebody asks you the meaning of a word, in many cases you have to ask the person: &lt;em&gt;“In what context is it used?”&lt;/em&gt;. That’s why the language only means something within a &lt;strong&gt;well-defined bounded context&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Domain-Driven Design is more like an attitude. Although it gives us principles and terminology to enable talking about it and have discussions, different people will do things differently. Each approach will be slightly different.&lt;/p&gt;
+
+&lt;h3 id=&quot;bounded-contexts&quot;&gt;Bounded contexts?&lt;/h3&gt;
+
+&lt;p&gt;A bounded context is an important principle when applying Domain-Driven Design. As i said earlier, language in itself doesn’t mean anything. It only means something when it’s used within a certain context. eg. Item can be a Stock Item, Sale Item, …&lt;/p&gt;
+
+&lt;p&gt;Bounded contexts have the following characteristics:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Within a bounded context certain &lt;strong&gt;rules&lt;/strong&gt; apply, eg. validation rules&lt;/li&gt;
+  &lt;li&gt;It needs to be &lt;strong&gt;tangible in the software&lt;/strong&gt;, eg. use packages for each context&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Another benefit of working with separate bounded contexts is that separate teams could take responsibility on separate bounded contexts.&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;When &lt;a href=&quot;http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215&quot;&gt;Erics book&lt;/a&gt; was released in 2003, only Java 5 and J2EE were used as a programming language for implementing projects. We only had EJB’s to solve problems and there was no other way of storing data but with SQL. If the technology is so complex and limited to implement something, you can’t focus on the real problem of software design.&lt;/p&gt;
+
+&lt;p&gt;Nowadays, we have a lot of new tools available to implement a project: We can store data with a NoSQL database or not store it at all and keep it in-memory. We can explore other ways of approaching data with eg. &lt;strong&gt;event sourcing&lt;/strong&gt;. On certain levels, &lt;strong&gt;Spring&lt;/strong&gt; makes the technical aspect of writing software components a breeze. With the upcoming of &lt;strong&gt;microservices&lt;/strong&gt; and each microservice having its own database, bounded contexts are much clearer to the teams working on the software. And there are probably tons of other examples on how today’s tools can help us achieving our goal: write good software.&lt;/p&gt;
+
+&lt;p&gt;Better tools and a vivid community which masters these tools cause Domain-Driven Design to become more and more popular in ways of designing software. So maybe we can do better now than back in 2003. Maybe… Or maybe we’re not there yet. Fact is that everyday we are learning from mistakes in the past to do better in the future.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 28 Jan 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/domain-driven%20design/2016/01/28/Evolution-of-DDD.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/domain-driven%20design/2016/01/28/Evolution-of-DDD.html</guid>
+        
+        <category>domain-driven design</category>
+        
+        <category>software craftmanship</category>
+        
+        
+        <category>domain-driven design</category>
+        
+      </item>
+    
+      <item>
+        <title>#Devoxx Arun Gupta talks Docker</title>
+        <description>&lt;h2 id=&quot;docker&quot;&gt;Docker&lt;/h2&gt;
+&lt;p&gt;Docker is a tool used for container creation for software applications. We have all been aware of the existence of containers for some time, but Docker creates a standard for describing these packages.
+Docker is used for three things: Build, Ship &amp;amp; Run your software.&lt;/p&gt;
+
+&lt;h3 id=&quot;build&quot;&gt;Build&lt;/h3&gt;
+&lt;p&gt;Creation of a predefined container in a standardized way using the &lt;strong&gt;Docker CLI&lt;/strong&gt;.
+Use a &lt;code class=&quot;highlighter-rouge&quot;&gt;dockerfile&lt;/code&gt; containing a list of commands. The &lt;code class=&quot;highlighter-rouge&quot;&gt;FROM&lt;/code&gt; command specifies an OS and additional software packages, eg. &lt;code class=&quot;highlighter-rouge&quot;&gt;FROM jboss/wildfly&lt;/code&gt;. All  commands are compressed into one, customized image using the &lt;strong&gt;Docker CLI&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;ship&quot;&gt;Ship&lt;/h3&gt;
+&lt;p&gt;Share the container via DockerHub or your private repository.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Sharing = caring!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;run&quot;&gt;Run&lt;/h3&gt;
+&lt;p&gt;Docker runs on a minimal operating system and uses the Union File System. On the bottom level, there’s the Bootfs kernel, on which the chosen base image or OS runs and finally, the user images ontop of that.
+Hosts running Docker are very environment variables oriented, so by using variables in the commands or on the machine itself you configure your application. Any other communication is usually done over &lt;strong&gt;HTTP/REST&lt;/strong&gt;. The Docker images are stored on the Docker host so the actual client is very thin. A Docker app runs on the Docker engine; this is in contrast with regular VMs, running on full-blown operating systems.&lt;/p&gt;
+
+&lt;h2 id=&quot;docker-machine&quot;&gt;Docker Machine&lt;/h2&gt;
+&lt;p&gt;Docker Machine allows you to get started with Docker on Mac or Windows. It features the &lt;code class=&quot;highlighter-rouge&quot;&gt;docker-machine&lt;/code&gt; CLI and uses the &lt;code class=&quot;highlighter-rouge&quot;&gt;boot2docker&lt;/code&gt; image (32Mb small) under the hood.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Docker Machine is preferred over boot2docker for development purposes, but it is not production-ready (yet!)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Easy way to set up a Docker host with docker-machine:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;docker-machine create --driver=virtualbox myhost&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Listing all the installed Docker images:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;docker-machine ls&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Listing all the environment variables of a newly created Docker container:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;docker-machine env myhost&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Docker Machine is also used to start, stop or restart containers. It even allows to update Docker itself.
+Many existing plugins provide support for various cloud platforms.&lt;/p&gt;
+
+&lt;h2 id=&quot;boot2docker&quot;&gt;Boot2Docker&lt;/h2&gt;
+&lt;p&gt;An earlier version of docker-machine. As said above, it is being used by &lt;code class=&quot;highlighter-rouge&quot;&gt;docker-machine&lt;/code&gt; under the hood.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;My advice: migrate to docker-machine, at least for development purposes.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;docker-toolbox&quot;&gt;Docker Toolbox&lt;/h2&gt;
+&lt;p&gt;Easily the best tool to get started with Docker.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.docker.com/windows/started/&quot;&gt;Windows&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.docker.com/mac/started/&quot;&gt;MacOS&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;hands-on-docker&quot;&gt;Hands-on Docker&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker help&lt;/code&gt;for all your docker needs!&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker ps&lt;/code&gt;to check the running containers&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker images&lt;/code&gt;to check your images&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker build&lt;/code&gt;for quick build&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker run -it ubuntu sh&lt;/code&gt; for quick running an image in a shell&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Docker images are like diapers: if they get shitty, throw’em away and take a fresh one.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;docker-compose&quot;&gt;Docker Compose&lt;/h2&gt;
+&lt;p&gt;Allows you to define and run multi-container applications. It has all the commands the regular Docker has &lt;strong&gt;and more&lt;/strong&gt;.
+It provides a new way to link containers.&lt;/p&gt;
+
+&lt;p&gt;Configuration is defined in one or more &lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt; (default) or &lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose.override.yml&lt;/code&gt; (default) files.
+It is a great tool for setting up Development, Staging and Continuous Integration (CI) environments.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Docker container linking is so passé&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;A problem with container linking was that there was no possible way to work with different hosts. Docker Compose solves this by using volume mapping.
+It can help with running multi-host environments:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Bridge&lt;/strong&gt; network span single host&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Overlay&lt;/strong&gt; network spans multiple hosts&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Software defined networking is possible and preferred! Docker Compose solves this problem but it should still be used cautiously in production!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Starting a set of Docker images using Docker Compose is easy:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose up -f docker-compose.yml -f production.yml -d&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;docker-swarm&quot;&gt;Docker Swarm&lt;/h2&gt;
+&lt;p&gt;Docker Swarm provides native clustering for Docker, fully integrated with Machine &amp;amp; Compose. It either uses Etcd, Consul, Zookeeper or other solutions to store the cluster ID.
+Whenever you create a Docker Machine, you can add it to the cluster. It also serves the standard Docker API so anything that works on Docker, will work on multi-host environments.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;They say the new Docker Swarm v1.0.0 release is production ready: I still have my doubts!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Docker Docs are the de facto standard reference and are very well documented. They contain information on &lt;a href=&quot;https://docs.docker.com&quot;&gt;Docker&lt;/a&gt;, &lt;a href=&quot;https://docs.docker.com/machine&quot;&gt;Machine&lt;/a&gt;, &lt;a href=&quot;https://docs.docker.com/compose&quot;&gt;Compose&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://docs.docker.com/swarm&quot;&gt;Swarm&lt;/a&gt;: &lt;a href=&quot;https://docs.docker.com/&quot;&gt;https://docs.docker.com/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Samples: &lt;a href=&quot;https://github.com/javaee-samples/docker-java&quot;&gt;https://github.com/javaee-samples/docker-java&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;questions-or-remarks&quot;&gt;Questions or Remarks&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Contact &lt;a href=&quot;https://twitter.com/arungupta&quot;&gt;@arungupta&lt;/a&gt;  or &lt;a href=&quot;https://twitter.com/dhubau&quot;&gt;@Turbots&lt;/a&gt; on Twitter&lt;/li&gt;
+  &lt;li&gt;Create an issue or start a discussion on the Github repository (or on &lt;a href=&quot;https://gitter.im/docker/docker&quot;&gt;Gitter&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 09 Nov 2015 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/devoxx/2015/11/09/Devoxx15-Docker-Kubernetes.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/devoxx/2015/11/09/Devoxx15-Docker-Kubernetes.html</guid>
+        
+        <category>docker</category>
+        
+        <category>devoxx</category>
+        
+        
+        <category>devoxx</category>
+        
+      </item>
+    
+      <item>
+        <title>Applying software patterns to microservices</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;During the week of October 12th, my colleagues Andreas Evers and Tim De Bruyn and me attended JAX London 2015. After attending over a dozen talks in three days, we went home with tons of insights about DevOps, microservices, Continuous Delivery, Spring Boot and much more. This is a write-up of Chris Richardson’s talk &lt;a href=&quot;https://jaxlondon.com/session/a-pattern-language-for-microservices/&quot;&gt;A pattern language for microservices&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; alt=&quot;Chris Richardson&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/ken2.jpg?la=nl-nl&quot; /&gt;
+&lt;a href=&quot;http://www.chrisrichardson.net/&quot;&gt;Chris Richardson&lt;/a&gt; is the author of &lt;a href=&quot;https://www.manning.com/books/pojos-in-action&quot;&gt;POJOs in Action&lt;/a&gt; and is founder of the original CloudFoundry, which was later acquired by VMWare and then SpringSource. Nowadays he is constantly thinking about microservices and founded a startup that is creating a platform for aiding the development of event-driven microservices (http://eventuate.io/). He also launched http://microservices.io/, describing microservice responsibilities and commonly accepted solutions as patterns.&lt;/p&gt;
+
+&lt;p style=&quot;clear:both;&quot;&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;problems-in-software-engineering&quot;&gt;Problems in software engineering&lt;/h1&gt;
+
+&lt;p&gt;Chris started his presentation by pointing out a few problems in software engineering. First, we have a lot of sucks/rocks discussions between developers. JavaScript vs. Java, Spring vs. JEE, Java vs. .NET, functional programming vs. object-oriënted programming, containers vs. virtual machines, … Sounds familiar? But these discussions are usually very subjective and shallow. Back in 1986, Fred Brooks already mentioned in a paper on software engineering that &lt;strong&gt;there is no such thing as a silver bullet&lt;/strong&gt;. So there is no right or wrong answer to which language or framework is better, it depends on the situation.&lt;/p&gt;
+
+&lt;p&gt;A second problem is that we have &lt;strong&gt;a lot of new technologies&lt;/strong&gt; these days. Typically, these technologies go through the &lt;em&gt;Gartner Hype Cycle&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;float-image&quot; alt=&quot;Gartner Hype Cycle&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/ken3v2.png?la=nl-nl&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;clear:both;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;At first, people discover an innovative technology and everybody wants to use it, which drives the technology into the &lt;em&gt;Peak of Inflated Expectations&lt;/em&gt;. Docker is a good example of a technology in this phase. Then a huge drop follows, because people didn’t really understand the technology and misused it. When we start to &lt;strong&gt;understand the subject&lt;/strong&gt;, that’s when productivity on the market increases.&lt;/p&gt;
+
+&lt;p&gt;It’s clear that we need a better way to discuss and think about technology. That’s where software patterns come in.&lt;/p&gt;
+
+&lt;h1 id=&quot;pattern-languages&quot;&gt;Pattern languages&lt;/h1&gt;
+
+&lt;p&gt;Patterns help us to &lt;strong&gt;describe a reusable solution to a problem occurring in a particular context&lt;/strong&gt;. The use of pattern languages is a a great way of talking about technology in general. You can see it as an advice around a topic. Describing what you want to solve and its context is much more important than the framework or tool you choose.&lt;/p&gt;
+
+&lt;p&gt;A pattern description typically contains:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Pattern name&lt;/li&gt;
+  &lt;li&gt;Context&lt;/li&gt;
+  &lt;li&gt;Problem - The issue which we try to solve&lt;/li&gt;
+  &lt;li&gt;Forces, which are a set of indicators why we want to use the pattern, eg. we need to do CD, run multiple instances, …&lt;/li&gt;
+  &lt;li&gt;Solution. What would a pattern be without a solution?&lt;/li&gt;
+  &lt;li&gt;Resulting context. Set of both benefits and downsides which we achieved, but also problems which we then have to solve next.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Patterns can be &lt;strong&gt;related&lt;/strong&gt;, they can be alternate solutions, solutions to problems that were caused by another pattern or more specific solutions to a certain problem. When you want to read more about writing and understanding patterns, you can read Martin Fowler’s blog post &lt;a href=&quot;http://www.martinfowler.com/articles/writingPatterns.html&quot;&gt;Writing Software Patterns&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;patterns-for-the-microservices-world&quot;&gt;Patterns for the microservices world&lt;/h1&gt;
+
+&lt;p&gt;Microservices is another one of those new technologies which are in &lt;em&gt;Peak of Inflated Expectations&lt;/em&gt; phase. To help us understand the complexity of implementing these kind of systems, Chris founded http://microservices.io/ . Here you can find a collection of microservices patterns.
+We can group the microservices patterns into several categories:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Core patterns&lt;/li&gt;
+  &lt;li&gt;Deployment patterns&lt;/li&gt;
+  &lt;li&gt;Discovery patterns&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/ken4.png?la=nl-nl&quot; alt=&quot;Microservices patterns&quot; title=&quot;Microservices patterns&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Chris then elaborated on a few microservice pattern categories.&lt;/p&gt;
+
+&lt;h1 id=&quot;core-patterns&quot;&gt;Core patterns&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Monolithical applications&lt;/strong&gt; tend to be simple to develop, test, deploy and scale. You can just run multiple copies of your monolithical application. When the application is large however, you end up in &lt;em&gt;monolithic hell&lt;/em&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Millions of lines of code undermine developer productivity and knowledge of the system.&lt;/li&gt;
+  &lt;li&gt;As one change might affect other parts of the application, there’s a fear of changing and refactoring code&lt;/li&gt;
+  &lt;li&gt;Developer productivity decreases, as your IDE gets slower, startup times of the server take very long, …&lt;/li&gt;
+  &lt;li&gt;Long-term commitment to a technology stack&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With X and Z axis scaling, you increase the number of application instancess or you increase server resources. Y axis scaling on the other hand means you break up your application into separate &lt;strong&gt;microservices&lt;/strong&gt; which group business functionality. Some &lt;strong&gt;benefits&lt;/strong&gt; to this are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Smaller, simpler apps, which are easier to understand&lt;/li&gt;
+  &lt;li&gt;Less classpath hell&lt;/li&gt;
+  &lt;li&gt;Faster to build and deploy&lt;/li&gt;
+  &lt;li&gt;Improve fault isolation&lt;/li&gt;
+  &lt;li&gt;Eliminates the long-term commitment to a single technology stack&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Of course, each solution always has some &lt;strong&gt;drawbacks&lt;/strong&gt;, to which fortunately solutions exist.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Added complexity of developing a distributed system&lt;/li&gt;
+  &lt;li&gt;We have to handle partial failures&lt;/li&gt;
+  &lt;li&gt;Implement business transactions that span multiple databases&lt;/li&gt;
+  &lt;li&gt;More complex testing: what do we do with transitive dependencies? Do we mock them?&lt;/li&gt;
+  &lt;li&gt;What about managing communication for cross-service development and deployment?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;deployment-patterns&quot;&gt;Deployment patterns&lt;/h1&gt;
+
+&lt;p&gt;Forces to consider when deploying microservices are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Variety of languages&lt;/li&gt;
+  &lt;li&gt;Building and deploying must be fast&lt;/li&gt;
+  &lt;li&gt;Isolate service instances&lt;/li&gt;
+  &lt;li&gt;Deploying must be cost-effective&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For these, you can look at the deployment patterns.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://microservices.io/patterns/deployment/service-per-vm.html&quot;&gt;Service per VM&lt;/a&gt; = &lt;a href=&quot;https://packer.io/&quot;&gt;Packer.io&lt;/a&gt; is a great tool for running each service
+in its own VM. Downside is you got the overhead of a whole VM per
+microservice. It is very expensive and the deployment itself is
+relatively slow. A positive thing though is that the AWS
+infrastructure is very mature and reliable.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://microservices.io/patterns/deployment/service-per-container.html&quot;&gt;Service per container&lt;/a&gt; = Each service is in its own Docker container, which is started very quickly. A drawback is that these technologies are still very immature.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;discovery-patterns&quot;&gt;Discovery patterns&lt;/h1&gt;
+
+&lt;p&gt;One problem we need to address around the area of service discovery is that we need to know the IP address of the server. Simply having configuration files with the IP’s wont work anymore. On top of that, the set of API interfaces can change. And this is just a tip of the iceberg.&lt;/p&gt;
+
+&lt;p&gt;There are several patterns related to service discovery:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://microservices.io/patterns/client-side-discovery.html&quot;&gt;Client-side discovery&lt;/a&gt; = The client will query the service registry,
+pick one from the load balancing configuration, and then use it.
+Netflix’ &lt;a href=&quot;https://github.com/Netflix/eureka&quot;&gt;Eureka&lt;/a&gt; and &lt;a href=&quot;https://github.com/Netflix/ribbon&quot;&gt;Ribbon&lt;/a&gt; provide this functionality. Multiple
+Eureka’s can be clustered.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://microservices.io/patterns/server-side-discovery.html&quot;&gt;Server-side discovery&lt;/a&gt; = At some level it’s
+the same like client-side discovery. The difference is that the
+    client makes a request to the router, which then queries t he service registry. You can achieve this with eg. &lt;a href=&quot;https://www.nginx.com/&quot;&gt;Nginx&lt;/a&gt; as the router and an Elastic Load Balancer from AWS. The advantage is that the client code is much simpler. Advantage is that it’s built in in some cloud/container environments, such as AWS ELB, Google’s &lt;a href=&quot;http://kubernetes.io/&quot;&gt;Kubernetes&lt;/a&gt;, &lt;a href=&quot;https://mesosphere.github.io/marathon/&quot;&gt;Marathon&lt;/a&gt;, …&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Over the years, companies like Netflix, LinkedIn, Soundcloud and many others have applied the microservices architecture in their software landscape, with several tools and open-source libraries as a result. But deep down these tools have to tackle the same problems. Chris’ effort to describe these common problems and solutions in software patterns allows us to see the wood for the trees again. Because as I said earlier, knowing what you want to achieve is much more important than the framework or tool you choose.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 13 Oct 2015 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/microservices/2015/10/13/MicroservicesPatterns.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/microservices/2015/10/13/MicroservicesPatterns.html</guid>
+        
+        <category>microservices</category>
+        
+        <category>software patterns</category>
+        
+        
+        <category>microservices</category>
+        
+      </item>
+    
+      <item>
+        <title>JOIN 2015 from a developer&#39;s perspective</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Last week the Oracle/Java unit held its yearly JOIN Event. The purpose of this event is to share knowledge between colleagues and fellow Java- and JavaScript enthousiasts. A total of 83 attendees visited Ordina Belgium’s headquarters in Mechelen to pack their heads with interesting technology facts.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;We started off with a couple of Ordina consultants, each giving a lightning talk (a 20 mins. talk) about a hot topic. Amongst others, there were talks about Docker, Polymer, IoT, microservices and Meteor. Afterwards everyone had the chance to attend three keynote talks from international professionals in the Java- and JavaScript world.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-past-present-and-future-of-ecmascript&quot;&gt;The past, present and future of ECMAScript&lt;/h1&gt;
+
+&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; alt=&quot;Tom Van Cutsem&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/joinblog2.jpg?la=nl-nl&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Tom Van Cutsem&lt;/strong&gt; told us about the past and the future of JavaScript and how the &lt;strong&gt;ECMAScript&lt;/strong&gt; standard was born. Tom is a member of the &lt;strong&gt;TC39 board&lt;/strong&gt;, a group of technical people who decide which feature is in or out. There’s no political game going on in this group, which is a good thing. JavaScript was invented in 1995 by &lt;strong&gt;Brendan Eich&lt;/strong&gt;, who worked at Netscape at that time, and quickly standardized as ECMAScript 1st edition in 1997. ECMAScript 5 was released in 2009 and is well supported by all major browsers, as the following compatibility table illustrates: &lt;a href=&quot;http://kangax.github.io/compat-table/es5/&quot;&gt;http://kangax.github.io/compat-table/es5/&lt;/a&gt;. By introducing strict mode, which makes you as a developer use a more safer and sturdier JavaScript version, the guys at TC39 guaranteed the expansion of ECMAScript 6.
+This summer a brand new version was released: they did not call it ECMAScript 6 this time, but rather ECMAScript 2015 because they changed their release model to yearly releases. Features that aren’t ready for the release, will be skipped and released a year later. Tom then shortly introduced a subset of the new features available in ECMAScript 2015: Arrow functions are a shorter way to declare anonymous functions, a bit comparable to Java 8’s Lambdas. Second he explained probably the most important feature… classes! Actually it’s just about syntax, because they will be treated like regular functions by the engine. Most notable control flow features were promises and iterators. On the website mentioned before to check ECMAScript 5 compatibility, you can also switch to ECMAScript 2015 and see that browser compatibility is still poor. However, Tom also recommended that you can already use ECMAScript 2015 in your application by using compiling tools like &lt;a href=&quot;https://babeljs.io/&quot;&gt;Babel&lt;/a&gt; or &lt;a href=&quot;http://www.typescriptlang.org/&quot;&gt;TypeScript&lt;/a&gt;. These tools compile your ECMAScript 2015 code into ECMAScript 5. He also briefly mentioned &lt;a href=&quot;http://www.oracle.com/technetwork/articles/java/jf14-nashorn-2126515.html&quot;&gt;Nashorn&lt;/a&gt;, the new Javacript engine developed by Oracle, released with Java 8.&lt;/p&gt;
+
+&lt;p&gt;You can have a look at Tom’s presentation on &lt;a href=&quot;http://t.co/Phwpx3Ig13&quot;&gt;http://t.co/Phwpx3Ig13&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p style=&quot;clear:both;&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;boost-your-app-development&quot;&gt;Boo(s)t your app development&lt;/h1&gt;
+
+&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; alt=&quot;Stéphane Nicoll&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/joinblog3.jpg?la=nl-nl&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Stéphane Nicoll&lt;/strong&gt; enlightened us with a &lt;a href=&quot;http://projects.spring.io/spring-boot/&quot;&gt;Spring Boot&lt;/a&gt; talk. He ex​actly had one slide, but blew us away with a full-packed demo of what Spring Boot’s auto-initialization features can mean for your project. Starting point is &lt;a href=&quot;https://start.spring.io/&quot;&gt;https://start.spring.io/&lt;/a&gt;, were you can kickstart a Spring project by checking and unchecking technologies. It’s as simple as that. When you’re working with IntelliJ, you can even do it inside your IDE with a wizard. Both result in the same project however.
+After creating a simple &lt;code class=&quot;highlighter-rouge&quot;&gt;@RestController&lt;/code&gt; with a &lt;code class=&quot;highlighter-rouge&quot;&gt;@RequestMapping&lt;/code&gt; and a &lt;code class=&quot;highlighter-rouge&quot;&gt;Hello world&lt;/code&gt;, ​he added the JPA dependency, created an &lt;code class=&quot;highlighter-rouge&quot;&gt;@Entity&lt;/code&gt; and a Spring Data repository. Now we only have to add a database to the project. Just by adding the H2 dependency in the &lt;code class=&quot;highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt; file, Spring Boot creates a database for you and attaches the created Repository classes to that database instance. It is able to do this by scanning for DataSource classes on the classpath.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Actuator endpoints&lt;/strong&gt; allow you to monitor and interact with your application. Spring Boot includes a number of built-in endpoints. For example, Spring Boot can automatically create a health status endpoint where you can check the health of your database, JMS queue or any other component that is registered with the Spring Boot system. You can even write your own.&lt;/p&gt;
+
+&lt;p&gt;He also deployed the application to &lt;a href=&quot;https://pivotal.io/platform&quot;&gt;Cloud Foundry&lt;/a&gt;, Pivotal’s cloud platform. He demonstrated the possibility to remotely install another database on that server and bind this database instance to the application. &lt;strong&gt;Then he even demonstrated hot code replacement in the cloud… That’s really amazing!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;We can conclude that &lt;strong&gt;Spring Boot&lt;/strong&gt; makes Java development as it should be. By following the &lt;strong&gt;convention-over-configuration&lt;/strong&gt; approach, we can achieve very much in very little time.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p style=&quot;clear:both;&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;a-sneak-peek-at-the-new-angular-20&quot;&gt;A sneak peek at the new Angular 2.0&lt;/h1&gt;
+
+&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; alt=&quot;Pascal Precht&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/joinblog4.jpg?la=nl-nl&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, &lt;strong&gt;Pascal Precht&lt;/strong&gt; from &lt;a href=&quot;http://thoughtram.io/&quot;&gt;Thoughtram&lt;/a&gt; gave some insights on &lt;strong&gt;Angular 2&lt;/strong&gt;. Attention! You shouldn’t say AngularJS 2, but simply Angular 2. Pascal gave us a quick tour of Angular 2’s new syntax for property- and event binding. You will need to use square brackets around HTML attribute names for property binding and parenthesis for event binding, which looks a bit weird at first. You can read more about Angular 2’s syntax in his blog post &lt;a href=&quot;http://blog.thoughtram.io/angular/2015/08/11/angular-2-template-syntax-demystified-part-1.html&quot;&gt;Angular 2 Template Syntax Demystified&lt;/a&gt;.
+Angular 2 will also support &lt;a href=&quot;http://webcomponents.org/&quot;&gt;Web Components&lt;/a&gt;, a new standard in developing custom components for web applications.&lt;/p&gt;
+
+&lt;p&gt;On the question whether &lt;strong&gt;Polymer&lt;/strong&gt; and Angular 2 weren’t tackling the same problems, Pascal replied that Polymer focuses more on Web Components whilst Angular 2 claims to be an end-to-end framework to build applications.&lt;/p&gt;
+
+&lt;p&gt;Actually, at first the syntax seems frightening, but after hearing the reasoning behind it, it seems to me that the only difference is that Angular will embrace the standard DOM element properties instead of keeping their own in sync like in the previous version… And that’s why you could say that we don’t have two-way databinding anymore in Angular 2. Interesting things, but we’ll have to wait until 2016 to see the final syntax, because everything we saw… can already be different as we speak.​&lt;/p&gt;
+
+&lt;p&gt;On the question when Angular 2 would be production ready, he opened up his browser and opened &lt;a href=&quot;http://splintercode.github.io/is-angular-2-ready/&quot;&gt;Is Angular 2.0 ready?&lt;/a&gt;. That tells enough. Pascal’s feeling is that a beta version will be released Q1 2016, but this was a non-official statement.&lt;/p&gt;
+
+&lt;p style=&quot;clear:both;&quot;&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 15 Sep 2015 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/join/2015/09/15/JOIN2015.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/join/2015/09/15/JOIN2015.html</guid>
+        
+        <category>javascript</category>
+        
+        <category>spring boot</category>
+        
+        <category>angular 2</category>
+        
+        
+        <category>join</category>
+        
+      </item>
+    
+      <item>
+        <title>Spring I/O 2015 Barcelona</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Last week Barcelona was the place to be for Spring enthusiasts. With tons of Pivotal speakers and many more community leaders it was a two-day goldmine for anyone looking to update their Spring knowledge. This is my report ranging many different topics, including quite some one on one discussions and hacking sessions with the people behind the Spring ecosystem.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/andreas2.jpg?la=nl-nl&amp;amp;h=429&amp;amp;w=763&quot; alt=&quot;Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;one-on-one-talk-with-juergen-hoeller&quot;&gt;One on one talk with Juergen Hoeller:&lt;/h3&gt;
+
+&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; alt=&quot;Juergen Hoeller&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/andreas3.jpg?la=nl-nl&quot; /&gt;Groovy has now become an Apache Incubator project, as Pivotal decided Groovy isn’t a core project for them. Most of the people behind Groovy are not working for Pivotal anymore but for other companies which means they can only work on it part-time. Juergen doesn’t like this but it wasn’t his decision. Luckily Groovy has a huge userbase and they truly love the language. That’s why Juergen is not too concerned about Groovy dying, but of course the speed of new developments will be a lot slower than the past two or three years.
+Gradle has strong dependencies on Groovy, as it’s using a Groovy-based DSL language. The story is different here however, as Gradle is backed by Gradleware, a Silicon Valley company with its own vision. Spring is using Gradle for most of its projects, because for one the devs like to use Groovy, but foremost because it offers more flexibility compared to maven which is necessary when dealing with an open-source framework.&lt;/p&gt;
+
+&lt;p&gt;The Netflix stack is Amazon based as it’s the most important player in the market at the moment. Of course there is support for Cloud Foundry but there are no guarantees it will work on all clouds. Especially Google App Engine is kind of a mess as the team behind it doesn’t really cooperate with Pivotal or anyone else as far as Juergen knows.&lt;/p&gt;
+
+&lt;p&gt;Currently it’s hard to find decent books about microservices but they should be coming up soon. For cloud there are some books out there but they could feel outdated already. What’s written in 2013 isn’t always completely valid anymore in 2015, especially in a field like Cloud computing.&lt;/p&gt;
+
+&lt;h3 id=&quot;one-on-one-hacking-session-with-oliver-gierke&quot;&gt;One on one hacking session with Oliver Gierke:&lt;/h3&gt;
+
+&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; alt=&quot;Oliver Gierke&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/andreas5.png?la=nl-nl&quot; /&gt;Lots of stuff can still be moved from Spring Data REST to Spring Hateoas. This afternoon I’m sitting down with Oliver Gierke to do some hacking on the subject.&lt;/p&gt;
+
+&lt;p&gt;It’s possible to have a resource with many different embedded resources inside by nesting domain POJOs in eachother. The thing Spring Data REST is missing is the possibility to distinguish between domain model nested classes and resource model nested classes (aka embedded resources). There is no way to embed a Car resource as an embedded resource into a Person resource without actually having Car as a property of Person in the domain model. Having the possibility to manually add embedded resources to a resource would solve this.
+To achieve this we should have an extension of ResourceSupport with a Set of EmbeddedWrappers inside. Using the EmbeddedWrappers class, we can add embedded resources to our resource in its Assembler. This Wrapper will take care of relation resolving, especially handy when dealing with collections which require plural-forms. The relation value can be annotated in the model or passed along as a second parameter.&lt;/p&gt;
+
+&lt;p&gt;I will go into more detail with examples as a comment on &lt;a href=&quot;https://github.com/spring-projects/spring-hateoas/issues/270&quot;&gt;the GitHub ticket about embedded resources&lt;/a&gt; which Oliver will try to follow up. An existing stackoverflow issue about the subject can be found here: &lt;a href=&quot;http://stackoverflow.com/questions/25858698/spring-hateoas-embedded-resource-support&quot;&gt;http://stackoverflow.com/questions/25858698/spring-hateoas-embedded-resource-support&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Having different representations of the same resource with different fields (e.g. summary and full view) can be achieved using jsonViews. However, those jsonViews can be used for versioning as well, and having both at the same time could interfere. The Projection abstraction is a very nice feature of Spring Data REST that was moved to the Spring Data Commons package. This enables us to use this abstraction without the need of a persistence. We can use it in conjunction with Spring Hateoas without Spring Data REST.
+The main class to use is the SpelAwareProxyProjectionFactory. This factory can be used to create projections. It’s also possible to use the Page functionality and especially its page.map() function, which can link a projection interface with a domain class. This approach allows us to define an interface with the selection of fields from the domain class as getter methods. This defines the selection of fields which that projection should expose.
+This pattern is applied as well in the latest Spring MVC where a UserForm is used as a parameter of a POST endpoint method. Defining the UserForm as an interface works exactly by the same principle as the Projections of Spring Data. You can even have default methods in the interface for validation of that form.&lt;/p&gt;
+
+&lt;p&gt;At my client I am integrating most of the stuff you can find in &lt;a href=&quot;https://api-sandbox.foxycart.com/hal-browser/browser.html&quot;&gt;foxycart’s HAL browser&lt;/a&gt; but in a dynamic way. Exposing &lt;a href=&quot;https://api-sandbox.foxycart.com/hal-browser/browser.html&quot;&gt;a graph of resources&lt;/a&gt; can be done using Spring Restdocs’ link documents generated in asciidoc. By parsing the results of these asciidocs and merging the results, a resulting json is aggregated and used to generate a graph of resources and their links using &lt;a href=&quot;http://d3js.org/&quot;&gt;d3js&lt;/a&gt;. This graph is integrated in the HAL browser, and each resource links to its documentation. That documentation per resource can of course also be reached from the regular HAL browser documentation links using curies. To generate that documentation we are in turn using Spring Restdocs to show examples with their links, request and response fields and error scenarios. All of this is generated and guaranteed up-to-date (if it weren’t, it would have failed the build). 
+The improvement which is still possible to do here, is to have our own hook into Spring Restdocs so we wouldn’t need to go through asciidoc links to generate the full relationship graph. Oliver asked me to open a ticket for Andy Wilkinson to allow hooks in the generation model.&lt;/p&gt;
+
+&lt;p&gt;Oliver doesn’t fully agree with versioning on resource level. He prefers versioning APIs or not versioning at all, to avoid having a higher cost later due to legacy and lots of old versions we’ll need to support. The initial win of versioning would be insignificant compared to the technical debt it creates.&lt;/p&gt;
+
+&lt;p&gt;Implementation of the &lt;a href=&quot;https://tools.ietf.org/html/draft-kelly-json-hal-06#section-8.3&quot;&gt;hypertext cache pattern of HAL&lt;/a&gt; is quite straight forward according to Oliver. The client should be smart enough to search for the field it needs in the embedded resource, and if that field isn’t there, he should follow the link to the full resource. Keeping track of which representation is shown in which place (embedded vs linked) becomes unnecessary using that approach.&lt;/p&gt;
+
+&lt;h2 id=&quot;more-on-spring-io-2015-barcelona-&quot;&gt;More on Spring I/O 2015 Barcelona ….&lt;/h2&gt;
+
+&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; alt=&quot;Christoph Strobl&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/andreas4.png?la=nl-nl&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;boot-your-search-with-spring-talk&quot;&gt;Boot your Search with Spring talk:&lt;/h4&gt;
+
+&lt;p&gt;Speaker: Christoph Strobl - &lt;a href=&quot;http://www.springio.net/boot-your-search-with-spring/&quot;&gt;Talk &amp;amp; speaker description&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Solr feels like an old kitchen sink for anything you want to do. Not exactly a fancy 2015 tool. They are catching up though and documentation is getting better. It’s scheme based. MongoDB does much more out-of-the-box which you have to do manually with xml configuration. Solr schemaless support exists but as long as it’s lucene-based, there’s no such thing as a schema-less index. Their type-guessing only goes so far until you try to add a record with a different type.&lt;/p&gt;
+
+&lt;p&gt;Spring Data Solr does just what you expect: clean to-the-point interfaces with annotations that do the DAO magic for you. Spring Data Elasticsearch does that as well for the complexity of Elasticsearch. I never really liked the query system that Elasticsearch has so having this abstraction layer could prove really useful.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; alt=&quot;Brian Clozel&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/andreas6.jpg?la=nl-nl&amp;amp;h=227&amp;amp;w=227&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;inside-httpspringio---a-production-spring-reference-application--one-on-one-talk-with-brian-clozel&quot;&gt;Inside http://spring.io - a production spring reference application &amp;amp; one on one talk with Brian Clozel&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ordina-jworks.github.io/spring/2015/05/08/SpringIO15-Sagan.html&quot;&gt;on this blog&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;clear:both&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; alt=&quot;Sergi Almar&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/andreas7.jpg?la=nl-nl&amp;amp;h=224&amp;amp;w=227&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;real-time-with-spring-sse-and-websockets-talk&quot;&gt;Real-time with Spring: SSE and WebSockets talk&lt;/h4&gt;
+
+&lt;p&gt;Speaker: Sergi Almar - &lt;a href=&quot;http://www.springio.net/real-time-with-spring-sse-and-websockets/&quot;&gt;Talk &amp;amp; speaker description&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Spring WebSockets is better than JSR356 because: there is a fallback with SockJS, there is support for STOMP subprotocol, Spring Security can jump in, and of course flawless integration with messaging components and the Spring messaging style. Security is important because there are no URLs anymore. We have to secure at message level.&lt;/p&gt;
+&lt;p style=&quot;clear:both&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; alt=&quot;Oliver Gierke&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/andreas8.png?la=nl-nl&amp;amp;h=223&amp;amp;w=223&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-data-rest---repositories-meet-hypermedia-talk&quot;&gt;Spring Data REST - Repositories meet hypermedia talk&lt;/h4&gt;
+
+&lt;p&gt;Speaker: Oliver Gierke - &lt;a href=&quot;http://www.springio.net/spring-data-rest-repositories-meet-hypermedia/&quot;&gt;Talk &amp;amp; speaker description&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Recommended reading: Domain Driven Design. Although very boring, it introduces vital concepts in the repository world. When combining ALPS and JSON Schema, it should be possible to create a client that is smart enough to discover verbs and even fields of the payload.&lt;/p&gt;
+&lt;p style=&quot;clear:both&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; alt=&quot;Dave Syer&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/andreas9.jpg?la=nl-nl&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;building-microservices-with-spring-cloud-and-netflix-oss-talk&quot;&gt;Building Microservices with Spring Cloud and Netflix OSS talk&lt;/h4&gt;
+
+&lt;p&gt;Speaker: Dr. Dave Syer  - &lt;a href=&quot;http://www.springio.net/building-microservices-with-spring-cloud-and-netflix-oss&quot;&gt;Talk &amp;amp; speaker description&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Another great book is Release It!. It describes a lot of the patterns microservices use such as circuit breaker. It’s definitely a great book for devops.&lt;/p&gt;
+&lt;p style=&quot;clear:both&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; alt=&quot;Stéphane Nicoll&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/andreas10.png?la=nl-nl&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;master-spring-boot-autoconfiguration-talk&quot;&gt;Master Spring Boot autoconfiguration talk&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ordina-jworks.github.io/spring/2015/05/08/SpringIO15-Autoconfig.html&quot;&gt;on this blog&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;clear:both&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; alt=&quot;Josh Long&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/andreas11.jpg?la=nl-nl&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;can-your-cloud-do-this-getting-started-with-cloud-foundry-talk--building-bootiful-microservices-with-spring-cloud-workshop--one-one-one-talk-with-josh-long&quot;&gt;Can Your Cloud Do This? Getting started with Cloud Foundry talk &amp;amp; Building “Bootiful” Microservices with Spring Cloud workshop &amp;amp; One one one talk with Josh Long&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ordina-jworks.github.io/spring/2015/05/08/SpringIO15-Microservices.html&quot;&gt;on this blog&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;clear:both&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+Enjoy reading!
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 09 May 2015 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/spring/2015/05/09/SpringIO15-General.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/spring/2015/05/09/SpringIO15-General.html</guid>
+        
+        <category>spring</category>
+        
+        
+        <category>spring</category>
+        
+      </item>
+    
+  </channel>
+</rss>

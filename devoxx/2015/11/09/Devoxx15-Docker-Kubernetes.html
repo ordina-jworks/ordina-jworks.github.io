@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ordina JWorks Tech Blog</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Ordina JWorks Tech blog
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,Javascript,DevOps">
+    <meta name="author" content="Ordina Belgium">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Base style -->
+    <link href="/css/styles/style.css" rel="stylesheet">
+    <!-- Skin CSS -->
+    <link href="/css/styles/skin-orange.css" rel="stylesheet" id="color_theme">
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<!-- Add class "boxed" along with body for boxed layout. -->
+<!-- Add "pattern-x" (1 to 5) for background patterns. -->
+<!-- Add "img-x" (1 to 5) for background images. -->
+<body>
+
+<!-- Outer Starts -->
+<div class="outer">
+    <!-- Header two Starts -->
+    <div class="header-2">
+
+        <!-- Container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo">
+                        <h1><a href="/"><img src="/img/jworks/jworks-400x400.jpg"
+                                                               width="100"
+                                                               height="100"/> </a></h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="navy">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="/contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header two ends -->
+
+    <!-- Main content starts -->
+
+    <div class="main-block">
+
+        <!-- Page heading two starts -->
+
+        <div class="page-heading-two">
+            <div class="container">
+                <h2>JWorks Tech Blogs<span style="margin-left: 10px"> Powered by Ordina</span></h2>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <!-- Page heading two ends -->
+
+        <div class="container tk-acumin-pro">
+            <div class="post">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <h1>#Devoxx Arun Gupta talks Docker</h1>
+        </div>
+    </div>
+    <div class="image-block">
+        <!-- Image style five starts -->
+        <div class="image-style-five">
+            <!-- Image -->
+            <img class="img-responsive" src="/img/docker.png" alt="">
+            <div class="image-hover"></div>
+            <!-- Image caption -->
+            <div class="image-caption">
+                <!-- Heading -->
+                <h4>Nov 9, 2015 by <a href="/author/dieter-hubau/">Dieter Hubau</a> </a></h4>
+            </div>
+        </div>
+        <!-- Image style five starts -->
+    </div>
+    <article class="post-content">
+        <h2 id="docker">Docker</h2>
+<p>Docker is a tool used for container creation for software applications. We have all been aware of the existence of containers for some time, but Docker creates a standard for describing these packages.
+Docker is used for three things: Build, Ship &amp; Run your software.</p>
+
+<h3 id="build">Build</h3>
+<p>Creation of a predefined container in a standardized way using the <strong>Docker CLI</strong>.
+Use a <code class="highlighter-rouge">dockerfile</code> containing a list of commands. The <code class="highlighter-rouge">FROM</code> command specifies an OS and additional software packages, eg. <code class="highlighter-rouge">FROM jboss/wildfly</code>. All  commands are compressed into one, customized image using the <strong>Docker CLI</strong>.</p>
+
+<h3 id="ship">Ship</h3>
+<p>Share the container via DockerHub or your private repository.</p>
+
+<blockquote>
+  <p>Sharing = caring!</p>
+</blockquote>
+
+<h3 id="run">Run</h3>
+<p>Docker runs on a minimal operating system and uses the Union File System. On the bottom level, there’s the Bootfs kernel, on which the chosen base image or OS runs and finally, the user images ontop of that.
+Hosts running Docker are very environment variables oriented, so by using variables in the commands or on the machine itself you configure your application. Any other communication is usually done over <strong>HTTP/REST</strong>. The Docker images are stored on the Docker host so the actual client is very thin. A Docker app runs on the Docker engine; this is in contrast with regular VMs, running on full-blown operating systems.</p>
+
+<h2 id="docker-machine">Docker Machine</h2>
+<p>Docker Machine allows you to get started with Docker on Mac or Windows. It features the <code class="highlighter-rouge">docker-machine</code> CLI and uses the <code class="highlighter-rouge">boot2docker</code> image (32Mb small) under the hood.</p>
+
+<blockquote>
+  <p>Docker Machine is preferred over boot2docker for development purposes, but it is not production-ready (yet!)</p>
+</blockquote>
+
+<p>Easy way to set up a Docker host with docker-machine:
+<code class="highlighter-rouge">docker-machine create --driver=virtualbox myhost</code></p>
+
+<p>Listing all the installed Docker images:
+<code class="highlighter-rouge">docker-machine ls</code></p>
+
+<p>Listing all the environment variables of a newly created Docker container:
+<code class="highlighter-rouge">docker-machine env myhost</code></p>
+
+<p>Docker Machine is also used to start, stop or restart containers. It even allows to update Docker itself.
+Many existing plugins provide support for various cloud platforms.</p>
+
+<h2 id="boot2docker">Boot2Docker</h2>
+<p>An earlier version of docker-machine. As said above, it is being used by <code class="highlighter-rouge">docker-machine</code> under the hood.</p>
+
+<blockquote>
+  <p>My advice: migrate to docker-machine, at least for development purposes.</p>
+</blockquote>
+
+<h2 id="docker-toolbox">Docker Toolbox</h2>
+<p>Easily the best tool to get started with Docker.</p>
+
+<ul>
+  <li><a href="http://docs.docker.com/windows/started/">Windows</a></li>
+  <li><a href="http://docs.docker.com/mac/started/">MacOS</a></li>
+</ul>
+
+<h2 id="hands-on-docker">Hands-on Docker</h2>
+<ul>
+  <li><code class="highlighter-rouge">docker help</code>for all your docker needs!</li>
+  <li><code class="highlighter-rouge">docker ps</code>to check the running containers</li>
+  <li><code class="highlighter-rouge">docker images</code>to check your images</li>
+  <li><code class="highlighter-rouge">docker build</code>for quick build</li>
+  <li><code class="highlighter-rouge">docker run -it ubuntu sh</code> for quick running an image in a shell</li>
+</ul>
+
+<blockquote>
+  <p>Docker images are like diapers: if they get shitty, throw’em away and take a fresh one.</p>
+</blockquote>
+
+<h2 id="docker-compose">Docker Compose</h2>
+<p>Allows you to define and run multi-container applications. It has all the commands the regular Docker has <strong>and more</strong>.
+It provides a new way to link containers.</p>
+
+<p>Configuration is defined in one or more <code class="highlighter-rouge">docker-compose.yml</code> (default) or <code class="highlighter-rouge">docker-compose.override.yml</code> (default) files.
+It is a great tool for setting up Development, Staging and Continuous Integration (CI) environments.</p>
+
+<blockquote>
+  <p>Docker container linking is so passé</p>
+</blockquote>
+
+<p>A problem with container linking was that there was no possible way to work with different hosts. Docker Compose solves this by using volume mapping.
+It can help with running multi-host environments:</p>
+
+<ul>
+  <li><strong>Bridge</strong> network span single host</li>
+  <li><strong>Overlay</strong> network spans multiple hosts</li>
+</ul>
+
+<blockquote>
+  <p>Software defined networking is possible and preferred! Docker Compose solves this problem but it should still be used cautiously in production!</p>
+</blockquote>
+
+<p>Starting a set of Docker images using Docker Compose is easy:
+<code class="highlighter-rouge">docker-compose up -f docker-compose.yml -f production.yml -d</code></p>
+
+<h2 id="docker-swarm">Docker Swarm</h2>
+<p>Docker Swarm provides native clustering for Docker, fully integrated with Machine &amp; Compose. It either uses Etcd, Consul, Zookeeper or other solutions to store the cluster ID.
+Whenever you create a Docker Machine, you can add it to the cluster. It also serves the standard Docker API so anything that works on Docker, will work on multi-host environments.</p>
+
+<blockquote>
+  <p>They say the new Docker Swarm v1.0.0 release is production ready: I still have my doubts!</p>
+</blockquote>
+
+<h2 id="references">References</h2>
+<ul>
+  <li>Docker Docs are the de facto standard reference and are very well documented. They contain information on <a href="https://docs.docker.com">Docker</a>, <a href="https://docs.docker.com/machine">Machine</a>, <a href="https://docs.docker.com/compose">Compose</a> &amp; <a href="https://docs.docker.com/swarm">Swarm</a>: <a href="https://docs.docker.com/">https://docs.docker.com/</a></li>
+  <li>Samples: <a href="https://github.com/javaee-samples/docker-java">https://github.com/javaee-samples/docker-java</a></li>
+</ul>
+
+<h2 id="questions-or-remarks">Questions or Remarks</h2>
+<ul>
+  <li>Contact <a href="https://twitter.com/arungupta">@arungupta</a>  or <a href="https://twitter.com/dhubau">@Turbots</a> on Twitter</li>
+  <li>Create an issue or start a discussion on the Github repository (or on <a href="https://gitter.im/docker/docker">Gitter</a>)</li>
+</ul>
+
+    </article>
+    <hr />
+    <blockquote>
+        
+            <p>Dieter is a Senior Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he helps fellow developers as a Competence Leader for the Cloud &amp; PaaS Competence Center by giving workshops, talks and courses about the newest technologies. In his spare time, Dieter enjoys playing soccer, running, (online) gaming and fiddling around with all kinds of fancy new software.</p>
+
+        
+    </blockquote>
+</div>
+        </div>
+    </div>
+    <!-- Main content ends -->
+</div>
+<!-- Footer Starts -->
+<footer class="footer">
+    <!-- Container -->
+    <div class="container">
+        <!-- Foot Starts -->
+        <div class="foot">
+            <!-- Container -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-user"></i>&nbsp;&nbsp;Disclaimer</h5>
+
+                            <p>Opinions expressed on this blog reflect the writer’s views and not the position of
+                                Ordina.</p>
+
+                            <div class="brand-bg">
+                                <a target="_blank" href="https://www.facebook.com/lifeatordinabe" class="facebook"><i
+                                        class="fa fa-facebook circle-3"></i></a>
+                                <a target="_blank" href="https://twitter.com/lifeatordinabe"
+                                   class="twitter"><i
+                                        class="fa fa-twitter circle-3"></i></a>
+                                <a target="_blank" href="https://www.linkedin.com/company/ordina-belgium"
+                                   class="linkedin"><i
+                                        class="fa fa-linkedin circle-3"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-comments"></i>&nbsp;&nbsp;Recent Posts</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content">
+                                <ul class="list-unstyled">
+                                    
+                                    <li>
+                                        <span>05 Mar 2016</span> &raquo;
+                                        <a href="/spring/2016/03/05/HTTP-Public-Key-Pinning-with-Spring-Security.html">
+                                            HTTP Public Key Pinning with Spring Security</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>06 Feb 2016</span> &raquo;
+                                        <a href="/spring/2016/02/06/Generating-Spring-REST-Docs-without-using-integration-tests.html">
+                                            Generating Spring REST Docs without using integration tests</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>02 Feb 2016</span> &raquo;
+                                        <a href="/domain-driven%20design/2016/02/02/A-Decade-Of-DDD-CQRS-And-Event-Sourcing.html">
+                                            A decade of DDD, CQRS and Event Sourcing</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>29 Jan 2016</span> &raquo;
+                                        <a href="/domain-driven%20design/2016/01/29/DDDEU16-Odds-and-Ends.html">
+                                            oDDs and enDs: Vaughn Vernon  on software projects in peril</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>29 Jan 2016</span> &raquo;
+                                        <a href="/domain-driven%20design/2016/01/29/DDD-Europe-Heuristics-from-the-Trenches.html">
+                                            Heuristics from the Trenches by Cyrille Martraire</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>28 Jan 2016</span> &raquo;
+                                        <a href="/domain-driven%20design/2016/01/28/Evolution-of-DDD.html">
+                                            Eric Evans about the evolution of Domain-Driven Design</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>09 Nov 2015</span> &raquo;
+                                        <a href="/devoxx/2015/11/09/Devoxx15-Docker-Kubernetes.html">
+                                            #Devoxx Arun Gupta talks Docker</a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-building-o"></i>&nbsp;&nbsp;Contact Us</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content address">
+                                <!-- Heading -->
+                                <h6 class="bold"><i class="fa fa-home"></i>&nbsp;&nbsp;Ordina Belgium</h6>
+                                <!-- Paragraph -->
+                                <p class="add">
+                                    Blarenberglaan 3B,<br/>
+                                    Mechelen 2800, Belgium.</p>
+
+                                <p class="tel"><i class="fa fa-phone"></i> Tel : + (32) - 15 29 58 58<br/>
+                                    <i class="fa fa-envelope"></i> Mail : <a href="#">info@ordina.be</a><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Foot Ends -->
+        <!-- Footer Content -->
+        <p class="pull-left">Copyright &copy; 2016 - <a href="#">Ordina JWorks</a></p>
+        <ul class="list-inline pull-right">
+            <!-- List -->
+            <li><a href="/">Home</a>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/contact/">Contact</a></li>
+        </ul>
+        <!-- Clearfix -->
+        <div class="clearfix"></div>
+    </div>
+</footer>
+<!-- Footer Ends -->
+
+<!-- Outer Ends -->
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-angle-up bg-color"></i></a></span>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/placeholders.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/respond.min.js"></script>
+<script src="/js/html5shiv.js"></script>
+<script src="/js/main.js"></script>
+
+<script src="/js/imagesloaded.min.js"></script>
+<script src="/js/masonry.js"></script>
+
+<!-- Javascript for this page -->
+<script>
+    // Initialize Masonry
+    var $box = $('.blog-masonry').masonry();
+    // Layout Masonry again after all images have loaded
+    $box.imagesLoaded(function () {
+        $box.masonry();
+    });
+</script>
+
+<!-- Custom JS. Type your JS code in custom.js file -->
+<script src="/js/custom.js"></script>
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>
