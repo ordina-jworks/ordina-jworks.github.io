@@ -5,6 +5,7 @@ title: 'Eric Evans about the evolution of Domain-Driven Design'
 image: /img/DDDEurope2015.jpg
 tags: [Domain-Driven Design, DDD, Software Craftmanship]
 category: Domain-Driven Design
+comments: true
 ---
 
 > Why is it that DDD only has its own conference after 13 years? Why is this becoming a sudden hype? Why does it gain popularity and is it mentioned so many times in microservices presentations? Eric Evans talks on [DDDEurope](http://dddeurope.com/2016/eric-evans.html) about the core idea behind Domain-Driven Design and its evolution over the last few years.

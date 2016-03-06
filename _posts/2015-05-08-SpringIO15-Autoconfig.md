@@ -5,6 +5,7 @@ title: 'Master Spring Boot auto-configuration'
 image: /img/springio.jpg
 tags: [Spring]
 category: Spring
+comments: true
 ---
 
 >Spring boot allows you to extend its convention-over-configuration approach by creating your own autoconfigurations. There are some important details you shouldn't forget.

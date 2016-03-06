@@ -5,6 +5,7 @@ title: 'Spring I/O 2015 Barcelona'
 image: /img/springio.jpg
 tags: [Spring]
 category: Spring
+comments: true
 ---
 
 >Last week Barcelona was the place to be for Spring enthusiasts. With tons of Pivotal speakers and many more community leaders it was a two-day goldmine for anyone looking to update their Spring knowledge. This is my report ranging many different topics, including quite some one on one discussions and hacking sessions with the people behind the Spring ecosystem.

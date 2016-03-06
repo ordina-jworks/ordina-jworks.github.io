@@ -5,6 +5,7 @@ title: 'Applying software patterns to microservices'
 image: /img/jax2015_logo.jpg
 tags: [Microservices, Software Patterns]
 category: Microservices
+comments: true
 ---
 
 >During the week of October 12th, my colleagues Andreas Evers and Tim De Bruyn and me attended JAX London 2015. After attending over a dozen talks in three days, we went home with tons of insights about DevOps, microservices, Continuous Delivery, Spring Boot and much more. This is a write-up of Chris Richardson’s talk [A pattern language for microservices](https://jaxlondon.com/session/a-pattern-language-for-microservices/).

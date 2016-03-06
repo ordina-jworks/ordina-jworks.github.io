@@ -5,6 +5,7 @@ title: 'A decade of DDD, CQRS and Event Sourcing'
 image: /img/DDDEurope2015.jpg
 tags: [Domain-Driven Design, DDD, CQRS, Event Sourcing, Software Craftmanship]
 category: Domain-Driven Design
+comments: true
 ---
 
 > Command and Query Responsibility Segregation is the **most misinterpreted pattern** in software design. CQRS doesn’t mean eventual consistency, it’s not about eventing and messaging. It’s not even what most people believe about having separate models for reading and writing.

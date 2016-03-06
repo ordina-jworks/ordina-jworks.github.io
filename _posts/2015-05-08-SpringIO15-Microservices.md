@@ -5,6 +5,7 @@ title: '"Bootiful" Microservices in CloudFoundry & One on One with Josh Long'
 image: /img/springio.jpg
 tags: [Spring]
 category: Spring
+comments: true
 ---
 
 >Spring Boot, Spring Cloud and CloudFoundry: a perfect match. Josh Long explains how to build Spring Boot microservices, deploy them in CloudFoundry and manage them using the Netflix OSS stack through Spring Cloud. Including a One on One talk.

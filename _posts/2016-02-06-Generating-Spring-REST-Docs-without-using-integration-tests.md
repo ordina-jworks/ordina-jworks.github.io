@@ -5,6 +5,7 @@ title: 'Generating Spring REST Docs without using integration tests'
 image: /img/spring.png
 tags: [Spring, REST Docs, Spring REST Docs, Testing, Integration, Integration Test, Unit Test]
 category: Spring
+comments: true
 ---
 ## The problem
 
