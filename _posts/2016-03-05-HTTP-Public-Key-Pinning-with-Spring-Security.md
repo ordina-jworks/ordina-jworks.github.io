@@ -1,10 +1,10 @@
 ---
 layout: post
-category: spring
 author: tim_ysewyn
-image: /img/spring-security-logo.png
 title: 'HTTP Public Key Pinning with Spring Security'
-tags: [spring, security, spring security, hpkp, public key pinning]
+image: /img/spring-security-logo.png
+tags: [Spring, Security, Spring Security, HPKP, Public Key Pinning]
+category: Spring
 ---
 ## What kind of sorcery is this?
 

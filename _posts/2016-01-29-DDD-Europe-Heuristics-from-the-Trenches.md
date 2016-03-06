@@ -3,8 +3,8 @@ layout: post
 author: yannick_de_turck
 title: 'Heuristics from the Trenches by Cyrille Martraire'
 image: /img/DDDEurope2015.jpg
-tags: [domain-driven design, software craftmanship]
-category: domain-driven design
+tags: [Domain-Driven Design, DDD, Software Craftmanship]
+category: Domain-Driven Design
 ---
 > "Communication usually fails, except by accident" - Osmo Wiio
 

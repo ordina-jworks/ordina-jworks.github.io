@@ -3,8 +3,8 @@ layout: post
 author: dieter_hubau
 title: '#Devoxx Arun Gupta talks Docker'
 image: /img/docker.png
-tags: [docker, devoxx]
-category: devoxx
+tags: [Docker, Devoxx]
+category: Devoxx
 ---
 ## Docker
 Docker is a tool used for container creation for software applications. We have all been aware of the existence of containers for some time, but Docker creates a standard for describing these packages.

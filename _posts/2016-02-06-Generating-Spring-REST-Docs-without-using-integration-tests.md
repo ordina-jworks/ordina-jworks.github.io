@@ -1,10 +1,10 @@
 ---
 layout: post
-category: spring
 author: tim_ysewyn
-image: /img/spring.png
 title: 'Generating Spring REST Docs without using integration tests'
-tags: [spring, rest docs, spring rest docs, test, integration, integration test, unit test]
+image: /img/spring.png
+tags: [Spring, REST Docs, Spring REST Docs, Testing, Integration, Integration Test, Unit Test]
+category: Spring
 ---
 ## The problem
 

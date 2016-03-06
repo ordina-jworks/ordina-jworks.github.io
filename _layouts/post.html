@@ -7,22 +7,19 @@ layout: default
     <div class="row">
         <div class="col-md-12">
             <h1>{{ page.title }}</h1>
+            <p id="post-meta">
+                Posted {{ page.date | date: "%b %-d, %Y" }}{% if page.category %} in {{ page.category }}{% endif %}{% if author %} by <a href="{{ author.permalink | prepend: site.baseurl }}">{{author.first_name}} {{author.last_name}}</a> {% endif %}
+                {% if page.tags %}
+                    <br />
+                    <i class="fa fa-tags"></i>
+                        {% for tag in page.tags %}
+                            {{ tag }}{% if forloop.index < forloop.length %},{% endif %}
+                        {% endfor %}
+                {% endif %}
+            </p>
         </div>
     </div>
-    <div class="image-block">
-        <!-- Image style five starts -->
-        <div class="image-style-five">
-            <!-- Image -->
-            <img class="img-responsive" src="{{ page.image | prepend: site.baseurl }}" alt="">
-            <div class="image-hover"></div>
-            <!-- Image caption -->
-            <div class="image-caption">
-                <!-- Heading -->
-                <h4>{{ page.date | date: "%b %-d, %Y" }}{% if author %} by <a href="{{ author.permalink | prepend: site.baseurl }}">{{author.first_name}} {{author.last_name}}</a> {% endif %}</a></h4>
-            </div>
-        </div>
-        <!-- Image style five starts -->
-    </div>
+    <br />
     <article class="post-content">
         {{ content }}
     </article>

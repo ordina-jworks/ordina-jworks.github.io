@@ -3,8 +3,8 @@ layout: post
 author: tom_verelst
 title: 'oDDs and enDs: Vaughn Vernon  on software projects in peril'
 image: /img/DDDEurope2015.jpg
-tags: [domain-driven design, software craftmanship]
-category: domain-driven design
+tags: [Domain-Driven Design, DDD, Software Craftmanship]
+category: Domain-Driven Design
 ---
 
 > There's an interesting situation you will find in many software development projects.
