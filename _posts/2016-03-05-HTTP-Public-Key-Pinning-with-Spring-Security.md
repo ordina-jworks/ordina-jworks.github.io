@@ -18,6 +18,7 @@ One caveat to remember is that HPKP uses a Trust On First Use ([TOFU](https://en
 
 A list of public key hashes will be served to the client via a special HTTP header by the web server, so clients can store this information for a given period of time.
 On subsequent connections within previous given period of time, the client expects a certificate containing a public key whose fingerprint is already known via HPKP.
+I **strongly** encourage you to read [this article](https://timtaubert.de/blog/2014/10/http-public-key-pinning-explained/) by Tim Taubert, where he explains what keys you should pin and what the different tradeoffs are.
 
 <br />
 
