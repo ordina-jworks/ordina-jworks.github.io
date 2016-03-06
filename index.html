@@ -28,8 +28,7 @@ layout: default
                 <!-- Widgets Content -->
                 <div class="widget-content">
                     {% for tag in site.tags %}
-                    <a href="/tags/{{tag[0] | downcase | replace:' ','-' }}.html" class="label label-color">{{tag[0]}}</a>
-                    {% endfor %}
+                        <a href="/tags/{{tag[0] | downcase | replace:' ','-' }}.html" class="label label-color">{{tag[0]}}</a> {% endfor %}
                 </div>
             </div>
 
@@ -58,8 +57,8 @@ layout: default
     </div>
 
     <!-- Mainbar column -->
-    <div class="col-md-10 blog-masonry">
-        {% for post in site.posts %}
+    <div class="col-md-9 blog-masonry">
+        {% for post in paginator.posts %}
         <!-- Grid Item - Image, Heading and Para -->
         <div class="item">
             <!-- Entry for each grid -->
@@ -67,7 +66,7 @@ layout: default
                 <!-- Grid Image Container -->
                 <div class="grid-img">
                     <!-- Image -->
-                    <a href="{{post.url}}" class="read-more"><img src="{{post.image}}" class="img-responsive" alt=""/></a>
+                    <a href="{{post.url}}" class="read-more"><img src="{{post.image}}" class="img-responsive" alt="" /></a>
                 </div>
                 <!-- Grid entry information -->
                 <div class="entry-info">
@@ -84,28 +83,30 @@ layout: default
         {% endfor %}
     </div>
     <!-- Pagination -->
-    {% if paginator.total_pages > 1 %}
-    <ul class="pagination">
-        {% if paginator.previous_page %}
-        <li><a rel="prev" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo; Prev</a></li>
-        {% else %}
-        <li>&laquo; Prev</li>
+    <div class="col-md-12 blog-masonry">
+        {% if paginator.total_pages > 1 %}
+            <div class="pagination">
+                {% if paginator.previous_page %}
+                    <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo; Prev</a>
+                {% else %}
+                    <span>&laquo; Prev</span>
+                {% endif %}
+                {% for page in (1..paginator.total_pages) %}
+                    {% if page == paginator.page %}
+                        <em>{{ page }}</em>
+                    {% elsif page == 1 %}
+                        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a>
+                    {% else %}
+                        <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if paginator.next_page %}
+                    <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Next &raquo;</a>
+                {% else %}
+                    <span>Next &raquo;</span>
+                {% endif %}
+            </div>
         {% endif %}
-        {% for page in (1..paginator.total_pages) %}
-        {% if page == paginator.page %}
-        <li>{{ page }}</li>
-        {% elsif page == 1 %}
-        <li><a href="{{ '/archives' | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a></li>
-        {% else %}
-        <li><a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a></li>
-        {% endif %}
-        {% endfor %}
-        {% if paginator.next_page %}
-        <li><a rel="next" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Next &raquo;</a></li>
-        {% else %}
-        <li>Next &raquo;</li>
-        {% endif %}
-    </ul>
-    {% endif %}
+    </div>
     <!-- End Pagination -->
 </div>
