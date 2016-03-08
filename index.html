@@ -4,6 +4,68 @@ layout: default
 
 <!-- blog One -->
 <div class="row">
+    <!-- Mainbar column -->
+    <div class="col-md-9">
+        <div class="row blog-masonry">
+            {% for post in paginator.posts %}
+            <!-- Post Item -->
+            <div class="col-xs-6 col-md-4 item">
+                <div class="grid-entry">
+                    <!-- Post Image Container -->
+                    <div class="grid-img">
+                        <a href="{{post.url}}" class="read-more"><img src="{{post.image}}" class="max-height-120 img-responsive" alt="" /></a>
+                    </div>
+                    <!-- Post Information -->
+                    <div class="entry-info">
+                        <h4><a href="{{post.url}}">{{post.title}}</a></h4>
+
+                        <div class="bor"></div>
+                        <!-- Paragraph -->
+                        <p>{{post.heading}}</p>
+                        <a href="{{post.url}}" class="read-more">Read More <i class="fa fa-angle-double-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <!-- Pagination -->
+            {% if paginator.total_pages > 1 %}
+            <nav class="col-md-9">
+                <ul class="pagination center-block">
+                    {% if paginator.previous_page %}
+                        <li>
+                          <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                    {% endif %}
+                    {% for page in (1..paginator.total_pages) %}
+                        {% if page == 1 %}
+                            {% capture url %}
+                                {{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}
+                            {% endcapture %}
+                        {% else %}
+                            {% capture url %}
+                                {{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}
+                            {% endcapture %}
+                        {% endif %}
+                        <li><a href="{{ url }}" {% if page == paginator.page %}class="disabled"{% endif %}>{{ page }}</a></li>
+                    {% endfor %}
+                    {% if paginator.next_page %}
+                        <li>
+                          <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+            <!-- End Pagination -->
+        </div>
+    </div>
+
     <!-- Sidebar column -->
     <div class="col-md-3">
         <!-- Sidebar -->
@@ -53,66 +115,6 @@ layout: default
                 </div>
             </div>
 
-        </div>
-    </div>
-
-    <!-- Mainbar column -->
-    <div class="col-md-9">
-        <div class="row">
-            {% for post in paginator.posts %}
-            <!-- Post Item -->
-            <div class="col-xs-6 col-md-4">
-                <!-- Post Image Container -->
-                <div>
-                    <a href="{{post.url}}" class="read-more"><img src="{{post.image}}" class="max-height-120 img-responsive" alt="" /></a>
-                </div>
-                <!-- Post Information -->
-                <div>
-                    <h4><a href="{{post.url}}">{{post.title}}</a></h4>
-
-                    <div class="bor"></div>
-                    <!-- Paragraph -->
-                    <p>{{post.heading}}</p>
-                    <a href="{{post.url}}" class="read-more">Read More <i class="fa fa-angle-double-right"></i></a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <div class="row">
-            <!-- Pagination -->
-            {% if paginator.total_pages > 1 %}
-            <nav class="col-md-9">
-                <ul class="pagination center-block">
-                    {% if paginator.previous_page %}
-                        <li>
-                          <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                          </a>
-                        </li>
-                    {% endif %}
-                    {% for page in (1..paginator.total_pages) %}
-                        {% if page == 1 %}
-                            {% capture url %}
-                                {{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}
-                            {% endcapture %}
-                        {% else %}
-                            {% capture url %}
-                                {{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}
-                            {% endcapture %}
-                        {% endif %}
-                        <li><a href="{{ url }}" {% if page == paginator.page %}class="disabled"{% endif %}>{{ page }}</a></li>
-                    {% endfor %}
-                    {% if paginator.next_page %}
-                        <li>
-                          <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                          </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </nav>
-            {% endif %}
-            <!-- End Pagination -->
         </div>
     </div>
 </div>
