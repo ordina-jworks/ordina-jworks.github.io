@@ -16,8 +16,8 @@ module Jekyll
         def initialize( site, base, category )
             @site = site
             @base = base
-            @dir = 'categories'
-            @name = "#{category.downcase.gsub(' ','-')}.html"
+            @dir = "categories/#{category.downcase.gsub(' ','-')}"
+            @name = "index.html"
             
             self.process(@name)
             self.read_yaml(File.join(base, '_layouts'), 'by_category.html')

@@ -16,8 +16,8 @@ module Jekyll
         def initialize( site, base, tag )
             @site = site
             @base = base
-            @dir = 'tags'
-            @name = "#{tag.downcase.gsub(' ','-')}.html"
+            @dir = "tags/#{tag.downcase.gsub(' ','-')}"
+            @name = "index.html"
             
             self.process(@name)
             self.read_yaml(File.join(base, '_layouts'), 'by_tag.html')
