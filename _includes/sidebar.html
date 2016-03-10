@@ -1,0 +1,51 @@
+<!-- Sidebar column -->
+<div class="col-md-3">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Categories Widget -->
+        <div class="s-widget">
+            <!-- Heading -->
+            <h5><i class="fa fa-folder color"></i>&nbsp; Categories</h5>
+            <!-- Widgets Content -->
+            <div class="widget-content categories">
+                <ul class="list-6">
+                    {% for cat in site.categories %}
+                        <li><a href="/categories/{{cat[0] | downcase | replace:' ','-' }}">{{cat[0]}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tag Widget -->
+        <div class="s-widget">
+            <h5><i class="fa fa-tags color"></i>&nbsp; Tags</h5>
+            <!-- Widgets Content -->
+            <div class="widget-content">
+                {% for tag in site.tags %}
+                    <a href="/tags/{{tag[0] | downcase | replace:' ','-' }}" class="label label-color">{{tag[0]}}</a> {% endfor %}
+            </div>
+        </div>
+
+        <!-- Social media widget -->
+        <div class="s-widget">
+            <h5><i class="fa fa-share color"></i>&nbsp; Social Media</h5>
+            <!-- Widgets Content -->
+            <div class="widget-content brand-bg">
+                <!-- Social Media Icons -->
+                <a target="_blank" href="https://www.facebook.com/lifeatordinabe" class="facebook"><i
+                        class="fa fa-facebook square-3 rounded-1"></i></a>
+                <a target="_blank" href="https://twitter.com/lifeatordinabe" class="twitter"><i
+                        class="fa fa-twitter square-3 rounded-1"></i></a>
+                <a target="_blank" href="https://plus.google.com/113222464071666722451/videos" class="google-plus"><i
+                        class="fa fa-google-plus square-3 rounded-1"></i></a>
+                <a target="_blank" href="https://www.linkedin.com/company/ordina-belgium" class="linkedin"><i
+                        class="fa fa-linkedin square-3 rounded-1"></i></a>
+                <a target="_blank" href="https://github.com/ordina-jworks" class="github"><i
+                        class="fa fa-github square-3 rounded-1"></i></a>
+                <a target="_blank" href="https://www.youtube.com/channel/UCYP5uoJpDFU4v47ElI_k6xg" class="youtube"><i
+                        class="fa fa-youtube square-3 rounded-1"></i></a>
+            </div>
+        </div>
+
+    </div>
+</div>
