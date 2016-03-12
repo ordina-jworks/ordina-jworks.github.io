@@ -23,7 +23,7 @@ In such an instance, the authenticity is being "repudiated".
 
 ## Meet JOSE
 
-[JOSE](https://www.iana.org/assignments/jose/jose.xhtml) is a framework intended to provide a method to securely transfer claims (such as authorization information) between parties.
+[JOSE](https://www.iana.org/assignments/jose/jose.xhtml) is a framework intended to provide a method to securely transfer claims (such as authorisation information) between parties.
 The JOSE framework consists of several specifications to serve this purpose:
 
 - [JWK](#jwk) – JSON Web Key, describes format and handling of cryptographic keys in JOSE
@@ -54,14 +54,14 @@ The first of them "kty" defines the key type, which is a mandatory field.
 Depending on the type you've chosen other parameters can be set, like you see above.
 As our type is EC, or Elliptic Curve, we want to specify the type of curve and our point.
 Next to these parameters we also have the optional “use” to denote intended usage of the key and “kid” as key ID.
-At the time of writing there are 3 supported key types: "EC", "RSA" and "oct".
-While "EC" and "RSA" are used for assymmetric encryption, "oct" is used for symmetric encryption
+At the time of writing there are three supported key types: "EC", "RSA" and "oct".
+While "EC" and "RSA" are used for asymmetric encryption, "oct" is used for symmetric encryption
 
 <br />
 
 ## JWS
 
-The JSON Web Signature ([RFC7515](https://tools.ietf.org/html/rfc7515)) standard describes the process of creation and validation of a datastructure representing a signed payload.
+The JSON Web Signature ([RFC7515](https://tools.ietf.org/html/rfc7515)) standard describes the process of creation and validation of a data structure representing a signed payload.
 Assume someone wants to transfer an amount of money to his savings account.
 This action could be represented like the following JSON:
 
@@ -96,7 +96,7 @@ All parameters are included in the final JWS.
 These can either be sent as a protected or unprotected header.
 The data in the unprotected header is human readable associated data, whereas data in the protected header is integrity protected and base64url encoded.
 Assume we want to sign our payload using a key like we generated in the previous section.
-Our datastructure would look like this:
+Our data structure would look like this:
 
 {% highlight json %}
     { 
@@ -111,9 +111,9 @@ eyAKICAgICAgICAiYWxnIjogIlJTMjU2IgogICAgfQ==
 {% endhighlight %}
 
 The base64url encoded payload and protected header are concatenated with a ‘.’ to form raw data, which is fed to the signature algorithm to produce the final signature.
-Finally all of this output will be serialized using one the JSON or Compact serializations.
-Compact serialization is simple concatenation of dot separated base64url encoded protected header, payload and signature.
-JSON serialization is a human readable JSON object, which for the example in this section would look like this:
+Finally all of this output will be serialized using one the JSON or Compact serialisations.
+Compact serialisation is simple concatenation of dot separated base64url encoded protected header, payload and signature.
+JSON serialisation is a human readable JSON object, which for the example in this section would look like this:
 
 {% highlight json %}
     {
@@ -125,7 +125,7 @@ JSON serialization is a human readable JSON object, which for the example in thi
     }
 {% endhighlight %}
 
-Before we conclude this section, there is 1 more thing I would like to share with you.
+Before we conclude this section, there is one more thing I would like to share with you.
 Because we want to sign and protect our messages, we always want to use asymmetric encryption.
 But, once our private key has been captured, anyone who has this can forge transactions.
 One way that **COULD** counter this is to generate a new key pair every session, or even per transaction.
@@ -179,11 +179,13 @@ These claims are not mandatory to be used or implement in all cases, but they ra
 
 ## So, how do we sign this JSON document in code?
 
-Ranging from Java and .NET to Node.js, there are already a lot of libraries available on the [interwebz](https://jwt.io/#libraries-io).
-And even JavaScipt has its own implementation of the standard!
+Ranging from Java and .NET to Node.js, there are already a lot of libraries available on the [internet](https://jwt.io/#libraries-io).
+And even JavaScript has its own implementation of the standard!
 
 Because of its fluent API, we are using the Java JWT implementation in this post.
-Since not all algorithms are implemtented in Java, we are also going to use Bouncy Castle as our [JCA](https://en.wikipedia.org/wiki/Java_Cryptography_Architecture) provider.
+Since not all algorithms are implemented in Java, we are also going to use Bouncy Castle as our [JCA](https://en.wikipedia.org/wiki/Java_Cryptography_Architecture) provider.
+
+In our maven configuration we just add following two dependencies:
 
 {% highlight xml %}
     <dependency>
@@ -196,6 +198,13 @@ Since not all algorithms are implemtented in Java, we are also going to use Boun
         <artifactId>bcprov-jdk15on</artifactId>
         <version>1.54</version>
     </dependency>
+{% endhighlight %}
+
+If you are working with a gradle project it would be:
+
+{% highlight gradle %}
+    runtime 'io.jsonwebtoken:jjwt:0.6.0',
+            'org.bouncycastle:bcprov-jdk15on:1.54'
 {% endhighlight %}
 
 If we were to implement the examples from the previous sections, we would start of with generating a new public-private key pair.
@@ -223,7 +232,7 @@ First it is going the create a header if not already present and it will add the
 After that it will base64url encode that header and will append this with a ‘.’ and the encoded payload.
 This whole blob of data will then be signed using the private key of the previously generated key pair.
 Last, but not least, is the `compact` method.
-This will just output the base64url encoded header and payload with the generated signature, and all 3 parts are seperated wit ha dot.
+This will just output the base64url encoded header and payload with the generated signature, and all parts are separated with a dot.
 An outcome would be something like:
 
 {% highlight text %}
@@ -234,7 +243,7 @@ ZXlBS0lDQWdJQ0FnSUNBaVpuSnZiU0k2ZXdvZ0lDQWdJQ0FnSUNBZ0lDQWlibUZ0WlNJNklDSlVhVzBn
 MEYCIQCcwunLBiuHu2z_SlDVJyZuQv0NU8X4VYoOFN1EuIvObQIhAJeZuTeZw9k5uhpBc60iT13s3yb01ItSB2MhEd5pUSqC
 {% endhighlight %}
 
-We splitted the 3 parts for better visualisation, the JWS would be one large `String`
+We split the three parts for better visualisation, the JWS would be one large `String`
 
 <br />
 
@@ -258,12 +267,12 @@ To parse the JWS, we use the `parse()` method.
 Depending wether it is signed or not we might need to set the key for validation.
 In our case we need to specify the public key of our asymmetric key pair.
 If we would try to parse the JWS without a key an `IllegalArgumentException` will be thrown.
-Should a wrong public key have been provided a `SignatureException` will be thrown, telling us to **not** trust this JWS.
+Should a wrong public key have been provided a `SignatureException` would be thrown, telling us to **not** trust this JWS.
 
 If we were to pass our public key in the protected header like we said in the [JWS section](#jws), we should use the `setSigningKeyResolver()` method.
 This custom resolver would read out the "jwk" field from the protected header and return a public key based on the data that was provided.
 
-Our own `SigningKeyResolver` implementation looks like this:
+Our own `SigningKeyResolver` implementation could look like this:
 
 {% highlight java %}
     public class ECPublicSigningKeyResolver implements SigningKeyResolver {
@@ -315,3 +324,25 @@ First we read all our data from the "jwk" field.
 Next we retrieve the `ECNamedCurveParameterSpec` based on the "crv" field and assemble a new `ECParameterSpec`.
 After that we create a new `ECPublicKeySpec` with the `ECParameterSpec` and an `ECPoint` out of the x and y coordinates.
 Finally we get a `KeyFactory` instance for our key type "kty" and generate the public key with our `ECPublicKeySpec`.
+
+<br />
+
+## Conclusion
+
+JOSE is a simple, compact and lightweight framework to sign and encrypt your payload messages.
+Because of the combination of base64url encoded messages and JSON data structures it is web friendly.
+With the wide range of libraries this can be used across platforms with native and hybrid applications, even web applications can use this!
+One particular disadvantage with the usage of the compact dot notation though is that you can't send unprotected header data anymore.
+
+<br />
+
+## Final note
+
+Above examples should only be used as reference. In a production environment we need to use both JWS and JWE.
+One could embed a public key of an asymmetric key pair in the application.
+During login a new symmetric key will be generated, encrypted with that public key and sent to the server.
+This symmetric key can only be decrypted by the server with the private key, and should then be stored in the session.
+Every time we need to sign a JSON document, we would use the symmetric key to encrypt the JWS using JWE.
+
+It doesn't matter how you encrypt your messages, and which algorithms you use.
+Once your application has been hacked, the whole system is vulnerable.
