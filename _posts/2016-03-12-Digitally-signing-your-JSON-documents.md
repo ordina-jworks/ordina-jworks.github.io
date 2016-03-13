@@ -332,7 +332,7 @@ Finally we get a `KeyFactory` instance for our key type "kty" and generate the p
 JOSE is a simple, compact and lightweight framework to sign and encrypt your payload messages.
 Because of the combination of base64url encoded messages and JSON data structures it is web friendly.
 With the wide range of libraries this can be used across platforms with native and hybrid applications, even web applications can use this!
-One particular disadvantage with the usage of the compact dot notation though is that you can't send unprotected header data anymore.
+One particular disadvantage with the use of the compact dot notation is that you can't send unprotected header data anymore.
 
 <br />
 
