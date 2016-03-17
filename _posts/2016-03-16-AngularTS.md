@@ -74,7 +74,7 @@ It is possible that you have to declare the referencing on the top of your file.
 
 ### Angular Modules
 Modules are here to help us modularize our code.
-But it is important to know that if you’re not planning to share or declare related functionality.
+But it is important to know that if you’re not planning to make third libraries or use separated common code.
 It is a best practice to use only one main module as the root of your application. 
 To let the module know of the existence of every component, they have to register themselves.
 Below every component declaration you will see a registration to the module. 
