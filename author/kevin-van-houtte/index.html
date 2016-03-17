@@ -98,66 +98,84 @@
         <!-- Page heading two ends -->
 
         <div class="container tk-acumin-pro">
-            <div class="post">
-    
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Master Spring Boot auto-configuration</h1>
-            <p id="post-meta">
-                Posted May 8, 2015 in <a href="/categories/spring/">Spring</a> by <a href="/author/andreas-evers/">Andreas Evers</a> 
+            <div class="row">
+    <div class="col-md-3 col-sm-12">
+        <div class="team-six">
+            <!-- Team Member -->
+            <div class="team-member">
+                <!-- Image -->
+                <img class="img-responsive p-image" src="/img/author/kevin-van-houtte.jpg"
+                     alt=""/>
+                <!-- Name -->
+                <h4>Kevin Van Houtte</h4>
+                <span class="deg">Software Consultant Java/JavaScript</span>
                 
-                    <br />
-                    <i class="fa fa-tags"></i>
-                        
-                            <a href="/tags/spring/">Spring</a>
-                        
-                
-            </p>
+                <!-- Team Links -->
+                <div class="team-links">
+                    
+                    <a href="mailto:kevin.vanhouttet@ordina.be"><i class="fa fa-envelope"></i></a>
+                    
+                    
+                    <a href="https://www.twitter.com/KevinVHoutte" target="_blank"><i class="fa fa-twitter"></i></a>
+                    
+                    
+                    <a href="https://www.github.com/kevindahub" target="_blank"><i class="fa fa-github"></i></a>
+                    
+                    
+                    <a href="https://be.linkedin.com/in/kevin-van-houtte-55ba936a" target="_blank"><i class="fa fa-linkedin"></i></a>
+                    
+                    
+                </div>
+            </div>
         </div>
     </div>
-    <br />
-    <article class="post-content">
-        <blockquote>
-  <p>Spring boot allows you to extend its convention-over-configuration approach by creating your own autoconfigurations. There are some important details you shouldn’t forget.</p>
-</blockquote>
-
-<h3 id="master-spring-boot-auto-configuration">Master Spring Boot auto-configuration</h3>
-
-<p><em>Speaker: Stéphane Nicoll - <a href="http://www.springio.net/master-spring-boot-auto-configuration/">Talk &amp; speaker description</a></em></p>
-
-<p><img class="p-image float-image" alt="Stéphane Nicoll" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas10.png" />In order to create your own autoconfiguration, it’s important to remember the <strong>spring.factories</strong> file in the META-INF folder of the autoconfiguration project.</p>
-
-<p>The autoconfiguration class itself should have @Configuration (of course) and utilise conditional annotations as much as possible. Especially on the bean initializations the rule of thumb is the more <strong>conditionals</strong> the better. This enables users of your autoconfiguration to override specific elements of the autoconfiguration class. Aside from fully overriding beans, you can also expose properties under your own namespace. Together both these concepts allow small configuration-based modifications and bigger bean-overriding modifications by the user.</p>
-
-<p>Spring offers many types of Conditional annotations. The regular ConditionalOnClass or ConditionalOnMissingClass and ConditionalOnBean or ConditionalOnMissingBean are the most common, but also ConditionalOnProperty, OnResource, OnExpression and others are possible. You can even have nested conditions and for the most specific needs you can always write your own conditional annotation with whatever logic you require.</p>
-
-<p>By looking how Spring’s autoconfiguration classes are built, it’s easy to figure out how to do it yourself. Especially the ConfigurationProperties are pretty straight forward once you see an example. Don’t forget to put the @EnableConfigurationProperties annotation on your autoconfiguration class however.
-To expose your <strong>configurationproperties</strong> to IntelliJ, the trick is in the maven dependencies. You should add the “spring-boot-configuration-processor” dependency. This will generate metadata regarding the properties of your autoconfiguration which IntelliJ uses. Once that’s done, IntelliJ will also autocomplete your properties in the property files.
-Support for yml configuration autocompletion in IntelliJ is coming by the way.</p>
-
-<p>Once your autoconfiguration class is created, it’s a good idea to <strong>bundle</strong> it into a maven module that can be used as a dependency by other projects. It’s important to use the recommended naming convention for your modules - especially if you’re building autoconfiguration for the community - or it might clash with the modules from spring boot itself. The recommended naming is xyz-spring-boot-autoconfigure and xyz-spring-boot-starter. The former module should contain the autoconfiguration class (and don’t forget the spring.factories file), and the latter should contain the recommended dependencies to enable the autoconfiguration. That way the user can independently have the autoconfiguration and the classes that enable it. The starter is entirely optional though.
-The spring.factories file should contain your configuration like this: a key being org.springframework.boot.autoconfigure.EnableAutoConfiguration with value the qualified name of your autoconfiguration class.</p>
-
-<p>To further allow the user to customize your autoconfiguration, you can expose a <strong>customize</strong> hook into your autoconfiguration. This should accept an xyzConfigCustomizer interface (you can create whatever interface you want basically) with a single customize method. This customize hook is executed after the autoconfiguration is executed, but before actual instantiation of the beans. The user then just has to create a bean that implements the customizer interface. <a href="https://github.com/snicoll-demos/spring-boot-master-auto-configuration/blob/master/hornetq-spring-boot-autoconfigure/src/main/java/hornetq/autoconfigure/HornetQAutoConfiguration.java">An example is available on GitHub.</a></p>
-
-<p>One final concern of autoconfiguration is the <strong>order</strong> in which they are executed. This applies to conditions inside the autoconfiguration but also to combined autoconfigurations. Always make sure the cheapest condition comes first. So expensive SpEL expression conditions should come after conditionalOnBeans. Between autoconfigurations you can use either the annotation @AutoConfigureBefore and After on the autoconfiguration class, or the @Order annotation. When no order or before or after condition is specified, there is no guarantee when the autoconfiguration will be executed.
-Conditions are being executed in two phases: PARSE_CONFIGURATION phase and REGISTER_BEAN phase. PARSE_CONFIGURATION evaluates the condition when the @Configuration-annotated class is parsed. This gives a chance to fully exclude the configuration class. REGISTER_BEAN evaluates the condition when a bean from a configuration class is registered. This does not prevent the configuration class to be added but it allows to skip a bean definition if the condition does not match (as defined by the matches method of the Condition interface).</p>
-
-<p>The slidedeck of this talk can be found here: <a href="https://speakerdeck.com/snicoll/master-spring-boot-auto-configuration">https://speakerdeck.com/snicoll/master-spring-boot-auto-configuration</a></p>
-
-    </article>
-    <hr />
-    <blockquote>
+    <div class="col-md-9 col-sm-12">
+        <h1>More information about Kevin</h1>
         
-            <p>Andreas is a principal Java consultant at Ordina, passionate about the Spring ecosystem, microservices, REST, clean code and best practices in general. An avid open source enthusiast and Spring contributor. Helps fellow developers as Competence Center leader for architecture and best practices by giving workshops, talks and courses about the newest technologies.</p>
+            <p>Kevin Van Houtte is a Software Engineer at Ordina Belgium. Passionate in the Spring ecosystem and Angular framework Kevin is eager to discover new and efficient ways to solve problems. He enjoys a good challenge and is interested in cutting edge technologies. Currently he works on a project with Microservices, Spring and Angular/TypeScript.</p>
 
         
-    </blockquote>
-    
-        <br /><br />
-        <div id="disqus_thread"></div>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-    
+    </div>
+    <div class="col-md-9 col-sm-12">
+        <h1>Articles</h1>
+        
+            
+                <div class="post">
+                    <a href="/angularjs,%20typescript/2016/03/16/AngularTS.html">AngularTS: A new look @ Angular</a>
+                </div>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
 </div>
         </div>
     </div>
@@ -316,15 +334,6 @@ Conditions are being executed in two phases: PARSE_CONFIGURATION phase and REGIS
 <script src="/js/custom.js"></script>
     
 <!-- Disqus -->
-
-    <script type="text/javascript">
-        var disqus_config = function () {
-            this.page.url = "https://ordina-jworks.github.io/spring/2015/05/08/SpringIO15-Autoconfig.html";
-            this.page.identifier = "/spring/2015/05/08/SpringIO15-Autoconfig.html";
-            this.page.title = "Master Spring Boot auto-configuration";
-        };
-    </script>
-    <script src="//ordina-jworks.disqus.com/embed.js" async></script>
 
 
 <!-- Google Analytics -->

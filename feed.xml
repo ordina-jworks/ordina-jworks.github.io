@@ -6,9 +6,390 @@
 </description>
     <link>https://ordina-jworks.github.io/</link>
     <atom:link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 17 Mar 2016 13:01:18 +0000</pubDate>
-    <lastBuildDate>Thu, 17 Mar 2016 13:01:18 +0000</lastBuildDate>
+    <pubDate>Thu, 17 Mar 2016 19:40:46 +0000</pubDate>
+    <lastBuildDate>Thu, 17 Mar 2016 19:40:46 +0000</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>AngularTS: A new look @ Angular</title>
+        <description>&lt;h2 id=&quot;combining-the-best-of-two-worlds&quot;&gt;Combining the best of two worlds.&lt;/h2&gt;
+
+&lt;p&gt;Since my introduction to the heroic AngularJS framework at Devoxx around 4 years ago.
+I was intrigued and set for an adventure.
+With the upcoming release of Angular 2 we have to prepare ourselves with the migrating road map coming up.
+One of the core changes in Angular was changing the code language to TypeScript.
+This blog will cover the use of Angular components in TypeScript.
+But what is this TypeScript? 
+TypeScript is a superset of JavaScript that focuses on strong typing and the new ES6 features: classes, interfaces and modules.
+Like in common Object-oriented languages such as Java and C# these features aren’t new.
+These features gives the developer the opportunity to build a object oriented architecture in JavaScript.
+With that in mind, let’s see what the advantages are:&lt;/p&gt;
+
+&lt;h3 id=&quot;transpiling&quot;&gt;Transpiling&lt;/h3&gt;
+&lt;p&gt;The DOM on your website can only recognize JavaScript.
+With this said they had to come up with a way to compile TS.
+Because TS is a superset of JS it can transpile to plain JavaScript before including it into HTML.
+Transpilers are integrated in the latest IDE’s. 
+Any valid JavaScript is valid TypeScript.&lt;/p&gt;
+
+&lt;h3 id=&quot;strongly-typed&quot;&gt;Strongly typed&lt;/h3&gt;
+&lt;p&gt;When you are used to plain JavaScript, you notice that every time you need a variable, your type is loosely typed.
+With TypeScript they give you the opportunity to give every variable its own type.
+This comes with great beneficials like better refactoring, less bugs and better type checking at compile time.&lt;/p&gt;
+
+&lt;h3 id=&quot;oo-architecture&quot;&gt;OO architecture&lt;/h3&gt;
+&lt;p&gt;TypeScript offers an Object-oriented architecture experience, which means all code is defined in classes, interfaces and most of those classes can be instantiated into objects. It also supports encapsulation, which protects the data from unintended access and modification.&lt;/p&gt;
+
+&lt;h2 id=&quot;learning-path-of-angularts&quot;&gt;Learning path of AngularTS&lt;/h2&gt;
+&lt;p&gt;If you’re no stranger to AngularJS you will notice that the structure remains the same. 
+Two way data binding, controllers, services, … 
+But be aware that it has a different syntax in TypeScript. 
+I will show you the different best practices to implement these components.&lt;/p&gt;
+
+&lt;h2 id=&quot;typescript-definition-files&quot;&gt;TypeScript Definition Files&lt;/h2&gt;
+&lt;p&gt;When using TS we have to reference to TSD files.
+These files describe the types defined in external libraries such as Angular. 
+To install the Angular TSD files we use typings.
+To use the typings manager we install it with:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;npm install typings --global&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Afterwards install Angular with:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;typings install Angular --ambient --save&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--ambient --save&lt;/code&gt; enables the flag and persists the selection in ‘typings.json’&lt;/p&gt;
+
+&lt;p&gt;All the installed TSD files are gathered in the typings folder.
+In the main.d.ts file you will see the references the application will use for Angular.
+Since Angular has multiple libraries, you can use the search command to find the proper definition you need.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;typings search Angular&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;It is possible that you have to declare the referencing on the top of your file.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;/// &amp;lt;reference path=&quot;../../typings/main.d.ts&quot; /&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;modules&quot;&gt;Modules&lt;/h2&gt;
+
+&lt;h3 id=&quot;angular-modules&quot;&gt;Angular Modules&lt;/h3&gt;
+&lt;p&gt;Modules are here to help us modularize our code.
+But it is important to know that if you’re not planning to make third libraries or use separated common code.
+It is a best practice to use only one main module as the root of your application. 
+To let the module know of the existence of every component, they have to register themselves.
+Below every component declaration you will see a registration to the module. 
+When registering the module you have to add all the libraries you want to depend upon.
+In this example we inject the routing service for navigation.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JWorks&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;use strict&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;angular&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jworks360&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;ngRoute&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;internal-typescript-modules&quot;&gt;Internal TypeScript Modules&lt;/h3&gt;
+&lt;p&gt;These modules are similar to namespaces.
+You can define an unique namespace around your code.
+This will encapsulate variables, interfaces and classes. 
+TypeScript supports sub namespaces for further encapsulation.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JWorks&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;use strict&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;transpiled-javascript&quot;&gt;Transpiled JavaScript&lt;/h4&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JWorks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;JWorks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;})(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;JWorks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;JWorks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}));&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;To encapsulate our code, the module will transpile to an IIFE (Immediately-Invoked Function Expression) around our components.
+This will avoid global code which helps prevent variables and function declarations from living longer than expected in the global scope, which also helps avoid variable collisions.&lt;/p&gt;
+
+&lt;h2 id=&quot;entity-class&quot;&gt;Entity Class&lt;/h2&gt;
+&lt;p&gt;Now that TypeScript supports Object-oriented programming, we can analyse our business problem and define the business objects into entity classes.
+When you analyse and define these entities you can define which properties and methods each entity needs.
+If you have a couple entities, you can even establish a relationship.
+This will provide a clear view on what you want to achieve and have the possibility to create multiple instances of these classes. 
+When building an entity class you can optionally define an interface to show what the intention of the class is.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JWorks&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IEmployee&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+         &lt;span class=&quot;nl&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+         &lt;span class=&quot;nl&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+         &lt;span class=&quot;nx&quot;&gt;eat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;food&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;void&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Employee&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IEmployee&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+ 
+          &lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){}&lt;/span&gt;
+
+          &lt;span class=&quot;nx&quot;&gt;eat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;food&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+             &lt;span class=&quot;c1&quot;&gt;//implementation&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;To use your entity class in a controller you have to define the export key.
+This will expose the class to other classes.
+When exporting the interface you will use it as a data type.&lt;/p&gt;
+
+&lt;h3 id=&quot;class-as-property&quot;&gt;Class as property&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;Employee&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IEmployee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;instance-of-the-class&quot;&gt;Instance of the class&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;employee&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Employee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;access-property&quot;&gt;Access property&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;employee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;call-methods&quot;&gt;Call methods&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;employee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eggs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;controllers&quot;&gt;Controllers&lt;/h2&gt;
+&lt;p&gt;As you know the controller defines the model to the view of your application, methods for every action your require and the scope where you hold a two way binding.
+Because TS offers an object oriented architecture, we can use classes and interfaces instead of functions.
+Interfaces are as in OO languages a contract you make and implementable by classes.
+When implemented, all methods and properties have to be used in the class.
+Classes declare and implement the properties and methods exposed to the view.
+Every class has his own constructor function, in this function we can declare default property values and other initialisation code.&lt;/p&gt;
+
+&lt;h3 id=&quot;controller-interface&quot;&gt;Controller Interface&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Jworks&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kr&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IEmployeeController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IPerson&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IPerson&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The interface will show you the intent of our controller and declare the properties and methods that will be used.
+When you look at the syntax, you see that the properties are strong typed and the type is declared after the colon.
+If you aren’t aware of the type of a property, you can fall back to the general type ‘any’.
+For the methods declared in the interface you have to specify the necessary parameters and the return type.
+The parameters have the same syntax as the properties declared.&lt;/p&gt;
+
+&lt;h3 id=&quot;controller-class&quot;&gt;Controller Class&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JWorks&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;EmployeeController&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IEmployeeController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+        &lt;span class=&quot;kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$inject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;EmployeeService&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+        &lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;employeeService&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IEmployeeService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;employee&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IEmployee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;employee&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Employee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Nivek&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Kevin&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;nx&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;employeeService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addEmployee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;employee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+             &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;added successfully!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;angular&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jworks360&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;EmployeeController&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;EmployeeController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;dependency-injection-in-classes&quot;&gt;Dependency Injection in classes&lt;/h3&gt;
+&lt;p&gt;When a service is needed in your controller, it needs to be injected in order to use it.
+In the above example it is important you declare the &lt;code class=&quot;highlighter-rouge&quot;&gt;static $injection&lt;/code&gt; above your constructor.
+The reason behind this is that in your constructor you will initialise the injected services.
+By doing this the constructor will recognize the injection. 
+If you inject a custom service you have to reference to the related service.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;/// &amp;lt;reference path=&quot;../services/employee.service.ts&quot;/&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;constructor&quot;&gt;Constructor&lt;/h3&gt;
+&lt;p&gt;TypeScript supports initialisation of your properties and injections in a constructor.
+When declaring properties in your class, you can declare them directly into your constructor.
+Although &lt;em&gt;these two examples are&lt;/em&gt; correct you can have issues in your tests with the second example.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//So this:&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Controller&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nl&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//Becomes:&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Controller&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Be sure to notify that we are using access modifiers to tell the controller which properties we want to expose to the view.
+The best practice is that you put your injections and Angular services private and all your properties you want to use on your view public.
+When initialising strings, TypeScript makes no distinction between double or single quotes.&lt;/p&gt;
+
+&lt;h3 id=&quot;controlleras&quot;&gt;ControllerAs&lt;/h3&gt;
+
+&lt;p&gt;Controller classes use the controllerAs feature as default.
+So it’s important to know to declare this into your routes and view.
+In your HTML you will have to prefix your methods and properties with the ControllerAs property.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JWorks&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;s2&quot;&gt;&quot;use strict&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+   &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;routes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$routeProvider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+       &lt;span class=&quot;nx&quot;&gt;$routeProvider&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;/&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+               &lt;span class=&quot;na&quot;&gt;redirectTo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/login&#39;&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;/profile&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+               &lt;span class=&quot;na&quot;&gt;templateUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;app/persons/profile.html&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+               &lt;span class=&quot;na&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;EmployeeController&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+               &lt;span class=&quot;na&quot;&gt;controllerAs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;$profile&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;otherwise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+               &lt;span class=&quot;na&quot;&gt;redirectTo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/&#39;&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+   &lt;span class=&quot;nx&quot;&gt;routes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$inject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;$routeProvider&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+   &lt;span class=&quot;nx&quot;&gt;angular&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jworks360&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;routes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;services&quot;&gt;Services&lt;/h2&gt;
+&lt;p&gt;When you make a custom service, the code you implement is reusable and can be called in any other Angular components including controllers and other services.
+It is important to know that services are singletons, so there will be only one instance of the used service.
+With this in mind we can use the custom service to share data across all components in Angular for example communicating with an HTTP service to collect data and share it with any other component by injecting the service.&lt;/p&gt;
+
+&lt;h3 id=&quot;restangular&quot;&gt;RestAngular&lt;/h3&gt;
+&lt;p&gt;For my project I used an Angular service that simplifies common verb requests with a minimum of client code.
+In my custom services you will see examples of restAngular in TypeScript.
+If you like to checkout what the difference is with $resource, you can check this &lt;a href=&quot;https://github.com/mgonto/restAngular#differences-with-resource&quot;&gt;list&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JWorks&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+   &lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IEmployeeService&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+       &lt;span class=&quot;nl&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;nl&quot;&gt;employee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IEmployee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+       &lt;span class=&quot;nx&quot;&gt;getEmployee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Employee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;nx&quot;&gt;setEmployee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;employee&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IEmployee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+       &lt;span class=&quot;nx&quot;&gt;getEmployeeByUsername&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ng&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IPromise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;nx&quot;&gt;getEmployeeByLink&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ng&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IPromise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+   &lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;EmployeeService&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IEmployeeService&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+       &lt;span class=&quot;kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$inject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;EmployeeRestangular&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;$location&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+       &lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;employeeRestService&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;restAngular&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$location&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ng&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ILocationService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;employees&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;restAngular&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;employee&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IEmployee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;username&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sessionStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;employees&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;employeeRestService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;employees&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;employees&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;one&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                   &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setEmployee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+               &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;nx&quot;&gt;getEmployee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Employee&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+           &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;employee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+       
+       &lt;span class=&quot;nx&quot;&gt;setEmployee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;employee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IEmployee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+           &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;employee&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;employee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+             
+       &lt;span class=&quot;nx&quot;&gt;getEmployeeByUsername&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ng&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IPromise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; 
+           &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;employees&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;one&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+       &lt;span class=&quot;nx&quot;&gt;getEmployeeByLink&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ng&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IPromise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+           &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;employees&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;oneUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;       
+   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+          &lt;span class=&quot;nx&quot;&gt;angular&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jworks360&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+              &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;EmployeeService&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;EmployeeService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;       
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;In the above example, to use the Restangular service you have to install the proper typings.
+For services it is a best practice to declare an interface for data typing and getting a clear view of the intent.
+The service class will implement all methods related to the data communication with the backend and returns a promise to the controllers or services that will inject this custom service.
+Restangular has its own configuration you can modify in the .config component to point to the right api call.
+After the config you can inject the Restangular service and use its services to build up a request to the backend.&lt;/p&gt;
+
+&lt;h2 id=&quot;directives&quot;&gt;Directives&lt;/h2&gt;
+&lt;p&gt;Custom directives allow you to create highly semantic and reusable components.
+A directive allows Angular to manipulate the DOM and add it’s own behaviours. 
+These can be either a set of instructions or a JSON representation.
+To define a directive in TypeScript we use the directive service &lt;strong&gt;that Angular&lt;/strong&gt; provides.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JWorks&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+   &lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IAnimate&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ng&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IAttributes&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+       &lt;span class=&quot;nl&quot;&gt;jwAnimate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+   &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Animate&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ng&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IDirective&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+       &lt;span class=&quot;nx&quot;&gt;restrict&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;A&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+       &lt;span class=&quot;kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ng&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IDirective&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+           &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Animate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+       &lt;span class=&quot;nx&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;elm&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ng&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IRootElementService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;attr&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IAnimate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ngModel&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ng&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;INgModelController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+           &lt;span class=&quot;nx&quot;&gt;$scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+               &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;animate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+                   &lt;span class=&quot;na&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;+=150&#39;&lt;/span&gt;
+               &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+                &lt;span class=&quot;nx&quot;&gt;elm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fadeOut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;slow&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+           &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;direction&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;attr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;jwAnimate&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+           &lt;span class=&quot;nx&quot;&gt;elm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;click&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;direction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+
+       &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+   &lt;span class=&quot;nx&quot;&gt;angular&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jworks360&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jwAnimate&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Animate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;In the interface above we have to tell Angular what name we will use for our directive.
+The attribute service will be called to add the name to its attributes.
+Secondly the class has to implement the directive interface to be recognized by the compiler as a directive.
+Inside the class you have to declare the prefixed properties and override the methods you will be using.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;static instance()&lt;/code&gt; method has to be declared to let your module know that there is a new directive.
+At the end you register the directive to your module with the instance as value.&lt;/p&gt;
+
+&lt;h2 id=&quot;final-note&quot;&gt;Final note&lt;/h2&gt;
+
+&lt;p&gt;Best practices can change over time. 
+With webpack for example the registry to the module is gathered in one file.
+TypeScript keeps on growing and, in my opinion &lt;strong&gt;will be the default language for many future front-end projects.&lt;/strong&gt;
+When it comes to testing our code, TypeScript will provide better support because of encapsulation. 
+Finally, this is a nice learning path to take if you want to migrate to Angular 2.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 16 Mar 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/angularjs,%20typescript/2016/03/16/AngularTS.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/angularjs,%20typescript/2016/03/16/AngularTS.html</guid>
+        
+        <category>TypeScript</category>
+        
+        <category>AngularJS</category>
+        
+        
+        <category>AngularJS, TypeScript</category>
+        
+      </item>
     
       <item>
         <title>Digitally signing your JSON documents</title>
@@ -1383,153 +1764,6 @@ Whenever you create a Docker Machine, you can add it to the cluster. It also ser
         
         
         <category>Devoxx</category>
-        
-      </item>
-    
-      <item>
-        <title>Applying software patterns to microservices</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;During the week of October 12th, my colleagues Andreas Evers and Tim De Bruyn and me attended JAX London 2015. After attending over a dozen talks in three days, we went home with tons of insights about DevOps, microservices, Continuous Delivery, Spring Boot and much more. This is a write-up of Chris Richardson’s talk &lt;a href=&quot;https://jaxlondon.com/session/a-pattern-language-for-microservices/&quot;&gt;A pattern language for microservices&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; alt=&quot;Chris Richardson&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/ken2.jpg?la=nl-nl&quot; /&gt;
-&lt;a href=&quot;http://www.chrisrichardson.net/&quot;&gt;Chris Richardson&lt;/a&gt; is the author of &lt;a href=&quot;https://www.manning.com/books/pojos-in-action&quot;&gt;POJOs in Action&lt;/a&gt; and is founder of the original CloudFoundry, which was later acquired by VMWare and then SpringSource. Nowadays he is constantly thinking about microservices and founded a startup that is creating a platform for aiding the development of event-driven microservices (http://eventuate.io/). He also launched http://microservices.io/, describing microservice responsibilities and commonly accepted solutions as patterns.&lt;/p&gt;
-
-&lt;p style=&quot;clear:both;&quot;&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;problems-in-software-engineering&quot;&gt;Problems in software engineering&lt;/h1&gt;
-
-&lt;p&gt;Chris started his presentation by pointing out a few problems in software engineering. First, we have a lot of sucks/rocks discussions between developers. JavaScript vs. Java, Spring vs. JEE, Java vs. .NET, functional programming vs. object-oriënted programming, containers vs. virtual machines, … Sounds familiar? But these discussions are usually very subjective and shallow. Back in 1986, Fred Brooks already mentioned in a paper on software engineering that &lt;strong&gt;there is no such thing as a silver bullet&lt;/strong&gt;. So there is no right or wrong answer to which language or framework is better, it depends on the situation.&lt;/p&gt;
-
-&lt;p&gt;A second problem is that we have &lt;strong&gt;a lot of new technologies&lt;/strong&gt; these days. Typically, these technologies go through the &lt;em&gt;Gartner Hype Cycle&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;float-image&quot; alt=&quot;Gartner Hype Cycle&quot; src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/ken3v2.png?la=nl-nl&quot; /&gt;&lt;/p&gt;
-
-&lt;p style=&quot;clear:both;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;At first, people discover an innovative technology and everybody wants to use it, which drives the technology into the &lt;em&gt;Peak of Inflated Expectations&lt;/em&gt;. Docker is a good example of a technology in this phase. Then a huge drop follows, because people didn’t really understand the technology and misused it. When we start to &lt;strong&gt;understand the subject&lt;/strong&gt;, that’s when productivity on the market increases.&lt;/p&gt;
-
-&lt;p&gt;It’s clear that we need a better way to discuss and think about technology. That’s where software patterns come in.&lt;/p&gt;
-
-&lt;h1 id=&quot;pattern-languages&quot;&gt;Pattern languages&lt;/h1&gt;
-
-&lt;p&gt;Patterns help us to &lt;strong&gt;describe a reusable solution to a problem occurring in a particular context&lt;/strong&gt;. The use of pattern languages is a a great way of talking about technology in general. You can see it as an advice around a topic. Describing what you want to solve and its context is much more important than the framework or tool you choose.&lt;/p&gt;
-
-&lt;p&gt;A pattern description typically contains:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Pattern name&lt;/li&gt;
-  &lt;li&gt;Context&lt;/li&gt;
-  &lt;li&gt;Problem - The issue which we try to solve&lt;/li&gt;
-  &lt;li&gt;Forces, which are a set of indicators why we want to use the pattern, eg. we need to do CD, run multiple instances, …&lt;/li&gt;
-  &lt;li&gt;Solution. What would a pattern be without a solution?&lt;/li&gt;
-  &lt;li&gt;Resulting context. Set of both benefits and downsides which we achieved, but also problems which we then have to solve next.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Patterns can be &lt;strong&gt;related&lt;/strong&gt;, they can be alternate solutions, solutions to problems that were caused by another pattern or more specific solutions to a certain problem. When you want to read more about writing and understanding patterns, you can read Martin Fowler’s blog post &lt;a href=&quot;http://www.martinfowler.com/articles/writingPatterns.html&quot;&gt;Writing Software Patterns&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h1 id=&quot;patterns-for-the-microservices-world&quot;&gt;Patterns for the microservices world&lt;/h1&gt;
-
-&lt;p&gt;Microservices is another one of those new technologies which are in &lt;em&gt;Peak of Inflated Expectations&lt;/em&gt; phase. To help us understand the complexity of implementing these kind of systems, Chris founded http://microservices.io/ . Here you can find a collection of microservices patterns.
-We can group the microservices patterns into several categories:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Core patterns&lt;/li&gt;
-  &lt;li&gt;Deployment patterns&lt;/li&gt;
-  &lt;li&gt;Discovery patterns&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://www.ordina.be/~/media/images/ordinabe/blogs/ken4.png?la=nl-nl&quot; alt=&quot;Microservices patterns&quot; title=&quot;Microservices patterns&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Chris then elaborated on a few microservice pattern categories.&lt;/p&gt;
-
-&lt;h1 id=&quot;core-patterns&quot;&gt;Core patterns&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;Monolithical applications&lt;/strong&gt; tend to be simple to develop, test, deploy and scale. You can just run multiple copies of your monolithical application. When the application is large however, you end up in &lt;em&gt;monolithic hell&lt;/em&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Millions of lines of code undermine developer productivity and knowledge of the system.&lt;/li&gt;
-  &lt;li&gt;As one change might affect other parts of the application, there’s a fear of changing and refactoring code&lt;/li&gt;
-  &lt;li&gt;Developer productivity decreases, as your IDE gets slower, startup times of the server take very long, …&lt;/li&gt;
-  &lt;li&gt;Long-term commitment to a technology stack&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;With X and Z axis scaling, you increase the number of application instancess or you increase server resources. Y axis scaling on the other hand means you break up your application into separate &lt;strong&gt;microservices&lt;/strong&gt; which group business functionality. Some &lt;strong&gt;benefits&lt;/strong&gt; to this are:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Smaller, simpler apps, which are easier to understand&lt;/li&gt;
-  &lt;li&gt;Less classpath hell&lt;/li&gt;
-  &lt;li&gt;Faster to build and deploy&lt;/li&gt;
-  &lt;li&gt;Improve fault isolation&lt;/li&gt;
-  &lt;li&gt;Eliminates the long-term commitment to a single technology stack&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Of course, each solution always has some &lt;strong&gt;drawbacks&lt;/strong&gt;, to which fortunately solutions exist.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Added complexity of developing a distributed system&lt;/li&gt;
-  &lt;li&gt;We have to handle partial failures&lt;/li&gt;
-  &lt;li&gt;Implement business transactions that span multiple databases&lt;/li&gt;
-  &lt;li&gt;More complex testing: what do we do with transitive dependencies? Do we mock them?&lt;/li&gt;
-  &lt;li&gt;What about managing communication for cross-service development and deployment?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;deployment-patterns&quot;&gt;Deployment patterns&lt;/h1&gt;
-
-&lt;p&gt;Forces to consider when deploying microservices are:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Variety of languages&lt;/li&gt;
-  &lt;li&gt;Building and deploying must be fast&lt;/li&gt;
-  &lt;li&gt;Isolate service instances&lt;/li&gt;
-  &lt;li&gt;Deploying must be cost-effective&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For these, you can look at the deployment patterns.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://microservices.io/patterns/deployment/service-per-vm.html&quot;&gt;Service per VM&lt;/a&gt; = &lt;a href=&quot;https://packer.io/&quot;&gt;Packer.io&lt;/a&gt; is a great tool for running each service
-in its own VM. Downside is you got the overhead of a whole VM per
-microservice. It is very expensive and the deployment itself is
-relatively slow. A positive thing though is that the AWS
-infrastructure is very mature and reliable.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://microservices.io/patterns/deployment/service-per-container.html&quot;&gt;Service per container&lt;/a&gt; = Each service is in its own Docker container, which is started very quickly. A drawback is that these technologies are still very immature.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;discovery-patterns&quot;&gt;Discovery patterns&lt;/h1&gt;
-
-&lt;p&gt;One problem we need to address around the area of service discovery is that we need to know the IP address of the server. Simply having configuration files with the IP’s wont work anymore. On top of that, the set of API interfaces can change. And this is just a tip of the iceberg.&lt;/p&gt;
-
-&lt;p&gt;There are several patterns related to service discovery:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://microservices.io/patterns/client-side-discovery.html&quot;&gt;Client-side discovery&lt;/a&gt; = The client will query the service registry,
-pick one from the load balancing configuration, and then use it.
-Netflix’ &lt;a href=&quot;https://github.com/Netflix/eureka&quot;&gt;Eureka&lt;/a&gt; and &lt;a href=&quot;https://github.com/Netflix/ribbon&quot;&gt;Ribbon&lt;/a&gt; provide this functionality. Multiple
-Eureka’s can be clustered.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://microservices.io/patterns/server-side-discovery.html&quot;&gt;Server-side discovery&lt;/a&gt; = At some level it’s
-the same like client-side discovery. The difference is that the
-    client makes a request to the router, which then queries t he service registry. You can achieve this with eg. &lt;a href=&quot;https://www.nginx.com/&quot;&gt;Nginx&lt;/a&gt; as the router and an Elastic Load Balancer from AWS. The advantage is that the client code is much simpler. Advantage is that it’s built in in some cloud/container environments, such as AWS ELB, Google’s &lt;a href=&quot;http://kubernetes.io/&quot;&gt;Kubernetes&lt;/a&gt;, &lt;a href=&quot;https://mesosphere.github.io/marathon/&quot;&gt;Marathon&lt;/a&gt;, …&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;Over the years, companies like Netflix, LinkedIn, Soundcloud and many others have applied the microservices architecture in their software landscape, with several tools and open-source libraries as a result. But deep down these tools have to tackle the same problems. Chris’ effort to describe these common problems and solutions in software patterns allows us to see the wood for the trees again. Because as I said earlier, knowing what you want to achieve is much more important than the framework or tool you choose.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 13 Oct 2015 00:00:00 +0000</pubDate>
-        <link>https://ordina-jworks.github.io/microservices/2015/10/13/MicroservicesPatterns.html</link>
-        <guid isPermaLink="true">https://ordina-jworks.github.io/microservices/2015/10/13/MicroservicesPatterns.html</guid>
-        
-        <category>Microservices</category>
-        
-        <category>Software Patterns</category>
-        
-        
-        <category>Microservices</category>
         
       </item>
     
