@@ -17,7 +17,6 @@
 - Create a **pull request**, this will be reviewed and merged by one of the competence leaders
 
 ## Create a new blogpost
-- Request write access to [the github repository](https://github.com/ordina-jworks/ordina-jworks.github.io)
 - Create a **feature branch**, starting from **source**: feature/yyyy-mm-dd-john-doe-hello-world
 - Add a blogpost image to the **img** directory
 - Use any (online) **Markdown editor** (for example [brackets](http://brackets.io) or [classeur.io](http://classeur.io))
