@@ -47,7 +47,7 @@ I will show you the different best practices to implement these components.
 ## TypeScript Definition Files
 When using TS we have to reference to TSD files.
 These files describe the types defined in external libraries such as Angular. 
-To install the Angular tsd files we use typings.
+To install the Angular TSD files we use typings.
 To use the typings manager we install it with:
 {% highlight text %}
 npm install typings --global
@@ -219,7 +219,7 @@ angular.module("jworks360")
 
 ### Dependency Injection in classes
 When a service is needed in your controller, it needs to be injected in order to use it.
-In the above example it is important you declare the static $injection` above your constructor.
+In the above example it is important you declare the `static $injection` above your constructor.
 The reason behind this is that in your constructor you will initialise the injected services.
 By doing this the constructor will recognize the injection. 
 If you inject a custom service you have to reference to the related service.
@@ -399,7 +399,7 @@ In the interface above we have to tell Angular what name we will use for our dir
 The attribute service will be called to add the name to its attributes.
 Secondly the class has to implement the directive interface to be recognized by the compiler as a directive.
 Inside the class you have to declare the prefixed properties and override the methods you will be using.
-The static instance()` method has to be declared to let your module know that there is a new directive.
+The `static instance()` method has to be declared to let your module know that there is a new directive.
 At the end you register the directive to your module with the instance as value.
 
 
