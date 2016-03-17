@@ -17,7 +17,7 @@ One of the core changes in Angular was changing the code language to TypeScript.
 This blog will cover the use of Angular components in TypeScript.
 But what is this TypeScript? 
 TypeScript is a superset of JavaScript that focuses on strong typing and the new ES6 features: classes, interfaces and modules.
-Like in common Object-oriented languages like Java and C# these features aren’t new.
+Like in common Object-oriented languages such as Java and C# these features aren’t new.
 These features gives the developer the opportunity to build a object oriented architecture in JavaScript.
 With that in mind, let’s see what the advantages are: 
 
@@ -111,7 +111,7 @@ var JWorks;
 })(JWorks || (JWorks = {}));
 {% endhighlight %}
 
-To encapsulate our code, the module will transpile to an IIFE(Immediately-Invoked Function Expression) around our components.
+To encapsulate our code, the module will transpile to an IIFE (Immediately-Invoked Function Expression) around our components.
 This will avoid global code which helps prevent variables and function declarations from living longer than expected in the global scope, which also helps avoid variable collisions.
 
 
