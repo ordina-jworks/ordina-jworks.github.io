@@ -3,8 +3,8 @@ layout: post
 author: kevin_van_houtte
 title: 'AngularTS: A new look @ Angular'
 image: /img/angularts.jpg
-tags: [TypeScript, AngularJS]
-category: AngularJS, TypeScript
+tags: [TypeScript,AngularJS]
+category: AngularJS-TypeScript
 comments: true
 ---
 
