@@ -10,28 +10,27 @@ comments: true
 
 ## Combining the best of two worlds.
 
-Since my introduction to the heroic AngularJS framework at Devoxx around 4 years ago.
-I was intrigued and set for an adventure.
+Since my introduction to the heroic AngularJS framework at Devoxx around 4 years ago, I was intrigued and set for an adventure.
 With the upcoming release of Angular 2 we have to prepare ourselves with the migrating road map coming up.
-One of the core changes in Angular was changing the code language to TypeScript.
+One of the core changes in Angular 2 is the focus on using TypeScript.
 This blog will cover the use of Angular components in TypeScript.
 But what is this TypeScript? 
-TypeScript is a superset of JavaScript that focuses on strong typing and the new ES6 features: classes, interfaces and modules.
+It is a superset of JavaScript that focuses on strong typing and new ES6 features: classes, interfaces and modules.
 Like in common Object-oriented languages such as Java and C# these features aren’t new.
-These features gives the developer the opportunity to build a object oriented architecture in JavaScript.
+These features give the developer the opportunity to build an Object-oriented architecture in JavaScript.
 With that in mind, let’s see what the advantages are: 
 
 ### Transpiling
-The DOM on your website can only recognize JavaScript.
-With this said they had to come up with a way to compile TS.
+The DOM can only recognize JavaScript.
+With this said they had to come up with a way to compile TS (TypeScript).
 Because TS is a superset of JS it can transpile to plain JavaScript before including it into HTML.
 Transpilers are integrated in the latest IDE’s. 
 Any valid JavaScript is valid TypeScript.
 
 ### Strongly typed
-When you are used to plain JavaScript, you notice that every time you need a variable, your type is loosely typed.
-With TypeScript they give you the opportunity to give every variable its own type.
-This comes with great beneficials like better refactoring, less bugs and better type checking at compile time.
+When you're used to plain JavaScript, you notice that every time you need a variable, it is loosely typed.
+With TypeScript they give you the opportunity for each of your variables to have its own type.
+This comes with great benefits like better refactoring, less bugs and better type checking at compile time.
 
 ### OO architecture
 TypeScript offers an Object-oriented architecture experience, which means all code is defined in classes, interfaces and most of those classes can be instantiated into objects. It also supports encapsulation, which protects the data from unintended access and modification. 
@@ -41,11 +40,11 @@ TypeScript offers an Object-oriented architecture experience, which means all co
 If you’re no stranger to AngularJS you will notice that the structure remains the same. 
 Two way data binding, controllers, services, ... 
 But be aware that it has a different syntax in TypeScript. 
-I will show you the different best practices to implement these components. 
+I will show you the different best practices to implement such components. 
 
 
 ## TypeScript Definition Files
-When using TS we have to reference to TSD files.
+When using TS we will refer to TSD files.
 These files describe the types defined in external libraries such as Angular. 
 To install the Angular TSD files we use typings.
 To use the typings manager we install it with:
@@ -55,17 +54,17 @@ npm install typings --global
 
 Afterwards install Angular with:
 {% highlight text %}
-typings install Angular --ambient --save
+typings install angular --ambient --save
 {% endhighlight %}
 `--ambient --save` enables the flag and persists the selection in 'typings.json'
 
 All the installed TSD files are gathered in the typings folder.
 In the main.d.ts file you will see the references the application will use for Angular.
-Since Angular has multiple libraries, you can use the search command to find the proper definition you need.
+Since Angular has multiple libraries, you can use the search command to find the required definition.
 {% highlight text %}
 typings search Angular
 {% endhighlight %}
-It is possible that you have to declare the referencing on the top of your file.
+It is possible that you have to declare the reference on top of your file.
 {% highlight text %}
 /// <reference path="../../typings/main.d.ts" />
 {% endhighlight %}
@@ -74,9 +73,9 @@ It is possible that you have to declare the referencing on the top of your file.
 
 ### Angular Modules
 Modules are here to help us modularize our code.
-But it is important to know that if you’re not planning to make third libraries or use separated common code.
+But it is important to know that if you’re not planning to make third-party libraries or use common code.
 It is a best practice to use only one main module as the root of your application. 
-To let the module know of the existence of every component, they have to register themselves.
+To let the module know the existence of every component, they have to register themselves.
 Below every component declaration you will see a registration to the module. 
 When registering the module you have to add all the libraries you want to depend upon.
 In this example we inject the routing service for navigation. 
@@ -169,10 +168,10 @@ employee.eat(eggs);
 
 
 ## Controllers
-As you know the controller defines the model to the view of your application, methods for every action your require and the scope where you hold a two way binding.
-Because TS offers an object oriented architecture, we can use classes and interfaces instead of functions.
-Interfaces are as in OO languages a contract you make and implementable by classes.
-When implemented, all methods and properties have to be used in the class.
+As you know the controller defines the model to the view of your application, methods for every action you require and the scope where you hold a two way binding.
+Because TS offers an Object-oriented architecture, we can use classes and interfaces instead of functions.
+Interfaces like in Object-oriented languages, a contract that must be implemented by classes that use it.
+When implemented, all methods and properties have to be used.
 Classes declare and implement the properties and methods exposed to the view.
 Every class has his own constructor function, in this function we can declare default property values and other initialisation code. 
 
@@ -188,10 +187,10 @@ module Jworks {
 {% endhighlight %}
 
 The interface will show you the intent of our controller and declare the properties and methods that will be used.
-When you look at the syntax, you see that the properties are strong typed and the type is declared after the colon.
-If you aren't aware of the type of a property, you can fall back to the general type ‘any’.
-For the methods declared in the interface you have to specify the necessary parameters and the return type.
-The parameters have the same syntax as the properties declared.  
+When you look at the syntax, you see that the properties are strongly typed and the type is declared after the colon.
+If you aren't certain what type a property should have, you can fall back to the general type ‘any’.
+For the methods declared in the interface you have to specify the necessary parameters and the return types.
+The parameters have the same syntax as the properties.  
 
 ### Controller Class
 
@@ -218,9 +217,9 @@ angular.module("jworks360")
 {% endhighlight %}
 
 ### Dependency Injection in classes
-When a service is needed in your controller, it needs to be injected in order to use it.
-In the above example it is important you declare the `static $injection` above your constructor.
-The reason behind this is that in your constructor you will initialise the injected services.
+When a service is needed in your controller, it needs to be injected before it can be used.
+In the above example it is important that you declare the `static $injection` above your constructor.
+The reason behind this is, is that in your constructor you will initialise the injected services.
 By doing this the constructor will recognize the injection. 
 If you inject a custom service you have to reference to the related service.
 
@@ -255,15 +254,15 @@ class Controller {
 
 
 {% endhighlight %}
-Be sure to notify that we are using access modifiers to tell the controller which properties we want to expose to the view.
+Be sure to notice that we are using access modifiers to tell the controller which properties we want to expose to the view.
 The best practice is that you put your injections and Angular services private and all your properties you want to use on your view public.
 When initialising strings, TypeScript makes no distinction between double or single quotes.
 
 ### ControllerAs
 
-Controller classes use the controllerAs feature as default.
-So it’s important to know to declare this into your routes and view.
-In your HTML you will have to prefix your methods and properties with the ControllerAs property.
+Controller classes use the controllerAs feature by default.
+So it’s important to declare this into your routes and view.
+In your HTML you will have to prefix your methods and properties with the ControllerAs syntax.
 
 
 {% highlight javascript %}
@@ -293,13 +292,13 @@ module JWorks {
 {% endhighlight %}
 
 ## Services
-When you make a custom service, the code you implement is reusable and can be called in any other Angular components including controllers and other services.
-It is important to know that services are singletons, so there will be only one instance of the used service.
-With this in mind we can use the custom service to share data across all components in Angular for example communicating with an HTTP service to collect data and share it with any other component by injecting the service.
+When you make a custom service, the code you implement is reusable and can be called in any other Angular component including controllers and other services.
+It is important to know that services are singletons, so there will be only one instance for each service.
+With this in mind we can use the custom service to share data across all components in Angular for example: Communicating with an HTTP service to collect data and share it with any other component by injecting the service.
 
-### RestAngular
+### Restangular
 For my project I used an Angular service that simplifies common verb requests with a minimum of client code.
-In my custom services you will see examples of restAngular in TypeScript.
+In my custom services you'll see examples of Restangular in TypeScript.
 If you like to checkout what the difference is with $resource, you can check this [list](https://github.com/mgonto/restAngular#differences-with-resource)
 
 {% highlight javascript %}
@@ -357,8 +356,8 @@ After the config you can inject the Restangular service and use its services to 
 
 ## Directives
 Custom directives allow you to create highly semantic and reusable components.
-A directive allows Angular to manipulate the DOM and add it’s own behaviours. 
-These can be either a set of instructions or a JSON representation.
+A directive allows Angular to manipulate the DOM and add its own behaviour. 
+These can either be a set of instructions or a JSON representation.
 To define a directive in TypeScript we use the directive service **that Angular** provides.
 
 {% highlight javascript %}
@@ -395,7 +394,7 @@ module JWorks {
 }
 {% endhighlight %}
 
-In the interface above we have to tell Angular what name we will use for our directive.
+In the interface above we have to tell Angular what name will be used for our directive.
 The attribute service will be called to add the name to its attributes.
 Secondly the class has to implement the directive interface to be recognized by the compiler as a directive.
 Inside the class you have to declare the prefixed properties and override the methods you will be using.
@@ -407,7 +406,7 @@ At the end you register the directive to your module with the instance as value.
 ## Final note
 
 Best practices can change over time. 
-With webpack for example the registry to the module is gathered in one file.
-TypeScript keeps on growing and, in my opinion **will be the default language for many future front-end projects.**
+With webpack for example the registry to the module is contained in one file.
+TypeScript keeps on growing, and in my opinion **will be the default language for many future front-end projects.**
 When it comes to testing our code, TypeScript will provide better support because of encapsulation. 
 Finally, this is a nice learning path to take if you want to migrate to Angular 2.
