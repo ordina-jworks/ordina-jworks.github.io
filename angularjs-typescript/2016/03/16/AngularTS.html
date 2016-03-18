@@ -124,11 +124,11 @@
 <p>Since my introduction to the heroic AngularJS framework at Devoxx around 4 years ago, I was intrigued and set for an adventure.
 With the upcoming release of Angular 2 we have to prepare ourselves with the migrating road map coming up.
 One of the core changes in Angular 2 is the focus on using TypeScript.
-This blog will cover the use of Angular components in TypeScript.
-But what is this TypeScript? 
-It is a superset of JavaScript that focuses on strong typing and new ES6 features: classes, interfaces and modules.
-Like in common Object-oriented languages such as Java and C# these features aren’t new.
-These features give the developer the opportunity to build an Object-oriented architecture in JavaScript.
+This post will cover the use of Angular components in TypeScript.
+But what is it?
+TypeScript is a superset of JavaScript that focuses on strong typing and new ES6 features: classes, interfaces and modules.
+Like in common object-oriented languages such as Java and C# these features aren’t new.
+These features give the developer the opportunity to build an object-oriented architecture in JavaScript.
 With that in mind, let’s see what the advantages are:</p>
 
 <h3 id="transpiling">Transpiling</h3>
@@ -140,11 +140,11 @@ Any valid JavaScript is valid TypeScript.</p>
 
 <h3 id="strongly-typed">Strongly typed</h3>
 <p>When you’re used to plain JavaScript, you notice that every time you need a variable, it is loosely typed.
-With TypeScript they give you the opportunity for each of your variables to have its own type.
+TypeScript gives you the opportunity for each of your variables to have its own type.
 This comes with great benefits like better refactoring, less bugs and better type checking at compile time.</p>
 
 <h3 id="oo-architecture">OO architecture</h3>
-<p>TypeScript offers an Object-oriented architecture experience, which means all code is defined in classes, interfaces and most of those classes can be instantiated into objects. It also supports encapsulation, which protects the data from unintended access and modification.</p>
+<p>TypeScript offers an object-oriented architecture experience, which means all code is defined in classes, interfaces and most of those classes can be instantiated into objects. It also supports encapsulation, which protects the data from unintended access and modification.</p>
 
 <h2 id="learning-path-of-angularts">Learning path of AngularTS</h2>
 <p>If you’re no stranger to AngularJS you will notice that the structure remains the same. 
@@ -180,8 +180,8 @@ Since Angular has multiple libraries, you can use the search command to find the
 
 <h3 id="angular-modules">Angular Modules</h3>
 <p>Modules are here to help us modularize our code.
-But it is important to know that if you’re not planning to make third-party libraries or use common code.
-It is a best practice to use only one main module as the root of your application. 
+It is a best practice to use one main module as the root of your application. 
+Multiple modules are being used for third-party libraries or common code.
 To let the module know the existence of every component, they have to register themselves.
 Below every component declaration you will see a registration to the module. 
 When registering the module you have to add all the libraries you want to depend upon.
@@ -215,7 +215,7 @@ TypeScript supports sub namespaces for further encapsulation.</p>
 This will avoid global code which helps prevent variables and function declarations from living longer than expected in the global scope, which also helps avoid variable collisions.</p>
 
 <h2 id="entity-class">Entity Class</h2>
-<p>Now that TypeScript supports Object-oriented programming, we can analyse our business problem and define the business objects into entity classes.
+<p>Now that TypeScript supports object-oriented programming, we can analyse our business problem and define the business objects into entity classes.
 When you analyse and define these entities you can define which properties and methods each entity needs.
 If you have a couple entities, you can even establish a relationship.
 This will provide a clear view on what you want to achieve and have the possibility to create multiple instances of these classes. 
@@ -261,8 +261,8 @@ When exporting the interface you will use it as a data type.</p>
 
 <h2 id="controllers">Controllers</h2>
 <p>As you know the controller defines the model to the view of your application, methods for every action you require and the scope where you hold a two way binding.
-Because TS offers an Object-oriented architecture, we can use classes and interfaces instead of functions.
-Interfaces like in Object-oriented languages, a contract that must be implemented by classes that use it.
+Because TS offers an object-oriented architecture, we can use classes and interfaces instead of functions.
+Interfaces, like in all object-oriented languages, are a contract that must be implemented by classes that use it.
 When implemented, all methods and properties have to be used.
 Classes declare and implement the properties and methods exposed to the view.
 Every class has his own constructor function, in this function we can declare default property values and other initialisation code.</p>
@@ -280,7 +280,7 @@ Every class has his own constructor function, in this function we can declare de
 <p>The interface will show you the intent of our controller and declare the properties and methods that will be used.
 When you look at the syntax, you see that the properties are strongly typed and the type is declared after the colon.
 If you aren’t certain what type a property should have, you can fall back to the general type ‘any’.
-For the methods declared in the interface you have to specify the necessary parameters and the return types.
+When you declare methods in an interface you have to specify the necessary parameters and return types.
 The parameters have the same syntax as the properties.</p>
 
 <h3 id="controller-class">Controller Class</h3>
@@ -306,10 +306,9 @@ The parameters have the same syntax as the properties.</p>
 <span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s2">"EmployeeController"</span><span class="p">,</span> <span class="nx">EmployeeController</span><span class="p">);</span></code></pre></figure>
 
 <h3 id="dependency-injection-in-classes">Dependency Injection in classes</h3>
-<p>When a service is needed in your controller, it needs to be injected before it can be used.
-In the above example it is important that you declare the <code class="highlighter-rouge">static $injection</code> above your constructor.
-The reason behind this is, is that in your constructor you will initialise the injected services.
-By doing this the constructor will recognize the injection. 
+<p>When a service is needed in your controller, it must to be injected before it can be used.
+In the above example it is important that you declare the <code class="highlighter-rouge">static $injection</code> on top of your constructor.
+By doing this the constructor will recognize and initialise the injected services.
 If you inject a custom service you have to reference to the related service.</p>
 
 <figure class="highlight"><pre><code class="language-text" data-lang="text">/// &lt;reference path="../services/employee.service.ts"/&gt;</code></pre></figure>
@@ -344,7 +343,7 @@ When initialising strings, TypeScript makes no distinction between double or sin
 <h3 id="controlleras">ControllerAs</h3>
 
 <p>Controller classes use the controllerAs feature by default.
-So it’s important to declare this into your routes and view.
+So it’s important to declare this into your routes and views.
 In your HTML you will have to prefix your methods and properties with the ControllerAs syntax.</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
@@ -372,9 +371,10 @@ In your HTML you will have to prefix your methods and properties with the Contro
 <span class="p">}</span></code></pre></figure>
 
 <h2 id="services">Services</h2>
-<p>When you make a custom service, the code you implement is reusable and can be called in any other Angular component including controllers and other services.
+<p>When you make a custom service, the code you implement is reusable and can be called in any other Angular component, including controllers and other services.
 It is important to know that services are singletons, so there will be only one instance for each service.
-With this in mind we can use the custom service to share data across all components in Angular for example: Communicating with an HTTP service to collect data and share it with any other component by injecting the service.</p>
+With this in mind we can use the custom service to share data across all components in Angular.
+Communicating with an HTTP service to collect and share data with any other component by injecting the service.</p>
 
 <h3 id="restangular">Restangular</h3>
 <p>For my project I used an Angular service that simplifies common verb requests with a minimum of client code.
