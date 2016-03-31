@@ -22,7 +22,7 @@ In order to use TypeScript in an Ionic Framework project there are a few small t
 
 * Next, require the package in your **gulpfile.js** like so
 
-   {% highlight text %}var typescript = require(‘gulp-tsc’);{% endhighlight %}
+   {% highlight text %}var typescript = require('gulp-tsc');{% endhighlight %}
 
 * Add the following line to the paths object: `ts: ['./src/*.ts', './src/**/*.ts']`. You may have noticed two things here: I'm using a **src folder** to place all my TypeScript files in which means I'm **not using the www folder** that Ionic provides by default. Next to that I'm also targeting subfolders in that folder because I'm bundling my logic based on AngularJS modules. You can read more about structuring an AngularJS project in the [John Papa AngularJS Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#application-structure-lift-principle).
 
@@ -32,7 +32,7 @@ In order to use TypeScript in an Ionic Framework project there are a few small t
 gulp.task('compile', function(){
     gulp.src(paths.ts)
         .pipe(typescript({ emitError: false }))
-        .pipe(gulp.dest('www/‘));
+        .pipe(gulp.dest('www/'));
 });{% endhighlight %}
 
 * Add our task to watch
@@ -40,7 +40,7 @@ gulp.task('compile', function(){
    {% highlight text %}
 gulp.task('watch', function () {
     gulp.watch(paths.sass, ['sass’]);
-    gulp.watch(paths.ts, [‘compile']);
+    gulp.watch(paths.ts, ['compile']);
 });{% endhighlight %}
 
 * Now change the **ionic.project** file and add the compile task to the gulpStartupTasks. If the gulpStartupTasks section is not present at all, just add it anyway.
@@ -87,8 +87,9 @@ If you now run `ionic serve`, you should see a message that looks like this one.
 
 ## Conclusion
 
-As you can see it is fairly simple to add TypeScript support to your Ionic project.
+As you can see it is fairly simple - just 4 steps - to add TypeScript support to your Ionic project by changing the default gulp setup used by Ionic. It's nice to know that Ionic 2 will have support for TypeScript built in so you won't have to do it yourself. By adding a flag `--ts` to your Ionic 2 project setup it will be enabled.
+
 Personally I love using TypeScript and will use it whenever I can.
-It makes my life as a developer a lot easier by spotting errors before I even hit the browser. Good thing to know is that TypeScript support will be baked into Ionic 2 by using a flag when setting up your project.
+It makes my life as a developer a lot easier by spotting errors before I even hit the browser.
 
 What are your thoughts about TypeScript? Feel free to add them in the comments section.
