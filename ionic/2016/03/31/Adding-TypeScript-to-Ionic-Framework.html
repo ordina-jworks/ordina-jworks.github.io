@@ -98,57 +98,147 @@
         <!-- Page heading two ends -->
 
         <div class="container tk-acumin-pro">
-            <!-- Main content starts -->
-<div class="main-block">
-    <div class="contact-us-four">
-
-        <div class="contact-map">
-            <!-- Map Link -->
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11930.778171031287!2d4.452728774910801!3d51.05055534635598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3e59d34246183%3A0x12ea838e4c02816e!2sOrdina+Belgium+Mechelen!5e0!3m2!1snl!2sus!4v1447107404641" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-        </div>
-        <br/>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-
-                    <h4><i class="fa fa-user color"></i>&nbsp;&nbsp;Get In Touch</h4>
-
-                    <p>If you have any questions, remarks, ideas or complaints about our blog posts, or if you would like to know more about our Business Unit, please let us know.</p>
-
-                    <div class="brand-bg">
-                        <!-- Social Media Icons -->
-                        <a href="https://www.facebook.com/lifeatordinabe" class="facebook"><i class="fa fa-facebook circle-3"></i></a>
-                        <a href="https://twitter.com/lifeatordinabe" class="twitter"><i class="fa fa-twitter circle-3"></i></a>
-                        <a href="https://plus.google.com/113222464071666722451/videos" class="google-plus"><i class="fa fa-google-plus circle-3"></i></a>
-                        <a href="https://www.linkedin.com/company/ordina-belgium" class="linkedin"><i class="fa fa-linkedin circle-3"></i></a>
-                    </div>
-
-                    <hr/>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <!-- Heading -->
-                            <h4><i class="fa fa-home color"></i>&nbsp;&nbsp;Ordina Belgium NV</h4>
-                            <!-- Paragraph -->
-                            <p>
-                                Blarenberglaan 3b,<br/>
-                                2800 Mechelen, Belgium.</p>
-
-                            <p><i class="fa fa-phone color"></i>&nbsp;&nbsp;Tel : + (32) - 15 29 58 58<br/>
-                                <i class="fa fa-envelope color"></i>&nbsp;&nbsp;Mail : info@ordina.be<br/>
-                        </div>
-                        <div class="col-md-6">
-                            <h4><i class="fa fa-calendar color"></i>&nbsp;&nbsp;Business Hours</h4>
-
-                            <p>Weekdays : 9:00 AM to 6:00 PM<br/></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="post">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Adding TypeScript to Ionic Framework</h1>
+            <p id="post-meta">
+                Posted Mar 31, 2016 in <a href="/categories/ionic/">Ionic</a> by <a href="/author/jan-de-wilde/">Jan De Wilde</a> 
+                
+                    <br />
+                    <i class="fa fa-tags"></i>
+                        
+                            <a href="/tags/typescript/">TypeScript</a>,
+                        
+                            <a href="/tags/ionic/">Ionic</a>
+                        
+                
+            </p>
         </div>
     </div>
+    <br />
+    <article class="post-content">
+        <h3 id="ionic-and-typescript-sitting-in-a-tree">Ionic and TypeScript sitting in a tree</h3>
+
+<p>So, <a href="http://www.typescriptlang.org/">TypeScript</a> is the all new thing that allows you to use features from ES6 (or ES2015), ES7 and beyond.
+Say goodbye to loosely typed variables and say hello to modules, classes, interfaces and so much more.</p>
+
+<p>In order to use TypeScript in an Ionic Framework project there are a few small things you need to do to get things running.</p>
+
+<h2 id="install-and-configure-the-gulp-package">1. Install and configure the gulp package</h2>
+
+<ul>
+  <li>Install the <strong>gulp-tsc package</strong> and save it to the development dependencies in <code class="highlighter-rouge">package.json</code></li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">npm install gulp-tsc --save-dev</code></pre></figure>
+
+<ul>
+  <li>Next, require the package in your <strong>gulpfile.js</strong> like so</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">var typescript = require('gulp-tsc');</code></pre></figure>
+
+<ul>
+  <li>
+    <p>Add the following line to the paths object: <code class="highlighter-rouge">ts: ['./src/*.ts', './src/**/*.ts']</code>.
+You may have noticed two things here: All my TypeScript files are in a <strong>src folder</strong> which means I’m <strong>not using the www folder</strong> that Ionic provides by default.
+This way I can keep the TypeScript files and JavaScript files separated.
+Next to that I’m also targeting subfolders in that folder because I’m bundling my logic based on AngularJS modules.
+You can read more about structuring an AngularJS project in the <a href="https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#application-structure-lift-principle">John Papa AngularJS Style Guide</a>.</p>
+  </li>
+  <li>
+    <p>Add our compile task</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">gulp.task('compile', function(){
+    gulp.src(paths.ts)
+        .pipe(typescript({ emitError: false }))
+        .pipe(gulp.dest('www/'));
+});</code></pre></figure>
+
+<ul>
+  <li>Add our task to watch</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">gulp.task('watch', function () {
+    gulp.watch(paths.sass, ['sass']);
+    gulp.watch(paths.ts, ['compile']);
+});</code></pre></figure>
+
+<ul>
+  <li>Now change the <strong>ionic.project</strong> file and add the compile task to the gulpStartupTasks. If the gulpStartupTasks section is not present at all, just add it anyway.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">"gulpStartupTasks": [
+    "sass",
+    "compile",
+    "watch"
+]</code></pre></figure>
+
+<h2 id="add-tsd">2. Add TSD</h2>
+
+<p>TSD is a <strong>TypeScript Definition manager</strong> for <a href="http://definitelytyped.org/">DefinitelyTyped</a>.
+TypeScript used TypeScript Definition files so it knows how to handle the TypeScript you are writing and gives you intellisense.
+Let’s install TSD so we can continue.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ sudo npm install -g tsd
+$ tsd install ionic cordova --save</code></pre></figure>
+
+<p>This will create a typings folder which contains a tsd.d.ts file with references to the typings needed for ionic and cordova.
+In the root of your project a tsd.json file will be created with all the installed definitions.
+All you need to do to use the typings in your TypeScript file is include it at the top like so:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">/// &lt;reference path="../typings/tsd.d.ts" /&gt;</code></pre></figure>
+
+<p><strong>Note:</strong> TSD has been deprecated in favour of <a href="https://github.com/typings/typings">Typings</a> to manage and install TypeScript definitions.
+More info on how to switch from TSD to Typings can be found <a href="https://github.com/typings/typings/blob/master/docs/tsd.md">here</a>.</p>
+
+<h2 id="prevent-editor-from-compiling-on-save">3. Prevent editor from compiling on save</h2>
+
+<p>Now to prevent your editor to auto compile TypeScript we add a tsconfig.json file to the src folder with this in it:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">{
+    "compileOnSave": false
+}</code></pre></figure>
+
+<h2 id="add-typescript-files-in-src-folder">4. Add TypeScript files in src folder</h2>
+
+<p>Now that we have everything set up it’s time to start refactoring your application.
+It’s important to know that <strong>every JavaScript file is essentially TypeScript</strong> because TypeScript is a superset of the current JavaScript implementation.
+This basically means that you can take your JavaScript files from your www folder, paste them to the src folder and rename them from <code class="highlighter-rouge">file.js</code> to <code class="highlighter-rouge">file.ts</code>.
+Of course don’t forget to add the reference on top of your files to the tsd.d.ts file in the typings folder.</p>
+
+<p>If you now run <code class="highlighter-rouge">ionic serve</code>, you should see a message that looks like this one. <code class="highlighter-rouge">“Compiling TypeScript files using tsc version x.x.x”</code>.
+TypeScript will process these files and write ES5 files to the www folder.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>As you can see it is fairly simple - just 4 steps - to add TypeScript support to your Ionic project by changing the default gulp setup used by Ionic.
+It’s nice to know that Ionic 2 will have support for TypeScript built in so you won’t have to do it yourself.
+By adding a flag <code class="highlighter-rouge">--ts</code> to your Ionic 2 project setup it will be enabled.</p>
+
+<p>Personally I love using TypeScript and will use it whenever I can.
+It makes my life as a developer a lot easier by spotting errors before I even hit the browser.</p>
+
+<p>What are your thoughts about TypeScript? Feel free to add them in the comments section.</p>
+
+    </article>
+    <hr />
+    <blockquote>
+        
+            <p>Jan De Wilde is a Senior Frontend Developer at Ordina Belgium, focussed on building quality mobile (responsive) applications that are accessible on a big collection of devices. His favorite technologies are Ionic Framework, AngularJS and TypeScript. Jan is also Competence Lead for the JavaScript Competence Center where he gives workshops, talks and courses about the newest technologies.</p>
+
+        
+    </blockquote>
+    
+        <br /><br />
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    
 </div>
-<!-- Main content ends -->
         </div>
     </div>
     <!-- Main content ends -->
@@ -306,6 +396,15 @@
 <script src="/js/custom.js"></script>
     
 <!-- Disqus -->
+
+    <script type="text/javascript">
+        var disqus_config = function () {
+            this.page.url = "https://ordina-jworks.github.io/ionic/2016/03/31/Adding-TypeScript-to-Ionic-Framework.html";
+            this.page.identifier = "/ionic/2016/03/31/Adding-TypeScript-to-Ionic-Framework.html";
+            this.page.title = "Adding TypeScript to Ionic Framework";
+        };
+    </script>
+    <script src="//ordina-jworks.disqus.com/embed.js" async></script>
 
 
 <!-- Google Analytics -->
