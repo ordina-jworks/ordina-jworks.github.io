@@ -10,7 +10,7 @@ comments: true
 
 ### Ionic and TypeScript sitting in a tree
 
-So, [TypeScript](http://www.typescriptlang.org/) is the all new thing that allows you to use features from ES6 (or ES2015), ES7 and beyond. Say bye to loosely typed variables and say hello to modules, classes, interfaces and so much more.
+So, [TypeScript](http://www.typescriptlang.org/) is the all new thing that allows you to use features from ES6 (or ES2015), ES7 and beyond. Say goodbye to loosely typed variables and say hello to modules, classes, interfaces and so much more.
 
 In order to use TypeScript in an Ionic Framework project there are a few small things you need to do to get things running.
 
