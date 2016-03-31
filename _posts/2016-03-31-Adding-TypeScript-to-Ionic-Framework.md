@@ -24,7 +24,7 @@ In order to use TypeScript in an Ionic Framework project there are a few small t
 
    {% highlight text %}var typescript = require(‘gulp-tsc’);{% endhighlight %}
 
-* Add the following line to the paths object: `ts: ['./src/*.ts', './src/**/*.ts']`. You may have noticed two things here: I’m using a **src folder** to place all my TypeScript files in which means I'm **not using the www folder** that Ionic provides by default. Next to that I’m also targeting subfolders in that folder because I’m bundling my logic based on AngularJS modules. You can read more about structuring an AngularJS project in the [John Papa AngularJS Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#application-structure-lift-principle).
+* Add the following line to the paths object: `ts: ['./src/*.ts', './src/**/*.ts']`. You may have noticed two things here: I'm using a **src folder** to place all my TypeScript files in which means I'm **not using the www folder** that Ionic provides by default. Next to that I'm also targeting subfolders in that folder because I'm bundling my logic based on AngularJS modules. You can read more about structuring an AngularJS project in the [John Papa AngularJS Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#application-structure-lift-principle).
 
 * Add our compile task
 
