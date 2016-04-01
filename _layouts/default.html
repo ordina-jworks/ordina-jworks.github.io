@@ -11,6 +11,16 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    {% if page.layout == 'post' %}
+    {% assign author = site.data.authors[page.author] %}
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/{{ page.url }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ page.title }} - {{ author.first_name }} {{ author.last_name }}" />
+    <meta property="og:description" content="{{ site.title }}" />
+    <meta property="og:image" content="http://ordina-jworks.github.io/{{ page.image }}" />
+    {% endif %}
+
     <!-- Styles -->
     <!-- Bootstrap CSS -->
     <link href="{{ site.baseurl }}/css/bootstrap.min.css" rel="stylesheet">
@@ -217,7 +227,7 @@
 
 <!-- Custom JS. Type your JS code in custom.js file -->
 <script src="{{ site.baseurl }}/js/custom.js"></script>
-    
+
 <!-- Disqus -->
 {% if page.comments %}
     <script type="text/javascript">
