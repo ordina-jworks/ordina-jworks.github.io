@@ -44,6 +44,7 @@ Adopt the [**one sentence per line** method](https://raw.githubusercontent.com/b
 By starting a new line at the end of each sentence,
 and splitting sentences themselves at natural breaks between clauses,
 a text file becomes far easier to edit and version control.
+
 This allows commenting on specific sentences in a pull request.
 If a change is made to a sentence,
 the diff will only show the difference between the old and new sentence,
