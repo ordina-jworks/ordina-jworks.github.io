@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ordina JWorks Tech Blog</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Ordina JWorks Tech blog
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,Javascript,DevOps">
+    <meta name="author" content="Ordina Belgium">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/ionic/2016/04/07/Ionic-Protractor.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Protractor testing in Ionic app - Yannick Vergeylen" />
+    <meta property="og:description" content="Ordina JWorks Tech Blog" />
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/ionic-protractor.png" />
+    
+
+    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Base style -->
+    <link href="/css/styles/style.css" rel="stylesheet">
+    <!-- Skin CSS -->
+    <link href="/css/styles/skin-orange.css" rel="stylesheet" id="color_theme">
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<!-- Add class "boxed" along with body for boxed layout. -->
+<!-- Add "pattern-x" (1 to 5) for background patterns. -->
+<!-- Add "img-x" (1 to 5) for background images. -->
+<body>
+
+<!-- Outer Starts -->
+<div class="outer">
+    <!-- Header two Starts -->
+    <div class="header-2">
+
+        <!-- Container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo">
+                        <h1><a href="/"><img src="/img/jworks/jworks-400x400.jpg"
+                                                               width="100"
+                                                               height="100"/> </a></h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="navy">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="/contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header two ends -->
+
+    <!-- Main content starts -->
+
+    <div class="main-block">
+
+        <!-- Page heading two starts -->
+
+        <div class="page-heading-two">
+            <div class="container">
+                <h2>JWorks Tech Blogs<span style="margin-left: 10px"> Powered by Ordina</span></h2>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <!-- Page heading two ends -->
+
+        <div class="container tk-acumin-pro">
+            <div class="post">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Protractor testing in Ionic app</h1>
+            <p id="post-meta">
+                Posted Apr 7, 2016 in <a href="/categories/ionic/">Ionic</a> by <a href="/author/yannick-vergeylen/">Yannick Vergeylen</a> 
+                
+                    <br />
+                    <i class="fa fa-tags"></i>
+                        
+                            <a href="/tags/ionic/">ionic</a>,
+                        
+                            <a href="/tags/protractor/">protractor</a>,
+                        
+                            <a href="/tags/pageobject/">pageobject</a>,
+                        
+                            <a href="/tags/functional-modules/">functional modules</a>
+                        
+                
+            </p>
+        </div>
+    </div>
+    <br />
+    <article class="post-content">
+        <h3 id="using-protractor-in-an-ionic-app">Using Protractor in an ionic app</h3>
+
+<p>Since a few days I’ve been playing around with <a href="https://angular.github.io/protractor/#/">Protractor</a>
+and I am also involved on an internal project in which an Ionic app has to be created.
+So I thought:</p>
+
+<blockquote>
+  <p>Why not use Protractor in my Ionic app?</p>
+</blockquote>
+
+<p>So here we are.</p>
+
+<p>It’s not hard to get started and I will explain how I got it working.
+For the full example please refer to <a href="http://learn.ionicframework.com/formulas/Protractor">the ionic documentation</a></p>
+
+<h2 id="getting-started">1. Getting started</h2>
+
+<p>First of all you need <a href="https://nodejs.org/">Node.js</a>.</p>
+
+<p>When Node.js is installed you should install Ionic and Cordova using npm (Node Package Manager):</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">npm install -g cordova ionic</code></pre></figure>
+
+<p>I personally needed an app with tabs, but you can also start a blank app or an app with a side menu:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ionic start &lt;your app name&gt; tabs</code></pre></figure>
+
+<p><em>You can also choose <code class="highlighter-rouge">blank</code> or <code class="highlighter-rouge">sidemenu</code> instead of <code class="highlighter-rouge">tabs</code></em></p>
+
+<h2 id="running-the-app-in-the-browser">2. Running the app in the browser</h2>
+
+<p>Once the Ionic app has been generated, you can run t it in the browser using the following command:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> &lt;your app name&gt;
+ionic serve</code></pre></figure>
+
+<blockquote>
+  <p>It’s worth noting that Ionic has live reload built in <strong>by default</strong>.
+So any changes will be immediately
+reflected in the browser.</p>
+</blockquote>
+
+<p>To view the application using the iOS and Android styling applied you can use the following command:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"> ionic serve -lab </code></pre></figure>
+
+<p>There are many more awesome things you can do with the Ionic CLI.
+If you want to know more about the CLI you can find it in <a href="http://ionicframework.com/docs/cli/">the Ionic documentation</a>.</p>
+
+<h2 id="structuring-the-application">3. Structuring the application</h2>
+<p>At this moment you are set up with an Ionic starter app.
+The first thing I did was refactor the code from technical to functional modules.</p>
+
+<p><img src="/img/2016-04-07-ionic-protractor/technical.jpg" alt="Technical modules" />
+ –&gt;
+<img src="/img/2016-04-07-ionic-protractor/functional.jpg" alt="Functional modules" /></p>
+
+<blockquote>
+  <p>I strongly advise to use functional modules, it’s easier to work with.</p>
+</blockquote>
+
+<p>Related code should be in one folder and when testing you can use the same structure to test each module separately while coding.</p>
+
+<blockquote>
+  <p>You’ll find yourself navigating less trough your open tabs or a tree-view.</p>
+</blockquote>
+
+<p>Additionally, it makes your code more comprehensible to other developers.
+<a href="https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md">The style guide from John Papa</a>
+ on how to structure AngularJS applications is a very good resource.</p>
+
+<h2 id="sign-in-page">4. Sign-in page</h2>
+<p><em>The one we’ll be testing</em></p>
+
+<p>After refactoring, I implemented a sign-in page, which has no access to the tabs.
+The code can be seen below.
+If you work in functional modules like I do, it is as easy as referring to the controller and the service from index.html, then pass <code class="highlighter-rouge">starter.sign-in</code> as a module to your application.</p>
+
+<p><code class="highlighter-rouge">sign-in/sign-in-controller.js</code>:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">angular</span>
+        <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'starter.sign-in'</span><span class="p">,[])</span>
+        <span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">'SignInCtrl'</span><span class="p">,</span><span class="nx">SignInCtrl</span><span class="p">);</span>
+
+    <span class="nx">SignInCtrl</span><span class="p">.</span><span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'$scope'</span><span class="p">,</span><span class="s1">'$state'</span><span class="p">,</span><span class="s1">'SignInService'</span><span class="p">];</span>
+
+    <span class="kd">function</span> <span class="nx">SignInCtrl</span> <span class="p">(</span><span class="nx">$scope</span><span class="p">,</span><span class="nx">$state</span><span class="p">,</span><span class="nx">SignInService</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$scope</span><span class="p">.</span><span class="nx">user</span> <span class="o">=</span> <span class="p">{};</span>
+        <span class="nx">$scope</span><span class="p">.</span><span class="nx">signIn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">SignInService</span><span class="p">.</span><span class="nx">signIn</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">user</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+                        <span class="nx">$state</span><span class="p">.</span><span class="nx">go</span><span class="p">(</span><span class="s1">'tab.rooms'</span><span class="p">);</span>
+                    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                        <span class="nx">$scope</span><span class="p">.</span><span class="nx">incorrect</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">})</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">})();</span></code></pre></figure>
+
+<p><code class="highlighter-rouge">sign-in/signin.html</code>:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;ion-view</span> <span class="na">view-title=</span><span class="s">"Sign in"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ion-content&gt;</span>
+        <span class="nt">&lt;form</span> <span class="na">name=</span><span class="s">"frmLogin"</span> <span class="na">novalidate</span> <span class="na">ng-cloak</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;ion-list&gt;</span>
+                <span class="nt">&lt;ion-item</span> <span class="na">class=</span><span class="s">"item item-input item-floating-label"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label&gt;</span>
+                        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"input-label"</span><span class="nt">&gt;</span>Username<span class="nt">&lt;/span&gt;</span>
+                        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">ng-model=</span><span class="s">"user.username"</span> <span class="na">ng-required=</span><span class="s">"true"</span> <span class="na">placeholder=</span><span class="s">"Username"</span> <span class="na">id=</span><span class="s">"username"</span> <span class="na">name=</span><span class="s">"username"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;/label&gt;</span>
+                    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"assertive"</span> <span class="na">ng-if=</span><span class="s">"frmLogin.$submitted || frmLogin.username.$touched"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;div</span> <span class="na">ng-if=</span><span class="s">"frmLogin.username.$error.required"</span><span class="nt">&gt;</span>Username is required<span class="nt">&lt;/div&gt;</span>
+                        <span class="nt">&lt;div</span> <span class="na">ng-if=</span><span class="s">"frmLogin.username.$error.email"</span><span class="nt">&gt;</span>Username is not valid<span class="nt">&lt;/div&gt;</span>
+                    <span class="nt">&lt;/div&gt;</span>
+                <span class="nt">&lt;/ion-item&gt;</span>
+                <span class="nt">&lt;ion-item</span> <span class="na">class=</span><span class="s">"item item-input item-floating-label"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label&gt;</span>
+                        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"input-label"</span><span class="nt">&gt;</span>Password<span class="nt">&lt;/span&gt;</span>
+                        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"password"</span> <span class="na">ng-model=</span><span class="s">"user.password"</span> <span class="na">ng-minlength=</span><span class="s">"4"</span> <span class="na">ng-required=</span><span class="s">"true"</span> <span class="na">placeholder=</span><span class="s">"Password"</span> <span class="na">id=</span><span class="s">"password"</span> <span class="na">name=</span><span class="s">"password"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;/label&gt;</span>
+                    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"assertive"</span> <span class="na">ng-if=</span><span class="s">"frmLogin.$submitted || frmLogin.password.$touched"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;div</span> <span class="na">ng-show=</span><span class="s">"frmLogin.password.$error.required"</span><span class="nt">&gt;</span>Password is required<span class="nt">&lt;/div&gt;</span>
+                    <span class="nt">&lt;/div&gt;</span>
+                <span class="nt">&lt;/ion-item&gt;</span>
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"padding"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"assertive"</span> <span class="na">ng-if=</span><span class="s">"incorrect"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;div&gt;</span>Username or password is incorrect.<span class="nt">&lt;/div&gt;</span>
+                    <span class="nt">&lt;/div&gt;</span>
+                    <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"btnSignIn"</span> <span class="na">ng-disabled=</span><span class="s">"frmLogin.$invalid"</span> <span class="na">class=</span><span class="s">"button button-full button-positive"</span> <span class="na">ng-click=</span><span class="s">"signIn()"</span><span class="nt">&gt;</span>
+                        Sign in
+                    <span class="nt">&lt;/button&gt;</span>
+                <span class="nt">&lt;/div&gt;</span>
+            <span class="nt">&lt;/ion-list&gt;</span>
+        <span class="nt">&lt;/form&gt;</span>
+    <span class="nt">&lt;/ion-content&gt;</span>
+<span class="nt">&lt;/ion-view&gt;</span></code></pre></figure>
+
+<p><code class="highlighter-rouge">sign-in/sign-in.service.js</code>:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">angular</span>
+        <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'starter.sign-in'</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">'SignInService'</span><span class="p">,</span> <span class="nx">SignInService</span><span class="p">);</span>
+
+    <span class="nx">SignInService</span><span class="p">.</span><span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'$timeout'</span><span class="p">];</span>
+
+    <span class="kd">function</span> <span class="nx">SignInService</span> <span class="p">(</span><span class="nx">$timeout</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_user</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="na">email</span><span class="p">:</span> <span class="s1">'yannick@gmail.com'</span><span class="p">,</span>
+            <span class="na">pass</span><span class="p">:</span> <span class="s1">'1234'</span>
+        <span class="p">};</span>
+
+        <span class="kd">function</span> <span class="nx">signIn</span> <span class="p">(</span><span class="nx">user</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">$timeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="c1">//return !!(user.username === _user.email &amp;&amp; user.password == _user.pass);</span>
+            <span class="p">},</span><span class="mi">2000</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="na">signIn</span> <span class="p">:</span> <span class="nx">signIn</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">})();</span></code></pre></figure>
+
+<p>Next you need to provide a state, so add the following in <code class="highlighter-rouge">app.js</code>:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">state</span><span class="p">(</span><span class="s1">'signin'</span><span class="p">,{</span>
+    <span class="na">url</span><span class="p">:</span><span class="s1">'/signin'</span><span class="p">,</span>
+    <span class="na">templateUrl</span><span class="p">:</span> <span class="s1">'sign-in/sign-in.html'</span><span class="p">,</span>
+    <span class="na">controller</span><span class="p">:</span> <span class="s1">'SignCtrl'</span>
+<span class="p">)}</span></code></pre></figure>
+
+<p>and change redirect to <code class="highlighter-rouge">/signin</code> by default:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$urlRouterProvider</span><span class="p">.</span><span class="nx">otherwise</span><span class="p">(</span><span class="s1">'/signin'</span><span class="p">);</span></code></pre></figure>
+
+<p><em>For complete authentication you should check the authenticated state when changing pages,
+but that’s not in the scope of this blog</em></p>
+
+<h2 id="preparing-protractor">5. Preparing protractor</h2>
+
+<p>The sign-in part is the one I am going to test with Protractor.
+First thing to do, is to install Protractor on your system:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">npm install -g protractor</code></pre></figure>
+
+<p>The <code class="highlighter-rouge">webdriver manager</code> is a helper tool to easily get a Selenium server running.
+Run the following commands in order to start it:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">webdriver-manager update
+webdriver-manager start</code></pre></figure>
+
+<p>To keep your code clean, you could put tests in a dedicated folder, but many argue against it.</p>
+
+<blockquote>
+  <p>Since I work in functional modules, tests of these modules should live in the module itself.</p>
+</blockquote>
+
+<p>Next I created a Protractor configuration file in the root of my project called <code class="highlighter-rouge">protractor.config.js</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">touch protractor.config.js</code></pre></figure>
+
+<p><code class="highlighter-rouge">protractor.config.js</code>:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">exports</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">capabilities</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">'browserName'</span><span class="p">:</span> <span class="s1">'chrome'</span>
+    <span class="p">},</span>
+    <span class="na">specs</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">'www/sign-in/sign-in.spec.js'</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="na">jasmineNodeOpts</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">showColors</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">defaultTimeoutInterval</span><span class="p">:</span> <span class="mi">30000</span><span class="p">,</span>
+        <span class="na">isVerbose</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="na">allScriptsTimeout</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
+    <span class="na">onPrepare</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">browser</span><span class="p">.</span><span class="nx">driver</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'http://localhost:8100'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></figure>
+
+<blockquote>
+  <p>Don’t forget to set the correct URL to your running app.
+If not, you’ll see many errors, except that you might be referring to a wrong URL</p>
+</blockquote>
+
+<h2 id="preparing-the-tests">6. Preparing the tests</h2>
+
+<p>As you can see, there is already a spec file defined in the protractor config file, so let’s create it:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd </span>www/sign-in/
+touch sign-in.spec.js</code></pre></figure>
+
+<p>In the newly created file, you can start writing your tests.
+If everything went well, you can simply add another test and it should validate to true.
+It only tests if the first page you see, is the login page:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">describe</span><span class="p">(</span><span class="s1">'Signing in'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s1">'should start on sign-in view'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'Sign in'</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span></code></pre></figure>
+
+<p>Basically, we define a <code class="highlighter-rouge">describe</code> function which will describe the whole scope of our specs.
+Every ‘it’ function is called a spec.
+We only created one for now.
+As you can see this is a very readable way of testing.
+We expect the browsers title to be equal to ‘Sign in’.
+If the <code class="highlighter-rouge">expect</code> statement evaluates to <code class="highlighter-rouge">true</code>, the spec has passed without failures, otherwise it will have a failure.</p>
+
+<blockquote>
+  <p>Feel free to change <code class="highlighter-rouge">Sign in</code> to something else to fail the test.</p>
+</blockquote>
+
+<p>To run the tests, we can execute the following command in the folder of our <code class="highlighter-rouge">protractor.config.js</code> file:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">protractor protractor.config.js</code></pre></figure>
+
+<p>Running this command will read the config file and run all the spec-files defined.
+You will get some output in the command line.
+At the end you’ll get a summary like <strong>1 specs, 0 failures Finished in x.xxx seconds</strong>.</p>
+
+<p>This is a simple test but it doesn’t show the full potential of Protractor at all.
+Lets add a new spec as part of the describe.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">it</span><span class="p">(</span><span class="s1">'should be unable to click Sign-in button when fields are empty'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">button</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'btnSignIn'</span><span class="p">));</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">button</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">'disabled'</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'true'</span><span class="p">);</span>
+<span class="p">});</span></code></pre></figure>
+
+<p>So here we test the availability of the sign-in button when the fields are empty.
+Next is to test if the button becomes available if the fields are filled in with valid data.
+So lets add another test:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">it</span><span class="p">(</span><span class="s1">'should be possible to click Sign-in button when fields are filled in'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">button</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'btnSignIn'</span><span class="p">));</span>
+    <span class="kd">var</span> <span class="nx">txtUsername</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'username'</span><span class="p">));</span>
+    <span class="kd">var</span> <span class="nx">txtPassword</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'password'</span><span class="p">));</span>
+    <span class="nx">txtUsername</span><span class="p">.</span><span class="nx">sendKeys</span><span class="p">(</span><span class="s1">'yannick@gmail.com'</span><span class="p">);</span>
+    <span class="nx">txtPassword</span><span class="p">.</span><span class="nx">sendKeys</span><span class="p">(</span><span class="s1">'1234'</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">button</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">'disabled'</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="p">});</span></code></pre></figure>
+
+<p>All these tests should pass correctly in protractor.</p>
+
+<h2 id="page-object-pattern">7. Page Object Pattern</h2>
+
+<p>You might have noticed that your tests run synchronous after each other.
+In this scenario this might be useful, but sometimes you need to start with a ‘clean page’ which would mean you need to duplicate a lot of code (for finding the button and text-fields).</p>
+
+<blockquote>
+  <p>When you are working in an agile team, it is quite common that requirements or user stories change.
+This can implicate you’ll have to change a lot of duplicated code.
+How can we work around that.</p>
+</blockquote>
+
+<p>The solution is called the <strong>page object pattern</strong>.
+The general idea is to put your page in a JavaScript object.
+Lets dive into <code class="highlighter-rouge">sign-in.page.js</code>.
+This file should also be put into the module folder:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">SignInPage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">browser</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'http://localhost:8100/signin'</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">SignInPage</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">({},</span> <span class="p">{</span>
+    <span class="na">txtUsername</span><span class="p">:</span> <span class="p">{</span> <span class="na">get</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'username'</span><span class="p">));</span> <span class="p">}},</span>
+    <span class="na">txtPassword</span><span class="p">:</span> <span class="p">{</span> <span class="na">get</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'password'</span><span class="p">));</span> <span class="p">}},</span>
+    <span class="na">btnSignIn</span><span class="p">:</span> <span class="p">{</span> <span class="na">get</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'btnSignIn'</span><span class="p">));</span> <span class="p">}},</span>
+    <span class="na">typeUsername</span><span class="p">:</span> <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">keys</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">txtUsername</span><span class="p">.</span><span class="nx">sendKeys</span><span class="p">(</span><span class="nx">keys</span><span class="p">);</span> <span class="p">}},</span>
+    <span class="na">typePassword</span><span class="p">:</span> <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">keys</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">txtPassword</span><span class="p">.</span><span class="nx">sendKeys</span><span class="p">(</span><span class="nx">keys</span><span class="p">);</span> <span class="p">}},</span>
+    <span class="na">clickSignIn</span><span class="p">:</span> <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">keys</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">btnSignIn</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span> <span class="p">}}</span>
+<span class="p">});</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">SignInPage</span><span class="p">;</span></code></pre></figure>
+
+<p>In the constructor we make sure our browser opens the signin page by passing the correct URL.
+Then we use the <code class="highlighter-rouge">prototype</code> method to link our HTML elements with the object.
+Finally, it is wise to create helper methods for basic functionality, such as filling in a username, in case you ever would want to change that behaviour.
+Then you only need to change that line and all your tests will still pass.</p>
+
+<blockquote>
+  <p>Using logical method names keeps your tests readable which is what you’ll want when you look back in a few months.</p>
+</blockquote>
+
+<p>We can now change our <code class="highlighter-rouge">sign-in.spec.js</code> to this:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">SignInPage</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./sign-in.page.js'</span><span class="p">);</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s1">'Signing in'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">page</span><span class="p">;</span>
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">page</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SignInPage</span><span class="p">();</span>
+    <span class="p">});</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s1">'should be unable to click Sign-in button when fields are empty'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">txtUsername</span><span class="p">.</span><span class="nx">getText</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">txtPassword</span><span class="p">.</span><span class="nx">getText</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">btnSignIn</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">'disabled'</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'true'</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s1">'should be possible to click Sign-in button when fields are filled in'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">page</span><span class="p">.</span><span class="nx">typeUsername</span><span class="p">(</span><span class="s1">'yannick@gmail.com'</span><span class="p">);</span>
+        <span class="nx">page</span><span class="p">.</span><span class="nx">typePassword</span><span class="p">(</span><span class="s1">'1234'</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">btnSignIn</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">'disabled'</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+        <span class="nx">page</span><span class="p">.</span><span class="nx">clickSignIn</span><span class="p">();</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'Rooms'</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span></code></pre></figure>
+
+<p>What changed?
+We created a page variable and before each <code class="highlighter-rouge">it</code> we assigned a new SignInPage object to the page variable.
+This way, your page gets loaded again before running every spec.
+This means it always returns in the same state.
+Now you can create your specs as user stories.</p>
+
+<h2 id="conclusion">8. Conclusion</h2>
+
+<p>Protractor is an awesome way to test your app’s functionality.
+Using a descriptive syntax you can emulate almost every user action and run trough the whole app in no time, again and again.
+Using Protractor, you won’t have to spend a lot of time testing your application manually,
+and you can focus on feature development without having to worry about accidentally breaking some functionality.
+Protractor will ensure that your user gets a working app without frustrations!</p>
+
+    </article>
+    <hr />
+    <blockquote>
+        
+            <p>Yannick is a young and driven software developer. Widely interested and with a studious attitude he keeps looking for new ways to improve the web with better software and experiences.</p>
+
+        
+    </blockquote>
+    
+        <br /><br />
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    
+</div>
+
+        </div>
+    </div>
+    <!-- Main content ends -->
+</div>
+<!-- Footer Starts -->
+<footer class="footer">
+    <!-- Container -->
+    <div class="container">
+        <!-- Foot Starts -->
+        <div class="foot">
+            <!-- Container -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-user"></i>&nbsp;&nbsp;Disclaimer</h5>
+
+                            <p>Opinions expressed on this blog reflect the writer’s views and not the position of
+                                Ordina.</p>
+
+                            <div class="brand-bg">
+                                <a target="_blank" href="https://www.facebook.com/lifeatordinabe" class="facebook"><i
+                                        class="fa fa-facebook circle-3"></i></a>
+                                <a target="_blank" href="https://twitter.com/lifeatordinabe"
+                                   class="twitter"><i
+                                        class="fa fa-twitter circle-3"></i></a>
+                                <a target="_blank" href="https://www.linkedin.com/company/ordina-belgium"
+                                   class="linkedin"><i
+                                        class="fa fa-linkedin circle-3"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-comments"></i>&nbsp;&nbsp;Recent Posts</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content">
+                                <ul class="list-unstyled">
+                                    
+                                    <li>
+                                        <span>09 Apr 2016</span> &raquo;
+                                        <a href="/microservices/2016/04/09/Ordina-becomes-Netflix-OSS-contributor.html">
+                                            Ordina becomes Netflix OSS contributor</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>07 Apr 2016</span> &raquo;
+                                        <a href="/ionic/2016/04/07/Ionic-Protractor.html">
+                                            Protractor testing in Ionic app</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>31 Mar 2016</span> &raquo;
+                                        <a href="/ionic/2016/03/31/Adding-TypeScript-to-Ionic-Framework.html">
+                                            Adding TypeScript to Ionic Framework</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>16 Mar 2016</span> &raquo;
+                                        <a href="/angularjs-typescript/2016/03/16/AngularTS.html">
+                                            AngularTS: A new look @ Angular</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>12 Mar 2016</span> &raquo;
+                                        <a href="/security/2016/03/12/Digitally-signing-your-JSON-documents.html">
+                                            Digitally signing your JSON documents</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>10 Mar 2016</span> &raquo;
+                                        <a href="/conferences/2016/03/10/JavaLand2016.html">
+                                            The 5 key trends of JavaLand 2016</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>05 Mar 2016</span> &raquo;
+                                        <a href="/spring/2016/03/05/HTTP-Public-Key-Pinning-with-Spring-Security.html">
+                                            HTTP Public Key Pinning with Spring Security</a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-building-o"></i>&nbsp;&nbsp;Contact Us</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content address">
+                                <!-- Heading -->
+                                <h6 class="bold"><i class="fa fa-home"></i>&nbsp;&nbsp;Ordina Belgium</h6>
+                                <!-- Paragraph -->
+                                <p class="add">
+                                    Blarenberglaan 3B,<br/>
+                                    Mechelen 2800, Belgium.</p>
+
+                                <p class="tel"><i class="fa fa-phone"></i> Tel : + (32) - 15 29 58 58<br/>
+                                    <i class="fa fa-envelope"></i> Mail : <a href="#">info@ordina.be</a><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Foot Ends -->
+        <!-- Footer Content -->
+        <p class="pull-left">Copyright &copy; 2016 - <a href="#">Ordina JWorks</a></p>
+        <ul class="list-inline pull-right">
+            <!-- List -->
+            <li><a href="/">Home</a>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/contact/">Contact</a></li>
+        </ul>
+        <!-- Clearfix -->
+        <div class="clearfix"></div>
+    </div>
+</footer>
+<!-- Footer Ends -->
+
+<!-- Outer Ends -->
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-angle-up bg-color"></i></a></span>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/placeholders.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/respond.min.js"></script>
+<script src="/js/html5shiv.js"></script>
+<script src="/js/main.js"></script>
+
+<script src="/js/imagesloaded.min.js"></script>
+<script src="/js/masonry.js"></script>
+
+<!-- Javascript for this page -->
+<script>
+    // Initialize Masonry
+    var $box = $('.blog-masonry').masonry();
+    // Layout Masonry again after all images have loaded
+    $box.imagesLoaded(function () {
+        $box.masonry();
+    });
+</script>
+
+<!-- Custom JS. Type your JS code in custom.js file -->
+<script src="/js/custom.js"></script>
+
+<!-- Disqus -->
+
+    <script type="text/javascript">
+        var disqus_config = function () {
+            this.page.url = "https://ordina-jworks.github.io/ionic/2016/04/07/Ionic-Protractor.html";
+            this.page.identifier = "/ionic/2016/04/07/Ionic-Protractor.html";
+            this.page.title = "Protractor testing in Ionic app";
+        };
+    </script>
+    <script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>

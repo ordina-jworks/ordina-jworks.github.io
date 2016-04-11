@@ -6,8 +6,8 @@
 </description>
     <link>https://ordina-jworks.github.io/</link>
     <atom:link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 09 Apr 2016 21:49:51 +0000</pubDate>
-    <lastBuildDate>Sat, 09 Apr 2016 21:49:51 +0000</lastBuildDate>
+    <pubDate>Mon, 11 Apr 2016 10:52:40 +0000</pubDate>
+    <lastBuildDate>Mon, 11 Apr 2016 10:52:40 +0000</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
     
       <item>
@@ -63,6 +63,390 @@ If these architectures personally excite you, take a look at &lt;a href=&quot;ht
         
         
         <category>Microservices</category>
+        
+      </item>
+    
+      <item>
+        <title>Protractor testing in Ionic app</title>
+        <description>&lt;h3 id=&quot;using-protractor-in-an-ionic-app&quot;&gt;Using Protractor in an ionic app&lt;/h3&gt;
+
+&lt;p&gt;Since a few days I’ve been playing around with &lt;a href=&quot;https://angular.github.io/protractor/#/&quot;&gt;Protractor&lt;/a&gt;
+and I am also involved on an internal project in which an Ionic app has to be created.
+So I thought:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Why not use Protractor in my Ionic app?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;So here we are.&lt;/p&gt;
+
+&lt;p&gt;It’s not hard to get started and I will explain how I got it working.
+For the full example please refer to &lt;a href=&quot;http://learn.ionicframework.com/formulas/Protractor&quot;&gt;the ionic documentation&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-started&quot;&gt;1. Getting started&lt;/h2&gt;
+
+&lt;p&gt;First of all you need &lt;a href=&quot;https://nodejs.org/&quot;&gt;Node.js&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;When Node.js is installed you should install Ionic and Cordova using npm (Node Package Manager):&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;npm install -g cordova ionic&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;I personally needed an app with tabs, but you can also start a blank app or an app with a side menu:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ionic start &amp;lt;your app name&amp;gt; tabs&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;You can also choose &lt;code class=&quot;highlighter-rouge&quot;&gt;blank&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;sidemenu&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;tabs&lt;/code&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;running-the-app-in-the-browser&quot;&gt;2. Running the app in the browser&lt;/h2&gt;
+
+&lt;p&gt;Once the Ionic app has been generated, you can run t it in the browser using the following command:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &amp;lt;your app name&amp;gt;
+ionic serve&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;It’s worth noting that Ionic has live reload built in &lt;strong&gt;by default&lt;/strong&gt;.
+So any changes will be immediately
+reflected in the browser.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;To view the application using the iOS and Android styling applied you can use the following command:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; ionic serve -lab &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;There are many more awesome things you can do with the Ionic CLI.
+If you want to know more about the CLI you can find it in &lt;a href=&quot;http://ionicframework.com/docs/cli/&quot;&gt;the Ionic documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;structuring-the-application&quot;&gt;3. Structuring the application&lt;/h2&gt;
+&lt;p&gt;At this moment you are set up with an Ionic starter app.
+The first thing I did was refactor the code from technical to functional modules.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2016-04-07-ionic-protractor/technical.jpg&quot; alt=&quot;Technical modules&quot; /&gt;
+ –&amp;gt;
+&lt;img src=&quot;/img/2016-04-07-ionic-protractor/functional.jpg&quot; alt=&quot;Functional modules&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;I strongly advise to use functional modules, it’s easier to work with.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Related code should be in one folder and when testing you can use the same structure to test each module separately while coding.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;You’ll find yourself navigating less trough your open tabs or a tree-view.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Additionally, it makes your code more comprehensible to other developers.
+&lt;a href=&quot;https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md&quot;&gt;The style guide from John Papa&lt;/a&gt;
+ on how to structure AngularJS applications is a very good resource.&lt;/p&gt;
+
+&lt;h2 id=&quot;sign-in-page&quot;&gt;4. Sign-in page&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;The one we’ll be testing&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;After refactoring, I implemented a sign-in page, which has no access to the tabs.
+The code can be seen below.
+If you work in functional modules like I do, it is as easy as referring to the controller and the service from index.html, then pass &lt;code class=&quot;highlighter-rouge&quot;&gt;starter.sign-in&lt;/code&gt; as a module to your application.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sign-in/sign-in-controller.js&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;angular&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;starter.sign-in&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[])&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;SignInCtrl&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SignInCtrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;SignInCtrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$inject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;$scope&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;$state&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;SignInService&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SignInCtrl&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SignInService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;$scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;$scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;signIn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;SignInService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;signIn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+                        &lt;span class=&quot;nx&quot;&gt;$state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;tab.rooms&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;nx&quot;&gt;$scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;incorrect&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sign-in/signin.html&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ion-view&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;view-title=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Sign in&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;ion-content&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;form&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;frmLogin&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;novalidate&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-cloak&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;ion-list&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;ion-item&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;item item-input item-floating-label&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;label&amp;gt;&lt;/span&gt;
+                        &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;input-label&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Username&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
+                        &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;email&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-model=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;user.username&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-required=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;placeholder=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Username&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;username&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/label&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;assertive&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-if=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;frmLogin.$submitted || frmLogin.username.$touched&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+                        &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-if=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;frmLogin.username.$error.required&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Username is required&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+                        &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-if=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;frmLogin.username.$error.email&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Username is not valid&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ion-item&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;ion-item&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;item item-input item-floating-label&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;label&amp;gt;&lt;/span&gt;
+                        &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;input-label&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Password&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
+                        &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;password&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-model=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;user.password&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-minlength=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;4&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-required=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;placeholder=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Password&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;password&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/label&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;assertive&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-if=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;frmLogin.$submitted || frmLogin.password.$touched&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+                        &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-show=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;frmLogin.password.$error.required&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Password is required&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ion-item&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;padding&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;assertive&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-if=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;incorrect&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+                        &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&amp;gt;&lt;/span&gt;Username or password is incorrect.&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;btnSignIn&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-disabled=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;frmLogin.$invalid&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;button button-full button-positive&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ng-click=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;signIn()&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+                        Sign in
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ion-list&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ion-content&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ion-view&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sign-in/sign-in.service.js&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;angular&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;starter.sign-in&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;factory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;SignInService&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SignInService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;SignInService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$inject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;$timeout&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SignInService&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$timeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;yannick@gmail.com&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;pass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;1234&#39;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+        &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;signIn&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$timeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//return !!(user.username === _user.email &amp;amp;&amp;amp; user.password == _user.pass);&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;signIn&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;signIn&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Next you need to provide a state, so add the following in &lt;code class=&quot;highlighter-rouge&quot;&gt;app.js&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;signin&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;/signin&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;templateUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;sign-in/sign-in.html&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;SignCtrl&#39;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;and change redirect to &lt;code class=&quot;highlighter-rouge&quot;&gt;/signin&lt;/code&gt; by default:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;$urlRouterProvider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;otherwise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;/signin&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;For complete authentication you should check the authenticated state when changing pages,
+but that’s not in the scope of this blog&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;preparing-protractor&quot;&gt;5. Preparing protractor&lt;/h2&gt;
+
+&lt;p&gt;The sign-in part is the one I am going to test with Protractor.
+First thing to do, is to install Protractor on your system:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;npm install -g protractor&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;webdriver manager&lt;/code&gt; is a helper tool to easily get a Selenium server running.
+Run the following commands in order to start it:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;webdriver-manager update
+webdriver-manager start&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;To keep your code clean, you could put tests in a dedicated folder, but many argue against it.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Since I work in functional modules, tests of these modules should live in the module itself.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Next I created a Protractor configuration file in the root of my project called &lt;code class=&quot;highlighter-rouge&quot;&gt;protractor.config.js&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;touch protractor.config.js&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;protractor.config.js&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;capabilities&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&#39;browserName&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;chrome&#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;specs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&#39;www/sign-in/sign-in.spec.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;jasmineNodeOpts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;showColors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;defaultTimeoutInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;isVerbose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;allScriptsTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;onPrepare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;browser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;http://localhost:8100&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Don’t forget to set the correct URL to your running app.
+If not, you’ll see many errors, except that you might be referring to a wrong URL&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;preparing-the-tests&quot;&gt;6. Preparing the tests&lt;/h2&gt;
+
+&lt;p&gt;As you can see, there is already a spec file defined in the protractor config file, so let’s create it:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;www/sign-in/
+touch sign-in.spec.js&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;In the newly created file, you can start writing your tests.
+If everything went well, you can simply add another test and it should validate to true.
+It only tests if the first page you see, is the login page:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Signing in&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;should start on sign-in view&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;browser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Sign in&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Basically, we define a &lt;code class=&quot;highlighter-rouge&quot;&gt;describe&lt;/code&gt; function which will describe the whole scope of our specs.
+Every ‘it’ function is called a spec.
+We only created one for now.
+As you can see this is a very readable way of testing.
+We expect the browsers title to be equal to ‘Sign in’.
+If the &lt;code class=&quot;highlighter-rouge&quot;&gt;expect&lt;/code&gt; statement evaluates to &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;, the spec has passed without failures, otherwise it will have a failure.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Feel free to change &lt;code class=&quot;highlighter-rouge&quot;&gt;Sign in&lt;/code&gt; to something else to fail the test.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;To run the tests, we can execute the following command in the folder of our &lt;code class=&quot;highlighter-rouge&quot;&gt;protractor.config.js&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;protractor protractor.config.js&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Running this command will read the config file and run all the spec-files defined.
+You will get some output in the command line.
+At the end you’ll get a summary like &lt;strong&gt;1 specs, 0 failures Finished in x.xxx seconds&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is a simple test but it doesn’t show the full potential of Protractor at all.
+Lets add a new spec as part of the describe.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;should be unable to click Sign-in button when fields are empty&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;btnSignIn&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getAttribute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;disabled&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;true&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So here we test the availability of the sign-in button when the fields are empty.
+Next is to test if the button becomes available if the fields are filled in with valid data.
+So lets add another test:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;should be possible to click Sign-in button when fields are filled in&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;btnSignIn&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;txtUsername&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;username&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;txtPassword&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;password&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;txtUsername&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sendKeys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;yannick@gmail.com&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;txtPassword&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sendKeys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;1234&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getAttribute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;disabled&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toBe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;All these tests should pass correctly in protractor.&lt;/p&gt;
+
+&lt;h2 id=&quot;page-object-pattern&quot;&gt;7. Page Object Pattern&lt;/h2&gt;
+
+&lt;p&gt;You might have noticed that your tests run synchronous after each other.
+In this scenario this might be useful, but sometimes you need to start with a ‘clean page’ which would mean you need to duplicate a lot of code (for finding the button and text-fields).&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;When you are working in an agile team, it is quite common that requirements or user stories change.
+This can implicate you’ll have to change a lot of duplicated code.
+How can we work around that.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The solution is called the &lt;strong&gt;page object pattern&lt;/strong&gt;.
+The general idea is to put your page in a JavaScript object.
+Lets dive into &lt;code class=&quot;highlighter-rouge&quot;&gt;sign-in.page.js&lt;/code&gt;.
+This file should also be put into the module folder:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SignInPage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;browser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;http://localhost:8100/signin&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;SignInPage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;txtUsername&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;username&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;txtPassword&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;password&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;btnSignIn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;btnSignIn&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;typeUsername&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;txtUsername&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sendKeys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;typePassword&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;txtPassword&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sendKeys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;clickSignIn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;btnSignIn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SignInPage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;In the constructor we make sure our browser opens the signin page by passing the correct URL.
+Then we use the &lt;code class=&quot;highlighter-rouge&quot;&gt;prototype&lt;/code&gt; method to link our HTML elements with the object.
+Finally, it is wise to create helper methods for basic functionality, such as filling in a username, in case you ever would want to change that behaviour.
+Then you only need to change that line and all your tests will still pass.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Using logical method names keeps your tests readable which is what you’ll want when you look back in a few months.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We can now change our &lt;code class=&quot;highlighter-rouge&quot;&gt;sign-in.spec.js&lt;/code&gt; to this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SignInPage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;./sign-in.page.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Signing in&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SignInPage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;should be unable to click Sign-in button when fields are empty&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;txtUsername&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;txtPassword&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;btnSignIn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getAttribute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;disabled&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;true&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;should be possible to click Sign-in button when fields are filled in&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;typeUsername&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;yannick@gmail.com&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;typePassword&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;1234&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;btnSignIn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getAttribute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;disabled&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toBe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;clickSignIn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;browser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Rooms&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;What changed?
+We created a page variable and before each &lt;code class=&quot;highlighter-rouge&quot;&gt;it&lt;/code&gt; we assigned a new SignInPage object to the page variable.
+This way, your page gets loaded again before running every spec.
+This means it always returns in the same state.
+Now you can create your specs as user stories.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;8. Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Protractor is an awesome way to test your app’s functionality.
+Using a descriptive syntax you can emulate almost every user action and run trough the whole app in no time, again and again.
+Using Protractor, you won’t have to spend a lot of time testing your application manually,
+and you can focus on feature development without having to worry about accidentally breaking some functionality.
+Protractor will ensure that your user gets a working app without frustrations!&lt;/p&gt;
+</description>
+        <pubDate>Thu, 07 Apr 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/ionic/2016/04/07/Ionic-Protractor.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/ionic/2016/04/07/Ionic-Protractor.html</guid>
+        
+        <category>ionic</category>
+        
+        <category>protractor</category>
+        
+        <category>pageobject</category>
+        
+        <category>functional modules</category>
+        
+        
+        <category>Ionic</category>
         
       </item>
     
@@ -1657,92 +2041,6 @@ but also the business about DDD. This book will be available within a month.&lt;
         <pubDate>Fri, 29 Jan 2016 00:00:00 +0000</pubDate>
         <link>https://ordina-jworks.github.io/domain-driven%20design/2016/01/29/DDDEU16-Odds-and-Ends.html</link>
         <guid isPermaLink="true">https://ordina-jworks.github.io/domain-driven%20design/2016/01/29/DDDEU16-Odds-and-Ends.html</guid>
-        
-        <category>Domain-Driven Design</category>
-        
-        <category>DDD</category>
-        
-        <category>Software Craftmanship</category>
-        
-        
-        <category>Domain-Driven Design</category>
-        
-      </item>
-    
-      <item>
-        <title>Heuristics from the Trenches by Cyrille Martraire</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;“Communication usually fails, except by accident” - Osmo Wiio&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;With this quote of the Finnish researcher &lt;a href=&quot;https://en.wikipedia.org/wiki/Osmo_Antero_Wiio&quot;&gt;Osmo Wiio&lt;/a&gt;, Cyrille opened the second day of the &lt;a href=&quot;http://dddeurope.com&quot;&gt;DDD Europe&lt;/a&gt; conference. Osmo’s laws of communication are the &lt;strong&gt;human communications equivalent&lt;/strong&gt; of Murphy’s law. Basically if communication can fail, it will and if a message can be understood in several different ways it is quite possible that it will be understood in a harmful way. With the quote Cyrille immediately wants to stress that with Domain-Driven Design, deep conversations with domain experts and careful attention to the language are key.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Business domains&lt;/strong&gt; are often very complex and hard to get into for individuals not familiar with the domain. The &lt;strong&gt;conversations’ game&lt;/strong&gt; with &lt;strong&gt;domain experts&lt;/strong&gt; is a game that takes many years and many failures in order to get better at. Cyrille explained that, even though it’s hard, it’s perfectly possible over time to extract a growing set of techniques, heuristics and best practices to boost the effectiveness of the interviews with domain experts, to learn faster and to converge more quickly to better models.&lt;/p&gt;
-
-&lt;h3 id=&quot;practices-and-tricks-for-talking-to-the-domain-experts&quot;&gt;Practices and tricks for talking to the domain experts&lt;/h3&gt;
-&lt;p&gt;“Why is it so hard?” you might ask yourself or “We don’t talk the same language as them and they don’t have time for us!”. While it is true that the people with the highest expertise within a certain domain often don’t have a lot of time for interviews or meetings, it is up to us, the developers, to make the &lt;strong&gt;necessary preparations&lt;/strong&gt; prior to seeing them. You should first take some time in order to teach yourself some &lt;strong&gt;basic domain knowledge&lt;/strong&gt;. It all starts with &lt;strong&gt;genuine curiosity&lt;/strong&gt;, successful people are curious about their business domains. You may not believe this but here this will help you too! Without this you will have a bad time! &lt;strong&gt;Do your homework&lt;/strong&gt;: perform the necessary research about the domain on the internet, Google around, read books, check Oasis, … Usage of &lt;strong&gt;ubiquitous language&lt;/strong&gt; is very important.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Note taking&lt;/strong&gt; is also a very important aspect in the whole story. You need to be able to take notes like a pro! Learn to take notes effectively. &lt;strong&gt;Listen actively&lt;/strong&gt; and &lt;strong&gt;don’t distort&lt;/strong&gt; the stories the domain experts tells you. Keep the words as they are. It really is harder than you would think, so you should turn it into a game:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Write down the stories&lt;/strong&gt; the domain experts tell you&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Underline new words&lt;/strong&gt; and &lt;strong&gt;add a definition&lt;/strong&gt; for yourself, get familiar with all the domain terms&lt;/li&gt;
-  &lt;li&gt;Take note of &lt;strong&gt;side remarks&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;If you think that you’ve encountered a synonym for an existing new word &lt;strong&gt;dig into it&lt;/strong&gt; and &lt;strong&gt;ask for more detail&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Show your knowledge&lt;/strong&gt; to the domain user to &lt;strong&gt;establish credibility&lt;/strong&gt; and to challenge them&lt;/li&gt;
-  &lt;li&gt;But… Challenge them &lt;strong&gt;respectfully&lt;/strong&gt;!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;All this is &lt;strong&gt;Domain-Driven Design&lt;/strong&gt;!&lt;/p&gt;
-
-&lt;h3 id=&quot;talking-to-people-is-hard&quot;&gt;Talking to people is hard&lt;/h3&gt;
-&lt;p&gt;It is not easy talking to people and it will often be hard to have &lt;strong&gt;productive conversations&lt;/strong&gt;. However this is also something you can &lt;strong&gt;grow into&lt;/strong&gt; and for which you can develop the &lt;strong&gt;right toolset&lt;/strong&gt;. Have &lt;strong&gt;interactive conversations&lt;/strong&gt;, that way you have control over the conversation and the way you can steer it. Start with “what exactly is the goal?”. &lt;strong&gt;Be precise&lt;/strong&gt; when asking questions, we want to avoid having to reverse engineer the true need from an expressed solution. Be sure to &lt;strong&gt;scan the notes&lt;/strong&gt; you took during a previous conversation and &lt;strong&gt;decide&lt;/strong&gt; where you want the conversation to go next.&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;“I keep developers out of conversations about the domain because they always want to know ‘why this’ and ‘why that’. Just write your code.” - &lt;a href=&quot;https://twitter.com/expertbeginner1/status/656122859773820929&quot;&gt;The Expert Beginner&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;You should &lt;strong&gt;question everything&lt;/strong&gt;: ask why but don’t go too far!&lt;/p&gt;
-
-&lt;p&gt;Combine Domain-Driven Development with &lt;strong&gt;Behaviour-Driven Development&lt;/strong&gt;. Both go hand in hand to interview domain experts. You want to &lt;strong&gt;discover the “unknown unknowns”&lt;/strong&gt; as early as possible and to &lt;strong&gt;avoid misunderstandings&lt;/strong&gt; as often as possible. Be sure to &lt;strong&gt;ask for concrete examples&lt;/strong&gt; and &lt;strong&gt;genuine sample documents and data&lt;/strong&gt; and although this doesn’t always come easy, ask and insist but as mentioned before know your limits and be sure not to push it.&lt;/p&gt;
-
-&lt;p&gt;People always think that talking abstract is faster and will save time but think about it and ask yourself: “Is it truly faster if we were wrong or missed stuff that matters?”. If the domain expert seems hesitant about something also take note of this to take into account that the feature in question might be eligible for change later on, this way we can &lt;strong&gt;model our software design correctly&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-domain-expert-delusion&quot;&gt;The domain expert delusion&lt;/h3&gt;
-&lt;p&gt;You might assume that the person, you’re having a conversation with, is an actual system expert within the domain but chances are that he/she is not. The worst expert is the one whose expertise was built from the intricacies of the existing systems. It is therefor also our duty to help out the domain expert where possible:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Have empathy&lt;/strong&gt;, try to put yourself in their shoes&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Build a partnership&lt;/strong&gt;, it should be a two-way conversation you’re having with the expert&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Make it clear&lt;/strong&gt; that the domain expert is always safe with you, that you have no plan to steal their job&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Propose things&lt;/strong&gt;, it doesn’t always have to be right but this way you will get somewhere&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Look for invariants&lt;/strong&gt;, for example: “Is there any other outcome that is also important?”&lt;/li&gt;
-  &lt;li&gt;Always &lt;strong&gt;ask for validation&lt;/strong&gt; of everything, even if you’re sure about it&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;It is common in companies that businesses often don’t want all power concentrated into the same hands. This also accounts for domains, you should therefor &lt;strong&gt;assume and probe&lt;/strong&gt;. Get to know the business you are dealing with and their mentality. Not that if you happen to discover that there are multiple domain experts the situation gets a bit more tricky. Having multiple domain experts may lead to more confusion and makes it even more important asking for validation and challenging the experts. Something we want to achieve is that we want to suggest features from our code which could be very useful for the business. Instead of having software to support the domain we want to have &lt;strong&gt;software augmenting the domain&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;keep-improving-yourself&quot;&gt;Keep improving yourself&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Grow into it&lt;/strong&gt; and &lt;strong&gt;build your own toolbox&lt;/strong&gt; for implementing Domain-Driven Design. You might ask yourself why you should bother so much with all of this, after all we just want to get to it and write code. This however is a wrong approach because the complexity of the domain is there, it is just hiding behind a wall, you just don’t see it yet. You will discover the complexity sooner or later so you may as well want to get into it as early as possible to save precious time. After all, you want to become a &lt;strong&gt;domain expert&lt;/strong&gt; too!&lt;/p&gt;
-
-&lt;h3 id=&quot;other-useful-resources-mentioned-by-cyrille&quot;&gt;Other useful resources mentioned by Cyrille:&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://schd.ws/hosted_files/agile2014/d5/1571_Agile2014__Conversation_Patterns_for_Software_Professionals.pdf&quot;&gt;Conversation Patterns for Software Professionals&lt;/a&gt; by Michael Bartyzel&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/books/ap.html&quot;&gt;Analysis Patterns&lt;/a&gt; by Martin Fowler&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://leanpub.com/livingdocumentation&quot;&gt;Living Documentation&lt;/a&gt; by Cyrille Martraire&lt;/li&gt;
-  &lt;li&gt;Slides: &lt;a href=&quot;http://www.slideshare.net/cyriux&quot;&gt;http://www.slideshare.net/cyriux&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Blog: &lt;a href=&quot;http://cyrille.martraire.com&quot;&gt;http://cyrille.martraire.com&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Twitter: &lt;a href=&quot;https://twitter.com/cyriux&quot;&gt;@cyriux&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Fri, 29 Jan 2016 00:00:00 +0000</pubDate>
-        <link>https://ordina-jworks.github.io/domain-driven%20design/2016/01/29/DDD-Europe-Heuristics-from-the-Trenches.html</link>
-        <guid isPermaLink="true">https://ordina-jworks.github.io/domain-driven%20design/2016/01/29/DDD-Europe-Heuristics-from-the-Trenches.html</guid>
         
         <category>Domain-Driven Design</category>
         
