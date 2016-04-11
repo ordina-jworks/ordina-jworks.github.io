@@ -10,22 +10,22 @@ comments: true
 
 ### Using Protractor in an ionic app
 
-Since a few days I've been playing around with [Protractor](https://angular.github.io/protractor/#/) and I am also involved on an internal
-project in which an Ionic app has to be created. So I thought:
+Since a few days I've been playing around with [Protractor](https://angular.github.io/protractor/#/) 
+and I am also involved on an internal project in which an Ionic app has to be created. 
+So I thought:
 
 > Why not use Protractor in my Ionic app?
 
 So here we are.
 
-It's not hard to get started and I will explain how I got it working. For the full
-example please refer to [the ionic documentation](http://learn.ionicframework.com/formulas/Protractor)
+It's not hard to get started and I will explain how I got it working. 
+For the full example please refer to [the ionic documentation](http://learn.ionicframework.com/formulas/Protractor)
 
 ## 1. Getting started
 
 First of all you need [Node.js](https://nodejs.org/).
 
-When Node.js is installed you should install Ionic and
-Cordova using npm (Node Package Manager):
+When Node.js is installed you should install Ionic and Cordova using npm (Node Package Manager):
 
 {% highlight bash %}npm install -g cordova ionic{% endhighlight %}
 
@@ -52,13 +52,11 @@ To view the application using the iOS and Android styling applied you can use th
 {% highlight bash %} ionic serve -lab {% endhighlight %}
 
 There are many more awesome things you can do with the Ionic CLI.
-If you want to know more about the
-CLI you can find it in [the Ionic documentation](http://ionicframework.com/docs/cli/).
+If you want to know more about the CLI you can find it in [the Ionic documentation](http://ionicframework.com/docs/cli/).
 
 ## 3. Structuring the application
 At this moment you are set up with an Ionic starter app.
-The first thing I did was refactor the
-code from technical to functional modules.
+The first thing I did was refactor the code from technical to functional modules.
 
 ![Technical modules]({{ '/img/2016-04-07-ionic-protractor/technical.jpg' | prepend: site.baseurl }})
  -->
@@ -66,9 +64,7 @@ code from technical to functional modules.
 
 > I strongly advise to use functional modules, it's easier to work with.
 
-Related code should be in
-one folder and when testing you can use the same structure to test each module separately while
-coding.
+Related code should be in one folder and when testing you can use the same structure to test each module separately while coding.
 
 > You'll find yourself navigating less trough your open tabs or a tree-view.  
 
@@ -109,7 +105,7 @@ If you work in functional modules like I do, it is as easy as referring to the c
 })();
 {% endhighlight %}
 
-`sign-in/signin.html` (essential code):
+`sign-in/signin.html`:
 
 {% highlight html %}
 <ion-view view-title="Sign in">
@@ -215,8 +211,7 @@ webdriver-manager update
 webdriver-manager start
 {% endhighlight %}
 
-To keep your code clean, you could put tests in a dedicated folder, but many argue against
-it.
+To keep your code clean, you could put tests in a dedicated folder, but many argue against it.
 
 > Since I work in functional modules, tests of these modules should live in the module itself.
 
@@ -248,8 +243,7 @@ exports.config = {
 };
 {% endhighlight %}
 
-> Don't forget to set the correct URL to your running
-app.
+> Don't forget to set the correct URL to your running app.
 > If not, you'll see many errors, except that you might be referring to a wrong URL
 
 ## 6. Preparing the tests
@@ -262,8 +256,8 @@ touch sign-in.spec.js
 {% endhighlight %}
 
 In the newly created file, you can start writing your tests.
-If everything went well, you can simply
-add another test and it should validate to true. It only tests if the first page you see, is the login page:
+If everything went well, you can simply add another test and it should validate to true. 
+It only tests if the first page you see, is the login page:
 
 {% highlight javascript %}
 describe('Signing in', function(){
@@ -322,8 +316,7 @@ All these tests should pass correctly in protractor.
 ## 7. Page Object Pattern
 
 You might have noticed that your tests run synchronous after each other.
-In this scenario this might be useful, but sometimes you need to start with a 'clean page' which
-would mean you need to duplicate a lot of code (for finding the button and text-fields).
+In this scenario this might be useful, but sometimes you need to start with a 'clean page' which would mean you need to duplicate a lot of code (for finding the button and text-fields).
 
 > When you are working in an agile team, it is quite common that requirements or user stories change.
 > This can implicate you'll have to change a lot of duplicated code.
@@ -384,6 +377,13 @@ describe('Signing in', function(){
 What changed?
 We created a page variable and before each `it` we assigned a new SignInPage object to the page variable.
 This way, your page gets loaded again before running every spec.
-This means it always returns in the
-same state.
+This means it always returns in the same state.
 Now you can create your specs as user stories.
+
+## 8. Conclusion
+
+Protractor is an awsome way to test your app's functionality. 
+Using a descriptive syntax you can emulate almost every user action and run trough the whole app in no time, again and again. 
+Using Protractor you won't have to spend a lot of time on testing your application manually,
+and you can focus on feature development without having to worry about accidentally breaking some functionality.
+Protractor will ensure that your user gets a working app without frustrations.
