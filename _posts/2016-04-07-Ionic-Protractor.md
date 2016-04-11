@@ -10,15 +10,15 @@ comments: true
 
 ### Using Protractor in an ionic app
 
-Since a few days I've been playing around with [Protractor](https://angular.github.io/protractor/#/) 
-and I am also involved on an internal project in which an Ionic app has to be created. 
+Since a few days I've been playing around with [Protractor](https://angular.github.io/protractor/#/)
+and I am also involved on an internal project in which an Ionic app has to be created.
 So I thought:
 
 > Why not use Protractor in my Ionic app?
 
 So here we are.
 
-It's not hard to get started and I will explain how I got it working. 
+It's not hard to get started and I will explain how I got it working.
 For the full example please refer to [the ionic documentation](http://learn.ionicframework.com/formulas/Protractor)
 
 ## 1. Getting started
@@ -256,7 +256,7 @@ touch sign-in.spec.js
 {% endhighlight %}
 
 In the newly created file, you can start writing your tests.
-If everything went well, you can simply add another test and it should validate to true. 
+If everything went well, you can simply add another test and it should validate to true.
 It only tests if the first page you see, is the login page:
 
 {% highlight javascript %}
@@ -382,8 +382,8 @@ Now you can create your specs as user stories.
 
 ## 8. Conclusion
 
-Protractor is an awsome way to test your app's functionality. 
-Using a descriptive syntax you can emulate almost every user action and run trough the whole app in no time, again and again. 
-Using Protractor you won't have to spend a lot of time on testing your application manually,
+Protractor is an awesome way to test your app's functionality.
+Using a descriptive syntax you can emulate almost every user action and run trough the whole app in no time, again and again.
+Using Protractor, you won't have to spend a lot of time testing your application manually,
 and you can focus on feature development without having to worry about accidentally breaking some functionality.
-Protractor will ensure that your user gets a working app without frustrations.
+Protractor will ensure that your user gets a working app without frustrations!
