@@ -35,3 +35,17 @@
 - Tweak your post and commit until you feel satisfied with it
 - **Rebase** your changes onto the **source** branch
 - Create a **pull request**, this will be reviewed and merged by one of the competence leaders
+
+## Style guide
+
+Write a blog post as if you were writing code.
+Adopt the [**one sentence per line** method](https://raw.githubusercontent.com/brandon-rhodes/blog/master/texts/brandon/2012/one-sentence-per-line.rst).
+
+By starting a new line at the end of each sentence,
+and splitting sentences themselves at natural breaks between clauses,
+a text file becomes far easier to edit and version control.
+
+This allows commenting on specific sentences in a pull request.
+If a change is made to a sentence,
+the diff will only show the difference between the old and new sentence,
+and not the complete paragraph.
