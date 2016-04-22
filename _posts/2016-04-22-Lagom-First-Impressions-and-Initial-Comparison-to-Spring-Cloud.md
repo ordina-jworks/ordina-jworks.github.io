@@ -701,7 +701,7 @@ Contributing to the framework is easy via pull requests and are actively reviewe
 The developers are very active on their [Gitter](https://gitter.im/lagom/lagom) channel and they are quick to answer questions. 
 We are also very excited to the release of the Scala API.
 
-Our colleague [Andreas Evers](https://twitter.com/andreasevers), who has extensive knowledge on Spring Cloud and Netflix OSS, will soon be participating in a podcast with Markus Eisele hosted by Lightbend to discuss Lagom and Spring Cloud.
+Our colleague [Andreas Evers](https://twitter.com/andreasevers), who has extensive knowledge on Spring Cloud and Netflix OSS, will soon be participating in a podcast with Markus Eisele hosted by Lightbend to discuss Lagom and microservices trends.
 The date should be announced soon.
 Be sure to follow Andreas and Lightbend to catch it!
 
