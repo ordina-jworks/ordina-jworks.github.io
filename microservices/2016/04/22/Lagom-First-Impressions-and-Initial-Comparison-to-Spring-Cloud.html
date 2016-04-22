@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ordina JWorks Tech Blog</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Ordina JWorks Tech blog
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,Javascript,DevOps">
+    <meta name="author" content="Ordina Belgium">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Lagom: First Impressions and Initial Comparison to Spring Cloud - Yannick De Turck" />
+    <meta property="og:description" content="Ordina JWorks Tech Blog" />
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/lagom.png" />
+    
+
+    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Base style -->
+    <link href="/css/styles/style.css" rel="stylesheet">
+    <!-- Skin CSS -->
+    <link href="/css/styles/skin-orange.css" rel="stylesheet" id="color_theme">
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<!-- Add class "boxed" along with body for boxed layout. -->
+<!-- Add "pattern-x" (1 to 5) for background patterns. -->
+<!-- Add "img-x" (1 to 5) for background images. -->
+<body>
+
+<!-- Outer Starts -->
+<div class="outer">
+    <!-- Header two Starts -->
+    <div class="header-2">
+
+        <!-- Container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo">
+                        <h1><a href="/"><img src="/img/jworks/jworks-400x400.jpg"
+                                                               width="100"
+                                                               height="100"/> </a></h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="navy">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="/contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header two ends -->
+
+    <!-- Main content starts -->
+
+    <div class="main-block">
+
+        <!-- Page heading two starts -->
+
+        <div class="page-heading-two">
+            <div class="container">
+                <h2>JWorks Tech Blogs<span style="margin-left: 10px"> Powered by Ordina</span></h2>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <!-- Page heading two ends -->
+
+        <div class="container tk-acumin-pro">
+            <div class="post">
+    
+    
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Lagom: First Impressions and Initial Comparison to Spring Cloud</h1>
+            <p id="post-meta">
+                Posted Apr 22, 2016 in <a href="/categories/microservices/">Microservices</a> by <a href="/author/yannick-de-turck/">Yannick De Turck</a>  co-authored by <a href="/author/andreas-evers/">Andreas Evers</a> 
+                
+                    <br />
+                    <i class="fa fa-tags"></i>
+                        
+                            <a href="/tags/lagom/">Lagom</a>,
+                        
+                            <a href="/tags/java/">Java</a>,
+                        
+                            <a href="/tags/reactive/">Reactive</a>,
+                        
+                            <a href="/tags/domain-driven-design/">Domain-Driven Design</a>,
+                        
+                            <a href="/tags/cqrs/">CQRS</a>,
+                        
+                            <a href="/tags/event-sourcing/">Event-Sourcing</a>
+                        
+                
+            </p>
+        </div>
+    </div>
+    <br />
+    <article class="post-content">
+        <blockquote>
+  <p>“It’s open source. It’s highly opinionated.
+   Build greenfield microservices and decompose your Java EE monolith like a boss.” - Lightbend</p>
+</blockquote>
+
+<hr />
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+  <li><a href="#just-the-right-amount">Just the right amount</a></li>
+  <li><a href="#design-philosophy">Design philosophy</a></li>
+  <li><a href="#building-blocks">Building blocks</a></li>
+  <li><a href="#getting-started-with-lagom">Getting started with Lagom</a></li>
+  <li><a href="#anatomy-of-a-lagom-project">Anatomy of a Lagom project</a></li>
+  <li><a href="#example-of-a-microservice">Example of a microservice</a></li>
+  <li><a href="#cqrs-and-event-sourcing">CQRS and Event Sourcing</a></li>
+  <li><a href="#lightbend-qa-at-the-codestar-launch-event">Lightbend Q&amp;A at the CodeStar launch event</a></li>
+  <li><a href="#comparison-with-spring">Comparison with Spring</a></li>
+  <li><a href="#our-advice">Our advice</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#useful-links">Useful links</a></li>
+</ol>
+
+<h2 id="just-the-right-amount">Just the right amount</h2>
+<p>Meet <a href="https://www.lightbend.com/lagom">Lagom</a>, <a href="https://www.lightbend.com">Lightbend</a>’s (formerly Typesafe) new open source framework for architecting microservices in <strong>Java</strong>.
+On the 10th of March, Lightbend released the first <strong>MVP version</strong> of Lagom which is the current version at the time of writing.
+Although there is currently only a <strong>Java API</strong>, Scala enthusiasts should not fret because a <strong>Scala API</strong> is a main priority and <a href="https://github.com/lagom/lagom/issues/1">well on its way</a>.</p>
+
+<p>Lagom is a Swedish word meaning “just the right amount”.
+Microservices have often been categorised as small services.
+However, Lightbend wants to emphasize that finding the right boundaries between services, aligning them with bounded contexts, business capabilities, and isolation requirements are the most important aspects when architecting a microservice-based system.
+Therefore, it fits very well in a <strong>Domain-Driven Design</strong> focused mindset.</p>
+
+<p>Following this will help in building a scalable and resilient system that is easy to deploy and manage.
+According to Lightbend the focus should not be on how small the services are, but instead they should be <em>just the right size</em>, “Lagom” size services.
+Lagom, being an opinionated framework, provides a “golden path” from which the developer can deviate if necessary.
+Being based on the reactive principles as defined in the <a href="http://www.reactivemanifesto.org/">Reactive Manifesto</a>, Lagom provides the developer a guard-railed approach with good defaults while also allowing to deviate if necessary.</p>
+
+<p>This blogpost will cover our initial impression on the framework together with our opinion on the choices made while architecting the framework.
+Note that we won’t go too deep into detail in all the different aspects of the framework, for more details refer to Lagom’s extensive <a href="http://www.lagomframework.com/documentation/1.0.x/Home.html">documentation</a>.
+As Lightbend is entering the microservices market with Lagom, we feel obliged to make a fair comparison with existing frameworks out there.
+In the Java world this is predominantly the <strong>Spring stack</strong> with Spring Boot and Spring Cloud, standing on the shoulders of giants such as the <strong>Netflix OSS</strong>.
+In this current stage, it would be a bit too early to make an in-depth comparison between the two, seeing as you would be comparing a mature project to an MVP.
+What we can share though, are our initial observations.</p>
+
+<h2 id="design-philosophy">Design philosophy</h2>
+<p>Lagom’s design rests on the following principles:</p>
+
+<ul>
+  <li><strong>Message-Driven and Asynchronous</strong>: Built upon Akka Stream for asynchronous streaming and the JDK8 CompletionStage API.
+Streaming is a first-class concept.</li>
+  <li><strong>Distributed persistence</strong>: Lagom favours distributed persistence patterns using Event Sourcing with Command Query Responsibility Segregation (CQRS).</li>
+  <li><strong>Developer productivity</strong>: Starting all microservices with a single command, code hot reloading and expressive service interface declarations are some examples of Lagom’s high emphasis on developer productivity.</li>
+</ul>
+
+<h2 id="building-blocks">Building blocks</h2>
+<p>The Lagom framework acts as an abstraction layer upon several Lightbend frameworks and consists of the following core technologies and frameworks:</p>
+
+<ul>
+  <li><a href="http://www.scala-lang.org">Scala</a></li>
+  <li><a href="https://www.java.com">Java</a></li>
+  <li><a href="https://www.playframework.com">Play Framework</a></li>
+  <li><a href="http://akka.io">Akka</a> and <a href="http://doc.akka.io/docs/akka/snapshot/scala/persistence.html">Akka Persistence</a></li>
+  <li><a href="http://www.scala-sbt.org">sbt</a></li>
+  <li><a href="http://cassandra.apache.org">Cassandra</a></li>
+  <li><a href="https://github.com/google/guice">Guice</a></li>
+  <li><a href="https://www.lightbend.com/products/conductr">ConductR</a></li>
+</ul>
+
+<p>Seeing as it acts as an abstraction layer the developer doesn’t need to hold any knowledge of Play Framework and Akka in order to successfully use Lagom.
+Sbt has been chosen as the build tool because it also acts as a development environment.
+Lagom relies heavily on the following sbt features:</p>
+
+<ul>
+  <li>Fine-grained tasks</li>
+  <li>Each task may return a value</li>
+  <li>The value returned by a task may be consumed by other tasks</li>
+</ul>
+
+<p>According to Lightbend, <strong>Scala’s build tool ‘sbt’</strong> offers many handy features to Lagom such as fast incremental recompilation, hot code reloading, starting and stopping services in parallel and automatic injection of configuration defaults.
+Sbt might be seen as a hurdle by most Java developers since it is <strong>Maven</strong> and <strong>Gradle</strong> (and to a lesser extent <strong>Ant</strong>) that rule most Java projects.
+Moving towards a microservices framework such as Lagom would already constitute quite a transition so we think that this might hold back Java developers from adopting the framework.
+Lightbend’s rebranding could be interpreted as a move away from a Scala-oriented company towards a more Java-minded company.
+In that regard it would make sense to lower the initial learning curve especially for a rather trivial component such as a building tool.
+After all, the most important thing to achieve adoption is allowing people to easily get started with the new technology. 
+We think that providing integration for Maven or Gradle would have a positive effect on the adoption rate and although it may not be trivial to implement, it should help convince Java developers to give Lagom a go.</p>
+
+<p><strong>Google’s Guice</strong> has been chosen for dependency injection since it is a lightweight framework.
+What is remarkable is that Guice is used as well for intermicroservices calls.
+Lagom acts as a communication abstraction layer and it does so by adding a dependency on the interfaces of remote microservices.
+Just like a shared domain model and shared datastores being antipatterns for microservices, having code dependencies from one service in another is as well.
+Changing the code of one microservice should not have an immediate cascading effect on other microservices.
+This is the very essence of the microservices architecture.
+In a monolith, having code changes in one component can result in immediate breaking changes in other components of the system.
+While this may be desired in order to keep technical debt low, this is an inherent characteristic of monolithic systems.
+One of the reasons microservices were introduced, is to decouple components on all levels, especially binary coupling.
+Using protocols between components instead of actual binary dependencies allows us to implement the tolerant reader principle and versioning through for instance content negotiation.
+Lightbend argues that sharing interfaces as code will increase productivity and performance, but we fear the result of this is a distributed monolith instead of an actual decoupled microservices architecture.
+While we question the default way of communicating between microservices in Lagom, we are enthusiastic that more ways of making intermicroservices calls are becoming available.
+Using HTTP is possible as well, and one of the upcoming features is a <a href="https://gitter.im/lagom/lagom?at=56efe42c0d69dfd122218ddc">Lagom Service Client</a>.
+The Guice approach might also be quite favorable for people migrating from monolithic applications to microservices.
+In the end it is a trade-off, but one that shouldn’t be taken lightly.</p>
+
+<p>As a default persistence solution, <strong>Apache Cassandra</strong> is used due to how well it integrates with <strong>CQRS</strong> and <strong>Event Sourcing</strong>.
+Lagom has support for Cassandra as datastore, both for the reading and writing data.
+It is possible to use other datastore solutions but this comes at the cost of not being able to take advantage of the persistence module in Lagom.</p>
+
+<p><strong>ConductR</strong> is an orchestration tool for managing Lightbend Reactive Platform applications across a cluster of machines and is Lightbend’s solution for running Lagom systems in production.
+Note that ConductR comes with a license fee and is majorly targeted at enterprises.
+The other option we currently have in order to run our Lagom system in production is to write our <a href="http://www.lagomframework.com/documentation/1.0.x/Overview.html">own service locator</a> compatible with Lagom.
+At the time of writing someone already started working on <a href="https://github.com/lagom/lagom/issues/59">Kubernetes support</a> and we are sure that, given more time, more options will become available.
+For now though, Lagom is still in an early stage where we either have to pay for the ConductR license, build our own service locator, or wait until someone does the work for us.</p>
+
+<h2 id="getting-started-with-lagom">Getting started with Lagom</h2>
+
+<p>In order to start using Lagom, <a href="https://www.lightbend.com/community/core-tools/activator-and-sbt">Activator</a> must be correctly set up.
+Currently <a href="https://www.lightbend.com/activator/templates#filter:lagom">two Lagom templates</a> exist that can be used for creating a new Lagom application.
+The <a href="https://www.lightbend.com/activator/template/lagom-java">Lagom Java Seed template</a> should be the template of choice, the <a href="https://www.lightbend.com/activator/template/lagom-java-chirper">Lagom Java Chirper template</a> is an example of a Twitter-like app created in Lagom.</p>
+
+<p>Creating a new Lagom application is as simple as using the following command:</p>
+
+<p><code class="highlighter-rouge">$ activator new my-first-system lagom-java</code></p>
+
+<p>Afterwards the project can be imported in any of the prominent IDEs as an sbt project.</p>
+
+<p>In order to boot the system, we first need to navigate to the root of the project and start the Activator console:</p>
+
+<p><code class="highlighter-rouge">$ activator</code></p>
+
+<p>After which we can start all our services using a single simple command:</p>
+
+<p><code class="highlighter-rouge">$ runAll</code></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">&gt; </span>runAll
+<span class="o">[</span>info] Starting embedded Cassandra server
+.......
+<span class="o">[</span>info] Cassandra server running at 127.0.0.1:4000
+<span class="o">[</span>info] Service locator is running at http://localhost:8000
+<span class="o">[</span>info] Service gateway is running at http://localhost:9000
+<span class="o">[</span>info] application - Signalled start to ConductR
+<span class="o">[</span>info] application - Signalled start to ConductR
+<span class="o">[</span>info] application - Signalled start to ConductR
+<span class="o">[</span>info] Service helloworld-impl listening <span class="k">for </span>HTTP on 0:0:0:0:0:0:0:0:24266
+<span class="o">[</span>info] Service hellostream-impl listening <span class="k">for </span>HTTP on 0:0:0:0:0:0:0:0:26230
+<span class="o">[</span>info] <span class="o">(</span>Services started, use Ctrl+D to stop and go back to the console...<span class="o">)</span></code></pre></figure>
+
+<p>This command starts a <strong>Cassandra server</strong>, <strong>service locator</strong> and <strong>service gateway</strong>.
+Each of our microservices is started in parallel while also registering them in the service locator.
+Additionally, a <code class="highlighter-rouge">run</code> command to individually start services is available as well.
+Note that the ports are assigned to each microservice by an <a href="http://www.lagomframework.com/documentation/1.0.x/ServicePort.html">algorithm</a> and are consistent even on different machines.
+The possibility to assign a specific port is available though.</p>
+
+<p>Similar to Play Framework, Lagom also supports code hot reloading allowing you to make changes in the code and immediately seeing these changes live without having to restart anything.
+A feature we’re very fond of.
+In general, a restart is only required when adding a new microservice API and implementation module in the project.</p>
+
+<h2 id="anatomy-of-a-lagom-project">Anatomy of a Lagom project</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>helloworld-api           → Microservice API submodule
+ └ src/main/java         → Java source code interfaces with model objects
+helloworld-impl          → Microservice implementation submodule
+ └ logs                  → Logs of the microservice
+ └ src/main/java         → Java source code implementation of the API submodule
+ └ src/main/resources    → Contains the microservice application config
+ └ src/test/java         → Java source code unit tests
+logs                     → Logs of the Lagom system
+project                  → Sbt configuration files
+ └ build.properties      → Marker for sbt project
+ └ plugins.sbt           → Sbt plugins including the declaration for Lagom itself
+.gitignore               → Git ignore file
+build.sbt                → Application build script
+</code></pre>
+</div>
+
+<h2 id="example-of-a-microservice">Example of a microservice</h2>
+<p>In order to write a new microservice you create a new API and implementation project.
+In the API project you define the interface of your microservice:</p>
+
+<p><code class="highlighter-rouge">HelloService.java</code></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HelloService</span> <span class="kd">extends</span> <span class="n">Service</span> <span class="o">{</span>
+  <span class="n">ServiceCall</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">NotUsed</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">hello</span><span class="o">();</span>
+  
+  <span class="n">ServiceCall</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">GreetingMessage</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">useGreeting</span><span class="o">();</span>
+
+  <span class="nd">@Override</span>
+  <span class="k">default</span> <span class="n">Descriptor</span> <span class="n">descriptor</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">named</span><span class="o">(</span><span class="s">"helloservice"</span><span class="o">).</span><span class="na">with</span><span class="o">(</span>
+        <span class="n">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/hello/:id"</span><span class="o">,</span>       <span class="n">hello</span><span class="o">()),</span>
+        <span class="n">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="s">"/api/hello/:id"</span><span class="o">,</span>       <span class="n">useGreeting</span><span class="o">())</span>
+      <span class="o">).</span><span class="na">withAutoAcl</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>A <code class="highlighter-rouge">Descriptor</code> defines the service name and the endpoints offered by a service. 
+In our case we define two REST endpoints, a GET and a POST.</p>
+
+<p><code class="highlighter-rouge">GreetingMessage</code> is basically an immutable class with a single String <code class="highlighter-rouge">message</code> instance variable.
+On the subject of immutability the <a href="http://www.lagomframework.com/documentation/1.0.x/ImmutablesInIDEs.html">Lagom documentation</a> mentions <a href="https://immutables.github.io">Immutables</a>, a Java library that helps you create immutable objects via annotation processing.
+Definitely worth a look seeing as it helps you get rid of boilerplate code.</p>
+
+<p>In the implementation submodule we implement our API’s interface.</p>
+
+<p><code class="highlighter-rouge">HelloServiceImpl.java</code></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServiceImpl</span> <span class="kd">implements</span> <span class="n">HelloService</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">ServiceCall</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">NotUsed</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">hello</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">request</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="n">CompletableFuture</span><span class="o">.</span><span class="na">completedFuture</span><span class="o">(</span><span class="s">"Hello, "</span> <span class="o">+</span> <span class="n">id</span><span class="o">);</span>
+    <span class="o">};</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">ServiceCall</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">GreetingMessage</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">useGreeting</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">request</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="n">CompletableFuture</span><span class="o">.</span><span class="na">completedFuture</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">message</span> <span class="o">+</span> <span class="n">id</span><span class="o">);</span>
+    <span class="o">};</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>You’ll immediately notice that the service calls are non-blocking by default using <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html">Futures</a> introduced in JDK8.
+Interesting to know is that Lagom also provides support for the <a href="http://www.lagomframework.com/documentation/1.0.x/PubSub.html">Publish-subscribe pattern</a> out of the box.
+We also need to implement the module that binds the HelloService so that it can be served.</p>
+
+<p><code class="highlighter-rouge">HelloServiceModule.java</code></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServiceModule</span> <span class="kd">extends</span> <span class="n">AbstractModule</span> <span class="kd">implements</span> <span class="n">ServiceGuiceSupport</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">protected</span> <span class="kt">void</span> <span class="n">configure</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">bindServices</span><span class="o">(</span><span class="n">serviceBinding</span><span class="o">(</span><span class="n">HelloService</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">HelloServiceImpl</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>We define our module in the <code class="highlighter-rouge">application.config</code>:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">play</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">enabled</span> <span class="o">+=</span> <span class="n">sample</span><span class="o">.</span><span class="n">helloworld</span><span class="o">.</span><span class="n">impl</span><span class="o">.</span><span class="nc">HelloServiceModule</span></code></pre></figure>
+
+<p>And finally register our microservice in <code class="highlighter-rouge">build.sbt</code> with its dependencies and settings:</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">lazy</span> <span class="k">val</span> <span class="n">helloworldApi</span> <span class="k">=</span> <span class="n">project</span><span class="o">(</span><span class="s">"helloworld-api"</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">settings</span><span class="o">(</span>
+    <span class="n">version</span> <span class="o">:=</span> <span class="s">"1.0-SNAPSHOT"</span><span class="o">,</span>
+    <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="n">lagomJavadslApi</span>
+  <span class="o">)</span>
+
+<span class="k">lazy</span> <span class="k">val</span> <span class="n">helloworldImpl</span> <span class="k">=</span> <span class="n">project</span><span class="o">(</span><span class="s">"helloworld-impl"</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">enablePlugins</span><span class="o">(</span><span class="nc">LagomJava</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">settings</span><span class="o">(</span>
+    <span class="n">version</span> <span class="o">:=</span> <span class="s">"1.0-SNAPSHOT"</span><span class="o">,</span>
+    <span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
+      <span class="n">lagomJavadslPersistence</span><span class="o">,</span>
+      <span class="n">lagomJavadslTestKit</span>
+    <span class="o">)</span>
+  <span class="o">)</span>
+  <span class="o">.</span><span class="n">settings</span><span class="o">(</span><span class="n">lagomForkedTestSettings</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">dependsOn</span><span class="o">(</span><span class="n">helloworldApi</span><span class="o">)</span></code></pre></figure>
+
+<p>We can then test our endpoint:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>curl localhost:24266/api/hello/World
+Hello, World!
+
+<span class="gp">$ </span>curl -H <span class="s2">"Content-Type: application/json"</span> -X POST -d <span class="s1">'{"message": "Hello "}'</span> http://localhost:24266/api/hello/World
+Hello World</code></pre></figure>
+
+<p>Seeing as any good developer writes unit tests for his/her code so should we!</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServiceTest</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="n">ServiceTest</span><span class="o">.</span><span class="na">TestServer</span> <span class="n">server</span><span class="o">;</span>
+
+  <span class="nd">@BeforeClass</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">setUp</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">ServiceTest</span><span class="o">.</span><span class="na">startServer</span><span class="o">(</span><span class="n">ServiceTest</span><span class="o">.</span><span class="na">defaultSetup</span><span class="o">());</span>
+  <span class="o">}</span>
+
+  <span class="nd">@AfterClass</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">tearDown</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">server</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">server</span><span class="o">.</span><span class="na">stop</span><span class="o">();</span>
+      <span class="n">server</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Test</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="n">testHello</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="c1">// given</span>
+    <span class="n">HelloService</span> <span class="n">service</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="na">client</span><span class="o">(</span><span class="n">HelloService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="c1">// when</span>
+    <span class="n">String</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">hello</span><span class="o">().</span><span class="na">invoke</span><span class="o">(</span><span class="s">"Yannick"</span><span class="o">,</span> <span class="n">NotUsed</span><span class="o">.</span><span class="na">getInstance</span><span class="o">()).</span><span class="na">toCompletableFuture</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="n">SECONDS</span><span class="o">);</span>
+
+    <span class="c1">// then</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"Hello, Yannick"</span><span class="o">,</span> <span class="n">hello</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Test</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="n">testGreeting</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="c1">// given</span>
+    <span class="n">HelloService</span> <span class="n">service</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="na">client</span><span class="o">(</span><span class="n">HelloService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="c1">// when</span>
+    <span class="n">String</span> <span class="n">greeting</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">useGreeting</span><span class="o">().</span><span class="na">invoke</span><span class="o">(</span><span class="s">"Yannick"</span><span class="o">,</span> <span class="k">new</span> <span class="n">GreetingMessage</span><span class="o">(</span><span class="s">"Hi there, "</span><span class="o">)).</span><span class="na">toCompletableFuture</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="n">SECONDS</span><span class="o">);</span>
+
+    <span class="c1">// then</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="s">"Hi there, Yannick"</span><span class="o">,</span> <span class="n">greeting</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Tests can be executed in Activator via the following command:
+<code class="highlighter-rouge">$ test</code></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">&gt; </span><span class="nb">test</span>
+<span class="o">[</span>info] Test run started
+<span class="o">[</span>info] Test sample.helloworld.impl.HelloServiceTest.testHello started
+<span class="o">[</span>info] Test sample.helloworld.impl.HelloServiceTest.testGreeting started
+<span class="o">[</span>info] Test run finished: 0 failed, 0 ignored, 2 total, 16.759s
+<span class="o">[</span>info] Passed: Total 2, Failed 0, Errors 0, Passed 2
+<span class="o">[</span>success] Total <span class="nb">time</span>: 21 s, completed Apr 14, 2016 10:06:41 AM</code></pre></figure>
+
+<h2 id="cqrs-and-event-sourcing">CQRS and Event Sourcing</h2>
+<p>Being an opinionated framework Lagom suggests to use <strong>CQRS</strong> and <strong>Event Sourcing</strong> seeing as it fits well within the reactive paradigm.
+In this blogpost we are not going to explain CQRS and Event Sourcing in detail seeing as it is very well documented in the <a href="http://www.lagomframework.com/documentation/1.0.x/ES_CQRS.html">documentation</a> of Lagom.
+The gist of it is that each service should own its own data and only the service itself should have direct access to the database.
+Other services need to use the service’s API in order to interact with its data.
+Sharing the database across different services would result in tight coupling.
+Ideally we want to work with <a href="http://martinfowler.com/bliki/BoundedContext.html">Bounded Contexts</a> following the core principles of Domain-Driven Design where each service defines a Bounded Context.
+Using <strong>Event Sourcing</strong> gives us many advantages such as not only storing the current state of data but having an entire journal of events that tell us how the data achieved its current state.
+With event sourcing we only perform reads and writes, there are no updates nor deletes.
+All this makes it easy to test and debug and allows us to easily reproduce scenarios that happened in production by replaying the event log from that environment.</p>
+
+<p>Note that just because Lagom encourages us to use CQRS and Event Sourcing it isn’t forcing us to use it as it is not always applicable to every use case.
+It is perfectly possible to, for example, plug in a PostgreSQL database for our persistence layer.
+Someone has already set up <a href="https://github.com/dsl-platform/lagom-postgres">PostgreSQL integration using Revenj persistence</a>.
+However, Lightbend suggests that for best scalability preference must be given to asynchronous APIs because using blocking APIs like JDBC and JPA will have an impact on that.</p>
+
+<p>By default, when launching our development environment, a Cassandra server will be booted without having to do any setup ourselves besides adding the <code class="highlighter-rouge">lagomJavadslPersistence</code> dependency to our implementation in our <code class="highlighter-rouge">build.sbt</code>.</p>
+
+<p>Regarding the code, a <strong>persistent entity</strong> needs to be defined, combined with a related <strong>command</strong>, <strong>event</strong> and <strong>state</strong>.
+Note that the following code samples are mainly here to give an idea of the work needed for implementing all this.
+For more information and a detailed explanation, consult the <a href="http://www.lagomframework.com/documentation/1.0.x/PersistentEntity.html">excellent documentation</a> on the subject.</p>
+
+<p>In the persistent entity we define the behaviour of our entity.
+In order to interact with event sourced entities, commands need to be sent.
+We therefore need to specify a command handler for each command class that the entity can receive.
+Commands are then translated into events which will get persisted by the entity.
+Each event has its own event handler registered.</p>
+
+<p>Example of a PersistentEntity:</p>
+
+<p><code class="highlighter-rouge">HelloWorld.java</code></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="kd">extends</span> <span class="n">PersistentEntity</span><span class="o">&lt;</span><span class="n">HelloCommand</span><span class="o">,</span> <span class="n">HelloEvent</span><span class="o">,</span> <span class="n">WorldState</span><span class="o">&gt;</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">Behavior</span> <span class="n">initialBehavior</span><span class="o">(</span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">WorldState</span><span class="o">&gt;</span> <span class="n">snapshotState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">BehaviorBuilder</span> <span class="n">b</span> <span class="o">=</span> <span class="n">newBehaviorBuilder</span><span class="o">(</span>
+        <span class="n">snapshotState</span><span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="k">new</span> <span class="n">WorldState</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">,</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">().</span><span class="na">toString</span><span class="o">())));</span>
+    <span class="n">b</span><span class="o">.</span><span class="na">setCommandHandler</span><span class="o">(</span><span class="n">UseGreetingMessage</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">(</span><span class="n">cmd</span><span class="o">,</span> <span class="n">ctx</span><span class="o">)</span> <span class="o">-&gt;</span>
+      <span class="n">ctx</span><span class="o">.</span><span class="na">thenPersist</span><span class="o">(</span><span class="k">new</span> <span class="n">GreetingMessageChanged</span><span class="o">(</span><span class="n">cmd</span><span class="o">.</span><span class="na">message</span><span class="o">),</span>
+        <span class="n">evt</span> <span class="o">-&gt;</span> <span class="n">ctx</span><span class="o">.</span><span class="na">reply</span><span class="o">(</span><span class="n">Done</span><span class="o">.</span><span class="na">getInstance</span><span class="o">())));</span>
+
+    <span class="n">b</span><span class="o">.</span><span class="na">setEventHandler</span><span class="o">(</span><span class="n">GreetingMessageChanged</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+        <span class="n">evt</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">WorldState</span><span class="o">(</span><span class="n">evt</span><span class="o">.</span><span class="na">message</span><span class="o">,</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">().</span><span class="na">toString</span><span class="o">()));</span>
+
+    <span class="n">b</span><span class="o">.</span><span class="na">setReadOnlyCommandHandler</span><span class="o">(</span><span class="n">Hello</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+        <span class="o">(</span><span class="n">cmd</span><span class="o">,</span> <span class="n">ctx</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">ctx</span><span class="o">.</span><span class="na">reply</span><span class="o">(</span><span class="n">state</span><span class="o">().</span><span class="na">message</span> <span class="o">+</span> <span class="s">", "</span> <span class="o">+</span> <span class="n">cmd</span><span class="o">.</span><span class="na">name</span> <span class="o">+</span> <span class="s">"!"</span><span class="o">));</span>
+
+    <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Our PersistentEntity requires a state to be defined:</p>
+
+<p><code class="highlighter-rouge">WorldState.java</code></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Immutable</span>
+<span class="nd">@JsonDeserialize</span>
+<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">WorldState</span> <span class="kd">implements</span> <span class="n">CompressedJsonable</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">timestamp</span><span class="o">;</span>
+
+  <span class="nd">@JsonCreator</span>
+  <span class="kd">public</span> <span class="n">WorldState</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">String</span> <span class="n">timestamp</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="s">"message"</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">timestamp</span> <span class="o">=</span> <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">timestamp</span><span class="o">,</span> <span class="s">"timestamp"</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">equals</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Object</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">another</span><span class="o">)</span>
+      <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">another</span> <span class="k">instanceof</span> <span class="n">WorldState</span> <span class="o">&amp;&amp;</span> <span class="n">equalTo</span><span class="o">((</span><span class="n">WorldState</span><span class="o">)</span> <span class="n">another</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">equalTo</span><span class="o">(</span><span class="n">WorldState</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">message</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">another</span><span class="o">.</span><span class="na">message</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">timestamp</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">another</span><span class="o">.</span><span class="na">timestamp</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="n">hashCode</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">31</span><span class="o">;</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">*</span> <span class="mi">17</span> <span class="o">+</span> <span class="n">message</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">*</span> <span class="mi">17</span> <span class="o">+</span> <span class="n">timestamp</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+    <span class="k">return</span> <span class="n">h</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="n">toString</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">MoreObjects</span><span class="o">.</span><span class="na">toStringHelper</span><span class="o">(</span><span class="s">"WorldState"</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"message"</span><span class="o">,</span> <span class="n">message</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"timestamp"</span><span class="o">,</span> <span class="n">timestamp</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+  <span class="o">}</span></code></pre></figure>
+
+<p>In our command interface we define all the commands that our entity supports.
+In order to get a complete picture of the commands an entity supports, it is the convention to specify all supported commands as inner classes of the interface.</p>
+
+<p><code class="highlighter-rouge">HelloCommand.java</code></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HelloCommand</span> <span class="kd">extends</span> <span class="n">Jsonable</span> <span class="o">{</span>
+  <span class="nd">@Immutable</span>
+  <span class="nd">@JsonDeserialize</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">UseGreetingMessage</span> <span class="kd">implements</span> <span class="n">HelloCommand</span><span class="o">,</span> <span class="n">CompressedJsonable</span><span class="o">,</span> <span class="n">PersistentEntity</span><span class="o">.</span><span class="na">ReplyType</span><span class="o">&lt;</span><span class="n">Done</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
+
+    <span class="nd">@JsonCreator</span>
+    <span class="kd">public</span> <span class="n">UseGreetingMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="s">"message"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">equals</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Object</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">another</span><span class="o">)</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="k">return</span> <span class="n">another</span> <span class="k">instanceof</span> <span class="n">UseGreetingMessage</span> <span class="o">&amp;&amp;</span> <span class="n">equalTo</span><span class="o">((</span><span class="n">UseGreetingMessage</span><span class="o">)</span> <span class="n">another</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">equalTo</span><span class="o">(</span><span class="n">UseGreetingMessage</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">message</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">another</span><span class="o">.</span><span class="na">message</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">hashCode</span><span class="o">()</span> <span class="o">{</span>
+      <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">31</span><span class="o">;</span>
+      <span class="n">h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">*</span> <span class="mi">17</span> <span class="o">+</span> <span class="n">message</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+      <span class="k">return</span> <span class="n">h</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">toString</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">MoreObjects</span><span class="o">.</span><span class="na">toStringHelper</span><span class="o">(</span><span class="s">"UseGreetingMessage"</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"message"</span><span class="o">,</span> <span class="n">message</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Immutable</span>
+  <span class="nd">@JsonDeserialize</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Hello</span> <span class="kd">implements</span> <span class="n">HelloCommand</span><span class="o">,</span> <span class="n">PersistentEntity</span><span class="o">.</span><span class="na">ReplyType</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">organization</span><span class="o">;</span>
+
+    <span class="nd">@JsonCreator</span>
+    <span class="kd">public</span> <span class="n">Hello</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">organization</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="s">"name"</span><span class="o">);</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">organization</span> <span class="o">=</span> <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">organization</span><span class="o">,</span> <span class="s">"organization"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">equals</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Object</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">another</span><span class="o">)</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="k">return</span> <span class="n">another</span> <span class="k">instanceof</span> <span class="n">Hello</span> <span class="o">&amp;&amp;</span> <span class="n">equalTo</span><span class="o">((</span><span class="n">Hello</span><span class="o">)</span> <span class="n">another</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">equalTo</span><span class="o">(</span><span class="n">Hello</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">another</span><span class="o">.</span><span class="na">name</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">organization</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">another</span><span class="o">.</span><span class="na">organization</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">hashCode</span><span class="o">()</span> <span class="o">{</span>
+      <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">31</span><span class="o">;</span>
+      <span class="n">h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">*</span> <span class="mi">17</span> <span class="o">+</span> <span class="n">name</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+      <span class="n">h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">*</span> <span class="mi">17</span> <span class="o">+</span> <span class="n">organization</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+      <span class="k">return</span> <span class="n">h</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">toString</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">MoreObjects</span><span class="o">.</span><span class="na">toStringHelper</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="n">name</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"organization"</span><span class="o">,</span> <span class="n">organization</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>And finally we want to define all events that the entity supports in an event interface.
+It follows the same convention as with commands, specifying all events as inner classes of the interface.</p>
+
+<p><code class="highlighter-rouge">HelloEvent.java</code></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HelloEvent</span> <span class="kd">extends</span> <span class="n">Jsonable</span> <span class="o">{</span>
+  <span class="nd">@Immutable</span>
+  <span class="nd">@JsonDeserialize</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">GreetingMessageChanged</span> <span class="kd">implements</span> <span class="n">HelloEvent</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
+
+    <span class="nd">@JsonCreator</span>
+    <span class="kd">public</span> <span class="n">GreetingMessageChanged</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="s">"message"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">equals</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Object</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">another</span><span class="o">)</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="k">return</span> <span class="n">another</span> <span class="k">instanceof</span> <span class="n">GreetingMessageChanged</span> <span class="o">&amp;&amp;</span> <span class="n">equalTo</span><span class="o">((</span><span class="n">GreetingMessageChanged</span><span class="o">)</span> <span class="n">another</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">equalTo</span><span class="o">(</span><span class="n">GreetingMessageChanged</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">message</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">another</span><span class="o">.</span><span class="na">message</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">hashCode</span><span class="o">()</span> <span class="o">{</span>
+      <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">31</span><span class="o">;</span>
+      <span class="n">h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">*</span> <span class="mi">17</span> <span class="o">+</span> <span class="n">message</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+      <span class="k">return</span> <span class="n">h</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">toString</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">MoreObjects</span><span class="o">.</span><span class="na">toStringHelper</span><span class="o">(</span><span class="s">"GreetingMessageChanged"</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"message"</span><span class="o">,</span> <span class="n">message</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>The <code class="highlighter-rouge">HelloServiceImpl.java</code> class will look like the following:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServiceImpl</span> <span class="kd">implements</span> <span class="n">HelloService</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">PersistentEntityRegistry</span> <span class="n">persistentEntityRegistry</span><span class="o">;</span>
+
+  <span class="nd">@Inject</span>
+  <span class="kd">public</span> <span class="n">HelloServiceImpl</span><span class="o">(</span><span class="n">PersistentEntityRegistry</span> <span class="n">persistentEntityRegistry</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">persistentEntityRegistry</span> <span class="o">=</span> <span class="n">persistentEntityRegistry</span><span class="o">;</span>
+    <span class="n">persistentEntityRegistry</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HelloWorld</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">ServiceCall</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">NotUsed</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">hello</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">request</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="n">PersistentEntityRef</span><span class="o">&lt;</span><span class="n">HelloCommand</span><span class="o">&gt;</span> <span class="n">ref</span> <span class="o">=</span> <span class="n">persistentEntityRegistry</span><span class="o">.</span><span class="na">refFor</span><span class="o">(</span><span class="n">HelloWorld</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+      <span class="k">return</span> <span class="n">ref</span><span class="o">.</span><span class="na">ask</span><span class="o">(</span><span class="k">new</span> <span class="n">Hello</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">()));</span>
+    <span class="o">};</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">ServiceCall</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">GreetingMessage</span><span class="o">,</span> <span class="n">Done</span><span class="o">&gt;</span> <span class="n">useGreeting</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">request</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+       <span class="n">PersistentEntityRef</span><span class="o">&lt;</span><span class="n">HelloCommand</span><span class="o">&gt;</span> <span class="n">ref</span> <span class="o">=</span> <span class="n">persistentEntityRegistry</span><span class="o">.</span><span class="na">refFor</span><span class="o">(</span><span class="n">HelloWorld</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+       <span class="k">return</span> <span class="n">ref</span><span class="o">.</span><span class="na">ask</span><span class="o">(</span><span class="k">new</span> <span class="n">UseGreetingMessage</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">message</span><span class="o">));</span>
+    <span class="o">};</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h2 id="lightbend-qa-at-the-codestar-launch-event">Lightbend Q&amp;A at the CodeStar launch event</h2>
+<p>On the 24th of March we attended the launch event of <a href="http://www.codestar.nl">CodeStar</a>, the new unit from our Dutch Ordina colleagues focused on Full Stack Scala and Big Data solutions.
+CodeStar also hold a Lightbend partnership.
+One of the presentations was an introduction to Lagom by <a href="https://twitter.com/myfear">Markus Eisele</a>, Developer Advocate at Lightbend.
+After his talk we had the opportunity to ask Markus and his colleague, <a href="https://twitter.com/lutzhuehnken">Lutz Hühnken</a>, Solutions Architect at Lightbend, several questions regarding Lagom.</p>
+
+<ul>
+  <li>
+    <p>What do you guys consider to be the major competitor for Lagom?
+Spring Cloud and Netflix OSS?</p>
+
+    <blockquote>
+      <p>Yes, we would consider that stack to be Lagom’s main competitor. 
+But we believe that with Lagom we have a number of unique features that makes us shine (because otherwise we wouldn’t have built it):
+<br />1) Lagom’s development environment, in my humble opinion a major productivity boost
+<br />2) Fostering good practices for building reactive services seeing as Lagom is opinionated, e.g. async communication by default, ES/CQRS, …
+<br />3) Batteries-included, from development to production
+<br />4) Streaming is first-class</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>Lagom suggests that Event Sourcing and CQRS should be used as the default solution for persistence but is it really applicable in the majority of the scenarios?</p>
+
+    <blockquote>
+      <p>Lagom is an opinionated framework and will try to suggest using ES &amp; CQRS as the primary solution to use since it fits very well with the reactive mindset.
+Of course it also depends on the use case.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>Don’t you think you encourage code coupling by having microservices depend on the interface of another microservice?</p>
+
+    <blockquote>
+      <p>It is true that the default way to do service calls between Lagom services is to use binary dependencies, though of course it is not enforced. We have taken great care to ensure that service calls map down to idiomatic REST and/or websockets. We do have plans in the future to allow simple removal of the binary coupling. To make service interfaces go through a non-binary specification such as Swagger, where Swagger specs will be generated and interfaces will be generated from the Swagger specs.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>Does Lagom support REST level 3? Is there support for hypermedia?</p>
+
+    <blockquote>
+      <p>Currently not supported but we are open to it. Feel free to create a suggestions ticket at the <a href="https://github.com/lagom/lagom">GitHub project</a>.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>Don’t you think it is a bad idea to only support ConductR for production deployments?
+What about pet projects of single developers? This makes it less appealing to motivate people to pick up Lagom compared to for example Spring Cloud and Netflix OSS.</p>
+
+    <blockquote>
+      <p>It is in the strategic planning of Lightbend to push ConductR forward as the main solution for your production environment.
+Do note that it’s perfectly possible to deploy your Lagom services elsewhere as long as you implement your own <a href="http://www.lagomframework.com/documentation/1.0.x/Overview.html">service locator</a> (as an example, the integration needed to support Lagom in ConductR is available on <a href="https://github.com/typesafehub/conductr-lib/tree/master/lagom10-conductr-bundle-lib">GitHub</a>).
+Looking at our <a href="https://www.lightbend.com/open-source-position-statement">Open Source Position Statement</a> you will notice that one of the differentiators we see between our open source offerings and the commercial products is Time. 
+Open source users tend to invest their time rather than their money. 
+ConductR integration into Lagom could be seen as an example for this. 
+If you would rather spend the money than invest time, buy ConductR. 
+If you would rather invest time instead of money, build your own ServiceLocator implementation and use a different infrastructure.
+An example of this is the <a href="https://github.com/lagom/lagom/issues/59">GitHub issue</a> for implementing Kubernetes support.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>How do you integrate with other non-Lagom microservices?</p>
+
+    <blockquote>
+      <p>Currently you would call them via REST URLs. 
+In the near future the <a href="https://gitter.im/lagom/lagom?at=56efe42c0d69dfd122218ddc">Lagom Service Client</a> could also be used to consume them. 
+Additionally it should also be possible to integrate <a href="https://github.com/Netflix/eureka">Eureka</a> in Lagom.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>What is the deployment procedure exactly? How do I prepare my Lagom application for deployment into production?</p>
+
+    <blockquote>
+      <p>The deployment unit in ConductR is a bundle which is an abstract term that can mean a Docker image or a zip file with a certain structure.
+By default, when you have multiple services in one project, it will create multiple bundles. You call <code class="highlighter-rouge">bundle:dist</code> once on the top level and it will create a separate bundle for each service which can then be deployed to ConductR.
+You can put multiple components in one bundle so you could have multiple services in one bundle, but we think that it is unusual.
+Ideally, each service needs to be its own bundle managed in isolation by ConductR, for it to be able to be able to be developed, rolled out, upgraded and failed in isolation.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>What about API versioning?</p>
+
+    <blockquote>
+      <p>Currently there is no versioning for your services besides the “default” way to do it, e.g. via the header or by versioning your urls.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>What do you think about the so-called serverkess architectures like AWS Lambda or Google Cloud Functions?</p>
+
+    <blockquote>
+      <p>We think that those architectures are part of the future. 
+Lagom can be seen as a step in that direction since it decouples the stateless part of the service (the behavior) from the stateful (persistent entity), allowing the stateless part to be scaled out independently, and automatically by the runtime, in a similar fashion to AWS Lambda. 
+A hosted version of Lagom could give a very similar experience.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>About sbt, will you also support a more widely adopted tool such as Maven or Gradle?</p>
+
+    <blockquote>
+      <p>Lagom relies on some sbt features, so supporting other build tools is not trivial. 
+While it is probably doable to support Maven, we’d need to do build a proof-of-concept to verify this. 
+This is currently not prioritized. We’ll be watching the community’s feedback on this.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>Does the Lagom circuit breaker have a dashboard such as the Hystrix dashboard? Does Lagom in general have operational dashboards?</p>
+
+    <blockquote>
+      <p>You could integrate the circuit breaker data with monitoring tools such as Graphite and Grafana.
+In addition, with Lightbend Monitoring you do get a suite of tools for monitoring your microservices. 
+Lightbend Monitoring is included in the ConductR license.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>Is it true that Typesafe rebranded to Lightbend to get a broader adoption than what was possible with a more Scala-orientated reputation attached to Typesafe?</p>
+
+    <blockquote>
+      <p>That is correct.
+This doesn’t mean that we are giving up on Scala, it is still core to all of our technologies.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h2 id="comparison-with-spring">Comparison with Spring</h2>
+
+<p>Spring has been out there for more than 10 years and with Spring Boot and Spring Cloud a trend has been set to move to self-contained applications as a basis for microservices development.
+Spring reaps the fruits of the Netflix OSS while offering Spring’s own components such as Spring Cloud Config and Spring Security as well.
+The Netflix and Spring stack comes with all the necessary tools to build and run microservices in production.</p>
+
+<p>Externalized configuration, out-of-the-box free dashboards for service registries, circuit breaker monitoring and distributed tracing, integration with service registries such as Eureka, Consul and Zookeeper, production-ready monitoring and metrics features with Actuator endpoints, integration with build tools such as Maven and Gradle and extensive security features including upcoming integration with <a href="https://www.vaultproject.io">Vault</a> are only a subset of the features Spring has to offer.</p>
+
+<p>Seeing as Lagom is still in its early days, it wouldn’t be fair to Lightbend to make an in-depth comparison with the Spring stack.
+We hope that Lagom will continue to grow towards a more mature framework and a true alternative to Spring on all levels.
+The first steps we currently see look promising and we hope that they will consider our remarks for how they want to further evolve the framework.
+It is great to see more microservices frameworks become available and we applaud Lightbend for taking up the competition with Spring.</p>
+
+<h2 id="our-advice">Our advice</h2>
+
+<p>Our advice is to keep track of Lagom’s progress closely.</p>
+
+<p>If you are currently looking for a mature framework with integration capabilities for just about anything, go with Spring.</p>
+
+<p>If you want to use Event Sourcing, Lagom should be a great fit. 
+Additionally, Lagom’s focus on CQRS and its reactive core are truly differentiators with other frameworks.
+Lagom has great potential and is eager to get community involvement. 
+If you are willing to join forces with Lightbend, Lagom might already be a viable candidate for you.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>We think that Lagom looks very promising and we will definitely follow it up.
+Due to Lagom being an opinionated framework everything glues together well.
+Lagom is just a thin layer on top of Akka and Play, which is very mature and hardened over the years.
+It might be a bit too early to do an in-depth comparison between Lagom and Spring Cloud since we would be comparing an MVP against a mature technology.</p>
+
+<p>We do think that using sbt might be a hurdle for Java developers and it would ease adoption if there would be other ways to use Lagom in production besides ConductR.
+As it stands right now you would need to write a custom service locator yourself.
+It would close the gap with Spring if support would already be available for service discovery via for example Eureka or Consul.</p>
+
+<p>It is clear that Lagom puts a lot of focus on reactiveness and gaining the best performance. 
+This could come at the cost of binary coupling, seeing as the default way to do service calls between Lagom services is to use binary dependencies. 
+We are looking forward to Lightbend’s plans to go through non-binary specifications in order to reduce coupling on a binary level as well.</p>
+
+<p>Given that it is currently an MVP version we are interested in seeing how Lagom matures. 
+Since it is all new and shiny, you will be able to give back to the community by helping to develop parts of this new and exciting framework yourself.
+Contributing to the framework is easy via pull requests and are actively reviewed by Lightbend developers.
+The developers are very active on their <a href="https://gitter.im/lagom/lagom">Gitter</a> channel and they are quick to answer questions. 
+We are also very excited to the release of the Scala API.</p>
+
+<p>Our colleague <a href="https://twitter.com/andreasevers">Andreas Evers</a>, who has extensive knowledge on Spring Cloud and Netflix OSS, will soon be participating in a podcast with Markus Eisele hosted by Lightbend to discuss Lagom and Spring Cloud.
+The date should be announced soon.
+Be sure to follow Andreas and Lightbend to catch it!</p>
+
+<h2 id="useful-links">Useful links</h2>
+
+<ul>
+  <li><a href="https://www.lightbend.com/lagom">Lagom</a></li>
+  <li><a href="http://www.lagomframework.com/documentation/1.0.x/Home.html">Lagom documentation</a></li>
+  <li><a href="https://twitter.com/lagom">Lagom Twitter</a></li>
+  <li><a href="https://github.com/lagom/lagom">Lagom GitHub</a></li>
+  <li><a href="https://gitter.im/lagom/lagom">Lagom Gitter</a></li>
+  <li><a href="https://www.lightbend.com">Lightbend</a></li>
+  <li><a href="Lightbend">Lightbend Twitter</a></li>
+  <li><a href="https://twitter.com/myfear">Markus Eisele Twitter</a></li>
+  <li><a href="https://twitter.com/lutzhuehnken">Lutz Hühnken Twitter</a></li>
+</ul>
+
+    </article>
+    <hr />
+    <blockquote>
+        
+            <p>Yannick is a senior Java consultant and coach at Ordina Belgium. Yannick's focus areas amongst others are Java technologies, Scala and Play Framework and iOS development with Objective C and Swift. He's passionate about learning new technologies and frameworks and having a keen interest in innovative technologies, Java architectures, reactive programming and DevOps.</p>
+
+        
+    </blockquote>
+    <blockquote>
+        
+            <p>Andreas is a principal Java consultant at Ordina, passionate about the Spring ecosystem, microservices, REST, clean code and best practices in general. An avid open source enthusiast and Spring contributor. Helps fellow developers as Competence Center leader for architecture and best practices by giving workshops, talks and courses about the newest technologies.</p>
+
+        
+    </blockquote>
+    
+        <br /><br />
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    
+</div>
+
+        </div>
+    </div>
+    <!-- Main content ends -->
+</div>
+<!-- Footer Starts -->
+<footer class="footer">
+    <!-- Container -->
+    <div class="container">
+        <!-- Foot Starts -->
+        <div class="foot">
+            <!-- Container -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-user"></i>&nbsp;&nbsp;Disclaimer</h5>
+
+                            <p>Opinions expressed on this blog reflect the writer’s views and not the position of
+                                Ordina.</p>
+
+                            <div class="brand-bg">
+                                <a target="_blank" href="https://www.facebook.com/lifeatordinabe" class="facebook"><i
+                                        class="fa fa-facebook circle-3"></i></a>
+                                <a target="_blank" href="https://twitter.com/lifeatordinabe"
+                                   class="twitter"><i
+                                        class="fa fa-twitter circle-3"></i></a>
+                                <a target="_blank" href="https://www.linkedin.com/company/ordina-belgium"
+                                   class="linkedin"><i
+                                        class="fa fa-linkedin circle-3"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-comments"></i>&nbsp;&nbsp;Recent Posts</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content">
+                                <ul class="list-unstyled">
+                                    
+                                    <li>
+                                        <span>22 Apr 2016</span> &raquo;
+                                        <a href="/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html">
+                                            Lagom: First Impressions and Initial Comparison to Spring Cloud</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>09 Apr 2016</span> &raquo;
+                                        <a href="/microservices/2016/04/09/Ordina-becomes-Netflix-OSS-contributor.html">
+                                            Ordina becomes Netflix OSS contributor</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>07 Apr 2016</span> &raquo;
+                                        <a href="/ionic/2016/04/07/Ionic-Protractor.html">
+                                            Protractor testing in Ionic app</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>31 Mar 2016</span> &raquo;
+                                        <a href="/ionic/2016/03/31/Adding-TypeScript-to-Ionic-Framework.html">
+                                            Adding TypeScript to Ionic Framework</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>16 Mar 2016</span> &raquo;
+                                        <a href="/angularjs-typescript/2016/03/16/AngularTS.html">
+                                            AngularTS: A new look @ Angular</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>12 Mar 2016</span> &raquo;
+                                        <a href="/security/2016/03/12/Digitally-signing-your-JSON-documents.html">
+                                            Digitally signing your JSON documents</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>10 Mar 2016</span> &raquo;
+                                        <a href="/conferences/2016/03/10/JavaLand2016.html">
+                                            The 5 key trends of JavaLand 2016</a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-building-o"></i>&nbsp;&nbsp;Contact Us</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content address">
+                                <!-- Heading -->
+                                <h6 class="bold"><i class="fa fa-home"></i>&nbsp;&nbsp;Ordina Belgium</h6>
+                                <!-- Paragraph -->
+                                <p class="add">
+                                    Blarenberglaan 3B,<br/>
+                                    Mechelen 2800, Belgium.</p>
+
+                                <p class="tel"><i class="fa fa-phone"></i> Tel : + (32) - 15 29 58 58<br/>
+                                    <i class="fa fa-envelope"></i> Mail : <a href="#">info@ordina.be</a><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Foot Ends -->
+        <!-- Footer Content -->
+        <p class="pull-left">Copyright &copy; 2016 - <a href="#">Ordina JWorks</a></p>
+        <ul class="list-inline pull-right">
+            <!-- List -->
+            <li><a href="/">Home</a>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/contact/">Contact</a></li>
+        </ul>
+        <!-- Clearfix -->
+        <div class="clearfix"></div>
+    </div>
+</footer>
+<!-- Footer Ends -->
+
+<!-- Outer Ends -->
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-angle-up bg-color"></i></a></span>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/placeholders.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/respond.min.js"></script>
+<script src="/js/html5shiv.js"></script>
+<script src="/js/main.js"></script>
+
+<script src="/js/imagesloaded.min.js"></script>
+<script src="/js/masonry.js"></script>
+
+<!-- Javascript for this page -->
+<script>
+    // Initialize Masonry
+    var $box = $('.blog-masonry').masonry();
+    // Layout Masonry again after all images have loaded
+    $box.imagesLoaded(function () {
+        $box.masonry();
+    });
+</script>
+
+<!-- Custom JS. Type your JS code in custom.js file -->
+<script src="/js/custom.js"></script>
+
+<!-- Disqus -->
+
+    <script type="text/javascript">
+        var disqus_config = function () {
+            this.page.url = "https://ordina-jworks.github.io/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html";
+            this.page.identifier = "/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html";
+            this.page.title = "Lagom: First Impressions and Initial Comparison to Spring Cloud";
+        };
+    </script>
+    <script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>
