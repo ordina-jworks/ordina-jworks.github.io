@@ -28,7 +28,7 @@ comments: true
 12. [Useful links](#useful-links)
 
 ## Just the right amount
-Meet [Lagom](https://www.lightbend.com/lagom), [Lightbend](https://www.lightbend.com)'s (formerly TypeSafe) new open source framework for architecting microservices in **Java**.
+Meet [Lagom](https://www.lightbend.com/lagom), [Lightbend](https://www.lightbend.com)'s (formerly Typesafe) new open source framework for architecting microservices in **Java**.
 On the 10th of March, Lightbend released the first **MVP version** of Lagom which is the current version at the time of writing.
 Although there is currently only a **Java API**, Scala enthusiasts should not fret because a **Scala API** is a main priority and [well on its way](https://github.com/lagom/lagom/issues/1).
 
@@ -83,7 +83,7 @@ Moving towards a microservices framework such as Lagom would already constitute 
 Lightbend's rebranding could be interpreted as a move away from a Scala-oriented company towards a more Java-minded company.
 In that regard it would make sense to lower the initial learning curve especially for a rather trivial component such as a building tool.
 After all, the most important thing to achieve adoption is allowing people to easily get started with the new technology. 
-We think that providing integration for Maven or Gradle would have a positive effect on the adoption rate.
+We think that providing integration for Maven or Gradle would have a positive effect on the adoption rate and although it may not be trivial to implement, it should help convince Java developers to give Lagom a go.
 
 **Google's Guice** has been chosen for dependency injection since it's a lightweight framework.
 What is remarkable is that Guice is used as well for intermicroservices calls.
@@ -93,9 +93,8 @@ Changing the code of one microservice should not have an immediate cascading eff
 This is the very essence of the microservices architecture.
 In a monolith having code changes in one component can result in immediate breaking changes in other components of the system.
 While this may be desired in order to keep technical debt low, this is an inherent characteristic of monolithic systems.
-One of the reasons microservices were introduced, is to decouple components on all levels, especially code coupling.
-Releasing a code change in one component should not have an immediate impact on other components in a microservices system.
-Using protocols between components instead of actual code dependencies allows us to implement the tolerant reader principle and versioning through for instance content negotiation.
+One of the reasons microservices were introduced, is to decouple components on all levels, especially binary coupling.
+Using protocols between components instead of actual binary dependencies allows us to implement the tolerant reader principle and versioning through for instance content negotiation.
 Lightbend argues that sharing interfaces as code will increase productivity and performance, but we fear the result of this is a distributed monolith instead of an actual decoupled microservices architecture.
 While we question the default way of communicating between microservices in Lagom, we are enthusiastic that more ways of making intermicroservices calls are becoming available.
 Using HTTP is possible as well, and one of the upcoming features is a [Lagom Service Client](https://gitter.im/lagom/lagom?at=56efe42c0d69dfd122218ddc).
@@ -107,7 +106,7 @@ Lagom has support for Cassandra as datastore, both for the reading and writing d
 It is possible to use other datastore solutions but this comes at the cost of not being able to take advantage of the persistence module in Lagom.
 
 **ConductR** is an orchestration tool for managing Lightbend Reactive Platform applications across a cluster of machines and is Lightbend's solution for running Lagom systems in production.
-Note that ConductR comes with a rather hefty license fee and is majorly targeted at enterprises.
+Note that ConductR comes with a license fee and is majorly targeted at enterprises.
 The other option we currently have in order to run our Lagom system in production is to write our [own service locator](http://www.lagomframework.com/documentation/1.0.x/Overview.html) compatible with Lagom.
 At the time of writing someone already started working on [Kubernetes support](https://github.com/lagom/lagom/issues/59) and we are sure that, given more time, more options will become available.
 For now though, Lagom is still in an early stage where we either have to pay for the ConductR license, build our own service locator, or wait until someone does the work for us.
@@ -598,6 +597,10 @@ Spring Cloud and Netflix OSS?
     > Lagom is an opinionated framework and will try to suggest using ES & CQRS as the primary solution to use since it fits very well with the reactive mindset.
     > Of course it also depends on the use case.
 
+- Don’t you think you encourage code coupling by having microservices depend on the interface of another microservice?
+
+    > It is true that the default way to do service calls between Lagom services is to use binary dependencies, though of course it is not enforced. We have taken great care to ensure that service calls map down to idiomatic REST and/or websockets. We do have plans in the future to allow simple removal of the binary coupling. To make service interfaces go through a non-binary specification such as Swagger, where Swagger specs will be generated and interfaces will be generated from the Swagger specs.
+
 - Does Lagom support REST level 3? Is there support for hypermedia?
 
     > Currently not supported but we are open to it. Feel free to create a suggestions ticket at the [GitHub project](https://github.com/lagom/lagom).
@@ -607,8 +610,12 @@ What about pet projects of single developers? This makes it less appealing to mo
     
     > It is in the strategic planning of Lightbend to push ConductR forward as the main solution for your production environment.
     > Do note that it’s perfectly possible to deploy your Lagom services elsewhere as long as you implement your own [service locator](http://www.lagomframework.com/documentation/1.0.x/Overview.html) (as an example, the integration needed to support Lagom in ConductR is available on [GitHub](https://github.com/typesafehub/conductr-lib/tree/master/lagom10-conductr-bundle-lib)).
-    > We do however share the same thoughts about ConductR being mainly for big enterprises where the licensing fees are only a part of the costs involved next to hiring consultants for implementing the project.
-    > A model like the [DataStax Startup Program](http://www.datastax.com/datastax-enterprise-for-startups) looks interesting but isn’t currently planned by Lightbend.
+    > Looking at our [Open Source Position Statement](https://www.lightbend.com/open-source-position-statement) you will notice that one of the differentiators we see between our open source offerings and the commercial products is Time. 
+    > Open source users tend to invest their time rather than their money. 
+    > ConductR integration into Lagom could be seen as an example for this. 
+    > If you would rather spend the money than invest time, buy ConductR. 
+    > If you would rather invest time instead of money, build your own ServiceLocator implementation and use a different infrastructure.
+    > An example of this is the [GitHub issue](https://github.com/lagom/lagom/issues/59) for implementing Kubernetes support.
 
 - How do you integrate with other non-Lagom microservices?
 
@@ -616,30 +623,34 @@ What about pet projects of single developers? This makes it less appealing to mo
     > In the near future the [Lagom Service Client](https://gitter.im/lagom/lagom?at=56efe42c0d69dfd122218ddc) could also be used to consume them. 
     > Additionally it should also be possible to integrate [Eureka](https://github.com/Netflix/eureka) in Lagom.
 
-- Is it correct that although multiple microservices can be organised within the same project, each microservice needs to be individually deployed in ConductR? 
-If it needs to be deployed as a bundle, it sort of gives the impression of just being a monolith in disguise?
+- What is the deployment procedure exactly? How do I prepare my Lagom application for deployment into production?
 
-    > Typically you would organise your microservices dependent on each other in the same project if it makes sense that changing one microservice would automatically result in adding/changing logic in other microservices. 
-    > For the project, a bundle containing the microservices will be created which can then be imported in ConductR after which you can deploy each microservice individually. 
+    > The deployment unit in ConductR is a bundle which is an abstract term that can mean a Docker image or a zip file with a certain structure.
+    > By default, when you have multiple services in one project, it will create multiple bundles. You call `bundle:dist` once on the top level and it will create a separate bundle for each service which can then be deployed to ConductR.
+    > You can put multiple components in one bundle so you could have multiple services in one bundle, but we think that it is unusual.
+    > Ideally, each service needs to be its own bundle managed in isolation by ConductR, for it to be able to be able to be developed, rolled out, upgraded and failed in isolation. 
 
 - What about API versioning?
 
     > Currently there is no versioning for your services besides the "default" way to do it, e.g. via the header or by versioning your urls.
 
-- What do you think about the so-called nanoservices like AWS Lambda or Google Cloud Functions?
+- What do you think about the so-called serverkess architectures like AWS Lambda or Google Cloud Functions?
     
-    > We are interested in seeing how that turns out.
-    > Seems like a huge vendor lock-in though.
-    > Probably also no portability?
+    > We think that those architectures are part of the future. 
+    > Lagom can be seen as a step in that direction since it decouples the stateless part of the service (the behavior) from the stateful (persistent entity), allowing the stateless part to be scaled out independently, and automatically by the runtime, in a similar fashion to AWS Lambda. 
+    > A hosted version of Lagom could give a very similar experience.
     
 - About sbt, will you also support a more widely adopted tool such as Maven or Gradle?
 
-    > Not anytime soon since Lagom uses sbt internally.
+    > Lagom relies on some sbt features, so supporting other build tools is not trivial. 
+    > While it's probably doable to support Maven, we’d need to do build a proof-of-concept to verify this. 
+    > This is currently not prioritized. We’ll be watching the community's feedback on this.
 
-- Does the Lagom circuit breaker have a dashboard such as the Hystrix dashboard?
-Does Lagom in general have operational dashboards?
+- Does the Lagom circuit breaker have a dashboard such as the Hystrix dashboard? Does Lagom in general have operational dashboards?
 
-    > No dashboards, however in ConductR you do have a dashboard that monitors the status of your microservices.
+    > You could integrate the circuit breaker data with monitoring tools such as Graphite and Grafana.
+    > In addition, with Lightbend Monitoring you do get a suite of tools for monitoring your microservices. 
+    > Lightbend Monitoring is included in the ConductR license.
     
 - Is it true that Typesafe rebranded to Lightbend to get a broader adoption than what was possible with a more Scala-orientated reputation attached to Typesafe?
 
@@ -648,13 +659,14 @@ Does Lagom in general have operational dashboards?
 
 ## Comparison with Spring
 
-**Spring** has been out there for more than 10 years and with Spring Boot and Spring Cloud a trend has been set to move to self-contained applications as a basis for microservices development.
-Spring Cloud wraps the Netflix stack and makes it accessible.
+Spring has been out there for more than 10 years and with Spring Boot and Spring Cloud a trend has been set to move to self-contained applications as a basis for microservices development.
 Spring reaps the fruits of the Netflix OSS while offering Spring's own components such as Spring Cloud Config and Spring Security as well.
-The Netflix and Spring stack comes with dashboards out of the box together with all the necessary tools to build and run microservices in production.
+The Netflix and Spring stack comes with all the necessary tools to build and run microservices in production.
+
+Externalized configuration, out-of-the-box free dashboards for service registries, circuit breaker monitoring and distributed tracing, integration with service registries such as Eureka, Consul and Zookeeper, production-ready monitoring and metrics features with Actuator endpoints, integration with build tools such as Maven and Gradle and extensive security features including upcoming integration with [Vault](https://www.vaultproject.io) are only a subset of the features Spring has to offer.
 
 Seeing as Lagom is still in its early days, it wouldn't be fair to Lightbend to make an in-depth comparison with the Spring stack.
-We hope that Lagom will continue to grow towards a more mature framework and a true alternative to Spring.
+We hope that Lagom will continue to grow towards a more mature framework and a true alternative to Spring on all levels.
 The first steps we currently see look promising and we hope that they will consider our remarks for how they want to further evolve the framework.
 It's great to see more microservices frameworks become available and we applaud Lightbend for taking up the competition with Spring.
 
@@ -664,24 +676,32 @@ Our advice is to keep track of Lagom's progress closely.
 
 If you are currently looking for a mature framework with integration capabilities for just about anything, go with Spring.
 
-However if you are already working with the Lightbend stack and you are willing to give back to the community by helping to develop parts of this exciting framework yourself, be sure to give Lagom a shot!
+If you want to use Event Sourcing, Lagom should be a great fit. 
+Additionally, Lagom’s focus on CQRS and its reactive core are truly differentiators with other frameworks.
+Lagom has great potential and is eager to get community involvement. 
+If you are willing to join forces with Lightbend, Lagom might already be a viable candidate for you.
 
 ## Conclusion
 We think that Lagom looks very promising and we will definitely follow it up.
 Due to Lagom being an opinionated framework everything glues together well.
+Lagom is just a thin layer on top of Akka and Play, which is very mature and hardened over the years.
 It might be a bit too early to do an in-depth comparison between Lagom and Spring Cloud since we would be comparing an MVP against a mature technology.
-We do think that using sbt might be a hurdle for Java developers and it would ease adoption if there would be other ways to use Lagom in production besides ConductR or writing a custom service locator.
+We do think that using sbt might be a hurdle for Java developers and it would ease adoption if there would be other ways to use Lagom in production besides ConductR.
+As it stands right now you would need to write a custom service locator yourself.
+It would close the gap with Spring if support would already be available for service discovery via for example Eureka or Consul.
 
-It is clear that Lagom puts a lot of focus on reactiveness and gaining the best performance at the cost of code coupling.
-However, it is still possible to achieve the loose coupling by working solely with REST URLs.
+It is clear that Lagom puts a lot of focus on reactiveness and gaining the best performance. 
+This could come at the cost of binary coupling, seeing as the default way to do service calls between Lagom services is to use binary dependencies. 
+We are looking forward to Lightbend’s plans to go through non-binary specifications in order to reduce coupling on a binary level as well.
 
-Given that it is currently an MVP version we are interested in seeing how Lagom matures.
+Given that it is currently an MVP version we are interested in seeing how Lagom matures. 
+Since it is all new and shiny, you will be able to give back to the community by helping to develop parts of this new and exciting framework yourself.
 Contributing to the framework is easy via pull requests and are actively reviewed by Lightbend developers.
 The developers are very active on their [Gitter](https://gitter.im/lagom/lagom) channel and they are quick to answer questions. 
 We are also very excited to the release of the Scala API.
 
-Our colleague [Andreas Evers](https://twitter.com/andreasevers), who was also present at the CodeStar launch event and who has extensive knowledge on Spring Cloud and Netflix OSS, will soon be participating in a podcast with Markus Eisele hosted by Lightbend to discuss Lagom and Spring Cloud.
-No doubt it will be very interesting and although there hasn't been a date set yet, it should be made public soon.
+Our colleague [Andreas Evers](https://twitter.com/andreasevers), who has extensive knowledge on Spring Cloud and Netflix OSS, will soon be participating in a podcast with Markus Eisele hosted by Lightbend to discuss Lagom and Spring Cloud.
+The date should be announced soon.
 Be sure to follow Andreas and Lightbend to catch it!
 
 ## Useful links
