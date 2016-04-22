@@ -708,11 +708,11 @@ Be sure to follow Andreas and Lightbend to catch it!
 ## Useful links
 
 - [Lagom](https://www.lightbend.com/lagom)
-- [Lagom documentation](http://www.lagomframework.com/documentation/1.0.x/Home.html)
+- [Lagom documentation](http://www.lagomframework.com/documentation)
 - [Lagom Twitter](https://twitter.com/lagom)
 - [Lagom GitHub](https://github.com/lagom/lagom)
 - [Lagom Gitter](https://gitter.im/lagom/lagom)
 - [Lightbend](https://www.lightbend.com)
-- [Lightbend Twitter](Lightbend)
+- [Lightbend Twitter](https://twitter.com/lightbend)
 - [Markus Eisele Twitter](https://twitter.com/myfear)
 - [Lutz Hühnken Twitter](https://twitter.com/lutzhuehnken)
