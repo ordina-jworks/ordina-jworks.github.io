@@ -686,6 +686,7 @@ We think that Lagom looks very promising and we will definitely follow it up.
 Due to Lagom being an opinionated framework everything glues together well.
 Lagom is just a thin layer on top of Akka and Play, which is very mature and hardened over the years.
 It might be a bit too early to do an in-depth comparison between Lagom and Spring Cloud since we would be comparing an MVP against a mature technology.
+
 We do think that using sbt might be a hurdle for Java developers and it would ease adoption if there would be other ways to use Lagom in production besides ConductR.
 As it stands right now you would need to write a custom service locator yourself.
 It would close the gap with Spring if support would already be available for service discovery via for example Eureka or Consul.
