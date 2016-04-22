@@ -78,20 +78,20 @@ Lagom relies heavily on the following sbt features:
 - The value returned by a task may be consumed by other tasks
 
 According to Lightbend, **Scala's build tool 'sbt'** offers many handy features to Lagom such as fast incremental recompilation, hot code reloading, starting and stopping services in parallel and automatic injection of configuration defaults.
-Sbt might be seen as a hurdle by most Java developers since it's **Maven** and **Gradle** (and to a lesser extent **Ant**) that rule most Java projects.
+Sbt might be seen as a hurdle by most Java developers since it is **Maven** and **Gradle** (and to a lesser extent **Ant**) that rule most Java projects.
 Moving towards a microservices framework such as Lagom would already constitute quite a transition so we think that this might hold back Java developers from adopting the framework.
 Lightbend's rebranding could be interpreted as a move away from a Scala-oriented company towards a more Java-minded company.
 In that regard it would make sense to lower the initial learning curve especially for a rather trivial component such as a building tool.
 After all, the most important thing to achieve adoption is allowing people to easily get started with the new technology. 
 We think that providing integration for Maven or Gradle would have a positive effect on the adoption rate and although it may not be trivial to implement, it should help convince Java developers to give Lagom a go.
 
-**Google's Guice** has been chosen for dependency injection since it's a lightweight framework.
+**Google's Guice** has been chosen for dependency injection since it is a lightweight framework.
 What is remarkable is that Guice is used as well for intermicroservices calls.
 Lagom acts as a communication abstraction layer and it does so by adding a dependency on the interfaces of remote microservices.
 Just like a shared domain model and shared datastores being antipatterns for microservices, having code dependencies from one service in another is as well.
 Changing the code of one microservice should not have an immediate cascading effect on other microservices.
 This is the very essence of the microservices architecture.
-In a monolith having code changes in one component can result in immediate breaking changes in other components of the system.
+In a monolith, having code changes in one component can result in immediate breaking changes in other components of the system.
 While this may be desired in order to keep technical debt low, this is an inherent characteristic of monolithic systems.
 One of the reasons microservices were introduced, is to decouple components on all levels, especially binary coupling.
 Using protocols between components instead of actual binary dependencies allows us to implement the tolerant reader principle and versioning through for instance content negotiation.
@@ -605,7 +605,7 @@ Spring Cloud and Netflix OSS?
 
     > Currently not supported but we are open to it. Feel free to create a suggestions ticket at the [GitHub project](https://github.com/lagom/lagom).
 
-- Don't you think it's a bad idea to only support ConductR for production deployments?
+- Don't you think it is a bad idea to only support ConductR for production deployments?
 What about pet projects of single developers? This makes it less appealing to motivate people to pick up Lagom compared to for example Spring Cloud and Netflix OSS.
     
     > It is in the strategic planning of Lightbend to push ConductR forward as the main solution for your production environment.
@@ -643,7 +643,7 @@ What about pet projects of single developers? This makes it less appealing to mo
 - About sbt, will you also support a more widely adopted tool such as Maven or Gradle?
 
     > Lagom relies on some sbt features, so supporting other build tools is not trivial. 
-    > While it's probably doable to support Maven, we’d need to do build a proof-of-concept to verify this. 
+    > While it is probably doable to support Maven, we’d need to do build a proof-of-concept to verify this. 
     > This is currently not prioritized. We’ll be watching the community's feedback on this.
 
 - Does the Lagom circuit breaker have a dashboard such as the Hystrix dashboard? Does Lagom in general have operational dashboards?
@@ -668,7 +668,7 @@ Externalized configuration, out-of-the-box free dashboards for service registrie
 Seeing as Lagom is still in its early days, it wouldn't be fair to Lightbend to make an in-depth comparison with the Spring stack.
 We hope that Lagom will continue to grow towards a more mature framework and a true alternative to Spring on all levels.
 The first steps we currently see look promising and we hope that they will consider our remarks for how they want to further evolve the framework.
-It's great to see more microservices frameworks become available and we applaud Lightbend for taking up the competition with Spring.
+It is great to see more microservices frameworks become available and we applaud Lightbend for taking up the competition with Spring.
 
 ## Our advice
 
