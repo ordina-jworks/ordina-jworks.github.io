@@ -4,11 +4,12 @@ layout: default
 
 <div class="post">
     {% assign author = site.data.authors[page.author] %}
+    {% assign coauthor = site.data.authors[page.coauthor] %}
     <div class="row">
         <div class="col-md-12">
             <h1>{{ page.title }}</h1>
             <p id="post-meta">
-                Posted {{ page.date | date: "%b %-d, %Y" }}{% if page.category %} in <a href="/categories/{{ page.category | downcase | replace:' ','-' }}/">{{ page.category }}</a>{% endif %}{% if author %} by <a href="{{ author.permalink | prepend: site.baseurl }}">{{author.first_name}} {{author.last_name}}</a> {% endif %}
+                Posted {{ page.date | date: "%b %-d, %Y" }}{% if page.category %} in <a href="/categories/{{ page.category | downcase | replace:' ','-' }}/">{{ page.category }}</a>{% endif %}{% if author %} by <a href="{{ author.permalink | prepend: site.baseurl }}">{{author.first_name}} {{author.last_name}}</a> {% endif %}{% if coauthor %} co-authored by <a href="{{ coauthor.permalink | prepend: site.baseurl }}">{{coauthor.first_name}} {{coauthor.last_name}}</a> {% endif %}
                 {% if page.tags %}
                     <br />
                     <i class="fa fa-tags"></i>
@@ -27,6 +28,11 @@ layout: default
     <blockquote>
         {% if author.bio %}
             {{ author.bio | markdownify }}
+        {% endif %}
+    </blockquote>
+    <blockquote>
+        {% if coauthor.bio %}
+            {{ coauthor.bio | markdownify }}
         {% endif %}
     </blockquote>
     {% if page.comments %}
