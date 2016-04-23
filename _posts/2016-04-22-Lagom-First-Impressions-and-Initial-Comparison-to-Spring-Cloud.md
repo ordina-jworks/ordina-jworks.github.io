@@ -291,7 +291,7 @@ public class HelloServiceTest {
   }
 
   @Test
-  public void testHello() throws Exception {
+  public void shouldRespondHello() throws Exception {
     // given
     HelloService service = server.client(HelloService.class);
 
@@ -303,7 +303,7 @@ public class HelloServiceTest {
   }
 
   @Test
-  public void testGreeting() throws Exception {
+  public void shouldRespondGreeting() throws Exception {
     // given
     HelloService service = server.client(HelloService.class);
 
@@ -579,7 +579,7 @@ public class HelloServiceImpl implements HelloService {
 ## Lightbend Q&A at the CodeStar launch event
 On the 24th of March we attended the launch event of [CodeStar](http://www.codestar.nl), the new unit from our Dutch Ordina colleagues focused on Full Stack Scala and Big Data solutions.
 CodeStar also hold a Lightbend partnership.
-One of the presentations was an introduction to Lagom by [Markus Eisele](https://twitter.com/myfear), Developer Advocate at Lightbend.
+One of the presentations was [an introduction to Lagom](https://www.youtube.com/watch?v=POKZ1TRJ4G4) by [Markus Eisele](https://twitter.com/myfear), Developer Advocate at Lightbend.
 After his talk we had the opportunity to ask Markus and his colleague, [Lutz Hühnken](https://twitter.com/lutzhuehnken), Solutions Architect at Lightbend, several questions regarding Lagom.
 
 - What do you guys consider to be the major competitor for Lagom?
