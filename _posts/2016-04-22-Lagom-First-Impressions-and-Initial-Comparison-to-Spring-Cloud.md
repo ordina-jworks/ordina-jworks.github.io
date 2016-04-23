@@ -634,7 +634,7 @@ What about pet projects of single developers? This makes it less appealing to mo
 
     > Currently there is no versioning for your services besides the "default" way to do it, e.g. via the header or by versioning your urls.
 
-- What do you think about the so-called serverkess architectures like AWS Lambda or Google Cloud Functions?
+- What do you think about the so-called serverless architectures like AWS Lambda or Google Cloud Functions?
     
     > We think that those architectures are part of the future. 
     > Lagom can be seen as a step in that direction since it decouples the stateless part of the service (the behavior) from the stateful (persistent entity), allowing the stateless part to be scaled out independently, and automatically by the runtime, in a similar fashion to AWS Lambda. 
