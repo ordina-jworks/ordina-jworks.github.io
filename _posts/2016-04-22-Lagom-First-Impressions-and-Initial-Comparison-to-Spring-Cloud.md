@@ -222,7 +222,7 @@ public class HelloServiceImpl implements HelloService {
 }
 {% endhighlight %}
 
-You'll immediately notice that the service calls are non-blocking by default using [Futures](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html) introduced in JDK8.
+You'll immediately notice that the service calls are non-blocking by default using [CompletableFutures](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html) introduced in JDK8.
 Interesting to know is that Lagom also provides support for the [Publish-subscribe pattern](http://www.lagomframework.com/documentation/1.0.x/PubSub.html) out of the box.
 We also need to implement the module that binds the HelloService so that it can be served.
 
