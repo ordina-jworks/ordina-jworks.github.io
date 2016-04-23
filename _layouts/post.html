@@ -25,16 +25,16 @@ layout: default
         {{ content }}
     </article>
     <hr />
-    <blockquote>
-        {% if author.bio %}
+    {% if author.bio %}
+        <blockquote>
             {{ author.bio | markdownify }}
-        {% endif %}
-    </blockquote>
-    <blockquote>
-        {% if coauthor.bio %}
+        </blockquote>
+    {% endif %}
+    {% if coauthor.bio %}
+        <blockquote>
             {{ coauthor.bio | markdownify }}
-        {% endif %}
-    </blockquote>
+        </blockquote>
+    {% endif %}
     {% if page.comments %}
         <br /><br />
         <div id="disqus_thread"></div>
