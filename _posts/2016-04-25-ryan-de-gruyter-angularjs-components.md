@@ -75,7 +75,7 @@ The `.component()` method is a helper method which creates a directive set with 
 
 An **Attribute directive** is declared as an element attribute and they can change the appearance or behavior of an element (`ng-change`, `ng-click`, ...).
 
-A **Structural directive** is an attribute or element that manipulates the DOM by adding or removing DOM elements (`ng-if`, `ng-for`, ...).
+A **Structural directive** is an attribute or element that manipulates the DOM by adding or removing DOM elements (`ng-if`, `ng-repeat`, ...).
 
 ## When do we use .directive(), and when do we use .component()? ##
 Custom UI elements should be created with the `.component()` helper method because it:
