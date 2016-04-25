@@ -8,7 +8,8 @@ category: angularjs
 comments: true
 ---
 
-##Introduction##
+## Introduction ##
+
 > Ideally, the whole application should be a tree of components that implement clearly defined inputs and outputs, and minimize two-way data binding. That way, it's easier to predict when data changes and what the state of a component is.
 >
 > -- AngularJS documentation
