@@ -52,8 +52,8 @@ My advice is to be sure to use correct naming conventions and a module system so
 
 To create and register a custom element in AngularJS, we can use either methods:
 
-    .directive(name, factoryfunction );
-    .component(name, object);
+- .directive(name, factoryfunction)
+- .component(name, object)
 
 While components are restricted to custom elements, directives can be used to create both elements as well as custom attributes.
 
@@ -80,13 +80,13 @@ Custom UI elements should be created with the .component() helper method because
 
 Use the .directive() method when you want to manipulate the DOM by adding or removing elements(Structural directive) or when you want to change the appearance or behavior of an element(Attribute directive).
 
-## Creating a component based AngularJS application ##
+## Creating a component-based AngularJS application ##
 Beginning with a component-based application architecture we need to have a root component.
 Before you create a component you have to decide if it will be a  **Presentational component** or a **Container component**?
 
 ## Presentational component ##
 Also known as a dumb component. 
-They are meant to present and visualize data and are easy reusable. 
+They are meant to present and visualize data and can easily be reused. 
 They don't manipulate application state nor do they fetch any data. 
 Instead they define a public API in which they can receive inputs (< and @ bindings), and communicate any outputs (& binding) with their direct parent. 
 
@@ -109,9 +109,9 @@ These components are unaware of any application state, and they only get data pa
 	  	`;
 	}
 	
-	angular
-		.module('currencyConverterApp, []')
-		.component(Rootcomponent.NAME, new RootComponent());
+        angular
+                .module('currencyConverterApp, []')
+                .component(Rootcomponent.NAME, new RootComponent());
 		
 {% endhighlight %}
 
@@ -123,28 +123,28 @@ Also notice how easy it was to register this component directive.
 *Let's create the same component directive but register it with the .directive() method.*
 
 {% highlight typescript %}	
-	export class RootComponent implements IDirective {
-		static NAME:string = 'app';
-		restrict:string = 'E',
-		bindToController:any = {
-    		title: '@',	
-		},
-		scope:IScope = {},
-		controller:Function = ()=>{},
-		controllerAs:string = '$ctrl',
-  		template:string = `
-	    	<h1>{{$ctrl.title}}</h1>
-	    	<currency-converter></currency-converter>
-	  	`;
+    export class RootComponent implements IDirective {
+        static NAME:string = 'app';
+        restrict:string = 'E',
+        bindToController:any = {
+            title: '@',	
+        },
+        scope:IScope = {},
+        controller:Function = ()=>{},
+        controllerAs:string = '$ctrl',
+        template:string = `
+            <h1>{{$ctrl.title}}</h1>
+            <currency-converter></currency-converter>
+         `;
 
-		static instance():IDirective {
-			return new RootComponent();
-		}
-	}
-	
-	angular
-		.module('currencyConverterApp, []')
-		.directive(Rootcomponent.NAME, RootComponent.instance());
+        static instance():IDirective {
+            return new RootComponent();
+        }
+    }
+
+    angular
+    .module('currencyConverterApp, []')
+    .directive(Rootcomponent.NAME, RootComponent.instance());
 		
 {% endhighlight %}	
 
@@ -167,28 +167,28 @@ Let's look at an example of a container component, I will leave out the complete
 *First we start with our component definition:*
 
 {% highlight typescript %}	
-
     export class CurrencyConverter implements IComponentOptions{
-		static NAME:string = 'currencyConverter';
-    
-		template:string = `
-		...
-                    <currencies-select
-                            title="From"
-                            on-selected="$ctrl.fromSelected(selectedCurrency)"
-                            show-values-as-rates="true"
-                            currencies="$ctrl.fromCurrencies"
-                    ></currencies-select>
-                    <currencies-select
-                            title="To"
-                            on-selected="$ctrl.toSelected(selectedCurrency)"
-                            show-values-as-rates="true"
-                            currencies="$ctrl.toCurrencies"
-                    ></currencies-select>
-		...		
-		`;
-    	controller:Function = CurrencyConverterComponentController;
-	}
+        static NAME:string = 'currencyConverter';
+
+        template:string = `
+            ...
+            <currencies-select
+                title="From"
+                on-selected="$ctrl.fromSelected(selectedCurrency)"
+                show-values-as-rates="true"
+                currencies="$ctrl.fromCurrencies"
+            ></currencies-select>
+            <currencies-select
+                title="To"
+                on-selected="$ctrl.toSelected(selectedCurrency)"
+                show-values-as-rates="true"
+                currencies="$ctrl.toCurrencies"
+            ></currencies-select>
+            ...		
+        `;
+
+        controller:Function = CurrencyConverterComponentController;
+        }
 	
 {% endhighlight %}	
 
@@ -199,43 +199,42 @@ Our container component can bind a callback method on the on-selected attribute 
 Below we define our components controller, here we can set and manipulate our template's view model.
 		
 {% highlight typescript %}	
+    export class CurrencyConverterComponentController {
 
-	export class CurrencyConverterComponentController {
+        selectedFromCurrency:Currency;
+        selectedToCurrency:Currency;
+        amount:number;
+        result:number;
+        
+        fromCurrencies:Currency[];
+        toCurrencies:Currency[];
 
-	    selectedFromCurrency:Currency;
-	    selectedToCurrency:Currency;
-		amount:number;
-	    result:number;
+        static $inject = [CurrenciesDataService.NAME];
+            constructor(private currencyDataService:CurrenciesDataService) {
+        }
 
-	    fromCurrencies:Currency[];
-	    toCurrencies:Currency[];
-	    
-		static $inject = [CurrenciesDataService.NAME];
-	    constructor(private currencyDataService:CurrenciesDataService) {
-	    }
-	    
-    	$onInit():void {
-	        this.fromCurrencies = this.toCurrencies = this.currencyDataService.getCurrenciesByYear(2016);
-	    }
+        $onInit():void {
+            this.fromCurrencies = this.toCurrencies = this.currencyDataService.getCurrenciesByYear(2016);
+        }
 
-	    convert(from:number, to:number):void {
-	        this.result = (this.amount / from) * to;
-	    }
+        convert(from:number, to:number):void {
+            this.result = (this.amount / from) * to;
+        }
 
-	    fromSelected(currency:Currency):void {
-	        if(this.selectedToCurrency){
-	            this.convert(currency.rate, this.selectedToCurrency.rate);
-	        }
-	        this.selectedFromCurrency = currency;
-	    }
-	
-	    toSelected(currency:Currency):void {
-	        if(this.selectedFromCurrency){
-	            this.convert(this.selectedFromCurrency.rate, currency.rate);
-	        }
-	        this.selectedToCurrency = currency;
-	    }
-	}
+        fromSelected(currency:Currency):void {
+            if(this.selectedToCurrency){
+                this.convert(currency.rate, this.selectedToCurrency.rate);
+            }
+            this.selectedFromCurrency = currency;
+        }
+
+        toSelected(currency:Currency):void {
+            if(this.selectedFromCurrency){
+                this.convert(this.selectedFromCurrency.rate, currency.rate);
+            }
+            this.selectedToCurrency = currency;
+        }
+    }
 	
 {% endhighlight %}	
 
@@ -250,7 +249,6 @@ The **fromSelected** and **toSelected** methods are passed down as callbacks for
 So how does our presentational component definition look like?
 
 {% highlight typescript %}	
-
 	export class CurrencySelectComponent implements IComponentOptions {
 	    static NAME:string = 'currenciesSelect';
 
@@ -265,6 +263,7 @@ So how does our presentational component definition look like?
 	    controller:Function = CurrencySelectComponentController;
 	    template:string = `...`;
 	}
+	
 	export class CurrencySelectComponentController {
 	    public title:string;
 	    public currencies:Currency[];
@@ -281,7 +280,7 @@ So how does our presentational component definition look like?
 	        this.onSelected({selectedCurrency: currency});
 	    }
 	}
-
+	
 {% endhighlight %}	
 
 Bindings define the components API, in the above case there are 4 bindings. 
@@ -347,42 +346,39 @@ Be aware that this creates a tight coupling between the child and parent compone
 
 We should access and manipulate application state in our container components, but only through services, a component's controller primary responsibility is to manage the template's view model. 
 You can implement a custom observer pattern inside the service, or use the rootscope as an eventbus.
-
 {% highlight typescript %}	
     export class SampleService{
-		
-		static SERVICE_NAME:string = "mysampleservice";
-		static EVENT_NAME:string = "sampleEvent";
-		
-		static $inject = ['$rootScope'];
-		constructor(private $rootScope:IRootscopeService){}
+        static SERVICE_NAME:string = "mysampleservice";
+        static EVENT_NAME:string = "sampleEvent";
+        
+        static $inject = ['$rootScope'];
+        constructor(private $rootScope:IRootscopeService){}
 
-		subscribe(scope:IScope, callback:Function):void {
+        subscribe(scope:IScope, callback:Function):void {
             var handler = this.$rootScope.$on(SampleService.EVENT_NAME, callback);
             scope.$on('$destroy', handler);
         },
 
         notify():void {
             this.$rootScope.$emit(SampleService.EVENT_NAME);
-		}
-	}
-	
+        }
+    }
+    
 {% endhighlight %}	
 
 A component controller can get notified by any changes by subscribing to the service:
 
 {% highlight typescript %}	
-	export class MyComponentController{
-		
-		static $inject = ['$scope', SampleService.SERVICE_NAME];
-		constructor(private isolatescope:IScope, private sampleService:SampleService){}
-
-		$onInit():void{
-			this.sampleService.subscribe(this.isolateScope, ()=>{
-				...
-			});
-		}
-	}
+    export class MyComponentController{		
+        static $inject = ['$scope', SampleService.SERVICE_NAME];
+        constructor(private isolatescope:IScope, private sampleService:SampleService){}
+        
+        $onInit():void{
+            this.sampleService.subscribe(this.isolateScope, ()=>{
+                ...
+            });
+         }
+    }
 	
 {% endhighlight %}	
 
