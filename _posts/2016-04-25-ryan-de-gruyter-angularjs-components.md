@@ -326,7 +326,7 @@ And inside the parent component's template:
 
 ## Component communication ##
 
-### One way binding ###
+### Output binding ###
 
 In our previous example we saw an example of child to parent communication by mapping an output binding:
 
