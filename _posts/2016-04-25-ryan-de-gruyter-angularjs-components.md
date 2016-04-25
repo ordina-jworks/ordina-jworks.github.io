@@ -159,7 +159,7 @@ Although it offers more power and flexibility, its more practical to have the .c
 Also known as smart components. 
 This type of component is more tightly coupled to the application and not intended for reusability. 
 It fetches data, manages part of the application state and provides the data to its child components. 
-The child component communicates any updates on the data with its output bindings (&). 
+The child component communicates any update on the data through its output bindings (&). 
 The container component eventually decides what action to take with the data, not the child component.
  
 Let's look at an example of a container component, I will leave out the complete template for brevity's sake, you can view the complete code in the companion repository.
@@ -242,7 +242,7 @@ This component injects a data service to fetch a list of currencies.
 We pass this list to each ```<currencies-select>``` element in the **$onInit** method.
 
 The $onInit is a component lifecycle method that gets called by the framework each time the component gets instantiated. 
-In this method we set our view model properties fromCurrencies and toCurrencies equal to a list of currencies fetched from the data service.
+In this method we set our view model properties _fromCurrencies_ and _toCurrencies_ equal to a list of currencies fetched from the data service.
 
 The **fromSelected** and **toSelected** methods are passed down as callbacks for the ```<currencies-select on-selected>``` output.
 
@@ -285,7 +285,7 @@ So how does our presentational component definition look like?
 
 Bindings define the components API, in the above case there are 4 bindings. 
 Our previous example declared this component but we only noticed 3 inputs and 1 output. 
-Apparently there is a fourth input called showSelected. 
+Apparently there is a fourth input called _showSelected_. 
 We can guess that it's a flag for showing the selected currency. 
 But as a new developer, we cannot be sure. 
 
