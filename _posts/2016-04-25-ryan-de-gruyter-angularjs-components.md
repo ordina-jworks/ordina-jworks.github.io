@@ -8,7 +8,8 @@ category: angularjs
 comments: true
 ---
 
-##Introduction##
+## Introduction ##
+
 > Ideally, the whole application should be a tree of components that implement clearly defined inputs and outputs, and minimize two-way data binding. That way, it's easier to predict when data changes and what the state of a component is.
 >
 > -- AngularJS documentation
@@ -74,7 +75,7 @@ The `.component()` method is a helper method which creates a directive set with 
 
 An **Attribute directive** is declared as an element attribute and they can change the appearance or behavior of an element (`ng-change`, `ng-click`, ...).
 
-A **Structural directive** is an attribute or element that manipulates the DOM by adding or removing DOM elements (`ng-if`, `ng-for`, ...).
+A **Structural directive** is an attribute or element that manipulates the DOM by adding or removing DOM elements (`ng-if`, `ng-repeat`, ...).
 
 ## When do we use .directive(), and when do we use .component()? ##
 Custom UI elements should be created with the `.component()` helper method because it:
@@ -325,7 +326,7 @@ And inside the parent component's template:
 
 ## Component communication ##
 
-### One way binding ###
+### Output binding ###
 
 In our previous example we saw an example of child to parent communication by mapping an output binding:
 
