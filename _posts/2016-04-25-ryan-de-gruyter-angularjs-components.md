@@ -324,10 +324,10 @@ And inside the parent component's template:
 <currencies-select on-selected="$ctrl.toSelected(selectedCurrency)" ...
 {% endhighlight %}
 
-Another way of accessing selectedCurrency, is to use __$locals__. 
-This is useful when you want to send multiple types of data back. 
-The advantage is you don't not have to specify each parameter separately in the component's template.
-The disadvantage is _$locals_ is not descriptive.
+Another way of accessing selectedCurrency, is to use `$locals`.
+This is useful when you want to send multiple types of data back.
+The advantage is you don't have to specify each parameter separately in the component's template.
+The disadvantage is `$locals` is not descriptive.
 
 {% highlight javascript %}
 <currencies-select
