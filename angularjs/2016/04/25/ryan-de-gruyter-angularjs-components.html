@@ -459,6 +459,20 @@ in this case <code class="highlighter-rouge">selectedCurrency</code>:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span> <span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="s2">"$ctrl.toSelected(selectedCurrency)"</span> <span class="p">...</span></code></pre></figure>
 
+<p>Another way of accessing selectedCurrency, is to use <code class="highlighter-rouge">$locals</code>.
+This is useful when you want to send multiple types of data back.
+The advantage is you don’t have to specify each parameter separately in the component’s template.
+The disadvantage is <code class="highlighter-rouge">$locals</code> is not descriptive.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span>
+	<span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="s2">"$ctrl.toSelected($locals)"</span><span class="p">...</span></code></pre></figure>
+
+<p>To access the selectedCurrency you would use the property on the $locals object with the same name:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">toSelected</span><span class="p">(</span><span class="nx">$locals</span><span class="err">:</span><span class="nx">any</span><span class="p">)</span><span class="err">:</span><span class="k">void</span><span class="p">{</span>
+	<span class="kd">var</span> <span class="na">selected</span><span class="p">:</span><span class="nx">Currency</span> <span class="o">=</span> <span class="nx">$locals</span><span class="p">.</span><span class="nx">selectedCurrency</span> <span class="p">...</span>
+<span class="p">}</span></code></pre></figure>
+
 <h2 id="component-communication">Component communication</h2>
 
 <h3 id="output-binding">Output binding</h3>
