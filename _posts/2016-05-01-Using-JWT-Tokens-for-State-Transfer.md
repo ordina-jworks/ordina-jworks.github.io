@@ -2,7 +2,7 @@
 layout: post
 author: andreas_evers
 title: 'Using JWT tokens for state transfer'
-image: /img/jwt-logo.jpg
+image: /img/JWT/jwt-logo.png
 tags: [JWT,State,Cache]
 category: Microservices
 comments: true
@@ -37,7 +37,7 @@ At that moment the orders microservice needs to know whether or not the user is 
 Since the rights to access and order are the same, we'd like to reuse the information returned from the first call to the products microservice.
 This flow is illustrated below.
 
-![JWT state transfer]({{ '/img/jwt-for-state-tranfer.png' | prepend: site.baseurl }})
+![JWT state transfer]({{ '/img/JWT/jwt-for-state-tranfer.png' | prepend: site.baseurl }})
 
 We could call the products microservice from the orders microservice and count on caching, but that would still be an extra network hop and the cache could potentially be invalidated by the time the user orders the product.
 Using the JWT approach, state is given to the client (the list of product ids the user is allowed to access), and being passed to the server again the moment an order is placed.
@@ -81,10 +81,12 @@ We see three possible alternatives to this failed approach to manage state.
 
 Instead of passing the state from one microservice over a client to another microservice, we could pass the state as part of the body of the request and response.
 The downside of this approach is that we can no longer use GET methods for the calls where we need to pass the previously fetched state.
+
 The second alternative is to persist the state in a key value datastore on the server.
 We could asynchronously fetch products data and store it inside a datastore owned by the orders microservice.
 This could get stale, but so could a cache on the products microservice.
 This approach seems most common in the industry and could be well be the most preferrable.
+
 And when all else fails, we can still simply make a call from the orders microservice to the products microservice and count on caching.
 
 ## Conclusion
