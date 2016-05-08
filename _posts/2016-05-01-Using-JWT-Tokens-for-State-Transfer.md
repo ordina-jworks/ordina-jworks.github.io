@@ -91,7 +91,7 @@ And when all else fails, we can still simply make a call from the "orders micros
 
 ## Conclusion
 
-Using JWT tokens as a means to transfer state to and from microservices via the client seemed like a good idea, but in the end turned out to be quite an anti-pattern.
+Using Json Web Tokens as a means to transfer state to and from microservices via the client seemed like a good idea, but in the end turned out to be quite an anti-pattern.
 It introduces hidden coupling which is hard to manage, and can outright fail completely when headers become too big.
 Transferring state through the body of requests and responses could be a better approach.
 Using key value datastores to cache data of other microservices on your own microservice feels like the best way to go.
