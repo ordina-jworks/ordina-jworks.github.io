@@ -1,6 +1,6 @@
 ---
 layout: post
-author: ken_coenen
+authors: [ken_coenen]
 title: 'Applying software patterns to microservices'
 image: /img/jax2015_logo.jpg
 tags: [Microservices, Software Patterns]

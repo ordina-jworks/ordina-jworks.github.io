@@ -1,6 +1,6 @@
 ---
 layout: post
-author: andreas_evers
+authors: [andreas_evers]
 title: 'Using JWT for state transfer'
 image: /img/JWT/jwt-logo.png
 tags: [JWT,State,Cache]

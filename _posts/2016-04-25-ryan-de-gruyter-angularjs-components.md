@@ -1,6 +1,6 @@
 ---
 layout: post
-author: ryan_de_gruyter
+authors: [ryan_de_gruyter]
 title: 'Component-based application architecture with AngularJS and Typescript'
 image: /img/components-angularjs.jpg
 tags: [angularjs, typescript, javascript, components, architecture, best practices]

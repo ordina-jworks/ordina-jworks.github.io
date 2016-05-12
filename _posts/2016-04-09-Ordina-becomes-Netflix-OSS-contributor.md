@@ -1,6 +1,6 @@
 ---
 layout: post
-author: andreas_evers
+authors: [andreas_evers]
 title: 'Ordina becomes Netflix OSS contributor'
 image: /img/netflix.jpg
 tags: [Netflix,Spring,Microservices]

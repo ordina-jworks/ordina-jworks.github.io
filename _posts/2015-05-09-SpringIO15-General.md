@@ -1,6 +1,6 @@
 ---
 layout: post
-author: andreas_evers
+authors: [andreas_evers]
 title: 'Spring I/O 2015 Barcelona'
 image: /img/springio.jpg
 tags: [Spring]

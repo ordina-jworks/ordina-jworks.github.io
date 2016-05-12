@@ -1,6 +1,6 @@
 ---
 layout: post
-author: jan_de_wilde
+authors: [jan_de_wilde]
 title: 'Adding TypeScript to Ionic Framework'
 image: /img/ionic-and-typescript.jpg
 tags: [TypeScript,Ionic]

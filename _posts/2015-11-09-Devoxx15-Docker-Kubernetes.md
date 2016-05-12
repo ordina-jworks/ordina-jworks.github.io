@@ -1,6 +1,6 @@
 ---
 layout: post
-author: dieter_hubau
+authors: [dieter_hubau]
 title: '#Devoxx Arun Gupta talks Docker'
 image: /img/docker.png
 tags: [Docker, Devoxx]
