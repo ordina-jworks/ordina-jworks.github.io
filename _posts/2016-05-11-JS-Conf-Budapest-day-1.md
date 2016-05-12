@@ -401,6 +401,47 @@ No idea how to solder, oh, worked out!
 
 ### Nick Hehr (@HipsterBrown) : The other side of empathy
 
+#### Empathy
+
+Nick Hehr shares Rachels' point of view on the sometimes rude Open Source communication and communication on Social media in general.
+In his talk, he addressed the way you should behave when volunteering to contribute or when giving feedback to contributors in Open Source Projects.
+And Empathy turns out te be key in this process.
+
+#### Ranting
+
+It's all to easy to judge or express prejudice these days, through these social media channels and not think about the people who are actuall behind the idea or concept you're judging.
+People that decide to Open Source the work on which they've spend tons of effort (usually because it's their passion, but still...) aren't exactly waiting for trolls or rants from people who like this easy judging.
+
+Empathy also plays a huge role in the other way around. 
+It happens al to often that people trying to contribute to OSS for the first time are being ignored (by literaly ignoring their pull requests for example), being treated like idiots (instead of being given constructive feedback in case of room for improvements), etc...
+
+#### Saying nice things
+
+"If you don't have anything nice* to say, don't say anything at all!"
+
+Nice in this context means constructive. Comment on something you think could use improvement and offer a solution.
+Compliment on certain aspects that really improve the tool.
+
+Due to the relative anonymity of social media and other communication channels, we tend to forget these principles.
+
+#### Key take-aways
+
+Key points to take away from this session are:
+
+- Give constructive feedback!!!
+- Always keep in mind the language your using when commenting on Open Source initiatives
+	- Don't be to blunt or direct in your reactions. 
+- Use the right channels for your communication 
+	- meaning, don't ask for feedback on twitter
+	- Instead turn to platforms such as Slack, IRC, Gitter...
+	- Get (constructive) feedback from people you trust
+- People that open source their tools don't owe you anything. 
+	- They're not entitled to give up all their time for you. 
+	- They're not here to start fulfilling all requests from a demanding userbase. It's open source, submit a pull request
+
+Living by these rules will make the (web-)world a little bit of a better place, but won't prevent other people from still continuing these bad habbits.
+Don't let these people get to you! Continue doing what you're passionate about en seek out those who will give you that constructive feedback.
+
 
 
 ## Day 2
