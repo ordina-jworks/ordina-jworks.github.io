@@ -9,7 +9,7 @@ category: conference
 comments: true
 ---
 
-### From JS Conf Budapest with love
+## From JS Conf Budapest with love
 
 This years JS Conf Budapest is hosted at [Akvárium Klub](http://akvariumklub.hu/).
 Located right in the center of the city, below an actual pool, filled with water!
@@ -18,120 +18,173 @@ Located right in the center of the city, below an actual pool, filled with water
 > There is always a good concert and a smashing exhibition, performance, or other event happening here, in a friendly scene, situated right in the city center. 
 
 JS Conf Budapest is hosted by the one and only [Jake Archibald](https://twitter.com/jaffathecake) from Google.
-After waiting in line to get our badges we were welcomed at the main hall at some stands and  a warm welcome astarted with a very nice WebGL Master of ceremony Jake Archibald from Google. A lot of jokes and 
+After waiting in line to get our badges we were welcomed at the main hall where some companies hosted stands.
+In another space after the main hall tables were nicely dressed and people could have a nice breakfast.
+For the coffee lovers, professional baristas served the best coffee possible. With a nice heart drawn on top if it.
 
-## Day 1 morning
+INSERT PICTURE OF COFFEE HERE 
 
-### Laurie Voss
+## Day 1: Morning
 
-#### CTO, npm Inc. @seldo
+### Laurie Voss: What everybody should know about npm
 
-Registry -> CLI -> You
-Registry is a set of servers all around the world.
-Tries the match the best version that you are looking for.
-Will try to download local cache, otherwise CDN (uses the most closest server to your current location), otherwise registry (worldwide)
+Laurie is CTO at npm Inc.
+You can find him on Twitter using the handle [@seldo](https://twitter.com/seldo).
 
-It is possible to specify a gist url but NPM does not download from git or something else. That would like be a bazillion amount of data and would not be nice.
+> npm is six years old, but 80% of npm users turned up in the last year.
+> That's a lot of new people! Because of that, a lot of older, core features aren't known about by the majority of npm users.
+> This talk is about how npm expects you to use npm, and the commands and workflows that can make you into a power user.
+> There will be lots of stuff for beginners, and definitely some tricks that even most pros don't know.
 
-EACCESS error -> use sudo -> NOPE! fix your rights
+#### How does npm look up packages?
+In contrast to what most people think, npm does not download it's modules from GitHub or other version control systems.
+They would not like it that such an amount of data is transferred on a daily basis.
 
-Don't write your package.json yourself, let NPM do it!
+In short npm does this: You -> CLI -> Registry.
+Let's dive in.
 
-New feature in npm is scopes.
+1. First npm will take a look at your local cache and see if the package your are looking for is present.
+2. Next it will resort to the CDN network and will use a server whos is the closest to your position as possible.
+3. Finally, if npm can't find the package in local cache or the CDN network, it will look up in the registry. The registry is a set of servers all around the world and will try to match the best version that you are looking for.
+
+#### EACCESS error
+A lot of people have issues with EACCESS errors because they used sudo to install things.
+The easy solution is to always keep on using sudo BUT we can [easily fix npm permission issues](https://docs.npmjs.com/getting-started/fixing-npm-permissions).
+
+#### package.json
+Don't write your `package.json` yourself, let NPM do it!
+It will always do it better. Use `npm init` which will ask some basic questions and will generate `package.json` for you.
+
+#### Scopes
+A new feature in npm is scopes.
+These are modules that are "scoped" under an organization name that begins with `@`.
+Scopes can be public and private.
+Here is how to use scopes:
+
+{% highlight sh %}
 npm init --scope=username
 npm install @myusername/mypackage
 require('@myusername/mypackage')
+{% endhighlight %}
 
-Can be public and private
+#### npm-init.js
+To extend the `npm init` command it is possible to create an `npm-init.js` file.
+This file is a module that will be loaded by the `npm init` command and look in this file and provide basic configurations for the setup.
+By default the file is placed in root of your project: `~/.npm-init.js`.
+You can use [PromZard](https://github.com/npm/promzard) to ask questions to the user and perform logic based on the answers.
+Remember that `npm init` can always be re-run.
 
-tilde/.npm-init.js and PromZard
-When you initialise npm it will look in this file and provide basic configurations for the setup.
+#### Why add stuff in devDependencies.
+Simple: because production will install faster! A lot of people don't tend to do this, so please do this!
+When using this you can simple run the command below on production and be done with it.
 
-npm init can always be re-run.
-
-**Why add stuff in devDependencies.**
-
-Because production will install faster.
-
+{% highlight sh %}
 npm install --production
+{% endhighlight %}
 
-**Bundled dependencies**
+#### Bundled dependencies
+One of the biggest problems right now with Node.js is how fast it is changing.
+This means that production systems can be very fragile and an `npm update` can easily break things.
+Using `bundledDependencies` is a way to get round this issue by ensuring, that you will always deliver the correct dependencies no matter what else may be changing.
+You can also use this to bundle up your own, private bundles and deliver them with the install.
 
+{% highlight sh %}
 npm install --save --save-bundle
+{% endhighlight %}
 
-**Offline installs**
+#### Offline installs
+A way to prevent npm to look up the registry and ensure local installs is by adding the variable `--cache-min` and to set it to a high value such as 999999.
 
+{% highlight sh %}
 npm install --cache-min 999999
+{% endhighlight %}
 
-**Run scripts**
+#### Run scripts
+In `package.json` it is possible to define default run scripts as showed below.
 
+{% highlight sh %}
 npm start
-
 npm stop
-
 npm restart
-
 npm test
+{% endhighlight %}
 
-Are default run scripts you can add to your package.json file.
+Of course it is also possible to define your own run scripts.
+You can run these scripts like this:
 
-**Run scripts get devDependencies in path**
-
-Don't force users to install global tools. Don't get conflicts over global tools. Different versions in different projects.
-
-**SemVer - Semantic Versioning**
-
-1.5.6
-
-Breaking Major . Feature Minor . Fix Patch
-
-npm version minor
-
-npm version major
-
-npm version (something else)
-
-npm version major -m "Bump to version %s"
-
-**Microservices architecture**
-
-Work with multiple packages for your services. 
-
-use npm link
-
-In package "Alice" run npm link
-
-In "bob", which requires "alice" run npm link alice
-
-**Unpublish package**
-
-Now restricted after 24 hours. You need to contact support. Since the recent events with npm package that broke the internet. More friendly way is npm deprecated, that tells users the package has been deprecated.
-
-**Keep projects up to date**
-
-npm outdated
-
-npm update
-
-**More run scripts**
-
-npm run start
-
+{% highlight sh %}
 npm run <anything>
+{% endhighlight %}
 
-**Stuff everybody should know about npm**
+#### Run scripts get devDependencies in path
+Don't force users to install global tools, that is just not cool.
+This way you can prevent to get conflicts over global tools, because different projects can use different versions.
 
-Babel: Transpile all the things! JavaScript, TypeScript, JSX, ...
+#### SemVer for packages
+npm uses Semantic Versioning and is a standard a lot of projects use to communicate what kind of changes are in this release.
+It's important to communicate what kinds of changes are in a release because sometimes those changes will break the code that depends on the package.
+Let's take a look at an example.
 
-Webpack and Browserify
+{% highlight sh %}
+1.5.6
+Breaking Major . Feature Minor . Fix Patch
+{% endhighlight %}
 
-Greenkeeper (greenkeeper.io) "npm outdated" as a service!
+This is quite obvious right?
 
-Node Security Project: npm install nsp -g. nsp check. Check if your project contains vurnerable modules.
+npm allows you to change the version (and adding a comment) by using the commands below.
 
-Why NPM: npm reduces friction. Takes things you have to do all the time and make things simpler and faster.
+{% highlight sh %}
+npm version minor
+npm version major
+npm version patch
+npm version major -m "Bump to version %s"
+{% endhighlight %}
 
-### Safia (@captainsafia - safia.rocks) : The Hitchhiker's Guide to All Things Memory in JavaScript
+#### Microservices architecture
+When working with a microservices architecture it is possible to work with multiple packages for your services.
+This can be done by using the link function within npm. 
+
+{% highlight sh %}
+npm link <dependency>
+{% endhighlight %}
+
+Let's say we have a package named Alice and we have other packages that depend on this package. We can run `npm link`.
+In packages that depend on Alice, say Bob, we simply run `npm link alice`.
+
+#### Unpublish a package
+Before the [recent events](http://blog.npmjs.org/post/141577284765/kik-left-pad-and-npm) where a package called left-pad got pulled from npm and broke the internet, it was possible to unpublish a package just like that by using `npm unpublish`.
+Now this is restricted after the package has been online for 24 hours.
+To really unpublish the package you will need to contact support.
+
+A more friendly way is the use of `npm deprecated` that will tell users the package has been deprecated.
+
+#### Keeping projects up to date
+Before running `npm update` it's preferred to run `npm oudated`.
+This command will check the registry to see if any (or, specific) installed packages are currently outdated.
+
+{% highlight sh %}
+npm outdated
+npm update
+{% endhighlight %}
+
+By doing so you can prevent yourself from breaking the project if certain packages would not be compatible.
+
+#### Stuff everybody should know about npm
+A lot of things are avaible for npm that will make your life as a developer easier.
+
+* Babel: Transpile all the things! JavaScript, TypeScript, JSX, ...
+* Webpack and Browserify
+* Greenkeeper (greenkeeper.io) is `npm outdated` as a service!
+* Node Security Project: Install by using `npm install nsp -g`. Use by running `nsp check`. You can use this to check if your project contains vulnerable modules.
+
+#### Why should I use npm?
+npm reduces friction.
+It takes things you have to do all the time and makes things simpler and faster.
+
+### Safia Abdalla: The Hitchhiker's Guide to All Things Memory in Javascript
+
+@captainsafia - safia.rocks 
 
 j.mp/js-mem-live
 
