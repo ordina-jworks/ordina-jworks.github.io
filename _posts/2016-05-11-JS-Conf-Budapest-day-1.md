@@ -9,9 +9,16 @@ category: conference
 comments: true
 ---
 
-### JS Conf Budapest
+### From JS Conf Budapest with love
 
-JS Conf Budapest started with a very nice WebGL Master of ceremony Jake Archibald from Google. A lot of jokes and 
+This years JS Conf Budapest is hosted at [Akvárium Klub](http://akvariumklub.hu/).
+Located right in the center of the city, below an actual pool, filled with water!
+
+> Akvárium Klub is more than a simple bar: it is a culture center with a wide musical repertoire from mainstream to underground.
+> There is always a good concert and a smashing exhibition, performance, or other event happening here, in a friendly scene, situated right in the city center. 
+
+JS Conf Budapest is hosted by the one and only [Jake Archibald](https://twitter.com/jaffathecake) from Google.
+After waiting in line to get our badges we were welcomed at the main hall at some stands and  a warm welcome astarted with a very nice WebGL Master of ceremony Jake Archibald from Google. A lot of jokes and 
 
 ## Day 1 morning
 
