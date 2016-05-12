@@ -1,13 +1,14 @@
 # Ordina JWorks Tech Blog
 
 ## Setting up Jekyll on your computer
-- Execute following commands:
-    - `(sudo) gem install rake`
-    - `(sudo) gem install rake-jekyll`
-    - `(sudo) gem install jekyll`
-    - `(sudo) gem install jekyll-paginate`
+Execute following commands:
+    
+    - `(sudo) gem install bundler`
+    - `bundler install`
+
+## Running Jekyll on your computer
 - Run `jekyll serve` in the root directory of the tech blog
-- Browse to http://localhost:4000/
+- Browse to [http://localhost:4000/](http://localhost:4000/)
 
 ## Add yourself as an author
 - Create a **feature branch**, starting from **source**: feature/author-update-john-doe
