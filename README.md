@@ -32,9 +32,14 @@
 - Save your file in the **_post** directory using the following file format: *{year}-{month}-{day}-{title}.md*
 	- **example**: *2015-11-09-Awesome-Blogpost.md*
 - Be sure to publish as **plain text**! (Jekyll will generate the static HTML for us)
-- Tweak your post and commit until you feel satisfied with it
+- Tweak and commit your changes until you feel satisfied with it
+
+## Submit your blogpost for publication
 - **Rebase** your changes onto the **source** branch
-- Create a **pull request**, this will be reviewed and merged by one of the competence leaders
+- Create a **pull request** and ask people to proof read your new blogpost (we don't want to have any spelling mistakes, do we? ;))
+- If changes need to be made, you can just commit and push to the original feature branch
+- When your blogpost has been reviewed, one of the competence leaders will approve and merge your pull request.
+- Congratulations! Your blogpost is now visible to the whole world! :)
 
 ## Style guide
 
