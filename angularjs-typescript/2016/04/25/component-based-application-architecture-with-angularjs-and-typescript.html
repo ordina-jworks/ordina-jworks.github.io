@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ordina JWorks Tech Blog</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Ordina JWorks Tech blog
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,Javascript,DevOps">
+    <meta name="author" content="Ordina Belgium">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/angularjs-typescript/2016/04/25/component-based-application-architecture-with-angularjs-and-typescript.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Component-based application architecture with AngularJS and Typescript - Ryan de Gruyter" />
+    <meta property="og:description" content="Ordina JWorks Tech Blog" />
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/components-angularjs.jpg" />
+    
+
+    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Base style -->
+    <link href="/css/styles/style.css" rel="stylesheet">
+    <!-- Skin CSS -->
+    <link href="/css/styles/skin-orange.css" rel="stylesheet" id="color_theme">
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<!-- Add class "boxed" along with body for boxed layout. -->
+<!-- Add "pattern-x" (1 to 5) for background patterns. -->
+<!-- Add "img-x" (1 to 5) for background images. -->
+<body>
+
+<!-- Outer Starts -->
+<div class="outer">
+    <!-- Header two Starts -->
+    <div class="header-2">
+
+        <!-- Container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo">
+                        <h1><a href="/"><img src="/img/jworks/jworks-400x400.jpg"
+                                                               width="100"
+                                                               height="100"/> </a></h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="navy">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="/contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header two ends -->
+
+    <!-- Main content starts -->
+
+    <div class="main-block">
+
+        <!-- Page heading two starts -->
+
+        <div class="page-heading-two">
+            <div class="container">
+                <h2>JWorks Tech Blogs<span style="margin-left: 10px"> Powered by Ordina</span></h2>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <!-- Page heading two ends -->
+
+        <div class="container tk-acumin-pro">
+            <div class="post">
+    
+    
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Component-based application architecture with AngularJS and Typescript</h1>
+            <p id="post-meta">
+                Posted Apr 25, 2016 in <a href="/categories/angularjs-typescript/">AngularJS-TypeScript</a> by <a href="/author/ryan-de-gruyter/">Ryan de Gruyter</a> 
+                
+                    <br />
+                    <i class="fa fa-tags"></i>
+                        
+                            <a href="/tags/angularjs/">angularjs</a>,
+                        
+                            <a href="/tags/typescript/">typescript</a>,
+                        
+                            <a href="/tags/javascript/">javascript</a>,
+                        
+                            <a href="/tags/components/">components</a>,
+                        
+                            <a href="/tags/architecture/">architecture</a>,
+                        
+                            <a href="/tags/best-practices/">best practices</a>
+                        
+                
+            </p>
+        </div>
+    </div>
+    <br />
+    <article class="post-content">
+        <h2 id="introduction">Introduction</h2>
+
+<blockquote>
+  <p>Ideally, the whole application should be a tree of components that implement clearly defined inputs and outputs, and minimize two-way data binding. That way, it’s easier to predict when data changes and what the state of a component is.</p>
+
+  <p>– AngularJS documentation</p>
+</blockquote>
+
+<p>In this article I will offer some basic guidelines on how to create a scalable AngularJS application with <strong>reusable, well encapsulated components</strong> that are <strong>easy to maintain and refactor</strong>.
+AngularJS (version 1.5.5 at the time of writing) and its latest features offers us the ability to structure our apps as a tree of components.</p>
+
+<blockquote>
+  <p>Each component contains its own controller and template</p>
+</blockquote>
+
+<p>It can even have its own (relative) routing configured if you take advantage of the new <strong>Component Router</strong>.</p>
+
+<p>If you are on a team with multiple front-end developers you can easily divide the work by letting each developer focus on a separate component.
+It also helps in migrating to Angular 2, though I cannot promise it will be an easy task.
+Another bonus point is you are getting into the mindset of modern front-end development: <strong>web components</strong>.</p>
+
+<p>My preferred toolchain when developing AngularJS applications consists of Typescript, NPM and Webpack.
+The sample code in this article and the sample application are created together with these tools.</p>
+
+<p>You can find the sample application on Github:
+<a href="https://github.com/ryandegruyter/angularjs-components" title="Sample app">https://github.com/ryandegruyter/angularjs-components</a></p>
+
+<h2 id="what-is-a-component">What is a component?</h2>
+
+<blockquote>
+  <p>In AngularJS a <strong>component</strong> is a directive.</p>
+</blockquote>
+
+<p>More specifically we call it a <strong>component directive</strong> or <strong>template directive</strong>.
+It is an approach to writing your own custom HTML elements which browsers are able to read and render.
+HTML comes with a set of pre-defined elements, for example the <code class="highlighter-rouge">&lt;div&gt;&lt;/div&gt;</code> element or the <code class="highlighter-rouge">&lt;span&gt;&lt;/span&gt;</code> element.</p>
+
+<p>By combing and nesting these standard HTML tags we can build complex UI widgets.
+We can change their appearance and behavior dynamically with JavaScript and CSS.</p>
+
+<p>True web components can isolate their structure, appearance and behavior.
+They make use of a technology called the Shadow DOM, which isolates the component in a separate DOM tree.
+This element will have its styles and scripts encapsulated, they will not conflict with the styles and scripts inside the parent DOM.</p>
+
+<p>Angular 2 takes full advantage of this technology, but unfortunately AngularJS, the framework I will be talking about in this article, does not.</p>
+
+<blockquote>
+  <p>Components you write and register inside AngularJS <strong>do not</strong> get isolated into a separate DOM tree.</p>
+</blockquote>
+
+<p>Lucky for us we are able to mimic the effect of Web components by using directives.
+We can write a reusable UI element, declare it with a custom tag and configure it by supplying attributes on the element.
+My advice is to be sure to use correct naming conventions and a module system so styles and scripts will not conflict with each other.</p>
+
+<h2 id="directives-and-components">Directives and components</h2>
+
+<p>To create and register a custom element in AngularJS, we can use either methods:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">.directive (name, factoryFunction)</code></li>
+  <li><code class="highlighter-rouge">.component (name, object)</code></li>
+</ul>
+
+<p>While components are restricted to custom elements, directives can be used to create both elements as well as custom attributes.</p>
+
+<p>There are 3 types of directives:</p>
+
+<ul>
+  <li>Component directive</li>
+  <li>Attribute directive</li>
+  <li>Structural directive</li>
+</ul>
+
+<p>A <strong>Component directive</strong> is a directive with a template.
+The <code class="highlighter-rouge">.component()</code> method is a helper method which creates a directive set with default properties.</p>
+
+<p>An <strong>Attribute directive</strong> is declared as an element attribute and they can change the appearance or behavior of an element (<code class="highlighter-rouge">ng-change</code>, <code class="highlighter-rouge">ng-click</code>, …).</p>
+
+<p>A <strong>Structural directive</strong> is an attribute or element that manipulates the DOM by adding or removing DOM elements (<code class="highlighter-rouge">ng-if</code>, <code class="highlighter-rouge">ng-repeat</code>, …).</p>
+
+<h2 id="when-do-we-use-directive-and-when-do-we-use-component">When do we use .directive(), and when do we use .component()?</h2>
+<p>Custom UI elements should be created with the <code class="highlighter-rouge">.component()</code> helper method because it:</p>
+
+<ul>
+  <li>enforces best practices and provides optimizations (isolate scope, bindings)</li>
+  <li>has handy defaults making it easy to create components</li>
+  <li>makes migration to Angular 2 easier</li>
+  <li>can take advantage of the new component router which will be the default router in Angular 2</li>
+</ul>
+
+<blockquote>
+  <p>Use the <code class="highlighter-rouge">.directive()</code> method when you want to manipulate the DOM by adding or removing elements (Structural directive) or when you want to change the appearance or behavior of an element (Attribute directive).</p>
+</blockquote>
+
+<h2 id="creating-a-component-based-angularjs-application">Creating a component-based AngularJS application</h2>
+<p>Beginning with a component-based application architecture we need to have a root component.
+Before creating a component you have to decide if it will be a  <strong>Presentational component</strong> or a <strong>Container component</strong>.</p>
+
+<h2 id="presentational-component">Presentational component</h2>
+<p>Also known as a dumb component.
+They are used to visualize data and can easily be reused.
+They don’t manipulate application state nor do they fetch any data.
+Instead they define a public API in which they can receive inputs (<code class="highlighter-rouge">&lt;</code> and <code class="highlighter-rouge">@</code> bindings), and communicate any outputs (<code class="highlighter-rouge">&amp;</code> binding) with their direct parent.</p>
+
+<blockquote>
+  <p>Designers can easily work on Presentational components because they don’t interfere with application logic.</p>
+</blockquote>
+
+<p>These components are unaware of any application state, and they only get data passed down to them.</p>
+
+<p><em>A simple presentational root component.</em></p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">	<span class="kr">export</span> <span class="kr">class</span> <span class="nx">RootComponent</span> <span class="kr">implements</span> <span class="nx">IComponentOptions</span> <span class="p">{</span>
+		<span class="kr">static</span> <span class="nx">NAME</span><span class="err">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'app'</span><span class="p">;</span>
+
+		<span class="nl">bindings</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
+		    <span class="na">title</span><span class="p">:</span> <span class="s1">'@'</span><span class="p">,</span>
+		<span class="p">};</span>
+
+  		<span class="nl">template</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="err">`</span>
+	    	<span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>	    	<span class="o">&lt;</span><span class="nx">currency</span><span class="o">-</span><span class="nx">converter</span><span class="o">&gt;&lt;</span><span class="sr">/currency-converter</span><span class="err">&gt;
+</span>	  	<span class="err">`</span><span class="p">;</span>
+	<span class="p">}</span>
+
+        <span class="nx">angular</span>
+                <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'currencyConverterApp, []'</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="nx">Rootcomponent</span><span class="p">.</span><span class="nx">NAME</span><span class="p">,</span> <span class="k">new</span> <span class="nx">RootComponent</span><span class="p">());</span></code></pre></figure>
+
+<p>This component has a very simple API with one input -  <code class="highlighter-rouge">title</code> - and zero outputs.
+It doesn’t call a service or fetch any data.
+It doesn’t update any outside resources or make any requests to manipulate application state.
+Also notice how easy it was to register this component directive.</p>
+
+<p><em>Let’s create the same component directive but register it with the <code class="highlighter-rouge">.directive()</code> method.</em></p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">    <span class="kr">export</span> <span class="kr">class</span> <span class="nx">RootComponent</span> <span class="kr">implements</span> <span class="nx">IDirective</span> <span class="p">{</span>
+        <span class="kr">static</span> <span class="nx">NAME</span><span class="err">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'app'</span><span class="p">;</span>
+        <span class="nl">restrict</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'E'</span><span class="p">,</span>
+        <span class="nx">bindToController</span><span class="err">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="na">title</span><span class="p">:</span> <span class="s1">'@'</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nx">scope</span><span class="err">:</span><span class="nx">IScope</span> <span class="o">=</span> <span class="p">{},</span>
+        <span class="nx">controller</span><span class="err">:</span><span class="nb">Function</span> <span class="o">=</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{},</span>
+        <span class="nx">controllerAs</span><span class="err">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'$ctrl'</span><span class="p">,</span>
+        <span class="nx">template</span><span class="err">:</span><span class="nx">string</span> <span class="o">=</span> <span class="err">`</span>
+            <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="nx">currency</span><span class="o">-</span><span class="nx">converter</span><span class="o">&gt;&lt;</span><span class="sr">/currency-converter</span><span class="err">&gt;
+</span>         <span class="err">`</span><span class="p">;</span>
+
+        <span class="kr">static</span> <span class="nx">instance</span><span class="p">()</span><span class="err">:</span><span class="nx">IDirective</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nx">RootComponent</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">angular</span>
+    <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'currencyConverterApp, []'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="nx">Rootcomponent</span><span class="p">.</span><span class="nx">NAME</span><span class="p">,</span> <span class="nx">RootComponent</span><span class="p">.</span><span class="nx">instance</span><span class="p">());</span></code></pre></figure>
+
+<p>As you can see, this has a lot more configuration compared to using the <code class="highlighter-rouge">.component()</code> helper method.
+Although it offers more power and flexibility, its more practical to have the <code class="highlighter-rouge">.component()</code> method when creating custom UI elements.</p>
+
+<ul>
+  <li>bindings are automatically bound to the controller</li>
+  <li><code class="highlighter-rouge">controllerAs</code> defaults to <code class="highlighter-rouge">$ctrl</code></li>
+  <li>always creates an isolate scope</li>
+</ul>
+
+<h2 id="container-components">Container components</h2>
+<p>Also known as smart components.
+This type of component is more tightly coupled to the application and not intended for reusability.
+It fetches data, manages part of the application state and provides the data to its child components.
+The child component communicates any update on the data through its output bindings (<code class="highlighter-rouge">&amp;</code>).
+The container component eventually decides what action to take with the data, not the child component.</p>
+
+<p>Let’s look at an example of a container component, I will leave out the complete template for brevity’s sake, you can view the complete code in the companion repository.</p>
+
+<p><em>First we start with our component definition:</em></p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">    <span class="kr">export</span> <span class="kr">class</span> <span class="nx">CurrencyConverter</span> <span class="kr">implements</span> <span class="nx">IComponentOptions</span><span class="p">{</span>
+        <span class="kr">static</span> <span class="nx">NAME</span><span class="err">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'currencyConverter'</span><span class="p">;</span>
+
+        <span class="nl">template</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="err">`</span>
+            <span class="p">...</span>
+            <span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span>
+                <span class="nx">title</span><span class="o">=</span><span class="s2">"From"</span>
+                <span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="s2">"$ctrl.fromSelected(selectedCurrency)"</span>
+                <span class="nx">show</span><span class="o">-</span><span class="nx">values</span><span class="o">-</span><span class="nx">as</span><span class="o">-</span><span class="nx">rates</span><span class="o">=</span><span class="s2">"true"</span>
+                <span class="nx">currencies</span><span class="o">=</span><span class="s2">"$ctrl.fromCurrencies"</span>
+            <span class="o">&gt;&lt;</span><span class="sr">/currencies-select</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span>
+                <span class="nx">title</span><span class="o">=</span><span class="s2">"To"</span>
+                <span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="s2">"$ctrl.toSelected(selectedCurrency)"</span>
+                <span class="nx">show</span><span class="o">-</span><span class="nx">values</span><span class="o">-</span><span class="nx">as</span><span class="o">-</span><span class="nx">rates</span><span class="o">=</span><span class="s2">"true"</span>
+                <span class="nx">currencies</span><span class="o">=</span><span class="s2">"$ctrl.toCurrencies"</span>
+            <span class="o">&gt;&lt;</span><span class="sr">/currencies-select</span><span class="err">&gt;
+</span>            <span class="p">...</span>		
+        <span class="err">`</span><span class="p">;</span>
+
+        <span class="nl">controller</span><span class="p">:</span><span class="nb">Function</span> <span class="o">=</span> <span class="nx">CurrencyConverterComponentController</span><span class="p">;</span>
+        <span class="p">}</span></code></pre></figure>
+
+<p>The template contains two declarations of a presentational component <code class="highlighter-rouge">&lt;currencies-select&gt;</code>.
+When we look at the attributes of the currencies-select element, the component API consists of <strong>three inputs</strong> (<code class="highlighter-rouge">title</code>, <code class="highlighter-rouge">show-values-as-rates</code> and <code class="highlighter-rouge">currencies</code>) and <strong>one output</strong> (<code class="highlighter-rouge">on-selected</code>).
+Our container component can bind a callback method on the on-selected attribute which offers an opportunity for the currencies-select component to <strong>communicate with its parent component</strong>.</p>
+
+<p>Below we define our components controller, here we can set and manipulate our template’s view model.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">CurrencyConverterComponentController</span> <span class="p">{</span>
+
+    <span class="nl">selectedFromCurrency</span><span class="p">:</span><span class="nx">Currency</span><span class="p">;</span>
+    <span class="nl">selectedToCurrency</span><span class="p">:</span><span class="nx">Currency</span><span class="p">;</span>
+    <span class="nl">amount</span><span class="p">:</span><span class="nx">number</span><span class="p">;</span>
+    <span class="nl">result</span><span class="p">:</span><span class="nx">number</span><span class="p">;</span>
+
+    <span class="nl">fromCurrencies</span><span class="p">:</span><span class="nx">Currency</span><span class="p">[];</span>
+    <span class="nl">toCurrencies</span><span class="p">:</span><span class="nx">Currency</span><span class="p">[];</span>
+
+    <span class="kr">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="nx">CurrenciesDataService</span><span class="p">.</span><span class="nx">NAME</span><span class="p">];</span>
+        <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">currencyDataService</span><span class="err">:</span><span class="nx">CurrenciesDataService</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="nx">$onInit</span><span class="p">()</span><span class="err">:</span><span class="k">void</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">fromCurrencies</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">toCurrencies</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">currencyDataService</span><span class="p">.</span><span class="nx">getCurrenciesByYear</span><span class="p">(</span><span class="mi">2016</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">convert</span><span class="p">(</span><span class="na">from</span><span class="p">:</span><span class="nx">number</span><span class="p">,</span> <span class="na">to</span><span class="p">:</span><span class="nx">number</span><span class="p">):</span><span class="k">void</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">result</span> <span class="o">=</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">amount</span> <span class="o">/</span> <span class="nx">from</span><span class="p">)</span> <span class="o">*</span> <span class="nx">to</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">fromSelected</span><span class="p">(</span><span class="na">currency</span><span class="p">:</span><span class="nx">Currency</span><span class="p">):</span><span class="k">void</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">selectedToCurrency</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">convert</span><span class="p">(</span><span class="nx">currency</span><span class="p">.</span><span class="nx">rate</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">selectedToCurrency</span><span class="p">.</span><span class="nx">rate</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">selectedFromCurrency</span> <span class="o">=</span> <span class="nx">currency</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">toSelected</span><span class="p">(</span><span class="na">currency</span><span class="p">:</span><span class="nx">Currency</span><span class="p">):</span><span class="k">void</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">selectedFromCurrency</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">convert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">selectedFromCurrency</span><span class="p">.</span><span class="nx">rate</span><span class="p">,</span> <span class="nx">currency</span><span class="p">.</span><span class="nx">rate</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">selectedToCurrency</span> <span class="o">=</span> <span class="nx">currency</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>This component injects a data service to fetch a list of currencies.
+We pass this list to each <code class="highlighter-rouge">&lt;currencies-select&gt;</code> element in the <code class="highlighter-rouge">$onInit</code> method.</p>
+
+<p>The <code class="highlighter-rouge">$onInit</code> is a component lifecycle method that gets called by the framework each time the component gets instantiated.
+In this method we set our view model properties <code class="highlighter-rouge">_fromCurrencies_</code> and <code class="highlighter-rouge">_toCurrencies_</code> equal to a list of currencies fetched from the data service.</p>
+
+<p>The <code class="highlighter-rouge">fromSelected</code> and <code class="highlighter-rouge">toSelected</code> methods are passed down as callbacks for the <code class="highlighter-rouge">&lt;currencies-select on-selected&gt;</code> output.</p>
+
+<p>So how does our presentational component definition look like?</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">CurrencySelectComponent</span> <span class="kr">implements</span> <span class="nx">IComponentOptions</span> <span class="p">{</span>
+    <span class="kr">static</span> <span class="nx">NAME</span><span class="err">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'currenciesSelect'</span><span class="p">;</span>
+
+    <span class="nl">bindings</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">title</span><span class="p">:</span> <span class="s1">'@'</span><span class="p">,</span>
+        <span class="na">currencies</span><span class="p">:</span> <span class="s1">'&lt;'</span><span class="p">,</span>
+        <span class="na">onSelected</span><span class="p">:</span> <span class="s1">'&amp;'</span><span class="p">,</span>
+        <span class="na">showSelected</span><span class="p">:</span> <span class="s1">'&lt;'</span><span class="p">,</span>
+        <span class="na">showValuesAsRates</span><span class="p">:</span> <span class="s1">'&lt;'</span>
+    <span class="p">};</span>
+
+    <span class="nl">controller</span><span class="p">:</span><span class="nb">Function</span> <span class="o">=</span> <span class="nx">CurrencySelectComponentController</span><span class="p">;</span>
+    <span class="nl">template</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="err">`</span><span class="p">...</span><span class="err">`</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">CurrencySelectComponentController</span> <span class="p">{</span>
+    <span class="kr">public</span> <span class="nx">title</span><span class="err">:</span><span class="nx">string</span><span class="p">;</span>
+    <span class="kr">public</span> <span class="nx">currencies</span><span class="err">:</span><span class="nx">Currency</span><span class="p">[];</span>
+    <span class="kr">public</span> <span class="nx">onSelected</span><span class="err">:</span><span class="nb">Function</span><span class="p">;</span>
+    <span class="kr">public</span> <span class="nx">showSelected</span><span class="err">:</span><span class="kr">boolean</span><span class="p">;</span>
+    <span class="kr">public</span> <span class="nx">showValuesAsRates</span><span class="err">:</span><span class="kr">boolean</span><span class="p">;</span>
+    <span class="kr">public</span> <span class="nx">selected</span><span class="err">:</span><span class="nx">Currency</span><span class="p">;</span>
+
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="nx">onCurrencyClick</span><span class="p">(</span><span class="nx">currency</span><span class="err">:</span><span class="nx">Currency</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">selected</span> <span class="o">=</span> <span class="nx">currency</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">onSelected</span><span class="p">({</span><span class="na">selectedCurrency</span><span class="p">:</span> <span class="nx">currency</span><span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Bindings define the components API, in the above case there are four bindings.
+Our previous example declared this component but we only noticed three inputs and one output.
+Apparently there is a fourth input called <code class="highlighter-rouge">_showSelected_</code>.
+We can guess that it’s a flag for showing the selected currency.
+But as a new developer, we cannot be sure.</p>
+
+<blockquote>
+  <p>This is one of the reasons why it is important to <strong>document your components API</strong>.
+It will save new developers and designers a lot of time figuring out how to correctly use your component.
+Your component will become more transparent and not just an abstract definition.</p>
+</blockquote>
+
+<p>As you can see this component does not inject any data services or manage any outside state.
+It only receives data through its input bindings:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">@</code> stands for one way string binding</li>
+  <li><code class="highlighter-rouge">&lt;</code> stands for one way any other primitive/type binding</li>
+</ul>
+
+<p>The output binding <code class="highlighter-rouge">public onSelected:Function;</code> gets called each time the <code class="highlighter-rouge">onCurrencyClick</code> method gets called, it passes the selected currency which gets communicated back to the parent component.</p>
+
+<p><strong>Make sure the parameter object key matches the parameter name in the parent component’s viewmodel</strong>, or the component will not be able to communicate any data.
+in this case <code class="highlighter-rouge">selectedCurrency</code>:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">onCurrencyClick</span><span class="p">(</span><span class="nx">currency</span><span class="err">:</span><span class="nx">Currency</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">selected</span> <span class="o">=</span> <span class="nx">currency</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">onSelected</span><span class="p">({</span><span class="na">selectedCurrency</span><span class="p">:</span> <span class="nx">currency</span><span class="p">});</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>And inside the parent component’s template:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span> <span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="s2">"$ctrl.toSelected(selectedCurrency)"</span> <span class="p">...</span></code></pre></figure>
+
+<p>Another way of accessing selectedCurrency, is to use <code class="highlighter-rouge">$locals</code>.
+This is useful when you want to send multiple types of data back.
+The advantage is you don’t have to specify each parameter separately in the component’s template.
+The disadvantage is <code class="highlighter-rouge">$locals</code> is not descriptive.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span>
+	<span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="s2">"$ctrl.toSelected($locals)"</span><span class="p">...</span></code></pre></figure>
+
+<p>To access the selectedCurrency you would use the property on the $locals object with the same name:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">toSelected</span><span class="p">(</span><span class="nx">$locals</span><span class="err">:</span><span class="nx">any</span><span class="p">)</span><span class="err">:</span><span class="k">void</span><span class="p">{</span>
+	<span class="kd">var</span> <span class="na">selected</span><span class="p">:</span><span class="nx">Currency</span> <span class="o">=</span> <span class="nx">$locals</span><span class="p">.</span><span class="nx">selectedCurrency</span> <span class="p">...</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="component-communication">Component communication</h2>
+
+<h3 id="output-binding">Output binding</h3>
+
+<p>In our previous example we saw an example of child to parent communication by mapping an output binding:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">binding</span><span class="err">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="na">onSelected</span><span class="p">:</span> <span class="s1">'&amp;'</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The parent component can pass a method to this binding which the child component can call back and optionally send back any data to.</p>
+
+<h3 id="mapping-the-require-property">Mapping the require property</h3>
+
+<p>A child component can also require its parent components controller by mapping it in the require property:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">require</span><span class="err">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="na">parentCtrl</span><span class="p">:</span> <span class="s1">'^parentComponentName'</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The <strong>^</strong> symbol is important here.
+You should replace <code class="highlighter-rouge">parentComponentName</code> with the correct component name, you are free to choose a different name for the key, in this case <code class="highlighter-rouge">parentCtrl</code>.
+The parent controller will get bound on to the property <code class="highlighter-rouge">parentCtrl</code>.</p>
+
+<p>Be aware that this creates a tight coupling between the child and parent component.</p>
+
+<h3 id="using-a-service">Using a service</h3>
+
+<p>We should access and manipulate application state in our container components, but only through services, a component’s controller primary responsibility is to manage the template’s view model.
+You can implement a custom observer pattern inside the service, or use the rootscope as an eventbus.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">SampleService</span><span class="p">{</span>
+    <span class="kr">static</span> <span class="nx">SERVICE_NAME</span><span class="err">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s2">"mysampleservice"</span><span class="p">;</span>
+    <span class="kr">static</span> <span class="nx">EVENT_NAME</span><span class="err">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s2">"sampleEvent"</span><span class="p">;</span>
+
+    <span class="kr">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'$rootScope'</span><span class="p">];</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">$rootScope</span><span class="err">:</span><span class="nx">IRootscopeService</span><span class="p">){}</span>
+
+    <span class="nx">subscribe</span><span class="p">(</span><span class="nx">scope</span><span class="err">:</span><span class="nx">IScope</span><span class="p">,</span> <span class="nx">callback</span><span class="err">:</span><span class="nb">Function</span><span class="p">)</span><span class="err">:</span><span class="k">void</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$rootScope</span><span class="p">.</span><span class="nx">$on</span><span class="p">(</span><span class="nx">SampleService</span><span class="p">.</span><span class="nx">EVENT_NAME</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">scope</span><span class="p">.</span><span class="nx">$on</span><span class="p">(</span><span class="s1">'$destroy'</span><span class="p">,</span> <span class="nx">handler</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">notify</span><span class="p">():</span><span class="k">void</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$rootScope</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="nx">SampleService</span><span class="p">.</span><span class="nx">EVENT_NAME</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>A component controller can get notified by any changes by subscribing to the service:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">    <span class="kr">export</span> <span class="kr">class</span> <span class="nx">MyComponentController</span><span class="p">{</span>		
+        <span class="kr">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'$scope'</span><span class="p">,</span> <span class="nx">SampleService</span><span class="p">.</span><span class="nx">SERVICE_NAME</span><span class="p">];</span>
+        <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">isolatescope</span><span class="err">:</span><span class="nx">IScope</span><span class="p">,</span> <span class="kr">private</span> <span class="nx">sampleService</span><span class="err">:</span><span class="nx">SampleService</span><span class="p">){}</span>
+
+        <span class="nx">$onInit</span><span class="p">()</span><span class="err">:</span><span class="k">void</span><span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">sampleService</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isolateScope</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{</span>
+                <span class="p">...</span>
+            <span class="p">});</span>
+         <span class="p">}</span>
+    <span class="p">}</span></code></pre></figure>
+
+<h3 id="summary">Summary</h3>
+
+<p>Start with a root component and work your way down building components that are composed of either <strong>presentational</strong> and <strong>container</strong> components.
+Data should flow down in one direction (<code class="highlighter-rouge">&lt;</code> and <code class="highlighter-rouge">@</code> input bindings), and events should propagate back up (<code class="highlighter-rouge">&amp;</code> output binding).</p>
+
+<blockquote>
+  <p><strong>Services</strong> manage application state</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Controllers</strong> manage a templates’ view model</p>
+</blockquote>
+
+<blockquote>
+  <p>Application state is accessed only by <strong>container components through services</strong>.</p>
+</blockquote>
+
+<ul>
+  <li>Use <code class="highlighter-rouge">.component()</code> when writing custom HTML elements in AngularJS</li>
+  <li>Use <code class="highlighter-rouge">.directive()</code> when you need to manipulate the DOM or need to change the appearance or behavior of a DOM element</li>
+  <li>Minimize 2 way binding (<code class="highlighter-rouge">ngModel</code> and <code class="highlighter-rouge">=</code> binding)</li>
+  <li>Presentational components can contain both container components and presentational components and vice versa</li>
+  <li>Use the <strong>component router</strong>, which makes it easy to bind URL paths to components. A component can contain its own relative routes too</li>
+  <li>Document your component’s API so new developers and designers know how to use it correctly</li>
+  <li>Keep your controllers clean, their main purpose is to set and manipulate the templates’ view model. <strong>Delegate business logic to services</strong></li>
+</ul>
+
+    </article>
+    <hr />
+    
+        <blockquote>
+            <p>Ryan is a frontend developer and interaction designer. He enjoys writing clean code and building maintainable, user friendly web applications in Typescript and Javascript. He also has a strong interest in motion design and UI/UX. In his spare time, he practices martial arts and enjoys playing the guitar.</p>
+
+        </blockquote>
+    
+    
+    
+        <br /><br />
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    
+</div>
+
+        </div>
+    </div>
+    <!-- Main content ends -->
+</div>
+<!-- Footer Starts -->
+<footer class="footer">
+    <!-- Container -->
+    <div class="container">
+        <!-- Foot Starts -->
+        <div class="foot">
+            <!-- Container -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-user"></i>&nbsp;&nbsp;Disclaimer</h5>
+
+                            <p>Opinions expressed on this blog reflect the writer’s views and not the position of
+                                Ordina.</p>
+
+                            <div class="brand-bg">
+                                <a target="_blank" href="https://www.facebook.com/lifeatordinabe" class="facebook"><i
+                                        class="fa fa-facebook circle-3"></i></a>
+                                <a target="_blank" href="https://twitter.com/lifeatordinabe"
+                                   class="twitter"><i
+                                        class="fa fa-twitter circle-3"></i></a>
+                                <a target="_blank" href="https://www.linkedin.com/company/ordina-belgium"
+                                   class="linkedin"><i
+                                        class="fa fa-linkedin circle-3"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-comments"></i>&nbsp;&nbsp;Recent Posts</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content">
+                                <ul class="list-unstyled">
+                                    
+                                    <li>
+                                        <span>01 May 2016</span> &raquo;
+                                        <a href="/microservices/2016/05/01/Using-JWT-Tokens-for-State-Transfer.html">
+                                            Using JWT for state transfer</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>25 Apr 2016</span> &raquo;
+                                        <a href="/angularjs-typescript/2016/04/25/component-based-application-architecture-with-angularjs-and-typescript.html">
+                                            Component-based application architecture with AngularJS and Typescript</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>22 Apr 2016</span> &raquo;
+                                        <a href="/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html">
+                                            Lagom: First Impressions and Initial Comparison to Spring Cloud</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>09 Apr 2016</span> &raquo;
+                                        <a href="/microservices/2016/04/09/Ordina-becomes-Netflix-OSS-contributor.html">
+                                            Ordina becomes Netflix OSS contributor</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>07 Apr 2016</span> &raquo;
+                                        <a href="/ionic/2016/04/07/Ionic-Protractor.html">
+                                            Protractor testing in Ionic app</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>31 Mar 2016</span> &raquo;
+                                        <a href="/ionic/2016/03/31/Adding-TypeScript-to-Ionic-Framework.html">
+                                            Adding TypeScript to Ionic Framework</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>16 Mar 2016</span> &raquo;
+                                        <a href="/angularjs-typescript/2016/03/16/AngularTS.html">
+                                            AngularTS: A new look @ Angular</a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-building-o"></i>&nbsp;&nbsp;Contact Us</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content address">
+                                <!-- Heading -->
+                                <h6 class="bold"><i class="fa fa-home"></i>&nbsp;&nbsp;Ordina Belgium</h6>
+                                <!-- Paragraph -->
+                                <p class="add">
+                                    Blarenberglaan 3B,<br/>
+                                    Mechelen 2800, Belgium.</p>
+
+                                <p class="tel"><i class="fa fa-phone"></i> Tel : + (32) - 15 29 58 58<br/>
+                                    <i class="fa fa-envelope"></i> Mail : <a href="#">info@ordina.be</a><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Foot Ends -->
+        <!-- Footer Content -->
+        <p class="pull-left">Copyright &copy; 2016 - <a href="#">Ordina JWorks</a></p>
+        <ul class="list-inline pull-right">
+            <!-- List -->
+            <li><a href="/">Home</a>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/contact/">Contact</a></li>
+        </ul>
+        <!-- Clearfix -->
+        <div class="clearfix"></div>
+    </div>
+</footer>
+<!-- Footer Ends -->
+
+<!-- Outer Ends -->
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-angle-up bg-color"></i></a></span>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/placeholders.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/respond.min.js"></script>
+<script src="/js/html5shiv.js"></script>
+<script src="/js/main.js"></script>
+
+<script src="/js/imagesloaded.min.js"></script>
+<script src="/js/masonry.js"></script>
+
+<!-- Javascript for this page -->
+<script>
+    // Initialize Masonry
+    var $box = $('.blog-masonry').masonry();
+    // Layout Masonry again after all images have loaded
+    $box.imagesLoaded(function () {
+        $box.masonry();
+    });
+</script>
+
+<!-- Custom JS. Type your JS code in custom.js file -->
+<script src="/js/custom.js"></script>
+
+<!-- Disqus -->
+
+    <script type="text/javascript">
+        var disqus_config = function () {
+            this.page.url = "https://ordina-jworks.github.io/angularjs-typescript/2016/04/25/component-based-application-architecture-with-angularjs-and-typescript.html";
+            this.page.identifier = "/angularjs-typescript/2016/04/25/component-based-application-architecture-with-angularjs-and-typescript.html";
+            this.page.title = "Component-based application architecture with AngularJS and Typescript";
+        };
+    </script>
+    <script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>
