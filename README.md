@@ -16,9 +16,9 @@
 - **Rebase** your changes onto the **source** branch
 - Create a **pull request**, this will be reviewed and merged by one of the competence leaders
 
-## Create a new blogpost
+## Create a new blog post
 - Create a **feature branch**, starting from **source**: feature/yyyy-mm-dd-john-doe-hello-world
-- Add a blogpost image to the **img** directory
+- Add a blog post image to the **img** directory
 - Use any (online) **Markdown editor** (for example [brackets](http://brackets.io) or [classeur.io](http://classeur.io))
 - Add following [**FrontMatter**](http://jekyllrb.com/docs/frontmatter/) tags on the top of your post (you can also copy-paste this from another post)
     - layout: post
@@ -30,16 +30,16 @@
     - comments: true
 - Write your blog
 - Save your file in the **_post** directory using the following file format: *{year}-{month}-{day}-{title}.md*
-	- **example**: *2015-11-09-Awesome-Blogpost.md*
+	- **example**: *2015-11-09-Awesome-Blog-Post.md*
 - Be sure to publish as **plain text**! (Jekyll will generate the static HTML for us)
 - Tweak and commit your changes until you feel satisfied with it
 
-## Submit your blogpost for publication
+## Submit your blog post for publication
 - **Rebase** your changes onto the **source** branch
-- Create a **pull request** and ask people to proof read your new blogpost (we don't want to have any spelling mistakes, do we? ;))
+- Create a **pull request** and ask people to proof read your new blog post (we don't want to have any spelling mistakes, do we? ;))
 - If changes need to be made, you can just commit and push to the original feature branch
-- When your blogpost has been reviewed, one of the competence leaders will approve and merge your pull request.
-- Congratulations! Your blogpost is now visible to the whole world! :)
+- When your blog post has been reviewed, one of the competence leaders will approve and merge your pull request.
+- Congratulations! Your blog post is now visible to the whole world! :)
 
 ## Style guide
 
