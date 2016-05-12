@@ -1,7 +1,8 @@
 ---
 layout: post
 author: jan_de_wilde
-title: 'Adding TypeScript to Ionic Framework'
+coauthor: steve_de_zitter
+title: 'JS Conf Budapest Day 1'
 image: /img/ionic-and-typescript.jpg
 tags: [JSConfBudapest,JavaScript,Conference]
 category: conference
@@ -12,7 +13,7 @@ comments: true
 
 JS Conf Budapest started with a very nice WebGL Master of ceremony Jake Archibald from Google. A lot of jokes and 
 
-## Day 1
+## Day 1 morning
 
 ### Laurie Voss
 
@@ -208,6 +209,137 @@ The 20% rule.
 Perception: we did a live test on the conference where the sames page loaded first in 1.6 seconds and afterwards 2 seconds. Most of the people thought the second 2 second page was faster. Perception!
 
 When delaying audio on a video, our mind will trick us by syncing the audio with what is visible on the screen. Perception!
+
+## Day 1 afternoon
+
+### Princiya Sequeira (Zalando - @princi_ya @ZalandoTech) : Natural user interfaces using JavaScript
+
+**Typed, Clicked, Touched, ?**
+
+**Typed, Clicked, Touched, Guestures/Speech/...**
+
+Evolution of user interfaces
+
+* CLI: Codified, Strict
+* GUI: Metaphor, Exploratory
+* NUI (Natural User Interfaces): Direct Intuitive
+
+NUI: more natural and more intuitive
+
+**NUI + JS = NUIJS**
+
+Motivation: Started with @princi_ya trying to build simulator for motion controlled 3D camera's. Tool is not dependent on any platform. Once the simulator whas made, trying to build some apps (using leap motion for example) to move a slideshow or other purposes.
+
+Augmented Reality.
+Virtual Reality.
+Perceptual Computing: bringing human like behaviour to devices
+A lot of devices available: VR, motion, ...
+
+**What next?**
+
+Architecture:
+
+* Step 1: USB controller reads sensor data
+* Step 2: Data is stored in local memory
+* Step 3: Data is streamed via USB to SDK
+
+The streaming part is a very important part. Why? I have no clue.
+
+https://github.com/nuijs
+
+Open source tools also: Webcam swiper and JSObjectDetect
+
+Example: Drawing board with a brush. NUIJS will translate the input data from the mousepointer to the Node.js Web Socket server and this one will process the data and send it back to the LEAP motion SDK. The same code can be used with the LEAP motion itself.
+
+**Viola Jones Algorithm**
+
+* HAAR feature selection
+* Creating an integral image
+* Adaboost training
+* Cascading classifiers
+
+### Maurice de Beijer (@mauricedb) : Event-sourcing your React-Redux applications
+
+React Tutorial (Kickstarter) : @react_tutorial
+
+**"The biggest room in the world, is the room for improvement - Anonymous**
+
+**Restfull way**
+
+Database <= CRUD => Server <= HTTP => Browser / React
+
+Fine if you have a simple application.
+
+Command query responsibility segregation
+
+* Database => Read => Query service <= HTTP =>
+* => Browser / React
+* Database <= Update <= Command service <= HTTP =>
+
+Note: 2 lines above need to be stacked (in flow form) and both end up to Browser / React
+
+Event sourcing will not overwrite the previous state, but will save the new state. This means that you get a backlog or version history.
+
+### Rachel Watson (@ohhoe) : The Internet of Cats
+
+How can we incorporate cats in technology?
+
+**Trying new things is scary**
+
+* Embarking on a new project: will it succeed, will it suck?
+* Using new technologies for the first time: what will happen, will it work for me?
+* Contributing to Open Source: putting yourself out there is terrifying!
+
+**Why so scary?**
+
+* Fear of rejection
+* Imposter Syndrome
+* Inclusiveness of Communities
+* Bad behaviour in General: e.g. Oh you didn't know about THIS?, e.g. completely ignoring contributions
+* Your GitHub **green** timeline is not a representation of what you're worth. Just opening a PR just for the sake of it sucks.
+* Don't instult the contributor, why on earth ...
+* Vulgar and brutal harassment of the community, seriously, get a life!
+* PR's that get ignored (for over a year) and then the maintainer writes the same fixes and says: Oops! 
+
+**Echochamber.js**
+
+**Proposals for new contributors**
+
+* Find something you are passionate about
+* Somthing new you want to try
+* Make something cool and open source it yourself
+* First point of contact is your peers
+* Constructive criticism!
+
+**Building a cat feeder bot**
+
+Node based cat feeder that works over the web. Robokitty!
+
+https://github.com/rachelnicole/robokitty
+
+http://imcool.online/robokitty/
+
+Node.js + Johnny-five + socket.io + Arduino-Uno (no internet connectivity, so not used) + Arduino Yun (not compatible with johnny five, so not used) + Particle Photon (we have winner!à
+
+* Dry goods dispenser
+* Particle Photon kit (with breadboard)
+* Continuous servo
+* 4xAA battery pack with on/off switch
+* Misc hardware accessories: ...
+
+A servo needs external power, so yeah, plugging it in the microcontroller is not enough. Lessons learned!
+
+No idea how to solder, oh, worked out!
+
+**Lessons learned**
+
+* Don't be afraid of the unfamiliar
+* Don't be afraid to ask for help
+* People really like cat stuff
+* Don't downplay your abilities: I mean, it's a super cool kitty food dispenser!
+* I like nodebots a lot
+
+### Nick Hehr (@HipsterBrown) : The other side of empathy
 
 
 
