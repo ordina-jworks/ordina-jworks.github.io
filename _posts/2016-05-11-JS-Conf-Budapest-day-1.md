@@ -30,6 +30,9 @@ For the coffee lovers, professional baristas served the best coffee possible. Wi
 
 ## Day 1: Morning
 
+* [Laurie Voss: What everybody should know about npm](#laurie-voss-what-everybody-should-know-about-npm)
+* [Safia Abdalla: The Hitchhiker's Guide to All Things Memory in Javascript](#safia-abdalla-the-hitchhikers-guide-to-all-things-memory-in-javascript)
+
 ### Laurie Voss: What everybody should know about npm
 
 Laurie is CTO at npm Inc.
@@ -196,6 +199,9 @@ It takes things you have to do all the time and makes things simpler and faster.
 Safia is a lover of data science and open source software.
 
 You can find her on Twitter using the handle [@captainsafia](https://twitter.com/captainsafia) or on her webpage [safia.rocks](http://safia.rocks/). 
+
+> This talk will take beginners through an exploration of Javascript's garbage collector and memory allocation implementations and their implications on how performant code should be written.
+> Attendees will leave this talk having gained insights into the under-the-hood operations of Javascript and how they can leverage them to produce performant code.
 
 #### Slides and interactive tutorial
 The slides of this talk can be found on [safia.rocks](http://safia.rocks).
@@ -475,16 +481,6 @@ Key points to take away from this session are:
 
 Living by these rules will make the (web-)world a little bit of a better place, but won't prevent other people from still continuing these bad habbits.
 Don't let these people get to you! Continue doing what you're passionate about en seek out those who will give you that constructive feedback.
-
-
-
-## Day 2
-
-### Speaker 1
-
-### Speaker 2
-
-### Speaker 3
 
 ## Conclusion
 
