@@ -30,248 +30,41 @@ For the coffee lovers, professional baristas served the best coffee possible. Wi
 
 ## Day 2: Morning
 
-* [Laurie Voss: What everybody should know about npm](#laurie-voss-what-everybody-should-know-about-npm)
-* [Safia Abdalla: The Hitchhiker's Guide to All Things Memory in Javascript](#safia-abdalla-the-hitchhikers-guide-to-all-things-memory-in-javascript)
+* [Suz Hinton: The Formulartic Spectrum](#)
+* [Oliver Joseph Ash: Building an Offline Page for theguardian.com](#)
 
-### Laurie Voss: What everybody should know about npm
+### Suz Hinton: The Formulartic Spectrum
 
-Laurie is CTO at npm Inc.
+Suz is front-developer at Kickstarter. Member of the NodeJS hardware working group. Member of the Ember-A11y Project team.
 
-You can find him on Twitter using the handle [@seldo](https://twitter.com/seldo).
+You can find her on Twitter using the handle [@noopkat](https://twitter.com/noopkat).
 
-> npm is six years old, but 80% of npm users turned up in the last year.
-> That's a lot of new people! Because of that, a lot of older, core features aren't known about by the majority of npm users.
-> This talk is about how npm expects you to use npm, and the commands and workflows that can make you into a power user.
-> There will be lots of stuff for beginners, and definitely some tricks that even most pros don't know.
+> The physical world is just another binary machine.
+> Data creation, analysis, and corruption combined with JavaScript can make new and unexpected things.
+> Can you programmatically extract joy from the subjectivity it exists in?
+> Can it be translated into intentional forms to hook others in?
+> This session will gently take you along on a personal journey of how you can use code to expose new expressions of the mundane secrets we hold dear.
 
-#### How does npm look up packages?
-In contrast to what most people think, npm does not download it's modules from GitHub or other version control systems.
-They would not like it that such an amount of data is transferred on a daily basis.
+#### Data and art
 
-In short npm does this: You -> CLI -> Registry.
-Let's dive in.
-
-1. First npm will take a look at your local cache and see if the package your are looking for is present.
-2. Next it will resort to the CDN network and will use a server whos is the closest to your position as possible.
-3. Finally, if npm can't find the package in local cache or the CDN network, it will look up in the registry. The registry is a set of servers all around the world and will try to match the best version that you are looking for.
-
-#### EACCESS error
-A lot of people have issues with EACCESS errors because they used sudo to install things.
-The easy solution is to always keep on using sudo BUT we can [easily fix npm permission issues](https://docs.npmjs.com/getting-started/fixing-npm-permissions).
-
-#### package.json
-Don't write your `package.json` yourself, let NPM do it!
-It will always do it better. Use `npm init` which will ask some basic questions and will generate `package.json` for you.
-
-#### Scopes
-A new feature in npm is scopes.
-These are modules that are "scoped" under an organization name that begins with `@`.
-Scopes can be public and private.
-Here is how to use scopes:
-
-{% highlight sh %}
-npm init --scope=username
-npm install @myusername/mypackage
-require('@myusername/mypackage')
-{% endhighlight %}
-
-#### npm-init.js
-To extend the `npm init` command it is possible to create an `npm-init.js` file.
-This file is a module that will be loaded by the `npm init` command and look in this file and provide basic configurations for the setup.
-By default the file is placed in root of your project: `~/.npm-init.js`.
-You can use [PromZard](https://github.com/npm/promzard) to ask questions to the user and perform logic based on the answers.
-Remember that `npm init` can always be re-run.
-
-#### Why add stuff in devDependencies.
-Simple: because production will install faster! A lot of people don't tend to do this, so please do this!
-When using this you can simple run the command below on production and be done with it.
-
-{% highlight sh %}
-npm install --production
-{% endhighlight %}
-
-#### Bundled dependencies
-One of the biggest problems right now with Node.js is how fast it is changing.
-This means that production systems can be very fragile and an `npm update` can easily break things.
-Using `bundledDependencies` is a way to get round this issue by ensuring, that you will always deliver the correct dependencies no matter what else may be changing.
-You can also use this to bundle up your own, private bundles and deliver them with the install.
-
-{% highlight sh %}
-npm install --save --save-bundle
-{% endhighlight %}
-
-#### Offline installs
-A way to prevent npm to look up the registry and ensure local installs is by adding the variable `--cache-min` and to set it to a high value such as 999999.
-
-{% highlight sh %}
-npm install --cache-min 999999
-{% endhighlight %}
-
-#### Run scripts
-In `package.json` it is possible to define default run scripts as showed below.
-
-{% highlight sh %}
-npm start
-npm stop
-npm restart
-npm test
-{% endhighlight %}
-
-Of course it is also possible to define your own run scripts.
-You can run these scripts like this:
-
-{% highlight sh %}
-npm run <anything>
-{% endhighlight %}
-
-#### Run scripts get devDependencies in path
-Don't force users to install global tools, that is just not cool.
-This way you can prevent to get conflicts over global tools, because different projects can use different versions.
-
-#### SemVer for packages
-npm uses Semantic Versioning and is a standard a lot of projects use to communicate what kind of changes are in this release.
-It's important to communicate what kinds of changes are in a release because sometimes those changes will break the code that depends on the package.
-Let's take a look at an example.
-
-{% highlight sh %}
-1.5.6
-Breaking Major . Feature Minor . Fix Patch
-{% endhighlight %}
-
-This is quite obvious right?
-
-npm allows you to change the version (and adding a comment) by using the commands below.
-
-{% highlight sh %}
-npm version minor
-npm version major
-npm version patch
-npm version major -m "Bump to version %s"
-{% endhighlight %}
-
-#### Microservices architecture
-When working with a microservices architecture it is possible to work with multiple packages for your services.
-This can be done by using the link function within npm. 
-
-{% highlight sh %}
-npm link <dependency>
-{% endhighlight %}
-
-Let's say we have a package named Alice and we have other packages that depend on this package. We can run `npm link`.
-In packages that depend on Alice, say Bob, we simply run `npm link alice`.
-
-#### Unpublish a package
-Before the [recent events](http://blog.npmjs.org/post/141577284765/kik-left-pad-and-npm) where a package called left-pad got pulled from npm and broke the internet, it was possible to unpublish a package just like that by using `npm unpublish`.
-Now this is restricted after the package has been online for 24 hours.
-To really unpublish the package you will need to contact support.
-
-A more friendly way is the use of `npm deprecated` that will tell users the package has been deprecated.
-
-#### Keeping projects up to date
-Before running `npm update` it's preferred to run `npm oudated`.
-This command will check the registry to see if any (or, specific) installed packages are currently outdated.
-
-{% highlight sh %}
-npm outdated
-npm update
-{% endhighlight %}
-
-By doing so you can prevent yourself from breaking the project if certain packages would not be compatible.
-
-#### Stuff everybody should know about npm
-A lot of things are avaible for npm that will make your life as a developer easier.
-
-* Babel: Transpile all the things! JavaScript, TypeScript, JSX, ...
-* Webpack and Browserify
-* Greenkeeper (greenkeeper.io) is `npm outdated` as a service!
-* Node Security Project: Install by using `npm install nsp -g`. Use by running `nsp check`. You can use this to check if your project contains vulnerable modules.
-
-#### Why should I use npm?
-npm reduces friction.
-It takes things you have to do all the time and makes things simpler and faster.
+#### Making a mess
 
 
 ****
 
 
-### Safia Abdalla: The Hitchhiker's Guide to All Things Memory in Javascript
+### Oliver Joseph Ash: Building an Offline Page for theguardian.com
 
-Safia is a lover of data science and open source software.
+Oliver is ....
 
-You can find her on Twitter using the handle [@captainsafia](https://twitter.com/captainsafia) or on her webpage [safia.rocks](http://safia.rocks/). 
+You can find him on Twitter using the handle [@OliverJAsh](https://twitter.com/OliverJAsh). 
 
-> This talk will take beginners through an exploration of Javascript's garbage collector and memory allocation implementations and their implications on how performant code should be written.
-> Attendees will leave this talk having gained insights into the under-the-hood operations of Javascript and how they can leverage them to produce performant code.
-
-#### Slides and interactive tutorial
-The slides of this talk can be found on [safia.rocks](http://safia.rocks).
-Safia also created an [interactive tutorial](https://nbdev.surge.sh/#/gist/21885286a207c05bf1194a35490420c1) on how to use the Chrome DevTools for memory management.
-
-#### Why should I care about memory?
-
-1. It forces us to be (better) more inventive programmers, adds restrictions and forces us to use the best tools to create the best possible experience.
-2. Memory is scarce. A lot of people still use devices that are not packed with a lot of memory.
-Not everyone has high performant development machines.
-3. It helps us exercise our empathy muscles.
-
-#### What does it mean to manage memory?
-
-The Good, The Bad, The Ugly
-
-#### How does JS manage memory?
-Safia focuses on the V8 JS Engine.
-
-We have basic types in JavaScript:
-
-* booleans
-* numbers
-* strings
-
-Memory is allocated in a heap structure and uses a root node which has references to other ones: booleans, string, etc.
-So basically: root node -> references -> variables.
-
-V8 performs memory management in 6 spaces:
-
-* New space: memory gets allocated here when an object is created immediately.
-* Old pointer space: if you don't use an object for a while, it will move to this space.
-* Old data space: will end up here if you're not dealing with a reference or pointer.
-* Large object space: Used to store large object tables.
-They get stored here so it doesn't conflict with the store space of the above mentioned spaces.
-* Code space: ...
-* Map space: 
-
-V8 uses a 'stop the world' technique that enables it to run a short garbage collection cycle.
-This means it will litteraly halt the program.
-
-V8 has different approaches on how it collects garbage in the new and old space.
-
-* New space: Garbage collection by using a scavenging technique.
-Each scavenging cycle will go through the entire heap starting from the root and will create copies.
-It will clear out what is currently in new space.
-Everything that is not reachable will be cleared out of the space.
-You need double the size of the memory that is available for the new space to use for the copy.
-* Old space: Mark and sweep technique.
-Remove unmarked objects on a regular basis.
-
-#### How do I write memory performant applications?
-Asking yourself the following two question will get you started!
-
-* How much memory is my application using?
-* How often do garbage collection cycles occur in my application?
-
-Of course you need to have the tools to work with.
-The Chrome DevTools HEAP allocation profiler will be our weapon of choice.
-It allows you to check the retain size and shallow size of objects.
-
-* Shallow size of an object is the amount of memory it holds of itself.
-* Retain size is all of it's size and it's dependants. 
-
-#### Heapdump
-Heapdump takes a snapshot of your heap at a specific moment.
-It will provide a file with .heap extension which enables you to load it in the Chrome DevTools for further inspection.
-
-`npm install heapdump`
-
+> You’re on a train to work and you open up the Guardian app on your phone.
+> A tunnel surrounds you, but the app still works in very much the same way as it usually would—despite your lack of internet connection, you still get the full experience, only the content shown will be stale.
+> If you tried the same for the Guardian website, however, it wouldn’t load at all.
+> Native apps have long had the tools to deal with these situations, in order to deliver rich user experiences whatever the user’s situation may be.
+> With service workers, the web is catching up.
+> This talk will explain how Oliver used service workers to build an offline page for theguardian.com.
 
 ****
 
