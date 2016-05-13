@@ -22,13 +22,18 @@ After waiting in line to get our badges we were welcomed at the main hall where 
 In another space after the main hall tables were nicely dressed and people could have a nice breakfast.
 For the coffee lovers, professional baristas served the best coffee possible. With a nice heart drawn on top if it.
 
-INSERT PICTURE OF COFFEE HERE 
+![Keynote]({{ '/img/js-conf-budapest/from-js-conf-budapest-with-love.jpg' | prepend: site.baseurl }}) 
+
+
+****
+
 
 ## Day 1: Morning
 
 ### Laurie Voss: What everybody should know about npm
 
 Laurie is CTO at npm Inc.
+
 You can find him on Twitter using the handle [@seldo](https://twitter.com/seldo).
 
 > npm is six years old, but 80% of npm users turned up in the last year.
@@ -182,59 +187,88 @@ A lot of things are avaible for npm that will make your life as a developer easi
 npm reduces friction.
 It takes things you have to do all the time and makes things simpler and faster.
 
+
+****
+
+
 ### Safia Abdalla: The Hitchhiker's Guide to All Things Memory in Javascript
 
-@captainsafia - safia.rocks 
+Safia is a lover of data science and open source software.
 
-j.mp/js-mem-live
+You can find her on Twitter using the handle [@captainsafia](https://twitter.com/captainsafia) or on her webpage [safia.rocks](http://safia.rocks/). 
 
-**>> Slides on safia.rocks**
+#### Slides and interactive tutorial
+The slides of this talk can be found on [safia.rocks](http://safia.rocks).
+Safia also created an [interactive tutorial](https://nbdev.surge.sh/#/gist/21885286a207c05bf1194a35490420c1) on how to use the Chrome DevTools for memory management.
 
-Safia created an interactive tutorial on how to use the chrome devtools for memory management.
+#### Why should I care about memory?
 
-**Why care about memory?**
+1. It forces us to be (better) more inventive programmers, adds restrictions and forces us to use the best tools to create the best possible experience.
+2. Memory is scarce. A lot of people still use devices that are not packed with a lot of memory.
+Not everyone has high performant development machines.
+3. It helps us exercise our empathy muscles.
 
-1. It forces us to be (better) more inventive programmers. Add restrictions and forces us to use the best tools to create the best possible experience.
-2. Memory is scarce. A lot of people still use devices that are not packed with a lot of memory. Not everyone has high performant dev machines.
-3. It helps us exercise our empathy muscles
-
-**What does it mean to manage memory?**
+#### What does it mean to manage memory?
 
 The Good, The Bad, The Ugly
 
-**How does JS manage memory?**
+#### How does JS manage memory?
+Safia focuses on the V8 JS Engine.
 
-V8 JS Engine.
+We have basic types in JavaScript:
 
-Booleans, numbers, strings, ...
-Memory is allocated in a heap structure. Uses a root node which has references to booleans, string, etc.
+* booleans
+* numbers
+* strings
 
-So: root node -> references -> variables
+Memory is allocated in a heap structure and uses a root node which has references to other ones: booleans, string, etc.
+So basically: root node -> references -> variables.
 
-6 spaces
+V8 performs memory management in 6 spaces:
 
-* New space: memory get's allocated here when an object is created immediately
-* Old pointer space: if you don't use an object for a while
-* Old data space: if it's not a reference
-* Large object space: store large object tables, store here so it doesn't conflict with the store space of the above mentioned spaces
+* New space: memory gets allocated here when an object is created immediately.
+* Old pointer space: if you don't use an object for a while, it will move to this space.
+* Old data space: will end up here if you're not dealing with a reference or pointer.
+* Large object space: Used to store large object tables.
+They get stored here so it doesn't conflict with the store space of the above mentioned spaces.
 * Code space: ...
 * Map space: 
 
-V8 uses a 'stop the world' technique. Runs a short garbage collection cycle -> Halt the program.
+V8 uses a 'stop the world' technique that enables it to run a short garbage collection cycle.
+This means it will litteraly halt the program.
 
 V8 has different approaches on how it collects garbage in the new and old space.
 
-- New space: Garbage collection by Scavenging technique. Starts a Scavenging cycle. Going through entire heap starting from the root and create copies. It will clear out what is currently in new space. Everything that is not reachable will be cleared out of the space. You need double the size of the memory that is availble for the new space to use for the copy.
-- Old space: Mark and sweep technique. Remove unmarked objects on a regular basis. Mark and sweep has a rich history in computer science history :)
+* New space: Garbage collection by using a scavenging technique.
+Each scavenging cycle will go through the entire heap starting from the root and will create copies.
+It will clear out what is currently in new space.
+Everything that is not reachable will be cleared out of the space.
+You need double the size of the memory that is available for the new space to use for the copy.
+* Old space: Mark and sweep technique.
+Remove unmarked objects on a regular basis.
 
-**How do I write memory performant applications?**
+#### How do I write memory performant applications?
+Asking yourself the following two question will get you started!
 
 * How much memory is my application using?
-* How often do GC cycles occur in my application?
+* How often do garbage collection cycles occur in my application?
 
-Tools: Chrome Devtools HEAP allocation profiler. Check retain size and shallow size of objects. shallow size of an object is the amount of memory it holds of itself. Retain size is all of it's size and it's dependants.
+Of course you need to have the tools to work with.
+The Chrome DevTools HEAP allocation profiler will be our weapon of choice.
+It allows you to check the retain size and shallow size of objects.
 
-Heapdump: npm install heapdump . Takes snapshot of your heap at a specific moment. Get a file with a .heap extension which enables you to load it in the chrome devtools.
+* Shallow size of an object is the amount of memory it holds of itself.
+* Retain size is all of it's size and it's dependants. 
+
+#### Heapdump
+Heapdump takes a snapshot of your heap at a specific moment.
+It will provide a file with .heap extension which enables you to load it in the Chrome DevTools for further inspection.
+
+`npm install heapdump`
+
+
+****
+
 
 ### Yan Zhu (@bcrypt) : Encrypt the web for $0
 
