@@ -3,7 +3,7 @@ layout: post
 author: jan_de_wilde
 coauthor: steve_de_zitter
 title: 'JS Conf Budapest Day 1'
-image: /img/ionic-and-typescript.jpg
+image: /img/js-conf-budapest-2016.jpg
 tags: [JSConfBudapest,JavaScript,Conference]
 category: conference
 comments: true
