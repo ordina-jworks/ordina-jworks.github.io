@@ -27,11 +27,19 @@ For the coffee lovers, professional baristas served the best coffee possible. Wi
 
 ****
 
+## Day 2: Talks
+
+* [Suz Hinton: The Formulartic Spectrum](#suz-hinton-the-formulartic-spectrum)
+* [Oliver Joseph Ash: Building an Offline Page for theguardian.com](#oliver-joseph-ash-building-an-offline-page-for-theguardiancom)
+* [Nicolás Bevacqua: High Performance in the Critical Rendering Path](#nicolas-bevacqua-high-performance-in-the-critical-rendering-path)
+* [Anand Vemuri : Offensive and Defensive Strategies for Client-Side JavaScript](#anand-vemuri--offensive-and-defensive-strategies-for-client-side-javascript)
+* [Sam Bellen : Changing live audio with the web-audio-api](#sam-bellen--changing-live-audio-with-the-web-audio-api)
+* [Rob Kerr : Science in the Browser: Orchestrating and Visualising Neural Simulations](#rob-kerr--science-in-the-browser-orchestrating-and-visualising-neural-simulations)
+* [Claudia Hernández : Down the Rabbit Hole: JS in Wonderland](#claudia-hernandez--down-the-rabbit-hole-js-in-wonderland)
+* [Stefan Baumgartner : HTTP/2 is coming! Unbundle all the things?!?](#stefan-baumgartner--http2-is-coming-unbundle-all-the-things)
+* [Lena Reinhard : Works On My Machine, or the Problem is between Keyboard and Chair](#lena-reinhard--works-on-my-machine-or-the-problem-is-between-keyboard-and-chair)
 
 ## Day 2: Morning
-
-* [Suz Hinton: The Formulartic Spectrum](#)
-* [Oliver Joseph Ash: Building an Offline Page for theguardian.com](#)
 
 ### Suz Hinton: The Formulartic Spectrum
 
@@ -66,214 +74,219 @@ You can find him on Twitter using the handle [@OliverJAsh](https://twitter.com/O
 > With service workers, the web is catching up.
 > This talk will explain how Oliver used service workers to build an offline page for theguardian.com.
 
+#### Web vs native
+
+Native
+- content is cached
+- experience:
+-- offline: stale content remains
+-- server down: stale content remains
+-- poor connection: stale while revalidate
+-- good connection: stale while revalidate
+
+website
+- experience
+-- offline: nothing
+-- server down: nothing
+-- poor connection: white screen of death
+-- good connection: new content
+
+#### How it works
+
+**Service workers**
+- Prototype built in < 1 day
+
+**What are service workers**
+- script that runs in the backgrond
+- useful for features that don't need user interaction
+-- listen to push events, useful for pushing notification
+-- intercept and handle network requets
+-- future
+--- background sync
+--- alarms
+--- geofencing
+- a progressive enhancement
+- trusted origins only (https only!, localhost)
+- Chrome, Opera and Firefox stable
+
+The guardian is not on https, but they are switching.
+Some pages have service workers already enabled /info /science /technology.
+
+--- When offline on the guardian you'll get a crossword puzzle (always the most recent) how did they do it?
+
+1. Create and register the service worker
+
+2. Something i missed :(
+
+Chrome DevTools: about:debug#workers
+
+Service worker has
+* install event
+* cache the assets needed later
+* version off the cache (to check if a user has an old version so you can update with newer versions)
+
+3. Handle requests
+
+* fetch events
+-- default: just fetch
+-- override default
+-- intercept network requests to:
+--- fetch from the network
+--- something
+--- something else
+
+**Service worker: custom responses**
+use templating to enable custom json response
+
+**(Im)mutable**
+Mutable (HTML)
+Immutable (assets: CSS, JS)
+
+**HTML**
+Network first, then cache
+Page -> service worker -> server or cache -> Page
+
+4. Updating the crossword
+
+Check if the cache has been updated and if it's not up to date, update it and delete old cache.
+
+**offline-first**
+
+* instantly respond with a "shell" of the page straight from cache
+* improves the experience
+
+
+**Why**
+
+* FUn
+* insignificant usage due to https/browser support
+** ... plant the seed and see what happens
+* flatten out browser bugs
+
+**Conclusion**
+
+* allow us to progressively enchance the experience for: offline users, ...
+* something
+* something
+
 ****
 
 
-### Yan Zhu (@bcrypt) : Encrypt the web for $0
+### Nicolás Bevacqua: High Performance in the Critical Rendering Path
 
-**Is the web fast yet?**
+Nicolás is ...
 
-Yes. Size of pages is rising. Amount of HTTPS requests is also rising!
+You can find him on Twitter using the handle [@nzgb](https://twitter.com/nzgb).
 
-**Is TLS fast yet?**
+> This talk covers the past, present and future of web application performance when it comes to delivery optimization.
+> I'll start by glancing over what you're already doing -- minifying your static assets, bundling them together, and using progressive enhancement techniques.
+> Then I'll move on to what you should be doing -- optimizing TCP network delivery, inlining critical CSS, deferring font loading and CSS so that you don't block the rendering path, and of course deferring JavaScript.
+> Afterwards we'll look at the future, and what HTTP 2.0 has in store for us, going full circle and letting us forego hacks of the past like bundling and minification.
 
-Yes. Netflix is going to secure streams this year over HTTPS.
+#### Some title
 
-* 2015: Netflix and chill
-* 2016: Netflix and HTTPS and chill
 
-https://istlsfastyet.com
+****
 
-Let's Encrypt (https://letsencrypt.org). At this moment in beta.
 
-https://gethttpsforfree.com
+### Anand Vemuri : Offensive and Defensive Strategies for Client-Side JavaScript
 
-### Dennis Mishumov : Why performance matters
+Anand is ...
 
-- Speed! 1 second gain will increase revenue bij 1% for Company X. 1 second slower will decrease conversions by approx 5%.
+You can find him on Twitter using the handle [@brownhat57](https://twitter.com/brownhat57).
 
-**Performance is about perception! Not mathematics.**
+> This talk will specifically focus on the other less common client-side vulnerabilities that are not as frequently discussed.
+> Intentionally vulnerable applications developed with client-side JavaScript frameworks will be attacked and exploited live.
+> Remediation strategies will also be discussed so that developers have tools to prevent these vulnerabilities.
+> Through strengthening the security posture of JavaScript applications, we can take strides towards creating a more secure Internet.
 
-The 20% rule.
-- Event: make page load at least 20% faster, otherwise they don't notice. We're talking about noticeable difference. A big difference with meaningful difference.
+#### Some title
 
-**Noticeable !== Meaningful**
 
-Perception: we did a live test on the conference where the sames page loaded first in 1.6 seconds and afterwards 2 seconds. Most of the people thought the second 2 second page was faster. Perception!
+****
 
-When delaying audio on a video, our mind will trick us by syncing the audio with what is visible on the screen. Perception!
 
-## Day 2 afternoon
+## Day 2: afternoon
 
-### Princiya Sequeira (Zalando - @princi_ya @ZalandoTech) : Natural user interfaces using JavaScript
+### Sam Bellen : Changing live audio with the web-audio-api
 
-**Typed, Clicked, Touched, ?**
+Sam is ...
 
-**Typed, Clicked, Touched, Guestures/Speech/...**
+You can find him on Twitter using the handle [@sambego](https://twitter.com/sambego).
 
-Evolution of user interfaces
+> As a guitar player, I usually use some effect-pedals to change the sound of my guitar.
+> I started wondering: “What if, it would be possible to recreate these pedals using the web-audio-api?”.
+> Well, it turns out, it is entirely possible to do so.
+> This talk takes you through the basics of the web-audio-api and explains some of the audio-nodes I’ve used to change the live sound of my guitar.
 
-* CLI: Codified, Strict
-* GUI: Metaphor, Exploratory
-* NUI (Natural User Interfaces): Direct Intuitive
+#### Some title
 
-NUI: more natural and more intuitive
 
-**NUI + JS = NUIJS**
+****
 
-Motivation: Started with @princi_ya trying to build simulator for motion controlled 3D camera's. Tool is not dependent on any platform. Once the simulator whas made, trying to build some apps (using leap motion for example) to move a slideshow or other purposes.
 
-Augmented Reality.
-Virtual Reality.
-Perceptual Computing: bringing human like behaviour to devices
-A lot of devices available: VR, motion, ...
+### Rob Kerr : Science in the Browser: Orchestrating and Visualising Neural Simulations
 
-**What next?**
+Rob is ...
 
-Architecture:
+You can find him on Twitter using the handle [@robrkerr](https://twitter.com/robrkerr).
 
-* Step 1: USB controller reads sensor data
-* Step 2: Data is stored in local memory
-* Step 3: Data is streamed via USB to SDK
+> My talk will show how the old-school, computationally-heavy software used in science can be set free using the centralized power of cloud resources and the ubiquity of the browser.
+> We'll see real-time, publicly-broadcast, simulations of the electrical activity in brain cells, visualised in 3D using Javascript.
 
-The streaming part is a very important part. Why? I have no clue.
+#### Some title
 
-https://github.com/nuijs
 
-Open source tools also: Webcam swiper and JSObjectDetect
+****
 
-Example: Drawing board with a brush. NUIJS will translate the input data from the mousepointer to the Node.js Web Socket server and this one will process the data and send it back to the LEAP motion SDK. The same code can be used with the LEAP motion itself.
 
-**Viola Jones Algorithm**
+### Claudia Hernández : Down the Rabbit Hole: JS in Wonderland
 
-* HAAR feature selection
-* Creating an integral image
-* Adaboost training
-* Cascading classifiers
+Claudia is ...
 
-### Maurice de Beijer (@mauricedb) : Event-sourcing your React-Redux applications
+You can find her on Twitter using the handle [@koste4](https://twitter.com/koste4).
 
-React Tutorial (Kickstarter) : @react_tutorial
+> This talk is a collection of Javascript’s oddities and unexpected behaviors that hopefully will prevent some future headaches and help understand the language that we all love in a more deeper and meaningful way.
 
-**"The biggest room in the world, is the room for improvement - Anonymous**
 
-**Restfull way**
+#### Some title
 
-Database <= CRUD => Server <= HTTP => Browser / React
 
-Fine if you have a simple application.
 
-Command query responsibility segregation
+****
 
-* Database => Read => Query service <= HTTP =>
-* => Browser / React
-* Database <= Update <= Command service <= HTTP =>
 
-Note: 2 lines above need to be stacked (in flow form) and both end up to Browser / React
+### Stefan Baumgartner : HTTP/2 is coming! Unbundle all the things?!?
 
-Event sourcing will not overwrite the previous state, but will save the new state. This means that you get a backlog or version history.
+Stefan is ...
 
-### Rachel Watson (@ohhoe) : The Internet of Cats
+You can find him on Twitter using the handle [@ddprrt](https://twitter.com/ddprrt).
 
-How can we incorporate cats in technology?
+> In this session, we will explore the major features of the new HTTP version and its implications for todays JavaScript developers.
+> We will critically analyze recommendations for deployment strategies and find out which impact they have on our current applications, as well as on the applications to come.
 
-**Trying new things is scary**
+#### Some title
 
-* Embarking on a new project: will it succeed, will it suck?
-* Using new technologies for the first time: what will happen, will it work for me?
-* Contributing to Open Source: putting yourself out there is terrifying!
 
-**Why so scary?**
+****
 
-* Fear of rejection
-* Imposter Syndrome
-* Inclusiveness of Communities
-* Bad behaviour in General: e.g. Oh you didn't know about THIS?, e.g. completely ignoring contributions
-* Your GitHub **green** timeline is not a representation of what you're worth. Just opening a PR just for the sake of it sucks.
-* Don't instult the contributor, why on earth ...
-* Vulgar and brutal harassment of the community, seriously, get a life!
-* PR's that get ignored (for over a year) and then the maintainer writes the same fixes and says: Oops! 
 
-**Echochamber.js**
+### Lena Reinhard : Works On My Machine, or the Problem is between Keyboard and Chair
 
-**Proposals for new contributors**
+Lena is ...
 
-* Find something you are passionate about
-* Somthing new you want to try
-* Make something cool and open source it yourself
-* First point of contact is your peers
-* Constructive criticism!
+You can find her on Twitter using the handle [@lrnrd](https://twitter.com/lrnrd).
 
-**Building a cat feeder bot**
+> In this talk we will look at the many facets that affect our decision making and interactions, and work out how we can change for the better.
+> Together, we will take a look at the effects that our software has on the daily lives of the thousands of people who are using it.
+> You’ll learn what you can do as an individual to support change into a positive direction, and how you can help debug this system and make a difference in the tech industry.
+> You’ll leave knowing about practical things you can do in your daily life to make the tech industry a better, more inclusive and diverse environment that is a better place for everyone.
 
-Node based cat feeder that works over the web. Robokitty!
+#### Some title
 
-https://github.com/rachelnicole/robokitty
 
-http://imcool.online/robokitty/
+****
 
-Node.js + Johnny-five + socket.io + Arduino-Uno (no internet connectivity, so not used) + Arduino Yun (not compatible with johnny five, so not used) + Particle Photon (we have winner!à
-
-* Dry goods dispenser
-* Particle Photon kit (with breadboard)
-* Continuous servo
-* 4xAA battery pack with on/off switch
-* Misc hardware accessories: ...
-
-A servo needs external power, so yeah, plugging it in the microcontroller is not enough. Lessons learned!
-
-No idea how to solder, oh, worked out!
-
-**Lessons learned**
-
-* Don't be afraid of the unfamiliar
-* Don't be afraid to ask for help
-* People really like cat stuff
-* Don't downplay your abilities: I mean, it's a super cool kitty food dispenser!
-* I like nodebots a lot
-
-### Nick Hehr (@HipsterBrown) : The other side of empathy
-
-#### Empathy
-
-Nick Hehr shares Rachels' point of view on the sometimes rude Open Source communication and communication on Social media in general.
-In his talk, he addressed the way you should behave when volunteering to contribute or when giving feedback to contributors in Open Source Projects.
-And Empathy turns out te be key in this process.
-
-#### Ranting
-
-It's all to easy to judge or express prejudice these days, through these social media channels and not think about the people who are actuall behind the idea or concept you're judging.
-People that decide to Open Source the work on which they've spend tons of effort (usually because it's their passion, but still...) aren't exactly waiting for trolls or rants from people who like this easy judging.
-
-Empathy also plays a huge role in the other way around. 
-It happens al to often that people trying to contribute to OSS for the first time are being ignored (by literaly ignoring their pull requests for example), being treated like idiots (instead of being given constructive feedback in case of room for improvements), etc...
-
-#### Saying nice things
-
-"If you don't have anything nice* to say, don't say anything at all!"
-
-Nice in this context means constructive. Comment on something you think could use improvement and offer a solution.
-Compliment on certain aspects that really improve the tool.
-
-Due to the relative anonymity of social media and other communication channels, we tend to forget these principles.
-
-#### Key take-aways
-
-Key points to take away from this session are:
-
-- Give constructive feedback!!!
-- Always keep in mind the language your using when commenting on Open Source initiatives
-	- Don't be to blunt or direct in your reactions. 
-- Use the right channels for your communication 
-	- meaning, don't ask for feedback on twitter
-	- Instead turn to platforms such as Slack, IRC, Gitter...
-	- Get (constructive) feedback from people you trust
-- People that open source their tools don't owe you anything. 
-	- They're not entitled to give up all their time for you. 
-	- They're not here to start fulfilling all requests from a demanding userbase. It's open source, submit a pull request
-
-Living by these rules will make the (web-)world a little bit of a better place, but won't prevent other people from still continuing these bad habbits.
-Don't let these people get to you! Continue doing what you're passionate about en seek out those who will give you that constructive feedback.
 
 ## Conclusion
 
