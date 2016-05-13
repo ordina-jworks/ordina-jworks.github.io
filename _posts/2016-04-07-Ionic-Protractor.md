@@ -1,6 +1,6 @@
 ---
 layout: post
-author: yannick_vergeylen
+authors: [yannick_vergeylen]
 title: 'Protractor testing in Ionic app'
 image: /img/ionic-protractor.png
 tags: [ionic, protractor, pageobject, functional modules]

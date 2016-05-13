@@ -1,6 +1,6 @@
 ---
 layout: post
-author: ken_coenen
+authors: [ken_coenen]
 title: 'Eric Evans about the evolution of Domain-Driven Design'
 image: /img/DDDEurope2015.jpg
 tags: [Domain-Driven Design, DDD, Software Craftmanship]

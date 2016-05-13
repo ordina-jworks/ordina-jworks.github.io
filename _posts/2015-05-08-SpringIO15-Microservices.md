@@ -1,6 +1,6 @@
 ---
 layout: post
-author: andreas_evers
+authors: [andreas_evers]
 title: '"Bootiful" Microservices in CloudFoundry & One on One with Josh Long'
 image: /img/springio.jpg
 tags: [Spring]

@@ -1,6 +1,6 @@
 ---
 layout: post
-author: tim_ysewyn
+authors: [tim_ysewyn]
 title: 'HTTP Public Key Pinning with Spring Security'
 image: /img/spring-security-logo.png
 tags: [Spring, Security, Spring Security, HPKP, Public Key Pinning]
