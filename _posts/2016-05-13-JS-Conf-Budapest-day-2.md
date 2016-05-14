@@ -537,11 +537,4 @@ Animations in software can trigger panic attacks or eppileptic attacks.
 
 ## Conclusion
 
-As you can see it is fairly simple - just 4 steps - to add TypeScript support to your Ionic project by changing the default gulp setup used by Ionic.
-It's nice to know that Ionic 2 will have support for TypeScript built in so you won't have to do it yourself.
-By adding a flag `--ts` to your Ionic 2 project setup it will be enabled.
-
-Personally I love using TypeScript and will use it whenever I can.
-It makes my life as a developer a lot easier by spotting errors before I even hit the browser.
-
-What are your thoughts about TypeScript? Feel free to add them in the comments section.
+JS Conf BP 2017: september 14-15.
