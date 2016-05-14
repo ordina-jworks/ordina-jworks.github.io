@@ -23,7 +23,7 @@ Execute following commands:
 - Use any (online) **Markdown editor** (for example [brackets](http://brackets.io) or [classeur.io](http://classeur.io))
 - Add following [**FrontMatter**](http://jekyllrb.com/docs/frontmatter/) tags on the top of your post (you can also copy-paste this from another post)
     - layout: post
-    - author: {author}
+    - authors: {author(s)}
     - title: {title}
     - image: {image_path}
     - tags: {tags}
