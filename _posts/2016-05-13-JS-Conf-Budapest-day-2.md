@@ -17,7 +17,7 @@ Located right in the center of the city, below an actual pool, filled with water
 > There is always a good concert and a smashing exhibition, performance, or other event happening here, in a friendly scene, situated right in the city center. 
 
 JS Conf Budapest is hosted by the one and only [Jake Archibald](https://twitter.com/jaffathecake) from Google.
-After waiting in line to get our badges we were welcomed at the main hall where some companies hosted stands.
+After waiting in line at 8 o'clock in the morning to get our badges we were welcomed at the main hall where some companies hosted stands.
 
 In another space after the main hall tables were nicely dressed and people could have breakfast.
 When going downstairs to the right of the main hall we entered the room where the talks would be given.
@@ -26,6 +26,12 @@ For the coffee lovers, professional baristas served the best coffee possible. Wi
 
 ![JS Conf Budapest 2016 Photo Collage]({{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }}) 
 
+At 9 o'clock the conference would officially start so went downstairs.
+After taking our seat we played the waiting game and all of a sudden, we got this nice intro made with blender and three.js! Check it out for yourself!
+
+<div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
+<iframe src="http://usefulthink.com/jsconf.bp-intro/" width="100%" height="100%;" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0;"></iframe>
+</div>
 
 ****
 
@@ -68,6 +74,8 @@ This session will gently take you along on a personal journey of how you can use
 
 #### Making a mess
 
+<blockquote class="twitter-tweet" data-lang="nl"><p lang="en" dir="ltr">Subway Synth by <a href="https://twitter.com/noopkat">@noopkat</a> at <a href="https://twitter.com/hashtag/jsconfbp?src=hash">#jsconfbp</a>. Inspired by the New York City subway sounds. <a href="https://t.co/Ldj8qSizft">pic.twitter.com/Ldj8qSizft</a></p>&mdash; Nick Hehr (@hipsterbrown) <a href="https://twitter.com/hipsterbrown/status/732196920245030912">16 mei 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ****
 
