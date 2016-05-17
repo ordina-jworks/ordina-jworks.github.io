@@ -503,15 +503,29 @@ Finally, she'll show you how to take the first steps to release your work to the
 </p></blockquote>
 
 
-How can we incorporate cats in technology?
+One thing is for sure, Rachel really really really likes cats! 
+
+Where a lot of people try to create things that improve others peoples lives, Rachel tries to do the same, instead, she does this for cats...
+
+One Question is constantly on her mind:
+
+> "How can we incorporate cats in technology?"
+
+Eventually, she decided to create a feeder bot for her cats and immediatly thought of Open Sourcing "the thing".
+The talk was mainly a tour of what she's learned and encountered along the way.
 
 **Trying new things is scary**
+
+Rachel wasn't exactly familiar with robotics or backend development, so she would be entering a whole new world.
+She'd have to try out new things and start a project without any idea of whether all of this would actually work out.
 
 * Embarking on a new project: will it succeed, will it suck?
 * Using new technologies for the first time: what will happen, will it work for me?
 * Contributing to Open Source: putting yourself out there is terrifying!
 
 **Why so scary?**
+
+Why is this so scary? It turns out the Open Source developer community can sometimes be quite a harch environment...
 
 * Fear of rejection
 * Imposter Syndrome
@@ -522,9 +536,17 @@ How can we incorporate cats in technology?
 * Vulgar and brutal harassment of the community, seriously, get a life!
 * PR's that get ignored (for over a year) and then the maintainer writes the same fixes and says: Oops! 
 
-**Echochamber.js**
+Eventually, Rachel set up a twitter poll asking people about what bad experiences in Open Source Software development they'd already encountered, showing off an entire list of twitter reponses. Which weren't that possitive (eufimism!)
+
+One of her Twitter contacts actually created (and open sourced) a tool called echochamber.js, which allows you to include a commenting form in your site that stores the comments only local storage.
+That way, you can be an a**hole and post really offensive comments without actually insulting people.
+
+[**Echochamber.js**](https://github.com/tessalt/echo-chamber-js)
 
 **Proposals for new contributors**
+
+Knowing all of these things now, you might wonder if it's even worth it putting yourself out there.
+The answer of course is YES, but consider the following tips when doing so!
 
 * Find something you are passionate about
 * Somthing new you want to try
@@ -534,23 +556,25 @@ How can we incorporate cats in technology?
 
 **Building a cat feeder bot**
 
-Node based cat feeder that works over the web. Robokitty!
+Now, let's talk about the actual Cat Feeder bot, which was most suitably named RoboKitty. Check it out at [here](https://github.com/rachelnicole/robokitty)! and [here](http://imcool.online/robokitty/)
 
-https://github.com/rachelnicole/robokitty
+INSERT PICTURE OF CATFEEDER!
 
-http://imcool.online/robokitty/
+It's a node based cat feeder that works over the web.
+You can use it to instantly feed your cat, or you can feed periodically using cron triggers.
 
-Node.js + Johnny-five + socket.io + Arduino-Uno (no internet connectivity, so not used) + Arduino Yun (not compatible with johnny five, so not used) + Particle Photon (we have winner!à
+After some trial and error on choosing the right combination of hardware, the final list of technologies involved in creating the Cat Feeder Bot looks something like this:
 
-* Dry goods dispenser
+* Node.js
+* [Johnny-five](http://johnny-five.io/): Javascript Robotics & IoT platform.
 * Particle Photon kit (with breadboard)
-* Continuous servo
 * 4xAA battery pack with on/off switch
-* Misc hardware accessories: ...
+* Misc hardware accessories
 
-A servo needs external power, so yeah, plugging it in the microcontroller is not enough. Lessons learned!
+Other things learned along the way were:
 
-No idea how to solder, oh, worked out!
+- A server needs external power, so yeah, plugging it in the microcontroller is not enough! :D
+- No idea how to solder...? Worked out! -> Youtube -> Learn how to solder.
 
 **Lessons learned**
 
@@ -560,11 +584,9 @@ No idea how to solder, oh, worked out!
 * Don't downplay your abilities: I mean, it's a super cool kitty food dispenser!
 * I like nodebots a lot
 
-
 ****
 
-
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-hipsterbrown.jpg">
+<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-ohhoe.jpg">
 
 ### Nick Hehr: The other side of empathy
 
@@ -581,7 +603,7 @@ By breaking down The Other Side of Empathy, I will demonstrate how applying its 
 #### Empathy
 
 Nick Hehr shares Rachels' point of view on the sometimes rude Open Source communication and communication on Social media in general.
-In his talk, he addressed the way you should behave when volunteering to contribute or when giving feedback to contributors in Open Source Projects.
+In his talk, he addressed the way you should behave when volunteering to contribute or when giving feedback to contributors in Open Source Software (OSS) projects.
 And Empathy turns out te be key in this process.
 
 #### Ranting
@@ -590,11 +612,11 @@ It's all to easy to judge or express prejudice these days, through these social 
 People that decide to Open Source the work on which they've spend tons of effort (usually because it's their passion, but still...) aren't exactly waiting for trolls or rants from people who like this easy judging.
 
 Empathy also plays a huge role in the other way around. 
-It happens al to often that people trying to contribute to OSS for the first time are being ignored (by literaly ignoring their pull requests for example), being treated like idiots (instead of being given constructive feedback in case of room for improvements), etc...
+It happens al too often that people trying to contribute to OSS for the first time are being ignored (by literaly ignoring their pull requests for example), being treated like idiots (instead of being given constructive feedback in case of room for improvements), etc...
 
 #### Saying nice things
 
-"If you don't have anything nice* to say, don't say anything at all!"
+>"If you don't have anything nice* to say, don't say anything at all!"
 
 Nice in this context means constructive. Comment on something you think could use improvement and offer a solution.
 Compliment on certain aspects that really improve the tool.
@@ -618,7 +640,6 @@ Key points to take away from this session are:
 
 Living by these rules will make the (web-)world a little bit of a better place, but won't prevent other people from still continuing these bad habbits.
 Don't let these people get to you! Continue doing what you're passionate about en seek out those who will give you that constructive feedback.
-
 
 ****
 
