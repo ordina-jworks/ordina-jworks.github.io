@@ -304,7 +304,9 @@ It will provide a file with .heap extension which enables you to load it in the 
 
 ### Yan Zhu: Encrypt the web for $0
 
-(@bcrypt) 
+Yan is ...
+
+You can find her on Twitter using the handle [@bcrypt](https://twitter.com/bcrypt).
 
 <blockquote class="clear"><p>
 Everyone in 2016 knows that websites should use HTTPS.
@@ -337,7 +339,9 @@ https://gethttpsforfree.com
 
 ### Dennis Mishumov: Why performance matters
 
-@mishunov
+Dennis is ...
+
+You can find him on Twitter using the handle [@mishunov](https://twitter.com/mishunov).
 
 <blockquote class="clear"><p>
 Performance is not about Mathematics.
@@ -371,7 +375,9 @@ When delaying audio on a video, our mind will trick us by syncing the audio with
 
 ### Princiya Sequeira: Natural user interfaces using JavaScript
 
- (Zalando - @princi_ya @ZalandoTech) 
+Princiya is ... at Zalando Tech.
+
+You can find her on Twitter using the handle [@princi_ya](https://twitter.com/princi_ya) and Zalando Tech using the handle [@ZalandoTech](https://twitter.com/ZalandoTech).
 
 <blockquote class="clear"><p>
 The way we interacted with computers on a large scale was stuck in place for roughly 20 years.
@@ -436,7 +442,9 @@ Example: Drawing board with a brush. NUIJS will translate the input data from th
 
 ### Maurice de Beijer: Event-sourcing your React-Redux applications
 
-(@mauricedb) 
+Maurice is ... 
+
+You can find him on Twitter using the handle [@mauricedb](https://twitter.com/mauricedb).
 
 <blockquote class="clear"><p>
 With Event-Sourcing every action leading up to the current state is stored as a separate domain event.
@@ -473,7 +481,9 @@ Event sourcing will not overwrite the previous state, but will save the new stat
 
 ### Rachel Watson: The Internet of Cats
 
-(@ohhoe) 
+Rachel is ... 
+
+You can find her on Twitter using the handle [@ohhoe](https://twitter.com/ohhoe).
 
 <blockquote class="clear"><p>
 Ever lose out on a good night's rest because your pesky cats keep waking you up at 4am for food?
@@ -550,7 +560,9 @@ No idea how to solder, oh, worked out!
 
 ### Nick Hehr: The other side of empathy
 
-(@HipsterBrown) 
+Nick is ... 
+
+You can find him on Twitter using the handle [@HipsterBrown](https://twitter.com/HipsterBrown).
 
 <blockquote class="clear"><p>
 In an industry that is so focused frameworks & tooling, we tend to lose sight of the people behind the products and how we work with them.

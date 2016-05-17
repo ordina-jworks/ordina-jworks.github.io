@@ -297,9 +297,6 @@ Kali Linux.
 "When you enter a coffee shop and see someone using this, disconnect from the internet and run away as fast as you possibly can." - Quote from Anand
 
 
-
-
-
 ****
 
 
@@ -449,7 +446,6 @@ When using ES6 we can also use Treeshaking.
 * Think about long lastig applications and frequently of change
 
 Use tools not rules!
-
 
 
 ****
