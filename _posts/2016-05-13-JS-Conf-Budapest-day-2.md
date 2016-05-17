@@ -61,7 +61,7 @@ After taking our seat we played the waiting game and all of a sudden, we got thi
 
 Suz is front-developer at Kickstarter. Member of the NodeJS hardware working group. Member of the Ember-A11y Project team.
 
-You can find her on Twitter using the handle [@noopkat](https://twitter.com/noopkat).
+You can find her on Twitter using the handle [@noopkat](https://twitter.com/noopkat) and blogs on [meow.noopkat.com]().
 
 <blockquote class="clear"><p>
 The physical world is just another binary machine.
@@ -71,14 +71,116 @@ Can it be translated into intentional forms to hook others in?
 This session will gently take you along on a personal journey of how you can use code to expose new expressions of the mundane secrets we hold dear.
 </p></blockquote>
 
-#### Data and art
+**Why are we here**
 
-#### Making a mess
+* Data & Art
+* Make a mess
 
-<blockquote class="twitter-tweet" data-lang="nl"><p lang="en" dir="ltr">Subway Synth by <a href="https://twitter.com/noopkat">@noopkat</a> at <a href="https://twitter.com/hashtag/jsconfbp?src=hash">#jsconfbp</a>. Inspired by the New York City subway sounds. <a href="https://t.co/Ldj8qSizft">pic.twitter.com/Ldj8qSizft</a></p>&mdash; Nick Hehr (@hipsterbrown) <a href="https://twitter.com/hipsterbrown/status/732196920245030912">16 mei 2016</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+**Feelings**
+
+Warning, a lot of feelings
+
+#### Personal history
+
+**1994**
+
+* Commodore 64 graphics book
+* Wants to make art on computer
+* The littlest artist
+* Accidental programmer (Suz didn't really want to become a programmer)
+* Semicolon wars;; It doesn't matter how you place your semicolon!
+
+This story is inspired by the movie **Contact by Carl Sagan** and makes Suz wonder: what does sound look like?
+
+#### Formulartic spectrum (made up word: art)
+	
+* Analysing PCM data (Pulse Code Modulation -> raw uncompressed data)
+* Resulted in only 13-ish lines of code
+
+{% highlight javascript %}
+audioContext.decodeAudioData(audioData)
+    .then(function(decoded) {
+
+    // just get the left ear, it's fine ;)
+    let data = decoded.getChannelData(0);
+
+    for (let i = 0; i < data.length; i += 1) {
+
+        // convert raw sample to within 0-255 range
+        let hue = Math.ceil((data[i] + 1) * 255 / 2);
+
+        // convert HSL to an RGB array
+        let rgb = hslToRgb(hue, 200, 150);
+
+        // create the pixel
+        imgData.data[i*4] = rgb[0];
+        imgData.data[i*4+1] = rgb[1];
+        imgData.data[i*4+2] = rgb[2];
+        imgData.data[i*4+3] = rgb[3];
+    }
+
+    // put the pixels on a canvas element
+    canvas.putImageData(imgData, 0, 0);
+});
+{% endhighlight %}
+
+Suz talked about programming and art.
+She spent a lot of time on the subway and was wondering if it would be possible to use the sounds of the subway to create art.
+So she started by taking [the sound of the subway doors closing](http://noopkat.github.io/formulartic-spectrum/#slide-41) and analysing that part.
+
+* Sampling the audio to pixels resulted in 300k pixels
+* Make it smaller by converting to 16-beat song
+
+[Check out the visualisation!](http://noopkat.github.io/iltsw/index2.html)
+
+* The top section: Stand clear of the closing doors, please.
+* The mid section: white noise
+* The bottom section: ding dong!
+
+Suz created a visualisation of the sampled audio that resulted in cats sitting on an subway.
+
+* Cat's can sit on 16 seats in subway car, each seat representing a beat
+* In total there were 308.728 samples which divided by 16 beats result in 19.295 samples per beat. Suz took to the average of the sample values of each 'beat'  
+* The seats have different colors that represent the drum beat and oscillator note
+* When a cat is sitting on a chair we get a guitar strum and note
+
+The subway example is made using:
+
+* SVG images
+* divs
+* CSS animations
+
+[Check out the working example!](http://noopkat.github.io/iltsw/index5.html)
+
+#### But I'm better at hardware
+
+So Suz created a [subway card with built in speaker](https://noopkat.github.io/formulartic-spectrum/#slide-64)!
+
+### Recap
+
+* Creative coding gets you out of your comfort zone and teaches you to use tools you use everyday in another context
+* Art doesn't care about your semicolons
+	* Code can be messy
+	* no-one cares about semicolons etc
+* Art doesn't care about perfection
+	* Again, your code doens't really matter
+
+**Art is about what you learned**
+
+* Write messy code
+* Make lots of mistakes
+* You deserve a break from being judged
+* code like no one's watching
+* don't 'git rebase -i'
+	* Show the history behind good code
+	* Code evolves from a first idea to a final solution.
+	* At first, code might not be perfect
+	* Don't rebase to hide this fact
+
+[View the slides of Suz's talk here!](https://noopkat.github.io/formulartic-spectrum)
 
 ****
+
 
 <img class="p-image float-image" width="200" alt="Oliver Joseph Ash" src="/img/js-conf-budapest/speaker-oliverjash.jpg">
 
