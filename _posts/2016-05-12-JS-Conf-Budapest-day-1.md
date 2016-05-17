@@ -525,11 +525,12 @@ Event sourcing will not overwrite the previous state, but will save the new stat
 
 <img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-ohhoe.jpg">
 
-### Rachel Watson: The Internet of Cats
+### Rachel White: The Internet of Cats
 
-Rachel is ... 
+Rachel is a front end developer at IBMWatson. A lover of retro graphics & horror & coding & games, but above all, of Cats.
 
 You can find her on Twitter using the handle [@ohhoe](https://twitter.com/ohhoe).
+Find out more about her and her projects on [rachelisaweso.me](rachelisaweso.me) and [imcool.online](imcool.online)
 
 <blockquote class="clear"><p>
 Ever lose out on a good night's rest because your pesky cats keep waking you up at 4am for food?
@@ -596,7 +597,7 @@ The answer of course is YES, but consider the following tips when doing so!
 
 Now, let's talk about the actual Cat Feeder bot, which was most suitably named RoboKitty. Check it out at [here](https://github.com/rachelnicole/robokitty)! and [here](http://imcool.online/robokitty/)
 
-INSERT PICTURE OF CATFEEDER!
+<img src="/img/js-conf-budapest/RoboKitty-Catfeeder.jpg">
 
 It's a node based cat feeder that works over the web.
 You can use it to instantly feed your cat, or you can feed periodically using cron triggers.
@@ -611,7 +612,7 @@ After some trial and error on choosing the right combination of hardware, the fi
 
 Other things learned along the way were:
 
-- A server needs external power, so yeah, plugging it in the microcontroller is not enough! :D
+- A servo needs external power, so yeah, plugging it in the microcontroller is not enough! :D
 - No idea how to solder...? Worked out! -> Youtube -> Learn how to solder.
 
 **Lessons learned**
@@ -628,7 +629,7 @@ Other things learned along the way were:
 
 ### Nick Hehr: The other side of empathy
 
-Nick is ... 
+Nick is an Empathetic Community Member, Front-End Dev @NamelyHR ,@hoodiehq Contributor, @tesselproject Contributor and @manhattan_js Organizer
 
 You can find him on Twitter using the handle [@HipsterBrown](https://twitter.com/HipsterBrown).
 
