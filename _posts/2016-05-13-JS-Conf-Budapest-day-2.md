@@ -19,10 +19,13 @@ Located right in the center of the city, below an actual pool, filled with water
 
 JS Conf Budapest is hosted by the one and only [Jake Archibald](https://twitter.com/jaffathecake) from Google.
 After waiting in line to get our badges we were welcomed at the main hall where some companies hosted stands.
-In another space after the main hall tables were nicely dressed and people could have a nice breakfast.
+
+In another space after the main hall tables were nicely dressed and people could have breakfast.
+When going downstairs to the right of the main hall we entered the room where the talks would be given.
+
 For the coffee lovers, professional baristas served the best coffee possible. With a nice heart drawn on top if it.
 
-![Keynote]({{ '/img/js-conf-budapest/from-js-conf-budapest-with-love.jpg' | prepend: site.baseurl }}) 
+![Keynote]({{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }}) 
 
 
 ****
@@ -41,17 +44,21 @@ For the coffee lovers, professional baristas served the best coffee possible. Wi
 
 ## Day 2: Morning
 
+<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-noopkat.jpg">
+
 ### Suz Hinton: The Formulartic Spectrum
 
 Suz is front-developer at Kickstarter. Member of the NodeJS hardware working group. Member of the Ember-A11y Project team.
 
 You can find her on Twitter using the handle [@noopkat](https://twitter.com/noopkat).
 
-> The physical world is just another binary machine.
-> Data creation, analysis, and corruption combined with JavaScript can make new and unexpected things.
-> Can you programmatically extract joy from the subjectivity it exists in?
-> Can it be translated into intentional forms to hook others in?
-> This session will gently take you along on a personal journey of how you can use code to expose new expressions of the mundane secrets we hold dear.
+<blockquote class="clear"><p>
+The physical world is just another binary machine.
+Data creation, analysis, and corruption combined with JavaScript can make new and unexpected things.
+Can you programmatically extract joy from the subjectivity it exists in?
+Can it be translated into intentional forms to hook others in?
+This session will gently take you along on a personal journey of how you can use code to expose new expressions of the mundane secrets we hold dear.
+</p></blockquote>
 
 #### Data and art
 
@@ -60,6 +67,7 @@ You can find her on Twitter using the handle [@noopkat](https://twitter.com/noop
 
 ****
 
+<img class="p-image float-image" width="200" alt="Oliver Joseph Ash" src="/img/js-conf-budapest/speaker-oliverjash.jpg">
 
 ### Oliver Joseph Ash: Building an Offline Page for theguardian.com
 
@@ -67,12 +75,14 @@ Oliver is ....
 
 You can find him on Twitter using the handle [@OliverJAsh](https://twitter.com/OliverJAsh). 
 
-> You’re on a train to work and you open up the Guardian app on your phone.
-> A tunnel surrounds you, but the app still works in very much the same way as it usually would—despite your lack of internet connection, you still get the full experience, only the content shown will be stale.
-> If you tried the same for the Guardian website, however, it wouldn’t load at all.
-> Native apps have long had the tools to deal with these situations, in order to deliver rich user experiences whatever the user’s situation may be.
-> With service workers, the web is catching up.
-> This talk will explain how Oliver used service workers to build an offline page for theguardian.com.
+<blockquote class="clear"><p>
+You’re on a train to work and you open up the Guardian app on your phone.
+A tunnel surrounds you, but the app still works in very much the same way as it usually would—despite your lack of internet connection, you still get the full experience, only the content shown will be stale.
+If you tried the same for the Guardian website, however, it wouldn’t load at all.
+Native apps have long had the tools to deal with these situations, in order to deliver rich user experiences whatever the user’s situation may be.
+With service workers, the web is catching up.
+This talk will explain how Oliver used service workers to build an offline page for theguardian.com.
+</p></blockquote>
 
 #### Web vs native
 
@@ -172,16 +182,20 @@ Check if the cache has been updated and if it's not up to date, update it and de
 ****
 
 
+<img class="p-image float-image" width="200" alt="Nicolás Bevacqua" src="/img/js-conf-budapest/speaker-nzgb.jpg">
+
 ### Nicolás Bevacqua: High Performance in the Critical Rendering Path
 
 Nicolás is ...
 
 You can find him on Twitter using the handle [@nzgb](https://twitter.com/nzgb).
 
-> This talk covers the past, present and future of web application performance when it comes to delivery optimization.
-> I'll start by glancing over what you're already doing -- minifying your static assets, bundling them together, and using progressive enhancement techniques.
-> Then I'll move on to what you should be doing -- optimizing TCP network delivery, inlining critical CSS, deferring font loading and CSS so that you don't block the rendering path, and of course deferring JavaScript.
-> Afterwards we'll look at the future, and what HTTP 2.0 has in store for us, going full circle and letting us forego hacks of the past like bundling and minification.
+<blockquote class="clear"><p>
+This talk covers the past, present and future of web application performance when it comes to delivery optimization.
+I'll start by glancing over what you're already doing -- minifying your static assets, bundling them together, and using progressive enhancement techniques.
+Then I'll move on to what you should be doing -- optimizing TCP network delivery, inlining critical CSS, deferring font loading and CSS so that you don't block the rendering path, and of course deferring JavaScript.
+Afterwards we'll look at the future, and what HTTP 2.0 has in store for us, going full circle and letting us forego hacks of the past like bundling and minification.
+</p></blockquote>
 
 Ponyfoo.com
 
@@ -221,11 +235,10 @@ Budgets!
 timkadlec.com/2014/11/performance-budget-metrics
 
 
-
-
-
 ****
 
+
+<img class="p-image float-image" width="200" alt="Anand Vemuri" src="/img/js-conf-budapest/speaker-brownhat57.jpg">
 
 ### Anand Vemuri : Offensive and Defensive Strategies for Client-Side JavaScript
 
@@ -233,15 +246,17 @@ Anand is Senior Application Security Consultant at nVisium
 
 You can find him on Twitter using the handle [@brownhat57](https://twitter.com/brownhat57).
 
-> This talk will specifically focus on the other less common client-side vulnerabilities that are not as frequently discussed.
-> Intentionally vulnerable applications developed with client-side JavaScript frameworks will be attacked and exploited live.
-> Remediation strategies will also be discussed so that developers have tools to prevent these vulnerabilities.
-> Through strengthening the security posture of JavaScript applications, we can take strides towards creating a more secure Internet.
+<blockquote class="clear"><p>
+This talk will specifically focus on the other less common client-side vulnerabilities that are not as frequently discussed.
+Intentionally vulnerable applications developed with client-side JavaScript frameworks will be attacked and exploited live.
+Remediation strategies will also be discussed so that developers have tools to prevent these vulnerabilities.
+Through strengthening the security posture of JavaScript applications, we can take strides towards creating a more secure Internet.
+</p></blockquote>
 
 #### Break the web together!
 
 > They say the best offense is good defense.
-> The best offense is offsense. 
+> The best offense is offense. 
 
 #### XSS
 
@@ -285,16 +300,20 @@ Kali Linux.
 
 ## Day 2: afternoon
 
+<img class="p-image float-image" width="200" alt="Sam Bellen" src="/img/js-conf-budapest/speaker-sambego.jpg">
+
 ### Sam Bellen : Changing live audio with the web-audio-api
 
 Sam is ... developer at Made with love.
 
 You can find him on Twitter using the handle [@sambego](https://twitter.com/sambego).
 
-> As a guitar player, I usually use some effect-pedals to change the sound of my guitar.
-> I started wondering: “What if, it would be possible to recreate these pedals using the web-audio-api?”.
-> Well, it turns out, it is entirely possible to do so.
-> This talk takes you through the basics of the web-audio-api and explains some of the audio-nodes I’ve used to change the live sound of my guitar.
+<blockquote class="clear"><p>
+As a guitar player, I usually use some effect-pedals to change the sound of my guitar.
+I started wondering: “What if, it would be possible to recreate these pedals using the web-audio-api?”.
+Well, it turns out, it is entirely possible to do so.
+This talk takes you through the basics of the web-audio-api and explains some of the audio-nodes I’ve used to change the live sound of my guitar.
+</p></blockquote>
 
 Presentation can be found here: https://github.com/Sambego/pedalboard-presentation
 
@@ -344,14 +363,18 @@ Presentation can be found here: https://github.com/Sambego/pedalboard-presentati
 ****
 
 
+<img class="p-image float-image" width="200" alt="Rob Kerr" src="/img/js-conf-budapest/speaker-robrkerr.jpg">
+
 ### Rob Kerr : Science in the Browser: Orchestrating and Visualising Neural Simulations
 
 Rob works at IBM Research Australia.
 
 You can find him on Twitter using the handle [@robrkerr](https://twitter.com/robrkerr).
 
-> My talk will show how the old-school, computationally-heavy software used in science can be set free using the centralized power of cloud resources and the ubiquity of the browser.
-> We'll see real-time, publicly-broadcast, simulations of the electrical activity in brain cells, visualised in 3D using Javascript.
+<blockquote class="clear"><p>
+My talk will show how the old-school, computationally-heavy software used in science can be set free using the centralized power of cloud resources and the ubiquity of the browser.
+We'll see real-time, publicly-broadcast, simulations of the electrical activity in brain cells, visualised in 3D using Javascript.
+</p></blockquote>
 
 #### Science in the browser
 
@@ -372,14 +395,18 @@ That gives a lot of knowledge about how neurons behave.
 ****
 
 
+<img class="p-image float-image" width="200" alt="Stefan Baumgartner" src="/img/js-conf-budapest/speaker-ddprrt.jpg">
+
 ### Stefan Baumgartner : HTTP/2 is coming! Unbundle all the things?!?
 
 Stefan is ...
 
 You can find him on Twitter using the handle [@ddprrt](https://twitter.com/ddprrt).
 
-> In this session, we will explore the major features of the new HTTP version and its implications for todays JavaScript developers.
-> We will critically analyze recommendations for deployment strategies and find out which impact they have on our current applications, as well as on the applications to come.
+<blockquote class="clear"><p>
+In this session, we will explore the major features of the new HTTP version and its implications for todays JavaScript developers.
+We will critically analyze recommendations for deployment strategies and find out which impact they have on our current applications, as well as on the applications to come.
+</p></blockquote>
 
 #### Unbundle all the things?
 
@@ -423,13 +450,17 @@ Use tools not rules!
 ****
 
 
+<img class="p-image float-image" width="200" alt="Claudia Hernández" src="/img/js-conf-budapest/speaker-koste4.jpg">
+
 ### Claudia Hernández : Down the Rabbit Hole: JS in Wonderland
 
 Claudia is Mexican front-end developer.
 
 You can find her on Twitter using the handle [@koste4](https://twitter.com/koste4).
 
-> This talk is a collection of Javascript’s oddities and unexpected behaviors that hopefully will prevent some future headaches and help understand the language that we all love in a more deeper and meaningful way.
+<blockquote class="clear"><p>
+This talk is a collection of Javascript’s oddities and unexpected behaviors that hopefully will prevent some future headaches and help understand the language that we all love in a more deeper and meaningful way.
+</p></blockquote>
 
 http://www.jsfuck.com/
 
@@ -442,16 +473,20 @@ https://github.com/fasttime/jquery-screwed
 ****
 
 
+<img class="p-image float-image" width="200" alt="Lena Reinhard" src="/img/js-conf-budapest/speaker-lrnrd.jpg">
+
 ### Lena Reinhard : Works On My Machine, or the Problem is between Keyboard and Chair
 
 Lena is teamleader, consultant and photographer.
 
 You can find her on Twitter using the handle [@lrnrd](https://twitter.com/lrnrd).
 
-> In this talk we will look at the many facets that affect our decision making and interactions, and work out how we can change for the better.
-> Together, we will take a look at the effects that our software has on the daily lives of the thousands of people who are using it.
-> You’ll learn what you can do as an individual to support change into a positive direction, and how you can help debug this system and make a difference in the tech industry.
-> You’ll leave knowing about practical things you can do in your daily life to make the tech industry a better, more inclusive and diverse environment that is a better place for everyone.
+<blockquote class="clear"><p>
+In this talk we will look at the many facets that affect our decision making and interactions, and work out how we can change for the better.
+Together, we will take a look at the effects that our software has on the daily lives of the thousands of people who are using it.
+You’ll learn what you can do as an individual to support change into a positive direction, and how you can help debug this system and make a difference in the tech industry.
+You’ll leave knowing about practical things you can do in your daily life to make the tech industry a better, more inclusive and diverse environment that is a better place for everyone.
+</p></blockquote>
 
 **Code debugging**
 Debugging can be hard and it becomes harder when working with complex software.
