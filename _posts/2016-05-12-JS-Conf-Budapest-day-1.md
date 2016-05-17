@@ -488,7 +488,7 @@ Combined with other tools this can be very powerful.
 
 ### Maurice de Beijer: Event-sourcing your React-Redux applications
 
-Maurice is ... 
+Maurice is a freelance developer/trainer and Microsoft Azure MVP.
 
 You can find him on Twitter using the handle [@mauricedb](https://twitter.com/mauricedb).
 
@@ -499,26 +499,41 @@ These same events are projected out to a secondary database to build the read mo
 In this session Maurice de Beijer will explain why you might want to use Event-Sourcing and how to get started with this design in your React and Flux applications.
 </p></blockquote>
 
-React Tutorial (Kickstarter) : @react_tutorial
+**What is Event-sourcing**
 
-**"The biggest room in the world, is the room for improvement - Anonymous**
+Event-sourcing is a way of capturing changes in the state of an application. 
+The traditional way of doing this would be to just update the existing state of your application to whatever state it should be in.
+This way you always have the latest state of your data at your displosal.
 
-**Restfull way**
+In Event-sourcing, you'll capture all changes as events.
+These events will be stored in the sequence they were applied.
+You now have a complete log of events that happened in your application.
+This allows for features such as:
 
-Database <= CRUD => Server <= HTTP => Browser / React
+- Complete Rebuild: Possibility to rebuild the entire application state by re-running all events.
+- Temporal Query: Determining the state of the application at a given point in time.
+- Event Replay: Replay incorrect events by reversing it and all subsequent events, then replaying the correct event and re-applying all later events.
 
-Fine if you have a simple application.
+Common example of systems that use Event Sourcing are Version Control Systems.
 
-Command query responsibility segregation
+**When to use Event-sourcing?**
 
-* Database => Read => Query service <= HTTP =>
-* => Browser / React
-* Database <= Update <= Command service <= HTTP =>
+Event-Sourcing is particularly useful in situations where you need yo keep an audit trail of all changes that occured to your data.
+Accountancy for example is a domain in which Event-Sourcing is very useful, because you need to be able to provide that trail for audit purposes.
+**REPHRASE! -> The immutability of events allows for more scalability in your apps also.**
 
-Note: 2 lines above need to be stacked (in flow form) and both end up to Browser / React
+**CQRS and Event Sourcing**
 
-Event sourcing will not overwrite the previous state, but will save the new state. This means that you get a backlog or version history.
+Where Event-Sourcing describes the practice of storing all application state changes in individual events, CQRS describes the practice of seperating the command from the read side.
 
+This means you'll have a service exposing all write functionality in your application and a separate service exposing all read operations.
+
+This model works well with Event-Sourcing as you can use the Events occuring on your system as Commands in the CQRS model.
+
+<img src="/img/js-conf-budapest/Event-sourcing.png" alt="CQRS-and-event-sourcing">
+
+
+Slides for this talk are available on [slideshare](http://www.slideshare.net/mauricedb/eventsourcing-your-reactredux-applications).
 
 ****
 
@@ -530,6 +545,7 @@ Event sourcing will not overwrite the previous state, but will save the new stat
 Rachel is a front end developer at IBMWatson. A lover of retro graphics & horror & coding & games, but above all, of Cats.
 
 You can find her on Twitter using the handle [@ohhoe](https://twitter.com/ohhoe).
+
 Find out more about her and her projects on [rachelisaweso.me](rachelisaweso.me) and [imcool.online](imcool.online)
 
 <blockquote class="clear"><p>
