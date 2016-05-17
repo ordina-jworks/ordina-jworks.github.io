@@ -19,10 +19,29 @@ Located right in the center of the city, below an actual pool, filled with water
 
 JS Conf Budapest is hosted by the one and only [Jake Archibald](https://twitter.com/jaffathecake) from Google.
 After waiting in line to get our badges we were welcomed at the main hall where some companies hosted stands.
-In another space after the main hall tables were nicely dressed and people could have a nice breakfast.
+
+In another space after the main hall tables were nicely dressed and people could have breakfast.
+When going downstairs to the right of the main hall we entered the room where the talks would be given.
+
 For the coffee lovers, professional baristas served the best coffee possible. With a nice heart drawn on top if it.
 
-![Keynote]({{ '/img/js-conf-budapest/from-js-conf-budapest-with-love.jpg' | prepend: site.baseurl }}) 
+![Keynote]({{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }}) 
+
+
+****
+
+
+## Day 1: Talks
+
+* [Laurie Voss: What everybody should know about npm](#laurie-voss-what-everybody-should-know-about-npm)
+* [Safia Abdalla: The Hitchhiker's Guide to All Things Memory in Javascript](#safia-abdalla-the-hitchhikers-guide-to-all-things-memory-in-javascript)
+* [Yan Zhu: Encrypt the web for $0](#yan-zhu-encrypt-the-web-for-0)
+* [Dennis Mishumov: Why performance matters](#dennis-mishumov-why-performance-matters)
+* [Princiya Sequeira: Natural user interfaces using JavaScript](#princiya-sequeira-natural-user-interfaces-using-javascript)
+* [Maurice de Beijer: Event-sourcing your React-Redux applications](#maurice-de-beijer-event-sourcing-your-react-redux-applications)
+* [Rachel Watson: The Internet of Cats](#rachel-watson-the-internet-of-cats)
+* [Nick Hehr: The other side of empathy](#nick-hehr-the-other-side-of-empathy)
+* [Tim Pietrusky and Martin Schuhfuss: We love Music and the Web](#tim-pietrusky-and-martin-schuhfuss-we-love-music-and-the-web)
 
 
 ****
@@ -30,8 +49,7 @@ For the coffee lovers, professional baristas served the best coffee possible. Wi
 
 ## Day 1: Morning
 
-* [Laurie Voss: What everybody should know about npm](#laurie-voss-what-everybody-should-know-about-npm)
-* [Safia Abdalla: The Hitchhiker's Guide to All Things Memory in Javascript](#safia-abdalla-the-hitchhikers-guide-to-all-things-memory-in-javascript)
+<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-seldo.jpg">
 
 ### Laurie Voss: What everybody should know about npm
 
@@ -39,10 +57,12 @@ Laurie is CTO at npm Inc.
 
 You can find him on Twitter using the handle [@seldo](https://twitter.com/seldo).
 
-> npm is six years old, but 80% of npm users turned up in the last year.
-> That's a lot of new people! Because of that, a lot of older, core features aren't known about by the majority of npm users.
-> This talk is about how npm expects you to use npm, and the commands and workflows that can make you into a power user.
-> There will be lots of stuff for beginners, and definitely some tricks that even most pros don't know.
+<blockquote class="clear"><p>
+npm is six years old, but 80% of npm users turned up in the last year.
+That's a lot of new people! Because of that, a lot of older, core features aren't known about by the majority of npm users.
+This talk is about how npm expects you to use npm, and the commands and workflows that can make you into a power user.
+There will be lots of stuff for beginners, and definitely some tricks that even most pros don't know.
+</p></blockquote>
 
 #### How does npm look up packages?
 In contrast to what most people think, npm does not download it's modules from GitHub or other version control systems.
@@ -194,14 +214,18 @@ It takes things you have to do all the time and makes things simpler and faster.
 ****
 
 
+<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-captainsafia.jpg">
+
 ### Safia Abdalla: The Hitchhiker's Guide to All Things Memory in Javascript
 
 Safia is a lover of data science and open source software.
 
 You can find her on Twitter using the handle [@captainsafia](https://twitter.com/captainsafia) or on her webpage [safia.rocks](http://safia.rocks/). 
 
-> This talk will take beginners through an exploration of Javascript's garbage collector and memory allocation implementations and their implications on how performant code should be written.
-> Attendees will leave this talk having gained insights into the under-the-hood operations of Javascript and how they can leverage them to produce performant code.
+<blockquote class="clear"><p>
+This talk will take beginners through an exploration of Javascript's garbage collector and memory allocation implementations and their implications on how performant code should be written.
+Attendees will leave this talk having gained insights into the under-the-hood operations of Javascript and how they can leverage them to produce performant code.
+</p></blockquote>
 
 #### Slides and interactive tutorial
 The slides of this talk can be found on [safia.rocks](http://safia.rocks).
@@ -276,7 +300,17 @@ It will provide a file with .heap extension which enables you to load it in the 
 ****
 
 
-### Yan Zhu (@bcrypt) : Encrypt the web for $0
+<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-bcrypt.jpg">
+
+### Yan Zhu: Encrypt the web for $0
+
+(@bcrypt) 
+
+<blockquote class="clear"><p>
+Everyone in 2016 knows that websites should use HTTPS.
+However, there is a common misconception that TLS and other security measures are expensive and slow down both web developers and page load times.
+This talk will show you some easy tricks to make your site more secure without sacrificing performance or requiring a lot of effort.
+</p></blockquote>
 
 **Is the web fast yet?**
 
@@ -295,7 +329,24 @@ Let's Encrypt (https://letsencrypt.org). At this moment in beta.
 
 https://gethttpsforfree.com
 
-### Dennis Mishumov : Why performance matters
+
+****
+
+
+<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-mishunov.jpg">
+
+### Dennis Mishumov: Why performance matters
+
+@mishunov
+
+<blockquote class="clear"><p>
+Performance is not about Mathematics.
+Performance is about Perception.
+Perception is what makes a site with a very few requests nevertheless feel slow, while a site that delivers search results during tens of seconds can feel fast enough for your user.
+User’s perception of your website’s speed is the only true performance measure.
+
+This talk is about perception, neuroscience and psychology. The time is ripe to understand performance from the user’s perspective.
+</p></blockquote>
 
 - Speed! 1 second gain will increase revenue bij 1% for Company X. 1 second slower will decrease conversions by approx 5%.
 
@@ -310,9 +361,28 @@ Perception: we did a live test on the conference where the sames page loaded fir
 
 When delaying audio on a video, our mind will trick us by syncing the audio with what is visible on the screen. Perception!
 
+
+****
+
+
 ## Day 1 afternoon
 
-### Princiya Sequeira (Zalando - @princi_ya @ZalandoTech) : Natural user interfaces using JavaScript
+<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-princi_ya.jpg">
+
+### Princiya Sequeira: Natural user interfaces using JavaScript
+
+ (Zalando - @princi_ya @ZalandoTech) 
+
+<blockquote class="clear"><p>
+The way we interacted with computers on a large scale was stuck in place for roughly 20 years.
+From mouse to keyboard to joystick, it is game over.
+Today it is the era of gestures.
+Today’s gamers can do everything from slice and dice produce in Fruit Ninja to quest for a dragon in Skyrim.
+We’ve been captivated by these powerful, natural, and intuitive interactions; imagining what it would be like to have that power at our own fingertips.
+
+In this recent decade, we’ve seen some staggering advances in technologies bring us closer making these magical experiences a reality.
+In this talk I will present how we can create new, intuitive, interactions for these novel input devices using JavaScript.
+</p></blockquote>
 
 **Typed, Clicked, Touched, ?**
 
@@ -358,7 +428,22 @@ Example: Drawing board with a brush. NUIJS will translate the input data from th
 * Adaboost training
 * Cascading classifiers
 
-### Maurice de Beijer (@mauricedb) : Event-sourcing your React-Redux applications
+
+****
+
+
+<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-mauricedb.jpg">
+
+### Maurice de Beijer: Event-sourcing your React-Redux applications
+
+(@mauricedb) 
+
+<blockquote class="clear"><p>
+With Event-Sourcing every action leading up to the current state is stored as a separate domain event.
+This collection of domain events is then used as the write model in the CQRS model.
+These same events are projected out to a secondary database to build the read model for the application.
+In this session Maurice de Beijer will explain why you might want to use Event-Sourcing and how to get started with this design in your React and Flux applications.
+</p></blockquote>
 
 React Tutorial (Kickstarter) : @react_tutorial
 
@@ -380,7 +465,25 @@ Note: 2 lines above need to be stacked (in flow form) and both end up to Browser
 
 Event sourcing will not overwrite the previous state, but will save the new state. This means that you get a backlog or version history.
 
-### Rachel Watson (@ohhoe) : The Internet of Cats
+
+****
+
+
+<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-ohhoe.jpg">
+
+### Rachel Watson: The Internet of Cats
+
+(@ohhoe) 
+
+<blockquote class="clear"><p>
+Ever lose out on a good night's rest because your pesky cats keep waking you up at 4am for food?
+Rachel has.
+Many times.
+For her first project using node, socket.io, microcontrollers, and johnny-five, Rachel built a web-based feeder that delivers tasty cat chow on a configurable schedule or when triggered remotely.
+She'll walk you through her learning process and get you excited about trying new things in your own projects.
+Finally, she'll show you how to take the first steps to release your work to the open source community.
+</p></blockquote>
+
 
 How can we incorporate cats in technology?
 
@@ -439,7 +542,21 @@ No idea how to solder, oh, worked out!
 * Don't downplay your abilities: I mean, it's a super cool kitty food dispenser!
 * I like nodebots a lot
 
-### Nick Hehr (@HipsterBrown) : The other side of empathy
+
+****
+
+
+<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-hipsterbrown.jpg">
+
+### Nick Hehr: The other side of empathy
+
+(@HipsterBrown) 
+
+<blockquote class="clear"><p>
+In an industry that is so focused frameworks & tooling, we tend to lose sight of the people behind the products and how we work with them.
+I’ve found empathy to be a powerful resource while collaborating with teams inside companies and across the open source community.
+By breaking down The Other Side of Empathy, I will demonstrate how applying its principles to your development process will benefit the community and the products they create.
+</p></blockquote>
 
 #### Empathy
 
@@ -482,13 +599,38 @@ Key points to take away from this session are:
 Living by these rules will make the (web-)world a little bit of a better place, but won't prevent other people from still continuing these bad habbits.
 Don't let these people get to you! Continue doing what you're passionate about en seek out those who will give you that constructive feedback.
 
-## Conclusion
 
-As you can see it is fairly simple - just 4 steps - to add TypeScript support to your Ionic project by changing the default gulp setup used by Ionic.
-It's nice to know that Ionic 2 will have support for TypeScript built in so you won't have to do it yourself.
-By adding a flag `--ts` to your Ionic 2 project setup it will be enabled.
+****
 
-Personally I love using TypeScript and will use it whenever I can.
-It makes my life as a developer a lot easier by spotting errors before I even hit the browser.
 
-What are your thoughts about TypeScript? Feel free to add them in the comments section.
+<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-timpietrusky-usefulthink.jpg">
+
+### Tim Pietrusky and Martin Schuhfuss: We love Music and the Web
+
+<blockquote class="clear"><p>
+Tim and Martin share a common interest in a lot of things: music, lights, visualizations, MIDI and electronics.
+But what happens if those interests are combined with the endless possibilities the web has to offer?
+You will find out in this live audio + visual performance.
+</p></blockquote>
+
+Talk we totally missed ...
+
+
+****
+
+
+### Afterparty with Beatman and Ludmilla
+
+After a long day it was time for some party time and since JS Conf Budapest was hosted at a club this could only be good!
+
+We were presented a live set by Breakspoll 2015 winner Beatman and Ludmilla.
+
+<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/246816288&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+
+
+****
+
+
+## Day 1: Conclusion
+
+Conclusion here ...

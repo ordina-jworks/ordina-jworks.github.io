@@ -30,6 +30,7 @@ For the coffee lovers, professional baristas served the best coffee possible. Wi
 
 ****
 
+
 ## Day 2: Talks
 
 * [Suz Hinton: The Formulartic Spectrum](#suz-hinton-the-formulartic-spectrum)
@@ -41,6 +42,10 @@ For the coffee lovers, professional baristas served the best coffee possible. Wi
 * [Stefan Baumgartner : HTTP/2 is coming! Unbundle all the things?!?](#stefan-baumgartner--http2-is-coming-unbundle-all-the-things)
 * [Claudia Hernández : Down the Rabbit Hole: JS in Wonderland](#claudia-hernandez--down-the-rabbit-hole-js-in-wonderland)
 * [Lena Reinhard : Works On My Machine, or the Problem is between Keyboard and Chair](#lena-reinhard--works-on-my-machine-or-the-problem-is-between-keyboard-and-chair)
+
+
+****
+
 
 ## Day 2: Morning
 
@@ -570,6 +575,6 @@ Animations in software can trigger panic attacks or eppileptic attacks.
 ****
 
 
-## Conclusion
+## Day 2: Conclusion
 
 JS Conf BP 2017: september 14-15.
