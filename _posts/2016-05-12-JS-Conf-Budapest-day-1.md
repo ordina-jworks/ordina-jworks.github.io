@@ -41,7 +41,6 @@ For the coffee lovers, professional baristas served the best coffee possible. Wi
 * [Maurice de Beijer: Event-sourcing your React-Redux applications](#maurice-de-beijer-event-sourcing-your-react-redux-applications)
 * [Rachel Watson: The Internet of Cats](#rachel-watson-the-internet-of-cats)
 * [Nick Hehr: The other side of empathy](#nick-hehr-the-other-side-of-empathy)
-* [Tim Pietrusky and Martin Schuhfuss: We love Music and the Web](#tim-pietrusky-and-martin-schuhfuss-we-love-music-and-the-web)
 
 
 ****
@@ -695,22 +694,6 @@ Key points to take away from this session are:
 
 Living by these rules will make the (web-)world a little bit of a better place, but won't prevent other people from still continuing these bad habbits.
 Don't let these people get to you! Continue doing what you're passionate about en seek out those who will give you that constructive feedback.
-
-****
-
-
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-timpietrusky-usefulthink.jpg">
-
-### Tim Pietrusky and Martin Schuhfuss: We love Music and the Web
-
-<blockquote class="clear"><p>
-Tim and Martin share a common interest in a lot of things: music, lights, visualizations, MIDI and electronics.
-But what happens if those interests are combined with the endless possibilities the web has to offer?
-You will find out in this live audio + visual performance.
-</p></blockquote>
-
-Talk we totally missed ...
-
 
 ****
 
