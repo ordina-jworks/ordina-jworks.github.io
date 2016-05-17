@@ -1,6 +1,6 @@
 ---
 layout: post
-author: kevin_van_houtte
+authors: [kevin_van_houtte]
 title: 'AngularTS: A new look @ Angular'
 image: /img/angularts.jpg
 tags: [TypeScript,AngularJS]

@@ -1,6 +1,6 @@
 ---
 layout: post
-author: ken_coenen
+authors: [ken_coenen]
 title: 'A decade of DDD, CQRS and Event Sourcing'
 image: /img/DDDEurope2015.jpg
 tags: [Domain-Driven Design, DDD, CQRS, Event Sourcing, Software Craftmanship]

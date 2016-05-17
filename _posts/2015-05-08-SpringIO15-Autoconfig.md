@@ -1,6 +1,6 @@
 ---
 layout: post
-author: andreas_evers
+authors: [andreas_evers]
 title: 'Master Spring Boot auto-configuration'
 image: /img/springio.jpg
 tags: [Spring]

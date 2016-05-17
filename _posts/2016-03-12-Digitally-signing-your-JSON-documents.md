@@ -1,6 +1,6 @@
 ---
 layout: post
-author: tim_ysewyn
+authors: [tim_ysewyn]
 title: 'Digitally signing your JSON documents'
 image: /img/digitally-signing-your-json-documents.png
 tags: [Security, JOSE, JWS, JSON Web Signature]
