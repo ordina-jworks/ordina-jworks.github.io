@@ -25,7 +25,7 @@ When going downstairs to the right of the main hall we entered the room where th
 
 For the coffee lovers, professional baristas served the best coffee possible. With a nice heart drawn on top if it.
 
-![Keynote]({{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }}) 
+![JS Conf Budapest 2016 Photo Collage]({{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }}) 
 
 
 ****
@@ -573,4 +573,14 @@ Animations in software can trigger panic attacks or eppileptic attacks.
 
 ## Day 2: Conclusion
 
-JS Conf BP 2017: september 14-15.
+Something ...
+
+### Find us on the family photo!
+
+![JS Conf Budapest 2016 Family Photo]({{ '/img/js-conf-budapest/js-conf-budapest-2016-family-photo.jpg' | prepend: site.baseurl }})
+
+### Next year
+
+In 2017, JS Conf Budapest will be held on the 14th and 15th of September.
+
+We will sure be present for what will be another great edition! See you next year!

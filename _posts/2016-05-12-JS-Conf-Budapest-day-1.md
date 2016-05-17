@@ -25,7 +25,7 @@ When going downstairs to the right of the main hall we entered the room where th
 
 For the coffee lovers, professional baristas served the best coffee possible. With a nice heart drawn on top if it.
 
-![Keynote]({{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }}) 
+![JS Conf Budapest 2016 Photo Collage]({{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }}) 
 
 
 ****
@@ -56,6 +56,8 @@ For the coffee lovers, professional baristas served the best coffee possible. Wi
 Laurie is CTO at npm Inc.
 
 You can find him on Twitter using the handle [@seldo](https://twitter.com/seldo).
+
+The presentation he gave can be found a [slides.com/seldo/jsconf-budapest](http://slides.com/seldo/jsconf-budapest).
 
 <blockquote class="clear"><p>
 npm is six years old, but 80% of npm users turned up in the last year.
@@ -312,7 +314,7 @@ Follow this [interactive tutorial](https://nbdev.surge.sh/#/gist/21885286a207c05
 
 ### Yan Zhu: Encrypt the web for $0
 
-Yan is ...
+Yan is engineer [@brave](https://twitter.com/brave) and likes information freedom, breaking shit, cryptography, theoretical physics, free software, infosec, stunt h4cking, and an Internet that respects humans.
 
 You can find her on Twitter using the handle [@bcrypt](https://twitter.com/bcrypt).
 
@@ -333,11 +335,29 @@ Yes. Netflix is going to secure streams this year over HTTPS.
 * 2015: Netflix and chill
 * 2016: Netflix and HTTPS and chill
 
-https://istlsfastyet.com
+> TLS has exactly one performance problem: it is not used widely enough.
+> Everything else can be optimized.
 
-Let's Encrypt (https://letsencrypt.org). At this moment in beta.
+> Data delivered over an unencrypted channel is insecure, untrustworthy, and trivially intercepted.
+> We owe it to our users to protect the security, privacy, and integrity of their data — all data must be encrypted while in flight and at rest.
+> Historically, concerns over performance have been the common excuse to avoid these obligations, but today that is a false dichotomy. Let's dispel some myths.
 
-https://gethttpsforfree.com
+Keep reading about this matter on [istlsfastyet.com](https://istlsfastyet.com).
+
+#### Let's Encrypt
+
+Let's Encrypt (a non-profit certificate authority) has left beta stage on the 12th of April and is a new Certificate Authority: It's **free**, **automated**, and **open**.
+
+It is backed by some major sponsors such as Mozilla, Akamai, Cisco Chrome, and so much more.
+
+> The objective of Let’s Encrypt and the ACME protocol is to make it possible to set up an HTTPS server and have it automatically obtain a browser-trusted certificate, without any human intervention.
+> This is accomplished by running a certificate management agent on the web server.
+
+Interested in Let's Encrypt? Keep reading on [letsencrypt.org](https://letsencrypt.org).
+
+#### Get HTTPS for free!
+
+Manually setting up your free HTTPS certificates from Let's Encrypt is also an option. You can do that on [gethttpsforfree.com](https://gethttpsforfree.com).
 
 
 ****
@@ -347,9 +367,9 @@ https://gethttpsforfree.com
 
 ### Dennis Mishumov: Why performance matters
 
-Dennis is ...
+Dennis is frontend developer, speaker. Science aficionado. And writes for [@smashingmag](https://www.smashingmagazine.com/).
 
-You can find him on Twitter using the handle [@mishunov](https://twitter.com/mishunov).
+You can find him on Twitter using the handle [@mishunov](https://twitter.com/mishunov) or on his personal website [mishunov.me](http://mishunov.me).
 
 <blockquote class="clear"><p>
 Performance is not about Mathematics.
@@ -360,18 +380,30 @@ User’s perception of your website’s speed is the only true performance measu
 This talk is about perception, neuroscience and psychology. The time is ripe to understand performance from the user’s perspective.
 </p></blockquote>
 
-- Speed! 1 second gain will increase revenue bij 1% for Company X. 1 second slower will decrease conversions by approx 5%.
+In this talk Dennis showed us that performance is not always in the numbers, but that it is most of the time perception.
 
-**Performance is about perception! Not mathematics.**
+So next time you decide to invest a bunch of money in getting that request 100ms faster, make sure it will have impact!
 
-The 20% rule.
-- Event: make page load at least 20% faster, otherwise they don't notice. We're talking about noticeable difference. A big difference with meaningful difference.
+> Performance is about perception! Not mathematics.
+
+#### Speed!
+
+1 second gain will increase revenue bij 1% for Company X. 1 second slower will decrease conversions by approx 5%.
+
+**The 20% rule.**
+
+This rule defines that you should make a page load at least 20% faster, otherwise users will not notice.
+
+We're talking about noticeable difference.
+A big difference with meaningful difference.
 
 **Noticeable !== Meaningful**
 
-Perception: we did a live test on the conference where the sames page loaded first in 1.6 seconds and afterwards 2 seconds. Most of the people thought the second 2 second page was faster. Perception!
+We did a live test on the conference where the crowd needed to decide which of the two pages displayed loaded faster. 
+The first page loaded in 1.6 seconds whereas the second one loaded in 2 seconds.
+Most of the people thought the second page, with 2 seconds load time was faster. This is all about perception!
 
-When delaying audio on a video, our mind will trick us by syncing the audio with what is visible on the screen. Perception!
+Another fun fact is when delaying audio on a video, our mind will trick us by syncing the audio with what is visible on the screen. Again perception!
 
 
 ****
@@ -398,44 +430,50 @@ In this recent decade, we’ve seen some staggering advances in technologies bri
 In this talk I will present how we can create new, intuitive, interactions for these novel input devices using JavaScript.
 </p></blockquote>
 
-**Typed, Clicked, Touched, ?**
+This talk takes on a different approach in user interaction, in way that different ways of input can result in the same output.
 
-**Typed, Clicked, Touched, Guestures/Speech/...**
+At this moment we know the evolution of **Typed, Clicked and Touched** but currently we are evolving to **Typed, Clicked, Touched, Guestures/Speech/...** etc.
 
-Evolution of user interfaces
+#### Evolution of user interfaces.
 
 * CLI: Codified, Strict
 * GUI: Metaphor, Exploratory
-* NUI (Natural User Interfaces): Direct Intuitive
+* NUI (Natural User Interfaces): Direct Intuitive. More natural and more intuitive.
 
-NUI: more natural and more intuitive
+#### NUI + JS = NUIJS
 
-**NUI + JS = NUIJS**
+At first Princiya was trying to build [a simulator for motion controlled 3D camera's](https://github.com/nuijs/simulator).
+A tool that is not dependent on any platform without using a physical device.
+The simulator is purely based on JavaScript and easily integrates with the device's SDKs.
 
-Motivation: Started with @princi_ya trying to build simulator for motion controlled 3D camera's. Tool is not dependent on any platform. Once the simulator whas made, trying to build some apps (using leap motion for example) to move a slideshow or other purposes.
+Once the simulator was made, she tried to build some apps with it (using leap motion for example) to move a slideshow or any other purpose.
 
-Augmented Reality.
-Virtual Reality.
-Perceptual Computing: bringing human like behaviour to devices
-A lot of devices available: VR, motion, ...
+The tool can be used for many purposes an a lot of devices are already available (VR, motion, ...)
 
-**What next?**
+* Augmented Reality.
+* Virtual Reality.
+* Perceptual Computing: bringing human like behaviour to devices
 
-Architecture:
+#### What next?
+
+**Architecture**
 
 * Step 1: USB controller reads sensor data
 * Step 2: Data is stored in local memory
 * Step 3: Data is streamed via USB to SDK
 
-The streaming part is a very important part. Why? I have no clue.
+**Live demo**
 
-https://github.com/nuijs
+Princiya demonstrated a [drawing board with a brush](https://github.com/nuijs/apps), both with mousepointer and LEAP motion.
+NUIJS will translate the input data from the mousepointer to the Node.js Web Socket server and this one will process the data and send it back to the LEAP motion SDK.
+The same code can be used with the LEAP motion itself since it integrates nicely with the device's SDKs.
 
-Open source tools also: Webcam swiper and JSObjectDetect
+Other open source tools Princiya mentioned where [Webcam Swiper](https://github.com/iambrandonn/WebcamSwiper) and [js-objectdetect](https://github.com/mtschirs/js-objectdetect). 
 
-Example: Drawing board with a brush. NUIJS will translate the input data from the mousepointer to the Node.js Web Socket server and this one will process the data and send it back to the LEAP motion SDK. The same code can be used with the LEAP motion itself.
+**Viola-Jones Algorithm**
 
-**Viola Jones Algorithm**
+Most of the tools will use or depend on the Voila-Jones Algorithm which can be used for object detection.
+Combined with other tools this can be very powerful. 
 
 * HAAR feature selection
 * Creating an integral image
@@ -586,7 +624,7 @@ Other things learned along the way were:
 
 ****
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-ohhoe.jpg">
+<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-hipsterbrown.jpg">
 
 ### Nick Hehr: The other side of empathy
 
