@@ -1,7 +1,6 @@
 ---
 layout: post
-author: jan_de_wilde
-coauthor: steve_de_zitter
+authors: [jan_de_wilde, steve_de_zitter]
 title: 'JS Conf Budapest Day 1'
 image: /img/js-conf-budapest-2016.jpg
 tags: [JSConfBudapest,JavaScript,Conference]
