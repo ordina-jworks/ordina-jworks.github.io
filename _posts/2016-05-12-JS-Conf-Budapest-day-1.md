@@ -220,16 +220,16 @@ It takes things you have to do all the time and makes things simpler and faster.
 
 Safia is a lover of data science and open source software.
 
-You can find her on Twitter using the handle [@captainsafia](https://twitter.com/captainsafia) or on her webpage [safia.rocks](http://safia.rocks/). 
+You can find her on Twitter using the handle [@captainsafia](https://twitter.com/captainsafia) or on her webpage [safia.rocks](http://safia.rocks/).
+
+#### Slides and interactive tutorial
+The slides of this talk can be found here [http://slides.com/captainsafia/memory-in-javascript](http://slides.com/captainsafia/memory-in-javascript).
+Safia also created an [interactive tutorial](https://nbdev.surge.sh/#/gist/21885286a207c05bf1194a35490420c1) on how to use the Chrome DevTools for memory management. 
 
 <blockquote class="clear"><p>
 This talk will take beginners through an exploration of Javascript's garbage collector and memory allocation implementations and their implications on how performant code should be written.
 Attendees will leave this talk having gained insights into the under-the-hood operations of Javascript and how they can leverage them to produce performant code.
 </p></blockquote>
-
-#### Slides and interactive tutorial
-The slides of this talk can be found on [safia.rocks](http://safia.rocks).
-Safia also created an [interactive tutorial](https://nbdev.surge.sh/#/gist/21885286a207c05bf1194a35490420c1) on how to use the Chrome DevTools for memory management.
 
 #### Why should I care about memory?
 
@@ -254,15 +254,19 @@ We have basic types in JavaScript:
 Memory is allocated in a heap structure and uses a root node which has references to other ones: booleans, string, etc.
 So basically: root node -> references -> variables.
 
-V8 performs memory management in 6 spaces:
+V8 allocates objects in memory in 6 contiguous chunks, or spaces:
 
-* New space: memory gets allocated here when an object is created immediately.
-* Old pointer space: if you don't use an object for a while, it will move to this space.
-* Old data space: will end up here if you're not dealing with a reference or pointer.
+* New space: Memory gets allocated here when an object is created immediately.
+It is small and is designed to be garbage collected very quickly, independent of other spaces.
+* Old pointer space: Contains most objects which may have pointers to other objects.
+Most objects are moved here after surviving in new space for a while.
+* Old data space: Objects that just contain raw data (no reference or pointer) will end up here after surviving in new space for a while. 
 * Large object space: Used to store large object tables.
 They get stored here so it doesn't conflict with the store space of the above mentioned spaces.
-* Code space: ...
-* Map space: 
+* Code space: Code objects are allocated here. This is the only space with executable memory.
+* Map space: Contains objects which are all the same size and has some constraints on what kind of objects they point to, which simplifies collection. 
+
+**How does V8 collect garbage memory?**
 
 V8 uses a 'stop the world' technique that enables it to run a short garbage collection cycle.
 This means it will litteraly halt the program.
@@ -295,6 +299,10 @@ Heapdump takes a snapshot of your heap at a specific moment.
 It will provide a file with .heap extension which enables you to load it in the Chrome DevTools for further inspection.
 
 `npm install heapdump`
+
+#### Let's practice!
+
+Follow this [interactive tutorial](https://nbdev.surge.sh/#/gist/21885286a207c05bf1194a35490420c1) on how to use the Chrome DevTools for memory management.
 
 
 ****
