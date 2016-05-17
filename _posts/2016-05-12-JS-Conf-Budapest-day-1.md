@@ -711,4 +711,8 @@ We were presented a live set by Breakspoll 2015 winner Beatman and Ludmilla.
 
 ## Day 1: Conclusion
 
-Conclusion here ...
+Day 1 was packed full of great speakers and the atmosphere was superb! A lot of inspiring talks that gave us a lot of topics to cover for the months to come within the JWorks unit at Ordina Belgium.
+
+The after party with Beatman and Ludmilla was a perfect closing of the day. On our walk to the hotel we could only imagine what day 2 would bring.
+
+[Read our full report on day 2 of JS Conf Budapest here!](/conference/2016/05/13/JS-Conf-Budapest-day-2.html).
