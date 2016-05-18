@@ -17,21 +17,10 @@ Located right in the center of the city, below an actual pool, filled with water
 > There is always a good concert and a smashing exhibition, performance, or other event happening here, in a friendly scene, situated right in the city center. 
 
 JS Conf Budapest is hosted by the one and only [Jake Archibald](https://twitter.com/jaffathecake) from Google.
-After waiting in line at 8 o'clock in the morning to get our badges we were welcomed at the main hall where some companies hosted stands.
-
-In another space after the main hall tables were nicely dressed and people could have breakfast.
-When going downstairs to the right of the main hall we entered the room where the talks would be given.
-
-For the coffee lovers, professional baristas served the best coffee possible. With a nice heart drawn on top if it.
+Day 2 started at 9 o'clock.
+Enought time to drink great coffee and enjoy the breakfast.
 
 ![JS Conf Budapest 2016 Photo Collage]({{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }}) 
-
-At 9 o'clock the conference would officially start so went downstairs.
-After taking our seat we played the waiting game and all of a sudden, we got this nice intro made with blender and three.js! Check it out for yourself!
-
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
-<iframe src="http://usefulthink.com/jsconf.bp-intro/" width="100%" height="100%;" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0;"></iframe>
-</div>
 
 
 ****
@@ -42,12 +31,12 @@ After taking our seat we played the waiting game and all of a sudden, we got thi
 * [Suz Hinton: The Formulartic Spectrum](#suz-hinton-the-formulartic-spectrum)
 * [Oliver Joseph Ash: Building an Offline Page for theguardian.com](#oliver-joseph-ash-building-an-offline-page-for-theguardiancom)
 * [Nicolás Bevacqua: High Performance in the Critical Rendering Path](#nicolas-bevacqua-high-performance-in-the-critical-rendering-path)
-* [Anand Vemuri : Offensive and Defensive Strategies for Client-Side JavaScript](#anand-vemuri--offensive-and-defensive-strategies-for-client-side-javascript)
-* [Sam Bellen : Changing live audio with the web-audio-api](#sam-bellen--changing-live-audio-with-the-web-audio-api)
-* [Rob Kerr : Science in the Browser: Orchestrating and Visualising Neural Simulations](#rob-kerr--science-in-the-browser-orchestrating-and-visualising-neural-simulations)
-* [Stefan Baumgartner : HTTP/2 is coming! Unbundle all the things?!?](#stefan-baumgartner--http2-is-coming-unbundle-all-the-things)
-* [Claudia Hernández : Down the Rabbit Hole: JS in Wonderland](#claudia-hernandez--down-the-rabbit-hole-js-in-wonderland)
-* [Lena Reinhard : Works On My Machine, or the Problem is between Keyboard and Chair](#lena-reinhard--works-on-my-machine-or-the-problem-is-between-keyboard-and-chair)
+* [Anand Vemuri: Offensive and Defensive Strategies for Client-Side JavaScript](#anand-vemuri-offensive-and-defensive-strategies-for-client-side-javascript)
+* [Sam Bellen: Changing live audio with the web-audio-api](#sam-bellen-changing-live-audio-with-the-web-audio-api)
+* [Rob Kerr: Science in the Browser: Orchestrating and Visualising Neural Simulations](#rob-kerr-science-in-the-browser-orchestrating-and-visualising-neural-simulations)
+* [Stefan Baumgartner: HTTP/2 is coming! Unbundle all the things?!?](#stefan-baumgartner-http2-is-coming-unbundle-all-the-things)
+* [Claudia Hernández: Down the Rabbit Hole: JS in Wonderland](#claudia-hernandez-down-the-rabbit-hole-js-in-wonderland)
+* [Lena Reinhard: Works On My Machine, or the Problem is between Keyboard and Chair](#lena-reinhard-works-on-my-machine-or-the-problem-is-between-keyboard-and-chair)
 
 
 ****
@@ -499,7 +488,7 @@ For a lot more tips and tricks we sugget to [view the slides for Nicolás's tal
 
 <img class="p-image float-image" width="200" alt="Anand Vemuri" src="/img/js-conf-budapest/speaker-brownhat57.jpg">
 
-### Anand Vemuri : Offensive and Defensive Strategies for Client-Side JavaScript
+### Anand Vemuri: Offensive and Defensive Strategies for Client-Side JavaScript
 
 Anand is Senior Application Security Consultant at nVisium
 
@@ -558,7 +547,7 @@ Kali Linux.
 
 <img class="p-image float-image" width="200" alt="Sam Bellen" src="/img/js-conf-budapest/speaker-sambego.jpg">
 
-### Sam Bellen : Changing live audio with the web-audio-api
+### Sam Bellen: Changing live audio with the web-audio-api
 
 Sam is ... developer at Made with love.
 
@@ -621,7 +610,7 @@ Presentation can be found here: https://github.com/Sambego/pedalboard-presentati
 
 <img class="p-image float-image" width="200" alt="Rob Kerr" src="/img/js-conf-budapest/speaker-robrkerr.jpg">
 
-### Rob Kerr : Science in the Browser: Orchestrating and Visualising Neural Simulations
+### Rob Kerr: Science in the Browser: Orchestrating and Visualising Neural Simulations
 
 Rob works at IBM Research Australia.
 
@@ -653,9 +642,11 @@ That gives a lot of knowledge about how neurons behave.
 
 <img class="p-image float-image" width="200" alt="Stefan Baumgartner" src="/img/js-conf-budapest/speaker-ddprrt.jpg">
 
-### Stefan Baumgartner : HTTP/2 is coming! Unbundle all the things?!?
+### Stefan Baumgartner: HTTP/2 is coming! Unbundle all the things?!?
 
-Stefan is ...
+Stefan is a web developer/web lover based in Linz, Austria.
+Currently working at Ruxit, making the web a faster place.
+He is also a co-host at the German Workingdraft podcast.
 
 You can find him on Twitter using the handle [@ddprrt](https://twitter.com/ddprrt).
 
@@ -667,34 +658,38 @@ We will critically analyze recommendations for deployment strategies and find ou
 #### Unbundle all the things?
 
 Everybody is saying to not bundle things, minify things, concatenate things, ... when moving to HTTP/2.
+
 Tools like Browserify, Webpack, etc. would all become obsolete.
 But why? We need to question this and see if this is actually the truth.
 
-But first: The best request is a request not being made.
+#### The best request is a request not being made
 
-In HTTP version 1.1 we need to do as few requests possible. 
-Pages like Giphy have 40 TCP connection at a single time!
+In HTTP version 1.1 we need to do as few requests possible. Pages like Giphy have 40 TCP connection at a single time!
 
 HTTP/2 was made to prevent the bad parts of HTTP/1.1
+
 HTTP/2 allows a connection to stay open and transfer multiple things over the same connection.
 No need for handshakes for each file that needs to be transferred from the server to the client.
 
-Rule of thumb: a slow website on HTTP1.1 will still be a slow website on HTTP/2.
+#### Rule of thumb
+
+A slow website on HTTP/1.1 will still be a slow website on HTTP/2.
 You need to perform optimisations no matter what.
 
-Most important part: DO NOT BLOCK THE RENDER PATH.
+Most important part: **do not block the render path**.
 
-Only serve what you really made.
-Again, the best request is a request not being made.
+Only serve what you really need.
+Again, **the best request is a request not being made**.
 
-So in some way, yes unbundle all the things. Because you don't want to transfer bytes you don't need.
-But there is something more to it.
+#### So, unbundle all the things?
 
-Article about packaging: engineering.khanacademy.org/posts/js-packaging-http2.htm
-Good article to read!
+So in some way, yes unbundle all the things.
+Because you don't want to transfer bytes you don't need, but there is something more to it.
+This article about packaging will get you on the way: [engineering.khanacademy.org/posts/js-packaging-http2.htm](http://engineering.khanacademy.org/posts/js-packaging-http2.htm).
 
 Create a lot of modules to update as flexible as possible and as small as possible.
 When using ES6 we can also use Treeshaking.
+
 * Create independent, excheangable components
 * Create small, detachable bundles
 * Think about long lastig applications and frequently of change
@@ -707,7 +702,7 @@ Use tools not rules!
 
 <img class="p-image float-image" width="200" alt="Claudia Hernández" src="/img/js-conf-budapest/speaker-koste4.jpg">
 
-### Claudia Hernández : Down the Rabbit Hole: JS in Wonderland
+### Claudia Hernández: Down the Rabbit Hole: JS in Wonderland
 
 Claudia is Mexican front-end developer.
 
@@ -734,7 +729,7 @@ Be sure to check out [jsfuck.com](http://www.jsfuck.com/) for some fun times and
 
 <img class="p-image float-image" width="200" alt="Lena Reinhard" src="/img/js-conf-budapest/speaker-lrnrd.jpg">
 
-### Lena Reinhard : Works On My Machine, or the Problem is between Keyboard and Chair
+### Lena Reinhard: Works On My Machine, or the Problem is between Keyboard and Chair
 
 Lena is teamleader, consultant and photographer.
 
@@ -866,7 +861,17 @@ Have you contributed to debugging the tech industry?
 
 ## Day 2: Conclusion
 
-Something ...
+Just like day 1, day 2 was one hell of a nice day packed full of great speakers and a superb atmosphere!
+
+The talks by [Rob Kerr](#rob-kerr-science-in-the-browser-orchestrating-and-visualising-neural-simulations) and the one of [Lena Reinhart](#lena-reinhard-works-on-my-machine-or-the-problem-is-between-keyboard-and-chair) surely got the most attention.
+Rob's talk because it was impressive to see what they achieved over a course of 2 years to visualise neurons in the browser.
+Lena's talk because we got slammed in the face about how faulty the tech industry is at the moment.
+
+This year's edition was, just like the one we attended last year a very good one!
+It is nice to see such a diverse community that cares about technology and people.
+This is something we should be very proud of.
+
+A big thank you to the organisers and volunteers to make JS Conf Budapest what it is!
 
 ### Find us on the family photo!
 
@@ -877,3 +882,7 @@ Something ...
 In 2017, JS Conf Budapest will be held on the 14th and 15th of September.
 
 We will sure be present for what will be another great edition! See you next year!
+
+### JS Conf Budapest 2016, day 1
+
+[Read our full report on day 1 of JS Conf Budapest here!](/conference/2016/05/12/JS-Conf-Budapest-day-1.html).
