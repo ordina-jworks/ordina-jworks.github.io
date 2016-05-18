@@ -405,9 +405,10 @@ This can be fixed with a cache manifest.
 
 ### Nicolás Bevacqua: High Performance in the Critical Rendering Path
 
-Nicolás is ...
+Nicolás loves the web. he is a consultant, a conference speaker, the author of JavaScript Application Design, an opinionated blogger, and an open-source evangelist.
+He participates actively in the online JavaScript community — as well as offline in beautiful Buenos Aires.
 
-You can find him on Twitter using the handle [@nzgb](https://twitter.com/nzgb).
+You can find him on Twitter using the handle [@nzgb](https://twitter.com/nzgb) and on the web under the name [ponyfoo.com](https://ponyfoo.com/).
 
 <blockquote class="clear"><p>
 This talk covers the past, present and future of web application performance when it comes to delivery optimization.
@@ -416,42 +417,81 @@ Then I'll move on to what you should be doing -- optimizing TCP network delivery
 Afterwards we'll look at the future, and what HTTP 2.0 has in store for us, going full circle and letting us forego hacks of the past like bundling and minification.
 </p></blockquote>
 
-Ponyfoo.com
-
 #### Getting started
 
-Measure what is going and and see what is going on!
-DevTools Audits.
-- per resource advice
-- caching hints
+Measure what is going on and see what is going on!
 
-PageSpeed Insights (Google)
-- mobile
-- desktop
-Get a rough 1-100 score.
-Best practices
-Practical advice
+**Use the Chrome DevTools Audits.**
 
-WebPageTest (webpagetest.org)
-- Gives analytics and metrics where you can act on
-- A lot of statistics (see site, include image)
-- Waterfall View: figure out how to parallelize your download to speed up loading
+* Per-resource advice
+* Caching best practices
 
-Automate!
-- Measure early and measure often
+**PageSpeed Insights (Google)**
+
+[developers.google.com/speed/pagespeed/insights/](https://developers.google.com/speed/pagespeed/insights/)
+
+* Insights for mobile
+* Insights for desktop
+* Get a rough 1-100 score
+* Best practices
+* Practical advice
+
+**WebPageTest (webpagetest.org)**
+
+[webpagetest.org](http://www.webpagetest.org/)
+
+* Gives analytics and metrics where you can act on
+* A lot of statistics
+* PageSpeed Score
+* Waterfall View: figure out how to parallelize your download to speed up loading
+* Makes it easy to spot FOIT
+* Calculates SpeedIndex: SpeedIndex takes the visual progress of the visible page loading and computes an overall score for how quickly the content painted
+* Inspect every request
+* Analyze TCP traffic
+* Identify bottlenecks
+* Visualize progress
+
+#### Automate!
+
+But we can automate a lot!
+
+> Measure early. Measure often.
+
+PageSpeed Insights is availble as npm module.
+
+{% highlight sh %}
 npm install psi -g
+{% endhighlight %}
 
-- A little bit slower (for webpagetest) but also option
+Webpagetest is also available as npm module but is a bit slower.
+
+{% highlight sh %}
 npm install webpagetest-api underscore-cli
+{% endhighlight %}
 
-- Yslow
+YSlow is available for different platforms.
+
+{% highlight sh %}
 npm install grunt-yslow --save-dev
+{% endhighlight %}
 
-Budgets!
-- Inforce a performance budget.
-- Track impact of every commit
-- What should I track?
-timkadlec.com/2014/11/performance-budget-metrics
+#### Budgets
+
+* Enforce a performance budget
+* Track impact of every commit
+* What should I track? More info about this on [timkadlec.com/2014/11/performance-budget-metrics](https://timkadlec.com/2014/11/performance-budget-metrics)
+    * Milestone Timings: Load time, time to interact, "time to first tweet"
+    * SpeedIndex: Average time at which parts of a page are displayed
+    * Quantity based metrics: Request count, page weight, image weight ...
+    * Rule based metrics: YSlow grade, PageSpeed score, etc.
+
+Budgeting can also be automated using the grunt-perfbudget plugin.
+
+{% highlight sh %}
+npm install grunt-perfbudget --save-dev
+{% endhighlight %}
+
+For a lot more tips and tricks we sugget to [view the slides for Nicolás's talk on ponyfoo.com](https://ponyfoo.com/presentations/high-performance-in-the-critical-path).
 
 
 ****
