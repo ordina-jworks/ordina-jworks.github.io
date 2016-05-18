@@ -186,7 +186,9 @@ So Suz created a [subway card with built in speaker](https://noopkat.github.io/f
 
 ### Oliver Joseph Ash: Building an Offline Page for theguardian.com
 
-Oliver is ....
+Oliver is a software engineer working on the team behind theguardian.com.
+Being passionate about the open web, he aims to work on software that exploits the decentralised nature of the web to solve non-trivial, critical problems.
+With a strong background in arts as well as engineering, he approaches web development in its entirety: UX, performance, and functional programming are some of the things he enjoys most.
 
 You can find him on Twitter using the handle [@OliverJAsh](https://twitter.com/OliverJAsh). 
 
@@ -199,100 +201,202 @@ With service workers, the web is catching up.
 This talk will explain how Oliver used service workers to build an offline page for theguardian.com.
 </p></blockquote>
 
-#### Web vs native
+Oliver talked about the functionality they created with service workers on The Guardian.
+When offline on The Guardian you'll get a crossword puzzle (always the most recent) that you can play.
+We summarized the key parts of the talk for you.
 
-Native
-- content is cached
-- experience:
--- offline: stale content remains
--- server down: stale content remains
--- poor connection: stale while revalidate
--- good connection: stale while revalidate
+#### Website vs native
 
-website
-- experience
--- offline: nothing
--- server down: nothing
--- poor connection: white screen of death
--- good connection: new content
+**Native**
+
+* Content is cached
+* Experience:
+    * offline: stale content remains
+    * server down: stale content remains
+    * poor connection: stale while revalidate
+    * good connection: stale while revalidate
+
+**Website**
+
+* Experience
+    * offline: nothing
+    * server down: nothing
+    * poor connection: white screen of death
+    * good connection: new content
 
 #### How it works
 
 **Service workers**
-- Prototype built in < 1 day
 
-**What are service workers**
-- script that runs in the backgrond
-- useful for features that don't need user interaction
--- listen to push events, useful for pushing notification
--- intercept and handle network requets
--- future
---- background sync
---- alarms
---- geofencing
-- a progressive enhancement
-- trusted origins only (https only!, localhost)
-- Chrome, Opera and Firefox stable
+* Prototype built in < 1 day
 
-The guardian is not on https, but they are switching.
-Some pages have service workers already enabled /info /science /technology.
+**What is a service worker?**
 
---- When offline on the guardian you'll get a crossword puzzle (always the most recent) how did they do it?
+* A script that runs in the backgrond
+* Useful for features that don't need user interaction, e.g.:
+    * Listen to push events, useful for pushing notification
+    * Intercept and handle network requets
+    * Future
+        * Background sync
+        * Alarms (e.g. reminders)
+        * Geofencing
+* A progressive enhancement
+* Trusted origins only (HTTPS only or localhost)
+* Chrome, Opera and Firefox stable
 
-1. Create and register the service worker
+For now The Guardian is not yet fully on HTTPS, but they are switching at this time of writing.
 
-2. Something i missed :(
+Some pages have service workers already enabled such as:
 
-Chrome DevTools: about:debug#workers
+* [theguardian.com/info](https://www.theguardian.com/info)
+* [theguardian.com/science](https://www.theguardian.com/science)
+* [theguardian.com/technology](https://www.theguardian.com/technology)
+* [theguardian.com/business](https://www.theguardian.com/business)
 
-Service worker has
-* install event
-* cache the assets needed later
-* version off the cache (to check if a user has an old version so you can update with newer versions)
+#### How did they do it?
 
-3. Handle requests
+**1. Create and register the service worker**
+
+{% highlight javascript %}
+<script>
+if (navigator.serviceWorker) {
+    navigator.serviceWorker.register('/service-worker.js');
+}
+</script>
+{% endhighlight %}
+
+You can debug service workers in Chrome by selecting Service Workers under the Resources tab.
+
+**2. Prime the cache**
+
+* install event: get ready!
+* Cache the assets needed later
+* Version the cache. To check if a user has an old version so you can update with newer versions
+
+{% highlight javascript %}
+<script>
+var version = 1;
+var staticCacheName = 'static' + version;
+
+var updateCache = function () {
+    return caches.open(staticCacheName)
+        .then(function (cache) {
+            return cache.addAll([
+                '/offline-page',
+                '/assets/css/main.css',
+                '/assets/js/main.js'
+            ]);
+        });
+};
+
+self.addEventListener('install', function (event) {
+    event.waitUntil(updateCache());
+});
+</script>
+{% endhighlight %}
+
+**3. Handle requests with fetch**
 
 * fetch events
--- default: just fetch
--- override default
--- intercept network requests to:
---- fetch from the network
---- something
---- something else
+    * Default: just fetch
+    * Override default
+    * Intercept network requests to:
+        * Fetch from the network
+        * Read from the cache
+        * Construct your own response
 
-**Service worker: custom responses**
-use templating to enable custom json response
+{% highlight javascript %}
+<script>
+self.addEventListener('fetch', function (event) {
+    event.respondWith(fetch(event.request));
+});
+</script>
+{% endhighlight %}
+
+It is possible to use custom responses when using Service Workers. E.g. Use templating to construct a HTML respose from JSON.
+
+{% highlight javascript %}
+<script>
+self.addEventListener('fetch', function (event) {
+    var responseBody = '<h1>Hello, world!</h1>';
+    var responseOptions = {
+        headers: {
+            'Content-Type': 'text/html'
+        }
+    };
+    var response = new Response(
+        responseBody,
+        responseOptions
+    );
+    event.respondWith(response);
+});
+</script>
+{% endhighlight %}
 
 **(Im)mutable**
-Mutable (HTML)
-Immutable (assets: CSS, JS)
 
-**HTML**
-Network first, then cache
-Page -> service worker -> server or cache -> Page
+* Mutable (HTML)
+    * Network first, then cache
+    * Page -> service worker -> server or cache -> Page
+* Immutable (assets: CSS, JS)
+    * Cache first, then network
+    * Page -> service worker -> cache or server -> Page
 
-4. Updating the crossword
+**4. Updating the crossword**
 
 Check if the cache has been updated and if it's not up to date, update it and delete old cache.
 
-**offline-first**
+{% highlight javascript %}
+isCacheUpdated().then(function (isUpdated) {
+    if (!isUpdated) {
+        updateCache().then(deleteOldCaches);
+    }
+});
+{% endhighlight %}
 
-* instantly respond with a "shell" of the page straight from cache
-* improves the experience
+#### Offline-first
 
+Why should we be building with offline first?
 
-**Why**
+* Instantly respond with a "shell" of the page straight from cache when navigating a website
+* It improves the experience for users with poor connections
+* No more white screen of death
+* Show stale content whilst fetching new content
 
-* FUn
-* insignificant usage due to https/browser support
-** ... plant the seed and see what happens
-* flatten out browser bugs
+#### Problems and caveats
 
-**Conclusion**
+* Browser bugs in both Chrome and Firefox
+* Interleaving of versions in CDN cache
 
-* allow us to progressively enchance the experience for: offline users, ...
-* something
-* something
+This can be fixed with a cache manifest.
+
+{% highlight json %}
+// /offline-page.json
+{
+    "html": "<html><!-- v1 --></html>",
+    "assets": ["/v1.css"]
+}
+{% endhighlight %}
+
+#### Why? Is this valuable
+
+* Fun
+* Insignificant usage due to HTTPS/browser support
+    * ... but plant the seed and see what happens
+* Iron out browser bugs, pushes the web forward
+
+> "If we only use features that work in IE8, we're condemning ourselves to live in an IE8 world." — Nolan Lawson
+
+#### Conclusion
+
+* Service workers allow us to progressively enchance the experience for
+    * Offline users
+    * Users with poor connections
+* It's easy to build an offline page
+* A simple offline page is a good place to start
+
+[The slides of Oliver's talk can be viewed on Speaker Deck](https://speakerdeck.com/oliverjash/building-an-offline-page-for-theguardian-dot-com-jsconf-budapest-may-2016).
+
 
 ****
 
