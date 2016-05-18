@@ -186,6 +186,7 @@ npm link <dependency>
 
 Let's say we have a package named Alice and we have other packages that depend on this package. We can run `npm link`.
 In packages that depend on Alice, say Bob, we simply run `npm link alice`.
+All changes made in alice will be immediately available in bob without performing any `npm update` commands.
 
 #### Unpublish a package
 Before the [recent events](http://blog.npmjs.org/post/141577284765/kik-left-pad-and-npm) where a package called left-pad got pulled from npm and broke the internet, it was possible to unpublish a package just like that by using `npm unpublish`.
@@ -206,7 +207,7 @@ npm update
 By doing so you can prevent yourself from breaking the project if certain packages would not be compatible.
 
 #### Stuff everybody should know about npm
-A lot of things are avaible for npm that will make your life as a developer easier.
+A lot of things are available for npm that will make your life as a developer easier.
 
 * Babel: Transpile all the things! JavaScript, TypeScript, JSX, ...
 * Webpack and Browserify
@@ -221,7 +222,7 @@ It takes things you have to do all the time and makes things simpler and faster.
 ****
 
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-captainsafia.jpg">
+<img class="p-image float-image" width="200" alt="Safia Abdalla" src="/img/js-conf-budapest/speaker-captainsafia.jpg">
 
 ### Safia Abdalla: The Hitchhiker's Guide to All Things Memory in Javascript
 
@@ -340,6 +341,15 @@ Yes. Netflix is going to secure streams this year over HTTPS.
 * 2015: Netflix and chill
 * 2016: Netflix and HTTPS and chill
 
+<img src="/img/js-conf-budapest/HttpsAdoptionNetflix.png">
+
+The numbers aren't entirely clear, so here they are:
+ 
+- Without encrypted netflix streams, 65% of internet traffic is unencrypted. Onlyt 29% of internet traffic is encrypted.
+- With encrypted netflix streams, unencrypted internet traffic will drop to 26,9% and encrypted traffic will increase to 67,1%.
+
+Source: [https://www.sandvine.com/downloads/general/global-internet-phenomena/2015/encrypted-internet-traffic.pdf](https://www.sandvine.com/downloads/general/global-internet-phenomena/2015/encrypted-internet-traffic.pdf)
+
 > TLS has exactly one performance problem: it is not used widely enough.
 > Everything else can be optimized.
 
@@ -348,6 +358,20 @@ Yes. Netflix is going to secure streams this year over HTTPS.
 > Historically, concerns over performance have been the common excuse to avoid these obligations, but today that is a false dichotomy. Let's dispel some myths.
 
 Keep reading about this matter on [istlsfastyet.com](https://istlsfastyet.com).
+
+**HTTP/2**
+
+Another technology that can help the adoption of TLS is HTTP/2.
+HTTP/2 offers:
+
+- Binary encoding instead of text encoding
+- header compression
+- Server push
+- **multiple requests on single TCP connection!!**
+
+HTTP/2 allows for requests to be send in parallel rather than sequentially.
+
+Does HTTP/2 require encryption? No. However, Chrome and Firefox will only support HTTP/2 with encryption.
 
 #### Let's Encrypt
 
@@ -391,6 +415,19 @@ So next time you decide to invest a bunch of money in getting that request 100ms
 
 > Performance is about perception! Not mathematics.
 
+Houston Airport was used as an example to illustrate this quote.
+At Houston Airport, there were a lot of complaints about long waiting times at the baggage claim.
+They decided to optimize the baggage handling process.
+They managed to get luggage to the baggage claim in about 8 minutes (Which is nice!).
+However, complaints weren't dropping at all.
+
+It turned out that passengers needed only 1 minute to get from the plane to the baggage claim, which meant they needed to wait 7 minutes for their luggage.
+Eventually they decided to literally taxi and park the airplanes further so passengers now needed to walk 6 minutes from the plane to the baggage claim which reduced waiting times for luggage to 2 minutes.
+This caused complaints to drastically reduce!
+
+
+Passengers needed only one minute to get to the baggage claim, which meant they needed to wait for 7 minutes.
+
 #### Speed!
 
 1 second gain will increase revenue bij 1% for Company X. 1 second slower will decrease conversions by approx 5%.
@@ -410,6 +447,18 @@ Most of the people thought the second page, with 2 seconds load time was faster.
 
 Another fun fact is when delaying audio on a video, our mind will trick us by syncing the audio with what is visible on the screen. Again perception!
 
+**Key takeaway**
+
+Don't spend to much time optimizing the nitty gritty details of your code, instead try moving the active phase forward.
+As soon as there is activity being shown (pages being loaded), the brain enters the active phase.
+The user no longer feels as if he's waiting (Remember the perception?).
+
+You can move the active phase forward by making use of:
+
+- async
+- Serviceworkers
+
+> "The perception of performance is just as effective as actual performance in many cases" - [Apple quote](https://developer.apple.com/library/watchos/documentation/Performance/Conceptual/PerformanceOverview/BasicTips/BasicTips.html)
 
 ****
 
@@ -537,8 +586,9 @@ This model works well with Event-Sourcing as you can use the Events occuring on 
 
 <img src="/img/js-conf-budapest/Event-sourcing.png" alt="CQRS-and-event-sourcing">
 
+During the talk, Maurice showed some samples of code that were the pieces of the puzzle in setting up Event-Sourcing and CQRS in your React-Redux application.
 
-Slides for this talk are available on [slideshare](http://www.slideshare.net/mauricedb/eventsourcing-your-reactredux-applications).
+Check out the slides for his talk [here](http://www.slideshare.net/mauricedb/eventsourcing-your-reactredux-applications) to find out more!
 
 ****
 
