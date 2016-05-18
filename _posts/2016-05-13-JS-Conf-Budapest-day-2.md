@@ -714,15 +714,19 @@ Claudia is Mexican front-end developer.
 You can find her on Twitter using the handle [@koste4](https://twitter.com/koste4).
 
 <blockquote class="clear"><p>
+What even makes sense in Javascript?
+
+For a language originally created in 10 days it surely has a lot of quirks and perks many JS developers are unaware of.
+Sometimes, it might even seem like we fell down the rabbit hole only to find that NaN is actually a Number, undefined can be defined, +!![] equals 1, Array.sort() may not work as you suspected and so much other nonsense that can trip any JS developer’s mind.
+
 This talk is a collection of Javascript’s oddities and unexpected behaviors that hopefully will prevent some future headaches and help understand the language that we all love in a more deeper and meaningful way.
 </p></blockquote>
 
-http://www.jsfuck.com/
+This talk by Claudia was so much fun! We didn't write down anything because it was virtually impossible to do. You need to see this with your own eyes!
 
-https://github.com/fasttime/jquery-screwed
+You can view the slides on [Speaker Deck](https://speakerdeck.com/claudiahdz/down-the-rabbit-hole-javascript-in-wonderland).
 
-
-#### Some title
+Be sure to check out [jsfuck.com](http://www.jsfuck.com/) for some fun times and [jQuery Screwed](https://github.com/fasttime/jquery-screwed) to get an idea of what you can actually do with JavaScript quirks.
 
 
 ****
