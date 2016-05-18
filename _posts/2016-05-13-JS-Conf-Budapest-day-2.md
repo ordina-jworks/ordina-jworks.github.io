@@ -743,71 +743,100 @@ You’ll learn what you can do as an individual to support change into a positiv
 You’ll leave knowing about practical things you can do in your daily life to make the tech industry a better, more inclusive and diverse environment that is a better place for everyone.
 </p></blockquote>
 
-**Code debugging**
+#### Code debugging
+
 Debugging can be hard and it becomes harder when working with complex software.
 
-Spaghetti code is difficult to read and maintain. It can be code that is not organised, has lot's of dependencies and is difficult to debug.
+Spaghetti code is difficult to read and maintain.
+It can be code that is not organised, has lot's of dependencies and is difficult to debug.
 
-**The Tech Industry is bugged**
-A lot of people contributed to the tech industry. It has grown very fast and has many flaws.
+#### The Tech Industry is bugged
+
+A lot of people already contributed to the tech industry.
+It has grown very fast and has many flaws.
+
 That's why we need to have a look at it and try to fix the defects.
 
-**Understanding ourselves**
+#### Understanding ourselves
+
 To be able to fix this we need to understand ourselves. Our flaws, limitations, ...
 
-> We are privileged and need to understand that
+> We are privileged and need to understand that.
 
-Privilege: The human version of "works on my machine".
+**Privilege: The human version of "works on my machine".**
 
 Privilege is sitting in your comfy home and not knowing a big thunderstorm is coming that could harm people.
+
 Privilige is being able to stand up when attending a standup and not having to sit because you are disabled.
 
-**We are biased**
-We need to understand we are biased. More often we are being objective and often that is not OK.
+#### We are biased
+
+We need to understand we are biased.
+More often we are being objective and often that is not OK.
+
 We all have biases and we need to realise and understand.
 
-**Empathy**
-We need to understand that we need to be empathetic. Empathy is the right direction.
+#### Empathy
 
-**Creativity**
+We need to understand that we need to be empathetic.
+Empathy is the right direction.
+
+#### Creativity
+
 Creativity is necessary to design and build good software.
 
-**Divirsity**
-And so is divirsity and understanding each other.
+#### Diversity
 
-**Inclusion**
+And so is diversity and understanding each other.
+
+#### Inclusion
+
 Inclusion means all people in the group are respected for who they are.
 The lack of inclusion and diversity is a real problem in our industry.
 
-#### Company
 
-* Lack of divirsity
-* lack of inclusion
+#### The Tech Industry
+
+Let's look at some key points within our industry.
+
+**Company**
+
+* Lack of diversity
+* Lack of inclusion
 * Harassmant
 
-#### Society
+**Society**
 
 * Racism
 * Patriarchy
 * Capitalism
 
-#### Tech industry
+**Tech industry**
 
-All of the above (under company and society).
+* Lack of diversity
+* Lack of inclusion
+* Harassmant
+* Racism
+* Patriarchy
+* Capitalism
 
 #### Software can help people
 
-Our software can help people. A screenreader, accessability, ...
+Our software can help people. A screenreader, accessibility, ...
 
 #### But can also ruin lives
 
-Our software is racist. Our software (tools like Siri or Cortana) does not correctly recognise skin color and does not recognise harassment or racism.
-Animations in software can trigger panic attacks or eppileptic attacks. 
+Our software is racist.
+Our software (tools like Siri or Cortana or Snapchat) does not correctly recognise skin color, alters skin color and does not recognise harassment or racism.
+Animations in software can trigger panic attacks or eppileptic attacks.
 
 > We have a collective responsibility and need to take that very seriously.
 > Technology and our code is not neutral. Our work is political and has consequences on lives.
 
-**Debugging the system**
+#### Debugging the system
+
+Change starts with you, starts with all of us.
+What can we do to debug the system?
 
 1. **Educate yourself**, about systemic issues and oppresion
 2. **Practice empathy**, because we need it to be good designers and developers
@@ -820,6 +849,12 @@ Animations in software can trigger panic attacks or eppileptic attacks.
 9. **Work on inclusion**, to make spaces welcoming and safe
 10. **Give**, our knowledge, time, technical skills, money
 11. **Work on being allies**, constantly
+
+Quite a talk on some serious matter to close the second day of JS Conf Budapest.
+
+Have you experienced these things yourself in the tech industry?
+
+Have you contributed to debugging the tech industry?
 
 
 ****
