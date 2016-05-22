@@ -10,24 +10,25 @@ comments: true
 
 ## From JS Conf Budapest with love
 
-This years JS Conf Budapest is hosted at [Akvárium Klub](http://akvariumklub.hu/).
+This year's edition of JS Conf Budapest was hosted at [Akvárium Klub](http://akvariumklub.hu/).
 Located right in the center of the city, below an actual pool, filled with water!
 
 > Akvárium Klub is more than a simple bar: it is a culture center with a wide musical repertoire from mainstream to underground.
-> There is always a good concert and a smashing exhibition, performance, or other event happening here, in a friendly scene, situated right in the city center. 
+> There is always a good concert and a smashing exhibition, performance, or other event happening here, in a friendly scene, situated right in the city center.
 
 JS Conf Budapest is hosted by the one and only [Jake Archibald](https://twitter.com/jaffathecake) from Google.
-After waiting in line at 8 o'clock in the morning to get our badges we were welcomed at the main hall where some companies hosted stands.
+After waiting in line at 8 o'clock in the morning to get our badges, we were welcomed at the main hall where some companies hosted stands.
 
-In another space after the main hall tables were nicely dressed and people could have breakfast.
-When going downstairs to the right of the main hall we entered the room where the talks would be given.
+In another space after the main hall, tables were nicely dressed and people could have breakfast.
+When going downstairs to the right of the main hall, we entered the room where the talks would be given.
 
-For the coffee lovers, professional baristas served the best coffee possible. With a nice heart drawn on top if it.
+For the coffee lovers, professional baristas served the best coffee possible.
+With a nice heart drawn on top if it.
 
-![JS Conf Budapest 2016 Photo Collage]({{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }}) 
+![JS Conf Budapest 2016 Photo Collage]({{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }})
 
-At 9 o'clock the conference would officially start so went downstairs.
-After taking our seat we played the waiting game and all of a sudden, we got this nice intro made with blender and three.js! Check it out for yourself!
+At 9 o'clock the conference would officially start so we went downstairs.
+After taking our seat, we played the waiting game and all of a sudden, we got this nice intro made with blender and three.js! Check it out for yourself!
 
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
 <iframe src="http://usefulthink.com/jsconf.bp-intro/" width="100%" height="100%;" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0;"></iframe>
@@ -72,23 +73,23 @@ There will be lots of stuff for beginners, and definitely some tricks that even 
 </p></blockquote>
 
 #### How does npm look up packages?
-In contrast to what most people think, npm does not download it's modules from GitHub or other version control systems.
+In contrast to what most people think, npm does not download its modules from GitHub or other version control systems.
 They would not like it that such an amount of data is transferred on a daily basis.
 
 In short npm does this: You -> CLI -> Registry.
 Let's dive in.
 
-1. First npm will take a look at your local cache and see if the package your are looking for is present.
-2. Next it will resort to the CDN network and will use a server whos is the closest to your position as possible.
-3. Finally, if npm can't find the package in local cache or the CDN network, it will look up in the registry. The registry is a set of servers all around the world and will try to match the best version that you are looking for.
+1. First, npm will take a look at your local cache and see if the package your are looking for is present.
+2. Next, it will resort to the CDN network and use the server which is the closest as possible to your position.
+3. Finally, if npm can't find the package in local cache or the CDN network, it will look it up in the registry. The registry is a set of servers all around the world and it will try to match the best version that you are looking for.
 
 #### EACCESS error
 A lot of people have issues with EACCESS errors because they used sudo to install things.
-The easy solution is to always keep on using sudo BUT we can [easily fix npm permission issues](https://docs.npmjs.com/getting-started/fixing-npm-permissions).
+The easy solution is to always keep on using sudo, BUT we can [easily fix npm permission issues](https://docs.npmjs.com/getting-started/fixing-npm-permissions).
 
 #### package.json
-Don't write your `package.json` yourself, let NPM do it!
-It will always do it better. Use `npm init` which will ask some basic questions and will generate `package.json` for you.
+Don't write your `package.json` yourself. Let NPM do it!
+It will always do it better. Use `npm init`, which will ask you some basic questions and generate `package.json` for you.
 
 #### Scopes
 A new feature in npm is scopes.
@@ -103,9 +104,9 @@ require('@myusername/mypackage')
 {% endhighlight %}
 
 #### npm-init.js
-To extend the `npm init` command it is possible to create an `npm-init.js` file.
+To extend the `npm init` command, it is possible to create an `npm-init.js` file.
 This file is a module that will be loaded by the `npm init` command and look in this file and provide basic configurations for the setup.
-By default the file is placed in root of your project: `~/.npm-init.js`.
+By default the file is placed in the root of your project: `~/.npm-init.js`.
 You can use [PromZard](https://github.com/npm/promzard) to ask questions to the user and perform logic based on the answers.
 Remember that `npm init` can always be re-run.
 
@@ -120,7 +121,7 @@ npm install --production
 #### Bundled dependencies
 One of the biggest problems right now with Node.js is how fast it is changing.
 This means that production systems can be very fragile and an `npm update` can easily break things.
-Using `bundledDependencies` is a way to get round this issue by ensuring, that you will always deliver the correct dependencies no matter what else may be changing.
+Using `bundledDependencies` is a way to get round this issue by ensuring that you will always deliver the correct dependencies no matter what else may change.
 You can also use this to bundle up your own, private bundles and deliver them with the install.
 
 {% highlight sh %}
@@ -128,14 +129,14 @@ npm install --save --save-bundle
 {% endhighlight %}
 
 #### Offline installs
-A way to prevent npm to look up the registry and ensure local installs is by adding the variable `--cache-min` and to set it to a high value such as 999999.
+A way to prevent npm to look up the registry, and ensure local installs, is by adding the variable `--cache-min` and to set it to a high value such as 999999.
 
 {% highlight sh %}
 npm install --cache-min 999999
 {% endhighlight %}
 
 #### Run scripts
-In `package.json` it is possible to define default run scripts as showed below.
+In `package.json` it is possible to define default run scripts as shown below.
 
 {% highlight sh %}
 npm start
@@ -152,11 +153,11 @@ npm run <anything>
 {% endhighlight %}
 
 #### Run scripts get devDependencies in path
-Don't force users to install global tools, that is just not cool.
+Don't force users to install global tools. That is just not cool.
 This way you can prevent to get conflicts over global tools, because different projects can use different versions.
 
 #### SemVer for packages
-npm uses Semantic Versioning and is a standard a lot of projects use to communicate what kind of changes are in this release.
+npm uses Semantic Versioning, which is a standard a lot of projects use to communicate what kind of changes are in a release.
 It's important to communicate what kinds of changes are in a release because sometimes those changes will break the code that depends on the package.
 Let's take a look at an example.
 
@@ -165,9 +166,9 @@ Let's take a look at an example.
 Breaking Major . Feature Minor . Fix Patch
 {% endhighlight %}
 
-This is quite obvious right?
+This is quite obvious, right?
 
-npm allows you to change the version (and adding a comment) by using the commands below.
+npm allows you to change the version (and to add a comment) by using the commands below.
 
 {% highlight sh %}
 npm version minor
@@ -177,16 +178,17 @@ npm version major -m "Bump to version %s"
 {% endhighlight %}
 
 #### Microservices architecture
-When working with a microservices architecture it is possible to work with multiple packages for your services.
-This can be done by using the link function within npm. 
+When working with a microservices architecture, it is possible to work with multiple packages for your services.
+This can be done by using the link function within npm.
 
 {% highlight sh %}
 npm link <dependency>
 {% endhighlight %}
 
-Let's say we have a package named Alice and we have other packages that depend on this package. We can run `npm link`.
+Let's say we have a package named Alice and we have other packages that depend on this package.
+We can run `npm link`.
 In packages that depend on Alice, say Bob, we simply run `npm link alice`.
-All changes made in alice will be immediately available in bob without performing any `npm update` commands.
+All changes made in Alice will be immediately available in Bob without performing any `npm update` commands.
 
 #### Unpublish a package
 Before the [recent events](http://blog.npmjs.org/post/141577284765/kik-left-pad-and-npm) where a package called left-pad got pulled from npm and broke the internet, it was possible to unpublish a package just like that by using `npm unpublish`.
@@ -196,15 +198,15 @@ To really unpublish the package you will need to contact support.
 A more friendly way is the use of `npm deprecated` that will tell users the package has been deprecated.
 
 #### Keeping projects up to date
-Before running `npm update` it's preferred to run `npm oudated`.
-This command will check the registry to see if any (or, specific) installed packages are currently outdated.
+Before running `npm update`, it's preferred to run `npm outdated`.
+This command will check the registry to see if any (specific) installed packages are currently outdated.
 
 {% highlight sh %}
 npm outdated
 npm update
 {% endhighlight %}
 
-By doing so you can prevent yourself from breaking the project if certain packages would not be compatible.
+By doing so, you can prevent yourself from breaking the project if certain packages would not be compatible.
 
 #### Stuff everybody should know about npm
 A lot of things are available for npm that will make your life as a developer easier.
@@ -232,7 +234,7 @@ You can find her on Twitter using the handle [@captainsafia](https://twitter.com
 
 #### Slides and interactive tutorial
 The slides of this talk can be found here [http://slides.com/captainsafia/memory-in-javascript](http://slides.com/captainsafia/memory-in-javascript).
-Safia also created an [interactive tutorial](https://nbdev.surge.sh/#/gist/21885286a207c05bf1194a35490420c1) on how to use the Chrome DevTools for memory management. 
+Safia also created an [interactive tutorial](https://nbdev.surge.sh/#/gist/21885286a207c05bf1194a35490420c1) on how to use the Chrome DevTools for memory management.
 
 <blockquote class="clear"><p>
 This talk will take beginners through an exploration of Javascript's garbage collector and memory allocation implementations and their implications on how performant code should be written.
@@ -268,16 +270,16 @@ V8 allocates objects in memory in 6 contiguous chunks, or spaces:
 It is small and is designed to be garbage collected very quickly, independent of other spaces.
 * Old pointer space: Contains most objects which may have pointers to other objects.
 Most objects are moved here after surviving in new space for a while.
-* Old data space: Objects that just contain raw data (no reference or pointer) will end up here after surviving in new space for a while. 
+* Old data space: Objects that just contain raw data (no reference or pointer) will end up here after surviving in new space for a while.
 * Large object space: Used to store large object tables.
 They get stored here so it doesn't conflict with the store space of the above mentioned spaces.
 * Code space: Code objects are allocated here. This is the only space with executable memory.
-* Map space: Contains objects which are all the same size and has some constraints on what kind of objects they point to, which simplifies collection. 
+* Map space: Contains objects which are all the same size and has some constraints on what kind of objects they point to, which simplifies collection.
 
 **How does V8 collect garbage memory?**
 
 V8 uses a 'stop the world' technique that enables it to run a short garbage collection cycle.
-This means it will litteraly halt the program.
+This means it will literally halt the program.
 
 V8 has different approaches on how it collects garbage in the new and old space.
 
@@ -300,10 +302,10 @@ The Chrome DevTools HEAP allocation profiler will be our weapon of choice.
 It allows you to check the retain size and shallow size of objects.
 
 * Shallow size of an object is the amount of memory it holds of itself.
-* Retain size is all of it's size and it's dependants. 
+* Retain size is all of its size and its dependents.
 
-#### Heapdump
-Heapdump takes a snapshot of your heap at a specific moment.
+#### Heap dump
+Heap dump takes a snapshot of your heap at a specific moment.
 It will provide a file with .heap extension which enables you to load it in the Chrome DevTools for further inspection.
 
 `npm install heapdump`
@@ -344,9 +346,9 @@ Yes. Netflix is going to secure streams this year over HTTPS.
 <img src="/img/js-conf-budapest/HttpsAdoptionNetflix.png">
 
 The numbers aren't entirely clear, so here they are:
- 
-- Without encrypted netflix streams, 65% of internet traffic is unencrypted. Onlyt 29% of internet traffic is encrypted.
-- With encrypted netflix streams, unencrypted internet traffic will drop to 26,9% and encrypted traffic will increase to 67,1%.
+
+- Without encrypted Netflix streams, 65% of internet traffic is unencrypted. Only 29% of internet traffic is encrypted.
+- With encrypted Netflix streams, unencrypted internet traffic will drop to 26,9% and encrypted traffic will increase to 67,1%.
 
 Source: [https://www.sandvine.com/downloads/general/global-internet-phenomena/2015/encrypted-internet-traffic.pdf](https://www.sandvine.com/downloads/general/global-internet-phenomena/2015/encrypted-internet-traffic.pdf)
 
@@ -369,7 +371,7 @@ HTTP/2 offers:
 - Server push
 - **multiple requests on single TCP connection!!**
 
-HTTP/2 allows for requests to be send in parallel rather than sequentially.
+HTTP/2 allows for requests to be sent in parallel rather than sequentially.
 
 Does HTTP/2 require encryption? No. However, Chrome and Firefox will only support HTTP/2 with encryption.
 
@@ -403,7 +405,7 @@ You can find him on Twitter using the handle [@mishunov](https://twitter.com/mis
 <blockquote class="clear"><p>
 Performance is not about Mathematics.
 Performance is about Perception.
-Perception is what makes a site with a very few requests nevertheless feel slow, while a site that delivers search results during tens of seconds can feel fast enough for your user.
+Perception is what makes a site with very few requests nevertheless feel slow, while a site that delivers search results during tens of seconds can feel fast enough for your user.
 User’s perception of your website’s speed is the only true performance measure.
 
 This talk is about perception, neuroscience and psychology. The time is ripe to understand performance from the user’s perspective.
@@ -418,19 +420,16 @@ So next time you decide to invest a bunch of money in getting that request 100ms
 Houston Airport was used as an example to illustrate this quote.
 At Houston Airport, there were a lot of complaints about long waiting times at the baggage claim.
 They decided to optimize the baggage handling process.
-They managed to get luggage to the baggage claim in about 8 minutes (Which is nice!).
+They managed to get luggage to the baggage claim in about 8 minutes (which is nice!).
 However, complaints weren't dropping at all.
 
 It turned out that passengers needed only 1 minute to get from the plane to the baggage claim, which meant they needed to wait 7 minutes for their luggage.
 Eventually they decided to literally taxi and park the airplanes further so passengers now needed to walk 6 minutes from the plane to the baggage claim which reduced waiting times for luggage to 2 minutes.
 This caused complaints to drastically reduce!
 
-
-Passengers needed only one minute to get to the baggage claim, which meant they needed to wait for 7 minutes.
-
 #### Speed!
 
-1 second gain will increase revenue bij 1% for Company X. 1 second slower will decrease conversions by approx 5%.
+1 second gain will increase revenue by 1% for Company X. 1 second slower will decrease conversions by approximately 5%.
 
 **The 20% rule.**
 
@@ -441,7 +440,7 @@ A big difference with meaningful difference.
 
 **Noticeable !== Meaningful**
 
-We did a live test on the conference where the crowd needed to decide which of the two pages displayed loaded faster. 
+We did a live test on the conference where the crowd needed to decide which of the two pages displayed loaded faster.
 The first page loaded in 1.6 seconds whereas the second one loaded in 2 seconds.
 Most of the people thought the second page, with 2 seconds load time was faster. This is all about perception!
 
@@ -456,7 +455,7 @@ The user no longer feels as if he's waiting (Remember the perception?).
 You can move the active phase forward by making use of:
 
 - async
-- Serviceworkers
+- Service workers
 
 > "The perception of performance is just as effective as actual performance in many cases" - [Apple quote](https://developer.apple.com/library/watchos/documentation/Performance/Conceptual/PerformanceOverview/BasicTips/BasicTips.html)
 
@@ -496,7 +495,7 @@ At this moment we know the evolution of **Typed, Clicked and Touched** but curre
 
 #### NUI + JS = NUIJS
 
-At first Princiya was trying to build [a simulator for motion controlled 3D camera's](https://github.com/nuijs/simulator).
+At first, Princiya was trying to build [a simulator for motion controlled 3D camera's](https://github.com/nuijs/simulator).
 A tool that is not dependent on any platform without using a physical device.
 The simulator is purely based on JavaScript and easily integrates with the device's SDKs.
 
@@ -519,15 +518,15 @@ The tool can be used for many purposes an a lot of devices are already available
 **Live demo**
 
 Princiya demonstrated a [drawing board with a brush](https://github.com/nuijs/apps), both with mousepointer and LEAP motion.
-NUIJS will translate the input data from the mousepointer to the Node.js Web Socket server and this one will process the data and send it back to the LEAP motion SDK.
+NUIJS will translate the input data from the mouse pointer to the Node.js Web Socket server and this one will process the data and send it back to the LEAP motion SDK.
 The same code can be used with the LEAP motion itself since it integrates nicely with the device's SDKs.
 
-Other open source tools Princiya mentioned where [Webcam Swiper](https://github.com/iambrandonn/WebcamSwiper) and [js-objectdetect](https://github.com/mtschirs/js-objectdetect). 
+Other open source tools Princiya mentioned where [Webcam Swiper](https://github.com/iambrandonn/WebcamSwiper) and [js-objectdetect](https://github.com/mtschirs/js-objectdetect).
 
 **Viola-Jones Algorithm**
 
 Most of the tools will use or depend on the Voila-Jones Algorithm which can be used for object detection.
-Combined with other tools this can be very powerful. 
+Combined with other tools this can be very powerful.
 
 * HAAR feature selection
 * Creating an integral image
@@ -555,9 +554,9 @@ In this session Maurice de Beijer will explain why you might want to use Event-S
 
 **What is Event-sourcing**
 
-Event-sourcing is a way of capturing changes in the state of an application. 
+Event-sourcing is a way of capturing changes in the state of an application.
 The traditional way of doing this would be to just update the existing state of your application to whatever state it should be in.
-This way you always have the latest state of your data at your displosal.
+This way you always have the latest state of your data at your disposal.
 
 In Event-sourcing, you'll capture all changes as events.
 These events will be stored in the sequence they were applied.
@@ -572,17 +571,17 @@ Common example of systems that use Event Sourcing are Version Control Systems.
 
 **When to use Event-sourcing?**
 
-Event-Sourcing is particularly useful in situations where you need to keep an audit trail of all changes that occured to your data.
+Event-Sourcing is particularly useful in situations where you need to keep an audit trail of all changes that occurred to your data.
 Accountancy for example is a domain in which Event-Sourcing is very useful, because you need to be able to provide that trail for audit purposes.
 **REPHRASE! -> The immutability of events allows for more scalability in your apps also.**
 
 **CQRS and Event Sourcing**
 
-Where Event-Sourcing describes the practice of storing all application state changes in individual events, CQRS describes the practice of seperating the command from the read side.
+Where Event-Sourcing describes the practice of storing all application state changes in individual events, CQRS describes the practice of separating the command from the read side.
 
 This means you'll have a service exposing all write functionality in your application and a separate service exposing all read operations.
 
-This model works well with Event-Sourcing as you can use the Events occuring on your system as Commands in the CQRS model.
+This model works well with Event-Sourcing as you can use the Events occurring on your system as Commands in the CQRS model.
 
 <img src="/img/js-conf-budapest/Event-sourcing.png" alt="CQRS-and-event-sourcing">
 
@@ -613,7 +612,7 @@ Finally, she'll show you how to take the first steps to release your work to the
 </p></blockquote>
 
 
-One thing is for sure, Rachel really really really likes cats! 
+One thing is for sure, Rachel really, really, really likes cats!
 
 Where a lot of people try to create things that improve others peoples lives, Rachel tries to do the same, instead, she does this for cats...
 
@@ -621,7 +620,7 @@ One Question is constantly on her mind:
 
 > "How can we incorporate cats in technology?"
 
-Eventually, she decided to create a feeder bot for her cats and immediatly thought of Open Sourcing "the thing".
+Eventually, she decided to create a feeder bot for her cats and immediately thought of open sourcing "the thing".
 The talk was mainly a tour of what she's learned and encountered along the way.
 
 **Trying new things is scary**
@@ -635,20 +634,20 @@ She'd have to try out new things and start a project without any idea of whether
 
 **Why so scary?**
 
-Why is this so scary? It turns out the Open Source developer community can sometimes be quite a harch environment...
+Why is this so scary? It turns out the Open Source developer community can sometimes be quite a harsh environment...
 
 * Fear of rejection
 * Imposter Syndrome
 * Inclusiveness of Communities
 * Bad behaviour in General: e.g. Oh you didn't know about THIS?, e.g. completely ignoring contributions
 * Your GitHub **green** timeline is not a representation of what you're worth. Just opening a PR just for the sake of it sucks.
-* Don't instult the contributor, why on earth ...
+* Don't insult the contributor. Why on earth ...
 * Vulgar and brutal harassment of the community, seriously, get a life!
-* PR's that get ignored (for over a year) and then the maintainer writes the same fixes and says: Oops! 
+* PR's that get ignored (for over a year) and then the maintainer writes the same fixes and says: Oops!
 
-Eventually, Rachel set up a twitter poll asking people about what bad experiences in Open Source Software development they'd already encountered, showing off an entire list of twitter reponses. Which weren't that possitive (eufimism!)
+Eventually, Rachel set up a Twitter poll asking people about what bad experiences in Open Source Software development they'd already encountered, showing off an entire list of Twitter reponses. Which weren't that positive (euphemism!)
 
-One of her Twitter contacts actually created (and open sourced) a tool called echochamber.js, which allows you to include a commenting form in your site that stores the comments only local storage.
+One of her Twitter contacts actually created (and open sourced) a tool called echochamber.js, which allows you to include a commenting form in your site that stores the comments only in the local storage.
 That way, you can be an a**hole and post really offensive comments without actually insulting people.
 
 [**Echochamber.js**](https://github.com/tessalt/echo-chamber-js)
@@ -659,7 +658,7 @@ Knowing all of these things now, you might wonder if it's even worth it putting 
 The answer of course is YES, but consider the following tips when doing so!
 
 * Find something you are passionate about
-* Somthing new you want to try
+* Something new you want to try
 * Make something cool and open source it yourself
 * First point of contact is your peers
 * Constructive criticism!
@@ -714,15 +713,15 @@ By breaking down The Other Side of Empathy, I will demonstrate how applying its 
 
 Nick Hehr shares Rachels' point of view on the sometimes rude Open Source communication and communication on Social media in general.
 In his talk, he addressed the way you should behave when volunteering to contribute or when giving feedback to contributors in Open Source Software (OSS) projects.
-And Empathy turns out te be key in this process.
+And Empathy turns out to be key in this process.
 
 #### Ranting
 
-It's all to easy to judge or express prejudice these days, through these social media channels and not think about the people who are actuall behind the idea or concept you're judging.
+It's all too easy to judge or express prejudice these days, through these social media channels and not think about the people who are actual behind the idea or concept you're judging.
 People that decide to Open Source the work on which they've spend tons of effort (usually because it's their passion, but still...) aren't exactly waiting for trolls or rants from people who like this easy judging.
 
-Empathy also plays a huge role in the other way around. 
-It happens al too often that people trying to contribute to OSS for the first time are being ignored (by literaly ignoring their pull requests for example), being treated like idiots (instead of being given constructive feedback in case of room for improvements), etc...
+Empathy also plays a huge role in the other way around.
+It happens al too often that people trying to contribute to OSS for the first time are being ignored (by literally ignoring their pull requests for example), being treated like idiots (instead of being given constructive feedback in case of room for improvements), etc...
 
 #### Saying nice things
 
@@ -739,16 +738,16 @@ Key points to take away from this session are:
 
 - Give constructive feedback!!!
 - Always keep in mind the language your using when commenting on Open Source initiatives
-	- Don't be to blunt or direct in your reactions. 
-- Use the right channels for your communication 
+	- Don't be to blunt or direct in your reactions.
+- Use the right channels for your communication
 	- meaning, don't ask for feedback on twitter
 	- Instead turn to platforms such as Slack, IRC, Gitter...
 	- Get (constructive) feedback from people you trust
-- People that open source their tools don't owe you anything. 
-	- They're not entitled to give up all their time for you. 
-	- They're not here to start fulfilling all requests from a demanding userbase. It's open source, submit a pull request
+- People that open source their tools don't owe you anything.
+	- They're not entitled to give up all their time for you.
+	- They're not here to start fulfilling all requests from a demanding user base. It's open source, submit a pull request
 
-Living by these rules will make the (web-)world a little bit of a better place, but won't prevent other people from still continuing these bad habbits.
+Living by these rules will make the (web-)world a little bit of a better place, but won't prevent other people from still continuing these bad habits.
 Don't let these people get to you! Continue doing what you're passionate about en seek out those who will give you that constructive feedback.
 
 ****
@@ -756,7 +755,7 @@ Don't let these people get to you! Continue doing what you're passionate about e
 
 ### Afterparty with Beatman and Ludmilla
 
-After a long day it was time for some party time and since JS Conf Budapest was hosted at a club this could only be good!
+After a long day, it was time for some party time and since JS Conf Budapest was hosted at a club, this could only be good!
 
 We were presented a live set by Breakspoll 2015 winner Beatman and Ludmilla.
 
