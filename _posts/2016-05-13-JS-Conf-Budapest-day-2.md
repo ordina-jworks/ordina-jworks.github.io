@@ -3,7 +3,7 @@ layout: post
 authors: [jan_de_wilde, steve_de_zitter]
 title: 'JS Conf Budapest Day 2'
 image: /img/js-conf-budapest-2016.jpg
-tags: [JSConfBudapest,JavaScript,Conference]
+tags: [JS Conf Budapest,JavaScript,Conference]
 category: conference
 comments: true
 ---
