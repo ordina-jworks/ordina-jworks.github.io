@@ -480,11 +480,16 @@ Budgeting can also be automated using the grunt-perfbudget plugin.
 npm install grunt-perfbudget --save-dev
 {% endhighlight %}
 
-For a lot more tips and tricks we sugget to [view the slides for Nicolás's talk on ponyfoo.com](https://ponyfoo.com/presentations/high-performance-in-the-critical-path).
+#### What can we do beyond minification?
 
+Minification is usually the first thing developers think of when talking about optimizing your code for speed. 
+But what are the things we can do beyond minification?
+
+A lot of best practices on optimizing performance in your app are described in the [High Performance Browser Networking](http://www.amazon.com/High-Performance-Browser-Networking-performance/dp/1449344763) book written by Ilya Grigorik.
+
+For all the detailed tips and tricks we suggest to [view the slides for Nicolás's talk on ponyfoo.com](https://ponyfoo.com/presentations/high-performance-in-the-critical-path).
 
 ****
-
 
 <img class="p-image float-image" width="200" alt="Anand Vemuri" src="/img/js-conf-budapest/speaker-brownhat57.jpg">
 
@@ -506,17 +511,27 @@ Through strengthening the security posture of JavaScript applications, we can ta
 > They say the best offense is good defense.
 > The best offense is offense. 
 
-#### XSS
+#### Hands-on vulnerability exploitation of medcellar
+
+Anand's talk started by explaining the most common web application vulnerabilities that currently exist.
+We're talking about SQL Injection, Cross Site Scripting (XSS) and Cross Site Request Forgery (CSRF).
+During the talk, Anand used an open source application that contains all of these vulnerabilities and which is available for you as a developer to fool around with.
+The application is called 'MedCellar' and you can find it on [github](https://github.com/relotnek/medcellar).
+
+#### XSS & CSRF
+
+We saw how to perform XSS attacks and CSRF attacks on the MedCellar Application.
+These attacks weren't extremely harmful at first but showed just how they could be exploited.
+
+Using the Burp Suite's proxy, we were able to inspect all requests/responses the application was performing to get more insights in how the app actually worked.
+
+[Burp Suite](https://portswigger.net/burp/) is an integrated platform for performing security testing of web applications.
+
+**XSS**
 
 * attacks users
 * JS Injection
 * Exploits can be bad, really bad
-
-Open source vulnerable nodejs application "medcellar".
-
-Burp Suite (captures requests before sending them to the application).
-Burp Suite is an integrated platform for performing security testing of web applications.
-https://portswigger.net/burp/
 
 XSS is a serious vulnerability. It may not seem so for some people or clients but it really is!
 
@@ -532,16 +547,52 @@ XSS is a serious vulnerability. It may not seem so for some people or clients bu
 Using a third party domain you can create a form (you won 1 million dollars) to perform an action like this.
 
 **BeEF**
-Browser exploitation framework for more advanced stuff.
-Like submitting false data through a JSON request to a service. Or a regular HTML form request.
 
-Kali Linux.
+During the talk, Anand demonstrated how to perform XSS and CSRF attacks. 
+However, it seemed like you were only able to hack yourself. 
 
-"When you enter a coffee shop and see someone using this, disconnect from the internet and run away as fast as you possibly can." - Quote from Anand
+Things got serious though, when Anand demonstrated how you could exploit these vulnerabilities way more by using a special Linux distro called Kali Linux and BeEF (Browser Exploitation Framework).
 
+[Kali Linux](https://www.kali.org/) is a linux distro designed specifically for Penetration Testing and Ethical Hacking.
+
+[BeEF](http://beefproject.com/) is a Penetration Testing tool that focusses on the browser and possible vulnerabilities in it and the applications running in it.
+
+Combining these two, Anand was able to do basically anything in the users browser and he demonstrated this by running some random audio in the users browser.
+Playing audio isn't that harmful, but you could have installed a keyLogger instead and start tracking anything the user types on his computer. 
+That seems to be a little bit worse than playing some audio!
+
+> When you enter a coffee shop and see someone using this, disconnect from the internet and run away as fast as you possibly can." - Quote from Anand
+
+#### Mitigate against these attacks
+
+Implementation of a CSRF mitigation is Tough!
+
+- Method Interchange
+- Beware of CSRF Token replay
+- Token must be tied to the user's session on the server
+- CSRF Token exposed as GET Param: Could potentially have logs or some other network traffic see the CSRF token and intercept it that way.
+
+But, luckily for us, CSRF middleware which implements these mitigations has already been developed for us! You can find these libraries on github:
+
+- [koajs](https://github.com/koajs/csrf)
+- [crumb](https://github.com/hapijs/crumb)
+- [csurf](https://github.com/expressjs/csurf)
+
+
+#### Key takeaways
+
+- App Sec vulnerabilities can be used in combination
+- No state changing operations should be GET requests
+- Maje sure the CSRF token is cryptographically secure
+	- Random !== Cryptographically secure
+- CSRF Middleware Saves Lives!!
+
+Oh..., and
+
+- Cross Origin Resource sharing (CORS)
+	- Access-control-Allow-Origin: * IS BAD!
 
 ****
-
 
 ## Day 2: afternoon
 
