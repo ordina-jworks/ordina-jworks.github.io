@@ -618,7 +618,7 @@ Presentation can be found here: https://github.com/Sambego/pedalboard-presentati
 * Create new audio context.
 * Get the audio input of your computer: navigator.getUserMedia()
 * Create inputNode from the media stream we just fetched
-* COnnect the inputnode to the audiocontext.destination
+* Connect the inputnode to the audiocontext.destination
 
 #### Add effects to the sound
 
@@ -672,21 +672,70 @@ My talk will show how the old-school, computationally-heavy software used in sci
 We'll see real-time, publicly-broadcast, simulations of the electrical activity in brain cells, visualised in 3D using Javascript.
 </p></blockquote>
 
+#### Neuroscience introduction
+
+The topic for this talk was quite some heavy material. 
+However, Rob managed to give us a quick, super highlevel, introduction to neuroscience and more specifically an introduction to how neurons actually work.
+
+Very High level, there are 3 parts in a neuron:
+
+- Dendrites
+- Neuron body (Soma)
+- Axons.
+
+Neurons receive electrical signals through their dendrites, and transmit those to the neuron body, called the Soma.
+From the neuron body, new electrical signals travel to other neurons. 
+Sending elektrical current from one neuron to another is being done through it's axons.
+So the axons actually send electrical signales to other neurons and those other neurons receive these signals trough their dendrites. 
+
+A better, more thorough explanation of neurons is being described on [Wikipedia](https://en.wikipedia.org/wiki/Neuron), but we needed a super simplified explanation of neurons and their main components to further explain what Rob showed us.
+
 #### Science in the browser
 
-A neuron is just a text file that describes the different branches of it.
-We have an ID, X, Y, Z, Radius and parent data.
+Neurons and their main components can be 'encoded' in special files .swc files.
+These files contain multiple records with an ID, X, Y, Z, Radius and Parent-link.
+Using all the records and their properties allows you to visually represent the neurons.
 
-| --- | --- | --- | --- | --- |
-| ID | X | Y | Z | R | Parent |
- 
-He wanted to learn Three.JS and created a visualisation tool.
-Software that enables "sharable science" by creating tools that can be shared with the world.
-It is much more easy to create a webapp nowadays and so replace the nativa applications.
+There's already an online repository containing these encoded neurons which you can find [here](http://www.neuromorpho.org/).
 
-The tool enables researchers to play a scenario where a certain spike is triggered in a branch of the neuron. 
-That gives a lot of knowledge about how neurons behave.
+Now, what does all of this have to do with the browser or JS or anything you would expect at JSConf?
+Well, while he was working on his Phd thesis, he started playing around with JS and it's related technologies. 
+And he continued to do so since then, all in function of the neuroscience domain.
 
+As we saw earlier, there's already a webpage where you can upload swc files with neuron data to visually represent these, but these are rather static images.
+Instead, Rob decided to create a platform which can also simulate the behaviour of such a neuron when you trigger it with electrical current on it's dendrites.
+
+#### Technology stack
+
+Rob used a combination of tools and technologies to build the platform.
+Together with his colleagues at IBM research Australia, they built an entire Cloud platform that could perform these complex simulations.
+
+On their IBM bluemix cloud they run Docker Containers running the algorithm that performs the neuron simulations.
+The algorithm is written in C and is based on mathematic formula which is shown in the below image.
+
+**Hodgkin-Huxley Model of the Squid Giant Axon**
+
+<img alt="Hodgkin-Huxley Model of the Squid Giant Axon" src="/img/js-conf-budapest/Hodgkin-Huxley_equation.png">
+
+The web application used to render the neurons used a combination of tools, most importantly:
+
+- Webgl: Web Graphics API. Javascript API for rendering interactive 3D graphics.
+- three.js: A Javascript 3D library that uses WebGL.
+- D3.js: Javascript library for visualizing data using HTML, SVG and CSS
+
+#### The tool in action
+
+In the below video you can see what the tool looks and animations look like:
+
+<div class="responsive-embed-youtube">
+	<iframe src="https://www.youtube.com/embed/z_7c6JjicGE?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
+
+The tool enables researchers to replay a scenario where a certain spike is triggered in a branch of the neuron. 
+This gives scientists a lot of knowledge and insights about how neurons behave.
+
+Rob gave a really entertaining talk with some really cool visuals of neurons in action.
+He introduced us to just the right amount of neuroscience to be able to follow what he was actually doing and showing!
 
 ****
 
