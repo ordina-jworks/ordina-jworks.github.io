@@ -521,7 +521,7 @@ Princiya demonstrated a [drawing board with a brush](https://github.com/nuijs/ap
 NUIJS will translate the input data from the mouse pointer to the Node.js Web Socket server and this one will process the data and send it back to the LEAP motion SDK.
 The same code can be used with the LEAP motion itself since it integrates nicely with the device's SDKs.
 
-Other open source tools Princiya mentioned where [Webcam Swiper](https://github.com/iambrandonn/WebcamSwiper) and [js-objectdetect](https://github.com/mtschirs/js-objectdetect).
+Other open source tools Princiya mentioned were [Webcam Swiper](https://github.com/iambrandonn/WebcamSwiper) and [js-objectdetect](https://github.com/mtschirs/js-objectdetect).
 
 **Viola-Jones Algorithm**
 
@@ -645,7 +645,7 @@ Why is this so scary? It turns out the Open Source developer community can somet
 * Vulgar and brutal harassment of the community, seriously, get a life!
 * PR's that get ignored (for over a year) and then the maintainer writes the same fixes and says: Oops!
 
-Eventually, Rachel set up a Twitter poll asking people about what bad experiences in Open Source Software development they'd already encountered, showing off an entire list of Twitter reponses. Which weren't that positive (euphemism!)
+Eventually, Rachel set up a Twitter poll asking people about what bad experiences in Open Source Software development they'd already encountered, showing off an entire list of Twitter responses. Which weren't that positive (euphemism!)
 
 One of her Twitter contacts actually created (and open sourced) a tool called echochamber.js, which allows you to include a commenting form in your site that stores the comments only in the local storage.
 That way, you can be an a**hole and post really offensive comments without actually insulting people.
@@ -748,7 +748,7 @@ Key points to take away from this session are:
 	- They're not here to start fulfilling all requests from a demanding user base. It's open source, submit a pull request
 
 Living by these rules will make the (web-)world a little bit of a better place, but won't prevent other people from still continuing these bad habits.
-Don't let these people get to you! Continue doing what you're passionate about en seek those that will give you that constructive feedback.
+Don't let these people get to you! Continue doing what you're passionate about and seek those that will give you that constructive feedback.
 
 ****
 
