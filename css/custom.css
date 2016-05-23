@@ -22,6 +22,22 @@ body {
     min-height: 600px;
 }
 
+img {
+    max-width: 100%;
+}
+
+.responsive-embed-youtube {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+	padding-top: 25px;
+}
+
+.responsive-embed-youtube iframe {
+	position: absolute;
+	width: 100%!important;
+	height: 100%!important;
+}
+
 @media (max-width: 785px) {
     body {
         /* Margin bottom by footer height */
@@ -31,10 +47,6 @@ body {
     .footer {
         /* Set the fixed height of the footer here */
         min-height: 1121px;
-    }
-
-    img {
-        max-width: 100%;
     }
 
     .blog-masonry img {
@@ -61,8 +73,19 @@ img.p-image {
 }
 
 img.float-image {
-    float: left;
-    margin: 10px 10px 10px 0;
+    display: block;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 600px) {
+    img.float-image {
+        float: left;
+        margin: 10px 30px 10px 0;
+    }  
+}
+
+.clear {
+    clear: both;
 }
 
 .image-block {
