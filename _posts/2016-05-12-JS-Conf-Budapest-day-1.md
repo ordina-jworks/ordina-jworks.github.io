@@ -105,7 +105,7 @@ require('@myusername/mypackage')
 
 #### npm-init.js
 To extend the `npm init` command, it is possible to create an `npm-init.js` file.
-This file is a module that will be loaded by the `npm init` command and look in this file and provide basic configurations for the setup.
+This file is a module that will be loaded by the `npm init` command and will provide basic configurations for the setup.
 By default the file is placed in the root of your project: `~/.npm-init.js`.
 You can use [PromZard](https://github.com/npm/promzard) to ask questions to the user and perform logic based on the answers.
 Remember that `npm init` can always be re-run.
@@ -717,11 +717,11 @@ And Empathy turns out to be key in this process.
 
 #### Ranting
 
-It's all too easy to judge or express prejudice these days, through these social media channels and not think about the people who are actual behind the idea or concept you're judging.
+It's all too easy to judge or express prejudice these days, through these social media channels and not think about the people who are actually behind the idea or concept you're judging.
 People that decide to Open Source the work on which they've spend tons of effort (usually because it's their passion, but still...) aren't exactly waiting for trolls or rants from people who like this easy judging.
 
 Empathy also plays a huge role in the other way around.
-It happens al too often that people trying to contribute to OSS for the first time are being ignored (by literally ignoring their pull requests for example), being treated like idiots (instead of being given constructive feedback in case of room for improvements), etc...
+It happens all too often that people trying to contribute to OSS for the first time are being ignored (by literally ignoring their pull requests for example), being treated like idiots (instead of being given constructive feedback when there is room for improvement), etc...
 
 #### Saying nice things
 
@@ -748,7 +748,7 @@ Key points to take away from this session are:
 	- They're not here to start fulfilling all requests from a demanding user base. It's open source, submit a pull request
 
 Living by these rules will make the (web-)world a little bit of a better place, but won't prevent other people from still continuing these bad habits.
-Don't let these people get to you! Continue doing what you're passionate about en seek out those who will give you that constructive feedback.
+Don't let these people get to you! Continue doing what you're passionate about en seek those that will give you that constructive feedback.
 
 ****
 
