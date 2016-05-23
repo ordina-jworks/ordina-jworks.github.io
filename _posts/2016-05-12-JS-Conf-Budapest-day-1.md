@@ -43,7 +43,7 @@ After taking our seat, we played the waiting game and all of a sudden, we got th
 * [Laurie Voss: What everybody should know about npm](#laurie-voss-what-everybody-should-know-about-npm)
 * [Safia Abdalla: The Hitchhiker's Guide to All Things Memory in Javascript](#safia-abdalla-the-hitchhikers-guide-to-all-things-memory-in-javascript)
 * [Yan Zhu: Encrypt the web for $0](#yan-zhu-encrypt-the-web-for-0)
-* [Dennis Mishumov: Why performance matters](#dennis-mishumov-why-performance-matters)
+* [Denys Mishunov: Why performance matters](#denys-mishunov-why-performance-matters)
 * [Princiya Sequeira: Natural user interfaces using JavaScript](#princiya-sequeira-natural-user-interfaces-using-javascript)
 * [Maurice de Beijer: Event-sourcing your React-Redux applications](#maurice-de-beijer-event-sourcing-your-react-redux-applications)
 * [Rachel Watson: The Internet of Cats](#rachel-watson-the-internet-of-cats)
@@ -396,9 +396,9 @@ Manually setting up your free HTTPS certificates from Let's Encrypt is also an o
 
 <img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-mishunov.jpg">
 
-### Dennis Mishumov: Why performance matters
+### Denys Mishunov: Why performance matters
 
-Dennis is frontend developer, speaker. Science aficionado. And writes for [@smashingmag](https://www.smashingmagazine.com/).
+Denys is frontend developer, speaker. Science aficionado. And writes for [@smashingmag](https://www.smashingmagazine.com/).
 
 You can find him on Twitter using the handle [@mishunov](https://twitter.com/mishunov) or on his personal website [mishunov.me](http://mishunov.me).
 
@@ -411,7 +411,7 @@ User’s perception of your website’s speed is the only true performance measu
 This talk is about perception, neuroscience and psychology. The time is ripe to understand performance from the user’s perspective.
 </p></blockquote>
 
-In this talk Dennis showed us that performance is not always in the numbers, but that it is most of the time perception.
+In this talk Denys showed us that performance is not always in the numbers, but that it is most of the time perception.
 
 So next time you decide to invest a bunch of money in getting that request 100ms faster, make sure it will have impact!
 
@@ -468,7 +468,7 @@ You can move the active phase forward by making use of:
 
 ### Princiya Sequeira: Natural user interfaces using JavaScript
 
-Princiya is ... at Zalando Tech.
+Princiya works at Zalando Tech where she uses React and Redux. She's also a startup enthusiast, teacher, speaker, DataViz Diva and has a love for food and JavaScript
 
 You can find her on Twitter using the handle [@princi_ya](https://twitter.com/princi_ya) and Zalando Tech using the handle [@ZalandoTech](https://twitter.com/ZalandoTech).
 
