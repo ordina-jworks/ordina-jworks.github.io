@@ -10,17 +10,17 @@ comments: true
 
 ## From JS Conf Budapest with love
 
-This years JS Conf Budapest is hosted at [Akvárium Klub](http://akvariumklub.hu/).
+This year's edition of JS Conf Budapest was hosted at [Akvárium Klub](http://akvariumklub.hu/).
 Located right in the center of the city, below an actual pool, filled with water!
 
 > Akvárium Klub is more than a simple bar: it is a culture center with a wide musical repertoire from mainstream to underground.
-> There is always a good concert and a smashing exhibition, performance, or other event happening here, in a friendly scene, situated right in the city center. 
+> There is always a good concert and a smashing exhibition, performance, or other event happening here, in a friendly scene, situated right in the city center.
 
 JS Conf Budapest is hosted by the one and only [Jake Archibald](https://twitter.com/jaffathecake) from Google.
 Day 2 started at 9 o'clock.
-Enought time to drink great coffee and enjoy the breakfast.
+Enough time to drink great coffee and enjoy the breakfast.
 
-![JS Conf Budapest 2016 Photo Collage]({{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }}) 
+![JS Conf Budapest 2016 Photo Collage]({{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }})
 
 
 ****
@@ -50,7 +50,7 @@ Enought time to drink great coffee and enjoy the breakfast.
 
 Suz is front-developer at Kickstarter. Member of the NodeJS hardware working group. Member of the Ember-A11y Project team.
 
-You can find her on Twitter using the handle [@noopkat](https://twitter.com/noopkat) and blogs on [meow.noopkat.com]().
+You can find her on Twitter using the handle [@noopkat](https://twitter.com/noopkat). She blogs on [meow.noopkat.com]().
 
 <blockquote class="clear"><p>
 The physical world is just another binary machine.
@@ -82,7 +82,7 @@ Warning, a lot of feelings
 This story is inspired by the movie **Contact by Carl Sagan** and makes Suz wonder: what does sound look like?
 
 #### Formulartic spectrum (made up word: art)
-	
+
 * Analysing PCM data (Pulse Code Modulation -> raw uncompressed data)
 * Resulted in only 13-ish lines of code
 
@@ -128,10 +128,10 @@ So she started by taking [the sound of the subway doors closing](http://noopkat.
 
 Suz created a visualisation of the sampled audio that resulted in cats sitting on an subway.
 
-* Cat's can sit on 16 seats in subway car, each seat representing a beat
-* In total there were 308.728 samples which divided by 16 beats result in 19.295 samples per beat. Suz took to the average of the sample values of each 'beat'  
+* Cats can sit on 16 seats in subway car, each seat representing a beat
+* In total there were 308.728 samples which divided by 16 beats result in 19.295 samples per beat. Suz took the average of the sample values of each 'beat'  
 * The seats have different colors that represent the drum beat and oscillator note
-* When a cat is sitting on a chair we get a guitar strum and note
+* When a cat is sitting on a chair, we get a guitar strum and note
 
 The subway example is made using:
 
@@ -150,17 +150,17 @@ So Suz created a [subway card with built in speaker](https://noopkat.github.io/f
 * Creative coding gets you out of your comfort zone and teaches you to use tools you use everyday in another context
 * Art doesn't care about your semicolons
 	* Code can be messy
-	* no-one cares about semicolons etc
+	* No one cares about semicolons, etc.
 * Art doesn't care about perfection
-	* Again, your code doens't really matter
+	* Again, your code doesn't really matter
 
 **Art is about what you learned**
 
 * Write messy code
 * Make lots of mistakes
 * You deserve a break from being judged
-* code like no one's watching
-* don't 'git rebase -i'
+* Code like no one's watching
+* Don't 'git rebase -i'
 	* Show the history behind good code
 	* Code evolves from a first idea to a final solution.
 	* At first, code might not be perfect
@@ -179,11 +179,11 @@ Oliver is a software engineer working on the team behind theguardian.com.
 Being passionate about the open web, he aims to work on software that exploits the decentralised nature of the web to solve non-trivial, critical problems.
 With a strong background in arts as well as engineering, he approaches web development in its entirety: UX, performance, and functional programming are some of the things he enjoys most.
 
-You can find him on Twitter using the handle [@OliverJAsh](https://twitter.com/OliverJAsh). 
+You can find him on Twitter using the handle [@OliverJAsh](https://twitter.com/OliverJAsh).
 
 <blockquote class="clear"><p>
 You’re on a train to work and you open up the Guardian app on your phone.
-A tunnel surrounds you, but the app still works in very much the same way as it usually would—despite your lack of internet connection, you still get the full experience, only the content shown will be stale.
+A tunnel surrounds you, but the app still works in very much the same way as it usually would, despite your lack of internet connection, you still get the full experience, only the content shown will be stale.
 If you tried the same for the Guardian website, however, it wouldn’t load at all.
 Native apps have long had the tools to deal with these situations, in order to deliver rich user experiences whatever the user’s situation may be.
 With service workers, the web is catching up.
@@ -191,7 +191,7 @@ This talk will explain how Oliver used service workers to build an offline page 
 </p></blockquote>
 
 Oliver talked about the functionality they created with service workers on The Guardian.
-When offline on The Guardian you'll get a crossword puzzle (always the most recent) that you can play.
+When offline on The Guardian, you'll get a crossword puzzle (always the most recent) that you can play.
 We summarized the key parts of the talk for you.
 
 #### Website vs native
@@ -221,10 +221,10 @@ We summarized the key parts of the talk for you.
 
 **What is a service worker?**
 
-* A script that runs in the backgrond
+* A script that runs in the background
 * Useful for features that don't need user interaction, e.g.:
-    * Listen to push events, useful for pushing notification
-    * Intercept and handle network requets
+    * Listen to push events, useful for pushing notifications
+    * Intercept and handle network requests
     * Future
         * Background sync
         * Alarms (e.g. reminders)
@@ -378,7 +378,7 @@ This can be fixed with a cache manifest.
 
 #### Conclusion
 
-* Service workers allow us to progressively enchance the experience for
+* Service workers allow us to progressively enhance the experience for
     * Offline users
     * Users with poor connections
 * It's easy to build an offline page
@@ -394,7 +394,7 @@ This can be fixed with a cache manifest.
 
 ### Nicolás Bevacqua: High Performance in the Critical Rendering Path
 
-Nicolás loves the web. he is a consultant, a conference speaker, the author of JavaScript Application Design, an opinionated blogger, and an open-source evangelist.
+Nicolás loves the web. He is a consultant, a conference speaker, the author of JavaScript Application Design, an opinionated blogger, and an open-source evangelist.
 He participates actively in the online JavaScript community — as well as offline in beautiful Buenos Aires.
 
 You can find him on Twitter using the handle [@nzgb](https://twitter.com/nzgb) and on the web under the name [ponyfoo.com](https://ponyfoo.com/).
@@ -446,7 +446,7 @@ But we can automate a lot!
 
 > Measure early. Measure often.
 
-PageSpeed Insights is availble as npm module.
+PageSpeed Insights is available as npm module.
 
 {% highlight sh %}
 npm install psi -g
@@ -482,7 +482,7 @@ npm install grunt-perfbudget --save-dev
 
 #### What can we do beyond minification?
 
-Minification is usually the first thing developers think of when talking about optimizing your code for speed. 
+Minification is usually the first thing developers think of when talking about optimizing your code for speed.
 But what are the things we can do beyond minification?
 
 A lot of best practices on optimizing performance in your app are described in the [High Performance Browser Networking](http://www.amazon.com/High-Performance-Browser-Networking-performance/dp/1449344763) book written by Ilya Grigorik.
@@ -509,7 +509,7 @@ Through strengthening the security posture of JavaScript applications, we can ta
 #### Break the web together!
 
 > They say the best offense is good defense.
-> The best offense is offense. 
+> No. The best offense is offense.
 
 #### Hands-on vulnerability exploitation of medcellar
 
@@ -535,7 +535,7 @@ Using the Burp Suite's proxy, we were able to inspect all requests/responses the
 
 XSS is a serious vulnerability. It may not seem so for some people or clients but it really is!
 
-* How do we exploit apps where users have direct control 
+* How do we exploit apps where users have direct control
 * How do we attack web apps on a private network
 
 **CSRF Attacks!!**
@@ -548,8 +548,8 @@ Using a third party domain you can create a form (you won 1 million dollars) to 
 
 **BeEF**
 
-During the talk, Anand demonstrated how to perform XSS and CSRF attacks. 
-However, it seemed like you were only able to hack yourself. 
+During the talk, Anand demonstrated how to perform XSS and CSRF attacks.
+However, it seemed like you were only able to hack yourself.
 
 Things got serious though, when Anand demonstrated how you could exploit these vulnerabilities way more by using a special Linux distro called Kali Linux and BeEF (Browser Exploitation Framework).
 
@@ -558,7 +558,7 @@ Things got serious though, when Anand demonstrated how you could exploit these v
 [BeEF](http://beefproject.com/) is a Penetration Testing tool that focusses on the browser and possible vulnerabilities in it and the applications running in it.
 
 Combining these two, Anand was able to do basically anything in the users browser and he demonstrated this by running some random audio in the users browser.
-Playing audio isn't that harmful, but you could have installed a keyLogger instead and start tracking anything the user types on his computer. 
+Playing audio isn't that harmful, but you could have installed a keyLogger instead and start tracking anything the user types on his computer.
 That seems to be a little bit worse than playing some audio!
 
 > When you enter a coffee shop and see someone using this, disconnect from the internet and run away as fast as you possibly can." - Quote from Anand
@@ -583,11 +583,11 @@ But, luckily for us, CSRF middleware which implements these mitigations has alre
 
 - App Sec vulnerabilities can be used in combination
 - No state changing operations should be GET requests
-- Maje sure the CSRF token is cryptographically secure
+- Make sure the CSRF token is cryptographically secure
 	- Random !== Cryptographically secure
 - CSRF Middleware Saves Lives!!
 
-Oh..., and
+Oh... And
 
 - Cross Origin Resource sharing (CORS)
 	- Access-control-Allow-Origin: * IS BAD!
@@ -600,12 +600,12 @@ Oh..., and
 
 ### Sam Bellen: Changing live audio with the web-audio-api
 
-Sam is ... developer at Made with love.
+Sam is developer at Made with love.
 
 You can find him on Twitter using the handle [@sambego](https://twitter.com/sambego).
 
 <blockquote class="clear"><p>
-As a guitar player, I usually use some effect-pedals to change the sound of my guitar.
+As a guitar player, I usually use some effects pedals to change the sound of my guitar.
 I started wondering: “What if, it would be possible to recreate these pedals using the web-audio-api?”.
 Well, it turns out, it is entirely possible to do so.
 This talk takes you through the basics of the web-audio-api and explains some of the audio-nodes I’ve used to change the live sound of my guitar.
@@ -618,7 +618,7 @@ Presentation can be found here: https://github.com/Sambego/pedalboard-presentati
 * Create new audio context.
 * Get the audio input of your computer: navigator.getUserMedia()
 * Create inputNode from the media stream we just fetched
-* Connect the inputnode to the audiocontext.destination
+* Connect the inputNode to the audiocontext.destination
 
 #### Add effects to the sound
 
@@ -674,8 +674,8 @@ We'll see real-time, publicly-broadcast, simulations of the electrical activity 
 
 #### Neuroscience introduction
 
-The topic for this talk was quite some heavy material. 
-However, Rob managed to give us a quick, super highlevel, introduction to neuroscience and more specifically an introduction to how neurons actually work.
+The topic for this talk was quite some heavy material.
+However, Rob managed to give us a quick, super high-level, introduction to neuroscience and more specifically an introduction to how neurons actually work.
 
 Very High level, there are 3 parts in a neuron:
 
@@ -684,9 +684,9 @@ Very High level, there are 3 parts in a neuron:
 - Axons.
 
 Neurons receive electrical signals through their dendrites, and transmit those to the neuron body, called the Soma.
-From the neuron body, new electrical signals travel to other neurons. 
-Sending elektrical current from one neuron to another is being done through it's axons.
-So the axons actually send electrical signales to other neurons and those other neurons receive these signals trough their dendrites. 
+From the neuron body, new electrical signals travel to other neurons.
+Sending electrical current from one neuron to another is being done through its axons.
+So the axons actually send electrical signals to other neurons and those other neurons receive these signals trough their dendrites.
 
 A better, more thorough explanation of neurons is being described on [Wikipedia](https://en.wikipedia.org/wiki/Neuron), but we needed a super simplified explanation of neurons and their main components to further explain what Rob showed us.
 
@@ -699,18 +699,18 @@ Using all the records and their properties allows you to visually represent the 
 There's already an online repository containing these encoded neurons which you can find [here](http://www.neuromorpho.org/).
 
 Now, what does all of this have to do with the browser or JS or anything you would expect at JSConf?
-Well, while he was working on his Phd thesis, he started playing around with JS and it's related technologies. 
+Well, while he was working on his Ph.D. thesis, he started playing around with JS and its related technologies.
 And he continued to do so since then, all in function of the neuroscience domain.
 
 As we saw earlier, there's already a webpage where you can upload swc files with neuron data to visually represent these, but these are rather static images.
-Instead, Rob decided to create a platform which can also simulate the behaviour of such a neuron when you trigger it with electrical current on it's dendrites.
+Instead, Rob decided to create a platform which can also simulate the behaviour of such a neuron when you trigger it with electrical current on its dendrites.
 
 #### Technology stack
 
 Rob used a combination of tools and technologies to build the platform.
 Together with his colleagues at IBM research Australia, they built an entire Cloud platform that could perform these complex simulations.
 
-On their IBM bluemix cloud they run Docker Containers running the algorithm that performs the neuron simulations.
+On their IBM Bluemix cloud they run Docker Containers running the algorithm that performs the neuron simulations.
 The algorithm is written in C and is based on mathematic formula which is shown in the below image.
 
 **Hodgkin-Huxley Model of the Squid Giant Axon**
@@ -731,7 +731,7 @@ In the below video you can see what the tool looks and animations look like:
 	<iframe src="https://www.youtube.com/embed/z_7c6JjicGE?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 
-The tool enables researchers to replay a scenario where a certain spike is triggered in a branch of the neuron. 
+The tool enables researchers to replay a scenario where a certain spike is triggered in a branch of the neuron.
 This gives scientists a lot of knowledge and insights about how neurons behave.
 
 Rob gave a really entertaining talk with some really cool visuals of neurons in action.
@@ -790,11 +790,11 @@ This article about packaging will get you on the way: [engineering.khanacademy.o
 Create a lot of modules to update as flexible as possible and as small as possible.
 When using ES6 we can also use Treeshaking.
 
-* Create independent, excheangable components
+* Create independent, exchangeable components
 * Create small, detachable bundles
-* Think about long lastig applications and frequently of change
+* Think about long-lasting applications and frequently of change
 
-Use tools not rules!
+Use tools, not rules!
 
 
 ****
@@ -847,7 +847,7 @@ You’ll leave knowing about practical things you can do in your daily life to m
 Debugging can be hard and it becomes harder when working with complex software.
 
 Spaghetti code is difficult to read and maintain.
-It can be code that is not organised, has lot's of dependencies and is difficult to debug.
+It can be code that is not organised, has lots of dependencies and is difficult to debug.
 
 #### The Tech Industry is bugged
 
@@ -866,7 +866,7 @@ To be able to fix this we need to understand ourselves. Our flaws, limitations, 
 
 Privilege is sitting in your comfy home and not knowing a big thunderstorm is coming that could harm people.
 
-Privilige is being able to stand up when attending a standup and not having to sit because you are disabled.
+Privilege is being able to stand up when attending a standup and not having to sit because you are disabled.
 
 #### We are biased
 
@@ -902,7 +902,7 @@ Let's look at some key points within our industry.
 
 * Lack of diversity
 * Lack of inclusion
-* Harassmant
+* Harassment
 
 **Society**
 
@@ -914,7 +914,7 @@ Let's look at some key points within our industry.
 
 * Lack of diversity
 * Lack of inclusion
-* Harassmant
+* Harassment
 * Racism
 * Patriarchy
 * Capitalism
@@ -927,7 +927,7 @@ Our software can help people. A screenreader, accessibility, ...
 
 Our software is racist.
 Our software (tools like Siri or Cortana or Snapchat) does not correctly recognise skin color, alters skin color and does not recognise harassment or racism.
-Animations in software can trigger panic attacks or eppileptic attacks.
+Animations in software can trigger panic attacks or epileptic attacks.
 
 > We have a collective responsibility and need to take that very seriously.
 > Technology and our code is not neutral. Our work is political and has consequences on lives.
@@ -937,10 +937,10 @@ Animations in software can trigger panic attacks or eppileptic attacks.
 Change starts with you, starts with all of us.
 What can we do to debug the system?
 
-1. **Educate yourself**, about systemic issues and oppresion
+1. **Educate yourself**, about systemic issues and oppression
 2. **Practice empathy**, because we need it to be good designers and developers
 3. **Work on Humility**, because none of us are Unicorns
-4. **Understanding Priviliges**, and use them for good
+4. **Understanding Privileges**, and use them for good
 5. **Address biases**, and establish policies to address them
 6. **Listen**, and actively look for voices outside of your networks
 7. **Amplify others' voices**, and speak less
@@ -981,7 +981,7 @@ A big thank you to the organisers and volunteers to make JS Conf Budapest what i
 
 In 2017, JS Conf Budapest will be held on the 14th and 15th of September.
 
-We will sure be present for what will be another great edition! See you next year!
+We will surely be present for what will be another great edition! See you next year!
 
 ### JS Conf Budapest 2016, day 1
 
