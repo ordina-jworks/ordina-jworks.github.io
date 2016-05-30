@@ -136,7 +136,7 @@ we can attach a label named **method** that takes the HTTP method as value.
 Other possible labels include the endpoint that is called on our API,
 and the HTTP status returned by the server for that request.
 
-The notation for a time series like that could be the following:
+The notation for a metric like that could be the following:
 
 ```
 api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}
@@ -144,19 +144,15 @@ api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}
 
 Now,
 if we start sampling values for this metric,
-we would end up with the following time series:
+we could end up with the following time series:
 
-|Metric name    | Labels    | Timestamp    | Values |
-|-----------------------|---------------------------------------------------|---------------|--------|
-| api_http_requests_total | {method="GET", endpoint="/api/posts", status="200"} | @1464623917237 | 1234124 |
-| api_http_requests_total | {method="GET", endpoint="/api/posts", status="500"} | @1464623917237 | 1234 |
-| api_http_requests_total | {method="POST", endpoint="/api/posts", status="201"} | @146462479219 | 5 |
-| api_http_requests_total | {method="POST", endpoint="/api/posts", status="500"} | @146462479219 | 1 |
-
-
-# Time Series
-
-# Metrics
+```
+Metric Name             Labels                                                Timestamp       Value
+api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}    @1464623917237  68856
+api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}    @1464623917237  5567
+api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}    @1464624516508  76909
+api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}    @1464624516508  6789
+```
 
 # Query Language
 
