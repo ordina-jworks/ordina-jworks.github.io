@@ -14,11 +14,10 @@ Prometheus works as a monitoring-and-alerting system.
 
 TODO
 
-# The rise of Prometheus
+# The Rise of Prometheus
 
 As with most great technologies,
-there is always a great story hiding behind these gems.
-Technology is created to provide an answer to a certain question.
+there is usually a great story hiding behind them.
 Nothing is different with Prometheus.
 Incubated at [SoundCloud](https://soundcloud.com/),
 which is _the_ social platform for sharing sounds and music,
@@ -35,8 +34,8 @@ However,
 nowadays,
 about 12 hours of music is uploaded _every minute_ to SoundCloud.
 The platform is used by hundreds of millions of users every day.
-To be able to handle this amount of volume,
-SoundCloud moved to a more scalable approach.
+To be able to handle this size of volume,
+SoundCloud adapted a more scalable approach.
 Deciding against a complete rewrite of their whole technology stack,
 they stopped adding new features to the Mothership.
 Instead, new features were written as microservices,
@@ -52,7 +51,7 @@ Moving towards a microservices architecture paved the way for many possibilities
 but it also introduced a lot of complexity.
 Monitoring a single application is easy.
 Monitoring hundreds of different services with thousands of instances is an entirely different story.
-SoundCloud's original monitoring set-up consisted of Graphite and StatsD,
+SoundCloud's original monitoring set-up consisted of Graphite and StatsD.
 This setup did not suffice for the new, scalable microservices architecture.
 The amount of generated events could not be handled in a reliable way.
 
@@ -76,7 +75,7 @@ Since no existing system combined all of these features,
 Prometheus was born from a pet project at SoundCloud.
 
 Although the project has been [open source](https://github.com/prometheus) from the beginning,
-SoundCloud did not make any noise until the project was mature enough.
+SoundCloud did not make any noise about it until the project was mature enough.
 In January 2015,
 after 2 years of development and internal usage,
 the project was [publicly announced](https://developers.soundcloud.com/blog/prometheus-monitoring-at-soundcloud)
@@ -95,27 +94,24 @@ The following image depicts the amount of stars the project received on GitHub s
 
 # Overview
 
-Let's take a look at Prometheus' architecture.
-It is pretty straightforward.
+Prometheus' architecture is pretty straightforward.
 
-The Prometheus server scrapes (pulls) metrics from _instrumented services_.
-If a service is unable to be instrumented, ...
+Prometheus servers scrape (pull) metrics from _instrumented jobs_.
+If a service is unable to be instrumented,
+the server can scrape metrics from an intermediary _push gateway_.
+There is no distributed storage.
+Prometheus servers store all metrics locally.
+They can run rules over this data and generate new time series,
+or trigger alerts. Servers also provide an API to query the data.
+PromDash utilizes this functionality and can be used to build dashboards.
+
+Finally,
+Prometheus servers know which targets to scrape from due to service discovery,
+or static configuration.
 
 <p style="text-align: center;">
   <img alt="Prometheus Architecture" src="/img/prometheus/prometheus-architecture.svg">
 </p>
-
-Prometheus's main features are:
-
-* A multi-dimensional data model.
-* A flexible query language to leverage this dimensionality.
-* No reliance on distributed storage; single server nodes are autonomous.
-* Time series collection happens via a pull model over HTTP.
-* Pushing time series is supported via an intermediary gateway.
-* Targets are discovered via service discovery or static configuration.
-* Multiple modes of graphing and dashboarding support.
-
-TODO
 
 # Data Model
 
@@ -154,11 +150,37 @@ api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}    @1
 api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}    @1464624516508  6789
 ```
 
+Prometheus only has four metric types.
+
+A **counter** is a metric which is a numerical value that is only incremented,
+never decremented.
+Examples include the total amount of requests served,
+how many exceptions that occur, etc.
+
+A **gauge** is a metric similar to the counter. It is a numerical value that can go either up or down.
+Think of memory usage, cpu usage, amount of threads, or perhaps a temperature.
+
+A **[Histogram](https://www.google.com/search?q=histogram)** is a metric that samples observations.
+These observations are counted and placed into configurable buckets.
+Upon being scraped,
+a _histogram_ provides multiple time series,
+including one for each bucket,
+one for the sum of all values,
+and one for the the count of the events that have been observed.
+A typical use case for a histogram is the measuring of response times.
+
+A **Summary** is very similar to a _histogram_,
+but it also calculates configurable [quantiles](https://en.wikipedia.org/wiki/Quantile).
+Depending on your requirements,
+you either use a [histogram or a summary](https://prometheus.io/docs/practices/histograms/).
+
 # Query Language
 
 # Instrumentation
 
 # Exporters
+
+# Targets
 
 # Dashboards
 
