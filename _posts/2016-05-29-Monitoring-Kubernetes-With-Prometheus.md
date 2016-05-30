@@ -14,7 +14,7 @@ Prometheus works as a monitoring-and-alerting system.
 
 TODO
 
-# The origin of Prometheus
+# The rise of Prometheus
 
 As with most great technologies,
 there is always a great story hiding behind these gems.
@@ -52,9 +52,9 @@ Moving towards a microservices architecture paved the way for many possibilities
 but it also introduced a lot of complexity.
 Monitoring a single application is easy.
 Monitoring hundreds of different services with thousands of instances is an entirely different story.
-SoundCloud's original monitoring set-up consisted of Graphite for gathering metrics,
-and StatsD for aggregation.
-This setup did not suffice the monitoring needs for the new microservices architecture.
+SoundCloud's original monitoring set-up consisted of Graphite and StatsD,
+This setup did not suffice for the new, scalable microservices architecture.
+The amount of generated events could not be handled in a reliable way.
 
 SoundCloud started looking for a new monitoring tool,
 while keeping the following requirements in mind:
@@ -74,9 +74,85 @@ for independent and reliable monitoring.
 
 Since no existing system combined all of these features,
 Prometheus was born from a pet project at SoundCloud.
-The project has been [open-source](https://github.com/prometheus) from the beginning.
+
+Although the project has been [open source](https://github.com/prometheus) from the beginning,
+SoundCloud did not make any noise until the project was mature enough.
+In January 2015,
+after 2 years of development and internal usage,
+the project was [publicly announced](https://developers.soundcloud.com/blog/prometheus-monitoring-at-soundcloud)
+and a [website](https://prometheus.io) was put online.
+The amount of attention it received was totally unexpected for the team at SoundCloud.
+After a [post on Hacker News](https://news.ycombinator.com/item?id=8995696),
+which made it all the way to the top,
+things got serious.
+There was a sharp rise in contributions, questions, GitHub issues, conference invites, and all that stuff.
+
+The following image depicts the amount of stars the project received on GitHub since its inception.
+
+<p style="text-align: center;">
+  <img style="max-width: 640px;" alt="Prometheus Github Stars" src="/img/prometheus/prometheus-github-stars.png">
+</p>
+
+# Overview
+
+Let's take a look at Prometheus' architecture.
+It is pretty straightforward.
+
+The Prometheus server scrapes (pulls) metrics from _instrumented services_.
+If a service is unable to be instrumented, ...
+
+<p style="text-align: center;">
+  <img alt="Prometheus Architecture" src="/img/prometheus/prometheus-architecture.svg">
+</p>
+
+Prometheus's main features are:
+
+* A multi-dimensional data model.
+* A flexible query language to leverage this dimensionality.
+* No reliance on distributed storage; single server nodes are autonomous.
+* Time series collection happens via a pull model over HTTP.
+* Pushing time series is supported via an intermediary gateway.
+* Targets are discovered via service discovery or static configuration.
+* Multiple modes of graphing and dashboarding support.
+
+TODO
 
 # Data Model
+
+At its core,
+Prometheus stores all data as **time series**.
+A time series is a stream of timestamped values that belong to the same metric and the same labels.
+The labels cause the metrics to be multi-dimensional.
+
+For example,
+if we wish to monitor the total amount of HTTP requests on our API,
+we could create a metric named **api_http_requests_total**.
+Now,
+to make this metric multi-dimensional,
+we can add labels.
+Labels are simple key value pairs.
+For HTTP requests,
+we can attach a label named **method** that takes the HTTP method as value.
+Other possible labels include the endpoint that is called on our API,
+and the HTTP status returned by the server for that request.
+
+The notation for a time series like that could be the following:
+
+```
+api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}
+```
+
+Now,
+if we start sampling values for this metric,
+we would end up with the following time series:
+
+|Metric name    | Labels    | Timestamp    | Values |
+|-----------------------|---------------------------------------------------|---------------|--------|
+| api_http_requests_total | {method="GET", endpoint="/api/posts", status="200"} | @1464623917237 | 1234124 |
+| api_http_requests_total | {method="GET", endpoint="/api/posts", status="500"} | @1464623917237 | 1234 |
+| api_http_requests_total | {method="POST", endpoint="/api/posts", status="201"} | @146462479219 | 5 |
+| api_http_requests_total | {method="POST", endpoint="/api/posts", status="500"} | @146462479219 | 1 |
+
 
 # Time Series
 
