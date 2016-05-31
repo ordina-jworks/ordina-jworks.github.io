@@ -270,7 +270,7 @@ not being served correctly in the last hour:
 topk(
   3, sum(
     rate(api_http_requests_total{status=500}[1h])
-  } by (endpoint)
+  ) by (endpoint)
 )
 ```
 
