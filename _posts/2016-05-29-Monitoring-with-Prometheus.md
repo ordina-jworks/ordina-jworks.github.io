@@ -7,6 +7,13 @@ tags: [Prometheus]
 category: Monitoring
 comments: true
 ---
+# Overview
+
+* [Introduction](#intro)
+* [The Rise of Prometheus](#rise-of-prometheus)
+* [Architecture](#architecture)
+
+<a name="intro" />
 
 # Prometheus
 
@@ -14,13 +21,15 @@ Prometheus works as a monitoring-and-alerting system.
 
 TODO
 
+<a name="rise-of-prometheus" />
+
 # The Rise of Prometheus
 
 As with most great technologies,
 there is usually a great story hiding behind them.
 Nothing is different with Prometheus.
 Incubated at [SoundCloud](https://soundcloud.com/),
-which is _the_ social platform for sharing sounds and music,
+_the_ social platform for sharing sounds and music,
 Prometheus has come a long way.
 
 When SoundCloud was just a start-up,
@@ -92,7 +101,9 @@ The following image depicts the amount of stars the project received on GitHub s
   <img style="max-width: 640px;" alt="Prometheus Github Stars" src="/img/prometheus/prometheus-github-stars.png">
 </p>
 
-# Overview
+<a name="architecture" />
+
+# Architecture
 
 Prometheus' architecture is pretty straightforward.
 
@@ -150,6 +161,13 @@ api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}    @1
 api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}    @1464624516508  6789
 ```
 
+One of the great aspects of time series
+is the fact that the amount of generated time series is independent of the amount of events.
+Even though your server might suddenly get a spike in traffic,
+the amount of time series generated stays the same.
+Only the outputted value of the time series will be higher.
+This is wonderful for scalability.
+
 Prometheus only has four metric types.
 
 A **counter** is a metric which is a numerical value that is only incremented,
@@ -174,7 +192,91 @@ but it also calculates configurable [quantiles](https://en.wikipedia.org/wiki/Qu
 Depending on your requirements,
 you either use a [histogram or a summary](https://prometheus.io/docs/practices/histograms/).
 
-# Query Language
+# Slice & Dice with the Query Language
+
+A powerful data model needs a powerful query language.
+Prometheus offers one,
+and it is also one of Prometheus' key features.
+The Prometheus query language,
+or _promql_,
+is an expressive, functional language.
+One which apparently,
+by the way,
+is [Turing complete](http://www.robustperception.io/conways-life-in-prometheus/).
+
+The language is easy to use.
+Monitoring things like CPU usage,
+memory usage, amount of HTTP request served, etc. are pretty straightforward,
+and the language makes it effortless.
+Using an **instant vector selector**,
+you can select time series from a metric.
+
+For example,
+Continuing with our API example,
+we can select all the time series of the metric `api_http_requests_total`:
+
+```
+api_http_requests_total
+```
+
+We can dive a little bit deeper by filtering these time series on their labels using curly braces (`{}`).
+Let's say we want to monitor requests that failed due to an internal server error.
+We can achieve that by selecting the time series of the metric `api_http_requests_total`
+where the label `status` is set to `500`.
+
+```
+api_http_requests_total{status=500}
+```  
+
+We can also define a time window if we only want to have time series of a certain period.
+This is done by using a **range vector selector**.
+The following example selects time series of the last hour:
+
+```
+api_http_requests_total[1h]
+```  
+
+The time duration is specified as a number followed by a character depicting the time unit:
+
+* **s** - seconds
+* **m** - minutes
+* **h** - hours
+* **d** - days
+* **w** - weeks
+* **y** - years
+
+You can go further back in time by using an `offset`.
+This example selects time series that happened at least an hour ago:
+
+```
+api_http_requests_total offset 1h
+```  
+
+We can use functions in our queries to create more useful results.
+The `rate()` function calculates the per-second average rate of time series in a range vector.
+Combining all the above tools,
+we can get the rates of HTTP requests of a very specific timeframe.
+The query below will calculate the per-second rates of all HTTP requests
+that occurred in the last 5 minutes an hour ago:
+
+```
+rate(api_http_requests_total{status=500}[5m] offset 1h)
+```
+
+A slightly more complex example selects the top 3 endpoints which have the most HTTP requests
+not being served correctly in the last hour:
+
+```
+topk(
+  3, sum(
+    rate(api_http_requests_total{status=500}[1h])
+  } by (endpoint)
+)
+```
+
+As you can see,
+Prometheus can provide a lot of useful information with several simple queries that only have a few basic functions and operators.
+There is also support for sorting, aggregation, interpolation and other mathematical wizardry that you can find in other query languages.
 
 # Instrumentation
 
