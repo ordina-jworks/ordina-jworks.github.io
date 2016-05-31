@@ -145,7 +145,7 @@ and the HTTP status returned by the server for that request.
 
 The notation for a metric like that could be the following:
 
-```
+```javascript
 api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}
 ```
 
@@ -153,7 +153,7 @@ Now,
 if we start sampling values for this metric,
 we could end up with the following time series:
 
-```
+```javascript
 Metric Name             Labels                                                Timestamp       Value
 api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}    @1464623917237  68856
 api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}    @1464623917237  5567
@@ -215,7 +215,7 @@ For example,
 Continuing with our API example,
 we can select all the time series of the metric `api_http_requests_total`:
 
-```
+```javascript
 api_http_requests_total
 ```
 
@@ -224,7 +224,7 @@ Let's say we want to monitor requests that failed due to an internal server erro
 We can achieve that by selecting the time series of the metric `api_http_requests_total`
 where the label `status` is set to `500`.
 
-```
+```javascript
 api_http_requests_total{status=500}
 ```  
 
@@ -232,7 +232,7 @@ We can also define a time window if we only want to have time series of a certai
 This is done by using a **range vector selector**.
 The following example selects time series of the last hour:
 
-```
+```javascript
 api_http_requests_total[1h]
 ```  
 
@@ -248,7 +248,7 @@ The time duration is specified as a number followed by a character depicting the
 You can go further back in time by using an `offset`.
 This example selects time series that happened at least an hour ago:
 
-```
+```javascript
 api_http_requests_total offset 1h
 ```  
 
@@ -259,14 +259,14 @@ we can get the rates of HTTP requests of a very specific timeframe.
 The query below will calculate the per-second rates of all HTTP requests
 that occurred in the last 5 minutes an hour ago:
 
-```
+```javascript
 rate(api_http_requests_total{status=500}[5m] offset 1h)
 ```
 
 A slightly more complex example selects the top 3 endpoints which have the most HTTP requests
 not being served correctly in the last hour:
 
-```
+```javascript
 topk(
   3, sum(
     rate(api_http_requests_total{status=500}[1h])
@@ -278,21 +278,74 @@ As you can see,
 Prometheus can provide a lot of useful information with several simple queries that only have a few basic functions and operators.
 There is also support for sorting, aggregation, interpolation and other mathematical wizardry that you can find in other query languages.
 
-# Instrumentation
+# Instrumenting Your Services
+
+One of the requirements to be able to query data and get results,
+obviously,
+is the fact that there must be data that can be queried.
+Generating data can be done by instrumenting your services.
+Prometheus offers client libraries for
+[Go](https://github.com/prometheus/client_golang),
+[Java/Scala](https://github.com/prometheus/client_java),
+[Python](https://github.com/prometheus/client_python) and
+[Ruby](https://github.com/prometheus/client_ruby).
+There is also a lengthy list of unofficial third-party clients for other languages,
+including clients for Bash and Node.js.
+These clients enable you to expose metrics endpoints through HTTP.
+
+This is totally different compared to other,
+more traditional,
+monitoring tools.
+Normally,
+the application is unaware that is being monitored.
+With Prometheus,
+you must instrument your code
+and explicitly define the metrics you want to expose.
+This allows you to generate highly granular data which you can query.
+To be honest,
+this technique is not much different than logging.
+Logging statements are,
+most of the times,
+also explicitly defined in the code,
+so why not for monitoring as well?
+
+For short-lived jobs,
+like cronjobs,
+scraping may be too slow to gather the metrics.
+For these use cases,
+Prometheus offers an alternative,
+called the [Pushgateway](https://github.com/prometheus/pushgateway).
+Before a job disappears,
+it can push metrics to this gateway,
+and Prometheus can scrape the metrics from this gateway later on.
 
 # Exporters
 
-# Targets
+TODO
+
+# Scraping the Targets
+
+TODO
 
 # Dashboards
 
+TODO
+
 # Histograms
+
+TODO
 
 # Alerting
 
+TODO
+
 # Rules
 
-# Example application
+TODO
+
+# Time for Action
+
+TODO Sample application
 
 # Prometheus joins CNCF
 
@@ -315,3 +368,5 @@ Founders include big names like Google, RedHat, Twitter, IBM and Cisco.
 Among the founders, originating from the container world, also include Docker, Mesosphere and CoreOS.
 
 # Conclusion
+
+TODO
