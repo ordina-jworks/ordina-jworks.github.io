@@ -160,16 +160,16 @@ how many exceptions that occur, etc.
 A **gauge** is a metric similar to the counter. It is a numerical value that can go either up or down.
 Think of memory usage, cpu usage, amount of threads, or perhaps a temperature.
 
-A **[Histogram](https://www.google.com/search?q=histogram)** is a metric that samples observations.
+A **[histogram](https://www.google.com/search?q=histogram)** is a metric that samples observations.
 These observations are counted and placed into configurable buckets.
 Upon being scraped,
 a _histogram_ provides multiple time series,
 including one for each bucket,
 one for the sum of all values,
-and one for the the count of the events that have been observed.
+and one for the count of the events that have been observed.
 A typical use case for a histogram is the measuring of response times.
 
-A **Summary** is very similar to a _histogram_,
+A **summary** is very similar to a _histogram_,
 but it also calculates configurable [quantiles](https://en.wikipedia.org/wiki/Quantile).
 Depending on your requirements,
 you either use a [histogram or a summary](https://prometheus.io/docs/practices/histograms/).
@@ -190,6 +190,8 @@ you either use a [histogram or a summary](https://prometheus.io/docs/practices/h
 
 # Rules
 
+# Example application
+
 # Prometheus joins CNCF
 
 Just a few weeks ago,
@@ -207,7 +209,7 @@ _Cloud Native Computing Foundation_ ([CNCF](http://cncf.io/)) is a nonprofit, op
 formed under the Linux Foundation.
 It is a shared effort by the industry to create innovation for container packaged, microservices based, dynamically scheduled applications and operations.
 
-Founders include big names like Google, Redhat, Twitter, IBM and Cisco.
+Founders include big names like Google, RedHat, Twitter, IBM and Cisco.
 Among the founders, originating from the container world, also include Docker, Mesosphere and CoreOS.
 
-# Conlusion
+# Conclusion
