@@ -302,10 +302,10 @@ With Prometheus,
 you must instrument your code
 and explicitly define the metrics you want to expose.
 This allows you to generate highly granular data which you can query.
-To be honest,
+However,
 this technique is not much different than logging.
 Logging statements are,
-most of the times,
+most of the time,
 also explicitly defined in the code,
 so why not for monitoring as well?
 
@@ -321,7 +321,15 @@ and Prometheus can scrape the metrics from this gateway later on.
 
 # Exporters
 
-TODO
+Not everything can be instrumented.
+Third-party tools that do not support Prometheus metrics natively,
+can be monitored with **exporters**.
+Exporters can collect statistics and existing metrics,
+and convert them to Prometheus metrics.
+An exporter,
+just like an instrumented service,
+exposes these metrics through an endpoint,
+preferably `/metrics`.
 
 # Scraping the Targets
 
