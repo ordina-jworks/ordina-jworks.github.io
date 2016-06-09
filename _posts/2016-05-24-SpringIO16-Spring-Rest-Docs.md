@@ -10,9 +10,9 @@ comments: true
 
 ## Spring IO 2016
 The main focus this year was definitely about Cloud, Reactive and MicroServices.
-But to complete this story we will need to document the REST API. 
+But it is important not to forget other topics, like documentation! 
 Keep calm, you don't have to do it manually! 
-Spring made it easy for us with Spring Rest Docs! 
+Spring made it easy for us with Spring REST Docs! 
 This year in Spring IO, Andy Wilkinson himself talked about why, how and when Spring Rest Docs are being used. 
 Last but not least, he talked about the new features that came out in version 1.1.
 Since I implemented Spring REST Docs in a project, I'll use examples from my experiences.
@@ -27,11 +27,11 @@ You can find him on Twitter using the handle [@ankinson](https://twitter.com/ank
 
 <blockquote class="clear"><p>
 Writing documentation is critical in the world of development. 
-It is used to make a accurate and straight declaration and intent of what the service has to offer. 
+It is used to make an accurate and straight declaration and intent of what the service has to offer. 
 Front-End developers will be able to know which endpoints they have to call and receive the right resource. 
-Now we all know it's tedious for developers to write documentation...
-Price your self lucky! Spring Rest Docs will make your life easier.
-While you are writing tests, Spring will generate a fully html api guide for you and your team. 
+Now, we all know it's tedious for developers to write documentation...
+It's your lucky day! Spring Rest Docs will make your life easier.
+While you are writing tests, Spring will generate a fully HTML api guide for you and your team. 
 This blog post will take you through the best practices, how to and new features in 1.1.
 </p></blockquote>
 
@@ -42,14 +42,14 @@ This blog post will take you through the best practices, how to and new features
 * it’s straight forward with no repetition
 * it’s easier to write (no annotations like Swagger)
 
-### Choose your tool of use.
+### Choose your tool of choice.
 
 #### Asciidoctor
 Asciidoctor is a markup language that processes plain text and produces HTML, styles and layed out to suit your needs.
-If you are interested writing in Asciidoctor be sure to checkout the [manual](http://asciidoctor.org/docs/user-manual/#introduction-to-asciidoctor).
+If you are interested in writing in Asciidoctor be sure to checkout the [manual](http://asciidoctor.org/docs/user-manual/#introduction-to-asciidoctor).
 
 #### Markdown (New in 1.1)
-With the newest version of REST docs, they decided to give the developers more choice in markup languages writing the document.
+With the newest version of REST docs, they decided to give the developers more choice in markup languages to write the document.
 The Markdown support is not that capable as Asciidoctor, but Markdown can work very well when combined with existing documentation toolchains such as [Slate](https://github.com/tripit/slate).
 Here is a good [sample](https://github.com/spring-projects/spring-restdocs/tree/master/samples/rest-notes-slate) working with slate.
 
@@ -59,7 +59,7 @@ Since Asciidoctor has support for more functionality than Markdown, it gives Asc
 
 ### Test Tools
 When we want to use Spring Rest Docs, we'll have to use one of the test tools Spring has to offer. 
-Here are the different tools of choice. To use these tools we'll have to initialise which document, Mockmvc and objectWriter we'll be using. 
+Here are the different tools of choice. To use these tools we'll have to initialise which document, `Mockmvc` and `ObjectWriter` we'll be using. 
 For security there is support for adding filters.
 
 #### MockMvc
@@ -107,7 +107,7 @@ public void setUp() {
 
 
 #### Andy's pick
-This time he didn't favored one but he mentioned that RestAssured gives you more functionality and extends your possibilities with HTTP.
+This time he didn't favor one but he mentioned that RestAssured gives you more functionality and extends your possibilities with HTTP.
 
 
 ### Snip, snip, snippets everywhere!
@@ -137,7 +137,7 @@ this.document.snippets(
 
 
 #### Relaxed Snippet (New in 1.1)
-In contrast of default snippets, relaxed snippets are used to have no complaining when neglected something in the document.
+In contrast to default snippets, relaxed snippets are used to have no complaining when something was neglected in the document.
 This has the advantage if you would like to focus on a certain scenario or specific part of the response/request.
 
 #### Reusable Snippet (New in 1.1)
@@ -186,7 +186,7 @@ If you have dynamic links that can disappear at one time, you can use relaxed sn
 ### Request fields
 This defines your fields you request from the client.
 Normally it will complain if you neglected a field but with v1.1 Spring REST Docs has support for Relaxed Snippets.
-Since I use constraints I made my own method withPath, this will add an extra column constraint to the documentation.
+Since I use constraints I made my own method `withPath, this will add an extra column constraint to the documentation.
 {% highlight java %} 
  private static class ConstrainedFields {
          private final ConstraintDescriptions constraintDescriptions;
@@ -236,7 +236,7 @@ This defines the result after consultation of a resource.
 
 ### Request/response headers
 Defines your request/response headers in your api. 
-This is useful when there are extra headers to use. 
+This is useful when there are extra headers to set. 
 If the request has to involve an authorization header for security you can add this header to your document.
 
 {% highlight java %}
@@ -272,7 +272,7 @@ this.mockMvc.perform(get("/users?page=2&per_page=100"))
 
 
 ### Request parts (new in 1.1)
-The parts of a multipart request can be documenting using requestParts
+The parts of a multipart request can be documenting using `requestParts`
 
 Example
 
@@ -303,7 +303,7 @@ Concerns who made it to the top are:
 * Rate limiting 
 * Authentication and authorisation
 
-#### And Http verbs/codes (PATCH VS PUT)
+#### And HTTP verbs/codes (PATCH VS PUT)
 To be RESTfull, you'll have to follow the guidelines in having a correct API design. 
 This [picture](https://upload.wikimedia.org/wikipedia/commons/8/88/Http-headers-status.png) shows you how and when to use the correct verbs and HTTP codes
 
@@ -315,7 +315,7 @@ This [picture](https://upload.wikimedia.org/wikipedia/commons/8/88/Http-headers-
    * What input do they accept?
    * What output do they produce?
 
-Last but not least: dont document uri’s!
+Last but not least: do not document uri’s!
 
 ## Questions
 
