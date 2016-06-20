@@ -1,4 +1,4 @@
----
+up---
 layout: post
 authors: [tom_verelst]
 title: 'Monitoring with Prometheus'
@@ -329,11 +329,43 @@ and convert them to Prometheus metrics.
 An exporter,
 just like an instrumented service,
 exposes these metrics through an endpoint,
-preferably `/metrics`.
+and can be scraped by Prometheus.
+
+A [large variety of exporters](https://prometheus.io/docs/instrumenting/exporters/) is already available.
+If you want to monitor third-party software that does not have an exporter publicly available,
+you can write your own [custom exporter](https://prometheus.io/docs/instrumenting/writing_exporters/)
 
 # Scraping the Targets
 
-TODO
+Pulling metrics from instances is called scraping.
+Scraping is done at configurable intervals by the Prometheus server.
+Prometheus allows you to configure **jobs** that fetch time series from **instances**.
+
+
+```yml
+global:
+  scrape_interval: 15s # Scrape targets every 15 seconds
+  scrape_timeout: 15s # Timeout after 15 seconds
+
+  # Attach the label monitor=dev-monitor to all scraped time series scraped by this server
+  labels:
+    monitor: 'dev-monitor'
+
+scrape_configs:
+  - job_name: "job-name"
+    scrape_interval: 10s # Override the default global interval for this job
+    scrape_timeout: 10s # Override the default global timeout for this job
+    target_groups:
+    # First group of scrape targets
+    - targets: ['localhost:9100', 'localhost:9101']
+      labels:
+        group: 'first-group'
+        
+    # Second group of scrape targets
+    - targets: ['localhost:9200', 'localhost:9201']
+      labels:
+        group: 'second-group'
+```
 
 # Dashboards
 
