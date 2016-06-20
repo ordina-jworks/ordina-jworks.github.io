@@ -15,11 +15,11 @@
     
     
     <!-- Facebook Open Graph -->
-    <meta property="og:url" content="http://ordina-jworks.github.io/domain-driven%20design/2016/01/29/DDD-Europe-Heuristics-from-the-Trenches.html" />
+    <meta property="og:url" content="http://ordina-jworks.github.io/conference/2016/06/20/whats-new-in-docker-112.html" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Heuristics from the Trenches by Cyrille Martraire -  " />
+    <meta property="og:title" content="DockerCon 2016 - What is new in Docker 1.12 -  " />
     <meta property="og:description" content="Ordina JWorks Tech Blog" />
-    <meta property="og:image" content="http://ordina-jworks.github.io/img/DDDEurope2015.jpg" />
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/dockercon/dockercon.png" />
     
 
     <!-- Styles -->
@@ -111,26 +111,26 @@
             <div class="post">
     <div class="row">
         <div class="col-md-12">
-            <h1>Heuristics from the Trenches by Cyrille Martraire</h1>
+            <h1>DockerCon 2016 - What is new in Docker 1.12</h1>
             <p id="post-meta">
-                Posted Jan 29, 2016 in <a href="/categories/domain-driven-design/">Domain-Driven Design</a>
+                Posted Jun 20, 2016 in <a href="/categories/conference/">conference</a>
                 
                     by 
                     
                 
                         
-                        <a href="/author/yannick-de-turck/">Yannick De Turck</a>
+                        <a href="/author/tom-verelst/">Tom Verelst</a>
                     
                 
                 
                     <br />
                     <i class="fa fa-tags"></i>
                         
-                            <a href="/tags/domain-driven-design/">Domain-Driven Design</a>,
+                            <a href="/tags/dockercon/">DockerCon</a>,
                         
-                            <a href="/tags/ddd/">DDD</a>,
+                            <a href="/tags/docker/">Docker</a>,
                         
-                            <a href="/tags/software-craftmanship/">Software Craftmanship</a>
+                            <a href="/tags/conference/">Conference</a>
                         
                 
             </p>
@@ -138,74 +138,255 @@
     </div>
     <br />
     <article class="post-content">
-        <blockquote>
-  <p>“Communication usually fails, except by accident” - Osmo Wiio</p>
-</blockquote>
+        <p style="text-align: center;">
+<img style="max-width: 500px;" src="/img/dockercon/dockercon.png" alt="DockerCon 2016" />
+</p>
 
-<hr />
+<h2 id="orchestration-made-easy">Orchestration Made Easy</h2>
 
-<p>With this quote of the Finnish researcher <a href="https://en.wikipedia.org/wiki/Osmo_Antero_Wiio">Osmo Wiio</a>, Cyrille opened the second day of the <a href="http://dddeurope.com">DDD Europe</a> conference. Osmo’s laws of communication are the <strong>human communications equivalent</strong> of Murphy’s law. Basically if communication can fail, it will and if a message can be understood in several different ways it is quite possible that it will be understood in a harmful way. With the quote Cyrille immediately wants to stress that with Domain-Driven Design, deep conversations with domain experts and careful attention to the language are key.</p>
+<p>Last week,
+I tried out the new orchestration tools that were <a href="https://github.com/docker/swarmkit">made available on GitHub</a>.
+My first impressions were very positive.
+The setup is easy and it works like a charm.
+Today,
+at DockerCon 2016,
+these new orchestration tools were officially announced during the opening session.
+There is also an <a href="https://blog.docker.com/2016/06/docker-1-12-built-in-orchestration/">official blog post</a>.</p>
 
-<p><strong>Business domains</strong> are often very complex and hard to get into for individuals not familiar with the domain. The <strong>conversations’ game</strong> with <strong>domain experts</strong> is a game that takes many years and many failures in order to get better at. Cyrille explained that, even though it’s hard, it’s perfectly possible over time to extract a growing set of techniques, heuristics and best practices to boost the effectiveness of the interviews with domain experts, to learn faster and to converge more quickly to better models.</p>
+<p>Before we start talking about orchestration,
+let’s take a step back and look at how easy it has become to set up a Swarm cluster.</p>
 
-<h3 id="practices-and-tricks-for-talking-to-the-domain-experts">Practices and tricks for talking to the domain experts</h3>
-<p>“Why is it so hard?” you might ask yourself or “We don’t talk the same language as them and they don’t have time for us!”. While it is true that the people with the highest expertise within a certain domain often don’t have a lot of time for interviews or meetings, it is up to us, the developers, to make the <strong>necessary preparations</strong> prior to seeing them. You should first take some time in order to teach yourself some <strong>basic domain knowledge</strong>. It all starts with <strong>genuine curiosity</strong>, successful people are curious about their business domains. You may not believe this but here this will help you too! Without this you will have a bad time! <strong>Do your homework</strong>: perform the necessary research about the domain on the internet, Google around, read books, check Oasis, … Usage of <strong>ubiquitous language</strong> is very important.</p>
+<p>Creating a Swarm manager can be done with one simple command:</p>
 
-<p><strong>Note taking</strong> is also a very important aspect in the whole story. You need to be able to take notes like a pro! Learn to take notes effectively. <strong>Listen actively</strong> and <strong>don’t distort</strong> the stories the domain experts tells you. Keep the words as they are. It really is harder than you would think, so you should turn it into a game:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker swarm init
+</code></pre>
+</div>
 
-<ul>
-  <li><strong>Write down the stories</strong> the domain experts tell you</li>
-  <li><strong>Underline new words</strong> and <strong>add a definition</strong> for yourself, get familiar with all the domain terms</li>
-  <li>Take note of <strong>side remarks</strong></li>
-  <li>If you think that you’ve encountered a synonym for an existing new word <strong>dig into it</strong> and <strong>ask for more detail</strong></li>
-  <li><strong>Show your knowledge</strong> to the domain user to <strong>establish credibility</strong> and to challenge them</li>
-  <li>But… Challenge them <strong>respectfully</strong>!</li>
-</ul>
+<p>You can run this command on any Docker 1.12 host.</p>
 
-<p>All this is <strong>Domain-Driven Design</strong>!</p>
+<p>After we created the Swarm manager,
+we can add additional nodes to the swarm by running the following command on other Docker hosts:</p>
 
-<h3 id="talking-to-people-is-hard">Talking to people is hard</h3>
-<p>It is not easy talking to people and it will often be hard to have <strong>productive conversations</strong>. However this is also something you can <strong>grow into</strong> and for which you can develop the <strong>right toolset</strong>. Have <strong>interactive conversations</strong>, that way you have control over the conversation and the way you can steer it. Start with “what exactly is the goal?”. <strong>Be precise</strong> when asking questions, we want to avoid having to reverse engineer the true need from an expressed solution. Be sure to <strong>scan the notes</strong> you took during a previous conversation and <strong>decide</strong> where you want the conversation to go next.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker swarm join &lt;IP of manager&gt;:2377
+</code></pre>
+</div>
 
-<hr />
-<blockquote>
-  <p>“I keep developers out of conversations about the domain because they always want to know ‘why this’ and ‘why that’. Just write your code.” - <a href="https://twitter.com/expertbeginner1/status/656122859773820929">The Expert Beginner</a></p>
-</blockquote>
+<p>That’s it.
+No messing around with key-value stores or certificates.
+Docker will automatically configure everything you need out-of-the-box.</p>
 
-<hr />
+<p>Under the hood,
+Docker uses a <a href="https://raft.github.io/raft.pdf">Raft</a> consensus</p>
 
-<p>You should <strong>question everything</strong>: ask why but don’t go too far!</p>
+<p>There are two types of nodes: <strong>manager</strong> and <strong>worker</strong>.
+The first initial node is a manager.
+When adding more nodes to the Swarm,
+these nodes will be worker nodes by default.</p>
 
-<p>Combine Domain-Driven Development with <strong>Behaviour-Driven Development</strong>. Both go hand in hand to interview domain experts. You want to <strong>discover the “unknown unknowns”</strong> as early as possible and to <strong>avoid misunderstandings</strong> as often as possible. Be sure to <strong>ask for concrete examples</strong> and <strong>genuine sample documents and data</strong> and although this doesn’t always come easy, ask and insist but as mentioned before know your limits and be sure not to push it.</p>
+<p><img src="/img/dockercon/swarm-overview.png" alt="Overview" /></p>
 
-<p>People always think that talking abstract is faster and will save time but think about it and ask yourself: “Is it truly faster if we were wrong or missed stuff that matters?”. If the domain expert seems hesitant about something also take note of this to take into account that the feature in question might be eligible for change later on, this way we can <strong>model our software design correctly</strong>.</p>
+<p>Manager nodes are responsible for managing the cluster’s desired state.
+The do health checks and schedule tasks to keep this desired state.</p>
 
-<h3 id="the-domain-expert-delusion">The domain expert delusion</h3>
-<p>You might assume that the person, you’re having a conversation with, is an actual system expert within the domain but chances are that he/she is not. The worst expert is the one whose expertise was built from the intricacies of the existing systems. It is therefor also our duty to help out the domain expert where possible:</p>
+<p>Worker nodes are responsible for executing tasks that are scheduled by the managers.
+A worker node cannot change the desired state.
+It can only take work and report back on the status.</p>
 
-<ul>
-  <li><strong>Have empathy</strong>, try to put yourself in their shoes</li>
-  <li><strong>Build a partnership</strong>, it should be a two-way conversation you’re having with the expert</li>
-  <li><strong>Make it clear</strong> that the domain expert is always safe with you, that you have no plan to steal their job</li>
-  <li><strong>Propose things</strong>, it doesn’t always have to be right but this way you will get somewhere</li>
-  <li><strong>Look for invariants</strong>, for example: “Is there any other outcome that is also important?”</li>
-  <li>Always <strong>ask for validation</strong> of everything, even if you’re sure about it</li>
-</ul>
+<p>The role of a node is dynamic.
+We can increment or reduce the amount of managers by promoting or demoting nodes.</p>
 
-<p>It is common in companies that businesses often don’t want all power concentrated into the same hands. This also accounts for domains, you should therefor <strong>assume and probe</strong>. Get to know the business you are dealing with and their mentality. Not that if you happen to discover that there are multiple domain experts the situation gets a bit more tricky. Having multiple domain experts may lead to more confusion and makes it even more important asking for validation and challenging the experts. Something we want to achieve is that we want to suggest features from our code which could be very useful for the business. Instead of having software to support the domain we want to have <strong>software augmenting the domain</strong>.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker node promote &lt;node-id&gt;
+$ docker node demote &lt;node-id&gt;
+</code></pre>
+</div>
 
-<h3 id="keep-improving-yourself">Keep improving yourself</h3>
-<p><strong>Grow into it</strong> and <strong>build your own toolbox</strong> for implementing Domain-Driven Design. You might ask yourself why you should bother so much with all of this, after all we just want to get to it and write code. This however is a wrong approach because the complexity of the domain is there, it is just hiding behind a wall, you just don’t see it yet. You will discover the complexity sooner or later so you may as well want to get into it as early as possible to save precious time. After all, you want to become a <strong>domain expert</strong> too!</p>
+<h2 id="services">Services</h2>
 
-<h3 id="other-useful-resources-mentioned-by-cyrille">Other useful resources mentioned by Cyrille:</h3>
-<ul>
-  <li><a href="http://schd.ws/hosted_files/agile2014/d5/1571_Agile2014__Conversation_Patterns_for_Software_Professionals.pdf">Conversation Patterns for Software Professionals</a> by Michael Bartyzel</li>
-  <li><a href="http://martinfowler.com/books/ap.html">Analysis Patterns</a> by Martin Fowler</li>
-  <li><a href="https://leanpub.com/livingdocumentation">Living Documentation</a> by Cyrille Martraire</li>
-  <li>Slides: <a href="http://www.slideshare.net/cyriux">http://www.slideshare.net/cyriux</a></li>
-  <li>Blog: <a href="http://cyrille.martraire.com">http://cyrille.martraire.com</a></li>
-  <li>Twitter: <a href="https://twitter.com/cyriux">@cyriux</a></li>
-</ul>
+<p>Docker 1.12 introduces a new <code class="highlighter-rouge">service</code> command.
+A <strong>service</strong> is a set of tasks that can be easily replicated.
+A <strong>task</strong> represents a workload and is executed by a container.
+A task does not necessarily have to be a container,
+but currently that is the only option.
+In the future,
+tasks can also be different types of workloads,
+for example Unikernels.</p>
+
+<p>The service command is very similar to the <code class="highlighter-rouge">run</code> command
+and utilizes a lot of similar flags which we are used to work with.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker service create --replicate 3 --name frontend --network mynet --publish 80:80/tcp frontend_image:latest
+</code></pre>
+</div>
+
+<p>The above command will create a service named <em>frontend</em>,
+add it to the <em>mynet</em> network,
+publish port 80,
+and use the <em>frontend_image</em> for this service.</p>
+
+<p>This does not only create the service,
+but it defines the desired state.
+The cluster constantly reconciles its state.
+Upon a node failure,
+the cluster will automatically self heal
+and converge back to the desired state by scheduling new tasks on other nodes.</p>
+
+<p>You can also define a <strong>Swarm mode</strong>.
+For example,
+if you wish to create a service that runs on <em>every node</em>,
+you can easily do this using the <em>global</em> mode.
+This will schedule all the tasks of a service on each node.
+This is great for general services like monitoring.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker service create --mode=global --name prometheus prom/prometheus
+</code></pre>
+</div>
+
+<p>Just like we can put constraints on containers,
+we can put constraints on services.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker daemon --label com.example.storage="ssd"
+$ docker service ... --constraint com.example.storage="ssd" ...
+</code></pre>
+</div>
+
+<p>If we want more instances of our service,
+we can scale our services up and down:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker service scale frontend=10 backend=20
+</code></pre>
+</div>
+
+<p>This will change the desired state of the service(s),
+and the managers will schedule new tasks (or remove existing tasks) to attain this desired state.</p>
+
+<p>We can also apply rolling updates to our services.
+For example,
+if we wish to upgrade our service to a newer version without any downtime,
+we can use the <code class="highlighter-rouge">service update</code> command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker service update myservice --image myimage:2.0 --update-parallellism 2 --update-delay 10s
+</code></pre>
+</div>
+
+<p>This will update our service by replacing 2 tasks at the time,
+every 10 seconds.
+We can also use this command to change environment variables,
+ports,
+etc.</p>
+
+<p>As you can see,
+the new <code class="highlighter-rouge">service</code> subcommand is very powerful and easy to use.</p>
+
+<h2 id="bundles">Bundles</h2>
+
+<p>A Distributed Application Bundle (DAB) file declares a stack of services,
+including the versioning and how the networking is setup.
+It is a deployment artifact that can be used in your continuous integration tools,
+all the way from your laptop to production.</p>
+
+<p>Currently,
+one way to generate a <em>.dab</em> file is by creating the bundle using Docker Compose:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker-compose bundle
+</code></pre>
+</div>
+
+<p>This command will generate a <em>.dab</em> or <em>.dsb</em> file,
+which is just a JSON text file.
+Here’s a partial example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"db"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"Env"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"constraint:type==backend"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"constraint:storage==ssd"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nt">"Image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"postgres@sha256:f76245b04ddbcebab5bb6c28e76947f49222c99fec4aadb0bb1c24821a9e83ef"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"Networks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"back-tier"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="err">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>This feature is still experimental in Docker 1.12
+and the specification is still being updated.
+Docker invites everyone to provide feedback and hopes it will become the defacto standard for deploying applications.</p>
+
+<h2 id="routing-mesh-networks">Routing Mesh Networks</h2>
+
+<p>A problem with load balancers is the fact they are not container-aware,
+but host-aware.
+Load balancing containers has been hard up until now,
+because you have to update the configuration of the load balancers as containers are started or stopped.
+This is done by overriding the configuration file of the load balancer and restarting it,
+or by updating the configuration in a distributed key-value store like etcd.</p>
+
+<p>Docker now has built in load balancing in the Engine using a container-aware routing mesh.
+This mesh network can transparently reroute traffic from any host to a container.
+For example,
+publishing a service on port 80 will reserve a Swarm wide ingress port,
+so that each node will listen to port 80.
+Each node will then reroute traffic to the container using DNS based service discovery.</p>
+
+<p>This is compatible with existing infrastructure.
+External load balancer no longer need to know where the containers are running.
+They can just point towards any node and the routing mesh will automatically redirect traffic.
+Even though this introduces an extra hop,
+it is still very efficient since it uses IPVS.</p>
+
+<h2 id="security-out-of-the-box">Security Out Of The Box</h2>
+
+<p>Docker now comes with out-of-the-box, zero-configuration security.
+Docker sets up automatic certificate rotation,
+TLS mutual authentication
+and TLS encryption between nodes.</p>
+
+<p><img src="/img/dockercon/swarm-tls.png" alt="Security" /></p>
+
+<p><strong>There is no way to turn off security.</strong>
+One of the core principles of Docker is simplicity.
+Therefor,
+security must be so simple to use,
+that you don’t want to turn it off!</p>
+
+<h2 id="container-health-check-in-dockerfile">Container Health Check in Dockerfile</h2>
+
+<p>A new <code class="highlighter-rouge">HEALTHCHECK</code> keyword is available for Dockerfiles.
+This keyword can be used to define the health check of a container.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>HEALTHCHECK --interval=5m --timeout=3s --retries 3 CMD curl -f http://localhost || exit 1
+</code></pre>
+</div>
+
+<p>In the above example,
+health checking is done every 5 minutes.
+A containers becomes unhealthy if the <code class="highlighter-rouge">curl</code> command fails 3 times in a row with a 3 second timeout.</p>
+
+<h2 id="new-plugin-subcommands-experimental">New Plugin Subcommands (experimental)</h2>
+
+<p>A new <code class="highlighter-rouge">plugin</code> subcommand has been added which allows you to easily manager Docker plugins.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker plugin install &lt;plugin-name&gt;
+$ docker plugin enable &lt;plugin-name&gt;
+$ docker plugin disable &lt;plugin-name&gt;
+</code></pre>
+</div>
+
+<p>Plugins also have a manifest file which describes the resources it needs.
+You can compare it to how a new app on your smart phone asks for access to different resources,
+like your photos or contacts.</p>
+
+<h2 id="try-it-out">Try It Out!</h2>
+
+<p>As of today,
+the Docker for Mac/Windows beta,
+which is already at Docker 1.12,
+is open for everyone!
+You can download it at <a href="http://docker.com/getdocker">docker.com/getdocker</a>.</p>
 
     </article>
     <hr />
@@ -214,7 +395,7 @@
         
         
             <blockquote>
-                <p>Yannick is a senior Java consultant and coach at Ordina Belgium. Yannick's focus areas amongst others are Java technologies, Scala and Play Framework and iOS development with Objective C and Swift. He's passionate about learning new technologies and frameworks and having a keen interest in innovative technologies, Java architectures, reactive programming and DevOps.</p>
+                <p>Tom is a senior developer and coach at Ordina Belgium. Some friends like to refer to him as a Java code monkey, which is not completely true! Tom is familiar with many different domains.  He loves to learn about everything. Currently he is very fond of Docker, Go and all things DevOps.<br /><br />In his spare time he likes spending time with friends, going out for a run with his marathon club or just swinging around some drum sticks.</p>
 
             </blockquote>
         
@@ -386,9 +567,9 @@
 
     <script type="text/javascript">
         var disqus_config = function () {
-            this.page.url = "https://ordina-jworks.github.io/domain-driven%20design/2016/01/29/DDD-Europe-Heuristics-from-the-Trenches.html";
-            this.page.identifier = "/domain-driven%20design/2016/01/29/DDD-Europe-Heuristics-from-the-Trenches.html";
-            this.page.title = "Heuristics from the Trenches by Cyrille Martraire";
+            this.page.url = "https://ordina-jworks.github.io/conference/2016/06/20/whats-new-in-docker-112.html";
+            this.page.identifier = "/conference/2016/06/20/whats-new-in-docker-112.html";
+            this.page.title = "DockerCon 2016 - What is new in Docker 1.12";
         };
     </script>
     <script src="//ordina-jworks.disqus.com/embed.js" async></script>

@@ -326,8 +326,8 @@ Since not all algorithms are implemented in Java, we are also going to use Bounc
 
 <p>If you are working with a gradle project it would be:</p>
 
-<figure class="highlight"><pre><code class="language-gradle" data-lang="gradle">    runtime 'io.jsonwebtoken:jjwt:0.6.0',
-            'org.bouncycastle:bcprov-jdk15on:1.54'</code></pre></figure>
+<figure class="highlight"><pre><code class="language-gradle" data-lang="gradle">    <span class="n">runtime</span> <span class="s1">'io.jsonwebtoken:jjwt:0.6.0'</span><span class="o">,</span>
+            <span class="s1">'org.bouncycastle:bcprov-jdk15on:1.54'</span></code></pre></figure>
 
 <p>If we were to implement the examples from the previous sections, we would start of with generating a new public-private key pair.</p>
 
@@ -386,15 +386,15 @@ This custom resolver would read out the “jwk” field from the protected heade
 <p>Our own <code class="highlighter-rouge">SigningKeyResolver</code> implementation could look like this:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ECPublicSigningKeyResolver</span> <span class="kd">implements</span> <span class="n">SigningKeyResolver</span> <span class="o">{</span>
-        <span class="kd">public</span> <span class="n">Key</span> <span class="n">resolveSigningKey</span><span class="o">(</span><span class="n">JwsHeader</span> <span class="n">header</span><span class="o">,</span> <span class="n">Claims</span> <span class="n">claims</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">getPublicKey</span><span class="o">(</span><span class="n">header</span><span class="o">);</span>
+        <span class="kd">public</span> <span class="n">Key</span> <span class="nf">resolveSigningKey</span><span class="o">(</span><span class="n">JwsHeader</span> <span class="n">header</span><span class="o">,</span> <span class="n">Claims</span> <span class="n">claims</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="nf">getPublicKey</span><span class="o">(</span><span class="n">header</span><span class="o">);</span>
         <span class="o">}</span>
 
-        <span class="kd">public</span> <span class="n">Key</span> <span class="n">resolveSigningKey</span><span class="o">(</span><span class="n">JwsHeader</span> <span class="n">header</span><span class="o">,</span> <span class="n">String</span> <span class="n">plaintext</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">getPublicKey</span><span class="o">(</span><span class="n">header</span><span class="o">);</span>
+        <span class="kd">public</span> <span class="n">Key</span> <span class="nf">resolveSigningKey</span><span class="o">(</span><span class="n">JwsHeader</span> <span class="n">header</span><span class="o">,</span> <span class="n">String</span> <span class="n">plaintext</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="nf">getPublicKey</span><span class="o">(</span><span class="n">header</span><span class="o">);</span>
         <span class="o">}</span>
 
-        <span class="kd">private</span> <span class="n">Key</span> <span class="n">getPublicKey</span><span class="o">(</span><span class="n">JwsHeader</span> <span class="n">header</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="n">Key</span> <span class="nf">getPublicKey</span><span class="o">(</span><span class="n">JwsHeader</span> <span class="n">header</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">try</span> <span class="o">{</span>
                 <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">jwk</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectMapper</span><span class="o">().</span><span class="na">readValue</span><span class="o">(</span><span class="n">header</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"jwk"</span><span class="o">).</span><span class="na">toString</span><span class="o">(),</span> <span class="n">HashMap</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
             
@@ -519,6 +519,12 @@ Once your application has been hacked, the whole system is vulnerable.</p>
                                 <ul class="list-unstyled">
                                     
                                     <li>
+                                        <span>20 Jun 2016</span> &raquo;
+                                        <a href="/conference/2016/06/20/whats-new-in-docker-112.html">
+                                            DockerCon 2016 - What is new in Docker 1.12</a>
+                                    </li>
+                                    
+                                    <li>
                                         <span>13 May 2016</span> &raquo;
                                         <a href="/conference/2016/05/13/JS-Conf-Budapest-day-2.html">
                                             JS Conf Budapest Day 2</a>
@@ -552,12 +558,6 @@ Once your application has been hacked, the whole system is vulnerable.</p>
                                         <span>09 Apr 2016</span> &raquo;
                                         <a href="/microservices/2016/04/09/Ordina-becomes-Netflix-OSS-contributor.html">
                                             Ordina becomes Netflix OSS contributor</a>
-                                    </li>
-                                    
-                                    <li>
-                                        <span>07 Apr 2016</span> &raquo;
-                                        <a href="/ionic/2016/04/07/Ionic-Protractor.html">
-                                            Protractor testing in Ionic app</a>
                                     </li>
                                     
                                 </ul>

@@ -162,7 +162,7 @@ For some undisclosed reasons we simply couldn’t write integration tests, so we
 <figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nd">@Service</span>
     <span class="kd">public</span> <span class="kd">class</span> <span class="nc">DeviceService</span> <span class="o">{</span>
 
-        <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span> <span class="n">getDevices</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span> <span class="nf">getDevices</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">List</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span> <span class="n">devices</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
 
             <span class="cm">/*
@@ -180,12 +180,12 @@ For some undisclosed reasons we simply couldn’t write integration tests, so we
         <span class="kd">private</span> <span class="n">DeviceService</span> <span class="n">deviceService</span><span class="o">;</span>
 
         <span class="nd">@Autowired</span>
-        <span class="kd">public</span> <span class="n">DeviceController</span><span class="o">(</span><span class="n">DeviceService</span> <span class="n">deviceService</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nf">DeviceController</span><span class="o">(</span><span class="n">DeviceService</span> <span class="n">deviceService</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">this</span><span class="o">.</span><span class="na">deviceService</span> <span class="o">=</span> <span class="n">deviceService</span><span class="o">;</span>
         <span class="o">}</span>
 
         <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">)</span>
-        <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span> <span class="n">getDevices</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span> <span class="nf">getDevices</span><span class="o">()</span> <span class="o">{</span>
             <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">deviceService</span><span class="o">.</span><span class="na">getDevices</span><span class="o">();</span>
         <span class="o">}</span>
     <span class="o">}</span>
@@ -200,7 +200,7 @@ In this new application we set the base package that needs to be scanned to our 
     <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="o">{</span>
 
         <span class="nd">@Bean</span>
-        <span class="kd">public</span> <span class="n">DeviceService</span> <span class="n">getDeviceService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="n">DeviceService</span> <span class="nf">getDeviceService</span><span class="o">()</span> <span class="o">{</span>
             <span class="k">return</span> <span class="n">EasyMock</span><span class="o">.</span><span class="na">createStrictMock</span><span class="o">(</span><span class="n">DeviceService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
@@ -226,20 +226,20 @@ Our <code class="highlighter-rouge">DeviceControllerTests</code> class will then
         <span class="kd">private</span> <span class="n">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
 
         <span class="nd">@Before</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="n">setUp</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="o">{</span>
             <span class="k">this</span><span class="o">.</span><span class="na">mockMvc</span> <span class="o">=</span> <span class="n">MockMvcBuilders</span><span class="o">.</span><span class="na">webAppContextSetup</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">context</span><span class="o">)</span>
                                             <span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">documentationConfiguration</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">restDocumentation</span><span class="o">))</span>
                                             <span class="o">.</span><span class="na">build</span><span class="o">();</span>
         <span class="o">}</span>
 
         <span class="nd">@After</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="n">cleanup</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cleanup</span><span class="o">()</span> <span class="o">{</span>
             <span class="n">EasyMock</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">deviceService</span><span class="o">);</span>
             <span class="n">EasyMock</span><span class="o">.</span><span class="na">reset</span><span class="o">(</span><span class="n">deviceService</span><span class="o">);</span>
         <span class="o">}</span>
 
         <span class="nd">@Test</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="n">getDevices</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">getDevices</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
             <span class="n">Device</span> <span class="n">firstDevice</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Device</span><span class="o">(</span><span class="s">"iPhone 6"</span><span class="o">);</span>
             <span class="n">Device</span> <span class="n">secondDevice</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Device</span><span class="o">(</span><span class="s">"Nexus 5"</span><span class="o">);</span>
             
@@ -332,6 +332,12 @@ So this is how I managed to get rid of the manual, tedious work and keep my unit
                                 <ul class="list-unstyled">
                                     
                                     <li>
+                                        <span>20 Jun 2016</span> &raquo;
+                                        <a href="/conference/2016/06/20/whats-new-in-docker-112.html">
+                                            DockerCon 2016 - What is new in Docker 1.12</a>
+                                    </li>
+                                    
+                                    <li>
                                         <span>13 May 2016</span> &raquo;
                                         <a href="/conference/2016/05/13/JS-Conf-Budapest-day-2.html">
                                             JS Conf Budapest Day 2</a>
@@ -365,12 +371,6 @@ So this is how I managed to get rid of the manual, tedious work and keep my unit
                                         <span>09 Apr 2016</span> &raquo;
                                         <a href="/microservices/2016/04/09/Ordina-becomes-Netflix-OSS-contributor.html">
                                             Ordina becomes Netflix OSS contributor</a>
-                                    </li>
-                                    
-                                    <li>
-                                        <span>07 Apr 2016</span> &raquo;
-                                        <a href="/ionic/2016/04/07/Ionic-Protractor.html">
-                                            Protractor testing in Ionic app</a>
                                     </li>
                                     
                                 </ul>
