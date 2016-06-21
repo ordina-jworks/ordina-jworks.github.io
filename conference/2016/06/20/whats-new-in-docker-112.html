@@ -158,7 +158,7 @@ let’s take a step back and look at how easy it has become to set up a Swarm cl
 
 <p>Creating a Swarm manager can be done with one simple command:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker swarm init
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker swarm init
 </code></pre>
 </div>
 
@@ -167,7 +167,7 @@ let’s take a step back and look at how easy it has become to set up a Swarm cl
 <p>After we created the Swarm manager,
 we can add additional nodes to the swarm by running the following command on other Docker hosts:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker swarm join &lt;IP of manager&gt;:2377
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker swarm join &lt;IP of manager&gt;:2377
 </code></pre>
 </div>
 
@@ -176,7 +176,7 @@ No messing around with key-value stores or certificates.
 Docker will automatically configure everything you need out-of-the-box.</p>
 
 <p>Under the hood,
-Docker uses a <a href="https://raft.github.io/raft.pdf">Raft</a> consensus</p>
+Docker uses a <a href="https://raft.github.io/raft.pdf">Raft</a> consensus.</p>
 
 <p>There are two types of nodes: <strong>manager</strong> and <strong>worker</strong>.
 The first initial node is a manager.
@@ -186,7 +186,7 @@ these nodes will be worker nodes by default.</p>
 <p><img src="/img/dockercon/swarm-overview.png" alt="Overview" /></p>
 
 <p>Manager nodes are responsible for managing the cluster’s desired state.
-The do health checks and schedule tasks to keep this desired state.</p>
+They do health checks and schedule tasks to keep this desired state.</p>
 
 <p>Worker nodes are responsible for executing tasks that are scheduled by the managers.
 A worker node cannot change the desired state.
@@ -195,8 +195,8 @@ It can only take work and report back on the status.</p>
 <p>The role of a node is dynamic.
 We can increment or reduce the amount of managers by promoting or demoting nodes.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker node promote &lt;node-id&gt;
-$ docker node demote &lt;node-id&gt;
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker node promote &lt;node-id&gt;
+<span class="gp">$ </span>docker node demote &lt;node-id&gt;
 </code></pre>
 </div>
 
@@ -214,13 +214,13 @@ for example Unikernels.</p>
 <p>The service command is very similar to the <code class="highlighter-rouge">run</code> command
 and utilizes a lot of similar flags which we are used to work with.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker service create --replicate 3 --name frontend --network mynet --publish 80:80/tcp frontend_image:latest
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker service create --replicate 3 --name frontend --network mynet --publish 80:80/tcp frontend_image:latest
 </code></pre>
 </div>
 
 <p>The above command will create a service named <em>frontend</em>,
 add it to the <em>mynet</em> network,
-publish port 80,
+publish it to port 80,
 and use the <em>frontend_image</em> for this service.</p>
 
 <p>This does not only create the service,
@@ -237,22 +237,22 @@ you can easily do this using the <em>global</em> mode.
 This will schedule all the tasks of a service on each node.
 This is great for general services like monitoring.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker service create --mode=global --name prometheus prom/prometheus
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker service create --mode<span class="o">=</span>global --name prometheus prom/prometheus
 </code></pre>
 </div>
 
 <p>Just like we can put constraints on containers,
-we can put constraints on services.</p>
+we can put constraints on services:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker daemon --label com.example.storage="ssd"
-$ docker service ... --constraint com.example.storage="ssd" ...
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker daemon --label com.example.storage<span class="o">=</span><span class="s2">"ssd"</span>
+<span class="gp">$ </span>docker service ... --constraint com.example.storage<span class="o">=</span><span class="s2">"ssd"</span> ...
 </code></pre>
 </div>
 
 <p>If we want more instances of our service,
 we can scale our services up and down:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker service scale frontend=10 backend=20
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker service scale <span class="nv">frontend</span><span class="o">=</span>10 <span class="nv">backend</span><span class="o">=</span>20
 </code></pre>
 </div>
 
@@ -306,15 +306,15 @@ Here’s a partial example:</p>
       </span><span class="nt">"Networks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="s2">"back-tier"</span><span class="w">
       </span><span class="p">]</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="err">...</span><span class="w">
-  </span><span class="err">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 </div>
 
 <p>This feature is still experimental in Docker 1.12
 and the specification is still being updated.
-Docker invites everyone to provide feedback and hopes it will become the defacto standard for deploying applications.</p>
+Docker invites everyone to provide feedback and hopes it will become the de facto standard for deploying applications.</p>
 
 <h2 id="routing-mesh-networks">Routing Mesh Networks</h2>
 
@@ -326,7 +326,7 @@ This is done by overriding the configuration file of the load balancer and resta
 or by updating the configuration in a distributed key-value store like etcd.</p>
 
 <p>Docker now has built in load balancing in the Engine using a container-aware routing mesh.
-This mesh network can transparently reroute traffic from any host to a container.
+This mesh network can transparantly reroute traffic from any host to a container.
 For example,
 publishing a service on port 80 will reserve a Swarm wide ingress port,
 so that each node will listen to port 80.
@@ -364,15 +364,15 @@ This keyword can be used to define the health check of a container.</p>
 
 <p>In the above example,
 health checking is done every 5 minutes.
-A containers becomes unhealthy if the <code class="highlighter-rouge">curl</code> command fails 3 times in a row with a 3 second timeout.</p>
+A container becomes unhealthy if the <code class="highlighter-rouge">curl</code> command fails 3 times in a row with a 3 second timeout.</p>
 
 <h2 id="new-plugin-subcommands-experimental">New Plugin Subcommands (experimental)</h2>
 
 <p>A new <code class="highlighter-rouge">plugin</code> subcommand has been added which allows you to easily manager Docker plugins.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker plugin install &lt;plugin-name&gt;
-$ docker plugin enable &lt;plugin-name&gt;
-$ docker plugin disable &lt;plugin-name&gt;
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker plugin install &lt;plugin-name&gt;
+<span class="gp">$ </span>docker plugin <span class="nb">enable</span> &lt;plugin-name&gt;
+<span class="gp">$ </span>docker plugin disable &lt;plugin-name&gt;
 </code></pre>
 </div>
 

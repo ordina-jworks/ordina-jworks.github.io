@@ -6,8 +6,8 @@
 </description>
     <link>https://ordina-jworks.github.io/</link>
     <atom:link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 20 Jun 2016 22:39:42 +0000</pubDate>
-    <lastBuildDate>Mon, 20 Jun 2016 22:39:42 +0000</lastBuildDate>
+    <pubDate>Tue, 21 Jun 2016 02:17:49 +0000</pubDate>
+    <lastBuildDate>Tue, 21 Jun 2016 02:17:49 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -32,7 +32,7 @@ let’s take a step back and look at how easy it has become to set up a Swarm cl
 
 &lt;p&gt;Creating a Swarm manager can be done with one simple command:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker swarm init
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker swarm init
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -41,7 +41,7 @@ let’s take a step back and look at how easy it has become to set up a Swarm cl
 &lt;p&gt;After we created the Swarm manager,
 we can add additional nodes to the swarm by running the following command on other Docker hosts:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker swarm join &amp;lt;IP of manager&amp;gt;:2377
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker swarm join &amp;lt;IP of manager&amp;gt;:2377
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -50,7 +50,7 @@ No messing around with key-value stores or certificates.
 Docker will automatically configure everything you need out-of-the-box.&lt;/p&gt;
 
 &lt;p&gt;Under the hood,
-Docker uses a &lt;a href=&quot;https://raft.github.io/raft.pdf&quot;&gt;Raft&lt;/a&gt; consensus&lt;/p&gt;
+Docker uses a &lt;a href=&quot;https://raft.github.io/raft.pdf&quot;&gt;Raft&lt;/a&gt; consensus.&lt;/p&gt;
 
 &lt;p&gt;There are two types of nodes: &lt;strong&gt;manager&lt;/strong&gt; and &lt;strong&gt;worker&lt;/strong&gt;.
 The first initial node is a manager.
@@ -60,7 +60,7 @@ these nodes will be worker nodes by default.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/img/dockercon/swarm-overview.png&quot; alt=&quot;Overview&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Manager nodes are responsible for managing the cluster’s desired state.
-The do health checks and schedule tasks to keep this desired state.&lt;/p&gt;
+They do health checks and schedule tasks to keep this desired state.&lt;/p&gt;
 
 &lt;p&gt;Worker nodes are responsible for executing tasks that are scheduled by the managers.
 A worker node cannot change the desired state.
@@ -69,8 +69,8 @@ It can only take work and report back on the status.&lt;/p&gt;
 &lt;p&gt;The role of a node is dynamic.
 We can increment or reduce the amount of managers by promoting or demoting nodes.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker node promote &amp;lt;node-id&amp;gt;
-$ docker node demote &amp;lt;node-id&amp;gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker node promote &amp;lt;node-id&amp;gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker node demote &amp;lt;node-id&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -88,13 +88,13 @@ for example Unikernels.&lt;/p&gt;
 &lt;p&gt;The service command is very similar to the &lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt; command
 and utilizes a lot of similar flags which we are used to work with.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker service create --replicate 3 --name frontend --network mynet --publish 80:80/tcp frontend_image:latest
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker service create --replicate 3 --name frontend --network mynet --publish 80:80/tcp frontend_image:latest
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;p&gt;The above command will create a service named &lt;em&gt;frontend&lt;/em&gt;,
 add it to the &lt;em&gt;mynet&lt;/em&gt; network,
-publish port 80,
+publish it to port 80,
 and use the &lt;em&gt;frontend_image&lt;/em&gt; for this service.&lt;/p&gt;
 
 &lt;p&gt;This does not only create the service,
@@ -111,22 +111,22 @@ you can easily do this using the &lt;em&gt;global&lt;/em&gt; mode.
 This will schedule all the tasks of a service on each node.
 This is great for general services like monitoring.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker service create --mode=global --name prometheus prom/prometheus
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker service create --mode&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;global --name prometheus prom/prometheus
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;p&gt;Just like we can put constraints on containers,
-we can put constraints on services.&lt;/p&gt;
+we can put constraints on services:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker daemon --label com.example.storage=&quot;ssd&quot;
-$ docker service ... --constraint com.example.storage=&quot;ssd&quot; ...
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker daemon --label com.example.storage&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ssd&quot;&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker service ... --constraint com.example.storage&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ssd&quot;&lt;/span&gt; ...
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;p&gt;If we want more instances of our service,
 we can scale our services up and down:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker service scale frontend=10 backend=20
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker service scale &lt;span class=&quot;nv&quot;&gt;frontend&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10 &lt;span class=&quot;nv&quot;&gt;backend&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;20
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -180,15 +180,15 @@ Here’s a partial example:&lt;/p&gt;
       &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;Networks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
         &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;back-tier&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
       &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;p&gt;This feature is still experimental in Docker 1.12
 and the specification is still being updated.
-Docker invites everyone to provide feedback and hopes it will become the defacto standard for deploying applications.&lt;/p&gt;
+Docker invites everyone to provide feedback and hopes it will become the de facto standard for deploying applications.&lt;/p&gt;
 
 &lt;h2 id=&quot;routing-mesh-networks&quot;&gt;Routing Mesh Networks&lt;/h2&gt;
 
@@ -200,7 +200,7 @@ This is done by overriding the configuration file of the load balancer and resta
 or by updating the configuration in a distributed key-value store like etcd.&lt;/p&gt;
 
 &lt;p&gt;Docker now has built in load balancing in the Engine using a container-aware routing mesh.
-This mesh network can transparently reroute traffic from any host to a container.
+This mesh network can transparantly reroute traffic from any host to a container.
 For example,
 publishing a service on port 80 will reserve a Swarm wide ingress port,
 so that each node will listen to port 80.
@@ -238,15 +238,15 @@ This keyword can be used to define the health check of a container.&lt;/p&gt;
 
 &lt;p&gt;In the above example,
 health checking is done every 5 minutes.
-A containers becomes unhealthy if the &lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt; command fails 3 times in a row with a 3 second timeout.&lt;/p&gt;
+A container becomes unhealthy if the &lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt; command fails 3 times in a row with a 3 second timeout.&lt;/p&gt;
 
 &lt;h2 id=&quot;new-plugin-subcommands-experimental&quot;&gt;New Plugin Subcommands (experimental)&lt;/h2&gt;
 
 &lt;p&gt;A new &lt;code class=&quot;highlighter-rouge&quot;&gt;plugin&lt;/code&gt; subcommand has been added which allows you to easily manager Docker plugins.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker plugin install &amp;lt;plugin-name&amp;gt;
-$ docker plugin enable &amp;lt;plugin-name&amp;gt;
-$ docker plugin disable &amp;lt;plugin-name&amp;gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker plugin install &amp;lt;plugin-name&amp;gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker plugin &lt;span class=&quot;nb&quot;&gt;enable&lt;/span&gt; &amp;lt;plugin-name&amp;gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker plugin disable &amp;lt;plugin-name&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
