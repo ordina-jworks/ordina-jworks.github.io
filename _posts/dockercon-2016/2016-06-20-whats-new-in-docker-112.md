@@ -28,7 +28,7 @@ let's take a step back and look at how easy it has become to set up a Swarm clus
 
 Creating a Swarm manager can be done with one simple command:
 
-```
+```bash
 $ docker swarm init
 ```
 
@@ -37,7 +37,7 @@ You can run this command on any Docker 1.12 host.
 After we created the Swarm manager,
 we can add additional nodes to the swarm by running the following command on other Docker hosts:
 
-```
+```bash
 $ docker swarm join <IP of manager>:2377
 ```
 
@@ -46,7 +46,7 @@ No messing around with key-value stores or certificates.
 Docker will automatically configure everything you need out-of-the-box.
 
 Under the hood,
-Docker uses a [Raft](https://raft.github.io/raft.pdf) consensus
+Docker uses a [Raft](https://raft.github.io/raft.pdf) consensus.
 
 There are two types of nodes: **manager** and **worker**.
 The first initial node is a manager.
@@ -56,7 +56,7 @@ these nodes will be worker nodes by default.
 ![Overview]({{ '/img/dockercon/swarm-overview.png' | prepend: site.baseurl }})
 
 Manager nodes are responsible for managing the cluster's desired state.
-The do health checks and schedule tasks to keep this desired state.
+They do health checks and schedule tasks to keep this desired state.
 
 Worker nodes are responsible for executing tasks that are scheduled by the managers.
 A worker node cannot change the desired state.
@@ -65,7 +65,7 @@ It can only take work and report back on the status.
 The role of a node is dynamic.
 We can increment or reduce the amount of managers by promoting or demoting nodes.
 
-```
+```bash
 $ docker node promote <node-id>
 $ docker node demote <node-id>
 ```
@@ -84,13 +84,13 @@ for example Unikernels.
 The service command is very similar to the `run` command
 and utilizes a lot of similar flags which we are used to work with.
 
-```
+```bash
 $ docker service create --replicate 3 --name frontend --network mynet --publish 80:80/tcp frontend_image:latest
 ```
 
 The above command will create a service named _frontend_,
 add it to the _mynet_ network,
-publish port 80,
+publish it to port 80,
 and use the _frontend_image_ for this service.
 
 This does not only create the service,
@@ -107,14 +107,14 @@ you can easily do this using the _global_ mode.
 This will schedule all the tasks of a service on each node.
 This is great for general services like monitoring.
 
-```
+```bash
 $ docker service create --mode=global --name prometheus prom/prometheus
 ```
 
 Just like we can put constraints on containers,
-we can put constraints on services.
+we can put constraints on services:
 
-```
+```bash
 $ docker daemon --label com.example.storage="ssd"
 $ docker service ... --constraint com.example.storage="ssd" ...
 ```
@@ -122,7 +122,7 @@ $ docker service ... --constraint com.example.storage="ssd" ...
 If we want more instances of our service,
 we can scale our services up and down:
 
-```
+```bash
 $ docker service scale frontend=10 backend=20
 ```
 
@@ -177,14 +177,14 @@ Here's a partial example:
       "Networks": [
         "back-tier"
       ]
-    },
-    ...
+    }
   }
+}
 ```
 
 This feature is still experimental in Docker 1.12
 and the specification is still being updated.
-Docker invites everyone to provide feedback and hopes it will become the defacto standard for deploying applications.
+Docker invites everyone to provide feedback and hopes it will become the de facto standard for deploying applications.
 
 ## Routing Mesh Networks
 
@@ -196,7 +196,7 @@ This is done by overriding the configuration file of the load balancer and resta
 or by updating the configuration in a distributed key-value store like etcd.
 
 Docker now has built in load balancing in the Engine using a container-aware routing mesh.
-This mesh network can transparently reroute traffic from any host to a container.
+This mesh network can transparantly reroute traffic from any host to a container.
 For example,
 publishing a service on port 80 will reserve a Swarm wide ingress port,
 so that each node will listen to port 80.
@@ -234,13 +234,13 @@ HEALTHCHECK --interval=5m --timeout=3s --retries 3 CMD curl -f http://localhost 
 
 In the above example,
 health checking is done every 5 minutes.
-A containers becomes unhealthy if the `curl` command fails 3 times in a row with a 3 second timeout.
+A container becomes unhealthy if the `curl` command fails 3 times in a row with a 3 second timeout.
 
 ## New Plugin Subcommands (experimental)
 
 A new `plugin` subcommand has been added which allows you to easily manager Docker plugins.
 
-```
+```bash
 $ docker plugin install <plugin-name>
 $ docker plugin enable <plugin-name>
 $ docker plugin disable <plugin-name>
