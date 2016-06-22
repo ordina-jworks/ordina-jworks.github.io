@@ -9,11 +9,11 @@ comments: true
 ---
 
 ## Spring IO 2016
-The main focus this year was definitely about Cloud, Reactive and MicroServices.
+The main focus this year was definitely about cloud, reactive and microservices.
 But it is important not to forget other topics, like documentation! 
 Keep calm, you don't have to do it manually! 
 Spring made it easy for us with Spring REST Docs! 
-This year in Spring IO, Andy Wilkinson himself talked about why, how and when Spring Rest Docs are being used. 
+This year at Spring IO, Andy Wilkinson himself talked about why, how and when Spring Rest Docs are being used. 
 Last but not least, he talked about the new features that came out in version 1.1.
 Since I implemented Spring REST Docs in a project, I'll use examples from my experiences.
 
@@ -28,7 +28,7 @@ You can find him on Twitter using the handle [@ankinson](https://twitter.com/ank
 <blockquote class="clear"><p>
 Writing documentation is critical in the world of development. 
 It is used to make an accurate and straight declaration and intent of what the service has to offer. 
-Front-End developers will be able to know which endpoints they have to call and receive the right resource. 
+Front-End developers will be able to know which endpoints they have to call and receive the right data. 
 Now, we all know it's tedious for developers to write documentation...
 It's your lucky day! Spring Rest Docs will make your life easier.
 While you are writing tests, Spring will generate a fully HTML api guide for you and your team. 
@@ -38,27 +38,27 @@ This blog post will take you through the best practices, how to and new features
 **Why Test driven approach**
 
 * it’s an accurate definition of your application (no side effects)
-* it describes the specific http request and response.
-* it’s straight forward with no repetition
+* it describes the specific HTTP request and response
+* it’s straight forward without repetition
 * it’s easier to write (no annotations like Swagger)
 
-### Choose your tool of choice.
+### Pick your tool of choice.
 
 #### Asciidoctor
-Asciidoctor is a markup language that processes plain text and produces HTML, styles and layed out to suit your needs.
-If you are interested in writing in Asciidoctor be sure to checkout the [manual](http://asciidoctor.org/docs/user-manual/#introduction-to-asciidoctor).
+Asciidoctor is a markup language that processes plain text and produces HTML, completely styled to suit your needs.
+If you are interested in writing in Asciidoctor be sure to check out the [manual](http://asciidoctor.org/docs/user-manual/#introduction-to-asciidoctor).
 
 #### Markdown (New in 1.1)
-With the newest version of REST docs, they decided to give the developers more choice in markup languages to write the document.
-The Markdown support is not that capable as Asciidoctor, but Markdown can work very well when combined with existing documentation toolchains such as [Slate](https://github.com/tripit/slate).
+With the newest version of REST Docs, the developer now has more options in terms of markup languages.
+The Markdown support is not as feature-rich as Asciidoctor, but Markdown can work very well when combined with existing documentation toolchains such as [Slate](https://github.com/tripit/slate).
 Here is a good [sample](https://github.com/spring-projects/spring-restdocs/tree/master/samples/rest-notes-slate) working with slate.
 
 #### Andy's pick
 Asciidoctor!
-Since Asciidoctor has support for more functionality than Markdown, it gives Asciidoctor the advantage to be the preferred tool.
+Since Asciidoctor boasts more features than Markdown, it gives Asciidoctor the edge.
 
 ### Test Tools
-When we want to use Spring Rest Docs, we'll have to use one of the test tools Spring has to offer. 
+When we want to use Spring REST Docs, we'll have to use one of the test tools. 
 Here are the different tools of choice. To use these tools we'll have to initialise which document, `Mockmvc` and `ObjectWriter` we'll be using. 
 For security there is support for adding filters.
 
@@ -137,11 +137,11 @@ this.document.snippets(
 
 
 #### Relaxed Snippet (New in 1.1)
-In contrast to default snippets, relaxed snippets are used to have no complaining when something was neglected in the document.
-This has the advantage if you would like to focus on a certain scenario or specific part of the response/request.
+In contrast to default snippets, relaxed snippets don't complain when something was neglected in the document.
+This is an advantage when you only need to focus on a certain scenario or specific part of the response/request.
 
 #### Reusable Snippet (New in 1.1)
-With the newly introduced reusable snippet, you can define a snippet in the beginning of your test class and reuse it every time you need it. 
+With the newly introduced reusable snippet, you can define a snippet at the beginning of your test class and reuse it every time you need it. 
 When added to your test method, you can extend it with extra variables. 
 
 
@@ -168,7 +168,7 @@ this.mockMvc.perform(get("/").accept(MediaType.APPLICATION_JSON))
 A snippet can be one of the following:
 
 ### Hypermedia links
-When documenting your hypermedia application, you'll have to define your links and what they link to. 
+When documenting your hypermedia application, you'll have to define your links and where they go to. 
 If you have dynamic links that can disappear at one time, you can use relaxed snippets or optional so it won't complain.
 
 {% highlight java %}
@@ -184,9 +184,9 @@ If you have dynamic links that can disappear at one time, you can use relaxed sn
 
 
 ### Request fields
-This defines your fields you request from the client.
-Normally it will complain if you neglected a field but with v1.1 Spring REST Docs has support for Relaxed Snippets.
-Since I use constraints I made my own method `withPath, this will add an extra column constraint to the documentation.
+This defines the fields you request from the client.
+Normally it will complain when you neglect a field but with v1.1 Spring REST Docs has support for Relaxed Snippets.
+Because I use constraints, I made my own method `withPath, this will add an extra column constraint to the documentation.
 {% highlight java %} 
  private static class ConstrainedFields {
          private final ConstraintDescriptions constraintDescriptions;
@@ -235,9 +235,9 @@ This defines the result after consultation of a resource.
 
 
 ### Request/response headers
-Defines your request/response headers in your api. 
+Defines your request/response headers in your API. 
 This is useful when there are extra headers to set. 
-If the request has to involve an authorization header for security you can add this header to your document.
+When the request has to involve an authorization header for security reasons, you can add this header to your document.
 
 {% highlight java %}
 mockMvc.perform(
@@ -312,7 +312,7 @@ This [picture](https://upload.wikimedia.org/wikipedia/commons/8/88/Http-headers-
 
 ### 3 main questions if you are working with resources
    * What do they represent?
-   * What input do they accept?
+   * What kind of input do they accept?
    * What output do they produce?
 
 Last but not least: do not document uri’s!
