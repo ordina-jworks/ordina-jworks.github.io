@@ -13,7 +13,7 @@ The main focus this year was definitely about cloud, reactive and microservices.
 But it is important not to forget other topics, like documentation! 
 Keep calm, you don't have to do it manually! 
 Spring made it easy for us with Spring REST Docs! 
-This year at Spring IO, Andy Wilkinson himself talked about why, how and when Spring Rest Docs are being used. 
+This year at Spring IO, Andy Wilkinson himself talked about why, how and when Spring REST Docs are being used. 
 Last but not least, he talked about the new features that came out in version 1.1.
 Since I implemented Spring REST Docs in a project, I'll use examples from my experiences.
 
@@ -28,21 +28,21 @@ You can find him on Twitter using the handle [@ankinson](https://twitter.com/ank
 <blockquote class="clear"><p>
 Writing documentation is critical in the world of development. 
 It is used to make an accurate and straight declaration and intent of what the service has to offer. 
-Front-End developers will be able to know which endpoints they have to call and receive the right data. 
+Frontend developers will be able to know which endpoints they have to call and receive the right data. 
 Now, we all know it's tedious for developers to write documentation...
-It's your lucky day! Spring Rest Docs will make your life easier.
+It's your lucky day! Spring REST Docs will make your life easier.
 While you are writing tests, Spring will generate a fully HTML api guide for you and your team. 
 This blog post will take you through the best practices, how to and new features in 1.1.
 </p></blockquote>
 
 **Why Test driven approach**
 
-* it’s an accurate definition of your application (no side effects)
-* it describes the specific HTTP request and response
-* it’s straight forward without repetition
-* it’s easier to write (no annotations like Swagger)
+* It’s an accurate definition of your application (no side effects)
+* It describes the specific HTTP request and response
+* It’s straight forward without repetition
+* It’s easier to write (no annotations like Swagger)
 
-### Pick your tool of choice.
+### Markup languages
 
 #### Asciidoctor
 Asciidoctor is a markup language that processes plain text and produces HTML, completely styled to suit your needs.
@@ -60,7 +60,6 @@ Since Asciidoctor boasts more features than Markdown, it gives Asciidoctor the e
 ### Test Tools
 When we want to use Spring REST Docs, we'll have to use one of the test tools. 
 Here are the different tools of choice. To use these tools we'll have to initialise which document, `Mockmvc` and `ObjectWriter` we'll be using. 
-For security there is support for adding filters.
 
 #### MockMvc
 A lightweight server-less documentation generation by the Spring Framework that has been the default use in Spring REST Docs.
@@ -185,7 +184,7 @@ If you have dynamic links that can disappear at one time, you can use relaxed sn
 
 ### Request fields
 This defines the fields you request from the client.
-Normally it will complain when you neglect a field but with v1.1 Spring REST Docs has support for Relaxed Snippets.
+Normally Spring REST Docs will complain when you neglect a field but with v1.1 we now have support for Relaxed Snippets.
 Because I use constraints, I made my own method `withPath, this will add an extra column constraint to the documentation.
 {% highlight java %} 
  private static class ConstrainedFields {
@@ -326,7 +325,7 @@ This is because Andy wants to give the developers the choice of what they want t
 
 ## Conclusion
 Since Spring REST Docs is so effective in bringing documentation to the fun part of development I highly recommend to use this in your future Spring applications. 
-Not only you will be smiling when the API guide is being generated but the front enders will get a more understandable view of the backend.
+Not only you will be smiling when the API guide is being generated but the Frontend developers will get a more understandable view of the backend.
 
 
 ## Sources
