@@ -6,8 +6,8 @@
 </description>
     <link>https://ordina-jworks.github.io/</link>
     <atom:link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 30 Jun 2016 15:56:22 +0000</pubDate>
-    <lastBuildDate>Thu, 30 Jun 2016 15:56:22 +0000</lastBuildDate>
+    <pubDate>Thu, 30 Jun 2016 16:00:40 +0000</pubDate>
+    <lastBuildDate>Thu, 30 Jun 2016 16:00:40 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -584,321 +584,6 @@ You can download it at &lt;a href=&quot;http://docker.com/getdocker&quot;&gt;doc
         <category>DockerCon</category>
         
         <category>Docker</category>
-        
-        <category>Conference</category>
-        
-        
-        <category>conference</category>
-        
-      </item>
-    
-      <item>
-        <title>Spring I/O 16: Test-driven documentation with Spring REST Docs</title>
-        <description>&lt;h2 id=&quot;spring-io-2016&quot;&gt;Spring IO 2016&lt;/h2&gt;
-&lt;p&gt;The main focus this year was definitely about cloud, reactive and microservices.
-But it is important not to forget other topics, like documentation! 
-Keep calm, you don’t have to do it manually! 
-Spring made it easy for us with Spring REST Docs! 
-This year at Spring IO, Andy Wilkinson himself talked about why, how and when Spring REST Docs are being used. 
-Last but not least, he talked about the new features that came out in version 1.1.
-Since I implemented Spring REST Docs in a project, I’ll use examples from my experiences.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; width=&quot;200&quot; alt=&quot;Andy Wilkinson&quot; src=&quot;/img/rest-docs/andywilkinson.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;andy-wilkinson&quot;&gt;Andy Wilkinson&lt;/h3&gt;
-
-&lt;p&gt;Andy is a Spring Boot, REST docs committer and Spring IO platform lead at Pivotal. 
-You can find him on Twitter using the handle &lt;a href=&quot;https://twitter.com/ankinson&quot;&gt;@ankinson&lt;/a&gt;.&lt;/p&gt;
-
-&lt;blockquote class=&quot;clear&quot;&gt;&lt;p&gt;
-Writing documentation is critical in the world of development. 
-It is used to make an accurate and straight declaration and intent of what the service has to offer. 
-Frontend developers will be able to know which endpoints they have to call and receive the right data. 
-Now, we all know it&#39;s tedious for developers to write documentation...
-It&#39;s your lucky day! Spring REST Docs will make your life easier.
-While you are writing tests, Spring will generate a fully HTML api guide for you and your team. 
-This blog post will take you through the best practices, how to and new features in 1.1.
-&lt;/p&gt;&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;Why Test driven approach&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;It’s an accurate definition of your application (no side effects)&lt;/li&gt;
-  &lt;li&gt;It describes the specific HTTP request and response&lt;/li&gt;
-  &lt;li&gt;It’s straight forward without repetition&lt;/li&gt;
-  &lt;li&gt;It’s easier to write (no annotations like Swagger)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;markup-languages&quot;&gt;Markup languages&lt;/h3&gt;
-
-&lt;h4 id=&quot;asciidoctor&quot;&gt;Asciidoctor&lt;/h4&gt;
-&lt;p&gt;Asciidoctor is a markup language that processes plain text and produces HTML, completely styled to suit your needs.
-If you are interested in writing in Asciidoctor be sure to check out the &lt;a href=&quot;http://asciidoctor.org/docs/user-manual/#introduction-to-asciidoctor&quot;&gt;manual&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;markdown-new-in-11&quot;&gt;Markdown (New in 1.1)&lt;/h4&gt;
-&lt;p&gt;With the newest version of REST Docs, the developer now has more options in terms of markup languages.
-The Markdown support is not as feature-rich as Asciidoctor, but Markdown can work very well when combined with existing documentation toolchains such as &lt;a href=&quot;https://github.com/tripit/slate&quot;&gt;Slate&lt;/a&gt;.
-Here is a good &lt;a href=&quot;https://github.com/spring-projects/spring-restdocs/tree/master/samples/rest-notes-slate&quot;&gt;sample&lt;/a&gt; working with slate.&lt;/p&gt;
-
-&lt;h4 id=&quot;andys-pick&quot;&gt;Andy’s pick&lt;/h4&gt;
-&lt;p&gt;Asciidoctor!
-Since Asciidoctor boasts more features than Markdown, it gives Asciidoctor the edge.&lt;/p&gt;
-
-&lt;h3 id=&quot;test-tools&quot;&gt;Test Tools&lt;/h3&gt;
-&lt;p&gt;When we want to use Spring REST Docs, we’ll have to use one of the test tools. 
-Here are the different tools of choice. To use these tools we’ll have to initialise which document, &lt;code class=&quot;highlighter-rouge&quot;&gt;Mockmvc&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;ObjectWriter&lt;/code&gt; we’ll be using.&lt;/p&gt;
-
-&lt;h4 id=&quot;mockmvc&quot;&gt;MockMvc&lt;/h4&gt;
-&lt;p&gt;A lightweight server-less documentation generation by the Spring Framework that has been the default use in Spring REST Docs.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MockMvc&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mockMvc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WebApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
- &lt;span class=&quot;nd&quot;&gt;@Before&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;document&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{method-name}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;mockMvc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MockMvcBuilders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;webAppContextSetup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wac&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;documentationConfiguration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;restDocumentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;uris&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withScheme&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;alwaysDo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addFilter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;JwtFilter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/*&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;objectWriter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;writer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;authToken&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TestUtil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAuthToken&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;TestUtil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setAuthorities&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h4 id=&quot;restassured-new-11&quot;&gt;RestAssured (New 1.1)&lt;/h4&gt;
-&lt;p&gt;As an alternative, you can use RestAssured to test and document your RESTful services. 
-Available in V1.1, RestAssured will be more expandable than MockMvc.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RequestSpecification&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;nd&quot;&gt;@Before&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setUp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RequestSpecBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addFilter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;documentationConfiguration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;restDocumentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; 
-            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h4 id=&quot;andys-pick-1&quot;&gt;Andy’s pick&lt;/h4&gt;
-&lt;p&gt;This time he didn’t favor one but he mentioned that RestAssured gives you more functionality and extends your possibilities with HTTP.&lt;/p&gt;
-
-&lt;h3 id=&quot;snip-snip-snippets-everywhere&quot;&gt;Snip, snip, snippets everywhere!&lt;/h3&gt;
-
-&lt;h4 id=&quot;default-snippet&quot;&gt;Default Snippet&lt;/h4&gt;
-&lt;p&gt;Snippets are generated by the documented test method.
-Once you run the test method, you can add these snippets in your Markdown/Asciidoctor file. 
-Be aware, these type of snippet will fail if you don’t have the correct response/request syntax.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;snippets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                        &lt;span class=&quot;n&quot;&gt;halLinks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linkWithRel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;self&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee&#39;s resource&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                        &lt;span class=&quot;n&quot;&gt;linkWithRel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;employee&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;optional&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee&#39;s projection&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)),&lt;/span&gt;
-                        &lt;span class=&quot;n&quot;&gt;responseFields&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                                &lt;span class=&quot;n&quot;&gt;fieldWithPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee unique database identifier&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                                &lt;span class=&quot;n&quot;&gt;fieldWithPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;firstName&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee&#39;s first name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                                &lt;span class=&quot;n&quot;&gt;fieldWithPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;lastName&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee&#39;s last name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                                &lt;span class=&quot;n&quot;&gt;fieldWithPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;linkedin&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee&#39;s linkedin&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                                &lt;span class=&quot;n&quot;&gt;fieldWithPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;unit&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee&#39;s unit&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Unit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                                &lt;span class=&quot;n&quot;&gt;fieldWithPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;_links&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;links to other resources&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                        &lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
- &lt;span class=&quot;n&quot;&gt;mockMvc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/employees/1&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;accept&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h4 id=&quot;relaxed-snippet-new-in-11&quot;&gt;Relaxed Snippet (New in 1.1)&lt;/h4&gt;
-&lt;p&gt;In contrast to default snippets, relaxed snippets don’t complain when something was neglected in the document.
-This is an advantage when you only need to focus on a certain scenario or specific part of the response/request.&lt;/p&gt;
-
-&lt;h4 id=&quot;reusable-snippet-new-in-11&quot;&gt;Reusable Snippet (New in 1.1)&lt;/h4&gt;
-&lt;p&gt;With the newly introduced reusable snippet, you can define a snippet at the beginning of your test class and reuse it every time you need it. 
-When added to your test method, you can extend it with extra variables.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// First we define a snippet for reuse&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinksSnippet&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pagingLinks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;linkWithRel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;first&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;optional&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The first page of results&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;linkWithRel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;last&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;optional&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The last page of results&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;linkWithRel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;next&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;optional&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The next page of results&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;linkWithRel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;prev&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;optional&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The previous page of results&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// Then you perform the mockMvc and add the snippet to the document.&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// As you can see, it is expendable.&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mockMvc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;accept&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andExpect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isOk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andDo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;example&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;pagingLinks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; 
-            &lt;span class=&quot;n&quot;&gt;linkWithRel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;alpha&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Link to the alpha resource&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;linkWithRel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bravo&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Link to the bravo resource&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))));&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;type-of-snippets&quot;&gt;Type of Snippets:&lt;/h2&gt;
-&lt;p&gt;A snippet can be one of the following:&lt;/p&gt;
-
-&lt;h3 id=&quot;hypermedia-links&quot;&gt;Hypermedia links&lt;/h3&gt;
-&lt;p&gt;When documenting your hypermedia application, you’ll have to define your links and where they go to. 
-If you have dynamic links that can disappear at one time, you can use relaxed snippets or optional so it won’t complain.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;snippets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                        &lt;span class=&quot;n&quot;&gt;halLinks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linkWithRel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;self&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee&#39;s resource&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                        &lt;span class=&quot;n&quot;&gt;linkWithRel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;employee&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;optional&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee&#39;s projection&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)),&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;responseFields&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                        &lt;span class=&quot;n&quot;&gt;fieldWithPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee unique database identifier&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                        &lt;span class=&quot;n&quot;&gt;fieldWithPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;_links&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;links to other resources&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;request-fields&quot;&gt;Request fields&lt;/h3&gt;
-&lt;p&gt;This defines the fields you request from the client.
-Normally Spring REST Docs will complain when you neglect a field but with v1.1 we now have support for Relaxed Snippets.
-Because I use constraints, I made my own method `withPath, this will add an extra column constraint to the documentation.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt; 
- &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ConstrainedFields&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-         &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ConstraintDescriptions&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;constraintDescriptions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-         &lt;span class=&quot;n&quot;&gt;ConstrainedFields&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-             &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;constraintDescriptions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ConstraintDescriptions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-         &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-         &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FieldDescriptor&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-             &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fieldWithPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;constraints&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;StringUtils&lt;/span&gt;
-                     &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;collectionToDelimitedString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;constraintDescriptions&lt;/span&gt;
-                             &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;descriptionsForProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;. &quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)));&lt;/span&gt;
-         &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
- &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
- &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;postEmployee&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-         &lt;span class=&quot;n&quot;&gt;Employee&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;employee&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;employeeRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findByUsernameIgnoreCase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Nivek&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-         &lt;span class=&quot;n&quot;&gt;employee&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-         &lt;span class=&quot;n&quot;&gt;employee&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setUsername&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Keloggs&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-         &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectWriter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;writeValueAsString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;employee&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
- 
-         &lt;span class=&quot;n&quot;&gt;ConstrainedFields&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fields&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ConstrainedFields&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Employee&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
- 
-         &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;snippets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                 &lt;span class=&quot;n&quot;&gt;requestFields&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                         &lt;span class=&quot;n&quot;&gt;fields&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee unique database identifier&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                         &lt;span class=&quot;n&quot;&gt;fields&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;firstName&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee&#39;s first name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                         &lt;span class=&quot;n&quot;&gt;fields&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;lastName&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee&#39;s last name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                         &lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
- 
-         &lt;span class=&quot;n&quot;&gt;mockMvc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/employees&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;contentType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaTypes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;HAL_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Authorization&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authToken&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andExpect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isCreated&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Location&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-                        
-      &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;response-fields&quot;&gt;Response fields&lt;/h3&gt;
-&lt;p&gt;This defines the result after consultation of a resource.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;snippets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-              &lt;span class=&quot;n&quot;&gt;responseFields&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                       &lt;span class=&quot;n&quot;&gt;fieldWithPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee unique database identifier&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                       &lt;span class=&quot;n&quot;&gt;fieldWithPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;firstName&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee&#39;s first name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                       &lt;span class=&quot;n&quot;&gt;fieldWithPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;lastName&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The employee&#39;s last name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                           &lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;requestresponse-headers&quot;&gt;Request/response headers&lt;/h3&gt;
-&lt;p&gt;Defines your request/response headers in your API. 
-This is useful when there are extra headers to set. 
-When the request has to involve an authorization header for security reasons, you can add this header to your document.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;mockMvc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/employees/1&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;accept&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Authorization&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authToken&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andDo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;headers&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                				&lt;span class=&quot;n&quot;&gt;requestHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; 
-                						&lt;span class=&quot;n&quot;&gt;headerWithName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Authorization&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                								&lt;span class=&quot;s&quot;&gt;&quot;Basic auth credentials&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)),&lt;/span&gt; 
-                				&lt;span class=&quot;n&quot;&gt;responseHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; 
-                						&lt;span class=&quot;n&quot;&gt;headerWithName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;X-RateLimit-Limit&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                								&lt;span class=&quot;s&quot;&gt;&quot;The total number of requests permitted per period&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                						&lt;span class=&quot;n&quot;&gt;headerWithName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;X-RateLimit-Remaining&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                								&lt;span class=&quot;s&quot;&gt;&quot;Remaining requests permitted in current period&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                						&lt;span class=&quot;n&quot;&gt;headerWithName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;X-RateLimit-Reset&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                								&lt;span class=&quot;s&quot;&gt;&quot;Time at which the rate limit period will reset&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)))));&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;request-parameters&quot;&gt;Request parameters&lt;/h3&gt;
-&lt;p&gt;The parameters passed by in the uri as a query string are documented with the requestParameters.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mockMvc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/users?page=2&amp;amp;per_page=100&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; 
-	&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andExpect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isOk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andDo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;users&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requestParameters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; 
-			&lt;span class=&quot;n&quot;&gt;parameterWithName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;page&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The page to retrieve&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; 
-			&lt;span class=&quot;n&quot;&gt;parameterWithName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;per_page&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Entries per page&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
-	&lt;span class=&quot;o&quot;&gt;)));&lt;/span&gt;
-	
-	&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;request-parts-new-in-11&quot;&gt;Request parts (new in 1.1)&lt;/h3&gt;
-&lt;p&gt;The parts of a multipart request can be documenting using &lt;code class=&quot;highlighter-rouge&quot;&gt;requestParts&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;RestAssured&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;given&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;users&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requestParts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; 
-			&lt;span class=&quot;n&quot;&gt;partWithName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;file&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The file to upload&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))))&lt;/span&gt; 
-	&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;multiPart&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;file&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;example&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
-	&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/upload&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
-	&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;statusCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;what-makes-good-documentation&quot;&gt;What makes good documentation?&lt;/h2&gt;
-
-&lt;h3 id=&quot;andys-pick-2&quot;&gt;Andy’s pick&lt;/h3&gt;
-&lt;p&gt;He told us that the &lt;a href=&quot;https://developer.github.com/v3/&quot;&gt;GitHub API&lt;/a&gt; is one of the most complete and correct documentation there is. 
-So if you want some guidelines, inspire yourself with this API.&lt;/p&gt;
-
-&lt;h3 id=&quot;structure-and-accuracy&quot;&gt;Structure and accuracy&lt;/h3&gt;
-&lt;p&gt;When documenting your application, your accuracy has to be 100% correct and understandable. 
-The structure of your API is the representation of your application, so it better be good.&lt;/p&gt;
-
-&lt;h3 id=&quot;cross-cutting-concerns&quot;&gt;Cross-cutting concerns&lt;/h3&gt;
-&lt;p&gt;Andy put forward to document cross-cutting concerns on a general documentation level, avoiding repeating yourself in every single documented API call.
-Concerns who made it to the top are:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Rate limiting&lt;/li&gt;
-  &lt;li&gt;Authentication and authorisation&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;and-http-verbscodes-patch-vs-put&quot;&gt;And HTTP verbs/codes (PATCH VS PUT)&lt;/h4&gt;
-&lt;p&gt;To be RESTfull, you’ll have to follow the guidelines in having a correct API design. 
-This &lt;a href=&quot;https://upload.wikimedia.org/wikipedia/commons/8/88/Http-headers-status.png&quot;&gt;picture&lt;/a&gt; shows you how and when to use the correct verbs and HTTP codes&lt;/p&gt;
-
-&lt;h3 id=&quot;main-questions-if-you-are-working-with-resources&quot;&gt;3 main questions if you are working with resources&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;What do they represent?&lt;/li&gt;
-  &lt;li&gt;What kind of input do they accept?&lt;/li&gt;
-  &lt;li&gt;What output do they produce?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Last but not least: do not document uri’s!&lt;/p&gt;
-
-&lt;h2 id=&quot;questions&quot;&gt;Questions&lt;/h2&gt;
-
-&lt;h3 id=&quot;will-constraints-be-officially-added-in-future-releases&quot;&gt;Will constraints be officially added in future releases?&lt;/h3&gt;
-&lt;p&gt;The constraints snippets won’t be added in the future.
-This is because Andy wants to give the developers the choice of what they want to implement.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;Since Spring REST Docs is so effective in bringing documentation to the fun part of development I highly recommend to use this in your future Spring applications. 
-Not only you will be smiling when the API guide is being generated but the Frontend developers will get a more understandable view of the backend.&lt;/p&gt;
-
-&lt;h2 id=&quot;sources&quot;&gt;Sources&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://twitter.com/ankinson&quot;&gt;@ankinson&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://docs.spring.io/spring-restdocs/docs/1.0.x/reference/html5/&quot;&gt;Spring REST Docs&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://developer.github.com/v3/&quot;&gt;GitHub API&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://upload.wikimedia.org/wikipedia/commons/8/88/Http-headers-status.png&quot;&gt;Verbs &amp;amp; HTTP codes&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://asciidoctor.org/docs/user-manual/#introduction-to-asciidoctor&quot;&gt;Asciidoctor manual&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/spring-projects/spring-restdocs/tree/master/samples/rest-notes-slate&quot;&gt;Slate example&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Tue, 24 May 2016 00:00:00 +0000</pubDate>
-        <link>https://ordina-jworks.github.io/conference/2016/05/24/SpringIO16-Spring-Rest-Docs.html</link>
-        <guid isPermaLink="true">https://ordina-jworks.github.io/conference/2016/05/24/SpringIO16-Spring-Rest-Docs.html</guid>
-        
-        <category>Spring IO</category>
-        
-        <category>Spring</category>
         
         <category>Conference</category>
         
@@ -4586,6 +4271,127 @@ Protractor will ensure that your user gets a working app without frustrations!&l
         <category>pageobject</category>
         
         <category>functional modules</category>
+        
+        
+        <category>Ionic</category>
+        
+      </item>
+    
+      <item>
+        <title>Adding TypeScript to Ionic Framework</title>
+        <description>&lt;h3 id=&quot;ionic-and-typescript-sitting-in-a-tree&quot;&gt;Ionic and TypeScript sitting in a tree&lt;/h3&gt;
+
+&lt;p&gt;So, &lt;a href=&quot;http://www.typescriptlang.org/&quot;&gt;TypeScript&lt;/a&gt; is the all new thing that allows you to use features from ES6 (or ES2015), ES7 and beyond.
+Say goodbye to loosely typed variables and say hello to modules, classes, interfaces and so much more.&lt;/p&gt;
+
+&lt;p&gt;In order to use TypeScript in an Ionic Framework project there are a few small things you need to do to get things running.&lt;/p&gt;
+
+&lt;h2 id=&quot;install-and-configure-the-gulp-package&quot;&gt;1. Install and configure the gulp package&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Install the &lt;strong&gt;gulp-tsc package&lt;/strong&gt; and save it to the development dependencies in &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;npm install gulp-tsc --save-dev&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Next, require the package in your &lt;strong&gt;gulpfile.js&lt;/strong&gt; like so&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;var typescript = require(&#39;gulp-tsc&#39;);&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Add the following line to the paths object: &lt;code class=&quot;highlighter-rouge&quot;&gt;ts: [&#39;./src/*.ts&#39;, &#39;./src/**/*.ts&#39;]&lt;/code&gt;.
+You may have noticed two things here: All my TypeScript files are in a &lt;strong&gt;src folder&lt;/strong&gt; which means I’m &lt;strong&gt;not using the www folder&lt;/strong&gt; that Ionic provides by default.
+This way I can keep the TypeScript files and JavaScript files separated.
+Next to that I’m also targeting subfolders in that folder because I’m bundling my logic based on AngularJS modules.
+You can read more about structuring an AngularJS project in the &lt;a href=&quot;https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#application-structure-lift-principle&quot;&gt;John Papa AngularJS Style Guide&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Add our compile task&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;gulp.task(&#39;compile&#39;, function(){
+    gulp.src(paths.ts)
+        .pipe(typescript({ emitError: false }))
+        .pipe(gulp.dest(&#39;www/&#39;));
+});&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Add our task to watch&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;gulp.task(&#39;watch&#39;, function () {
+    gulp.watch(paths.sass, [&#39;sass&#39;]);
+    gulp.watch(paths.ts, [&#39;compile&#39;]);
+});&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Now change the &lt;strong&gt;ionic.project&lt;/strong&gt; file and add the compile task to the gulpStartupTasks. If the gulpStartupTasks section is not present at all, just add it anyway.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&quot;gulpStartupTasks&quot;: [
+    &quot;sass&quot;,
+    &quot;compile&quot;,
+    &quot;watch&quot;
+]&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;add-tsd&quot;&gt;2. Add TSD&lt;/h2&gt;
+
+&lt;p&gt;TSD is a &lt;strong&gt;TypeScript Definition manager&lt;/strong&gt; for &lt;a href=&quot;http://definitelytyped.org/&quot;&gt;DefinitelyTyped&lt;/a&gt;.
+TypeScript used TypeScript Definition files so it knows how to handle the TypeScript you are writing and gives you intellisense.
+Let’s install TSD so we can continue.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ sudo npm install -g tsd
+$ tsd install ionic cordova --save&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This will create a typings folder which contains a tsd.d.ts file with references to the typings needed for ionic and cordova.
+In the root of your project a tsd.json file will be created with all the installed definitions.
+All you need to do to use the typings in your TypeScript file is include it at the top like so:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;/// &amp;lt;reference path=&quot;../typings/tsd.d.ts&quot; /&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; TSD has been deprecated in favour of &lt;a href=&quot;https://github.com/typings/typings&quot;&gt;Typings&lt;/a&gt; to manage and install TypeScript definitions.
+More info on how to switch from TSD to Typings can be found &lt;a href=&quot;https://github.com/typings/typings/blob/master/docs/tsd.md&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;prevent-editor-from-compiling-on-save&quot;&gt;3. Prevent editor from compiling on save&lt;/h2&gt;
+
+&lt;p&gt;Now to prevent your editor to auto compile TypeScript we add a tsconfig.json file to the src folder with this in it:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;{
+    &quot;compileOnSave&quot;: false
+}&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;add-typescript-files-in-src-folder&quot;&gt;4. Add TypeScript files in src folder&lt;/h2&gt;
+
+&lt;p&gt;Now that we have everything set up it’s time to start refactoring your application.
+It’s important to know that &lt;strong&gt;every JavaScript file is essentially TypeScript&lt;/strong&gt; because TypeScript is a superset of the current JavaScript implementation.
+This basically means that you can take your JavaScript files from your www folder, paste them to the src folder and rename them from &lt;code class=&quot;highlighter-rouge&quot;&gt;file.js&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;file.ts&lt;/code&gt;.
+Of course don’t forget to add the reference on top of your files to the tsd.d.ts file in the typings folder.&lt;/p&gt;
+
+&lt;p&gt;If you now run &lt;code class=&quot;highlighter-rouge&quot;&gt;ionic serve&lt;/code&gt;, you should see a message that looks like this one. &lt;code class=&quot;highlighter-rouge&quot;&gt;“Compiling TypeScript files using tsc version x.x.x”&lt;/code&gt;.
+TypeScript will process these files and write ES5 files to the www folder.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;As you can see it is fairly simple - just 4 steps - to add TypeScript support to your Ionic project by changing the default gulp setup used by Ionic.
+It’s nice to know that Ionic 2 will have support for TypeScript built in so you won’t have to do it yourself.
+By adding a flag &lt;code class=&quot;highlighter-rouge&quot;&gt;--ts&lt;/code&gt; to your Ionic 2 project setup it will be enabled.&lt;/p&gt;
+
+&lt;p&gt;Personally I love using TypeScript and will use it whenever I can.
+It makes my life as a developer a lot easier by spotting errors before I even hit the browser.&lt;/p&gt;
+
+&lt;p&gt;What are your thoughts about TypeScript? Feel free to add them in the comments section.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 31 Mar 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/ionic/2016/03/31/Adding-TypeScript-to-Ionic-Framework.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/ionic/2016/03/31/Adding-TypeScript-to-Ionic-Framework.html</guid>
+        
+        <category>TypeScript</category>
+        
+        <category>Ionic</category>
         
         
         <category>Ionic</category>
