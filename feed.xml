@@ -6,9 +6,191 @@
 </description>
     <link>https://ordina-jworks.github.io/</link>
     <atom:link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 30 Jun 2016 19:09:22 +0000</pubDate>
-    <lastBuildDate>Thu, 30 Jun 2016 19:09:22 +0000</lastBuildDate>
+    <pubDate>Tue, 12 Jul 2016 14:51:37 +0000</pubDate>
+    <lastBuildDate>Tue, 12 Jul 2016 14:51:37 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Spring I/O 16: Bridging the worlds of DDD &amp; REST</title>
+        <description>&lt;p&gt;&lt;a href=&quot;http://www.springio.net&quot;&gt;SpringIO 2016 in Barcelona&lt;/a&gt; was loaded with tons of interesting talks and workshops about Spring Cloud, Spring Boot, Spring Data, Microservices, REST &amp;amp; HATEOAS, Reactive programming, and many many more.
+In this blogpost I will highlight Oliver Gierke’s 2 hour presentation about bridging the world of Domain Driven Design (DDD) and the world of Representational State Transfer (REST).&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;p-image float-image&quot; width=&quot;200&quot; alt=&quot;Oliver Gierke&quot; src=&quot;/img/ddd-rest/oliver-gierke.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Oliver Gierke (&lt;a href=&quot;https://twitter.com/olivergierke&quot;&gt;@olivergierke&lt;/a&gt;) is the lead of the Spring Data project at Pivotal and member of the JPA 2.1 expert group. He has been into developing enterprise applications and open source projects for over 10 years. His working focus is centered around software architecture, DDD, REST, and persistence technologies.&lt;/p&gt;
+
+&lt;h2 id=&quot;domain-driven-design&quot;&gt;Domain Driven Design&lt;/h2&gt;
+&lt;p&gt;DDD is an approach to developing software that meets core business objectives by providing on the one hand tactical modeling tools which include well founded patterns and concepts such as entities, repositories and factories. On the other hand DDD also facilitates strategic principles and methodologies for analyzing and modeling domains such as Bounded Contexts and Context Maps.&lt;/p&gt;
+
+&lt;p&gt;For an in depth understanding of DDD I highly recommend reading &lt;a href=&quot;http://dddcommunity.org/book/evans_2003/&quot;&gt;“Domain Driven Design - Tackling Complexity in the Heart of Software”&lt;/a&gt; by Eric Evans (&lt;a href=&quot;https://twitter.com/ericevans&quot;&gt;@ericevans0&lt;/a&gt;). There’s also a &lt;a href=&quot;https://www.infoq.com/minibooks/domain-driven-design-quickly&quot;&gt;short, quick-readable summary and introduction&lt;/a&gt; to the fundamentals of DDD made available by InfoQ.&lt;/p&gt;
+
+&lt;p&gt;Oliver’s talk at SpringIO 2016 highlighted a few basic DDD concepts like Entities, Value Objects, Repositories, Aggregates and Bounded Contexts.&lt;/p&gt;
+
+&lt;h3 id=&quot;value-objects&quot;&gt;Value Objects&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Avoid Stringly typed code&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Value Objects&lt;/strong&gt; are vital building blocks of DDD. They are small immutable objects that encapsulate value, validation and behaviour. You can use them to group related values together and provide functionality related to what they represent, making implicit concepts explicit.
+Some common use cases for VOs are: EmailAddress, Money, ZIPCode, Status, … avoid writing these as just plain Strings!&lt;/p&gt;
+
+&lt;p&gt;Writing VOs can be a cumbersome task but there are some source code generator frameworks out there like &lt;a href=&quot;https://projectlombok.org/&quot;&gt;Project Lombok&lt;/a&gt; and &lt;a href=&quot;https://github.com/google/auto&quot;&gt;Google’s AutoValue&lt;/a&gt; which can handle all the boilerplate code.&lt;/p&gt;
+
+&lt;h3 id=&quot;entities--repositories&quot;&gt;Entities &amp;amp; Repositories&lt;/h3&gt;
+&lt;p&gt;In contrast to Value Objects which are identified by the attributes they carry, &lt;strong&gt;Entities&lt;/strong&gt; are distinguished by their identity. Entity objects have a life cycle because their identity defines their responsibilities and associations. It is this unique identity and their mutability that sets Entities apart from Value Objects. This means that two Value Objects with the same properties should be considered the same whereas two Entities differ even if their properties match.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Aggregates form nice representation boundaries and become the key things to refer to.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;An &lt;strong&gt;Aggregate&lt;/strong&gt; is a cluster of closely related entities that can be treated as a single unit. The common parent of that cluster is called an &lt;strong&gt;Aggregate Root&lt;/strong&gt;. An example can be an Order and its Line Items, these will be separate objects but it is useful to treat the Order (the Aggregate Root) together with its Line Items as a single Aggregate.&lt;/p&gt;
+
+&lt;p&gt;When trying to discover Aggregates, we should understand the model’s invariants. An invariant is a business rule that must always be consistent and usually refers to &lt;strong&gt;transactional consistency&lt;/strong&gt;. When a transaction commits then everything inside the Aggregate should be consistent and any subsequent access by any client should return the updated value. In most cases it is a best practice to modify only one Aggregate in a single transaction. For updating multiple aggregates &lt;strong&gt;eventual consistency&lt;/strong&gt; can be used. There will be an inconsistency window during which an access may return either the old or the new value but eventually all accesses will return the last updated value. The duration of the inconsistency window can be calculated based on factors like network delays, number of copies of the object, and the system load.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;Repository&lt;/strong&gt; is an abstraction over a persistence store for Aggregates. It acts like a collection by exposing methods to add and remove objects which encapsulate the actual interaction with the underlying data store. It also has elaborate query capabilities which return fully instantiated Aggregates whose attributes values meet the criteria.&lt;/p&gt;
+
+&lt;h3 id=&quot;bounded-context&quot;&gt;Bounded Context&lt;/h3&gt;
+&lt;p&gt;DDD aims to create software models based on the underlying domain. A &lt;strong&gt;Bounded Context&lt;/strong&gt; is the boundary that surrounds a part of a particular domain. This boundary isolates the model and language from other models and therefore helps reducing ambiguity and clarifying the meaning. When the boundaries are chosen well, greater decoupling between systems can be achieved which allows to easily change or replace the internals of a BC. Avoid having transactions across multiple BCs.&lt;/p&gt;
+
+&lt;p&gt;The language that is structured around the domain model is called the &lt;strong&gt;Ubiquitous Language&lt;/strong&gt;. It is important that this language is used by all team members (developers, analysts, business stakeholders, …) to connect all the activities of the team with the software. The vocabulary on its own does not have any relevance, it only has meaning inside a certain context. For example, an Item has a different meaning in the Orders BC than in the Products BC.&lt;/p&gt;
+
+&lt;h3 id=&quot;domain-events&quot;&gt;Domain Events&lt;/h3&gt;
+&lt;p&gt;A &lt;strong&gt;Domain Event&lt;/strong&gt; is an extremely powerful tool in DDD. It is a type of message that describes something that has happened in the past and that is of interest to the business. (e.g. OrderShipped, CustomerBecamePreferred, …). It is important to model Event names and its properties according to the Ubiquitous Language of the BC where they originated. When Events need to be delivered to interested parties in either a local BC or broadcasted across BCs eventually consistency is generally used.&lt;/p&gt;
+
+&lt;h3 id=&quot;maturity-level&quot;&gt;Maturity Level&lt;/h3&gt;
+&lt;p&gt;The maturity level of the use of Domain Events can be categorized into 4 levels:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Level 0&lt;/strong&gt;: no events at all
+    &lt;ul&gt;
+      &lt;li&gt;procedural code with just getters and setters&lt;/li&gt;
+      &lt;li&gt;data just goes in and out&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Level 1&lt;/strong&gt;: explicit operations&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Level 2&lt;/strong&gt;: some operations as events
+    &lt;ul&gt;
+      &lt;li&gt;domain events are used as state transition&lt;/li&gt;
+      &lt;li&gt;important domain events are exposed to interested parties via feeds&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Level 3&lt;/strong&gt;: event sourcing - all changes to application state are stored as a sequence of events
+    &lt;ul&gt;
+      &lt;li&gt;only event logs and snapshots are kept (Event Store)&lt;/li&gt;
+      &lt;li&gt;separation of read and write operations (CQRS)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;rest&quot;&gt;REST&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;REST ≠ CRUD via HTTP. Representation design matters.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;resources&quot;&gt;Resources&lt;/h3&gt;
+&lt;p&gt;Just like an Aggregate, a well designed &lt;strong&gt;Resource&lt;/strong&gt; should be identifiable, referable and should have a clear scope of consistency.&lt;/p&gt;
+
+&lt;p&gt;Exposing the core domain model directly via RESTful HTTP can lead to brittle REST interfaces because each change in the domain model will be reflected in the interface. Decoupling the core domain from the REST interface has the advantage that we can make changes to the domain and then decide in each individual case whether a change is needed in the REST interface and how to map it.&lt;/p&gt;
+
+&lt;p&gt;Also avoid using HTTP PATCH or PUT for (complex) state transitions of your business domain because you are missing out on a lot of information regarding the real business domain event that triggered this update. For example, changing a customer’s mailing address is a POST to a new “ChangeOfAddress” resource, not a PATCH or PUT of a “Customer” resource with a different mailing address field value.
+This goes hand in hand with DDD’s concept of &lt;strong&gt;Event Sourcing&lt;/strong&gt; because those state transitions are domain relevant events, not just some changes to the state of some object.&lt;/p&gt;
+
+&lt;h3 id=&quot;hateoas&quot;&gt;HATEOAS&lt;/h3&gt;
+&lt;p&gt;A RESTful HTTP client can navigate from resource to resource in two different ways. Firstly by being redirected as a result of sending data for processing to the server, and secondly by following links contained in the response of the server. The latter technique is called &lt;strong&gt;Hypermedia as the Engine of Application State&lt;/strong&gt; or HATEOAS.&lt;/p&gt;
+
+&lt;p&gt;The goal of Hypermedia is to serve not only data but also navigation information at the same time. This has a great impact on the client architecture because now we’re trading domain knowledge with protocol complexity. The client becomes dumber because it no longer needs to know business rules in a sense that its decisions are reduced to checking whether a link is present or not, e.g. whenever there’s a cancel link in the HTTP response, then display the Cancel button. This will make the client’s behavior more dynamic.
+On the other hand, the client becomes smarter because it needs to handle a smarter and more comprehensive protocol.&lt;/p&gt;
+
+&lt;h3 id=&quot;maturity-level-1&quot;&gt;Maturity level&lt;/h3&gt;
+&lt;p&gt;In analogy to the maturity level of Aggregates described earlier, &lt;strong&gt;Leonard Richardson’s model&lt;/strong&gt; can be used to determine the maturity or our REST services.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Level 0&lt;/strong&gt;: Swamp of POX
+    &lt;ul&gt;
+      &lt;li&gt;the HTTP protocol is used to make RPC calls without indication of the application state&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Level 1&lt;/strong&gt;: Resources
+    &lt;ul&gt;
+      &lt;li&gt;exposure of multiple URIs and each one is an entry point to a specific resource, e.g. http://example.org/orders, http://example.org/order/1, http://example.org/order/2&lt;/li&gt;
+      &lt;li&gt;use of only one single method like POST.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Level 2&lt;/strong&gt;*: HTTP verbs
+    &lt;ul&gt;
+      &lt;li&gt;use of HTTP protocol properties (POST, GET, DELETE, …)&lt;/li&gt;
+      &lt;li&gt;use of HTTP response codes, e.g. HTTP 200 (OK)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Level 3&lt;/strong&gt;: Hypermedia controls
+    &lt;ul&gt;
+      &lt;li&gt;refer to description earlier in this blog post.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;translating-domain-concepts-into-web-appropriate-ones&quot;&gt;Translating domain concepts into web appropriate ones&lt;/h3&gt;
+
+&lt;table class=&quot;table table-striped&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;DDD&lt;/th&gt;
+      &lt;th&gt;REST&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Aggregate Root / Repository&lt;/td&gt;
+      &lt;td&gt;Collection / Item Resource&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Relations&lt;/td&gt;
+      &lt;td&gt;Links&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;IDs&lt;/td&gt;
+      &lt;td&gt;URIs&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;@Version&lt;/td&gt;
+      &lt;td&gt;ETags&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Last Modified Property&lt;/td&gt;
+      &lt;td&gt;Last Modified Header&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;sample-implementation&quot;&gt;Sample implementation&lt;/h3&gt;
+&lt;p&gt;Oliver also prepared a small sample implementation using Spring Boot, Spring Data and Lombok. The project is called &lt;a href=&quot;https://github.com/olivergierke/spring-restbucks&quot;&gt;Spring RESTBucks&lt;/a&gt; and is definitely worth checking out!&lt;/p&gt;
+
+&lt;h2 id=&quot;resources-1&quot;&gt;Resources&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://speakerdeck.com/olivergierke/domain-driven-design-and-rest-1&quot;&gt;“DDD &amp;amp; REST”&lt;/a&gt; (slide deck used at SpringIO 2016) by Oliver Gierke&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/olivergierke/spring-restbucks&quot;&gt;“Spring RESTBucks”&lt;/a&gt; (sample project used at SpringIO 2016) by Oliver Gierke&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://olivergierke.de/2016/04/benefits-of-hypermedia/&quot;&gt;“Benefits of hypermedia”&lt;/a&gt; by Oliver Gierke&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://dddcommunity.org/book/evans_2003/&quot;&gt;“Domain Driven Design - Tackling Complexity in the Heart of Software”&lt;/a&gt; by Eric Evans&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://dddcommunity.org/book/implementing-domain-driven-design-by-vaughn-vernon/&quot;&gt;“Implementing Domain Driven Design”&lt;/a&gt; by Vaughn Vernon&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.infoq.com/minibooks/domain-driven-design-quickly&quot;&gt;“Domain Driven Design Quickly”&lt;/a&gt; by InfoQ&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sun, 10 Jul 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/conference/2016/07/10/SpringIO16-DDD-Rest.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/conference/2016/07/10/SpringIO16-DDD-Rest.html</guid>
+        
+        <category>Spring IO</category>
+        
+        <category>Spring</category>
+        
+        <category>Conference</category>
+        
+        
+        <category>conference</category>
+        
+      </item>
     
       <item>
         <title>Spring I/O 16: Test-driven documentation with Spring REST Docs</title>
@@ -4271,127 +4453,6 @@ Protractor will ensure that your user gets a working app without frustrations!&l
         <category>pageobject</category>
         
         <category>functional modules</category>
-        
-        
-        <category>Ionic</category>
-        
-      </item>
-    
-      <item>
-        <title>Adding TypeScript to Ionic Framework</title>
-        <description>&lt;h3 id=&quot;ionic-and-typescript-sitting-in-a-tree&quot;&gt;Ionic and TypeScript sitting in a tree&lt;/h3&gt;
-
-&lt;p&gt;So, &lt;a href=&quot;http://www.typescriptlang.org/&quot;&gt;TypeScript&lt;/a&gt; is the all new thing that allows you to use features from ES6 (or ES2015), ES7 and beyond.
-Say goodbye to loosely typed variables and say hello to modules, classes, interfaces and so much more.&lt;/p&gt;
-
-&lt;p&gt;In order to use TypeScript in an Ionic Framework project there are a few small things you need to do to get things running.&lt;/p&gt;
-
-&lt;h2 id=&quot;install-and-configure-the-gulp-package&quot;&gt;1. Install and configure the gulp package&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Install the &lt;strong&gt;gulp-tsc package&lt;/strong&gt; and save it to the development dependencies in &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;npm install gulp-tsc --save-dev&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Next, require the package in your &lt;strong&gt;gulpfile.js&lt;/strong&gt; like so&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;var typescript = require(&#39;gulp-tsc&#39;);&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Add the following line to the paths object: &lt;code class=&quot;highlighter-rouge&quot;&gt;ts: [&#39;./src/*.ts&#39;, &#39;./src/**/*.ts&#39;]&lt;/code&gt;.
-You may have noticed two things here: All my TypeScript files are in a &lt;strong&gt;src folder&lt;/strong&gt; which means I’m &lt;strong&gt;not using the www folder&lt;/strong&gt; that Ionic provides by default.
-This way I can keep the TypeScript files and JavaScript files separated.
-Next to that I’m also targeting subfolders in that folder because I’m bundling my logic based on AngularJS modules.
-You can read more about structuring an AngularJS project in the &lt;a href=&quot;https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#application-structure-lift-principle&quot;&gt;John Papa AngularJS Style Guide&lt;/a&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Add our compile task&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;gulp.task(&#39;compile&#39;, function(){
-    gulp.src(paths.ts)
-        .pipe(typescript({ emitError: false }))
-        .pipe(gulp.dest(&#39;www/&#39;));
-});&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Add our task to watch&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;gulp.task(&#39;watch&#39;, function () {
-    gulp.watch(paths.sass, [&#39;sass&#39;]);
-    gulp.watch(paths.ts, [&#39;compile&#39;]);
-});&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Now change the &lt;strong&gt;ionic.project&lt;/strong&gt; file and add the compile task to the gulpStartupTasks. If the gulpStartupTasks section is not present at all, just add it anyway.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&quot;gulpStartupTasks&quot;: [
-    &quot;sass&quot;,
-    &quot;compile&quot;,
-    &quot;watch&quot;
-]&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;add-tsd&quot;&gt;2. Add TSD&lt;/h2&gt;
-
-&lt;p&gt;TSD is a &lt;strong&gt;TypeScript Definition manager&lt;/strong&gt; for &lt;a href=&quot;http://definitelytyped.org/&quot;&gt;DefinitelyTyped&lt;/a&gt;.
-TypeScript used TypeScript Definition files so it knows how to handle the TypeScript you are writing and gives you intellisense.
-Let’s install TSD so we can continue.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ sudo npm install -g tsd
-$ tsd install ionic cordova --save&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;This will create a typings folder which contains a tsd.d.ts file with references to the typings needed for ionic and cordova.
-In the root of your project a tsd.json file will be created with all the installed definitions.
-All you need to do to use the typings in your TypeScript file is include it at the top like so:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;/// &amp;lt;reference path=&quot;../typings/tsd.d.ts&quot; /&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; TSD has been deprecated in favour of &lt;a href=&quot;https://github.com/typings/typings&quot;&gt;Typings&lt;/a&gt; to manage and install TypeScript definitions.
-More info on how to switch from TSD to Typings can be found &lt;a href=&quot;https://github.com/typings/typings/blob/master/docs/tsd.md&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;prevent-editor-from-compiling-on-save&quot;&gt;3. Prevent editor from compiling on save&lt;/h2&gt;
-
-&lt;p&gt;Now to prevent your editor to auto compile TypeScript we add a tsconfig.json file to the src folder with this in it:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;{
-    &quot;compileOnSave&quot;: false
-}&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;add-typescript-files-in-src-folder&quot;&gt;4. Add TypeScript files in src folder&lt;/h2&gt;
-
-&lt;p&gt;Now that we have everything set up it’s time to start refactoring your application.
-It’s important to know that &lt;strong&gt;every JavaScript file is essentially TypeScript&lt;/strong&gt; because TypeScript is a superset of the current JavaScript implementation.
-This basically means that you can take your JavaScript files from your www folder, paste them to the src folder and rename them from &lt;code class=&quot;highlighter-rouge&quot;&gt;file.js&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;file.ts&lt;/code&gt;.
-Of course don’t forget to add the reference on top of your files to the tsd.d.ts file in the typings folder.&lt;/p&gt;
-
-&lt;p&gt;If you now run &lt;code class=&quot;highlighter-rouge&quot;&gt;ionic serve&lt;/code&gt;, you should see a message that looks like this one. &lt;code class=&quot;highlighter-rouge&quot;&gt;“Compiling TypeScript files using tsc version x.x.x”&lt;/code&gt;.
-TypeScript will process these files and write ES5 files to the www folder.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;As you can see it is fairly simple - just 4 steps - to add TypeScript support to your Ionic project by changing the default gulp setup used by Ionic.
-It’s nice to know that Ionic 2 will have support for TypeScript built in so you won’t have to do it yourself.
-By adding a flag &lt;code class=&quot;highlighter-rouge&quot;&gt;--ts&lt;/code&gt; to your Ionic 2 project setup it will be enabled.&lt;/p&gt;
-
-&lt;p&gt;Personally I love using TypeScript and will use it whenever I can.
-It makes my life as a developer a lot easier by spotting errors before I even hit the browser.&lt;/p&gt;
-
-&lt;p&gt;What are your thoughts about TypeScript? Feel free to add them in the comments section.&lt;/p&gt;
-</description>
-        <pubDate>Thu, 31 Mar 2016 00:00:00 +0000</pubDate>
-        <link>https://ordina-jworks.github.io/ionic/2016/03/31/Adding-TypeScript-to-Ionic-Framework.html</link>
-        <guid isPermaLink="true">https://ordina-jworks.github.io/ionic/2016/03/31/Adding-TypeScript-to-Ionic-Framework.html</guid>
-        
-        <category>TypeScript</category>
-        
-        <category>Ionic</category>
         
         
         <category>Ionic</category>
