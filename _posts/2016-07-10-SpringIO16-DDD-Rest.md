@@ -22,14 +22,14 @@ For an in depth understanding of DDD I highly recommend reading ["Domain Driven 
 
 Oliver's talk at SpringIO 2016 highlighted a few basic DDD concepts like Entities, Value Objects, Repositories, Aggregates and Bounded Contexts.
 
-### Value Objectives
+### Value Objects
 
 > Avoid Stringly typed code
 
 **Value Objects** are vital building blocks of DDD. They are small immutable objects that encapsulate value, validation and behaviour. You can use them to group related values together and provide functionality related to what they represent, making implicit concepts explicit.
 Some common use cases for VOs are: EmailAddress, Money, ZIPCode, Status, ... avoid writing these as just plain Strings!
 
-Writing VOs can be a cumbersome task but there are some source code generator frameworks out there like [Project Lombok](https://projectlombok.org/) and [Google's AutoValue](https://github.com/google/auto) that will handle all the boilerplate code.
+Writing VOs can be a cumbersome task but there are some source code generator frameworks out there like [Project Lombok](https://projectlombok.org/) and [Google's AutoValue](https://github.com/google/auto) which can handle all the boilerplate code.
 
 ### Entities & Repositories
 In contrast to Value Objects which are identified by the attributes they carry, **Entities** are distinguished by their identity. Entity objects have a life cycle because their identity defines their responsibilities and associations. It is this unique identity and their mutability that sets Entities apart from Value Objects. This means that two Value Objects with the same properties should be considered the same whereas two Entities differ even if their properties match.
@@ -43,7 +43,7 @@ When trying to discover Aggregates, we should understand the model's invariants.
 A **Repository** is an abstraction over a persistence store for Aggregates. It acts like a collection by exposing methods to add and remove objects which encapsulate the actual interaction with the underlying data store. It also has elaborate query capabilities which return fully instantiated Aggregates whose attributes values meet the criteria.
 
 ### Bounded Context
-DDD aims to create software models based on the underlying domain. A **Bounded Context** is the boundary that surrounds a part of a particular domain. This boundary isolates the model and language from other models and therefore helps reducing ambiguity and clarifying the meaning. When the boundaries are chosen well, greater decoupling between systems can be achieved which allows to easily change or replace the internals of a BC. Avoid having transactions cross multiple BCs.
+DDD aims to create software models based on the underlying domain. A **Bounded Context** is the boundary that surrounds a part of a particular domain. This boundary isolates the model and language from other models and therefore helps reducing ambiguity and clarifying the meaning. When the boundaries are chosen well, greater decoupling between systems can be achieved which allows to easily change or replace the internals of a BC. Avoid having transactions across multiple BCs.
 
 The language that is structured around the domain model is called the **Ubiquitous Language**. It is important that this language is used by all team members (developers, analysts, business stakeholders, ...) to connect all the activities of the team with the software. The vocabulary on its own does not have any relevance, it only has meaning inside a certain context. For example, an Item has a different meaning in the Orders BC than in the Products BC.
 
