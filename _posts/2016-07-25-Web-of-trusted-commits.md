@@ -8,7 +8,7 @@ category: Security
 comments: true
 ---
 ## Who Do You Trust?
-When you’re building software with people from around the world, it’s important to validate that commits and tags are coming from an identified source. By using a distributed revision control system like Git, anyone can have an offline copy of the code repository of your project. In theory having a central repository is not necessary, but it may be used to provide an "official" source from which other developers can clone from and work on. These other floating repositories may contain malicious code because it is remarkably easy to fake your identity when committing code using Git.
+When you’re building software with people from around the world, it’s important to validate that commits and tags are coming from an identified source. By using a distributed revision control system like Git, anyone can have an offline copy of your project's code repository. In theory having a central repository is not necessary, but it can be used to provide an "official" source from which other developers can clone from and work on. These other floating repositories may contain malicious code because it is remarkably easy to fake your identity when committing code using Git.
 
 The following command allows any individual with bad intentions to commit (malicious) code under your name, meaning that you will get the blame for the backdoor or exploit "you" committed:
 
@@ -23,29 +23,29 @@ The following command allows any individual with bad intentions to commit (malic
 
 ## Ensuring Trust
 
-This blog post tells the story of Sherlock H. Sherlock is a witty developer who holds any security-related topic very close to his heart. After a fair amount of pondering about how he could solve the problem of black-hearted developers who impersonated his personality, he decided to add **a Digital Signature** to his commits. By adding a signature Sherlock can finally sleep soundly at night because the signature indicates that he really issued the commit and that it has not been tampered with since he sent it. Moreover it can be used to trace the origin of malicious code that has made its way into a repository. Sherlock can now wholeheartedly vouch for the commit.
+This blog post tells the story of Sherlock H. Sherlock is a witty developer who holds any security-related topic very close to his heart. After a fair amount of pondering about how he could solve the problem of black-hearted developers impersonating his personality, he decided to add **a Digital Signature** to his commits. By adding a signature Sherlock can finally sleep soundly at night because the signature indicates that he really issued the commit and that it has not been tampered with since he sent it. Moreover it can be used to trace the origin of malicious code that has made its way into a repository. Sherlock can now wholeheartedly vouch for the commit.
 
 Consider the following scenario:
 
 > Sherlock wants to send an urgent message to his fellow developer John W. telling that their application has been compromised by Jim M, a criminal mastermind who only has unkind intentions. John wants the guarantee that the message he received is sent by Sherlock and has not been tampered with by Jim.
 
-In order to securely exchange messages, both Sherlock and John will make use of their **Key Pairs**. A Key Pair consists of a **Public and Private Key** which are two uniquely mathematically related cryptographic keys. As its name suggests, they Public Key is made available to everyone by handing out copies or sharing them through a publicly accessible repository. The Private Key however must be kept confidential to its respective owner.
+In order to securely exchange messages, both Sherlock and John will make use of their **Key Pairs**. A Key Pair consists of a **Public and Private Key** which are two unique mathematically related cryptographic keys. As its name suggests, the Public Key is made available to everyone by handing out copies or sharing them through a publicly accessible repository. The Private Key however must be kept confidential to its respective owner.
 
 Sherlock and John can do the following with the use of their Key Pair:
 
 + **Signing**
   - The message is still readable to everyone.
-  - Guarantee that the identity of the sender (aka Sherlock).
-  - Guarantee that the message has not been tampered with since it has been signed by Sherlock.
+  - Guarantee of the sender's identity (aka Sherlock).
+  - Guarantee that the message has not been tampered with since it has been signed by the sender (aka Sherlock).
 
 + **Encryption**
   - The message is only readable by the designated recipient (aka John).
   - No guarantee of the sender's identity (aka Sherlock).
-  - Encryption can be done symmetrically by using a Shared Secret Key, a single key is then used for both encryption and decryption. Asymmetrical encryption (aka Public Key encryption) with a Public/Private Keypair uses one key for encryption and another for decryption. Note that the advantages and challenges of using either encryption types is beyond the scope of this blog post.
+  - Encryption can be done symmetrically by using a Shared Secret Key, a single key is then used for both encryption and decryption. Asymmetrical encryption (aka Public Key encryption) with a Public/Private Keypair uses one key for encryption and another for decryption. Note that the advantages and challenges of using either encryption type is beyond the scope of this blog post.
 
 ## Enforcing Trust
 
-Sherlock will combine a digital signature with encrytion to convince John that his message is trustworthy.
+Sherlock will combine a digital signature with encryption to convince John that his message is trustworthy.
 
 1. Sherlock wants to send the following message to John: `Data! Data! Data! I can’t make bricks without clay.`. He calculates the **Hash** of this message by applying a publicly known hashing algorithm (e.g. MD5, SHA-256, ...) to the message. The calculated hash by using the SHA-256 algorithm is `d6ba26816599a75310c4c263126d4b44979c7026f90e1db8e9b317d6658f3811`
 
@@ -63,7 +63,7 @@ Sherlock will combine a digital signature with encrytion to convince John that h
 If they're identical he knows the message has not been tampered with during transit.
 Should the message been compromised, then John would have calculated a different Hash than the encrypted Hash that Sherlock has sent along with his message.
 
-## Creating an identity
+## Creating An Identity
 
 In order to sign his commits, Sherlock decided to use **Gnu Privacy Guard (GPG)** as his weapon of choice. GPG is a complete and free implementation of the OpenPGP standard. It allows to encrypt and sign data and communication, features a versatile key management system as well as access modules for all kinds of public key directories.
 
@@ -78,7 +78,7 @@ In order to sign his commits, Sherlock decided to use **Gnu Privacy Guard (GPG)*
 
 + Specify the key you want, or accept the default `RSA and RSA`. RSA is a widely-used asymmetric encryption algorithm and is named after Ron Rivest, Adi Shamir and Len Adleman who invented it in 1977. Should you be interested in more mathematical details how this algorithm works, I can highly recommend watching ["Public Key Cryptography: RSA Encryption Algorithm"](https://www.youtube.com/watch?v=wXB-V_Keiu8) on YouTube.
 
-+ Enter the desired key size. I recommend the `maximum key size of 4096 bits` because they provide far better long-term security. While the default of 2048 bits is secure now, it won't be in the future. 1024 bit keys are already considered within the range of being breakable and while technology advances 2048 bit keys will also become breakable. Eventually 4096 bit keys will be broken too, but that will be so far in the future that likely also better encryption algorithms will have been developed by then.
++ Enter the desired key size. I recommend the `maximum key size of 4096 bits` because they provide far better long-term security. While the default of 2048 bits is secure now, it won't be in the future. 1024 bit keys are already considered within the range of being breakable and while technology advances 2048 bit keys will also become breakable. Eventually 4096 bit keys will be broken too, but that will be so far in the future that better encryption algorithms will also likely have been developed by then.
 
 + You can safely accept the `default expiration` for your key.
 
@@ -102,7 +102,7 @@ In order to sign his commits, Sherlock decided to use **Gnu Privacy Guard (GPG)*
     $ gpg --armor --output pubkey.txt --export 'Sherlock H'
     {% endhighlight %}
 
-## Signing your work
+## Signing Your Work
 Once Sherlock generated his Key Pair, he can configure Git to use it for signing commits and tags. Following tools can be used to store a GPG key passphrase in a keychain so he doesn't have to provide it every time he signs a commit: [GPG Suite](https://gpgtools.org/) (Mac) or [Gpg4win](https://www.gpg4win.org/) (Windows).
 
   {% highlight bash %}
@@ -128,7 +128,7 @@ Once Sherlock generated his Key Pair, he can configure Git to use it for signing
   $ git merge --verify-signatures other_branch
   {% endhighlight %}
 
-Earlier this year GitHub [announced](https://github.com/blog/2144-gpg-signature-verification) that they will show when commits and tags are signed and verified using any of the contributor's GPG keys upload to GitHub. Keep your eyes open for commits and tags labeled with those green `verified` badges!
+Earlier this year GitHub [announced](https://github.com/blog/2144-gpg-signature-verification) that they now will show when commits and tags are signed and verified using any of the contributor's GPG keys upload to GitHub. Keep your eyes open for commits and tags labeled with those green `verified` badges!
 
 ## Resources
 + [GitHub's Help on GPG](https://help.github.com/categories/gpg/)
