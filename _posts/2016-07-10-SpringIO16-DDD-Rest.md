@@ -90,7 +90,7 @@ In analogy to the maturity level of Aggregates described earlier, **Leonard Rich
 + **Level 1**: Resources
   - exposure of multiple URIs and each one is an entry point to a specific resource, e.g. http://example.org/orders, http://example.org/order/1, http://example.org/order/2
   - use of only one single method like POST.
-+ **Level 2***: HTTP verbs
++ **Level 2**: HTTP verbs
   - use of HTTP protocol properties (POST, GET, DELETE, ...)
   - use of HTTP response codes, e.g. HTTP 200 (OK)
 + **Level 3**: Hypermedia controls
