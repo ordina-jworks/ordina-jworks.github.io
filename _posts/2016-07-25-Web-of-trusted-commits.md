@@ -23,7 +23,7 @@ The following command allows any individual with bad intentions to commit (malic
 
 ## Ensuring Trust
 
-This blog post tells the story of Sherlock H. Sherlock is a witty developer who holds any security-related topic very close to his heart. After a fair amount of pondering about how he could solve the problem of black-hearted developers impersonating his personality, he decided to add **a Digital Signature** to his commits. By adding a signature Sherlock can finally sleep soundly at night because the signature indicates that he really issued the commit and that it has not been tampered with since he sent it. Moreover it can be used to trace the origin of malicious code that has made its way into a repository. The signature makes it also difficult for the signer to deny having signed something because the Digital Signature is unique to both the commit and the signer, and binds them together. Sherlock can now wholeheartedly vouch for the commit.
+This blog post tells the story of Sherlock H. Sherlock is a witty developer who holds any security-related topic very close to his heart. After a fair amount of pondering about how he could solve the problem of black-hearted developers impersonating his personality, he decided to add **a Digital Signature** to his commits. By adding a signature Sherlock can finally sleep soundly at night because the signature indicates that he really issued the commit and that it has not been tampered with since he sent it. Moreover it can be used to trace the origin of malicious code that has made its way into a repository. The signature also assures non-repudiation, meaning that it becomes difficult for the signer to deny having signed something because the Digital Signature is unique to both the commit and the signer, and binds them together. Sherlock can now wholeheartedly vouch for the commit.
 
 Consider the following scenario:
 
@@ -49,7 +49,7 @@ Sherlock will combine a digital signature with encryption to convince John that 
 
 1. Sherlock wants to send the following message to John: `Data! Data! Data! I can’t make bricks without clay.`. He calculates the **Hash** of this message by applying a publicly known hashing algorithm to the message. The calculated hash by using the SHA-256 hashing algorithm is `d6ba26816599a75310c4c263126d4b44979c7026f90e1db8e9b317d6658f3811`. The hash value is unique to the hashed data.
 
-2. Sherlock encrypts the Hash with his Private Key. This encrypted Hash combined with other information such as the hashing algorithm is the Digital Signature. The reason why the Hash is encrypted and not the entire message, is that a hash function can convert an arbitrary input into a fixed length value which is usually much shorter than the original message. This saves time since hashing is much faster than signing.
+2. Sherlock encrypts the Hash with his Private Key. This encrypted Hash together with a certificate containing additional information about the sender forms the Digital Signature. The reason why the Hash is encrypted and not the entire message, is that a hash function can convert an arbitrary input into a fixed length value which is usually much shorter than the original message. This saves time since hashing is much faster than signing.
 
 4. Sherlock sends the original message and its Digital Signature to John.
 
@@ -62,6 +62,8 @@ Sherlock will combine a digital signature with encryption to convince John that 
 8. John compares the Hash he calculated himself and the decrypted Hash received with Sherlock's message.
 If they're identical he knows the message has not been tampered with during transit.
 Should the message been compromised by Jim, then John would have calculated a different Hash than the encrypted Hash that Sherlock has sent along with his message.
+
+<img class="center-block" alt="Digital Signature" src="/img/web-of-trusted-commits/digital_signature.png">
 
 ## Creating An Identity
 
@@ -132,7 +134,7 @@ Earlier this year GitHub [announced](https://github.com/blog/2144-gpg-signature-
 
 ## Secure-By-Design
 Ordina's [Secure-By-Design programme](https://www.ordina.be/en/services-et-solutions/themas/secure-by-design/) encourages to consider and take account of possible security risks as early as possible in a business process.
-So follow Sherlock's example by embedding and safeguarding security in your daily work as a developer. **Sign your work!**
+So follow Sherlock's example by embedding and safeguarding security in your daily work as a developer and **Sign Your Work!**
 
 ## Resources
 + [GitHub's Help on GPG](https://help.github.com/categories/gpg/)
