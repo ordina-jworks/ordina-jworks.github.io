@@ -8,7 +8,7 @@ category: Security
 comments: true
 ---
 ## Who Do You Trust?
-When you’re building software with people from around the world, it’s important to validate that commits and tags are coming from an identified source. By using a distributed revision control system like Git, anyone can have an offline copy of your project's code repository. In theory having a central repository is not necessary, but it can be used to provide an "official" source from which other developers can clone from and work on. These other floating repositories may contain malicious code because it is remarkably easy to fake your identity when committing code using Git.
+When you’re building software with people from around the world, it’s important to validate that commits and tags are coming from an identified source. By using a distributed revision control system like Git, anyone can have an offline copy of your project's code repository. In theory having a central repository is not necessary, but it can be used to provide an "official" source from which other developers can clone from and work on. These other floating repositories may contain malicious code because, unfortunately, it is remarkably easy to fake your identity when committing code using Git.
 
 The following command allows any individual with bad intentions to commit (malicious) code under your name, meaning that you will get the blame for the backdoor or exploit "you" committed:
 
@@ -41,13 +41,13 @@ Sherlock and John can do the following with the use of their Key Pair:
 + **Encryption**
   - The message is only readable by the designated recipient (aka John).
   - No guarantee of the sender's identity (aka Sherlock).
-  - Encryption can be done symmetrically by using a Shared Secret Key, a single key is then used for both encryption and decryption. Asymmetrical encryption (aka Public Key encryption) with a Public/Private Keypair uses one key for encryption and another for decryption. Note that the advantages and challenges of using either encryption type is beyond the scope of this blog post.
+  - Encryption can be done **symmetrically** by using a Shared Secret Key, a single key is then used for both encryption and decryption. **Asymmetrical** encryption (aka Public Key encryption) with a Public/Private Keypair uses one key for encryption and another for decryption. Note that the advantages and challenges of using either encryption type is beyond the scope of this blog post.
 
 ## Enforcing Trust
 
 Sherlock will combine a digital signature with encryption to convince John that his message is trustworthy.
 
-1. Sherlock wants to send the following message to John: `Data! Data! Data! I can’t make bricks without clay.`. He calculates the **Hash** of this message by applying a publicly known hashing algorithm (e.g. MD5, SHA-256, ...) to the message. The calculated hash by using the SHA-256 algorithm is `d6ba26816599a75310c4c263126d4b44979c7026f90e1db8e9b317d6658f3811`. The hash value is unique to the hashed data.
+1. Sherlock wants to send the following message to John: `Data! Data! Data! I can’t make bricks without clay.`. He calculates the **Hash** of this message by applying a publicly known hashing algorithm to the message. The calculated hash by using the SHA-256 hashing algorithm is `d6ba26816599a75310c4c263126d4b44979c7026f90e1db8e9b317d6658f3811`. The hash value is unique to the hashed data.
 
 2. Sherlock encrypts the Hash with his Private Key. This encrypted Hash combined with other information such as the hashing algorithm is the Digital Signature. The reason why the Hash is encrypted and not the entire message, is that a hash function can convert an arbitrary input into a fixed length value which is usually much shorter than the original message. This saves time since hashing is much faster than signing.
 
@@ -67,7 +67,7 @@ Should the message been compromised by Jim, then John would have calculated a di
 
 In order to sign his commits, Sherlock decided to use **Gnu Privacy Guard (GPG)** as his weapon of choice. GPG is a complete and free implementation of the OpenPGP standard. It allows to encrypt and sign data and communication, features a versatile key management system as well as access modules for all kinds of public key directories.
 
-+ Download and install GPG for your operating system from the [official website](https://www.gnupg.org/download/)
++ Download and install GPG from the [official website](https://www.gnupg.org/download/)
 
 + Open a command prompt
 
@@ -76,19 +76,19 @@ In order to sign his commits, Sherlock decided to use **Gnu Privacy Guard (GPG)*
       $ gpg --gen-key
       {% endhighlight %}
 
-+ Specify the key you want, or accept the default `RSA and RSA`. RSA is a widely-used asymmetric encryption algorithm and is named after Ron Rivest, Adi Shamir and Len Adleman who invented it in 1977. Should you be interested in more mathematical details how this algorithm works, I can highly recommend watching ["Public Key Cryptography: RSA Encryption Algorithm"](https://www.youtube.com/watch?v=wXB-V_Keiu8) on YouTube.
++ Sherlock accepted the default `RSA and RSA` key. RSA is a widely-used asymmetric encryption algorithm and is named after Ron Rivest, Adi Shamir and Len Adleman who invented it in 1977. Should you be interested in more mathematical details how this algorithm works, I can highly recommend watching ["Public Key Cryptography: RSA Encryption Algorithm"](https://www.youtube.com/watch?v=wXB-V_Keiu8) on YouTube.
 
 + Enter the desired key size. I recommend the `maximum key size of 4096 bits` because they provide far better long-term security. While the default of 2048 bits is secure now, it won't be in the future. 1024 bit keys are already considered within the range of being breakable and while technology advances 2048 bit keys will also become breakable. Eventually 4096 bit keys will be broken too, but that will be so far in the future that better encryption algorithms will also likely have been developed by then.
 
-+ You can safely accept the `default expiration` for your key.
++ Sherlock accepted the `default expiration` for his key.
 
-+ Enter `your real name and email address`. If you have a GitHub account, then you should enter the verified email address for your account.
++ He entered his `real name and email address`. Sherlock provided the verified email address for his GitHub account. This will make it very easy to link his account with his Public Key.
 
 + Provide a `secure passphrase`. Choose wisely and be sure to remember it because else the key cannot be used and any data encrypted using that key will be lost.
 
 + Congratulations, a newly fresh Key Pair should be generated now.
       {% highlight bash %}
-      # List all your keys.
+      # List all keys.
       $ gpg --list-keys
         pub   4096R/90C3C3DE 2016-07-24
         uid     Sherlock H <sherlock.h@bakerstreet.org>
@@ -98,7 +98,7 @@ In order to sign his commits, Sherlock decided to use **Gnu Privacy Guard (GPG)*
 + Like many other developers, Sherlock is very active on GitHub and would like to link his Public Key with his account. He therefore will need to create a textual version of his Public Key. After having executed the command below, the content of the generated 'pubkey.txt' needs to be added to his account as described in the [GitHub Help pages](https://help.github.com/articles/adding-a-new-gpg-key-to-your-github-account/). More details about distributing and registering your Public Key to a key server can be found in the chapter '[Distributing keys](https://www.gnupg.org/gph/en/manual.html#AEN464)' of the GPG Users Guide. For other usages like encryption and decryption, please refer to [GPG's Mini HowTo](http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto.html).
 
     {% highlight bash %}
-    # Export your Public Key to a text file.
+    # Export the Public Key to a text file.
     $ gpg --armor --output pubkey.txt --export 'Sherlock H'
     {% endhighlight %}
 
@@ -128,7 +128,11 @@ Once Sherlock generated his Key Pair, he can configure Git to use it for signing
   $ git merge --verify-signatures other_branch
   {% endhighlight %}
 
-Earlier this year GitHub [announced](https://github.com/blog/2144-gpg-signature-verification) that they now will show when commits and tags are signed and verified using any of the contributor's GPG keys upload to GitHub. Keep your eyes open for commits and tags labeled with those green `verified` badges!
+Earlier this year GitHub [announced](https://github.com/blog/2144-gpg-signature-verification) that they now will show when commits and tags are signed and verified using any of the contributor's GPG keys upload to GitHub. Keep your eyes open for commits and tags labeled with those green `verified` badges.
+
+## Secure-By-Design
+Ordina's [Secure-By-Design programme](https://www.ordina.be/en/services-et-solutions/themas/secure-by-design/) encourages to consider and take account of possible security risks as early as possible in a business process.
+So follow Sherlock's example by embedding and safeguarding security in your daily work as a developer. **Sign your work!**
 
 ## Resources
 + [GitHub's Help on GPG](https://help.github.com/categories/gpg/)
