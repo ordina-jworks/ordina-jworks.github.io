@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ordina JWorks Tech Blog</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Ordina JWorks Tech blog
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,Javascript,DevOps">
+    <meta name="author" content="Ordina Belgium">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/security/2016/07/25/Web-of-trusted-commits.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="A web of trusted commits -  " />
+    <meta property="og:description" content="Ordina JWorks Tech Blog" />
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/digitally-signing-your-json-documents.png" />
+    
+
+    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Base style -->
+    <link href="/css/styles/style.css" rel="stylesheet">
+    <!-- Skin CSS -->
+    <link href="/css/styles/skin-orange.css" rel="stylesheet" id="color_theme">
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<!-- Add class "boxed" along with body for boxed layout. -->
+<!-- Add "pattern-x" (1 to 5) for background patterns. -->
+<!-- Add "img-x" (1 to 5) for background images. -->
+<body>
+
+<!-- Outer Starts -->
+<div class="outer">
+    <!-- Header two Starts -->
+    <div class="header-2">
+
+        <!-- Container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo">
+                        <h1><a href="/"><img src="/img/jworks/jworks-400x400.jpg"
+                                                               width="100"
+                                                               height="100"/> </a></h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="navy">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="/contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header two ends -->
+
+    <!-- Main content starts -->
+
+    <div class="main-block">
+
+        <!-- Page heading two starts -->
+
+        <div class="page-heading-two">
+            <div class="container">
+                <h2>JWorks Tech Blogs<span style="margin-left: 10px"> Powered by Ordina</span></h2>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <!-- Page heading two ends -->
+
+        <div class="container tk-acumin-pro">
+            <div class="post">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>A web of trusted commits</h1>
+            <p id="post-meta">
+                Posted Jul 25, 2016 in <a href="/categories/security/">Security</a>
+                
+                    by 
+                    
+                
+                        
+                        <a href="/author/martin-kwee/">Martin Kwee</a>
+                    
+                
+                
+                    <br />
+                    <i class="fa fa-tags"></i>
+                        
+                            <a href="/tags/security/">Security</a>,
+                        
+                            <a href="/tags/git/">Git</a>,
+                        
+                            <a href="/tags/encryption/">Encryption</a>,
+                        
+                            <a href="/tags/digital-signature/">Digital Signature</a>,
+                        
+                            <a href="/tags/cryptography/">Cryptography</a>
+                        
+                
+            </p>
+        </div>
+    </div>
+    <br />
+    <article class="post-content">
+        <h2 id="who-do-you-trust">Who Do You Trust?</h2>
+<p>When you’re building software with people from around the world, it’s important to validate that commits and tags are coming from an identified source. By using a distributed revision control system like Git, anyone can have an offline copy of your project’s code repository. In theory having a central repository is not necessary, but it can be used to provide an “official” source from which other developers can clone from and work on. These other floating repositories may contain malicious code because, unfortunately, it is remarkably easy to fake your identity when committing code using Git.</p>
+
+<p>The following command allows any individual with bad intentions to commit (malicious) code under your name, meaning that you will get the blame for the backdoor or exploit “you” committed:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">  <span class="c"># Individual commit.
+</span>
+  <span class="nv">$ </span>git commit -a -m <span class="s2">"a message"</span> --author <span class="s2">"Sherlock H. &lt;sherlock.h@bakerstreet.org&gt;"</span>
+
+  <span class="c"># Global settings.
+</span>
+  <span class="nv">$ </span>git config --global user.name <span class="s1">'Sherlock H.'</span>
+  <span class="nv">$ </span>git config --global user.email sherlock.h@bakerstreet.org
+  </code></pre></figure>
+
+<h2 id="ensuring-trust">Ensuring Trust</h2>
+
+<p>This blog post tells the story of Sherlock H. Sherlock is a witty developer who holds any security-related topic very close to his heart. After a fair amount of pondering about how he could solve the problem of black-hearted developers impersonating his personality, he decided to add <strong>a Digital Signature</strong> to his commits. By adding a signature Sherlock can finally sleep soundly at night because the signature indicates that he really issued the commit and that it has not been tampered with since he sent it. Moreover it can be used to trace the origin of malicious code that has made its way into a repository. The signature also assures non-repudiation, meaning that it becomes difficult for the signer to deny having signed something because the Digital Signature is unique to both the commit and the signer, and binds them together. Sherlock can now wholeheartedly vouch for the commit.</p>
+
+<p>Consider the following scenario:</p>
+
+<blockquote>
+  <p>Sherlock wants to send an urgent message to his fellow developer John W. telling that their application has been compromised by Jim M, a criminal mastermind who only has unkind intentions. John wants the guarantee that the message he received is sent by Sherlock and has not been tampered with by Jim.</p>
+</blockquote>
+
+<p>In order to securely exchange messages, both Sherlock and John will make use of their <strong>Key Pairs</strong>. A Key Pair consists of a <strong>Public and Private Key</strong> which are two unique mathematically related cryptographic keys. As its name suggests, the Public Key is made available to everyone by handing out copies or sharing them through a publicly accessible repository. The Private Key however must be kept confidential to its respective owner.</p>
+
+<p>Sherlock and John can do the following with the use of their Key Pair:</p>
+
+<ul>
+  <li><strong>Signing</strong>
+    <ul>
+      <li>The message is still readable to everyone.</li>
+      <li>Guarantee of the sender’s identity (aka Sherlock).</li>
+      <li>Guarantee that the message has not been tampered with since it has been signed by the sender (aka Sherlock).</li>
+    </ul>
+  </li>
+  <li><strong>Encryption</strong>
+    <ul>
+      <li>The message is only readable by the designated recipient (aka John).</li>
+      <li>No guarantee of the sender’s identity (aka Sherlock).</li>
+      <li>Encryption can be done <strong>symmetrically</strong> by using a Shared Secret Key, a single key is then used for both encryption and decryption. <strong>Asymmetrical</strong> encryption (aka Public Key encryption) with a Public/Private Keypair uses one key for encryption and another for decryption. Note that the advantages and challenges of using either encryption type is beyond the scope of this blog post.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="enforcing-trust">Enforcing Trust</h2>
+
+<p>Sherlock will combine a digital signature with encryption to convince John that his message is trustworthy.</p>
+
+<ol>
+  <li>
+    <p>Sherlock wants to send the following message to John: <code class="highlighter-rouge">Data! Data! Data! I can’t make bricks without clay.</code>. He calculates the <strong>Hash</strong> of this message by applying a publicly known hashing algorithm to the message. The calculated hash by using the SHA-256 hashing algorithm is <code class="highlighter-rouge">d6ba26816599a75310c4c263126d4b44979c7026f90e1db8e9b317d6658f3811</code>. The hash value is unique to the hashed data.</p>
+  </li>
+  <li>
+    <p>Sherlock encrypts the Hash with his Private Key. This encrypted Hash together with a certificate containing additional information about the sender forms the Digital Signature. The reason why the Hash is encrypted and not the entire message, is that a hash function can convert an arbitrary input into a fixed length value which is usually much shorter than the original message. This saves time since hashing is much faster than signing.</p>
+  </li>
+  <li>
+    <p>Sherlock sends the original message and its Digital Signature to John.</p>
+  </li>
+  <li>
+    <p>John receives the message and Digital Signature.</p>
+  </li>
+  <li>
+    <p>Whatever is encrypted with a Public Key can only be decrypted by using its corresponding Private Key and vice versa. Therefore John uses Sherlock’s Public Key to decrypt the Signature.</p>
+  </li>
+  <li>
+    <p>John also re-calculates the Hash of the original message by applying the same hashing algorithm as Sherlock.</p>
+  </li>
+  <li>
+    <p>John compares the Hash he calculated himself and the decrypted Hash received with Sherlock’s message.
+If they’re identical he knows the message has not been tampered with during transit.
+Should the message been compromised by Jim, then John would have calculated a different Hash than the encrypted Hash that Sherlock has sent along with his message.</p>
+  </li>
+</ol>
+
+<p><img class="center-block" alt="Digital Signature" src="/img/web-of-trusted-commits/digital_signature.png" /></p>
+
+<h2 id="creating-an-identity">Creating An Identity</h2>
+
+<p>In order to sign his commits, Sherlock decided to use <strong>Gnu Privacy Guard (GPG)</strong> as his weapon of choice. GPG is a complete and free implementation of the OpenPGP standard. It allows to encrypt and sign data and communication, features a versatile key management system as well as access modules for all kinds of public key directories.</p>
+
+<ul>
+  <li>
+    <p>Download and install GPG from the <a href="https://www.gnupg.org/download/">official website</a></p>
+  </li>
+  <li>
+    <p>Open a command prompt</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">      <span class="c"># Generate a new Key Pair.
+</span>
+      <span class="nv">$ </span>gpg --gen-key
+      </code></pre></figure>
+
+<ul>
+  <li>
+    <p>Sherlock accepted the default <code class="highlighter-rouge">RSA and RSA</code> key. RSA is a widely-used asymmetric encryption algorithm and is named after Ron Rivest, Adi Shamir and Len Adleman who invented it in 1977. Should you be interested in more mathematical details how this algorithm works, I can highly recommend watching <a href="https://www.youtube.com/watch?v=wXB-V_Keiu8">“Public Key Cryptography: RSA Encryption Algorithm”</a> on YouTube.</p>
+  </li>
+  <li>
+    <p>Enter the desired key size. I recommend the <code class="highlighter-rouge">maximum key size of 4096 bits</code> because they provide far better long-term security. While the default of 2048 bits is secure now, it won’t be in the future. 1024 bit keys are already considered within the range of being breakable and while technology advances 2048 bit keys will also become breakable. Eventually 4096 bit keys will be broken too, but that will be so far in the future that better encryption algorithms will also likely have been developed by then.</p>
+  </li>
+  <li>
+    <p>Sherlock accepted the <code class="highlighter-rouge">default expiration</code> for his key.</p>
+  </li>
+  <li>
+    <p>He entered his <code class="highlighter-rouge">real name and email address</code>. Sherlock provided the verified email address for his GitHub account. This will make it very easy to link his account with his Public Key.</p>
+  </li>
+  <li>
+    <p>Provide a <code class="highlighter-rouge">secure passphrase</code>. Choose wisely and be sure to remember it because else the key cannot be used and any data encrypted using that key will be lost.</p>
+  </li>
+  <li>
+    <p>Congratulations, a newly fresh Key Pair should be generated now.</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">      <span class="c"># List all keys.
+</span>
+      <span class="nv">$ </span>gpg --list-keys
+        pub   4096R/90C3C3DE 2016-07-24
+        uid     Sherlock H &lt;sherlock.h@bakerstreet.org&gt;
+        sub   4096R/586B3A7B 2016-07-24
+      </code></pre></figure>
+
+<ul>
+  <li>Like many other developers, Sherlock is very active on GitHub and would like to link his Public Key with his account. He therefore will need to create a textual version of his Public Key. After having executed the command below, the content of the generated ‘pubkey.txt’ needs to be added to his account as described in the <a href="https://help.github.com/articles/adding-a-new-gpg-key-to-your-github-account/">GitHub Help pages</a>. More details about distributing and registering your Public Key to a key server can be found in the chapter ‘<a href="https://www.gnupg.org/gph/en/manual.html#AEN464">Distributing keys</a>’ of the GPG Users Guide. For other usages like encryption and decryption, please refer to <a href="http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto.html">GPG’s Mini HowTo</a>.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">    <span class="c"># Export the Public Key to a text file.
+</span>
+    <span class="nv">$ </span>gpg --armor --output pubkey.txt --export <span class="s1">'Sherlock H'</span>
+    </code></pre></figure>
+
+<h2 id="signing-your-work">Signing Your Work</h2>
+<p>Once Sherlock generated his Key Pair, he can configure Git to use it for signing commits and tags. Following tools can be used to store a GPG key passphrase in a keychain so he doesn’t have to provide it every time he signs a commit: <a href="https://gpgtools.org/">GPG Suite</a> (Mac) or <a href="https://www.gpg4win.org/">Gpg4win</a> (Windows).</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">  <span class="c"># Set the signing key by taking your Public Key id as parameter.
+</span>
+  <span class="nv">$ </span>git config --global user.signingkey 90C3C3DE
+
+  <span class="c"># Automatically signs every commit.
+</span>
+  <span class="nv">$ </span>git config --global commit.gpgsign <span class="nb">true</span>
+
+  <span class="c"># Manually sign a commit.
+</span>
+  <span class="nv">$ </span>git commit -S -m <span class="s2">"some commit message"</span>
+
+  <span class="c"># Verify whether your commit has been signed.
+</span>
+  <span class="nv">$ </span>git log --show-signature
+
+    commit 81314da640320c65896a4348842d303a754f37d2
+    gpg: Signature made Sun Jul 24 15:02:25 2016 CEST using RSA key ID 90C3C3DE
+    gpg: Good signature from <span class="s2">"Sherlock H &lt;sherlock.h@bakerstreet.org&gt;"</span>
+    Author: Sherlock H &lt;sherlock.h@bakerstreet.org&gt;
+    Date:   Sun Jul 24 15:01:52 2016 +0200
+
+  <span class="c"># Verify all signatures during merge. If the signatures can not be verified then merge will be aborted.
+</span>
+  <span class="nv">$ </span>git merge --verify-signatures other_branch
+  </code></pre></figure>
+
+<p>Earlier this year GitHub <a href="https://github.com/blog/2144-gpg-signature-verification">announced</a> that they now will show when commits and tags are signed and verified using any of the contributor’s GPG keys upload to GitHub. Keep your eyes open for commits and tags labeled with those green <code class="highlighter-rouge">verified</code> badges.</p>
+
+<h2 id="secure-by-design">Secure-By-Design</h2>
+<p>Ordina’s <a href="https://www.ordina.be/en/services-et-solutions/themas/secure-by-design/">Secure-By-Design programme</a> encourages to consider and take account of possible security risks as early as possible in a business process.
+So follow Sherlock’s example by embedding and safeguarding security in your daily work as a developer and <strong>Sign Your Work!</strong></p>
+
+<h2 id="resources">Resources</h2>
+<ul>
+  <li><a href="https://help.github.com/categories/gpg/">GitHub’s Help on GPG</a></li>
+  <li><a href="https://www.gnupg.org/gph/en/manual/book1.html">The GNU Privacy Handbook</a></li>
+  <li><a href="http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto.html">GPG’s Mini HowTo</a></li>
+  <li><a href="https://mikegerwitz.com/papers/git-horror-story">“A Git Horror Story”</a> by Mike Gerwitz</li>
+  <li><a href="https://www.youtube.com/watch?v=wXB-V_Keiu8">“Public Key Cryptography: RSA Encryption Algorithm”</a></li>
+</ul>
+
+    </article>
+    <hr />
+    
+                
+        
+        
+            <blockquote>
+                <p>Martin is a Principal Java Consultant at Ordina Belgium. He enjoys a good technical challenge and is passionate about learning new innovative technologies and architectures.</p>
+
+            </blockquote>
+        
+    
+    
+        <br /><br />
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    
+</div>
+
+        </div>
+    </div>
+    <!-- Main content ends -->
+</div>
+<!-- Footer Starts -->
+<footer class="footer">
+    <!-- Container -->
+    <div class="container">
+        <!-- Foot Starts -->
+        <div class="foot">
+            <!-- Container -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-user"></i>&nbsp;&nbsp;Disclaimer</h5>
+
+                            <p>Opinions expressed on this blog reflect the writer’s views and not the position of
+                                Ordina.</p>
+
+                            <div class="brand-bg">
+                                <a target="_blank" href="https://www.facebook.com/lifeatordinabe" class="facebook"><i
+                                        class="fa fa-facebook circle-3"></i></a>
+                                <a target="_blank" href="https://twitter.com/lifeatordinabe"
+                                   class="twitter"><i
+                                        class="fa fa-twitter circle-3"></i></a>
+                                <a target="_blank" href="https://www.linkedin.com/company/ordina-belgium"
+                                   class="linkedin"><i
+                                        class="fa fa-linkedin circle-3"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-comments"></i>&nbsp;&nbsp;Recent Posts</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content">
+                                <ul class="list-unstyled">
+                                    
+                                    <li>
+                                        <span>25 Jul 2016</span> &raquo;
+                                        <a href="/security/2016/07/25/Web-of-trusted-commits.html">
+                                            A web of trusted commits</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>10 Jul 2016</span> &raquo;
+                                        <a href="/conference/2016/07/10/SpringIO16-DDD-Rest.html">
+                                            Spring I/O 16: Bridging the worlds of DDD & REST</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>30 Jun 2016</span> &raquo;
+                                        <a href="/conference/2016/06/30/SpringIO16-Spring-Rest-Docs.html">
+                                            Spring I/O 16: Test-driven documentation with Spring REST Docs</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>20 Jun 2016</span> &raquo;
+                                        <a href="/conference/2016/06/20/whats-new-in-docker-112.html">
+                                            DockerCon 2016 - What is new in Docker 1.12</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>13 May 2016</span> &raquo;
+                                        <a href="/conference/2016/05/13/JS-Conf-Budapest-day-2.html">
+                                            JS Conf Budapest Day 2</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>12 May 2016</span> &raquo;
+                                        <a href="/conference/2016/05/12/JS-Conf-Budapest-day-1.html">
+                                            JS Conf Budapest Day 1</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>01 May 2016</span> &raquo;
+                                        <a href="/microservices/2016/05/01/Using-JWT-Tokens-for-State-Transfer.html">
+                                            Using JWT for state transfer</a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-building-o"></i>&nbsp;&nbsp;Contact Us</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content address">
+                                <!-- Heading -->
+                                <h6 class="bold"><i class="fa fa-home"></i>&nbsp;&nbsp;Ordina Belgium</h6>
+                                <!-- Paragraph -->
+                                <p class="add">
+                                    Blarenberglaan 3B,<br/>
+                                    Mechelen 2800, Belgium.</p>
+
+                                <p class="tel"><i class="fa fa-phone"></i> Tel : + (32) - 15 29 58 58<br/>
+                                    <i class="fa fa-envelope"></i> Mail : <a href="#">info@ordina.be</a><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Foot Ends -->
+        <!-- Footer Content -->
+        <p class="pull-left">Copyright &copy; 2016 - <a href="#">Ordina JWorks</a></p>
+        <ul class="list-inline pull-right">
+            <!-- List -->
+            <li><a href="/">Home</a>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/contact/">Contact</a></li>
+        </ul>
+        <!-- Clearfix -->
+        <div class="clearfix"></div>
+    </div>
+</footer>
+<!-- Footer Ends -->
+
+<!-- Outer Ends -->
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-angle-up bg-color"></i></a></span>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/placeholders.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/respond.min.js"></script>
+<script src="/js/html5shiv.js"></script>
+<script src="/js/main.js"></script>
+
+<script src="/js/imagesloaded.min.js"></script>
+<script src="/js/masonry.js"></script>
+
+<!-- Javascript for this page -->
+<script>
+    // Initialize Masonry
+    var $box = $('.blog-masonry').masonry();
+    // Layout Masonry again after all images have loaded
+    $box.imagesLoaded(function () {
+        $box.masonry();
+    });
+</script>
+
+<!-- Custom JS. Type your JS code in custom.js file -->
+<script src="/js/custom.js"></script>
+
+<!-- Disqus -->
+
+    <script type="text/javascript">
+        var disqus_config = function () {
+            this.page.url = "https://ordina-jworks.github.io/security/2016/07/25/Web-of-trusted-commits.html";
+            this.page.identifier = "/security/2016/07/25/Web-of-trusted-commits.html";
+            this.page.title = "A web of trusted commits";
+        };
+    </script>
+    <script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>
