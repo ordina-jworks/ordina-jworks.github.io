@@ -1,4 +1,4 @@
-up---
+---
 layout: post
 authors: [tom_verelst]
 title: 'Monitoring with Prometheus'
@@ -9,13 +9,19 @@ comments: true
 ---
 # Overview
 
-* [Introduction](#intro)
+* [Introduction](#introduction)
 * [The Rise of Prometheus](#rise-of-prometheus)
 * [Architecture](#architecture)
+* [Data Model](#data-model)
+* [Slice &amp; Dice with the Query Language](#slice-dice-with-the-query-language)
+* [Instrumenting Your Services](#instrumenting-your-services)
+* [Exporters](#exporters)
+* [Scraping the Targets](#scraping-the-targets)
+* [Visualization and Analytics](#visualization-and-analytics)
 
-<a name="intro" />
+<a name="introduction" />
 
-# Prometheus
+# Introduction
 
 Prometheus works as a monitoring-and-alerting system.
 
@@ -124,6 +130,8 @@ or static configuration.
   <img alt="Prometheus Architecture" src="/img/prometheus/prometheus-architecture.svg">
 </p>
 
+<a name="architecture" />
+
 # Data Model
 
 At its core,
@@ -153,22 +161,24 @@ Now,
 if we start sampling values for this metric,
 we could end up with the following time series:
 
-```javascript
-Metric Name             Labels                                                Timestamp       Value
-api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}    @1464623917237  68856
-api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}    @1464623917237  5567
-api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}    @1464624516508  76909
-api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}    @1464624516508  6789
-```
+
+| Metrics                                                                    | Timestamp      | Value  |
+| ---------------------------------------------------------------------------|----------------|--------|
+| `api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}` | `@1464623917237` |  `68856` |
+| `api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}` | `@1464623917237` |  `5567`  |
+| `api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}` | `@1464624516508` |  `76909` |
+| `api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}` | `@1464624516508` |  `6789`  |
+
+<br />
 
 One of the great aspects of time series
 is the fact that the amount of generated time series is independent of the amount of events.
 Even though your server might suddenly get a spike in traffic,
 the amount of time series generated stays the same.
-Only the outputted value of the time series will be higher.
+Only the outputted value of the time series is different.
 This is wonderful for scalability.
 
-Prometheus only has four metric types.
+Prometheus offers four metric types which can be used to generate one or multiple time series.
 
 A **counter** is a metric which is a numerical value that is only incremented,
 never decremented.
@@ -187,10 +197,12 @@ one for the sum of all values,
 and one for the count of the events that have been observed.
 A typical use case for a histogram is the measuring of response times.
 
-A **summary** is very similar to a _histogram_,
+A **summary** is similar to a _histogram_,
 but it also calculates configurable [quantiles](https://en.wikipedia.org/wiki/Quantile).
 Depending on your requirements,
 you either use a [histogram or a summary](https://prometheus.io/docs/practices/histograms/).
+
+<a name="slice-dice-with-the-query-language" />
 
 # Slice & Dice with the Query Language
 
@@ -221,7 +233,7 @@ api_http_requests_total
 
 We can dive a little bit deeper by filtering these time series on their labels using curly braces (`{}`).
 Let's say we want to monitor requests that failed due to an internal server error.
-We can achieve that by selecting the time series of the metric `api_http_requests_total`
+We can achieve this by selecting the time series of the metric `api_http_requests_total`
 where the label `status` is set to `500`.
 
 ```javascript
@@ -255,7 +267,7 @@ api_http_requests_total offset 1h
 We can use functions in our queries to create more useful results.
 The `rate()` function calculates the per-second average rate of time series in a range vector.
 Combining all the above tools,
-we can get the rates of HTTP requests of a very specific timeframe.
+we can get the rates of HTTP requests of a specific timeframe.
 The query below will calculate the per-second rates of all HTTP requests
 that occurred in the last 5 minutes an hour ago:
 
@@ -277,6 +289,8 @@ topk(
 As you can see,
 Prometheus can provide a lot of useful information with several simple queries that only have a few basic functions and operators.
 There is also support for sorting, aggregation, interpolation and other mathematical wizardry that you can find in other query languages.
+
+<a name="instrumenting-your-services" />
 
 # Instrumenting Your Services
 
@@ -319,6 +333,8 @@ Before a job disappears,
 it can push metrics to this gateway,
 and Prometheus can scrape the metrics from this gateway later on.
 
+<a name="exporters" />
+
 # Exporters
 
 Not everything can be instrumented.
@@ -334,6 +350,8 @@ and can be scraped by Prometheus.
 A [large variety of exporters](https://prometheus.io/docs/instrumenting/exporters/) is already available.
 If you want to monitor third-party software that does not have an exporter publicly available,
 you can write your own [custom exporter](https://prometheus.io/docs/instrumenting/writing_exporters/)
+
+<a name="scraping-the-targets" />
 
 # Scraping the Targets
 
@@ -360,16 +378,52 @@ scrape_configs:
     - targets: ['localhost:9100', 'localhost:9101']
       labels:
         group: 'first-group'
-        
+
     # Second group of scrape targets
     - targets: ['localhost:9200', 'localhost:9201']
       labels:
         group: 'second-group'
 ```
 
-# Dashboards
+This configuration file is pretty self-explanatory.
+You can define defaults for all jobs in the `global` root element.
+These defaults can then be overridden by each job,
+if necessary.
 
-TODO
+A job itself has a name and a list of target groups.
+In most cases,
+a job has one list of targets (one target group),
+but Prometheus allows you to split these between different groups,
+so you can add different labels to each scraped metric of that group.
+Next to your own labels,
+Prometheus will also add `job` and `instance` labels to metrics automatically.
+
+# Visualization and Analytics
+
+Prometheus has its own dashboard,
+called **[PromDash](https://github.com/prometheus/promdash)**,
+but it has been **deprecated** in favor of [Grafana](http://grafana.org).
+Grafana supports Prometheus metrics out-of-the-box
+and makes setting up metrics visualization is effortless.
+After adding a Prometheus data source,
+you can immediately start creating dashboards using [PromQL](#slice-dice-with-the-query-language):
+
+<div class="figures">
+  <a href="{{ '/img/prometheus/grafana-datasource.jpg' | prepend: site.baseurl }}">
+  <figure>
+      <img style="max-width: 320px;" alt="Prometheus Datasource" src="{{ '/img/prometheus/grafana-datasource.jpg' | prepend: site.baseurl }}">
+      <figcaption>Step 1: Create datasource</figcaption>
+  </figure>
+  </a>
+
+  <a href="{{ '/img/prometheus/grafana-dashboard.jpg' | prepend: site.baseurl }}">
+  <figure>
+    <img style="max-width: 320px;" alt="Grafana Dashboard" src="{{ '/img/prometheus/grafana-dashboard.jpg' | prepend: site.baseurl }}">
+    <figcaption>Step 2: Profit</figcaption>
+  </figure>
+  </a>
+</div>
+
 
 # Histograms
 
@@ -389,7 +443,7 @@ TODO Sample application
 
 # Prometheus joins CNCF
 
-Just a few weeks ago,
+Just a few months ago,
 the Prometheus team [announced](https://prometheus.io/blog/2016/05/09/prometheus-to-join-the-cloud-native-computing-foundation/)
 that they were joining the Cloud Native Computing Foundation.
 
