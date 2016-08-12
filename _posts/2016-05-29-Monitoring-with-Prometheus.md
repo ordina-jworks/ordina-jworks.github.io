@@ -19,6 +19,7 @@ comments: true
 * [Scraping the Targets](#scraping-the-targets)
 * [Visualization and Analytics](#visualization-and-analytics)
 * [Alert! Alert!](#alert-alert)
+* [Monitoring Time!](#monitoring-time)
 
 <a name="introduction" />
 
@@ -519,12 +520,18 @@ receivers:
     url: 'team.critical.com'
 ```
 
+# Monitoring Time!
 
-# Time for Action
+Do you wish to get your hands dirty quickly with Prometheus?
+Perfect!
+I have prepared a project for demonstration purposes,
+which can be found [here on my personal GitHub account](https://github.com/tomverelst/prometheus-demo).
+The project can be set up using only one command,
+leveraging [Docker](https://docker.com/getdocker) and [Make](https://www.gnu.org/s/make/manual/make.html).
 
-TODO Sample application
+It covers most of the features discussed in this blog post.
 
-# Prometheus joins CNCF
+# Final Words
 
 Just a few months ago,
 the Prometheus team [announced](https://prometheus.io/blog/2016/05/09/prometheus-to-join-the-cloud-native-computing-foundation/)
@@ -535,8 +542,6 @@ that they were joining the Cloud Native Computing Foundation.
 >
 > By joining the CNCF, we hope to establish a clear and sustainable project governance model, as well as benefit from the resources, infrastructure, and advice that the independent foundation provides to its members.
 
-# About Cloud Native Computing Foundation
-
 _Cloud Native Computing Foundation_ ([CNCF](http://cncf.io/)) is a nonprofit, open standardization organisation which commits itself to advance the development of cloud native technologies,
 formed under the Linux Foundation.
 It is a shared effort by the industry to create innovation for container packaged, microservices based, dynamically scheduled applications and operations.
@@ -544,6 +549,7 @@ It is a shared effort by the industry to create innovation for container package
 Founders include big names like Google, RedHat, Twitter, IBM and Cisco.
 Among the founders, originating from the container world, also include Docker, Mesosphere and CoreOS.
 
-# Conclusion
-
-TODO
+Prometheus has proven itself to be worthy to be an industry standard in alerting and monitoring.
+It offers a wide-range of features,
+from instrumenting to alerting,
+and is supported by many other tools.
