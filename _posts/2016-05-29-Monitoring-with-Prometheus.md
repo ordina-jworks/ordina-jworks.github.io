@@ -21,6 +21,8 @@ comments: true
 * [Alert! Alert!](#alert-alert)
 * [Monitoring Time!](#monitoring-time)
 
+blablabla
+
 <a name="introduction" />
 
 # Introduction
@@ -525,11 +527,40 @@ receivers:
 Do you wish to get your hands dirty quickly with Prometheus?
 Perfect!
 I have prepared a project for demonstration purposes,
-which can be found [here on my personal GitHub account](https://github.com/tomverelst/prometheus-demo).
+which can be found [on my personal GitHub account](https://github.com/tomverelst/prometheus-demo).
 The project can be set up using only one command,
 leveraging [Docker](https://docker.com/getdocker) and [Make](https://www.gnu.org/s/make/manual/make.html).
-
 It covers most of the features discussed in this blog post.
+
+First clone the project with Git:
+
+```bash
+$ git clone git@github.com:tomverelst/prometheus-demo.git
+```
+
+After the project is cloned,
+run `make` in the project directory:
+
+```
+$ make
+```
+
+This will compile all applications,
+build or pull all necessary Docker images,
+and start the complete project using Docker Compose.
+
+The project consists of the following components:
+
+* **Prometheus**
+* **Grafana**
+* **Alert Manager**
+* [**Prommer**](https://github.com/tomverelst/prommer), a custom Prometheus target discovery tool
+* A **voting application** which registers and counts votes
+* A **voting generator** which generates votes
+
+The voting application exposes a custom metric called `voting_amount_total`.
+This metric holds the total amount of votes and is labeled by the type of vote,
+e.g. `voting_amount_total{name=dog}`.
 
 # Final Words
 
