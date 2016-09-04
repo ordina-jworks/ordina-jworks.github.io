@@ -1,0 +1,166 @@
+---
+layout: post
+authors: [greg_rinaldi]
+title: 'API Testing with Postman and Newman'
+image: /img/postman.png
+tags: [Postman,Integration Testing,Newman,Automation,Testing]
+category: Testing
+comments: true
+---
+### Prerequisites
+For the purpose of this tutorial it is mandatory to have [Postman](https://www.getpostman.com/){:target="_blank"} installed which is available as a Chrome extension, as well as a Mac application. And it is also mandatory to create an account at [Algorithmia](https://www.algorithmia.com/){:target="_blank"}.
+
+### Creating and selecting an environment
+Postman's environment functionality makes it very easy to switch between different environments. A set of variables can be configured per environment and when switching thes variables will be repaced accordingly. It is very traight forwward for example let’s create an environment called "production".  Click the "No environment" dropdown in the header and select "Manage environments".
+<br/>
+<br/>
+![Alt text](/img/postman-2016/manage_environment.png)
+<br/>
+<br/>
+Select the “Add” button on the modal that is presented to you.  Add `url https://api.algorithmia.com/v1/algo/` and `key simNz9pf7hfAQNifdApf4K1GFhs1`.  Don't forget to replace the secret by your own key.
+ <br/>
+ <br/>
+![Alt text](/img/postman-2016/manage_environment_values.jpg)
+<br/>
+<br/>
+Finally select the "Production" environment in the environment dropdown.
+<br/>
+<br/>
+![Alt text](/img/postman-2016/manage_environment_production.png)
+
+### Creating a POST request
+First let's enter `{% raw %}{{url}}/WayneS/Calculator/0.1.0{% endraw %}` in the request field and change the method from GET to POST.  We also need some headers so add `Content-Type application/json`, `Authorization {% raw %}Simple {{key}}{% endraw %}` aswell.  Here we are using the environment variable `{% raw %}{{url}}{% endraw %}` and `{% raw %}{{key}}{% endraw %}` so that when we switch environments the variables are replaced accordingly.  The `{% raw %}{{...}}{% endraw %}` format can only be used in the request URL/URL params/Header values/form-data/url-encoded values/Raw body content/Helper fields.
+<br/>
+<br/>
+![Alt text](/img/postman-2016/request_headers.png)
+<br/>
+<br/>
+Postman also has a few dynamic variables which you can use. For example `{% raw %}{{$guid}}{% endraw %}` a v4 style guid, `{% raw %}{{$timestamp}}{% endraw %}` the current timestamp, `{% raw %}{{$randomInt}}{% endraw %}` a random integer between 0 and 1000. More of those will be added in future releases. But for now let us just simply enter `"x=log(2)"` as the raw content of our request.
+<br/>
+<br/>
+![Alt text](/img/postman-2016/request_body.png)
+<br/>
+<br/>
+Finally let's hit the "Send" button and if everything goes as expected we should receive the following response.
+<br/>
+<br/>
+![Alt text](/img/postman-2016/request_send.jpg)
+<br/>
+<br/>
+Next we are going to write our test but first let us save our request into a collection. By clicking on the create collection button on the collections tab following modal will be presented.  Simply enter "Calculator" as the name of the collection and hit the create button.
+<br/>
+<br/>
+![Alt text]({{ '/img/postman-2016/create_collection.jpg'| prepend:site.baseurl }})
+<br/>
+<br/>
+Now hit the "Save" button next to the request field. Enter "Log" as the name of the request and select "Calculator" from the dropdown menu.
+<br/>
+<br/>
+![Alt text](/img/postman-2016/request_save.jpg)
+
+### Writing a test
+A Postman test is essentially JavaScript code which sets values for the special 'tests' object. To know which other objects and libraries are available while writing your test cases make sure you check following [link](https://www.getpostman.com/docs/sandbox){:target="_blank"}. Let's copy following code snippet in the Tests sandbox.
+<br/>
+{% highlight bash %}tests["Status code is 200"] = responseCode.code === 200;
+var jsonData = JSON.parse(responseBody);
+tests["Verify result"] = jsonData.result.x === "0.69314718056";{% endhighlight %}
+<br/>
+![Alt text](/img/postman-2016/test.jpg)
+<br/>
+<br/>
+The test will run each time you hit the "Send" button. If you need for example an other functions for setting variables you can write them for example in the pre-request sandbox as shown below:
+<br/>
+<br/>
+![Alt text](/img/postman-2016/custom_function.jpg)
+<br/>
+<br/>
+Here we are using the ‘postman’ object and are calling the setEnvironmentVariable function on it, this allows us to assign the result of our function to a variable on the environment scope for later use.
+
+### Collection Runner
+Let's assume we want to run several tests at once. Postman has a Collection Runner utility that allows us to do that and even thousands of times if we want. To access the runner click on "Runner" in the top header then select  "Calculator" as the collection and "Production" as the environment. We want the runner to do that 2 times so enter 2 in the iteration inputfield like shown in the screenshot below.
+<br/>
+<br/>
+![Alt text](/img/postman-2016/runner_full.jpg)
+<br/>
+<br/>
+Scroll down and hit the blue "Start Test" button. Following test report will be presented to you.
+<br/>
+<br/>
+![Alt text](/img/postman-2016/runner_result.jpg)
+<br/>
+<br/>
+Writing a request and tests for each different permutation of data could get tiresome and tedious. On the test runner screen we are given the option to choose a data file. This data file can be either a CSV or a JSON file, but will allow us to set up data in bulk to be run through the test runner. Create a new csv file and copy following snippet into it.
+
+~~~~
+input,expected_result
+2,"0.69314718056"
+224,"5.41164605186"
+3000,"8.00636756765"
+388949,"12.8712035086"
+~~~~
+
+We need to rewrite the body of our request so it will use the variable of our csv as follows.
+<br/>
+<br/>
+![Alt text](/img/postman-2016/request_csv.jpg)
+<br/>
+<br/>
+We also need to rewrite our test. Like you can see we use the 'data' object to call our expected_result variable.
+<br/>
+<br/>
+![Alt text](/img/postman-2016/test_csv.jpg)
+<br/>
+<br/>
+Back to the runner modal. Select the "Calculator" collection and the "Production" environment. Click the "Choose Files" button and select the csv file you just created, click the "Preview" button to check for any inconsistenties. As there are 4 entries in our csv we want to use to feed our test enter 4 in the iteration inputfield.
+<br/>
+<br/>
+![Alt text](/img/postman-2016/runner_csv.jpg)
+<br/>
+<br/>
+Hit the "Start Test" button and you will now see 12 green tests. Pretty neat, isn't it?
+<br/>
+<br/>
+![Alt text](/img/postman-2016/runner_result_csv.jpg)
+<br/>
+<br/>
+
+### Newman
+Integrating Postman tests with build systems can easily be accomplished with Newman. Newman is the command line tool companion for Postman. It can be installed through the Node.js package manager, npm. You'll find more information on how the install Newman [here](https://github.com/postmanlabs/newman){:target="_blank"}.
+
+Once Newman is installed we also need to export the collection and the environment as a file. Select the 'Calculator' collection and click export.
+<br/>
+<br/>
+![Alt text](/img/postman-2016/export_collection.jpg)
+<br/>
+<br/>
+To export the 'Production' environment click on 'Manage Environment' and in the next modal click on the export icon.
+<br/>
+<br/>
+![Alt text](/img/postman-2016/export_environment.jpg)
+<br/>
+<br/>
+
+So now if we run our test we can use following command where my_collection.json is the exported collection, my_data.csv is the csv file and prod_environment.json is the environment.
+
+~~~~
+newman run my_collection.json -n 4 -d my_data.csv -e prod_environment.json
+~~~~
+
+### Summary
+In this tutorial we saw how to
+I hope you will have as much fun as I do while writing your Integration test!
+If you have questions don't hesitate, I will try to answer them as
+
+
+### Useful links
+- [Importing Swagger files](https://www.getpostman.com/docs/importing_swagger){:target="_blank"}
+- [Postman Slack invite](https://www.getpostman.com/slack-invite){:target="_blank"}
+- [Importing cURL commands](https://www.getpostman.com/docs/importing_curl){:target="_blank"}
+- [Creating cURL commands](https://www.getpostman.com/docs/creating_curl){:target="_blank"}
+- [Making SOAP requests](https://www.getpostman.com/docs/soap_requests){:target="_blank"}
+- [Running Newman in Docker](https://www.getpostman.com/docs/newman_in_docker){:target="_blank"}
+- [Authentication helpers](https://www.getpostman.com/docs/helpers){:target="_blank"}
+- [Publish Documentation for your Collections](https://www.getpostman.com/docs/creating_documentation){:target="_blank"}
+- [Conditional Workflows in Postman](http://blog.getpostman.com/2016/03/23/conditional-workflows-in-postman/){:target="_blank"} (work in progress)
+- [Newman](https://www.npmjs.com/package/newman/){:target="_blank"}
+- [Integrating Newman with Jenkins ](integrating_with_jenkins/){:target="_blank"}
