@@ -11,7 +11,7 @@ comments: true
 For the purpose of this tutorial it is mandatory to have [Postman](https://www.getpostman.com/){:target="_blank"} installed which is available as a Chrome extension, as well as a Mac application. And it is also mandatory to create an account at [Algorithmia](https://www.algorithmia.com/){:target="_blank"}.
 
 ### Creating and selecting an environment
-Postman's environment functionality makes it very easy to switch between different environments. A set of variables can be configured per environment and when switching thes variables will be repaced accordingly. It is very traight forwward for example let’s create an environment called "production".  Click the "No environment" dropdown in the header and select "Manage environments".
+Postman's environment functionality makes it very easy to switch between different environments. A set of variables can be configured per environment and when switching from one environment to the other these will be replaced accordingly. For example let’s create an environment called "production".  Click the "No environment" dropdown in the header and select "Manage environments".
 <br/>
 <br/>
 ![Alt text](/img/postman-2016/manage_environment.png)
@@ -23,13 +23,13 @@ Select the “Add” button on the modal that is presented to you.  Add `url htt
 ![Alt text](/img/postman-2016/manage_environment_values.jpg)
 <br/>
 <br/>
-Finally select the "Production" environment in the environment dropdown.
+Finally select the "Production" environment in the environment dropdown and let's create our first request.
 <br/>
 <br/>
 ![Alt text](/img/postman-2016/manage_environment_production.png)
 
 ### Creating a POST request
-First let's enter `{% raw %}{{url}}/WayneS/Calculator/0.1.0{% endraw %}` in the request field and change the method from GET to POST.  We also need some headers so add `Content-Type application/json`, `Authorization {% raw %}Simple {{key}}{% endraw %}` aswell.  Here we are using the environment variable `{% raw %}{{url}}{% endraw %}` and `{% raw %}{{key}}{% endraw %}` so that when we switch environments the variables are replaced accordingly.  The `{% raw %}{{...}}{% endraw %}` format can only be used in the request URL/URL params/Header values/form-data/url-encoded values/Raw body content/Helper fields.
+Enter `{% raw %}{{url}}/WayneS/Calculator/0.1.0{% endraw %}` in the request field and change the method from GET to POST.  We need to add some additional headers aswell so add `Content-Type application/json`, `Authorization {% raw %}Simple {{key}}{% endraw %}`.  Ass youo can see we are using the environment variable `{% raw %}{{url}}{% endraw %}` and `{% raw %}{{key}}{% endraw %}` so that when switching environments these variables will be replaced.  The `{% raw %}{{...}}{% endraw %}` format can only be used in the request URL/URL params/Header values/form-data/url-encoded values/Raw body content/Helper fields.
 <br/>
 <br/>
 ![Alt text](/img/postman-2016/request_headers.png)
@@ -127,13 +127,13 @@ Hit the "Start Test" button and you will now see 12 green tests. Pretty neat, is
 ### Newman
 Integrating Postman tests with build systems can easily be accomplished with Newman. Newman is the command line tool companion for Postman. It can be installed through the Node.js package manager, npm. You'll find more information on how the install Newman [here](https://github.com/postmanlabs/newman){:target="_blank"}.
 
-Once Newman is installed we also need to export the collection and the environment as a file. Select the 'Calculator' collection and click export.
+After Newman is installed we can export our previously created collection and environment. Select the 'Calculator' collection and click export.
 <br/>
 <br/>
 ![Alt text](/img/postman-2016/export_collection.jpg)
 <br/>
 <br/>
-To export the 'Production' environment click on 'Manage Environment' and in the next modal click on the export icon.
+To export the 'Production' environment select 'Manage Environment' and on the next modal hit the export icon.
 <br/>
 <br/>
 ![Alt text](/img/postman-2016/export_environment.jpg)
@@ -147,10 +147,8 @@ newman run my_collection.json -n 4 -d my_data.csv -e prod_environment.json
 ~~~~
 
 ### Summary
-In this tutorial we saw how to
-I hope you will have as much fun as I do while writing your Integration test!
-If you have questions don't hesitate, I will try to answer them as
-
+In this tutorial we saw how to create a request and a test. We saw how to create a collection and how to run it with the collection runnner and Newman.
+I hope you enjoyed this tutorial and if you have any question feel free.
 
 ### Useful links
 - [Importing Swagger files](https://www.getpostman.com/docs/importing_swagger){:target="_blank"}
