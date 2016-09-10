@@ -127,20 +127,20 @@ Hit the "Start Test" button and you will now see 12 green tests. Pretty neat, is
 ### Newman
 Integrating Postman tests with build systems can easily be accomplished with Newman. Newman is the command line tool companion for Postman. It can be installed through the Node.js package manager, npm. You'll find more information on how the install Newman [here](https://github.com/postmanlabs/newman){:target="_blank"}.
 
-After Newman is installed we can export our previously created collection and environment. Select the 'Calculator' collection and click export.
+After Newman is installed we can export our previously created collection and environment. Select the 'Calculator' collection and hit export and save as 'my_collection.json'.
 <br/>
 <br/>
 ![Alt text](/img/postman-2016/export_collection.jpg)
 <br/>
 <br/>
-To export the 'Production' environment select 'Manage Environment' and on the next modal hit the export icon.
+To export the 'Production' environment select 'Manage Environment' and on the next modal hit export and save as 'prod_environment.json'.
 <br/>
 <br/>
 ![Alt text](/img/postman-2016/export_environment.jpg)
 <br/>
 <br/>
 
-So now if we run our test we can use following command where my_collection.json is the exported collection, my_data.csv is the csv file and prod_environment.json is the environment.
+Now run you test with Newman using following command where my_collection.json is the exported collection, my_data.csv the csv, prod_environment.json the environment and -n the number of lines from our csv.
 
 ~~~~
 newman run my_collection.json -n 4 -d my_data.csv -e prod_environment.json
