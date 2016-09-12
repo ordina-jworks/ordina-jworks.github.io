@@ -7,7 +7,9 @@ tags: [Microservices, Dashboard, Spring, Spring Boot, RxJava, Pact, Hypermedia, 
 category: Microservices
 comments: true
 ---
-# Microservices Dashboard
+
+<img class="center-block" alt="Architecture" src="/img/microservices-dashboard/screenshot.png" width="70%">
+
 
 So you’ve jumped on the hype train, built a bunch of microservices, and got your first releases under your belt. 
 Now what?
@@ -18,7 +20,7 @@ Panic, mayhem and chaos loom over the organisation, waiting for everything to sp
 Especially for any enterprise not residing in silicon valley, maintaining some sort of governance and compliancy is essential.
 
 What does a microservice architecture mean not just for the developer, but also for analysts and managers?
-What can we as developers do to offer them peace of mind? 
+What can we as developers do to offer them peace of mind?
 
 ### Managers like to have a grip on things
 
@@ -82,7 +84,7 @@ The information for these links come from Spring Boot Actuator health endpoints,
 
 ## The architecture
 
-<img class="center-block" alt="Architecture" src="/img/microservices-dashboard/architecture.png">
+<img class="center-block" alt="Architecture" src="/img/microservices-dashboard/architecture.png" width="50%">
 
 The dashboard currently consists out of an AngularJS 1.x application which speaks over HTTP to a Spring Boot application.
 The frontend uses D3.js to visualise the nodes in the four columns.
@@ -192,4 +194,4 @@ The dashboard is currently at version 1.0.1, and can be downloaded through maven
 To quickly get up and running, make sure to check out the reference documentation.
 
 Since the project is still fairly new, any feedback is greatly appreciated.
-You can reach us through gitter or github.
+You can reach us through [gitter](https://gitter.im/ordina-jworks/microservices-dashboard) or [github](https://github.com/ordina-jworks/microservices-dashboard).
