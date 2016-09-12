@@ -6,9 +6,222 @@
 </description>
     <link>https://ordina-jworks.github.io/</link>
     <atom:link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 12 Sep 2016 11:35:05 +0000</pubDate>
-    <lastBuildDate>Mon, 12 Sep 2016 11:35:05 +0000</lastBuildDate>
+    <pubDate>Mon, 12 Sep 2016 14:40:32 +0000</pubDate>
+    <lastBuildDate>Mon, 12 Sep 2016 14:40:32 +0000</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
+    
+      <item>
+        <title>Microservices Dashboard</title>
+        <description>&lt;p&gt;&lt;img class=&quot;center-block&quot; alt=&quot;Architecture&quot; src=&quot;/img/microservices-dashboard/screenshot.png&quot; width=&quot;70%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So you’ve jumped on the hype train, built a bunch of microservices, and got your first releases under your belt. 
+Now what?
+Our experiences taught us this is the easy part.
+With the newly obtained microservices freedom, teams easily plunge into a world of cowboys and unicorns.
+The big ball of mud is just around the corner.
+Panic, mayhem and chaos loom over the organisation, waiting for everything to spin out of control.
+Especially for any enterprise not residing in Silicon Valley, maintaining some sort of governance and compliancy is essential.&lt;/p&gt;
+
+&lt;p&gt;What does a microservice architecture mean not just for the developers, but also for analysts and managers?
+What can we as developers do to offer them peace of mind?&lt;/p&gt;
+
+&lt;h3 id=&quot;managers-like-to-have-a-grip-on-things&quot;&gt;Managers like to have a grip on things&lt;/h3&gt;
+
+&lt;p&gt;They want to get a sense of compliancy and maturity of the components part of the ecosystem.
+In theory a microservices architecture gives developers complete freedom to use whatever tools and frameworks they want inside their microservice.
+In practice, managers often want to slightly restrict that freedom to avoid complete chaos.
+It’s not uncommon for managers and architects to impose a set of choices developers can choose from, and goals the teams have to achieve.
+In order to facilitate recruitment and knowledge transfer, developers could be forced to choose between for instance Java or Javascript.
+Similarly, architects might enforce every microservice to have a quality gate in place and to have a technical debt less than five days.&lt;/p&gt;
+
+&lt;p&gt;Aside from the technical aspects inside a microservice, compliancy is even more crucial at the contract level.
+They should be defined according to an architectural vision and comply to standards across the organisation.
+Having the ability to track these compliancy regulations and quality assurances is a key enabler for management to push for technical excellence.
+Too often managers are left clueless on how much effort is required to mature the architecture and which teams they have to chase.
+Having a dashboard at their disposal indicating where a lack of compliancy and maturity needs their attention can help to ensure budget and priorities are in line with the architectural goals.&lt;/p&gt;
+
+&lt;p&gt;Aside from compliancy and maturity, managers want some level of change management in place.
+Oftentimes this is achieved through ticketing systems and cumbersome processes.
+A microservice architecture goes hand in hand with devops, including full automation and decoupling.
+In that respect, teams ought to be able to define their own release schedule as there is no need for a waterfall manual testing effort of months on end, and the impact on the ecosystem is contained and managed due to the decoupled nature of microservices.
+Change management in a devops organisation is much more a read-model instead of a process-heavy model.
+Managers want to know what is currently out there and what will be out there in the future.
+This doesn’t require a manual ticketing system, simply a smart dashboard with a timeline.&lt;/p&gt;
+
+&lt;h3 id=&quot;analysts-need-to-know-what-functionality-is-out-there&quot;&gt;Analysts need to know what functionality is out there&lt;/h3&gt;
+
+&lt;p&gt;In order to reuse functionality and avoid duplication, functional analysts have a strong need for an overview of the current functional landscape.
+Knowing which resources are exposed by what microservices, and which events and messages are being sent back and forth between microservices and queues, can go a long way in helping analysts understand the state of the architecture.&lt;/p&gt;
+
+&lt;p&gt;Furthermore, impact analysis can significantly improve when an overview of components and how they are linked together is available to the analysts.
+Not only does it encourage analysts to identify and inform consumers of a changing service, it can help to avoid introducing breaking changes due to negligence or ignorance.
+During troubleshooting, testers and analysts should be able to find out what services and backends are involved in a certain functional flow.&lt;/p&gt;
+
+&lt;p&gt;Just like managers, functional analysts are interested in upcoming features and releases.
+On top of that, analysts can benefit from being able to define the future state of the ecosystem.
+Especially when multiple teams are working on similar functionality, it can be notoriously difficult to avoid duplication and breaches of bounded contexts.
+Using a dashboard to define what is coming up, can help to give them an unambiguous view of the current and future landscape.&lt;/p&gt;
+
+&lt;h3 id=&quot;developers-can-benefit-from-a-broader-view-as-well&quot;&gt;Developers can benefit from a broader view as well&lt;/h3&gt;
+
+&lt;p&gt;In a devops organisation, developers have the responsibility to not only build but also run their services.
+Knowing which versions are deployed where, can assist developers in verifying whether their deployments are successful, but also to determine the versions of their dependencies.&lt;/p&gt;
+
+&lt;p&gt;A graphical dashboard can go a long way in providing clarity to developers.
+But most of all, it can act as a hub for other tools and documentation available.
+Integrations can be made with for instance API documentation, performance tooling, service registries, in-depth instance-specific dashboards and perhaps even reactive insights.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-introduction-of-the-microservices-dashboard&quot;&gt;The introduction of the Microservices Dashboard&lt;/h2&gt;
+
+&lt;p&gt;Visualising the state of the architecture and dependencies in the system can be a huge benefit to all stakeholders in the IT organisation.
+The Microservices Dashboard is a brand new open source project, which officially launched its first major release at Spring One Platform.
+Building on top of Spring Boot and Spring Cloud, it visualises your microservice architecture and integrates with tools every microservice architecture benefits from.
+This ranges from consumer-driven-contract testing over service discovery to hypermedia traversal and more.&lt;/p&gt;
+
+&lt;p&gt;Microservices Dashboard is a simple application to visualize links between microservices and the encompassing ecosystem.
+This AngularJS application consumes endpoints exposed by its server component.
+It displays four columns: UI, Resources, Microservices and Backends.
+Each of these columns show nodes and links between them.
+The information for these links come from Spring Boot Actuator health endpoints, Pact consumer-driven-contract tests and hypermedia indexes, which are aggregated in the microservices-dashboard-server project.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-architecture&quot;&gt;The architecture&lt;/h2&gt;
+
+&lt;p&gt;&lt;img class=&quot;center-block&quot; alt=&quot;Architecture&quot; src=&quot;/img/microservices-dashboard/architecture.png&quot; width=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The dashboard currently consists out of an AngularJS 1.x application which communicates over HTTP to a Spring Boot application.
+The frontend uses D3.js to visualise the nodes in the four columns.
+We are currently in the process of completely rebuilding the frontend stack.
+Next version will be running on Angular 2, Typescript and EcmaScript 6.
+Most of D3.js will be taken care of by Angular 2 itself.&lt;/p&gt;
+
+&lt;p&gt;Thanks to this refactor we’ll see the introduction of RxJS, making the frontend much more reactive in nature.
+This aligns our frontend and backend components goals, since the backend is already running RxJava.
+Our efforts currently focus on replicating all functionalities currently available in the dashboard, albeit with much more attention to quality and testing.
+Subsequently new features and enhancements will be built on top of a much more mature and extendible frontend application.&lt;/p&gt;
+
+&lt;p&gt;Our server component is powered by Spring Boot’s auto configuration.
+It’s a library which, once on the classpath of a regular Spring Boot application, will automatically transform the Spring Boot application into a JSON graph-serving engine.
+It does so by using aforementioned RxJava.
+The idea of the server application is that it will fetch information from the microservices ecosystem, with for instance Spring Cloud’s integration of service registries, and collect details of components and their relation within said ecosystem.
+Needless to say collecting this information requires a lot of outbound calls, and can pose a serious performance burden in case the landscape gets bigger.
+Making intelligent use of the system’s resources is absolutely necessary, and RxJava does just that.
+In the future we might migrate to &lt;a href=&quot;https://projectreactor.io/&quot;&gt;Spring’s Reactor&lt;/a&gt; which has a more formal integration of the ReactiveX specification and better integration with Spring itself.
+Once the frontend’s revamp is completed, the last step towards an end-to-end reactive flow is the HTTP connection between both components.
+Currently the server still converts the Observable to blocking, undoing a lot of the performance gains we could achieve.
+Yet even while eventually blocking, we’ve benchmarked a thirty percent performance gain in switching from CompletableFutures to Observables thanks to the more sustained async handling.&lt;/p&gt;
+
+&lt;p&gt;Aside from its reactive nature, the server component of the dashboard is also built in a very pluggable way.
+Information is retrieved from the ecosystem through so-called aggregators.
+Currently four aggregators are provided: the health-indicators aggregator, the index aggregator, the mappings aggregator and the Pact aggregator.
+We’re looking into supporting Spring Cloud’s recent addition, Spring Cloud Contract, as a source for aggregation.
+New aggregators can be easily added, and all existing aggregators can be overridden, extended, turned on and off.
+In the next section we’ll go through these aggregators and their purpose.&lt;/p&gt;
+
+&lt;h2 id=&quot;collecting-information-from-the-ecosystem&quot;&gt;Collecting information from the ecosystem&lt;/h2&gt;
+
+&lt;p&gt;The dashboard on its own doesn’t really make a lot of sense when it’s not connected to the architecture it’s supposed to visualise.
+Aggregators pull in information which eventually gets translated into nodes and links on the dashboard.&lt;/p&gt;
+
+&lt;h4 id=&quot;health-indicators-aggregator&quot;&gt;Health-indicators aggregator&lt;/h4&gt;
+
+&lt;p&gt;Spring Boot exposes production-ready endpoints through its Actuator module.
+The health endpoint returns information regarding the current health status of the application.
+The source of this information is a bunch of health indicators, describing various components and dependencies of the application.
+For instance, an application can have a dependency on a database, for which a health indicator will usually provide health information to the health endpoint, indicating whether the database is up and the connection pool hasn’t been depleted.&lt;/p&gt;
+
+&lt;p&gt;Hence, health indicators describe an up-to-date relationship between the application they run on and its dependencies.
+Spring Cloud ensures health indicators are automatically enabled when you are using service discovery, circuit breakers, a config server or other Spring Cloud services. However, health indicators don’t automatically describe a relationship between an application and another application it calls.
+Luckily Spring Boot has a very easy way of adding custom health indicators.
+As such, developers can add a health indicator the moment a remote service call is added to the application.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;What about real-time?&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;Using health indicators we are certain the application calls another application programmatically.
+This provides clarity in terms of the calls in the code and therefore the dependencies that exist across the applications.
+However, using this method we aren’t sure whether this remote call is actually being executed at runtime.
+These concerns are currently provided by other tools such as Twitter’s Zipkin.
+In the future we will integrate the dashboard with real-time traffic information from Zipkin or similar tooling.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;index-aggregator&quot;&gt;Index aggregator&lt;/h4&gt;
+
+&lt;p&gt;REST over HTTP is arguably the most popular communicational style in microservices architectures.
+Therefore, gathering information on where and how REST is used can be quite useful.
+Index and mappings aggregators perform this specific task, albeit each in a different way.&lt;/p&gt;
+
+&lt;p&gt;The index aggregator relies on a subconstraint of REST called HATEOAS.
+It stands for Hypermedia As The Engine Of Application State, and describes the idea of adding links in the payload of responses to other resources.
+This enables discovery of resources, much like we are using the world wide web from its inception.
+It prevents the need to bookmark URIs to resources, decoupling implementations and enabling independent evolution of the service.&lt;/p&gt;
+
+&lt;p&gt;Similarly to a regular website, REST APIs using HATEOAS require a homepage or index from which the resource discovery starts.
+Simply creating an index resource with links to the other resources the service provides, and exposing this index resource at the root of the application takes care of this.
+Spring HATEOAS provides useful tools to add links to resources.&lt;/p&gt;
+
+&lt;p&gt;Once every microservice has an index resource, we can use service discovery to discover all the services, and fetch all the index resources to map out the landscape of resources.
+This is an excellent source for the dashboard, as it shows the relation between microservices and the RESTful resources they expose.&lt;/p&gt;
+
+&lt;h4 id=&quot;mappings-aggregator&quot;&gt;Mappings aggregator&lt;/h4&gt;
+
+&lt;p&gt;Oftentimes, RESTful resources are exposed in a more traditional way (using REST level 2) without the added complexity of HATEOAS.
+While this is not fully REST compliant, it is most common among APIs using JSON over HTTP.
+Spring Boot offers a handy endpoint in their Actuator module, called the mappings endpoint.
+It describes all the resources exposed by the application when Spring MVC REST is used.
+While also describing Spring’s own resources, a simple filter allows us to deduct node and link information from these endpoints to visualise in the dashboard.&lt;/p&gt;
+
+&lt;h4 id=&quot;pact-aggregator&quot;&gt;Pact aggregator&lt;/h4&gt;
+
+&lt;p&gt;In a microservices architecture, testing is absolutely crucial.
+As the primary benefit of microservices is faster time-to-market, changes happen all the time.
+Not only unit and integration testing is required, but also more advanced contract testing to act as a safety net.
+Consumer-driven-contract testing allows the consumer (the client) to define what he expects from the producer (the service), and ensure the producer validates that definition every time a change is made to the service.
+This allows the consumer to rest at ease, knowing the producer will remain backwards compatible or version accordingly, and gives the producer knowledge of who uses exactly which parts of its service.
+The latter gives the producer the chance to request consumers to update their service in case they are causing too much complexity on the producer’s side due to backwards compatibility.&lt;/p&gt;
+
+&lt;p&gt;Tests like these document with guaranteed certainty relations between clients and services or services and services.
+Querying the contracts that define these relations offer a great source of information for the dashboard’s nodes and links between them.
+When working with the consumer-driven-contract testing framework Pact, a repository called the Pact-broker holds all the available contracts and exposes them through a REST interface.
+Our Pact aggregator makes use of this interface to pull the information into the dashboard.&lt;/p&gt;
+
+&lt;p&gt;Spring Cloud recently added the Spring Cloud Contract module to their portfolio, based on Accurest.
+We’re planning to integrate the Microservices Dashboard with Spring Cloud Contract in the near future as well.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;The Microservices Dashboard gives managers, analysts and developers peace of mind when working in a microservices architecture.
+Not only does it map relations between components in a visually attractive manner, it can also be a great tool for compliancy, change management, functional analysis and troubleshooting.&lt;/p&gt;
+
+&lt;p&gt;The dashboard is currently at version 1.0.1, and can be downloaded through maven central.
+To quickly get up and running, make sure to check out the reference documentation.&lt;/p&gt;
+
+&lt;p&gt;Since the project is still fairly new, any feedback is greatly appreciated.
+You can reach us through &lt;a href=&quot;https://gitter.im/ordina-jworks/microservices-dashboard&quot;&gt;gitter&lt;/a&gt; or &lt;a href=&quot;https://github.com/ordina-jworks/microservices-dashboard&quot;&gt;github&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 12 Sep 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/microservices/2016/09/12/Microservices-Dashboard-1.0.1.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/microservices/2016/09/12/Microservices-Dashboard-1.0.1.html</guid>
+        
+        <category>Microservices</category>
+        
+        <category>Dashboard</category>
+        
+        <category>Spring</category>
+        
+        <category>Spring Boot</category>
+        
+        <category>RxJava</category>
+        
+        <category>Pact</category>
+        
+        <category>Hypermedia</category>
+        
+        <category>Hateoas</category>
+        
+        
+        <category>Microservices</category>
+        
+      </item>
     
       <item>
         <title>SpringOne Platform</title>
@@ -3664,769 +3877,6 @@ Data should flow down in one direction (&lt;code class=&quot;highlighter-rouge&q
         
         
         <category>AngularJS-TypeScript</category>
-        
-      </item>
-    
-      <item>
-        <title>Lagom: First Impressions and Initial Comparison to Spring Cloud</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;“It’s open source. It’s highly opinionated.
-   Build greenfield microservices and decompose your Java EE monolith like a boss.” - Lightbend&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#just-the-right-amount&quot;&gt;Just the right amount&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#design-philosophy&quot;&gt;Design philosophy&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#building-blocks&quot;&gt;Building blocks&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#getting-started-with-lagom&quot;&gt;Getting started with Lagom&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#anatomy-of-a-lagom-project&quot;&gt;Anatomy of a Lagom project&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#example-of-a-microservice&quot;&gt;Example of a microservice&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#cqrs-and-event-sourcing&quot;&gt;CQRS and Event Sourcing&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#lightbend-qa-at-the-codestar-launch-event&quot;&gt;Lightbend Q&amp;amp;A at the CodeStar launch event&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#comparison-with-spring&quot;&gt;Comparison with Spring&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#our-advice&quot;&gt;Our advice&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#useful-links&quot;&gt;Useful links&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;just-the-right-amount&quot;&gt;Just the right amount&lt;/h2&gt;
-&lt;p&gt;Meet &lt;a href=&quot;https://www.lightbend.com/lagom&quot;&gt;Lagom&lt;/a&gt;, &lt;a href=&quot;https://www.lightbend.com&quot;&gt;Lightbend&lt;/a&gt;’s (formerly Typesafe) new open source framework for architecting microservices in &lt;strong&gt;Java&lt;/strong&gt;.
-On the 10th of March, Lightbend released the first &lt;strong&gt;MVP version&lt;/strong&gt; of Lagom which is the current version at the time of writing.
-Although there is currently only a &lt;strong&gt;Java API&lt;/strong&gt;, Scala enthusiasts should not fret because a &lt;strong&gt;Scala API&lt;/strong&gt; is a main priority and &lt;a href=&quot;https://github.com/lagom/lagom/issues/1&quot;&gt;well on its way&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Lagom is a Swedish word meaning “just the right amount”.
-Microservices have often been categorised as small services.
-However, Lightbend wants to emphasize that finding the right boundaries between services, aligning them with bounded contexts, business capabilities, and isolation requirements are the most important aspects when architecting a microservice-based system.
-Therefore, it fits very well in a &lt;strong&gt;Domain-Driven Design&lt;/strong&gt; focused mindset.&lt;/p&gt;
-
-&lt;p&gt;Following this will help in building a scalable and resilient system that is easy to deploy and manage.
-According to Lightbend the focus should not be on how small the services are, but instead they should be &lt;em&gt;just the right size&lt;/em&gt;, “Lagom” size services.
-Lagom, being an opinionated framework, provides a “golden path” from which the developer can deviate if necessary.
-Being based on the reactive principles as defined in the &lt;a href=&quot;http://www.reactivemanifesto.org/&quot;&gt;Reactive Manifesto&lt;/a&gt;, Lagom provides the developer a guard-railed approach with good defaults while also allowing to deviate if necessary.&lt;/p&gt;
-
-&lt;p&gt;This blogpost will cover our initial impression on the framework together with our opinion on the choices made while architecting the framework.
-Note that we won’t go too deep into detail in all the different aspects of the framework, for more details refer to Lagom’s extensive &lt;a href=&quot;http://www.lagomframework.com/documentation/1.0.x/java/Home.html&quot;&gt;documentation&lt;/a&gt;.
-As Lightbend is entering the microservices market with Lagom, we feel obliged to make a fair comparison with existing frameworks out there.
-In the Java world this is predominantly the &lt;strong&gt;Spring stack&lt;/strong&gt; with Spring Boot and Spring Cloud, standing on the shoulders of giants such as the &lt;strong&gt;Netflix OSS&lt;/strong&gt;.
-In this current stage, it would be a bit too early to make an in-depth comparison between the two, seeing as you would be comparing a mature project to an MVP.
-What we can share though, are our initial observations.&lt;/p&gt;
-
-&lt;h2 id=&quot;design-philosophy&quot;&gt;Design philosophy&lt;/h2&gt;
-&lt;p&gt;Lagom’s design rests on the following principles:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Message-Driven and Asynchronous&lt;/strong&gt;: Built upon Akka Stream for asynchronous streaming and the JDK8 CompletionStage API.
-Streaming is a first-class concept.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Distributed persistence&lt;/strong&gt;: Lagom favours distributed persistence patterns using Event Sourcing with Command Query Responsibility Segregation (CQRS).&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Developer productivity&lt;/strong&gt;: Starting all microservices with a single command, code hot reloading and expressive service interface declarations are some examples of Lagom’s high emphasis on developer productivity.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;building-blocks&quot;&gt;Building blocks&lt;/h2&gt;
-&lt;p&gt;The Lagom framework acts as an abstraction layer upon several Lightbend frameworks and consists of the following core technologies and frameworks:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.scala-lang.org&quot;&gt;Scala&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.java.com&quot;&gt;Java&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.playframework.com&quot;&gt;Play Framework&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://akka.io&quot;&gt;Akka&lt;/a&gt; and &lt;a href=&quot;http://doc.akka.io/docs/akka/snapshot/scala/persistence.html&quot;&gt;Akka Persistence&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.scala-sbt.org&quot;&gt;sbt&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://cassandra.apache.org&quot;&gt;Cassandra&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/google/guice&quot;&gt;Guice&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.lightbend.com/products/conductr&quot;&gt;ConductR&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Seeing as it acts as an abstraction layer the developer doesn’t need to hold any knowledge of Play Framework and Akka in order to successfully use Lagom.
-Sbt has been chosen as the build tool because it also acts as a development environment.
-Lagom relies heavily on the following sbt features:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Fine-grained tasks&lt;/li&gt;
-  &lt;li&gt;Each task may return a value&lt;/li&gt;
-  &lt;li&gt;The value returned by a task may be consumed by other tasks&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;According to Lightbend, &lt;strong&gt;Scala’s build tool ‘sbt’&lt;/strong&gt; offers many handy features to Lagom such as fast incremental recompilation, hot code reloading, starting and stopping services in parallel and automatic injection of configuration defaults.
-Sbt might be seen as a hurdle by most Java developers since it is &lt;strong&gt;Maven&lt;/strong&gt; and &lt;strong&gt;Gradle&lt;/strong&gt; (and to a lesser extent &lt;strong&gt;Ant&lt;/strong&gt;) that rule most Java projects.
-Moving towards a microservices framework such as Lagom would already constitute quite a transition so we think that this might hold back Java developers from adopting the framework.
-Lightbend’s rebranding could be interpreted as a move away from a Scala-oriented company towards a more Java-minded company.
-In that regard it would make sense to lower the initial learning curve especially for a rather trivial component such as a building tool.
-After all, the most important thing to achieve adoption is allowing people to easily get started with the new technology. 
-We think that providing integration for Maven or Gradle would have a positive effect on the adoption rate and although it may not be trivial to implement, it should help convince Java developers to give Lagom a go.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Google’s Guice&lt;/strong&gt; has been chosen for dependency injection since it is a lightweight framework.
-What is remarkable is that Guice is used as well for intermicroservices calls.
-Lagom acts as a communication abstraction layer and it does so by adding a dependency on the interfaces of remote microservices.
-Just like a shared domain model and shared datastores being antipatterns for microservices, having code dependencies from one service in another is as well.
-Changing the code of one microservice should not have an immediate cascading effect on other microservices.
-This is the very essence of the microservices architecture.
-In a monolith, having code changes in one component can result in immediate breaking changes in other components of the system.
-While this may be desired in order to keep technical debt low, this is an inherent characteristic of monolithic systems.
-One of the reasons microservices were introduced, is to decouple components on all levels, especially binary coupling.
-Using protocols between components instead of actual binary dependencies allows us to implement the tolerant reader principle and versioning through for instance content negotiation.
-Lightbend argues that sharing interfaces as code will increase productivity and performance, but we fear the result of this is a distributed monolith instead of an actual decoupled microservices architecture.
-While we question the default way of communicating between microservices in Lagom, we are enthusiastic that more ways of making intermicroservices calls are becoming available.
-Using HTTP is possible as well, and one of the upcoming features is a &lt;a href=&quot;https://gitter.im/lagom/lagom?at=56efe42c0d69dfd122218ddc&quot;&gt;Lagom Service Client&lt;/a&gt;.
-The Guice approach might also be quite favorable for people migrating from monolithic applications to microservices.
-In the end it is a trade-off, but one that shouldn’t be taken lightly.&lt;/p&gt;
-
-&lt;p&gt;As a default persistence solution, &lt;strong&gt;Apache Cassandra&lt;/strong&gt; is used due to how well it integrates with &lt;strong&gt;CQRS&lt;/strong&gt; and &lt;strong&gt;Event Sourcing&lt;/strong&gt;.
-Lagom has support for Cassandra as datastore, both for the reading and writing data.
-It is possible to use other datastore solutions but this comes at the cost of not being able to take advantage of the persistence module in Lagom.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;ConductR&lt;/strong&gt; is an orchestration tool for managing Lightbend Reactive Platform applications across a cluster of machines and is Lightbend’s solution for running Lagom systems in production.
-Note that ConductR comes with a license fee and is majorly targeted at enterprises.
-The other option we currently have in order to run our Lagom system in production is to write our &lt;a href=&quot;http://www.lagomframework.com/documentation/1.0.x/java/Overview.html#production&quot;&gt;own service locator&lt;/a&gt; compatible with Lagom.
-At the time of writing someone already started working on &lt;a href=&quot;https://github.com/lagom/lagom/issues/59&quot;&gt;Kubernetes support&lt;/a&gt; and we are sure that, given more time, more options will become available.
-For now though, Lagom is still in an early stage where we either have to pay for the ConductR license, build our own service locator, or wait until someone does the work for us.&lt;/p&gt;
-
-&lt;h2 id=&quot;getting-started-with-lagom&quot;&gt;Getting started with Lagom&lt;/h2&gt;
-
-&lt;p&gt;In order to start using Lagom, &lt;a href=&quot;https://www.lightbend.com/community/core-tools/activator-and-sbt&quot;&gt;Activator&lt;/a&gt; must be correctly set up.
-Currently &lt;a href=&quot;https://www.lightbend.com/activator/templates#filter:lagom&quot;&gt;two Lagom templates&lt;/a&gt; exist that can be used for creating a new Lagom application.
-The &lt;a href=&quot;https://www.lightbend.com/activator/template/lagom-java&quot;&gt;Lagom Java Seed template&lt;/a&gt; should be the template of choice, the &lt;a href=&quot;https://www.lightbend.com/activator/template/lagom-java-chirper&quot;&gt;Lagom Java Chirper template&lt;/a&gt; is an example of a Twitter-like app created in Lagom.&lt;/p&gt;
-
-&lt;p&gt;Creating a new Lagom application is as simple as using the following command:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ activator new my-first-system lagom-java&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Afterwards the project can be imported in any of the prominent IDEs as an sbt project.&lt;/p&gt;
-
-&lt;p&gt;In order to boot the system, we first need to navigate to the root of the project and start the Activator console:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ activator&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;After which we can start all our services using a single simple command:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ runAll&lt;/code&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt; &lt;/span&gt;runAll
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] Starting embedded Cassandra server
-.......
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] Cassandra server running at 127.0.0.1:4000
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] Service locator is running at http://localhost:8000
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] Service gateway is running at http://localhost:9000
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] application - Signalled start to ConductR
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] application - Signalled start to ConductR
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] application - Signalled start to ConductR
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] Service helloworld-impl listening &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;HTTP on 0:0:0:0:0:0:0:0:24266
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] Service hellostream-impl listening &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;HTTP on 0:0:0:0:0:0:0:0:26230
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Services started, use Ctrl+D to stop and go back to the console...&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;This command starts a &lt;strong&gt;Cassandra server&lt;/strong&gt;, &lt;strong&gt;service locator&lt;/strong&gt; and &lt;strong&gt;service gateway&lt;/strong&gt;.
-Each of our microservices is started in parallel while also registering them in the service locator.
-Additionally, a &lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt; command to individually start services is available as well.
-Note that the ports are assigned to each microservice by an &lt;a href=&quot;http://www.lagomframework.com/documentation/1.0.x/java/ServicePort.html#How-are-ports-assigned-to-services?&quot;&gt;algorithm&lt;/a&gt; and are consistent even on different machines.
-The possibility to assign a specific port is available though.&lt;/p&gt;
-
-&lt;p&gt;Similar to Play Framework, Lagom also supports code hot reloading allowing you to make changes in the code and immediately seeing these changes live without having to restart anything.
-A feature we’re very fond of.
-In general, a restart is only required when adding a new microservice API and implementation module in the project.&lt;/p&gt;
-
-&lt;h2 id=&quot;anatomy-of-a-lagom-project&quot;&gt;Anatomy of a Lagom project&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;helloworld-api           → Microservice API submodule
- └ src/main/java         → Java source code interfaces with model objects
-helloworld-impl          → Microservice implementation submodule
- └ logs                  → Logs of the microservice
- └ src/main/java         → Java source code implementation of the API submodule
- └ src/main/resources    → Contains the microservice application config
- └ src/test/java         → Java source code unit tests
-logs                     → Logs of the Lagom system
-project                  → Sbt configuration files
- └ build.properties      → Marker for sbt project
- └ plugins.sbt           → Sbt plugins including the declaration for Lagom itself
-.gitignore               → Git ignore file
-build.sbt                → Application build script
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;example-of-a-microservice&quot;&gt;Example of a microservice&lt;/h2&gt;
-&lt;p&gt;In order to write a new microservice you create a new API and implementation project.
-In the API project you define the interface of your microservice:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HelloService.java&lt;/code&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloService&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Service&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;ServiceCall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NotUsed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-  
-  &lt;span class=&quot;n&quot;&gt;ServiceCall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GreetingMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;useGreeting&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Descriptor&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;descriptor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;named&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;helloservice&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;restCall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;s&quot;&gt;&quot;/api/hello/:id&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;       &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()),&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;restCall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;POST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/api/hello/:id&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;       &lt;span class=&quot;n&quot;&gt;useGreeting&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;
-      &lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withAutoAcl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;A &lt;code class=&quot;highlighter-rouge&quot;&gt;Descriptor&lt;/code&gt; defines the service name and the endpoints offered by a service. 
-In our case we define two REST endpoints, a GET and a POST.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;GreetingMessage&lt;/code&gt; is basically an immutable class with a single String &lt;code class=&quot;highlighter-rouge&quot;&gt;message&lt;/code&gt; instance variable.
-On the subject of immutability the &lt;a href=&quot;http://www.lagomframework.com/documentation/1.0.x/java/ImmutablesInIDEs.html#Set-up-Immutables-in-your-IDE&quot;&gt;Lagom documentation&lt;/a&gt; mentions &lt;a href=&quot;https://immutables.github.io&quot;&gt;Immutables&lt;/a&gt;, a Java library that helps you create immutable objects via annotation processing.
-Definitely worth a look seeing as it helps you get rid of boilerplate code.&lt;/p&gt;
-
-&lt;p&gt;In the implementation submodule we implement our API’s interface.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HelloServiceImpl.java&lt;/code&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloServiceImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HelloService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ServiceCall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NotUsed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;CompletableFuture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;completedFuture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello, &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ServiceCall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GreetingMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;useGreeting&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;CompletableFuture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;completedFuture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;You’ll immediately notice that the service calls are non-blocking by default using &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html&quot;&gt;CompletableFutures&lt;/a&gt; introduced in JDK8.
-Interesting to know is that Lagom also provides support for the &lt;a href=&quot;http://www.lagomframework.com/documentation/1.0.x/java/PubSub.html#Publish-Subscribe&quot;&gt;Publish-subscribe pattern&lt;/a&gt; out of the box.
-We also need to implement the module that binds the HelloService so that it can be served.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HelloServiceModule.java&lt;/code&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloServiceModule&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AbstractModule&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ServiceGuiceSupport&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;bindServices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serviceBinding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HelloService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HelloServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;We define our module in the &lt;code class=&quot;highlighter-rouge&quot;&gt;application.config&lt;/code&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scala&quot; data-lang=&quot;scala&quot;&gt;&lt;span class=&quot;n&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modules&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enabled&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;helloworld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;HelloServiceModule&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;And finally register our microservice in &lt;code class=&quot;highlighter-rouge&quot;&gt;build.sbt&lt;/code&gt; with its dependencies and settings:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scala&quot; data-lang=&quot;scala&quot;&gt;&lt;span class=&quot;k&quot;&gt;lazy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;helloworldApi&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;helloworld-api&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;1.0-SNAPSHOT&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;libraryDependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lagomJavadslApi&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;lazy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;helloworldImpl&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;helloworld-impl&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enablePlugins&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;LagomJava&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;1.0-SNAPSHOT&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;libraryDependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;lagomJavadslPersistence&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;lagomJavadslTestKit&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lagomForkedTestSettings&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dependsOn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;helloworldApi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;We can then test our endpoint:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;curl localhost:24266/api/hello/World
-Hello, World!
-
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;curl -H &lt;span class=&quot;s2&quot;&gt;&quot;Content-Type: application/json&quot;&lt;/span&gt; -X POST -d &lt;span class=&quot;s1&quot;&gt;'{&quot;message&quot;: &quot;Hello &quot;}'&lt;/span&gt; http://localhost:24266/api/hello/World
-Hello World&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Seeing as any good developer writes unit tests for his/her code so should we!&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloServiceTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ServiceTest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TestServer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@BeforeClass&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setUp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ServiceTest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;startServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ServiceTest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;defaultSetup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@AfterClass&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;tearDown&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;stop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldRespondHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// given&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;HelloService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HelloService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// when&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Yannick&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NotUsed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toCompletableFuture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SECONDS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// then&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello, Yannick&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldRespondGreeting&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// given&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;HelloService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HelloService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// when&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;useGreeting&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Yannick&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GreetingMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hi there, &quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toCompletableFuture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SECONDS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// then&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hi there, Yannick&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Tests can be executed in Activator via the following command:
-&lt;code class=&quot;highlighter-rouge&quot;&gt;$ test&lt;/code&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] Test run started
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] Test sample.helloworld.impl.HelloServiceTest.testHello started
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] Test sample.helloworld.impl.HelloServiceTest.testGreeting started
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] Test run finished: 0 failed, 0 ignored, 2 total, 16.759s
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;info] Passed: Total 2, Failed 0, Errors 0, Passed 2
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;success] Total &lt;span class=&quot;nb&quot;&gt;time&lt;/span&gt;: 21 s, completed Apr 14, 2016 10:06:41 AM&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;cqrs-and-event-sourcing&quot;&gt;CQRS and Event Sourcing&lt;/h2&gt;
-&lt;p&gt;Being an opinionated framework Lagom suggests to use &lt;strong&gt;CQRS&lt;/strong&gt; and &lt;strong&gt;Event Sourcing&lt;/strong&gt; seeing as it fits well within the reactive paradigm.
-In this blogpost we are not going to explain CQRS and Event Sourcing in detail seeing as it is very well documented in the &lt;a href=&quot;http://www.lagomframework.com/documentation/1.0.x/java/ES_CQRS.html#Event-Sourcing-and-CQRS&quot;&gt;documentation&lt;/a&gt; of Lagom.
-The gist of it is that each service should own its own data and only the service itself should have direct access to the database.
-Other services need to use the service’s API in order to interact with its data.
-Sharing the database across different services would result in tight coupling.
-Ideally we want to work with &lt;a href=&quot;http://martinfowler.com/bliki/BoundedContext.html&quot;&gt;Bounded Contexts&lt;/a&gt; following the core principles of Domain-Driven Design where each service defines a Bounded Context.
-Using &lt;strong&gt;Event Sourcing&lt;/strong&gt; gives us many advantages such as not only storing the current state of data but having an entire journal of events that tell us how the data achieved its current state.
-With event sourcing we only perform reads and writes, there are no updates nor deletes.
-All this makes it easy to test and debug and allows us to easily reproduce scenarios that happened in production by replaying the event log from that environment.&lt;/p&gt;
-
-&lt;p&gt;Note that just because Lagom encourages us to use CQRS and Event Sourcing it isn’t forcing us to use it as it is not always applicable to every use case.
-It is perfectly possible to, for example, plug in a PostgreSQL database for our persistence layer.
-Someone has already set up &lt;a href=&quot;https://github.com/dsl-platform/lagom-postgres&quot;&gt;PostgreSQL integration using Revenj persistence&lt;/a&gt;.
-However, Lightbend suggests that for best scalability preference must be given to asynchronous APIs because using blocking APIs like JDBC and JPA will have an impact on that.&lt;/p&gt;
-
-&lt;p&gt;By default, when launching our development environment, a Cassandra server will be booted without having to do any setup ourselves besides adding the &lt;code class=&quot;highlighter-rouge&quot;&gt;lagomJavadslPersistence&lt;/code&gt; dependency to our implementation in our &lt;code class=&quot;highlighter-rouge&quot;&gt;build.sbt&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Regarding the code, a &lt;strong&gt;persistent entity&lt;/strong&gt; needs to be defined, combined with a related &lt;strong&gt;command&lt;/strong&gt;, &lt;strong&gt;event&lt;/strong&gt; and &lt;strong&gt;state&lt;/strong&gt;.
-Note that the following code samples are mainly here to give an idea of the work needed for implementing all this.
-For more information and a detailed explanation, consult the &lt;a href=&quot;http://www.lagomframework.com/documentation/1.0.x/java/PersistentEntity.html#Persistent-Entity&quot;&gt;excellent documentation&lt;/a&gt; on the subject.&lt;/p&gt;
-
-&lt;p&gt;In the persistent entity we define the behaviour of our entity.
-In order to interact with event sourced entities, commands need to be sent.
-We therefore need to specify a command handler for each command class that the entity can receive.
-Commands are then translated into events which will get persisted by the entity.
-Each event has its own event handler registered.&lt;/p&gt;
-
-&lt;p&gt;Example of a PersistentEntity:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HelloWorld.java&lt;/code&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloWorld&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PersistentEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HelloCommand&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HelloEvent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WorldState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Behavior&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialBehavior&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Optional&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WorldState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;snapshotState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;BehaviorBuilder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newBehaviorBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;snapshotState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;orElse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WorldState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LocalDateTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())));&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setCommandHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UseGreetingMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thenPersist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GreetingMessageChanged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;evt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;reply&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Done&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())));&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setEventHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GreetingMessageChanged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;evt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WorldState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;evt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LocalDateTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()));&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setReadOnlyCommandHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;reply&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;, &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Our PersistentEntity requires a state to be defined:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;WorldState.java&lt;/code&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@Immutable&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@JsonDeserialize&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;WorldState&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CompressedJsonable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@JsonCreator&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;WorldState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Preconditions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;checkNotNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;message&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;timestamp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Preconditions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;checkNotNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;timestamp&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@Nullable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;instanceof&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WorldState&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;equalTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WorldState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;equalTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WorldState&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MoreObjects&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toStringHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;WorldState&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;message&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;timestamp&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;In our command interface we define all the commands that our entity supports.
-In order to get a complete picture of the commands an entity supports, it is the convention to specify all supported commands as inner classes of the interface.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HelloCommand.java&lt;/code&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloCommand&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Jsonable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nd&quot;&gt;@Immutable&lt;/span&gt;
-  &lt;span class=&quot;nd&quot;&gt;@JsonDeserialize&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UseGreetingMessage&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HelloCommand&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CompressedJsonable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PersistentEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ReplyType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Done&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@JsonCreator&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;UseGreetingMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Preconditions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;checkNotNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;message&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@Nullable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;instanceof&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UseGreetingMessage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;equalTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UseGreetingMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;equalTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UseGreetingMessage&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MoreObjects&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toStringHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;UseGreetingMessage&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;message&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Immutable&lt;/span&gt;
-  &lt;span class=&quot;nd&quot;&gt;@JsonDeserialize&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Hello&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HelloCommand&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PersistentEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ReplyType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Optional&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;organization&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@JsonCreator&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Optional&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;organization&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Preconditions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;checkNotNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;organization&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Preconditions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;checkNotNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;organization&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;organization&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@Nullable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;instanceof&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;equalTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;equalTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;organization&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;organization&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;organization&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MoreObjects&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toStringHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;organization&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;organization&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;And finally we want to define all events that the entity supports in an event interface.
-It follows the same convention as with commands, specifying all events as inner classes of the interface.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HelloEvent.java&lt;/code&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloEvent&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Jsonable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nd&quot;&gt;@Immutable&lt;/span&gt;
-  &lt;span class=&quot;nd&quot;&gt;@JsonDeserialize&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GreetingMessageChanged&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HelloEvent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@JsonCreator&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;GreetingMessageChanged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Preconditions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;checkNotNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;message&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@Nullable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;instanceof&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GreetingMessageChanged&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;equalTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GreetingMessageChanged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;equalTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GreetingMessageChanged&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;another&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hashCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MoreObjects&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toStringHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;GreetingMessageChanged&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;message&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;HelloServiceImpl.java&lt;/code&gt; class will look like the following:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloServiceImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HelloService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PersistentEntityRegistry&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;persistentEntityRegistry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Inject&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HelloServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PersistentEntityRegistry&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;persistentEntityRegistry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;persistentEntityRegistry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;persistentEntityRegistry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;persistentEntityRegistry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ServiceCall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NotUsed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;PersistentEntityRef&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HelloCommand&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;persistentEntityRegistry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;refFor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Optional&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()));&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ServiceCall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GreetingMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Done&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;useGreeting&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-       &lt;span class=&quot;n&quot;&gt;PersistentEntityRef&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HelloCommand&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;persistentEntityRegistry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;refFor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HelloWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-       &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UseGreetingMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;lightbend-qa-at-the-codestar-launch-event&quot;&gt;Lightbend Q&amp;amp;A at the CodeStar launch event&lt;/h2&gt;
-&lt;p&gt;On the 24th of March we attended the launch event of &lt;a href=&quot;http://www.codestar.nl&quot;&gt;CodeStar&lt;/a&gt;, the new unit from our Dutch Ordina colleagues focused on Full Stack Scala and Big Data solutions.
-CodeStar also hold a Lightbend partnership.
-One of the presentations was &lt;a href=&quot;https://www.youtube.com/watch?v=POKZ1TRJ4G4&quot;&gt;an introduction to Lagom&lt;/a&gt; by &lt;a href=&quot;https://twitter.com/myfear&quot;&gt;Markus Eisele&lt;/a&gt;, Developer Advocate at Lightbend.
-After his talk we had the opportunity to ask Markus and his colleague, &lt;a href=&quot;https://twitter.com/lutzhuehnken&quot;&gt;Lutz Hühnken&lt;/a&gt;, Solutions Architect at Lightbend, several questions regarding Lagom.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;What do you guys consider to be the major competitor for Lagom?
-Spring Cloud and Netflix OSS?&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;Yes, we would consider that stack to be Lagom’s main competitor. 
-But we believe that with Lagom we have a number of unique features that makes us shine (because otherwise we wouldn’t have built it):
-&lt;br /&gt;1) Lagom’s development environment, in my humble opinion a major productivity boost
-&lt;br /&gt;2) Fostering good practices for building reactive services seeing as Lagom is opinionated, e.g. async communication by default, ES/CQRS, …
-&lt;br /&gt;3) Batteries-included, from development to production
-&lt;br /&gt;4) Streaming is first-class&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Lagom suggests that Event Sourcing and CQRS should be used as the default solution for persistence but is it really applicable in the majority of the scenarios?&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;Lagom is an opinionated framework and will try to suggest using ES &amp;amp; CQRS as the primary solution to use since it fits very well with the reactive mindset.
-Of course it also depends on the use case.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Don’t you think you encourage code coupling by having microservices depend on the interface of another microservice?&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;It is true that the default way to do service calls between Lagom services is to use binary dependencies, though of course it is not enforced. We have taken great care to ensure that service calls map down to idiomatic REST and/or websockets. We do have plans in the future to allow simple removal of the binary coupling. To make service interfaces go through a non-binary specification such as Swagger, where Swagger specs will be generated and interfaces will be generated from the Swagger specs.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Does Lagom support REST level 3? Is there support for hypermedia?&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;Currently not supported but we are open to it. Feel free to create a suggestions ticket at the &lt;a href=&quot;https://github.com/lagom/lagom&quot;&gt;GitHub project&lt;/a&gt;.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Don’t you think it is a bad idea to only support ConductR for production deployments?
-What about pet projects of single developers? This makes it less appealing to motivate people to pick up Lagom compared to for example Spring Cloud and Netflix OSS.&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;It is in the strategic planning of Lightbend to push ConductR forward as the main solution for your production environment.
-Do note that it’s perfectly possible to deploy your Lagom services elsewhere as long as you implement your own &lt;a href=&quot;http://www.lagomframework.com/documentation/1.0.x/java/ServiceLocator.html#Service-Locator&quot;&gt;service locator&lt;/a&gt; (as an example, the integration needed to support Lagom in ConductR is available on &lt;a href=&quot;https://github.com/typesafehub/conductr-lib/tree/master/lagom10-conductr-bundle-lib&quot;&gt;GitHub&lt;/a&gt;).
-Looking at our &lt;a href=&quot;https://www.lightbend.com/open-source-position-statement&quot;&gt;Open Source Position Statement&lt;/a&gt; you will notice that one of the differentiators we see between our open source offerings and the commercial products is Time. 
-Open source users tend to invest their time rather than their money. 
-ConductR integration into Lagom could be seen as an example for this. 
-If you would rather spend the money than invest time, buy ConductR. 
-If you would rather invest time instead of money, build your own ServiceLocator implementation and use a different infrastructure.
-An example of this is the &lt;a href=&quot;https://github.com/lagom/lagom/issues/59&quot;&gt;GitHub issue&lt;/a&gt; for implementing Kubernetes support.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;How do you integrate with other non-Lagom microservices?&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;Currently you would call them via REST URLs. 
-In the near future the &lt;a href=&quot;https://gitter.im/lagom/lagom?at=56efe42c0d69dfd122218ddc&quot;&gt;Lagom Service Client&lt;/a&gt; could also be used to consume them. 
-Additionally it should also be possible to integrate &lt;a href=&quot;https://github.com/Netflix/eureka&quot;&gt;Eureka&lt;/a&gt; in Lagom.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;What is the deployment procedure exactly? How do I prepare my Lagom application for deployment into production?&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;The deployment unit in ConductR is a bundle which is an abstract term that can mean a Docker image or a zip file with a certain structure.
-By default, when you have multiple services in one project, it will create multiple bundles. You call &lt;code class=&quot;highlighter-rouge&quot;&gt;bundle:dist&lt;/code&gt; once on the top level and it will create a separate bundle for each service which can then be deployed to ConductR.
-You can put multiple components in one bundle so you could have multiple services in one bundle, but we think that it is unusual.
-Ideally, each service needs to be its own bundle managed in isolation by ConductR, for it to be able to be able to be developed, rolled out, upgraded and failed in isolation.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;What about API versioning?&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;Currently there is no versioning for your services besides the “default” way to do it, e.g. via the header or by versioning your urls.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;What do you think about the so-called serverless architectures like AWS Lambda or Google Cloud Functions?&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;We think that those architectures are part of the future. 
-Lagom can be seen as a step in that direction since it decouples the stateless part of the service (the behavior) from the stateful (persistent entity), allowing the stateless part to be scaled out independently, and automatically by the runtime, in a similar fashion to AWS Lambda. 
-A hosted version of Lagom could give a very similar experience.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;About sbt, will you also support a more widely adopted tool such as Maven or Gradle?&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;Lagom relies on some sbt features, so supporting other build tools is not trivial. 
-While it is probably doable to support Maven, we’d need to do build a proof-of-concept to verify this. 
-This is currently not prioritized. We’ll be watching the community’s feedback on this.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Does the Lagom circuit breaker have a dashboard such as the Hystrix dashboard? Does Lagom in general have operational dashboards?&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;You could integrate the circuit breaker data with monitoring tools such as Graphite and Grafana.
-In addition, with Lightbend Monitoring you do get a suite of tools for monitoring your microservices. 
-Lightbend Monitoring is included in the ConductR license.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Is it true that Typesafe rebranded to Lightbend to get a broader adoption than what was possible with a more Scala-orientated reputation attached to Typesafe?&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;That is correct.
-This doesn’t mean that we are giving up on Scala, it is still core to all of our technologies.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;comparison-with-spring&quot;&gt;Comparison with Spring&lt;/h2&gt;
-
-&lt;p&gt;Spring has been out there for more than 10 years and with Spring Boot and Spring Cloud a trend has been set to move to self-contained applications as a basis for microservices development.
-Spring reaps the fruits of the Netflix OSS while offering Spring’s own components such as Spring Cloud Config and Spring Security as well.
-The Netflix and Spring stack comes with all the necessary tools to build and run microservices in production.&lt;/p&gt;
-
-&lt;p&gt;Externalized configuration, out-of-the-box free dashboards for service registries, circuit breaker monitoring and distributed tracing, integration with service registries such as Eureka, Consul and Zookeeper, production-ready monitoring and metrics features with Actuator endpoints, integration with build tools such as Maven and Gradle and extensive security features including upcoming integration with &lt;a href=&quot;https://www.vaultproject.io&quot;&gt;Vault&lt;/a&gt; are only a subset of the features Spring has to offer.&lt;/p&gt;
-
-&lt;p&gt;Seeing as Lagom is still in its early days, it wouldn’t be fair to Lightbend to make an in-depth comparison with the Spring stack.
-We hope that Lagom will continue to grow towards a more mature framework and a true alternative to Spring on all levels.
-The first steps we currently see look promising and we hope that they will consider our remarks for how they want to further evolve the framework.
-It is great to see more microservices frameworks become available and we applaud Lightbend for taking up the competition with Spring.&lt;/p&gt;
-
-&lt;h2 id=&quot;our-advice&quot;&gt;Our advice&lt;/h2&gt;
-
-&lt;p&gt;Our advice is to keep track of Lagom’s progress closely.&lt;/p&gt;
-
-&lt;p&gt;If you are currently looking for a mature framework with integration capabilities for just about anything, go with Spring.&lt;/p&gt;
-
-&lt;p&gt;If you want to use Event Sourcing, Lagom should be a great fit. 
-Additionally, Lagom’s focus on CQRS and its reactive core are truly differentiators with other frameworks.
-Lagom has great potential and is eager to get community involvement. 
-If you are willing to join forces with Lightbend, Lagom might already be a viable candidate for you.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;We think that Lagom looks very promising and we will definitely follow it up.
-Due to Lagom being an opinionated framework everything glues together well.
-Lagom is just a thin layer on top of Akka and Play, which is very mature and hardened over the years.
-It might be a bit too early to do an in-depth comparison between Lagom and Spring Cloud since we would be comparing an MVP against a mature technology.&lt;/p&gt;
-
-&lt;p&gt;We do think that using sbt might be a hurdle for Java developers and it would ease adoption if there would be other ways to use Lagom in production besides ConductR.
-As it stands right now you would need to write a custom service locator yourself.
-It would close the gap with Spring if support would already be available for service discovery via for example Eureka or Consul.&lt;/p&gt;
-
-&lt;p&gt;It is clear that Lagom puts a lot of focus on reactiveness and gaining the best performance. 
-This could come at the cost of binary coupling, seeing as the default way to do service calls between Lagom services is to use binary dependencies. 
-We are looking forward to Lightbend’s plans to go through non-binary specifications in order to reduce coupling on a binary level as well.&lt;/p&gt;
-
-&lt;p&gt;Given that it is currently an MVP version we are interested in seeing how Lagom matures. 
-Since it is all new and shiny, you will be able to give back to the community by helping to develop parts of this new and exciting framework yourself.
-Contributing to the framework is easy via pull requests and are actively reviewed by Lightbend developers.
-The developers are very active on their &lt;a href=&quot;https://gitter.im/lagom/lagom&quot;&gt;Gitter&lt;/a&gt; channel and they are quick to answer questions. 
-We are also very excited to the release of the Scala API.&lt;/p&gt;
-
-&lt;p&gt;Our colleague &lt;a href=&quot;https://twitter.com/andreasevers&quot;&gt;Andreas Evers&lt;/a&gt;, who has extensive knowledge on Spring Cloud and Netflix OSS, will soon be participating in a podcast with Markus Eisele hosted by Lightbend to discuss Lagom and microservices trends.
-The date should be announced soon.
-Be sure to follow Andreas and Lightbend to catch it!&lt;/p&gt;
-
-&lt;h2 id=&quot;useful-links&quot;&gt;Useful links&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.lightbend.com/lagom&quot;&gt;Lagom&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.lagomframework.com/documentation/1.0.x/java/Home.html&quot;&gt;Lagom documentation&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://twitter.com/lagom&quot;&gt;Lagom Twitter&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/lagom/lagom&quot;&gt;Lagom GitHub&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://gitter.im/lagom/lagom&quot;&gt;Lagom Gitter&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.lightbend.com&quot;&gt;Lightbend&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://twitter.com/lightbend&quot;&gt;Lightbend Twitter&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://twitter.com/myfear&quot;&gt;Markus Eisele Twitter&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://twitter.com/lutzhuehnken&quot;&gt;Lutz Hühnken Twitter&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Fri, 22 Apr 2016 00:00:00 +0000</pubDate>
-        <link>https://ordina-jworks.github.io/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html</link>
-        <guid isPermaLink="true">https://ordina-jworks.github.io/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html</guid>
-        
-        <category>Lagom</category>
-        
-        <category>Java</category>
-        
-        <category>Reactive</category>
-        
-        <category>Domain-Driven Design</category>
-        
-        <category>CQRS</category>
-        
-        <category>Event-Sourcing</category>
-        
-        
-        <category>Microservices</category>
         
       </item>
     
