@@ -3,6 +3,11 @@
 ## Setting up Jekyll on your computer
 Execute following commands:
     
+    Make sure you have the ruby headers installed.
+    for Ubuntu and other distributions using Debian style packaging
+    - sudo apt-get install ruby2.3-dev(make sure this matches your ruby version)
+    
+    then
     - `(sudo) gem install bundler`
     - `bundler install`
 
