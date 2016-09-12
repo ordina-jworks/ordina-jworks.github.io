@@ -191,7 +191,7 @@ The Microservices Dashboard gives managers, analysts and developers peace of min
 Not only does it map relations between components in a visually attractive manner, it can also be a great tool for compliancy, change management, functional analysis and troubleshooting.
 
 The dashboard is currently at version 1.0.1, and can be downloaded through maven central.
-To quickly get up and running, make sure to check out the reference documentation.
+To quickly get up and running, make sure to check out the [reference documentation](http://ordina-jworks.github.io/microservices-dashboard/1.0.1/).
 
 Since the project is still fairly new, any feedback is greatly appreciated.
-You can reach us through [gitter](https://gitter.im/ordina-jworks/microservices-dashboard) or [github](https://github.com/ordina-jworks/microservices-dashboard).
+You can reach us through [Gitter](https://gitter.im/ordina-jworks/microservices-dashboard) or [GitHub](https://github.com/ordina-jworks/microservices-dashboard).
