@@ -17,9 +17,9 @@ Our experiences taught us this is the easy part.
 With the newly obtained microservices freedom, teams easily plunge into a world of cowboys and unicorns.
 The big ball of mud is just around the corner.
 Panic, mayhem and chaos loom over the organisation, waiting for everything to spin out of control.
-Especially for any enterprise not residing in silicon valley, maintaining some sort of governance and compliancy is essential.
+Especially for any enterprise not residing in Silicon Valley, maintaining some sort of governance and compliancy is essential.
 
-What does a microservice architecture mean not just for the developer, but also for analysts and managers?
+What does a microservice architecture mean not just for the developers, but also for analysts and managers?
 What can we as developers do to offer them peace of mind?
 
 ### Managers like to have a grip on things
@@ -34,7 +34,7 @@ Similarly, architects might enforce every microservice to have a quality gate in
 Aside from the technical aspects inside a microservice, compliancy is even more crucial at the contract level.
 They should be defined according to an architectural vision and comply to standards across the organisation.
 Having the ability to track these compliancy regulations and quality assurances is a key enabler for management to push for technical excellence.
-Too many times managers are left clueless on how much effort is required to mature the architecture and which teams they have to chase.
+Too often managers are left clueless on how much effort is required to mature the architecture and which teams they have to chase.
 Having a dashboard at their disposal indicating where a lack of compliancy and maturity needs their attention can help to ensure budget and priorities are in line with the architectural goals.
 
 
@@ -52,21 +52,21 @@ In order to reuse functionality and avoid duplication, functional analysts have 
 Knowing which resources are exposed by what microservices, and which events and messages are being sent back and forth between microservices and queues, can go a long way in helping analysts understand the state of the architecture. 
 
 Furthermore, impact analysis can significantly improve when an overview of components and how they are linked together is available to the analysts.
-Not only does it encourage analysts to identify and inform consumers of a changing service, it can help avoid introducing breaking changes due to negligence or ignorance.
+Not only does it encourage analysts to identify and inform consumers of a changing service, it can help to avoid introducing breaking changes due to negligence or ignorance.
 During troubleshooting, testers and analysts should be able to find out what services and backends are involved in a certain functional flow.
 
 Just like managers, functional analysts are interested in upcoming features and releases.
 On top of that, analysts can benefit from being able to define the future state of the ecosystem.
 Especially when multiple teams are working on similar functionality, it can be notoriously difficult to avoid duplication and breaches of bounded contexts.
-Using a dashboard to define what is coming up, can help to give an unambiguous view of the current and future landscape.
+Using a dashboard to define what is coming up, can help to give them an unambiguous view of the current and future landscape.
 
 ### Developers can benefit from a broader view as well
 
 In a devops organisation, developers have the responsibility to not only build but also run their services.
-Knowing which versions are deployed where, can assist developers in verifying their deployments are successful, but also to determine the versions of their dependencies.
+Knowing which versions are deployed where, can assist developers in verifying whether their deployments are successful, but also to determine the versions of their dependencies.
 
 A graphical dashboard can go a long way in providing clarity to developers.
-But most of all it can act as a hub for other tools and documentation available.
+But most of all, it can act as a hub for other tools and documentation available.
 Integrations can be made with for instance API documentation, performance tooling, service registries, in-depth instance-specific dashboards and perhaps even reactive insights.
 
 ## The introduction of the Microservices Dashboard
@@ -86,7 +86,7 @@ The information for these links come from Spring Boot Actuator health endpoints,
 
 <img class="center-block" alt="Architecture" src="/img/microservices-dashboard/architecture.png" width="50%">
 
-The dashboard currently consists out of an AngularJS 1.x application which speaks over HTTP to a Spring Boot application.
+The dashboard currently consists out of an AngularJS 1.x application which communicates over HTTP to a Spring Boot application.
 The frontend uses D3.js to visualise the nodes in the four columns.
 We are currently in the process of completely rebuilding the frontend stack.
 Next version will be running on Angular 2, Typescript and EcmaScript 6.
@@ -94,17 +94,17 @@ Most of D3.js will be taken care of by Angular 2 itself.
 
 Thanks to this refactor we’ll see the introduction of RxJS, making the frontend much more reactive in nature.
 This aligns our frontend and backend components goals, since the backend is already running RxJava.
-Our efforts currently focus on replicating all functionality which is currently available in the dashboard, albeit with much more attention to quality and testing.
+Our efforts currently focus on replicating all functionalities currently available in the dashboard, albeit with much more attention to quality and testing.
 Subsequently new features and enhancements will be built on top of a much more mature and extendible frontend application.
 
 
 Our server component is powered by Spring Boot’s auto configuration.
-It’s a library which, once on a regular Spring Boot’s classpath, will automatically transform the Spring Boot application into a JSON graph-serving engine.
+It’s a library which, once on the classpath of a regular Spring Boot application, will automatically transform the Spring Boot application into a JSON graph-serving engine.
 It does so by using aforementioned RxJava.
 The idea of the server application is that it will fetch information from the microservices ecosystem, with for instance Spring Cloud's integration of service registries, and collect details of components and their relation within said ecosystem.
 Needless to say collecting this information requires a lot of outbound calls, and can pose a serious performance burden in case the landscape gets bigger.
 Making intelligent use of the system’s resources is absolutely necessary, and RxJava does just that.
-In the future we might migrate to Spring’s Reactor which has a more formal integration of the ReactiveX specification and better integration with Spring itself.
+In the future we might migrate to [Spring’s Reactor](https://projectreactor.io/) which has a more formal integration of the ReactiveX specification and better integration with Spring itself.
 Once the frontend’s revamp is completed, the last step towards an end-to-end reactive flow is the HTTP connection between both components.
 Currently the server still converts the Observable to blocking, undoing a lot of the performance gains we could achieve.
 Yet even while eventually blocking, we’ve benchmarked a thirty percent performance gain in switching from CompletableFutures to Observables thanks to the more sustained async handling.
@@ -126,10 +126,10 @@ Aggregators pull in information which eventually gets translated into nodes and 
 Spring Boot exposes production-ready endpoints through its Actuator module.
 The health endpoint returns information regarding the current health status of the application.
 The source of this information is a bunch of health indicators, describing various components and dependencies of the application.
-For instance, an application can have a dependency on a database, for which a health indicator will usually provide heath information to the health endpoint, indicating whether the database is up and the connection pool is not depleted.
+For instance, an application can have a dependency on a database, for which a health indicator will usually provide health information to the health endpoint, indicating whether the database is up and the connection pool hasn't been depleted.
 
-Hence, health indicators describe an up-to-date relationship between the application they run on, and its dependencies.
-While Spring Cloud ensures health indicators are automatically enabled when you are using service discovery, circuit breakers, a config server or other Spring Cloud services, health indicators don’t automatically describe a relationship between an application and another application it calls.
+Hence, health indicators describe an up-to-date relationship between the application they run on and its dependencies.
+Spring Cloud ensures health indicators are automatically enabled when you are using service discovery, circuit breakers, a config server or other Spring Cloud services. However, health indicators don’t automatically describe a relationship between an application and another application it calls.
 Luckily Spring Boot has a very easy way of adding custom health indicators.
 As such, developers can add a health indicator the moment a remote service call is added to the application.
 
@@ -137,10 +137,10 @@ As such, developers can add a health indicator the moment a remote service call 
 > **What about real-time?**
 > 
 > Using health indicators we are certain the application calls another application programmatically.
-> This provides clarity in terms of what calls are in the code and therefore what dependencies exist across the applications.
+> This provides clarity in terms of the calls in the code and therefore the dependencies that exist across the applications.
 > However, using this method we aren’t sure whether this remote call is actually being executed at runtime.
 > These concerns are currently provided by other tools such as Twitter’s Zipkin.
-> In the future we will integration the dashboard with real-time traffic information from Zipkin or similar tooling.
+> In the future we will integrate the dashboard with real-time traffic information from Zipkin or similar tooling.
 
 #### Index aggregator
 
@@ -165,7 +165,7 @@ This is an excellent source for the dashboard, as it shows the relation between 
 Oftentimes, RESTful resources are exposed in a more traditional way (using REST level 2) without the added complexity of HATEOAS.
 While this is not fully REST compliant, it is most common among APIs using JSON over HTTP.
 Spring Boot offers a handy endpoint in their Actuator module, called the mappings endpoint.
-It describes all the resources which are exposed by the application when Spring MVC REST is used.
+It describes all the resources exposed by the application when Spring MVC REST is used.
 While also describing Spring’s own resources, a simple filter allows us to deduct node and link information from these endpoints to visualise in the dashboard.
 
 #### Pact aggregator
@@ -174,11 +174,11 @@ In a microservices architecture, testing is absolutely crucial.
 As the primary benefit of microservices is faster time-to-market, changes happen all the time.
 Not only unit and integration testing is required, but also more advanced contract testing to act as a safety net.
 Consumer-driven-contract testing allows the consumer (the client) to define what he expects from the producer (the service), and ensure the producer validates that definition every time a change is made to the service.
-This allows the consumer to rest at ease, knowing the producer will remain backwards compatible or version accordingly, and gives the producer knowledge of who uses exactly what of its service.
+This allows the consumer to rest at ease, knowing the producer will remain backwards compatible or version accordingly, and gives the producer knowledge of who uses exactly which parts of its service.
 The latter gives the producer the chance to request consumers to update their service in case they are causing too much complexity on the producer’s side due to backwards compatibility.
 
 Tests like these document with guaranteed certainty relations between clients and services or services and services.
-Querying the contracts that define these relations offer a great source for the dashboard’s nodes and links between them.
+Querying the contracts that define these relations offer a great source of information for the dashboard’s nodes and links between them.
 When working with the consumer-driven-contract testing framework Pact, a repository called the Pact-broker holds all the available contracts and exposes them through a REST interface.
 Our Pact aggregator makes use of this interface to pull the information into the dashboard.
 
