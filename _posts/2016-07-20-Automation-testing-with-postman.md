@@ -17,7 +17,7 @@ Postman's environment functionality makes it very easy to switch between differe
 ![Alt text](/img/postman-2016/manage_environment.png)
 <br/>
 <br/>
-Select the “Add” button on the modal that is presented to you.  Add `url https://api.algorithmia.com/v1/algo/` and `key simNz9pf7hfAQNifdApf4K1GFhs1`.  Don't forget to replace the secret by your own key.
+Select the “Add” button on the popup that is presented to you.  Add `url https://api.algorithmia.com/v1/algo/` and `key simNz9pf7hfAQNifdApf4K1GFhs1`.  Don't forget to replace the secret by your own key.
  <br/>
  <br/>
 ![Alt text](/img/postman-2016/manage_environment_values.jpg)
@@ -47,7 +47,7 @@ Finally let's hit the "Send" button and if everything goes as expected we should
 ![Alt text](/img/postman-2016/request_send.jpg)
 <br/>
 <br/>
-Next we are going to write our test, but first let us save our request into a collection. By clicking on the create collection button on the collections tab, the following modal will be presented.  Simply enter "Calculator" as the name of the collection and hit the create button.
+Next we are going to write our test, but first let us save our request into a collection. By clicking on the create collection button on the collections tab, the following popup will be displayed.  Simply enter "Calculator" as the name of the collection and hit the create button.
 <br/>
 <br/>
 ![Alt text]({{ '/img/postman-2016/create_collection.jpg'| prepend:site.baseurl }})
@@ -111,7 +111,7 @@ We also need to rewrite our test. Like you can see we use the 'data' object to c
 ![Alt text](/img/postman-2016/test_csv.jpg)
 <br/>
 <br/>
-Back to the runner modal. Select the "Calculator" collection and the "Production" environment. Click the "Choose Files" button and select the csv file you just created, click the "Preview" button to check for any inconsistenties. As there are 4 entries in our csv we want to use to feed our test enter 4 in the iteration inputfield.
+Back to the runner window. Select the "Calculator" collection and the "Production" environment. Click the "Choose Files" button and select the csv file you just created, click the "Preview" button to check for any inconsistenties. As there are 4 entries in our csv we want to use to feed our test enter 4 in the iteration inputfield.
 <br/>
 <br/>
 ![Alt text](/img/postman-2016/runner_csv.jpg)
@@ -133,7 +133,7 @@ After Newman is installed we can export our previously created collection and en
 ![Alt text](/img/postman-2016/export_collection.jpg)
 <br/>
 <br/>
-To export the 'Production' environment select 'Manage Environment' and on the next modal hit export and save as 'prod_environment.json'.
+To export the 'Production' environment select 'Manage Environment' and on the next popup hit export and save as 'prod_environment.json'.
 <br/>
 <br/>
 ![Alt text](/img/postman-2016/export_environment.jpg)
