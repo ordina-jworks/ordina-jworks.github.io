@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ordina JWorks Tech Blog</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Ordina JWorks Tech blog
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,Javascript,DevOps">
+    <meta name="author" content="Ordina Belgium">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/testing/2016/07/20/Automation-testing-with-postman.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="API Testing with Postman and Newman -  " />
+    <meta property="og:description" content="Ordina JWorks Tech Blog" />
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/postman.png" />
+    
+
+    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Base style -->
+    <link href="/css/styles/style.css" rel="stylesheet">
+    <!-- Skin CSS -->
+    <link href="/css/styles/skin-orange.css" rel="stylesheet" id="color_theme">
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<!-- Add class "boxed" along with body for boxed layout. -->
+<!-- Add "pattern-x" (1 to 5) for background patterns. -->
+<!-- Add "img-x" (1 to 5) for background images. -->
+<body>
+
+<!-- Outer Starts -->
+<div class="outer">
+    <!-- Header two Starts -->
+    <div class="header-2">
+
+        <!-- Container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo">
+                        <h1><a href="/"><img src="/img/jworks/jworks-400x400.jpg"
+                                                               width="100"
+                                                               height="100"/> </a></h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="navy">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="/contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header two ends -->
+
+    <!-- Main content starts -->
+
+    <div class="main-block">
+
+        <!-- Page heading two starts -->
+
+        <div class="page-heading-two">
+            <div class="container">
+                <h2>JWorks Tech Blogs<span style="margin-left: 10px"> Powered by Ordina</span></h2>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <!-- Page heading two ends -->
+
+        <div class="container tk-acumin-pro">
+            <div class="post">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>API Testing with Postman and Newman</h1>
+            <p id="post-meta">
+                Posted Jul 20, 2016 in <a href="/categories/testing/">Testing</a>
+                
+                    by 
+                    
+                
+                        
+                        <a href="/author/gregory-rinaldi/">Gregory Rinaldi</a>
+                    
+                
+                
+                    <br />
+                    <i class="fa fa-tags"></i>
+                        
+                            <a href="/tags/postman/">Postman</a>,
+                        
+                            <a href="/tags/integration-testing/">Integration Testing</a>,
+                        
+                            <a href="/tags/newman/">Newman</a>,
+                        
+                            <a href="/tags/automation/">Automation</a>,
+                        
+                            <a href="/tags/testing/">Testing</a>
+                        
+                
+            </p>
+        </div>
+    </div>
+    <br />
+    <article class="post-content">
+        <h3 id="prerequisites">Prerequisites</h3>
+<p>For the purpose of this tutorial it is mandatory to have <a href="https://www.getpostman.com/" target="_blank">Postman</a> installed which is available as a Chrome extension, as well as a Mac application. It is also mandatory to create an account at <a href="https://www.algorithmia.com/" target="_blank">Algorithmia</a>.</p>
+
+<h3 id="creating-and-selecting-an-environment">Creating and selecting an environment</h3>
+<p>Postman’s environment functionality makes it very easy to switch between different environments. A set of variables can be configured per environment and when switching from one environment to another one these will be replaced accordingly. For example let’s create an environment called “production”.  Click the “No environment” dropdown in the header and select “Manage environments”.
+<br />
+<br />
+<img src="/img/postman-2016/manage_environment.png" alt="Alt text" />
+<br />
+<br />
+Select the “Add” button on the popup that is presented to you.  Add <code class="highlighter-rouge">url https://api.algorithmia.com/v1/algo/</code> and <code class="highlighter-rouge">key simNz9pf7hfAQNifdA224K1GFhs1</code>.  Don’t forget to replace the secret by your own key.
+ <br />
+ <br />
+<img src="/img/postman-2016/manage_environment_values.jpg" alt="Alt text" />
+<br />
+<br />
+Finally select the “Production” environment in the environment dropdown and let’s create our first request.
+<br />
+<br />
+<img src="/img/postman-2016/manage_environment_production.png" alt="Alt text" /></p>
+
+<h3 id="creating-a-post-request">Creating a POST request</h3>
+<p>Enter <code class="highlighter-rouge"><span class="p">{</span><span class="err">{url</span><span class="p">}</span><span class="err">}/WayneS/Calculator/</span><span class="mf">0.1</span><span class="err">.</span><span class="mi">0</span></code> in the request field and change the method from GET to POST.  We need to add some additional headers as well so add <code class="highlighter-rouge">Content-Type application/json</code>, <code class="highlighter-rouge">Authorization Simple {{key}}</code>.  As you can see, we are using the environment variables <code class="highlighter-rouge"><span class="p">{</span><span class="err">{url</span><span class="p">}</span><span class="err">}</span></code> and <code class="highlighter-rouge"><span class="p">{</span><span class="err">{key</span><span class="p">}</span><span class="err">}</span></code> so when switching environments, those variables will get replaced.  The <code class="highlighter-rouge"><span class="p">{</span><span class="err">{...</span><span class="p">}</span><span class="err">}</span></code> format can only be used in the request URL/URL params/Header values/form-data/url-encoded values/Raw body content/Helper fields.
+<br />
+<br />
+<img src="/img/postman-2016/request_headers.png" alt="Alt text" />
+<br />
+<br />
+Postman also has a few dynamic variables which you can use. For example, <code class="highlighter-rouge"><span class="p">{</span><span class="err">{$guid</span><span class="p">}</span><span class="err">}</span></code> is generating a random v4 style guid, <code class="highlighter-rouge"><span class="p">{</span><span class="err">{$timestamp</span><span class="p">}</span><span class="err">}</span></code> is the current timestamp, <code class="highlighter-rouge"><span class="p">{</span><span class="err">{$randomInt</span><span class="p">}</span><span class="err">}</span></code> a random integer between 0 and 1000. More of those will be added in future releases. But for now, let us just simply enter <code class="highlighter-rouge">"x=log(2)"</code> as the raw content of our request.
+<br />
+<br />
+<img src="/img/postman-2016/request_body.png" alt="Alt text" />
+<br />
+<br />
+Finally let’s hit the “Send” button and if everything goes as expected, we should receive the following response.
+<br />
+<br />
+<img src="/img/postman-2016/request_send.jpg" alt="Alt text" />
+<br />
+<br />
+Next we are going to write our test, but first let us save our request into a collection. By clicking on the create collection button on the collections tab, the following popup will be displayed.  Simply enter “Calculator” as the name of the collection and hit the create button.
+<br />
+<br />
+<img src="/img/postman-2016/create_collection.jpg" alt="Alt text" />
+<br />
+<br />
+Now hit the “Save” button next to the request field. Enter “Log” as the name of the request and select “Calculator” from the dropdown menu.
+<br />
+<br />
+<img src="/img/postman-2016/request_save.jpg" alt="Alt text" /></p>
+
+<h3 id="writing-a-test">Writing a test</h3>
+<p>A Postman test is essentially JavaScript code which sets values for the special ‘tests’ object. To know which other objects and libraries are available while writing your test cases, make sure you check the following <a href="https://www.getpostman.com/docs/sandbox" target="_blank">link</a>. Let’s copy following code snippet in the Tests sandbox.
+<br /></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">tests[<span class="s2">"Status code is 200"</span><span class="o">]</span> <span class="o">=</span> responseCode.code <span class="o">===</span> 200;
+var jsonData <span class="o">=</span> JSON.parse<span class="o">(</span>responseBody<span class="o">)</span>;
+tests[<span class="s2">"Verify result"</span><span class="o">]</span> <span class="o">=</span> jsonData.result.x <span class="o">===</span> <span class="s2">"0.69314718056"</span>;</code></pre></figure>
+
+<p><br />
+<img src="/img/postman-2016/test.jpg" alt="Alt text" />
+<br />
+<br />
+The test will run each time you hit the “Send” button. Let’s say we need a custom function to set some variables, this can easily be achieved in the pre-request sandbox as shown below:
+<br />
+<br />
+<img src="/img/postman-2016/custom_function.jpg" alt="Alt text" />
+<br />
+<br />
+Here we are using the ‘postman’ object and are calling the setEnvironmentVariable function on it, this allows us to assign the result of our function to a variable on the environment scope for later use.</p>
+
+<h3 id="collection-runner">Collection Runner</h3>
+<p>Let’s assume we want to run several tests at once. Postman has a Collection Runner utility that allows us to just do that, even thousands of tests if we want. To access the runner click on “Runner” in the top header then select  “Calculator” as the collection and “Production” as the environment. We want the runner to do that 2 times so enter 2 in the iteration inputfield like shown in the screenshot below.
+<br />
+<br />
+<img src="/img/postman-2016/runner_full.jpg" alt="Alt text" />
+<br />
+<br />
+Scroll down and hit the blue “Start Test” button. Following test report will be presented to you.
+<br />
+<br />
+<img src="/img/postman-2016/runner_result.jpg" alt="Alt text" />
+<br />
+<br />
+Writing a request and tests for each different permutation of data could get tiresome and tedious. On the test runner screen we are given the option to choose a data file. This data file can be either a CSV or a JSON file, but will allow us to set up data in bulk to be run through the test runner. Create a new csv file and copy following snippet into it.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>input,expected_result
+2,"0.69314718056"
+224,"5.41164605186"
+3000,"8.00636756765"
+388949,"12.8712035086"
+</code></pre>
+</div>
+
+<p>We need to rewrite the body of our request so it will use the variable of our csv as follows.
+<br />
+<br />
+<img src="/img/postman-2016/request_csv.jpg" alt="Alt text" />
+<br />
+<br />
+We also need to rewrite our test. Like you can see we use the ‘data’ object to call our expected_result variable.
+<br />
+<br />
+<img src="/img/postman-2016/test_csv.jpg" alt="Alt text" />
+<br />
+<br />
+Back to the runner window. Select the “Calculator” collection and the “Production” environment. Click the “Choose Files” button and select the csv file you just created, click the “Preview” button to check for any inconsistenties. As there are 4 entries in our csv we want to use to feed our test enter 4 in the iteration inputfield.
+<br />
+<br />
+<img src="/img/postman-2016/runner_csv.jpg" alt="Alt text" />
+<br />
+<br />
+Hit the “Start Test” button and you will now see 12 green tests. Pretty neat, isn’t it?
+<br />
+<br />
+<img src="/img/postman-2016/runner_result_csv.jpg" alt="Alt text" />
+<br />
+<br /></p>
+
+<h3 id="newman">Newman</h3>
+<p>Integrating Postman tests with build systems can easily be accomplished with Newman. Newman is the command line tool companion for Postman. It can be installed through the Node.js package manager, npm. You’ll find more information on how the install Newman <a href="https://github.com/postmanlabs/newman" target="_blank">here</a>.</p>
+
+<p>After Newman is installed we can export our previously created collection and environment. Select the ‘Calculator’ collection and hit export and save as ‘my_collection.json’.
+<br />
+<br />
+<img src="/img/postman-2016/export_collection.jpg" alt="Alt text" />
+<br />
+<br />
+To export the ‘Production’ environment select ‘Manage Environment’ and on the next popup hit export and save as ‘prod_environment.json’.
+<br />
+<br />
+<img src="/img/postman-2016/export_environment.jpg" alt="Alt text" />
+<br />
+<br /></p>
+
+<p>Now run you test with Newman using following command where my_collection.json is the exported collection, my_data.csv the csv, prod_environment.json the environment and -n the number of lines from our csv.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>newman run my_collection.json -n 4 -d my_data.csv -e prod_environment.json
+</code></pre>
+</div>
+
+<h3 id="summary">Summary</h3>
+<p>In this tutorial we saw how to create a request and a test. We saw how to create a collection and how to run it with the collection runnner and Newman.
+I hope you enjoyed this tutorial and if you have any question feel free to add these as a comment or to email me at gregory.rinaldi@ordina.be.</p>
+
+<h3 id="useful-links">Useful links</h3>
+<ul>
+  <li><a href="https://www.getpostman.com/docs/importing_swagger" target="_blank">Importing Swagger files</a></li>
+  <li><a href="https://www.getpostman.com/slack-invite" target="_blank">Postman Slack invite</a></li>
+  <li><a href="https://www.getpostman.com/docs/importing_curl" target="_blank">Importing cURL commands</a></li>
+  <li><a href="https://www.getpostman.com/docs/creating_curl" target="_blank">Creating cURL commands</a></li>
+  <li><a href="https://www.getpostman.com/docs/soap_requests" target="_blank">Making SOAP requests</a></li>
+  <li><a href="https://www.getpostman.com/docs/newman_in_docker" target="_blank">Running Newman in Docker</a></li>
+  <li><a href="https://www.getpostman.com/docs/helpers" target="_blank">Authentication helpers</a></li>
+  <li><a href="https://www.getpostman.com/docs/creating_documentation" target="_blank">Publish Documentation for your Collections</a></li>
+  <li><a href="http://blog.getpostman.com/2016/03/23/conditional-workflows-in-postman/" target="_blank">Conditional Workflows in Postman</a> (work in progress)</li>
+  <li><a href="https://www.npmjs.com/package/newman/" target="_blank">Newman</a></li>
+  <li><a href="integrating_with_jenkins/" target="_blank">Integrating Newman with Jenkins </a></li>
+</ul>
+
+    </article>
+    <hr />
+    
+                
+        
+        
+            <blockquote>
+                <p>Gregory Rinaldi is a Software Engineer at Ordina Belgium, he is a maker that does his best work at night, he is passionate about all Java- and JavaScript related technologies and has a strong focus on reuse and automation. Currently he works on <a href="https://github.com/UnionVMS" target="_blank">UnionVMS</a> an Open-Source Asset Monitoring System.</p>
+
+            </blockquote>
+        
+    
+    
+        <br /><br />
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    
+</div>
+
+        </div>
+    </div>
+    <!-- Main content ends -->
+</div>
+<!-- Footer Starts -->
+<footer class="footer">
+    <!-- Container -->
+    <div class="container">
+        <!-- Foot Starts -->
+        <div class="foot">
+            <!-- Container -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-user"></i>&nbsp;&nbsp;Disclaimer</h5>
+
+                            <p>Opinions expressed on this blog reflect the writer’s views and not the position of
+                                Ordina.</p>
+
+                            <div class="brand-bg">
+                                <a target="_blank" href="https://www.facebook.com/lifeatordinabe" class="facebook"><i
+                                        class="fa fa-facebook circle-3"></i></a>
+                                <a target="_blank" href="https://twitter.com/lifeatordinabe"
+                                   class="twitter"><i
+                                        class="fa fa-twitter circle-3"></i></a>
+                                <a target="_blank" href="https://www.linkedin.com/company/ordina-belgium"
+                                   class="linkedin"><i
+                                        class="fa fa-linkedin circle-3"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-comments"></i>&nbsp;&nbsp;Recent Posts</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content">
+                                <ul class="list-unstyled">
+                                    
+                                    <li>
+                                        <span>12 Sep 2016</span> &raquo;
+                                        <a href="/microservices/2016/09/12/Microservices-Dashboard-1.0.1.html">
+                                            Microservices Dashboard</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>09 Aug 2016</span> &raquo;
+                                        <a href="/conferences/2016/08/09/s1p.html">
+                                            SpringOne Platform</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>25 Jul 2016</span> &raquo;
+                                        <a href="/security/2016/07/25/Web-of-trusted-commits.html">
+                                            A web of trusted commits</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>20 Jul 2016</span> &raquo;
+                                        <a href="/testing/2016/07/20/Automation-testing-with-postman.html">
+                                            API Testing with Postman and Newman</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>10 Jul 2016</span> &raquo;
+                                        <a href="/conference/2016/07/10/SpringIO16-DDD-Rest.html">
+                                            Spring I/O 16: Bridging the worlds of DDD & REST</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>30 Jun 2016</span> &raquo;
+                                        <a href="/conference/2016/06/30/SpringIO16-Spring-Rest-Docs.html">
+                                            Spring I/O 16: Test-driven documentation with Spring REST Docs</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>20 Jun 2016</span> &raquo;
+                                        <a href="/conference/2016/06/20/whats-new-in-docker-112.html">
+                                            DockerCon 2016 - What is new in Docker 1.12</a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-building-o"></i>&nbsp;&nbsp;Contact Us</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content address">
+                                <!-- Heading -->
+                                <h6 class="bold"><i class="fa fa-home"></i>&nbsp;&nbsp;Ordina Belgium</h6>
+                                <!-- Paragraph -->
+                                <p class="add">
+                                    Blarenberglaan 3B,<br/>
+                                    Mechelen 2800, Belgium.</p>
+
+                                <p class="tel"><i class="fa fa-phone"></i> Tel : + (32) - 15 29 58 58<br/>
+                                    <i class="fa fa-envelope"></i> Mail : <a href="#">info@ordina.be</a><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Foot Ends -->
+        <!-- Footer Content -->
+        <p class="pull-left">Copyright &copy; 2016 - <a href="#">Ordina JWorks</a></p>
+        <ul class="list-inline pull-right">
+            <!-- List -->
+            <li><a href="/">Home</a>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/contact/">Contact</a></li>
+        </ul>
+        <!-- Clearfix -->
+        <div class="clearfix"></div>
+    </div>
+</footer>
+<!-- Footer Ends -->
+
+<!-- Outer Ends -->
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-angle-up bg-color"></i></a></span>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/placeholders.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/respond.min.js"></script>
+<script src="/js/html5shiv.js"></script>
+<script src="/js/main.js"></script>
+
+<script src="/js/imagesloaded.min.js"></script>
+<script src="/js/masonry.js"></script>
+
+<!-- Javascript for this page -->
+<script>
+    // Initialize Masonry
+    var $box = $('.blog-masonry').masonry();
+    // Layout Masonry again after all images have loaded
+    $box.imagesLoaded(function () {
+        $box.masonry();
+    });
+</script>
+
+<!-- Custom JS. Type your JS code in custom.js file -->
+<script src="/js/custom.js"></script>
+
+<!-- Disqus -->
+
+    <script type="text/javascript">
+        var disqus_config = function () {
+            this.page.url = "https://ordina-jworks.github.io/testing/2016/07/20/Automation-testing-with-postman.html";
+            this.page.identifier = "/testing/2016/07/20/Automation-testing-with-postman.html";
+            this.page.title = "API Testing with Postman and Newman";
+        };
+    </script>
+    <script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>

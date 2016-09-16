@@ -6,8 +6,8 @@
 </description>
     <link>https://ordina-jworks.github.io/</link>
     <atom:link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 12 Sep 2016 15:05:51 +0000</pubDate>
-    <lastBuildDate>Mon, 12 Sep 2016 15:05:51 +0000</lastBuildDate>
+    <pubDate>Fri, 16 Sep 2016 07:56:40 +0000</pubDate>
+    <lastBuildDate>Fri, 16 Sep 2016 07:56:40 +0000</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
     
       <item>
@@ -631,6 +631,187 @@ So follow Sherlock’s example by embedding and safeguarding security in your da
         
         
         <category>Security</category>
+        
+      </item>
+    
+      <item>
+        <title>API Testing with Postman and Newman</title>
+        <description>&lt;h3 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h3&gt;
+&lt;p&gt;For the purpose of this tutorial it is mandatory to have &lt;a href=&quot;https://www.getpostman.com/&quot; target=&quot;_blank&quot;&gt;Postman&lt;/a&gt; installed which is available as a Chrome extension, as well as a Mac application. It is also mandatory to create an account at &lt;a href=&quot;https://www.algorithmia.com/&quot; target=&quot;_blank&quot;&gt;Algorithmia&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;creating-and-selecting-an-environment&quot;&gt;Creating and selecting an environment&lt;/h3&gt;
+&lt;p&gt;Postman’s environment functionality makes it very easy to switch between different environments. A set of variables can be configured per environment and when switching from one environment to another one these will be replaced accordingly. For example let’s create an environment called “production”.  Click the “No environment” dropdown in the header and select “Manage environments”.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/manage_environment.png&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Select the “Add” button on the popup that is presented to you.  Add &lt;code class=&quot;highlighter-rouge&quot;&gt;url https://api.algorithmia.com/v1/algo/&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;key simNz9pf7hfAQNifdA224K1GFhs1&lt;/code&gt;.  Don’t forget to replace the secret by your own key.
+ &lt;br /&gt;
+ &lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/manage_environment_values.jpg&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Finally select the “Production” environment in the environment dropdown and let’s create our first request.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/manage_environment_production.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;creating-a-post-request&quot;&gt;Creating a POST request&lt;/h3&gt;
+&lt;p&gt;Enter &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}/WayneS/Calculator/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;/code&gt; in the request field and change the method from GET to POST.  We need to add some additional headers as well so add &lt;code class=&quot;highlighter-rouge&quot;&gt;Content-Type application/json&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Authorization Simple {{key}}&lt;/code&gt;.  As you can see, we are using the environment variables &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;/code&gt; so when switching environments, those variables will get replaced.  The &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;/code&gt; format can only be used in the request URL/URL params/Header values/form-data/url-encoded values/Raw body content/Helper fields.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/request_headers.png&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Postman also has a few dynamic variables which you can use. For example, &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{$guid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;/code&gt; is generating a random v4 style guid, &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{$timestamp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;/code&gt; is the current timestamp, &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{$randomInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;/code&gt; a random integer between 0 and 1000. More of those will be added in future releases. But for now, let us just simply enter &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;x=log(2)&quot;&lt;/code&gt; as the raw content of our request.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/request_body.png&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Finally let’s hit the “Send” button and if everything goes as expected, we should receive the following response.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/request_send.jpg&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Next we are going to write our test, but first let us save our request into a collection. By clicking on the create collection button on the collections tab, the following popup will be displayed.  Simply enter “Calculator” as the name of the collection and hit the create button.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/create_collection.jpg&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Now hit the “Save” button next to the request field. Enter “Log” as the name of the request and select “Calculator” from the dropdown menu.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/request_save.jpg&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;writing-a-test&quot;&gt;Writing a test&lt;/h3&gt;
+&lt;p&gt;A Postman test is essentially JavaScript code which sets values for the special ‘tests’ object. To know which other objects and libraries are available while writing your test cases, make sure you check the following &lt;a href=&quot;https://www.getpostman.com/docs/sandbox&quot; target=&quot;_blank&quot;&gt;link&lt;/a&gt;. Let’s copy following code snippet in the Tests sandbox.
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;tests[&lt;span class=&quot;s2&quot;&gt;&quot;Status code is 200&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; responseCode.code &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; 200;
+var jsonData &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; JSON.parse&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;responseBody&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;;
+tests[&lt;span class=&quot;s2&quot;&gt;&quot;Verify result&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; jsonData.result.x &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;0.69314718056&quot;&lt;/span&gt;;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/test.jpg&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+The test will run each time you hit the “Send” button. Let’s say we need a custom function to set some variables, this can easily be achieved in the pre-request sandbox as shown below:
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/custom_function.jpg&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Here we are using the ‘postman’ object and are calling the setEnvironmentVariable function on it, this allows us to assign the result of our function to a variable on the environment scope for later use.&lt;/p&gt;
+
+&lt;h3 id=&quot;collection-runner&quot;&gt;Collection Runner&lt;/h3&gt;
+&lt;p&gt;Let’s assume we want to run several tests at once. Postman has a Collection Runner utility that allows us to just do that, even thousands of tests if we want. To access the runner click on “Runner” in the top header then select  “Calculator” as the collection and “Production” as the environment. We want the runner to do that 2 times so enter 2 in the iteration inputfield like shown in the screenshot below.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/runner_full.jpg&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Scroll down and hit the blue “Start Test” button. Following test report will be presented to you.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/runner_result.jpg&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Writing a request and tests for each different permutation of data could get tiresome and tedious. On the test runner screen we are given the option to choose a data file. This data file can be either a CSV or a JSON file, but will allow us to set up data in bulk to be run through the test runner. Create a new csv file and copy following snippet into it.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;input,expected_result
+2,&quot;0.69314718056&quot;
+224,&quot;5.41164605186&quot;
+3000,&quot;8.00636756765&quot;
+388949,&quot;12.8712035086&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We need to rewrite the body of our request so it will use the variable of our csv as follows.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/request_csv.jpg&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+We also need to rewrite our test. Like you can see we use the ‘data’ object to call our expected_result variable.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/test_csv.jpg&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Back to the runner window. Select the “Calculator” collection and the “Production” environment. Click the “Choose Files” button and select the csv file you just created, click the “Preview” button to check for any inconsistenties. As there are 4 entries in our csv we want to use to feed our test enter 4 in the iteration inputfield.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/runner_csv.jpg&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+Hit the “Start Test” button and you will now see 12 green tests. Pretty neat, isn’t it?
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/runner_result_csv.jpg&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;newman&quot;&gt;Newman&lt;/h3&gt;
+&lt;p&gt;Integrating Postman tests with build systems can easily be accomplished with Newman. Newman is the command line tool companion for Postman. It can be installed through the Node.js package manager, npm. You’ll find more information on how the install Newman &lt;a href=&quot;https://github.com/postmanlabs/newman&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;After Newman is installed we can export our previously created collection and environment. Select the ‘Calculator’ collection and hit export and save as ‘my_collection.json’.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/export_collection.jpg&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+To export the ‘Production’ environment select ‘Manage Environment’ and on the next popup hit export and save as ‘prod_environment.json’.
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;/img/postman-2016/export_environment.jpg&quot; alt=&quot;Alt text&quot; /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now run you test with Newman using following command where my_collection.json is the exported collection, my_data.csv the csv, prod_environment.json the environment and -n the number of lines from our csv.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;newman run my_collection.json -n 4 -d my_data.csv -e prod_environment.json
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;summary&quot;&gt;Summary&lt;/h3&gt;
+&lt;p&gt;In this tutorial we saw how to create a request and a test. We saw how to create a collection and how to run it with the collection runnner and Newman.
+I hope you enjoyed this tutorial and if you have any question feel free to add these as a comment or to email me at gregory.rinaldi@ordina.be.&lt;/p&gt;
+
+&lt;h3 id=&quot;useful-links&quot;&gt;Useful links&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.getpostman.com/docs/importing_swagger&quot; target=&quot;_blank&quot;&gt;Importing Swagger files&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.getpostman.com/slack-invite&quot; target=&quot;_blank&quot;&gt;Postman Slack invite&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.getpostman.com/docs/importing_curl&quot; target=&quot;_blank&quot;&gt;Importing cURL commands&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.getpostman.com/docs/creating_curl&quot; target=&quot;_blank&quot;&gt;Creating cURL commands&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.getpostman.com/docs/soap_requests&quot; target=&quot;_blank&quot;&gt;Making SOAP requests&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.getpostman.com/docs/newman_in_docker&quot; target=&quot;_blank&quot;&gt;Running Newman in Docker&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.getpostman.com/docs/helpers&quot; target=&quot;_blank&quot;&gt;Authentication helpers&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.getpostman.com/docs/creating_documentation&quot; target=&quot;_blank&quot;&gt;Publish Documentation for your Collections&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.getpostman.com/2016/03/23/conditional-workflows-in-postman/&quot; target=&quot;_blank&quot;&gt;Conditional Workflows in Postman&lt;/a&gt; (work in progress)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.npmjs.com/package/newman/&quot; target=&quot;_blank&quot;&gt;Newman&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;integrating_with_jenkins/&quot; target=&quot;_blank&quot;&gt;Integrating Newman with Jenkins &lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 20 Jul 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/testing/2016/07/20/Automation-testing-with-postman.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/testing/2016/07/20/Automation-testing-with-postman.html</guid>
+        
+        <category>Postman</category>
+        
+        <category>Integration Testing</category>
+        
+        <category>Newman</category>
+        
+        <category>Automation</category>
+        
+        <category>Testing</category>
+        
+        
+        <category>Testing</category>
         
       </item>
     
@@ -3431,452 +3612,6 @@ Using key value datastores to cache data of other microservices on your own micr
         
         
         <category>Microservices</category>
-        
-      </item>
-    
-      <item>
-        <title>Component-based application architecture with AngularJS and Typescript</title>
-        <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Ideally, the whole application should be a tree of components that implement clearly defined inputs and outputs, and minimize two-way data binding. That way, it’s easier to predict when data changes and what the state of a component is.&lt;/p&gt;
-
-  &lt;p&gt;– AngularJS documentation&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;In this article I will offer some basic guidelines on how to create a scalable AngularJS application with &lt;strong&gt;reusable, well encapsulated components&lt;/strong&gt; that are &lt;strong&gt;easy to maintain and refactor&lt;/strong&gt;.
-AngularJS (version 1.5.5 at the time of writing) and its latest features offers us the ability to structure our apps as a tree of components.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Each component contains its own controller and template&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;It can even have its own (relative) routing configured if you take advantage of the new &lt;strong&gt;Component Router&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;If you are on a team with multiple front-end developers you can easily divide the work by letting each developer focus on a separate component.
-It also helps in migrating to Angular 2, though I cannot promise it will be an easy task.
-Another bonus point is you are getting into the mindset of modern front-end development: &lt;strong&gt;web components&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;My preferred toolchain when developing AngularJS applications consists of Typescript, NPM and Webpack.
-The sample code in this article and the sample application are created together with these tools.&lt;/p&gt;
-
-&lt;p&gt;You can find the sample application on Github:
-&lt;a href=&quot;https://github.com/ryandegruyter/angularjs-components&quot; title=&quot;Sample app&quot;&gt;https://github.com/ryandegruyter/angularjs-components&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;what-is-a-component&quot;&gt;What is a component?&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;In AngularJS a &lt;strong&gt;component&lt;/strong&gt; is a directive.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;More specifically we call it a &lt;strong&gt;component directive&lt;/strong&gt; or &lt;strong&gt;template directive&lt;/strong&gt;.
-It is an approach to writing your own custom HTML elements which browsers are able to read and render.
-HTML comes with a set of pre-defined elements, for example the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;div&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt; element or the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;span&amp;gt;&amp;lt;/span&amp;gt;&lt;/code&gt; element.&lt;/p&gt;
-
-&lt;p&gt;By combing and nesting these standard HTML tags we can build complex UI widgets.
-We can change their appearance and behavior dynamically with JavaScript and CSS.&lt;/p&gt;
-
-&lt;p&gt;True web components can isolate their structure, appearance and behavior.
-They make use of a technology called the Shadow DOM, which isolates the component in a separate DOM tree.
-This element will have its styles and scripts encapsulated, they will not conflict with the styles and scripts inside the parent DOM.&lt;/p&gt;
-
-&lt;p&gt;Angular 2 takes full advantage of this technology, but unfortunately AngularJS, the framework I will be talking about in this article, does not.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Components you write and register inside AngularJS &lt;strong&gt;do not&lt;/strong&gt; get isolated into a separate DOM tree.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Lucky for us we are able to mimic the effect of Web components by using directives.
-We can write a reusable UI element, declare it with a custom tag and configure it by supplying attributes on the element.
-My advice is to be sure to use correct naming conventions and a module system so styles and scripts will not conflict with each other.&lt;/p&gt;
-
-&lt;h2 id=&quot;directives-and-components&quot;&gt;Directives and components&lt;/h2&gt;
-
-&lt;p&gt;To create and register a custom element in AngularJS, we can use either methods:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.directive (name, factoryFunction)&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.component (name, object)&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;While components are restricted to custom elements, directives can be used to create both elements as well as custom attributes.&lt;/p&gt;
-
-&lt;p&gt;There are 3 types of directives:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Component directive&lt;/li&gt;
-  &lt;li&gt;Attribute directive&lt;/li&gt;
-  &lt;li&gt;Structural directive&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;A &lt;strong&gt;Component directive&lt;/strong&gt; is a directive with a template.
-The &lt;code class=&quot;highlighter-rouge&quot;&gt;.component()&lt;/code&gt; method is a helper method which creates a directive set with default properties.&lt;/p&gt;
-
-&lt;p&gt;An &lt;strong&gt;Attribute directive&lt;/strong&gt; is declared as an element attribute and they can change the appearance or behavior of an element (&lt;code class=&quot;highlighter-rouge&quot;&gt;ng-change&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;ng-click&lt;/code&gt;, …).&lt;/p&gt;
-
-&lt;p&gt;A &lt;strong&gt;Structural directive&lt;/strong&gt; is an attribute or element that manipulates the DOM by adding or removing DOM elements (&lt;code class=&quot;highlighter-rouge&quot;&gt;ng-if&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;ng-repeat&lt;/code&gt;, …).&lt;/p&gt;
-
-&lt;h2 id=&quot;when-do-we-use-directive-and-when-do-we-use-component&quot;&gt;When do we use .directive(), and when do we use .component()?&lt;/h2&gt;
-&lt;p&gt;Custom UI elements should be created with the &lt;code class=&quot;highlighter-rouge&quot;&gt;.component()&lt;/code&gt; helper method because it:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;enforces best practices and provides optimizations (isolate scope, bindings)&lt;/li&gt;
-  &lt;li&gt;has handy defaults making it easy to create components&lt;/li&gt;
-  &lt;li&gt;makes migration to Angular 2 easier&lt;/li&gt;
-  &lt;li&gt;can take advantage of the new component router which will be the default router in Angular 2&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Use the &lt;code class=&quot;highlighter-rouge&quot;&gt;.directive()&lt;/code&gt; method when you want to manipulate the DOM by adding or removing elements (Structural directive) or when you want to change the appearance or behavior of an element (Attribute directive).&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;creating-a-component-based-angularjs-application&quot;&gt;Creating a component-based AngularJS application&lt;/h2&gt;
-&lt;p&gt;Beginning with a component-based application architecture we need to have a root component.
-Before creating a component you have to decide if it will be a  &lt;strong&gt;Presentational component&lt;/strong&gt; or a &lt;strong&gt;Container component&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;presentational-component&quot;&gt;Presentational component&lt;/h2&gt;
-&lt;p&gt;Also known as a dumb component.
-They are used to visualize data and can easily be reused.
-They don’t manipulate application state nor do they fetch any data.
-Instead they define a public API in which they can receive inputs (&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;@&lt;/code&gt; bindings), and communicate any outputs (&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt; binding) with their direct parent.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Designers can easily work on Presentational components because they don’t interfere with application logic.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;These components are unaware of any application state, and they only get data passed down to them.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;A simple presentational root component.&lt;/em&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;	&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;RootComponent&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IComponentOptions&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'app'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-		&lt;span class=&quot;nl&quot;&gt;bindings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		    &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-		&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-  		&lt;span class=&quot;nl&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;
-	    	&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;h1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/h1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;	    	&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;currency&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;converter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/currency-converter&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;	  	&lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-        &lt;span class=&quot;nx&quot;&gt;angular&lt;/span&gt;
-                &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'currencyConverterApp, []'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Rootcomponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;RootComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;This component has a very simple API with one input -  &lt;code class=&quot;highlighter-rouge&quot;&gt;title&lt;/code&gt; - and zero outputs.
-It doesn’t call a service or fetch any data.
-It doesn’t update any outside resources or make any requests to manipulate application state.
-Also notice how easy it was to register this component directive.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Let’s create the same component directive but register it with the &lt;code class=&quot;highlighter-rouge&quot;&gt;.directive()&lt;/code&gt; method.&lt;/em&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;    &lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;RootComponent&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IDirective&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'app'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;restrict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'E'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;bindToController&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;scope&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IScope&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;controllerAs&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'$ctrl'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;h1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/h1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;currency&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;converter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/currency-converter&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;         &lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IDirective&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;RootComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;angular&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'currencyConverterApp, []'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Rootcomponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;RootComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;As you can see, this has a lot more configuration compared to using the &lt;code class=&quot;highlighter-rouge&quot;&gt;.component()&lt;/code&gt; helper method.
-Although it offers more power and flexibility, its more practical to have the &lt;code class=&quot;highlighter-rouge&quot;&gt;.component()&lt;/code&gt; method when creating custom UI elements.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;bindings are automatically bound to the controller&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;controllerAs&lt;/code&gt; defaults to &lt;code class=&quot;highlighter-rouge&quot;&gt;$ctrl&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;always creates an isolate scope&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;container-components&quot;&gt;Container components&lt;/h2&gt;
-&lt;p&gt;Also known as smart components.
-This type of component is more tightly coupled to the application and not intended for reusability.
-It fetches data, manages part of the application state and provides the data to its child components.
-The child component communicates any update on the data through its output bindings (&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt;).
-The container component eventually decides what action to take with the data, not the child component.&lt;/p&gt;
-
-&lt;p&gt;Let’s look at an example of a container component, I will leave out the complete template for brevity’s sake, you can view the complete code in the companion repository.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;First we start with our component definition:&lt;/em&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;    &lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CurrencyConverter&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IComponentOptions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'currencyConverter'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;nl&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;currencies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;select&lt;/span&gt;
-                &lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;From&quot;&lt;/span&gt;
-                &lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selected&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;$ctrl.fromSelected(selectedCurrency)&quot;&lt;/span&gt;
-                &lt;span class=&quot;nx&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;as&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;rates&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt;
-                &lt;span class=&quot;nx&quot;&gt;currencies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;$ctrl.fromCurrencies&quot;&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/currencies-select&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;currencies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;select&lt;/span&gt;
-                &lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;To&quot;&lt;/span&gt;
-                &lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selected&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;$ctrl.toSelected(selectedCurrency)&quot;&lt;/span&gt;
-                &lt;span class=&quot;nx&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;as&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;rates&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt;
-                &lt;span class=&quot;nx&quot;&gt;currencies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;$ctrl.toCurrencies&quot;&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/currencies-select&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;            &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;		
-        &lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;nl&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CurrencyConverterComponentController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;The template contains two declarations of a presentational component &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;currencies-select&amp;gt;&lt;/code&gt;.
-When we look at the attributes of the currencies-select element, the component API consists of &lt;strong&gt;three inputs&lt;/strong&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;title&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;show-values-as-rates&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;currencies&lt;/code&gt;) and &lt;strong&gt;one output&lt;/strong&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;on-selected&lt;/code&gt;).
-Our container component can bind a callback method on the on-selected attribute which offers an opportunity for the currencies-select component to &lt;strong&gt;communicate with its parent component&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Below we define our components controller, here we can set and manipulate our template’s view model.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CurrencyConverterComponentController&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;nl&quot;&gt;selectedFromCurrency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nl&quot;&gt;selectedToCurrency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nl&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nl&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;nl&quot;&gt;fromCurrencies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
-    &lt;span class=&quot;nl&quot;&gt;toCurrencies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
-
-    &lt;span class=&quot;kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$inject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CurrenciesDataService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;currencyDataService&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CurrenciesDataService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;$onInit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fromCurrencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toCurrencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;currencyDataService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getCurrenciesByYear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2016&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;convert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;amount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;fromSelected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectedToCurrency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;convert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;rate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectedToCurrency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;rate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectedFromCurrency&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;toSelected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectedFromCurrency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;convert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectedFromCurrency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;rate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;rate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectedToCurrency&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;This component injects a data service to fetch a list of currencies.
-We pass this list to each &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;currencies-select&amp;gt;&lt;/code&gt; element in the &lt;code class=&quot;highlighter-rouge&quot;&gt;$onInit&lt;/code&gt; method.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;$onInit&lt;/code&gt; is a component lifecycle method that gets called by the framework each time the component gets instantiated.
-In this method we set our view model properties &lt;code class=&quot;highlighter-rouge&quot;&gt;_fromCurrencies_&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;_toCurrencies_&lt;/code&gt; equal to a list of currencies fetched from the data service.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;fromSelected&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;toSelected&lt;/code&gt; methods are passed down as callbacks for the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;currencies-select on-selected&amp;gt;&lt;/code&gt; output.&lt;/p&gt;
-
-&lt;p&gt;So how does our presentational component definition look like?&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CurrencySelectComponent&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IComponentOptions&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'currenciesSelect'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;nl&quot;&gt;bindings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;currencies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;onSelected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;amp;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;showSelected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;showValuesAsRates&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;'&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-    &lt;span class=&quot;nl&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CurrencySelectComponentController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nl&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CurrencySelectComponentController&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;currencies&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
-    &lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;onSelected&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;showSelected&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;showValuesAsRates&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;selected&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;onCurrencyClick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;currency&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selected&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onSelected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;selectedCurrency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Bindings define the components API, in the above case there are four bindings.
-Our previous example declared this component but we only noticed three inputs and one output.
-Apparently there is a fourth input called &lt;code class=&quot;highlighter-rouge&quot;&gt;_showSelected_&lt;/code&gt;.
-We can guess that it’s a flag for showing the selected currency.
-But as a new developer, we cannot be sure.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;This is one of the reasons why it is important to &lt;strong&gt;document your components API&lt;/strong&gt;.
-It will save new developers and designers a lot of time figuring out how to correctly use your component.
-Your component will become more transparent and not just an abstract definition.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;As you can see this component does not inject any data services or manage any outside state.
-It only receives data through its input bindings:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@&lt;/code&gt; stands for one way string binding&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt; stands for one way any other primitive/type binding&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The output binding &lt;code class=&quot;highlighter-rouge&quot;&gt;public onSelected:Function;&lt;/code&gt; gets called each time the &lt;code class=&quot;highlighter-rouge&quot;&gt;onCurrencyClick&lt;/code&gt; method gets called, it passes the selected currency which gets communicated back to the parent component.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Make sure the parameter object key matches the parameter name in the parent component’s viewmodel&lt;/strong&gt;, or the component will not be able to communicate any data.
-in this case &lt;code class=&quot;highlighter-rouge&quot;&gt;selectedCurrency&lt;/code&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;onCurrencyClick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;currency&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selected&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onSelected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;selectedCurrency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;currency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;And inside the parent component’s template:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;currencies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selected&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;$ctrl.toSelected(selectedCurrency)&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Another way of accessing selectedCurrency, is to use &lt;code class=&quot;highlighter-rouge&quot;&gt;$locals&lt;/code&gt;.
-This is useful when you want to send multiple types of data back.
-The advantage is you don’t have to specify each parameter separately in the component’s template.
-The disadvantage is &lt;code class=&quot;highlighter-rouge&quot;&gt;$locals&lt;/code&gt; is not descriptive.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;currencies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;select&lt;/span&gt;
-	&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selected&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;$ctrl.toSelected($locals)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;To access the selectedCurrency you would use the property on the $locals object with the same name:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;toSelected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$locals&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;selected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Currency&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$locals&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectedCurrency&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;component-communication&quot;&gt;Component communication&lt;/h2&gt;
-
-&lt;h3 id=&quot;output-binding&quot;&gt;Output binding&lt;/h3&gt;
-
-&lt;p&gt;In our previous example we saw an example of child to parent communication by mapping an output binding:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;binding&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;na&quot;&gt;onSelected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;amp;'&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;The parent component can pass a method to this binding which the child component can call back and optionally send back any data to.&lt;/p&gt;
-
-&lt;h3 id=&quot;mapping-the-require-property&quot;&gt;Mapping the require property&lt;/h3&gt;
-
-&lt;p&gt;A child component can also require its parent components controller by mapping it in the require property:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;na&quot;&gt;parentCtrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'^parentComponentName'&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;The &lt;strong&gt;^&lt;/strong&gt; symbol is important here.
-You should replace &lt;code class=&quot;highlighter-rouge&quot;&gt;parentComponentName&lt;/code&gt; with the correct component name, you are free to choose a different name for the key, in this case &lt;code class=&quot;highlighter-rouge&quot;&gt;parentCtrl&lt;/code&gt;.
-The parent controller will get bound on to the property &lt;code class=&quot;highlighter-rouge&quot;&gt;parentCtrl&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Be aware that this creates a tight coupling between the child and parent component.&lt;/p&gt;
-
-&lt;h3 id=&quot;using-a-service&quot;&gt;Using a service&lt;/h3&gt;
-
-&lt;p&gt;We should access and manipulate application state in our container components, but only through services, a component’s controller primary responsibility is to manage the template’s view model.
-You can implement a custom observer pattern inside the service, or use the rootscope as an eventbus.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SampleService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SERVICE_NAME&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;mysampleservice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;EVENT_NAME&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;sampleEvent&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$inject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'$rootScope'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$rootScope&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IRootscopeService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){}&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;scope&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IScope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;handler&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$rootScope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SampleService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;EVENT_NAME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'$destroy'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;handler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;notify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$rootScope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$emit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SampleService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;EVENT_NAME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;A component controller can get notified by any changes by subscribing to the service:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;    &lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MyComponentController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;		
-        &lt;span class=&quot;kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$inject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'$scope'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SampleService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SERVICE_NAME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isolatescope&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IScope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sampleService&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SampleService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){}&lt;/span&gt;
-
-        &lt;span class=&quot;nx&quot;&gt;$onInit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sampleService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isolateScope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-         &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;summary&quot;&gt;Summary&lt;/h3&gt;
-
-&lt;p&gt;Start with a root component and work your way down building components that are composed of either &lt;strong&gt;presentational&lt;/strong&gt; and &lt;strong&gt;container&lt;/strong&gt; components.
-Data should flow down in one direction (&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;@&lt;/code&gt; input bindings), and events should propagate back up (&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt; output binding).&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Services&lt;/strong&gt; manage application state&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Controllers&lt;/strong&gt; manage a templates’ view model&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Application state is accessed only by &lt;strong&gt;container components through services&lt;/strong&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;.component()&lt;/code&gt; when writing custom HTML elements in AngularJS&lt;/li&gt;
-  &lt;li&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;.directive()&lt;/code&gt; when you need to manipulate the DOM or need to change the appearance or behavior of a DOM element&lt;/li&gt;
-  &lt;li&gt;Minimize 2 way binding (&lt;code class=&quot;highlighter-rouge&quot;&gt;ngModel&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;=&lt;/code&gt; binding)&lt;/li&gt;
-  &lt;li&gt;Presentational components can contain both container components and presentational components and vice versa&lt;/li&gt;
-  &lt;li&gt;Use the &lt;strong&gt;component router&lt;/strong&gt;, which makes it easy to bind URL paths to components. A component can contain its own relative routes too&lt;/li&gt;
-  &lt;li&gt;Document your component’s API so new developers and designers know how to use it correctly&lt;/li&gt;
-  &lt;li&gt;Keep your controllers clean, their main purpose is to set and manipulate the templates’ view model. &lt;strong&gt;Delegate business logic to services&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Mon, 25 Apr 2016 00:00:00 +0000</pubDate>
-        <link>https://ordina-jworks.github.io/angularjs-typescript/2016/04/25/component-based-application-architecture-with-angularjs-and-typescript.html</link>
-        <guid isPermaLink="true">https://ordina-jworks.github.io/angularjs-typescript/2016/04/25/component-based-application-architecture-with-angularjs-and-typescript.html</guid>
-        
-        <category>angularjs</category>
-        
-        <category>typescript</category>
-        
-        <category>javascript</category>
-        
-        <category>components</category>
-        
-        <category>architecture</category>
-        
-        <category>best practices</category>
-        
-        
-        <category>AngularJS-TypeScript</category>
         
       </item>
     
