@@ -41,7 +41,7 @@ Postman also has a few dynamic variables which you can use. For example `{% raw 
 ![Alt text](/img/postman-2016/request_body.png)
 <br/>
 <br/>
-Finally let's hit the "Send" button and if everything goes as expected we should receive the following response.
+Finally let's hit the "Send" button and if everything goes as expected, we should receive the following response.
 <br/>
 <br/>
 ![Alt text](/img/postman-2016/request_send.jpg)
