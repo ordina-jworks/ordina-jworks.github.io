@@ -35,7 +35,7 @@ Enter `{% raw %}{{url}}/WayneS/Calculator/0.1.0{% endraw %}` in the request fiel
 ![Alt text](/img/postman-2016/request_headers.png)
 <br/>
 <br/>
-Postman also has a few dynamic variables which you can use. For example `{% raw %}{{$guid}}{% endraw %}` a v4 style guid, `{% raw %}{{$timestamp}}{% endraw %}` the current timestamp, `{% raw %}{{$randomInt}}{% endraw %}` a random integer between 0 and 1000. More of those will be added in future releases. But for now let us just simply enter `"x=log(2)"` as the raw content of our request.
+Postman also has a few dynamic variables which you can use. For example, `{% raw %}{{$guid}}{% endraw %}` is generating a random v4 style guid, `{% raw %}{{$timestamp}}{% endraw %}` is the current timestamp, `{% raw %}{{$randomInt}}{% endraw %}` a random integer between 0 and 1000. More of those will be added in future releases. But for now, let us just simply enter `"x=log(2)"` as the raw content of our request.
 <br/>
 <br/>
 ![Alt text](/img/postman-2016/request_body.png)
