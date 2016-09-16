@@ -68,7 +68,7 @@ tests["Verify result"] = jsonData.result.x === "0.69314718056";{% endhighlight %
 ![Alt text](/img/postman-2016/test.jpg)
 <br/>
 <br/>
-The test will run each time you hit the "Send" button. If you need for example an other functions for setting variables you can write them for example in the pre-request sandbox as shown below:
+The test will run each time you hit the "Send" button. Let's say we need a custom function to set some variables, this can easily be achieved in the pre-request sandbox as shown below:
 <br/>
 <br/>
 ![Alt text](/img/postman-2016/custom_function.jpg)
