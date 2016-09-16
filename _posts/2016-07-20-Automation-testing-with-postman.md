@@ -17,7 +17,7 @@ Postman's environment functionality makes it very easy to switch between differe
 ![Alt text](/img/postman-2016/manage_environment.png)
 <br/>
 <br/>
-Select the “Add” button on the popup that is presented to you.  Add `url https://api.algorithmia.com/v1/algo/` and `key simNz9pf7hfAQNifdApf4K1GFhs1`.  Don't forget to replace the secret by your own key.
+Select the “Add” button on the popup that is presented to you.  Add `url https://api.algorithmia.com/v1/algo/` and `key simNz9pf7hfAQNifdA224K1GFhs1`.  Don't forget to replace the secret by your own key.
  <br/>
  <br/>
 ![Alt text](/img/postman-2016/manage_environment_values.jpg)
