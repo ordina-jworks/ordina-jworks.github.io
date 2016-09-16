@@ -77,7 +77,7 @@ The test will run each time you hit the "Send" button. If you need for example a
 Here we are using the ‘postman’ object and are calling the setEnvironmentVariable function on it, this allows us to assign the result of our function to a variable on the environment scope for later use.
 
 ### Collection Runner
-Let's assume we want to run several tests at once. Postman has a Collection Runner utility that allows us to do that and even thousands of times if we want. To access the runner click on "Runner" in the top header then select  "Calculator" as the collection and "Production" as the environment. We want the runner to do that 2 times so enter 2 in the iteration inputfield like shown in the screenshot below.
+Let's assume we want to run several tests at once. Postman has a Collection Runner utility that allows us to just do that, even thousands of tests if we want. To access the runner click on "Runner" in the top header then select  "Calculator" as the collection and "Production" as the environment. We want the runner to do that 2 times so enter 2 in the iteration inputfield like shown in the screenshot below.
 <br/>
 <br/>
 ![Alt text](/img/postman-2016/runner_full.jpg)
