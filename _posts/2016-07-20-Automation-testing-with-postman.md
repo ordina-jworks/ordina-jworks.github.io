@@ -29,7 +29,7 @@ Finally select the "Production" environment in the environment dropdown and let'
 ![Alt text](/img/postman-2016/manage_environment_production.png)
 
 ### Creating a POST request
-Enter `{% raw %}{{url}}/WayneS/Calculator/0.1.0{% endraw %}` in the request field and change the method from GET to POST.  We need to add some additional headers aswell so add `Content-Type application/json`, `Authorization {% raw %}Simple {{key}}{% endraw %}`.  Ass youo can see we are using the environment variable `{% raw %}{{url}}{% endraw %}` and `{% raw %}{{key}}{% endraw %}` so that when switching environments these variables will be replaced.  The `{% raw %}{{...}}{% endraw %}` format can only be used in the request URL/URL params/Header values/form-data/url-encoded values/Raw body content/Helper fields.
+Enter `{% raw %}{{url}}/WayneS/Calculator/0.1.0{% endraw %}` in the request field and change the method from GET to POST.  We need to add some additional headers as well so add `Content-Type application/json`, `Authorization {% raw %}Simple {{key}}{% endraw %}`.  Ass youo can see we are using the environment variable `{% raw %}{{url}}{% endraw %}` and `{% raw %}{{key}}{% endraw %}` so that when switching environments these variables will be replaced.  The `{% raw %}{{...}}{% endraw %}` format can only be used in the request URL/URL params/Header values/form-data/url-encoded values/Raw body content/Helper fields.
 <br/>
 <br/>
 ![Alt text](/img/postman-2016/request_headers.png)
