@@ -148,7 +148,7 @@ newman run my_collection.json -n 4 -d my_data.csv -e prod_environment.json
 
 ### Summary
 In this tutorial we saw how to create a request and a test. We saw how to create a collection and how to run it with the collection runnner and Newman.
-I hope you enjoyed this tutorial and if you have any question feel free.
+I hope you enjoyed this tutorial and if you have any question feel free to add these as a comment or to email me at gregory.rinaldi@ordina.be.
 
 ### Useful links
 - [Importing Swagger files](https://www.getpostman.com/docs/importing_swagger){:target="_blank"}
