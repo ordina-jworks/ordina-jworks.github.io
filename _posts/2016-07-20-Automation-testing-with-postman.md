@@ -59,7 +59,7 @@ Now hit the "Save" button next to the request field. Enter "Log" as the name of 
 ![Alt text](/img/postman-2016/request_save.jpg)
 
 ### Writing a test
-A Postman test is essentially JavaScript code which sets values for the special 'tests' object. To know which other objects and libraries are available while writing your test cases make sure you check following [link](https://www.getpostman.com/docs/sandbox){:target="_blank"}. Let's copy following code snippet in the Tests sandbox.
+A Postman test is essentially JavaScript code which sets values for the special 'tests' object. To know which other objects and libraries are available while writing your test cases, make sure you check the following [link](https://www.getpostman.com/docs/sandbox){:target="_blank"}. Let's copy following code snippet in the Tests sandbox.
 <br/>
 {% highlight bash %}tests["Status code is 200"] = responseCode.code === 200;
 var jsonData = JSON.parse(responseBody);
