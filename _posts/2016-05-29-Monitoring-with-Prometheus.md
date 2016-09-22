@@ -15,7 +15,7 @@ Instead of having to monitor one system,
 we are suddenly faced with the challenge to oversee our manifold services.
 There are many monitoring systems available,
 but not all of them are fit for monitoring large, distributed systems.
-Prometheus is a **white box monitoring and alerting** system that is designed for large, scalable environments.
+
 Black box monitoring systems like [Nagios](https://www.nagios.org) allow you to check if an application is alive and healthy.
 This is done by e.g. pinging the service,
 checking if there is enough disk space,
@@ -29,6 +29,8 @@ How fast are requests handled for different endpoints?
 Are there many errors being logged?
 How many disk IO operations is the service making?
 These are all important questions that need to be asked to keep a service functional.
+
+Prometheus is a **white box monitoring and alerting** system that is designed for large, scalable environments.
 With Prometheus,
 we can answer all these questions,
 by exposing the internal state of your applications.
@@ -36,9 +38,8 @@ By monitoring this internal state,
 we can throw alerts and act upon certain events.
 For example,
 if the average request rate per second of a service goes up,
-or the 50 percent quantile response time of this service suddenly passes a certain threshold,
+or the [fifty percent quantile](https://en.wikipedia.org/wiki/Quantile) response time of this service suddenly passes a certain threshold,
 we could act upon this by upscaling the service.
-
 
 # Overview
 
@@ -92,7 +93,7 @@ Moving towards a microservices architecture paved the way for many possibilities
 but it also introduced a lot of complexity.
 Monitoring a single application is easy.
 Monitoring hundreds of different services with thousands of instances is an entirely different story.
-SoundCloud's original monitoring set-up consisted of Graphite and StatsD.
+SoundCloud's original monitoring set-up consisted of [Graphite](https://graphiteapp.org/) and [StatsD](https://github.com/etsy/statsd).
 This setup did not suffice for the new, scalable microservices architecture.
 The amount of generated events could not be handled in a reliable way.
 
@@ -146,7 +147,7 @@ There is no distributed storage.
 Prometheus servers store all metrics locally.
 They can run rules over this data and generate new time series,
 or trigger alerts. Servers also provide an API to query the data.
-PromDash utilizes this functionality and can be used to build dashboards.
+Grafana utilizes this functionality and can be used to build dashboards.
 
 Finally,
 Prometheus servers know which targets to scrape from due to service discovery,
@@ -549,7 +550,7 @@ receivers:
 Do you wish to get your hands dirty quickly with Prometheus?
 Perfect!
 I have prepared a project for demonstration purposes,
-which can be found [on my personal GitHub account](https://github.com/tomverelst/prometheus-demo).
+which can be found [on the Ordina JWorks GitHub repository](https://github.com/ordina-jworks/prometheus-demo).
 The project can be set up using only one command,
 leveraging [Docker](https://docker.com/getdocker) and [Make](https://www.gnu.org/s/make/manual/make.html).
 It covers most of the features discussed in this blog post.
@@ -557,7 +558,7 @@ It covers most of the features discussed in this blog post.
 First clone the project with Git:
 
 ```bash
-$ git clone git@github.com:tomverelst/prometheus-demo.git
+$ git clone git@github.com:ordina-jworks/prometheus-demo.git
 ```
 
 After the project is cloned,
@@ -570,15 +571,32 @@ $ make
 This will compile all applications,
 build or pull all necessary Docker images,
 and start the complete project using Docker Compose.
+The following containers are started:
 
+```bash
+$ docker ps
+CONTAINER ID        IMAGE                              COMMAND                  CREATED             STATUS              PORTS                     NAMES
+c620b49edf4c        prom/alertmanager                  "/bin/alertmanager -c"   10 minutes ago      Up 10 minutes       0.0.0.0:32902->9093/tcp   prometheusdemo_alertmanager_1
+67b461b6a44b        grafana/grafana                    "/run.sh"                10 minutes ago      Up 10 minutes       0.0.0.0:32903->3000/tcp   prometheusdemo_grafana_1
+920792d123bd        google/cadvisor                    "/usr/bin/cadvisor -l"   10 minutes ago      Up 10 minutes       0.0.0.0:32900->8080/tcp   prometheusdemo_cadvisor_1
+215c20eb849b        ordina-jworks/prometheus-prommer   "/bin/sh -c /entrypoi"   10 minutes ago      Up 10 minutes       0.0.0.0:32901->9090/tcp   prometheusdemo_prometheus_1
+f3cfc2f63f00        tomverelst/prommer                 "/bin/prommer -target"   10 minutes ago      Up 10 minutes                                 prometheusdemo_prommer_1
+574f14998424        ordina-jworks/voting-app           "/main"                  10 minutes ago      Up 10 minutes       0.0.0.0:32899->8080/tcp   prometheusdemo_voting-app_1
+66f2a00fcbcb        ordina-jworks/alert-console        "/main"                  10 minutes ago      Up 10 minutes       0.0.0.0:32898->8080/tcp   prometheusdemo_alert-console_1
+4fd707d4e80c        ordina-jworks/voting-generator     "/main -vote=cat -max"   10 minutes ago      Up 10 minutes       8080/tcp                  prometheusdemo_vote-cats_1
+5b876a131ad0        ordina-jworks/voting-generator     "/main -vote=dog -max"   10 minutes ago      Up 10 minutes       8080/tcp                  prometheusdemo_vote-dogs_1
+```
+
+As you can see,
+a lot of containers are started!
 The project consists of the following components:
 
-* **Prometheus** which scrapes the metrics and throws alerts
-* **Grafana** to visualize metrics and show fancy graphs
-* **Alert Manager** to collect all alerts and route them with a rule based system
-* An **alert console** which displays the alerts in the console
+* [**Prometheus**](https://github.com/prometheus/prometheus) which scrapes the metrics and throws alerts
+* [**Grafana**](https://github.com/grafana/grafana) to visualize metrics and show fancy graphs
+* [**Alert Manager**](https://github.com/prometheus/alertmanager) to collect all alerts and route them with a rule based system
 * [**cAdvisor**](https://github.com/google/cadvisor) which exposes container and host metrics
 * [**Prommer**](https://github.com/tomverelst/prommer), a custom Prometheus target discovery tool
+* An **alert console** which displays the alerts in the console
 * A **voting application** which registers and counts votes
 * A **voting generator** which generates votes
 
@@ -586,11 +604,52 @@ The voting application exposes a custom metric called `voting_amount_total`.
 This metric holds the total amount of votes and is labeled by the type of vote,
 e.g. `voting_amount_total{name=dog}`.
 
+An alerting rule is configured in Prometheus that checks for the amount of votes.
+Once it passes a certain threshold,
+the alert is fired.
+This alert is sent to the **Alert Manager**,
+which in turn routes it to the custom **alert console** through a webhook.
+
+<div class="figures">
+  <a href="{{ '/img/prometheus/demo-rule-inactive.png' | prepend: site.baseurl }}">
+  <figure>
+      <img style="max-width: 320px;" alt="Inactive alert" src="{{ '/img/prometheus/demo-rule-inactive.png' | prepend: site.baseurl }}">
+      <figcaption>Inactive alert</figcaption>
+  </figure>
+  </a>
+
+
+</div>
+
+<div class="figures">
+  <a href="{{ '/img/prometheus/demo-rule-active.png' | prepend: site.baseurl }}">
+  <figure>
+    <img style="max-width: 320px;" alt="Active alert" src="{{ '/img/prometheus/demo-rule-active.png' | prepend: site.baseurl }}">
+    <figcaption>The alert is fired</figcaption>
+  </figure>
+  </a>
+</div>
+
+The **alert console** logs the JSON body of the POST request from the **Alert Manager**.
+
+We can check the output of these logs using Docker Compose:
+
+```bash
+$ docker-compose logs -f --tail="all" alert-console
+Attaching to prometheusdemo_alert-console_1
+alert-console_1  | {"receiver":"alert_console","status":"firing","alerts":[{"status":"firing","labels":{"alertname":"TooManyCatVotes",
+"instance":"172.19.0.5:8080","job":"voting-app","name":"cat","severity":"critical"},"annotations":{"summary":"Too many votes for cats!
+"},"startsAt":"2016-09-22T17:09:22.807Z","endsAt":"0001-01-01T00:00:00Z","generatorURL":"http://215c20eb849b:9090/graph#%5B%7B%22expr%
+22%3A%22votes_amount_total%7Bname%3D%5C%22cat%5C%22%7D%20%3E%20100%22%2C%22tab%22%3A0%7D%5D"}],"groupLabels":{"alertname":"TooManyCatV
+otes"},"commonLabels":{"alertname":"TooManyCatVotes","instance":"172.19.0.5:8080","job":"voting-app","name":"cat","severity":"critical
+"},"commonAnnotations":{"summary":"Too many votes for cats!"},"externalURL":"http://c620b49edf4c:9093","version":"3","groupKey":101200
+6562800295578}
+```
+
 # Final Words
 
 Just a few months ago,
-the Prometheus team [announced](https://prometheus.io/blog/2016/05/09/prometheus-to-join-the-cloud-native-computing-foundation/)
-that they were joining the Cloud Native Computing Foundation.
+the Prometheus team [joined the Cloud Native Computing Foundation](https://prometheus.io/blog/2016/05/09/prometheus-to-join-the-cloud-native-computing-foundation/).
 
 > Today, we are excited to announce that the CNCF's Technical Oversight Committee voted unanimously to accept Prometheus as a second hosted project after Kubernetes!
 > You can find more information about these plans in the [official press release](https://cncf.io/news/announcement/2016/05/cloud-native-computing-foundation-accepts-prometheus-second-hosted-project) by the CNCF.
@@ -600,11 +659,9 @@ that they were joining the Cloud Native Computing Foundation.
 _Cloud Native Computing Foundation_ ([CNCF](http://cncf.io/)) is a nonprofit, open standardization organisation which commits itself to advance the development of cloud native technologies,
 formed under the Linux Foundation.
 It is a shared effort by the industry to create innovation for container packaged, microservices based, dynamically scheduled applications and operations.
-
-Founders include big names like Google, RedHat, Twitter, IBM and Cisco.
-Among the founders, originating from the container world, also include Docker, Mesosphere and CoreOS.
-
 Prometheus has proven itself to be worthy to be an industry standard in alerting and monitoring.
 It offers a wide-range of features,
 from instrumenting to alerting,
 and is supported by many other tools.
+If you are looking for a monitoring tool,
+definitely give it a shot!
