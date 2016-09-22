@@ -7,9 +7,41 @@ tags: [Prometheus]
 category: Monitoring
 comments: true
 ---
+
+It is needless to say the world is shifting towards DevOps and microservices.
+This holy grail we all aim for adds a lot of complexity,
+as well for monitoring.
+Instead of having to monitor one system,
+we are suddenly faced with the challenge to oversee our manifold services.
+There are many monitoring systems available,
+but not all of them are fit for monitoring large, distributed systems.
+Prometheus is a **white box monitoring and alerting** system that is designed for large, scalable environments.
+Black box monitoring systems like [Nagios](https://www.nagios.org) allow you to check if an application is alive and healthy.
+This is done by e.g. pinging the service,
+checking if there is enough disk space,
+or monitoring the CPU usage.
+In a world of distributed architectures where high availability and fast response times are key,
+it is not sufficient to be only aware if a service is alive.
+It is crucial to know how a service is working internally as well.
+How many HTTP requests is it receiving?
+Are they handled correctly?
+How fast are requests handled for different endpoints?
+Are there many errors being logged?
+How many disk IO operations is the service making?
+These are all important questions that need to be asked to keep a service functional.
+With Prometheus,
+we can answer all these questions,
+by exposing the internal state of your applications.
+By monitoring this internal state,
+we can throw alerts and act upon certain events.
+For example,
+if the average request rate per second of a service goes up,
+or the 50 percent quantile response time of this service suddenly passes a certain threshold,
+we could act upon this by upscaling the service.
+
+
 # Overview
 
-* [Introduction](#introduction)
 * [The Rise of Prometheus](#rise-of-prometheus)
 * [Architecture](#architecture)
 * [Data Model](#data-model)
@@ -20,16 +52,6 @@ comments: true
 * [Visualization and Analytics](#visualization-and-analytics)
 * [Alert! Alert!](#alert-alert)
 * [Monitoring Time!](#monitoring-time)
-
-blablabla
-
-<a name="introduction" />
-
-# Introduction
-
-Prometheus works as a monitoring-and-alerting system.
-
-TODO
 
 <a name="rise-of-prometheus" />
 
@@ -541,7 +563,7 @@ $ git clone git@github.com:tomverelst/prometheus-demo.git
 After the project is cloned,
 run `make` in the project directory:
 
-```
+```bash
 $ make
 ```
 
@@ -551,9 +573,11 @@ and start the complete project using Docker Compose.
 
 The project consists of the following components:
 
-* **Prometheus**
-* **Grafana**
-* **Alert Manager**
+* **Prometheus** which scrapes the metrics and throws alerts
+* **Grafana** to visualize metrics and show fancy graphs
+* **Alert Manager** to collect all alerts and route them with a rule based system
+* An **alert console** which displays the alerts in the console
+* [**cAdvisor**](https://github.com/google/cadvisor) which exposes container and host metrics
 * [**Prommer**](https://github.com/tomverelst/prommer), a custom Prometheus target discovery tool
 * A **voting application** which registers and counts votes
 * A **voting generator** which generates votes
