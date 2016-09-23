@@ -578,20 +578,22 @@ The following containers are started:
 
 ```bash
 $ docker ps
-CONTAINER ID        IMAGE                              COMMAND                  CREATED             STATUS              PORTS                     NAMES
-c620b49edf4c        prom/alertmanager                  "/bin/alertmanager -c"   10 minutes ago      Up 10 minutes       0.0.0.0:32902->9093/tcp   prometheusdemo_alertmanager_1
-67b461b6a44b        grafana/grafana                    "/run.sh"                10 minutes ago      Up 10 minutes       0.0.0.0:32903->3000/tcp   prometheusdemo_grafana_1
-920792d123bd        google/cadvisor                    "/usr/bin/cadvisor -l"   10 minutes ago      Up 10 minutes       0.0.0.0:32900->8080/tcp   prometheusdemo_cadvisor_1
-215c20eb849b        ordina-jworks/prometheus-prommer   "/bin/sh -c /entrypoi"   10 minutes ago      Up 10 minutes       0.0.0.0:32901->9090/tcp   prometheusdemo_prometheus_1
-f3cfc2f63f00        tomverelst/prommer                 "/bin/prommer -target"   10 minutes ago      Up 10 minutes                                 prometheusdemo_prommer_1
-574f14998424        ordina-jworks/voting-app           "/main"                  10 minutes ago      Up 10 minutes       0.0.0.0:32899->8080/tcp   prometheusdemo_voting-app_1
-66f2a00fcbcb        ordina-jworks/alert-console        "/main"                  10 minutes ago      Up 10 minutes       0.0.0.0:32898->8080/tcp   prometheusdemo_alert-console_1
-4fd707d4e80c        ordina-jworks/voting-generator     "/main -vote=cat -max"   10 minutes ago      Up 10 minutes       8080/tcp                  prometheusdemo_vote-cats_1
-5b876a131ad0        ordina-jworks/voting-generator     "/main -vote=dog -max"   10 minutes ago      Up 10 minutes       8080/tcp                  prometheusdemo_vote-dogs_1
+CONTAINER ID        IMAGE                              COMMAND                  PORTS                     NAMES
+c620b49edf4c        prom/alertmanager                  "/bin/alertmanager -c"   0.0.0.0:32902->9093/tcp   prometheusdemo_alertmanager_1
+67b461b6a44b        grafana/grafana                    "/run.sh"                0.0.0.0:32903->3000/tcp   prometheusdemo_grafana_1
+920792d123bd        google/cadvisor                    "/usr/bin/cadvisor -l"   0.0.0.0:32900->8080/tcp   prometheusdemo_cadvisor_1
+215c20eb849b        ordina-jworks/prometheus-prommer   "/bin/sh -c /entrypoi"   0.0.0.0:32901->9090/tcp   prometheusdemo_prometheus_1
+f3cfc2f63f00        tomverelst/prommer                 "/bin/prommer -target"                             prometheusdemo_prommer_1
+574f14998424        ordina-jworks/voting-app           "/main"                  0.0.0.0:32899->8080/tcp   prometheusdemo_voting-app_1
+66f2a00fcbcb        ordina-jworks/alert-console        "/main"                  0.0.0.0:32898->8080/tcp   prometheusdemo_alert-console_1
+4fd707d4e80c        ordina-jworks/voting-generator     "/main -vote=cat -max"   8080/tcp                  prometheusdemo_vote-cats_1
+5b876a131ad0        ordina-jworks/voting-generator     "/main -vote=dog -max"   8080/tcp                  prometheusdemo_vote-dogs_1
 ```
 
 As you can see,
 a lot of containers are started!
+You can view the public ports of the containers in this list,
+which you need to access the applications.
 The project consists of the following components:
 
 * [**Prometheus**](https://github.com/prometheus/prometheus) which scrapes the metrics and throws alerts
@@ -633,6 +635,8 @@ which in turn routes it to the custom **alert console** through a webhook.
   </a>
 </div>
 
+<br />
+
 The **alert console** logs the JSON body of the POST request from the **Alert Manager**.
 
 We can check the output of these logs using Docker Compose:
@@ -648,6 +652,55 @@ otes"},"commonLabels":{"alertname":"TooManyCatVotes","instance":"172.19.0.5:8080
 "},"commonAnnotations":{"summary":"Too many votes for cats!"},"externalURL":"http://c620b49edf4c:9093","version":"3","groupKey":101200
 6562800295578}
 ```
+
+### Grafana
+
+The default credentials for Grafana are `admin:admin`.
+After logging in,
+you must first configure a **Prometheus data source**.
+Prometheus is available at `http://prometheus:9090` (from inside the container).
+
+<div class="figures">
+  <a href="{{ '/img/prometheus/grafana-datasource.jpg' | prepend: site.baseurl }}">
+  <figure>
+      <img style="max-width: 320px;" alt="Configuring Data source" src="{{ '/img/prometheus/grafana-datasource.jpg' | prepend: site.baseurl }}">
+      <figcaption>Configuring the data source</figcaption>
+  </figure>
+  </a>
+
+  <a href="{{ '/img/prometheus/grafana-dashboard.jpg' | prepend: site.baseurl }}">
+  <figure>
+    <img style="max-width: 320px;" alt="Grafana Dashboard" src="{{ '/img/prometheus/grafana-dashboard.jpg' | prepend: site.baseurl }}">
+    <figcaption>Visualizing metrics</figcaption>
+  </figure>
+  </a>
+</div>
+
+<br />
+
+### cAdvisor
+
+**cAdvisor** also has a simple dashboard which displays most important host and container metrics.
+Since Prometheus scrapes cAdvisor,
+these metrics are also available from Grafana.
+
+
+<div class="figures">
+  <a href="{{ '/img/prometheus/cadvisor-throughput.png' | prepend: site.baseurl }}">
+  <figure>
+      <img style="max-width: 320px;" alt="Throughput" src="{{ '/img/prometheus/cadvisor-throughput.png' | prepend: site.baseurl }}">
+      <figcaption>Network Throughput</figcaption>
+  </figure>
+
+  </a>
+
+  <a href="{{ '/img/prometheus/cadvisor-cpu-usage.png' | prepend: site.baseurl }}">
+  <figure>
+      <img style="max-width: 320px;" alt="CPU Usage per Core" src="{{ '/img/prometheus/cadvisor-cpu-usage.png' | prepend: site.baseurl }}">
+      <figcaption>CPU Usage per Core</figcaption>
+  </figure>
+  </a>
+</div>
 
 <a name="final-words" />
 
