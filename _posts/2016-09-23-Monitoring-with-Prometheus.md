@@ -658,7 +658,7 @@ otes"},"commonLabels":{"alertname":"TooManyCatVotes","instance":"172.19.0.5:8080
 The default credentials for Grafana are `admin:admin`.
 After logging in,
 you must first configure a **Prometheus data source**.
-Prometheus is available at `http://prometheus:9090` (from inside the container).
+Prometheus is available at `http://prometheus:9090` (from within the container).
 
 <div class="figures">
   <a href="{{ '/img/prometheus/grafana-datasource.jpg' | prepend: site.baseurl }}">
