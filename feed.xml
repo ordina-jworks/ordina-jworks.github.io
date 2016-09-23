@@ -6,9 +6,775 @@
 </description>
     <link>https://ordina-jworks.github.io/</link>
     <atom:link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 16 Sep 2016 09:00:08 +0000</pubDate>
-    <lastBuildDate>Fri, 16 Sep 2016 09:00:08 +0000</lastBuildDate>
+    <pubDate>Fri, 23 Sep 2016 07:35:38 +0000</pubDate>
+    <lastBuildDate>Fri, 23 Sep 2016 07:35:38 +0000</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
+    
+      <item>
+        <title>Monitoring with Prometheus</title>
+        <description>&lt;p&gt;It is needless to say the world is shifting towards DevOps and microservices.
+This holy grail we aim for adds a great deal of complexity.
+Monitoring included.
+Rather than having to monitor one system,
+we are suddenly faced with the challenge to oversee our manifold services.
+There are numerous monitoring systems available,
+but not all of them are fit for monitoring large, distributed systems.&lt;/p&gt;
+
+&lt;p&gt;Black box monitoring systems like &lt;a href=&quot;https://www.nagios.org&quot;&gt;Nagios&lt;/a&gt; allow you to check if an application is alive and healthy.
+This is done by e.g. pinging the service,
+checking if there is enough disk space,
+or monitoring the CPU usage.
+In a world of distributed architectures where high availability and fast response times are key,
+it is not sufficient to be only aware if a service is alive.
+It is crucial to know how a service is working internally as well.
+How many HTTP requests is it receiving?
+Are they handled correctly?
+How fast are requests handled for different endpoints?
+Are there many errors being logged?
+How many disk IO operations is the service performing?
+These are all important questions that need to be monitored to keep a service functional.&lt;/p&gt;
+
+&lt;p&gt;Prometheus is a &lt;strong&gt;white box monitoring and alerting&lt;/strong&gt; system that is designed for large, scalable environments.
+With Prometheus,
+we can answer all these questions,
+by exposing the internal state of your applications.
+By monitoring this internal state,
+we can throw alerts and act upon certain events.
+For example,
+if the average request rate per second of a service goes up,
+or the &lt;a href=&quot;https://en.wikipedia.org/wiki/Quantile&quot;&gt;fifty percent quantile&lt;/a&gt; response time of a service suddenly passes a certain threshold,
+we could act upon this by upscaling the service.&lt;/p&gt;
+
+&lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#rise-of-prometheus&quot;&gt;The Rise of Prometheus&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#architecture&quot;&gt;Architecture&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#data-model&quot;&gt;Data Model&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#slice-dice-with-the-query-language&quot;&gt;Slice &amp;amp; Dice with the Query Language&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#instrumenting-your-services&quot;&gt;Instrumenting Your Services&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#exporters&quot;&gt;Exporters&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#scraping-the-targets&quot;&gt;Scraping the Targets&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#visualization-and-analytics&quot;&gt;Visualization and Analytics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#alert-alert&quot;&gt;Alert! Alert!&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#monitoring-time&quot;&gt;Monitoring Time!&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#final-words&quot;&gt;Final Words&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name=&quot;rise-of-prometheus&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;the-rise-of-prometheus&quot;&gt;The Rise of Prometheus&lt;/h1&gt;
+
+&lt;p&gt;As with most great technologies,
+there is usually a great story hiding behind them.
+Nothing is different with Prometheus.
+Incubated at &lt;a href=&quot;https://soundcloud.com/&quot;&gt;SoundCloud&lt;/a&gt;,
+&lt;em&gt;the&lt;/em&gt; social platform for sharing sounds and music,
+Prometheus has come a long way.&lt;/p&gt;
+
+&lt;p&gt;When SoundCloud was just a start-up,
+they originally developed their application as a single application.
+Many features later,
+this resulted in one big, monolithic application called &lt;em&gt;the Mothership&lt;/em&gt;.
+With only a few thousand artists and users sharing music,
+the application performed sufficiently.&lt;/p&gt;
+
+&lt;p&gt;However,
+nowadays,
+about 12 hours of music is uploaded &lt;em&gt;every minute&lt;/em&gt; to SoundCloud.
+The platform is used by hundreds of millions of users every day.
+To be able to handle this size of volume,
+SoundCloud adapted a more scalable approach.
+Deciding against a complete rewrite of their whole technology stack,
+they stopped adding new features to the Mothership.
+Instead, new features were written as microservices,
+living next to the Mothership.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;If you want to know more about how SoundCloud moved from one monolithic application to a microservices architecture,
+you can find a &lt;a href=&quot;https://developers.soundcloud.com/blog/building-products-at-soundcloud-part-1-dealing-with-the-monolith&quot;&gt;three-part&lt;/a&gt;
+&lt;a href=&quot;https://developers.soundcloud.com/blog/building-products-at-soundcloud-part-2-breaking-the-monolith&quot;&gt;blog post&lt;/a&gt;
+&lt;a href=&quot;https://developers.soundcloud.com/blog/building-products-at-soundcloud-part-3-microservices-in-scala-and-finagle&quot;&gt;series&lt;/a&gt;
+ on their developer blog (which is an excellent read, by the way).&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Moving towards a microservices architecture paved the way for many possibilities for SoundCloud,
+but it also introduced a lot of complexity.
+Monitoring a single application is easy.
+Monitoring hundreds of different services with thousands of instances is an entirely different story.
+SoundCloud’s original monitoring set-up consisted of &lt;a href=&quot;https://graphiteapp.org/&quot;&gt;Graphite&lt;/a&gt; and &lt;a href=&quot;https://github.com/etsy/statsd&quot;&gt;StatsD&lt;/a&gt;.
+This setup did not suffice for the new, scalable microservices architecture.
+The amount of generated events could not be handled in a reliable way.&lt;/p&gt;
+
+&lt;p&gt;SoundCloud started looking for a new monitoring tool,
+while keeping the following requirements in mind:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;A &lt;strong&gt;multi-dimensional data model&lt;/strong&gt;,
+where data can be sliced and diced along multiple dimensions like host, service, endpoint and method.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Operational simplicity&lt;/strong&gt;,
+so that you can setup monitoring anywhere you want,
+whenever you want,
+without having to have a Ph.D. in configuration management.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Scalable and decentralized&lt;/strong&gt;,
+for independent and reliable monitoring.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A &lt;strong&gt;powerful query language&lt;/strong&gt; that utilizes the data model for meaningful alerting and visualisation.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Since no existing system combined all of these features,
+Prometheus was born from a pet project at SoundCloud.&lt;/p&gt;
+
+&lt;p&gt;Although the project has been &lt;a href=&quot;https://github.com/prometheus&quot;&gt;open source&lt;/a&gt; from the beginning,
+SoundCloud did not make any noise about it until the project was mature enough.
+In January 2015,
+after 2 years of development and internal usage,
+the project was &lt;a href=&quot;https://developers.soundcloud.com/blog/prometheus-monitoring-at-soundcloud&quot;&gt;publicly announced&lt;/a&gt;
+and a &lt;a href=&quot;https://prometheus.io&quot;&gt;website&lt;/a&gt; was put online.
+The amount of attention it received was totally unexpected for the team at SoundCloud.
+After a &lt;a href=&quot;https://news.ycombinator.com/item?id=8995696&quot;&gt;post on Hacker News&lt;/a&gt;,
+which made it all the way to the top,
+things got serious.
+There was a sharp rise in contributions, questions, GitHub issues, conference invites, and all that stuff.&lt;/p&gt;
+
+&lt;p&gt;The following image depicts the amount of stars the project received on GitHub since its inception.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img style=&quot;max-width: 640px;&quot; alt=&quot;Prometheus Github Stars&quot; src=&quot;/img/prometheus/prometheus-github-stars.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;architecture&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;architecture&quot;&gt;Architecture&lt;/h1&gt;
+
+&lt;p&gt;Prometheus’ architecture is pretty straightforward.&lt;/p&gt;
+
+&lt;p&gt;Prometheus servers scrape (pull) metrics from &lt;em&gt;instrumented jobs&lt;/em&gt;.
+If a service is unable to be instrumented,
+the server can scrape metrics from an intermediary &lt;em&gt;push gateway&lt;/em&gt;.
+There is no distributed storage.
+Prometheus servers store all metrics locally.
+They can run rules over this data and generate new time series,
+or trigger alerts. Servers also provide an API to query the data.
+Grafana utilizes this functionality and can be used to build dashboards.&lt;/p&gt;
+
+&lt;p&gt;Finally,
+Prometheus servers know which targets to scrape from due to service discovery,
+or static configuration.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Prometheus Architecture&quot; src=&quot;/img/prometheus/prometheus-architecture.svg&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;architecture&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;data-model&quot;&gt;Data Model&lt;/h1&gt;
+
+&lt;p&gt;At its core,
+Prometheus stores all data as &lt;strong&gt;time series&lt;/strong&gt;.
+A time series is a stream of timestamped values that belong to the same metric and the same labels.
+The labels cause the metrics to be multi-dimensional.&lt;/p&gt;
+
+&lt;p&gt;For example,
+if we wish to monitor the total amount of HTTP requests on our API,
+we could create a metric named &lt;strong&gt;api_http_requests_total&lt;/strong&gt;.
+Now,
+to make this metric multi-dimensional,
+we can add labels.
+Labels are simple key value pairs.
+For HTTP requests,
+we can attach a label named &lt;strong&gt;method&lt;/strong&gt; that takes the HTTP method as value.
+Other possible labels include the endpoint that is called on our API,
+and the HTTP status returned by the server for that request.&lt;/p&gt;
+
+&lt;p&gt;The notation for a metric like that could be the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;api_http_requests_total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;GET&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;endpoint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/api/posts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;200&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now,
+if we start sampling values for this metric,
+we could end up with the following time series:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Metrics&lt;/th&gt;
+      &lt;th&gt;Timestamp&lt;/th&gt;
+      &lt;th&gt;Value&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;api_http_requests_total{method=&quot;GET&quot;, endpoint=&quot;/api/posts&quot;, status=&quot;200&quot;}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@1464623917237&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;68856&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;api_http_requests_total{method=&quot;GET&quot;, endpoint=&quot;/api/posts&quot;, status=&quot;500&quot;}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@1464623917237&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;5567&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;api_http_requests_total{method=&quot;GET&quot;, endpoint=&quot;/api/posts&quot;, status=&quot;200&quot;}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@1464624516508&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;76909&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;api_http_requests_total{method=&quot;GET&quot;, endpoint=&quot;/api/posts&quot;, status=&quot;500&quot;}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@1464624516508&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;6789&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;One of the great aspects of time series
+is the fact that the amount of generated time series is independent of the amount of events.
+Even though your server might suddenly get a spike in traffic,
+the amount of time series generated stays the same.
+Only the outputted value of the time series is different.
+This is wonderful for scalability.&lt;/p&gt;
+
+&lt;p&gt;Prometheus offers four metric types which can be used to generate one or multiple time series.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;counter&lt;/strong&gt; is a metric which is a numerical value that is only incremented,
+never decremented.
+Examples include the total amount of requests served,
+how many exceptions that occur, etc.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;gauge&lt;/strong&gt; is a metric similar to the counter. It is a numerical value that can go either up or down.
+Think of memory usage, cpu usage, amount of threads, or perhaps a temperature.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;&lt;a href=&quot;https://www.google.com/search?q=histogram&quot;&gt;histogram&lt;/a&gt;&lt;/strong&gt; is a metric that samples observations.
+These observations are counted and placed into configurable buckets.
+Upon being scraped,
+a &lt;em&gt;histogram&lt;/em&gt; provides multiple time series,
+including one for each bucket,
+one for the sum of all values,
+and one for the count of the events that have been observed.
+A typical use case for a histogram is the measuring of response times.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;summary&lt;/strong&gt; is similar to a &lt;em&gt;histogram&lt;/em&gt;,
+but it also calculates configurable &lt;a href=&quot;https://en.wikipedia.org/wiki/Quantile&quot;&gt;quantiles&lt;/a&gt;.
+Depending on your requirements,
+you either use a &lt;a href=&quot;https://prometheus.io/docs/practices/histograms/&quot;&gt;histogram or a summary&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;slice-dice-with-the-query-language&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;slice--dice-with-the-query-language&quot;&gt;Slice &amp;amp; Dice with the Query Language&lt;/h1&gt;
+
+&lt;p&gt;A powerful data model needs a powerful query language.
+Prometheus offers one,
+and it is also one of Prometheus’ key features.
+The Prometheus query language,
+or &lt;em&gt;promql&lt;/em&gt;,
+is an expressive, functional language.
+One which apparently,
+by the way,
+is &lt;a href=&quot;http://www.robustperception.io/conways-life-in-prometheus/&quot;&gt;Turing complete&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The language is easy to use.
+Monitoring things like CPU usage,
+memory usage, amount of HTTP request served, etc. are pretty straightforward,
+and the language makes it effortless.
+Using an &lt;strong&gt;instant vector selector&lt;/strong&gt;,
+you can select time series from a metric.&lt;/p&gt;
+
+&lt;p&gt;For example,
+Continuing with our API example,
+we can select all the time series of the metric &lt;code class=&quot;highlighter-rouge&quot;&gt;api_http_requests_total&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;api_http_requests_total&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We can dive a little bit deeper by filtering these time series on their labels using curly braces (&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;).
+Let’s say we want to monitor requests that failed due to an internal server error.
+We can achieve this by selecting the time series of the metric &lt;code class=&quot;highlighter-rouge&quot;&gt;api_http_requests_total&lt;/code&gt;
+where the label &lt;code class=&quot;highlighter-rouge&quot;&gt;status&lt;/code&gt; is set to &lt;code class=&quot;highlighter-rouge&quot;&gt;500&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;api_http_requests_total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We can also define a time window if we only want to have time series of a certain period.
+This is done by using a &lt;strong&gt;range vector selector&lt;/strong&gt;.
+The following example selects time series of the last hour:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;api_http_requests_total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The time duration is specified as a number followed by a character depicting the time unit:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;s&lt;/strong&gt; - seconds&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;m&lt;/strong&gt; - minutes&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;h&lt;/strong&gt; - hours&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;d&lt;/strong&gt; - days&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;w&lt;/strong&gt; - weeks&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;y&lt;/strong&gt; - years&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can go further back in time by using an &lt;code class=&quot;highlighter-rouge&quot;&gt;offset&lt;/code&gt;.
+This example selects time series that happened at least an hour ago:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;api_http_requests_total&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;offset&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;h&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We can use functions in our queries to create more useful results.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;rate()&lt;/code&gt; function calculates the per-second average rate of time series in a range vector.
+Combining all the above tools,
+we can get the rates of HTTP requests of a specific timeframe.
+The query below will calculate the per-second rates of all HTTP requests
+that occurred in the last 5 minutes an hour ago:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;rate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;api_http_requests_total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;offset&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A slightly more complex example selects the top 3 endpoints which have the most HTTP requests
+not being served correctly in the last hour:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;topk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;rate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;api_http_requests_total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;by&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;endpoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As you can see,
+Prometheus can provide a lot of useful information with several simple queries that only have a few basic functions and operators.
+There is also support for sorting, aggregation, interpolation and other mathematical wizardry that you can find in other query languages.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;instrumenting-your-services&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;instrumenting-your-services&quot;&gt;Instrumenting Your Services&lt;/h1&gt;
+
+&lt;p&gt;One of the requirements to be able to query data and get results,
+obviously,
+is the fact that there must be data that can be queried.
+Generating data can be done by instrumenting your services.
+Prometheus offers client libraries for
+&lt;a href=&quot;https://github.com/prometheus/client_golang&quot;&gt;Go&lt;/a&gt;,
+&lt;a href=&quot;https://github.com/prometheus/client_java&quot;&gt;Java/Scala&lt;/a&gt;,
+&lt;a href=&quot;https://github.com/prometheus/client_python&quot;&gt;Python&lt;/a&gt; and
+&lt;a href=&quot;https://github.com/prometheus/client_ruby&quot;&gt;Ruby&lt;/a&gt;.
+There is also a lengthy list of unofficial third-party clients for other languages,
+including clients for Bash and Node.js.
+These clients enable you to expose metrics endpoints through HTTP.&lt;/p&gt;
+
+&lt;p&gt;This is totally different compared to other,
+more traditional,
+monitoring tools.
+Normally,
+the application is unaware that it is being monitored.
+With Prometheus,
+you must instrument your code
+and explicitly define the metrics you want to expose.
+This allows you to generate highly granular data which you can query.
+However,
+this technique is not much different than logging.
+Logging statements are,
+most of the time,
+also explicitly defined in the code,
+so why not for monitoring as well?&lt;/p&gt;
+
+&lt;p&gt;For short-lived jobs,
+like cronjobs,
+scraping may be too slow to gather the metrics.
+For these use cases,
+Prometheus offers an alternative,
+called the &lt;a href=&quot;https://github.com/prometheus/pushgateway&quot;&gt;Pushgateway&lt;/a&gt;.
+Before a job disappears,
+it can push metrics to this gateway,
+and Prometheus can scrape the metrics from this gateway later on.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;exporters&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;exporters&quot;&gt;Exporters&lt;/h1&gt;
+
+&lt;p&gt;Not everything can be instrumented.
+Third-party tools that do not support Prometheus metrics natively,
+can be monitored with &lt;strong&gt;exporters&lt;/strong&gt;.
+Exporters can collect statistics and existing metrics,
+and convert them to Prometheus metrics.
+An exporter,
+just like an instrumented service,
+exposes these metrics through an endpoint,
+and can be scraped by Prometheus.&lt;/p&gt;
+
+&lt;p&gt;A &lt;a href=&quot;https://prometheus.io/docs/instrumenting/exporters/&quot;&gt;large variety of exporters&lt;/a&gt; is already available.
+If you want to monitor third-party software that does not have an exporter publicly available,
+you can write your own &lt;a href=&quot;https://prometheus.io/docs/instrumenting/writing_exporters/&quot;&gt;custom exporter&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;scraping-the-targets&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;scraping-the-targets&quot;&gt;Scraping the Targets&lt;/h1&gt;
+
+&lt;p&gt;Pulling metrics from instances is called scraping.
+Scraping is done at configurable intervals by the Prometheus server.
+Prometheus allows you to configure &lt;strong&gt;jobs&lt;/strong&gt; that fetch time series from &lt;strong&gt;instances&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;global&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;scrape_interval&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;15s&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Scrape targets every 15 seconds&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;scrape_timeout&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;15s&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Timeout after 15 seconds&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Attach the label monitor=dev-monitor to all scraped time series scraped by this server&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;monitor&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;dev-monitor'&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;scrape_configs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;job_name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;job-name&quot;&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;scrape_interval&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;10s&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Override the default global interval for this job&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;scrape_timeout&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;10s&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Override the default global timeout for this job&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;target_groups&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# First group of scrape targets&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;targets&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;localhost:9100'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;localhost:9101'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;first-group'&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# Second group of scrape targets&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;targets&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;localhost:9200'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;localhost:9201'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;second-group'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This configuration file is pretty self-explanatory.
+You can define defaults for all jobs in the &lt;code class=&quot;highlighter-rouge&quot;&gt;global&lt;/code&gt; root element.
+These defaults can then be overridden by each job,
+if necessary.&lt;/p&gt;
+
+&lt;p&gt;A job itself has a name and a list of target groups.
+In most cases,
+a job has one list of targets (one target group),
+but Prometheus allows you to split these between different groups,
+so you can add different labels to each scraped metric of that group.
+Next to your own custom labels,
+Prometheus will additionally append the &lt;code class=&quot;highlighter-rouge&quot;&gt;job&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;instance&lt;/code&gt; labels to the sampled metrics automatically.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;visualization-and-analytics&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;visualization-and-analytics&quot;&gt;Visualization and Analytics&lt;/h1&gt;
+
+&lt;p&gt;Prometheus has its own dashboard,
+called &lt;strong&gt;&lt;a href=&quot;https://github.com/prometheus/promdash&quot;&gt;PromDash&lt;/a&gt;&lt;/strong&gt;,
+but it has been &lt;strong&gt;deprecated&lt;/strong&gt; in favor of &lt;a href=&quot;http://grafana.org&quot;&gt;Grafana&lt;/a&gt;.
+Grafana supports Prometheus metrics out-of-the-box
+and makes setting up metrics visualization effortless.
+After adding a Prometheus data source,
+you can immediately start creating dashboards using &lt;a href=&quot;#slice-dice-with-the-query-language&quot;&gt;PromQL&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;figures&quot;&gt;
+  &lt;a href=&quot;/img/prometheus/grafana-datasource.jpg&quot;&gt;
+  &lt;figure&gt;
+      &lt;img style=&quot;max-width: 320px;&quot; alt=&quot;Prometheus Datasource&quot; src=&quot;/img/prometheus/grafana-datasource.jpg&quot; /&gt;
+      &lt;figcaption&gt;Step 1: Create datasource&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;/a&gt;
+
+  &lt;a href=&quot;/img/prometheus/grafana-dashboard.jpg&quot;&gt;
+  &lt;figure&gt;
+    &lt;img style=&quot;max-width: 320px;&quot; alt=&quot;Grafana Dashboard&quot; src=&quot;/img/prometheus/grafana-dashboard.jpg&quot; /&gt;
+    &lt;figcaption&gt;Step 2: Profit&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a name=&quot;alert-alert&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;alert-alert&quot;&gt;Alert! Alert!&lt;/h1&gt;
+
+&lt;p&gt;Prometheus provides an &lt;a href=&quot;https://github.com/prometheus/alertmanager&quot;&gt;Alert Manager&lt;/a&gt;.
+This Alert Manager is highly configurable and supports many notification methods natively.
+You can define &lt;strong&gt;routes&lt;/strong&gt; and &lt;strong&gt;receivers&lt;/strong&gt;,
+so you have fine-grained control over every alert and how it is treated.
+It is possible to suppress alerts and define inhibition rules,
+so you can prevent getting thousands of the same alert if a many-node cluster goes down.&lt;/p&gt;
+
+&lt;p&gt;Alerts can be generated by defining &lt;strong&gt;alerting rules&lt;/strong&gt;.
+This is done in Prometheus and not in the Alert Manager.
+Here are a few simple alerting rule examples:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Alert for any instance that have a median request latency &amp;gt;1s.
+ALERT APIHighRequestLatency
+  IF api_http_request_latencies_second{quantile=&quot;0.5&quot;} &amp;gt; 1
+  FOR 1m
+  ANNOTATIONS {
+    summary = &quot;High request latency on &quot;,
+    description = &quot; has a median request latency above 1s (current value: s)&quot;,
+  }
+
+ALERT CpuUsage
+IF cpu_usage_total &amp;gt; 95
+FOR 1m
+LABELS { severity=&quot;critical&quot;}
+ANNOTATIONS {
+  summary = &quot;YOU MUST CONSTRUCT ADDITIONAL PYLONS&quot;
+  description = &quot;CPU usage is above 95%&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;After an alert is generated and sent to the Alert Manager,
+it can be routed using &lt;strong&gt;routes&lt;/strong&gt;.
+There is one root route on which each incoming alert enters,
+and you can define child routes to route alerts to the correct receiver.
+These routes can be configured using a YAML configuration file:&lt;/p&gt;
+
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# The root route on which each incoming alert enters.&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;route&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# The default receiver&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;receiver&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;team-X'&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# The child route trees.&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;routes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# This is a regular expressiong based route&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;match_re&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;^(foo|bar)$&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;receiver&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;team-foobar&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Another child route&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;routes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;severity&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;critical&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;receiver&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;team-critical&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;There are multiple types of &lt;a href=&quot;https://prometheus.io/docs/alerting/configuration/#receiver-receiver&quot;&gt;&lt;strong&gt;receivers&lt;/strong&gt;&lt;/a&gt; to which you can push notifications to.
+You can push alert notifications to SMTP,
+&lt;a href=&quot;https://www.hipchat.com&quot;&gt;HipChat&lt;/a&gt;,
+&lt;a href=&quot;https://www.pagerduty.com&quot;&gt;PagerDuty&lt;/a&gt;,
+&lt;a href=&quot;https://pushover.net/&quot;&gt;PushOver&lt;/a&gt;,
+&lt;a href=&quot;https://slack.com&quot;&gt;Slack&lt;/a&gt; and &lt;a href=&quot;https://www.opsgenie.com/&quot;&gt;OpsGenie&lt;/a&gt;.
+Additionally,
+you can use a web hook to send HTTP POST requests to a certain endpoint with the alert as JSON,
+if you wish to push notifications to somewhere else.
+Check out &lt;a href=&quot;http://www.robustperception.io/audio-alerting-with-prometheus/&quot;&gt;this guy’s audio alarm&lt;/a&gt;,
+which alerts him when his internet goes down!&lt;/p&gt;
+
+&lt;p&gt;The receivers are configured in the same YAML configuration file:&lt;/p&gt;
+
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;receivers&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Email receiver&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;team-X'&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;email_configs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;alerts@team-x.com'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Slack receiver that sends alerts to the #general channel.&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;team-foobar'&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;slack_configs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;api_url&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;https://foobar.slack.com/services/hooks/incoming-webhook?token=&amp;lt;token&amp;gt;'&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;general'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Webhook receiver with a custom endpoint&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;team-critical'&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;webhook_configs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;team.critical.com'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a name=&quot;monitoring-time&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;monitoring-time&quot;&gt;Monitoring Time!&lt;/h1&gt;
+
+&lt;p&gt;Do you wish to get your hands dirty quickly with Prometheus?
+Perfect!
+I have prepared a project for demonstration purposes,
+which can be found &lt;a href=&quot;https://github.com/ordina-jworks/prometheus-demo&quot;&gt;on the Ordina JWorks GitHub repository&lt;/a&gt;.
+The project can be set up using only one command,
+leveraging &lt;a href=&quot;https://docker.com/getdocker&quot;&gt;Docker&lt;/a&gt; and &lt;a href=&quot;https://www.gnu.org/s/make/manual/make.html&quot;&gt;Make&lt;/a&gt;.
+It covers most of the features discussed in this blog post.&lt;/p&gt;
+
+&lt;p&gt;First clone the project with Git:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;git clone git@github.com:ordina-jworks/prometheus-demo.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;After the project is cloned,
+run &lt;code class=&quot;highlighter-rouge&quot;&gt;make&lt;/code&gt; in the project directory:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;make
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This will compile all applications,
+build or pull all necessary Docker images,
+and start the complete project using Docker Compose.
+The following containers are started:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker ps
+CONTAINER ID        IMAGE                              COMMAND                  PORTS                     NAMES
+c620b49edf4c        prom/alertmanager                  &lt;span class=&quot;s2&quot;&gt;&quot;/bin/alertmanager -c&quot;&lt;/span&gt;   0.0.0.0:32902-&amp;gt;9093/tcp   prometheusdemo_alertmanager_1
+67b461b6a44b        grafana/grafana                    &lt;span class=&quot;s2&quot;&gt;&quot;/run.sh&quot;&lt;/span&gt;                0.0.0.0:32903-&amp;gt;3000/tcp   prometheusdemo_grafana_1
+920792d123bd        google/cadvisor                    &lt;span class=&quot;s2&quot;&gt;&quot;/usr/bin/cadvisor -l&quot;&lt;/span&gt;   0.0.0.0:32900-&amp;gt;8080/tcp   prometheusdemo_cadvisor_1
+215c20eb849b        ordina-jworks/prometheus-prommer   &lt;span class=&quot;s2&quot;&gt;&quot;/bin/sh -c /entrypoi&quot;&lt;/span&gt;   0.0.0.0:32901-&amp;gt;9090/tcp   prometheusdemo_prometheus_1
+f3cfc2f63f00        tomverelst/prommer                 &lt;span class=&quot;s2&quot;&gt;&quot;/bin/prommer -target&quot;&lt;/span&gt;                             prometheusdemo_prommer_1
+574f14998424        ordina-jworks/voting-app           &lt;span class=&quot;s2&quot;&gt;&quot;/main&quot;&lt;/span&gt;                  0.0.0.0:32899-&amp;gt;8080/tcp   prometheusdemo_voting-app_1
+66f2a00fcbcb        ordina-jworks/alert-console        &lt;span class=&quot;s2&quot;&gt;&quot;/main&quot;&lt;/span&gt;                  0.0.0.0:32898-&amp;gt;8080/tcp   prometheusdemo_alert-console_1
+4fd707d4e80c        ordina-jworks/voting-generator     &lt;span class=&quot;s2&quot;&gt;&quot;/main -vote=cat -max&quot;&lt;/span&gt;   8080/tcp                  prometheusdemo_vote-cats_1
+5b876a131ad0        ordina-jworks/voting-generator     &lt;span class=&quot;s2&quot;&gt;&quot;/main -vote=dog -max&quot;&lt;/span&gt;   8080/tcp                  prometheusdemo_vote-dogs_1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As you can see,
+a lot of containers are started!
+You can view the public ports of the containers in this list,
+which you need to access the applications.
+The project consists of the following components:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/prometheus/prometheus&quot;&gt;&lt;strong&gt;Prometheus&lt;/strong&gt;&lt;/a&gt; which scrapes the metrics and throws alerts&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/grafana/grafana&quot;&gt;&lt;strong&gt;Grafana&lt;/strong&gt;&lt;/a&gt; to visualize metrics and show fancy graphs&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/prometheus/alertmanager&quot;&gt;&lt;strong&gt;Alert Manager&lt;/strong&gt;&lt;/a&gt; to collect all alerts and route them with a rule based system&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/google/cadvisor&quot;&gt;&lt;strong&gt;cAdvisor&lt;/strong&gt;&lt;/a&gt; which exposes container and host metrics&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/tomverelst/prommer&quot;&gt;&lt;strong&gt;Prommer&lt;/strong&gt;&lt;/a&gt;, a custom Prometheus target discovery tool&lt;/li&gt;
+  &lt;li&gt;An &lt;strong&gt;alert console&lt;/strong&gt; which displays the alerts in the console&lt;/li&gt;
+  &lt;li&gt;A &lt;strong&gt;voting application&lt;/strong&gt; which registers and counts votes&lt;/li&gt;
+  &lt;li&gt;A &lt;strong&gt;voting generator&lt;/strong&gt; which generates votes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The voting application exposes a custom metric called &lt;code class=&quot;highlighter-rouge&quot;&gt;voting_amount_total&lt;/code&gt;.
+This metric holds the total amount of votes and is labeled by the type of vote,
+e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;voting_amount_total{name=dog}&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;An alerting rule is configured in Prometheus that checks for the amount of votes.
+Once it passes a certain threshold,
+the alert is fired.
+This alert is sent to the &lt;strong&gt;Alert Manager&lt;/strong&gt;,
+which in turn routes it to the custom &lt;strong&gt;alert console&lt;/strong&gt; through a webhook.&lt;/p&gt;
+
+&lt;div class=&quot;figures&quot;&gt;
+  &lt;a href=&quot;/img/prometheus/demo-rule-inactive.png&quot;&gt;
+  &lt;figure&gt;
+      &lt;img style=&quot;max-width: 320px;&quot; alt=&quot;Inactive alert&quot; src=&quot;/img/prometheus/demo-rule-inactive.png&quot; /&gt;
+      &lt;figcaption&gt;Inactive alert&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;/a&gt;
+
+
+&lt;/div&gt;
+
+&lt;div class=&quot;figures&quot;&gt;
+  &lt;a href=&quot;/img/prometheus/demo-rule-active.png&quot;&gt;
+  &lt;figure&gt;
+    &lt;img style=&quot;max-width: 320px;&quot; alt=&quot;Active alert&quot; src=&quot;/img/prometheus/demo-rule-active.png&quot; /&gt;
+    &lt;figcaption&gt;The alert is fired&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;alert console&lt;/strong&gt; logs the JSON body of the POST request from the &lt;strong&gt;Alert Manager&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;We can check the output of these logs using Docker Compose:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker-compose logs -f --tail&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;all&quot;&lt;/span&gt; alert-console
+Attaching to prometheusdemo_alert-console_1
+alert-console_1  | &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;receiver&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;alert_console&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;firing&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;alerts&quot;&lt;/span&gt;:[&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;firing&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;labels&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;alertname&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;TooManyCatVotes&quot;&lt;/span&gt;,
+&lt;span class=&quot;s2&quot;&gt;&quot;instance&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;172.19.0.5:8080&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;job&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;voting-app&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;cat&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;severity&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;critical&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;annotations&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;summary&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;Too many votes for cats!
+&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;startsAt&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;2016-09-22T17:09:22.807Z&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;endsAt&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;0001-01-01T00:00:00Z&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;generatorURL&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;http://215c20eb849b:9090/graph#%5B%7B%22expr%
+22%3A%22votes_amount_total%7Bname%3D%5C%22cat%5C%22%7D%20%3E%20100%22%2C%22tab%22%3A0%7D%5D&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}]&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;groupLabels&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;alertname&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;TooManyCatV
+otes&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;commonLabels&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;alertname&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;TooManyCatVotes&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;instance&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;172.19.0.5:8080&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;job&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;voting-app&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;cat&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;severity&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;critical
+&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;commonAnnotations&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;summary&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;Too many votes for cats!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;externalURL&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;http://c620b49edf4c:9093&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;3&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;groupKey&quot;&lt;/span&gt;:101200
+6562800295578&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;grafana&quot;&gt;Grafana&lt;/h3&gt;
+
+&lt;p&gt;The default credentials for Grafana are &lt;code class=&quot;highlighter-rouge&quot;&gt;admin:admin&lt;/code&gt;.
+After logging in,
+you must first configure a &lt;strong&gt;Prometheus data source&lt;/strong&gt;.
+Prometheus is available at &lt;code class=&quot;highlighter-rouge&quot;&gt;http://prometheus:9090&lt;/code&gt; (from within the container).&lt;/p&gt;
+
+&lt;div class=&quot;figures&quot;&gt;
+  &lt;a href=&quot;/img/prometheus/grafana-datasource.jpg&quot;&gt;
+  &lt;figure&gt;
+      &lt;img style=&quot;max-width: 320px;&quot; alt=&quot;Configuring Data source&quot; src=&quot;/img/prometheus/grafana-datasource.jpg&quot; /&gt;
+      &lt;figcaption&gt;Configuring the data source&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;/a&gt;
+
+  &lt;a href=&quot;/img/prometheus/grafana-dashboard.jpg&quot;&gt;
+  &lt;figure&gt;
+    &lt;img style=&quot;max-width: 320px;&quot; alt=&quot;Grafana Dashboard&quot; src=&quot;/img/prometheus/grafana-dashboard.jpg&quot; /&gt;
+    &lt;figcaption&gt;Visualizing metrics&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;cadvisor&quot;&gt;cAdvisor&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;cAdvisor&lt;/strong&gt; also has a simple dashboard which displays most important host and container metrics.
+Since Prometheus scrapes cAdvisor,
+these metrics are also available from Grafana.&lt;/p&gt;
+
+&lt;div class=&quot;figures&quot;&gt;
+  &lt;a href=&quot;/img/prometheus/cadvisor-throughput.png&quot;&gt;
+  &lt;figure&gt;
+      &lt;img style=&quot;max-width: 320px;&quot; alt=&quot;Throughput&quot; src=&quot;/img/prometheus/cadvisor-throughput.png&quot; /&gt;
+      &lt;figcaption&gt;Network Throughput&lt;/figcaption&gt;
+  &lt;/figure&gt;
+
+  &lt;/a&gt;
+
+  &lt;a href=&quot;/img/prometheus/cadvisor-cpu-usage.png&quot;&gt;
+  &lt;figure&gt;
+      &lt;img style=&quot;max-width: 320px;&quot; alt=&quot;CPU Usage per Core&quot; src=&quot;/img/prometheus/cadvisor-cpu-usage.png&quot; /&gt;
+      &lt;figcaption&gt;CPU Usage per Core&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a name=&quot;final-words&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;final-words&quot;&gt;Final Words&lt;/h1&gt;
+
+&lt;p&gt;Just a few months ago,
+the Prometheus team &lt;a href=&quot;https://prometheus.io/blog/2016/05/09/prometheus-to-join-the-cloud-native-computing-foundation/&quot;&gt;joined the Cloud Native Computing Foundation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Today, we are excited to announce that the CNCF’s Technical Oversight Committee voted unanimously to accept Prometheus as a second hosted project after Kubernetes!
+You can find more information about these plans in the &lt;a href=&quot;https://cncf.io/news/announcement/2016/05/cloud-native-computing-foundation-accepts-prometheus-second-hosted-project&quot;&gt;official press release&lt;/a&gt; by the CNCF.&lt;/p&gt;
+
+  &lt;p&gt;By joining the CNCF, we hope to establish a clear and sustainable project governance model, as well as benefit from the resources, infrastructure, and advice that the independent foundation provides to its members.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;em&gt;Cloud Native Computing Foundation&lt;/em&gt; (&lt;a href=&quot;http://cncf.io/&quot;&gt;CNCF&lt;/a&gt;) is a nonprofit, open standardization organisation which commits itself to advance the development of cloud native technologies,
+formed under the Linux Foundation.
+It is a shared effort by the industry to create innovation for container packaged, microservices based, dynamically scheduled applications and operations.
+Prometheus has proven itself to be worthy to be an industry standard in alerting and monitoring.
+It offers a wide-range of features,
+from instrumenting to alerting,
+and is supported by many other tools.
+If you are looking for a monitoring tool,
+definitely give it a shot!&lt;/p&gt;
+</description>
+        <pubDate>Fri, 23 Sep 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/monitoring/2016/09/23/Monitoring-with-Prometheus.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/monitoring/2016/09/23/Monitoring-with-Prometheus.html</guid>
+        
+        <category>Prometheus</category>
+        
+        
+        <category>Monitoring</category>
+        
+      </item>
     
       <item>
         <title>API Testing with Postman and Newman</title>
@@ -3507,111 +4273,6 @@ Don’t let these people get to you! Continue doing what you’re passionate abo
         
         
         <category>conference</category>
-        
-      </item>
-    
-      <item>
-        <title>Using JWT for state transfer</title>
-        <description>&lt;p&gt;At one of our clients, we have been using Json Web Tokens quite extensively.
-We even use it to persist state on the client.&lt;/p&gt;
-
-&lt;h2 id=&quot;why-persist-state-on-the-client&quot;&gt;Why persist state on the client?&lt;/h2&gt;
-
-&lt;p&gt;When building microservices, we need to build so-called “cloud native” applications.
-One of the key tenets of cloud native application design is keeping your services stateless.
-The benefit of having stateless applications is foremost the ability to respond to events by adding or removing instances without needing to significantly reconfigure or change the application.
-More stateless services can easily be added when load suddenly increases, or if an existing stateless service fails, it can simply be replaced with another.
-Hence, resilience and agility, are easier to achieve with stateless services.&lt;/p&gt;
-
-&lt;p&gt;Keeping your services stateless means we need to persist our state somewhere else.
-Since we are transferring state in a REST architectural style, we can use the client to retain our state.
-For scaling purposes this is a great solution, as the client will only ever have to store its own state, and the server will be relieved of the state of all its clients.&lt;/p&gt;
-
-&lt;p&gt;At our client we have chosen to use JWT for this state transfer to the client.
-While JWT is primarily intended for authentication and authorization purposes, the specification allows us to add any data we’d like to verify later on.&lt;/p&gt;
-
-&lt;h2 id=&quot;looking-good&quot;&gt;Looking good&lt;/h2&gt;
-
-&lt;p&gt;Imagine the following scenario:&lt;/p&gt;
-
-&lt;p&gt;A list of products is fetched from the “products microservice”.
-The user isn’t allowed to view all products, so only those products the user has access to are returned.
-When the user wants to order a product, he sends an order request to the “orders microservice” with the id of the product he wants to order.
-At that moment the “orders microservice” needs to know whether or not the user is allowed to access this product, let alone order it.
-Since the rights to access and order are the same, we’d like to reuse the information returned from the first call to the “products microservice”.
-This flow is illustrated below.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/JWT/jwt-for-state-tranfer.png&quot; alt=&quot;JWT state transfer&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;We could call the “products microservice” from the “orders microservice” and rely on caching, but that would still be an extra network hop and the cache could potentially be invalidated by the time the user orders the product.
-Using the JWT approach, state is given to the client (the list of product ids the user is allowed to access), and being passed to the server again the moment an order is placed.
-The signature of the token guarantees us that the state has not been tampered with, while residing on the client.&lt;/p&gt;
-
-&lt;h2 id=&quot;too-good-to-be-true&quot;&gt;Too good to be true&lt;/h2&gt;
-
-&lt;p&gt;This solution prevents the server from having to care about state.
-It allows the client to store its own state and send it to the server whenever the server requires it - while being guaranteed the data isn’t tampered with.
-While this might seem like a good idea, it can backfire quickly.&lt;/p&gt;
-
-&lt;h3 id=&quot;coupling&quot;&gt;Coupling&lt;/h3&gt;
-
-&lt;p&gt;In distributed systems such as microservices, it’s very important to manage the way we talk between components over the network.
-Using protocols such as HTTP and especially with the REST architectural style, great care needs to go in defining the contracts between these components.
-While we can use content-negotiation to version our resources, and JSON for instance as content type, we can build our clients as tolerant readers.
-Headers don’t have any of these benefits.
-A header is basically just a key and a value, and in case of JWT, the value is encoded.
-Therefore it’s hard to do versioning or any kind of content management on the data transferred inside these tokens.&lt;/p&gt;
-
-&lt;p&gt;In the aforementioned example, the token couples the “products microservice” with the “orders microservice”.
-If the “products microservice” changes the structure of the token, the “orders microservice” will no longer be able to read it.
-While this coupling would exist as well when the “orders microservice” would call the “products microservice” directly, we would manage that coupling as part of the contract between these two microservices.
-In our case we don’t know there is a link between the two microservices since they don’t call each other directly.
-Yet by transferring the token from one microservice over the client to the other microservice, we are creating a hidden dependency.
-It’s also hard to have versioning on headers unless we put the version inside the name of the header.&lt;/p&gt;
-
-&lt;h3 id=&quot;scaling&quot;&gt;Scaling&lt;/h3&gt;
-
-&lt;p&gt;Adding versions to the headernames, documenting which microservices expect which versions of tokens of other microservices, and making sure we implement the tolerant-reader principle when reading the tokens might be a step in the right direction to avoid mass hysteria when tokens have to be adjusted.
-But what is simply impossible to get around, is the size restriction of headers in HTTP requests and responses.
-The HTTP specification doesn’t put any restriction on header size (singular or combined).
-But web servers, reverse proxies, CDNs and other network components do.
-Why they do this is not entirely clear as the spec allows any size, but the fact of the matter is that these restrictions exist.
-Putting a list of ids in a header like in our products example, will eventually break as the list could get too long.
-It’s not even clear how long is too long.&lt;/p&gt;
-
-&lt;h2 id=&quot;alternatives&quot;&gt;Alternatives&lt;/h2&gt;
-
-&lt;p&gt;We see three possible alternatives to this failed approach to manage state.&lt;/p&gt;
-
-&lt;p&gt;Instead of passing the state from one microservice over a client to another microservice, we could pass the state as part of the body of the request and response.
-The downside of this approach is that we can no longer use GET methods for the calls where we need to pass the previously fetched state.&lt;/p&gt;
-
-&lt;p&gt;The second alternative is to persist the state in a key value datastore on the server.
-We could asynchronously fetch products data and store it inside a datastore owned by the “orders microservice”.
-This could get stale, but so could a cache on the “products microservice”.
-This approach seems most common in the industry and could be well be the most preferable.&lt;/p&gt;
-
-&lt;p&gt;And when all else fails, we can still simply make a call from the “orders microservice” to the “products microservice” and count on caching.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;Using Json Web Tokens as a means to transfer state to and from microservices via the client seemed like a good idea, but in the end turned out to be quite an anti-pattern.
-It introduces hidden coupling which is hard to manage, and can outright fail completely when headers become too big.
-Transferring state through the body of requests and responses could be a better approach.
-Using key value datastores to cache data of other microservices on your own microservice feels like the best way to go.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 01 May 2016 00:00:00 +0000</pubDate>
-        <link>https://ordina-jworks.github.io/microservices/2016/05/01/Using-JWT-Tokens-for-State-Transfer.html</link>
-        <guid isPermaLink="true">https://ordina-jworks.github.io/microservices/2016/05/01/Using-JWT-Tokens-for-State-Transfer.html</guid>
-        
-        <category>JWT</category>
-        
-        <category>State</category>
-        
-        <category>Cache</category>
-        
-        
-        <category>Microservices</category>
         
       </item>
     

@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ordina JWorks Tech Blog</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Ordina JWorks Tech blog
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,Javascript,DevOps">
+    <meta name="author" content="Ordina Belgium">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/monitoring/2016/09/23/Monitoring-with-Prometheus.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Monitoring with Prometheus -  " />
+    <meta property="og:description" content="Ordina JWorks Tech Blog" />
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/prometheus.jpg" />
+    
+
+    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Base style -->
+    <link href="/css/styles/style.css" rel="stylesheet">
+    <!-- Skin CSS -->
+    <link href="/css/styles/skin-orange.css" rel="stylesheet" id="color_theme">
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<!-- Add class "boxed" along with body for boxed layout. -->
+<!-- Add "pattern-x" (1 to 5) for background patterns. -->
+<!-- Add "img-x" (1 to 5) for background images. -->
+<body>
+
+<!-- Outer Starts -->
+<div class="outer">
+    <!-- Header two Starts -->
+    <div class="header-2">
+
+        <!-- Container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo">
+                        <h1><a href="/"><img src="/img/jworks/jworks-400x400.jpg"
+                                                               width="100"
+                                                               height="100"/> </a></h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="navy">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="/contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header two ends -->
+
+    <!-- Main content starts -->
+
+    <div class="main-block">
+
+        <!-- Page heading two starts -->
+
+        <div class="page-heading-two">
+            <div class="container">
+                <h2>JWorks Tech Blogs<span style="margin-left: 10px"> Powered by Ordina</span></h2>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <!-- Page heading two ends -->
+
+        <div class="container tk-acumin-pro">
+            <div class="post">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Monitoring with Prometheus</h1>
+            <p id="post-meta">
+                Posted Sep 23, 2016 in <a href="/categories/monitoring/">Monitoring</a>
+                
+                    by 
+                    
+                
+                        
+                        <a href="/author/tom-verelst/">Tom Verelst</a>
+                    
+                
+                
+                    <br />
+                    <i class="fa fa-tags"></i>
+                        
+                            <a href="/tags/prometheus/">Prometheus</a>
+                        
+                
+            </p>
+        </div>
+    </div>
+    <br />
+    <article class="post-content">
+        <p>It is needless to say the world is shifting towards DevOps and microservices.
+This holy grail we aim for adds a great deal of complexity.
+Monitoring included.
+Rather than having to monitor one system,
+we are suddenly faced with the challenge to oversee our manifold services.
+There are numerous monitoring systems available,
+but not all of them are fit for monitoring large, distributed systems.</p>
+
+<p>Black box monitoring systems like <a href="https://www.nagios.org">Nagios</a> allow you to check if an application is alive and healthy.
+This is done by e.g. pinging the service,
+checking if there is enough disk space,
+or monitoring the CPU usage.
+In a world of distributed architectures where high availability and fast response times are key,
+it is not sufficient to be only aware if a service is alive.
+It is crucial to know how a service is working internally as well.
+How many HTTP requests is it receiving?
+Are they handled correctly?
+How fast are requests handled for different endpoints?
+Are there many errors being logged?
+How many disk IO operations is the service performing?
+These are all important questions that need to be monitored to keep a service functional.</p>
+
+<p>Prometheus is a <strong>white box monitoring and alerting</strong> system that is designed for large, scalable environments.
+With Prometheus,
+we can answer all these questions,
+by exposing the internal state of your applications.
+By monitoring this internal state,
+we can throw alerts and act upon certain events.
+For example,
+if the average request rate per second of a service goes up,
+or the <a href="https://en.wikipedia.org/wiki/Quantile">fifty percent quantile</a> response time of a service suddenly passes a certain threshold,
+we could act upon this by upscaling the service.</p>
+
+<h1 id="overview">Overview</h1>
+
+<ul>
+  <li><a href="#rise-of-prometheus">The Rise of Prometheus</a></li>
+  <li><a href="#architecture">Architecture</a></li>
+  <li><a href="#data-model">Data Model</a></li>
+  <li><a href="#slice-dice-with-the-query-language">Slice &amp; Dice with the Query Language</a></li>
+  <li><a href="#instrumenting-your-services">Instrumenting Your Services</a></li>
+  <li><a href="#exporters">Exporters</a></li>
+  <li><a href="#scraping-the-targets">Scraping the Targets</a></li>
+  <li><a href="#visualization-and-analytics">Visualization and Analytics</a></li>
+  <li><a href="#alert-alert">Alert! Alert!</a></li>
+  <li><a href="#monitoring-time">Monitoring Time!</a></li>
+  <li><a href="#final-words">Final Words</a></li>
+</ul>
+
+<p><a name="rise-of-prometheus"></a></p>
+
+<h1 id="the-rise-of-prometheus">The Rise of Prometheus</h1>
+
+<p>As with most great technologies,
+there is usually a great story hiding behind them.
+Nothing is different with Prometheus.
+Incubated at <a href="https://soundcloud.com/">SoundCloud</a>,
+<em>the</em> social platform for sharing sounds and music,
+Prometheus has come a long way.</p>
+
+<p>When SoundCloud was just a start-up,
+they originally developed their application as a single application.
+Many features later,
+this resulted in one big, monolithic application called <em>the Mothership</em>.
+With only a few thousand artists and users sharing music,
+the application performed sufficiently.</p>
+
+<p>However,
+nowadays,
+about 12 hours of music is uploaded <em>every minute</em> to SoundCloud.
+The platform is used by hundreds of millions of users every day.
+To be able to handle this size of volume,
+SoundCloud adapted a more scalable approach.
+Deciding against a complete rewrite of their whole technology stack,
+they stopped adding new features to the Mothership.
+Instead, new features were written as microservices,
+living next to the Mothership.</p>
+
+<p><em>If you want to know more about how SoundCloud moved from one monolithic application to a microservices architecture,
+you can find a <a href="https://developers.soundcloud.com/blog/building-products-at-soundcloud-part-1-dealing-with-the-monolith">three-part</a>
+<a href="https://developers.soundcloud.com/blog/building-products-at-soundcloud-part-2-breaking-the-monolith">blog post</a>
+<a href="https://developers.soundcloud.com/blog/building-products-at-soundcloud-part-3-microservices-in-scala-and-finagle">series</a>
+ on their developer blog (which is an excellent read, by the way).</em></p>
+
+<p>Moving towards a microservices architecture paved the way for many possibilities for SoundCloud,
+but it also introduced a lot of complexity.
+Monitoring a single application is easy.
+Monitoring hundreds of different services with thousands of instances is an entirely different story.
+SoundCloud’s original monitoring set-up consisted of <a href="https://graphiteapp.org/">Graphite</a> and <a href="https://github.com/etsy/statsd">StatsD</a>.
+This setup did not suffice for the new, scalable microservices architecture.
+The amount of generated events could not be handled in a reliable way.</p>
+
+<p>SoundCloud started looking for a new monitoring tool,
+while keeping the following requirements in mind:</p>
+
+<ul>
+  <li>
+    <p>A <strong>multi-dimensional data model</strong>,
+where data can be sliced and diced along multiple dimensions like host, service, endpoint and method.</p>
+  </li>
+  <li>
+    <p><strong>Operational simplicity</strong>,
+so that you can setup monitoring anywhere you want,
+whenever you want,
+without having to have a Ph.D. in configuration management.</p>
+  </li>
+  <li>
+    <p><strong>Scalable and decentralized</strong>,
+for independent and reliable monitoring.</p>
+  </li>
+  <li>
+    <p>A <strong>powerful query language</strong> that utilizes the data model for meaningful alerting and visualisation.</p>
+  </li>
+</ul>
+
+<p>Since no existing system combined all of these features,
+Prometheus was born from a pet project at SoundCloud.</p>
+
+<p>Although the project has been <a href="https://github.com/prometheus">open source</a> from the beginning,
+SoundCloud did not make any noise about it until the project was mature enough.
+In January 2015,
+after 2 years of development and internal usage,
+the project was <a href="https://developers.soundcloud.com/blog/prometheus-monitoring-at-soundcloud">publicly announced</a>
+and a <a href="https://prometheus.io">website</a> was put online.
+The amount of attention it received was totally unexpected for the team at SoundCloud.
+After a <a href="https://news.ycombinator.com/item?id=8995696">post on Hacker News</a>,
+which made it all the way to the top,
+things got serious.
+There was a sharp rise in contributions, questions, GitHub issues, conference invites, and all that stuff.</p>
+
+<p>The following image depicts the amount of stars the project received on GitHub since its inception.</p>
+
+<p style="text-align: center;">
+  <img style="max-width: 640px;" alt="Prometheus Github Stars" src="/img/prometheus/prometheus-github-stars.png" />
+</p>
+
+<p><a name="architecture"></a></p>
+
+<h1 id="architecture">Architecture</h1>
+
+<p>Prometheus’ architecture is pretty straightforward.</p>
+
+<p>Prometheus servers scrape (pull) metrics from <em>instrumented jobs</em>.
+If a service is unable to be instrumented,
+the server can scrape metrics from an intermediary <em>push gateway</em>.
+There is no distributed storage.
+Prometheus servers store all metrics locally.
+They can run rules over this data and generate new time series,
+or trigger alerts. Servers also provide an API to query the data.
+Grafana utilizes this functionality and can be used to build dashboards.</p>
+
+<p>Finally,
+Prometheus servers know which targets to scrape from due to service discovery,
+or static configuration.</p>
+
+<p style="text-align: center;">
+  <img alt="Prometheus Architecture" src="/img/prometheus/prometheus-architecture.svg" />
+</p>
+
+<p><a name="architecture"></a></p>
+
+<h1 id="data-model">Data Model</h1>
+
+<p>At its core,
+Prometheus stores all data as <strong>time series</strong>.
+A time series is a stream of timestamped values that belong to the same metric and the same labels.
+The labels cause the metrics to be multi-dimensional.</p>
+
+<p>For example,
+if we wish to monitor the total amount of HTTP requests on our API,
+we could create a metric named <strong>api_http_requests_total</strong>.
+Now,
+to make this metric multi-dimensional,
+we can add labels.
+Labels are simple key value pairs.
+For HTTP requests,
+we can attach a label named <strong>method</strong> that takes the HTTP method as value.
+Other possible labels include the endpoint that is called on our API,
+and the HTTP status returned by the server for that request.</p>
+
+<p>The notation for a metric like that could be the following:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">api_http_requests_total</span><span class="p">{</span><span class="nx">method</span><span class="o">=</span><span class="s2">"GET"</span><span class="p">,</span> <span class="nx">endpoint</span><span class="o">=</span><span class="s2">"/api/posts"</span><span class="p">,</span> <span class="nx">status</span><span class="o">=</span><span class="s2">"200"</span><span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now,
+if we start sampling values for this metric,
+we could end up with the following time series:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metrics</th>
+      <th>Timestamp</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}</code></td>
+      <td><code class="highlighter-rouge">@1464623917237</code></td>
+      <td><code class="highlighter-rouge">68856</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}</code></td>
+      <td><code class="highlighter-rouge">@1464623917237</code></td>
+      <td><code class="highlighter-rouge">5567</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}</code></td>
+      <td><code class="highlighter-rouge">@1464624516508</code></td>
+      <td><code class="highlighter-rouge">76909</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}</code></td>
+      <td><code class="highlighter-rouge">@1464624516508</code></td>
+      <td><code class="highlighter-rouge">6789</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<p>One of the great aspects of time series
+is the fact that the amount of generated time series is independent of the amount of events.
+Even though your server might suddenly get a spike in traffic,
+the amount of time series generated stays the same.
+Only the outputted value of the time series is different.
+This is wonderful for scalability.</p>
+
+<p>Prometheus offers four metric types which can be used to generate one or multiple time series.</p>
+
+<p>A <strong>counter</strong> is a metric which is a numerical value that is only incremented,
+never decremented.
+Examples include the total amount of requests served,
+how many exceptions that occur, etc.</p>
+
+<p>A <strong>gauge</strong> is a metric similar to the counter. It is a numerical value that can go either up or down.
+Think of memory usage, cpu usage, amount of threads, or perhaps a temperature.</p>
+
+<p>A <strong><a href="https://www.google.com/search?q=histogram">histogram</a></strong> is a metric that samples observations.
+These observations are counted and placed into configurable buckets.
+Upon being scraped,
+a <em>histogram</em> provides multiple time series,
+including one for each bucket,
+one for the sum of all values,
+and one for the count of the events that have been observed.
+A typical use case for a histogram is the measuring of response times.</p>
+
+<p>A <strong>summary</strong> is similar to a <em>histogram</em>,
+but it also calculates configurable <a href="https://en.wikipedia.org/wiki/Quantile">quantiles</a>.
+Depending on your requirements,
+you either use a <a href="https://prometheus.io/docs/practices/histograms/">histogram or a summary</a>.</p>
+
+<p><a name="slice-dice-with-the-query-language"></a></p>
+
+<h1 id="slice--dice-with-the-query-language">Slice &amp; Dice with the Query Language</h1>
+
+<p>A powerful data model needs a powerful query language.
+Prometheus offers one,
+and it is also one of Prometheus’ key features.
+The Prometheus query language,
+or <em>promql</em>,
+is an expressive, functional language.
+One which apparently,
+by the way,
+is <a href="http://www.robustperception.io/conways-life-in-prometheus/">Turing complete</a>.</p>
+
+<p>The language is easy to use.
+Monitoring things like CPU usage,
+memory usage, amount of HTTP request served, etc. are pretty straightforward,
+and the language makes it effortless.
+Using an <strong>instant vector selector</strong>,
+you can select time series from a metric.</p>
+
+<p>For example,
+Continuing with our API example,
+we can select all the time series of the metric <code class="highlighter-rouge">api_http_requests_total</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">api_http_requests_total</span>
+</code></pre>
+</div>
+
+<p>We can dive a little bit deeper by filtering these time series on their labels using curly braces (<code class="highlighter-rouge"><span class="p">{}</span></code>).
+Let’s say we want to monitor requests that failed due to an internal server error.
+We can achieve this by selecting the time series of the metric <code class="highlighter-rouge">api_http_requests_total</code>
+where the label <code class="highlighter-rouge">status</code> is set to <code class="highlighter-rouge">500</code>.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">api_http_requests_total</span><span class="p">{</span><span class="nx">status</span><span class="o">=</span><span class="mi">500</span><span class="p">}</span>
+</code></pre>
+</div>
+
+<p>We can also define a time window if we only want to have time series of a certain period.
+This is done by using a <strong>range vector selector</strong>.
+The following example selects time series of the last hour:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">api_http_requests_total</span><span class="p">[</span><span class="mi">1</span><span class="nx">h</span><span class="p">]</span>
+</code></pre>
+</div>
+
+<p>The time duration is specified as a number followed by a character depicting the time unit:</p>
+
+<ul>
+  <li><strong>s</strong> - seconds</li>
+  <li><strong>m</strong> - minutes</li>
+  <li><strong>h</strong> - hours</li>
+  <li><strong>d</strong> - days</li>
+  <li><strong>w</strong> - weeks</li>
+  <li><strong>y</strong> - years</li>
+</ul>
+
+<p>You can go further back in time by using an <code class="highlighter-rouge">offset</code>.
+This example selects time series that happened at least an hour ago:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">api_http_requests_total</span> <span class="nx">offset</span> <span class="mi">1</span><span class="nx">h</span>
+</code></pre>
+</div>
+
+<p>We can use functions in our queries to create more useful results.
+The <code class="highlighter-rouge">rate()</code> function calculates the per-second average rate of time series in a range vector.
+Combining all the above tools,
+we can get the rates of HTTP requests of a specific timeframe.
+The query below will calculate the per-second rates of all HTTP requests
+that occurred in the last 5 minutes an hour ago:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">rate</span><span class="p">(</span><span class="nx">api_http_requests_total</span><span class="p">{</span><span class="nx">status</span><span class="o">=</span><span class="mi">500</span><span class="p">}[</span><span class="mi">5</span><span class="nx">m</span><span class="p">]</span> <span class="nx">offset</span> <span class="mi">1</span><span class="nx">h</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>A slightly more complex example selects the top 3 endpoints which have the most HTTP requests
+not being served correctly in the last hour:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">topk</span><span class="p">(</span>
+  <span class="mi">3</span><span class="p">,</span> <span class="nx">sum</span><span class="p">(</span>
+    <span class="nx">rate</span><span class="p">(</span><span class="nx">api_http_requests_total</span><span class="p">{</span><span class="nx">status</span><span class="o">=</span><span class="mi">500</span><span class="p">}[</span><span class="mi">1</span><span class="nx">h</span><span class="p">])</span>
+  <span class="p">)</span> <span class="nx">by</span> <span class="p">(</span><span class="nx">endpoint</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre>
+</div>
+
+<p>As you can see,
+Prometheus can provide a lot of useful information with several simple queries that only have a few basic functions and operators.
+There is also support for sorting, aggregation, interpolation and other mathematical wizardry that you can find in other query languages.</p>
+
+<p><a name="instrumenting-your-services"></a></p>
+
+<h1 id="instrumenting-your-services">Instrumenting Your Services</h1>
+
+<p>One of the requirements to be able to query data and get results,
+obviously,
+is the fact that there must be data that can be queried.
+Generating data can be done by instrumenting your services.
+Prometheus offers client libraries for
+<a href="https://github.com/prometheus/client_golang">Go</a>,
+<a href="https://github.com/prometheus/client_java">Java/Scala</a>,
+<a href="https://github.com/prometheus/client_python">Python</a> and
+<a href="https://github.com/prometheus/client_ruby">Ruby</a>.
+There is also a lengthy list of unofficial third-party clients for other languages,
+including clients for Bash and Node.js.
+These clients enable you to expose metrics endpoints through HTTP.</p>
+
+<p>This is totally different compared to other,
+more traditional,
+monitoring tools.
+Normally,
+the application is unaware that it is being monitored.
+With Prometheus,
+you must instrument your code
+and explicitly define the metrics you want to expose.
+This allows you to generate highly granular data which you can query.
+However,
+this technique is not much different than logging.
+Logging statements are,
+most of the time,
+also explicitly defined in the code,
+so why not for monitoring as well?</p>
+
+<p>For short-lived jobs,
+like cronjobs,
+scraping may be too slow to gather the metrics.
+For these use cases,
+Prometheus offers an alternative,
+called the <a href="https://github.com/prometheus/pushgateway">Pushgateway</a>.
+Before a job disappears,
+it can push metrics to this gateway,
+and Prometheus can scrape the metrics from this gateway later on.</p>
+
+<p><a name="exporters"></a></p>
+
+<h1 id="exporters">Exporters</h1>
+
+<p>Not everything can be instrumented.
+Third-party tools that do not support Prometheus metrics natively,
+can be monitored with <strong>exporters</strong>.
+Exporters can collect statistics and existing metrics,
+and convert them to Prometheus metrics.
+An exporter,
+just like an instrumented service,
+exposes these metrics through an endpoint,
+and can be scraped by Prometheus.</p>
+
+<p>A <a href="https://prometheus.io/docs/instrumenting/exporters/">large variety of exporters</a> is already available.
+If you want to monitor third-party software that does not have an exporter publicly available,
+you can write your own <a href="https://prometheus.io/docs/instrumenting/writing_exporters/">custom exporter</a></p>
+
+<p><a name="scraping-the-targets"></a></p>
+
+<h1 id="scraping-the-targets">Scraping the Targets</h1>
+
+<p>Pulling metrics from instances is called scraping.
+Scraping is done at configurable intervals by the Prometheus server.
+Prometheus allows you to configure <strong>jobs</strong> that fetch time series from <strong>instances</strong>.</p>
+
+<div class="language-yml highlighter-rouge"><pre class="highlight"><code><span class="s">global</span><span class="pi">:</span>
+  <span class="s">scrape_interval</span><span class="pi">:</span> <span class="s">15s</span> <span class="c1"># Scrape targets every 15 seconds</span>
+  <span class="s">scrape_timeout</span><span class="pi">:</span> <span class="s">15s</span> <span class="c1"># Timeout after 15 seconds</span>
+
+  <span class="c1"># Attach the label monitor=dev-monitor to all scraped time series scraped by this server</span>
+  <span class="s">labels</span><span class="pi">:</span>
+    <span class="s">monitor</span><span class="pi">:</span> <span class="s1">'</span><span class="s">dev-monitor'</span>
+
+<span class="s">scrape_configs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">job_name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">job-name"</span>
+    <span class="s">scrape_interval</span><span class="pi">:</span> <span class="s">10s</span> <span class="c1"># Override the default global interval for this job</span>
+    <span class="s">scrape_timeout</span><span class="pi">:</span> <span class="s">10s</span> <span class="c1"># Override the default global timeout for this job</span>
+    <span class="s">target_groups</span><span class="pi">:</span>
+    <span class="c1"># First group of scrape targets</span>
+    <span class="pi">-</span> <span class="s">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9100'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">localhost:9101'</span><span class="pi">]</span>
+      <span class="s">labels</span><span class="pi">:</span>
+        <span class="s">group</span><span class="pi">:</span> <span class="s1">'</span><span class="s">first-group'</span>
+
+    <span class="c1"># Second group of scrape targets</span>
+    <span class="pi">-</span> <span class="s">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9200'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">localhost:9201'</span><span class="pi">]</span>
+      <span class="s">labels</span><span class="pi">:</span>
+        <span class="s">group</span><span class="pi">:</span> <span class="s1">'</span><span class="s">second-group'</span>
+</code></pre>
+</div>
+
+<p>This configuration file is pretty self-explanatory.
+You can define defaults for all jobs in the <code class="highlighter-rouge">global</code> root element.
+These defaults can then be overridden by each job,
+if necessary.</p>
+
+<p>A job itself has a name and a list of target groups.
+In most cases,
+a job has one list of targets (one target group),
+but Prometheus allows you to split these between different groups,
+so you can add different labels to each scraped metric of that group.
+Next to your own custom labels,
+Prometheus will additionally append the <code class="highlighter-rouge">job</code> and <code class="highlighter-rouge">instance</code> labels to the sampled metrics automatically.</p>
+
+<p><a name="visualization-and-analytics"></a></p>
+
+<h1 id="visualization-and-analytics">Visualization and Analytics</h1>
+
+<p>Prometheus has its own dashboard,
+called <strong><a href="https://github.com/prometheus/promdash">PromDash</a></strong>,
+but it has been <strong>deprecated</strong> in favor of <a href="http://grafana.org">Grafana</a>.
+Grafana supports Prometheus metrics out-of-the-box
+and makes setting up metrics visualization effortless.
+After adding a Prometheus data source,
+you can immediately start creating dashboards using <a href="#slice-dice-with-the-query-language">PromQL</a>:</p>
+
+<div class="figures">
+  <a href="/img/prometheus/grafana-datasource.jpg">
+  <figure>
+      <img style="max-width: 320px;" alt="Prometheus Datasource" src="/img/prometheus/grafana-datasource.jpg" />
+      <figcaption>Step 1: Create datasource</figcaption>
+  </figure>
+  </a>
+
+  <a href="/img/prometheus/grafana-dashboard.jpg">
+  <figure>
+    <img style="max-width: 320px;" alt="Grafana Dashboard" src="/img/prometheus/grafana-dashboard.jpg" />
+    <figcaption>Step 2: Profit</figcaption>
+  </figure>
+  </a>
+</div>
+
+<p><a name="alert-alert"></a></p>
+
+<h1 id="alert-alert">Alert! Alert!</h1>
+
+<p>Prometheus provides an <a href="https://github.com/prometheus/alertmanager">Alert Manager</a>.
+This Alert Manager is highly configurable and supports many notification methods natively.
+You can define <strong>routes</strong> and <strong>receivers</strong>,
+so you have fine-grained control over every alert and how it is treated.
+It is possible to suppress alerts and define inhibition rules,
+so you can prevent getting thousands of the same alert if a many-node cluster goes down.</p>
+
+<p>Alerts can be generated by defining <strong>alerting rules</strong>.
+This is done in Prometheus and not in the Alert Manager.
+Here are a few simple alerting rule examples:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Alert for any instance that have a median request latency &gt;1s.
+ALERT APIHighRequestLatency
+  IF api_http_request_latencies_second{quantile="0.5"} &gt; 1
+  FOR 1m
+  ANNOTATIONS {
+    summary = "High request latency on ",
+    description = " has a median request latency above 1s (current value: s)",
+  }
+
+ALERT CpuUsage
+IF cpu_usage_total &gt; 95
+FOR 1m
+LABELS { severity="critical"}
+ANNOTATIONS {
+  summary = "YOU MUST CONSTRUCT ADDITIONAL PYLONS"
+  description = "CPU usage is above 95%"
+}
+</code></pre>
+</div>
+
+<p>After an alert is generated and sent to the Alert Manager,
+it can be routed using <strong>routes</strong>.
+There is one root route on which each incoming alert enters,
+and you can define child routes to route alerts to the correct receiver.
+These routes can be configured using a YAML configuration file:</p>
+
+<div class="language-yml highlighter-rouge"><pre class="highlight"><code><span class="c1"># The root route on which each incoming alert enters.</span>
+<span class="s">route</span><span class="pi">:</span>
+  <span class="c1"># The default receiver</span>
+  <span class="s">receiver</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team-X'</span>
+  <span class="c1"># The child route trees.</span>
+  <span class="s">routes</span><span class="pi">:</span>
+  <span class="c1"># This is a regular expressiong based route</span>
+  <span class="pi">-</span> <span class="s">match_re</span><span class="pi">:</span>
+      <span class="s">service</span><span class="pi">:</span> <span class="s">^(foo|bar)$</span>
+    <span class="s">receiver</span><span class="pi">:</span> <span class="s">team-foobar</span>
+    <span class="c1"># Another child route</span>
+    <span class="s">routes</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">match</span><span class="pi">:</span>
+        <span class="s">severity</span><span class="pi">:</span> <span class="s">critical</span>
+      <span class="s">receiver</span><span class="pi">:</span> <span class="s">team-critical</span>
+</code></pre>
+</div>
+
+<p>There are multiple types of <a href="https://prometheus.io/docs/alerting/configuration/#receiver-receiver"><strong>receivers</strong></a> to which you can push notifications to.
+You can push alert notifications to SMTP,
+<a href="https://www.hipchat.com">HipChat</a>,
+<a href="https://www.pagerduty.com">PagerDuty</a>,
+<a href="https://pushover.net/">PushOver</a>,
+<a href="https://slack.com">Slack</a> and <a href="https://www.opsgenie.com/">OpsGenie</a>.
+Additionally,
+you can use a web hook to send HTTP POST requests to a certain endpoint with the alert as JSON,
+if you wish to push notifications to somewhere else.
+Check out <a href="http://www.robustperception.io/audio-alerting-with-prometheus/">this guy’s audio alarm</a>,
+which alerts him when his internet goes down!</p>
+
+<p>The receivers are configured in the same YAML configuration file:</p>
+
+<div class="language-yml highlighter-rouge"><pre class="highlight"><code><span class="s">receivers</span><span class="pi">:</span>
+<span class="c1"># Email receiver</span>
+<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team-X'</span>
+  <span class="s">email_configs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">to</span><span class="pi">:</span> <span class="s1">'</span><span class="s">alerts@team-x.com'</span>
+
+<span class="c1"># Slack receiver that sends alerts to the #general channel.</span>
+<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team-foobar'</span>
+  <span class="s">slack_configs</span><span class="pi">:</span>
+    <span class="s">api_url</span><span class="pi">:</span> <span class="s1">'</span><span class="s">https://foobar.slack.com/services/hooks/incoming-webhook?token=&lt;token&gt;'</span>
+    <span class="s">channel</span><span class="pi">:</span> <span class="s1">'</span><span class="s">general'</span>
+
+<span class="c1"># Webhook receiver with a custom endpoint</span>
+<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team-critical'</span>
+  <span class="s">webhook_configs</span><span class="pi">:</span>
+    <span class="s">url</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team.critical.com'</span>
+</code></pre>
+</div>
+
+<p><a name="monitoring-time"></a></p>
+
+<h1 id="monitoring-time">Monitoring Time!</h1>
+
+<p>Do you wish to get your hands dirty quickly with Prometheus?
+Perfect!
+I have prepared a project for demonstration purposes,
+which can be found <a href="https://github.com/ordina-jworks/prometheus-demo">on the Ordina JWorks GitHub repository</a>.
+The project can be set up using only one command,
+leveraging <a href="https://docker.com/getdocker">Docker</a> and <a href="https://www.gnu.org/s/make/manual/make.html">Make</a>.
+It covers most of the features discussed in this blog post.</p>
+
+<p>First clone the project with Git:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>git clone git@github.com:ordina-jworks/prometheus-demo.git
+</code></pre>
+</div>
+
+<p>After the project is cloned,
+run <code class="highlighter-rouge">make</code> in the project directory:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>make
+</code></pre>
+</div>
+
+<p>This will compile all applications,
+build or pull all necessary Docker images,
+and start the complete project using Docker Compose.
+The following containers are started:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker ps
+CONTAINER ID        IMAGE                              COMMAND                  PORTS                     NAMES
+c620b49edf4c        prom/alertmanager                  <span class="s2">"/bin/alertmanager -c"</span>   0.0.0.0:32902-&gt;9093/tcp   prometheusdemo_alertmanager_1
+67b461b6a44b        grafana/grafana                    <span class="s2">"/run.sh"</span>                0.0.0.0:32903-&gt;3000/tcp   prometheusdemo_grafana_1
+920792d123bd        google/cadvisor                    <span class="s2">"/usr/bin/cadvisor -l"</span>   0.0.0.0:32900-&gt;8080/tcp   prometheusdemo_cadvisor_1
+215c20eb849b        ordina-jworks/prometheus-prommer   <span class="s2">"/bin/sh -c /entrypoi"</span>   0.0.0.0:32901-&gt;9090/tcp   prometheusdemo_prometheus_1
+f3cfc2f63f00        tomverelst/prommer                 <span class="s2">"/bin/prommer -target"</span>                             prometheusdemo_prommer_1
+574f14998424        ordina-jworks/voting-app           <span class="s2">"/main"</span>                  0.0.0.0:32899-&gt;8080/tcp   prometheusdemo_voting-app_1
+66f2a00fcbcb        ordina-jworks/alert-console        <span class="s2">"/main"</span>                  0.0.0.0:32898-&gt;8080/tcp   prometheusdemo_alert-console_1
+4fd707d4e80c        ordina-jworks/voting-generator     <span class="s2">"/main -vote=cat -max"</span>   8080/tcp                  prometheusdemo_vote-cats_1
+5b876a131ad0        ordina-jworks/voting-generator     <span class="s2">"/main -vote=dog -max"</span>   8080/tcp                  prometheusdemo_vote-dogs_1
+</code></pre>
+</div>
+
+<p>As you can see,
+a lot of containers are started!
+You can view the public ports of the containers in this list,
+which you need to access the applications.
+The project consists of the following components:</p>
+
+<ul>
+  <li><a href="https://github.com/prometheus/prometheus"><strong>Prometheus</strong></a> which scrapes the metrics and throws alerts</li>
+  <li><a href="https://github.com/grafana/grafana"><strong>Grafana</strong></a> to visualize metrics and show fancy graphs</li>
+  <li><a href="https://github.com/prometheus/alertmanager"><strong>Alert Manager</strong></a> to collect all alerts and route them with a rule based system</li>
+  <li><a href="https://github.com/google/cadvisor"><strong>cAdvisor</strong></a> which exposes container and host metrics</li>
+  <li><a href="https://github.com/tomverelst/prommer"><strong>Prommer</strong></a>, a custom Prometheus target discovery tool</li>
+  <li>An <strong>alert console</strong> which displays the alerts in the console</li>
+  <li>A <strong>voting application</strong> which registers and counts votes</li>
+  <li>A <strong>voting generator</strong> which generates votes</li>
+</ul>
+
+<p>The voting application exposes a custom metric called <code class="highlighter-rouge">voting_amount_total</code>.
+This metric holds the total amount of votes and is labeled by the type of vote,
+e.g. <code class="highlighter-rouge">voting_amount_total{name=dog}</code>.</p>
+
+<p>An alerting rule is configured in Prometheus that checks for the amount of votes.
+Once it passes a certain threshold,
+the alert is fired.
+This alert is sent to the <strong>Alert Manager</strong>,
+which in turn routes it to the custom <strong>alert console</strong> through a webhook.</p>
+
+<div class="figures">
+  <a href="/img/prometheus/demo-rule-inactive.png">
+  <figure>
+      <img style="max-width: 320px;" alt="Inactive alert" src="/img/prometheus/demo-rule-inactive.png" />
+      <figcaption>Inactive alert</figcaption>
+  </figure>
+  </a>
+
+
+</div>
+
+<div class="figures">
+  <a href="/img/prometheus/demo-rule-active.png">
+  <figure>
+    <img style="max-width: 320px;" alt="Active alert" src="/img/prometheus/demo-rule-active.png" />
+    <figcaption>The alert is fired</figcaption>
+  </figure>
+  </a>
+</div>
+
+<p><br /></p>
+
+<p>The <strong>alert console</strong> logs the JSON body of the POST request from the <strong>Alert Manager</strong>.</p>
+
+<p>We can check the output of these logs using Docker Compose:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker-compose logs -f --tail<span class="o">=</span><span class="s2">"all"</span> alert-console
+Attaching to prometheusdemo_alert-console_1
+alert-console_1  | <span class="o">{</span><span class="s2">"receiver"</span>:<span class="s2">"alert_console"</span>,<span class="s2">"status"</span>:<span class="s2">"firing"</span>,<span class="s2">"alerts"</span>:[<span class="o">{</span><span class="s2">"status"</span>:<span class="s2">"firing"</span>,<span class="s2">"labels"</span>:<span class="o">{</span><span class="s2">"alertname"</span>:<span class="s2">"TooManyCatVotes"</span>,
+<span class="s2">"instance"</span>:<span class="s2">"172.19.0.5:8080"</span>,<span class="s2">"job"</span>:<span class="s2">"voting-app"</span>,<span class="s2">"name"</span>:<span class="s2">"cat"</span>,<span class="s2">"severity"</span>:<span class="s2">"critical"</span><span class="o">}</span>,<span class="s2">"annotations"</span>:<span class="o">{</span><span class="s2">"summary"</span>:<span class="s2">"Too many votes for cats!
+"</span><span class="o">}</span>,<span class="s2">"startsAt"</span>:<span class="s2">"2016-09-22T17:09:22.807Z"</span>,<span class="s2">"endsAt"</span>:<span class="s2">"0001-01-01T00:00:00Z"</span>,<span class="s2">"generatorURL"</span>:<span class="s2">"http://215c20eb849b:9090/graph#%5B%7B%22expr%
+22%3A%22votes_amount_total%7Bname%3D%5C%22cat%5C%22%7D%20%3E%20100%22%2C%22tab%22%3A0%7D%5D"</span><span class="o">}]</span>,<span class="s2">"groupLabels"</span>:<span class="o">{</span><span class="s2">"alertname"</span>:<span class="s2">"TooManyCatV
+otes"</span><span class="o">}</span>,<span class="s2">"commonLabels"</span>:<span class="o">{</span><span class="s2">"alertname"</span>:<span class="s2">"TooManyCatVotes"</span>,<span class="s2">"instance"</span>:<span class="s2">"172.19.0.5:8080"</span>,<span class="s2">"job"</span>:<span class="s2">"voting-app"</span>,<span class="s2">"name"</span>:<span class="s2">"cat"</span>,<span class="s2">"severity"</span>:<span class="s2">"critical
+"</span><span class="o">}</span>,<span class="s2">"commonAnnotations"</span>:<span class="o">{</span><span class="s2">"summary"</span>:<span class="s2">"Too many votes for cats!"</span><span class="o">}</span>,<span class="s2">"externalURL"</span>:<span class="s2">"http://c620b49edf4c:9093"</span>,<span class="s2">"version"</span>:<span class="s2">"3"</span>,<span class="s2">"groupKey"</span>:101200
+6562800295578<span class="o">}</span>
+</code></pre>
+</div>
+
+<h3 id="grafana">Grafana</h3>
+
+<p>The default credentials for Grafana are <code class="highlighter-rouge">admin:admin</code>.
+After logging in,
+you must first configure a <strong>Prometheus data source</strong>.
+Prometheus is available at <code class="highlighter-rouge">http://prometheus:9090</code> (from within the container).</p>
+
+<div class="figures">
+  <a href="/img/prometheus/grafana-datasource.jpg">
+  <figure>
+      <img style="max-width: 320px;" alt="Configuring Data source" src="/img/prometheus/grafana-datasource.jpg" />
+      <figcaption>Configuring the data source</figcaption>
+  </figure>
+  </a>
+
+  <a href="/img/prometheus/grafana-dashboard.jpg">
+  <figure>
+    <img style="max-width: 320px;" alt="Grafana Dashboard" src="/img/prometheus/grafana-dashboard.jpg" />
+    <figcaption>Visualizing metrics</figcaption>
+  </figure>
+  </a>
+</div>
+
+<p><br /></p>
+
+<h3 id="cadvisor">cAdvisor</h3>
+
+<p><strong>cAdvisor</strong> also has a simple dashboard which displays most important host and container metrics.
+Since Prometheus scrapes cAdvisor,
+these metrics are also available from Grafana.</p>
+
+<div class="figures">
+  <a href="/img/prometheus/cadvisor-throughput.png">
+  <figure>
+      <img style="max-width: 320px;" alt="Throughput" src="/img/prometheus/cadvisor-throughput.png" />
+      <figcaption>Network Throughput</figcaption>
+  </figure>
+
+  </a>
+
+  <a href="/img/prometheus/cadvisor-cpu-usage.png">
+  <figure>
+      <img style="max-width: 320px;" alt="CPU Usage per Core" src="/img/prometheus/cadvisor-cpu-usage.png" />
+      <figcaption>CPU Usage per Core</figcaption>
+  </figure>
+  </a>
+</div>
+
+<p><a name="final-words"></a></p>
+
+<h1 id="final-words">Final Words</h1>
+
+<p>Just a few months ago,
+the Prometheus team <a href="https://prometheus.io/blog/2016/05/09/prometheus-to-join-the-cloud-native-computing-foundation/">joined the Cloud Native Computing Foundation</a>.</p>
+
+<blockquote>
+  <p>Today, we are excited to announce that the CNCF’s Technical Oversight Committee voted unanimously to accept Prometheus as a second hosted project after Kubernetes!
+You can find more information about these plans in the <a href="https://cncf.io/news/announcement/2016/05/cloud-native-computing-foundation-accepts-prometheus-second-hosted-project">official press release</a> by the CNCF.</p>
+
+  <p>By joining the CNCF, we hope to establish a clear and sustainable project governance model, as well as benefit from the resources, infrastructure, and advice that the independent foundation provides to its members.</p>
+</blockquote>
+
+<p><em>Cloud Native Computing Foundation</em> (<a href="http://cncf.io/">CNCF</a>) is a nonprofit, open standardization organisation which commits itself to advance the development of cloud native technologies,
+formed under the Linux Foundation.
+It is a shared effort by the industry to create innovation for container packaged, microservices based, dynamically scheduled applications and operations.
+Prometheus has proven itself to be worthy to be an industry standard in alerting and monitoring.
+It offers a wide-range of features,
+from instrumenting to alerting,
+and is supported by many other tools.
+If you are looking for a monitoring tool,
+definitely give it a shot!</p>
+
+    </article>
+    <hr />
+    
+                
+        
+        
+            <blockquote>
+                <p>Tom is a senior developer and coach at Ordina Belgium. Some friends like to refer to him as a Java code monkey, which is not completely true! Tom is familiar with many different domains.  He loves to learn about everything. Currently he is very fond of Docker, Go and all things DevOps.<br /><br />In his spare time he likes spending time with friends, going out for a run with his marathon club or just swinging around some drum sticks.</p>
+
+            </blockquote>
+        
+    
+    
+        <br /><br />
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    
+</div>
+
+        </div>
+    </div>
+    <!-- Main content ends -->
+</div>
+<!-- Footer Starts -->
+<footer class="footer">
+    <!-- Container -->
+    <div class="container">
+        <!-- Foot Starts -->
+        <div class="foot">
+            <!-- Container -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-user"></i>&nbsp;&nbsp;Disclaimer</h5>
+
+                            <p>Opinions expressed on this blog reflect the writer’s views and not the position of
+                                Ordina.</p>
+
+                            <div class="brand-bg">
+                                <a target="_blank" href="https://www.facebook.com/lifeatordinabe" class="facebook"><i
+                                        class="fa fa-facebook circle-3"></i></a>
+                                <a target="_blank" href="https://twitter.com/lifeatordinabe"
+                                   class="twitter"><i
+                                        class="fa fa-twitter circle-3"></i></a>
+                                <a target="_blank" href="https://www.linkedin.com/company/ordina-belgium"
+                                   class="linkedin"><i
+                                        class="fa fa-linkedin circle-3"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-comments"></i>&nbsp;&nbsp;Recent Posts</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content">
+                                <ul class="list-unstyled">
+                                    
+                                    <li>
+                                        <span>23 Sep 2016</span> &raquo;
+                                        <a href="/monitoring/2016/09/23/Monitoring-with-Prometheus.html">
+                                            Monitoring with Prometheus</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>16 Sep 2016</span> &raquo;
+                                        <a href="/testing/2016/09/16/Automation-testing-with-postman.html">
+                                            API Testing with Postman and Newman</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>12 Sep 2016</span> &raquo;
+                                        <a href="/microservices/2016/09/12/Microservices-Dashboard-1.0.1.html">
+                                            Microservices Dashboard</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>09 Aug 2016</span> &raquo;
+                                        <a href="/conferences/2016/08/09/s1p.html">
+                                            SpringOne Platform</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>25 Jul 2016</span> &raquo;
+                                        <a href="/security/2016/07/25/Web-of-trusted-commits.html">
+                                            A web of trusted commits</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>10 Jul 2016</span> &raquo;
+                                        <a href="/conference/2016/07/10/SpringIO16-DDD-Rest.html">
+                                            Spring I/O 16: Bridging the worlds of DDD & REST</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>30 Jun 2016</span> &raquo;
+                                        <a href="/conference/2016/06/30/SpringIO16-Spring-Rest-Docs.html">
+                                            Spring I/O 16: Test-driven documentation with Spring REST Docs</a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-building-o"></i>&nbsp;&nbsp;Contact Us</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content address">
+                                <!-- Heading -->
+                                <h6 class="bold"><i class="fa fa-home"></i>&nbsp;&nbsp;Ordina Belgium</h6>
+                                <!-- Paragraph -->
+                                <p class="add">
+                                    Blarenberglaan 3B,<br/>
+                                    Mechelen 2800, Belgium.</p>
+
+                                <p class="tel"><i class="fa fa-phone"></i> Tel : + (32) - 15 29 58 58<br/>
+                                    <i class="fa fa-envelope"></i> Mail : <a href="#">info@ordina.be</a><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Foot Ends -->
+        <!-- Footer Content -->
+        <p class="pull-left">Copyright &copy; 2016 - <a href="#">Ordina JWorks</a></p>
+        <ul class="list-inline pull-right">
+            <!-- List -->
+            <li><a href="/">Home</a>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/contact/">Contact</a></li>
+        </ul>
+        <!-- Clearfix -->
+        <div class="clearfix"></div>
+    </div>
+</footer>
+<!-- Footer Ends -->
+
+<!-- Outer Ends -->
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-angle-up bg-color"></i></a></span>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/placeholders.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/respond.min.js"></script>
+<script src="/js/html5shiv.js"></script>
+<script src="/js/main.js"></script>
+
+<script src="/js/imagesloaded.min.js"></script>
+<script src="/js/masonry.js"></script>
+
+<!-- Javascript for this page -->
+<script>
+    // Initialize Masonry
+    var $box = $('.blog-masonry').masonry();
+    // Layout Masonry again after all images have loaded
+    $box.imagesLoaded(function () {
+        $box.masonry();
+    });
+</script>
+
+<!-- Custom JS. Type your JS code in custom.js file -->
+<script src="/js/custom.js"></script>
+
+<!-- Disqus -->
+
+    <script type="text/javascript">
+        var disqus_config = function () {
+            this.page.url = "https://ordina-jworks.github.io/monitoring/2016/09/23/Monitoring-with-Prometheus.html";
+            this.page.identifier = "/monitoring/2016/09/23/Monitoring-with-Prometheus.html";
+            this.page.title = "Monitoring with Prometheus";
+        };
+    </script>
+    <script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>
