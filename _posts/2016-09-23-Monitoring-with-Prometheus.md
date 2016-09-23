@@ -9,11 +9,11 @@ comments: true
 ---
 
 It is needless to say the world is shifting towards DevOps and microservices.
-This holy grail we all aim for adds a lot of complexity,
-as well for monitoring.
-Instead of having to monitor one system,
+This holy grail we aim for adds a great deal of complexity.
+Monitoring included.
+Rather than having to monitor one system,
 we are suddenly faced with the challenge to oversee our manifold services.
-There are many monitoring systems available,
+There are numerous monitoring systems available,
 but not all of them are fit for monitoring large, distributed systems.
 
 Black box monitoring systems like [Nagios](https://www.nagios.org) allow you to check if an application is alive and healthy.
@@ -27,8 +27,8 @@ How many HTTP requests is it receiving?
 Are they handled correctly?
 How fast are requests handled for different endpoints?
 Are there many errors being logged?
-How many disk IO operations is the service making?
-These are all important questions that need to be asked to keep a service functional.
+How many disk IO operations is the service performing?
+These are all important questions that need to be monitored to keep a service functional.
 
 Prometheus is a **white box monitoring and alerting** system that is designed for large, scalable environments.
 With Prometheus,
@@ -38,7 +38,7 @@ By monitoring this internal state,
 we can throw alerts and act upon certain events.
 For example,
 if the average request rate per second of a service goes up,
-or the [fifty percent quantile](https://en.wikipedia.org/wiki/Quantile) response time of this service suddenly passes a certain threshold,
+or the [fifty percent quantile](https://en.wikipedia.org/wiki/Quantile) response time of a service suddenly passes a certain threshold,
 we could act upon this by upscaling the service.
 
 # Overview
@@ -53,6 +53,7 @@ we could act upon this by upscaling the service.
 * [Visualization and Analytics](#visualization-and-analytics)
 * [Alert! Alert!](#alert-alert)
 * [Monitoring Time!](#monitoring-time)
+* [Final Words](#final-words)
 
 <a name="rise-of-prometheus" />
 
@@ -338,7 +339,7 @@ This is totally different compared to other,
 more traditional,
 monitoring tools.
 Normally,
-the application is unaware that is being monitored.
+the application is unaware that it is being monitored.
 With Prometheus,
 you must instrument your code
 and explicitly define the metrics you want to expose.
@@ -545,6 +546,8 @@ receivers:
     url: 'team.critical.com'
 ```
 
+<a name="monitoring-time" />
+
 # Monitoring Time!
 
 Do you wish to get your hands dirty quickly with Prometheus?
@@ -645,6 +648,8 @@ otes"},"commonLabels":{"alertname":"TooManyCatVotes","instance":"172.19.0.5:8080
 "},"commonAnnotations":{"summary":"Too many votes for cats!"},"externalURL":"http://c620b49edf4c:9093","version":"3","groupKey":101200
 6562800295578}
 ```
+
+<a name="final-words" />
 
 # Final Words
 
