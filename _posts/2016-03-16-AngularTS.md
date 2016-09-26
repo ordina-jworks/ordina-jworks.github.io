@@ -80,7 +80,7 @@ Below every component declaration you will see a registration to the module.
 When registering the module you have to add all the libraries you want to depend upon.
 In this example we inject the routing service for navigation. 
 
-{% highlight javascript %}
+{% highlight coffeescript %}
 module JWorks {
     "use strict";
 
@@ -95,7 +95,7 @@ You can define an unique namespace around your code.
 This will encapsulate variables, interfaces and classes. 
 TypeScript supports sub namespaces for further encapsulation.
 
-{% highlight javascript %}
+{% highlight coffeescript %}
 module JWorks {
     "use strict";
 }
@@ -103,7 +103,7 @@ module JWorks {
 
 #### Transpiled JavaScript
 
-{% highlight javascript %}
+{% highlight coffeescript %}
 var JWorks;
 (function(JWorks){
 
@@ -121,7 +121,7 @@ If you have a couple entities, you can even establish a relationship.
 This will provide a clear view on what you want to achieve and have the possibility to create multiple instances of these classes. 
 When building an entity class you can optionally define an interface to show what the intention of the class is.
 
-{% highlight javascript %}
+{% highlight coffeescript %}
 module JWorks {
 
     export interface IEmployee {
@@ -147,22 +147,22 @@ This will expose the class to other classes.
 When exporting the interface you will use it as a data type.
 
 ### Class as property
-{% highlight javascript %}
+{% highlight coffeescript %}
 Employee:IEmployee;
 {% endhighlight %}
 
 ### Instance of the class
-{% highlight javascript %}
+{% highlight coffeescript %}
 employee = new Employee();
 {% endhighlight %}
 
 ### Access property
-{% highlight javascript %}
+{% highlight coffeescript %}
 employee.name
 {% endhighlight %}
 
 ### Call methods
-{% highlight javascript %}
+{% highlight coffeescript %}
 employee.eat(eggs);
 {% endhighlight %}
 
@@ -176,7 +176,7 @@ Classes declare and implement the properties and methods exposed to the view.
 Every class has his own constructor function, in this function we can declare default property values and other initialisation code. 
 
 ### Controller Interface
-{% highlight javascript %}
+{% highlight coffeescript %}
 module Jworks {
 
     interface IEmployeeController{
@@ -194,7 +194,7 @@ The parameters have the same syntax as the properties.
 
 ### Controller Class
 
-{% highlight javascript %}
+{% highlight coffeescript %}
 module JWorks {
 
     class EmployeeController implements IEmployeeController{
@@ -232,8 +232,8 @@ TypeScript supports initialisation of your properties and injections in a constr
 When declaring properties in your class, you can declare them directly into your constructor.
 Although *these two examples are* correct you can have issues in your tests with the second example.
 
-{% highlight javascript %}
-//So this:
+{% highlight coffeescript %}
+So this:
 class Controller {
 
     name:string;
@@ -244,7 +244,7 @@ class Controller {
     }
 
 }
-//Becomes:
+Becomes:
 class Controller {
 
     constructor(public name:string){
@@ -264,7 +264,7 @@ So it’s important to declare this into your routes and views.
 In your HTML you will have to prefix your methods and properties with the ControllerAs syntax.
 
 
-{% highlight javascript %}
+{% highlight coffeescript %}
 module JWorks {
    "use strict";
 
@@ -301,7 +301,7 @@ For my project I used an Angular service that simplifies common verb requests wi
 In my custom services you'll see examples of Restangular in TypeScript.
 If you like to checkout what the difference is with $resource, you can check this [list](https://github.com/mgonto/restAngular#differences-with-resource)
 
-{% highlight javascript %}
+{% highlight coffeescript %}
 module JWorks {
 
    export interface IEmployeeService {
@@ -360,7 +360,7 @@ A directive allows Angular to manipulate the DOM and add its own behaviour.
 These can either be a set of instructions or a JSON representation.
 To define a directive in TypeScript we use the directive service **that Angular** provides.
 
-{% highlight javascript %}
+{% highlight coffeescript %}
 module JWorks {
 
    export interface IAnimate extends ng.IAttributes {
