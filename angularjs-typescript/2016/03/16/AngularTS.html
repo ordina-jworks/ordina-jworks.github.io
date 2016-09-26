@@ -204,11 +204,11 @@ Below every component declaration you will see a registration to the module.
 When registering the module you have to add all the libraries you want to depend upon.
 In this example we inject the routing service for navigation.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
-    <span class="s2">"use strict"</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
+    <span class="s">"use strict"</span><span class="p">;</span>
 
     <span class="nx">angular</span>
-       <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s2">"jworks360"</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ngRoute'</span><span class="p">])</span>
+       <span class="p">.</span><span class="na">module</span><span class="p">(</span><span class="s">"jworks360"</span><span class="p">,</span> <span class="p">[</span><span class="s">'ngRoute'</span><span class="p">])</span>
 <span class="p">}</span></code></pre></figure>
 
 <h3 id="internal-typescript-modules">Internal TypeScript Modules</h3>
@@ -217,14 +217,14 @@ You can define an unique namespace around your code.
 This will encapsulate variables, interfaces and classes. 
 TypeScript supports sub namespaces for further encapsulation.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
-    <span class="s2">"use strict"</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
+    <span class="s">"use strict"</span><span class="p">;</span>
 <span class="p">}</span></code></pre></figure>
 
 <h4 id="transpiled-javascript">Transpiled JavaScript</h4>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">JWorks</span><span class="p">;</span>
-<span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">JWorks</span><span class="p">){</span>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">var</span> <span class="nx">JWorks</span><span class="p">;</span>
+<span class="p">(</span><span class="nx">function</span><span class="p">(</span><span class="nx">JWorks</span><span class="p">){</span>
 
 <span class="p">})(</span><span class="nx">JWorks</span> <span class="o">||</span> <span class="p">(</span><span class="nx">JWorks</span> <span class="o">=</span> <span class="p">{}));</span></code></pre></figure>
 
@@ -238,20 +238,20 @@ If you have a couple entities, you can even establish a relationship.
 This will provide a clear view on what you want to achieve and have the possibility to create multiple instances of these classes. 
 When building an entity class you can optionally define an interface to show what the intention of the class is.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
 
-    <span class="kr">export</span> <span class="kr">interface</span> <span class="nx">IEmployee</span> <span class="p">{</span>
-         <span class="nl">username</span><span class="p">:</span><span class="nx">string</span><span class="p">;</span>
-         <span class="nl">name</span><span class="p">:</span><span class="nx">string</span><span class="p">;</span>
-         <span class="nx">eat</span><span class="p">(</span><span class="nx">food</span><span class="err">:</span><span class="nx">string</span><span class="p">)</span><span class="err">:</span><span class="k">void</span>
+    <span class="nx">export</span> <span class="nx">interface</span> <span class="nx">IEmployee</span> <span class="p">{</span>
+         <span class="na">username</span><span class="o">:</span><span class="nx">string</span><span class="p">;</span>
+         <span class="na">name</span><span class="o">:</span><span class="nx">string</span><span class="p">;</span>
+         <span class="nx">eat</span><span class="p">(</span><span class="na">food</span><span class="o">:</span><span class="nx">string</span><span class="p">)</span><span class="o">:</span><span class="nx">void</span>
     <span class="p">}</span>
 
-    <span class="kr">export</span> <span class="kr">class</span> <span class="nx">Employee</span> <span class="kr">implements</span> <span class="nx">IEmployee</span> <span class="p">{</span>
+    <span class="nx">export</span> <span class="k">class</span> <span class="nx">Employee</span> <span class="nx">implements</span> <span class="nx">IEmployee</span> <span class="p">{</span>
  
-          <span class="nx">constructor</span><span class="p">(</span><span class="kr">public</span> <span class="nx">username</span><span class="err">:</span><span class="nx">string</span><span class="p">,</span> <span class="kr">public</span> <span class="nx">name</span><span class="err">:</span><span class="nx">string</span><span class="p">){}</span>
+          <span class="nx">constructor</span><span class="p">(</span><span class="nx">public</span> <span class="na">username</span><span class="o">:</span><span class="nx">string</span><span class="p">,</span> <span class="nx">public</span> <span class="na">name</span><span class="o">:</span><span class="nx">string</span><span class="p">){}</span>
 
-          <span class="nx">eat</span><span class="p">(</span><span class="nx">food</span><span class="err">:</span><span class="nx">string</span><span class="p">)</span><span class="err">:</span><span class="k">void</span><span class="p">{</span>
-             <span class="c1">//implementation</span>
+          <span class="nx">eat</span><span class="p">(</span><span class="na">food</span><span class="o">:</span><span class="nx">string</span><span class="p">)</span><span class="o">:</span><span class="nx">void</span><span class="p">{</span>
+             <span class="o">//</span><span class="nx">implementation</span>
           <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
@@ -262,19 +262,19 @@ When exporting the interface you will use it as a data type.</p>
 
 <h3 id="class-as-property">Class as property</h3>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Employee</span><span class="err">:</span><span class="nx">IEmployee</span><span class="p">;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="na">Employee</span><span class="o">:</span><span class="nx">IEmployee</span><span class="p">;</span></code></pre></figure>
 
 <h3 id="instance-of-the-class">Instance of the class</h3>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">employee</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Employee</span><span class="p">();</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">employee</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Employee</span><span class="p">();</span></code></pre></figure>
 
 <h3 id="access-property">Access property</h3>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">employee</span><span class="p">.</span><span class="nx">name</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">employee</span><span class="p">.</span><span class="na">name</span></code></pre></figure>
 
 <h3 id="call-methods">Call methods</h3>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">employee</span><span class="p">.</span><span class="nx">eat</span><span class="p">(</span><span class="nx">eggs</span><span class="p">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">employee</span><span class="p">.</span><span class="na">eat</span><span class="p">(</span><span class="nx">eggs</span><span class="p">);</span></code></pre></figure>
 
 <h2 id="controllers">Controllers</h2>
 <p>As you know the controller defines the model to the view of your application, methods for every action you require and the scope where you hold a two way binding.
@@ -286,11 +286,11 @@ Every class has his own constructor function, in this function we can declare de
 
 <h3 id="controller-interface">Controller Interface</h3>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span> <span class="nx">Jworks</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">module</span> <span class="nx">Jworks</span> <span class="p">{</span>
 
-    <span class="kr">interface</span> <span class="nx">IEmployeeController</span><span class="p">{</span>
-        <span class="nl">person</span><span class="p">:</span><span class="nx">IPerson</span><span class="p">;</span>
-        <span class="nx">save</span><span class="p">(</span><span class="nx">person</span><span class="err">:</span><span class="nx">IPerson</span><span class="p">)</span><span class="err">:</span><span class="k">void</span><span class="p">;</span>
+    <span class="nx">interface</span> <span class="nx">IEmployeeController</span><span class="p">{</span>
+        <span class="na">person</span><span class="o">:</span><span class="nx">IPerson</span><span class="p">;</span>
+        <span class="nx">save</span><span class="p">(</span><span class="na">person</span><span class="o">:</span><span class="nx">IPerson</span><span class="p">)</span><span class="o">:</span><span class="nx">void</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
@@ -302,25 +302,25 @@ The parameters have the same syntax as the properties.</p>
 
 <h3 id="controller-class">Controller Class</h3>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
 
-    <span class="kr">class</span> <span class="nx">EmployeeController</span> <span class="kr">implements</span> <span class="nx">IEmployeeController</span><span class="p">{</span>
+    <span class="k">class</span> <span class="nx">EmployeeController</span> <span class="nx">implements</span> <span class="nx">IEmployeeController</span><span class="p">{</span>
 
-        <span class="kr">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"EmployeeService"</span><span class="p">];</span>
+        <span class="nx">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s">"EmployeeService"</span><span class="p">];</span>
 
-        <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">employeeService</span><span class="err">:</span><span class="nx">IEmployeeService</span><span class="p">,</span><span class="kr">public</span> <span class="nx">employee</span><span class="err">:</span><span class="nx">IEmployee</span><span class="p">){</span>
-             <span class="k">this</span><span class="p">.</span><span class="nx">employee</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Employee</span><span class="p">(</span><span class="s2">"Nivek"</span><span class="p">,</span><span class="s2">"Kevin"</span><span class="p">);</span>
+        <span class="nx">constructor</span><span class="p">(</span><span class="nx">private</span> <span class="na">employeeService</span><span class="o">:</span><span class="nx">IEmployeeService</span><span class="p">,</span><span class="nx">public</span> <span class="na">employee</span><span class="o">:</span><span class="nx">IEmployee</span><span class="p">){</span>
+             <span class="k">this</span><span class="p">.</span><span class="na">employee</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Employee</span><span class="p">(</span><span class="s">"Nivek"</span><span class="p">,</span><span class="s">"Kevin"</span><span class="p">);</span>
         <span class="p">}</span>
 
-        <span class="nx">save</span><span class="p">()</span><span class="err">:</span><span class="k">void</span><span class="p">{</span>
-             <span class="k">this</span><span class="p">.</span><span class="nx">employeeService</span><span class="p">.</span><span class="nx">addEmployee</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">employee</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">){</span>
-             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"added successfully!"</span><span class="p">);</span>
+        <span class="nx">save</span><span class="p">()</span><span class="o">:</span><span class="nx">void</span><span class="p">{</span>
+             <span class="k">this</span><span class="p">.</span><span class="na">employeeService</span><span class="p">.</span><span class="na">addEmployee</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">employee</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="nx">function</span><span class="p">(</span><span class="nx">result</span><span class="p">){</span>
+             <span class="nx">console</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">"added successfully!"</span><span class="p">);</span>
         <span class="p">});</span>
    <span class="p">}</span>
 
 <span class="p">}</span>
-<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s2">"jworks360"</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s2">"EmployeeController"</span><span class="p">,</span> <span class="nx">EmployeeController</span><span class="p">);</span></code></pre></figure>
+<span class="nx">angular</span><span class="p">.</span><span class="na">module</span><span class="p">(</span><span class="s">"jworks360"</span><span class="p">)</span>
+<span class="p">.</span><span class="na">controller</span><span class="p">(</span><span class="s">"EmployeeController"</span><span class="p">,</span> <span class="nx">EmployeeController</span><span class="p">);</span></code></pre></figure>
 
 <h3 id="dependency-injection-in-classes">Dependency Injection in classes</h3>
 <p>When a service is needed in your controller, it must to be injected before it can be used.
@@ -335,21 +335,21 @@ If you inject a custom service you have to reference to the related service.</p>
 When declaring properties in your class, you can declare them directly into your constructor.
 Although <em>these two examples are</em> correct you can have issues in your tests with the second example.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//So this:</span>
-<span class="kr">class</span> <span class="nx">Controller</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">So</span> <span class="na">this</span><span class="o">:</span>
+<span class="k">class</span> <span class="nx">Controller</span> <span class="p">{</span>
 
-    <span class="nl">name</span><span class="p">:</span><span class="nx">string</span><span class="p">;</span>
+    <span class="na">name</span><span class="o">:</span><span class="nx">string</span><span class="p">;</span>
 
-    <span class="nx">constructor</span><span class="p">(</span><span class="kr">public</span> <span class="nx">name</span><span class="err">:</span><span class="nx">string</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="o">=</span><span class="nx">name</span><span class="p">;</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">public</span> <span class="na">name</span><span class="o">:</span><span class="nx">string</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="o">=</span><span class="nx">name</span><span class="p">;</span>
 
     <span class="p">}</span>
 
 <span class="p">}</span>
-<span class="c1">//Becomes:</span>
-<span class="kr">class</span> <span class="nx">Controller</span> <span class="p">{</span>
+<span class="na">Becomes</span><span class="o">:</span>
+<span class="k">class</span> <span class="nx">Controller</span> <span class="p">{</span>
 
-    <span class="nx">constructor</span><span class="p">(</span><span class="kr">public</span> <span class="nx">name</span><span class="err">:</span><span class="nx">string</span><span class="p">){</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">public</span> <span class="na">name</span><span class="o">:</span><span class="nx">string</span><span class="p">){</span>
     <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
@@ -363,28 +363,28 @@ When initialising strings, TypeScript makes no distinction between double or sin
 So it’s important to declare this into your routes and views.
 In your HTML you will have to prefix your methods and properties with the ControllerAs syntax.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
-   <span class="s2">"use strict"</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
+   <span class="s">"use strict"</span><span class="p">;</span>
 
-   <span class="kd">function</span> <span class="nx">routes</span><span class="p">(</span><span class="nx">$routeProvider</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">function</span> <span class="nx">routes</span><span class="p">(</span><span class="nx">$routeProvider</span><span class="p">)</span> <span class="p">{</span>
 
        <span class="nx">$routeProvider</span>
-           <span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="p">{</span>
-               <span class="na">redirectTo</span><span class="p">:</span> <span class="s1">'/login'</span>
+           <span class="p">.</span><span class="na">when</span><span class="p">(</span><span class="s">'/'</span><span class="p">,</span> <span class="p">{</span>
+               <span class="na">redirectTo</span><span class="o">:</span> <span class="s">'/login'</span>
            <span class="p">})</span>
-           <span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="s1">'/profile'</span><span class="p">,</span> <span class="p">{</span>
-               <span class="na">templateUrl</span><span class="p">:</span> <span class="s1">'app/persons/profile.html'</span><span class="p">,</span>
-               <span class="na">controller</span><span class="p">:</span> <span class="s1">'EmployeeController'</span><span class="p">,</span>
-               <span class="na">controllerAs</span><span class="p">:</span> <span class="s1">'$profile'</span><span class="p">,</span>
+           <span class="p">.</span><span class="na">when</span><span class="p">(</span><span class="s">'/profile'</span><span class="p">,</span> <span class="p">{</span>
+               <span class="na">templateUrl</span><span class="o">:</span> <span class="s">'app/persons/profile.html'</span><span class="p">,</span>
+               <span class="na">controller</span><span class="o">:</span> <span class="s">'EmployeeController'</span><span class="p">,</span>
+               <span class="na">controllerAs</span><span class="o">:</span> <span class="s">'$profile'</span><span class="p">,</span>
            <span class="p">})</span>
-           <span class="p">.</span><span class="nx">otherwise</span><span class="p">({</span>
-               <span class="na">redirectTo</span><span class="p">:</span> <span class="s1">'/'</span>
+           <span class="p">.</span><span class="na">otherwise</span><span class="p">({</span>
+               <span class="na">redirectTo</span><span class="o">:</span> <span class="s">'/'</span>
            <span class="p">});</span>
    <span class="p">}</span>
-   <span class="nx">routes</span><span class="p">.</span><span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"$routeProvider"</span><span class="p">];</span>
+   <span class="nx">routes</span><span class="p">.</span><span class="na">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s">"$routeProvider"</span><span class="p">];</span>
 
-   <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s2">"jworks360"</span><span class="p">)</span>
-       <span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="nx">routes</span><span class="p">);</span>
+   <span class="nx">angular</span><span class="p">.</span><span class="na">module</span><span class="p">(</span><span class="s">"jworks360"</span><span class="p">)</span>
+       <span class="p">.</span><span class="na">config</span><span class="p">(</span><span class="nx">routes</span><span class="p">);</span>
 <span class="p">}</span></code></pre></figure>
 
 <h2 id="services">Services</h2>
@@ -398,48 +398,48 @@ Communicating with an HTTP service to collect and share data with any other comp
 In my custom services you’ll see examples of Restangular in TypeScript.
 If you like to checkout what the difference is with $resource, you can check this <a href="https://github.com/mgonto/restAngular#differences-with-resource">list</a></p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
 
-   <span class="kr">export</span> <span class="kr">interface</span> <span class="nx">IEmployeeService</span> <span class="p">{</span>
-       <span class="nl">username</span><span class="p">:</span><span class="nx">string</span><span class="p">;</span>
-       <span class="nl">employee</span><span class="p">:</span><span class="nx">IEmployee</span><span class="p">;</span>
+   <span class="nx">export</span> <span class="nx">interface</span> <span class="nx">IEmployeeService</span> <span class="p">{</span>
+       <span class="na">username</span><span class="o">:</span><span class="nx">string</span><span class="p">;</span>
+       <span class="na">employee</span><span class="o">:</span><span class="nx">IEmployee</span><span class="p">;</span>
 
-       <span class="nx">getEmployee</span><span class="p">()</span><span class="err">:</span> <span class="nx">Employee</span><span class="p">;</span>
-       <span class="nx">setEmployee</span><span class="p">(</span><span class="nx">employee</span><span class="err">:</span><span class="nx">IEmployee</span><span class="p">);</span>
-       <span class="nx">getEmployeeByUsername</span><span class="p">(</span><span class="nx">username</span><span class="err">:</span><span class="nx">string</span><span class="p">)</span><span class="err">:</span><span class="nx">ng</span><span class="p">.</span><span class="nx">IPromise</span><span class="o">&lt;</span><span class="p">{}</span><span class="o">&gt;</span><span class="p">;</span>
-       <span class="nx">getEmployeeByLink</span><span class="p">(</span><span class="nx">href</span><span class="err">:</span><span class="nx">string</span><span class="p">)</span><span class="err">:</span><span class="nx">ng</span><span class="p">.</span><span class="nx">IPromise</span><span class="o">&lt;</span><span class="p">{}</span><span class="o">&gt;</span><span class="p">;</span>
+       <span class="nx">getEmployee</span><span class="p">()</span><span class="o">:</span> <span class="nx">Employee</span><span class="p">;</span>
+       <span class="nx">setEmployee</span><span class="p">(</span><span class="na">employee</span><span class="o">:</span><span class="nx">IEmployee</span><span class="p">);</span>
+       <span class="nx">getEmployeeByUsername</span><span class="p">(</span><span class="na">username</span><span class="o">:</span><span class="nx">string</span><span class="p">)</span><span class="o">:</span><span class="nx">ng</span><span class="p">.</span><span class="na">IPromise</span><span class="o">&lt;</span><span class="p">{}</span><span class="o">&gt;</span><span class="p">;</span>
+       <span class="nx">getEmployeeByLink</span><span class="p">(</span><span class="na">href</span><span class="o">:</span><span class="nx">string</span><span class="p">)</span><span class="o">:</span><span class="nx">ng</span><span class="p">.</span><span class="na">IPromise</span><span class="o">&lt;</span><span class="p">{}</span><span class="o">&gt;</span><span class="p">;</span>
    <span class="p">}</span>
 
-   <span class="kr">export</span> <span class="kr">class</span> <span class="nx">EmployeeService</span> <span class="kr">implements</span> <span class="nx">IEmployeeService</span> <span class="p">{</span>
+   <span class="nx">export</span> <span class="k">class</span> <span class="nx">EmployeeService</span> <span class="nx">implements</span> <span class="nx">IEmployeeService</span> <span class="p">{</span>
 
-       <span class="kr">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"EmployeeRestangular"</span><span class="p">,</span> <span class="s2">"$location"</span><span class="p">];</span>
+       <span class="nx">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s">"EmployeeRestangular"</span><span class="p">,</span> <span class="s">"$location"</span><span class="p">];</span>
 
-       <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">employeeRestService</span><span class="err">:</span><span class="nx">restAngular</span><span class="p">.</span><span class="nx">IService</span><span class="p">,</span> <span class="kr">private</span> <span class="nx">$location</span><span class="err">:</span><span class="nx">ng</span><span class="p">.</span><span class="nx">ILocationService</span><span class="p">,</span> <span class="kr">private</span> <span class="nx">employees</span><span class="err">:</span><span class="nx">restAngular</span><span class="p">.</span><span class="nx">IElement</span><span class="p">,</span><span class="kr">public</span> <span class="nx">employee</span><span class="err">:</span><span class="nx">IEmployee</span><span class="p">,</span><span class="kr">public</span> <span class="nx">username</span><span class="err">:</span><span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">username</span> <span class="o">=</span><span class="nb">window</span><span class="p">.</span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">"username"</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">employees</span> <span class="o">=</span> <span class="nx">employeeRestService</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s2">"employees"</span><span class="p">);</span>
-            <span class="nx">employees</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="nx">username</span><span class="p">).</span><span class="nx">get</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">data</span><span class="err">:</span><span class="nx">any</span><span class="p">)</span><span class="o">=&gt;</span> <span class="p">{</span>
-                   <span class="k">this</span><span class="p">.</span><span class="nx">setEmployee</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+       <span class="nx">constructor</span><span class="p">(</span><span class="nx">private</span> <span class="na">employeeRestService</span><span class="o">:</span><span class="nx">restAngular</span><span class="p">.</span><span class="na">IService</span><span class="p">,</span> <span class="nx">private</span> <span class="na">$location</span><span class="o">:</span><span class="nx">ng</span><span class="p">.</span><span class="na">ILocationService</span><span class="p">,</span> <span class="nx">private</span> <span class="na">employees</span><span class="o">:</span><span class="nx">restAngular</span><span class="p">.</span><span class="na">IElement</span><span class="p">,</span><span class="nx">public</span> <span class="na">employee</span><span class="o">:</span><span class="nx">IEmployee</span><span class="p">,</span><span class="nx">public</span> <span class="na">username</span><span class="o">:</span><span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">username</span> <span class="o">=</span><span class="nb">window</span><span class="p">.</span><span class="na">sessionStorage</span><span class="p">.</span><span class="na">getItem</span><span class="p">(</span><span class="s">"username"</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">employees</span> <span class="o">=</span> <span class="nx">employeeRestService</span><span class="p">.</span><span class="na">all</span><span class="p">(</span><span class="s">"employees"</span><span class="p">);</span>
+            <span class="nx">employees</span><span class="p">.</span><span class="na">one</span><span class="p">(</span><span class="nx">username</span><span class="p">).</span><span class="na">get</span><span class="p">().</span><span class="na">then</span><span class="p">((</span><span class="na">data</span><span class="o">:</span><span class="nx">any</span><span class="p">)</span><span class="o">=&gt;</span> <span class="p">{</span>
+                   <span class="k">this</span><span class="p">.</span><span class="na">setEmployee</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
                <span class="p">});</span>
            <span class="p">}</span>
        <span class="p">}</span>
-       <span class="nx">getEmployee</span><span class="p">():</span><span class="nx">Employee</span> <span class="p">{</span>
-           <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">employee</span><span class="p">;</span>
+       <span class="nx">getEmployee</span><span class="p">()</span><span class="o">:</span><span class="nx">Employee</span> <span class="p">{</span>
+           <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">employee</span><span class="p">;</span>
        <span class="p">}</span>
        
-       <span class="nx">setEmployee</span><span class="p">(</span><span class="na">employee</span><span class="p">:</span><span class="nx">IEmployee</span><span class="p">)</span> <span class="p">{</span>
-           <span class="k">this</span><span class="p">.</span><span class="nx">employee</span> <span class="o">=</span> <span class="nx">employee</span><span class="p">;</span>
+       <span class="nx">setEmployee</span><span class="p">(</span><span class="na">employee</span><span class="o">:</span><span class="nx">IEmployee</span><span class="p">)</span> <span class="p">{</span>
+           <span class="k">this</span><span class="p">.</span><span class="na">employee</span> <span class="o">=</span> <span class="nx">employee</span><span class="p">;</span>
        <span class="p">}</span>
              
-       <span class="nx">getEmployeeByUsername</span><span class="p">(</span><span class="na">username</span><span class="p">:</span><span class="nx">string</span><span class="p">):</span><span class="nx">ng</span><span class="p">.</span><span class="nx">IPromise</span><span class="o">&lt;</span><span class="p">{}</span><span class="o">&gt;</span> 
-           <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">employees</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="nx">username</span><span class="p">).</span><span class="nx">get</span><span class="p">()</span>
+       <span class="nx">getEmployeeByUsername</span><span class="p">(</span><span class="na">username</span><span class="o">:</span><span class="nx">string</span><span class="p">)</span><span class="o">:</span><span class="nx">ng</span><span class="p">.</span><span class="na">IPromise</span><span class="o">&lt;</span><span class="p">{}</span><span class="o">&gt;</span> 
+           <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">employees</span><span class="p">.</span><span class="na">one</span><span class="p">(</span><span class="nx">username</span><span class="p">).</span><span class="na">get</span><span class="p">()</span>
        <span class="p">}</span>
 
-       <span class="nx">getEmployeeByLink</span><span class="p">(</span><span class="na">href</span><span class="p">:</span><span class="nx">string</span><span class="p">):</span><span class="nx">ng</span><span class="p">.</span><span class="nx">IPromise</span><span class="o">&lt;</span><span class="p">{}</span><span class="o">&gt;</span><span class="p">{</span>
-           <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">employees</span><span class="p">.</span><span class="nx">oneUrl</span><span class="p">(</span><span class="nx">href</span><span class="p">).</span><span class="nx">get</span><span class="p">();</span>
+       <span class="nx">getEmployeeByLink</span><span class="p">(</span><span class="na">href</span><span class="o">:</span><span class="nx">string</span><span class="p">)</span><span class="o">:</span><span class="nx">ng</span><span class="p">.</span><span class="na">IPromise</span><span class="o">&lt;</span><span class="p">{}</span><span class="o">&gt;</span><span class="p">{</span>
+           <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">employees</span><span class="p">.</span><span class="na">oneUrl</span><span class="p">(</span><span class="nx">href</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
        <span class="p">}</span>       
    <span class="p">}</span>
-          <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s2">"jworks360"</span><span class="p">)</span>
-              <span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="s2">"EmployeeService"</span><span class="p">,</span> <span class="nx">EmployeeService</span><span class="p">);</span>       
+          <span class="nx">angular</span><span class="p">.</span><span class="na">module</span><span class="p">(</span><span class="s">"jworks360"</span><span class="p">)</span>
+              <span class="p">.</span><span class="na">service</span><span class="p">(</span><span class="s">"EmployeeService"</span><span class="p">,</span> <span class="nx">EmployeeService</span><span class="p">);</span>       
 <span class="p">}</span></code></pre></figure>
 
 <p>In the above example, to use the Restangular service you have to install the proper typings.
@@ -454,35 +454,35 @@ A directive allows Angular to manipulate the DOM and add its own behaviour.
 These can either be a set of instructions or a JSON representation.
 To define a directive in TypeScript we use the directive service <strong>that Angular</strong> provides.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
 
-   <span class="kr">export</span> <span class="kr">interface</span> <span class="nx">IAnimate</span> <span class="kr">extends</span> <span class="nx">ng</span><span class="p">.</span><span class="nx">IAttributes</span> <span class="p">{</span>
-       <span class="nl">jwAnimate</span><span class="p">:</span><span class="nx">string</span><span class="p">;</span>
+   <span class="nx">export</span> <span class="nx">interface</span> <span class="nx">IAnimate</span> <span class="k">extends</span> <span class="nx">ng</span><span class="p">.</span><span class="na">IAttributes</span> <span class="p">{</span>
+       <span class="na">jwAnimate</span><span class="o">:</span><span class="nx">string</span><span class="p">;</span>
    <span class="p">}</span>
 
-   <span class="kr">class</span> <span class="nx">Animate</span> <span class="kr">implements</span> <span class="nx">ng</span><span class="p">.</span><span class="nx">IDirective</span> <span class="p">{</span>
+   <span class="k">class</span> <span class="nx">Animate</span> <span class="nx">implements</span> <span class="nx">ng</span><span class="p">.</span><span class="na">IDirective</span> <span class="p">{</span>
 
-       <span class="nx">restrict</span> <span class="o">=</span> <span class="s2">"A"</span><span class="p">;</span>
+       <span class="nx">restrict</span> <span class="o">=</span> <span class="s">"A"</span><span class="p">;</span>
 
-       <span class="kr">static</span> <span class="nx">instance</span><span class="p">()</span><span class="err">:</span><span class="nx">ng</span><span class="p">.</span><span class="nx">IDirective</span> <span class="p">{</span>
+       <span class="nx">static</span> <span class="nx">instance</span><span class="p">()</span><span class="o">:</span><span class="nx">ng</span><span class="p">.</span><span class="na">IDirective</span> <span class="p">{</span>
            <span class="k">return</span> <span class="k">new</span> <span class="nx">Animate</span><span class="p">();</span>
        <span class="p">}</span>
 
-       <span class="nx">link</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">elm</span><span class="err">:</span><span class="nx">ng</span><span class="p">.</span><span class="nx">IRootElementService</span><span class="p">,</span> <span class="nx">attr</span><span class="err">:</span><span class="nx">IAnimate</span><span class="p">,</span><span class="nx">ngModel</span><span class="err">:</span><span class="nx">ng</span><span class="p">.</span><span class="nx">INgModelController</span><span class="p">)</span><span class="err">:</span><span class="k">void</span> <span class="p">{</span>
+       <span class="nx">link</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="na">elm</span><span class="o">:</span><span class="nx">ng</span><span class="p">.</span><span class="na">IRootElementService</span><span class="p">,</span> <span class="na">attr</span><span class="o">:</span><span class="nx">IAnimate</span><span class="p">,</span><span class="na">ngModel</span><span class="o">:</span><span class="nx">ng</span><span class="p">.</span><span class="na">INgModelController</span><span class="p">)</span><span class="o">:</span><span class="nx">void</span> <span class="p">{</span>
 
-           <span class="nx">$scope</span><span class="p">.</span><span class="nx">right</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-               <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
-                   <span class="na">left</span><span class="p">:</span> <span class="s1">'+=150'</span>
+           <span class="nx">$scope</span><span class="p">.</span><span class="na">right</span> <span class="o">=</span> <span class="nx">function</span><span class="p">(){</span>
+               <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="na">animate</span><span class="p">({</span>
+                   <span class="na">left</span><span class="o">:</span> <span class="s">'+=150'</span>
                <span class="p">});</span>
-                <span class="nx">elm</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">(</span><span class="s2">"slow"</span><span class="p">);</span>
+                <span class="nx">elm</span><span class="p">.</span><span class="na">fadeOut</span><span class="p">(</span><span class="s">"slow"</span><span class="p">);</span>
            <span class="p">};</span>
-           <span class="kd">var</span> <span class="nx">direction</span> <span class="o">=</span> <span class="nx">attr</span><span class="p">[</span><span class="s1">'jwAnimate'</span><span class="p">];</span>
-           <span class="nx">elm</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span><span class="nx">$scope</span><span class="p">[</span><span class="nx">direction</span><span class="p">]);</span>
+           <span class="nx">var</span> <span class="nx">direction</span> <span class="o">=</span> <span class="nx">attr</span><span class="p">[</span><span class="s">'jwAnimate'</span><span class="p">];</span>
+           <span class="nx">elm</span><span class="p">.</span><span class="na">on</span><span class="p">(</span><span class="s">'click'</span><span class="p">,</span><span class="nx">$scope</span><span class="p">[</span><span class="nx">direction</span><span class="p">]);</span>
 
        <span class="p">}</span>
 
    <span class="p">}</span>
-   <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s2">"jworks360"</span><span class="p">).</span><span class="nx">directive</span><span class="p">(</span><span class="s2">"jwAnimate"</span><span class="p">,</span> <span class="nx">Animate</span><span class="p">.</span><span class="nx">instance</span><span class="p">);</span>
+   <span class="nx">angular</span><span class="p">.</span><span class="na">module</span><span class="p">(</span><span class="s">"jworks360"</span><span class="p">).</span><span class="na">directive</span><span class="p">(</span><span class="s">"jwAnimate"</span><span class="p">,</span> <span class="nx">Animate</span><span class="p">.</span><span class="na">instance</span><span class="p">);</span>
 
 <span class="p">}</span></code></pre></figure>
 
