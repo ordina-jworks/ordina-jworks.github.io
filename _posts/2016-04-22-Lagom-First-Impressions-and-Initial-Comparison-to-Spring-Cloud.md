@@ -42,7 +42,7 @@ Lagom, being an opinionated framework, provides a "golden path" from which the d
 Being based on the reactive principles as defined in the [Reactive Manifesto](http://www.reactivemanifesto.org/), Lagom provides the developer a guard-railed approach with good defaults while also allowing to deviate if necessary.
 
 This blogpost will cover our initial impression on the framework together with our opinion on the choices made while architecting the framework.
-Note that we won't go too deep into detail in all the different aspects of the framework, for more details refer to Lagom's extensive [documentation](http://www.lagomframework.com/documentation/1.0.x/Home.html).
+Note that we won't go too deep into detail in all the different aspects of the framework, for more details refer to Lagom's extensive [documentation](http://www.lagomframework.com/documentation/1.0.x/java/Home.html).
 As Lightbend is entering the microservices market with Lagom, we feel obliged to make a fair comparison with existing frameworks out there.
 In the Java world this is predominantly the **Spring stack** with Spring Boot and Spring Cloud, standing on the shoulders of giants such as the **Netflix OSS**.
 In this current stage, it would be a bit too early to make an in-depth comparison between the two, seeing as you would be comparing a mature project to an MVP.
@@ -106,7 +106,7 @@ It is possible to use other datastore solutions but this comes at the cost of no
 
 **ConductR** is an orchestration tool for managing Lightbend Reactive Platform applications across a cluster of machines and is Lightbend's solution for running Lagom systems in production.
 Note that ConductR comes with a license fee and is majorly targeted at enterprises.
-The other option we currently have in order to run our Lagom system in production is to write our [own service locator](http://www.lagomframework.com/documentation/1.0.x/Overview.html) compatible with Lagom.
+The other option we currently have in order to run our Lagom system in production is to write our [own service locator](http://www.lagomframework.com/documentation/1.0.x/java/Overview.html#production) compatible with Lagom.
 At the time of writing someone already started working on [Kubernetes support](https://github.com/lagom/lagom/issues/59) and we are sure that, given more time, more options will become available.
 For now though, Lagom is still in an early stage where we either have to pay for the ConductR license, build our own service locator, or wait until someone does the work for us.
 
@@ -148,7 +148,7 @@ After which we can start all our services using a single simple command:
 This command starts a **Cassandra server**, **service locator** and **service gateway**.
 Each of our microservices is started in parallel while also registering them in the service locator.
 Additionally, a `run` command to individually start services is available as well.
-Note that the ports are assigned to each microservice by an [algorithm](http://www.lagomframework.com/documentation/1.0.x/ServicePort.html) and are consistent even on different machines.
+Note that the ports are assigned to each microservice by an [algorithm](http://www.lagomframework.com/documentation/1.0.x/java/ServicePort.html#How-are-ports-assigned-to-services?) and are consistent even on different machines.
 The possibility to assign a specific port is available though.
 
 Similar to Play Framework, Lagom also supports code hot reloading allowing you to make changes in the code and immediately seeing these changes live without having to restart anything.
@@ -197,7 +197,7 @@ A `Descriptor` defines the service name and the endpoints offered by a service.
 In our case we define two REST endpoints, a GET and a POST.
 
 `GreetingMessage` is basically an immutable class with a single String `message` instance variable.
-On the subject of immutability the [Lagom documentation](http://www.lagomframework.com/documentation/1.0.x/ImmutablesInIDEs.html) mentions [Immutables](https://immutables.github.io), a Java library that helps you create immutable objects via annotation processing.
+On the subject of immutability the [Lagom documentation](http://www.lagomframework.com/documentation/1.0.x/java/ImmutablesInIDEs.html#Set-up-Immutables-in-your-IDE) mentions [Immutables](https://immutables.github.io), a Java library that helps you create immutable objects via annotation processing.
 Definitely worth a look seeing as it helps you get rid of boilerplate code.
 
 In the implementation submodule we implement our API's interface.
@@ -222,7 +222,7 @@ public class HelloServiceImpl implements HelloService {
 {% endhighlight %}
 
 You'll immediately notice that the service calls are non-blocking by default using [CompletableFutures](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html) introduced in JDK8.
-Interesting to know is that Lagom also provides support for the [Publish-subscribe pattern](http://www.lagomframework.com/documentation/1.0.x/PubSub.html) out of the box.
+Interesting to know is that Lagom also provides support for the [Publish-subscribe pattern](http://www.lagomframework.com/documentation/1.0.x/java/PubSub.html#Publish-Subscribe) out of the box.
 We also need to implement the module that binds the HelloService so that it can be served.
 
 `HelloServiceModule.java`
@@ -330,7 +330,7 @@ Tests can be executed in Activator via the following command:
 
 ## CQRS and Event Sourcing
 Being an opinionated framework Lagom suggests to use **CQRS** and **Event Sourcing** seeing as it fits well within the reactive paradigm.
-In this blogpost we are not going to explain CQRS and Event Sourcing in detail seeing as it is very well documented in the [documentation](http://www.lagomframework.com/documentation/1.0.x/ES_CQRS.html) of Lagom.
+In this blogpost we are not going to explain CQRS and Event Sourcing in detail seeing as it is very well documented in the [documentation](http://www.lagomframework.com/documentation/1.0.x/java/ES_CQRS.html#Event-Sourcing-and-CQRS) of Lagom.
 The gist of it is that each service should own its own data and only the service itself should have direct access to the database.
 Other services need to use the service's API in order to interact with its data.
 Sharing the database across different services would result in tight coupling.
@@ -348,7 +348,7 @@ By default, when launching our development environment, a Cassandra server will 
 
 Regarding the code, a **persistent entity** needs to be defined, combined with a related **command**, **event** and **state**.
 Note that the following code samples are mainly here to give an idea of the work needed for implementing all this.
-For more information and a detailed explanation, consult the [excellent documentation](http://www.lagomframework.com/documentation/1.0.x/PersistentEntity.html) on the subject.
+For more information and a detailed explanation, consult the [excellent documentation](http://www.lagomframework.com/documentation/1.0.x/java/PersistentEntity.html#Persistent-Entity) on the subject.
 
 In the persistent entity we define the behaviour of our entity.
 In order to interact with event sourced entities, commands need to be sent.
@@ -608,7 +608,7 @@ Spring Cloud and Netflix OSS?
 What about pet projects of single developers? This makes it less appealing to motivate people to pick up Lagom compared to for example Spring Cloud and Netflix OSS.
     
     > It is in the strategic planning of Lightbend to push ConductR forward as the main solution for your production environment.
-    > Do note that it’s perfectly possible to deploy your Lagom services elsewhere as long as you implement your own [service locator](http://www.lagomframework.com/documentation/1.0.x/Overview.html) (as an example, the integration needed to support Lagom in ConductR is available on [GitHub](https://github.com/typesafehub/conductr-lib/tree/master/lagom10-conductr-bundle-lib)).
+    > Do note that it’s perfectly possible to deploy your Lagom services elsewhere as long as you implement your own [service locator](http://www.lagomframework.com/documentation/1.0.x/java/ServiceLocator.html#Service-Locator) (as an example, the integration needed to support Lagom in ConductR is available on [GitHub](https://github.com/typesafehub/conductr-lib/tree/master/lagom10-conductr-bundle-lib)).
     > Looking at our [Open Source Position Statement](https://www.lightbend.com/open-source-position-statement) you will notice that one of the differentiators we see between our open source offerings and the commercial products is Time. 
     > Open source users tend to invest their time rather than their money. 
     > ConductR integration into Lagom could be seen as an example for this. 
@@ -707,7 +707,7 @@ Be sure to follow Andreas and Lightbend to catch it!
 ## Useful links
 
 - [Lagom](https://www.lightbend.com/lagom)
-- [Lagom documentation](http://www.lagomframework.com/documentation)
+- [Lagom documentation](http://www.lagomframework.com/documentation/1.0.x/java/Home.html)
 - [Lagom Twitter](https://twitter.com/lagom)
 - [Lagom GitHub](https://github.com/lagom/lagom)
 - [Lagom Gitter](https://gitter.im/lagom/lagom)

@@ -12,7 +12,7 @@ comments: true
 
 ### Master Spring Boot auto-configuration
 
-*Speaker: Stéphane Nicoll - [Talk & speaker description](http://www.springio.net/master-spring-boot-auto-configuration/)*
+*Speaker: Stéphane Nicoll*
 
 <img class="p-image float-image" alt="Stéphane Nicoll" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas10.png">In order to create your own autoconfiguration, it's important to remember the **spring.factories** file in the META-INF folder of the autoconfiguration project.
 
