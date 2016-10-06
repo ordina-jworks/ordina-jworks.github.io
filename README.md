@@ -1,6 +1,15 @@
 # Ordina JWorks Tech Blog
 
-## Setting up Jekyll on your computer
+## Setting up and running Jekyll on your Windows (with docker)
+
+    - Make sure your drive is shared with docker (docker settings)
+    - Make sure your cloned repo is on the path C:\Users\
+    - Open a command prompt inside your cloned repo
+    - Execute `docker run --name jekyll --label=jekyll --volume=%cd%:/srv/jekyll -it -p 127.0.0.1:4000:4000 jekyll/jekyll`
+    - Browse to [http://localhost:4000/](http://localhost:4000/)
+    - After making changes in the blog run `docker start jekyll -i` to rebuild and watch the blog
+    
+## Setting up Jekyll on your Mac or Linux
 Execute following commands:
     
     Make sure you have the ruby headers installed.
@@ -11,7 +20,7 @@ Execute following commands:
     - `(sudo) gem install bundler`
     - `bundler install`
 
-## Running Jekyll on your computer
+## Running Jekyll on your Mac or Linux
 - Run `jekyll serve` in the root directory of the tech blog
 - Browse to [http://localhost:4000/](http://localhost:4000/)
 
