@@ -18,17 +18,17 @@ It was only three weeks before the conference, that I coincidentally discovered 
 Until then I had never heard of Percona.
 Shame on me! But, Percona is mostly known in the US and according to db-engine.com it’s takes the 47th  place on the popularity list of Relational Databases, and the 97th spot if you consider all database systems.
 
-Yet, Percona is celebrating its 10th anniversary this year and among its more than 3000 customers worldwide it can count well-known brands like Cisco Systems, Time Warner Cable, Alcatent-Lucent, Groupon, BBC, Flickr, ... among  it's customers.
+Yet, Percona is celebrating its 10th anniversary this year and among it's more than 3000 customers worldwide it can count well-known brands like Cisco Systems, Time Warner Cable, Alcatent-Lucent, Groupon, BBC, Flickr, ... among  it's customers.
 It was at the conference that I uncovered that Percona Server is in fact a fork of the MySQL open source database, just like the more popular fork MariaDB.
 Percona presents itself on their website as the only company that delivers enterprise-class solutions for both MySQL and MongoDB across traditional and cloud-based platforms. 
 
 So it was obvious that the focus of the three-day conference was on MySQL and MongoDB.
 With 16 tutorials on Monday, 48 sessions on Tuesday and even 64 sessions on Wednesday the line-up was impressive.
 Most of the sessions covered MySQL, MongoDB and PostgreSQL topics but other open source databases like ElasticSearch, Redis, RethinkDB, Clickhouse,… were also discussed.
-Even with two people of Jworks attending the Conference, picking the right sessions was difficult and the [FoMO syndrome](https://en.wikipedia.org/wiki/Fear_of_missing_out) was clearly around the corner. 
+Even with two people of JWorks attending the Conference, picking the right sessions was difficult and the [FoMO syndrome](https://en.wikipedia.org/wiki/Fear_of_missing_out) was clearly around the corner. 
 
 While the conference mainly had a technical focus (sometimes in-depth), with subjects as analytics, architecture and design, security, operations, scalability and performance, I was pleased that these sessions were alternated with customer stories.
-Eventually it always interesting to see real life uses cases and big names like Facebook, Uber, Dropbox and Booking.com talking about the open source databases they use, and especially how they use them.
+Eventually it is always interesting to see real life uses cases and big names like Facebook, Uber, Dropbox and Booking.com talking about the open source databases they use, and especially how they use them.
 Facebook was represented by 10 of its employees involved in 7 talks.
 To pick some : [Shared MySQL hosting at Facebook](https://www.percona.com/live/plam16/sessions/one-system-fit-them-all-shared-mysql-hosting-facebook), [Massive Schema changes in Facebook](https://www.percona.com/live/plam16/sessions/massive-schema-changes-facebook), [MyRocks Deep Dive: Flash Optimized LSM Database for MySQL, and its Use Case at Facebook](https://www.percona.com/live/plam16/sessions/myrocks-deep-dive-flash-optimized-lsm-database-mysql-and-its-use-case-facebook), [Online Shard Migration at Facebook](https://www.percona.com/live/plam16/sessions/everyday-we%E2%80%99re-shuffling-%E2%80%94-online-shard-migration-facebook),…
 
