@@ -153,6 +153,8 @@ Grafana utilizes this functionality and can be used to build dashboards.
 Finally,
 Prometheus servers know which targets to scrape from due to service discovery,
 or static configuration.
+Service discovery is more common and also recommended,
+as it allows you to dynamically discover targets.
 
 <p style="text-align: center;">
   <img alt="Prometheus Architecture" src="/img/prometheus/prometheus-architecture.svg">
@@ -265,7 +267,7 @@ We can achieve this by selecting the time series of the metric `api_http_request
 where the label `status` is set to `500`.
 
 ```javascript
-api_http_requests_total{status=500}
+api_http_requests_total{status="500"}
 ```  
 
 We can also define a time window if we only want to have time series of a certain period.
@@ -472,12 +474,13 @@ Here are a few simple alerting rule examples:
 ```
 # Alert for any instance that have a median request latency >1s.
 ALERT APIHighRequestLatency
-  IF api_http_request_latencies_second{quantile="0.5"} > 1
-  FOR 1m
-  ANNOTATIONS {
-    summary = "High request latency on {{ $labels.instance }}",
-    description = "{{ $labels.instance }} has a median request latency above 1s (current value: {{ $value }}s)",
-  }
+IF api_http_request_latencies_second{quantile="0.5"} > 1
+FOR 1m
+LABELS { severity="critical"}
+ANNOTATIONS {
+  summary = "High request latency on {{ $labels.instance }}",
+  description = "{{ $labels.instance }} has a median request latency above 1s (current value: {{ $value }}s)",
+}
 
 ALERT CpuUsage
 IF cpu_usage_total > 95
