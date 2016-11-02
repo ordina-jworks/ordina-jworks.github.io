@@ -6,8 +6,8 @@
 </description>
     <link>https://ordina-jworks.github.io/</link>
     <atom:link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 19 Oct 2016 05:26:46 +0000</pubDate>
-    <lastBuildDate>Wed, 19 Oct 2016 05:26:46 +0000</lastBuildDate>
+    <pubDate>Wed, 02 Nov 2016 14:55:38 +0000</pubDate>
+    <lastBuildDate>Wed, 02 Nov 2016 14:55:38 +0000</lastBuildDate>
     <generator>Jekyll v3.3.0</generator>
     
       <item>
@@ -359,7 +359,9 @@ Grafana utilizes this functionality and can be used to build dashboards.&lt;/p&g
 
 &lt;p&gt;Finally,
 Prometheus servers know which targets to scrape from due to service discovery,
-or static configuration.&lt;/p&gt;
+or static configuration.
+Service discovery is more common and also recommended,
+as it allows you to dynamically discover targets.&lt;/p&gt;
 
 &lt;p style=&quot;text-align: center;&quot;&gt;
   &lt;img alt=&quot;Prometheus Architecture&quot; src=&quot;/img/prometheus/prometheus-architecture.svg&quot; /&gt;
@@ -495,7 +497,7 @@ Let’s say we want to monitor requests that failed due to an internal server er
 We can achieve this by selecting the time series of the metric &lt;code class=&quot;highlighter-rouge&quot;&gt;api_http_requests_total&lt;/code&gt;
 where the label &lt;code class=&quot;highlighter-rouge&quot;&gt;status&lt;/code&gt; is set to &lt;code class=&quot;highlighter-rouge&quot;&gt;500&lt;/code&gt;.&lt;/p&gt;
 
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;api_http_requests_total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;api_http_requests_total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;500&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -703,12 +705,13 @@ Here are a few simple alerting rule examples:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Alert for any instance that have a median request latency &amp;gt;1s.
 ALERT APIHighRequestLatency
-  IF api_http_request_latencies_second{quantile=&quot;0.5&quot;} &amp;gt; 1
-  FOR 1m
-  ANNOTATIONS {
-    summary = &quot;High request latency on &quot;,
-    description = &quot; has a median request latency above 1s (current value: s)&quot;,
-  }
+IF api_http_request_latencies_second{quantile=&quot;0.5&quot;} &amp;gt; 1
+FOR 1m
+LABELS { severity=&quot;critical&quot;}
+ANNOTATIONS {
+  summary = &quot;High request latency on &quot;,
+  description = &quot; has a median request latency above 1s (current value: s)&quot;,
+}
 
 ALERT CpuUsage
 IF cpu_usage_total &amp;gt; 95

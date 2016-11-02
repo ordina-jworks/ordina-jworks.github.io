@@ -287,7 +287,9 @@ Grafana utilizes this functionality and can be used to build dashboards.</p>
 
 <p>Finally,
 Prometheus servers know which targets to scrape from due to service discovery,
-or static configuration.</p>
+or static configuration.
+Service discovery is more common and also recommended,
+as it allows you to dynamically discover targets.</p>
 
 <p style="text-align: center;">
   <img alt="Prometheus Architecture" src="/img/prometheus/prometheus-architecture.svg" />
@@ -423,7 +425,7 @@ Let’s say we want to monitor requests that failed due to an internal server er
 We can achieve this by selecting the time series of the metric <code class="highlighter-rouge">api_http_requests_total</code>
 where the label <code class="highlighter-rouge">status</code> is set to <code class="highlighter-rouge">500</code>.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">api_http_requests_total</span><span class="p">{</span><span class="nx">status</span><span class="o">=</span><span class="mi">500</span><span class="p">}</span>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">api_http_requests_total</span><span class="p">{</span><span class="nx">status</span><span class="o">=</span><span class="s2">"500"</span><span class="p">}</span>
 </code></pre>
 </div>
 
@@ -631,12 +633,13 @@ Here are a few simple alerting rule examples:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code># Alert for any instance that have a median request latency &gt;1s.
 ALERT APIHighRequestLatency
-  IF api_http_request_latencies_second{quantile="0.5"} &gt; 1
-  FOR 1m
-  ANNOTATIONS {
-    summary = "High request latency on ",
-    description = " has a median request latency above 1s (current value: s)",
-  }
+IF api_http_request_latencies_second{quantile="0.5"} &gt; 1
+FOR 1m
+LABELS { severity="critical"}
+ANNOTATIONS {
+  summary = "High request latency on ",
+  description = " has a median request latency above 1s (current value: s)",
+}
 
 ALERT CpuUsage
 IF cpu_usage_total &gt; 95
