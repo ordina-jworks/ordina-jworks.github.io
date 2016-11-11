@@ -8,7 +8,7 @@ category: Testing
 comments: true
 ---
 ### Prerequisites
-For the purpose of this tutorial it is mandatory to have [Postman](https://www.getpostman.com/){:target="_blank"} installed which is available as a Chrome extension, as well as a Mac application. It is also mandatory to create an account at [Algorithmia](https://www.algorithmia.com/){:target="_blank"}.
+For the purpose of this tutorial it is mandatory to have [Postman](https://www.getpostman.com/apps){:target="_blank"} installed which is available has native apps for Windows, OS X and Linux. It is also mandatory to create an account at [Algorithmia](https://www.algorithmia.com/){:target="_blank"}.
 
 ### Creating and selecting an environment
 Postman's environment functionality makes it very easy to switch between different environments. A set of variables can be configured per environment and when switching from one environment to another one these will be replaced accordingly. For example let’s create an environment called "production".  Click the "No environment" dropdown in the header and select "Manage environments".
