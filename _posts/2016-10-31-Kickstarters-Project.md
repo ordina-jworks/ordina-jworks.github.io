@@ -4,7 +4,7 @@ authors: [tim_verte]
 title: 'Kickstarter project 2016'
 image: /img/kicks.png
 tags: [Spring, Angular2, Unit Test, Postman, Spring Boot, Spring REST Docs]
-category: Domain-Driven-Design
+category: Kickstarters
 comments: true
 ---
 
