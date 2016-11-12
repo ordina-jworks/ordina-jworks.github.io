@@ -3,7 +3,7 @@ layout: post
 authors: [bart_blommaerts]
 title: 'The Serverless Cloud'
 image: /img/serverless.jpg
-tags: [Cloud, Serverless, AWS, Lambda, Azure, Google Cloud Platform, IBM Bluemix, OpenWhisk, Webtask]
+tags: [Cloud, Serverless, AWS, Lambda, Azure, Google Cloud Platform, IBM Bluemix, OpenWhisk, Webtask, Collaborative Economy]
 category: Cloud
 comments: true
 ---
@@ -227,7 +227,7 @@ The actual URL can be found in the API Gateway in the stages section, as we saw 
 
 # Part 2
 
-In the first part of these series, I introduced the Serverless architectural style and focused on “market maker” [AWS Lambda](https://aws.amazon.com/lambda/details/) and on the [Serverless Framework](http://serverless.com/). 
+In the first part of these article, I introduced the Serverless architectural style and focused on “market maker” [AWS Lambda](https://aws.amazon.com/lambda/details/) and on the [Serverless Framework](http://serverless.com/). 
 In this part, I want to focus on other Faas providers.
 
 ## Auth0 Webtask
@@ -494,7 +494,7 @@ For example when using [existing packages](https://console.ng.bluemix.net/docs/o
 What’s even more impressive is the [Openwhisk Editor](https://new-console.ng.bluemix.net/openwhisk/editor). 
 This editor only lists the actions you created yourself.
 
-![Serverless]({{ '/img/serverless/6.png' | prepend: site.baseurl }})
+![Serverless]({{ '/img/serverless/7.png' | prepend: site.baseurl }})
 
 As you can see from the screenshot, you immediately get links to the REST Endpoint.
 
@@ -512,3 +512,113 @@ In this phase available documentation also is crucial.
 Obviously, this high-level introduction doesn’t list all the differences or similarities, but it offers a nice starting point to experience the FaaS (r)evolution first-hand.
 
 # Part 3
+
+In the first part of this article, I introduced the Serverless architectural style. 
+In the second part, I compared all major serverless providers. 
+In this third and last part, I would like to look at serverless as an enabler of [collaborative economy](http://www.slideshare.net/BartBlommaerts/the-collaborative-economy-61528579).
+
+## Collaborative Economy
+
+What is collaborative ecomomy?
+
+>[Benita Matofska](https://twitter.com/benitamatofska): The Sharing Economy is a socio-economic ecosystem built around the sharing of human, physical and intellectual resources.
+It includes the shared creation, production, distribution, trade and consumption of goods and services by different people and organisations.
+
+The last part of Benita’s quote: *shared creation, production .. of services by different people and organisations* makes a very nice use-case for the serverless style of building applications.
+
+### Your data
+
+In this day and age, all companies have become IT companies, meaning a lot of data is gathered and stored somewhere. 
+Often the usage of the available data changes over time. 
+If data is not used for the benefit of the enterprise or its employees, does it still hold value? 
+Wouldn’t it be great if we could turn cost into profit?
+
+Thanks to its cost model (pay per execution), its focus on scalability (no risk of overprovisioning) and resilience, serverless enables companies to experiment with exposing their data:
+
+* Offering an API for others to consume
+* Enriching existing API’s with their data
+* ...
+
+### Your ideas
+
+Serverless also makes a lot of sense for companies that don’t want to expose their data, but have great or new ideas on how to use others data:
+
+* Combining data from multiple providers
+* Filtering and transforming data
+* New business cases beyond the scope of the original API
+* ...
+
+### Example
+I implemented a small and simple application that will consume data from different serverless cloud providers. 
+Every “hop” in the system will parse its input and add some new data.
+
+#### Component diagram
+
+![Serverless]({{ '/img/serverless/8.png' | prepend: site.baseurl }})
+
+#### Description
+Any client can post a JSON to the first function, made with [Auth0 webtask](https://webtask.io/). 
+The body of the post request is simple:
+
+```
+{"temp":"42"}
+```
+
+The WebTask will parse that input, add some input of its own and POST request to an [IBM OpenWhisk](http://www.ibm.com/cloud-computing/bluemix/openwhisk/) action. 
+The body of this POST request:
+
+```
+{
+  "hops": [
+    {
+      "provider": "Auth 0 Webtask",
+      "start": "2016-08-24T20:32:03.629Z",
+      "temperature": "42",
+      "stop": "2016-08-24T20:32:03.629Z"
+    }
+  ]
+}
+```
+
+To continue the chain, IBM OpenWhisk will POST the parsed JSON to a function on the [AWS Lambda](https://aws.amazon.com/lambda/details/) platform after adding a new “hop”:
+
+```
+{
+  "hops": [
+    {
+      "provider": "Auth 0 Webtask",
+      "start": "2016-08-26T18:38:25.021Z",
+      "temperature": "44",
+      "stop": "2016-08-26T18:38:25.021Z"
+    },
+    {
+      "provider": "IBM OpenWhisk",
+      "start": "2016-08-26T18:38:35.024Z",
+      "temperature": "42",
+      "stop": "2016-08-26T18:38:35.024Z"
+    }
+  ]
+}
+```
+
+The Lambda, created with [S]erverless V1.0 Beta 2](https://serverless.com/) will parse the input again and create items in an [AWS DynamoDB](http://aws.amazon.com/dynamodb):
+
+![Serverless]({{ '/img/serverless/9.png' | prepend: site.baseurl }})
+
+The AWS DynamoDB table will stream events to another AWS Lambda that will log the content of the event to the logs of AWS CloudWatch:
+
+![Serverless]({{ '/img/serverless/10.png' | prepend: site.baseurl }})
+
+The source code of all these components is available on [GitHub](https://github.com/bart-blommaerts/serverless-demo).
+
+#### Best practice
+
+Obviously I wouldn’t recommend anyone to use a different cloud provider for every function. 
+Choosing the right one will depend on your specific needs, goals and current cloud landscape. 
+In previous parts of this article, you may find some tips on how to make a reasoned choice.
+
+
+### Final note
+
+This article was originally posted in three parts on the [JAX London blog](https://jaxlondon.com/the-serverless-cloud-part-1/) and is also available in [German](https://jaxenter.de/serverless-cloud-teil-1-48379).
+
