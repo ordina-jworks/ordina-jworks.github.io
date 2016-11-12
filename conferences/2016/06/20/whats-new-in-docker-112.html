@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ordina JWorks Tech Blog</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Ordina JWorks Tech blog
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,Javascript,DevOps">
+    <meta name="author" content="Ordina Belgium">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/conferences/2016/06/20/whats-new-in-docker-112.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="DockerCon 2016 - What is new in Docker 1.12 -  " />
+    <meta property="og:description" content="Ordina JWorks Tech Blog" />
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/dockercon/dockercon.png" />
+    
+
+    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Base style -->
+    <link href="/css/styles/style.css" rel="stylesheet">
+    <!-- Skin CSS -->
+    <link href="/css/styles/skin-orange.css" rel="stylesheet" id="color_theme">
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<!-- Add class "boxed" along with body for boxed layout. -->
+<!-- Add "pattern-x" (1 to 5) for background patterns. -->
+<!-- Add "img-x" (1 to 5) for background images. -->
+<body>
+
+<!-- Outer Starts -->
+<div class="outer">
+    <!-- Header two Starts -->
+    <div class="header-2">
+
+        <!-- Container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo">
+                        <h1><a href="/"><img src="/img/jworks/jworks-400x400.jpg"
+                                                               width="100"
+                                                               height="100"/> </a></h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="navy">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="/contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header two ends -->
+
+    <!-- Main content starts -->
+
+    <div class="main-block">
+
+        <!-- Page heading two starts -->
+
+        <div class="page-heading-two">
+            <div class="container">
+                <h2>JWorks Tech Blogs<span style="margin-left: 10px"> Powered by Ordina</span></h2>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <!-- Page heading two ends -->
+
+        <div class="container tk-acumin-pro">
+            <div class="post">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>DockerCon 2016 - What is new in Docker 1.12</h1>
+            <p id="post-meta">
+                Posted Jun 20, 2016 in <a href="/categories/conferences/">Conferences</a>
+                
+                    by 
+                    
+                
+                        
+                        <a href="/author/tom-verelst/">Tom Verelst</a>
+                    
+                
+                
+                    <br />
+                    <i class="fa fa-tags"></i>
+                        
+                            <a href="/tags/dockercon/">DockerCon</a>,
+                        
+                            <a href="/tags/docker/">Docker</a>,
+                        
+                            <a href="/tags/conference/">Conference</a>
+                        
+                
+            </p>
+        </div>
+    </div>
+    <br />
+    <article class="post-content">
+        <p style="text-align: center;">
+<img style="max-width: 500px;" src="/img/dockercon/dockercon.png" alt="DockerCon 2016" />
+</p>
+
+<h2 id="orchestration-made-easy">Orchestration Made Easy</h2>
+
+<p>Last week,
+I tried out the new orchestration tools that were <a href="https://github.com/docker/swarmkit">made available on GitHub</a>.
+My first impressions were very positive.
+The setup is easy and it works like a charm.
+Today,
+at DockerCon 2016,
+these new orchestration tools were officially announced during the opening session.
+There is also an <a href="https://blog.docker.com/2016/06/docker-1-12-built-in-orchestration/">official blog post</a>.</p>
+
+<p>Before we start talking about orchestration,
+let’s take a step back and look at how easy it has become to set up a Swarm cluster.</p>
+
+<p>Creating a Swarm manager can be done with one simple command:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker swarm init
+</code></pre>
+</div>
+
+<p>You can run this command on any Docker 1.12 host.</p>
+
+<p>After we created the Swarm manager,
+we can add additional nodes to the swarm by running the following command on other Docker hosts:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker swarm join &lt;IP of manager&gt;:2377
+</code></pre>
+</div>
+
+<p>That’s it.
+No messing around with key-value stores or certificates.
+Docker will automatically configure everything you need out-of-the-box.</p>
+
+<p>Under the hood,
+Docker uses a <a href="https://raft.github.io/raft.pdf">Raft</a> consensus.</p>
+
+<p>There are two types of nodes: <strong>manager</strong> and <strong>worker</strong>.
+The first initial node is a manager.
+When adding more nodes to the Swarm,
+these nodes will be worker nodes by default.</p>
+
+<p><img src="/img/dockercon/swarm-overview.png" alt="Overview" /></p>
+
+<p>Manager nodes are responsible for managing the cluster’s desired state.
+They do health checks and schedule tasks to keep this desired state.</p>
+
+<p>Worker nodes are responsible for executing tasks that are scheduled by the managers.
+A worker node cannot change the desired state.
+It can only take work and report back on the status.</p>
+
+<p>The role of a node is dynamic.
+We can increment or reduce the amount of managers by promoting or demoting nodes.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker node promote &lt;node-id&gt;
+<span class="gp">$ </span>docker node demote &lt;node-id&gt;
+</code></pre>
+</div>
+
+<h2 id="services">Services</h2>
+
+<p>Docker 1.12 introduces a new <code class="highlighter-rouge">service</code> command.
+A <strong>service</strong> is a set of tasks that can be easily replicated.
+A <strong>task</strong> represents a workload and is executed by a container.
+A task does not necessarily have to be a container,
+but currently that is the only option.
+In the future,
+tasks can also be different types of workloads,
+for example Unikernels.</p>
+
+<p>The service command is very similar to the <code class="highlighter-rouge">run</code> command
+and utilizes a lot of similar flags which we are used to work with.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker service create --replicate 3 --name frontend --network mynet --publish 80:80/tcp frontend_image:latest
+</code></pre>
+</div>
+
+<p>The above command will create a service named <em>frontend</em>,
+add it to the <em>mynet</em> network,
+publish it to port 80,
+and use the <em>frontend_image</em> for this service.</p>
+
+<p>This does not only create the service,
+but it defines the desired state.
+The cluster constantly reconciles its state.
+Upon a node failure,
+the cluster will automatically self heal
+and converge back to the desired state by scheduling new tasks on other nodes.</p>
+
+<p>You can also define a <strong>Swarm mode</strong>.
+For example,
+if you wish to create a service that runs on <em>every node</em>,
+you can easily do this using the <em>global</em> mode.
+This will schedule all the tasks of a service on each node.
+This is great for general services like monitoring.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker service create --mode<span class="o">=</span>global --name prometheus prom/prometheus
+</code></pre>
+</div>
+
+<p>Just like we can put constraints on containers,
+we can put constraints on services:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker daemon --label com.example.storage<span class="o">=</span><span class="s2">"ssd"</span>
+<span class="gp">$ </span>docker service ... --constraint com.example.storage<span class="o">=</span><span class="s2">"ssd"</span> ...
+</code></pre>
+</div>
+
+<p>If we want more instances of our service,
+we can scale our services up and down:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker service scale <span class="nv">frontend</span><span class="o">=</span>10 <span class="nv">backend</span><span class="o">=</span>20
+</code></pre>
+</div>
+
+<p>This will change the desired state of the service(s),
+and the managers will schedule new tasks (or remove existing tasks) to attain this desired state.</p>
+
+<p>We can also apply rolling updates to our services.
+For example,
+if we wish to upgrade our service to a newer version without any downtime,
+we can use the <code class="highlighter-rouge">service update</code> command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker service update myservice --image myimage:2.0 --update-parallellism 2 --update-delay 10s
+</code></pre>
+</div>
+
+<p>This will update our service by replacing 2 tasks at the time,
+every 10 seconds.
+We can also use this command to change environment variables,
+ports,
+etc.</p>
+
+<p>As you can see,
+the new <code class="highlighter-rouge">service</code> subcommand is very powerful and easy to use.</p>
+
+<h2 id="bundles">Bundles</h2>
+
+<p>A Distributed Application Bundle (DAB) file declares a stack of services,
+including the versioning and how the networking is setup.
+It is a deployment artifact that can be used in your continuous integration tools,
+all the way from your laptop to production.</p>
+
+<p>Currently,
+one way to generate a <em>.dab</em> file is by creating the bundle using Docker Compose:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker-compose bundle
+</code></pre>
+</div>
+
+<p>This command will generate a <em>.dab</em> or <em>.dsb</em> file,
+which is just a JSON text file.
+Here’s a partial example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"db"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"Env"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"constraint:type==backend"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"constraint:storage==ssd"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nt">"Image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"postgres@sha256:f76245b04ddbcebab5bb6c28e76947f49222c99fec4aadb0bb1c24821a9e83ef"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"Networks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"back-tier"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>This feature is still experimental in Docker 1.12
+and the specification is still being updated.
+Docker invites everyone to provide feedback and hopes it will become the de facto standard for deploying applications.</p>
+
+<h2 id="routing-mesh-networks">Routing Mesh Networks</h2>
+
+<p>A problem with load balancers is the fact they are not container-aware,
+but host-aware.
+Load balancing containers has been hard up until now,
+because you have to update the configuration of the load balancers as containers are started or stopped.
+This is done by overriding the configuration file of the load balancer and restarting it,
+or by updating the configuration in a distributed key-value store like etcd.</p>
+
+<p>Docker now has built in load balancing in the Engine using a container-aware routing mesh.
+This mesh network can transparantly reroute traffic from any host to a container.
+For example,
+publishing a service on port 80 will reserve a Swarm wide ingress port,
+so that each node will listen to port 80.
+Each node will then reroute traffic to the container using DNS based service discovery.</p>
+
+<p>This is compatible with existing infrastructure.
+External load balancer no longer need to know where the containers are running.
+They can just point towards any node and the routing mesh will automatically redirect traffic.
+Even though this introduces an extra hop,
+it is still very efficient since it uses IPVS.</p>
+
+<h2 id="security-out-of-the-box">Security Out Of The Box</h2>
+
+<p>Docker now comes with out-of-the-box, zero-configuration security.
+Docker sets up automatic certificate rotation,
+TLS mutual authentication
+and TLS encryption between nodes.</p>
+
+<p><img src="/img/dockercon/swarm-tls.png" alt="Security" /></p>
+
+<p><strong>There is no way to turn off security.</strong>
+One of the core principles of Docker is simplicity.
+Therefor,
+security must be so simple to use,
+that you don’t want to turn it off!</p>
+
+<h2 id="container-health-check-in-dockerfile">Container Health Check in Dockerfile</h2>
+
+<p>A new <code class="highlighter-rouge">HEALTHCHECK</code> keyword is available for Dockerfiles.
+This keyword can be used to define the health check of a container.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>HEALTHCHECK --interval=5m --timeout=3s --retries 3 CMD curl -f http://localhost || exit 1
+</code></pre>
+</div>
+
+<p>In the above example,
+health checking is done every 5 minutes.
+A container becomes unhealthy if the <code class="highlighter-rouge">curl</code> command fails 3 times in a row with a 3 second timeout.</p>
+
+<h2 id="new-plugin-subcommands-experimental">New Plugin Subcommands (experimental)</h2>
+
+<p>A new <code class="highlighter-rouge">plugin</code> subcommand has been added which allows you to easily manager Docker plugins.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker plugin install &lt;plugin-name&gt;
+<span class="gp">$ </span>docker plugin <span class="nb">enable</span> &lt;plugin-name&gt;
+<span class="gp">$ </span>docker plugin disable &lt;plugin-name&gt;
+</code></pre>
+</div>
+
+<p>Plugins also have a manifest file which describes the resources it needs.
+You can compare it to how a new app on your smart phone asks for access to different resources,
+like your photos or contacts.</p>
+
+<h2 id="try-it-out">Try It Out!</h2>
+
+<p>As of today,
+the Docker for Mac/Windows beta,
+which is already at Docker 1.12,
+is open for everyone!
+You can download it at <a href="http://docker.com/getdocker">docker.com/getdocker</a>.</p>
+
+    </article>
+    <hr />
+    
+                
+        
+        
+            <blockquote>
+                <p>Tom is a senior developer and coach at Ordina Belgium. Some friends like to refer to him as a Java code monkey, which is not completely true! Tom is familiar with many different domains.  He loves to learn about everything. Currently he is very fond of Docker, Go and all things DevOps.<br /><br />In his spare time he likes spending time with friends, going out for a run with his marathon club or just swinging around some drum sticks.</p>
+
+            </blockquote>
+        
+    
+    
+        <br /><br />
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    
+</div>
+
+        </div>
+    </div>
+    <!-- Main content ends -->
+</div>
+<!-- Footer Starts -->
+<footer class="footer">
+    <!-- Container -->
+    <div class="container">
+        <!-- Foot Starts -->
+        <div class="foot">
+            <!-- Container -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-user"></i>&nbsp;&nbsp;Disclaimer</h5>
+
+                            <p>Opinions expressed on this blog reflect the writer’s views and not the position of
+                                Ordina.</p>
+
+                            <div class="brand-bg">
+                                <a href="/feed.xml" class="rss"><i
+                                        class="fa fa-rss circle-3"></i></a>
+                                <a target="_blank" href="https://www.facebook.com/lifeatordinabe" class="facebook"><i
+                                        class="fa fa-facebook circle-3"></i></a>
+                                <a target="_blank" href="https://twitter.com/lifeatordinabe"
+                                   class="twitter"><i
+                                        class="fa fa-twitter circle-3"></i></a>
+                                <a target="_blank" href="https://www.linkedin.com/company/ordina-belgium"
+                                   class="linkedin"><i
+                                        class="fa fa-linkedin circle-3"></i></a>
+                                <a target="_blank" href="https://www.linkedin.com/company/ordina-belgium" class="linkedin">
+                                    <i class="fa fa-linkedin circle-3"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-comments"></i>&nbsp;&nbsp;Recent Posts</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content">
+                                <ul class="list-unstyled">
+                                    
+                                    <li>
+                                        <span>10 Oct 2016</span> &raquo;
+                                        <a href="/conferences/2016/10/10/Percona-Live-Amsterdam-2016.html">
+                                            Percona Live Amsterdam 2016</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>27 Sep 2016</span> &raquo;
+                                        <a href="/conferences/2016/09/27/JOIN-2016.html">
+                                            JOIN 2016</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>23 Sep 2016</span> &raquo;
+                                        <a href="/monitoring/2016/09/23/Monitoring-with-Prometheus.html">
+                                            Monitoring with Prometheus</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>16 Sep 2016</span> &raquo;
+                                        <a href="/testing/2016/09/16/Automation-testing-with-postman.html">
+                                            API Testing with Postman and Newman</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>12 Sep 2016</span> &raquo;
+                                        <a href="/microservices/2016/09/12/Microservices-Dashboard-1.0.1.html">
+                                            Microservices Dashboard</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>09 Aug 2016</span> &raquo;
+                                        <a href="/conferences/2016/08/09/s1p.html">
+                                            SpringOne Platform</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>25 Jul 2016</span> &raquo;
+                                        <a href="/security/2016/07/25/Web-of-trusted-commits.html">
+                                            A web of trusted commits</a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-building-o"></i>&nbsp;&nbsp;Contact Us</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content address">
+                                <!-- Heading -->
+                                <h6 class="bold"><i class="fa fa-home"></i>&nbsp;&nbsp;Ordina Belgium</h6>
+                                <!-- Paragraph -->
+                                <p class="add">
+                                    Blarenberglaan 3B,<br/>
+                                    Mechelen 2800, Belgium.</p>
+
+                                <p class="tel"><i class="fa fa-phone"></i> Tel : + (32) - 15 29 58 58<br/>
+                                    <i class="fa fa-envelope"></i> Mail : <a href="#">info@ordina.be</a><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Foot Ends -->
+        <!-- Footer Content -->
+        <p class="pull-left">Copyright &copy; 2016 - <a href="#">Ordina JWorks</a></p>
+        <ul class="list-inline pull-right">
+            <!-- List -->
+            <li><a href="/">Home</a>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/contact/">Contact</a></li>
+        </ul>
+        <!-- Clearfix -->
+        <div class="clearfix"></div>
+    </div>
+</footer>
+<!-- Footer Ends -->
+
+<!-- Outer Ends -->
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-angle-up bg-color"></i></a></span>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/placeholders.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/respond.min.js"></script>
+<script src="/js/html5shiv.js"></script>
+<script src="/js/main.js"></script>
+
+<script src="/js/imagesloaded.min.js"></script>
+<script src="/js/masonry.js"></script>
+
+<!-- Javascript for this page -->
+<script>
+    // Initialize Masonry
+    var $box = $('.blog-masonry').masonry();
+    // Layout Masonry again after all images have loaded
+    $box.imagesLoaded(function () {
+        $box.masonry();
+    });
+</script>
+
+<!-- Custom JS. Type your JS code in custom.js file -->
+<script src="/js/custom.js"></script>
+
+<!-- Disqus -->
+
+    <script type="text/javascript">
+        var disqus_config = function () {
+            this.page.url = "https://ordina-jworks.github.io/conferences/2016/06/20/whats-new-in-docker-112.html";
+            this.page.identifier = "/conferences/2016/06/20/whats-new-in-docker-112.html";
+            this.page.title = "DockerCon 2016 - What is new in Docker 1.12";
+        };
+    </script>
+    <script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>
