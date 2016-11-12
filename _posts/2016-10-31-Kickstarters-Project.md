@@ -2,7 +2,7 @@
 layout: post
 authors: [tim_verte]
 title: 'Kickstarter project 2016'
-image:
+image: /img/kicks.png
 tags: [Spring, Angular2, Unit Test, Postman, Spring Boot, Spring REST Docs]
 category: Domain-Driven-Design
 comments: true
@@ -17,6 +17,7 @@ comments: true
 <q>You never get a second chance to make a first impression.</q>
 <br/>
 -- <cite>Harlan Hogan</cite>
+
 And boy Ordina did a pretty good job!
 
 The reception on the first day was really great and pretty informal.
@@ -76,9 +77,8 @@ Although they still had to follow a few courses along the way, like the basic pr
 The kickstarters already had learned how to write clean code and how to do this in the best possible way.
 The purpose of the SensyMcSenseFace project was to give the kickstarters a use case where they could develop an end-to-end IoT solution, in which they could test and use their newly acquired skills.
 
-<p style="text-align: center;">
-  <img alt="SensyMcSenseFaceProject" src="/img/IoT.jpg">
-</p>
+![SensyMcSenseFaceProject]({{ '/img/kickstarters/2016/IoT.jpg' | prepend: site.baseurl }})
+
 
 ### What did the client request
 
@@ -94,9 +94,7 @@ Here the frontend developers made sure that all the data has been received and o
 
 The following picture depicts the two meeting rooms that are equipped with three different sensors, which send their data back to the application's backend.
 
-<p style="text-align: center;">
-  <img alt="Floor Plan" src="/img/kickstarters/floorplan.jpg">
-</p>
+![Floor Plan]({{ '/img/kickstarters/2016/floorplan.jpg' | prepend: site.baseurl }})
 
 Each meeting room equipped with the sensors, which have their values read by an Arduino that then sends these across the Proximus LoRa network to the backend. For the initial stages and testing the LoRa part was omitted and a simple node server instance was used to relay the sensor values to the actual backend.
 
@@ -193,9 +191,11 @@ Because there wasn't enough time to completely finish the project, this project 
 
 ## The new JWorks colleagues
 
-<img class="p-image float-image" width="100" alt="Axel Bergmans" src="/img/kickstarters/2016/axel-bergmans.jpg">
-<img class="p-image float-image" width="100" alt="Matthias Caryn" src="/img/kickstarters/2016/matthias-caryn.jpg">
-<img class="p-image float-image" width="100" alt="Madi Dudaeva" src="/img/kickstarters/2016/madi-dudaeva.jpg">
-<img class="p-image float-image" width="100" alt="Christophe Theyssen" src="/img/kickstarters/2016/christophe-theyssen.jpg">
-<img class="p-image float-image" width="100" alt="Ines Verstappen" src="/img/kickstarters/2016/ines-vanstappen.jpg">
-<img class="p-image float-image" width="100" alt="Tim Verté" src="/img/kickstarters/2016/tim-verte.jpg">
+<img class="p-image float-image" width="100" alt="Axel Bergmans" src="/img/kickstarters/2016/axel-bergmans.jpg" />
+<img class="p-image float-image" width="100" alt="Matthias Caryn" src="/img/kickstarters/2016/matthias-caryn.jpg" />
+<img class="p-image float-image" width="100" alt="Madi Dudaeva" src="/img/kickstarters/2016/madi-dudaeva.jpg" />
+<img class="p-image float-image" width="100" alt="Christophe Theyssen" src="/img/kickstarters/2016/christophe-theyssen.jpg" />
+<img class="p-image float-image" width="100" alt="Ines Verstappen" src="/img/kickstarters/2016/ines-vanstappen.jpg" />
+<img class="p-image float-image" width="100" alt="Tim Verté" src="/img/kickstarters/2016/tim-verte.jpg" />
+
+<br /><br /><br /><br /><br /><br />
