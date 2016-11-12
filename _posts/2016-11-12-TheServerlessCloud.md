@@ -227,4 +227,288 @@ The actual URL can be found in the API Gateway in the stages section, as we saw 
 
 # Part 2
 
+In the first part of these series, I introduced the Serverless architectural style and focused on “market maker” [AWS Lambda](https://aws.amazon.com/lambda/details/) and on the [Serverless Framework](http://serverless.com/). 
+In this part, I want to focus on other Faas providers.
+
+## Auth0 Webtask
+
+Compared to giants such as Amazon, Google, Microsoft and IBM, [Auth0](https://auth0.com/) is a rather small player. 
+However acknowledging their experience with BaaS (Backend as a Service), FaaS is a logical choice for them. 
+Currently [Webtask](https://webtask.io/) only supports NodeJS.
+
+The recommended way of using webtask is through the [wt command line interface](https://webtask.io/cli). 
+Auth0 has put the focus on easy of use. 
+This is really visible by looking at their [30 second example](https://webtask.io/docs/101). 
+The **wt create** command wil generate a function (a webtask) and will automatically return an HTTP endpoint, supporting URL query parameters. 
+Every query parameter is available in your webtask in the form of context.data JavaScript object. 
+With AWS Lambda you need to configure these in the AWS API Gateway, which is both tedious and time-consuming.
+
+A very interesting feature of Webtask is the availability of [built-in storage](https://webtask.io/docs/storage).
+Webtask code can store a single JSON document up to 500KB in size. 
+This data can be stored with **ctx.storage.set** and retrieved with **ctx.storage.get**. 
+While I don’t believe your function will often need this, it’s a very nice option.
+
+This small example (using [Lodash](https://lodash.com/)), shows a webtask using a query parameter and built-in storage.
+
+```
+module.exports = function (ctx, cb) {
+    var name = ctx.query.name;
+ 
+    if(name) {
+        ctx.storage.get(function(err, data){
+            if(err) cb(err);
+ 
+            data = data || [];
+ 
+            if(_.indexOf(data, name) === -1 ){
+                data.push(name);
+ 
+                ctx.storage.set(data, function(err){
+                    if(err){
+                        cb(err);
+                    } else {
+                        cb(null, data);
+                    }
+                })
+            } else {
+                cb(null, data);
+            }
+        })
+    } else {
+        cb(null, "422");
+    }
+}
+```
+
+Deploying this webtask, using the CLI:
+
+```
+Webtask created
+ 
+You can access your webtask at the following url:
+ 
+https://webtask.it.auth0.com/api/run/wt-&lt;your username&gt;-0/query_store?webtask_no_cache=1
+```
+
+Another way to access your webtask is as a CRON job, using the **wt cron** command or as a [web hook](https://webtask.io/docs/sample_github).
+
+Contrary to AWS Lambda, you don’t need to bundle the NodeJS modules you want to use. 
+The list of supported modules is available [here](https://tehsis.github.io/webtaskio-canirequire/). 
+An option to bundle other modules is also [available](https://github.com/auth0/webtask-bundle). 
+Another difference is the use of query parameters.
+
+Not surprisingly, Webtask can be [integrated with Auth0](https://webtask.io/docs/auth) for authentication and authorization.
+
+## Google Cloud Functions
+
+[Google Cloud Functions](https://cloud.google.com/functions/) (GCF) was released early 2016 and is currently in private alpha. 
+Being in private alpha not only means that you specifically need to request access to use the GCF API, but also that you’re limited in sharing information. 
+While this is obviously very unfortunate, it also means that Google is very serious about releasing a complete product. 
+The activity in their (again private) Google Group proves this.
+
+Like its competitors, Cloud Functions can be triggered asynchronously by events (from Cloud Pub/Sub and Cloud Storage) or invoked synchronously via HTTPS. 
+Currently GCF only supports NodeJS. 
+Tutorials on common use-cases are available in [their documentation](https://cloud.google.com/functions/docs/tutorials/). 
+To build functions with GCF, you will first need to download and install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/). 
+With the SDK installed, you can create your initial function *(replace datastore_gcf with your own staging bucket name)*:
+
+```
+$ gsutil mb gs://datastore_gcf
+```
+
+From the (very useful) [(unofficial) GCF recipes](https://github.com/jasonpolites/gcf-recipes) by [Jason Polites](https://github.com/jasonpolites) (Product Manager, GCP), we cloned the datastore example that will persist data to a [Google Coud Datastore](https://cloud.google.com/datastore/docs/concepts/overview).
+
+From this repository, we deployed 2 functions ‘ds-get’ and ‘ds-set’ by executing:
+
+```
+$ gcloud alpha functions deploy ds-set --bucket datastore_gcf --trigger-http --entry-point set
+```
+
+The names of the deployed functions, need to be exported in the Node.js module. These functions can be called with:
+
+```
+$ gcloud alpha functions call ds-get --data '{"kind": "test", "key": "kid"}'
+```
+
+or via the [Cloud Functions Console](https://console.cloud.google.com/functions).
+
+Your newly added data is also available in the [Datastore Entities](https://console.cloud.google.com/datastore/entities/) after selecting a project on the top. 
+After executing a couple of functions, you can also find some metrics of your function (number of calls, execution time, …)
+
+Other arguments for the deploy command are listed in the [reference documentation](https://cloud.google.com/functions/docs/deploying/). 
+These steps are also available in the [Cloud Platform Console](https://console.cloud.google.com/home/).
+
+After deployment, your webtrigger URL will be displayed similar to Webtask.
+
+Although much information on Google Cloud Functions is not (publicly) available yet, Google is well on its way to become a serious FaaS provider.
+
+## Azure Functions
+
+Similar to Google Cloud Functions, [Microsoft Azure Functions](https://azure.microsoft.com/en-us/services/functions/) is currently in preview stage, meaning it’s not (yet) meant to be used in a production environment. 
+Azure Cloud Functions (ACF) support a variety of languages such as NodeJS, C#, Python, and PHP.
+
+Today, it can be used for these common cases:
+
+* Events triggered by other Azure services
+* Events triggered by SaaS services (not limited to Microsoft)
+* Synchronous requests
+* WebHooks
+* Timer based processing (CRON)
+
+creating quite a large number of possibilities.
+
+Azure Functions are grouped in App Services. 
+This is quite different from AWS Lambda, where the functions are organised independently. 
+Hardware resources are allocated to an App Service and not directly to an Azure Function. 
+It’s important to select a dynamic App Service if you’re aiming for “pay-per-execution”.
+
+When creating a new function, you can start from different templates. 
+This can be compared to the blueprints from AWS Lambda. 
+Currently 44 templates are available (but some are very similar). 
+When selecting HttpTrigger for example, Azure Functions will generate a function that is able to use all query parameters passed to the function, similar to Webtask. 
+[This short video](https://azure.microsoft.com/en-us/documentation/articles/functions-create-first-azure-function/) demonstrates this use case.
+
+In the example below, an Azure Cloud Function will store entities in a Storage Table when it receives an HTTP request:
+
+**function.json**:
+
+```
+ "bindings": [
+    {
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "post"
+      ],
+      "authLevel": "function"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "table",
+      "name": "outTable",
+      "tableName": "entities",
+      "partitionKey": "functions",
+      "rowKey": "%rand-guid%",
+      "connection": "YOUR_STORAGE",
+      "direction": "out"
+    }
+  ],
+  "disabled": false
+}
+```
+
+**index.js**:
+
+```
+    var statusCode = 400;
+    var responseBody = "Invalid request object";
+ 
+    if (typeof req.body != 'undefined' &amp;&amp; typeof req.body == 'object') {
+        statusCode = 201;
+        context.bindings.outTable = req.body;
+        responseBody = "Table Storage Created";
+    }
+ 
+    context.res = {
+        status: statusCode,
+        body: responseBody
+    };
+ 
+    context.done();
+};
+```
+
+To retrieve the added entities:
+
+**functions.json**:
+
+```
+  "bindings": [
+    {
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get"
+      ],
+      "authLevel": "function"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "table",
+      "name": "inTable",
+      "tableName": "entities",
+      "connection": "YOUR_STORAGE",
+      "direction": "in"
+    }
+  ],
+  "disabled": false
+```
+
+**index.js**:
+
+```
+    context.log("Retrieved records:", intable);
+    context.res = {
+        status: 200,
+        body: intable
+    };
+    context.done();
+};
+```
+
+![Serverless]({{ '/img/serverless/5.png' | prepend: site.baseurl }})
+
+What immediately struck me was the quality of their documentation (videos, tours, quickstarts, templates, …) and the user experience from the [Azure Portal](https://azure.microsoft.com/en-us/features/azure-portal/). 
+The portal can be a little slow sometimes, but the experience is miles ahead of what Amazon and Google are offering. 
+Azure Functions is [open source and available on GitHub](https://azure.microsoft.com/en-us/documentation/articles/functions-reference/).
+
+Azure Functions will soon be supported by the [Serverless Framework](https://github.com/serverless/serverless/pull/1547), which is a big step towards vendor-neutral FaaS.
+
+## IBM Bluemix OpenWhisk
+
+[Bluemix OpenWhisk](https://developer.ibm.com/openwhisk/) is also an [open source](https://github.com/openwhisk/openwhisk) service and currently supports NodeJS and Swift. 
+Contrary to other FaaS providers, IBM emphasises on container integration. 
+When an event or an API call invokes an action, OpenWhisk creates a container to run the action in a runtime appropriate to the programming language used. 
+You can even create Docker functions (called actions in OpenWhisk) allowing you to build in any language. 
+OpenWhisk can also run locally on your own hardware, which no other provider currently offers. 
+IBM is very open about this and even provides [guidelines](https://github.com/openwhisk/openwhisk/blob/master/README.md) on how this can be achieved.
+
+As expected, the documentation has a [getting started](https://console.ng.bluemix.net/docs/openwhisk/index.html) guide to build and run a Hello World action. 
+While working with the CLI works as advertised, it quickly becomes quite cumbersome, especially when integrating with other [Bluemix services](Bluemix services). 
+After executing your first OpenWhisk function, you can see some metrics in the (pretty) [OpenWhisk dashboard](https://new-console.ng.bluemix.net/openwhisk/dashboard). 
+The OpenWhisk dashboard will show all invoked actions, also from actions you didn’t implement yourself. 
+For example when using [existing packages](https://console.ng.bluemix.net/docs/openwhisk/openwhisk_packages.html).
+
+![Serverless]({{ '/img/serverless/6.png' | prepend: site.baseurl }})
+
+What’s even more impressive is the [Openwhisk Editor](https://new-console.ng.bluemix.net/openwhisk/editor). 
+This editor only lists the actions you created yourself.
+
+![Serverless]({{ '/img/serverless/6.png' | prepend: site.baseurl }})
+
+As you can see from the screenshot, you immediately get links to the REST Endpoint.
+
+## Conclusion
+
+Currently it’s too soon to draw any conclusions. 
+These services are constantly changing. 
+What is obvious, is that all major cloud providers want to make sure that they don’t miss the FaaS opportunity. 
+Cloud providers create value by integrating FaaS services with their other offerings. 
+This confirms the value of a Serverless Cloud. 
+The current FaaS solutions have a lot of similar characteristics and choosing one, will likely depend on what other services you already use (or want to use) from a certain provider. 
+It’s important to know the environment your FaaS code lives in and the services available to it. 
+In this phase available documentation also is crucial.
+
+Obviously, this high-level introduction doesn’t list all the differences or similarities, but it offers a nice starting point to experience the FaaS (r)evolution first-hand.
+
 # Part 3
