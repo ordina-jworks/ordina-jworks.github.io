@@ -601,7 +601,7 @@ To continue the chain, IBM OpenWhisk will POST the parsed JSON to a function on 
 }
 ```
 
-The Lambda, created with [S]erverless V1.0 Beta 2](https://serverless.com/) will parse the input again and create items in an [AWS DynamoDB](http://aws.amazon.com/dynamodb):
+The Lambda, created with [Serverless V1.0 Beta 2](https://serverless.com/) will parse the input again and create items in an [AWS DynamoDB](http://aws.amazon.com/dynamodb):
 
 ![Serverless]({{ '/img/serverless/9.png' | prepend: site.baseurl }})
 
