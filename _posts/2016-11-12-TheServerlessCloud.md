@@ -27,8 +27,8 @@ Although in the future, it might be possible to install this kind of service on-
 In regard to this, the definition [FaaS](https://twitter.com/marak/status/736357543598002176): Functions as a Service makes a lot more sense. 
 Functions are short-lived pieces of runtime functionality that don’t need a server that’s always running. 
 Strictly speaking a function can have a longer execution time, but most FaaS providers will currently limit the allowed computation time. 
-When an application calls a function (eg. a calculation algorithm) this function gets instantiated on request. 
-After finishing it gets destroyed. 
+When an application calls a function (eg. a calculation algorithm), this function gets instantiated on request. 
+When it's finished, it gets destroyed. 
 This leads to a shorter “running” time and thus a significant financial advantage. 
 As an example, you can find the AWS Lambda pricing [here](https://aws.amazon.com/lambda/pricing/). 
 FaaS functions are also a great match for event-driven behaviour: when an event is dispatched, the function can be started instantly and ran only for the needed time. 
@@ -58,7 +58,7 @@ AWS Lambda can be used both for synchronous and asynchronous services.
 
 Currently the tooling for AWS Lambda is still relatively immature, but this is changing rapidly. 
 At the time of writing, the AWS Lambda console offers the possibility to create a Lambda using blueprints. 
-This is already easier then setting up a lambda by hand (using a ZIP-file). 
+This is already easier than setting up a lambda by hand (using a ZIP-file). 
 Blueprints are sample configurations of event sources and Lambda functions. 
 Currently 45 blueprints are available. 
 To give a short introduction, we’ll select the **hello-world** blueprint. 
@@ -90,7 +90,7 @@ In Integration Request, we add a body mapping template of type *application/json
 ```
 
 In ‘Method request’ we add 3 URL String query parameters: key1, key2 and key3. 
-If we then redeploy our API, hitting the Test button gives us a input form to add the 3 query parameters and the function is executed successfully:
+If we then redeploy our API, hitting the Test button gives us an input form to add the 3 query parameters and the function is executed successfully:
 
 ![Serverless]({{ '/img/serverless/2.png' | prepend: site.baseurl }})
 
@@ -182,7 +182,7 @@ Vendor-neutral FaaS would be a true game-changer!
 
 One problem with FaaS, is the (deliberate) mismatch between runtime unit and deploy unit. 
 This is also true for other architectural patterns. 
-It should be possible to deploy 1 specific function, but often functions will hang out in groups. 
+It should be possible to deploy one specific function, but often functions will hang out in groups. 
 I’d prefer to deploy a group of functions in one go, when it makes sense, eg. different CRUD operations on the same resource. 
 This way, we benefit from the advantages of functions (scalability, cost, service independence, …) but also ease deployment. 
 This is a key feature of the Serverless Framework.
