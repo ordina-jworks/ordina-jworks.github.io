@@ -484,7 +484,7 @@ OpenWhisk can also run locally on your own hardware, which no other provider cur
 IBM is very open about this and even provides [guidelines](https://github.com/openwhisk/openwhisk/blob/master/README.md) on how this can be achieved.
 
 As expected, the documentation has a [getting started](https://console.ng.bluemix.net/docs/openwhisk/index.html) guide to build and run a Hello World action. 
-While working with the CLI works as advertised, it quickly becomes quite cumbersome, especially when integrating with other [Bluemix services](Bluemix services). 
+While working with the CLI works as advertised, it quickly becomes quite cumbersome, especially when integrating with other [Bluemix services](https://console.ng.bluemix.net/docs/openwhisk/openwhisk_catalog.html). 
 After executing your first OpenWhisk function, you can see some metrics in the (pretty) [OpenWhisk dashboard](https://new-console.ng.bluemix.net/openwhisk/dashboard). 
 The OpenWhisk dashboard will show all invoked actions, also from actions you didn’t implement yourself. 
 For example when using [existing packages](https://console.ng.bluemix.net/docs/openwhisk/openwhisk_packages.html).
