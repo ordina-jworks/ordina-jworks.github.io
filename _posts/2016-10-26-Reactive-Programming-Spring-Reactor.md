@@ -13,6 +13,7 @@ comments: true
 # Overview
 
 * [The new normal that is not new](#the-new-normal)
+* [The reactive manifesto](#the-manifesto)
 * [Latency](#latency)
 * [Blocking](#blocking)
 * [Contract](#contract)
@@ -42,39 +43,43 @@ comments: true
 # The new normal that is not new.
 
 It has been around for 30-40 years and boils down to [event driven programming](https://en.wikipedia.org/wiki/Event-driven_programming)
-What is new is “reactive motion bound to specification”, this means that reactive programming is based on something solid, no longer some functional concepts.
-
-
+What is new is “reactive motion bound to specification”, this means that reactive programming is based on something solid, a specification and  no longer some functional concepts.
 Namely the [reactive manifesto](http://www.reactivemanifesto.org/)
 
-Because of this specification, Spring found it the right time to start with Reactor as they could now build something which would be able to work and where it was clear what people could expect from Reactor.
+Because of this specification, Spring found it the right time to start with Reactor as they could now build something which would be able to work and where it was clear what people could expect.
 
-#The reactive Manifesto.
+<a name="the-manifesto" />
+
+# The reactive Manifesto.
 
 <p style="text-align: center;">
   <img style="max-width:640px;" alt="Reactive Systems Traits" src="/img/reactive/reactive-traits.png">
 </p>
 
 According to the manifesto, reactive systems are
-* **Responsive**: respond in a timely manner if at all possible
-* **Resilient**: remain responsive in the event of failure
-* **Elastic**: stay responsive under varying workload
+* **Responsive**: respond in a timely manner if at all possible, responsiveness means that problems can be detected quickly and dealt with accordingly.
+* **Resilient**: remain responsive in the event of failure, failures are contained with each component isolating components from each other.
+* **Elastic**: stay responsive under varying workload, reactive systems can react to changes in the input rate by increasing or decreasing the resources allocated to services.
 * **Message Driven**: rely on asynchronous message-passing to establish a boundary between components that ensures loose coupling, isolation and location transparency.
+This boundary also provides the means to delegate failures as messages.
+
+Systems built as Reactive Systems are thus more flexible, loosely-coupled and scalable, this makes them easier to develop and change.
+They are significantly more tolerant of failure and when failure does occur they meet it with elegance rather than disaster.
+
 
 <a name="latency" />
 
 # Latency
 
 Latency is a real issue, the real physical distance of various components and services becomes more important with cloud based systems.
-This is a very random number which is difficult to predict because it can depend on network congestion.
+This is also a very random number which is difficult to predict because it can depend on network congestion.
 With [zipkin](https://github.com/openzipkin/zipkin), you can measure this latency.
 
-
-The similar latency can also exist within an application - between the different threats.
-
+The same latency can also exist within an application - between the different threads - although the impact will be less severe then between various components.
 
 Something needs to be done when latency becomes too big of an issue, especially if the receiver can not process enough.
 Too much data will fill up the buffer and can result, with an unbounded queue, to the infamous [OutOfMemoryException()](https://docs.oracle.com/javase/8/docs/api/java/lang/OutOfMemoryError.html)
+While with a circular buffer you will not go out of memory, but this implies that you will lose some messages as the oldest on get overwritten.
 
 <a name="blocking" />
 
