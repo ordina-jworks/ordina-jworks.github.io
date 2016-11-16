@@ -137,9 +137,10 @@ Implementing the Reactive Streams yourself is very hard to do, for Stephane Mald
 The main difficulty is to make it side effect free.
 
 For example:
-`
+
+```
 Publisher<User> rick = userRepository.findUser(“rick”);
-`
+```
 
 Note that a publisher is returned instead of directly returning the entity.
 By doing so it does not block the subscribers when querying for the user and the publisher will produce the user when ready.
@@ -149,13 +150,15 @@ This is not really practical to work with, as most of the time we are only inter
 When you would be building the method findOneUser() you also would not want to return an Iterable but just a single User.
 
 Also you will have to implement a subscriber to define the action to perform when the result is available.
-`
+
+```
 rick.subscribe(new Subscriber<User>(){...});
-`
+```
+
 Implementing this subscriber would not be that hard, because the specification has been made so that all complexity lies within the publishers side.
 
+Another issue is that you can only subscribe on the publisher, there are no other methods available like [map](http://martinfowler.com/articles/collection-pipeline/map.html), [flatmap](http://martinfowler.com/articles/collection-pipeline/flat-map.html), …
 
-Another issue is that you can only subscribe on the publisher, there are no other methods available like map, flatmap, … add links to map and flatmap
 
 The other point is that when designing your own API you will also have to deal with the following issues:
 * Should work with RS TCK (otherwise it might not work with other libraries as well)
