@@ -90,12 +90,11 @@ One way to prevent out of memory exceptions is to use blocking.
 <p style="text-align: left;">
   <img style="max-width:120px;"  alt="poison pill" src="/img/reactive/poison-icon.png">
 </p>
-But this can be a poison pill: When a queue is full it will block a thread. When more and more queues get blocked your server will die a slow death.
+But this can be a real poison pill: when a queue is full it will block a thread, as more and more queues get blocked your server will die a slow death.
 
 
-Blocking is faster qnd more performant, than reactive.
-But reactive will allow for more concurrency.
-Which is important if you have a microservice based architecture, as there you typically need to be more careful and more exact when allocating resources between microservices
+Blocking is faster and more performant, than reactive, but reactive will allow for more concurrency
+Which is important if you have a micro-service based architecture, as there you typically need to be more careful and more exact when allocating resources between services
 
 As in, by being more concurrent you can save a lot of money when using cloud and microservices.
 
@@ -115,24 +114,20 @@ Has been adopter for java 9.
 
 This contract defines to send data 0 .. N
 [Publisher](http://www.reactive-streams.org/reactive-streams-1.0.0-javadoc/org/reactivestreams/Publisher.html) is an Interface with a subscribe() method.
-Once you subscribe a Subscriber(http://www.reactive-streams.org/reactive-streams-1.0.0-javadoc/org/reactivestreams/Subscriber.html), the subscriber has 4 call back methods:
+Once you subscribe a [Subscriber](http://www.reactive-streams.org/reactive-streams-1.0.0-javadoc/org/reactivestreams/Subscriber.html), the subscriber has 4 call back methods:
 onSubscribe(), onNext() - which can be called 0 to N times, onComplete() and onError().
-The 2 last ones are on a signal (complete or error)
+The 2 last signals (complete and error) are terminal states, no further signals may occur and the subscriber's subscription is considered cancelled.
 
-
-Add image and better explanation
-
-
-There are 2 ways to handle the contract:
-Reverse flow, so called back pressure, after subscribing the subscriber gets a subscriptions which is a 1-1 relationship type with two methods ‘request’ and ‘consel’
-Request more by the subscriber: the subscriber will ask the publisher to send me x messages (and not more)
+What is important is the reverse flow, back pressure.
+After subscribing the subscriber gets a subscription which is a kind of 1 on 1 relationship between the subscriber and the publisher with 2 methods; 'request' and 'cancel'.
+* Cancel: the subscription is being cancelled.
+* Request: this is the more important one, with this method the subscriber will ask the publisher to send me x messages (and not more), a so called 'pull'.
 
 <a name="focus-on-publisher" />
 
 # Focus on Publisher
 
-Spring Reactor focusses on the publisher side, as this is the hardest to implement, to get it right.
-
+Spring Reactor focuses on the publisher side of the reactive streaming, as this is the hardest to implement, to get right.
 
 Reactor Core provides a minimalist set of Reactive Streams ready generators and transformers.
 
