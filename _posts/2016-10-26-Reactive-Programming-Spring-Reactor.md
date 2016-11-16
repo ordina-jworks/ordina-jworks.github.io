@@ -17,7 +17,6 @@ comments: true
 * [Latency](#latency)
 * [Blocking](#blocking)
 * [Contract](#contract)
-* [Focus on Publisher](#focus-on-publisher)
 * [DIY Reactive Streams](#diy-reactive-streams)
 * [3 Years to Mature](#3-years)
 * [Flux vs Observable](#flux-vs-observable)
@@ -123,45 +122,42 @@ After subscribing the subscriber gets a subscription which is a kind of 1 on 1 r
 * Cancel: the subscription is being cancelled.
 * Request: this is the more important one, with this method the subscriber will ask the publisher to send me x messages (and not more), a so called 'pull'.
 
-<a name="focus-on-publisher" />
-
-# Focus on Publisher
 
 Spring Reactor focuses on the publisher side of the reactive streaming, as this is the hardest to implement, to get right.
+It provides you with the tools to implement publishers in a back pressure way.
 
-Reactor Core provides a minimalist set of Reactive Streams ready generators and transformers.
+The publisher is a provider of a potentially unbounded number of sequenced elements, publishing them according to the demand received from its Subscriber(s).
 
-
-More info on publisher
 
 <a name="diy-reactive-streams" />
 
 # DIY Reactive Streams
 
-It is very hard to do, for Stephane Maldini this is the 4th or 5th attempt, for Davik Karnok, the theck lead of RxJava it is attempt 7 or 8.
+Implementing the Reactive Streams yourself is very hard to do, for Stephane Maldini this is the 4th or 5th attempt, for Davik Karnok, the tech lead of RxJava it is attempt 7 or 8.
 The main difficulty is to make it side effect free.
 
+For example:
+`
+Publisher<User> rick = userRepository.findUser(“rick”);
+`
 
-Get examples of side effects (most of them thread- and state-related I think)
+Note that a publisher is returned instead of directly returning the entity.
+By doing so it does not block the subscribers when querying for the user and the publisher will produce the user when ready.
 
-
-Add code sample Publisher<User> rick = userRepository.findUser(“rick”);
-Note that a publisher is returned instead of directly returning the entity. By doing so it doesn’t block and the publisher will produce the user when ready.
-Might produce 0,1 or N users.
-
-
-You will also have to implement a subscriber to define the action to perform when the result is available.
-rick.subscribe(new Subscriber<User>(){...});
-Callback to start, result, error or complete.
-
-
+But by using the specification as is, your publisher might produce 0,1 or N users, returning an Iterable as result.
 This is not really practical to work with, as most of the time we are only interested in a single user and not a stream of multiple results.
+When you would be building the method findOneUser() you also would not want to return an Iterable but just a single User.
+
+Also you will have to implement a subscriber to define the action to perform when the result is available.
+`
+rick.subscribe(new Subscriber<User>(){...});
+`
+Implementing this subscriber would not be that hard, because the specification has been made so that all complexity lies within the publishers side.
 
 
 Another issue is that you can only subscribe on the publisher, there are no other methods available like map, flatmap, … add links to map and flatmap
 
-
-When designing your own API you will have to deal with the following issues:
+The other point is that when designing your own API you will also have to deal with the following issues:
 * Should work with RS TCK (otherwise it might not work with other libraries as well)
 * Address reentrance
 * Address thread safety
