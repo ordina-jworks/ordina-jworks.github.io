@@ -15,26 +15,26 @@ comments: true
 * [The new normal that is not new](#the-new-normal)
 * [Latency](#latency)
 * [Blocking](#blocking)
-* [Contract]
-* [Focus on Publisher]
-* [DIY Reactive Streams]
-* [3 Years to Mature]
-* [Flux vs Observable]
-* [Mono]
-* [None]
-* [Testing]
-* [Debug]
-* [ParallelFlux]
-* [Bridge Existing Async code]
-* [Create Gateways to Flux and Mono]
-* [Optimizations]
-* [What is Around]
-* [RxJava]
-* [Spring Framework 5]
-* [The Future]
-* [Getting Started]
-* [Conclusion]
-* [Sources]
+* [Contract](#contract)
+* [Focus on Publisher](#focus-on-publisher)
+* [DIY Reactive Streams](#diy-reactive-streams)
+* [3 Years to Mature](#3-years)
+* [Flux vs Observable](#flux-vs-observable)
+* [Mono](#mono)
+* [None](#none)
+* [Testing](#testing)
+* [Debug](#debug)
+* [ParallelFlux](#parallelflux)
+* [Bridge Existing Async code](#bridge)
+* [Create Gateways to Flux and Mono](#gateways)
+* [Optimizations](#optimizations)
+* [What is Around](#what-is-around)
+* [RxJava](#rxjava)
+* [Spring Framework 5](#spring-5)
+* [The Future](#the-future)
+* [Getting Started](#getting-started)
+* [Conclusion](#conclusion)
+* [Sources](#sources)
 
 
 <a name="the-new-normal" />
@@ -94,6 +94,8 @@ Which is important if you have a microservice based architecture, as there you t
 
 As in, by being more concurrent you can save a lot of money when using cloud and microservices.
 
+<a name ="contract" />
+
 # Contract
 
 Reactive is non-blocking and messages will never overflow the queue, see for the standard definition [http://www.reactive-streams.org/](http://www.reactive-streams.org/).
@@ -120,6 +122,8 @@ There are 2 ways to handle the contract:
 Reverse flow, so called back pressure, after subscribing the subscriber gets a subscriptions which is a 1-1 relationship type with two methods ‘request’ and ‘consel’
 Request more by the subscriber: the subscriber will ask the publisher to send me x messages (and not more)
 
+<a name="focus-on-publisher" />
+
 # Focus on Publisher
 
 Spring Reactor focusses on the publisher side, as this is the hardest to implement, to get it right.
@@ -129,6 +133,8 @@ Reactor Core provides a minimalist set of Reactive Streams ready generators and 
 
 
 More info on publisher
+
+<a name="diy-reactive-streams" />
 
 # DIY Reactive Streams
 
@@ -167,6 +173,8 @@ When designing your own API you will have to deal with the following issues:
 
 
 > This is all very hard to do yourself.
+
+<a name="3-years"/>
 
 # 3 Years to Mature
 
@@ -223,6 +231,8 @@ Everything in Reactor is just reactive streams implementation - which is used fo
 
 There also exists an [Reactor Core .NET](https://github.com/reactor/reactor-core-dotnet) and [Reactor Core TypeScript](https://github.com/reactor/reactor-core-js).
 
+<a name = "flux-vs-observable" />
+
 # Flux vs Observable
 <p style="text-align: center;">
   <img alt="a Flux" src="/img/reactive/flux.png">
@@ -230,6 +240,7 @@ There also exists an [Reactor Core .NET](https://github.com/reactor/reactor-core
 
 The Observable of RxJava contained too much noise, partly because it is currently stuck with JDK6 - while the people from Spring Reactor could go all in with java 8.
 
+<a name="mono"/>
 
 # Mono
 <p style="text-align: center;">
@@ -237,12 +248,16 @@ The Observable of RxJava contained too much noise, partly because it is currentl
 </p>
 With Mono only a single item will be returned.
 
+
+<a name="none"/>
+
 # None
 
 Add code example of None
 None is like a flux, but will return at most 1 result.
 More info needed
 
+<a name="testing"/>
 
 # Testing
 
@@ -251,6 +266,7 @@ Add code examples of block()
 Never use this in production - it is good for testing though.
 More info needed
 
+<a name="debug"/>
 
 # Debug
 Debug mode is provided, normal debug is hard and a pain in the ass - recursive code folly / stacktraces
@@ -258,6 +274,7 @@ You can activate debugging in code: then you will get the exact operation which 
 Hooks.onOperator(op -> op.operatorStacktrace());
 Capture stack for each operator declared after
 
+<a name="parallelflux"/>
 
 # ParallelFlux
 
@@ -275,6 +292,7 @@ This is very performant, with parallel Reactor is very close to the bare metal o
 [src](https://twitter.com/akarnokd/status/780135681897197568)
 
 
+<a name="bridge" />
 
 # Bridge Existing Async code
 Bridge Existing Async code with Listeners
@@ -288,8 +306,11 @@ If you add a Kafka call, for example, where they add this callback so one can re
 Also exists for Flux of N items but it’s tougher and more dangerous.
 You must explicitly indicate what to do in the case of overflow; keep the latest, keep everything with the risk of unbounded memory use.
 
+<a name="gateways" />
+
 # Create Gateways to Flux and Mono
 
+<a name="optimizations" />
 
 # Optimizations
 Operation fusion: Reactor has a mission to limit the overhead in stack and message passing.
@@ -301,6 +322,8 @@ Micro Fusion: Because of the Reactive specification and the asynchronous nature 
 Spring Reactor will avoid to create a queues whenever possible and short circuit during the lifecycle of the request. They are going to merge the queue from downstream with the one from upstream - hence the name fusion.
 If the parent is something we can pull (an Iterable or a queue) then Reactor is going to use the parent as a queue, thus avoiding to create a new queue.
 This is very smart to do - but also very complicated to do yourself, but because Spring Reactor has this in place you do not have to deal with this hassle..
+
+<a name="what-is-around" />
 
 # What is Around
 
@@ -316,6 +339,8 @@ With publishOn() the publisher can force the subscriber to use a different threa
 
 For Reactor 3.x there will be more focus on the [javadoc](http://projectreactor.io/core/docs/api).
 
+<a name="rxjava" />
+
 # RxJava
 
 Why Reactor when there’s already RxJava2?
@@ -323,6 +348,8 @@ Java 6 vs Java 8
 Do I need all the cardinality they expose?
 Am I going to use a Spring 5 application
 Check last two columns of Non blocking and RS types around screenshot
+
+<a name="spring-5" />
 
 # Spring Framework 5
 
@@ -336,9 +363,13 @@ For new stuff using Spring Web Reactive instead of Spring Web MVC, Reactive HTTP
 Annotations are very similar
 See screenshots
 
+<a name="the-future" />
+
 # The Future
 Reactor Ecosystem roadmap
 Include screenshot of roadmap
+
+<a name="getting-started" />
 
 # Getting Started
 Read some interesting blog posts on [spring.io](https://spring.io/)
@@ -357,8 +388,11 @@ You will learn the API by writing some code, how to control the flow of data and
 Here you will focus on more concrete use case and write something useful, but also on some low level features which you should learn to treat with respect.
 
 
+<a name="conclusion" />
+
 # Conclusion
 
+<a name="sources" />
 
 # Sources
 
