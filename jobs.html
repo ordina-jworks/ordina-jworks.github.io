@@ -1,0 +1,18 @@
+---
+layout: default
+title: Jobs
+permalink: /jobs/
+---
+<div class="jobs">
+    {% for job in site.jobs %}
+    
+    <div class="row">
+        <div class="col-xs-12">
+            <a href="{{ job.url | prepend: site.baseurl }}">{{ job.title }}</a>
+            <img class="img-responsive" src="{{ '/img/jobs/' | append: job.image | prepend: site.baseurl }}" alt="{{ job.title }}" />
+            <p>{{ job.excerpt }}</p>
+        </div>
+    </div>
+    
+    {% endfor %}
+</div>
