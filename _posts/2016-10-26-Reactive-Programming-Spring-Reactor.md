@@ -243,7 +243,6 @@ With Mono only a single item will be returned.
 
 Add code example of None
 None is like a flux, but will return at most 1 result.
-More info needed
 
 <a name="testing"/>
 
@@ -252,7 +251,6 @@ More info needed
 Testing (block() )
 Add code examples of block()
 Never use this in production - it is good for testing though.
-More info needed
 
 <a name="debug"/>
 
@@ -274,10 +272,11 @@ Instead of using flatMap
 
 This is very performant, with parallel Reactor is very close to the bare metal of what the JVM can do as you can see in the below comparisation:
 
-<p style="text-align: center;">
+<p style="text-align: left;">
   <img alt="benchmarks" src="/img/reactive/performance-shakespeare.jpg">
 </p>
-[src](https://twitter.com/akarnokd/status/780135681897197568)
+[source](https://twitter.com/akarnokd/status/780135681897197568)
+
 
 
 <a name="bridge" />
@@ -302,11 +301,11 @@ You must explicitly indicate what to do in the case of overflow; keep the latest
 
 # Optimizations
 Operation fusion: Reactor has a mission to limit the overhead in stack and message passing.
-The distinguish 2 types:
-Macro Fusion: Merge operators in one during assembly time, for example, if the user does .merge - .merge - .merge spring reactor is smart enough to put this in a single merge
+They distinguish 2 types of optimization:
 
+* Macro Fusion: Merge operators in one during assembly time, for example, if the user does .merge - .merge - .merge spring reactor is smart enough to put this in a single merge
 
-Micro Fusion: Because of the Reactive specification and the asynchronous nature of the response queues are heavily used, but creating a queue for every request/response is very costly.
+* Micro Fusion: Because of the Reactive specification and the asynchronous nature of the response queues are heavily used, but creating a queue for every request/response is very costly.
 Spring Reactor will avoid to create a queues whenever possible and short circuit during the lifecycle of the request. They are going to merge the queue from downstream with the one from upstream - hence the name fusion.
 If the parent is something we can pull (an Iterable or a queue) then Reactor is going to use the parent as a queue, thus avoiding to create a new queue.
 This is very smart to do - but also very complicated to do yourself, but because Spring Reactor has this in place you do not have to deal with this hassle..
@@ -320,22 +319,26 @@ The entire framework just fits in 1 jar: reactor-core jar.
 Flux and Mono live in the reactor.com.publisher package.
 Reactor.core.scheduler contains the FIFO task executor.
 
-
 By default the Publisher and Subscriber will use the same thread.
 With publishOn() the publisher can force the subscriber to use a different thread, while the subscriber can do the same with subscribeOn().
 
-
-For Reactor 3.x there will be more focus on the [javadoc](http://projectreactor.io/core/docs/api).
+For Reactor 3.x there will be more focus on the [javadoc](http://projectreactor.io/core/docs/api), as this has been lagging behind the new developments.
+I understand, as we developers are soo good with keeping our documentation up to date;-)
 
 <a name="rxjava" />
 
 # RxJava
 
 Why Reactor when there’s already RxJava2?
-Java 6 vs Java 8
-Do I need all the cardinality they expose?
-Am I going to use a Spring 5 application
-Check last two columns of Non blocking and RS types around screenshot
+
+RxJava2 is java 6 while for Reactor the Spring team decided to go all in and focus only on java 8.
+This means that you can make use of all the new and fancy java 8 features.
+
+If you are going to use Spring 5, reactor might be the better option.
+
+But if you are happy with your RxJava2, there is no direct need to migrate to Reactor.
+
+TODO: Check last two columns of Non blocking and RS types around screenshot
 
 <a name="spring-5" />
 
@@ -360,7 +363,7 @@ Include screenshot of roadmap
 <a name="getting-started" />
 
 # Getting Started
-Read some interesting blog posts on [spring.io](https://spring.io/)
+First start with reading some interesting blog posts on [spring.io](https://spring.io/) which will allow you to make your hands dirty and start playing with Reactor.
 
 
 - [reactive-programming-part-I](https://spring.io/blog/2016/06/07/notes-on-reactive-programming-part-i-the-reactive-landscape)
