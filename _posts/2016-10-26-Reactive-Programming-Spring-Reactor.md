@@ -93,7 +93,7 @@ But this can be a real poison pill: when a queue is full it will block a thread,
 
 
 Blocking is faster and more performant, than reactive, but reactive will allow for more concurrency
-Which is important if you have a micro-service based architecture, as there you typically need to be more careful and more exact when allocating resources between services
+Which is important if you have a microservice based architecture, as there you typically need to be more careful and more exact when allocating resources between services
 
 As in, by being more concurrent you can save a lot of money when using cloud and microservices.
 
@@ -182,25 +182,21 @@ It took Spring Reactor 3 years to mature.
   <img alt="Spring Reactor Timeline" src="/img/reactive/spring-reactor-timeline.png">
 </p>
 
-2.0 was not side effect free - also existential questions were raised around the project, at the same time Spring evolved, microservices became the norm.
+2.0 was not side effect free also existential questions were raised around the project.
 
-
+At the same time Spring evolved, microservices became the norm.
 Spring needs to be nice with these microservices, concurrency is important, can Reactor not be used for that?
 
-
-With 3.0 the team wanted to focus on microservices, take some ideas from [netflix oss](https://netflix.github.io/)
- and implement these in a pragmatic way.
-
-
+With 3.0 the team wanted to focus on microservices, take some ideas from [netflix oss](https://netflix.github.io/) and implement these in a pragmatic way.
 Actually reactor 3 was started as 2.5, but so many new features were added that the version had to be changed as well in order to reflect this.
 
-
-Since 3.0 Spring Reactor has received some extra components:
+Since 3.0 Spring Reactor has been made more modular and consists of several components:
 <p style="text-align: center;">
   <img alt="Spring Reactor Components" src="/img/reactive/spring-reactor-components.png">
 </p>
 
 * [Core](https://github.com/reactor/reactor-core) is the main library.
+Providing a non-blocking Reactive Streams foundation for the JVM both implementing a [Reactive Extensions](https://github.com/Reactive-Extensions) inspired API and efficient message-passing support.
 
 
 * [IPC](https://github.com/reactor/reactor-ipc): backpressure-ready components to encode, decode, send (unicast, multicast or request/response) and serve connections.
@@ -211,24 +207,17 @@ Here you will find support for kafka (https://kafka.apache.org/) and netty (http
 
 
 * [Reactive Streams Commons](https://github.com/reactor/reactive-streams-commons ) is the research project between Spring Reactor and RxJava as both teams had a lot of ideas they wanted to implement.
-
 Lots of effort was put in order to create real working, side-effect free operations.
 Map and Filtering for example are easy, but mergings, like Flatmap are hard to implement side-effect free.
-Having a proper implementation in this research project for these operations allowed the team to experiment and make it quite robust.
-
-
+Having a proper implementation in the research project for these operations allowed the team to experiment and make it quite robust.
 This project contains Reactive-Streams compliant operators, which in turn are implemented by Spring Reactor and RxJava
-
-
-They are very happy with this collaboration and this is still continuing.
-When a bugs gets fixed in Spring Reactor it will also be fixed in RxJava and vice versa.
+Both the Spring and RxJava teams are very happy with this collaboration and this is still continuing.
+When a bug gets fixed in Spring Reactor it will also be fixed in RxJava and vice versa.
 
 
 Everything in Reactor is just reactive streams implementation - which is used for the reactive [story](https://spring.io/blog/2016/07/28/reactive-programming-with-spring-5-0-m1) of spring 5.
 
-
-
-There also exists an [Reactor Core .NET](https://github.com/reactor/reactor-core-dotnet) and [Reactor Core TypeScript](https://github.com/reactor/reactor-core-js).
+There also exists an implementation for .NET, [Reactor Core .NET](https://github.com/reactor/reactor-core-dotnet) and one for javascript [Reactor Core TypeScript](https://github.com/reactor/reactor-core-js).
 
 <a name = "flux-vs-observable" />
 
