@@ -21,7 +21,6 @@ comments: true
 * [3 Years to Mature](#3-years)
 * [Flux vs Observable](#flux-vs-observable)
 * [Mono](#mono)
-* [None](#none)
 * [Testing](#testing)
 * [Debug](#debug)
 * [ParallelFlux](#parallelflux)
@@ -226,7 +225,39 @@ There also exists an implementation for .NET, [Reactor Core .NET](https://github
   <img alt="a Flux" src="/img/reactive/flux.png">
 </p>
 
-The Observable of RxJava contained too much noise, partly because it is currently stuck with JDK6 - while the people from Spring Reactor could go all in with java 8.
+
+Also Observable is not implementing Reactive Streams Publisher which means that if you would like to use the Spring 5 save(Publisher<T>) you first have to convert the Observable to a Flowable.
+See [Observable vs Flowable](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0)
+
+This was too much noise for the Spring team, they are less dependant on Android developers so they could go all in with java 8.
+
+Flux is a Reactive Streams Publisher with basic flow operations.
+Where you start from a static method which will describe how the data will be generated, [just()](http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#just-T...-) is the simplest way
+
+After that you have other operators like [Flatmap()](http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#flatMap-java.util.function.Function-), [Map()](http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#map-java.util.function.Function-), ... to work with that data
+Some of the method names will be different to RxJava2, but the logic behind these methods has been aligned among RxJava and Spring .
+
+
+```
+Flux.just(“red”, “white”, “blue”)
+       .flatMap(carRepository::findByColor)
+       .collect(Result:: new, Result::add)
+       .doOnNext(Result::stop)
+       .subscribe(doWithResult);
+
+
+Interface CarRepository {
+    Flux<Car> findByColor(String color);
+}
+
+```
+This Flux will retrieve all cars which match the color "red" then those with the color "white" and finally "blue".
+So instead of just 3 elements, after this Flatmap we are going to have a lot more elements.
+This is all handled with backpressure in mind, fore example when the flatmap is busy merging data we will not ask for extra records
+
+If the Repository implements Flux as a method signature, it will be picked up automatically as a reactive repository.
+This support for Flux will be part of the whole of Spring 5.
+Spring Data, Spring Security, Spring MVC, ... are all good candidates who will have this kind of support.
 
 <a name="mono"/>
 
@@ -234,23 +265,64 @@ The Observable of RxJava contained too much noise, partly because it is currentl
 <p style="text-align: center;">
   <img alt="a Mono" src="/img/reactive/mono.png">
 </p>
-With Mono only a single item will be returned.
+
+None is like a flux, but will return at most 1 result, so it does have less methods.
+
+```
+Mono.delayMillis(3000)
+    .map(d -> "Spring 4"°
+    .or(Mono.delayMillis(2000).map(d -> "Spring 5"))
+    .then(t -> Mono.just(t + " world"))
+    .elapsed()
+    .subscribe()
 
 
-<a name="none"/>
+```
+This Mono will wait for 3 seconds on the "call" to Spring 4 or 2 seconds on that of Spring 5.
+The fastest result will be the one which will be outputted.
 
-# None
 
-Add code example of None
-None is like a flux, but will return at most 1 result.
+The Mono has as advantage over an Observable Future of Java 8 that a Mono will only be triggered if you subscribe to it.
+While with an Observable the call to send() will execute the operation.
+
+
 
 <a name="testing"/>
 
 # Testing
 
-Testing (block() )
-Add code examples of block()
-Never use this in production - it is good for testing though.
+Block() exists for very specific use cases and for testing.
+Never, ever use this in production, as is it blocks your call, which does infer with the Reactive non-blocking statements. ;-)
+
+```
+Mono.delayMillis(3000)
+    .map(d -> "Spring 4"°
+    .or(Mono.delayMillis(2000).map(d -> "Spring 5"))
+    .then(t -> Mono.just(t + " world"))
+    .elapsed()
+    .block()
+
+
+```
+
+You can also make use of [Stepverifier](ttp://next.projectreactor.io/ext/docs/api/reactor/test/StepVerifier.html) to test Flux, Mono and any other kind of Reactive Streams Publisher.
+
+```
+
+@Test
+public void expectElementsWithThenComplete() {
+    expectSkylerJesseComplete(Flux.just(new User("swhite", null, null), new User("jpinkman", null, null)));
+}
+
+// Use StepVerifier to check that the flux parameter emits a User with "swhite" username and another one with "jpinkman" then completes successfully.
+void expectSkylerJesseComplete(Flux<User> flux) {
+    StepVerifier.create(flux)
+            .expectNextMatches(user -> user.getUsername().equals("swhite"))
+            .expectNextMatches(user -> user.getUsername().equals("jpinkman"))
+            .expectComplete();
+}
+
+```
 
 <a name="debug"/>
 
