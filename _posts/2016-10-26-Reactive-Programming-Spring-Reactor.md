@@ -356,13 +356,24 @@ You must enable this [Hooks.onOperator](https://projectreactor.io/core/docs/api/
 
 # ParallelFlux
 
-ParallelFlux: avoids to write flatMap, sequential() instead of flatmap() - can remain on the same indentation level - easier to read code
-Can be used to Starve CPU’s
-With .parallel(...) and .sequential();
-Instead of using flatMap
+If you want to stress test your CPU you can use [ParallelFlux](http://projectreactor.io/core/docs/api/reactor/core/publisher/ParallelFlux.html) which will spread the workload in concurrent tasks when possible. 
 
+```
+Mono.fromCallable( () -> System.currentTimeMillis() )
+    .repeat()
+    .parallel(8) //parallelism
+    .runOn(Schedulers.parallel())
+    .doOnNext( d -> System.out.println("I'm on thread "+Thread.currentThread()) ).
+    .sequential()
+    .subscribe()
+```
 
-This is very performant, with parallel Reactor is very close to the bare metal of what the JVM can do as you can see in the below comparisation:
+This basically avoids that you have to write flatMap(), where after the parallel(x) you will have exactly x number of Rails or Flux.
+Afterwards you can merge these back into a Flux with sequential().
+
+A nice feature is that it keeps the code more readable with everything on a single indentation level.
+
+But the cool part is that it is also very performant, with parallel, Reactor is very close to the bare metal of what the JVM can do as you can see in the below comparisation:
 
 <p style="text-align: left;">
   <img alt="benchmarks" src="/img/reactive/performance-shakespeare.jpg">
@@ -388,6 +399,31 @@ You must explicitly indicate what to do in the case of overflow; keep the latest
 <a name="gateways" />
 
 # Create Gateways to Flux and Mono
+
+There also exist some options to bridge the synchronous world with the Flux and the Mono.
+
+Like for example the [EmitterProcessor](http://projectreactor.io/core/docs/api/?reactor/core/publisher/EmitterProcessor.html) which is a signal processor.
+<p style="text-align: center;">
+  <img alt="a Flux" src="/img/reactive/emitterProcessor.png">
+</p>
+
+Which is an implementation of a RingBuffer backed message-passing Processor implementing publish-subscribe with synchronous drain loops.
+
+
+```
+EmitterProcessor<Integer> emitter = EmitterProcessor.create();
+BlockingSink<Integer> sink = emitter.connectSink();
+sink.next(1);
+sink.next(2);
+emitter.subscribe(System.out::println);
+sink.next(3); //output : 3
+sink.finish();
+
+```
+
+
+But you also have [ReplayProcessor](http://projectreactor.io/core/docs/api/?reactor/core/publisher/ReplayProcessor.html), a caching broadcaster and [WorkQueueProcessor](http://projectreactor.io/core/docs/api/?reactor/core/publisher/WorkQueueProcessor.html)
+
 
 <a name="optimizations" />
 
