@@ -385,16 +385,36 @@ But the cool part is that it is also very performant, with parallel, Reactor is 
 <a name="bridge" />
 
 # Bridge Existing Async code
-Bridge Existing Async code with Listeners
+
+To bridge a Subscriber or Processor into an outside context that is taking care of producing non concurrently, use Flux#create, Mono#create, or FluxProcessor#connectSink().
+
 ```
-Mono.create( sink -> {... sink.success() and sink.error()...})
+Mono<String> response = Mono.create( sink -> {
+    HttpListener listener = event -> {
+        if (event.getResponseCode() >= 400° {
+            sink.error(new RunTimeException("Error"));
+        } else {
+            String result = event.getBody();
+            if (body.isEmpty()) {
+                sink.succes();
+            } else {
+                sink.success(body);
+            }
+        }
+    };
+    client.addListener(listener);
+    
+    emitter.setCancellation(() -> client.removeListener(listener));
+
+});
 ```
 
-If you add a Kafka call, for example, where they add this callback so one can return onSuccess and onError
+This create() allows you to bridge 1 result, which will be returned somewhere in the future, to a Mono.
 
+If you add a Kafka call, for example, where they have this callback so one can return onSuccess and onError you can use this Mono.create()*[]: 
+See [Reactor Kafka](https://github.com/reactor/reactor-kafka) where this is used a lot.
 
-Also exists for Flux of N items but it’s tougher and more dangerous.
-You must explicitly indicate what to do in the case of overflow; keep the latest, keep everything with the risk of unbounded memory use.
+Also exists for Flux of N items but it’s tougher and more dangerous as you must explicitly indicate what to do in the case of overflow; keep the latest and risk losing some data or keep everything with the risk of unbounded memory use.
 
 <a name="gateways" />
 
@@ -406,9 +426,6 @@ Like for example the [EmitterProcessor](http://projectreactor.io/core/docs/api/?
 <p style="text-align: center;">
   <img alt="a Flux" src="/img/reactive/emitterProcessor.png">
 </p>
-
-Which is an implementation of a RingBuffer backed message-passing Processor implementing publish-subscribe with synchronous drain loops.
-
 
 ```
 EmitterProcessor<Integer> emitter = EmitterProcessor.create();
@@ -423,6 +440,8 @@ sink.finish();
 
 
 But you also have [ReplayProcessor](http://projectreactor.io/core/docs/api/?reactor/core/publisher/ReplayProcessor.html), a caching broadcaster and [WorkQueueProcessor](http://projectreactor.io/core/docs/api/?reactor/core/publisher/WorkQueueProcessor.html)
+
+These are all an implementation of a RingBuffer backed message-passing Processor implementing publish-subscribe with synchronous drain loops.
 
 
 <a name="optimizations" />
