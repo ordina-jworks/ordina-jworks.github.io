@@ -327,10 +327,30 @@ void expectSkylerJesseComplete(Flux<User> flux) {
 <a name="debug"/>
 
 # Debug
-Debug mode is provided, normal debug is hard and a pain in the ass - recursive code folly / stacktraces
-You can activate debugging in code: then you will get the exact operation which failed
+
+When you use reactive libraries you will quickly realize that step debugging is hard especially when you try to read your stacktraces, there are a lot of recursive calls taking place.
+
+Before you invoke your operations you can enable an, expensive, debug mode.
+```
 Hooks.onOperator(op -> op.operatorStacktrace());
-Capture stack for each operator declared after
+
+try {
+    Mono.just("a")
+        .map(d -> d)
+        .timestamp()
+        . ...
+        
+        
+} catch (Exception e) {
+    e.printStacktrace()
+}
+
+
+```
+
+When an exception is returned it will contain the exact operation that failed and the backtrace to that operation.
+
+You must enable this [Hooks.onOperator](https://projectreactor.io/core/docs/api/reactor/core/publisher/Hooks.OperatorHook.html#operatorStacktrace--) before the operations you want to track.
 
 <a name="parallelflux"/>
 
