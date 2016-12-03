@@ -423,8 +423,8 @@ Also exists for Flux of N items but it’s tougher and more dangerous as you mus
 There also exist some options to bridge the synchronous world with the Flux and the Mono.
 
 Like for example the [EmitterProcessor](http://projectreactor.io/core/docs/api/?reactor/core/publisher/EmitterProcessor.html) which is a signal processor.
-<p style="text-align: center;">
-  <img alt="a Flux" src="/img/reactive/emitterProcessor.png">
+<p style="text-align:center;width:40%" >
+  <img alt="EmitterProcessor" src="/img/reactive/emitterProcessor.png"/>
 </p>
 
 ```
