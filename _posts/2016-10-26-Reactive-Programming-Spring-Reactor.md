@@ -510,7 +510,9 @@ Include screenshot of roadmap
 <a name="getting-started" />
 
 # Getting Started
-First start with reading some interesting blog posts on [spring.io](https://spring.io/) which will allow you to make your hands dirty and start playing with Reactor.
+If you are interested in Spring Reactor and want to learn more, there is no better way then getting your hands dirty.
+
+- First start with reading some interesting blog posts on [spring.io](https://spring.io/) which will give you more background around Spring Reactor and provider you with resources to start coding.
 
 
 - [reactive-programming-part-I](https://spring.io/blog/2016/06/07/notes-on-reactive-programming-part-i-the-reactive-landscape)
@@ -524,6 +526,10 @@ You will learn the API by writing some code, how to control the flow of data and
 
 - [reactive-programming-part-III](https://spring.io/blog/2016/07/20/notes-on-reactive-programming-part-iii-a-simple-http-server-application)
 Here you will focus on more concrete use case and write something useful, but also on some low level features which you should learn to treat with respect.
+
+- [reactor-api-hands-on](https://github.com/reactor/lite-rx-api-hands-on)
+This hands-on will help you learn easily the lite Rx API provider by Spring Reactor. 
+You just have to make the unit tests green.
 
 
 <a name="conclusion" />
