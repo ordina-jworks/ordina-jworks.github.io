@@ -1,70 +1,90 @@
 ---
 layout: default
+title: 'JWorks Tech Blogs'
+subtitle: 'Powered by <img src="/img/ordina-logo-white-131x30.png" style="vertical-align: middle;">'
 ---
 
-<!-- blog One -->
-<div class="row">
-    <!-- Mainbar column -->
-    <div class="col-md-9">
-        <div class="row blog-masonry">
-            {% for post in paginator.posts %}
-            <!-- Post Item -->
-            <div class="col-xs-6 col-md-4 item">
-                <div class="grid-entry">
-                    <!-- Post Image Container -->
-                    <div class="grid-img">
-                        <a href="{{post.url}}" class="read-more"><img src="{{post.image}}" class="max-height-120 img-responsive" alt="" /></a>
-                    </div>
-                    <!-- Post Information -->
-                    <div class="entry-info">
-                        <h4><a href="{{post.url}}">{{post.title}}</a></h4>
+<section id="one" class="wrapper spotlight style1">
+    <div class="inner">
+        <div class="content" style="text-align: left">
+            <h2 class="major">Most recent posts</h2>
 
-                        <div class="bor"></div>
-                        <!-- Paragraph -->
-                        <p>{{post.heading}}</p>
-                        <a href="{{post.url}}" class="read-more">Read More <i class="fa fa-angle-double-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <div class="row">
+            <section class="features">
+
+                {% for post in paginator.posts %}
+                <article>
+                    <a href="{{post.url}}"><img src="{{post.image}}" alt="" class="image"></a>
+
+                    <h3 class="major">{{post.title}}</h3>
+
+                    <p>{{ post.date | date_to_string }} {{post.heading}}</p>
+                    <a href="{{post.url}}" class="special">Read more</a>
+                </article>
+                {% endfor %}
+
+            </section>
+
             <!-- Pagination -->
             {% if paginator.total_pages > 1 %}
-            <nav class="col-md-9">
-                <ul class="pagination center-block">
-                    {% if paginator.previous_page %}
-                        <li>
-                          <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                          </a>
-                        </li>
-                    {% endif %}
-                    {% for page in (1..paginator.total_pages) %}
-                        {% if page == 1 %}
-                            {% capture url %}
-                                {{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}
-                            {% endcapture %}
-                        {% else %}
-                            {% capture url %}
-                                {{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}
-                            {% endcapture %}
-                        {% endif %}
-                        <li><a href="{{ url }}" {% if page == paginator.page %}class="disabled"{% endif %}>{{ page }}</a></li>
-                    {% endfor %}
-                    {% if paginator.next_page %}
-                        <li>
-                          <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                          </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </nav>
+            <ul class="actions"> <!-- pagination center-block -->
+                {% if paginator.previous_page %}
+                <li>
+                    <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% for page in (1..paginator.total_pages) %}
+                {% if page == 1 %}
+                {% capture url %}
+                {{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}
+                {% endcapture %}
+                {% else %}
+                {% capture url %}
+                {{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}
+                {% endcapture %}
+                {% endif %}
+                <li><a href="{{ url }}" {% if page== paginator.page %}class="disabled" {% endif %}>{{ page }}</a></li>
+                {% endfor %}
+                {% if paginator.next_page %}
+                <li>
+                    <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
             {% endif %}
             <!-- End Pagination -->
         </div>
     </div>
+</section>
 
-    {% include sidebar.html %}
-</div>
+<section id="two" class="wrapper alt spotlight style2">
+    <div class="inner">
+        <div class="content">
+            <h2 class="major">Categories</h2>
+
+            <ul class="list-6 categories">
+                {% for cat in site.categories %}
+                <li><a href="/categories/{{cat[0] | downcase | replace:' ','-' }}">{{cat[0]}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <h2 class="major">Tags</h2>
+
+            {% for tag in site.tags %}
+            <a href="/tags/{{tag[0] | downcase | replace:' ','-' }}">{{tag[0]}}</a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
