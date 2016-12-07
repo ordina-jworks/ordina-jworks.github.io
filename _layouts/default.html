@@ -73,11 +73,12 @@
 <div id="page-wrapper">
 
     <!-- Header -->
-    <header id="header">
-        <a href="{{ site.baseurl }}/" style="border-bottom: none;">
-            <img src="{{ site.baseurl }}/img/jworks/jworks-100x100-white.png"
-                 style="height: 100%; padding: 5px 0;"/>
-        </a>
+    <header id="header"{% if page.transparent_header %} class="alt" {% endif %}>
+        <h1>
+            <a href="{{ site.baseurl }}/">
+                JWorks tech blogs
+            </a>
+        </h1>
 
         <nav>
             <a href="#menu">Menu</a>
@@ -101,6 +102,10 @@
     <section id="banner">
         <header>
             <div class="inner">
+                {% if page.show_logo %}
+                <img src="{{ site.baseurl }}/img/jworks/jworks-100x100-white.png" />
+                {% endif %}
+
                 <h2>{{ page.title }}</h2>
 
                 {% if page.layout == 'post' %}
