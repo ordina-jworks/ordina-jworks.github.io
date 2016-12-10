@@ -4,7 +4,7 @@ authors: [tom_van_den_bulck]
 title: 'Reactive Programming with Spring Reactor'
 image: /img/reactive/reactor_logo.png
 tags: [JOIN, Spring, Reactor, Java, Reactive]
-category: Conferences
+category: Reactive
 comments: true
 ---
 
@@ -16,7 +16,7 @@ comments: true
 * [The new normal that is not new](#the-new-normal)
 * [The Reactive Manifesto](#the-manifesto)
 * [Latency & Blocking](#latency)
-* [Reactive Contract](#contract)
+* [The Contract](#contract)
 * [Reactive Types](#reactive-types)
 * [Testing & Debuging](#testing)
 * [Other Changes](#changes)
@@ -218,11 +218,6 @@ There also exists an implementation for .NET, [Reactor Core .NET](https://github
 
 # Reactive Types
 
-* [Flux vs Observable](#flux-vs-observable)
-* [Mono](#mono)
-
-<a name = "flux-vs-observable" />
-
 ## Flux vs Observable
 <p style="text-align: center;">
   <img alt="a Flux" src="/img/reactive/flux.png">
@@ -261,8 +256,6 @@ This is all handled with backpressure in mind, fore example when the flatmap is 
 If the Repository implements Flux as a method signature, it will be picked up automatically as a reactive repository.
 This support for Flux will be part of the whole of Spring 5.
 Spring Data, Spring Security, Spring MVC, ... are all good candidates who will have this kind of support.
-
-<a name="mono"/>
 
 ## Mono
 <p style="text-align: center;">
@@ -362,14 +355,6 @@ You must enable this [Hooks.onOperator](https://projectreactor.io/core/docs/api/
 
 # More cool stuff
 
-* [ParallelFlux](#parallelflux)
-* [Bridge Existing Async code](#bridge)
-* [Create Gateways to Flux and Mono](#gateways)
-* [Optimizations](#optimizations)
-* [What is Around](#what-is-around)
-
-<a name="parallelflux"/>
-
 ## ParallelFlux
 
 If you want to stress test your CPU you can use [ParallelFlux](http://projectreactor.io/core/docs/api/reactor/core/publisher/ParallelFlux.html) which will spread the workload in concurrent tasks when possible. 
@@ -396,11 +381,9 @@ But the cool part is that it is also very performant, with parallel, Reactor is 
 </p>
 
 
-<a name="bridge" />
-
 ## Bridge Existing Async code
 
-To bridge a Subscriber or Processor into an outside context that is taking care of producing non concurrently, use Flux#create, Mono#create, or FluxProcessor#connectSink().
+To bridge a Subscriber or Processor into an outside context that is taking care of producing non concurrently, use `Flux.create()`, `Mono.create()`, or `FluxProcessor.connectSink()`.
 
 ```
 Mono<String> response = Mono.create( sink -> {
@@ -422,13 +405,12 @@ Mono<String> response = Mono.create( sink -> {
 
 });
 ```
-This create() allows you to bridge 1 result, which will be returned somewhere in the future, to a Mono.
+This `create()` allows you to bridge 1 result, which will be returned somewhere in the future, to a Mono.
 
-If you add a Kafka call, for example, where they have this callback so one can return onSuccess and onError you can use this Mono.create()*[]: 
-See [Reactor Kafka](https://github.com/reactor/reactor-kafka) where this is used a lot.
-Also exists for Flux of N items but it’s tougher and more dangerous as you must explicitly indicate what to do in the case of overflow; keep the latest and risk losing some data or keep everything with the risk of unbounded memory use.
+If you add a Kafka call, for example, where they have this callback so one can return onSuccess and onError you can use `Mono.create()`: 
+see [Reactor Kafka](https://github.com/reactor/reactor-kafka) where this is used a lot.
 
-<a name="gateways" />
+Also exists for Flux of N items but it’s tougher and more dangerous as you must explicitly indicate what to do in the case of overflow; keep the latest and risk losing some data or keep everything with the risk of unbounded memory use. ¯\\_(ツ)_/¯ 
 
 ## Create Gateways to Flux and Mono
 
@@ -451,33 +433,30 @@ sink.finish();
 ```
 
 
-But you also have [ReplayProcessor](http://projectreactor.io/core/docs/api/?reactor/core/publisher/ReplayProcessor.html), a caching broadcaster and [WorkQueueProcessor](http://projectreactor.io/core/docs/api/?reactor/core/publisher/WorkQueueProcessor.html)
+But you also have:
+- [ReplayProcessor](http://projectreactor.io/core/docs/api/?reactor/core/publisher/ReplayProcessor.html), a caching broadcaster.
+- [TopicProcessor](http://projectreactor.io/core/docs/api/?reactor/core/publisher/TopicProcessor.html), an asynchronous signal broadcaster 
+- [WorkQueueProcessor](http://projectreactor.io/core/docs/api/?reactor/core/publisher/WorkQueueProcessor.html), which is similar to the TopicProcessor but distributes the input data signal to the next available Subscriber. 
 
-These are all an implementation of a RingBuffer backed message-passing Processor implementing publish-subscribe with synchronous drain loops.
+These are all an implementation of a [RingBuffer](https://en.wikipedia.org/wiki/Circular_buffer) backed message-passing Processor implementing publish-subscribe with synchronous drain loops.
 
-
-<a name="optimizations" />
 
 ## Optimizations
 Operation fusion: Reactor has a mission to limit the overhead in stack and message passing.
 They distinguish 2 types of optimization:
 
-* Macro Fusion: Merge operators in one during assembly time, for example, if the user does .merge - .merge - .merge spring reactor is smart enough to put this in a single merge
+* Macro Fusion: Merge operators in one during assembly time, for example, if the user does `.merge()` - `.merge()` - `.merge()` spring reactor is smart enough to put this in a single `.merge()`
 * Micro Fusion: Because of the Reactive specification and the asynchronous nature of the response, queues are heavily used, but creating a queue for every request/response is very costly.
 
 Spring Reactor will avoid to create queues whenever possible and short circuit during the lifecycle of the request. 
 They are going to merge the queue from downstream with the one from upstream - hence the name fusion.
 If the parent is something we can pull (an Iterable or a queue) then Reactor is going to use the parent as a queue, thus avoiding to create a new queue.
-This is very smart to do - but also very complicated to do yourself, but because Spring Reactor has this in place you do not have to deal with this hassle..
+This is very smart to do - but also very complicated to do yourself, because Spring Reactor has this in place you do not have to deal with this hassle..
 
-<a name="what-is-around" />
+## A Simpler API
 
-## What is around
-
-Reactor: a Simpler API.
-The entire framework just fits in 1 jar: reactor-core jar.
-Flux and Mono live in the `reactor.com.publisher` package.
-`reactor.core.scheduler` contains the FIFO task executor.
+Reactor: a Simpler API, the entire framework just fits in 1 jar: reactor-core jar.
+Flux and Mono live in the `reactor.com.publisher` package, `reactor.core.scheduler` contains the FIFO task executor.
 
 By default the `Publisher` and `Subscriber` will use the same thread.
 With `publishOn()` the publisher can force the subscriber to use a different thread, while the subscriber can do the same with `subscribeOn()`.
@@ -490,7 +469,7 @@ I understand, as we developers are so good with keeping our documentation up to 
 
 # RxJava
 
-Why Reactor when there’s already RxJava2?
+Why Reactor when there’s already [RxJava2](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0)?
 
 RxJava2 is java 6 while for Reactor the Spring team decided to go all in and focus only on java 8.
 This means that you can make use of all the new and fancy java 8 features.
@@ -507,10 +486,10 @@ But if you are happy with your RxJava2, there is no direct need to migrate to Re
 It will still be backwards compatible. 
 You can just take your Spring 4 application, put Spring 5 behind it and you will be good to go.
 
-But with Spring 5 you will be able to make use of the new [Spring Web Reactive](http://docs.spring.io/spring-framework/docs/5.0.0.M1/spring-framework-reference/html/web-reactive.html) and Reactive HTTP.
+But with Spring 5 you will be able to make use of the following new components/ [Spring Web Reactive](http://docs.spring.io/spring-framework/docs/5.0.0.M1/spring-framework-reference/html/web-reactive.html) and Reactive HTTP.
 Which under the hood support [Servlet 3.1](https://java.net/downloads/servlet-spec/Final/servlet-3_1-final.pdf), [Netty](http://netty.io/) and [Undertow](http://undertow.io/).
 
-The annotations are still very similar but you just return a Mono, but the User can now be retrieved asynchronously in a non-blocking way.
+The annotations are still very similar but you just return a Mono, so the User can now be retrieved in a non-blocking way.
 ```
 @GetMapping("/users/{login}")
 public Mono<User> getUser(@PathVariable String login) {
@@ -525,7 +504,7 @@ public Mono<User> getUser(@PathVariable String login) {
 Spring Reactor is a very interesting framework, after 3 iterations it has matured and gives you a good base to get started with Reactive Streams.
 With the upcoming support in Spring 5 it will also start to become more mainstream.
 
-So I can see no better way then to get your hands dirty and learn more about Spring Reactor yourself.
+Therefore I can see no better way then to get your hands dirty and learn more about Spring Reactor yourself.
 
 - [reactive-programming-part-I](https://spring.io/blog/2016/06/07/notes-on-reactive-programming-part-i-the-reactive-landscape):
 Provides you with a clear description of what reactive programming is about and its use cases.
