@@ -12,28 +12,34 @@ comments: true
 
 # Overview
 
+* [Stephane Maldini @ JOIN](#join)
 * [The new normal that is not new](#the-new-normal)
 * [The Reactive Manifesto](#the-manifesto)
-* [Latency](#latency)
-* [Blocking](#blocking)
-* [Contract](#contract)
-* [DIY Reactive Streams](#diy-reactive-streams)
-* [3 Years to Mature](#3-years)
-* [Flux vs Observable](#flux-vs-observable)
-* [Mono](#mono)
-* [Testing](#testing)
-* [Debug](#debug)
-* [ParallelFlux](#parallelflux)
-* [Bridge Existing Async code](#bridge)
-* [Create Gateways to Flux and Mono](#gateways)
-* [Optimizations](#optimizations)
-* [What is Around](#what-is-around)
+* [Latency & Blocking](#latency)
+* [Reactive Contract](#contract)
+* [Reactive Types](#reactive-types)
+* [Testing & Debuging](#testing)
+* [Other Changes](#changes)
 * [RxJava](#rxjava)
 * [Spring Framework 5](#spring-5)
-* [The Future](#the-future)
-* [Getting Started](#getting-started)
-* [Conclusion](#conclusion)
-* [Sources](#sources)
+* [Conclusion & Do It Yourself](#conclusion)
+
+<a name="join" />
+
+# Stephane Maldini @ JOIN 2016
+
+On 5 October 2016 we had the pleasure to welcome Stephane Maldini at our [JOIN event](https://ordina-jworks.github.io/conferences/2016/09/27/JOIN-2016.html)
+
+<img class="float-image p-image" src="{{ '/img/stephane-maldini.jpeg' | prepend: site.baseurl }}" alt="Stephane Maldini" style="width: 100px"/>
+
+A multi-tasker eating tech 24/7, Stephane is interested in cloud computing, data science and messaging.
+Leading the Reactor Project, Stephane Maldini is on a mission to help developers create reactive and efficient architectures on the JVM and beyond.
+He is also one of the main contributors for Reactive support in the upcoming Spring 5 framework.
+
+Which can be seen as the new standard for reactive applications in the Java world
+
+
+> You can rewatch his [talk](https://www.youtube.com/watch?v=RU0yQhfybDg) on on our [Channel](https://www.youtube.com/channel/UCsebfWdqV7LqNNDMDvCESIA) on Youtube.
 
 
 <a name="the-new-normal" />
@@ -82,16 +88,12 @@ Something needs to be done when latency becomes too big of an issue, especially 
 Too much data will fill up the buffer and can result, with an unbounded queue, to the infamous [OutOfMemoryException()](https://docs.oracle.com/javase/8/docs/api/java/lang/OutOfMemoryError.html)
 While you won't run out of memory with a circular buffer, you risk losing messages as the oldest ones get overwritten.
 
-<a name="blocking" />
 
 # Blocking
 
 One way to prevent out of memory exceptions is to use blocking.
 
-<p style="text-align: left;">
-  <img style="max-width:120px;"  alt="poison pill" src="/img/reactive/poison-icon.png">
-</p>
-But this can be a real poison pill: when a queue is full, it will block a thread and as more and more queues get blocked your server will die a slow death.
+But this can be a real `poison pill`: when a queue is full, it will block a thread and as more and more queues get blocked your server will die a slow death.
 
 Blocking is faster and has better performance, than reactive, but reactive will allow for more concurrency.
 Concurrency is important if you have a microservice based architecture, as there you typically need to be more careful and more exact when allocating resources between services.
@@ -129,8 +131,6 @@ Spring Reactor focuses on the publisher side of the reactive streaming, as this 
 It provides you with the tools to implement publishers in a back pressure way.
 
 The publisher is a provider of a potentially unbounded number of sequenced elements, publishing them according to the demand received from its Subscriber(s).
-
-<a name="diy-reactive-streams" />
 
 # DIY Reactive Streams
 
@@ -176,8 +176,6 @@ The other point is that when designing your own API you will also have to deal w
 
 > This is all very hard to do yourself.
 
-<a name="3-years"/>
-
 # 3 Years to Mature
 
 It took Spring Reactor 3 years to mature.
@@ -215,9 +213,17 @@ Everything in Reactor is just reactive streams implementation - which is used fo
 
 There also exists an implementation for .NET, [Reactor Core .NET](https://github.com/reactor/reactor-core-dotnet) and one for javascript [Reactor Core TypeScript](https://github.com/reactor/reactor-core-js).
 
+
+<a name = "reactive-types" />
+
+# Reactive Types
+
+* [Flux vs Observable](#flux-vs-observable)
+* [Mono](#mono)
+
 <a name = "flux-vs-observable" />
 
-# Flux vs Observable
+## Flux vs Observable
 <p style="text-align: center;">
   <img alt="a Flux" src="/img/reactive/flux.png">
 </p>
@@ -258,7 +264,7 @@ Spring Data, Spring Security, Spring MVC, ... are all good candidates who will h
 
 <a name="mono"/>
 
-# Mono
+## Mono
 <p style="text-align: center;">
   <img alt="a Mono" src="/img/reactive/mono.png">
 </p>
@@ -321,8 +327,6 @@ void expectSkylerJesseComplete(Flux<User> flux) {
 
 ```
 
-<a name="debug"/>
-
 # Debug
 
 When you use reactive libraries you will quickly realize that step debugging is hard especially when you try to read your stacktraces, there are a lot of recursive calls taking place.
@@ -349,9 +353,24 @@ When an exception is returned it will contain the exact operation that failed an
 
 You must enable this [Hooks.onOperator](https://projectreactor.io/core/docs/api/reactor/core/publisher/Hooks.OperatorHook.html#operatorStacktrace--) before the operations you want to track.
 
+
+
+
+
+
+<a name="changes"/>
+
+# More cool stuff
+
+* [ParallelFlux](#parallelflux)
+* [Bridge Existing Async code](#bridge)
+* [Create Gateways to Flux and Mono](#gateways)
+* [Optimizations](#optimizations)
+* [What is Around](#what-is-around)
+
 <a name="parallelflux"/>
 
-# ParallelFlux
+## ParallelFlux
 
 If you want to stress test your CPU you can use [ParallelFlux](http://projectreactor.io/core/docs/api/reactor/core/publisher/ParallelFlux.html) which will spread the workload in concurrent tasks when possible. 
 
@@ -379,7 +398,7 @@ But the cool part is that it is also very performant, with parallel, Reactor is 
 
 <a name="bridge" />
 
-# Bridge Existing Async code
+## Bridge Existing Async code
 
 To bridge a Subscriber or Processor into an outside context that is taking care of producing non concurrently, use Flux#create, Mono#create, or FluxProcessor#connectSink().
 
@@ -411,7 +430,7 @@ Also exists for Flux of N items but it’s tougher and more dangerous as you mus
 
 <a name="gateways" />
 
-# Create Gateways to Flux and Mono
+## Create Gateways to Flux and Mono
 
 There also exist some options to bridge the synchronous world with the Flux and the Mono.
 
@@ -439,21 +458,21 @@ These are all an implementation of a RingBuffer backed message-passing Processor
 
 <a name="optimizations" />
 
-# Optimizations
+## Optimizations
 Operation fusion: Reactor has a mission to limit the overhead in stack and message passing.
 They distinguish 2 types of optimization:
 
 * Macro Fusion: Merge operators in one during assembly time, for example, if the user does .merge - .merge - .merge spring reactor is smart enough to put this in a single merge
 * Micro Fusion: Because of the Reactive specification and the asynchronous nature of the response, queues are heavily used, but creating a queue for every request/response is very costly.
 
-Spring Reactor will avoid to create a queues whenever possible and short circuit during the lifecycle of the request. 
+Spring Reactor will avoid to create queues whenever possible and short circuit during the lifecycle of the request. 
 They are going to merge the queue from downstream with the one from upstream - hence the name fusion.
 If the parent is something we can pull (an Iterable or a queue) then Reactor is going to use the parent as a queue, thus avoiding to create a new queue.
 This is very smart to do - but also very complicated to do yourself, but because Spring Reactor has this in place you do not have to deal with this hassle..
 
 <a name="what-is-around" />
 
-# What is around
+## What is around
 
 Reactor: a Simpler API.
 The entire framework just fits in 1 jar: reactor-core jar.
@@ -462,8 +481,10 @@ Flux and Mono live in the `reactor.com.publisher` package.
 
 By default the `Publisher` and `Subscriber` will use the same thread.
 With `publishOn()` the publisher can force the subscriber to use a different thread, while the subscriber can do the same with `subscribeOn()`.
+
 For Reactor 3.x there will be more focus on the [javadoc](http://projectreactor.io/core/docs/api), as this has been lagging behind the new developments.
-I understand, as we developers are soo good with keeping our documentation up to date;-)
+
+I understand, as we developers are so good with keeping our documentation up to date ;-)
 
 <a name="rxjava" />
 
@@ -478,63 +499,48 @@ If you are going to use Spring 5, reactor might be the better option.
 
 But if you are happy with your RxJava2, there is no direct need to migrate to Reactor.
 
-TODO: Check last two columns of Non blocking and RS types around screenshot
 
 <a name="spring-5" />
 
 # Spring Framework 5
 
-Spring Framework 5
-Spring Framework 5 :
-Functional support
-Try to have an ok learning curve
-Backwards compatibility
-Just upgrade, everything still works
-For new stuff using Spring Web Reactive instead of Spring Web MVC, Reactive HTTP instead of Servlet API and Servlet 3.1, Netto and Undertow instead of Servlet Container
-Annotations are very similar
-See screenshots
+It will still be backwards compatible. 
+You can just take your Spring 4 application, put Spring 5 behind it and you will be good to go.
 
-<a name="the-future" />
+But with Spring 5 you will be able to make use of the new [Spring Web Reactive](http://docs.spring.io/spring-framework/docs/5.0.0.M1/spring-framework-reference/html/web-reactive.html) and Reactive HTTP.
+Which under the hood support [Servlet 3.1](https://java.net/downloads/servlet-spec/Final/servlet-3_1-final.pdf), [Netty](http://netty.io/) and [Undertow](http://undertow.io/).
 
-# The Future
-Reactor Ecosystem roadmap
-Include screenshot of roadmap
-
-<a name="getting-started" />
-
-# Getting Started
-If you are interested in Spring Reactor and want to learn more, there is no better way then getting your hands dirty.
-
-- First start with reading some interesting blog posts on [spring.io](https://spring.io/) which will give you more background around Spring Reactor and provider you with resources to start coding.
-
-
-- [reactive-programming-part-I](https://spring.io/blog/2016/06/07/notes-on-reactive-programming-part-i-the-reactive-landscape)
-Provides you with a clear description of what reactive programming is about and its use cases.
-But also the different ways about how people have implemented reactive programming (actor model, futures, … ) and more specifially the different frameworks which implement reactive programming in java. (Spring Reactor (https://projectreactor.io/) , Spring Framework 5 (http://projects.spring.io/spring-framework/) , RxJava (https://github.com/ReactiveX/RxJava/wiki) , Akka (http://akka.io/) , Reactive Streams (http://www.reactive-streams.org/) and Ratpack (https://ratpack.io/)  )
-- [reactive-programming-part-II](https://spring.io/blog/2016/06/13/notes-on-reactive-programming-part-ii-writing-some-code)
-You will learn the API by writing some code, how to control the flow of data and its processing.
-- [reactive-programming-part-III](https://spring.io/blog/2016/07/20/notes-on-reactive-programming-part-iii-a-simple-http-server-application)
-Here you will focus on more concrete use case and write something useful, but also on some low level features which you should learn to treat with respect.
-
-- [reactor-api-hands-on](https://github.com/reactor/lite-rx-api-hands-on)
-This hands-on will help you learn easily the lite Rx API provider by Spring Reactor. 
-You just have to make the unit tests green.
-
+The annotations are still very similar but you just return a Mono, but the User can now be retrieved asynchronously in a non-blocking way.
+```
+@GetMapping("/users/{login}")
+public Mono<User> getUser(@PathVariable String login) {
+    return this.repository.getUser(login);
+}
+```
 
 <a name="conclusion" />
 
 # Conclusion
 
-<a name="sources" />
+Spring Reactor is a very interesting framework, after 3 iterations it has matured and gives you a good base to get started with Reactive Streams.
+With the upcoming support in Spring 5 it will also start to become more mainstream.
 
-# Sources
+So I can see no better way then to get your hands dirty and learn more about Spring Reactor yourself.
 
-https://spring.io/blog/2016/04/19/understanding-reactive-types
-https://github.com/reactor/lite-rx-api-hands-on
-https://spring.io/blog/2016/06/07/notes-on-reactive-programming-part-i-the-reactive-landscape
-https://spring.io/blog/2016/06/13/notes-on-reactive-programming-part-ii-writing-some-code
-https://spring.io/blog/2016/07/20/notes-on-reactive-programming-part-iii-a-simple-http-server-application
-http://projectreactor.io/core/docs/api
-http://www.slideshare.net/StphaneMaldini/reactor-30-a-reactive-foundation-for-java-8-and-spring
+- [reactive-programming-part-I](https://spring.io/blog/2016/06/07/notes-on-reactive-programming-part-i-the-reactive-landscape):
+Provides you with a clear description of what reactive programming is about and its use cases.
+But also the different ways about how people have implemented reactive programming (actor model, futures, … ) and more specifially the different frameworks which implement reactive programming in java. 
+> Frameworks like: [Spring Reactor](https://projectreactor.io/), [Spring Framework 5](http://projects.spring.io/spring-framework/), [RxJava](https://github.com/ReactiveX/RxJava/wiki) , [Akka](http://akka.io/), [Reactive Streams](http://www.reactive-streams.org/) and [Ratpack](https://ratpack.io/).
+- [reactive-programming-part-II](https://spring.io/blog/2016/06/13/notes-on-reactive-programming-part-ii-writing-some-code):
+You will learn the API by writing some code, how to control the flow of data and its processing.
+- [reactive-programming-part-III](https://spring.io/blog/2016/07/20/notes-on-reactive-programming-part-iii-a-simple-http-server-application):
+Here you will focus on more concrete use case and write something useful, but also on some low level features which you should learn to treat with respect.
 
-https://www.youtube.com/watch?v=RU0yQhfybDg
+- [reactor-api-hands-on](https://github.com/reactor/lite-rx-api-hands-on):
+This hands-on will help you learn easily the lite Rx API provider by Spring Reactor. 
+You just have to make the unit tests green.
+
+- On [spring.io](https://spring.io) you can find more interesting blog posts which will give you more background around Spring Reactor and provide you with the resources to start coding.
+
+
+
