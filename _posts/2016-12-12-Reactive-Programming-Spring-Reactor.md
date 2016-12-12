@@ -28,15 +28,13 @@ comments: true
 
 # Stephane Maldini @ JOIN 2016
 
-On 5 October 2016 we had the pleasure to welcome Stephane Maldini at our [JOIN event](https://ordina-jworks.github.io/conferences/2016/09/27/JOIN-2016.html)
+On 5 October 2016, we had the pleasure to welcome Stephane Maldini at our [JOIN event](https://ordina-jworks.github.io/conferences/2016/09/27/JOIN-2016.html)
 
 <img class="float-image p-image" src="{{ '/img/stephane-maldini.jpeg' | prepend: site.baseurl }}" alt="Stephane Maldini" style="width: 100px"/>
 
 A multi-tasker eating tech 24/7, Stephane is interested in cloud computing, data science and messaging.
 Leading the Reactor Project, Stephane Maldini is on a mission to help developers create reactive and efficient architectures on the JVM and beyond.
-He is also one of the main contributors for Reactive support in the upcoming Spring 5 framework.
-
-Which can be seen as the new standard for reactive applications in the Java world
+He is also one of the main contributors for Reactive support in the upcoming Spring 5 framework, which can be seen as the new standard for reactive applications in the Java world.
 
 
 > You can rewatch his [talk](https://www.youtube.com/watch?v=RU0yQhfybDg) on on our [Channel](https://www.youtube.com/channel/UCsebfWdqV7LqNNDMDvCESIA) on Youtube.
@@ -50,7 +48,7 @@ It has been around for 30-40 years and boils down to [Event-Driven Programming](
 What is new is "reactive motion bound to specification", this means that reactive programming is based on something solid, a specification and no longer some functional concepts.
 Namely the [Reactive Manifesto](http://www.reactivemanifesto.org/)
 
-Because of this specification, Spring found it the right time to start with [Reactor](https://spring.io/blog/2013/05/13/reactor-a-foundation-for-asynchronous-applications-on-the-jvm) as they could now build something which would be able to work and where it was clear what people could expect.
+Because of this specification, Spring found it the right time to start with [Reactor](https://spring.io/blog/2013/05/13/reactor-a-foundation-for-asynchronous-applications-on-the-jvm) as they could now build something, which would be able to work and where it was clear what people could expect.
 
 <a name="the-manifesto" />
 
@@ -78,7 +76,7 @@ They are significantly more tolerant of failure and when failure does occur they
 
 # Latency
 
-Latency is a real issue, the real physical distance of various components and services becomes more important with cloud based systems.
+Latency is also a real issue, the real physical distance of various components and services becomes more important with cloud based systems.
 This is also a very random number which is difficult to predict because it can depend on network congestion.
 With [Zipkin](https://github.com/openzipkin/zipkin), you can measure this latency.
 
@@ -108,8 +106,9 @@ Reactive is non-blocking and messages will never overflow the queue, see for the
 
 >Created by Pivotal, Typesafe, Netflix, Oracle, Red Hat and others.
 
-The scope of Reactive Streams is to find a minimal set of interfaces, methods and protocols that will describe the necessary operations and entities to achieve the goal—asynchronous streams of data with non-blocking back pressure.
-Has been adopted for java 9.
+The scope of Reactive Streams is to find a minimal set of interfaces, methods and protocols that will describe the necessary operations and entities to achieve the goal—asynchronous streams of data with non-blocking [back-pressure](http://www.reactivemanifesto.org/glossary#Back-Pressure).
+With back-pressure, a consumer which can not handle the load of events sends towards it, can communicate this towards the upstream components so these can reduce the load.
+Without back-pressure the consumer would either fail catastrophically or drop events.
 
 <p style="text-align: center;">
   <img style="max-width: 640px;"  alt="reactive contract" src="/img/reactive/reactive-contract.png">
@@ -121,20 +120,22 @@ This contract defines to send data `0 .. N`.
 `onSubscribe()`, `onNext()` (which can be called 0 to N times), `onComplete()` and `onError()`.
 The last two signals (complete and error) are terminal states, no further signals may occur and the subscriber's subscription is considered cancelled.
 
-What is important is the reverse flow and the back pressure.
+What is important is the reverse flow and the back-pressure.
 After subscribing, the subscriber gets a subscription which is a kind of 1 on 1 relationship between the subscriber and the publisher with 2 methods: `request` and `cancel`.
 
-* Request: this is the more important one, with this method the subscriber will ask the publisher to send me x messages (and not more), a so called 'pull'.
+* Request: this is the more important one, with this method the subscriber will ask the publisher to send x messages (and not more), a so called 'pull'.
 * Cancel: the subscription is being cancelled.
 
 Spring Reactor focuses on the publisher side of the reactive streaming, as this is the hardest to implement and to get right.
-It provides you with the tools to implement publishers in a back pressure way.
+It provides you with the tools to implement publishers in a back-pressure way.
 
 The publisher is a provider of a potentially unbounded number of sequenced elements, publishing them according to the demand received from its Subscriber(s).
 
+The Reactive Streams specification has been adopted for [java 9](http://gee.cs.oswego.edu/dl/jsr166/dist/docs/java/util/concurrent/Flow.html).
+
 # DIY Reactive Streams
 
-Implementing the Reactive Streams yourself is very hard to do, for Stephane Maldini this is the 4th or 5th attempt. 
+Implementing a Reactive Stream framework yourself is very hard to do, for Stephane Maldini this is the 4th or 5th attempt. 
 For Davik Karnok, the tech lead of RxJava, it is attempt 7 or 8.
 The main difficulty is to make it side effect free.
 
@@ -157,7 +158,7 @@ Also you will have to implement a subscriber to define the action to perform whe
 rick.subscribe(new Subscriber<User>(){...});
 ```
 
-Implementing this subscriber would not be that hard, because the specification has been made so that all complexity lies within the publishers side.
+Implementing this subscriber would not be that hard, because the specification has been made so that all complexity lies at the publishers side.
 
 Another issue is that you can only subscribe on the publisher, there are no other methods available like [map](http://martinfowler.com/articles/collection-pipeline/map.html), [flatmap](http://martinfowler.com/articles/collection-pipeline/flat-map.html), ...
 
@@ -198,7 +199,7 @@ Since 3.0 Spring Reactor has been made more modular and consists of several comp
 
 * [Core](https://github.com/reactor/reactor-core) is the main library.
 Providing a non-blocking Reactive Streams foundation for the JVM both implementing a [Reactive Extensions](https://github.com/Reactive-Extensions) inspired API and efficient message-passing support.
-* [IPC](https://github.com/reactor/reactor-ipc): backpressure-ready components to encode, decode, send (unicast, multicast or request/response) and serve connections.
+* [IPC](https://github.com/reactor/reactor-ipc): back-pressure-ready components to encode, decode, send (unicast, multicast or request/response) and serve connections.
 Here you will find support for [Kafka](https://kafka.apache.org) and [Netty](http://netty.io).
 * [Addons](https://github.com/reactor/reactor-addons): Bridge to RxJava 1 or 2 Observable, Completable, Flowable, Single, Maybe, Scheduler, and also Swing/SWT Scheduler, Akka Scheduler.
 * [Reactive Streams Commons](https://github.com/reactor/reactive-streams-commons ) is the research project between Spring Reactor and RxJava as both teams had a lot of ideas they wanted to implement.
@@ -224,13 +225,12 @@ There also exists an implementation for .NET, [Reactor Core .NET](https://github
 </p>
 
 
-Also Observable is not implementing Reactive Streams Publisher which means that if you would like to use the Spring 5 save(Publisher<T>) you first have to convert the Observable to a Flowable.
+Observable is not implementing Reactive Streams Publisher which means that if you would like to use the Spring 5 save(Publisher<T>) you first have to convert the Observable to a Flowable.
 See [Observable vs Flowable](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0)
 
 This was too much noise for the Spring team, they are less dependant on Android developers so they could go all in with java 8.
 
-Flux is a Reactive Streams Publisher with basic flow operations.
-Where you start from a static method which will describe how the data will be generated, [just()](http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#just-T...-) is the simplest way
+Flux is a Reactive Streams Publisher with basic flow operations, where you start from a static method which will describe how the data will be generated, [just()](http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#just-T...-) is the simplest way
 
 After that you have other operators like [Flatmap()](http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#flatMap-java.util.function.Function-), [Map()](http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#map-java.util.function.Function-), ... to work with that data
 Some of the method names will be different to RxJava2, but the logic behind these methods has been aligned among RxJava and Spring .
@@ -251,7 +251,7 @@ Interface CarRepository {
 ```
 This Flux will retrieve all cars which match the color "red" then those with the color "white" and finally "blue".
 So instead of just 3 elements, after this Flatmap we are going to have a lot more elements.
-This is all handled with backpressure in mind, fore example when the flatmap is busy merging data we will not ask for extra records
+This is all handled with back-pressure in mind, for example when the flatmap is busy merging data we will not ask for extra records
 
 If the Repository implements Flux as a method signature, it will be picked up automatically as a reactive repository.
 This support for Flux will be part of the whole of Spring 5.
@@ -271,7 +271,6 @@ Mono.delayMillis(3000)
     .then(t -> Mono.just(t + " world"))
     .elapsed()
     .subscribe()
-
 
 ```
 This Mono will wait for 3 seconds on the "call" to Spring 4 or 2 seconds on that of Spring 5.
@@ -298,19 +297,20 @@ Mono.delayMillis(3000)
     .elapsed()
     .block()
 
-
 ```
 
 You can also make use of [Stepverifier](ttp://next.projectreactor.io/ext/docs/api/reactor/test/StepVerifier.html) to test Flux, Mono and any other kind of Reactive Streams Publisher.
 
 ```
-
 @Test
 public void expectElementsWithThenComplete() {
     expectSkylerJesseComplete(Flux.just(new User("swhite", null, null), new User("jpinkman", null, null)));
 }
+```
 
-// Use StepVerifier to check that the flux parameter emits a User with "swhite" username and another one with "jpinkman" then completes successfully.
+Use StepVerifier to check that the flux parameter emits a User with "swhite" username and another one with "jpinkman" then completes successfully.
+
+```
 void expectSkylerJesseComplete(Flux<User> flux) {
     StepVerifier.create(flux)
             .expectNextMatches(user -> user.getUsername().equals("swhite"))
@@ -339,7 +339,6 @@ try {
     e.printStacktrace()
 }
 
-
 ```
 
 When an exception is returned it will contain the exact operation that failed and the backtrace to that operation.
@@ -367,6 +366,7 @@ Mono.fromCallable( () -> System.currentTimeMillis() )
     .doOnNext( d -> System.out.println("I'm on thread "+Thread.currentThread()) ).
     .sequential()
     .subscribe()
+    
 ```
 This basically avoids that you have to write flatMap(), where after the parallel(x) you will have exactly x number of Rails or Flux.
 Afterwards you can merge these back into a Flux with sequential().
@@ -404,6 +404,7 @@ Mono<String> response = Mono.create( sink -> {
     emitter.setCancellation(() -> client.removeListener(listener));
 
 });
+
 ```
 This `create()` allows you to bridge 1 result, which will be returned somewhere in the future, to a Mono.
 
@@ -495,6 +496,7 @@ The annotations are still very similar but you just return a Mono, so the User c
 public Mono<User> getUser(@PathVariable String login) {
     return this.repository.getUser(login);
 }
+
 ```
 
 <a name="conclusion" />
