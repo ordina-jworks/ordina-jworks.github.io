@@ -28,7 +28,7 @@ comments: true
 
 # Stephane Maldini @ JOIN 2016
 
-On 5 October 2016, we had the pleasure to welcome Stephane Maldini at our [JOIN event](https://ordina-jworks.github.io/conferences/2016/09/27/JOIN-2016.html)
+On 5 October 2016, we had the pleasure to welcome Stephane Maldini at our [JOIN event](https://ordina-jworks.github.io/conferences/2016/09/27/JOIN-2016.html).
 
 <img class="float-image p-image" src="{{ '/img/stephane-maldini.jpeg' | prepend: site.baseurl }}" alt="Stephane Maldini" style="width: 100px"/>
 
@@ -46,7 +46,7 @@ He is also one of the main contributors for Reactive support in the upcoming Spr
 
 It has been around for 30-40 years and boils down to [Event-Driven Programming](https://en.wikipedia.org/wiki/Event-driven_programming)
 What is new is "reactive motion bound to specification", this means that reactive programming is based on something solid, a specification and no longer some functional concepts.
-Namely the [Reactive Manifesto](http://www.reactivemanifesto.org/)
+Namely the [Reactive Manifesto](http://www.reactivemanifesto.org/).
 
 Because of this specification, Spring found it the right time to start with [Reactor](https://spring.io/blog/2013/05/13/reactor-a-foundation-for-asynchronous-applications-on-the-jvm) as they could now build something, which would be able to work and where it was clear what people could expect.
 
@@ -83,7 +83,7 @@ With [Zipkin](https://github.com/openzipkin/zipkin), you can measure this latenc
 The same latency can also exist within an application - between the different threads - although the impact will be less severe than between various components.
 
 Something needs to be done when latency becomes too big of an issue, especially if the receiver can not process enough.
-Too much data will fill up the buffer and can result, with an unbounded queue, to the infamous [OutOfMemoryException()](https://docs.oracle.com/javase/8/docs/api/java/lang/OutOfMemoryError.html)
+Too much data will fill up the buffer and can result, with an unbounded queue, to the infamous [OutOfMemoryException()](https://docs.oracle.com/javase/8/docs/api/java/lang/OutOfMemoryError.html).
 While you won't run out of memory with a circular buffer, you risk losing messages as the oldest ones get overwritten.
 
 
@@ -91,7 +91,7 @@ While you won't run out of memory with a circular buffer, you risk losing messag
 
 One way to prevent out of memory exceptions is to use blocking.
 
-But this can be a real `poison pill`: when a queue is full, it will block a thread and as more and more queues get blocked your server will die a slow death.
+But this can be a real *poison pill*: when a queue is full, it will block a thread and as more and more queues get blocked your server will die a slow death.
 
 Blocking is faster and has better performance, than reactive, but reactive will allow for more concurrency.
 Concurrency is important if you have a microservice based architecture, as there you typically need to be more careful and more exact when allocating resources between services.
@@ -123,8 +123,8 @@ The last two signals (complete and error) are terminal states, no further signal
 What is important is the reverse flow and the back-pressure.
 After subscribing, the subscriber gets a subscription which is a kind of 1 on 1 relationship between the subscriber and the publisher with 2 methods: `request` and `cancel`.
 
-* Request: this is the more important one, with this method the subscriber will ask the publisher to send x messages (and not more), a so called 'pull'.
-* Cancel: the subscription is being cancelled.
+* **Request**: this is the more important one, with this method the subscriber will ask the publisher to send x messages (and not more), a so called `pull`.
+* **Cancel**: the subscription is being cancelled.
 
 Spring Reactor focuses on the publisher side of the reactive streaming, as this is the hardest to implement and to get right.
 It provides you with the tools to implement publishers in a back-pressure way.
@@ -141,22 +141,22 @@ The main difficulty is to make it side effect free.
 
 For example:
 
-```
-Publisher<User> rick = userRepository.findUser(“rick”);
-```
+{% highlight java %}
+Publisher<User> rick = userRepository.findUser("rick");
+{% endhighlight %}
 
 Note that a publisher is returned instead of directly returning the entity.
 By doing so it does not block the subscribers when querying for the user and the publisher will produce the user when ready.
 
-But by using the specification as is, your publisher might produce 0,1 or N users, returning an `Iterable` as result.
+But by using the specification as is, your publisher might produce 0, 1 or N users, returning an `Iterable` as result.
 This is not really practical to work with, as most of the time we are only interested in a single user and not a stream of multiple results.
 When you would be building the method `findOneUser()` you also would not want to return an `Iterable` but just a single `User`.
 
 Also you will have to implement a subscriber to define the action to perform when the result is available.
 
-```
+{% highlight java %}
 rick.subscribe(new Subscriber<User>(){...});
-```
+{% endhighlight %}
 
 Implementing this subscriber would not be that hard, because the specification has been made so that all complexity lies at the publishers side.
 
@@ -165,7 +165,7 @@ Another issue is that you can only subscribe on the publisher, there are no othe
 
 The other point is that when designing your own API you will also have to deal with the following issues:
 
-* Should work with RS TCK (otherwise it might not work with other libraries as well)
+* Should work with [RS TCK](https://jcp.org/en/jsr/detail?id=311) (otherwise it might not work with other libraries as well)
 * Address reentrance
 * Address thread safety
 * Address efficiency
@@ -204,9 +204,9 @@ Here you will find support for [Kafka](https://kafka.apache.org) and [Netty](htt
 * [Addons](https://github.com/reactor/reactor-addons): Bridge to RxJava 1 or 2 Observable, Completable, Flowable, Single, Maybe, Scheduler, and also Swing/SWT Scheduler, Akka Scheduler.
 * [Reactive Streams Commons](https://github.com/reactor/reactive-streams-commons ) is the research project between Spring Reactor and RxJava as both teams had a lot of ideas they wanted to implement.
 Lots of effort was put in order to create real working, side-effect free operations.
-Map and Filtering for example are easy, but mergings, like Flatmap are hard to implement side-effect free.
+[Map](https://martinfowler.com/articles/collection-pipeline/flat-map.html) and [Filtering](http://martinfowler.com/articles/collection-pipeline/filter.html) for example are easy, but mergings, like [Flatmap](https://martinfowler.com/articles/collection-pipeline/flat-map.html) are hard to implement side-effect free.
 Having a proper implementation in the research project for these operations allowed the team to experiment and make it quite robust.
-This project contains Reactive-Streams compliant operators, which in turn are implemented by Spring Reactor and RxJava
+This project contains Reactive-Streams compliant operators, which in turn are implemented by Spring Reactor and RxJava.
 Both the Spring and RxJava teams are very happy with this collaboration and this is still continuing.
 When a bug gets fixed in Spring Reactor it will also be fixed in RxJava and vice versa.
 
@@ -225,10 +225,9 @@ There also exists an implementation for .NET, [Reactor Core .NET](https://github
 </p>
 
 
-Observable is not implementing Reactive Streams Publisher which means that if you would like to use the Spring 5 save(Publisher<T>) you first have to convert the Observable to a Flowable.
-See [Observable vs Flowable](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0)
+Observable is not implementing Reactive Streams Publisher which means that if you would like to use the Spring 5 `save(Publisher<T>)` you first have to convert the Observable to a Flowable as you can see in [Observable and Flowable](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0#observable-and-flowable).
 
-This was too much noise for the Spring team, they are less dependant on Android developers so they could go all in with java 8.
+This was too much noise for the Spring team, they are less dependant on Android developers so they could go all in with Java 8.
 
 Flux is a Reactive Streams Publisher with basic flow operations, where you start from a static method which will describe how the data will be generated, [just()](http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#just-T...-) is the simplest way
 
@@ -236,8 +235,8 @@ After that you have other operators like [Flatmap()](http://next.projectreactor.
 Some of the method names will be different to RxJava2, but the logic behind these methods has been aligned among RxJava and Spring .
 
 
-```
-Flux.just(“red”, “white”, “blue”)
+{% highlight java %}
+Flux.just("red", "white", "blue")
        .flatMap(carRepository::findByColor)
        .collect(Result:: new, Result::add)
        .doOnNext(Result::stop)
@@ -248,9 +247,9 @@ Interface CarRepository {
     Flux<Car> findByColor(String color);
 }
 
-```
+{% endhighlight %}
 This Flux will retrieve all cars which match the color "red" then those with the color "white" and finally "blue".
-So instead of just 3 elements, after this Flatmap we are going to have a lot more elements.
+So instead of just three elements, after this Flatmap we are going to have a lot more elements.
 This is all handled with back-pressure in mind, for example when the flatmap is busy merging data we will not ask for extra records
 
 If the Repository implements Flux as a method signature, it will be picked up automatically as a reactive repository.
@@ -264,21 +263,21 @@ Spring Data, Spring Security, Spring MVC, ... are all good candidates who will h
 
 None is like a flux, but will return at most 1 result, so it does have less methods.
 
-```
+{% highlight java %}
 Mono.delayMillis(3000)
-    .map(d -> "Spring 4"°
+    .map(d -> "Spring 4")
     .or(Mono.delayMillis(2000).map(d -> "Spring 5"))
     .then(t -> Mono.just(t + " world"))
     .elapsed()
     .subscribe()
 
-```
+{% endhighlight %}
 This Mono will wait for 3 seconds on the "call" to Spring 4 or 2 seconds on that of Spring 5.
 The fastest result will be the one which will be outputted.
 
 
 The Mono has as advantage over an Observable Future of Java 8 that a Mono will only be triggered if you subscribe to it.
-While with an Observable the call to send() will execute the operation.
+While with an Observable the call to `send()` will execute the operation.
 
 
 
@@ -286,31 +285,32 @@ While with an Observable the call to send() will execute the operation.
 
 # Testing
 
-Block() exists for very specific use cases and for testing.
+`Block()` exists for very specific use cases and for testing.
 Never, ever use this in production, as is it blocks your call, which does infer with the Reactive non-blocking statements. ;-)
 
-```
+{% highlight java %}
 Mono.delayMillis(3000)
-    .map(d -> "Spring 4"°
+    .map(d -> "Spring 4")
     .or(Mono.delayMillis(2000).map(d -> "Spring 5"))
     .then(t -> Mono.just(t + " world"))
     .elapsed()
     .block()
 
-```
+{% endhighlight %}
 
 You can also make use of [Stepverifier](ttp://next.projectreactor.io/ext/docs/api/reactor/test/StepVerifier.html) to test Flux, Mono and any other kind of Reactive Streams Publisher.
 
-```
+{% highlight java %}
 @Test
 public void expectElementsWithThenComplete() {
     expectSkylerJesseComplete(Flux.just(new User("swhite", null, null), new User("jpinkman", null, null)));
 }
-```
+
+{% endhighlight %}
 
 Use StepVerifier to check that the flux parameter emits a User with "swhite" username and another one with "jpinkman" then completes successfully.
 
-```
+{% highlight java %}
 void expectSkylerJesseComplete(Flux<User> flux) {
     StepVerifier.create(flux)
             .expectNextMatches(user -> user.getUsername().equals("swhite"))
@@ -318,14 +318,14 @@ void expectSkylerJesseComplete(Flux<User> flux) {
             .expectComplete();
 }
 
-```
+{% endhighlight %}
 
 # Debug
 
 When you use reactive libraries you will quickly realize that step debugging is hard especially when you try to read your stacktraces, there are a lot of recursive calls taking place.
 
 Before you invoke your operations you can enable an, expensive, debug mode.
-```
+{% highlight java %}
 Hooks.onOperator(op -> op.operatorStacktrace());
 
 try {
@@ -339,7 +339,7 @@ try {
     e.printStacktrace()
 }
 
-```
+{% endhighlight %}
 
 When an exception is returned it will contain the exact operation that failed and the backtrace to that operation.
 
@@ -358,7 +358,7 @@ You must enable this [Hooks.onOperator](https://projectreactor.io/core/docs/api/
 
 If you want to stress test your CPU you can use [ParallelFlux](http://projectreactor.io/core/docs/api/reactor/core/publisher/ParallelFlux.html) which will spread the workload in concurrent tasks when possible. 
 
-```
+{% highlight java %}
 Mono.fromCallable( () -> System.currentTimeMillis() )
     .repeat()
     .parallel(8) //parallelism
@@ -367,7 +367,7 @@ Mono.fromCallable( () -> System.currentTimeMillis() )
     .sequential()
     .subscribe()
     
-```
+{% endhighlight %}
 This basically avoids that you have to write flatMap(), where after the parallel(x) you will have exactly x number of Rails or Flux.
 Afterwards you can merge these back into a Flux with sequential().
 
@@ -385,10 +385,10 @@ But the cool part is that it is also very performant, with parallel, Reactor is 
 
 To bridge a Subscriber or Processor into an outside context that is taking care of producing non concurrently, use `Flux.create()`, `Mono.create()`, or `FluxProcessor.connectSink()`.
 
-```
+{% highlight java %}
 Mono<String> response = Mono.create( sink -> {
     HttpListener listener = event -> {
-        if (event.getResponseCode() >= 400° {
+        if (event.getResponseCode() >= 400) {
             sink.error(new RunTimeException("Error"));
         } else {
             String result = event.getBody();
@@ -405,10 +405,10 @@ Mono<String> response = Mono.create( sink -> {
 
 });
 
-```
+{% endhighlight %}
 This `create()` allows you to bridge 1 result, which will be returned somewhere in the future, to a Mono.
 
-If you add a Kafka call, for example, where they have this callback so one can return onSuccess and onError you can use `Mono.create()`: 
+If you add a Kafka call, for example, where they have this callback so one can return `onSuccess` and `onError` you can use `Mono.create()`: 
 see [Reactor Kafka](https://github.com/reactor/reactor-kafka) where this is used a lot.
 
 Also exists for Flux of N items but it’s tougher and more dangerous as you must explicitly indicate what to do in the case of overflow; keep the latest and risk losing some data or keep everything with the risk of unbounded memory use. ¯\\_(ツ)_/¯ 
@@ -422,7 +422,7 @@ Like for example the [EmitterProcessor](http://projectreactor.io/core/docs/api/?
   <img alt="EmitterProcessor" src="/img/reactive/emitterProcessor.png"/>
 </p>
 
-```
+{% highlight java %}
 EmitterProcessor<Integer> emitter = EmitterProcessor.create();
 BlockingSink<Integer> sink = emitter.connectSink();
 sink.next(1);
@@ -431,7 +431,7 @@ emitter.subscribe(System.out::println);
 sink.next(3); //output : 3
 sink.finish();
 
-```
+{% endhighlight %}
 
 
 But you also have:
@@ -462,9 +462,7 @@ Flux and Mono live in the `reactor.com.publisher` package, `reactor.core.schedul
 By default the `Publisher` and `Subscriber` will use the same thread.
 With `publishOn()` the publisher can force the subscriber to use a different thread, while the subscriber can do the same with `subscribeOn()`.
 
-For Reactor 3.x there will be more focus on the [javadoc](http://projectreactor.io/core/docs/api), as this has been lagging behind the new developments.
-
-I understand, as we developers are so good with keeping our documentation up to date ;-)
+For Reactor 3.x there will be more focus on the [javadoc](http://projectreactor.io/core/docs/api), as this has been lagging behind compared to the new features which have been developed.
 
 <a name="rxjava" />
 
@@ -472,10 +470,10 @@ I understand, as we developers are so good with keeping our documentation up to 
 
 Why Reactor when there’s already [RxJava2](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0)?
 
-RxJava2 is java 6 while for Reactor the Spring team decided to go all in and focus only on java 8.
-This means that you can make use of all the new and fancy java 8 features.
+RxJava2 is java 6 while for Reactor the Spring team decided to go all in and focus only on Java 8.
+This means that you can make use of all the new and fancy Java 8 features.
 
-If you are going to use Spring 5, reactor might be the better option.
+If you are going to use Spring 5, Reactor might be the better option.
 
 But if you are happy with your RxJava2, there is no direct need to migrate to Reactor.
 
@@ -491,13 +489,13 @@ But with Spring 5 you will be able to make use of the following new components/ 
 Which under the hood support [Servlet 3.1](https://java.net/downloads/servlet-spec/Final/servlet-3_1-final.pdf), [Netty](http://netty.io/) and [Undertow](http://undertow.io/).
 
 The annotations are still very similar but you just return a Mono, so the User can now be retrieved in a non-blocking way.
-```
+{% highlight java %}
 @GetMapping("/users/{login}")
 public Mono<User> getUser(@PathVariable String login) {
     return this.repository.getUser(login);
 }
 
-```
+{% endhighlight %}
 
 <a name="conclusion" />
 
