@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ordina JWorks Tech Blog</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Ordina JWorks Tech blog
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,Javascript,DevOps">
+    <meta name="author" content="Ordina Belgium">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/reactive/2016/12/12/Reactive-Programming-Spring-Reactor.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Reactive Programming with Spring Reactor -  " />
+    <meta property="og:description" content="Ordina JWorks Tech Blog" />
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/reactive/reactor_logo.png" />
+    
+
+    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Base style -->
+    <link href="/css/styles/style.css" rel="stylesheet">
+    <!-- Skin CSS -->
+    <link href="/css/styles/skin-orange.css" rel="stylesheet" id="color_theme">
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<!-- Add class "boxed" along with body for boxed layout. -->
+<!-- Add "pattern-x" (1 to 5) for background patterns. -->
+<!-- Add "img-x" (1 to 5) for background images. -->
+<body>
+
+<!-- Outer Starts -->
+<div class="outer">
+    <!-- Header two Starts -->
+    <div class="header-2">
+
+        <!-- Container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo">
+                        <h1><a href="/"><img src="/img/jworks/jworks-400x400.jpg"
+                                                               width="100"
+                                                               height="100"/> </a></h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="navy">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about/">About Us</a></li>
+                            <li><a href="/contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header two ends -->
+
+    <!-- Main content starts -->
+
+    <div class="main-block">
+
+        <!-- Page heading two starts -->
+
+        <div class="page-heading-two">
+            <div class="container">
+                <h2>JWorks Tech Blogs<span style="margin-left: 10px"> Powered by Ordina</span></h2>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <!-- Page heading two ends -->
+
+        <div class="container tk-acumin-pro">
+            <div class="post">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Reactive Programming with Spring Reactor</h1>
+            <p id="post-meta">
+                Posted Dec 12, 2016 in <a href="/categories/reactive/">Reactive</a>
+                
+                    by 
+                    
+                
+                        
+                        <a href="/author/tom-van-den-bulck">Tom Van den Bulck</a>
+                    
+                
+                
+                    <br />
+                    <i class="fa fa-tags"></i>
+                        
+                            <a href="/tags/join/">JOIN</a>,
+                        
+                            <a href="/tags/spring/">Spring</a>,
+                        
+                            <a href="/tags/reactor/">Reactor</a>,
+                        
+                            <a href="/tags/java/">Java</a>,
+                        
+                            <a href="/tags/reactive/">Reactive</a>
+                        
+                
+            </p>
+        </div>
+    </div>
+    <br />
+    <article class="post-content">
+        <h1 id="overview">Overview</h1>
+
+<ul>
+  <li><a href="#join">Stephane Maldini @ JOIN</a></li>
+  <li><a href="#the-new-normal">The new normal that is not new</a></li>
+  <li><a href="#the-manifesto">The Reactive Manifesto</a></li>
+  <li><a href="#latency">Latency &amp; Blocking</a></li>
+  <li><a href="#contract">The Contract</a></li>
+  <li><a href="#reactive-types">Reactive Types</a></li>
+  <li><a href="#testing">Testing &amp; Debuging</a></li>
+  <li><a href="#changes">Other Changes</a></li>
+  <li><a href="#rxjava">RxJava</a></li>
+  <li><a href="#spring-5">Spring Framework 5</a></li>
+  <li><a href="#conclusion">Conclusion &amp; Do It Yourself</a></li>
+</ul>
+
+<p><a name="join"></a></p>
+
+<h1 id="stephane-maldini--join-2016">Stephane Maldini @ JOIN 2016</h1>
+
+<p>On 5 October 2016, we had the pleasure to welcome Stephane Maldini at our <a href="https://ordina-jworks.github.io/conferences/2016/09/27/JOIN-2016.html">JOIN event</a>.</p>
+
+<p><img class="float-image p-image" src="/img/stephane-maldini.jpeg" alt="Stephane Maldini" style="width: 100px" /></p>
+
+<p>A multi-tasker eating tech 24/7, Stephane is interested in cloud computing, data science and messaging.
+Leading the Reactor Project, Stephane Maldini is on a mission to help developers create reactive and efficient architectures on the JVM and beyond.
+He is also one of the main contributors for Reactive support in the upcoming Spring 5 framework, which can be seen as the new standard for reactive applications in the Java world.</p>
+
+<blockquote>
+  <p>You can rewatch his <a href="https://www.youtube.com/watch?v=RU0yQhfybDg">talk</a> on on our <a href="https://www.youtube.com/channel/UCsebfWdqV7LqNNDMDvCESIA">Channel</a> on Youtube.</p>
+</blockquote>
+
+<p><a name="the-new-normal"></a></p>
+
+<h1 id="the-new-normal-that-is-not-new">The new normal that is not new</h1>
+
+<p>It has been around for 30-40 years and boils down to <a href="https://en.wikipedia.org/wiki/Event-driven_programming">Event-Driven Programming</a>
+What is new is “reactive motion bound to specification”, this means that reactive programming is based on something solid, a specification and no longer some functional concepts.
+Namely the <a href="http://www.reactivemanifesto.org/">Reactive Manifesto</a>.</p>
+
+<p>Because of this specification, Spring found it the right time to start with <a href="https://spring.io/blog/2013/05/13/reactor-a-foundation-for-asynchronous-applications-on-the-jvm">Reactor</a> as they could now build something, which would be able to work and where it was clear what people could expect.</p>
+
+<p><a name="the-manifesto"></a></p>
+
+<h1 id="the-reactive-manifesto">The Reactive Manifesto</h1>
+
+<p style="text-align: center;">
+  <img style="max-width:640px;" alt="Reactive Systems Traits" src="/img/reactive/reactive-traits.png" />
+</p>
+
+<p>According to the manifesto, reactive systems are</p>
+
+<ul>
+  <li><strong>Responsive</strong>: respond in a timely manner if at all possible, responsiveness means that problems can be detected quickly and dealt with accordingly.</li>
+  <li><strong>Resilient</strong>: remain responsive in the event of failure, failures are contained with each component isolating components from each other.</li>
+  <li><strong>Elastic</strong>: stay responsive under varying workload, reactive systems can react to changes in the input rate by increasing or decreasing the resources allocated to services.</li>
+  <li><strong>Message Driven</strong>: rely on asynchronous message-passing to establish a boundary between components that ensures loose coupling, isolation and location transparency.</li>
+</ul>
+
+<p>This boundary also provides the means to delegate failures as messages.</p>
+
+<p>Systems built as reactive systems are thus more flexible, loosely-coupled and scalable. 
+This makes them easier to develop and to allow changes.
+They are significantly more tolerant of failure and when failure does occur they meet it with elegance rather than disaster.</p>
+
+<p><a name="latency"></a></p>
+
+<h1 id="latency">Latency</h1>
+
+<p>Latency is also a real issue, the real physical distance of various components and services becomes more important with cloud based systems.
+This is also a very random number which is difficult to predict because it can depend on network congestion.
+With <a href="https://github.com/openzipkin/zipkin">Zipkin</a>, you can measure this latency.</p>
+
+<p>The same latency can also exist within an application - between the different threads - although the impact will be less severe than between various components.</p>
+
+<p>Something needs to be done when latency becomes too big of an issue, especially if the receiver can not process enough.
+Too much data will fill up the buffer and can result, with an unbounded queue, to the infamous <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/OutOfMemoryError.html">OutOfMemoryException()</a>.
+While you won’t run out of memory with a circular buffer, you risk losing messages as the oldest ones get overwritten.</p>
+
+<h1 id="blocking">Blocking</h1>
+
+<p>One way to prevent out of memory exceptions is to use blocking.</p>
+
+<p>But this can be a real <em>poison pill</em>: when a queue is full, it will block a thread and as more and more queues get blocked your server will die a slow death.</p>
+
+<p>Blocking is faster and has better performance, than reactive, but reactive will allow for more concurrency.
+Concurrency is important if you have a microservice based architecture, as there you typically need to be more careful and more exact when allocating resources between services.</p>
+
+<p>As in, by being more concurrent you can save a lot of money when using cloud and microservices.</p>
+
+<p><a name="contract"></a></p>
+
+<h1 id="contract">Contract</h1>
+
+<p>Reactive is non-blocking and messages will never overflow the queue, see for the standard definition <a href="http://www.reactive-streams.org/">http://www.reactive-streams.org/</a>.</p>
+
+<blockquote>
+  <p>Created by Pivotal, Typesafe, Netflix, Oracle, Red Hat and others.</p>
+</blockquote>
+
+<p>The scope of Reactive Streams is to find a minimal set of interfaces, methods and protocols that will describe the necessary operations and entities to achieve the goal—asynchronous streams of data with non-blocking <a href="http://www.reactivemanifesto.org/glossary#Back-Pressure">back-pressure</a>.
+With back-pressure, a consumer which can not handle the load of events sends towards it, can communicate this towards the upstream components so these can reduce the load.
+Without back-pressure the consumer would either fail catastrophically or drop events.</p>
+
+<p style="text-align: center;">
+  <img style="max-width: 640px;" alt="reactive contract" src="/img/reactive/reactive-contract.png" />
+</p>
+
+<p>This contract defines to send data <code class="highlighter-rouge">0 .. N</code>.
+<a href="http://www.reactive-streams.org/reactive-streams-1.0.0-javadoc/org/reactivestreams/Publisher.html">Publisher</a> is an interface with a <code class="highlighter-rouge">subscribe()</code> method.
+<a href="http://www.reactive-streams.org/reactive-streams-1.0.0-javadoc/org/reactivestreams/Subscriber.html">Subscriber</a> has 4 callback methods:
+<code class="highlighter-rouge">onSubscribe()</code>, <code class="highlighter-rouge">onNext()</code> (which can be called 0 to N times), <code class="highlighter-rouge">onComplete()</code> and <code class="highlighter-rouge">onError()</code>.
+The last two signals (complete and error) are terminal states, no further signals may occur and the subscriber’s subscription is considered cancelled.</p>
+
+<p>What is important is the reverse flow and the back-pressure.
+After subscribing, the subscriber gets a subscription which is a kind of 1 on 1 relationship between the subscriber and the publisher with 2 methods: <code class="highlighter-rouge">request</code> and <code class="highlighter-rouge">cancel</code>.</p>
+
+<ul>
+  <li><strong>Request</strong>: this is the more important one, with this method the subscriber will ask the publisher to send x messages (and not more), a so called <code class="highlighter-rouge">pull</code>.</li>
+  <li><strong>Cancel</strong>: the subscription is being cancelled.</li>
+</ul>
+
+<p>Spring Reactor focuses on the publisher side of the reactive streaming, as this is the hardest to implement and to get right.
+It provides you with the tools to implement publishers in a back-pressure way.</p>
+
+<p>The publisher is a provider of a potentially unbounded number of sequenced elements, publishing them according to the demand received from its Subscriber(s).</p>
+
+<p>The Reactive Streams specification has been adopted for <a href="http://gee.cs.oswego.edu/dl/jsr166/dist/docs/java/util/concurrent/Flow.html">java 9</a>.</p>
+
+<h1 id="diy-reactive-streams">DIY Reactive Streams</h1>
+
+<p>Implementing a Reactive Stream framework yourself is very hard to do, for Stephane Maldini this is the 4th or 5th attempt. 
+For Davik Karnok, the tech lead of RxJava, it is attempt 7 or 8.
+The main difficulty is to make it side effect free.</p>
+
+<p>For example:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Publisher</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">rick</span> <span class="o">=</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findUser</span><span class="o">(</span><span class="s">"rick"</span><span class="o">);</span></code></pre></figure>
+
+<p>Note that a publisher is returned instead of directly returning the entity.
+By doing so it does not block the subscribers when querying for the user and the publisher will produce the user when ready.</p>
+
+<p>But by using the specification as is, your publisher might produce 0, 1 or N users, returning an <code class="highlighter-rouge">Iterable</code> as result.
+This is not really practical to work with, as most of the time we are only interested in a single user and not a stream of multiple results.
+When you would be building the method <code class="highlighter-rouge">findOneUser()</code> you also would not want to return an <code class="highlighter-rouge">Iterable</code> but just a single <code class="highlighter-rouge">User</code>.</p>
+
+<p>Also you will have to implement a subscriber to define the action to perform when the result is available.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">rick</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">Subscriber</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;(){...});</span></code></pre></figure>
+
+<p>Implementing this subscriber would not be that hard, because the specification has been made so that all complexity lies at the publishers side.</p>
+
+<p>Another issue is that you can only subscribe on the publisher, there are no other methods available like <a href="http://martinfowler.com/articles/collection-pipeline/map.html">map</a>, <a href="http://martinfowler.com/articles/collection-pipeline/flat-map.html">flatmap</a>, …</p>
+
+<p>The other point is that when designing your own API you will also have to deal with the following issues:</p>
+
+<ul>
+  <li>Should work with <a href="https://jcp.org/en/jsr/detail?id=311">RS TCK</a> (otherwise it might not work with other libraries as well)</li>
+  <li>Address reentrance</li>
+  <li>Address thread safety</li>
+  <li>Address efficiency</li>
+  <li>Address state</li>
+  <li>For Many-To-One flows, implement your own merging operation</li>
+  <li>For One-To-Many flows, implement your own broadcasting operation</li>
+  <li>…</li>
+</ul>
+
+<blockquote>
+  <p>This is all very hard to do yourself.</p>
+</blockquote>
+
+<h1 id="3-years-to-mature">3 Years to Mature</h1>
+
+<p>It took Spring Reactor 3 years to mature.</p>
+<p style="text-align: center;">
+  <img alt="Spring Reactor Timeline" src="/img/reactive/spring-reactor-timeline.png" />
+</p>
+
+<p>2.0 was not side effect free - also existential questions were raised around the project. 
+At the same time Spring evolved and microservices became the norm.</p>
+
+<p>Spring needs to work nicely with these microservices, concurrency is important, can Reactor not be used for that?</p>
+
+<p>With 3.0 the team wanted to focus on microservices, take some ideas from <a href="https://netflix.github.io/">Netflix OSS</a> and implement these in a pragmatic way.
+Actually Reactor 3 was started as 2.5, but so many new features were added that the version had to be changed as well in order to reflect this.</p>
+
+<p>Since 3.0 Spring Reactor has been made more modular and consists of several components:</p>
+<p style="text-align: center;">
+  <img alt="Spring Reactor Components" src="/img/reactive/spring-reactor-components.png" />
+</p>
+
+<ul>
+  <li><a href="https://github.com/reactor/reactor-core">Core</a> is the main library.
+Providing a non-blocking Reactive Streams foundation for the JVM both implementing a <a href="https://github.com/Reactive-Extensions">Reactive Extensions</a> inspired API and efficient message-passing support.</li>
+  <li><a href="https://github.com/reactor/reactor-ipc">IPC</a>: back-pressure-ready components to encode, decode, send (unicast, multicast or request/response) and serve connections.
+Here you will find support for <a href="https://kafka.apache.org">Kafka</a> and <a href="http://netty.io">Netty</a>.</li>
+  <li><a href="https://github.com/reactor/reactor-addons">Addons</a>: Bridge to RxJava 1 or 2 Observable, Completable, Flowable, Single, Maybe, Scheduler, and also Swing/SWT Scheduler, Akka Scheduler.</li>
+  <li><a href="https://github.com/reactor/reactive-streams-commons">Reactive Streams Commons</a> is the research project between Spring Reactor and RxJava as both teams had a lot of ideas they wanted to implement.
+Lots of effort was put in order to create real working, side-effect free operations.
+<a href="https://martinfowler.com/articles/collection-pipeline/flat-map.html">Map</a> and <a href="http://martinfowler.com/articles/collection-pipeline/filter.html">Filtering</a> for example are easy, but mergings, like <a href="https://martinfowler.com/articles/collection-pipeline/flat-map.html">Flatmap</a> are hard to implement side-effect free.
+Having a proper implementation in the research project for these operations allowed the team to experiment and make it quite robust.
+This project contains Reactive-Streams compliant operators, which in turn are implemented by Spring Reactor and RxJava.
+Both the Spring and RxJava teams are very happy with this collaboration and this is still continuing.
+When a bug gets fixed in Spring Reactor it will also be fixed in RxJava and vice versa.</li>
+</ul>
+
+<p>Everything in Reactor is just reactive streams implementation - which is used for the reactive <a href="https://spring.io/blog/2016/07/28/reactive-programming-with-spring-5-0-m1">story</a> of spring 5.</p>
+
+<p>There also exists an implementation for .NET, <a href="https://github.com/reactor/reactor-core-dotnet">Reactor Core .NET</a> and one for javascript <a href="https://github.com/reactor/reactor-core-js">Reactor Core TypeScript</a>.</p>
+
+<p><a name="reactive-types"></a></p>
+
+<h1 id="reactive-types">Reactive Types</h1>
+
+<h2 id="flux-vs-observable">Flux vs Observable</h2>
+<p style="text-align: center;">
+  <img alt="a Flux" src="/img/reactive/flux.png" />
+</p>
+
+<p>Observable is not implementing Reactive Streams Publisher which means that if you would like to use the Spring 5 <code class="highlighter-rouge">save(Publisher&lt;T&gt;)</code> you first have to convert the Observable to a Flowable as you can see in <a href="https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0#observable-and-flowable">Observable and Flowable</a>.</p>
+
+<p>This was too much noise for the Spring team, they are less dependant on Android developers so they could go all in with Java 8.</p>
+
+<p>Flux is a Reactive Streams Publisher with basic flow operations, where you start from a static method which will describe how the data will be generated, <a href="http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#just-T...-">just()</a> is the simplest way</p>
+
+<p>After that you have other operators like <a href="http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#flatMap-java.util.function.Function-">Flatmap()</a>, <a href="http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#map-java.util.function.Function-">Map()</a>, … to work with that data
+Some of the method names will be different to RxJava2, but the logic behind these methods has been aligned among RxJava and Spring .</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Flux</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">"red"</span><span class="o">,</span> <span class="s">"white"</span><span class="o">,</span> <span class="s">"blue"</span><span class="o">)</span>
+       <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="nl">carRepository:</span><span class="o">:</span><span class="n">findByColor</span><span class="o">)</span>
+       <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nl">Result:</span><span class="o">:</span> <span class="k">new</span><span class="o">,</span> <span class="nl">Result:</span><span class="o">:</span><span class="n">add</span><span class="o">)</span>
+       <span class="o">.</span><span class="na">doOnNext</span><span class="o">(</span><span class="nl">Result:</span><span class="o">:</span><span class="n">stop</span><span class="o">)</span>
+       <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">doWithResult</span><span class="o">);</span>
+
+
+<span class="n">Interface</span> <span class="n">CarRepository</span> <span class="o">{</span>
+    <span class="n">Flux</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="nf">findByColor</span><span class="o">(</span><span class="n">String</span> <span class="n">color</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>This Flux will retrieve all cars which match the color “red” then those with the color “white” and finally “blue”.
+So instead of just three elements, after this Flatmap we are going to have a lot more elements.
+This is all handled with back-pressure in mind, for example when the flatmap is busy merging data we will not ask for extra records</p>
+
+<p>If the Repository implements Flux as a method signature, it will be picked up automatically as a reactive repository.
+This support for Flux will be part of the whole of Spring 5.
+Spring Data, Spring Security, Spring MVC, … are all good candidates who will have this kind of support.</p>
+
+<h2 id="mono">Mono</h2>
+<p style="text-align: center;">
+  <img alt="a Mono" src="/img/reactive/mono.png" />
+</p>
+
+<p>None is like a flux, but will return at most 1 result, so it does have less methods.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Mono</span><span class="o">.</span><span class="na">delayMillis</span><span class="o">(</span><span class="mi">3000</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="s">"Spring 4"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">or</span><span class="o">(</span><span class="n">Mono</span><span class="o">.</span><span class="na">delayMillis</span><span class="o">(</span><span class="mi">2000</span><span class="o">).</span><span class="na">map</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="s">"Spring 5"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">then</span><span class="o">(</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">t</span> <span class="o">+</span> <span class="s">" world"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">elapsed</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">subscribe</span><span class="o">()</span></code></pre></figure>
+
+<p>This Mono will wait for 3 seconds on the “call” to Spring 4 or 2 seconds on that of Spring 5.
+The fastest result will be the one which will be outputted.</p>
+
+<p>The Mono has as advantage over an Observable Future of Java 8 that a Mono will only be triggered if you subscribe to it.
+While with an Observable the call to <code class="highlighter-rouge">send()</code> will execute the operation.</p>
+
+<p><a name="testing"></a></p>
+
+<h1 id="testing">Testing</h1>
+
+<p><code class="highlighter-rouge">Block()</code> exists for very specific use cases and for testing.
+Never, ever use this in production, as is it blocks your call, which does infer with the Reactive non-blocking statements. ;-)</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Mono</span><span class="o">.</span><span class="na">delayMillis</span><span class="o">(</span><span class="mi">3000</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="s">"Spring 4"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">or</span><span class="o">(</span><span class="n">Mono</span><span class="o">.</span><span class="na">delayMillis</span><span class="o">(</span><span class="mi">2000</span><span class="o">).</span><span class="na">map</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="s">"Spring 5"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">then</span><span class="o">(</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">t</span> <span class="o">+</span> <span class="s">" world"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">elapsed</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">block</span><span class="o">()</span></code></pre></figure>
+
+<p>You can also make use of <a href="ttp://next.projectreactor.io/ext/docs/api/reactor/test/StepVerifier.html">Stepverifier</a> to test Flux, Mono and any other kind of Reactive Streams Publisher.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">expectElementsWithThenComplete</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">expectSkylerJesseComplete</span><span class="o">(</span><span class="n">Flux</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">"swhite"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">),</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">"jpinkman"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">)));</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Use StepVerifier to check that the flux parameter emits a User with “swhite” username and another one with “jpinkman” then completes successfully.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">expectSkylerJesseComplete</span><span class="o">(</span><span class="n">Flux</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">flux</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">StepVerifier</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">flux</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">expectNextMatches</span><span class="o">(</span><span class="n">user</span> <span class="o">-&gt;</span> <span class="n">user</span><span class="o">.</span><span class="na">getUsername</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">"swhite"</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">expectNextMatches</span><span class="o">(</span><span class="n">user</span> <span class="o">-&gt;</span> <span class="n">user</span><span class="o">.</span><span class="na">getUsername</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">"jpinkman"</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">expectComplete</span><span class="o">();</span>
+<span class="o">}</span></code></pre></figure>
+
+<h1 id="debug">Debug</h1>
+
+<p>When you use reactive libraries you will quickly realize that step debugging is hard especially when you try to read your stacktraces, there are a lot of recursive calls taking place.</p>
+
+<p>Before you invoke your operations you can enable an, expensive, debug mode.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Hooks</span><span class="o">.</span><span class="na">onOperator</span><span class="o">(</span><span class="n">op</span> <span class="o">-&gt;</span> <span class="n">op</span><span class="o">.</span><span class="na">operatorStacktrace</span><span class="o">());</span>
+
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">"a"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="n">d</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">timestamp</span><span class="o">()</span>
+        <span class="o">.</span> <span class="o">...</span>
+        
+        
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStacktrace</span><span class="o">()</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>When an exception is returned it will contain the exact operation that failed and the backtrace to that operation.</p>
+
+<p>You must enable this <a href="https://projectreactor.io/core/docs/api/reactor/core/publisher/Hooks.OperatorHook.html#operatorStacktrace--">Hooks.onOperator</a> before the operations you want to track.</p>
+
+<p><a name="changes"></a></p>
+
+<h1 id="more-cool-stuff">More cool stuff</h1>
+
+<h2 id="parallelflux">ParallelFlux</h2>
+
+<p>If you want to stress test your CPU you can use <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/ParallelFlux.html">ParallelFlux</a> which will spread the workload in concurrent tasks when possible.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Mono</span><span class="o">.</span><span class="na">fromCallable</span><span class="o">(</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">)</span>
+    <span class="o">.</span><span class="na">repeat</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">parallel</span><span class="o">(</span><span class="mi">8</span><span class="o">)</span> <span class="c1">//parallelism</span>
+    <span class="o">.</span><span class="na">runOn</span><span class="o">(</span><span class="n">Schedulers</span><span class="o">.</span><span class="na">parallel</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">doOnNext</span><span class="o">(</span> <span class="n">d</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"I'm on thread "</span><span class="o">+</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">())</span> <span class="o">).</span>
+    <span class="o">.</span><span class="na">sequential</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">subscribe</span><span class="o">()</span>
+    </code></pre></figure>
+
+<p>This basically avoids that you have to write flatMap(), where after the parallel(x) you will have exactly x number of Rails or Flux.
+Afterwards you can merge these back into a Flux with sequential().</p>
+
+<p>A nice feature is that it keeps the code more readable with everything on a single indentation level.</p>
+
+<p>But the cool part is that it is also very performant, with parallel, Reactor is very close to the bare metal of what the JVM can do as you can see in the below comparisation:</p>
+
+<p style="text-align: center;">
+    <img alt="benchmarks" src="/img/reactive/performance-shakespeare.jpg" /><br />
+    <a href="https://twitter.com/akarnokd/status/780135681897197568">https://twitter.com/akarnokd/status/780135681897197568</a>
+</p>
+
+<h2 id="bridge-existing-async-code">Bridge Existing Async code</h2>
+
+<p>To bridge a Subscriber or Processor into an outside context that is taking care of producing non concurrently, use <code class="highlighter-rouge">Flux.create()</code>, <code class="highlighter-rouge">Mono.create()</code>, or <code class="highlighter-rouge">FluxProcessor.connectSink()</code>.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Mono</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">Mono</span><span class="o">.</span><span class="na">create</span><span class="o">(</span> <span class="n">sink</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="n">HttpListener</span> <span class="n">listener</span> <span class="o">=</span> <span class="n">event</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="mi">400</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sink</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="k">new</span> <span class="n">RunTimeException</span><span class="o">(</span><span class="s">"Error"</span><span class="o">));</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getBody</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">body</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">sink</span><span class="o">.</span><span class="na">succes</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">sink</span><span class="o">.</span><span class="na">success</span><span class="o">(</span><span class="n">body</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+    <span class="n">client</span><span class="o">.</span><span class="na">addListener</span><span class="o">(</span><span class="n">listener</span><span class="o">);</span>
+    
+    <span class="n">emitter</span><span class="o">.</span><span class="na">setCancellation</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">client</span><span class="o">.</span><span class="na">removeListener</span><span class="o">(</span><span class="n">listener</span><span class="o">));</span>
+
+<span class="o">});</span></code></pre></figure>
+
+<p>This <code class="highlighter-rouge">create()</code> allows you to bridge 1 result, which will be returned somewhere in the future, to a Mono.</p>
+
+<p>If you add a Kafka call, for example, where they have this callback so one can return <code class="highlighter-rouge">onSuccess</code> and <code class="highlighter-rouge">onError</code> you can use <code class="highlighter-rouge">Mono.create()</code>: 
+see <a href="https://github.com/reactor/reactor-kafka">Reactor Kafka</a> where this is used a lot.</p>
+
+<p>Also exists for Flux of N items but it’s tougher and more dangerous as you must explicitly indicate what to do in the case of overflow; keep the latest and risk losing some data or keep everything with the risk of unbounded memory use. ¯\<em>(ツ)</em>/¯</p>
+
+<h2 id="create-gateways-to-flux-and-mono">Create Gateways to Flux and Mono</h2>
+
+<p>There also exist some options to bridge the synchronous world with the Flux and the Mono.</p>
+
+<p>Like for example the <a href="http://projectreactor.io/core/docs/api/?reactor/core/publisher/EmitterProcessor.html">EmitterProcessor</a> which is a signal processor.</p>
+<p style="text-align:center;width:40%">
+  <img alt="EmitterProcessor" src="/img/reactive/emitterProcessor.png" />
+</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">EmitterProcessor</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">emitter</span> <span class="o">=</span> <span class="n">EmitterProcessor</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+<span class="n">BlockingSink</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">sink</span> <span class="o">=</span> <span class="n">emitter</span><span class="o">.</span><span class="na">connectSink</span><span class="o">();</span>
+<span class="n">sink</span><span class="o">.</span><span class="na">next</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="n">sink</span><span class="o">.</span><span class="na">next</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+<span class="n">emitter</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="n">sink</span><span class="o">.</span><span class="na">next</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span> <span class="c1">//output : 3</span>
+<span class="n">sink</span><span class="o">.</span><span class="na">finish</span><span class="o">();</span></code></pre></figure>
+
+<p>But you also have:</p>
+<ul>
+  <li><a href="http://projectreactor.io/core/docs/api/?reactor/core/publisher/ReplayProcessor.html">ReplayProcessor</a>, a caching broadcaster.</li>
+  <li><a href="http://projectreactor.io/core/docs/api/?reactor/core/publisher/TopicProcessor.html">TopicProcessor</a>, an asynchronous signal broadcaster</li>
+  <li><a href="http://projectreactor.io/core/docs/api/?reactor/core/publisher/WorkQueueProcessor.html">WorkQueueProcessor</a>, which is similar to the TopicProcessor but distributes the input data signal to the next available Subscriber.</li>
+</ul>
+
+<p>These are all an implementation of a <a href="https://en.wikipedia.org/wiki/Circular_buffer">RingBuffer</a> backed message-passing Processor implementing publish-subscribe with synchronous drain loops.</p>
+
+<h2 id="optimizations">Optimizations</h2>
+<p>Operation fusion: Reactor has a mission to limit the overhead in stack and message passing.
+They distinguish 2 types of optimization:</p>
+
+<ul>
+  <li>Macro Fusion: Merge operators in one during assembly time, for example, if the user does <code class="highlighter-rouge">.merge()</code> - <code class="highlighter-rouge">.merge()</code> - <code class="highlighter-rouge">.merge()</code> spring reactor is smart enough to put this in a single <code class="highlighter-rouge">.merge()</code></li>
+  <li>Micro Fusion: Because of the Reactive specification and the asynchronous nature of the response, queues are heavily used, but creating a queue for every request/response is very costly.</li>
+</ul>
+
+<p>Spring Reactor will avoid to create queues whenever possible and short circuit during the lifecycle of the request. 
+They are going to merge the queue from downstream with the one from upstream - hence the name fusion.
+If the parent is something we can pull (an Iterable or a queue) then Reactor is going to use the parent as a queue, thus avoiding to create a new queue.
+This is very smart to do - but also very complicated to do yourself, because Spring Reactor has this in place you do not have to deal with this hassle..</p>
+
+<h2 id="a-simpler-api">A Simpler API</h2>
+
+<p>Reactor: a Simpler API, the entire framework just fits in 1 jar: reactor-core jar.
+Flux and Mono live in the <code class="highlighter-rouge">reactor.com.publisher</code> package, <code class="highlighter-rouge">reactor.core.scheduler</code> contains the FIFO task executor.</p>
+
+<p>By default the <code class="highlighter-rouge">Publisher</code> and <code class="highlighter-rouge">Subscriber</code> will use the same thread.
+With <code class="highlighter-rouge">publishOn()</code> the publisher can force the subscriber to use a different thread, while the subscriber can do the same with <code class="highlighter-rouge">subscribeOn()</code>.</p>
+
+<p>For Reactor 3.x there will be more focus on the <a href="http://projectreactor.io/core/docs/api">javadoc</a>, as this has been lagging behind compared to the new features which have been developed.</p>
+
+<p><a name="rxjava"></a></p>
+
+<h1 id="rxjava">RxJava</h1>
+
+<p>Why Reactor when there’s already <a href="https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0">RxJava2</a>?</p>
+
+<p>RxJava2 is java 6 while for Reactor the Spring team decided to go all in and focus only on Java 8.
+This means that you can make use of all the new and fancy Java 8 features.</p>
+
+<p>If you are going to use Spring 5, Reactor might be the better option.</p>
+
+<p>But if you are happy with your RxJava2, there is no direct need to migrate to Reactor.</p>
+
+<p><a name="spring-5"></a></p>
+
+<h1 id="spring-framework-5">Spring Framework 5</h1>
+
+<p>It will still be backwards compatible. 
+You can just take your Spring 4 application, put Spring 5 behind it and you will be good to go.</p>
+
+<p>But with Spring 5 you will be able to make use of the following new components/ <a href="http://docs.spring.io/spring-framework/docs/5.0.0.M1/spring-framework-reference/html/web-reactive.html">Spring Web Reactive</a> and Reactive HTTP.
+Which under the hood support <a href="https://java.net/downloads/servlet-spec/Final/servlet-3_1-final.pdf">Servlet 3.1</a>, <a href="http://netty.io/">Netty</a> and <a href="http://undertow.io/">Undertow</a>.</p>
+
+<p>The annotations are still very similar but you just return a Mono, so the User can now be retrieved in a non-blocking way.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users/{login}"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">Mono</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">getUser</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">String</span> <span class="n">login</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">repository</span><span class="o">.</span><span class="na">getUser</span><span class="o">(</span><span class="n">login</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><a name="conclusion"></a></p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Spring Reactor is a very interesting framework, after 3 iterations it has matured and gives you a good base to get started with Reactive Streams.
+With the upcoming support in Spring 5 it will also start to become more mainstream.</p>
+
+<p>Therefore I can see no better way then to get your hands dirty and learn more about Spring Reactor yourself.</p>
+
+<ul>
+  <li><a href="https://spring.io/blog/2016/06/07/notes-on-reactive-programming-part-i-the-reactive-landscape">reactive-programming-part-I</a>:
+Provides you with a clear description of what reactive programming is about and its use cases.
+But also the different ways about how people have implemented reactive programming (actor model, futures, … ) and more specifially the different frameworks which implement reactive programming in java.
+    <blockquote>
+      <p>Frameworks like: <a href="https://projectreactor.io/">Spring Reactor</a>, <a href="http://projects.spring.io/spring-framework/">Spring Framework 5</a>, <a href="https://github.com/ReactiveX/RxJava/wiki">RxJava</a> , <a href="http://akka.io/">Akka</a>, <a href="http://www.reactive-streams.org/">Reactive Streams</a> and <a href="https://ratpack.io/">Ratpack</a>.</p>
+    </blockquote>
+  </li>
+  <li><a href="https://spring.io/blog/2016/06/13/notes-on-reactive-programming-part-ii-writing-some-code">reactive-programming-part-II</a>:
+You will learn the API by writing some code, how to control the flow of data and its processing.</li>
+  <li>
+    <p><a href="https://spring.io/blog/2016/07/20/notes-on-reactive-programming-part-iii-a-simple-http-server-application">reactive-programming-part-III</a>:
+Here you will focus on more concrete use case and write something useful, but also on some low level features which you should learn to treat with respect.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/reactor/lite-rx-api-hands-on">reactor-api-hands-on</a>:
+This hands-on will help you learn easily the lite Rx API provider by Spring Reactor. 
+You just have to make the unit tests green.</p>
+  </li>
+  <li>On <a href="https://spring.io">spring.io</a> you can find more interesting blog posts which will give you more background around Spring Reactor and provide you with the resources to start coding.</li>
+</ul>
+
+
+    </article>
+    <hr />
+    
+                
+        
+        
+            <blockquote>
+                <p>Tom is a Senior Developer at Ordina Belgium, passionate about all software related to data. As competence leader Big &amp; Fast Data he guides his fellow developers through dark data swamps by giving workshops and presentations. Tom is passionate about learning new technologies and frameworks.</p>
+
+            </blockquote>
+        
+    
+    
+        <br /><br />
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    
+</div>
+
+        </div>
+    </div>
+    <!-- Main content ends -->
+</div>
+<!-- Footer Starts -->
+<footer class="footer">
+    <!-- Container -->
+    <div class="container">
+        <!-- Foot Starts -->
+        <div class="foot">
+            <!-- Container -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-user"></i>&nbsp;&nbsp;Disclaimer</h5>
+
+                            <p>Opinions expressed on this blog reflect the writer’s views and not the position of
+                                Ordina.</p>
+
+                            <div class="brand-bg">
+                                <a href="/feed.xml" class="rss"><i
+                                        class="fa fa-rss circle-3"></i></a>
+                                <a target="_blank" href="https://www.facebook.com/lifeatordinabe" class="facebook"><i
+                                        class="fa fa-facebook circle-3"></i></a>
+                                <a target="_blank" href="https://twitter.com/lifeatordinabe"
+                                   class="twitter"><i
+                                        class="fa fa-twitter circle-3"></i></a>
+                                <a target="_blank" href="https://www.linkedin.com/company/ordina-belgium"
+                                   class="linkedin"><i
+                                        class="fa fa-linkedin circle-3"></i></a>
+                                <a target="_blank" href="https://www.linkedin.com/company/ordina-belgium" class="linkedin">
+                                    <i class="fa fa-linkedin circle-3"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-comments"></i>&nbsp;&nbsp;Recent Posts</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content">
+                                <ul class="list-unstyled">
+                                    
+                                    <li>
+                                        <span>12 Dec 2016</span> &raquo;
+                                        <a href="/reactive/2016/12/12/Reactive-Programming-Spring-Reactor.html">
+                                            Reactive Programming with Spring Reactor</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>18 Nov 2016</span> &raquo;
+                                        <a href="/jax%20london/2016/11/18/JAX-London-2016.html">
+                                            JAX London 2016</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>12 Nov 2016</span> &raquo;
+                                        <a href="/cloud/2016/11/12/TheServerlessCloud.html">
+                                            The Serverless Cloud</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>31 Oct 2016</span> &raquo;
+                                        <a href="/kickstarters/2016/10/31/Kickstarters-Project.html">
+                                            Kickstarter project 2016</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>10 Oct 2016</span> &raquo;
+                                        <a href="/conferences/2016/10/10/Percona-Live-Amsterdam-2016.html">
+                                            Percona Live Amsterdam 2016</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>27 Sep 2016</span> &raquo;
+                                        <a href="/conferences/2016/09/27/JOIN-2016.html">
+                                            JOIN 2016</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <span>23 Sep 2016</span> &raquo;
+                                        <a href="/monitoring/2016/09/23/Monitoring-with-Prometheus.html">
+                                            Monitoring with Prometheus</a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- Foot Item -->
+                        <div class="foot-item">
+                            <!-- Heading -->
+                            <h5 class="bold"><i class="fa fa-building-o"></i>&nbsp;&nbsp;Contact Us</h5>
+                            <!-- Foot Item Content -->
+                            <div class="foot-item-content address">
+                                <!-- Heading -->
+                                <h6 class="bold"><i class="fa fa-home"></i>&nbsp;&nbsp;Ordina Belgium</h6>
+                                <!-- Paragraph -->
+                                <p class="add">
+                                    Blarenberglaan 3B,<br/>
+                                    Mechelen 2800, Belgium.</p>
+
+                                <p class="tel"><i class="fa fa-phone"></i> Tel : + (32) - 15 29 58 58<br/>
+                                    <i class="fa fa-envelope"></i> Mail : <a href="#">info@ordina.be</a><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Foot Ends -->
+        <!-- Footer Content -->
+        <p class="pull-left">Copyright &copy; 2016 - <a href="#">Ordina JWorks</a></p>
+        <ul class="list-inline pull-right">
+            <!-- List -->
+            <li><a href="/">Home</a>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/contact/">Contact</a></li>
+        </ul>
+        <!-- Clearfix -->
+        <div class="clearfix"></div>
+    </div>
+</footer>
+<!-- Footer Ends -->
+
+<!-- Outer Ends -->
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-angle-up bg-color"></i></a></span>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/placeholders.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/respond.min.js"></script>
+<script src="/js/html5shiv.js"></script>
+<script src="/js/main.js"></script>
+
+<script src="/js/imagesloaded.min.js"></script>
+<script src="/js/masonry.js"></script>
+
+<!-- Javascript for this page -->
+<script>
+    // Initialize Masonry
+    var $box = $('.blog-masonry').masonry();
+    // Layout Masonry again after all images have loaded
+    $box.imagesLoaded(function () {
+        $box.masonry();
+    });
+</script>
+
+<!-- Custom JS. Type your JS code in custom.js file -->
+<script src="/js/custom.js"></script>
+
+<!-- Disqus -->
+
+    <script type="text/javascript">
+        var disqus_config = function () {
+            this.page.url = "https://ordina-jworks.github.io/reactive/2016/12/12/Reactive-Programming-Spring-Reactor.html";
+            this.page.identifier = "/reactive/2016/12/12/Reactive-Programming-Spring-Reactor.html";
+            this.page.title = "Reactive Programming with Spring Reactor";
+        };
+    </script>
+    <script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>

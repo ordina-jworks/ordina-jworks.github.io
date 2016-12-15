@@ -6,9 +6,521 @@
 </description>
     <link>https://ordina-jworks.github.io/</link>
     <atom:link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 18 Nov 2016 13:00:43 +0000</pubDate>
-    <lastBuildDate>Fri, 18 Nov 2016 13:00:43 +0000</lastBuildDate>
+    <pubDate>Thu, 15 Dec 2016 07:25:48 +0000</pubDate>
+    <lastBuildDate>Thu, 15 Dec 2016 07:25:48 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>Reactive Programming with Spring Reactor</title>
+        <description>&lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#join&quot;&gt;Stephane Maldini @ JOIN&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#the-new-normal&quot;&gt;The new normal that is not new&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#the-manifesto&quot;&gt;The Reactive Manifesto&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#latency&quot;&gt;Latency &amp;amp; Blocking&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#contract&quot;&gt;The Contract&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#reactive-types&quot;&gt;Reactive Types&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#testing&quot;&gt;Testing &amp;amp; Debuging&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#changes&quot;&gt;Other Changes&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#rxjava&quot;&gt;RxJava&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#spring-5&quot;&gt;Spring Framework 5&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion &amp;amp; Do It Yourself&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name=&quot;join&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;stephane-maldini--join-2016&quot;&gt;Stephane Maldini @ JOIN 2016&lt;/h1&gt;
+
+&lt;p&gt;On 5 October 2016, we had the pleasure to welcome Stephane Maldini at our &lt;a href=&quot;https://ordina-jworks.github.io/conferences/2016/09/27/JOIN-2016.html&quot;&gt;JOIN event&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;float-image p-image&quot; src=&quot;/img/stephane-maldini.jpeg&quot; alt=&quot;Stephane Maldini&quot; style=&quot;width: 100px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A multi-tasker eating tech 24/7, Stephane is interested in cloud computing, data science and messaging.
+Leading the Reactor Project, Stephane Maldini is on a mission to help developers create reactive and efficient architectures on the JVM and beyond.
+He is also one of the main contributors for Reactive support in the upcoming Spring 5 framework, which can be seen as the new standard for reactive applications in the Java world.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;You can rewatch his &lt;a href=&quot;https://www.youtube.com/watch?v=RU0yQhfybDg&quot;&gt;talk&lt;/a&gt; on on our &lt;a href=&quot;https://www.youtube.com/channel/UCsebfWdqV7LqNNDMDvCESIA&quot;&gt;Channel&lt;/a&gt; on Youtube.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a name=&quot;the-new-normal&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;the-new-normal-that-is-not-new&quot;&gt;The new normal that is not new&lt;/h1&gt;
+
+&lt;p&gt;It has been around for 30-40 years and boils down to &lt;a href=&quot;https://en.wikipedia.org/wiki/Event-driven_programming&quot;&gt;Event-Driven Programming&lt;/a&gt;
+What is new is “reactive motion bound to specification”, this means that reactive programming is based on something solid, a specification and no longer some functional concepts.
+Namely the &lt;a href=&quot;http://www.reactivemanifesto.org/&quot;&gt;Reactive Manifesto&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Because of this specification, Spring found it the right time to start with &lt;a href=&quot;https://spring.io/blog/2013/05/13/reactor-a-foundation-for-asynchronous-applications-on-the-jvm&quot;&gt;Reactor&lt;/a&gt; as they could now build something, which would be able to work and where it was clear what people could expect.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;the-manifesto&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;the-reactive-manifesto&quot;&gt;The Reactive Manifesto&lt;/h1&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Reactive Systems Traits&quot; src=&quot;/img/reactive/reactive-traits.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;According to the manifesto, reactive systems are&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Responsive&lt;/strong&gt;: respond in a timely manner if at all possible, responsiveness means that problems can be detected quickly and dealt with accordingly.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Resilient&lt;/strong&gt;: remain responsive in the event of failure, failures are contained with each component isolating components from each other.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Elastic&lt;/strong&gt;: stay responsive under varying workload, reactive systems can react to changes in the input rate by increasing or decreasing the resources allocated to services.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Message Driven&lt;/strong&gt;: rely on asynchronous message-passing to establish a boundary between components that ensures loose coupling, isolation and location transparency.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This boundary also provides the means to delegate failures as messages.&lt;/p&gt;
+
+&lt;p&gt;Systems built as reactive systems are thus more flexible, loosely-coupled and scalable. 
+This makes them easier to develop and to allow changes.
+They are significantly more tolerant of failure and when failure does occur they meet it with elegance rather than disaster.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;latency&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;latency&quot;&gt;Latency&lt;/h1&gt;
+
+&lt;p&gt;Latency is also a real issue, the real physical distance of various components and services becomes more important with cloud based systems.
+This is also a very random number which is difficult to predict because it can depend on network congestion.
+With &lt;a href=&quot;https://github.com/openzipkin/zipkin&quot;&gt;Zipkin&lt;/a&gt;, you can measure this latency.&lt;/p&gt;
+
+&lt;p&gt;The same latency can also exist within an application - between the different threads - although the impact will be less severe than between various components.&lt;/p&gt;
+
+&lt;p&gt;Something needs to be done when latency becomes too big of an issue, especially if the receiver can not process enough.
+Too much data will fill up the buffer and can result, with an unbounded queue, to the infamous &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/lang/OutOfMemoryError.html&quot;&gt;OutOfMemoryException()&lt;/a&gt;.
+While you won’t run out of memory with a circular buffer, you risk losing messages as the oldest ones get overwritten.&lt;/p&gt;
+
+&lt;h1 id=&quot;blocking&quot;&gt;Blocking&lt;/h1&gt;
+
+&lt;p&gt;One way to prevent out of memory exceptions is to use blocking.&lt;/p&gt;
+
+&lt;p&gt;But this can be a real &lt;em&gt;poison pill&lt;/em&gt;: when a queue is full, it will block a thread and as more and more queues get blocked your server will die a slow death.&lt;/p&gt;
+
+&lt;p&gt;Blocking is faster and has better performance, than reactive, but reactive will allow for more concurrency.
+Concurrency is important if you have a microservice based architecture, as there you typically need to be more careful and more exact when allocating resources between services.&lt;/p&gt;
+
+&lt;p&gt;As in, by being more concurrent you can save a lot of money when using cloud and microservices.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;contract&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;contract&quot;&gt;Contract&lt;/h1&gt;
+
+&lt;p&gt;Reactive is non-blocking and messages will never overflow the queue, see for the standard definition &lt;a href=&quot;http://www.reactive-streams.org/&quot;&gt;http://www.reactive-streams.org/&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Created by Pivotal, Typesafe, Netflix, Oracle, Red Hat and others.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The scope of Reactive Streams is to find a minimal set of interfaces, methods and protocols that will describe the necessary operations and entities to achieve the goal—asynchronous streams of data with non-blocking &lt;a href=&quot;http://www.reactivemanifesto.org/glossary#Back-Pressure&quot;&gt;back-pressure&lt;/a&gt;.
+With back-pressure, a consumer which can not handle the load of events sends towards it, can communicate this towards the upstream components so these can reduce the load.
+Without back-pressure the consumer would either fail catastrophically or drop events.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img style=&quot;max-width: 640px;&quot; alt=&quot;reactive contract&quot; src=&quot;/img/reactive/reactive-contract.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;This contract defines to send data &lt;code class=&quot;highlighter-rouge&quot;&gt;0 .. N&lt;/code&gt;.
+&lt;a href=&quot;http://www.reactive-streams.org/reactive-streams-1.0.0-javadoc/org/reactivestreams/Publisher.html&quot;&gt;Publisher&lt;/a&gt; is an interface with a &lt;code class=&quot;highlighter-rouge&quot;&gt;subscribe()&lt;/code&gt; method.
+&lt;a href=&quot;http://www.reactive-streams.org/reactive-streams-1.0.0-javadoc/org/reactivestreams/Subscriber.html&quot;&gt;Subscriber&lt;/a&gt; has 4 callback methods:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;onSubscribe()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;onNext()&lt;/code&gt; (which can be called 0 to N times), &lt;code class=&quot;highlighter-rouge&quot;&gt;onComplete()&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;onError()&lt;/code&gt;.
+The last two signals (complete and error) are terminal states, no further signals may occur and the subscriber’s subscription is considered cancelled.&lt;/p&gt;
+
+&lt;p&gt;What is important is the reverse flow and the back-pressure.
+After subscribing, the subscriber gets a subscription which is a kind of 1 on 1 relationship between the subscriber and the publisher with 2 methods: &lt;code class=&quot;highlighter-rouge&quot;&gt;request&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;cancel&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Request&lt;/strong&gt;: this is the more important one, with this method the subscriber will ask the publisher to send x messages (and not more), a so called &lt;code class=&quot;highlighter-rouge&quot;&gt;pull&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Cancel&lt;/strong&gt;: the subscription is being cancelled.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Spring Reactor focuses on the publisher side of the reactive streaming, as this is the hardest to implement and to get right.
+It provides you with the tools to implement publishers in a back-pressure way.&lt;/p&gt;
+
+&lt;p&gt;The publisher is a provider of a potentially unbounded number of sequenced elements, publishing them according to the demand received from its Subscriber(s).&lt;/p&gt;
+
+&lt;p&gt;The Reactive Streams specification has been adopted for &lt;a href=&quot;http://gee.cs.oswego.edu/dl/jsr166/dist/docs/java/util/concurrent/Flow.html&quot;&gt;java 9&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;diy-reactive-streams&quot;&gt;DIY Reactive Streams&lt;/h1&gt;
+
+&lt;p&gt;Implementing a Reactive Stream framework yourself is very hard to do, for Stephane Maldini this is the 4th or 5th attempt. 
+For Davik Karnok, the tech lead of RxJava, it is attempt 7 or 8.
+The main difficulty is to make it side effect free.&lt;/p&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;Publisher&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rick&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;rick&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Note that a publisher is returned instead of directly returning the entity.
+By doing so it does not block the subscribers when querying for the user and the publisher will produce the user when ready.&lt;/p&gt;
+
+&lt;p&gt;But by using the specification as is, your publisher might produce 0, 1 or N users, returning an &lt;code class=&quot;highlighter-rouge&quot;&gt;Iterable&lt;/code&gt; as result.
+This is not really practical to work with, as most of the time we are only interested in a single user and not a stream of multiple results.
+When you would be building the method &lt;code class=&quot;highlighter-rouge&quot;&gt;findOneUser()&lt;/code&gt; you also would not want to return an &lt;code class=&quot;highlighter-rouge&quot;&gt;Iterable&lt;/code&gt; but just a single &lt;code class=&quot;highlighter-rouge&quot;&gt;User&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Also you will have to implement a subscriber to define the action to perform when the result is available.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;rick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Subscriber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;(){...});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Implementing this subscriber would not be that hard, because the specification has been made so that all complexity lies at the publishers side.&lt;/p&gt;
+
+&lt;p&gt;Another issue is that you can only subscribe on the publisher, there are no other methods available like &lt;a href=&quot;http://martinfowler.com/articles/collection-pipeline/map.html&quot;&gt;map&lt;/a&gt;, &lt;a href=&quot;http://martinfowler.com/articles/collection-pipeline/flat-map.html&quot;&gt;flatmap&lt;/a&gt;, …&lt;/p&gt;
+
+&lt;p&gt;The other point is that when designing your own API you will also have to deal with the following issues:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Should work with &lt;a href=&quot;https://jcp.org/en/jsr/detail?id=311&quot;&gt;RS TCK&lt;/a&gt; (otherwise it might not work with other libraries as well)&lt;/li&gt;
+  &lt;li&gt;Address reentrance&lt;/li&gt;
+  &lt;li&gt;Address thread safety&lt;/li&gt;
+  &lt;li&gt;Address efficiency&lt;/li&gt;
+  &lt;li&gt;Address state&lt;/li&gt;
+  &lt;li&gt;For Many-To-One flows, implement your own merging operation&lt;/li&gt;
+  &lt;li&gt;For One-To-Many flows, implement your own broadcasting operation&lt;/li&gt;
+  &lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This is all very hard to do yourself.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;3-years-to-mature&quot;&gt;3 Years to Mature&lt;/h1&gt;
+
+&lt;p&gt;It took Spring Reactor 3 years to mature.&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Spring Reactor Timeline&quot; src=&quot;/img/reactive/spring-reactor-timeline.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;2.0 was not side effect free - also existential questions were raised around the project. 
+At the same time Spring evolved and microservices became the norm.&lt;/p&gt;
+
+&lt;p&gt;Spring needs to work nicely with these microservices, concurrency is important, can Reactor not be used for that?&lt;/p&gt;
+
+&lt;p&gt;With 3.0 the team wanted to focus on microservices, take some ideas from &lt;a href=&quot;https://netflix.github.io/&quot;&gt;Netflix OSS&lt;/a&gt; and implement these in a pragmatic way.
+Actually Reactor 3 was started as 2.5, but so many new features were added that the version had to be changed as well in order to reflect this.&lt;/p&gt;
+
+&lt;p&gt;Since 3.0 Spring Reactor has been made more modular and consists of several components:&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Spring Reactor Components&quot; src=&quot;/img/reactive/spring-reactor-components.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/reactor/reactor-core&quot;&gt;Core&lt;/a&gt; is the main library.
+Providing a non-blocking Reactive Streams foundation for the JVM both implementing a &lt;a href=&quot;https://github.com/Reactive-Extensions&quot;&gt;Reactive Extensions&lt;/a&gt; inspired API and efficient message-passing support.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/reactor/reactor-ipc&quot;&gt;IPC&lt;/a&gt;: back-pressure-ready components to encode, decode, send (unicast, multicast or request/response) and serve connections.
+Here you will find support for &lt;a href=&quot;https://kafka.apache.org&quot;&gt;Kafka&lt;/a&gt; and &lt;a href=&quot;http://netty.io&quot;&gt;Netty&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/reactor/reactor-addons&quot;&gt;Addons&lt;/a&gt;: Bridge to RxJava 1 or 2 Observable, Completable, Flowable, Single, Maybe, Scheduler, and also Swing/SWT Scheduler, Akka Scheduler.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/reactor/reactive-streams-commons&quot;&gt;Reactive Streams Commons&lt;/a&gt; is the research project between Spring Reactor and RxJava as both teams had a lot of ideas they wanted to implement.
+Lots of effort was put in order to create real working, side-effect free operations.
+&lt;a href=&quot;https://martinfowler.com/articles/collection-pipeline/flat-map.html&quot;&gt;Map&lt;/a&gt; and &lt;a href=&quot;http://martinfowler.com/articles/collection-pipeline/filter.html&quot;&gt;Filtering&lt;/a&gt; for example are easy, but mergings, like &lt;a href=&quot;https://martinfowler.com/articles/collection-pipeline/flat-map.html&quot;&gt;Flatmap&lt;/a&gt; are hard to implement side-effect free.
+Having a proper implementation in the research project for these operations allowed the team to experiment and make it quite robust.
+This project contains Reactive-Streams compliant operators, which in turn are implemented by Spring Reactor and RxJava.
+Both the Spring and RxJava teams are very happy with this collaboration and this is still continuing.
+When a bug gets fixed in Spring Reactor it will also be fixed in RxJava and vice versa.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Everything in Reactor is just reactive streams implementation - which is used for the reactive &lt;a href=&quot;https://spring.io/blog/2016/07/28/reactive-programming-with-spring-5-0-m1&quot;&gt;story&lt;/a&gt; of spring 5.&lt;/p&gt;
+
+&lt;p&gt;There also exists an implementation for .NET, &lt;a href=&quot;https://github.com/reactor/reactor-core-dotnet&quot;&gt;Reactor Core .NET&lt;/a&gt; and one for javascript &lt;a href=&quot;https://github.com/reactor/reactor-core-js&quot;&gt;Reactor Core TypeScript&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;reactive-types&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;reactive-types&quot;&gt;Reactive Types&lt;/h1&gt;
+
+&lt;h2 id=&quot;flux-vs-observable&quot;&gt;Flux vs Observable&lt;/h2&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;a Flux&quot; src=&quot;/img/reactive/flux.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Observable is not implementing Reactive Streams Publisher which means that if you would like to use the Spring 5 &lt;code class=&quot;highlighter-rouge&quot;&gt;save(Publisher&amp;lt;T&amp;gt;)&lt;/code&gt; you first have to convert the Observable to a Flowable as you can see in &lt;a href=&quot;https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0#observable-and-flowable&quot;&gt;Observable and Flowable&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This was too much noise for the Spring team, they are less dependant on Android developers so they could go all in with Java 8.&lt;/p&gt;
+
+&lt;p&gt;Flux is a Reactive Streams Publisher with basic flow operations, where you start from a static method which will describe how the data will be generated, &lt;a href=&quot;http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#just-T...-&quot;&gt;just()&lt;/a&gt; is the simplest way&lt;/p&gt;
+
+&lt;p&gt;After that you have other operators like &lt;a href=&quot;http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#flatMap-java.util.function.Function-&quot;&gt;Flatmap()&lt;/a&gt;, &lt;a href=&quot;http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#map-java.util.function.Function-&quot;&gt;Map()&lt;/a&gt;, … to work with that data
+Some of the method names will be different to RxJava2, but the logic behind these methods has been aligned among RxJava and Spring .&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;Flux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;just&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;red&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;white&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;blue&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;carRepository:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findByColor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;Result:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;Result:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;doOnNext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;Result:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;doWithResult&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;Interface&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CarRepository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Flux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findByColor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This Flux will retrieve all cars which match the color “red” then those with the color “white” and finally “blue”.
+So instead of just three elements, after this Flatmap we are going to have a lot more elements.
+This is all handled with back-pressure in mind, for example when the flatmap is busy merging data we will not ask for extra records&lt;/p&gt;
+
+&lt;p&gt;If the Repository implements Flux as a method signature, it will be picked up automatically as a reactive repository.
+This support for Flux will be part of the whole of Spring 5.
+Spring Data, Spring Security, Spring MVC, … are all good candidates who will have this kind of support.&lt;/p&gt;
+
+&lt;h2 id=&quot;mono&quot;&gt;Mono&lt;/h2&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;a Mono&quot; src=&quot;/img/reactive/mono.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;None is like a flux, but will return at most 1 result, so it does have less methods.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;delayMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Spring 4&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;or&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;delayMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Spring 5&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;just&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; world&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;elapsed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This Mono will wait for 3 seconds on the “call” to Spring 4 or 2 seconds on that of Spring 5.
+The fastest result will be the one which will be outputted.&lt;/p&gt;
+
+&lt;p&gt;The Mono has as advantage over an Observable Future of Java 8 that a Mono will only be triggered if you subscribe to it.
+While with an Observable the call to &lt;code class=&quot;highlighter-rouge&quot;&gt;send()&lt;/code&gt; will execute the operation.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;testing&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;testing&quot;&gt;Testing&lt;/h1&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Block()&lt;/code&gt; exists for very specific use cases and for testing.
+Never, ever use this in production, as is it blocks your call, which does infer with the Reactive non-blocking statements. ;-)&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;delayMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Spring 4&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;or&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;delayMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Spring 5&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;just&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; world&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;elapsed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;You can also make use of &lt;a href=&quot;ttp://next.projectreactor.io/ext/docs/api/reactor/test/StepVerifier.html&quot;&gt;Stepverifier&lt;/a&gt; to test Flux, Mono and any other kind of Reactive Streams Publisher.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;expectElementsWithThenComplete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expectSkylerJesseComplete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Flux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;just&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;swhite&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;jpinkman&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)));&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Use StepVerifier to check that the flux parameter emits a User with “swhite” username and another one with “jpinkman” then completes successfully.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;expectSkylerJesseComplete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Flux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;StepVerifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;expectNextMatches&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getUsername&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;swhite&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;expectNextMatches&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getUsername&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;jpinkman&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;expectComplete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h1 id=&quot;debug&quot;&gt;Debug&lt;/h1&gt;
+
+&lt;p&gt;When you use reactive libraries you will quickly realize that step debugging is hard especially when you try to read your stacktraces, there are a lot of recursive calls taking place.&lt;/p&gt;
+
+&lt;p&gt;Before you invoke your operations you can enable an, expensive, debug mode.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;Hooks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onOperator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;op&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;operatorStacktrace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;just&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+        
+        
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printStacktrace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;When an exception is returned it will contain the exact operation that failed and the backtrace to that operation.&lt;/p&gt;
+
+&lt;p&gt;You must enable this &lt;a href=&quot;https://projectreactor.io/core/docs/api/reactor/core/publisher/Hooks.OperatorHook.html#operatorStacktrace--&quot;&gt;Hooks.onOperator&lt;/a&gt; before the operations you want to track.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;changes&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;more-cool-stuff&quot;&gt;More cool stuff&lt;/h1&gt;
+
+&lt;h2 id=&quot;parallelflux&quot;&gt;ParallelFlux&lt;/h2&gt;
+
+&lt;p&gt;If you want to stress test your CPU you can use &lt;a href=&quot;http://projectreactor.io/core/docs/api/reactor/core/publisher/ParallelFlux.html&quot;&gt;ParallelFlux&lt;/a&gt; which will spread the workload in concurrent tasks when possible.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;fromCallable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;currentTimeMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;repeat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;parallel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//parallelism&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;runOn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Schedulers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;parallel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;doOnNext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I'm on thread &quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sequential&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This basically avoids that you have to write flatMap(), where after the parallel(x) you will have exactly x number of Rails or Flux.
+Afterwards you can merge these back into a Flux with sequential().&lt;/p&gt;
+
+&lt;p&gt;A nice feature is that it keeps the code more readable with everything on a single indentation level.&lt;/p&gt;
+
+&lt;p&gt;But the cool part is that it is also very performant, with parallel, Reactor is very close to the bare metal of what the JVM can do as you can see in the below comparisation:&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+    &lt;img alt=&quot;benchmarks&quot; src=&quot;/img/reactive/performance-shakespeare.jpg&quot; /&gt;&lt;br /&gt;
+    &lt;a href=&quot;https://twitter.com/akarnokd/status/780135681897197568&quot;&gt;https://twitter.com/akarnokd/status/780135681897197568&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;bridge-existing-async-code&quot;&gt;Bridge Existing Async code&lt;/h2&gt;
+
+&lt;p&gt;To bridge a Subscriber or Processor into an outside context that is taking care of producing non concurrently, use &lt;code class=&quot;highlighter-rouge&quot;&gt;Flux.create()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Mono.create()&lt;/code&gt;, or &lt;code class=&quot;highlighter-rouge&quot;&gt;FluxProcessor.connectSink()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sink&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;HttpListener&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;listener&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getResponseCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;400&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;sink&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RunTimeException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Error&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBody&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;sink&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;succes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;sink&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;success&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;listener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setCancellation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;removeListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;listener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This &lt;code class=&quot;highlighter-rouge&quot;&gt;create()&lt;/code&gt; allows you to bridge 1 result, which will be returned somewhere in the future, to a Mono.&lt;/p&gt;
+
+&lt;p&gt;If you add a Kafka call, for example, where they have this callback so one can return &lt;code class=&quot;highlighter-rouge&quot;&gt;onSuccess&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;onError&lt;/code&gt; you can use &lt;code class=&quot;highlighter-rouge&quot;&gt;Mono.create()&lt;/code&gt;: 
+see &lt;a href=&quot;https://github.com/reactor/reactor-kafka&quot;&gt;Reactor Kafka&lt;/a&gt; where this is used a lot.&lt;/p&gt;
+
+&lt;p&gt;Also exists for Flux of N items but it’s tougher and more dangerous as you must explicitly indicate what to do in the case of overflow; keep the latest and risk losing some data or keep everything with the risk of unbounded memory use. ¯\&lt;em&gt;(ツ)&lt;/em&gt;/¯&lt;/p&gt;
+
+&lt;h2 id=&quot;create-gateways-to-flux-and-mono&quot;&gt;Create Gateways to Flux and Mono&lt;/h2&gt;
+
+&lt;p&gt;There also exist some options to bridge the synchronous world with the Flux and the Mono.&lt;/p&gt;
+
+&lt;p&gt;Like for example the &lt;a href=&quot;http://projectreactor.io/core/docs/api/?reactor/core/publisher/EmitterProcessor.html&quot;&gt;EmitterProcessor&lt;/a&gt; which is a signal processor.&lt;/p&gt;
+&lt;p style=&quot;text-align:center;width:40%&quot;&gt;
+  &lt;img alt=&quot;EmitterProcessor&quot; src=&quot;/img/reactive/emitterProcessor.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;EmitterProcessor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EmitterProcessor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;BlockingSink&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sink&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;connectSink&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sink&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sink&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sink&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//output : 3&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sink&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;finish&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;But you also have:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://projectreactor.io/core/docs/api/?reactor/core/publisher/ReplayProcessor.html&quot;&gt;ReplayProcessor&lt;/a&gt;, a caching broadcaster.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://projectreactor.io/core/docs/api/?reactor/core/publisher/TopicProcessor.html&quot;&gt;TopicProcessor&lt;/a&gt;, an asynchronous signal broadcaster&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://projectreactor.io/core/docs/api/?reactor/core/publisher/WorkQueueProcessor.html&quot;&gt;WorkQueueProcessor&lt;/a&gt;, which is similar to the TopicProcessor but distributes the input data signal to the next available Subscriber.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These are all an implementation of a &lt;a href=&quot;https://en.wikipedia.org/wiki/Circular_buffer&quot;&gt;RingBuffer&lt;/a&gt; backed message-passing Processor implementing publish-subscribe with synchronous drain loops.&lt;/p&gt;
+
+&lt;h2 id=&quot;optimizations&quot;&gt;Optimizations&lt;/h2&gt;
+&lt;p&gt;Operation fusion: Reactor has a mission to limit the overhead in stack and message passing.
+They distinguish 2 types of optimization:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Macro Fusion: Merge operators in one during assembly time, for example, if the user does &lt;code class=&quot;highlighter-rouge&quot;&gt;.merge()&lt;/code&gt; - &lt;code class=&quot;highlighter-rouge&quot;&gt;.merge()&lt;/code&gt; - &lt;code class=&quot;highlighter-rouge&quot;&gt;.merge()&lt;/code&gt; spring reactor is smart enough to put this in a single &lt;code class=&quot;highlighter-rouge&quot;&gt;.merge()&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Micro Fusion: Because of the Reactive specification and the asynchronous nature of the response, queues are heavily used, but creating a queue for every request/response is very costly.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Spring Reactor will avoid to create queues whenever possible and short circuit during the lifecycle of the request. 
+They are going to merge the queue from downstream with the one from upstream - hence the name fusion.
+If the parent is something we can pull (an Iterable or a queue) then Reactor is going to use the parent as a queue, thus avoiding to create a new queue.
+This is very smart to do - but also very complicated to do yourself, because Spring Reactor has this in place you do not have to deal with this hassle..&lt;/p&gt;
+
+&lt;h2 id=&quot;a-simpler-api&quot;&gt;A Simpler API&lt;/h2&gt;
+
+&lt;p&gt;Reactor: a Simpler API, the entire framework just fits in 1 jar: reactor-core jar.
+Flux and Mono live in the &lt;code class=&quot;highlighter-rouge&quot;&gt;reactor.com.publisher&lt;/code&gt; package, &lt;code class=&quot;highlighter-rouge&quot;&gt;reactor.core.scheduler&lt;/code&gt; contains the FIFO task executor.&lt;/p&gt;
+
+&lt;p&gt;By default the &lt;code class=&quot;highlighter-rouge&quot;&gt;Publisher&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Subscriber&lt;/code&gt; will use the same thread.
+With &lt;code class=&quot;highlighter-rouge&quot;&gt;publishOn()&lt;/code&gt; the publisher can force the subscriber to use a different thread, while the subscriber can do the same with &lt;code class=&quot;highlighter-rouge&quot;&gt;subscribeOn()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;For Reactor 3.x there will be more focus on the &lt;a href=&quot;http://projectreactor.io/core/docs/api&quot;&gt;javadoc&lt;/a&gt;, as this has been lagging behind compared to the new features which have been developed.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;rxjava&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;rxjava&quot;&gt;RxJava&lt;/h1&gt;
+
+&lt;p&gt;Why Reactor when there’s already &lt;a href=&quot;https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0&quot;&gt;RxJava2&lt;/a&gt;?&lt;/p&gt;
+
+&lt;p&gt;RxJava2 is java 6 while for Reactor the Spring team decided to go all in and focus only on Java 8.
+This means that you can make use of all the new and fancy Java 8 features.&lt;/p&gt;
+
+&lt;p&gt;If you are going to use Spring 5, Reactor might be the better option.&lt;/p&gt;
+
+&lt;p&gt;But if you are happy with your RxJava2, there is no direct need to migrate to Reactor.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;spring-5&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;spring-framework-5&quot;&gt;Spring Framework 5&lt;/h1&gt;
+
+&lt;p&gt;It will still be backwards compatible. 
+You can just take your Spring 4 application, put Spring 5 behind it and you will be good to go.&lt;/p&gt;
+
+&lt;p&gt;But with Spring 5 you will be able to make use of the following new components/ &lt;a href=&quot;http://docs.spring.io/spring-framework/docs/5.0.0.M1/spring-framework-reference/html/web-reactive.html&quot;&gt;Spring Web Reactive&lt;/a&gt; and Reactive HTTP.
+Which under the hood support &lt;a href=&quot;https://java.net/downloads/servlet-spec/Final/servlet-3_1-final.pdf&quot;&gt;Servlet 3.1&lt;/a&gt;, &lt;a href=&quot;http://netty.io/&quot;&gt;Netty&lt;/a&gt; and &lt;a href=&quot;http://undertow.io/&quot;&gt;Undertow&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The annotations are still very similar but you just return a Mono, so the User can now be retrieved in a non-blocking way.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@GetMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/users/{login}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@PathVariable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;login&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;login&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;a name=&quot;conclusion&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Spring Reactor is a very interesting framework, after 3 iterations it has matured and gives you a good base to get started with Reactive Streams.
+With the upcoming support in Spring 5 it will also start to become more mainstream.&lt;/p&gt;
+
+&lt;p&gt;Therefore I can see no better way then to get your hands dirty and learn more about Spring Reactor yourself.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://spring.io/blog/2016/06/07/notes-on-reactive-programming-part-i-the-reactive-landscape&quot;&gt;reactive-programming-part-I&lt;/a&gt;:
+Provides you with a clear description of what reactive programming is about and its use cases.
+But also the different ways about how people have implemented reactive programming (actor model, futures, … ) and more specifially the different frameworks which implement reactive programming in java.
+    &lt;blockquote&gt;
+      &lt;p&gt;Frameworks like: &lt;a href=&quot;https://projectreactor.io/&quot;&gt;Spring Reactor&lt;/a&gt;, &lt;a href=&quot;http://projects.spring.io/spring-framework/&quot;&gt;Spring Framework 5&lt;/a&gt;, &lt;a href=&quot;https://github.com/ReactiveX/RxJava/wiki&quot;&gt;RxJava&lt;/a&gt; , &lt;a href=&quot;http://akka.io/&quot;&gt;Akka&lt;/a&gt;, &lt;a href=&quot;http://www.reactive-streams.org/&quot;&gt;Reactive Streams&lt;/a&gt; and &lt;a href=&quot;https://ratpack.io/&quot;&gt;Ratpack&lt;/a&gt;.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://spring.io/blog/2016/06/13/notes-on-reactive-programming-part-ii-writing-some-code&quot;&gt;reactive-programming-part-II&lt;/a&gt;:
+You will learn the API by writing some code, how to control the flow of data and its processing.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://spring.io/blog/2016/07/20/notes-on-reactive-programming-part-iii-a-simple-http-server-application&quot;&gt;reactive-programming-part-III&lt;/a&gt;:
+Here you will focus on more concrete use case and write something useful, but also on some low level features which you should learn to treat with respect.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/reactor/lite-rx-api-hands-on&quot;&gt;reactor-api-hands-on&lt;/a&gt;:
+This hands-on will help you learn easily the lite Rx API provider by Spring Reactor. 
+You just have to make the unit tests green.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;On &lt;a href=&quot;https://spring.io&quot;&gt;spring.io&lt;/a&gt; you can find more interesting blog posts which will give you more background around Spring Reactor and provide you with the resources to start coding.&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Mon, 12 Dec 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/reactive/2016/12/12/Reactive-Programming-Spring-Reactor.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/reactive/2016/12/12/Reactive-Programming-Spring-Reactor.html</guid>
+        
+        <category>JOIN</category>
+        
+        <category>Spring</category>
+        
+        <category>Reactor</category>
+        
+        <category>Java</category>
+        
+        <category>Reactive</category>
+        
+        
+        <category>Reactive</category>
+        
+      </item>
     
       <item>
         <title>JAX London 2016</title>
@@ -1914,7 +2426,7 @@ This year we expect to have more than 100 attendees, and what’s most exciting 
 
 &lt;p&gt;Here are some of the highlights of the day:&lt;/p&gt;
 
-&lt;h3 id=&quot;am---12am---docker-for-java-developers---arun-gupta&quot;&gt;10AM - 12AM - Docker for Java Developers - Arun Gupta&lt;/h3&gt;
+&lt;h3 id=&quot;10am---12am---docker-for-java-developers---arun-gupta&quot;&gt;10AM - 12AM - Docker for Java Developers - Arun Gupta&lt;/h3&gt;
 
 &lt;p&gt;&lt;img class=&quot;float-image p-image&quot; src=&quot;/img/arun-gupta.png&quot; alt=&quot;Arun Gupta&quot; style=&quot;width: 100px&quot; /&gt;&lt;/p&gt;
 
@@ -1929,7 +2441,7 @@ He will bring us a very informative talk about the current state of Docker and h
 
 &lt;p&gt;More information about Arun in his &lt;a href=&quot;https://blog.docker.com/2016/03/docker-community-spotlight-arun-gupta/&quot;&gt;Docker Community Spotlight&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h3 id=&quot;pm---6pm---the-google-cloud-platform---koen-maes&quot;&gt;5PM - 6PM - The Google Cloud Platform - Koen Maes&lt;/h3&gt;
+&lt;h3 id=&quot;5pm---6pm---the-google-cloud-platform---koen-maes&quot;&gt;5PM - 6PM - The Google Cloud Platform - Koen Maes&lt;/h3&gt;
 
 &lt;p&gt;&lt;img class=&quot;float-image p-image&quot; src=&quot;/img/koen-maes.jpg&quot; alt=&quot;Koen Maes&quot; style=&quot;width: 100px&quot; /&gt;&lt;/p&gt;
 
@@ -1942,7 +2454,7 @@ Since his first encounters with AppEngine in 2009, he never looked back and has 
   &lt;p&gt;We are currently working for one of our customers on a large scale greenfield microservices system in the Google Cloud Platform, so this will be especially interesting for us.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h3 id=&quot;pm---7pm---reactive-programming---stephane-maldini&quot;&gt;6PM - 7PM - Reactive Programming - Stephane Maldini&lt;/h3&gt;
+&lt;h3 id=&quot;6pm---7pm---reactive-programming---stephane-maldini&quot;&gt;6PM - 7PM - Reactive Programming - Stephane Maldini&lt;/h3&gt;
 
 &lt;p&gt;&lt;img class=&quot;float-image p-image&quot; src=&quot;/img/stephane-maldini.jpeg&quot; alt=&quot;Stephane Maldini&quot; style=&quot;width: 100px&quot; /&gt;&lt;/p&gt;
 
@@ -1955,7 +2467,7 @@ He is also one of the main contributors for Reactive support in the upcoming Spr
 Most of the developers in our JWorks unit are using Spring (as opposed to JEE), so this talk is going to be &lt;strong&gt;very&lt;/strong&gt; interesting.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h3 id=&quot;pm---8pm---typescript-enjoying-large-scale-browser-development---joost-de-vries&quot;&gt;7PM - 8PM - Typescript: enjoying large scale browser development - Joost De Vries&lt;/h3&gt;
+&lt;h3 id=&quot;7pm---8pm---typescript-enjoying-large-scale-browser-development---joost-de-vries&quot;&gt;7PM - 8PM - Typescript: enjoying large scale browser development - Joost De Vries&lt;/h3&gt;
 
 &lt;p&gt;&lt;img class=&quot;float-image p-image&quot; src=&quot;/img/joost-devries.jpg&quot; alt=&quot;Joost De Vries&quot; style=&quot;width: 100px&quot; /&gt;&lt;/p&gt;
 
@@ -3406,206 +3918,6 @@ This should be your first action when you start a new project. It is necessary t
         
         
         <category>Conferences</category>
-        
-      </item>
-    
-      <item>
-        <title>A web of trusted commits</title>
-        <description>&lt;h2 id=&quot;who-do-you-trust&quot;&gt;Who Do You Trust?&lt;/h2&gt;
-&lt;p&gt;When you’re building software with people from around the world, it’s important to validate that commits and tags are coming from an identified source. By using a distributed revision control system like Git, anyone can have an offline copy of your project’s code repository. In theory having a central repository is not necessary, but it can be used to provide an “official” source from which other developers can clone from and work on. These other floating repositories may contain malicious code because, unfortunately, it is remarkably easy to fake your identity when committing code using Git.&lt;/p&gt;
-
-&lt;p&gt;The following command allows any individual with bad intentions to commit (malicious) code under your name, meaning that you will get the blame for the backdoor or exploit “you” committed:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;  &lt;span class=&quot;c&quot;&gt;# Individual commit.
-&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git commit -a -m &lt;span class=&quot;s2&quot;&gt;&quot;a message&quot;&lt;/span&gt; --author &lt;span class=&quot;s2&quot;&gt;&quot;Sherlock H. &amp;lt;sherlock.h@bakerstreet.org&amp;gt;&quot;&lt;/span&gt;
-
-  &lt;span class=&quot;c&quot;&gt;# Global settings.
-&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git config --global user.name &lt;span class=&quot;s1&quot;&gt;'Sherlock H.'&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git config --global user.email sherlock.h@bakerstreet.org
-  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;ensuring-trust&quot;&gt;Ensuring Trust&lt;/h2&gt;
-
-&lt;p&gt;This blog post tells the story of Sherlock H. Sherlock is a witty developer who holds any security-related topic very close to his heart. After a fair amount of pondering about how he could solve the problem of black-hearted developers impersonating his personality, he decided to add &lt;strong&gt;a Digital Signature&lt;/strong&gt; to his commits. By adding a signature Sherlock can finally sleep soundly at night because the signature indicates that he really issued the commit and that it has not been tampered with since he sent it. Moreover it can be used to trace the origin of malicious code that has made its way into a repository. The signature also assures non-repudiation, meaning that it becomes difficult for the signer to deny having signed something because the Digital Signature is unique to both the commit and the signer, and binds them together. Sherlock can now wholeheartedly vouch for the commit.&lt;/p&gt;
-
-&lt;p&gt;Consider the following scenario:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Sherlock wants to send an urgent message to his fellow developer John W. telling that their application has been compromised by Jim M, a criminal mastermind who only has unkind intentions. John wants the guarantee that the message he received is sent by Sherlock and has not been tampered with by Jim.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;In order to securely exchange messages, both Sherlock and John will make use of their &lt;strong&gt;Key Pairs&lt;/strong&gt;. A Key Pair consists of a &lt;strong&gt;Public and Private Key&lt;/strong&gt; which are two unique mathematically related cryptographic keys. As its name suggests, the Public Key is made available to everyone by handing out copies or sharing them through a publicly accessible repository. The Private Key however must be kept confidential to its respective owner.&lt;/p&gt;
-
-&lt;p&gt;Sherlock and John can do the following with the use of their Key Pair:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Signing&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;The message is still readable to everyone.&lt;/li&gt;
-      &lt;li&gt;Guarantee of the sender’s identity (aka Sherlock).&lt;/li&gt;
-      &lt;li&gt;Guarantee that the message has not been tampered with since it has been signed by the sender (aka Sherlock).&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Encryption&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;The message is only readable by the designated recipient (aka John).&lt;/li&gt;
-      &lt;li&gt;No guarantee of the sender’s identity (aka Sherlock).&lt;/li&gt;
-      &lt;li&gt;Encryption can be done &lt;strong&gt;symmetrically&lt;/strong&gt; by using a Shared Secret Key, a single key is then used for both encryption and decryption. &lt;strong&gt;Asymmetrical&lt;/strong&gt; encryption (aka Public Key encryption) with a Public/Private Keypair uses one key for encryption and another for decryption. Note that the advantages and challenges of using either encryption type is beyond the scope of this blog post.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;enforcing-trust&quot;&gt;Enforcing Trust&lt;/h2&gt;
-
-&lt;p&gt;Sherlock will combine a digital signature with encryption to convince John that his message is trustworthy.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Sherlock wants to send the following message to John: &lt;code class=&quot;highlighter-rouge&quot;&gt;Data! Data! Data! I can’t make bricks without clay.&lt;/code&gt;. He calculates the &lt;strong&gt;Hash&lt;/strong&gt; of this message by applying a publicly known hashing algorithm to the message. The calculated hash by using the SHA-256 hashing algorithm is &lt;code class=&quot;highlighter-rouge&quot;&gt;d6ba26816599a75310c4c263126d4b44979c7026f90e1db8e9b317d6658f3811&lt;/code&gt;. The hash value is unique to the hashed data.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Sherlock encrypts the Hash with his Private Key. This encrypted Hash together with a certificate containing additional information about the sender forms the Digital Signature. The reason why the Hash is encrypted and not the entire message, is that a hash function can convert an arbitrary input into a fixed length value which is usually much shorter than the original message. This saves time since hashing is much faster than signing.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Sherlock sends the original message and its Digital Signature to John.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;John receives the message and Digital Signature.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Whatever is encrypted with a Public Key can only be decrypted by using its corresponding Private Key and vice versa. Therefore John uses Sherlock’s Public Key to decrypt the Signature.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;John also re-calculates the Hash of the original message by applying the same hashing algorithm as Sherlock.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;John compares the Hash he calculated himself and the decrypted Hash received with Sherlock’s message.
-If they’re identical he knows the message has not been tampered with during transit.
-Should the message been compromised by Jim, then John would have calculated a different Hash than the encrypted Hash that Sherlock has sent along with his message.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img class=&quot;center-block&quot; alt=&quot;Digital Signature&quot; src=&quot;/img/web-of-trusted-commits/digital_signature.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;creating-an-identity&quot;&gt;Creating An Identity&lt;/h2&gt;
-
-&lt;p&gt;In order to sign his commits, Sherlock decided to use &lt;strong&gt;Gnu Privacy Guard (GPG)&lt;/strong&gt; as his weapon of choice. GPG is a complete and free implementation of the OpenPGP standard. It allows to encrypt and sign data and communication, features a versatile key management system as well as access modules for all kinds of public key directories.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Download and install GPG from the &lt;a href=&quot;https://www.gnupg.org/download/&quot;&gt;official website&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Open a command prompt&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;      &lt;span class=&quot;c&quot;&gt;# Generate a new Key Pair.
-&lt;/span&gt;
-      &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --gen-key
-      &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Sherlock accepted the default &lt;code class=&quot;highlighter-rouge&quot;&gt;RSA and RSA&lt;/code&gt; key. RSA is a widely-used asymmetric encryption algorithm and is named after Ron Rivest, Adi Shamir and Len Adleman who invented it in 1977. Should you be interested in more mathematical details how this algorithm works, I can highly recommend watching &lt;a href=&quot;https://www.youtube.com/watch?v=wXB-V_Keiu8&quot;&gt;“Public Key Cryptography: RSA Encryption Algorithm”&lt;/a&gt; on YouTube.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Enter the desired key size. I recommend the &lt;code class=&quot;highlighter-rouge&quot;&gt;maximum key size of 4096 bits&lt;/code&gt; because they provide far better long-term security. While the default of 2048 bits is secure now, it won’t be in the future. 1024 bit keys are already considered within the range of being breakable and while technology advances 2048 bit keys will also become breakable. Eventually 4096 bit keys will be broken too, but that will be so far in the future that better encryption algorithms will also likely have been developed by then.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Sherlock accepted the &lt;code class=&quot;highlighter-rouge&quot;&gt;default expiration&lt;/code&gt; for his key.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;He entered his &lt;code class=&quot;highlighter-rouge&quot;&gt;real name and email address&lt;/code&gt;. Sherlock provided the verified email address for his GitHub account. This will make it very easy to link his account with his Public Key.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Provide a &lt;code class=&quot;highlighter-rouge&quot;&gt;secure passphrase&lt;/code&gt;. Choose wisely and be sure to remember it because else the key cannot be used and any data encrypted using that key will be lost.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Congratulations, a newly fresh Key Pair should be generated now.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;      &lt;span class=&quot;c&quot;&gt;# List all keys.
-&lt;/span&gt;
-      &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --list-keys
-        pub   4096R/90C3C3DE 2016-07-24
-        uid     Sherlock H &amp;lt;sherlock.h@bakerstreet.org&amp;gt;
-        sub   4096R/586B3A7B 2016-07-24
-      &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Like many other developers, Sherlock is very active on GitHub and would like to link his Public Key with his account. He therefore will need to create a textual version of his Public Key. After having executed the command below, the content of the generated ‘pubkey.txt’ needs to be added to his account as described in the &lt;a href=&quot;https://help.github.com/articles/adding-a-new-gpg-key-to-your-github-account/&quot;&gt;GitHub Help pages&lt;/a&gt;. More details about distributing and registering your Public Key to a key server can be found in the chapter ‘&lt;a href=&quot;https://www.gnupg.org/gph/en/manual.html#AEN464&quot;&gt;Distributing keys&lt;/a&gt;’ of the GPG Users Guide. For other usages like encryption and decryption, please refer to &lt;a href=&quot;http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto.html&quot;&gt;GPG’s Mini HowTo&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    &lt;span class=&quot;c&quot;&gt;# Export the Public Key to a text file.
-&lt;/span&gt;
-    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --armor --output pubkey.txt --export &lt;span class=&quot;s1&quot;&gt;'Sherlock H'&lt;/span&gt;
-    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;signing-your-work&quot;&gt;Signing Your Work&lt;/h2&gt;
-&lt;p&gt;Once Sherlock generated his Key Pair, he can configure Git to use it for signing commits and tags. Following tools can be used to store a GPG key passphrase in a keychain so he doesn’t have to provide it every time he signs a commit: &lt;a href=&quot;https://gpgtools.org/&quot;&gt;GPG Suite&lt;/a&gt; (Mac) or &lt;a href=&quot;https://www.gpg4win.org/&quot;&gt;Gpg4win&lt;/a&gt; (Windows).&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;  &lt;span class=&quot;c&quot;&gt;# Set the signing key by taking your Public Key id as parameter.
-&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git config --global user.signingkey 90C3C3DE
-
-  &lt;span class=&quot;c&quot;&gt;# Automatically signs every commit.
-&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git config --global commit.gpgsign &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
-
-  &lt;span class=&quot;c&quot;&gt;# Manually sign a commit.
-&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git commit -S -m &lt;span class=&quot;s2&quot;&gt;&quot;some commit message&quot;&lt;/span&gt;
-
-  &lt;span class=&quot;c&quot;&gt;# Verify whether your commit has been signed.
-&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git log --show-signature
-
-    commit 81314da640320c65896a4348842d303a754f37d2
-    gpg: Signature made Sun Jul 24 15:02:25 2016 CEST using RSA key ID 90C3C3DE
-    gpg: Good signature from &lt;span class=&quot;s2&quot;&gt;&quot;Sherlock H &amp;lt;sherlock.h@bakerstreet.org&amp;gt;&quot;&lt;/span&gt;
-    Author: Sherlock H &amp;lt;sherlock.h@bakerstreet.org&amp;gt;
-    Date:   Sun Jul 24 15:01:52 2016 +0200
-
-  &lt;span class=&quot;c&quot;&gt;# Verify all signatures during merge. If the signatures can not be verified then merge will be aborted.
-&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git merge --verify-signatures other_branch
-  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Earlier this year GitHub &lt;a href=&quot;https://github.com/blog/2144-gpg-signature-verification&quot;&gt;announced&lt;/a&gt; that they now will show when commits and tags are signed and verified using any of the contributor’s GPG keys upload to GitHub. Keep your eyes open for commits and tags labeled with those green &lt;code class=&quot;highlighter-rouge&quot;&gt;verified&lt;/code&gt; badges.&lt;/p&gt;
-
-&lt;h2 id=&quot;secure-by-design&quot;&gt;Secure-By-Design&lt;/h2&gt;
-&lt;p&gt;Ordina’s &lt;a href=&quot;https://www.ordina.be/en/services-et-solutions/themas/secure-by-design/&quot;&gt;Secure-By-Design programme&lt;/a&gt; encourages to consider and take account of possible security risks as early as possible in a business process.
-So follow Sherlock’s example by embedding and safeguarding security in your daily work as a developer and &lt;strong&gt;Sign Your Work!&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://help.github.com/categories/gpg/&quot;&gt;GitHub’s Help on GPG&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.gnupg.org/gph/en/manual/book1.html&quot;&gt;The GNU Privacy Handbook&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto.html&quot;&gt;GPG’s Mini HowTo&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mikegerwitz.com/papers/git-horror-story&quot;&gt;“A Git Horror Story”&lt;/a&gt; by Mike Gerwitz&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=wXB-V_Keiu8&quot;&gt;“Public Key Cryptography: RSA Encryption Algorithm”&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Mon, 25 Jul 2016 00:00:00 +0000</pubDate>
-        <link>https://ordina-jworks.github.io/security/2016/07/25/Web-of-trusted-commits.html</link>
-        <guid isPermaLink="true">https://ordina-jworks.github.io/security/2016/07/25/Web-of-trusted-commits.html</guid>
-        
-        <category>Security</category>
-        
-        <category>Git</category>
-        
-        <category>Encryption</category>
-        
-        <category>Digital Signature</category>
-        
-        <category>Cryptography</category>
-        
-        
-        <category>Security</category>
         
       </item>
     
