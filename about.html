@@ -10,9 +10,15 @@ permalink: /about/
             {% assign author = authorEntry[1] %}
             <div class="team-member">
                 <div class="team-member-image-holder">
-                    <a href="{{ author.permalink | prepend: site.baseurl }}"><img class="p-image team-member-image" src="{{ '/img/author/' | append: author.avatar | prepend: site.baseurl }}" alt="{{ author.first_name }}" /></a>
+                    <a href="{{ author.permalink | prepend: site.baseurl }}">
+                        <img class="p-image team-member-image" src="{{ '/img/author/' | append: author.avatar | prepend: site.baseurl }}" alt="{{ author.first_name }}" />
+                    </a>
                 </div>
-                <h4><a href="{{ author.permalink | prepend: site.baseurl }}">{{ author.first_name }} {{ author.last_name }}</a></h4>
+                <h1 class="team-member-name"><a href="{{ author.permalink | prepend: site.baseurl }}">{{ author.first_name }} {{ author.last_name }}</a></h1>
+                <span class="team-member-title">{{ author.title }}</span>
+                {% if author.title2 %}
+                <span class="team-member-title">{{ author.title2 }}</span>
+                {% endif %}
                 <div class="team-member-links">
                     {% if author.email %}
                     <a href="mailto:{{ author.email }}"><i class="fa fa-envelope"></i></a>
@@ -30,11 +36,6 @@ permalink: /about/
                     <a href="tel:{{ author.phone }}"><i class="fa fa-phone"></i></a>
                     {% endif %}
                 </div>
-                <span class="deg">{{ author.title }}</span>
-                {% if author.title2 %}
-                <div class="clearfix"></div>
-                <span class="deg">{{ author.title2 }}</span>
-                {% endif %}
             </div>
             {% endfor %}
         </section>
