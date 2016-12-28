@@ -19,23 +19,38 @@ permalink: /about/
                 {% if author.title2 %}
                 <span class="team-member-title">{{ author.title2 }}</span>
                 {% endif %}
-                <div class="team-member-links">
-                    {% if author.email %}
-                    <a href="mailto:{{ author.email }}"><i class="fa fa-envelope"></i></a>
-                    {% endif %}
-                    {% if author.twitter %}
-                    <a href="https://www.twitter.com/{{ author.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>
-                    {% endif %}
-                    {% if author.github %}
-                    <a href="https://www.github.com/{{ author.github }}" target="_blank"><i class="fa fa-github"></i></a>
-                    {% endif %}
-                    {% if author.linkedin %}
-                    <a href="https://be.linkedin.com/in/{{ author.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a>
-                    {% endif %}
-                    {% if author.phone %}
-                    <a href="tel:{{ author.phone }}"><i class="fa fa-phone"></i></a>
-                    {% endif %}
-                </div>
+                <ul class="team-member-links">
+                    <li class="team-member-link">
+                        {% if author.phone %}<a href="tel:{{ author.phone }}">{% endif %}
+                        <i class="fa fa-phone"></i>
+                        <span class="label">Phone</span>
+                        {% if author.phone %}</a>{% endif %}
+                    </li>
+                    <li class="team-member-link">
+                        {% if author.email %}<a href="mailto:{{ author.email }}">{% endif %}
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="label">Email</span>
+                        {% if author.email %}</a>{% endif %}
+                    </li>
+                    <li class="team-member-link">
+                        {% if author.twitter %}<a href="https://www.twitter.com/{{ author.twitter }}" target="_blank">{% endif %}
+                        <i class="fa fa-twitter"></i>
+                        <span class="label">Twitter</span>
+                        {% if author.twitter %}</a>{% endif %}
+                    </li>
+                    <li class="team-member-link">
+                        {% if author.github %}<a href="https://www.github.com/{{ author.github }}" target="_blank">{% endif %}
+                        <i class="fa fa-github"></i>
+                        <span class="label">GitHub</span>
+                        {% if author.github %}</a>{% endif %}
+                    </li>
+                    <li class="team-member-link">
+                        {% if author.linkedin %}<a href="https://be.linkedin.com/in/{{ author.linkedin }}" target="_blank">{% endif %}
+                        <i class="fa fa-linkedin"></i>
+                        <span class="label">LinkedIn</span>
+                        {% if author.linkedin %}</a>{% endif %}
+                    </li>
+                </ul>
             </div>
             {% endfor %}
         </section>
