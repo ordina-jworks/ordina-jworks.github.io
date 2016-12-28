@@ -77,8 +77,7 @@ Although they still had to follow a few courses along the way, like the basic pr
 The kickstarters already had learned how to write clean code and how to do this in the best possible way.
 The purpose of the SensyMcSenseFace project was to give the kickstarters a use case where they could develop an end-to-end IoT solution, in which they could test and use their newly acquired skills.
 
-![SensyMcSenseFaceProject]({{ '/img/kickstarters/2016/IoT.jpg' | prepend: site.baseurl }})
-
+<img alt="SensyMcSenseFaceProject" src="{{ '/img/kickstarters/2016/IoT.jpg' | prepend: site.baseurl }}" class="image fit">
 
 ### What did the client request
 
