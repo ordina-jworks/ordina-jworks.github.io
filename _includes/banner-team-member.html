@@ -1,0 +1,14 @@
+{% if page.layout == 'author' %}
+    <div class="banner-team-member-info">
+        {% include team-member-image.html author=page.author %}
+        <div>
+            <div>
+                <span class="team-member-title">{{ page.author.title }}</span>
+                {% if page.author.title2 %}
+                <br /><span class="team-member-title">{{ page.author.title2 }}</span>
+                {% endif %}
+            </div>
+            {% include team-member-links.html author=page.author %}
+        </div>
+    </div>
+{% endif %}

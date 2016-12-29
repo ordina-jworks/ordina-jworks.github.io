@@ -22,6 +22,11 @@ module Jekyll
             
             self.process(@name)
             self.read_yaml(File.join(base, '_layouts'), 'author.html')
+            self.data['layout'] = 'author'
+            self.data['title'] = "#{author['first_name']} #{author['last_name']}"
+            
+            author['posts'] = Array.new(site.posts.docs)
+            author['posts'].keep_if { |post| post.data['authors'].include? author['username'] }
             self.data['author'] = author
         end
     end
