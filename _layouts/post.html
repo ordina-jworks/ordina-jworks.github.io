@@ -2,7 +2,6 @@
 layout: default
 ---
 
-
 <section id="one" class="wrapper spotlight style1">
     <div class="inner" style="text-align: left;">
         <div class="content">
@@ -11,10 +10,9 @@ layout: default
     </div>
 </section>
 
+{% if page.authors != empty %}
 <section id="two" class="wrapper alt spotlight style2">
-    {% for a in page.authors %}
-
-    {% assign author = site.data.authors[a] %}
+    {% for author in page.authors %}
     <div class="inner">
         <a href="{{ author.permalink | prepend: site.baseurl }}" class="image spotlight-image">
             <img src="{{ '/img/author/' | append: author.avatar | prepend: site.baseurl }}"
@@ -29,6 +27,7 @@ layout: default
     </div>
     {% endfor %}
 </section>
+{% endif %}
 
 {% if page.comments %}
 <section id="three" class="wrapper spotlight style3">
