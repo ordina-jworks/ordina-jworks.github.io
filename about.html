@@ -9,48 +9,13 @@ permalink: /about/
             {% for authorEntry in site.data.authors %}
             {% assign author = authorEntry[1] %}
             <div class="team-member">
-                <div class="team-member-image-holder">
-                    <a href="{{ author.permalink | prepend: site.baseurl }}">
-                        <img class="p-image team-member-image" src="{{ '/img/author/' | append: author.avatar | prepend: site.baseurl }}" alt="{{ author.first_name }}" />
-                    </a>
-                </div>
+                {% include team-member-image.html author=author %}
                 <h1 class="team-member-name"><a href="{{ author.permalink | prepend: site.baseurl }}">{{ author.first_name }} {{ author.last_name }}</a></h1>
                 <span class="team-member-title">{{ author.title }}</span>
                 {% if author.title2 %}
                 <span class="team-member-title">{{ author.title2 }}</span>
                 {% endif %}
-                <ul class="team-member-links">
-                    <li class="team-member-link">
-                        {% if author.phone %}<a href="tel:{{ author.phone }}">{% endif %}
-                        <i class="fa fa-phone"></i>
-                        <span class="label">Phone</span>
-                        {% if author.phone %}</a>{% endif %}
-                    </li>
-                    <li class="team-member-link">
-                        {% if author.email %}<a href="mailto:{{ author.email }}">{% endif %}
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="label">Email</span>
-                        {% if author.email %}</a>{% endif %}
-                    </li>
-                    <li class="team-member-link">
-                        {% if author.twitter %}<a href="https://www.twitter.com/{{ author.twitter }}" target="_blank">{% endif %}
-                        <i class="fa fa-twitter"></i>
-                        <span class="label">Twitter</span>
-                        {% if author.twitter %}</a>{% endif %}
-                    </li>
-                    <li class="team-member-link">
-                        {% if author.github %}<a href="https://www.github.com/{{ author.github }}" target="_blank">{% endif %}
-                        <i class="fa fa-github"></i>
-                        <span class="label">GitHub</span>
-                        {% if author.github %}</a>{% endif %}
-                    </li>
-                    <li class="team-member-link">
-                        {% if author.linkedin %}<a href="https://be.linkedin.com/in/{{ author.linkedin }}" target="_blank">{% endif %}
-                        <i class="fa fa-linkedin"></i>
-                        <span class="label">LinkedIn</span>
-                        {% if author.linkedin %}</a>{% endif %}
-                    </li>
-                </ul>
+                {% include team-member-links.html author=author %}
             </div>
             {% endfor %}
         </section>
