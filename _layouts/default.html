@@ -181,8 +181,9 @@
             </ul>
         </div>
     </section>
-
 </div>
+
+<div id="over"></div>
 
 <!-- Scripts -->
 <script src="{{ site.baseurl }}/js/jquery.min.js"></script>
@@ -194,6 +195,16 @@
 <script src="{{ site.baseurl }}/js/util.js"></script>
 <!--[if lte IE 8]>
 <script src="{{ site.baseurl }}/js/ie/respond.min.js"></script><![endif]-->
+
+{% if page.image %}
+<script>
+    var imageHref = "{{ site.baseurl }}{{ page.image }}";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+{% endif %}
+
 <script src="{{ site.baseurl }}/js/main.js"></script>
 
 <!-- Google Analytics -->

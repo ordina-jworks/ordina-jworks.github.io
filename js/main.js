@@ -30,7 +30,7 @@ $(document).ready(function(){
 		if (hidden){
            $(this).next('.b-dropdown-block').slideToggle(400, function(){hidden = false;});
       }
-	}); 
+	});
 	$('html').click(function() {
         if (!hidden) {
             $('.b-dropdown-block').slideUp();
@@ -39,14 +39,14 @@ $(document).ready(function(){
    });
    $('.b-dropdown-block').click(function(event) {
         event.stopPropagation();
-   }); 
+   });
 });
 
 /* ************ */
 /* Owl Carousel */
 /* ************ */
 
-$(document).ready(function() {	
+$(document).ready(function() {
 	/* Owl carousel */
 	$(".owl-carousel").owlCarousel({
 		slideSpeed : 500,
@@ -90,7 +90,7 @@ $(document).ready(function(){
 
 
 	$.fn.menumaker = function(options) {
-      
+
     var cssmenu = $(this), settings = $.extend({
         title: "Menu",
         format: "dropdown",
@@ -98,12 +98,12 @@ $(document).ready(function(){
       }, options);
 
       return this.each(function() {
-		
+
 		cssmenu.prepend('<div id="menu-button">' + settings.title + '</div>');
 		$(this).find("#menu-button").on('click', function(){
 		  $(this).toggleClass('menu-opened');
 		  var mainmenu = $(this).next('ul');
-		  if (mainmenu.hasClass('open')) { 
+		  if (mainmenu.hasClass('open')) {
 			mainmenu.slideUp().removeClass('open');
 		  }
 		  else {
@@ -113,7 +113,7 @@ $(document).ready(function(){
 			}
 		  }
 		});
-		
+
 		cssmenu.find('li ul').parent().addClass('has-sub');
 
 		multiTg = function() {
@@ -131,8 +131,8 @@ $(document).ready(function(){
 
 		if (settings.format === 'multitoggle') multiTg();
 		else cssmenu.addClass('dropdown');
-		
-		
+
+
       });
 	};
 
@@ -201,6 +201,27 @@ $(document).ready(function(){
 				terminate:	function() { $header.removeClass('alt'); },
 				enter:		function() { $header.addClass('alt'); },
 				leave:		function() { $header.removeClass('alt'); }
+			});
+
+		}
+
+		if ($banner.length > 0 && $body.hasClass('toggle')) {
+			$window.on('resize', function() { $window.trigger('scroll'); });
+
+			$banner.scrollex({
+				bottom: $header.outerHeight() - 100,
+				enter: function() {
+					console.log('enter');
+					$body.addClass('custom-image');
+					$body.css("background-image", "url('" + imageHref + "')");
+					$('#over').css("display", "block");
+				},
+				leave: function() {
+					console.log('leave');
+					$body.removeClass('custom-image');
+					$body.css('background-image', '');
+					$('#over').css("display", "none");
+				}
 			});
 
 		}
