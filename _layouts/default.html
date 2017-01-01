@@ -13,13 +13,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% if page.layout == 'post' %}
-    {% assign author = site.data.authors[page.author] %}
-    <!-- Facebook Open Graph -->
-    <meta property="og:url" content="http://ordina-jworks.github.io{{ page.url }}"/>
-    <meta property="og:type" content="article"/>
-    <meta property="og:title" content="{{ page.title }} - {{ author.first_name }} {{ author.last_name }}"/>
-    <meta property="og:description" content="{{ site.title }}"/>
-    <meta property="og:image" content="http://ordina-jworks.github.io{{ page.image }}"/>
+        {% for author in page.authors %}
+            {% capture authors %}{{ authors | default: ' -' }} {{author.first_name}} {{author.last_name}}{% endcapture %}
+            {% if forloop.last != true %}
+                {% if forloop.rindex0 == 1 %}
+                     {% capture authors %}{{ authors }} and{% endcapture %}
+                {% else %}
+                    {% capture authors %}{{ authors }}, {% endcapture %}}
+                {% endif %}
+            {% endif%}
+        {% endfor %}
+        <!-- Facebook Open Graph -->
+        <meta property="og:url" content="http://ordina-jworks.github.io{{ page.url }}"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="{{ page.title }}{% if authors %}{{ authors }}{% endif %}"/>
+        <meta property="og:description" content="{{ site.title }}"/>
+        <meta property="og:image" content="http://ordina-jworks.github.io{{ page.image }}"/>
     {% endif %}
 
     <!-- Styles -->
@@ -102,34 +111,12 @@
                 {% endif %}
 
                 <h2>{{ page.title }}</h2>
+                {% if page.subtitle %}
+                    <p>{{ page.subtitle }}</p>
+                {% endif %}
 
                 {% if page.layout == 'post' %}
-
-                Posted {{ page.date | date: "%b %-d, %Y" }}{% if page.category %} in <a
-                    href="/categories/{{ page.category | downcase | replace:' ','-' }}/">{{ page.category }}</a>{% endif
-                %}
-                {% if page.authors %}
-                by
-                {% for a in page.authors %}
-
-                {% assign author = site.data.authors[a] %}
-                <a href="{{ author.permalink | prepend: site.baseurl }}">{{author.first_name}} {{author.last_name}}</a>{%
-                if forloop.last == false %}{% if forloop.rindex0 == 1 %} and {% else %}, {% endif %}{% endif%}
-                {% endfor %}
-                {% endif %}
-                {% if page.tags %}
-                <br/>
-                <i class="fa fa-tags"></i>
-                {% for tag in page.tags %}
-                <a href="/tags/{{ tag | downcase | replace:' ','-' }}/">{{ tag }}</a>{% if forloop.index <
-                forloop.length %},{% endif %}
-                {% endfor %}
-                {% endif %}
-
-                {% else %}
-
-                <p>{{ page.subtitle }}</p>
-
+                    {% include banner-post.html %}
                 {% endif %}
             
                 {% include banner-team-member.html %}
