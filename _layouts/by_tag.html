@@ -2,79 +2,37 @@
 layout: default
 ---
 
-<!-- blog One -->
-<div class="row">
-    <!-- Mainbar column -->
-    <div class="col-md-9">
-        <header id="post-header">
-            <h4 id="post-subtitle">Posts by tag</h4>
-            <h1 id="post-title">{{ page.tag }}</h1>
-        </header>
+<section id="one" class="wrapper style1">
+    <div class="inner">
+        <div class="content">
+            <section class="features">
 
-        <div class="row blog-masonry">
-            {% for post in site.posts %}
-                {% if post.tags contains page.tag %}
-                    <!-- Grid Item - Image, Heading and Para -->
-                    <div class="item">
-                        <!-- Entry for each grid -->
-                        <div class="grid-entry">
-                            <!-- Grid Image Container -->
-                            <div class="grid-img">
-                                <!-- Image -->
-                                <a href="{{post.url}}" class="read-more"><img src="{{post.image}}" alt=""/></a>
-                            </div>
-                            <!-- Grid entry information -->
-                            <div class="entry-info">
-                                <!-- Heading -->
-                                <h4><a href="{{post.url}}">{{post.title}}</a></h4>
+                {% for post in page.posts %}
+                    <article>
+                        <a href="{{post.url}}"><img src="{{post.image}}" alt="" class="article-image"></a>
 
-                                <div class="bor"></div>
-                                <!-- Paragraph -->
-                                <p>{{post.heading}}</p>
-                                <a href="{{post.url}}" class="read-more">Read More <i class="fa fa-angle-double-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-        <div class="row">
-            <!-- Pagination -->
-            {% if paginator.total_pages > 1 %}
-            <nav class="col-md-9">
-                <ul class="pagination center-block">
-                    {% if paginator.previous_page %}
-                        <li>
-                          <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                          </a>
-                        </li>
-                    {% endif %}
-                    {% for page in (1..paginator.total_pages) %}
-                        {% if page == 1 %}
-                            {% capture url %}
-                                {{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}
-                            {% endcapture %}
-                        {% else %}
-                            {% capture url %}
-                                {{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}
-                            {% endcapture %}
-                        {% endif %}
-                        <li><a href="{{ url }}" {% if page == paginator.page %}class="disabled"{% endif %}>{{ page }}</a></li>
-                    {% endfor %}
-                    {% if paginator.next_page %}
-                        <li>
-                          <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                          </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </nav>
-            {% endif %}
-            <!-- End Pagination -->
+                        <h3 class="major">{{post.title}}</h3>
+
+                        <p>{{ post.date | date_to_string }} {{post.heading}}</p>
+                        <a href="{{post.url}}" class="special">Read more</a>
+                    </article>
+                {% endfor %}
+
+            </section>
         </div>
     </div>
+</section>
 
-    {% include sidebar.html %}
-</div>
+{% if page.other_tags != empty %}
+    <section id="two" class="wrapper alt style2">
+        <div class="inner">
+            <div class="content">
+                <h2 class="major">Other tags</h2>
+
+                {% for tag in page.other_tags %}
+                    <a href="/tags/{{ tag.permalink }}">{{ tag.title }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endif %}

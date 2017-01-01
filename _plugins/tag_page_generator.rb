@@ -16,12 +16,32 @@ module Jekyll
         def initialize( site, base, tag )
             @site = site
             @base = base
-            @dir = "tags/#{tag.downcase.gsub(' ','-')}"
+            @dir = getPermalink(tag)
             @name = "index.html"
             
             self.process(@name)
             self.read_yaml(File.join(base, '_layouts'), 'by_tag.html')
-            self.data['tag'] = tag
+            self.data['layout'] = 'by_tag'
+            self.data['title'] = "#{tag}"
+            self.data['subtitle'] = 'Posts by tag'
+            
+            self.data['posts'] = Array.new
+            site.posts.docs.each{ |post|
+                if post.data['tags'].include? tag
+                    self.data['posts'].push(post)
+                end
+            }
+            
+            self.data['other_tags'] = Array.new
+            site.tags.each_key{ |t|
+                if t != tag and not self.data['other_tags'].include? tag
+                    self.data['other_tags'].push({ 'title' => t, 'permalink' => getPermalink(t) })
+                end
+            }
+        end
+        
+        def getPermalink( tag )
+            return "/tags/#{tag.downcase.gsub(' ','-')}"
         end
     end
     
