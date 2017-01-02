@@ -180,9 +180,8 @@ The other point is that when designing your own API you will also have to deal w
 # 3 Years to Mature
 
 It took Spring Reactor 3 years to mature.
-<p style="text-align: center;">
-  <img alt="Spring Reactor Timeline" src="/img/reactive/spring-reactor-timeline.png">
-</p>
+
+<img alt="Spring Reactor Timeline" src="/img/reactive/spring-reactor-timeline.png" class="image fit">
 
 2.0 was not side effect free - also existential questions were raised around the project. 
 At the same time Spring evolved and microservices became the norm.
