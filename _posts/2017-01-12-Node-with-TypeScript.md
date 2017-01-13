@@ -97,6 +97,30 @@ A lot of common development tools have support for TypeScript syntax checking. T
 - Visual Studio Code
 - ...
 
+</br></br>
+As Node applications regularly use other NPM dependencies it is required for the TypeScript compiler to know about these dependencies and what types they use.
+You could make or generate these typings yourself, however you can easily find these typings on [TypeSearch](https://microsoft.github.io/TypeSearch/) website. 
+The most commonly used dependencies have their typings available here!
+</br>
+
+You can add the typings to the dependencies in the package.json file.
+    {% highlight json %}
+    
+    "dependencies": {
+        "typescript": "2.0.8",
+    
+        "@types/node": "0.0.2",
+        "@types/mime": "0.0.29",
+        "@types/johnny-five": "0.0.30",
+        "@types/serialport": "4.0.6",
+    
+        "mime": "1.3.4",
+        "johnny-five": "0.10.6",
+        "serialport": "4.0.7"
+    }
+       
+    {% endhighlight %}
+
 ### Making it all work: An example
 
 A few years back I started working on my own server application to host some web content and provide REST services. The code was written in JavaScript and ran on a Raspberry Pi 2 (by now a pi 3).
@@ -109,3 +133,118 @@ This is the application that will be detailed below!
 
 ## Node Simple Server: High level architecture
 
+<p style="text-align: center;">
+  <img alt="High level architecture" src="/img/node-with-typescript/high-level-arch.png">
+</p>
+
+The Application starts in app.ts under the main src folder. This is the entry point for the application. This file contains the actual master instance code.
+The master instance is in charge of forking the workers and reviving them if they die. The master is also used to pass messages between the workers For this a specialized MessageHandler singleton is used.
+This MessageHandler instance (one per worker) is used to relay messages. The master instance itself will not execute any application logic. Its purpose is to manage the other workers and be the message bridge.
+</br></br>
+
+    {% highlight typescript %}
+    
+    /**
+     * Forks the workers, there will always be one DataBroker and one IntervalWorker.
+     * HTTPWorker will be created based on the number of cpu cores. If less than two cores are available
+     * two http workers will be created.
+     */
+    private forkWorkers = (): void =>{
+        //Fork data broker.
+        this.databroker = cluster.fork({name: 'broker', debug: this.isDebug});
+
+        //Fork interval worker.
+        this.intervalWorker = cluster.fork({name: 'interval', debug: this.isDebug});
+
+        //Fork normal server worker instances. These will handle all HTTP requests.
+        let cores:number                = os.cpus().length;
+        let numberOfHttpWorkers:number  = cores - 2 > 0 ? cores - 2 : 1;
+        console.log('There are ' + cores + ' cores available, starting ' + numberOfHttpWorkers + ' HTTP workers...');
+
+        for (let i:number = 0; i < numberOfHttpWorkers; i++) {
+            let worker = cluster.fork({name: 'http', debug: this.isDebug});
+            this.httpWorkers.push(worker);
+        }
+
+        //Revive workers if they die!
+        if(!this.isDebug) {
+            cluster.on('exit', this.reviveWorker);
+        }
+    };
+
+    {% endhighlight %}
+
+The master will create a number of workers:
+- HttpWorker: Each HttpWorker is an endpoint for requests to be received. There will always be a minimum of two HttpWorkers created. If more CPU cores are available, more HttpWorkers are created.
+- DataBroker: For the application there is one DataBroker worker instance. This worker handles CRUD operations for data (for now in memory only).
+- IntervalWorker: For the application there is one IntervalWorker instance. This worker can run code periodically and is used to connect to other devices such as Arduino's and the Raspberry Pi I/O pins.
+</br>
+These workers are created by a WorkerFactory, as the master forks new Node instances, a process variable is set, the factory uses this to see which type the node instance should become.
+Each type of worker instance implements the basic NoeWorker interface. Each implementation will be detailed below.
+
+## Handling HTTP requests: The HttpWorker
+Each HttpWorker instance will create a Server instance. This instance will be used to receive HTTP requests. Node will automatically load balance requests between all instances that register a server on the same port.
+Simply put all HttpWorkers compete for the next request, the least burdened process (depending on OS/CPU process affinity) will be given the next Http request to handle.
+
+The Server class will also register the endpoints that are known to the application and can be handled. 
+The EndpointManager is used to register endpoints. An EndPoint has a path, a method to execute and optional parameters.
+A Parameter is provided with a Generic type for compile time type checking, a name which should be used in the url, a description that provides information what the parameter should contain and an optional ParameterValidator.
+A ParameterValidator is used to validate the parameter at runtime. If the check fails an error is shown to the user.
+
+    {% highlight typescript %}
+    
+    /**
+     * Maps the default endpoints.
+     * Endpoints can always be added at any other location and point in time.
+     * This can be done by getting the instance of the EndPointManager and calling the registerEndpoint method.
+     */
+    private mapRestEndpoints = (): void => {
+        this.endpointManager.registerEndpoint(
+            new EndPoint(
+                '/',
+                GenericEndpoints.index,
+                null
+            )
+        );
+        this.endpointManager.registerEndpoint(
+            new EndPoint(
+                '/endpoints',
+                GenericEndpoints.listEndpoints,
+                null
+            )
+        );
+        this.endpointManager.registerEndpoint(
+            new EndPoint(
+                '/helloworld',
+                GenericEndpoints.helloworld,
+                [new Parameter<string, null, null>('name', 'string field containing the name', new HelloWorldValidatorImpl())]
+            )
+        );
+
+        this.endpointManager.registerEndpoint(
+            new EndPoint(
+                '/arduino/setArduinoMethod',
+                ArduinoEndpoint.setArduinoMethod,
+                [new Parameter<string, null, null>('method', 'string field that contains the method used for adruino implementations', new ArduinoMethodValidatorImpl())]
+            )
+        );
+    };
+
+    {% endhighlight %}
+    
+</br></br>
+The Server instance forwards all requests to the Router instance. As the name suggests this will perform the routing. It will see if a resource is requested or and endpoint has been called.
+If a resource is requested it will be served if found. If an endpoint has been called, that endpoint will be executed and passed the parameters that were entered, but only after the correct amount of parameters has been passed and they are all valid.
+
+## Handling HTTP requests: The DataBroker
+
+## Handling HTTP requests: The IntervalWorker
+
+## Inter Process Messaging: Communicating between different Node instances
+
+### Final words
+In conclusion; It is perfectly possible to make a more complex application for NodeJS with TypeScript. By using TypeScript you gain compile time type checking and a more robust and better readable codebase.
+Fewer errors and strange bugs are encountered because TypeScript 'forces' you to write better code.
+</br></br>
+The Node Simple Server application was a great way to learn the 'new' TypeScript language. The project is not finished, as some parts could use some more work, but it should stand as a solid starting point.
+Feel free to fork the codebase, submit issues or start some discussion.
