@@ -232,7 +232,6 @@ A ParameterValidator is used to validate the parameter at runtime. If the check 
 
     {% endhighlight %}
     
-<br/><br/>
 The Server instance forwards all requests to the Router instance. As the name suggests this will perform the routing. It will see if a resource is requested or and endpoint has been called.
 If a resource is requested it will be served if found. If an endpoint has been called, that endpoint will be executed and passed the parameters that were entered, but only after the correct amount of parameters has been passed and they are all valid.
 
@@ -293,6 +292,7 @@ The IPCMessage instances that are sent exist in two forms.
 - IPCRequest: This is the initial message that is sent to a target.
 - IPCReply: This is the response (if any) from the target back to the original caller.
 <br/><br/>
+
 This allows for easy two way communication and identification whether the message was a reply to an earlier message. 
 Messages can be sent with or without a callback. The callback is executed when a reply to the original message is received. 
 Because only basic data types can be sent across Node instances the MessageManager instance of the caller stores the callback reference and generates an unique id for said callback. 
@@ -399,7 +399,7 @@ This allows the application to send the callback ID across Node instances and ex
     
     {% endhighlight %}
     
-    <br/><br/>
+    <br/> <br/> 
     
     {% highlight typescript %}
     
@@ -561,7 +561,9 @@ This allows the application to send the callback ID across Node instances and ex
     }
     
     {% endhighlight %}    
-    
+
+Every worker has an instance of the MessageHanler, it in its turn has an event emitter on which events from the messages are broadcast. 
+The actual worker implementations register themselves on the emitter to receive said events.
 In a future version the message handling should be split up, because now a single file (with an instance on each Node instance) handles both master and slave messages.
 
 ### Final words
