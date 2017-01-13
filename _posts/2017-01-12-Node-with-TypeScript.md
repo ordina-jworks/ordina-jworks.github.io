@@ -8,7 +8,7 @@ category: IoT
 comments: true
 ---
 
->NodeJS is a fantastic runtime to quickly and easily make projects. However as these projects tend to grow larger and larger the shortcomings of JavaScript become more and more visible.
+>NodeJS is a fantastic runtime to quickly and easily make projects. However as these projects tend to grow larger and larger, the shortcomings of JavaScript become more and more visible.
 This blog post will take a look at using TypeScript to write your Node code making it much more readable, introducing more OO like concepts whilst also making your code less error prone.
 
 ### NodeJS and its use cases
@@ -237,10 +237,332 @@ The Server instance forwards all requests to the Router instance. As the name su
 If a resource is requested it will be served if found. If an endpoint has been called, that endpoint will be executed and passed the parameters that were entered, but only after the correct amount of parameters has been passed and they are all valid.
 
 ## Handling HTTP requests: The DataBroker
+The Data broker is the Node instance in the application that will save and retrieve data. For the time being it is sufficient to only have in memory 'caches' on which basic CRUD operations can be performed.
+All methods on the DataBroker are called by sending an IPCRequest with the data that needs to be saved of the instruction for what data should be retrieved. 
+The DataBroker will reply to the original worker by sending an IPCReply with the result of the operation.
+
+The DataBroker for now only has a concept of caches. A cache has a name, type and values (of said type). Values can be retrieved, added, updated and deleted from the caches.
+Caches can be retrieved, added and deleted at runtime.
 
 ## Handling HTTP requests: The IntervalWorker
+The IntervalWorker as its name suggest performs task at a certain interval. It is also used for other asynchronous tasks, such as connecting to an Arduino and running Arduino/Raspberry pi Johhny-Five scenarios.
+The IntervalWorker is handy when you need for example to update the content of a cache every so often. 
+<br/><br/>
+It can also run Arduino Scenarios. These are Implementations that contain logic to perform actions on the Arduino or in response to something that happens on the Arduino.
+The IntervalWorker picks up what type of Arduino Scenario you want to run and starts the logic.
+
+    {% highlight typescript %}
+    
+    /**
+     * Sets up the connection to the Arduino and starts the desired Arduino Scenario.
+     */
+    private setupArduino = (): void => {
+        if(this.config.arduino.enableArduino) {
+
+            if(this.config.arduino.useSerialOverJohnnyFive) {
+                this.arduino = new ArduinoSerial(
+                    this.config.arduino.serialPortName,
+                    this.config.arduino.serialPortBaudRate,
+                    new PingScenario()
+                );
+            } else {
+                this.arduino = new ArduinoJohnny(new BlinkScenario());
+            }
+            this.arduino.init();
+        } else {
+            console.log('Skipping arduino setup, disabled in settings!');
+        }
+    };
+
+    {% endhighlight %}
+
+There are two Arduino implementations available. Both can execute a Scenario. 
+The first and simples implementation is the Johnny-Five Arduino implementation. This allows you to make use of the Johnny-Five framework to write dynamic code for the Arduino that can change at runtime.
+This is possible because it uses the StandardFirmata firmware. Johnny-Five supports a lot of components and peripherals. [Their website](http://johnny-five.io/api/) has extensive documentation and very clear examples.
+Johnny-Five also supports the Raspberry PI I/O pins. This allows it to be used on a Raspberry pi also.
+<br/>
+The second Arduino implementation uses no framework and communication is done via regular serial. In the type of Scenarios you have to handle all the serial communication yourself. You also have to write
+Arduino firmware and thus it cannot be dynamically updated at runtime. Use this Arduino implemenation if some component is incompatible or not supported by Johnny-Five.
 
 ## Inter Process Messaging: Communicating between different Node instances
+Having all these different worker instances is quite handy. 
+However they are of not much use if there cannot be any communication between them. Each Node instance has its own allocated memory and cannot access variables or call methods on other instances.
+The Node cluster and process framework provide the option to send messages between Node instances.
+<br/><br/>
+The IPCMessage instances that are sent exist in two forms.
+- IPCRequest: This is the initial message that is sent to a target.
+- IPCReply: This is the response (if any) from the target back to the original caller.
+<br/><br/>
+This allows for easy two way communication and identification whether the message was a reply to an earlier message. 
+Messages can be sent with or without a callback. The callback is executed when a reply to the original message is received. 
+Because only basic data types can be sent across Node instances the MessageManager instance of the caller stores the callback reference and generates an unique id for said callback. 
+This allows the application to send the callback ID across Node instances and execute it when it arrives back at the caller.
+
+    {% highlight typescript %}
+    
+    /**
+         * MessageManager singleton class.
+         * This class has an array of tuples of string and Function.
+         * The string field is the callbackId and the Function is the actual callback.
+         * The message manager is a per worker instance that can only execute callbacks on the same worker.
+         * The integration with the IPC framework allows messages to be sent to other workers and replies to be sent back to the original worker.
+         * It is important that the original worker is called to execute the callback since a function cannot cross a node instance!
+         *
+         * This singleton can be used to manage IPC messages.
+         */
+        export class MessageManager {
+        
+            private static instance: MessageManager         = null;
+            private callbacks: Array<[string, Function]>    = null;
+            private workerId: string                        = null;
+        
+            /**
+             * Private constructor for the singleton.
+             */
+            private constructor() {
+                this.callbacks = [];
+                this.workerId = cluster.worker.id;
+            }
+        
+            /**
+             * Use this method to get the instance of this singleton class.
+             *
+             * @returns {MessageManager} The instance of this singleton class.
+             */
+            public static getInstance(): MessageManager {
+                if(!MessageManager.instance) {
+                    MessageManager.instance = new MessageManager();
+                }
+                return MessageManager.instance;
+            }
+        
+            /**
+             * Sends an IPCMessage of the subtype IPCRequest to the given MessageTarget (one of the three worker types).
+             * A target function is also given and contains the name of the function that will be executed on the target.
+             * The target should implement a specific handler or switch statement to handle these different target function names.
+             * This message is sent without a callback. This means that when the target function has finished no reply will be sent to inform the caller.
+             *
+             * @param payload The payload for the target, can be of any kind.
+             * @param messageTarget The MessageTarget, being one of the three types of workers.
+             * @param targetFunctionName The name of the function to be executed on the target. This value is NOT evaluated by eval for security reasons.
+             */
+            public sendMessage(payload: any, messageTarget: MessageTarget, targetFunctionName: string): void {
+                let message: IPCMessage = new IPCRequest(this.workerId, null, payload, messageTarget, targetFunctionName);
+                process.send(message);
+            }
+        
+            /**
+             * Sends an IPCMessage of the subtype IPCRequest to the given MessageTarget (one of the three worker types).
+             * A target function is also given and contains the name of the function that will be executed on the target.
+             * The target should implement a specific handler or switch statement to handle these different target function names.
+             * This message is sent with a callback. The callee sends a new IPCMessage of the subtype IPCReply to inform the caller and provide it with new information if needed.
+             * A reply can be sent by using the sendReply method on this class.
+             *
+             * @param payload The payload for the target, can be of any kind.
+             * @param callback The function that should be called when a reply has been received.
+             * @param messageTarget The MessageTarget, being one of the three types of workers.
+             * @param targetFunctionName The name of the function to be executed on the target. This value is NOT evaluated by eval for security reasons.
+             */
+            public sendMessageWithCallback(payload: any, callback: Function, messageTarget: MessageTarget, targetFunctionName: string): void {
+                let callbackId: string = process.hrtime()  + "--" + (Math.random() * 6);
+                this.callbacks.push([callbackId, callback]);
+        
+                let message: IPCMessage = new IPCRequest(this.workerId, callbackId, payload, messageTarget, targetFunctionName);
+                process.send(message);
+            }
+        
+            /**
+             * Sends and IPCMessage of the subtype IPCReply to the sender of the original message.
+             *
+             * @param payload A new payload to provide to the original sender.
+             * @param originalMessage The message the sender originally sent.
+             */
+            public sendReply(payload: any, originalMessage: IPCRequest): void {
+                let reply: IPCMessage = new IPCReply(this.workerId, payload, originalMessage);
+                process.send(reply);
+            }
+        
+            /**
+             * For a given callbackId execute the callback function.
+             *
+             * @param callbackId The callbackId for which to execute the callback function.
+             */
+            public executeCallbackForId(callbackId: string) :void {
+                for (let callbackEntry of this.callbacks) {
+                    if(callbackEntry[0] == callbackId) {
+                        callbackEntry[1]();
+                        return;
+                    }
+                }
+            }
+        }
+    
+    {% endhighlight %}
+    
+    <br/><br/>
+    
+    {% highlight typescript %}
+    
+    /**
+     * MessageHandler singleton class.
+     *
+     * This singleton can be used to handle IPC messages.
+     */
+    export class MessageHandler {
+    
+        private static instance: MessageHandler         = null;
+        private dataBroker : cluster.Worker             = null;
+        private intervalWorker : cluster.Worker         = null;
+        private httpWorkers : Array<cluster.Worker>     = null;
+        public emitter: EventEmitter                    = null;
+    
+        /**
+         * Private constructor for the singleton.
+         */
+        private constructor() {
+    
+        }
+    
+        /**
+         * Use this method to get the instance of this singleton class.
+         *
+         * @returns {MessageHandler} The instance of this singleton class.
+         */
+        public static getInstance(): MessageHandler {
+            if(!MessageHandler.instance) {
+                MessageHandler.instance = new MessageHandler();
+            }
+            return MessageHandler.instance;
+        }
+    
+        /**
+         * Initialises the MessageHandler for being a handler for the master NodeJS process.
+         *
+         * @param dataBroker The DataBroker worker instance.
+         * @param intervalWorker The IntervalWorker worker instance.
+         * @param httpWorkers The HTTPWorker worker instance.
+         */
+        public initForMaster = (dataBroker: cluster.Worker, intervalWorker: cluster.Worker, httpWorkers: Array<cluster.Worker>): void => {
+            this.dataBroker     = dataBroker;
+            this.intervalWorker = intervalWorker;
+            this.httpWorkers    = httpWorkers;
+    
+            this.emitter        = new EventEmitter();
+        };
+    
+        /**
+         * Initialises the MessageHandler for being a handler for a slave (worker) NodeJS process.
+         */
+        public initForSlave = (): void => {
+            this.emitter        = new EventEmitter();
+        };
+    
+        /*-----------------------------------------------------------------------------
+         ------------------------------------------------------------------------------
+         --                         MASTER MESSAGE HANDLING                          --
+         ------------------------------------------------------------------------------
+         ----------------------------------------------------------------------------*/
+        //TODO: Separate master and slave message handling?
+    
+        /**
+         * Handler function for messages sent by HTTPWorkers.
+         * Forwards the message to the target.
+         *
+         * @param msg The IPCMessage as sent by an HTTPWorker.
+         */
+        public onServerWorkerMessageReceived = (msg: IPCMessage): void => {
+            console.log('Message received from server worker');
+            this.targetHandler(msg);
+        };
+    
+        /**
+         * Handler function for the messages sent by the IntervalWorker.
+         * Forwards the message to the target.
+         *
+         * @param msg The IPCMessage as sent by the IntervalWorker.
+         */
+        public onIntervalWorkerMessageReceived = (msg: IPCMessage): void => {
+            console.log('Message received from interval worker');
+            this.targetHandler(msg);
+        };
+    
+        /**
+         * Handler function for the messages sent by the DataBroker.
+         * Forwards the message to the target.
+         *
+         * @param msg The IPCMessage as sent by the DataBroker.
+         */
+        public onDataBrokerMessageReceived = (msg: IPCMessage): void => {
+            console.log('Message received from data broker');
+            cluster.workers[msg.workerId].send(msg);
+        };
+    
+        /**
+         * This method is used to direct the IPCMessage to the correct target as specified in the message.
+         * This handler makes a distinction between messages of the types IPCRequest and IPCReply.
+         *
+         * @param msg The IPCMessage that is to be forwarded to the correct target.
+         */
+        private targetHandler = (msg: IPCMessage) => {
+            if(msg.type == IPCMessage.TYPE_REQUEST) {
+                let m: IPCRequest = <IPCRequest> msg;
+                console.log('Master received request');
+    
+                switch (m.target){
+                    case MessageTarget.DATA_BROKER:
+                        this.dataBroker.send(msg);
+                        break;
+                    case MessageTarget.INTERVAL_WORKER:
+                        this.intervalWorker.send(msg);
+                        break;
+                    case MessageTarget.HTTP_WORKER:
+                        let index: number = Math.round(Math.random() * this.httpWorkers.length) - 1;
+                        index = index === -1 ? 0 : index;
+                        this.httpWorkers[index].send(msg);
+                        break;
+                    default:
+                        console.error('Cannot find message target: ' + m.target);
+                }
+    
+            } else if(msg.type == IPCMessage.TYPE_REPLY) {
+                let m: IPCReply = <IPCReply>msg;
+                console.log('Master received reply!');
+    
+                cluster.workers[m.originalMessage.workerId].send(msg);
+            }
+        };
+    
+        /*-----------------------------------------------------------------------------
+         ------------------------------------------------------------------------------
+         --                          SLAVE MESSAGE HANDLING                          --
+         ------------------------------------------------------------------------------
+         ----------------------------------------------------------------------------*/
+    
+        /**
+         * Handler function for the messages sent by the Master NodeJS process.
+         * This handler makes a distinction between messages of the types IPCRequest and IPCReply.
+         *
+         * @param msg The IPCMessage as passed on by the master process.
+         */
+        public onMessageFromMasterReceived = (msg: IPCMessage): void => {
+            if(msg.type == IPCMessage.TYPE_REQUEST) {
+                let m: IPCRequest = <IPCRequest>msg;
+    
+                console.log('[id:' + cluster.worker.id  + '] Received request from master: routing to: ' + MessageTarget[m.target] + '.' + m.targetFunction);
+                this.emitter.emit(MessageTarget[m.target] + '', m);
+    
+            } else if(msg.type == IPCMessage.TYPE_REPLY) {
+                let m: IPCReply = <IPCReply>msg;
+                console.log('Slave received reply!');
+    
+                MessageManager.getInstance().executeCallbackForId(m.originalMessage.callbackId);
+            }
+        };
+    }
+    
+    {% endhighlight %}    
+    
+In a future version the message handling should be split up, because now a single file (with an instance on each Node instance) handles both master and slave messages.
 
 ### Final words
 In conclusion; It is perfectly possible to make a more complex application for NodeJS with TypeScript. By using TypeScript you gain compile time type checking and a more robust and better readable codebase.
