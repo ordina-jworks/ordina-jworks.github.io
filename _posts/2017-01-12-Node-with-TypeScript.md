@@ -21,16 +21,16 @@ NodeJS has many use cases, it is an easy to pickup and use runtime. It uses goog
 The user does not have to worry about threading, that is taken care off by the runtime. You write your code and make use of the many asynchronous operations provided by Node.
 This will take care of any multithreading for you. However as you will read later in this blog post, making use of multiple Node instances to divide work is still possible!
 More on that later!
-</br></br>
+<br/><br/>
 Node can be used for a variety of tasks:
 - Small yet efficient web server
 - Code playground, test something out quickly
 - Automation and tooling, instead of using ruby/python/...
 - IoT, Raspberry pi's and other devices that can run Node!
 
-</br></br>
+<br/><br/>
 However you should not use node for computationally heavy tasks! While the V8 engine is highly performant, there are other much more performant options available for computationally heavy operations!
-</br></br>
+<br/><br/>
 This blog post is not meant for people who have no NodeJS experience! Below are some resources for those that are new to the platform:
 - [The main NodeJS website](https://nodejs.org/en/)
 - [The Node Package Manager](https://docs.npmjs.com/)
@@ -46,7 +46,7 @@ Since NodeJS uses Google's V8 JavaScript engine, it speaks for itself that node 
 While it is an easy language to pick up, it can be hard to master, javascript has always had some quirks and getting to know and how to avoid these can be tricky!
 It also does not require any compilation, which makes running your code very easy. However this also removes any help from the compiler as no compile time checks are performed.
 No type checking, no checking for illogical structures or things that will just not work.
-</br></br>
+<br/><br/>
 Code for Node can be run by simple opening a command prompt or terminal window and typing     
     {% highlight shell %}
     
@@ -55,14 +55,14 @@ Code for Node can be run by simple opening a command prompt or terminal window a
     {% endhighlight %}
 This will start a Node instance and present you with an interpreter. You can now type commands and press return to execute them.
 This can be handy to test something quickly.
-</br></br>
+<br/><br/>
 It is also possible to run a JavaScript file directly. This can be done via:
     {% highlight shell %}
     
     node path/to/javascript-file.js 
        
     {% endhighlight %}
-</br>
+<br/>
 However most of the time you will not be using this way of running code. Most of the time you will use npm to install your dependencies and start the node instance:
     {% highlight shell %}
     
@@ -83,12 +83,12 @@ This reads the package.json file and executes the scripts contained inside it.
 TypeScript has been around for some years now. It can be seen as a superset of JavaScript. It uses the same syntax but adds among other things compile time type checking. 
 It also adds a more Object Oriented model. A detailed explenation of the differences of the prototype based JavaScript and a more Object Oriented language can be found on the 
 [Mozilla Developer website](https://developer.mozilla.org/nl/docs/Web/JavaScript/Guide/Details_of_the_Object_Model)
-</br></br>
+<br/><br/>
 
 [TypeScript developed mainly by Microsoft](https://www.typescriptlang.org/) and is completely open source! This means developers can make suggestion and report bugs (and even fix these bugs if they want).
 > TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. Any browser. Any host. Any OS. Open source.
 
-</br></br>
+<br/><br/>
 [TypeScript is very well documented](https://www.typescriptlang.org/docs/tutorial.html) and getting started with the language is fairly easy. 
 A lot of common development tools have support for TypeScript syntax checking. These include but are not limited to:
 - Intellij
@@ -97,11 +97,11 @@ A lot of common development tools have support for TypeScript syntax checking. T
 - Visual Studio Code
 - ...
 
-</br></br>
+<br/><br/>
 As Node applications regularly use other NPM dependencies it is required for the TypeScript compiler to know about these dependencies and what types they use.
 You could make or generate these typings yourself, however you can easily find these typings on [TypeSearch](https://microsoft.github.io/TypeSearch/) website. 
 The most commonly used dependencies have their typings available here!
-</br>
+<br/>
 
 You can add the typings to the dependencies in the package.json file.
     {% highlight json %}
@@ -140,7 +140,7 @@ This is the application that will be detailed below!
 The Application starts in app.ts under the main src folder. This is the entry point for the application. This file contains the actual master instance code.
 The master instance is in charge of forking the workers and reviving them if they die. The master is also used to pass messages between the workers For this a specialized MessageHandler singleton is used.
 This MessageHandler instance (one per worker) is used to relay messages. The master instance itself will not execute any application logic. Its purpose is to manage the other workers and be the message bridge.
-</br></br>
+<br/><br/>
 
     {% highlight typescript %}
     
@@ -178,7 +178,7 @@ The master will create a number of workers:
 - HttpWorker: Each HttpWorker is an endpoint for requests to be received. There will always be a minimum of two HttpWorkers created. If more CPU cores are available, more HttpWorkers are created.
 - DataBroker: For the application there is one DataBroker worker instance. This worker handles CRUD operations for data (for now in memory only).
 - IntervalWorker: For the application there is one IntervalWorker instance. This worker can run code periodically and is used to connect to other devices such as Arduino's and the Raspberry Pi I/O pins.
-</br>
+<br/>
 These workers are created by a WorkerFactory, as the master forks new Node instances, a process variable is set, the factory uses this to see which type the node instance should become.
 Each type of worker instance implements the basic NoeWorker interface. Each implementation will be detailed below.
 
@@ -232,7 +232,7 @@ A ParameterValidator is used to validate the parameter at runtime. If the check 
 
     {% endhighlight %}
     
-</br></br>
+<br/><br/>
 The Server instance forwards all requests to the Router instance. As the name suggests this will perform the routing. It will see if a resource is requested or and endpoint has been called.
 If a resource is requested it will be served if found. If an endpoint has been called, that endpoint will be executed and passed the parameters that were entered, but only after the correct amount of parameters has been passed and they are all valid.
 
@@ -245,6 +245,6 @@ If a resource is requested it will be served if found. If an endpoint has been c
 ### Final words
 In conclusion; It is perfectly possible to make a more complex application for NodeJS with TypeScript. By using TypeScript you gain compile time type checking and a more robust and better readable codebase.
 Fewer errors and strange bugs are encountered because TypeScript 'forces' you to write better code.
-</br></br>
+<br/><br/>
 The Node Simple Server application was a great way to learn the 'new' TypeScript language. The project is not finished, as some parts could use some more work, but it should stand as a solid starting point.
 Feel free to fork the codebase, submit issues or start some discussion.
