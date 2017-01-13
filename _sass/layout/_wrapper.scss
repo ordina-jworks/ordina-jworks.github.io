@@ -10,7 +10,7 @@
 /// @param {string} $color Color.
 @mixin wrapper-edges-color($color: black) {
   &:before, &:after {
-    background-image: svg-url('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="0,100 100,0 100,100" style="fill:#{$color};" /></svg>');
+    background-image: svg-url('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="-5,100 100,0 100,100" style="fill:#{$color};" /></svg>');
   }
 }
 
@@ -154,9 +154,11 @@
     &.post-body{
       background-color: _palette(bg-post);  
       @include wrapper-edges-color(_palette(bg-post));
+      border-top: solid _palette(bg-post);
     }
     @include wrapper-edges-color(_palette(accent));
     background-color: _palette(accent);
+    border-top: solid _palette(accent);
 
     .inner {
       @include vendor('display', 'flex');
