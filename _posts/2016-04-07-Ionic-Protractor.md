@@ -58,9 +58,16 @@ If you want to know more about the CLI you can find it in [the Ionic documentati
 At this moment you are set up with an Ionic starter app.
 The first thing I did was refactor the code from technical to functional modules.
 
-![Technical modules]({{ '/img/2016-04-07-ionic-protractor/technical.jpg' | prepend: site.baseurl }})
- -->
-![Functional modules]({{ '/img/2016-04-07-ionic-protractor/functional.jpg' | prepend: site.baseurl }})
+<div class="row">
+    <div class="4u">
+        <img class="image fit" src="{{ '/img/2016-04-07-ionic-protractor/technical.jpg' | prepend: site.baseurl }}" alt="Technical modules" />
+    </div>
+    <div class="1u align-center">--></div>
+    <div class="4u$">
+        <img class="image fit" src="{{ '/img/2016-04-07-ionic-protractor/functional.jpg' | prepend: site.baseurl }}" alt="Functional modules" />
+    </div>
+</div>
+
 
 > I strongly advise to use functional modules, it's easier to work with.
 

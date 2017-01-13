@@ -22,7 +22,7 @@ Before I go any further, let's start explaining what CQRS really is. It’s all 
 
 We can apply CQRS principles in many levels of our application, but when people talk about CQRS they are really speaking about applying the CQRS pattern to the object that represents the service boundary of the application. The following example illustrates this.
 
-![CQRS]({{ '/img/cqrs/customerservice.png' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/cqrs/customerservice.png' | prepend: site.baseurl }}" alt="CQRS" />
 
 Although this doesn’t seem very interesting to do at first, architecturally we can do many interesting things by applying this pattern:
 
@@ -86,7 +86,7 @@ Greg concluded with a quote of Ernest Hemingway.
 
 Greg wrote a book about this matter, called [Event Centric - Finding Simplicity in Complex Systems](http://www.amazon.com/Event-Centric-Simplicity-Addison-Wesley-Signature/dp/0321768221). In this book, he explains how to use DDD with Command-Query Responsibility Separation to select the right design solutions and make them work in the real world.
 
-![Event Centric]({{ '/img/cqrs/event-centric.png' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/cqrs/event-centric.png' | prepend: site.baseurl }}" alt="Event Centric" />
 <br/>
 <br/>
 
