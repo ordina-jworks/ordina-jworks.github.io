@@ -30,7 +30,7 @@ comments: true
 
 On 5 October 2016, we had the pleasure to welcome Stephane Maldini at our [JOIN event](https://ordina-jworks.github.io/conferences/2016/09/27/JOIN-2016.html).
 
-<img class="float-image p-image" src="{{ '/img/stephane-maldini.jpeg' | prepend: site.baseurl }}" alt="Stephane Maldini" style="width: 100px"/>
+<span class="image left"><img class="p-image" src="{{ '/img/stephane-maldini.jpeg' | prepend: site.baseurl }}" alt="Stephane Maldini" style="width: 100px"/></span>
 
 A multi-tasker eating tech 24/7, Stephane is interested in cloud computing, data science and messaging.
 Leading the Reactor Project, Stephane Maldini is on a mission to help developers create reactive and efficient architectures on the JVM and beyond.

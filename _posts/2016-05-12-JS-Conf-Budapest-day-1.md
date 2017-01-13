@@ -55,7 +55,7 @@ After taking our seat, we played the waiting game and all of a sudden, we got th
 
 ## Day 1: Morning
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-seldo.jpg">
+<span class="image left"><img class="p-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-seldo.jpg"></span>
 
 ### Laurie Voss: What everybody should know about npm
 
@@ -224,7 +224,7 @@ It takes things you have to do all the time and makes things simpler and faster.
 ****
 
 
-<img class="p-image float-image" width="200" alt="Safia Abdalla" src="/img/js-conf-budapest/speaker-captainsafia.jpg">
+<span class="image left"><img class="p-image" width="200" alt="Safia Abdalla" src="/img/js-conf-budapest/speaker-captainsafia.jpg"></span>
 
 ### Safia Abdalla: The Hitchhiker's Guide to All Things Memory in Javascript
 
@@ -318,7 +318,7 @@ Follow this [interactive tutorial](https://nbdev.surge.sh/#/gist/21885286a207c05
 ****
 
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-bcrypt.jpg">
+<span class="image left"><img class="p-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-bcrypt.jpg"></span>
 
 ### Yan Zhu: Encrypt the web for $0
 
@@ -394,7 +394,7 @@ Manually setting up your free HTTPS certificates from Let's Encrypt is also an o
 ****
 
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-mishunov.jpg">
+<span class="image left"><img class="p-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-mishunov.jpg"></span>
 
 ### Denys Mishunov: Why performance matters
 
@@ -464,7 +464,7 @@ You can move the active phase forward by making use of:
 
 ## Day 1 afternoon
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-princi_ya.jpg">
+<span class="image left"><img class="p-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-princi_ya.jpg"></span>
 
 ### Princiya Sequeira: Natural user interfaces using JavaScript
 
@@ -537,7 +537,7 @@ Combined with other tools this can be very powerful.
 ****
 
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-mauricedb.jpg">
+<span class="image left"><img class="p-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-mauricedb.jpg"></span>
 
 ### Maurice de Beijer: Event-sourcing your React-Redux applications
 
@@ -592,7 +592,7 @@ Check out the slides for his talk [here](http://www.slideshare.net/mauricedb/eve
 ****
 
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-ohhoe.jpg">
+<span class="image left"><img class="p-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-ohhoe.jpg"></span>
 
 ### Rachel White: The Internet of Cats
 
@@ -695,7 +695,7 @@ Other things learned along the way were:
 
 ****
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-hipsterbrown.jpg">
+<span class="image left"><img class="p-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-hipsterbrown.jpg"></span>
 
 ### Nick Hehr: The other side of empathy
 

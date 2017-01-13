@@ -13,7 +13,7 @@ comments: true
 
 ----------
 
-<img  class="p-image float-image" alt="Chris Richardson" src="https://www.ordina.be/~/media/images/ordinabe/blogs/ken2.jpg?la=nl-nl">
+<span class="image left"><img  class="p-image" alt="Chris Richardson" src="https://www.ordina.be/~/media/images/ordinabe/blogs/ken2.jpg?la=nl-nl"></span>
 [Chris Richardson](http://www.chrisrichardson.net/) is the author of [POJOs in Action](https://www.manning.com/books/pojos-in-action) and is founder of the original CloudFoundry, which was later acquired by VMWare and then SpringSource. Nowadays he is constantly thinking about microservices and founded a startup that is creating a platform for aiding the development of event-driven microservices (http://eventuate.io/). He also launched http://microservices.io/, describing microservice responsibilities and commonly accepted solutions as patterns.
 
 <p style="clear:both;"></p>
@@ -28,7 +28,7 @@ Chris started his presentation by pointing out a few problems in software engine
 
 A second problem is that we have **a lot of new technologies** these days. Typically, these technologies go through the *Gartner Hype Cycle*.
 
-<img  class="float-image" alt="Gartner Hype Cycle" src="https://www.ordina.be/~/media/images/ordinabe/blogs/ken3v2.png?la=nl-nl">
+<span class="image left"><img  class="" alt="Gartner Hype Cycle" src="https://www.ordina.be/~/media/images/ordinabe/blogs/ken3v2.png?la=nl-nl"></span>
 
 <p style="clear:both;"></p>
 

@@ -190,11 +190,11 @@ Because there wasn't enough time to completely finish the project, this project 
 
 ## The new JWorks colleagues
 
-<img class="p-image float-image" width="100" alt="Axel Bergmans" src="/img/kickstarters/2016/axel-bergmans.jpg" />
-<img class="p-image float-image" width="100" alt="Matthias Caryn" src="/img/kickstarters/2016/matthias-caryn.jpg" />
-<img class="p-image float-image" width="100" alt="Madi Dudaeva" src="/img/kickstarters/2016/madi-dudaeva.jpg" />
-<img class="p-image float-image" width="100" alt="Christophe Theyssen" src="/img/kickstarters/2016/christophe-theyssen.jpg" />
-<img class="p-image float-image" width="100" alt="Ines Verstappen" src="/img/kickstarters/2016/ines-vanstappen.jpg" />
-<img class="p-image float-image" width="100" alt="Tim Verté" src="/img/kickstarters/2016/tim-verte.jpg" />
+<span class="image left"><img class="p-image" width="100" alt="Axel Bergmans" src="/img/kickstarters/2016/axel-bergmans.jpg" /></span>
+<span class="image left"><img class="p-image" width="100" alt="Matthias Caryn" src="/img/kickstarters/2016/matthias-caryn.jpg" /></span>
+<span class="image left"><img class="p-image" width="100" alt="Madi Dudaeva" src="/img/kickstarters/2016/madi-dudaeva.jpg" /></span>
+<span class="image left"><img class="p-image" width="100" alt="Christophe Theyssen" src="/img/kickstarters/2016/christophe-theyssen.jpg" /></span>
+<span class="image left"><img class="p-image" width="100" alt="Ines Verstappen" src="/img/kickstarters/2016/ines-vanstappen.jpg" /></span>
+<span class="image left"><img class="p-image" width="100" alt="Tim Verté" src="/img/kickstarters/2016/tim-verte.jpg" /></span>
 
 <br /><br /><br /><br /><br /><br />
