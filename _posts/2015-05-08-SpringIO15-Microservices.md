@@ -10,7 +10,7 @@ comments: true
 
 >Spring Boot, Spring Cloud and CloudFoundry: a perfect match. Josh Long explains how to build Spring Boot microservices, deploy them in CloudFoundry and manage them using the Netflix OSS stack through Spring Cloud. Including a One on One talk.
 
-<img alt="Sagan: The Spring.io website" src="https://www.ordina.be/~/media/images/ordinabe/blogs/hystrix-sample.png">
+<img class="image fit" alt="Sagan: The Spring.io website" src="https://www.ordina.be/~/media/images/ordinabe/blogs/hystrix-sample.png">
 
 ### Can Your Cloud Do This - CloudFoundry talk
 

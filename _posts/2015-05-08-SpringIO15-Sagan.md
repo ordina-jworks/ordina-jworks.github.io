@@ -10,7 +10,7 @@ comments: true
 
 >Sagan is the name of the Spring.io website. It's built by Pivotal Labs and maintained and extended by Brian Clozel. The project uses a best-of-breed set of tools. In Brian Clozel's talk he sheds a light on which tools are used for which reasons. After the talk I sit down with Brian to discuss some more details.
 
-<img alt="Sagan: The Spring.io website" src="https://www.ordina.be/~/media/images/ordinabe/blogs/sagan.png" style="max-width:100%; max-height:100%;">
+<img class="image fit" alt="Sagan: The Spring.io website" src="https://www.ordina.be/~/media/images/ordinabe/blogs/sagan.png">
 
 ### Sagan: A production Spring reference application
 

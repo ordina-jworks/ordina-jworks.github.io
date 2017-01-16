@@ -84,9 +84,10 @@ Greg concluded with a quote of Ernest Hemingway.
 
 ### Recommended reading
 
+<img class="image left" src="{{ '/img/cqrs/event-centric.png' | prepend: site.baseurl }}" alt="Event Centric" />
 Greg wrote a book about this matter, called [Event Centric - Finding Simplicity in Complex Systems](http://www.amazon.com/Event-Centric-Simplicity-Addison-Wesley-Signature/dp/0321768221). In this book, he explains how to use DDD with Command-Query Responsibility Separation to select the right design solutions and make them work in the real world.
 
-<img class="image fit" src="{{ '/img/cqrs/event-centric.png' | prepend: site.baseurl }}" alt="Event Centric" />
+
 <br/>
 <br/>
 

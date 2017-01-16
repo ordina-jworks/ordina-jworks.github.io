@@ -62,7 +62,7 @@ We can group the microservices patterns into several categories:
  2. Deployment patterns
  3. Discovery patterns
 
-![Microservices patterns](https://www.ordina.be/~/media/images/ordinabe/blogs/ken4.png?la=nl-nl "Microservices patterns")
+<img class="image fit" src="https://www.ordina.be/~/media/images/ordinabe/blogs/ken4.png?la=nl-nl" alt="Microservices patterns" />
 
 Chris then elaborated on a few microservice pattern categories.
 
