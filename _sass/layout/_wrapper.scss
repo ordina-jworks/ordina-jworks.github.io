@@ -22,7 +22,7 @@
       margin: 0 auto;
       width: _size(inner);
     }
-
+    
     h2 {
       border-bottom: solid 2px _palette(border);
       font-size: 2em;
@@ -105,6 +105,10 @@
   border-top: solid _palette(bg);
   border-bottom: solid _palette(bg);
 
+  h1 {
+    color: _palette(fg-header);
+  }
+
   &:before, &:after {
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -127,6 +131,10 @@
   }
 
   &.alt {
+    background-color: _palette(bg-spotlight);
+    border-top: solid _palette(bg-spotlight);
+    border-bottom: solid _palette(bg-spotlight);
+    @include wrapper-edges-color(_palette(bg-spotlight));
     &:before {
       @include vendor('transform', 'scaleX(-1)');
     }
@@ -161,10 +169,10 @@
       border-top: solid _palette(bg-post);
       border-bottom: solid _palette(bg-post);
     }
-    @include wrapper-edges-color(_palette(accent));
-    background-color: _palette(accent);
-    border-top: solid _palette(accent);
-    border-bottom: solid _palette(accent);
+    @include wrapper-edges-color(_palette(bg-spotlight));
+    background-color: _palette(bg-spotlight);
+    border-top: solid _palette(bg-spotlight);
+    border-bottom: solid _palette(bg-spotlight);
 
     .inner {
       @include vendor('display', 'flex');
@@ -201,18 +209,33 @@
       }
     }
 
-    @for $i from 2 through _misc(max-wrapper-styles) {
-      $j: 3 * ($i - 1);
-      $color: saturate(lighten(_palette(ordina), $j), $j * 0.5);
+    &.style2{
+      background-color: _palette(bg-section2);
+      border-top: _palette(bg-section2);
+      border-bottom: _palette(bg-section2);
+      @include wrapper-edges-color(_palette(bg-section2));
+    }
 
-      &.style#{$i} {
-        background-color: $color;
-        border-top: solid $color;
-        border-bottom: solid $color;
-        @include wrapper-edges-color($color);
-      }
+    &.style3{
+      background-color: _palette(bg-section3);
+      border-top: _palette(bg-section3);
+      border-bottom: _palette(bg-section3);
+      @include wrapper-edges-color(_palette(bg-section3));
+    }
+    
+  }
+
+  &.style1, &.style2, &.style3{
+    h1, h2 {
+      border-bottom: solid 2px _palette(border-title);
+      color: _palette(fg-header);
+    }
+    .accentuate {
+      color:_palette(fg-header);
     }
   }
+
+    
 
   @include breakpoint(medium) {
     margin: _size(wrapper-edges, medium) 0;
@@ -305,5 +328,9 @@
     .inner {
       @include padding(2em, 1.5em);
     }
+  }
+
+  ul{
+    text-align: left;
   }
 }
