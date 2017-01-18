@@ -121,12 +121,12 @@
 
   &:before {
     left: 0;
-    top: (_size(wrapper-edges, large) * -1);
+    top: ((_size(wrapper-edges, large) * -1) + 0.1);
   }
 
   &:after {
     @include vendor('transform', 'scaleY(-1)');
-    bottom: (_size(wrapper-edges, large) * -1);
+    bottom: ((_size(wrapper-edges, large) * -1) + 0.1);
     left: 0;
   }
 
@@ -168,6 +168,14 @@
       @include wrapper-edges-color(_palette(bg-post));
       border-top: solid _palette(bg-post);
       border-bottom: solid _palette(bg-post);
+      h1, h2 {
+        color: _palette(fg);
+        margin-bottom: 2em;
+        padding-bottom: 0.5em;
+      }
+      h2 {
+        font-size: 0.9em;
+      }
     }
     @include wrapper-edges-color(_palette(bg-spotlight));
     background-color: _palette(bg-spotlight);
