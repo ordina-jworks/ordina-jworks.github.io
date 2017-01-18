@@ -6,793 +6,9 @@
 </description>
     <link>https://ordina-jworks.github.io/</link>
     <atom:link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 17 Jan 2017 20:25:03 +0000</pubDate>
-    <lastBuildDate>Tue, 17 Jan 2017 20:25:03 +0000</lastBuildDate>
+    <pubDate>Thu, 15 Dec 2016 07:25:48 +0000</pubDate>
+    <lastBuildDate>Thu, 15 Dec 2016 07:25:48 +0000</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
-    
-      <item>
-        <title>Øredev 2016</title>
-        <description>&lt;p&gt;When arrived in Malmö city, we were welcomed with an exploration tour of the third biggest city in Sweden.
-The next day Øredev 2016 officially started!
-It was noticeable that there was a healthy combination for everyone: Microservices, Docker, UX, Management, etc…
-All these buzzwords were applied in various talks.
-This blog post will be about the talks I favoured and the extra knowledge I gained which I now get to apply in my nowadays projects.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Oredev begin&quot; src=&quot;/img/oredev/oredevbegin.jpg&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h1 id=&quot;the-overview-wizard&quot;&gt;The Overview Wizard&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#microservices&quot;&gt;Dockerizing Microservices&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#docker&quot;&gt;Secure your Docker&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#kubernetes&quot;&gt;Kubernetes&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#ux&quot;&gt;Best Practices &amp;amp; Traps to avoid in UX&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#api&quot;&gt;Linked data API: The future of HTTP API’s?&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a name=&quot;microservices&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;dockerizing-microservices&quot;&gt;Dockerizing Microservices&lt;/h1&gt;
-
-&lt;h2 id=&quot;the-slideless-microservices-session---adam-bien&quot;&gt;The Slideless Microservices session - Adam Bien&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class=&quot;float-image p-image&quot; src=&quot;/img/oredev/adam-bien.jpeg&quot; alt=&quot;Adam Bien&quot; style=&quot;width: 100px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/adambien&quot;&gt;Adam Bien&lt;/a&gt; is an Expert Group member
- for the Java EE 6 and 7, EJB 3.X, JAX-RS, and JPA 2.X JSRs. He has worked with
- Java technology since JDK 1.0 and with Servlets/EJB 1.0 and is now an architect and developer
- for Java SE and Java EE projects. He has authored several books about JavaFX, J2EE, and Java EE,
- and he is the author of Real World Java EE Patterns—Rethinking Best Practices and Real World Java
- EE Night Hacks—Dissecting the Business Tier. Adam is also a Java Champion, Top Java Ambassador 2012,
- and JavaOne 2009, 2011, 2012, 2013 and 2014 Rock Star.&lt;/p&gt;
-
-&lt;p&gt;In this session Adam guided us in how to dockerize and communicate between microservices.
-He says that involving the container technology to the microservices ecosystem is considered the future and inevitable.
-When looking into the communication between dockerized microservices, there are several ways in doing so.
-Before communicating, we first make the service dockerized with the help of a Dockerfile.&lt;/p&gt;
-
-&lt;p&gt;The Dockerfile will be the configuration for your image:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;FROM openjdk:8-jre                     // Which base image am I using?
-VOLUME /tmp                            // Is where you will send data to
-ADD service.jar app.jar                // Copies the existing jar &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;to the image
-RUN sh -c &lt;span class=&quot;s1&quot;&gt;'touch /app.jar'&lt;/span&gt;             // This will execute any commands &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;a new layer on top of the current image
-EXPOSE 42001                           // Which ports should I open at runtime?
-ENTRYPOINT &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;java&quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&quot;-jar&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;/app.jar&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; // This will allow you to configure a container that will run as an executable&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;After we created the Dockerfile we will have to setup a Docker network for connecting these containers.
-Since Adam is doing this manually, I will explain you how to do it easier with Docker Compose.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/compose&quot;&gt;Docker Compose&lt;/a&gt; will run all the containers you setup in the configuration.
-Since we work with the microservices ecosystem, we will need a lot of containers.&lt;/p&gt;
-
-&lt;p&gt;To build our image using the Dockerfile, we will add a Docker dependency in our &lt;code class=&quot;highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;First add a property for naming your repository:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;docker.image.prefix&amp;gt;&lt;/span&gt;testApp&lt;span class=&quot;nt&quot;&gt;&amp;lt;/docker.image.prefix&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;And add support for docker:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;com.spotify&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;docker-maven-plugin&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;0.4.13&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;executions&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;execution&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;phase&amp;gt;&lt;/span&gt;package&lt;span class=&quot;nt&quot;&gt;&amp;lt;/phase&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;goals&amp;gt;&lt;/span&gt;
-          &lt;span class=&quot;nt&quot;&gt;&amp;lt;goal&amp;gt;&lt;/span&gt;build&lt;span class=&quot;nt&quot;&gt;&amp;lt;/goal&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/goals&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/execution&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/executions&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;imageName&amp;gt;&lt;/span&gt;${docker.image.prefix}/${project.artifactId}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/imageName&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dockerDirectory&amp;gt;&lt;/span&gt;${project.basedir}/src/main/docker&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dockerDirectory&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;resources&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;resource&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;targetPath&amp;gt;&lt;/span&gt;/&lt;span class=&quot;nt&quot;&gt;&amp;lt;/targetPath&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;directory&amp;gt;&lt;/span&gt;${project.build.directory}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/directory&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;include&amp;gt;&lt;/span&gt;${project.build.finalName}.jar&lt;span class=&quot;nt&quot;&gt;&amp;lt;/include&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/resource&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/resources&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;First we make images of our services using the Maven Docker plugin from Spotify.
-Every time Mavens builds the project, a Docker image is generated.&lt;/p&gt;
-
-&lt;h3 id=&quot;docker-compose&quot;&gt;Docker Compose&lt;/h3&gt;
-&lt;p&gt;To tell the containers that they have to be under the same network, we will use &lt;a href=&quot;https://docs.docker.com/compose/&quot;&gt;Docker Compose&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;First we make a &lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt; file and configure our microservices:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;version: '2'
-services:
-
-  cars:
-    image: testApp/cars-service
-    ports:
-      - &quot;8081&quot;
-    networks:
-      - backend
-
-  gateway:
-      image: testApp/zuul-service
-      ports:
-        - &quot;9900:9900&quot;
-      networks:
-        - backend
-
-networks:
-  backend:
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Variables explanation:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;image&lt;/code&gt;
-    &lt;ul&gt;
-      &lt;li&gt;The image you will be using to create the container, we will be using our microservice image&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ports&lt;/code&gt;
-    &lt;ul&gt;
-      &lt;li&gt;The port the service will listen to. When you want to expose your port use: “5432:5432”.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt;
-    &lt;ul&gt;
-      &lt;li&gt;This will build the Dockerfile inside the same directory&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;networks as property&lt;/code&gt;
-    &lt;ul&gt;
-      &lt;li&gt;This be the network to which you want to be assigned to&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;networks&lt;/code&gt;
-    &lt;ul&gt;
-      &lt;li&gt;This will create one or multiple networks&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;When you want to add an Eureka service, follow the above steps and configure it inside the &lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt; file.
-It is important that every container, you want to communicate with, resides under the same network.&lt;/p&gt;
-
-&lt;p&gt;&lt;a name=&quot;docker&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;secure-systems-with-docker---emil-kvarnhammer&quot;&gt;Secure systems with Docker - Emil Kvarnhammer&lt;/h1&gt;
-
-&lt;p&gt;&lt;img class=&quot;float-image p-image&quot; src=&quot;/img/oredev/emil.jpg&quot; alt=&quot;Emil Kvarnhammer&quot; style=&quot;width: 100px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.twitter.com/emilkvarnhammar&quot;&gt;Emil Kvarnhammer&lt;/a&gt; is a Security Software Engineer at TrueSec,
-a leading edge company in IT security and development.
-He’s been involved in several security-critical projects,
-developing applications and components that are used by millions of users on a regular basis.
-Emil has found severe security vulnerabilities in Apple OS X. His recent focus has been securing systems using Docker and Amazon EC2.&lt;/p&gt;
-
-&lt;p&gt;When entering the world of cloud and distributed systems, security can be challenging for developers and DevOps.
-Docker is a part of this world and Emil talks about Docker from a security perspective.&lt;/p&gt;
-
-&lt;p&gt;When looking at it in a secure way, what are the input sources?
-Where does the base image come from?
-If we look closer we can see that it retrieves its images from &lt;a href=&quot;https://hub.docker.com&quot;&gt;Docker Hub&lt;/a&gt;.
-In addition to that, more complexity comes in when we add new packages on top of the base image that will be retrieved from the package manager server.
-Finally we have the application package that can come from a CI server and, if it is a fat jar, it can consist of different dependencies through Maven or some kind.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Hackers perspective&quot; src=&quot;/img/oredev/hackers.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;The base image is retrieved from Docker Hub every time a Docker image is being updated.
-A hacker could hijack the image and squeeze in malicious software without anyone noticing.
-Same goes for the package manager server.&lt;/p&gt;
-
-&lt;p&gt;What could an attacker do if he gets control of the channel between the Docker image and
-the host operating system?
-The place where the image gets instantiated or the configuration related to the instantiated image.
-An attacker could infect the image with his own configuration or modify the orchestration tool.&lt;/p&gt;
-
-&lt;p&gt;The most important issue is when the attacker gets control of code execution within our application.
-Emil says that it happens quite often and if it isn’t in your code, it is in the third party libraries or the package manager server you’re using.&lt;/p&gt;
-
-&lt;p&gt;Now you might think that, seeing as the attacker is in a docker container, that he is unable to break out.
-Think again, he can break out and gain control of the whole operating system.&lt;/p&gt;
-
-&lt;h2 id=&quot;building-secure-images&quot;&gt;Building secure images&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Choose base image carefully&lt;/li&gt;
-  &lt;li&gt;Strategy for security patches - Regularly update your Docker container so it gets the necessary updates&lt;/li&gt;
-  &lt;li&gt;Continuously rebuild and test - Security patches in your build environment&lt;/li&gt;
-  &lt;li&gt;In a secure build environment&lt;/li&gt;
-  &lt;li&gt;Digitally sign Docker images - &lt;code class=&quot;highlighter-rouge&quot;&gt;# docker build -t test --disabled-content-trust=false&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;internal-private-registry---push-and-pull-the-containers-internally&quot;&gt;Internal private registry - Push and pull the containers internally&lt;/h2&gt;
-&lt;p&gt;This private registry is insecure by design.
-If an attacker gains control of the network where the registry is located, he can easily read and modify each image.
-An attacker pushes a modified image and the orchestration will pull this in.&lt;/p&gt;
-
-&lt;p&gt;If the attacker gains control of your CI/CD server he can again push modified images to the registry.
-To avoid this attack, be sure to have these activated inside your registry.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Secure transfer using TLS&lt;/li&gt;
-  &lt;li&gt;User authentication&lt;/li&gt;
-  &lt;li&gt;Limited access rights&lt;/li&gt;
-  &lt;li&gt;Docker Content Trust which will digitally sign your images&lt;/li&gt;
-  &lt;li&gt;Secured development environment&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;how-does-the-attacker-inject-code&quot;&gt;How does the attacker inject code?&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;You use whatever Docker image available in the registry and add your backdoor binary in a Dockerfile,
-then you build the image and point it to the very same image in the registry.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;security-measurements-inside-the-container&quot;&gt;Security measurements inside the container&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;User namespaces
-    &lt;ul&gt;
-      &lt;li&gt;An extra security measure are user namespaces, this will make the root in the container differentiate from the root in the host.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Remote API
-    &lt;ul&gt;
-      &lt;li&gt;If you have no good reason for using the remote API then you should disable this option.&lt;/li&gt;
-      &lt;li&gt;If you have to use it, be sure to use secure transport over TLS and that you have client authentication so you don’t let the world in.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Try to enable SELinux (enforcing) on the host&lt;/li&gt;
-  &lt;li&gt;Drop unused capabilities that are installed by default and install the capabilities that you actually need.
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--cap-drop=ALL&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--cap-add=needed_cap &lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Only pull from private registries&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;things-you-should-avoid-in-docker&quot;&gt;Things you should avoid in Docker&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--privileged&lt;/code&gt;: breakout is trivial and will give you access to different machines
-    &lt;ul&gt;
-      &lt;li&gt;Be sure to check that Kubernetes is not doing this&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--insecure-registry &lt;/code&gt;: disable TLS requirement&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--net=host&lt;/code&gt;: use host network stack&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a name=&quot;kubernetes&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;kubernetes-automation-in-production---paul-bakker&quot;&gt;Kubernetes automation in production - Paul Bakker&lt;/h1&gt;
-
-&lt;p&gt;&lt;img class=&quot;float-image p-image&quot; src=&quot;/img/oredev/paulbakker.jpg&quot; alt=&quot;Paul Bakker&quot; style=&quot;width: 100px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.twitter.com/pbakker&quot;&gt;Paul Bakker&lt;/a&gt; is working as a software architect for Luminis Technologies, where he’s currently leading the team that develops the CloudRTI,
-a Kubernetes/Docker based service that takes care of DevOps tasks like blue/green deployment, failover, centralised logging and monitoring.
-He is the author of “Building Modular Cloud Apps With OSGi” published by O’Reilly and an advocate for modularity in software.
-He is currently writing his second book for O’Reilly “Java 9 Modularity” which is expected early 2017.
-He’s a regular speaker at conferences speaking both about modularity/OSGi related topics, and topics related to Kubernetes and cloud architecture in general.&lt;/p&gt;
-
-&lt;p&gt;Kubernetes is momentarily the best tool to use for orchestrating containers in a clustered production environment.
-In this technical deep dive you will learn the architecture and production deployment of Kubernetes.&lt;/p&gt;
-
-&lt;h2 id=&quot;why-kubernetes&quot;&gt;Why Kubernetes?&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;Run Docker in clusters
-    &lt;ul&gt;
-      &lt;li&gt;Scheduling containers on machines - Load balance and failover containers&lt;/li&gt;
-      &lt;li&gt;Networking - How to communicate between containers&lt;/li&gt;
-      &lt;li&gt;Storage - Use a network attached database&lt;/li&gt;
-      &lt;li&gt;Automation - A commit will result in a new deployment&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;the-architecture&quot;&gt;The Architecture&lt;/h2&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-   &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Architecture kubernetes&quot; src=&quot;/img/oredev/architecturekub.png&quot; /&gt;
- &lt;/p&gt;
-
-&lt;h3 id=&quot;master&quot;&gt;Master&lt;/h3&gt;
-&lt;p&gt;The master component is the most important component of Kubernetes, everything that happens in the cluster is handled by the master.
-Generally there is one master but you can have a failover setup and work with multiple masters.
-For now we simply see this as a single component with an API.
-When a master goes down, the rest keeps running, but during that moment you won’t get any scheduling or things like that.&lt;/p&gt;
-
-&lt;h4 id=&quot;replication-controller&quot;&gt;Replication Controller&lt;/h4&gt;
-&lt;p&gt;The controller is there to configure where and how many nodes the container has to run in.
-It will manage scheduling and monitoring inside the cluster,
-so if one container crashes for some reason, the replication controller will look at how many replicas you configured and if one is down, it will schedule a new instance into the cluster.
-It is important that we don’t start our containers ourselves but configure the amount of replicas that are necessary.
-After our containers are set up, the cluster will take care of it and monitor it.&lt;/p&gt;
-
-&lt;h3 id=&quot;worker-nodes&quot;&gt;Worker nodes&lt;/h3&gt;
-&lt;p&gt;This is where your docker containers will run in.&lt;/p&gt;
-
-&lt;h4 id=&quot;pods&quot;&gt;Pods&lt;/h4&gt;
-&lt;p&gt;An abstraction on top of containers inside the worker node:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;May contain multiple containers&lt;/li&gt;
-  &lt;li&gt;Lifecycle of these containers bound together
-    &lt;ul&gt;
-      &lt;li&gt;Don’t place microservices into the same pod&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Containers in a pod see each other on localhost&lt;/li&gt;
-  &lt;li&gt;Env vars for services&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;etcd&quot;&gt;Etcd&lt;/h3&gt;
-&lt;p&gt;Is a key-value store and contains the configuration of the cluster.
-You don’t want to lose your etcd otherwise your cluster will go down.
-If you want fault tolerance, you will need quite a lot of machines.
-At least one master and three worker nodes to meet the requirements.&lt;/p&gt;
-
-&lt;h3 id=&quot;network&quot;&gt;Network&lt;/h3&gt;
-&lt;p&gt;These pods will have to talk to each other so you will have to open ports.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;We run many pods on a single machine&lt;/li&gt;
-  &lt;li&gt;Pods may expose the same ports&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;how-to-avoid-conflicts&quot;&gt;How to avoid conflicts?&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;Each pod gets a virtual IP&lt;/li&gt;
-  &lt;li&gt;Ports are not shared with other pods&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;This can cause some troubles when your process crashes and obtains a new IP address.
-So how do they keep communicating? Are they tracking each other? Do we have to use something like a service discovery?
-It would be complex if you want to go there and at the end, you don’t want to depend on those virtual IP addresses.
-If you want the pods to communicate, we will be using services as a proxy on top of them.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;services&quot;&gt;Services&lt;/h3&gt;
-&lt;p&gt;Service are basically a proxy on top of the pod and if you look from a technical perspective, we see configured IP tables.
-When we create a service, it gets a fixed IP address and a DNS name so we can communicate through our services.
-Finally it will round-robin traffic to the destined paths and keep track of which paths are running.&lt;/p&gt;
-
-&lt;p&gt;Multi component deployments (microservices):&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Each component deployed as a pod&lt;/li&gt;
-  &lt;li&gt;Individually update and scale pods&lt;/li&gt;
-  &lt;li&gt;Use services for component communication&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Multi Pods Traits&quot; src=&quot;/img/oredev/multipods.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The Frontend talks to the service of the backend pod and this will round robin the call to the right instances.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;namespaces&quot;&gt;Namespaces&lt;/h3&gt;
-&lt;p&gt;Isolated world in Kubernetes where you can have different environments inside the same cluster.
-If you want to run a TEST, DEV and PRD environment it’s possible with Kubernetes to keep them isolated from each other.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-   &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Namespaces&quot; src=&quot;/img/oredev/namespaces.png&quot; /&gt;
- &lt;/p&gt;
-
-&lt;h3 id=&quot;kubernetes-in-production&quot;&gt;Kubernetes in Production&lt;/h3&gt;
-
-&lt;h4 id=&quot;http-load-balancing&quot;&gt;HTTP load balancing&lt;/h4&gt;
-&lt;p&gt;Kubernetes does not have support for the following points in production so be sure to have a look at the following points when deploying to PRD.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Expose Kubernetes services to the outside world&lt;/li&gt;
-  &lt;li&gt;SSL offloading&lt;/li&gt;
-  &lt;li&gt;Gzip&lt;/li&gt;
-  &lt;li&gt;Redirects - redirect every HTTP call to HTTPS&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;nodeport&quot;&gt;NodePort&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;Exposing service ports as ports on physical nodes&lt;/li&gt;
-  &lt;li&gt;Beware of port conflicts!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl expose deployment my-nginx --type=NodePort&lt;/code&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;kubernetes-ingress&quot;&gt;Kubernetes Ingress&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;Level 7 load balancer configuration&lt;/li&gt;
-  &lt;li&gt;SSL offloading&lt;/li&gt;
-  &lt;li&gt;Support for GCE load balancers&lt;/li&gt;
-  &lt;li&gt;Future support for extensions (not quite there yet)&lt;/li&gt;
-  &lt;li&gt;At the moment useful on Google Cloud Engine&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;using-a-custom-load-balancer&quot;&gt;Using a custom load balancer&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;Use &lt;a href=&quot;http://www.haproxy.org&quot;&gt;HAProxy&lt;/a&gt; in front of Kubernetes&lt;/li&gt;
-  &lt;li&gt;Configure HAProxy dynamically&lt;/li&gt;
-  &lt;li&gt;The same works for NGINX and Apache&lt;/li&gt;
-  &lt;li&gt;HAProxy does SSL offloading&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;how-does-ha-proxy-know-about-our-services&quot;&gt;How does ha-proxy know about our services?&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;HAProxy uses a static config file&lt;/li&gt;
-  &lt;li&gt;Auto-generate it based on data in etcd&lt;/li&gt;
-  &lt;li&gt;Confd&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;blue-green-deployment&quot;&gt;Blue-green deployment&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Deployment without downtime&lt;/li&gt;
-  &lt;li&gt;Only one version is active at a time&lt;/li&gt;
-  &lt;li&gt;Rolls back on failed deployment&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;When updating our cluster we have two options:
-We want to update our cluster with a rolling update,
-which updates one pod at a time, rather than taking down
-the entire service at the same time or you can do a blue-green deployment where you
-make an entirely new cluster of instances and let the load balancer go from blue to green.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;a name=&quot;ux&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;a-developers-guide-to-the-ux-galaxy---tess-ferrandez&quot;&gt;A developer’s guide to the UX galaxy - Tess Ferrandez&lt;/h1&gt;
-
-&lt;p&gt;&lt;img class=&quot;float-image p-image&quot; src=&quot;/img/oredev/tessferrandez.jpg&quot; alt=&quot;Tess Ferrandez&quot; style=&quot;width: 100px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.twitter.com/TessFerrandez&quot;&gt;Tess Ferrandez&lt;/a&gt; is a full stack developer on the Microsoft Platform.
-She is equally happy debugging nasty backend issues as she is developing apps or working on UI/UX design.
-She has been blogging at &lt;a href=&quot;http://blogs.msdn.microsoft.com/Tess&quot;&gt;her blogsite&lt;/a&gt; for the better part of her career, and has spoken at lots and lots of conferences around the world.&lt;/p&gt;
-
-&lt;p&gt;Software is built into two parts, it is what we see and how we do it.
-In this session Tess talks about what these features should look like.
-If you design ‘an order’ incorrectly and the user can’t figure out to place that order, you have a bad UX design and it could cost your company a lot of money.
-Now, two UX researches at Microsoft deep dived into hundred years of research of signs and symbols and listened to what people define as a good interface.
-Finally they categorized every piece into ‘Tenets’ (attributes of good user interfaces) and ‘Traps’ (bloopers and things to avoid).&lt;/p&gt;
-
-&lt;h2 id=&quot;tenets-attributes-of-good-use&quot;&gt;Tenets: attributes of good use&lt;/h2&gt;
-&lt;p&gt;We will be using a scanner as example that you use in the supermarket.&lt;/p&gt;
-
-&lt;h2 id=&quot;understandable&quot;&gt;Understandable&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Ask yourself, what can I do? Is it understandable?
-If you look at the scanner in a supermarket, do you know which button you have to press to register a product?
-It is important to let your users understand what they are interacting with because if they have to read the manual first or ask someone for help, you’re doing something wrong.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;physically-effortless&quot;&gt;Physically effortless&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Is what I’m holding quick and comfortable to use?
-When scanning a product you want your users to feel that they can scan the product easily and without difficulty.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;responsive&quot;&gt;Responsive&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;You get immediate feedback, when scanning a product you get an immediate response (ex: Hey! you scanned something)
-If you don’t get an immediate response, the user will keep trying to scan the product and at the end he will have ten milk boxes.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;efficient&quot;&gt;Efficient&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;What is the most efficient way in a process?
-The best way to buy ten milk boxes is to scan the milk ten times than to write it down ten times with your other hand.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;forgiving&quot;&gt;Forgiving&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;I can undo my actions.
-If I scan too many items, I have a minus button to unregister the last item.
-It’s a bad practice if there is no button and you have to ask an employee to help you.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;discrete&quot;&gt;Discrete&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Don’t over share, don’t overreact.
-Having a siren on the scanner to point out that you did something wrong is too much.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;protective&quot;&gt;Protective&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Always deliver a qualified product with no failure or data loss.
-A bad practice for example is that after you just filled in a form, 
-clicked through to the next page and tried to go back to the form to add some missing information only to find out that your form has been completely reset.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;habituating&quot;&gt;Habituating&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Muscle memory, make it a habit to use.
-When users go to your website and know where to go to buy a specific product automatically after visiting it a couple of times.
-Try to avoid changing your structure over and over and if you do so, make sure that you remind your users of the change in advance.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;beautiful&quot;&gt;Beautiful&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;I find it attractive compelling.
-Make the user think that you put a lot of effort in it.
-Use the same buttons, nicely aligned and use the same colors.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;traps-attributes-to-avoid&quot;&gt;Traps: attributes to avoid&lt;/h2&gt;
-&lt;p&gt;Every ‘Tenet’ has its own set of traps, each trap is there to teach us to avoid it as much as possible.&lt;/p&gt;
-
-&lt;h3 id=&quot;understandable-traps&quot;&gt;Understandable Traps&lt;/h3&gt;
-
-&lt;h4 id=&quot;perceptible&quot;&gt;Perceptible&lt;/h4&gt;
-
-&lt;h5 id=&quot;invisible-element&quot;&gt;&lt;strong&gt;&lt;em&gt;Invisible Element&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;The user has learned about a critical hidden capability but cannot see it.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Invisible Element&quot; src=&quot;/img/oredev/ux/invisibleelement.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h4 id=&quot;noticeable&quot;&gt;Noticeable&lt;/h4&gt;
-
-&lt;h5 id=&quot;effectively-invisible-element&quot;&gt;&lt;strong&gt;&lt;em&gt;Effectively Invisible Element&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;A critical cue goes unseen because it is outside of the user’s vision or unexpected.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Oredev begin&quot; src=&quot;/img/oredev/ux/effectivelyinsibleele.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h5 id=&quot;distraction&quot;&gt;&lt;strong&gt;&lt;em&gt;Distraction&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;Something is drawing the user’s attention from what they need to see.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Oredev begin&quot; src=&quot;/img/oredev/ux/distraction.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h3 id=&quot;comprehensible-traps&quot;&gt;Comprehensible Traps&lt;/h3&gt;
-
-&lt;h5 id=&quot;uncomprehended-element&quot;&gt;&lt;strong&gt;&lt;em&gt;Uncomprehended Element&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;It looks wrong but it is right (ex. If they have to put a sticker on it, you are doing something wrong)&lt;/p&gt;
-
-&lt;h5 id=&quot;inviting-dead-end&quot;&gt;&lt;strong&gt;&lt;em&gt;Inviting Dead End&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;It looks right but it is wrong (ex. Having a music icon on your IPhone and you expect iTunes, but it is not iTunes)&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Oredev begin&quot; src=&quot;/img/oredev/ux/invitingdeadendanduncomprehe.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h5 id=&quot;poor-grouping&quot;&gt;&lt;strong&gt;&lt;em&gt;Poor Grouping&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;A link between two or more elements is not recognized (ex. Right icon with the wrong button)&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Oredev begin&quot; src=&quot;/img/oredev/ux/poorgrouping.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h5 id=&quot;memory-challenge&quot;&gt;&lt;strong&gt;&lt;em&gt;Memory Challenge&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;An unreasonable demand is made on the user’s memory.&lt;/p&gt;
-
-&lt;h3 id=&quot;confirmatory-traps&quot;&gt;Confirmatory Traps&lt;/h3&gt;
-
-&lt;h5 id=&quot;ambiguous-feedback&quot;&gt;&lt;strong&gt;&lt;em&gt;Ambiguous Feedback&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;The feedback or response to a user action is unclear or absent&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Oredev begin&quot; src=&quot;/img/oredev/ux/feedback.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h4 id=&quot;physically-effortless-traps---targeting-and-readability&quot;&gt;Physically effortless Traps - Targeting and readability&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;Buttons should be big enough to press&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;accidental-activation&quot;&gt;&lt;strong&gt;&lt;em&gt;Accidental activation&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;Trying to click one button but clicking another.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Oredev begin&quot; src=&quot;/img/oredev/ux/accidentalactivation.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h5 id=&quot;physical-challenge&quot;&gt;&lt;strong&gt;&lt;em&gt;Physical challenge&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;Always use your design on the end product.
-When designing a mobile form, be sure you do it on a mobile phone.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Oredev begin&quot; src=&quot;/img/oredev/ux/physicalchallenge.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h5 id=&quot;invisible-element-on-phone&quot;&gt;&lt;strong&gt;&lt;em&gt;Invisible element on phone&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;Accidental activation if shutdown&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Oredev begin&quot; src=&quot;/img/oredev/ux/accidentalInvisible.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h3 id=&quot;responsive-traps&quot;&gt;Responsive Traps&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Be sure your response takes half a second at most&lt;/li&gt;
-  &lt;li&gt;If the response takes longer you should display a loading circle or show the progression of the process&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;efficiency-traps&quot;&gt;Efficiency Traps&lt;/h3&gt;
-
-&lt;h5 id=&quot;information-overload&quot;&gt;&lt;strong&gt;&lt;em&gt;Information overload&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;Having a page that shows you too much information, be sure to keep it as simple as possible.&lt;/p&gt;
-
-&lt;h5 id=&quot;system-amnesia&quot;&gt;&lt;strong&gt;&lt;em&gt;System amnesia&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;When they show you information that you don’t need&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Oredev begin&quot; src=&quot;/img/oredev/ux/systemamnesia.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h5 id=&quot;autocorrect&quot;&gt;&lt;strong&gt;&lt;em&gt;Autocorrect&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;The name says it all, when autocorrect changed your word in something unintended&lt;/p&gt;
-
-&lt;h3 id=&quot;habituating-traps&quot;&gt;Habituating Traps&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Doing things so many times it gets automatic and then it changes.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;non-redundant-gratuitous-redundancy&quot;&gt;&lt;strong&gt;&lt;em&gt;Non redundant gratuitous redundancy&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;Too much of the same action (ex. if you have one button that does multiple different actions on other systems)&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Oredev begin&quot; src=&quot;/img/oredev/ux/redudancy.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h5 id=&quot;inconsistency&quot;&gt;&lt;strong&gt;&lt;em&gt;Inconsistency&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;Message button on an older version is on another place or it is replaced with text&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img style=&quot;max-width:640px;&quot; alt=&quot;Oredev begin&quot; src=&quot;/img/oredev/ux/inconsistency.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h3 id=&quot;beautiful-traps&quot;&gt;Beautiful Traps&lt;/h3&gt;
-
-&lt;h5 id=&quot;unattractive-design&quot;&gt;&lt;strong&gt;&lt;em&gt;Unattractive design&lt;/em&gt;&lt;/strong&gt;&lt;/h5&gt;
-&lt;p&gt;Not appealing design where the user will not stay on the website.&lt;/p&gt;
-
-&lt;h3 id=&quot;best-practices&quot;&gt;Best Practices&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Identify common scenarios using the site&lt;/li&gt;
-  &lt;li&gt;Walk through all the different ways the user can complete a certain task&lt;/li&gt;
-  &lt;li&gt;Identify and log any traps you observe&lt;/li&gt;
-  &lt;li&gt;If you can’t find a trap, identify the tenet&lt;/li&gt;
-  &lt;li&gt;Document and discuss&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a name=&quot;api&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;feed-the-links-tuples-a-bag--an-introduction-to-linked-data-apis---sebastien-lambla&quot;&gt;Feed the links, tuples’ a bag – An introduction to Linked Data APIs - Sebastien Lambla&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class=&quot;float-image p-image&quot; src=&quot;/img/oredev/sebastien.jpg&quot; alt=&quot;Sebastien Lambla&quot; style=&quot;width: 100px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.twitter.com/serialseb&quot;&gt;Sebastien Lambla&lt;/a&gt; is a keen open-source advocate and contributor, a long-time REST proponent
-and distributed systems aficionado With a career spanning over 20 years on many platforms,
-he’s a keen speaker and trainer, and has been known to talk a lot about technical things and unicorns.&lt;/p&gt;
-
-&lt;p&gt;Started with a calm song of tuples’ a bag from Mary Poppins, Sebastien guides us through a possible future of HTTP API’s.
-When talking about creating our own protocol you know that it is recommended not to not to reinvent the wheel and use HTTP instead.
-Someone else did the hard work, so why should you?
-This is called the network effect.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-   &lt;img style=&quot;max-width:640px;&quot; alt=&quot;person resource&quot; src=&quot;/img/oredev/networkeffect.png&quot; /&gt;
- &lt;/p&gt;
-
-&lt;h3 id=&quot;how-is-http-designed&quot;&gt;How is HTTP designed?&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Model things - Resources (Person, Animal, Fruit)&lt;/li&gt;
-  &lt;li&gt;Interact with things - Operations (POST, GET, PATCH, DELETE)&lt;/li&gt;
-  &lt;li&gt;Understand the result of the interaction - Common Responses (200 - OK , 201 - Created, 400 - Bad Request)&lt;/li&gt;
-  &lt;li&gt;Reuse existing libraries&lt;/li&gt;
-  &lt;li&gt;One interface to be taught for everything&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;common-media-types&quot;&gt;Common Media Types&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Expose the structure of data in a common format&lt;/li&gt;
-  &lt;li&gt;Reuse existing libraries (JSON)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;hypermedia-media-types&quot;&gt;Hypermedia Media Types&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Have structure and links understood and defined commonly&lt;/li&gt;
-  &lt;li&gt;Typed links - A link that knows where to go next&lt;/li&gt;
-  &lt;li&gt;Reuse existing libraries (HAL)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;common-language&quot;&gt;Common Language&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;http://json-ld.org&quot;&gt;JSON-LD&lt;/a&gt; will try to use a common language for everyone to understand.
-It is a lightweight Linked Data format, easy for humans to read and write.
-It is based on the already successful JSON format and provides a way to help JSON data interoperate at Web-scale.
-JSON-LD is an ideal data format for programming environments, REST Web services
-and unstructured databases such as CouchDB and MongoDB.&lt;/p&gt;
-
-&lt;p&gt;Example:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;@context&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;@id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://schema.org/url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;@type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@id&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-         &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://serialsev.com/author/&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;In the above example, author is an uri which is the identifier of a resource.
-If you follow the uri, you will find a resource that is defined as a data type that everybody understands and everyone has agreed upon.
-Again, here we use the network effect because the last thing we want is to rebuild stuff.&lt;/p&gt;
-
-&lt;p&gt;If you are interested in playing with the format, there is a playground where you can try out examples:
-&lt;a href=&quot;http://json-ld.org/playground/&quot;&gt;Playground&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;When we open the playground, you can see a couple of examples you can look at.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;@context&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://schema.org/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;@type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Person&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Jane Doe&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;jobTitle&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Professor&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;telephone&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;(425) 123-4567&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://www.janedoe.com&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;The context defines the uri where to go and the type that tells us which resource we are retrieving.
-Finally the exact uri link will be &lt;a href=&quot;http://schema.org/Person&quot;&gt;http://schema.org/Person&lt;/a&gt;.
-If you visit the uri, you’ll get this:&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-   &lt;img style=&quot;max-width:640px;&quot; alt=&quot;person resource&quot; src=&quot;/img/oredev/personjson.png&quot; /&gt;
- &lt;/p&gt;
-
-&lt;p&gt;When finding the &lt;code class=&quot;highlighter-rouge&quot;&gt;Person&lt;/code&gt; resource we see that there are a lot of properties already defined and documented by several people so you don’t have to.
-When looking back at our example you can use the property already defined in the resource and use them to initialise.
-If you reuse the property defined, you will get the proper documentation for it.&lt;/p&gt;
-
-&lt;h3 id=&quot;some-nice-tools&quot;&gt;Some nice tools&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://twitter.com/ankinson&quot;&gt;Google Structured Data Testing Tool&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;www.markus-lanthaler.com/hydra/&quot;&gt;Hydra console&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://json-ld.org/playground/&quot;&gt;Playground&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;Øredev is one of the best conferences I attended, not only did it innovate in different talks, it managed to organize so many topics to attend.
-Not only did it improve my technical skills, it also taught me management skills and a realistic view of what the world is today.
-Very well organized, interesting talks, great local dishes from Sweden and beautiful sightseeing in Malmö.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 17 Jan 2017 00:00:00 +0000</pubDate>
-        <link>https://ordina-jworks.github.io/conferences/2017/01/17/Oredev2016.html</link>
-        <guid isPermaLink="true">https://ordina-jworks.github.io/conferences/2017/01/17/Oredev2016.html</guid>
-        
-        <category>Conference</category>
-        
-        <category>Microservices</category>
-        
-        <category>Docker</category>
-        
-        <category>Security</category>
-        
-        <category>Kubernetes</category>
-        
-        <category>UX</category>
-        
-        <category>API</category>
-        
-        
-        <category>Conferences</category>
-        
-      </item>
     
       <item>
         <title>Reactive Programming with Spring Reactor</title>
@@ -4491,6 +3707,217 @@ You can reach us through &lt;a href=&quot;https://gitter.im/ordina-jworks/micros
         
         
         <category>Microservices</category>
+        
+      </item>
+    
+      <item>
+        <title>SpringOne Platform</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://springoneplatform.io/&quot;&gt;SpringOne Platform&lt;/a&gt; is the successor of &lt;a href=&quot;https://springoneplatform.io/2015&quot;&gt;SpringOne 2GX&lt;/a&gt;, with a focus mainly on &lt;a href=&quot;https://spring.io&quot;&gt;Spring&lt;/a&gt; and &lt;a href=&quot;https://www.cloudfoundry.org/&quot;&gt;Cloud Foundry&lt;/a&gt;. Next to these technical topics, SpringOne Platform also offered many sessions on cultural transformation and DevOps. Cultural transformation and DevOps are key to deliver meaningful solutions more quickly. This can be achieved by creating empowered teams, able to make independent decisions. To implement these collaborative teams, leadership buy-in is hugely important. Getting away from legacy thinking will allow enterprises to obtain short feedback cycles and thus continuously improve.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;from-imperative-to-reactive-web-apps---rossen-stoyanchev&quot;&gt;From Imperative To Reactive Web Apps - Rossen Stoyanchev&lt;/h2&gt;
+
+&lt;p&gt;The marquee feature of Spring 5, will be first class support for Reactive Web applications. Reactive programming is about non-blocking, event-driven applications with &lt;a href=&quot;http://www.reactivemanifesto.org/glossary#Back-Pressure&quot;&gt;back-pressure&lt;/a&gt;. Back-pressure helps to ensure a good collaboration between producers and consumers. The &lt;a href=&quot;http://www.reactivemanifesto.org/&quot;&gt;Reactive Manifesto&lt;/a&gt; is an interesting read on this topic.&lt;/p&gt;
+
+&lt;p&gt;To support reactive, Spring 5 will use &lt;a href=&quot;http://projectreactor.io/&quot;&gt;Project Reactor&lt;/a&gt; (led by Stéphane Maldini) through the &lt;a href=&quot;https://github.com/spring-projects/spring-framework/tree/master/spring-web-reactive&quot;&gt;Spring Web Reactive&lt;/a&gt; project. This &lt;a href=&quot;https://spring.io/blog/2016/07/28/reactive-programming-with-spring-5-0-m1&quot;&gt;blogpost&lt;/a&gt;, by Rossen Stoyanchev is a nice starting point to learn about &lt;a href=&quot;https://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html&quot;&gt;Flux&lt;/a&gt;, &lt;a href=&quot;https://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html&quot;&gt;Mono&lt;/a&gt; and the Spring Reactive world.&lt;/p&gt;
+
+&lt;h2 id=&quot;managing-secrets-at-scale---mark-paluch&quot;&gt;Managing Secrets at Scale - Mark Paluch&lt;/h2&gt;
+&lt;p&gt;In a world, where we run large amounts of microservices in orchestrated containers, we can never forget about security, encrypting passwords, storing keys, rotating secrets, etc. Today, applications consume both first and third party APIs and need authentication and authorization to do this in a safe way. Traditional patterns cannot keep the security bar high with dynamic deployment scenarios.&lt;/p&gt;
+
+&lt;p&gt;As a &lt;a href=&quot;https://www.ordina.be/en/services-et-solutions/themas/secure-by-design/&quot;&gt;Secure-By-Design&lt;/a&gt; company, this talk immediately caught my attention. In a Spring world, we can use &lt;a href=&quot;https://github.com/spring-cloud-incubator/spring-cloud-vault-config&quot;&gt;Spring Cloud Vault Config&lt;/a&gt;, wrapping &lt;a href=&quot;https://www.vaultproject.io/&quot;&gt;Vault&lt;/a&gt;. An interesting tutorial on this Spring library is available on &lt;a href=&quot;https://spring.io/blog/2016/06/24/managing-secrets-with-vault&quot;&gt;spring.io&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Slides from the talk are available &lt;a href=&quot;https://t.co/ye2EoeO1tJ&quot;&gt;online&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;its-not-you-its-us-winning-over-people-for-yourself-and-the-team---neha-batra&quot;&gt;It’s not you, it’s us: Winning over people for yourself and the team - Neha Batra&lt;/h2&gt;
+
+&lt;p&gt;This was one of the non-technical talks, but aimed to help with the daily management of technical projects. Neha’s session was the most interactive one I attended at SpringOne Platform: about 10 minutes in the session, she wanted us to pair to do a personal SWOT analysis with a stranger in the room and see how we can learn from each other. Everyone participated and I believe this might actually be useful in the context of a project. Something to try out!&lt;/p&gt;
+
+&lt;p&gt;She ended her session with a tool chest to prevent and mitigate issues as they come up:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SWOT analysis&lt;/li&gt;
+  &lt;li&gt;Personal goals&lt;/li&gt;
+  &lt;li&gt;Inception&lt;/li&gt;
+  &lt;li&gt;Set schedule / cadence&lt;/li&gt;
+  &lt;li&gt;Provide feedback&lt;/li&gt;
+  &lt;li&gt;Provide a “safe haven”&lt;/li&gt;
+  &lt;li&gt;Collect and discuss concerns&lt;/li&gt;
+  &lt;li&gt;Talk in person&lt;/li&gt;
+  &lt;li&gt;Write down useful conversations&lt;/li&gt;
+  &lt;li&gt;Find a way to align first (eg. TDD + pair programming)&lt;/li&gt;
+  &lt;li&gt;Daily retros&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The slidedeck of her talk is available on &lt;a href=&quot;http://www.slideshare.net/NehaBatra5/its-not-you-its-us-winning-over-people-for-yourself-and-the-team&quot;&gt;Slideshare&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-five-stages-of-cloud-native---casey-west&quot;&gt;The five stages of Cloud Native - Casey West&lt;/h2&gt;
+
+&lt;p&gt;&lt;img class=&quot;float-image p-image&quot; src=&quot;/img/s1p/casey-west.jpg&quot; alt=&quot;Casey West&quot; style=&quot;width: 100px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Another non-technical talk, from the talented and funny Casey West, on how companies are adopting the &lt;strong&gt;Cloud Native&lt;/strong&gt; approach to software development.
+The talk was very entertaining and resonated with the audience to such an extent, that there was constantly someone laughing. The slides itself don’t say much without explanation so I’ll try to clarify them a bit here.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Analogous to the &lt;a href=&quot;https://en.wikipedia.org/wiki/K%C3%BCbler-Ross_model&quot;&gt;Kübler-Ross model&lt;/a&gt;, there are five stages when adopting Cloud Native development&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;h3 id=&quot;denial&quot;&gt;Denial&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://twitter.com/caseywest&quot;&gt;@caseywest&lt;/a&gt; immediately grasps the crowd’s attention with these very familiar quotes:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“Containers are just tiny virtual machines”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;No they’re not. Stop treating them as such. Moving a huge application or database from a virtual machine to a container doesn’t really solve anything.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“We don’t need to automate Continuous Delivery because we already automate our infrastructure with Puppet”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The problem is that these measures are not enough and &lt;strong&gt;they don’t solve enough of the problem&lt;/strong&gt;. Managing infrastructure and deploying applications using Puppet scripts already is a great improvement by treating &lt;em&gt;Infrastructure as Code&lt;/em&gt; but it &lt;strong&gt;still requires too much manual labour&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;anger&quot;&gt;Anger&lt;/h3&gt;
+
+&lt;p&gt;Again, the goal of these funny quotes is prove a very valid point:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“It works on my machine”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The following quote isn’t in the slides but might also sound familiar:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“Let me do a hotfix, I can figure it out”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;and my favourite:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“DEV is just YOLO-ing sh#t to production”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;These illustrate the problems, you are likely to get when trying to develop Cloud Native applications without the proper culture in place.
+This is a &lt;strong&gt;clear breakdown in communication&lt;/strong&gt; and is more a &lt;em&gt;people problem&lt;/em&gt; than an IT problem.
+It just doesn’t work, especially when also considering the compliance or legal aspect. There is a &lt;strong&gt;lack of acknowledgement&lt;/strong&gt; that we need roles and responsibilities.&lt;/p&gt;
+
+&lt;h3 id=&quot;bargaining&quot;&gt;Bargaining&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“What if we create microservices that all talk to the same datasource?”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Single data model and data ownership are not possible this way.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“We crammed this monolith in a container and called it a microservice”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Applications need to adhere to some restrictions to run and scale in the cloud, otherwise you cannot take advantage of the benefits of a platform.
+Often, there also is the notion of something called &lt;strong&gt;bi-modal IT&lt;/strong&gt;.
+This is basically dividing your company up into &lt;strong&gt;sad mode&lt;/strong&gt; vs &lt;strong&gt;awesome mode&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;A lot of organizations believe &lt;strong&gt;they don’t need to change&lt;/strong&gt; and prefer to stay in sad mode, they use &lt;strong&gt;bi-modal IT&lt;/strong&gt; as an excuse. Honestly, nobody really wants to work in sad mode.&lt;/p&gt;
+
+&lt;h3 id=&quot;depression&quot;&gt;Depression&lt;/h3&gt;
+
+&lt;p&gt;Once people actually start creating Cloud Native applications, the depression kicks in:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“We created 200 microservices and forgot to setup Jenkins”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;A common mistake is &lt;strong&gt;not&lt;/strong&gt; to go for a fully automated CI/CD pipeline from the start.
+This should be your first action when you start a new project. It is necessary to &lt;strong&gt;automate your path to production&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“We have an automated build pipeline but release twice a year”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;When business is not on board with rapid, iterative delivery, you will never get the desired fast feedback loops.&lt;/p&gt;
+
+&lt;h3 id=&quot;acceptance&quot;&gt;Acceptance&lt;/h3&gt;
+
+&lt;p&gt;Finally, everyone start realizing the painful, but obvious truth:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;All software sucks&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;by which he means that creating software is not easy and will never become easy. But we can try to make it as easy as possible for ourselves.&lt;/p&gt;
+
+&lt;p&gt;Casey also advises us to &lt;a href=&quot;https://en.wikipedia.org/wiki/CAP_theorem&quot;&gt;respect the CAP theorem&lt;/a&gt;, respect &lt;a href=&quot;https://en.wikipedia.org/wiki/Conway%27s_law&quot;&gt;Conway’s Law&lt;/a&gt; and &lt;strong&gt;automate everything&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Also, don’t expect to get all of these things right from the start. Taking baby steps and improving gradually over time is certainly possible. An example is to put a monolith inside a container and start breaking it up into more manageable pieces.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&amp;amp;TLDR;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/s1p/operability.jpg&quot; alt=&quot;Casey West&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The (very pretty) slides can be found on &lt;a href=&quot;http://www.slideshare.net/Pivotal/the-five-stages-of-cloud-native&quot;&gt;Slideshare&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;ordina&quot;&gt;Ordina&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ordina.be&quot;&gt;Ordina&lt;/a&gt; was represented at SpringOne Platform with 2 speakers and 3 talks:&lt;/p&gt;
+
+&lt;h3 id=&quot;writing-your-own-spring-boot-starter---dieter-hubau&quot;&gt;Writing your own Spring Boot Starter - Dieter Hubau&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/Turbots&quot;&gt;Dieter Hubau&lt;/a&gt; gave a very nice introduction on how to write your own &lt;a href=&quot;https://github.com/spring-projects/spring-boot/tree/master/spring-boot-starters&quot;&gt;Spring Boot Starter&lt;/a&gt;. A Spring Boot Starter is the de-facto standard tool for starting with a greenfield Spring project. He started by explaining the magic behind Spring Boot Starters (and &lt;a href=&quot;http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-auto-configuration.html&quot;&gt;@AutoConfiguration&lt;/a&gt;) and ended with a cool game of Josh Long Pokemon, deployed on Cloud Foundry.&lt;/p&gt;
+
+&lt;p&gt;His slides are available &lt;a href=&quot;http://www.slideshare.net/SpringCentral/writing-your-own-spring-boot-starter&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;writing-comprehensive-and-guaranteed-up-to-date-rest-api-documentation---andreas-evers&quot;&gt;Writing Comprehensive and Guaranteed Up-to-date REST API Documentation - Andreas Evers&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/andreasevers&quot;&gt;Andreas Evers&lt;/a&gt; talked about &lt;a href=&quot;http://projects.spring.io/spring-restdocs/&quot;&gt;Spring REST Docs&lt;/a&gt; to generate documentation that is always up to date. To achieve this, a test-driven approach can be used: generate snippets from integration tests. Combine these snippets with manually written templates and finally generate HTML. Personally, I have always been a huge fan of “documentation-as-code” and Spring REST Docs is a great tool to achieve this goal.&lt;/p&gt;
+
+&lt;p&gt;His slides are available &lt;a href=&quot;https://speakerdeck.com/andreasevers/writing-comprehensive-and-guaranteed-up-to-date-rest-api-documentation-springone-platform-2016&quot;&gt;here&lt;/a&gt;. This &lt;a href=&quot;https://ordina-jworks.github.io/conference/2016/06/30/SpringIO16-Spring-Rest-Docs.html&quot;&gt;blogpost&lt;/a&gt; by &lt;a href=&quot;https://ordina-jworks.github.io/author/kevin-van-houtte/&quot;&gt;Kevin Van Houtte&lt;/a&gt; provides more insight and examples on Spring REST Docs.&lt;/p&gt;
+
+&lt;h3 id=&quot;ignite-microservices-dashboard---andreas-evers&quot;&gt;Ignite: Microservices Dashboard - Andreas Evers&lt;/h3&gt;
+&lt;p&gt;On Monday evening, Andreas pitched the &lt;a href=&quot;https://github.com/ordina-jworks/microservices-dashboard&quot;&gt;Ordina Microservices Dashboard&lt;/a&gt; that was released a couple of hours earlier. The Ordina Microservices Dashboard left a big impression:&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;400&quot; alt=&quot;Microservices Dashboard&quot; src=&quot;/img/s1p/msd.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Definitely worth checking out. Expect an in-depth blogpost here soon!&lt;/p&gt;
+
+&lt;h2 id=&quot;simplifying-the-future---adrian-cockroft&quot;&gt;Simplifying the Future - Adrian Cockroft&lt;/h2&gt;
+
+&lt;p&gt;The closing keynote at SpringOne Platform was reserved for one of the most influential people in our industry: &lt;a href=&quot;https://www.linkedin.com/in/adriancockcroft&quot;&gt;Adrian Cockcroft&lt;/a&gt;. Always at the edge of technology, Adrian often is credited with making Microservices a mature and useful architectural pattern. His talk focussed on:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Simplifying work&lt;/li&gt;
+  &lt;li&gt;Simplify the organization&lt;/li&gt;
+  &lt;li&gt;Simplify things we build&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I really recommend watching &lt;a href=&quot;https://www.youtube.com/watch?v=DGK6jjamzfY&quot;&gt;his entire presentation&lt;/a&gt; on YouTube.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/s1p/main.png&quot; alt=&quot;Main&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/s1p/panel.png&quot; alt=&quot;Panel&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/s1p/adrian.png&quot; alt=&quot;Adrian&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/s1p/vegas.png&quot; alt=&quot;Vegas&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 09 Aug 2016 00:00:00 +0000</pubDate>
+        <link>https://ordina-jworks.github.io/conferences/2016/08/09/s1p.html</link>
+        <guid isPermaLink="true">https://ordina-jworks.github.io/conferences/2016/08/09/s1p.html</guid>
+        
+        <category>Security</category>
+        
+        <category>Spring</category>
+        
+        <category>CloudFoundry</category>
+        
+        <category>Las Vegas</category>
+        
+        <category>Cloud</category>
+        
+        <category>Pivotal</category>
+        
+        
+        <category>Conferences</category>
         
       </item>
     

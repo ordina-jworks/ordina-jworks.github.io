@@ -69,3 +69,23 @@ This allows commenting on specific sentences in a pull request.
 If a change is made to a sentence,
 the diff will only show the difference between the old and new sentence,
 and not the complete paragraph.
+
+## SASS usage
+
+When giving layout to components in your blog,
+please take a look in the existing stylesheets if there isn't a class which you can reuse.
+This way we keep our stylesheet files clean.
+
+If you want to add styling,
+please use the SASS files,
+otherwise the SASS compilation process will overwrite your changes.
+
+You can find SASS files in two locations:
+
+- Partial files (beginning with `_`) need to go in the `_sass` directory
+- Main files,
+which need to be picked up by Jekyll and converted to CSS,
+need to go in the `css` directory.
+These files need to begin with two lines of `---` for Jekyll to pick them up for later compilation.
+
+You can read more on Jekyll and SASS integration [here](https://jekyllrb.com/docs/assets/).
