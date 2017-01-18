@@ -8,9 +8,8 @@ category: Conferences
 comments: true
 ---
 
-<p style="text-align: center;">
-<img style="max-width: 500px;" src="{{ '/img/dockercon/dockercon.png' | prepend: site.baseurl }}" alt="DockerCon 2016" />
-</p>
+
+<img class="image fit" src="{{ '/img/dockercon/dockercon.png' | prepend: site.baseurl }}" alt="DockerCon 2016" />
 
 ## Orchestration Made Easy
 
@@ -53,7 +52,7 @@ The first initial node is a manager.
 When adding more nodes to the Swarm,
 these nodes will be worker nodes by default.
 
-![Overview]({{ '/img/dockercon/swarm-overview.png' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/dockercon/swarm-overview.png' | prepend: site.baseurl }}" alt="Overview" />
 
 Manager nodes are responsible for managing the cluster's desired state.
 They do health checks and schedule tasks to keep this desired state.
@@ -215,7 +214,8 @@ Docker sets up automatic certificate rotation,
 TLS mutual authentication
 and TLS encryption between nodes.
 
-![Security]({{ '/img/dockercon/swarm-tls.png' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/dockercon/swarm-tls.png' | prepend: site.baseurl }}" alt="Security" />
+
 
 **There is no way to turn off security.**
 One of the core principles of Docker is simplicity.

@@ -81,7 +81,7 @@ If we want to call this function synchronously, we need to create an API endpoin
 The API Gateway creates API’s that acts as a “front door” to your functions. 
 To make this work with the events in our hello-world example, we need to select the resources of our API:
 
-![Serverless]({{ '/img/serverless/1.png' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/serverless/1.png' | prepend: site.baseurl }}" alt="Serverless"/>
 
 In Integration Request, we add a body mapping template of type *application/json* with the following template:
 
@@ -92,7 +92,7 @@ In Integration Request, we add a body mapping template of type *application/json
 In ‘Method request’ we add 3 URL String query parameters: key1, key2 and key3. 
 If we then redeploy our API, hitting the Test button gives us an input form to add the 3 query parameters and the function is executed successfully:
 
-![Serverless]({{ '/img/serverless/2.png' | prepend: site.baseurl }})
+<img class="image left" src="{{ '/img/serverless/2.png' | prepend: site.baseurl }}" alt="Serverless"/>
 
 If you want to test this directly from a browser, you will need to change the Auth to NONE in the ‘Method request’ and do a new deploy of the API. 
 The URL itself can be found in the ‘stage’-menu.
@@ -140,7 +140,7 @@ exports.handler = (event, context, callback) => {
 
 Obviously you will need a DynamoDB instance with some data in it:
 
-![Serverless]({{ '/img/serverless/3.png' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/serverless/3.png' | prepend: site.baseurl }}" alt="Serverless"/>
 
 You can reference your new table, from your lambda, using the following event:
 
@@ -187,7 +187,7 @@ I’d prefer to deploy a group of functions in one go, when it makes sense, eg. 
 This way, we benefit from the advantages of functions (scalability, cost, service independence, …) but also ease deployment. 
 This is a key feature of the Serverless Framework.
 
-![Serverless]({{ '/img/serverless/4.png' | prepend: site.baseurl }})
+<img class="image left" src="{{ '/img/serverless/4.png' | prepend: site.baseurl }}" alt="Serverless"/>
 
 On June 29th, Serverless V1.0-alpha1 was announced. 
 New Alphas and Betas will be released on a regular basis. 
@@ -466,7 +466,7 @@ To retrieve the added entities:
 };
 ```
 
-![Serverless]({{ '/img/serverless/5.png' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/serverless/5.png' | prepend: site.baseurl }}" alt="Serverless"/>
 
 What immediately struck me was the quality of their documentation (videos, tours, quickstarts, templates, …) and the user experience from the [Azure Portal](https://azure.microsoft.com/en-us/features/azure-portal/). 
 The portal can be a little slow sometimes, but the experience is miles ahead of what Amazon and Google are offering. 
@@ -489,12 +489,12 @@ After executing your first OpenWhisk function, you can see some metrics in the (
 The OpenWhisk dashboard will show all invoked actions, also from actions you didn’t implement yourself. 
 For example when using [existing packages](https://console.ng.bluemix.net/docs/openwhisk/openwhisk_packages.html).
 
-![Serverless]({{ '/img/serverless/6.png' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/serverless/6.png' | prepend: site.baseurl }}" alt="Serverless"/>
 
 What’s even more impressive is the [Openwhisk Editor](https://new-console.ng.bluemix.net/openwhisk/editor). 
 This editor only lists the actions you created yourself.
 
-![Serverless]({{ '/img/serverless/7.png' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/serverless/7.png' | prepend: site.baseurl }}" alt="Serverless"/>
 
 As you can see from the screenshot, you immediately get links to the REST Endpoint.
 
@@ -554,7 +554,7 @@ Every “hop” in the system will parse its input and add some new data.
 
 #### Component diagram
 
-![Serverless]({{ '/img/serverless/8.png' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/serverless/8.png' | prepend: site.baseurl }}" alt="Serverless"/>
 
 #### Description
 Any client can post a JSON to the first function, made with [Auth0 webtask](https://webtask.io/). 
@@ -603,11 +603,11 @@ To continue the chain, IBM OpenWhisk will POST the parsed JSON to a function on 
 
 The Lambda, created with [Serverless V1.0 Beta 2](https://serverless.com/) will parse the input again and create items in an [AWS DynamoDB](http://aws.amazon.com/dynamodb):
 
-![Serverless]({{ '/img/serverless/9.png' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/serverless/9.png' | prepend: site.baseurl }}" alt="Serverless"/>
 
 The AWS DynamoDB table will stream events to another AWS Lambda that will log the content of the event to the logs of AWS CloudWatch:
 
-![Serverless]({{ '/img/serverless/10.png' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/serverless/10.png' | prepend: site.baseurl }}" alt="Serverless"/>
 
 The source code of all these components is available on [GitHub](https://github.com/bart-blommaerts/serverless-demo).
 

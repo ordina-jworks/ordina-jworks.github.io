@@ -63,7 +63,7 @@ Sherlock will combine a digital signature with encryption to convince John that 
 If they're identical he knows the message has not been tampered with during transit.
 Should the message been compromised by Jim, then John would have calculated a different Hash than the encrypted Hash that Sherlock has sent along with his message.
 
-<img class="center-block" alt="Digital Signature" src="/img/web-of-trusted-commits/digital_signature.png">
+<img class="image fit" alt="Digital Signature" src="/img/web-of-trusted-commits/digital_signature.png">
 
 ## Creating An Identity
 

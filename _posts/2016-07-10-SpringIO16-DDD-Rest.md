@@ -11,7 +11,7 @@ comments: true
 [SpringIO 2016 in Barcelona](http://www.springio.net) was loaded with tons of interesting talks and workshops about Spring Cloud, Spring Boot, Spring Data, Microservices, REST & HATEOAS, Reactive programming, and many many more.
 In this blogpost I will highlight Oliver Gierke's 2 hour presentation about bridging the world of Domain Driven Design (DDD) and the world of Representational State Transfer (REST).
 
-<img class="p-image float-image" width="200" alt="Oliver Gierke" src="/img/ddd-rest/oliver-gierke.png">
+<span class="image left small"><img class="p-image" alt="Oliver Gierke" src="/img/ddd-rest/oliver-gierke.png"></span>
 
 Oliver Gierke ([@olivergierke](https://twitter.com/olivergierke)) is the lead of the Spring Data project at Pivotal and member of the JPA 2.1 expert group. He has been into developing enterprise applications and open source projects for over 10 years. His working focus is centered around software architecture, DDD, REST, and persistence technologies.
 

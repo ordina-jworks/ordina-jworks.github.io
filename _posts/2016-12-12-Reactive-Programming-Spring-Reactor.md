@@ -30,7 +30,7 @@ comments: true
 
 On 5 October 2016, we had the pleasure to welcome Stephane Maldini at our [JOIN event](https://ordina-jworks.github.io/conferences/2016/09/27/JOIN-2016.html).
 
-<img class="float-image p-image" src="{{ '/img/stephane-maldini.jpeg' | prepend: site.baseurl }}" alt="Stephane Maldini" style="width: 100px"/>
+<span class="image left small"><img class="p-image" src="{{ '/img/stephane-maldini.jpeg' | prepend: site.baseurl }}" alt="Stephane Maldini"/></span>
 
 A multi-tasker eating tech 24/7, Stephane is interested in cloud computing, data science and messaging.
 Leading the Reactor Project, Stephane Maldini is on a mission to help developers create reactive and efficient architectures on the JVM and beyond.
@@ -54,8 +54,8 @@ Because of this specification, Spring found it the right time to start with [Rea
 
 # The Reactive Manifesto
 
-<p style="text-align: center;">
-  <img style="max-width:640px;" alt="Reactive Systems Traits" src="/img/reactive/reactive-traits.png">
+<p>
+  <img class="image fit" alt="Reactive Systems Traits" src="/img/reactive/reactive-traits.png">
 </p>
 
 According to the manifesto, reactive systems are
@@ -110,8 +110,8 @@ The scope of Reactive Streams is to find a minimal set of interfaces, methods an
 With back-pressure, a consumer which can not handle the load of events sends towards it, can communicate this towards the upstream components so these can reduce the load.
 Without back-pressure the consumer would either fail catastrophically or drop events.
 
-<p style="text-align: center;">
-  <img style="max-width: 640px;"  alt="reactive contract" src="/img/reactive/reactive-contract.png">
+<p>
+  <img class="image left"  alt="reactive contract" src="/img/reactive/reactive-contract.png">
 </p>
 
 This contract defines to send data `0 .. N`.
@@ -180,9 +180,8 @@ The other point is that when designing your own API you will also have to deal w
 # 3 Years to Mature
 
 It took Spring Reactor 3 years to mature.
-<p style="text-align: center;">
-  <img alt="Spring Reactor Timeline" src="/img/reactive/spring-reactor-timeline.png">
-</p>
+
+<img alt="Spring Reactor Timeline" src="/img/reactive/spring-reactor-timeline.png" class="image fit">
 
 2.0 was not side effect free - also existential questions were raised around the project. 
 At the same time Spring evolved and microservices became the norm.
@@ -193,8 +192,8 @@ With 3.0 the team wanted to focus on microservices, take some ideas from [Netfli
 Actually Reactor 3 was started as 2.5, but so many new features were added that the version had to be changed as well in order to reflect this.
 
 Since 3.0 Spring Reactor has been made more modular and consists of several components:
-<p style="text-align: center;">
-  <img alt="Spring Reactor Components" src="/img/reactive/spring-reactor-components.png">
+<p>
+  <img alt="Spring Reactor Components" src="/img/reactive/spring-reactor-components.png" class="image fit">
 </p>
 
 * [Core](https://github.com/reactor/reactor-core) is the main library.
@@ -220,8 +219,8 @@ There also exists an implementation for .NET, [Reactor Core .NET](https://github
 # Reactive Types
 
 ## Flux vs Observable
-<p style="text-align: center;">
-  <img alt="a Flux" src="/img/reactive/flux.png">
+<p>
+  <img alt="a Flux" src="/img/reactive/flux.png" class="image fit">
 </p>
 
 
@@ -257,8 +256,8 @@ This support for Flux will be part of the whole of Spring 5.
 Spring Data, Spring Security, Spring MVC, ... are all good candidates who will have this kind of support.
 
 ## Mono
-<p style="text-align: center;">
-  <img alt="a Mono" src="/img/reactive/mono.png">
+<p>
+  <img alt="a Mono" src="/img/reactive/mono.png" class="image fit">
 </p>
 
 None is like a flux, but will return at most 1 result, so it does have less methods.
@@ -375,8 +374,8 @@ A nice feature is that it keeps the code more readable with everything on a sing
 
 But the cool part is that it is also very performant, with parallel, Reactor is very close to the bare metal of what the JVM can do as you can see in the below comparisation:
 
-<p style="text-align: center;">
-    <img alt="benchmarks" src="/img/reactive/performance-shakespeare.jpg"><br/>
+<p class="align-center">
+    <img alt="benchmarks" src="/img/reactive/performance-shakespeare.jpg" class="image fit"><br/>
     <a href="https://twitter.com/akarnokd/status/780135681897197568">https://twitter.com/akarnokd/status/780135681897197568</a>
 </p>
 
@@ -418,8 +417,8 @@ Also exists for Flux of N items but it’s tougher and more dangerous as you mus
 There also exist some options to bridge the synchronous world with the Flux and the Mono.
 
 Like for example the [EmitterProcessor](http://projectreactor.io/core/docs/api/?reactor/core/publisher/EmitterProcessor.html) which is a signal processor.
-<p style="text-align:center;width:40%" >
-  <img alt="EmitterProcessor" src="/img/reactive/emitterProcessor.png"/>
+<p>
+  <img alt="EmitterProcessor" src="/img/reactive/emitterProcessor.png" class="image fit"/>
 </p>
 
 {% highlight java %}

@@ -25,7 +25,7 @@ When going downstairs to the right of the main hall, we entered the room where t
 For the coffee lovers, professional baristas served the best coffee possible.
 With a nice heart drawn on top if it.
 
-![JS Conf Budapest 2016 Photo Collage]({{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }}" alt="JS Conf Budapest 2016 Photo Collage" />
 
 At 9 o'clock the conference would officially start so we went downstairs.
 After taking our seat, we played the waiting game and all of a sudden, we got this nice intro made with blender and three.js! Check it out for yourself!
@@ -55,7 +55,7 @@ After taking our seat, we played the waiting game and all of a sudden, we got th
 
 ## Day 1: Morning
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-seldo.jpg">
+<span class="image left"><img class="p-image" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-seldo.jpg"></span>
 
 ### Laurie Voss: What everybody should know about npm
 
@@ -224,7 +224,7 @@ It takes things you have to do all the time and makes things simpler and faster.
 ****
 
 
-<img class="p-image float-image" width="200" alt="Safia Abdalla" src="/img/js-conf-budapest/speaker-captainsafia.jpg">
+<span class="image left"><img class="p-image" alt="Safia Abdalla" src="/img/js-conf-budapest/speaker-captainsafia.jpg"></span>
 
 ### Safia Abdalla: The Hitchhiker's Guide to All Things Memory in Javascript
 
@@ -318,7 +318,7 @@ Follow this [interactive tutorial](https://nbdev.surge.sh/#/gist/21885286a207c05
 ****
 
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-bcrypt.jpg">
+<span class="image left"><img class="p-image" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-bcrypt.jpg"></span>
 
 ### Yan Zhu: Encrypt the web for $0
 
@@ -394,7 +394,7 @@ Manually setting up your free HTTPS certificates from Let's Encrypt is also an o
 ****
 
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-mishunov.jpg">
+<span class="image left"><img class="p-image" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-mishunov.jpg"></span>
 
 ### Denys Mishunov: Why performance matters
 
@@ -464,7 +464,7 @@ You can move the active phase forward by making use of:
 
 ## Day 1 afternoon
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-princi_ya.jpg">
+<span class="image left"><img class="p-image" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-princi_ya.jpg"></span>
 
 ### Princiya Sequeira: Natural user interfaces using JavaScript
 
@@ -537,7 +537,7 @@ Combined with other tools this can be very powerful.
 ****
 
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-mauricedb.jpg">
+<span class="image left"><img class="p-image" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-mauricedb.jpg"></span>
 
 ### Maurice de Beijer: Event-sourcing your React-Redux applications
 
@@ -583,7 +583,7 @@ This means you'll have a service exposing all write functionality in your applic
 
 This model works well with Event-Sourcing as you can use the Events occurring on your system as Commands in the CQRS model.
 
-<img src="/img/js-conf-budapest/Event-sourcing.png" alt="CQRS-and-event-sourcing">
+<img class="image fit" src="/img/js-conf-budapest/Event-sourcing.png" alt="CQRS-and-event-sourcing">
 
 During the talk, Maurice showed some samples of code that were the pieces of the puzzle in setting up Event-Sourcing and CQRS in your React-Redux application.
 
@@ -592,7 +592,7 @@ Check out the slides for his talk [here](http://www.slideshare.net/mauricedb/eve
 ****
 
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-ohhoe.jpg">
+<span class="image left"><img class="p-image" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-ohhoe.jpg"></span>
 
 ### Rachel White: The Internet of Cats
 
@@ -667,7 +667,7 @@ The answer of course is YES, but consider the following tips when doing so!
 
 Now, let's talk about the actual Cat Feeder bot, which was most suitably named RoboKitty. Check it out at [here](https://github.com/rachelnicole/robokitty)! and [here](http://imcool.online/robokitty/)
 
-<img src="/img/js-conf-budapest/RoboKitty-Catfeeder.jpg">
+<img class="image fit" src="/img/js-conf-budapest/RoboKitty-Catfeeder.jpg">
 
 It's a node based cat feeder that works over the web.
 You can use it to instantly feed your cat, or you can feed periodically using cron triggers.
@@ -695,7 +695,7 @@ Other things learned along the way were:
 
 ****
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-hipsterbrown.jpg">
+<span class="image left"><img class="p-image" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-hipsterbrown.jpg"></span>
 
 ### Nick Hehr: The other side of empathy
 

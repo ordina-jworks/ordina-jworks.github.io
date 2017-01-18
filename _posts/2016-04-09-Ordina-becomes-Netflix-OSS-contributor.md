@@ -12,7 +12,7 @@ Netflix has officially added Ordina as active user and contributor to their open
 Ordina continues to be a leading force in cloud and microservice architectures in the BeNeLux.
 <br/>
 <br/>
-![Netflix OSS]({{ '/img/netflix-oss.jpg' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/netflix-oss.jpg' | prepend: site.baseurl }}" alt="Netflix OSS" />
 <br/>
 <br/>
 Since 2011, Netflix has been releasing more and more components of their cloud platform and utilities as free and open source software. 

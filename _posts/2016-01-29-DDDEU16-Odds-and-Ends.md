@@ -99,8 +99,9 @@ but they are all in one place.
 This is the cause of many problems in the industry.
 You have to recognize a situation when a Big Ball of Mud is being developed and stay out of it.
 
-![Big Ball of Mud]({{ '/img/odds-and-ends/ballofmud.png' | prepend: site.baseurl }})
-
+<div class="4u$">
+    <img class="image fit" src="{{ '/img/odds-and-ends/ballofmud.png' | prepend: site.baseurl }}" alt="Big Ball of Mud" />
+</div>
 
 #### Business logic is escaping to everywhere
 
@@ -213,14 +214,14 @@ Try to experience with deep modeling through an ubiquitous language.
 You can use the Gherkin language to achieve this.
 With these concrete scenarios you can model your domain model and test it.
 
-<pre>
+```
 Feature: Coffee Machine
     Scenario: Buy Coffee
         Given there is coffee left in the machine
         When I deposit 1 euro
         And I press the coffee button
         Then I should be served a coffee
-</pre>
+```
 
 #### Use bounded contexts
 
@@ -230,8 +231,10 @@ It is equally important to separate the models as it is to introduce core concep
 
 You have to learn about event storming.
 You can understand what your bounded contexts are from an event storming event.
+<div class="6u$">
+    <img class="image fit" src="{{ '/img/odds-and-ends/event-storming.jpg' | prepend: site.baseurl }}" alt="Event Storming" />
+</div>
 
-![Event Storming]({{ '/img/odds-and-ends/event-storming.jpg' | prepend: site.baseurl }})
 
 #### Metrics-based Estimates
 
@@ -242,12 +245,12 @@ move these estimation units in a retrospective and encur modeling debt.
 This modeling debt must be fixed as soon as possible.
 
 #### Know architecture
-
 You must know good architectures, like the hexagonal architecture or CQRS. 
 These architecture solve many of the above problems.
 They enforce bounded contexts and give the ability to do context mapping.
-
-![Hexagonal Architecture]({{ '/img/odds-and-ends/hexagonal.jpg' | prepend: site.baseurl }})
+<div class="6u$">
+    <img class="image fit" src="{{ '/img/odds-and-ends/hexagonal.jpg' | prepend: site.baseurl }}" alt="Hexagonal Architecture" />
+</div>
 
 #### Decoupled Services
 Services have to be decoupled.
@@ -269,7 +272,9 @@ by the majority of software development teams.
 CPU processing power is not increasing, but the amount of cores keeps increasing.
 The Actor model is a new way to leverage this power because it fully utilizes these cores with threads.
 
-![Actor Model]({{ '/img/odds-and-ends/actor-model.png' | prepend: site.baseurl }})
+<div class="6u$">
+    <img class="image fit" src="{{ '/img/odds-and-ends/actor-model.png' | prepend: site.baseurl }}" alt="Actor Model" />
+</div>
 
 ## Summary
 

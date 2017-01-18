@@ -8,7 +8,7 @@ category: Microservices
 comments: true
 ---
 
-<img class="center-block" alt="Architecture" src="/img/microservices-dashboard/screenshot.png" width="70%">
+<img class="image fit" alt="Architecture" src="/img/microservices-dashboard/screenshot.png">
 
 
 So you’ve jumped on the hype train, built a bunch of microservices, and got your first releases under your belt. 
@@ -84,7 +84,7 @@ The information for these links come from Spring Boot Actuator health endpoints,
 
 ## The architecture
 
-<img class="center-block" alt="Architecture" src="/img/microservices-dashboard/architecture.png" width="50%">
+<img class="image left" alt="Architecture" src="/img/microservices-dashboard/architecture.png" >
 
 The dashboard currently consists out of an AngularJS 1.x application which communicates over HTTP to a Spring Boot application.
 The frontend uses D3.js to visualise the nodes in the four columns.

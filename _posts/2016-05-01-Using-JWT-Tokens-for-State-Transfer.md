@@ -37,7 +37,7 @@ At that moment the "orders microservice" needs to know whether or not the user i
 Since the rights to access and order are the same, we'd like to reuse the information returned from the first call to the "products microservice".
 This flow is illustrated below.
 
-![JWT state transfer]({{ '/img/JWT/jwt-for-state-tranfer.png' | prepend: site.baseurl }})
+<img class="image left" src="{{ '/img/JWT/jwt-for-state-tranfer.png' | prepend: site.baseurl }}" alt="JWT state transfer" />
 
 We could call the "products microservice" from the "orders microservice" and rely on caching, but that would still be an extra network hop and the cache could potentially be invalidated by the time the user orders the product.
 Using the JWT approach, state is given to the client (the list of product ids the user is allowed to access), and being passed to the server again the moment an order is placed.
