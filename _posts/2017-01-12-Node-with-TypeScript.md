@@ -281,7 +281,7 @@ This is possible because it uses the StandardFirmata firmware. Johnny-Five suppo
 Johnny-Five also supports the Raspberry PI I/O pins. This allows it to be used on a Raspberry pi also.
 <br/>
 The second Arduino implementation uses no framework and communication is done via regular serial. In the type of Scenarios you have to handle all the serial communication yourself. You also have to write
-Arduino firmware and thus it cannot be dynamically updated at runtime. Use this Arduino implemenation if some component is incompatible or not supported by Johnny-Five.
+Arduino firmware and thus it cannot be dynamically updated at runtime. Use this Arduino implementation if some component is incompatible or not supported by Johnny-Five.
 
 ## Inter Process Messaging: Communicating between different Node instances
 Having all these different worker instances is quite handy. 
@@ -562,7 +562,7 @@ This allows the application to send the callback ID across Node instances and ex
     
     {% endhighlight %}    
 
-Every worker has an instance of the MessageHanler, it in its turn has an event emitter on which events from the messages are broadcast. 
+Every worker has an instance of the MessageHandler, it in its turn has an event emitter on which events from the messages are broadcast. 
 The actual worker implementations register themselves on the emitter to receive said events.
 In a future version the message handling should be split up, because now a single file (with an instance on each Node instance) handles both master and slave messages.
 
