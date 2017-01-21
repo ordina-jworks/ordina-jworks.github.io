@@ -15,7 +15,7 @@ This blog post will take a look at using TypeScript to write your Node applicati
 ### NodeJS and its use cases
 
 <p style="text-align: center;">
-  <img alt="NodeJS Powered by the V8 JavaScript engine" src="/img/node-with-typescript/V8-engine.jpg">
+  <img class="image fit" alt="NodeJS Powered by the V8 JavaScript engine" src="/img/node-with-typescript/V8-engine.jpg">
 </p>
 
 NodeJS has many use cases.
@@ -274,7 +274,7 @@ It will see if a resource is requested or and endpoint has been called.
 If a resource is requested it will be served if found.
 If an endpoint has been called, that endpoint will be executed and passed the parameters that were entered, but only after the correct amount of parameters has been passed and they are all valid.
 
-## Handling HTTP requests: The DataBroker
+## Handling data: The DataBroker
 The Data broker is the Node instance in the application that will save and retrieve data.
 For the time being it is sufficient to only have in memory 'caches' on which basic CRUD operations can be performed.
 All methods on the DataBroker are called by sending an IPCRequest with the data that needs to be saved of the instruction for what data should be retrieved.
@@ -285,7 +285,7 @@ A cache has a name, type and values (of said type).
 Values can be retrieved, added, updated and deleted from the caches.
 Caches can be retrieved, added and deleted at runtime.
 
-## Handling HTTP requests: The IntervalWorker
+## Handling asynchronous tasks: The IntervalWorker
 The IntervalWorker as its name suggest performs task at a certain interval.
 It is also used for other asynchronous tasks, such as connecting to an Arduino and running Arduino/Raspberry pi Johhny-Five scenarios.
 The IntervalWorker is handy when you need for example to update the content of a cache every so often.
