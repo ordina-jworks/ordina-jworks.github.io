@@ -125,7 +125,8 @@ The most commonly used dependencies have their typings available here!
 <br/>
 
 You can add the typings to the dependencies in the package.json file.
-    {% highlight json %}
+
+    {% highlight coffeescript %}
     
     "dependencies": {
         "typescript": "2.0.8",
