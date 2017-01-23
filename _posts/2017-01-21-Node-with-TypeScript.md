@@ -15,7 +15,7 @@ This blog post will take a look at using TypeScript to write your Node applicati
 ### NodeJS and its use cases
 
 <p style="text-align: center;">
-  <img class="image fit" style="max-width: 650px; margin:0px auto;" alt="NodeJS Powered by the V8 JavaScript engine" src="/img/node-with-typescript/V8-engine.jpg">
+  <img class="image fit" style="width: 650px; margin:0px auto;" alt="NodeJS Powered by the V8 JavaScript engine" src="/img/node-with-typescript/V8-engine.jpg">
 </p>
 
 NodeJS has many use cases.
