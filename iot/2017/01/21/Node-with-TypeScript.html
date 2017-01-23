@@ -160,7 +160,7 @@ This blog post will take a look at using TypeScript to write your Node applicati
 <h3 id="nodejs-and-its-use-cases">NodeJS and its use cases</h3>
 
 <p style="text-align: center;">
-  <img class="image fit" alt="NodeJS Powered by the V8 JavaScript engine" src="/img/node-with-typescript/V8-engine.jpg" />
+  <img class="image fit" style="width: 650px; margin:0px auto;" alt="NodeJS Powered by the V8 JavaScript engine" src="/img/node-with-typescript/V8-engine.jpg" />
 </p>
 
 <p>NodeJS has many use cases.
@@ -196,7 +196,7 @@ Below are some resources for those that are new to the platform:</p>
 <h3 id="the-old-way-using-plain-javascript">The old way, using plain JavaScript</h3>
 
 <p style="text-align: center;">
-  <img alt="JavaScript" src="/img/node-with-typescript/javascript.jpg" />
+  <img class="image fit" alt="JavaScript" src="/img/node-with-typescript/javascript.jpg" />
 </p>
 
 <p>Since NodeJS uses Google’s V8 JavaScript engine, it speaks for itself that node interprets and runs regular JavaScript code.
@@ -209,9 +209,8 @@ No type checking, no checking for illogical structures or things that will just 
 <br /><br />
 Code for Node can be run by simple opening a command prompt or terminal window and typing</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">    
-    node
-       
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">    node
+
     </code></pre></figure>
 
 <p>This will start a Node instance and present you with an interpreter.
@@ -221,19 +220,17 @@ This can be handy to test something quickly.
 It is also possible to run a JavaScript file directly.
 This can be done via:</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">    
-    node path/to/javascript-file.js 
-       
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">    node path/to/javascript-file.js
+
     </code></pre></figure>
 
 <p><br />
 However, most of the time you will not be using this way of running code.
 Most of the time you will use npm to install your dependencies and start the node instance:</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">    
-    npm install
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">    npm install
     npm start
-       
+
     </code></pre></figure>
 
 <p>This reads the package.json file and executes the scripts contained inside it.</p>
@@ -245,14 +242,14 @@ Most of the time you will use npm to install your dependencies and start the nod
 <h3 id="typescript-you-say">TypeScript you say!?</h3>
 
 <p style="text-align: center;">
-  <img alt="TypeScript" src="/img/node-with-typescript/typescript.jpg" />
+  <img class="image fit" alt="TypeScript" src="/img/node-with-typescript/typescript.jpg" />
 </p>
 
 <p>TypeScript has been around for some years now.
 TypeScript is a superset of JavaScript.
 It uses the same syntax but adds among other things compile time type checking.
 It also adds a more Object Oriented model.
-A detailed explanation of the differences of the prototype based JavaScript and a more Object Oriented language can be found on the 
+A detailed explanation of the differences of the prototype based JavaScript and a more Object Oriented language can be found on the
 <a href="https://developer.mozilla.org/nl/docs/Web/JavaScript/Guide/Details_of_the_Object_Model">Mozilla Developer website</a>
 <br /><br /></p>
 
@@ -284,21 +281,20 @@ The most commonly used dependencies have their typings available here!
 
 <p>You can add the typings to the dependencies in the package.json file.</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="w">    
-    </span><span class="s2">"dependencies"</span><span class="err">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"typescript"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0.8"</span><span class="p">,</span><span class="w">
-    
-        </span><span class="nt">"@types/node"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0.2"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"@types/mime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0.29"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"@types/johnny-five"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0.30"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"@types/serialport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.0.6"</span><span class="p">,</span><span class="w">
-    
-        </span><span class="nt">"mime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.3.4"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"johnny-five"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.10.6"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"serialport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.0.7"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-       
-    </span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript">    <span class="s">"dependencies"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s">"typescript"</span><span class="o">:</span> <span class="s">"2.0.8"</span><span class="p">,</span>
+
+        <span class="s">"@types/node"</span><span class="o">:</span> <span class="s">"0.0.2"</span><span class="p">,</span>
+        <span class="s">"@types/mime"</span><span class="o">:</span> <span class="s">"0.0.29"</span><span class="p">,</span>
+        <span class="s">"@types/johnny-five"</span><span class="o">:</span> <span class="s">"0.0.30"</span><span class="p">,</span>
+        <span class="s">"@types/serialport"</span><span class="o">:</span> <span class="s">"4.0.6"</span><span class="p">,</span>
+
+        <span class="s">"mime"</span><span class="o">:</span> <span class="s">"1.3.4"</span><span class="p">,</span>
+        <span class="s">"johnny-five"</span><span class="o">:</span> <span class="s">"0.10.6"</span><span class="p">,</span>
+        <span class="s">"serialport"</span><span class="o">:</span> <span class="s">"4.0.7"</span>
+    <span class="p">}</span>
+
+    </code></pre></figure>
 
 <h3 id="making-it-all-work-an-example">Making it all work: An example</h3>
 
@@ -316,45 +312,44 @@ This is the application that will be detailed below!</li>
 <h2 id="node-simple-server-high-level-architecture">Node Simple Server: High level architecture</h2>
 
 <p style="text-align: center;">
-  <img alt="High level architecture" src="/img/node-with-typescript/high-level-arch.png" />
+  <img class="image fit" alt="High level architecture" src="/img/node-with-typescript/high-level-arch.png" />
 </p>
 
 <p>The Application starts in app.ts under the main src folder.
 This is the entry point for the application.
 This file contains the actual master instance code.
 The master instance is in charge of forking the workers and reviving them if they die.
-The master is also used to pass messages between the workers For this a specialized MessageHandler singleton is used.
-This MessageHandler instance (one per worker) is used to relay messages.
+The master is also used to pass messages between the workers For this a specialized <code class="highlighter-rouge">MessageHandler</code> singleton is used.
+This <code class="highlighter-rouge">MessageHandler</code> instance (one per worker) is used to relay messages.
 The master instance itself will not execute any application logic.
 Its purpose is to manage the other workers and be the message bridge.
 <br /><br /></p>
 
-<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">    
-    <span class="cm">/**
-     * Forks the workers, there will always be one DataBroker and one IntervalWorker.
-     * HTTPWorker will be created based on the number of cpu cores. If less than two cores are available
-     * two http workers will be created.
-     */</span>
-    <span class="k">private</span> <span class="nx">forkWorkers</span> <span class="o">=</span> <span class="p">()</span><span class="err">:</span> <span class="k">void</span> <span class="o">=&gt;</span><span class="p">{</span>
-        <span class="c1">//Fork data broker.</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">databroker</span> <span class="o">=</span> <span class="nx">cluster</span><span class="p">.</span><span class="nx">fork</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="s1">'broker'</span><span class="p">,</span> <span class="na">debug</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">isDebug</span><span class="p">});</span>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript">    <span class="o">/**</span>
+     <span class="o">*</span> <span class="nx">Forks</span> <span class="nx">the</span> <span class="nx">workers</span><span class="p">,</span> <span class="nx">there</span> <span class="nx">will</span> <span class="nx">always</span> <span class="nx">be</span> <span class="nx">one</span> <span class="nx">DataBroker</span> <span class="o">and</span> <span class="nx">one</span> <span class="nx">IntervalWorker</span><span class="p">.</span>
+     <span class="o">*</span> <span class="nx">HTTPWorker</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">created</span> <span class="nx">based</span> <span class="no">on</span> <span class="nx">the</span> <span class="nx">number</span> <span class="k">of</span> <span class="nx">cpu</span> <span class="nx">cores</span><span class="p">.</span> <span class="na">If</span> <span class="nx">less</span> <span class="nx">than</span> <span class="nx">two</span> <span class="nx">cores</span> <span class="nx">are</span> <span class="nx">available</span>
+     <span class="o">*</span> <span class="nx">two</span> <span class="nx">http</span> <span class="nx">workers</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">created</span><span class="p">.</span>
+     <span class="o">*/</span>
+    <span class="nx">private</span> <span class="nx">forkWorkers</span> <span class="o">=</span> <span class="p">()</span><span class="o">:</span> <span class="nx">void</span> <span class="o">=&gt;</span><span class="p">{</span>
+        <span class="o">//</span><span class="nx">Fork</span> <span class="nx">data</span> <span class="nx">broker</span><span class="p">.</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">databroker</span> <span class="o">=</span> <span class="nx">cluster</span><span class="p">.</span><span class="na">fork</span><span class="p">({</span><span class="na">name</span><span class="o">:</span> <span class="s">'broker'</span><span class="p">,</span> <span class="na">debug</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="na">isDebug</span><span class="p">});</span>
 
-        <span class="c1">//Fork interval worker.</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">intervalWorker</span> <span class="o">=</span> <span class="nx">cluster</span><span class="p">.</span><span class="nx">fork</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="s1">'interval'</span><span class="p">,</span> <span class="na">debug</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">isDebug</span><span class="p">});</span>
+        <span class="o">//</span><span class="nx">Fork</span> <span class="nx">interval</span> <span class="nx">worker</span><span class="p">.</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">intervalWorker</span> <span class="o">=</span> <span class="nx">cluster</span><span class="p">.</span><span class="na">fork</span><span class="p">({</span><span class="na">name</span><span class="o">:</span> <span class="s">'interval'</span><span class="p">,</span> <span class="na">debug</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="na">isDebug</span><span class="p">});</span>
 
-        <span class="c1">//Fork normal server worker instances. These will handle all HTTP requests.</span>
-        <span class="kd">let</span> <span class="na">cores</span><span class="p">:</span><span class="kr">number</span>                <span class="o">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">cpus</span><span class="p">().</span><span class="nx">length</span><span class="p">;</span>
-        <span class="kd">let</span> <span class="na">numberOfHttpWorkers</span><span class="p">:</span><span class="kr">number</span>  <span class="o">=</span> <span class="nx">cores</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">?</span> <span class="nx">cores</span> <span class="o">-</span> <span class="mi">2</span> <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'There are '</span> <span class="o">+</span> <span class="nx">cores</span> <span class="o">+</span> <span class="s1">' cores available, starting '</span> <span class="o">+</span> <span class="nx">numberOfHttpWorkers</span> <span class="o">+</span> <span class="s1">' HTTP workers...'</span><span class="p">);</span>
+        <span class="o">//</span><span class="nx">Fork</span> <span class="nx">normal</span> <span class="nx">server</span> <span class="nx">worker</span> <span class="nx">instances</span><span class="p">.</span> <span class="na">These</span> <span class="nx">will</span> <span class="nx">handle</span> <span class="nx">all</span> <span class="nx">HTTP</span> <span class="nx">requests</span><span class="p">.</span>
+        <span class="nx">let</span> <span class="na">cores</span><span class="o">:</span><span class="nx">number</span>                <span class="o">=</span> <span class="nx">os</span><span class="p">.</span><span class="na">cpus</span><span class="p">().</span><span class="na">length</span><span class="p">;</span>
+        <span class="nx">let</span> <span class="na">numberOfHttpWorkers</span><span class="o">:</span><span class="nx">number</span>  <span class="o">=</span> <span class="nx">cores</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">cores</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">'There are '</span> <span class="o">+</span> <span class="nx">cores</span> <span class="o">+</span> <span class="s">' cores available, starting '</span> <span class="o">+</span> <span class="nx">numberOfHttpWorkers</span> <span class="o">+</span> <span class="s">' HTTP workers...'</span><span class="p">);</span>
 
-        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="na">i</span><span class="p">:</span><span class="kr">number</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">numberOfHttpWorkers</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kd">let</span> <span class="nx">worker</span> <span class="o">=</span> <span class="nx">cluster</span><span class="p">.</span><span class="nx">fork</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="s1">'http'</span><span class="p">,</span> <span class="na">debug</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">isDebug</span><span class="p">});</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">httpWorkers</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">worker</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nx">let</span> <span class="na">i</span><span class="o">:</span><span class="nx">number</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">numberOfHttpWorkers</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">let</span> <span class="nx">worker</span> <span class="o">=</span> <span class="nx">cluster</span><span class="p">.</span><span class="na">fork</span><span class="p">({</span><span class="na">name</span><span class="o">:</span> <span class="s">'http'</span><span class="p">,</span> <span class="na">debug</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="na">isDebug</span><span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">httpWorkers</span><span class="p">.</span><span class="na">push</span><span class="p">(</span><span class="nx">worker</span><span class="p">);</span>
         <span class="p">}</span>
 
-        <span class="c1">//Revive workers if they die!</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isDebug</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">cluster</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'exit'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">reviveWorker</span><span class="p">);</span>
+        <span class="o">//</span><span class="nx">Revive</span> <span class="nx">workers</span> <span class="k">if</span> <span class="nx">they</span> <span class="nx">die</span><span class="o">!</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="na">isDebug</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">cluster</span><span class="p">.</span><span class="na">on</span><span class="p">(</span><span class="s">'exit'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">reviveWorker</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">};</span>
 
@@ -362,124 +357,122 @@ Its purpose is to manage the other workers and be the message bridge.
 
 <p>The master will create a number of workers:</p>
 <ul>
-  <li>HttpWorker: Each HttpWorker is an endpoint for requests to be received.
+  <li><code class="highlighter-rouge">HttpWorker</code>: Each <code class="highlighter-rouge">HttpWorker</code> is an endpoint for requests to be received.
 There will always be a minimum of two HttpWorkers created.
 If more CPU cores are available, more HttpWorkers are created.</li>
-  <li>DataBroker: For the application there is one DataBroker worker instance.
+  <li><code class="highlighter-rouge">DataBroker</code>: For the application there is one <code class="highlighter-rouge">DataBroker</code> worker instance.
 This worker handles CRUD operations for data (for now in memory only).</li>
-  <li>IntervalWorker: For the application there is one IntervalWorker instance.
+  <li><code class="highlighter-rouge">IntervalWorker</code>: For the application there is one <code class="highlighter-rouge">IntervalWorker</code> instance.
 This worker can run code periodically and is used to connect to other devices such as Arduino’s and the Raspberry Pi I/O pins.
 <br />
-These workers are created by a WorkerFactory, as the master forks new Node instances, a process variable is set, the factory uses this to see which type the node instance should become.
-Each type of worker instance implements the basic NoeWorker interface.
+These workers are created by a <code class="highlighter-rouge">WorkerFactory</code>, as the master forks new Node instances, a process variable is set, the factory uses this to see which type the node instance should become.
+Each type of worker instance implements the basic <code class="highlighter-rouge">NodeWorker</code> interface.
 Each implementation will be detailed below.</li>
 </ul>
 
 <h2 id="handling-http-requests-the-httpworker">Handling HTTP requests: The HttpWorker</h2>
-<p>Each HttpWorker instance will create a Server instance.
+<p>Each <code class="highlighter-rouge">HttpWorker</code> instance will create a <code class="highlighter-rouge">Server</code> instance.
 This instance will be used to receive HTTP requests.
 Node will automatically load balance requests between all instances that register a server on the same port.
 Simply put all HttpWorkers compete for the next request, the least burdened process (depending on OS/CPU process affinity) will be given the next Http request to handle.</p>
 
-<p>The Server class will also register the endpoints that are known to the application and can be handled.
-The EndpointManager is used to register endpoints.
-An EndPoint has a path, a method to execute and optional parameters.
-A Parameter is provided with a Generic type for compile time type checking, a name which should be used in the url, a description that provides information what the parameter should contain and an optional ParameterValidator.
-A ParameterValidator is used to validate the parameter at runtime.
+<p>The <code class="highlighter-rouge">Server</code> class will also register the endpoints that are known to the application and can be handled.
+The <code class="highlighter-rouge">EndpointManager</code> is used to register endpoints.
+An <code class="highlighter-rouge">EndPoint</code> has a path, a method to execute and optional parameters.
+A <code class="highlighter-rouge">Parameter</code> is provided with a Generic type for compile time type checking, a name which should be used in the url, a description that provides information what the parameter should contain and an optional <code class="highlighter-rouge">ParameterValidator</code>.
+A <code class="highlighter-rouge">ParameterValidator</code> is used to validate the <code class="highlighter-rouge">Parameter</code> at runtime.
 If the check fails an error is shown to the user.</p>
 
-<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">    
-    <span class="cm">/**
-     * Maps the default endpoints.
-     * Endpoints can always be added at any other location and point in time.
-     * This can be done by getting the instance of the EndPointManager and calling the registerEndpoint method.
-     */</span>
-    <span class="k">private</span> <span class="nx">mapRestEndpoints</span> <span class="o">=</span> <span class="p">()</span><span class="err">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">endpointManager</span><span class="p">.</span><span class="nx">registerEndpoint</span><span class="p">(</span>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript">    <span class="o">/**</span>
+     <span class="o">*</span> <span class="nx">Maps</span> <span class="nx">the</span> <span class="nx">default</span> <span class="nx">endpoints</span><span class="p">.</span>
+     <span class="o">*</span> <span class="nx">Endpoints</span> <span class="nx">can</span> <span class="nx">always</span> <span class="nx">be</span> <span class="nx">added</span> <span class="nx">at</span> <span class="nx">any</span> <span class="nx">other</span> <span class="nx">location</span> <span class="o">and</span> <span class="nx">point</span> <span class="k">in</span> <span class="nx">time</span><span class="p">.</span>
+     <span class="o">*</span> <span class="nx">This</span> <span class="nx">can</span> <span class="nx">be</span> <span class="nx">done</span> <span class="k">by</span> <span class="nx">getting</span> <span class="nx">the</span> <span class="nx">instance</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">EndPointManager</span> <span class="o">and</span> <span class="nx">calling</span> <span class="nx">the</span> <span class="nx">registerEndpoint</span> <span class="nx">method</span><span class="p">.</span>
+     <span class="o">*/</span>
+    <span class="nx">private</span> <span class="nx">mapRestEndpoints</span> <span class="o">=</span> <span class="p">()</span><span class="o">:</span> <span class="nx">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">endpointManager</span><span class="p">.</span><span class="na">registerEndpoint</span><span class="p">(</span>
             <span class="k">new</span> <span class="nx">EndPoint</span><span class="p">(</span>
-                <span class="s1">'/'</span><span class="p">,</span>
-                <span class="nx">GenericEndpoints</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span>
-                <span class="kc">null</span>
+                <span class="s">'/'</span><span class="p">,</span>
+                <span class="nx">GenericEndpoints</span><span class="p">.</span><span class="na">index</span><span class="p">,</span>
+                <span class="no">null</span>
             <span class="p">)</span>
         <span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">endpointManager</span><span class="p">.</span><span class="nx">registerEndpoint</span><span class="p">(</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">endpointManager</span><span class="p">.</span><span class="na">registerEndpoint</span><span class="p">(</span>
             <span class="k">new</span> <span class="nx">EndPoint</span><span class="p">(</span>
-                <span class="s1">'/endpoints'</span><span class="p">,</span>
-                <span class="nx">GenericEndpoints</span><span class="p">.</span><span class="nx">listEndpoints</span><span class="p">,</span>
-                <span class="kc">null</span>
+                <span class="s">'/endpoints'</span><span class="p">,</span>
+                <span class="nx">GenericEndpoints</span><span class="p">.</span><span class="na">listEndpoints</span><span class="p">,</span>
+                <span class="no">null</span>
             <span class="p">)</span>
         <span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">endpointManager</span><span class="p">.</span><span class="nx">registerEndpoint</span><span class="p">(</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">endpointManager</span><span class="p">.</span><span class="na">registerEndpoint</span><span class="p">(</span>
             <span class="k">new</span> <span class="nx">EndPoint</span><span class="p">(</span>
-                <span class="s1">'/helloworld'</span><span class="p">,</span>
-                <span class="nx">GenericEndpoints</span><span class="p">.</span><span class="nx">helloworld</span><span class="p">,</span>
-                <span class="p">[</span><span class="k">new</span> <span class="nx">Parameter</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="o">&gt;</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'string field containing the name'</span><span class="p">,</span> <span class="k">new</span> <span class="nx">HelloWorldValidatorImpl</span><span class="p">())]</span>
+                <span class="s">'/helloworld'</span><span class="p">,</span>
+                <span class="nx">GenericEndpoints</span><span class="p">.</span><span class="na">helloworld</span><span class="p">,</span>
+                <span class="p">[</span><span class="k">new</span> <span class="nx">Parameter</span><span class="o">&lt;</span><span class="nx">string</span><span class="p">,</span> <span class="no">null</span><span class="p">,</span> <span class="no">null</span><span class="o">&gt;</span><span class="p">(</span><span class="s">'name'</span><span class="p">,</span> <span class="s">'string field containing the name'</span><span class="p">,</span> <span class="k">new</span> <span class="nx">HelloWorldValidatorImpl</span><span class="p">())]</span>
             <span class="p">)</span>
         <span class="p">);</span>
 
-        <span class="k">this</span><span class="p">.</span><span class="nx">endpointManager</span><span class="p">.</span><span class="nx">registerEndpoint</span><span class="p">(</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">endpointManager</span><span class="p">.</span><span class="na">registerEndpoint</span><span class="p">(</span>
             <span class="k">new</span> <span class="nx">EndPoint</span><span class="p">(</span>
-                <span class="s1">'/arduino/setArduinoMethod'</span><span class="p">,</span>
-                <span class="nx">ArduinoEndpoint</span><span class="p">.</span><span class="nx">setArduinoMethod</span><span class="p">,</span>
-                <span class="p">[</span><span class="k">new</span> <span class="nx">Parameter</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="o">&gt;</span><span class="p">(</span><span class="s1">'method'</span><span class="p">,</span> <span class="s1">'string field that contains the method used for adruino implementations'</span><span class="p">,</span> <span class="k">new</span> <span class="nx">ArduinoMethodValidatorImpl</span><span class="p">())]</span>
+                <span class="s">'/arduino/setArduinoMethod'</span><span class="p">,</span>
+                <span class="nx">ArduinoEndpoint</span><span class="p">.</span><span class="na">setArduinoMethod</span><span class="p">,</span>
+                <span class="p">[</span><span class="k">new</span> <span class="nx">Parameter</span><span class="o">&lt;</span><span class="nx">string</span><span class="p">,</span> <span class="no">null</span><span class="p">,</span> <span class="no">null</span><span class="o">&gt;</span><span class="p">(</span><span class="s">'method'</span><span class="p">,</span> <span class="s">'string field that contains the method used for adruino implementations'</span><span class="p">,</span> <span class="k">new</span> <span class="nx">ArduinoMethodValidatorImpl</span><span class="p">())]</span>
             <span class="p">)</span>
         <span class="p">);</span>
     <span class="p">};</span>
 
     </code></pre></figure>
 
-<p>The Server instance forwards all requests to the Router instance.
+<p>The <code class="highlighter-rouge">Server</code> instance forwards all requests to the <code class="highlighter-rouge">Router</code> instance.
 As the name suggests this will perform the routing.
 It will see if a resource is requested or and endpoint has been called.
 If a resource is requested it will be served if found.
 If an endpoint has been called, that endpoint will be executed and passed the parameters that were entered, but only after the correct amount of parameters has been passed and they are all valid.</p>
 
 <h2 id="handling-data-the-databroker">Handling data: The DataBroker</h2>
-<p>The Data broker is the Node instance in the application that will save and retrieve data.
+<p>The <code class="highlighter-rouge">DataBroker</code> is the Node instance in the application that will save and retrieve data.
 For the time being it is sufficient to only have in memory ‘caches’ on which basic CRUD operations can be performed.
-All methods on the DataBroker are called by sending an IPCRequest with the data that needs to be saved of the instruction for what data should be retrieved.
-The DataBroker will reply to the original worker by sending an IPCReply with the result of the operation.</p>
+All methods on the <code class="highlighter-rouge">DataBroker</code> are called by sending an <code class="highlighter-rouge">IPCRequest</code> with the data that needs to be saved of the instruction for what data should be retrieved.
+The <code class="highlighter-rouge">DataBroker</code> will reply to the original worker by sending an <code class="highlighter-rouge">IPCReply</code> with the result of the operation.</p>
 
-<p>The DataBroker for now only has a concept of caches.
+<p>The <code class="highlighter-rouge">DataBroker</code> for now only has a concept of caches.
 A cache has a name, type and values (of said type).
 Values can be retrieved, added, updated and deleted from the caches.
 Caches can be retrieved, added and deleted at runtime.</p>
 
 <h2 id="handling-asynchronous-tasks-the-intervalworker">Handling asynchronous tasks: The IntervalWorker</h2>
-<p>The IntervalWorker as its name suggest performs task at a certain interval.
-It is also used for other asynchronous tasks, such as connecting to an Arduino and running Arduino/Raspberry pi Johhny-Five scenarios.
-The IntervalWorker is handy when you need for example to update the content of a cache every so often.
+<p>The <code class="highlighter-rouge">IntervalWorker</code> as its name suggest performs tasks at a certain interval.
+It is also used for other asynchronous workloads, such as connecting to an Arduino and running Arduino/Raspberry pi Johhny-Five scenarios.
+The <code class="highlighter-rouge">IntervalWorker</code> is handy when you need for example to update the content of a cache every so often.
 <br /><br />
-It can also run Arduino Scenarios.
+It can also run Arduino scenarios.
 These are Implementations that contain logic to perform actions on the Arduino or in response to something that happens on the Arduino.
-The IntervalWorker picks up what type of Arduino Scenario you want to run and starts the logic.</p>
+The <code class="highlighter-rouge">IntervalWorker</code> picks up what type of Arduino <code class="highlighter-rouge">Scenario</code> you want to run and starts the logic.</p>
 
-<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">    
-    <span class="cm">/**
-     * Sets up the connection to the Arduino and starts the desired Arduino Scenario.
-     */</span>
-    <span class="k">private</span> <span class="nx">setupArduino</span> <span class="o">=</span> <span class="p">()</span><span class="err">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">arduino</span><span class="p">.</span><span class="nx">enableArduino</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript">    <span class="o">/**</span>
+     <span class="o">*</span> <span class="nx">Sets</span> <span class="nx">up</span> <span class="nx">the</span> <span class="nx">connection</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">Arduino</span> <span class="o">and</span> <span class="nx">starts</span> <span class="nx">the</span> <span class="nx">desired</span> <span class="nx">Arduino</span> <span class="nx">Scenario</span><span class="p">.</span>
+     <span class="o">*/</span>
+    <span class="nx">private</span> <span class="nx">setupArduino</span> <span class="o">=</span> <span class="p">()</span><span class="o">:</span> <span class="nx">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">config</span><span class="p">.</span><span class="na">arduino</span><span class="p">.</span><span class="na">enableArduino</span><span class="p">)</span> <span class="p">{</span>
 
-            <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">arduino</span><span class="p">.</span><span class="nx">useSerialOverJohnnyFive</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">arduino</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ArduinoSerial</span><span class="p">(</span>
-                    <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">arduino</span><span class="p">.</span><span class="nx">serialPortName</span><span class="p">,</span>
-                    <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">arduino</span><span class="p">.</span><span class="nx">serialPortBaudRate</span><span class="p">,</span>
+            <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">config</span><span class="p">.</span><span class="na">arduino</span><span class="p">.</span><span class="na">useSerialOverJohnnyFive</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="na">arduino</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ArduinoSerial</span><span class="p">(</span>
+                    <span class="k">this</span><span class="p">.</span><span class="na">config</span><span class="p">.</span><span class="na">arduino</span><span class="p">.</span><span class="na">serialPortName</span><span class="p">,</span>
+                    <span class="k">this</span><span class="p">.</span><span class="na">config</span><span class="p">.</span><span class="na">arduino</span><span class="p">.</span><span class="na">serialPortBaudRate</span><span class="p">,</span>
                     <span class="k">new</span> <span class="nx">PingScenario</span><span class="p">()</span>
                 <span class="p">);</span>
             <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">arduino</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ArduinoJohnny</span><span class="p">(</span><span class="k">new</span> <span class="nx">BlinkScenario</span><span class="p">());</span>
+                <span class="k">this</span><span class="p">.</span><span class="na">arduino</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ArduinoJohnny</span><span class="p">(</span><span class="k">new</span> <span class="nx">BlinkScenario</span><span class="p">());</span>
             <span class="p">}</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">arduino</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">arduino</span><span class="p">.</span><span class="na">init</span><span class="p">();</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Skipping arduino setup, disabled in settings!'</span><span class="p">);</span>
+            <span class="nx">console</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">'Skipping arduino setup, disabled in settings!'</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">};</span>
 
     </code></pre></figure>
 
 <p>There are two Arduino implementations available.
-Both can execute a Scenario.
+Both can execute a <code class="highlighter-rouge">Scenario</code>.
 The first and simplest implementation is the Johnny-Five Arduino implementation.
 This allows you to make use of the Johnny-Five framework to write dynamic code for the Arduino that can change at runtime.
 This is possible because it uses the StandardFirmata firmware.
@@ -489,7 +482,7 @@ Johnny-Five also supports the Raspberry PI I/O pins.
 This allows it to be used on a Raspberry pi also.
 <br />
 The second Arduino implementation uses no framework and communication is done via regular serial.
-In the type of Scenarios you have to handle all the serial communication yourself.
+In the type of scenarios you have to handle all the serial communication yourself.
 You also have to write Arduino firmware and thus it cannot be dynamically updated at runtime.
 Use this Arduino implementation if some component is incompatible or not supported by Johnny-Five.</p>
 
@@ -499,109 +492,108 @@ However they are of not much use if there cannot be any communication between th
 Each Node instance has its own allocated memory and cannot access variables or call methods on other instances.
 The Node cluster and process framework provide the option to send messages between Node instances.
 <br /><br />
-The IPCMessage instances that are sent exist in two forms.</p>
+The <code class="highlighter-rouge">IPCMessage</code> instances that are sent exist in two forms.</p>
 <ul>
-  <li>IPCRequest: This is the initial message that is sent to a target.</li>
-  <li>IPCReply: This is the response (if any) from the target back to the original caller.
+  <li><code class="highlighter-rouge">IPCRequest</code>: This is the initial message that is sent to a target.</li>
+  <li><code class="highlighter-rouge">IPCReply</code>: This is the response (if any) from the target back to the original caller.
 <br /><br /></li>
 </ul>
 
 <p>This allows for easy two way communication and identification whether the message was a reply to an earlier message.
 Messages can be sent with or without a callback.
 The callback is executed when a reply to the original message is received.
-Because only basic data types can be sent across Node instances the MessageManager instance of the caller stores the callback reference and generates an unique id for said callback.
+Because only basic data types can be sent across Node instances the <code class="highlighter-rouge">MessageManager</code> instance of the caller stores the callback reference and generates an unique id for said callback.
 This allows the application to send the callback ID across Node instances and execute it when it arrives back at the caller.</p>
 
-<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">    
-    <span class="cm">/**
-         * MessageManager singleton class.
-         * This class has an array of tuples of string and Function.
-         * The string field is the callbackId and the Function is the actual callback.
-         * The message manager is a per worker instance that can only execute callbacks on the same worker.
-         * The integration with the IPC framework allows messages to be sent to other workers and replies to be sent back to the original worker.
-         * It is important that the original worker is called to execute the callback since a function cannot cross a node instance!
-         *
-         * This singleton can be used to manage IPC messages.
-         */</span>
-        <span class="k">export</span> <span class="kr">class</span> <span class="nx">MessageManager</span> <span class="p">{</span>
-        
-            <span class="k">private</span> <span class="k">static</span> <span class="nx">instance</span><span class="err">:</span> <span class="nx">MessageManager</span>         <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-            <span class="k">private</span> <span class="nx">callbacks</span><span class="err">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="p">[</span><span class="kr">string</span><span class="p">,</span> <span class="nb">Function</span><span class="p">]</span><span class="o">&gt;</span>    <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-            <span class="k">private</span> <span class="nx">workerId</span><span class="err">:</span> <span class="kr">string</span>                        <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-        
-            <span class="cm">/**
-             * Private constructor for the singleton.
-             */</span>
-            <span class="k">private</span> <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">callbacks</span> <span class="o">=</span> <span class="p">[];</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">workerId</span> <span class="o">=</span> <span class="nx">cluster</span><span class="p">.</span><span class="nx">worker</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript">    <span class="o">/**</span>
+         <span class="o">*</span> <span class="nx">MessageManager</span> <span class="nx">singleton</span> <span class="k">class</span><span class="p">.</span>
+         <span class="o">*</span> <span class="nx">This</span> <span class="k">class</span> <span class="nx">has</span> <span class="nx">an</span> <span class="nx">array</span> <span class="k">of</span> <span class="nx">tuples</span> <span class="k">of</span> <span class="nx">string</span> <span class="o">and</span> <span class="nb">Function</span><span class="p">.</span>
+         <span class="o">*</span> <span class="nx">The</span> <span class="nx">string</span> <span class="nx">field</span> <span class="o">is</span> <span class="nx">the</span> <span class="nx">callbackId</span> <span class="o">and</span> <span class="nx">the</span> <span class="nb">Function</span> <span class="o">is</span> <span class="nx">the</span> <span class="nx">actual</span> <span class="nx">callback</span><span class="p">.</span>
+         <span class="o">*</span> <span class="nx">The</span> <span class="nx">message</span> <span class="nx">manager</span> <span class="o">is</span> <span class="nx">a</span> <span class="nx">per</span> <span class="nx">worker</span> <span class="nx">instance</span> <span class="nx">that</span> <span class="nx">can</span> <span class="nx">only</span> <span class="nx">execute</span> <span class="nx">callbacks</span> <span class="no">on</span> <span class="nx">the</span> <span class="nx">same</span> <span class="nx">worker</span><span class="p">.</span>
+         <span class="o">*</span> <span class="nx">The</span> <span class="nx">integration</span> <span class="nx">with</span> <span class="nx">the</span> <span class="nx">IPC</span> <span class="nx">framework</span> <span class="nx">allows</span> <span class="nx">messages</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">sent</span> <span class="nx">to</span> <span class="nx">other</span> <span class="nx">workers</span> <span class="o">and</span> <span class="nx">replies</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">sent</span> <span class="nx">back</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">original</span> <span class="nx">worker</span><span class="p">.</span>
+         <span class="o">*</span> <span class="nx">It</span> <span class="o">is</span> <span class="nx">important</span> <span class="nx">that</span> <span class="nx">the</span> <span class="nx">original</span> <span class="nx">worker</span> <span class="o">is</span> <span class="nx">called</span> <span class="nx">to</span> <span class="nx">execute</span> <span class="nx">the</span> <span class="nx">callback</span> <span class="nx">since</span> <span class="nx">a</span> <span class="nx">function</span> <span class="nx">cannot</span> <span class="nx">cross</span> <span class="nx">a</span> <span class="nx">node</span> <span class="nx">instance</span><span class="o">!</span>
+         <span class="o">*</span>
+         <span class="o">*</span> <span class="nx">This</span> <span class="nx">singleton</span> <span class="nx">can</span> <span class="nx">be</span> <span class="nx">used</span> <span class="nx">to</span> <span class="nx">manage</span> <span class="nx">IPC</span> <span class="nx">messages</span><span class="p">.</span>
+         <span class="o">*/</span>
+        <span class="nx">export</span> <span class="k">class</span> <span class="nx">MessageManager</span> <span class="p">{</span>
+
+            <span class="nx">private</span> <span class="nx">static</span> <span class="na">instance</span><span class="o">:</span> <span class="nx">MessageManager</span>         <span class="o">=</span> <span class="no">null</span><span class="p">;</span>
+            <span class="nx">private</span> <span class="na">callbacks</span><span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="p">[</span><span class="nx">string</span><span class="p">,</span> <span class="nb">Function</span><span class="p">]</span><span class="o">&gt;</span>    <span class="o">=</span> <span class="no">null</span><span class="p">;</span>
+            <span class="nx">private</span> <span class="na">workerId</span><span class="o">:</span> <span class="nx">string</span>                        <span class="o">=</span> <span class="no">null</span><span class="p">;</span>
+
+            <span class="o">/**</span>
+             <span class="o">*</span> <span class="nx">Private</span> <span class="nx">constructor</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">singleton</span><span class="p">.</span>
+             <span class="o">*/</span>
+            <span class="nx">private</span> <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="na">callbacks</span> <span class="o">=</span> <span class="p">[];</span>
+                <span class="k">this</span><span class="p">.</span><span class="na">workerId</span> <span class="o">=</span> <span class="nx">cluster</span><span class="p">.</span><span class="na">worker</span><span class="p">.</span><span class="na">id</span><span class="p">;</span>
             <span class="p">}</span>
-        
-            <span class="cm">/**
-             * Use this method to get the instance of this singleton class.
-             *
-             * @returns {MessageManager} The instance of this singleton class.
-             */</span>
-            <span class="k">public</span> <span class="k">static</span> <span class="nx">getInstance</span><span class="p">()</span><span class="err">:</span> <span class="nx">MessageManager</span> <span class="p">{</span>
-                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">MessageManager</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="nx">MessageManager</span><span class="p">.</span><span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MessageManager</span><span class="p">();</span>
+
+            <span class="o">/**</span>
+             <span class="o">*</span> <span class="nx">Use</span> <span class="k">this</span> <span class="nx">method</span> <span class="nx">to</span> <span class="nx">get</span> <span class="nx">the</span> <span class="nx">instance</span> <span class="k">of</span> <span class="k">this</span> <span class="nx">singleton</span> <span class="k">class</span><span class="p">.</span>
+             <span class="o">*</span>
+             <span class="o">*</span> <span class="vi">@</span><span class="na">returns</span> <span class="p">{</span><span class="nx">MessageManager</span><span class="p">}</span> <span class="nx">The</span> <span class="nx">instance</span> <span class="k">of</span> <span class="k">this</span> <span class="nx">singleton</span> <span class="k">class</span><span class="p">.</span>
+             <span class="o">*/</span>
+            <span class="nx">public</span> <span class="nx">static</span> <span class="nx">getInstance</span><span class="p">()</span><span class="o">:</span> <span class="nx">MessageManager</span> <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">MessageManager</span><span class="p">.</span><span class="na">instance</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">MessageManager</span><span class="p">.</span><span class="na">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MessageManager</span><span class="p">();</span>
                 <span class="p">}</span>
-                <span class="k">return</span> <span class="nx">MessageManager</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span>
+                <span class="k">return</span> <span class="nx">MessageManager</span><span class="p">.</span><span class="na">instance</span><span class="p">;</span>
             <span class="p">}</span>
-        
-            <span class="cm">/**
-             * Sends an IPCMessage of the subtype IPCRequest to the given MessageTarget (one of the three worker types).
-             * A target function is also given and contains the name of the function that will be executed on the target.
-             * The target should implement a specific handler or switch statement to handle these different target function names.
-             * This message is sent without a callback. This means that when the target function has finished no reply will be sent to inform the caller.
-             *
-             * @param payload The payload for the target, can be of any kind.
-             * @param messageTarget The MessageTarget, being one of the three types of workers.
-             * @param targetFunctionName The name of the function to be executed on the target. This value is NOT evaluated by eval for security reasons.
-             */</span>
-            <span class="k">public</span> <span class="nx">sendMessage</span><span class="p">(</span><span class="nx">payload</span><span class="err">:</span> <span class="kr">any</span><span class="p">,</span> <span class="nx">messageTarget</span><span class="err">:</span> <span class="nx">MessageTarget</span><span class="p">,</span> <span class="nx">targetFunctionName</span><span class="err">:</span> <span class="kr">string</span><span class="p">)</span><span class="err">:</span> <span class="k">void</span> <span class="p">{</span>
-                <span class="kd">let</span> <span class="na">message</span><span class="p">:</span> <span class="nx">IPCMessage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IPCRequest</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">workerId</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">payload</span><span class="p">,</span> <span class="nx">messageTarget</span><span class="p">,</span> <span class="nx">targetFunctionName</span><span class="p">);</span>
-                <span class="nx">process</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+
+            <span class="o">/**</span>
+             <span class="o">*</span> <span class="nx">Sends</span> <span class="nx">an</span> <span class="nx">IPCMessage</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">subtype</span> <span class="nx">IPCRequest</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">given</span> <span class="nx">MessageTarget</span> <span class="p">(</span><span class="nx">one</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">three</span> <span class="nx">worker</span> <span class="nx">types</span><span class="p">).</span>
+             <span class="o">*</span> <span class="nx">A</span> <span class="nx">target</span> <span class="nx">function</span> <span class="o">is</span> <span class="nx">also</span> <span class="nx">given</span> <span class="o">and</span> <span class="nx">contains</span> <span class="nx">the</span> <span class="nx">name</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">function</span> <span class="nx">that</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">executed</span> <span class="no">on</span> <span class="nx">the</span> <span class="nx">target</span><span class="p">.</span>
+             <span class="o">*</span> <span class="nx">The</span> <span class="nx">target</span> <span class="nx">should</span> <span class="nx">implement</span> <span class="nx">a</span> <span class="nx">specific</span> <span class="nx">handler</span> <span class="o">or</span> <span class="k">switch</span> <span class="nx">statement</span> <span class="nx">to</span> <span class="nx">handle</span> <span class="nx">these</span> <span class="nx">different</span> <span class="nx">target</span> <span class="nx">function</span> <span class="nx">names</span><span class="p">.</span>
+             <span class="o">*</span> <span class="nx">This</span> <span class="nx">message</span> <span class="o">is</span> <span class="nx">sent</span> <span class="nx">without</span> <span class="nx">a</span> <span class="nx">callback</span><span class="p">.</span> <span class="na">This</span> <span class="nx">means</span> <span class="nx">that</span> <span class="k">when</span> <span class="nx">the</span> <span class="nx">target</span> <span class="nx">function</span> <span class="nx">has</span> <span class="nx">finished</span> <span class="no">no</span> <span class="nx">reply</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">sent</span> <span class="nx">to</span> <span class="nx">inform</span> <span class="nx">the</span> <span class="nx">caller</span><span class="p">.</span>
+             <span class="o">*</span>
+             <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">payload</span> <span class="nx">The</span> <span class="nx">payload</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">can</span> <span class="nx">be</span> <span class="k">of</span> <span class="nx">any</span> <span class="nx">kind</span><span class="p">.</span>
+             <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">messageTarget</span> <span class="nx">The</span> <span class="nx">MessageTarget</span><span class="p">,</span> <span class="nx">being</span> <span class="nx">one</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">three</span> <span class="nx">types</span> <span class="k">of</span> <span class="nx">workers</span><span class="p">.</span>
+             <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">targetFunctionName</span> <span class="nx">The</span> <span class="nx">name</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">function</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">executed</span> <span class="no">on</span> <span class="nx">the</span> <span class="nx">target</span><span class="p">.</span> <span class="na">This</span> <span class="nx">value</span> <span class="o">is</span> <span class="nx">NOT</span> <span class="nx">evaluated</span> <span class="k">by</span> <span class="nb">eval</span> <span class="k">for</span> <span class="nx">security</span> <span class="nx">reasons</span><span class="p">.</span>
+             <span class="o">*/</span>
+            <span class="nx">public</span> <span class="nx">sendMessage</span><span class="p">(</span><span class="na">payload</span><span class="o">:</span> <span class="nx">any</span><span class="p">,</span> <span class="na">messageTarget</span><span class="o">:</span> <span class="nx">MessageTarget</span><span class="p">,</span> <span class="na">targetFunctionName</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
+                <span class="nx">let</span> <span class="na">message</span><span class="o">:</span> <span class="nx">IPCMessage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IPCRequest</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">workerId</span><span class="p">,</span> <span class="no">null</span><span class="p">,</span> <span class="nx">payload</span><span class="p">,</span> <span class="nx">messageTarget</span><span class="p">,</span> <span class="nx">targetFunctionName</span><span class="p">);</span>
+                <span class="nx">process</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
             <span class="p">}</span>
-        
-            <span class="cm">/**
-             * Sends an IPCMessage of the subtype IPCRequest to the given MessageTarget (one of the three worker types).
-             * A target function is also given and contains the name of the function that will be executed on the target.
-             * The target should implement a specific handler or switch statement to handle these different target function names.
-             * This message is sent with a callback. The callee sends a new IPCMessage of the subtype IPCReply to inform the caller and provide it with new information if needed.
-             * A reply can be sent by using the sendReply method on this class.
-             *
-             * @param payload The payload for the target, can be of any kind.
-             * @param callback The function that should be called when a reply has been received.
-             * @param messageTarget The MessageTarget, being one of the three types of workers.
-             * @param targetFunctionName The name of the function to be executed on the target. This value is NOT evaluated by eval for security reasons.
-             */</span>
-            <span class="k">public</span> <span class="nx">sendMessageWithCallback</span><span class="p">(</span><span class="na">payload</span><span class="p">:</span> <span class="kr">any</span><span class="p">,</span> <span class="na">callback</span><span class="p">:</span> <span class="nb">Function</span><span class="p">,</span> <span class="na">messageTarget</span><span class="p">:</span> <span class="nx">MessageTarget</span><span class="p">,</span> <span class="na">targetFunctionName</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
-                <span class="kd">let</span> <span class="na">callbackId</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">hrtime</span><span class="p">()</span>  <span class="o">+</span> <span class="s2">"--"</span> <span class="o">+</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">6</span><span class="p">);</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="nx">callbackId</span><span class="p">,</span> <span class="nx">callback</span><span class="p">]);</span>
-        
-                <span class="kd">let</span> <span class="na">message</span><span class="p">:</span> <span class="nx">IPCMessage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IPCRequest</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">workerId</span><span class="p">,</span> <span class="nx">callbackId</span><span class="p">,</span> <span class="nx">payload</span><span class="p">,</span> <span class="nx">messageTarget</span><span class="p">,</span> <span class="nx">targetFunctionName</span><span class="p">);</span>
-                <span class="nx">process</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+
+            <span class="o">/**</span>
+             <span class="o">*</span> <span class="nx">Sends</span> <span class="nx">an</span> <span class="nx">IPCMessage</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">subtype</span> <span class="nx">IPCRequest</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">given</span> <span class="nx">MessageTarget</span> <span class="p">(</span><span class="nx">one</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">three</span> <span class="nx">worker</span> <span class="nx">types</span><span class="p">).</span>
+             <span class="o">*</span> <span class="nx">A</span> <span class="nx">target</span> <span class="nx">function</span> <span class="o">is</span> <span class="nx">also</span> <span class="nx">given</span> <span class="o">and</span> <span class="nx">contains</span> <span class="nx">the</span> <span class="nx">name</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">function</span> <span class="nx">that</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">executed</span> <span class="no">on</span> <span class="nx">the</span> <span class="nx">target</span><span class="p">.</span>
+             <span class="o">*</span> <span class="nx">The</span> <span class="nx">target</span> <span class="nx">should</span> <span class="nx">implement</span> <span class="nx">a</span> <span class="nx">specific</span> <span class="nx">handler</span> <span class="o">or</span> <span class="k">switch</span> <span class="nx">statement</span> <span class="nx">to</span> <span class="nx">handle</span> <span class="nx">these</span> <span class="nx">different</span> <span class="nx">target</span> <span class="nx">function</span> <span class="nx">names</span><span class="p">.</span>
+             <span class="o">*</span> <span class="nx">This</span> <span class="nx">message</span> <span class="o">is</span> <span class="nx">sent</span> <span class="nx">with</span> <span class="nx">a</span> <span class="nx">callback</span><span class="p">.</span> <span class="na">The</span> <span class="nx">callee</span> <span class="nx">sends</span> <span class="nx">a</span> <span class="k">new</span> <span class="nx">IPCMessage</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">subtype</span> <span class="nx">IPCReply</span> <span class="nx">to</span> <span class="nx">inform</span> <span class="nx">the</span> <span class="nx">caller</span> <span class="o">and</span> <span class="nx">provide</span> <span class="nx">it</span> <span class="nx">with</span> <span class="k">new</span> <span class="nx">information</span> <span class="k">if</span> <span class="nx">needed</span><span class="p">.</span>
+             <span class="o">*</span> <span class="nx">A</span> <span class="nx">reply</span> <span class="nx">can</span> <span class="nx">be</span> <span class="nx">sent</span> <span class="k">by</span> <span class="nx">using</span> <span class="nx">the</span> <span class="nx">sendReply</span> <span class="nx">method</span> <span class="no">on</span> <span class="k">this</span> <span class="k">class</span><span class="p">.</span>
+             <span class="o">*</span>
+             <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">payload</span> <span class="nx">The</span> <span class="nx">payload</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">can</span> <span class="nx">be</span> <span class="k">of</span> <span class="nx">any</span> <span class="nx">kind</span><span class="p">.</span>
+             <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">callback</span> <span class="nx">The</span> <span class="nx">function</span> <span class="nx">that</span> <span class="nx">should</span> <span class="nx">be</span> <span class="nx">called</span> <span class="k">when</span> <span class="nx">a</span> <span class="nx">reply</span> <span class="nx">has</span> <span class="nx">been</span> <span class="nx">received</span><span class="p">.</span>
+             <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">messageTarget</span> <span class="nx">The</span> <span class="nx">MessageTarget</span><span class="p">,</span> <span class="nx">being</span> <span class="nx">one</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">three</span> <span class="nx">types</span> <span class="k">of</span> <span class="nx">workers</span><span class="p">.</span>
+             <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">targetFunctionName</span> <span class="nx">The</span> <span class="nx">name</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">function</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">executed</span> <span class="no">on</span> <span class="nx">the</span> <span class="nx">target</span><span class="p">.</span> <span class="na">This</span> <span class="nx">value</span> <span class="o">is</span> <span class="nx">NOT</span> <span class="nx">evaluated</span> <span class="k">by</span> <span class="nb">eval</span> <span class="k">for</span> <span class="nx">security</span> <span class="nx">reasons</span><span class="p">.</span>
+             <span class="o">*/</span>
+            <span class="nx">public</span> <span class="nx">sendMessageWithCallback</span><span class="p">(</span><span class="na">payload</span><span class="o">:</span> <span class="nx">any</span><span class="p">,</span> <span class="na">callback</span><span class="o">:</span> <span class="nb">Function</span><span class="p">,</span> <span class="na">messageTarget</span><span class="o">:</span> <span class="nx">MessageTarget</span><span class="p">,</span> <span class="na">targetFunctionName</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
+                <span class="nx">let</span> <span class="na">callbackId</span><span class="o">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="na">hrtime</span><span class="p">()</span>  <span class="o">+</span> <span class="s">"--"</span> <span class="o">+</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="na">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">6</span><span class="p">);</span>
+                <span class="k">this</span><span class="p">.</span><span class="na">callbacks</span><span class="p">.</span><span class="na">push</span><span class="p">([</span><span class="nx">callbackId</span><span class="p">,</span> <span class="nx">callback</span><span class="p">]);</span>
+
+                <span class="nx">let</span> <span class="na">message</span><span class="o">:</span> <span class="nx">IPCMessage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IPCRequest</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">workerId</span><span class="p">,</span> <span class="nx">callbackId</span><span class="p">,</span> <span class="nx">payload</span><span class="p">,</span> <span class="nx">messageTarget</span><span class="p">,</span> <span class="nx">targetFunctionName</span><span class="p">);</span>
+                <span class="nx">process</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
             <span class="p">}</span>
-        
-            <span class="cm">/**
-             * Sends and IPCMessage of the subtype IPCReply to the sender of the original message.
-             *
-             * @param payload A new payload to provide to the original sender.
-             * @param originalMessage The message the sender originally sent.
-             */</span>
-            <span class="k">public</span> <span class="nx">sendReply</span><span class="p">(</span><span class="na">payload</span><span class="p">:</span> <span class="kr">any</span><span class="p">,</span> <span class="na">originalMessage</span><span class="p">:</span> <span class="nx">IPCRequest</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
-                <span class="kd">let</span> <span class="na">reply</span><span class="p">:</span> <span class="nx">IPCMessage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IPCReply</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">workerId</span><span class="p">,</span> <span class="nx">payload</span><span class="p">,</span> <span class="nx">originalMessage</span><span class="p">);</span>
-                <span class="nx">process</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">reply</span><span class="p">);</span>
+
+            <span class="o">/**</span>
+             <span class="o">*</span> <span class="nx">Sends</span> <span class="o">and</span> <span class="nx">IPCMessage</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">subtype</span> <span class="nx">IPCReply</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">sender</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">original</span> <span class="nx">message</span><span class="p">.</span>
+             <span class="o">*</span>
+             <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">payload</span> <span class="nx">A</span> <span class="k">new</span> <span class="nx">payload</span> <span class="nx">to</span> <span class="nx">provide</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">original</span> <span class="nx">sender</span><span class="p">.</span>
+             <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">originalMessage</span> <span class="nx">The</span> <span class="nx">message</span> <span class="nx">the</span> <span class="nx">sender</span> <span class="nx">originally</span> <span class="nx">sent</span><span class="p">.</span>
+             <span class="o">*/</span>
+            <span class="nx">public</span> <span class="nx">sendReply</span><span class="p">(</span><span class="na">payload</span><span class="o">:</span> <span class="nx">any</span><span class="p">,</span> <span class="na">originalMessage</span><span class="o">:</span> <span class="nx">IPCRequest</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
+                <span class="nx">let</span> <span class="na">reply</span><span class="o">:</span> <span class="nx">IPCMessage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IPCReply</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">workerId</span><span class="p">,</span> <span class="nx">payload</span><span class="p">,</span> <span class="nx">originalMessage</span><span class="p">);</span>
+                <span class="nx">process</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="nx">reply</span><span class="p">);</span>
             <span class="p">}</span>
-        
-            <span class="cm">/**
-             * For a given callbackId execute the callback function.
-             *
-             * @param callbackId The callbackId for which to execute the callback function.
-             */</span>
-            <span class="k">public</span> <span class="nx">executeCallbackForId</span><span class="p">(</span><span class="na">callbackId</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">:</span><span class="k">void</span> <span class="p">{</span>
-                <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">callbackEntry</span> <span class="nx">of</span> <span class="k">this</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="o">/**</span>
+             <span class="o">*</span> <span class="nx">For</span> <span class="nx">a</span> <span class="nx">given</span> <span class="nx">callbackId</span> <span class="nx">execute</span> <span class="nx">the</span> <span class="nx">callback</span> <span class="nx">function</span><span class="p">.</span>
+             <span class="o">*</span>
+             <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">callbackId</span> <span class="nx">The</span> <span class="nx">callbackId</span> <span class="k">for</span> <span class="nx">which</span> <span class="nx">to</span> <span class="nx">execute</span> <span class="nx">the</span> <span class="nx">callback</span> <span class="nx">function</span><span class="p">.</span>
+             <span class="o">*/</span>
+            <span class="nx">public</span> <span class="nx">executeCallbackForId</span><span class="p">(</span><span class="na">callbackId</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="o">:</span><span class="nx">void</span> <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span><span class="nx">let</span> <span class="nx">callbackEntry</span> <span class="k">of</span> <span class="k">this</span><span class="p">.</span><span class="na">callbacks</span><span class="p">)</span> <span class="p">{</span>
                     <span class="k">if</span><span class="p">(</span><span class="nx">callbackEntry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nx">callbackId</span><span class="p">)</span> <span class="p">{</span>
                         <span class="nx">callbackEntry</span><span class="p">[</span><span class="mi">1</span><span class="p">]();</span>
                         <span class="k">return</span><span class="p">;</span>
@@ -609,174 +601,173 @@ This allows the application to send the callback ID across Node instances and ex
                 <span class="p">}</span>
             <span class="p">}</span>
         <span class="p">}</span>
-    
+
     </code></pre></figure>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;br/&gt; &lt;br/&gt; 
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;br/&gt; &lt;br/&gt;
 </code></pre>
 </div>
 
-<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">    
-    <span class="cm">/**
-     * MessageHandler singleton class.
-     *
-     * This singleton can be used to handle IPC messages.
-     */</span>
-    <span class="k">export</span> <span class="kr">class</span> <span class="nx">MessageHandler</span> <span class="p">{</span>
-    
-        <span class="k">private</span> <span class="k">static</span> <span class="nx">instance</span><span class="err">:</span> <span class="nx">MessageHandler</span>         <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-        <span class="k">private</span> <span class="nx">dataBroker</span> <span class="err">:</span> <span class="nx">cluster</span><span class="p">.</span><span class="nx">Worker</span>             <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-        <span class="k">private</span> <span class="nx">intervalWorker</span> <span class="err">:</span> <span class="nx">cluster</span><span class="p">.</span><span class="nx">Worker</span>         <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-        <span class="k">private</span> <span class="nx">httpWorkers</span> <span class="err">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">cluster</span><span class="p">.</span><span class="nx">Worker</span><span class="o">&gt;</span>     <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-        <span class="k">public</span> <span class="nx">emitter</span><span class="err">:</span> <span class="nx">EventEmitter</span>                    <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-    
-        <span class="cm">/**
-         * Private constructor for the singleton.
-         */</span>
-        <span class="k">private</span> <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
-    
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript">    <span class="o">/**</span>
+     <span class="o">*</span> <span class="nx">MessageHandler</span> <span class="nx">singleton</span> <span class="k">class</span><span class="p">.</span>
+     <span class="o">*</span>
+     <span class="o">*</span> <span class="nx">This</span> <span class="nx">singleton</span> <span class="nx">can</span> <span class="nx">be</span> <span class="nx">used</span> <span class="nx">to</span> <span class="nx">handle</span> <span class="nx">IPC</span> <span class="nx">messages</span><span class="p">.</span>
+     <span class="o">*/</span>
+    <span class="nx">export</span> <span class="k">class</span> <span class="nx">MessageHandler</span> <span class="p">{</span>
+
+        <span class="nx">private</span> <span class="nx">static</span> <span class="na">instance</span><span class="o">:</span> <span class="nx">MessageHandler</span>         <span class="o">=</span> <span class="no">null</span><span class="p">;</span>
+        <span class="nx">private</span> <span class="na">dataBroker</span> <span class="o">:</span> <span class="nx">cluster</span><span class="p">.</span><span class="na">Worker</span>             <span class="o">=</span> <span class="no">null</span><span class="p">;</span>
+        <span class="nx">private</span> <span class="na">intervalWorker</span> <span class="o">:</span> <span class="nx">cluster</span><span class="p">.</span><span class="na">Worker</span>         <span class="o">=</span> <span class="no">null</span><span class="p">;</span>
+        <span class="nx">private</span> <span class="na">httpWorkers</span> <span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">cluster</span><span class="p">.</span><span class="na">Worker</span><span class="o">&gt;</span>     <span class="o">=</span> <span class="no">null</span><span class="p">;</span>
+        <span class="nx">public</span> <span class="na">emitter</span><span class="o">:</span> <span class="nx">EventEmitter</span>                    <span class="o">=</span> <span class="no">null</span><span class="p">;</span>
+
+        <span class="o">/**</span>
+         <span class="o">*</span> <span class="nx">Private</span> <span class="nx">constructor</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">singleton</span><span class="p">.</span>
+         <span class="o">*/</span>
+        <span class="nx">private</span> <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+
         <span class="p">}</span>
-    
-        <span class="cm">/**
-         * Use this method to get the instance of this singleton class.
-         *
-         * @returns {MessageHandler} The instance of this singleton class.
-         */</span>
-        <span class="k">public</span> <span class="k">static</span> <span class="nx">getInstance</span><span class="p">()</span><span class="err">:</span> <span class="nx">MessageHandler</span> <span class="p">{</span>
-            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">MessageHandler</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">MessageHandler</span><span class="p">.</span><span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MessageHandler</span><span class="p">();</span>
+
+        <span class="o">/**</span>
+         <span class="o">*</span> <span class="nx">Use</span> <span class="k">this</span> <span class="nx">method</span> <span class="nx">to</span> <span class="nx">get</span> <span class="nx">the</span> <span class="nx">instance</span> <span class="k">of</span> <span class="k">this</span> <span class="nx">singleton</span> <span class="k">class</span><span class="p">.</span>
+         <span class="o">*</span>
+         <span class="o">*</span> <span class="vi">@</span><span class="na">returns</span> <span class="p">{</span><span class="nx">MessageHandler</span><span class="p">}</span> <span class="nx">The</span> <span class="nx">instance</span> <span class="k">of</span> <span class="k">this</span> <span class="nx">singleton</span> <span class="k">class</span><span class="p">.</span>
+         <span class="o">*/</span>
+        <span class="nx">public</span> <span class="nx">static</span> <span class="nx">getInstance</span><span class="p">()</span><span class="o">:</span> <span class="nx">MessageHandler</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">MessageHandler</span><span class="p">.</span><span class="na">instance</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">MessageHandler</span><span class="p">.</span><span class="na">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MessageHandler</span><span class="p">();</span>
             <span class="p">}</span>
-            <span class="k">return</span> <span class="nx">MessageHandler</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span>
+            <span class="k">return</span> <span class="nx">MessageHandler</span><span class="p">.</span><span class="na">instance</span><span class="p">;</span>
         <span class="p">}</span>
-    
-        <span class="cm">/**
-         * Initialises the MessageHandler for being a handler for the master NodeJS process.
-         *
-         * @param dataBroker The DataBroker worker instance.
-         * @param intervalWorker The IntervalWorker worker instance.
-         * @param httpWorkers The HTTPWorker worker instance.
-         */</span>
-        <span class="k">public</span> <span class="nx">initForMaster</span> <span class="o">=</span> <span class="p">(</span><span class="nx">dataBroker</span><span class="err">:</span> <span class="nx">cluster</span><span class="p">.</span><span class="nx">Worker</span><span class="p">,</span> <span class="nx">intervalWorker</span><span class="err">:</span> <span class="nx">cluster</span><span class="p">.</span><span class="nx">Worker</span><span class="p">,</span> <span class="nx">httpWorkers</span><span class="err">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">cluster</span><span class="p">.</span><span class="nx">Worker</span><span class="o">&gt;</span><span class="p">)</span><span class="err">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">dataBroker</span>     <span class="o">=</span> <span class="nx">dataBroker</span><span class="p">;</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">intervalWorker</span> <span class="o">=</span> <span class="nx">intervalWorker</span><span class="p">;</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">httpWorkers</span>    <span class="o">=</span> <span class="nx">httpWorkers</span><span class="p">;</span>
-    
-            <span class="k">this</span><span class="p">.</span><span class="nx">emitter</span>        <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="p">();</span>
+
+        <span class="o">/**</span>
+         <span class="o">*</span> <span class="nx">Initialises</span> <span class="nx">the</span> <span class="nx">MessageHandler</span> <span class="k">for</span> <span class="nx">being</span> <span class="nx">a</span> <span class="nx">handler</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">master</span> <span class="nx">NodeJS</span> <span class="nx">process</span><span class="p">.</span>
+         <span class="o">*</span>
+         <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">dataBroker</span> <span class="nx">The</span> <span class="nx">DataBroker</span> <span class="nx">worker</span> <span class="nx">instance</span><span class="p">.</span>
+         <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">intervalWorker</span> <span class="nx">The</span> <span class="nx">IntervalWorker</span> <span class="nx">worker</span> <span class="nx">instance</span><span class="p">.</span>
+         <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">httpWorkers</span> <span class="nx">The</span> <span class="nx">HTTPWorker</span> <span class="nx">worker</span> <span class="nx">instance</span><span class="p">.</span>
+         <span class="o">*/</span>
+        <span class="nx">public</span> <span class="nx">initForMaster</span> <span class="o">=</span> <span class="p">(</span><span class="na">dataBroker</span><span class="o">:</span> <span class="nx">cluster</span><span class="p">.</span><span class="na">Worker</span><span class="p">,</span> <span class="na">intervalWorker</span><span class="o">:</span> <span class="nx">cluster</span><span class="p">.</span><span class="na">Worker</span><span class="p">,</span> <span class="na">httpWorkers</span><span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">cluster</span><span class="p">.</span><span class="na">Worker</span><span class="o">&gt;</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">dataBroker</span>     <span class="o">=</span> <span class="nx">dataBroker</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">intervalWorker</span> <span class="o">=</span> <span class="nx">intervalWorker</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">httpWorkers</span>    <span class="o">=</span> <span class="nx">httpWorkers</span><span class="p">;</span>
+
+            <span class="k">this</span><span class="p">.</span><span class="na">emitter</span>        <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="p">();</span>
         <span class="p">};</span>
-    
-        <span class="cm">/**
-         * Initialises the MessageHandler for being a handler for a slave (worker) NodeJS process.
-         */</span>
-        <span class="k">public</span> <span class="nx">initForSlave</span> <span class="o">=</span> <span class="p">():</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">emitter</span>        <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="p">();</span>
+
+        <span class="o">/**</span>
+         <span class="o">*</span> <span class="nx">Initialises</span> <span class="nx">the</span> <span class="nx">MessageHandler</span> <span class="k">for</span> <span class="nx">being</span> <span class="nx">a</span> <span class="nx">handler</span> <span class="k">for</span> <span class="nx">a</span> <span class="nx">slave</span> <span class="p">(</span><span class="nx">worker</span><span class="p">)</span> <span class="nx">NodeJS</span> <span class="nx">process</span><span class="p">.</span>
+         <span class="o">*/</span>
+        <span class="nx">public</span> <span class="nx">initForSlave</span> <span class="o">=</span> <span class="p">()</span><span class="o">:</span> <span class="nx">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">emitter</span>        <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="p">();</span>
         <span class="p">};</span>
-    
-        <span class="cm">/*-----------------------------------------------------------------------------
-         ------------------------------------------------------------------------------
-         --                         MASTER MESSAGE HANDLING                          --
-         ------------------------------------------------------------------------------
-         ----------------------------------------------------------------------------*/</span>
-        <span class="c1">//TODO: Separate master and slave message handling?</span>
-    
-        <span class="cm">/**
-         * Handler function for messages sent by HTTPWorkers.
-         * Forwards the message to the target.
-         *
-         * @param msg The IPCMessage as sent by an HTTPWorker.
-         */</span>
-        <span class="k">public</span> <span class="nx">onServerWorkerMessageReceived</span> <span class="o">=</span> <span class="p">(</span><span class="na">msg</span><span class="p">:</span> <span class="nx">IPCMessage</span><span class="p">):</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Message received from server worker'</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">targetHandler</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+
+        <span class="o">/*-----------------------------------------------------------------------------</span>
+         <span class="o">------------------------------------------------------------------------------</span>
+         <span class="o">--</span>                         <span class="nx">MASTER</span> <span class="nx">MESSAGE</span> <span class="nx">HANDLING</span>                          <span class="o">--</span>
+         <span class="o">------------------------------------------------------------------------------</span>
+         <span class="o">----------------------------------------------------------------------------*/</span>
+        <span class="o">//</span><span class="na">TODO</span><span class="o">:</span> <span class="nx">Separate</span> <span class="nx">master</span> <span class="o">and</span> <span class="nx">slave</span> <span class="nx">message</span> <span class="nx">handling</span><span class="o">?</span>
+
+        <span class="o">/**</span>
+         <span class="o">*</span> <span class="nx">Handler</span> <span class="nx">function</span> <span class="k">for</span> <span class="nx">messages</span> <span class="nx">sent</span> <span class="k">by</span> <span class="nx">HTTPWorkers</span><span class="p">.</span>
+         <span class="o">*</span> <span class="nx">Forwards</span> <span class="nx">the</span> <span class="nx">message</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">target</span><span class="p">.</span>
+         <span class="o">*</span>
+         <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">msg</span> <span class="nx">The</span> <span class="nx">IPCMessage</span> <span class="nx">as</span> <span class="nx">sent</span> <span class="k">by</span> <span class="nx">an</span> <span class="nx">HTTPWorker</span><span class="p">.</span>
+         <span class="o">*/</span>
+        <span class="nx">public</span> <span class="nx">onServerWorkerMessageReceived</span> <span class="o">=</span> <span class="p">(</span><span class="na">msg</span><span class="o">:</span> <span class="nx">IPCMessage</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">'Message received from server worker'</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">targetHandler</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
         <span class="p">};</span>
-    
-        <span class="cm">/**
-         * Handler function for the messages sent by the IntervalWorker.
-         * Forwards the message to the target.
-         *
-         * @param msg The IPCMessage as sent by the IntervalWorker.
-         */</span>
-        <span class="k">public</span> <span class="nx">onIntervalWorkerMessageReceived</span> <span class="o">=</span> <span class="p">(</span><span class="na">msg</span><span class="p">:</span> <span class="nx">IPCMessage</span><span class="p">):</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Message received from interval worker'</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">targetHandler</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+
+        <span class="o">/**</span>
+         <span class="o">*</span> <span class="nx">Handler</span> <span class="nx">function</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">messages</span> <span class="nx">sent</span> <span class="k">by</span> <span class="nx">the</span> <span class="nx">IntervalWorker</span><span class="p">.</span>
+         <span class="o">*</span> <span class="nx">Forwards</span> <span class="nx">the</span> <span class="nx">message</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">target</span><span class="p">.</span>
+         <span class="o">*</span>
+         <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">msg</span> <span class="nx">The</span> <span class="nx">IPCMessage</span> <span class="nx">as</span> <span class="nx">sent</span> <span class="k">by</span> <span class="nx">the</span> <span class="nx">IntervalWorker</span><span class="p">.</span>
+         <span class="o">*/</span>
+        <span class="nx">public</span> <span class="nx">onIntervalWorkerMessageReceived</span> <span class="o">=</span> <span class="p">(</span><span class="na">msg</span><span class="o">:</span> <span class="nx">IPCMessage</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">'Message received from interval worker'</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">targetHandler</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
         <span class="p">};</span>
-    
-        <span class="cm">/**
-         * Handler function for the messages sent by the DataBroker.
-         * Forwards the message to the target.
-         *
-         * @param msg The IPCMessage as sent by the DataBroker.
-         */</span>
-        <span class="k">public</span> <span class="nx">onDataBrokerMessageReceived</span> <span class="o">=</span> <span class="p">(</span><span class="na">msg</span><span class="p">:</span> <span class="nx">IPCMessage</span><span class="p">):</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Message received from data broker'</span><span class="p">);</span>
-            <span class="nx">cluster</span><span class="p">.</span><span class="nx">workers</span><span class="p">[</span><span class="nx">msg</span><span class="p">.</span><span class="nx">workerId</span><span class="p">].</span><span class="nx">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+
+        <span class="o">/**</span>
+         <span class="o">*</span> <span class="nx">Handler</span> <span class="nx">function</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">messages</span> <span class="nx">sent</span> <span class="k">by</span> <span class="nx">the</span> <span class="nx">DataBroker</span><span class="p">.</span>
+         <span class="o">*</span> <span class="nx">Forwards</span> <span class="nx">the</span> <span class="nx">message</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">target</span><span class="p">.</span>
+         <span class="o">*</span>
+         <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">msg</span> <span class="nx">The</span> <span class="nx">IPCMessage</span> <span class="nx">as</span> <span class="nx">sent</span> <span class="k">by</span> <span class="nx">the</span> <span class="nx">DataBroker</span><span class="p">.</span>
+         <span class="o">*/</span>
+        <span class="nx">public</span> <span class="nx">onDataBrokerMessageReceived</span> <span class="o">=</span> <span class="p">(</span><span class="na">msg</span><span class="o">:</span> <span class="nx">IPCMessage</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">'Message received from data broker'</span><span class="p">);</span>
+            <span class="nx">cluster</span><span class="p">.</span><span class="na">workers</span><span class="p">[</span><span class="nx">msg</span><span class="p">.</span><span class="na">workerId</span><span class="p">].</span><span class="na">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
         <span class="p">};</span>
-    
-        <span class="cm">/**
-         * This method is used to direct the IPCMessage to the correct target as specified in the message.
-         * This handler makes a distinction between messages of the types IPCRequest and IPCReply.
-         *
-         * @param msg The IPCMessage that is to be forwarded to the correct target.
-         */</span>
-        <span class="k">private</span> <span class="nx">targetHandler</span> <span class="o">=</span> <span class="p">(</span><span class="na">msg</span><span class="p">:</span> <span class="nx">IPCMessage</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="kd">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="nx">TYPE_REQUEST</span><span class="p">)</span> <span class="p">{</span>
-                <span class="kd">let</span> <span class="na">m</span><span class="p">:</span> <span class="nx">IPCRequest</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">IPCRequest</span><span class="o">&gt;</span> <span class="nx">msg</span><span class="p">;</span>
-                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Master received request'</span><span class="p">);</span>
-    
-                <span class="k">switch</span> <span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">target</span><span class="p">){</span>
-                    <span class="k">case</span> <span class="nx">MessageTarget</span><span class="p">.</span><span class="na">DATA_BROKER</span><span class="p">:</span>
-                        <span class="k">this</span><span class="p">.</span><span class="nx">dataBroker</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+
+        <span class="o">/**</span>
+         <span class="o">*</span> <span class="nx">This</span> <span class="nx">method</span> <span class="o">is</span> <span class="nx">used</span> <span class="nx">to</span> <span class="nx">direct</span> <span class="nx">the</span> <span class="nx">IPCMessage</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">correct</span> <span class="nx">target</span> <span class="nx">as</span> <span class="nx">specified</span> <span class="k">in</span> <span class="nx">the</span> <span class="nx">message</span><span class="p">.</span>
+         <span class="o">*</span> <span class="nx">This</span> <span class="nx">handler</span> <span class="nx">makes</span> <span class="nx">a</span> <span class="nx">distinction</span> <span class="nx">between</span> <span class="nx">messages</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">types</span> <span class="nx">IPCRequest</span> <span class="o">and</span> <span class="nx">IPCReply</span><span class="p">.</span>
+         <span class="o">*</span>
+         <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">msg</span> <span class="nx">The</span> <span class="nx">IPCMessage</span> <span class="nx">that</span> <span class="o">is</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">forwarded</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">correct</span> <span class="nx">target</span><span class="p">.</span>
+         <span class="o">*/</span>
+        <span class="nx">private</span> <span class="nx">targetHandler</span> <span class="o">=</span> <span class="p">(</span><span class="na">msg</span><span class="o">:</span> <span class="nx">IPCMessage</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="na">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="na">TYPE_REQUEST</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">let</span> <span class="na">m</span><span class="o">:</span> <span class="nx">IPCRequest</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">IPCRequest</span><span class="o">&gt;</span> <span class="nx">msg</span><span class="p">;</span>
+                <span class="nx">console</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">'Master received request'</span><span class="p">);</span>
+
+                <span class="k">switch</span> <span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="na">target</span><span class="p">){</span>
+                    <span class="nx">case</span> <span class="nx">MessageTarget</span><span class="p">.</span><span class="na">DATA_BROKER</span><span class="o">:</span>
+                        <span class="k">this</span><span class="p">.</span><span class="na">dataBroker</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
                         <span class="k">break</span><span class="p">;</span>
-                    <span class="k">case</span> <span class="nx">MessageTarget</span><span class="p">.</span><span class="na">INTERVAL_WORKER</span><span class="p">:</span>
-                        <span class="k">this</span><span class="p">.</span><span class="nx">intervalWorker</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+                    <span class="nx">case</span> <span class="nx">MessageTarget</span><span class="p">.</span><span class="na">INTERVAL_WORKER</span><span class="o">:</span>
+                        <span class="k">this</span><span class="p">.</span><span class="na">intervalWorker</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
                         <span class="k">break</span><span class="p">;</span>
-                    <span class="k">case</span> <span class="nx">MessageTarget</span><span class="p">.</span><span class="na">HTTP_WORKER</span><span class="p">:</span>
-                        <span class="kd">let</span> <span class="na">index</span><span class="p">:</span> <span class="kr">number</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">httpWorkers</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-                        <span class="nx">index</span> <span class="o">=</span> <span class="nx">index</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">?</span> <span class="mi">0</span> <span class="p">:</span> <span class="nx">index</span><span class="p">;</span>
-                        <span class="k">this</span><span class="p">.</span><span class="nx">httpWorkers</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nx">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+                    <span class="nx">case</span> <span class="nx">MessageTarget</span><span class="p">.</span><span class="na">HTTP_WORKER</span><span class="o">:</span>
+                        <span class="nx">let</span> <span class="na">index</span><span class="o">:</span> <span class="nx">number</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="na">round</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="na">random</span><span class="p">()</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="na">httpWorkers</span><span class="p">.</span><span class="na">length</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+                        <span class="nx">index</span> <span class="o">=</span> <span class="nx">index</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="nx">index</span><span class="p">;</span>
+                        <span class="k">this</span><span class="p">.</span><span class="na">httpWorkers</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="na">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
                         <span class="k">break</span><span class="p">;</span>
-                    <span class="nl">default</span><span class="p">:</span>
-                        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">'Cannot find message target: '</span> <span class="o">+</span> <span class="nx">m</span><span class="p">.</span><span class="nx">target</span><span class="p">);</span>
+                    <span class="na">default</span><span class="o">:</span>
+                        <span class="nx">console</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="s">'Cannot find message target: '</span> <span class="o">+</span> <span class="nx">m</span><span class="p">.</span><span class="na">target</span><span class="p">);</span>
                 <span class="p">}</span>
-    
-            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="kd">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="nx">TYPE_REPLY</span><span class="p">)</span> <span class="p">{</span>
-                <span class="kd">let</span> <span class="na">m</span><span class="p">:</span> <span class="nx">IPCReply</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">IPCReply</span><span class="o">&gt;</span><span class="nx">msg</span><span class="p">;</span>
-                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Master received reply!'</span><span class="p">);</span>
-    
-                <span class="nx">cluster</span><span class="p">.</span><span class="nx">workers</span><span class="p">[</span><span class="nx">m</span><span class="p">.</span><span class="nx">originalMessage</span><span class="p">.</span><span class="nx">workerId</span><span class="p">].</span><span class="nx">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="na">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="na">TYPE_REPLY</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">let</span> <span class="na">m</span><span class="o">:</span> <span class="nx">IPCReply</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">IPCReply</span><span class="o">&gt;</span><span class="nx">msg</span><span class="p">;</span>
+                <span class="nx">console</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">'Master received reply!'</span><span class="p">);</span>
+
+                <span class="nx">cluster</span><span class="p">.</span><span class="na">workers</span><span class="p">[</span><span class="nx">m</span><span class="p">.</span><span class="na">originalMessage</span><span class="p">.</span><span class="na">workerId</span><span class="p">].</span><span class="na">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
             <span class="p">}</span>
         <span class="p">};</span>
-    
-        <span class="cm">/*-----------------------------------------------------------------------------
-         ------------------------------------------------------------------------------
-         --                          SLAVE MESSAGE HANDLING                          --
-         ------------------------------------------------------------------------------
-         ----------------------------------------------------------------------------*/</span>
-    
-        <span class="cm">/**
-         * Handler function for the messages sent by the Master NodeJS process.
-         * This handler makes a distinction between messages of the types IPCRequest and IPCReply.
-         *
-         * @param msg The IPCMessage as passed on by the master process.
-         */</span>
-        <span class="k">public</span> <span class="nx">onMessageFromMasterReceived</span> <span class="o">=</span> <span class="p">(</span><span class="na">msg</span><span class="p">:</span> <span class="nx">IPCMessage</span><span class="p">):</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="kd">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="nx">TYPE_REQUEST</span><span class="p">)</span> <span class="p">{</span>
-                <span class="kd">let</span> <span class="na">m</span><span class="p">:</span> <span class="nx">IPCRequest</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">IPCRequest</span><span class="o">&gt;</span><span class="nx">msg</span><span class="p">;</span>
-    
-                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'[id:'</span> <span class="o">+</span> <span class="nx">cluster</span><span class="p">.</span><span class="nx">worker</span><span class="p">.</span><span class="nx">id</span>  <span class="o">+</span> <span class="s1">'] Received request from master: routing to: '</span> <span class="o">+</span> <span class="nx">MessageTarget</span><span class="p">[</span><span class="nx">m</span><span class="p">.</span><span class="nx">target</span><span class="p">]</span> <span class="o">+</span> <span class="s1">'.'</span> <span class="o">+</span> <span class="nx">m</span><span class="p">.</span><span class="nx">targetFunction</span><span class="p">);</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">emitter</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="nx">MessageTarget</span><span class="p">[</span><span class="nx">m</span><span class="p">.</span><span class="nx">target</span><span class="p">]</span> <span class="o">+</span> <span class="s1">''</span><span class="p">,</span> <span class="nx">m</span><span class="p">);</span>
-    
-            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="kd">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="nx">TYPE_REPLY</span><span class="p">)</span> <span class="p">{</span>
-                <span class="kd">let</span> <span class="na">m</span><span class="p">:</span> <span class="nx">IPCReply</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">IPCReply</span><span class="o">&gt;</span><span class="nx">msg</span><span class="p">;</span>
-                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Slave received reply!'</span><span class="p">);</span>
-    
-                <span class="nx">MessageManager</span><span class="p">.</span><span class="nx">getInstance</span><span class="p">().</span><span class="nx">executeCallbackForId</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">originalMessage</span><span class="p">.</span><span class="nx">callbackId</span><span class="p">);</span>
+
+        <span class="o">/*-----------------------------------------------------------------------------</span>
+         <span class="o">------------------------------------------------------------------------------</span>
+         <span class="o">--</span>                          <span class="nx">SLAVE</span> <span class="nx">MESSAGE</span> <span class="nx">HANDLING</span>                          <span class="o">--</span>
+         <span class="o">------------------------------------------------------------------------------</span>
+         <span class="o">----------------------------------------------------------------------------*/</span>
+
+        <span class="o">/**</span>
+         <span class="o">*</span> <span class="nx">Handler</span> <span class="nx">function</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">messages</span> <span class="nx">sent</span> <span class="k">by</span> <span class="nx">the</span> <span class="nx">Master</span> <span class="nx">NodeJS</span> <span class="nx">process</span><span class="p">.</span>
+         <span class="o">*</span> <span class="nx">This</span> <span class="nx">handler</span> <span class="nx">makes</span> <span class="nx">a</span> <span class="nx">distinction</span> <span class="nx">between</span> <span class="nx">messages</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">types</span> <span class="nx">IPCRequest</span> <span class="o">and</span> <span class="nx">IPCReply</span><span class="p">.</span>
+         <span class="o">*</span>
+         <span class="o">*</span> <span class="vi">@</span><span class="na">param</span> <span class="nx">msg</span> <span class="nx">The</span> <span class="nx">IPCMessage</span> <span class="nx">as</span> <span class="nx">passed</span> <span class="no">on</span> <span class="k">by</span> <span class="nx">the</span> <span class="nx">master</span> <span class="nx">process</span><span class="p">.</span>
+         <span class="o">*/</span>
+        <span class="nx">public</span> <span class="nx">onMessageFromMasterReceived</span> <span class="o">=</span> <span class="p">(</span><span class="na">msg</span><span class="o">:</span> <span class="nx">IPCMessage</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="na">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="na">TYPE_REQUEST</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">let</span> <span class="na">m</span><span class="o">:</span> <span class="nx">IPCRequest</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">IPCRequest</span><span class="o">&gt;</span><span class="nx">msg</span><span class="p">;</span>
+
+                <span class="nx">console</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">'[id:'</span> <span class="o">+</span> <span class="nx">cluster</span><span class="p">.</span><span class="na">worker</span><span class="p">.</span><span class="na">id</span>  <span class="o">+</span> <span class="s">'] Received request from master: routing to: '</span> <span class="o">+</span> <span class="nx">MessageTarget</span><span class="p">[</span><span class="nx">m</span><span class="p">.</span><span class="na">target</span><span class="p">]</span> <span class="o">+</span> <span class="s">'.'</span> <span class="o">+</span> <span class="nx">m</span><span class="p">.</span><span class="na">targetFunction</span><span class="p">);</span>
+                <span class="k">this</span><span class="p">.</span><span class="na">emitter</span><span class="p">.</span><span class="na">emit</span><span class="p">(</span><span class="nx">MessageTarget</span><span class="p">[</span><span class="nx">m</span><span class="p">.</span><span class="na">target</span><span class="p">]</span> <span class="o">+</span> <span class="s">''</span><span class="p">,</span> <span class="nx">m</span><span class="p">);</span>
+
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="na">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="na">TYPE_REPLY</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">let</span> <span class="na">m</span><span class="o">:</span> <span class="nx">IPCReply</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">IPCReply</span><span class="o">&gt;</span><span class="nx">msg</span><span class="p">;</span>
+                <span class="nx">console</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">'Slave received reply!'</span><span class="p">);</span>
+
+                <span class="nx">MessageManager</span><span class="p">.</span><span class="na">getInstance</span><span class="p">().</span><span class="na">executeCallbackForId</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="na">originalMessage</span><span class="p">.</span><span class="na">callbackId</span><span class="p">);</span>
             <span class="p">}</span>
         <span class="p">};</span>
     <span class="p">}</span>
-    
+
     </code></pre></figure>
 
-<p>Every worker has an instance of the MessageHandler, it in its turn has an event emitter on which events from the messages are broadcast.
+<p>Every worker has an instance of the <code class="highlighter-rouge">MessageHandler</code>, it in its turn has an event emitter on which events from the messages are broadcast.
 The actual worker implementations register themselves on the emitter to receive said events.
 In a future version the message handling should be split up, because now a single file (with an instance on each Node instance) handles both master and slave messages.</p>
 
