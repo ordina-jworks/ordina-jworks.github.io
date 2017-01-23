@@ -15,7 +15,7 @@ This blog post will take a look at using TypeScript to write your Node applicati
 ### NodeJS and its use cases
 
 <p style="text-align: center;">
-  <img class="image fit" alt="NodeJS Powered by the V8 JavaScript engine" src="/img/node-with-typescript/V8-engine.jpg">
+  <img class="image fit" style="width: 650px; margin:0px auto;" alt="NodeJS Powered by the V8 JavaScript engine" src="/img/node-with-typescript/V8-engine.jpg">
 </p>
 
 NodeJS has many use cases.
@@ -47,7 +47,7 @@ Below are some resources for those that are new to the platform:
 ### The old way, using plain JavaScript
 
 <p style="text-align: center;">
-  <img alt="JavaScript" src="/img/node-with-typescript/javascript.jpg">
+  <img class="image fit" alt="JavaScript" src="/img/node-with-typescript/javascript.jpg">
 </p>
 
 Since NodeJS uses Google's V8 JavaScript engine, it speaks for itself that node interprets and runs regular JavaScript code.
@@ -60,9 +60,9 @@ No type checking, no checking for illogical structures or things that will just 
 <br/><br/>
 Code for Node can be run by simple opening a command prompt or terminal window and typing     
     {% highlight shell %}
-    
+
     node
-       
+
     {% endhighlight %}
 This will start a Node instance and present you with an interpreter.
 You can now type commands and press return to execute them.
@@ -71,18 +71,18 @@ This can be handy to test something quickly.
 It is also possible to run a JavaScript file directly.
 This can be done via:
     {% highlight shell %}
-    
-    node path/to/javascript-file.js 
-       
+
+    node path/to/javascript-file.js
+
     {% endhighlight %}
 <br/>
 However, most of the time you will not be using this way of running code.
 Most of the time you will use npm to install your dependencies and start the node instance:
     {% highlight shell %}
-    
+
     npm install
     npm start
-       
+
     {% endhighlight %}
 This reads the package.json file and executes the scripts contained inside it.
 
@@ -91,14 +91,14 @@ This reads the package.json file and executes the scripts contained inside it.
 ### TypeScript you say!?
 
 <p style="text-align: center;">
-  <img alt="TypeScript" src="/img/node-with-typescript/typescript.jpg">
+  <img class="image fit" alt="TypeScript" src="/img/node-with-typescript/typescript.jpg">
 </p>
 
 TypeScript has been around for some years now.
 TypeScript is a superset of JavaScript.
 It uses the same syntax but adds among other things compile time type checking.
 It also adds a more Object Oriented model.
-A detailed explanation of the differences of the prototype based JavaScript and a more Object Oriented language can be found on the 
+A detailed explanation of the differences of the prototype based JavaScript and a more Object Oriented language can be found on the
 [Mozilla Developer website](https://developer.mozilla.org/nl/docs/Web/JavaScript/Guide/Details_of_the_Object_Model)
 <br/><br/>
 
@@ -125,21 +125,22 @@ The most commonly used dependencies have their typings available here!
 <br/>
 
 You can add the typings to the dependencies in the package.json file.
-    {% highlight json %}
-    
+
+    {% highlight coffeescript %}
+
     "dependencies": {
         "typescript": "2.0.8",
-    
+
         "@types/node": "0.0.2",
         "@types/mime": "0.0.29",
         "@types/johnny-five": "0.0.30",
         "@types/serialport": "4.0.6",
-    
+
         "mime": "1.3.4",
         "johnny-five": "0.10.6",
         "serialport": "4.0.7"
     }
-       
+
     {% endhighlight %}
 
 ### Making it all work: An example
@@ -156,21 +157,21 @@ This is the application that will be detailed below!
 ## Node Simple Server: High level architecture
 
 <p style="text-align: center;">
-  <img alt="High level architecture" src="/img/node-with-typescript/high-level-arch.png">
+  <img class="image fit" alt="High level architecture" src="/img/node-with-typescript/high-level-arch.png">
 </p>
 
 The Application starts in app.ts under the main src folder.
 This is the entry point for the application.
 This file contains the actual master instance code.
 The master instance is in charge of forking the workers and reviving them if they die.
-The master is also used to pass messages between the workers For this a specialized MessageHandler singleton is used.
-This MessageHandler instance (one per worker) is used to relay messages.
+The master is also used to pass messages between the workers For this a specialized `MessageHandler` singleton is used.
+This `MessageHandler` instance (one per worker) is used to relay messages.
 The master instance itself will not execute any application logic.
 Its purpose is to manage the other workers and be the message bridge.
 <br/><br/>
 
-    {% highlight typescript %}
-    
+    {% highlight coffeescript %}
+
     /**
      * Forks the workers, there will always be one DataBroker and one IntervalWorker.
      * HTTPWorker will be created based on the number of cpu cores. If less than two cores are available
@@ -202,33 +203,33 @@ Its purpose is to manage the other workers and be the message bridge.
     {% endhighlight %}
 
 The master will create a number of workers:
-- HttpWorker: Each HttpWorker is an endpoint for requests to be received.
+- `HttpWorker`: Each `HttpWorker` is an endpoint for requests to be received.
 There will always be a minimum of two HttpWorkers created.
 If more CPU cores are available, more HttpWorkers are created.
-- DataBroker: For the application there is one DataBroker worker instance.
+- `DataBroker`: For the application there is one `DataBroker` worker instance.
 This worker handles CRUD operations for data (for now in memory only).
-- IntervalWorker: For the application there is one IntervalWorker instance.
+- `IntervalWorker`: For the application there is one `IntervalWorker` instance.
 This worker can run code periodically and is used to connect to other devices such as Arduino's and the Raspberry Pi I/O pins.
 <br/>
-These workers are created by a WorkerFactory, as the master forks new Node instances, a process variable is set, the factory uses this to see which type the node instance should become.
-Each type of worker instance implements the basic NoeWorker interface.
+These workers are created by a `WorkerFactory`, as the master forks new Node instances, a process variable is set, the factory uses this to see which type the node instance should become.
+Each type of worker instance implements the basic `NodeWorker` interface.
 Each implementation will be detailed below.
 
 ## Handling HTTP requests: The HttpWorker
-Each HttpWorker instance will create a Server instance.
+Each `HttpWorker` instance will create a `Server` instance.
 This instance will be used to receive HTTP requests.
 Node will automatically load balance requests between all instances that register a server on the same port.
 Simply put all HttpWorkers compete for the next request, the least burdened process (depending on OS/CPU process affinity) will be given the next Http request to handle.
 
-The Server class will also register the endpoints that are known to the application and can be handled.
-The EndpointManager is used to register endpoints.
-An EndPoint has a path, a method to execute and optional parameters.
-A Parameter is provided with a Generic type for compile time type checking, a name which should be used in the url, a description that provides information what the parameter should contain and an optional ParameterValidator.
-A ParameterValidator is used to validate the parameter at runtime.
+The `Server` class will also register the endpoints that are known to the application and can be handled.
+The `EndpointManager` is used to register endpoints.
+An `EndPoint` has a path, a method to execute and optional parameters.
+A `Parameter` is provided with a Generic type for compile time type checking, a name which should be used in the url, a description that provides information what the parameter should contain and an optional `ParameterValidator`.
+A `ParameterValidator` is used to validate the `Parameter` at runtime.
 If the check fails an error is shown to the user.
 
-    {% highlight typescript %}
-    
+    {% highlight coffeescript %}
+
     /**
      * Maps the default endpoints.
      * Endpoints can always be added at any other location and point in time.
@@ -267,35 +268,35 @@ If the check fails an error is shown to the user.
     };
 
     {% endhighlight %}
-    
-The Server instance forwards all requests to the Router instance.
+
+The `Server` instance forwards all requests to the `Router` instance.
 As the name suggests this will perform the routing.
 It will see if a resource is requested or and endpoint has been called.
 If a resource is requested it will be served if found.
 If an endpoint has been called, that endpoint will be executed and passed the parameters that were entered, but only after the correct amount of parameters has been passed and they are all valid.
 
 ## Handling data: The DataBroker
-The Data broker is the Node instance in the application that will save and retrieve data.
+The `DataBroker` is the Node instance in the application that will save and retrieve data.
 For the time being it is sufficient to only have in memory 'caches' on which basic CRUD operations can be performed.
-All methods on the DataBroker are called by sending an IPCRequest with the data that needs to be saved of the instruction for what data should be retrieved.
-The DataBroker will reply to the original worker by sending an IPCReply with the result of the operation.
+All methods on the `DataBroker` are called by sending an `IPCRequest` with the data that needs to be saved of the instruction for what data should be retrieved.
+The `DataBroker` will reply to the original worker by sending an `IPCReply` with the result of the operation.
 
-The DataBroker for now only has a concept of caches.
+The `DataBroker` for now only has a concept of caches.
 A cache has a name, type and values (of said type).
 Values can be retrieved, added, updated and deleted from the caches.
 Caches can be retrieved, added and deleted at runtime.
 
 ## Handling asynchronous tasks: The IntervalWorker
-The IntervalWorker as its name suggest performs task at a certain interval.
-It is also used for other asynchronous tasks, such as connecting to an Arduino and running Arduino/Raspberry pi Johhny-Five scenarios.
-The IntervalWorker is handy when you need for example to update the content of a cache every so often.
+The `IntervalWorker` as its name suggest performs tasks at a certain interval.
+It is also used for other asynchronous workloads, such as connecting to an Arduino and running Arduino/Raspberry pi Johhny-Five scenarios.
+The `IntervalWorker` is handy when you need for example to update the content of a cache every so often.
 <br/><br/>
-It can also run Arduino Scenarios.
+It can also run Arduino scenarios.
 These are Implementations that contain logic to perform actions on the Arduino or in response to something that happens on the Arduino.
-The IntervalWorker picks up what type of Arduino Scenario you want to run and starts the logic.
+The `IntervalWorker` picks up what type of Arduino `Scenario` you want to run and starts the logic.
 
-    {% highlight typescript %}
-    
+    {% highlight coffeescript %}
+
     /**
      * Sets up the connection to the Arduino and starts the desired Arduino Scenario.
      */
@@ -320,7 +321,7 @@ The IntervalWorker picks up what type of Arduino Scenario you want to run and st
     {% endhighlight %}
 
 There are two Arduino implementations available.
-Both can execute a Scenario.
+Both can execute a `Scenario`.
 The first and simplest implementation is the Johnny-Five Arduino implementation.
 This allows you to make use of the Johnny-Five framework to write dynamic code for the Arduino that can change at runtime.
 This is possible because it uses the StandardFirmata firmware.
@@ -330,7 +331,7 @@ Johnny-Five also supports the Raspberry PI I/O pins.
 This allows it to be used on a Raspberry pi also.
 <br/>
 The second Arduino implementation uses no framework and communication is done via regular serial.
-In the type of Scenarios you have to handle all the serial communication yourself.
+In the type of scenarios you have to handle all the serial communication yourself.
 You also have to write Arduino firmware and thus it cannot be dynamically updated at runtime.
 Use this Arduino implementation if some component is incompatible or not supported by Johnny-Five.
 
@@ -340,19 +341,19 @@ However they are of not much use if there cannot be any communication between th
 Each Node instance has its own allocated memory and cannot access variables or call methods on other instances.
 The Node cluster and process framework provide the option to send messages between Node instances.
 <br/><br/>
-The IPCMessage instances that are sent exist in two forms.
-- IPCRequest: This is the initial message that is sent to a target.
-- IPCReply: This is the response (if any) from the target back to the original caller.
+The `IPCMessage` instances that are sent exist in two forms.
+- `IPCRequest`: This is the initial message that is sent to a target.
+- `IPCReply`: This is the response (if any) from the target back to the original caller.
 <br/><br/>
 
 This allows for easy two way communication and identification whether the message was a reply to an earlier message.
 Messages can be sent with or without a callback.
 The callback is executed when a reply to the original message is received.
-Because only basic data types can be sent across Node instances the MessageManager instance of the caller stores the callback reference and generates an unique id for said callback.
+Because only basic data types can be sent across Node instances the `MessageManager` instance of the caller stores the callback reference and generates an unique id for said callback.
 This allows the application to send the callback ID across Node instances and execute it when it arrives back at the caller.
 
-    {% highlight typescript %}
-    
+    {% highlight coffeescript %}
+
     /**
          * MessageManager singleton class.
          * This class has an array of tuples of string and Function.
@@ -364,11 +365,11 @@ This allows the application to send the callback ID across Node instances and ex
          * This singleton can be used to manage IPC messages.
          */
         export class MessageManager {
-        
+
             private static instance: MessageManager         = null;
             private callbacks: Array<[string, Function]>    = null;
             private workerId: string                        = null;
-        
+
             /**
              * Private constructor for the singleton.
              */
@@ -376,7 +377,7 @@ This allows the application to send the callback ID across Node instances and ex
                 this.callbacks = [];
                 this.workerId = cluster.worker.id;
             }
-        
+
             /**
              * Use this method to get the instance of this singleton class.
              *
@@ -388,7 +389,7 @@ This allows the application to send the callback ID across Node instances and ex
                 }
                 return MessageManager.instance;
             }
-        
+
             /**
              * Sends an IPCMessage of the subtype IPCRequest to the given MessageTarget (one of the three worker types).
              * A target function is also given and contains the name of the function that will be executed on the target.
@@ -403,7 +404,7 @@ This allows the application to send the callback ID across Node instances and ex
                 let message: IPCMessage = new IPCRequest(this.workerId, null, payload, messageTarget, targetFunctionName);
                 process.send(message);
             }
-        
+
             /**
              * Sends an IPCMessage of the subtype IPCRequest to the given MessageTarget (one of the three worker types).
              * A target function is also given and contains the name of the function that will be executed on the target.
@@ -419,11 +420,11 @@ This allows the application to send the callback ID across Node instances and ex
             public sendMessageWithCallback(payload: any, callback: Function, messageTarget: MessageTarget, targetFunctionName: string): void {
                 let callbackId: string = process.hrtime()  + "--" + (Math.random() * 6);
                 this.callbacks.push([callbackId, callback]);
-        
+
                 let message: IPCMessage = new IPCRequest(this.workerId, callbackId, payload, messageTarget, targetFunctionName);
                 process.send(message);
             }
-        
+
             /**
              * Sends and IPCMessage of the subtype IPCReply to the sender of the original message.
              *
@@ -434,7 +435,7 @@ This allows the application to send the callback ID across Node instances and ex
                 let reply: IPCMessage = new IPCReply(this.workerId, payload, originalMessage);
                 process.send(reply);
             }
-        
+
             /**
              * For a given callbackId execute the callback function.
              *
@@ -449,33 +450,33 @@ This allows the application to send the callback ID across Node instances and ex
                 }
             }
         }
-    
+
     {% endhighlight %}
-    
-    <br/> <br/> 
-    
-    {% highlight typescript %}
-    
+
+    <br/> <br/>
+
+    {% highlight coffeescript %}
+
     /**
      * MessageHandler singleton class.
      *
      * This singleton can be used to handle IPC messages.
      */
     export class MessageHandler {
-    
+
         private static instance: MessageHandler         = null;
         private dataBroker : cluster.Worker             = null;
         private intervalWorker : cluster.Worker         = null;
         private httpWorkers : Array<cluster.Worker>     = null;
         public emitter: EventEmitter                    = null;
-    
+
         /**
          * Private constructor for the singleton.
          */
         private constructor() {
-    
+
         }
-    
+
         /**
          * Use this method to get the instance of this singleton class.
          *
@@ -487,7 +488,7 @@ This allows the application to send the callback ID across Node instances and ex
             }
             return MessageHandler.instance;
         }
-    
+
         /**
          * Initialises the MessageHandler for being a handler for the master NodeJS process.
          *
@@ -499,24 +500,24 @@ This allows the application to send the callback ID across Node instances and ex
             this.dataBroker     = dataBroker;
             this.intervalWorker = intervalWorker;
             this.httpWorkers    = httpWorkers;
-    
+
             this.emitter        = new EventEmitter();
         };
-    
+
         /**
          * Initialises the MessageHandler for being a handler for a slave (worker) NodeJS process.
          */
         public initForSlave = (): void => {
             this.emitter        = new EventEmitter();
         };
-    
+
         /*-----------------------------------------------------------------------------
          ------------------------------------------------------------------------------
          --                         MASTER MESSAGE HANDLING                          --
          ------------------------------------------------------------------------------
          ----------------------------------------------------------------------------*/
         //TODO: Separate master and slave message handling?
-    
+
         /**
          * Handler function for messages sent by HTTPWorkers.
          * Forwards the message to the target.
@@ -527,7 +528,7 @@ This allows the application to send the callback ID across Node instances and ex
             console.log('Message received from server worker');
             this.targetHandler(msg);
         };
-    
+
         /**
          * Handler function for the messages sent by the IntervalWorker.
          * Forwards the message to the target.
@@ -538,7 +539,7 @@ This allows the application to send the callback ID across Node instances and ex
             console.log('Message received from interval worker');
             this.targetHandler(msg);
         };
-    
+
         /**
          * Handler function for the messages sent by the DataBroker.
          * Forwards the message to the target.
@@ -549,7 +550,7 @@ This allows the application to send the callback ID across Node instances and ex
             console.log('Message received from data broker');
             cluster.workers[msg.workerId].send(msg);
         };
-    
+
         /**
          * This method is used to direct the IPCMessage to the correct target as specified in the message.
          * This handler makes a distinction between messages of the types IPCRequest and IPCReply.
@@ -560,7 +561,7 @@ This allows the application to send the callback ID across Node instances and ex
             if(msg.type == IPCMessage.TYPE_REQUEST) {
                 let m: IPCRequest = <IPCRequest> msg;
                 console.log('Master received request');
-    
+
                 switch (m.target){
                     case MessageTarget.DATA_BROKER:
                         this.dataBroker.send(msg);
@@ -576,21 +577,21 @@ This allows the application to send the callback ID across Node instances and ex
                     default:
                         console.error('Cannot find message target: ' + m.target);
                 }
-    
+
             } else if(msg.type == IPCMessage.TYPE_REPLY) {
                 let m: IPCReply = <IPCReply>msg;
                 console.log('Master received reply!');
-    
+
                 cluster.workers[m.originalMessage.workerId].send(msg);
             }
         };
-    
+
         /*-----------------------------------------------------------------------------
          ------------------------------------------------------------------------------
          --                          SLAVE MESSAGE HANDLING                          --
          ------------------------------------------------------------------------------
          ----------------------------------------------------------------------------*/
-    
+
         /**
          * Handler function for the messages sent by the Master NodeJS process.
          * This handler makes a distinction between messages of the types IPCRequest and IPCReply.
@@ -600,22 +601,22 @@ This allows the application to send the callback ID across Node instances and ex
         public onMessageFromMasterReceived = (msg: IPCMessage): void => {
             if(msg.type == IPCMessage.TYPE_REQUEST) {
                 let m: IPCRequest = <IPCRequest>msg;
-    
+
                 console.log('[id:' + cluster.worker.id  + '] Received request from master: routing to: ' + MessageTarget[m.target] + '.' + m.targetFunction);
                 this.emitter.emit(MessageTarget[m.target] + '', m);
-    
+
             } else if(msg.type == IPCMessage.TYPE_REPLY) {
                 let m: IPCReply = <IPCReply>msg;
                 console.log('Slave received reply!');
-    
+
                 MessageManager.getInstance().executeCallbackForId(m.originalMessage.callbackId);
             }
         };
     }
-    
+
     {% endhighlight %}    
 
-Every worker has an instance of the MessageHandler, it in its turn has an event emitter on which events from the messages are broadcast.
+Every worker has an instance of the `MessageHandler`, it in its turn has an event emitter on which events from the messages are broadcast.
 The actual worker implementations register themselves on the emitter to receive said events.
 In a future version the message handling should be split up, because now a single file (with an instance on each Node instance) handles both master and slave messages.
 
