@@ -10,7 +10,7 @@
     - After making changes in the blog run `docker start jekyll -i` to rebuild and watch the blog
     
 ## Setting up Jekyll on your Mac or Linux
-You need to have atleast Ruby 2.4.0 installed, this can be easily accomplished by using [rvm](https://rvm.io).
+You need to have at least Ruby 2.4.0 installed, this can be easily accomplished by using [rvm](https://rvm.io).
 
 Execute the following commands:
     
