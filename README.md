@@ -16,7 +16,7 @@ Execute the following commands:
     
     $ rvm install 2.4.0
     $ rvm use 2.4.0
-    $ sudo gem install bundler
+    $ (sudo) gem install bundler
     $ bundle install
 
 ## Running Jekyll on your Mac or Linux
