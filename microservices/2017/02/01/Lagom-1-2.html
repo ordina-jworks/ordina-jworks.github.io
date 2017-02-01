@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ordina JWorks Tech Blog</title>
+
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Ordina JWorks Tech blog
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,Javascript,DevOps">
+    <meta name="author" content="Ordina Belgium">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+        
+            
+            
+        
+        <!-- Facebook Open Graph -->
+        <meta property="og:url" content="http://ordina-jworks.github.io/microservices/2017/02/01/Lagom-1-2.html"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Lagom 1.2: What's new? - Yannick De Turck"/>
+        <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+        <meta property="og:image" content="http://ordina-jworks.github.io/img/lagom.png"/>
+    
+
+    <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Lagom 1.2: What's new?</h2>
+                
+
+                
+                    Posted Feb 1, 2017
+
+
+    in <a href="/categories/microservices/">Microservices</a>
+
+
+
+    by
+    
+        <a href="/author/yannick-de-turck/">Yannick De Turck</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/lagom/">Lagom</a>, 
+    
+        <a href="/tags/java/">Java</a>, 
+    
+        <a href="/tags/reactive/">Reactive</a>, 
+    
+        <a href="/tags/domain-driven-design/">Domain-Driven Design</a>, 
+    
+        <a href="/tags/cqrs/">CQRS</a>, 
+    
+        <a href="/tags/event-sourcing/">Event-Sourcing</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h2 id="table-of-contents">Table of Contents</h2>
+
+<ol>
+  <li><a href="#looking-back-at-the-first-version">Looking back at the first version</a></li>
+  <li><a href="#lagom-12">Lagom 1.2</a></li>
+  <li><a href="#message-broker-api--kafka-implementation">Message Broker API &amp; Kafka implementation</a></li>
+  <li><a href="#generic-read-side-support-sharding-support-and-automatic-offset-handling">Generic read-side support, sharding support and automatic offset handling</a></li>
+  <li><a href="#jdbc-support">JDBC support</a></li>
+  <li><a href="#migrating-from-10-to-12">Migrating from 1.0 to 1.2</a></li>
+  <li><a href="#looking-at-the-rest-of-our-initial-feedback">Looking at the rest of our initial feedback</a></li>
+  <li><a href="#lagom-13-preview">Lagom 1.3 preview</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#extra-resources">Extra resources</a></li>
+</ol>
+
+<h2 id="looking-back-at-the-first-version">Looking back at the first version</h2>
+<p>Shortly after the first MVP version of Lagom was released we wrote a <a href="/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html">blogpost</a> in which we wrote down our first impressions and in which we did an initial comparison to <a href="http://projects.spring.io/spring-cloud/">Spring Cloud</a> and <a href="https://netflix.github.io">Netflix OSS</a>.
+We also did an introduction presentation on Lagom which is available on <a href="https://www.youtube.com/watch?v=JOGlZzY6ycI">YouTube</a>.
+Lightbend let us know that they really appreciated our feedback.
+They definitely understood some of our remarks and suggestions and they were willing to work on some of them.
+One of our majors remarks was that Maven support should be added to Lagom in order to properly target Java developers.</p>
+
+<p>We weren’t the only ones with this feedback and Lightbend <a href="http://www.lagomframework.com/blog/introducing-maven-support.html">took note of it</a>.
+In September 2016, Lightbend released <a href="http://www.lagomframework.com/blog/lagom-1-1.html">Lagom 1.1</a>. 
+In this first new minor version they introduced Maven support which also includes support for running the Lagom development environment in Maven.
+More information about setting up a Lagom project in Maven is available in the <a href="http://www.lagomframework.com/documentation/1.2.x/java/GettingStartedMaven.html">documentation</a>.</p>
+
+<p>A few months later they released <a href="http://www.lagomframework.com/blog/lagom-1-2.html">Lagom 1.2</a> with a couple of new features which is what this blogpost will be about.
+We will also revisit our initial comparison against Spring Cloud and Netflix OSS.</p>
+
+<h2 id="lagom-12">Lagom 1.2</h2>
+<p>In this new minor version of Lagom, the read-side has been overhauled.
+Other notable additions are the following:</p>
+
+<ul>
+  <li><a href="https://github.com/lagom/lagom/pull/161">Message Broker API &amp; Kafka implementation</a></li>
+  <li><a href="https://github.com/lagom/lagom/pull/164">JDBC support</a></li>
+  <li><a href="https://github.com/lagom/lagom/pull/151">Generic read-side support, sharding support and automatic offset handling</a></li>
+</ul>
+
+<p>Naturally, at the same time, a couple of existing issues and bugs were also resolved. 
+A full list is available on <a href="https://github.com/lagom/lagom/issues?utf8=✓&amp;q=milestone%3A1.2.0">Github</a>.</p>
+
+<h2 id="message-broker-api--kafka-implementation">Message Broker API &amp; Kafka implementation</h2>
+<p>The introduction of <a href="http://www.lagomframework.com/documentation/1.2.x/java/MessageBroker.html">message broker support</a> is the most notable feature of Lagom 1.2.
+By adding message broker support, Lagom now allows both direct streaming of messages between services but also through a broker.
+With version 1.2, Lagom comes with out-of-the-box support for <a href="https://kafka.apache.org">Apache Kafka</a>, a very popular scalable message broker for building real-time data pipelines and streaming application.
+The message broker API has been designed to be independent of any backend meaning that support for other brokers may be added in the future.</p>
+
+<p>Compared to the existing <a href="http://www.lagomframework.com/documentation/1.0.x/java/PubSub.html#Publish-Subscribe">Publish-Subscribe</a> mechanism where messaging is only available intra-service, message broker communication happens between one service to many other services.
+Another key difference between the two is that with Publish-Subscribe it is possible that messages might get lost, for example due to network issues or a restart of a service, message broker based communication can provide at-least-once and at-most-once <a href="http://doc.akka.io/docs/akka/current/general/message-delivery-reliability.html#Discussion__What_does_“at-most-once”_mean_">delivery semantics</a> even if the subscriber is down.
+In Publish-Subscribe messaging, a subscriber will only receive a message after its subscription has been accepted by the Publish-Subscribe infrastructure.
+The message broker on the other hand will allow the subscriber to consume all the messages since the last message it has consumed, even if the subscriber was offline or down, thanks to its decoupling of services producing events from others consuming them.
+The Publish-Subscribe mechanism in Lagom is provided by the Akka Cluster underneath a Lagom service whereas message broker support is provided by a third party product such as Kafka.</p>
+
+<p>Lagom takes care of publishing, partitioning, consuming and failure handling of messaging and when executing the <code class="highlighter-rouge">runAll</code> command, Lagom automatically runs a Kafka server with you along with Zookeeper for you.
+Next to <code class="highlighter-rouge">ServiceCall</code> for communicating with other services mapping down onto HTTP, there now exists a <code class="highlighter-rouge">Topic</code> abstraction that represents a topic that one service publishes and that other services can consume after subscribing.</p>
+
+<p>In order to make use of it you need to add the <a href="http://www.lagomframework.com/documentation/1.2.x/java/KafkaClient.html">Lagom Kafka Broker</a> module to the dependencies for both the service publishing to a topic and the service subscribing to a topic.
+Note that Lagom Kafka Broker module requires an implementation of Lagom Persistence so you need to add either <a href="http://www.lagomframework.com/documentation/1.2.x/java/PersistentEntityCassandra.html">Lagom Persistence Cassandra</a> or <a href="http://www.lagomframework.com/documentation/1.2.x/java/PersistentEntityRDBMS.html">Lagom Persistence JDBC</a> to the dependencies.</p>
+
+<p>In our simple demo project <a href="https://github.com/yannickdeturck/lagom-shop">Lagom Shop</a> we define a new method in the <code class="highlighter-rouge">item-api</code> project’s <code class="highlighter-rouge">ItemService</code> that will return a <code class="highlighter-rouge">Topic</code> of item creation events to subscribe on and we also add it to the <code class="highlighter-rouge">descriptor</code>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Topic</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="nf">createdItemsTopic</span><span class="o">();</span>
+
+<span class="nd">@Override</span>
+<span class="k">default</span> <span class="n">Descriptor</span> <span class="nf">descriptor</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Service</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="s">"itemservice"</span><span class="o">).</span><span class="na">withCalls</span><span class="o">(</span>
+            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items/:id"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getItem</span><span class="o">),</span>
+            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getAllItems</span><span class="o">),</span>
+            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">createItem</span><span class="o">)</span>
+    <span class="o">).</span><span class="na">publishing</span><span class="o">(</span>
+            <span class="n">Service</span><span class="o">.</span><span class="na">topic</span><span class="o">(</span><span class="s">"createdItems"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">createdItemsTopic</span><span class="o">)</span>
+    <span class="o">).</span><span class="na">withAutoAcl</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>In the <code class="highlighter-rouge">item-api</code> project we define a new <code class="highlighter-rouge">ItemEvent</code> interface for external use in other services.
+An <code class="highlighter-rouge">ItemEvent</code> already exists in the <code class="highlighter-rouge">item-impl</code> project but you want this one to be solely used within the implementation project.
+It is considered a best practice to have a separate definition for external use as it would otherwise cause you to break clients if you would apply internal changes.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@JsonTypeInfo</span><span class="o">(</span><span class="n">use</span> <span class="o">=</span> <span class="n">JsonTypeInfo</span><span class="o">.</span><span class="na">Id</span><span class="o">.</span><span class="na">NAME</span><span class="o">,</span> <span class="n">property</span> <span class="o">=</span> <span class="s">"type"</span><span class="o">,</span> <span class="n">defaultImpl</span> <span class="o">=</span> <span class="n">Void</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@JsonSubTypes</span><span class="o">({</span>
+        <span class="nd">@JsonSubTypes</span><span class="o">.</span><span class="na">Type</span><span class="o">(</span><span class="n">ItemEvent</span><span class="o">.</span><span class="na">ItemCreated</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ItemEvent</span> <span class="o">{</span>
+    <span class="n">UUID</span> <span class="nf">getId</span><span class="o">();</span>
+
+    <span class="nd">@JsonTypeName</span><span class="o">(</span><span class="s">"item-created"</span><span class="o">)</span>
+    <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ItemCreated</span> <span class="kd">implements</span> <span class="n">ItemEvent</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="n">UUID</span> <span class="n">id</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="n">BigDecimal</span> <span class="n">price</span><span class="o">;</span>
+    
+        <span class="nd">@JsonCreator</span>
+        <span class="kd">public</span> <span class="nf">ItemCreated</span><span class="o">(</span><span class="n">UUID</span> <span class="n">id</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">BigDecimal</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+        <span class="o">}</span>
+    
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">UUID</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{...}</span>
+    
+        <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{...}</span>
+    
+        <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="nf">getPrice</span><span class="o">()</span> <span class="o">{...}</span>
+    
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{...}</span>
+    
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{...}</span>
+    
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{...}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>In the <code class="highlighter-rouge">item-impl</code> project we add the implementation to <code class="highlighter-rouge">ItemServiceImpl</code> that will publish all <code class="highlighter-rouge">ItemCreated</code> events to the topic:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">Topic</span><span class="o">&lt;</span><span class="n">be</span><span class="o">.</span><span class="na">yannickdeturck</span><span class="o">.</span><span class="na">lagomshop</span><span class="o">.</span><span class="na">item</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">ItemEvent</span><span class="o">&gt;</span> <span class="nf">createdItemsTopic</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">TopicProducer</span><span class="o">.</span><span class="na">singleStreamWithOffset</span><span class="o">(</span><span class="n">offset</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">persistentEntities</span>
+                <span class="o">.</span><span class="na">eventStream</span><span class="o">(</span><span class="n">ItemEventTag</span><span class="o">.</span><span class="na">INSTANCE</span><span class="o">,</span> <span class="n">offset</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">eventOffSet</span> <span class="o">-&gt;</span> <span class="n">eventOffSet</span><span class="o">.</span><span class="na">first</span><span class="o">()</span> <span class="k">instanceof</span> <span class="n">ItemCreated</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">convertItem</span><span class="o">);</span>
+    <span class="o">});</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">Pair</span><span class="o">&lt;</span><span class="n">be</span><span class="o">.</span><span class="na">yannickdeturck</span><span class="o">.</span><span class="na">lagomshop</span><span class="o">.</span><span class="na">item</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">ItemEvent</span><span class="o">,</span> <span class="n">Offset</span><span class="o">&gt;</span> <span class="nf">convertItem</span><span class="o">(</span><span class="n">Pair</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">,</span> <span class="n">Offset</span><span class="o">&gt;</span> <span class="n">pair</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Item</span> <span class="n">item</span> <span class="o">=</span> <span class="o">((</span><span class="n">ItemCreated</span><span class="o">)</span><span class="n">pair</span><span class="o">.</span><span class="na">first</span><span class="o">()).</span><span class="na">getItem</span><span class="o">();</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Converting ItemEvent"</span> <span class="o">+</span> <span class="n">item</span><span class="o">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">Pair</span><span class="o">&lt;&gt;(</span><span class="k">new</span> <span class="n">be</span><span class="o">.</span><span class="na">yannickdeturck</span><span class="o">.</span><span class="na">lagomshop</span><span class="o">.</span><span class="na">item</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">ItemEvent</span><span class="o">.</span><span class="na">ItemCreated</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">item</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
+            <span class="n">item</span><span class="o">.</span><span class="na">getPrice</span><span class="o">()),</span> <span class="n">pair</span><span class="o">.</span><span class="na">second</span><span class="o">());</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>We now want to make use of this in our <code class="highlighter-rouge">order-impl</code> project.
+Using the injected <code class="highlighter-rouge">ItemService</code> instance we can now subscribe on the topic and act on each message.
+In this case we log something whenever we receive a new message.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Inject</span>
+<span class="kd">public</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="n">PersistentEntityRegistry</span> <span class="n">persistentEntities</span><span class="o">,</span> <span class="n">ReadSide</span> <span class="n">readSide</span><span class="o">,</span>
+                        <span class="n">ItemService</span> <span class="n">itemService</span><span class="o">,</span> <span class="n">PubSubRegistry</span> <span class="n">topics</span><span class="o">,</span> <span class="n">CassandraSession</span> <span class="n">db</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="n">itemService</span><span class="o">.</span><span class="na">createdItemsTopic</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">subscribe</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">atLeastOnce</span><span class="o">(</span><span class="n">Flow</span><span class="o">.</span><span class="na">fromFunction</span><span class="o">((</span><span class="n">be</span><span class="o">.</span><span class="na">yannickdeturck</span><span class="o">.</span><span class="na">lagomshop</span><span class="o">.</span><span class="na">item</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">ItemEvent</span> <span class="n">item</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Subscriber: doing something with the created item "</span> <span class="o">+</span> <span class="n">item</span><span class="o">);</span>
+                <span class="k">return</span> <span class="n">Done</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+            <span class="o">}));</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>As mentioned earlier, you have the option to make use of either the <code class="highlighter-rouge">atLeastOnce</code> or <code class="highlighter-rouge">atMostOnceSource</code> delivery semantic on the <code class="highlighter-rouge">Subscriber</code> instance.</p>
+
+<p>If we run the application, create an item and afterwards check the logs, we see that the order service is receiving messages:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>2016-12-23 22:04:22,337 INFO  b.y.l.i.i.ItemServiceImpl - Creating item: CreateItemRequest{name=newItem, price=15}
+2016-12-23 22:04:22,349 INFO  b.y.l.i.i.ItemEntity - Setting up initialBehaviour with snapshotState = Optional.empty
+2016-12-23 22:04:22,357 INFO  b.y.l.i.i.ItemEntity - Processed CreateItem command into ItemCreated event ItemCreated{item=Item{id=d370993c-dd75-4a88-bf8b-d9dba1820feb, name=newItem, price=15}, timestamp=2016-12-23T21:04:22.357Z}
+2016-12-23 22:04:22,359 INFO  b.y.l.i.i.ItemEntity - Processed ItemCreated event, updated item state
+2016-12-23 22:04:22,412 INFO  b.y.l.i.i.ItemEntity - Processed GetItem command, returned item
+2016-12-23 22:04:22,413 INFO  b.y.l.i.i.ItemServiceImpl - Looking up item d370993c-dd75-4a88-bf8b-d9dba1820feb
+2016-12-23 22:04:25,472 INFO  b.y.l.i.i.ItemEventProcessor - Persisted Item Item{id=d370993c-dd75-4a88-bf8b-d9dba1820feb, name=newItem, price=15}
+2016-12-23 22:04:25,776 INFO  b.y.l.i.i.ItemServiceImpl - Converting ItemEventItem{id=d370993c-dd75-4a88-bf8b-d9dba1820feb, name=newItem, price=15}
+2016-12-23 22:04:25,883 INFO  b.y.l.o.i.OrderServiceImpl - Subscriber: doing something with the created item ItemCreated{id=d370993c-dd75-4a88-bf8b-d9dba1820feb, name='newItem', price=15}
+</code></pre>
+</div>
+
+<h2 id="generic-read-side-support-sharding-support-and-automatic-offset-handling">Generic read-side support, sharding support and automatic offset handling</h2>
+<p>Up until now, the read-side processor API was specific to Cassandra and required you to do the necessary offset tracking.
+This existing API, while still usable, has been declared depricated and instead a new specific implementation for constructing Cassandra read-sides and a more generic one for JDBC read-sides have been added.</p>
+
+<p>The read-side can now also be sharded by tagging persistent entity events with sharded tags.
+Instead of declaring only one tag, read-side processors now declare a list of them.
+The processing of these tags across the cluster is handled for you by Lagom.</p>
+
+<p>To compare the two of them, here is a sample of using a single tag:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ItemEvent</span> <span class="kd">extends</span> <span class="n">Jsonable</span><span class="o">,</span> <span class="n">AggregateEvent</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="o">{</span>
+    
+    <span class="n">AggregateEventTag</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">AggregateEventTag</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">ItemEvent</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    
+    <span class="nd">@Override</span>
+    <span class="k">default</span> <span class="n">AggregateEventTag</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="nf">aggregateTag</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">TAG</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>And an example of using sharded tags:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ItemEvent</span> <span class="kd">extends</span> <span class="n">Jsonable</span><span class="o">,</span> <span class="n">AggregateEvent</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kt">int</span> <span class="n">NUM_SHARDS</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span>
+
+    <span class="n">AggregateEventShards</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">AggregateEventTag</span><span class="o">.</span><span class="na">sharded</span><span class="o">(</span><span class="n">ItemEvent</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">NUM_SHARDS</span><span class="o">);</span>
+
+    <span class="nd">@Override</span>
+    <span class="k">default</span> <span class="n">AggregateEventShards</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="nf">aggregateTag</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">TAG</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>In your <code class="highlighter-rouge">ReadSideProcessor</code> you will have to override the <code class="highlighter-rouge">aggregateTags()</code> abstract method differently.</p>
+
+<p>When using a single tag:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">PSequence</span><span class="o">&lt;</span><span class="n">AggregateEventTag</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;&gt;</span> <span class="nf">aggregateTags</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">TreePVector</span><span class="o">.</span><span class="na">singleton</span><span class="o">(</span><span class="n">ItemEvent</span><span class="o">.</span><span class="na">TAG</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>And when using sharded tags:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">PSequence</span><span class="o">&lt;</span><span class="n">AggregateEventTag</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;&gt;</span> <span class="nf">aggregateTags</span><span class="o">()</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">ItemEvent</span><span class="o">.</span><span class="na">TAG</span><span class="o">.</span><span class="na">allTags</span><span class="o">();</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Lagom now also provides automatic offset tracking, which until now, you had to do yourself in your read-side processors by explicitly loading and persisting offsets.
+This allows us to get rid of quite a bit of code and as less code means less bugs, this is definitely a good thing.
+In the section dealing with <a href="#migrating-from-10-to-12">migrating to Lagom 1.2</a> there is a part that shows the code that we got rid of.</p>
+
+<p>That the existing Cassandra read-side support API still exists but it has been deprecated and might be removed in an upcoming version so it is a good idea to migrate as soon as possible.
+It isn’t really that much work to migrate to the new API, the exact work required is described in the <a href="#migrating-from-10-to-12">Migrating from 1.0 to 1.2</a> section.</p>
+
+<h2 id="jdbc-support">JDBC support</h2>
+<p>JDBC support has been added to ease the introduction of Lagom into the existing organisation of potential users in order to provide support for using their existing relational database infrastructure.
+In Lagom <a href="http://www.lagomframework.com/blog/lagom-1-3-RC1.html#other-features">1.3.0</a>, support for JPA will also be added which should become the preferred choice.
+A relational database is less preferred when setting up a non-blocking and reactive architecture but by providing support for it, 
+it would allow potential users to start making use of the Persistent Entity API without the necessity of having to switch over to Cassandra.</p>
+
+<p>To make use of JDBC support you need to add the <a href="http://www.lagomframework.com/documentation/1.2.x/java/PersistentEntityRDBMS.html">Persistence JDBC</a> module to your project while also having to add the jar for your JDBC driver.
+Lagom makes use of <a href="https://github.com/dnvriend/akka-persistence-jdbc">akka-persistence-jdbc</a> to persist entities to the database.
+At the time of writing only four relational databases are supported:</p>
+
+<ul>
+  <li>PostgreSQL</li>
+  <li>MySQL</li>
+  <li>Oracle</li>
+  <li>H2</li>
+</ul>
+
+<p><code class="highlighter-rouge">akka-persistence-jdbc</code> uses <a href="http://slick.lightbend.com">Slick</a> for mapping tables and managing asynchronous execution of JDBC calls.
+Slick requires you to configure it to use the right Slick profile for your database.
+An example of a Slick configuration in <code class="highlighter-rouge">application.conf</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>db.default {
+  driver = "org.postgresql.Driver"
+  url = "jdbc:postgresql://database.example.com/playdb"
+}
+
+jdbc-defaults.slick.driver = "slick.driver.PostgresDriver$"
+</code></pre>
+</div>
+
+<p>A table and journal table are required by the <code class="highlighter-rouge">akka-persistence-jdbc</code> plugin and by default, Lagom is able to create these automatically for you.
+This automatic generation functionality can be disabled which you will probably want for any environment higher than development.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>lagom.persistence.jdbc.create-tables.auto = false
+</code></pre>
+</div>
+
+<p>The definition of the tables differ for each database, here is an example of the table definition for PostgreSQL:</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="k">public</span><span class="p">.</span><span class="n">journal</span><span class="p">;</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="k">public</span><span class="p">.</span><span class="n">journal</span> <span class="p">(</span>
+  <span class="n">ordering</span> <span class="n">BIGSERIAL</span><span class="p">,</span>
+  <span class="n">persistence_id</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">sequence_number</span> <span class="n">BIGINT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">deleted</span> <span class="n">BOOLEAN</span> <span class="k">DEFAULT</span> <span class="k">FALSE</span><span class="p">,</span>
+  <span class="n">tags</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">message</span> <span class="n">BYTEA</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">(</span><span class="n">persistence_id</span><span class="p">,</span> <span class="n">sequence_number</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="k">public</span><span class="p">.</span><span class="n">snapshot</span><span class="p">;</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="k">public</span><span class="p">.</span><span class="n">snapshot</span> <span class="p">(</span>
+  <span class="n">persistence_id</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">sequence_number</span> <span class="n">BIGINT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">created</span> <span class="n">BIGINT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">snapshot</span> <span class="n">BYTEA</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">(</span><span class="n">persistence_id</span><span class="p">,</span> <span class="n">sequence_number</span><span class="p">)</span>
+<span class="p">);</span></code></pre></figure>
+
+<p>The definition scripts for each database are available <a href="https://github.com/dnvriend/akka-persistence-jdbc/tree/v2.6.7/src/main/resources/schema">here</a>.</p>
+
+<p>If you are unaware of CQRS, Event Sourcing and the <a href="http://www.lagomframework.com/documentation/1.2.x/java/ReadSide.html">Persistent Read-Side</a> in Lagom you could take a look at the <a href="/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html#cqrs-and-event-sourcing">CQRS and Event Sourcing</a> section in our previous blogpost on Lagom.
+It might be a bit out of date regarding the API in Lagom but it should give you an idea.</p>
+
+<p>The new API for Cassandra read-side support, while very similar compared to the existing API, still differs in a few places.
+In the <a href="#migrating-from-10-to-12">upcoming section</a> we describe the migration process of upgrading to Lagom 1.2 and the changes we had to do to our read-side, so the required code changes can be read in that section.</p>
+
+<p>The API for the JDBC read-side support is rather similar compared to the Cassandra read-side support.
+Instead of using a <code class="highlighter-rouge">CassandraSession</code> for querying, you use a <code class="highlighter-rouge">JdbcSession</code> to retrieve a connection which in turn you will use for the execution of queries.
+The JDBC read-side API however, unlike the Cassandra read-side API, is not fully non-blocking which will lead to a performance difference.
+It could be an option to switch to Cassandra later on in the project if you want to get better performance out of it.
+But at least by having an API right now for these four databases it might be easier to integrate a new Lagom application within an existing architecture having these kinds of databases.</p>
+
+<h2 id="migrating-from-10-to-12">Migrating from 1.0 to 1.2</h2>
+<p>A <a href="http://www.lagomframework.com/documentation/1.2.x/java/Migration12.html">migration guide</a> is available with the steps necessary to upgrade your project to Lagom 1.2.
+At Ordina Belgium we streamed and recorded an <a href="https://www.youtube.com/watch?v=JOGlZzY6ycI">introduction video on Lagom 1.0</a> in which we demoed a <a href="https://github.com/yannickdeturck/lagom-shop">shop application</a>.
+For the purpose of this blogpost, let us see how much work it is to upgrade to 1.2.</p>
+
+<p>First of all, we have to upgrade the Lagom version itself. 
+Lagom 1.0 only supported sbt, so our demo is still using that.
+We change the version to be used in <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>addSbtPlugin("com.lightbend.lagom" % "lagom-sbt-plugin" % "1.2.2")
+</code></pre>
+</div>
+
+<p>For the Lagom Persistence module, Cassandra support has been pulled into its own module so you need to update the <code class="highlighter-rouge">lagomJavadslPersistence</code> dependency to <code class="highlighter-rouge">lagomJavadslPersistenceCassandra</code> in the <code class="highlighter-rouge">build.sbt</code> file.</p>
+
+<p>We also have to update the Scala version in <code class="highlighter-rouge">build.sbt</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>scalaVersion in ThisBuild := "2.11.8"
+</code></pre>
+</div>
+
+<p>The ConductR version in <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>addSbtPlugin("com.lightbend.conductr" % "sbt-conductr" % "2.1.16")
+</code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">descriptor()</code> in the service interfaces needs to be updated since the <code class="highlighter-rouge">.with(...)</code> has been replaced by <code class="highlighter-rouge">withCalls(...)</code>.</p>
+
+<p>We replace the existing code:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="k">default</span> <span class="n">Descriptor</span> <span class="nf">descriptor</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Service</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="s">"itemservice"</span><span class="o">).</span><span class="na">with</span><span class="o">(</span>
+            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items/:id"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getItem</span><span class="o">),</span>
+            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getAllItems</span><span class="o">),</span>
+            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">createItem</span><span class="o">)</span>
+    <span class="o">).</span><span class="na">withAutoAcl</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>With the following:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="k">default</span> <span class="n">Descriptor</span> <span class="nf">descriptor</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Service</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="s">"itemservice"</span><span class="o">).</span><span class="na">withCalls</span><span class="o">(</span>
+            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items/:id"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getItem</span><span class="o">),</span>
+            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getAllItems</span><span class="o">),</span>
+            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">createItem</span><span class="o">)</span>
+    <span class="o">).</span><span class="na">withAutoAcl</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>These are the necessary changes for us to successfully compile our project. 
+Subsequently, we need to update our read-sides to make use of the new API.
+Starting with replacing the deprecated <code class="highlighter-rouge">CassandraReadSideProcessor</code>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemEventProcessor</span> <span class="kd">extends</span> <span class="n">CassandraReadSideProcessor</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="o">{</span></code></pre></figure>
+
+<p>With <code class="highlighter-rouge">ReadSideProcessor</code>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemEventProcessor</span> <span class="kd">extends</span> <span class="n">ReadSideProcessor</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="o">{</span></code></pre></figure>
+
+<p>Next step is to inject an instance of <code class="highlighter-rouge">CassandraSession</code> and <code class="highlighter-rouge">CassandraReadSide</code> via the constructor:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">final</span> <span class="n">CassandraSession</span> <span class="n">session</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">final</span> <span class="n">CassandraReadSide</span> <span class="n">readSide</span><span class="o">;</span>
+
+<span class="nd">@Inject</span>
+<span class="kd">public</span> <span class="nf">ItemEventProcessor</span><span class="o">(</span><span class="n">CassandraSession</span> <span class="n">session</span><span class="o">,</span> <span class="n">CassandraReadSide</span> <span class="n">readSide</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">session</span> <span class="o">=</span> <span class="n">session</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">readSide</span> <span class="o">=</span> <span class="n">readSide</span><span class="o">;</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>All code related to handling offsets can be deleted since Lagom now handles this for us.
+We delete the following:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">PreparedStatement</span> <span class="n">writeOffset</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">// initialized in prepare</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">setWriteOffset</span><span class="o">(</span><span class="n">PreparedStatement</span> <span class="n">writeOffset</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">writeOffset</span> <span class="o">=</span> <span class="n">writeOffset</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">CompletionStage</span><span class="o">&lt;</span><span class="n">Done</span><span class="o">&gt;</span> <span class="nf">prepareWriteOffset</span><span class="o">(</span><span class="n">CassandraSession</span> <span class="n">session</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Inserting into read-side table item_offset..."</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="na">prepare</span><span class="o">(</span><span class="s">"INSERT INTO item_offset (partition, offset) VALUES (1, ?)"</span><span class="o">).</span><span class="na">thenApply</span><span class="o">(</span><span class="n">ps</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="n">setWriteOffset</span><span class="o">(</span><span class="n">ps</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">Done</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+    <span class="o">});</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">CompletionStage</span><span class="o">&lt;</span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">UUID</span><span class="o">&gt;&gt;</span> <span class="nf">selectOffset</span><span class="o">(</span><span class="n">CassandraSession</span> <span class="n">session</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Looking up item_offset"</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="na">selectOne</span><span class="o">(</span><span class="s">"SELECT offset FROM item_offset"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">thenApply</span><span class="o">(</span>
+                    <span class="n">optionalRow</span> <span class="o">-&gt;</span> <span class="n">optionalRow</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">r</span> <span class="o">-&gt;</span> <span class="n">r</span><span class="o">.</span><span class="na">getUUID</span><span class="o">(</span><span class="s">"offset"</span><span class="o">)));</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>After having our <code class="highlighter-rouge">ItemEventProcessor</code> class extend from the <code class="highlighter-rouge">ReadSideProcessor</code> abstract we are prompted to implement two methods: <code class="highlighter-rouge">buildHandler()</code> and <code class="highlighter-rouge">aggregateTags()</code>.
+<code class="highlighter-rouge">aggregateTags()</code> simply replaces <code class="highlighter-rouge">aggregateTag()</code> where as <code class="highlighter-rouge">buildHandler()</code> will contain the setup needed for our <code class="highlighter-rouge">ReadSideHandler</code>.
+The <code class="highlighter-rouge">prepare(CassandraSession session)</code> and <code class="highlighter-rouge">defineEventHandlers(EventHandlersBuilder builder)</code> methods that used to be overridden are now both implemented in <code class="highlighter-rouge">buildHandler()</code>.
+The logic from the existing <code class="highlighter-rouge">prepare()</code> is split up into a <code class="highlighter-rouge">setGlobalPrepare()</code>, for creating Cassandra tables (note that these tasks should be idempotent), and a <code class="highlighter-rouge">prepare()</code>, for preparing statements, in <code class="highlighter-rouge">buildHandler()</code>.</p>
+
+<p>We start by deleting the old <code class="highlighter-rouge">prepare(CassandraSession session)</code> and the <code class="highlighter-rouge">defineEventHandlers(EventHandlersBuilder builder)</code>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">CompletionStage</span><span class="o">&lt;</span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">UUID</span><span class="o">&gt;&gt;</span> <span class="nf">prepare</span><span class="o">(</span><span class="n">CassandraSession</span> <span class="n">session</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span>
+            <span class="nf">prepareCreateTables</span><span class="o">(</span><span class="n">session</span><span class="o">).</span><span class="na">thenCompose</span><span class="o">(</span><span class="n">a</span> <span class="o">-&gt;</span>
+                    <span class="n">prepareWriteOrder</span><span class="o">(</span><span class="n">session</span><span class="o">).</span><span class="na">thenCompose</span><span class="o">(</span><span class="n">b</span> <span class="o">-&gt;</span>
+                            <span class="n">prepareWriteOffset</span><span class="o">(</span><span class="n">session</span><span class="o">).</span><span class="na">thenCompose</span><span class="o">(</span><span class="n">c</span> <span class="o">-&gt;</span>
+                                    <span class="n">selectOffset</span><span class="o">(</span><span class="n">session</span><span class="o">))));</span>
+<span class="o">}</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">EventHandlers</span> <span class="nf">defineEventHandlers</span><span class="o">(</span><span class="n">EventHandlersBuilder</span> <span class="n">builder</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Setting up read-side event handlers..."</span><span class="o">);</span>
+    <span class="n">builder</span><span class="o">.</span><span class="na">setEventHandler</span><span class="o">(</span><span class="n">ItemCreated</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">processItemCreated</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Finally we perform the necessary refactoring to implement both <code class="highlighter-rouge">buildHandler()</code> and <code class="highlighter-rouge">aggregateTags()</code>, and we clean up the existing processing logic for the read-side:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">CompletionStage</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">BoundStatement</span><span class="o">&gt;&gt;</span> <span class="nf">processItemCreated</span><span class="o">(</span><span class="n">ItemCreated</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">BoundStatement</span> <span class="n">bindWriteItem</span> <span class="o">=</span> <span class="n">writeItem</span><span class="o">.</span><span class="na">bind</span><span class="o">();</span>
+    <span class="n">bindWriteItem</span><span class="o">.</span><span class="na">setUUID</span><span class="o">(</span><span class="s">"itemId"</span><span class="o">,</span> <span class="n">event</span><span class="o">.</span><span class="na">getItem</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+    <span class="n">bindWriteItem</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="n">event</span><span class="o">.</span><span class="na">getItem</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+    <span class="n">bindWriteItem</span><span class="o">.</span><span class="na">setDecimal</span><span class="o">(</span><span class="s">"price"</span><span class="o">,</span> <span class="n">event</span><span class="o">.</span><span class="na">getItem</span><span class="o">().</span><span class="na">getPrice</span><span class="o">());</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Persisted Item {}"</span><span class="o">,</span> <span class="n">event</span><span class="o">.</span><span class="na">getItem</span><span class="o">());</span>
+    <span class="k">return</span> <span class="n">CassandraReadSide</span><span class="o">.</span><span class="na">completedStatements</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">bindWriteItem</span><span class="o">));</span>
+<span class="o">}</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">ReadSideHandler</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="nf">buildHandler</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">CassandraReadSide</span><span class="o">.</span><span class="na">ReadSideHandlerBuilder</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">readSide</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">"item_offset"</span><span class="o">);</span>
+    <span class="n">builder</span><span class="o">.</span><span class="na">setGlobalPrepare</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">prepareCreateTables</span><span class="o">(</span><span class="n">session</span><span class="o">));</span>
+    <span class="n">builder</span><span class="o">.</span><span class="na">setPrepare</span><span class="o">(</span><span class="n">tag</span> <span class="o">-&gt;</span> <span class="n">prepareWriteItem</span><span class="o">(</span><span class="n">session</span><span class="o">));</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Setting up read-side event handlers..."</span><span class="o">);</span>
+    <span class="n">builder</span><span class="o">.</span><span class="na">setEventHandler</span><span class="o">(</span><span class="n">ItemCreated</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">processItemCreated</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">PSequence</span><span class="o">&lt;</span><span class="n">AggregateEventTag</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;&gt;</span> <span class="nf">aggregateTags</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">TreePVector</span><span class="o">.</span><span class="na">singleton</span><span class="o">(</span><span class="n">ItemEventTag</span><span class="o">.</span><span class="na">INSTANCE</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>This leaves us with some refactoring to be done in our service implementations for registering the read-side.
+The sole thing that needs to be done is replacing the injected <code class="highlighter-rouge">CassandraReadSide</code>, which is now deprecated, with <code class="highlighter-rouge">ReadSide</code>.</p>
+
+<p>So going from:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Inject</span>
+<span class="kd">public</span> <span class="nf">ItemServiceImpl</span><span class="o">(</span><span class="n">PersistentEntityRegistry</span> <span class="n">persistentEntities</span><span class="o">,</span> <span class="n">CassandraReadSide</span> <span class="n">readSide</span><span class="o">,</span>
+                        <span class="n">CassandraSession</span> <span class="n">db</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">persistentEntities</span> <span class="o">=</span> <span class="n">persistentEntities</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">db</span> <span class="o">=</span> <span class="n">db</span><span class="o">;</span>
+
+    <span class="n">persistentEntities</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">ItemEntity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">readSide</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">ItemEventProcessor</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>To:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Inject</span>
+<span class="kd">public</span> <span class="nf">ItemServiceImpl</span><span class="o">(</span><span class="n">PersistentEntityRegistry</span> <span class="n">persistentEntities</span><span class="o">,</span> <span class="n">ReadSide</span> <span class="n">readSide</span><span class="o">,</span>
+                       <span class="n">CassandraSession</span> <span class="n">db</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">persistentEntities</span> <span class="o">=</span> <span class="n">persistentEntities</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">db</span> <span class="o">=</span> <span class="n">db</span><span class="o">;</span>
+
+    <span class="n">persistentEntities</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">ItemEntity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">readSide</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">ItemEventProcessor</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>This concludes migrating our read-side logic to the new API.</p>
+
+<p>Since Lagom now supports multiple persistence backends, and not only just Cassandra, TestKit no longer starts with Cassandra enabled by default.
+This requires us to add a single line <code class="highlighter-rouge">.withCassandra(true)</code> to our server setup:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@BeforeClass</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">ServiceTest</span><span class="o">.</span><span class="na">startServer</span><span class="o">(</span><span class="n">ServiceTest</span><span class="o">.</span><span class="na">defaultSetup</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">withCassandra</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">withConfigureBuilder</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>All in all, migrating the code base to Lagom 1.2 took about fifteen minutes.</p>
+
+<h2 id="looking-at-the-rest-of-our-initial-feedback">Looking at the rest of our initial feedback</h2>
+<p>In the <a href="/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html">previous blogpost</a> on Lagom 1.0 we, like many other Java developers, made the point that only offering sbt as the build tool would repel many potential Java developers.
+We are glad that they addressed this quickly in the <a href="http://www.lagomframework.com/blog/lagom-1-1.html">first new major version (1.1)</a> they released.</p>
+
+<p>Regarding using Lagom in production without using ConductR, the bare minimum for this was to write your own service locator.
+Jonas Bonér started a service locator project for <a href="https://github.com/jboner/lagom-service-locator-zookeeper">ZooKeeper</a> and <a href="https://github.com/jboner/lagom-service-locator-consul">Consul</a> for this purpose.
+Lightbend also plans to offer a free limited use evaluation license which will allow developers to start working with the <a href="https://www.lightbend.com/platform">Reactive Platform’s commercial features</a> from the beginning.
+Including not only ConductR but other goodies such as monitoring for Lagom circuit breakers and Akka actors.</p>
+
+<p>In the blogpost we also wrote down several impressions compared to Pivotal’s Spring Cloud and Netflix OSS, currently the most popular choice of doing microservice architectures in Java.
+A strong point for Lightbend is that they want to distinct themselves from Pivotal by providing extensive commercial support if you get the Reactive Platform license.
+Pivotal also offers commercial support but only if you buy the commercial Pivotal Cloud Foundry.</p>
+
+<p>A key advantage of Lagom remains that it is non-blocking down to the core, starting from the persistence layer up to the endpoints, while Spring isn’t just yet.
+In the upcoming <a href="https://spring.io/blog/2016/07/28/spring-framework-5-0-m1-released">Spring Framework 5</a>, of which a <a href="http://projects.spring.io/spring-framework/">milestone version (M3)</a> is already available, Pivotal are integrating their <a href="https://spring.io/blog/2016/02/09/reactive-spring">Spring Reactive</a> initiative providing core reactive functionality and reactive web endpoint support.
+On the topic of Spring Reactor, a colleague of ours, <a href="https://twitter.com/tomvdbulck">Tom Van den Bulck</a>, recently wrote a blogpost on <a href="/reactive/2016/12/12/Reactive-Programming-Spring-Reactor.html">Reactive Programming with Spring Reactor</a>.
+In the blogpost, Tom writes about the presentation of <a href="https://twitter.com/smaldini">Stephane Maldini</a> at <a href="https://ordina-jworks.github.io/conferences/2016/09/27/JOIN-2016.html">Ordina’s JOIN 2016</a> event, a small one-day conference hosted by Ordina, on reactive programming which has also been recorded and is available on <a href="https://www.youtube.com/watch?v=RU0yQhfybDg">YouTube</a>. 
+So it will be interested to see whether Spring Framework 5 allows them to catch up on being fully non-blocking and reactive, which up until now, remains a stronger point of Lagom.</p>
+
+<p>Lagom’s CQRS and Event Sourcing integration remain another advantage of Lagom, the out-of-the-box integration is easy to work with and they continue to improve on it, now with JDBC support and soon JPA support.
+In a Spring Cloud application a common solution for this is making use of the <a href="http://www.axonframework.org">Axon Framework</a> although it requires you to do the necessary gluing yourself.
+There is also the <a href="https://blog.eventuate.io/2016/10/06/eventuate-local-event-sourcing-and-cqrs-with-spring-boot-apache-kafka-and-mysql">Eventuate</a> framework written by <a href="https://twitter.com/crichardson">Chris Richardson</a>.</p>
+
+<p>Polyglot support is something that still lacks a bit on the side of Lagom.
+Spring has <a href="http://projects.spring.io/spring-cloud/spring-cloud.html#_polyglot_support_with_sidecar">Sidecar</a> for this purpose.
+Lagom services map down to ordinary, standard HTTP and WebSockets and as for other frameworks calling Lagom services, an <a href="http://www.lagomframework.com/documentation/1.2.x/java/IntegratingNonLagom.html">integration client</a> exists for JVM frameworks while others will have to invoke the Lagom services directly via REST.
+As for Lagom consuming other REST services, you define an API Service and implement the <code class="highlighter-rouge">descriptor()</code> to describe the external API. Documentation for this is currently lacking but an example with <a href="https://github.com/ignasi35/lagom-client-demo">Httpbin</a> and <a href="https://gist.github.com/ignasi35/9351ef4bdc5f7768e27182d06bfc8c01">Slack’s Messages API</a> exists.
+In order to further address the polyglot support, Lightbend is planning on implementing a solution for this probably based upon <a href="http://doc.akka.io/docs/akka/2.4.16/scala/stream/">Akka Streams</a> and <a href="https://github.com/akka/alpakka">Alpakka</a>.
+The idea is that you should be able to generate a Lagom service interface from specifications, allowing transparent integration.</p>
+
+<p>Having binary coupling was another remark of ours and to address this, support for <a href="http://swagger.io">Swagger</a> will be added in version 1.4.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>While there are still a couple of important things in need of being addressed we believe that we can conclude that Lightbend is carefully listening to the feedback given by the community.
+They continue to improve Lagom with new features and to offer better user experience for the developers.</p>
+
+<p>At the same time, Pivotal is working on providing better reactive support with their upcoming Spring Framework 5.</p>
+
+<p>Lightbend and Pivotal make some nice rivals to each other which is nice since this will have a positive impact on both frameworks.
+Pivotal clearly still has an advantage over Lightbend due to how mature and well-known Spring is although Lagom seems to develop nicely and continues to improve on its strongest points while also trying to address weak points.</p>
+
+<p>We think that Lagom is worth adopting if you plan on getting a Reactive Platform license.
+Now that Maven support is available, a big hurdle for Java developers has disappeared.
+Without the Reactive Platform, development should be fine but you will probably miss the useful goodies it has to offer for running your system into production such as monitoring and service orchestration which you get all for free if you go with Spring Cloud and Netflix OSS.
+We are sure that using Lagom without the Reactive Platform will become more interesting given enough time for the community to come up with solutions for this.</p>
+
+<p>Scala developers will also be eagerly awaiting the release of 1.3 after which they can finally set their teeth into Lagom with the Scala API that it introduces.</p>
+
+<h2 id="lagom-13-preview">Lagom 1.3 preview</h2>
+<p>The <a href="https://github.com/lagom/lagom/issues/1">first issue</a>, created after Lagom was released, was the need to implement a separate Scala API.
+Something many users of Lightbend’s technologies were craving for.
+Until now it was already possible to use Scala with Lagom by using the Java API, see the following <a href="https://github.com/dotta/activator-lagom-scala-chirper">seed</a> created by <a href="https://github.com/dotta">Mirco Dotta</a>.</p>
+
+<p>Lightbend made work of it and at the time of writing, a <a href="http://www.lagomframework.com/blog/lagom-1-3-RC1.html">release candidate for 1.3.0</a> has been made available which finally includes the Scala API for Lagom!
+Other features to be expected in 1.3.0 include JPA support and new test APIs for testing message broker integration.</p>
+
+<h2 id="extra-resources">Extra resources</h2>
+
+<ul>
+  <li><a href="https://ordina-jworks.github.io/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html">Lagom: First Impressions and Initial Comparison to Spring Cloud</a></li>
+  <li><a href="https://www.youtube.com/watch?v=JOGlZzY6ycI">Lagom in Practice by Yannick De Turck</a></li>
+  <li><a href="http://www.lagomframework.com/documentation/">Lagom documentation</a></li>
+  <li><a href="https://twitter.com/lagom">Lagom Twitter</a></li>
+  <li><a href="https://gitter.im/lagom/lagom">Lagom Gitter</a></li>
+  <li><a href="https://groups.google.com/forum/#!forum/lagom-framework">Lagom mailing list</a></li>
+  <li><a href="https://github.com/lagom/online-auction-java">Online Auction</a>: Lagom 1.2 example</li>
+</ul>
+
+        </div>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/yannick-de-turck/" class="image spotlight-image">
+            <img src="/img/author/yannick-de-turck.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Yannick is a senior Java consultant and coach at Ordina Belgium. Yannick's focus areas amongst others are Java technologies, Scala and Play Framework and iOS development with Objective C and Swift. He's passionate about learning new technologies and frameworks and having a keen interest in innovative technologies, Java architectures, reactive programming and DevOps.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:info@ordina.be">info@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451/videos" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.youtube.com/c/OrdinaBelgiumJWorks" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://github.com/ordina-jworks" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2017 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina.
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/lagom.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>
