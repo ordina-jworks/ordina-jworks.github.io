@@ -48,7 +48,7 @@ Contact [Jan De Wilde](mailto:jan.dewilde@ordina.be).
 
 ### Proximus MyThings LoRa IoT Platform
 
-For Proximus, a big telecom operator in Belgium we have created a portal to manage LoRa connected IoT sensors and a Ionic 1 application for the field engineers to onboard and configure sensors. First part of the application allows the field engineer to identify and install/onboard a sensor using a QR code scanner or via manual input of the MAC address.
+For Proximus, a big telecom operator in Belgium we have created a portal to manage LoRa connected IoT sensors and an Ionic 1 application for the field engineers to onboard and configure sensors. First part of the application allows the field engineer to identify and install/onboard a sensor using a QR code scanner or via manual input of the MAC address.
 Sensor type, company, location with lat/lng detection is provided in the application.
 Second part of the application is the ability to adjust or replace an existing sensor. 
 Third part is a view where active/inactive sensors are presented together with their properties and last sent data. All data is exposed using web services created in Spring Boot and data is stored in a Mongo DB cluster and MySQL instance.
