@@ -212,8 +212,11 @@ $(document).ready(function(){
 				bottom: $header.outerHeight() - 100,
 				enter: function() {
 					console.log('enter');
-					$body.addClass('custom-image');
-					$body.css("background-image", "url('" + imageHref + "')");
+					// $body.addClass('custom-image');
+					// $body.css("background-image", "url('" + imageHref + "')");
+
+                    $('#header-image').addClass('header-image');
+                    $('#header-image').css("background-image", "url('" + imageHref + "')");
 					$('#over').css("display", "block");
 				},
 				leave: function() {
