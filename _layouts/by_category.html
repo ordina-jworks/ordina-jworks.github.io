@@ -8,10 +8,11 @@ layout: default
             <section class="features">
 
                 {% for post in page.posts reversed %}
-                <article>
-                    <a href="{{post.url}}"><img src="{{post.image}}" alt="" class="article-image"></a>
-
-                    <h3 class="major">{{post.title}}</h3>
+                <article  onclick="location.href = '{{ post.url}}'">
+                    <a href="{{post.url}}">
+                        <img src="{{post.image}}" alt="" class="article-image">
+                        <h3 class="major">{{post.title}}</h3>
+                    </a>
 
                     <p>{{ post.date | date_to_string }} {{post.heading}}</p>
                     <a href="{{post.url}}" class="special">Read more</a>
