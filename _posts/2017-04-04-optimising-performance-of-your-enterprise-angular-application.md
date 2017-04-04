@@ -126,7 +126,7 @@ There are 2 ways to set up the OnPush strategy
 
    @Component({
        selector: 'my-sub-component',
-       template: '{{ item.name }}',
+       template: `{% raw %}{{ item.name }}{% endraw %}`,
        changeDetection: ChangeDetectionStrategy.OnPush
    })
    export class MySubComponent implements OnInit {
@@ -149,7 +149,7 @@ There are 2 ways to set up the OnPush strategy
 
    @Component({
        selector: 'my-sub-component',
-       template: '{{ myItemName }}',
+       template: `{% raw %}{{ myItemName }}{% endraw %}`,
        changeDetection: ChangeDetectionStrategy.OnPush
    })
    export class MySubComponent implements OnInit {
