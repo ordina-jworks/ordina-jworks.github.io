@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ordina JWorks Tech Blog</title>
+
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Ordina JWorks Tech blog
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,Javascript,DevOps">
+    <meta name="author" content="Ordina Belgium">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+        
+            
+            
+                
+                    }
+                
+            
+        
+            
+            
+                
+                     
+                
+            
+        
+            
+            
+        
+        <!-- Facebook Open Graph -->
+        <meta property="og:url" content="http://ordina-jworks.github.io/angular/2017/04/04/optimising-performance-of-your-enterprise-angular-application.html"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Optimising performance of your Enterprise Angular Application - Jan De Wilde,  Frédéric Ghijselinck and Orjan De Smet"/>
+        <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+        <meta property="og:image" content="http://ordina-jworks.github.io/img/optimising-performance-of-your-enterprise-angular-application.png"/>
+    
+
+    <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Optimising performance of your Enterprise Angular Application</h2>
+                
+
+                
+                    Posted Apr 4, 2017
+
+
+    in <a href="/categories/angular/">Angular</a>
+
+
+
+    by
+    
+        <a href="/author/jan-de-wilde/">Jan De Wilde</a>
+        
+            
+                , 
+            
+        
+    
+        <a href="/author/frederic-ghijselinck/">Frédéric Ghijselinck</a>
+        
+            
+                 and 
+        
+        
+    
+        <a href="/author/orjan-de-smet">Orjan De Smet</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/angular/">Angular</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <p>This blog post contains best practices that helped us optimise performance of our Enterprise Angular (v2+) Application we created for one of our clients.
+The project has been created in under 6 months with a dedicated team of 7 people of which 4 people are from the JWorks unit (2 front-end, 2 backend) and consists of two Angular Applications that use modules and components from a shared library.
+The use of Angular Universal does not apply (yet) for this project.</p>
+
+<h3 id="topics">Topics</h3>
+
+<ol>
+  <li><a href="#lazy-loading">Lazy loading</a></li>
+  <li><a href="#code-splitting-and-commons-chunk-plugin-webpack">Code splitting and commons chunk plugin (webpack)</a></li>
+  <li><a href="#changedetectionstrategy-onpush">ChangeDetectionStrategy: OnPush</a></li>
+  <li><a href="#reusable-css-with-bem-and-sass">Reusable CSS with BEM and Sass</a></li>
+  <li><a href="#gzip">GZIP</a></li>
+  <li><a href="#aot">AOT</a></li>
+</ol>
+
+<h1 id="1-lazy-loading">1. Lazy loading</h1>
+
+<p>Lazy loading your project modules can greatly enhance performance.</p>
+
+<p>After each successful navigation, the router looks in its configuration for an unloaded module that it can preload.
+Whether it preloads a module, and which modules it preloads, depends upon the preload strategy.
+The Router offers two preloading strategies out of the box:</p>
+
+<ul>
+  <li>No preloading at all which is the default. Lazy loaded feature areas are still loaded on demand.</li>
+  <li>Preloading of all lazy loaded feature areas.</li>
+</ul>
+
+<p>We implemented the PreloadAllModules strategy in its default configuration, but know that it is possible to create your own custom preloading strategy.</p>
+
+<p>To do so, include the preloadingStrategy in your @NgModule like so:</p>
+
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+    <span class="p">...</span>
+    <span class="na">imports</span><span class="p">:</span> <span class="p">[</span>
+        <span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">ROUTES</span><span class="p">,</span> <span class="p">{</span> <span class="na">preloadingStrategy</span><span class="p">:</span> <span class="nx">PreloadAllModules</span> <span class="p">})</span>
+    <span class="p">]</span>
+<span class="p">});</span></code></pre></figure>
+
+<p>And define your routes like this:</p>
+
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="p">{</span>
+    <span class="nl">path</span><span class="p">:</span> <span class="s1">'performance'</span><span class="p">,</span>
+    <span class="nx">loadChildren</span><span class="err">:</span> <span class="s1">'performance.module#PerformanceModule'</span><span class="p">,</span>
+    <span class="nx">canLoad</span><span class="err">:</span> <span class="p">[</span><span class="nx">AuthGuard</span><span class="p">]</span> <span class="c1">// Optional</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Note that when using guards, the CanLoad guard blocks loading of feature module assets until authorised to do so.
+If you want to both preload a module and guard against unauthorised access, <a href="https://angular.io/docs/ts/latest/guide/router.html#!#canload-blocks-preload">use the CanActivate guard instead</a>.</p>
+
+<p>Want to get started with lazy loading?
+Maybe create a custom preloading strategy?
+Check out the talk <a href="https://www.youtube.com/watch?v=i0y5bJx8RFc">Manfred Steyer gave at NG-BE 2016</a> about improving start-up performance with lazy loading or <a href="https://angular.io/docs/ts/latest/guide/router.html#!%23milestone-6-asynchronous-routing">view the Angular docs</a>.</p>
+
+<h1 id="2-code-splitting-and-commons-chunk-plugin-webpack">2. Code splitting and commons chunk plugin (webpack)</h1>
+
+<p><a href="https://webpack.js.org/guides/code-splitting/">Code splitting</a> is one of the most compelling features of webpack.
+It allows you to split your code into various bundles which you can then load on demand — like when a user navigates to a matching route, or on an event from the user.
+This allows for smaller bundles, and allows you to control resource load prioritization, which, if used correctly, can have a major impact on your application load time.
+There are mainly two kinds of code splitting that can be accomplished with webpack: “Vendor code splitting” and “On demand code-splitting” (used for lazy loading).</p>
+
+<p>The CommonsChunkPlugin is an opt-in feature that creates a separate file (known as a chunk), consisting of common modules shared between multiple entry points.
+By separating common modules from bundles, the resulting chunked file can be loaded once initially, and stored in cache for later use.
+This results in pagespeed optimizations as the browser can quickly serve the shared code from cache, rather than being forced to load a larger bundle whenever a new page is visited.</p>
+
+<p>Among other optimisations the <a href="https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk">extra async commons chunk</a> allows us to drastically improve performance by moving common modules out of the parent so that a new async-loaded additional commons chunk is used, which decreases initial load time.
+This is automatically downloaded in parallel when the additional chunk is downloaded.</p>
+
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">optimize</span><span class="p">.</span><span class="nx">CommonsChunkPlugin</span><span class="p">({</span>
+  <span class="na">children</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="c1">// (use all children of the chunk)</span>
+
+  <span class="na">async</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="c1">// (create an async commons chunk)</span>
+<span class="p">});</span></code></pre></figure>
+
+<h1 id="3-changedetectionstrategy-onpush">3. ChangeDetectionStrategy: OnPush</h1>
+
+<h2 id="31-the-problem">3.1 The problem</h2>
+
+<p>Unlike using a Virtual DOM, like ReactJS, Angular uses change detection to update the actual DOM presented to the user.
+Each component in an Angular application has its own change detector and in order to guarantee the latest data is always presented to the user, the default change detection strategy on an Angular component is set to always update.
+This means that any time JavaScript finishes executing, Angular will check for changes in all components.
+This usually works fast in small applications.</p>
+
+<p>However, when a component has a large subset of components (e.g.: a list with several items in which every row is presented by a component), performance may take a hit, even when (almost) nothing changes.
+The reason is that, due to the default change detection, Angular will also check for updates on a component when a change occurs on its siblings or ancestors or child components, while this is not needed in most cases.</p>
+
+<h2 id="32-the-solution">3.2 The solution</h2>
+
+<p>Next to trying to have less DOM, the solution is to use the OnPush strategy for change detection.
+The OnPush strategy will let the change detector run only in the following situations:</p>
+
+<ul>
+  <li>when an event handler is fired in the component</li>
+  <li>when one of its input properties changes</li>
+  <li>when you manually request the change detector to look for changes (using ChangeDetectorRef’s function markForCheck())</li>
+  <li>when a child’s change detector runs</li>
+</ul>
+
+<h2 id="33-setting-up-onpush">3.3 Setting up OnPush</h2>
+
+<p>There are two ways to set up the OnPush strategy</p>
+
+<h3 id="331-immutable-input-objects">3.3.1. Immutable input objects</h3>
+
+<p>The simplest way is to use only immutable objects.</p>
+
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">   <span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">ChangeDetectionStrategy</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+
+   <span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+       <span class="na">selector</span><span class="p">:</span> <span class="s1">'my-sub-component'</span><span class="p">,</span>
+       <span class="na">template</span><span class="p">:</span> <span class="err">`</span><span class="p">{{</span> <span class="nx">item</span><span class="p">.</span><span class="nx">name</span> <span class="p">}}</span><span class="err">`</span><span class="p">,</span>
+       <span class="na">changeDetection</span><span class="p">:</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">.</span><span class="nx">OnPush</span>
+   <span class="p">})</span>
+   <span class="k">export</span> <span class="kr">class</span> <span class="nx">MySubComponent</span> <span class="k">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+       <span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="na">item</span><span class="p">:</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">};</span>
+
+       <span class="kd">constructor</span><span class="p">()</span> <span class="p">{}</span>
+   <span class="p">}</span>
+   </code></pre></figure>
+
+<p>The change detector will only run when the input property ‘item’ changes.
+   The key here is to update the reference to the object.
+   The change detector won’t run when something inside the object (e.g.: property ‘name’) changes.</p>
+
+<h3 id="332-observable-input-objects">3.3.2. Observable input objects</h3>
+
+<p>Another way is to use observables as inputs.</p>
+
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">   <span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">,</span> <span class="nx">ChangeDetectorRef</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+
+   <span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+       <span class="na">selector</span><span class="p">:</span> <span class="s1">'my-sub-component'</span><span class="p">,</span>
+       <span class="na">template</span><span class="p">:</span> <span class="err">`</span><span class="p">{{</span> <span class="nx">myItemName</span> <span class="p">}}</span><span class="err">`</span><span class="p">,</span>
+       <span class="na">changeDetection</span><span class="p">:</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">.</span><span class="nx">OnPush</span>
+   <span class="p">})</span>
+   <span class="k">export</span> <span class="kr">class</span> <span class="nx">MySubComponent</span> <span class="k">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+       <span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="na">itemStream</span><span class="p">:</span><span class="nx">Observable</span><span class="o">&lt;</span><span class="kr">any</span><span class="o">&gt;</span><span class="p">;</span>
+       <span class="nl">myItemName</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+
+       <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="na">changeDetectorRef</span><span class="p">:</span> <span class="nx">ChangeDetectorRef</span><span class="p">)</span> <span class="p">{}</span>
+
+       <span class="nx">ngOnInit</span><span class="p">()</span> <span class="p">{</span>
+           <span class="k">this</span><span class="p">.</span><span class="nx">itemStream</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="p">{</span>
+               <span class="k">this</span><span class="p">.</span><span class="nx">myItemName</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+               <span class="k">this</span><span class="p">.</span><span class="nx">changeDetectorRef</span><span class="p">.</span><span class="nx">markForCheck</span><span class="p">();</span>
+           <span class="p">});</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+   </code></pre></figure>
+
+<p>The change detector will run when the itemStream emits a new item.</p>
+
+<p>As change detection is run from top to bottom components, start by setting OnPush on the leaf components and work your way up.
+This allows to skip change detection in entire subtrees.</p>
+
+<h1 id="4-reusable-css-with-bem-and-sass">4. Reusable CSS with BEM and Sass</h1>
+
+<p>Sass has been an all-time favorite for writing structured and maintainable CSS for large projects.
+We combined this with the <a href="https://en.bem.info/methodology/">BEM methodology</a> which helps to create extendable and reusable interface components.
+We used this approach on our project to create a style guide in the shared module that includes all working components used in the application.</p>
+
+<p>Once most of the components were available we could simply start including them in the modules that needed to be built.
+This greatly decreased the time needed to build the functional module.</p>
+
+<p>Things like colors, typography, utilities, etc. are bundled in separate files that can be included where needed.
+This prevents writing the same CSS over and over again and keeps the code base small(er).</p>
+
+<h1 id="5-gzip">5. GZIP</h1>
+
+<p>Gzip is a file format and also a method of compressing files (making them smaller) for faster network transfers.
+It allows your web server to provide files with a smaller size that will be loaded faster by your browser.
+Compression of your files with gzip typically <strong>saves around fifty to seventy percent</strong> of the file size.</p>
+
+<p>You can easily enable gzip compression on your server by editing your .htaccess file:</p>
+
+<figure class="highlight"><pre><code class="language-htaccess" data-lang="htaccess">#Set to gzip all output
+SetOutputFilter DEFLATE
+
+#exclude the following file types
+SetEnvIfNoCase Request_URI \.(?:exe|t?gz|zip|iso|tar|bz2|sit|rar|png|jpg|gif|jpeg|flv|swf|mp3)$ no-gzip dont-vary
+
+#include the following file types
+AddType x-font/otf .otf
+AddType x-font/ttf .ttf
+AddType x-font/eot .eot
+AddType image/x-icon .ico
+AddType image/png .png
+AddType image/svg+xml .svg
+
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+AddOutputFilterByType DEFLATE image/svg+xml
+
+#set compression level
+DeflateCompressionLevel 9
+
+#Handle browser specific compression requirements
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4.0[678] no-gzip
+BrowserMatch bMSIE !no-gzip !gzip-only-text/html
+
+# Make sure proxies don't deliver the wrong content
+Header append Vary User-Agent env=!dont-vary</code></pre></figure>
+
+<h1 id="6-aot">6. AOT</h1>
+
+<p>At the time of writing, the application still runs using the just-in-time (JIT) compiler.
+But we are looking into how we can integrate AOT.</p>
+
+<p>JIT compilation incurs a runtime performance penalty.
+Views take longer to render because of the in-browser compilation step.
+The application is bigger because it includes the Angular compiler and a lot of library code that the application won’t actually need.
+Bigger apps take longer to transmit and are slower to load.</p>
+
+<p>Compilation can uncover many component-template binding errors.
+JIT compilation discovers them at runtime, which is late in the process.</p>
+
+<p>The <a href="https://angular.io/docs/ts/latest/cookbook/aot-compiler.html">ahead-of-time (AOT) compiler</a> can catch template errors early and improve performance by compiling at build time.</p>
+
+<h3 id="aot-ensures">AOT ensures</h3>
+
+<ul>
+  <li>Faster rendering</li>
+  <li>Fewer asynchronous requests</li>
+  <li>Smaller Angular framework download size</li>
+  <li>Earlier detection of template errors</li>
+  <li>Better security</li>
+</ul>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>While Angular states it’s performance driven out of the box, it is very important to optimise, where possible, especially when building a large Enterprise Angular Application.
+As you can see it’s not that difficult to integrate, so why wouldn’t you?
+Every bit of data that doesn’t end up downloading to the device of your users is a bless.</p>
+
+<p><strong>Hat tip:</strong> Try to integrate these changes when setting up your project.
+It would be a shame to end up refactoring your code when halfway into development.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/angular/2017/04/04/optimising-performance-of-your-enterprise-angular-application.html&title=Optimising performance of your Enterprise Angular Application&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Optimising performance of your Enterprise Angular Application&url=https://ordina-jworks.github.io/angular/2017/04/04/optimising-performance-of-your-enterprise-angular-application.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/angular/2017/04/04/optimising-performance-of-your-enterprise-angular-application.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/jan-de-wilde/" class="image spotlight-image">
+            <img src="/img/author/jan-de-wilde.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Jan De Wilde is a Senior Frontend Developer at Ordina Belgium, focussed on building quality mobile/hybrid applications that are accessible on a big collection of devices. His favorite technologies are Ionic Framework, Angular and TypeScript. Jan is also Practice Manager for the Frontend Practice where he takes care of the development and coaching of employees.</p>
+</p>
+            
+        </div>
+    </div>
+    
+    <div class="inner">
+        <a href="/author/frederic-ghijselinck/" class="image spotlight-image">
+            <img src="/img/author/frederic-ghijselinck.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Frédéric is a Senior developer at Ordina Belgium, focussing on Frontend Development with technologies as Angular and TypeScript. Next to frontend development, he continues to maintain his backend development skills using the Spring technology stack. Frédéric is also Competence Lead for the JavaScript Competence Center where he gives workshops, talks and courses about the newest technologies.</p>
+</p>
+            
+        </div>
+    </div>
+    
+    <div class="inner">
+        <a href="/author/orjan-de-smet" class="image spotlight-image">
+            <img src="/img/author/orjan-de-smet.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Orjan is a Frontend Developer at Ordina Belgium, keen on building structured quality applications with a focus on UI/UX. He is always interested to try new technologies and to share his experiences. In his spare time, he enjoys a good game or movie or dining out.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:info@ordina.be">info@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2017 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina.
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/optimising-performance-of-your-enterprise-angular-application.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+    
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/angular/2017/04/04/optimising-performance-of-your-enterprise-angular-application.html";
+        this.page.identifier = "/angular/2017/04/04/optimising-performance-of-your-enterprise-angular-application.html";
+        this.page.title = "Optimising performance of your Enterprise Angular Application";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>
