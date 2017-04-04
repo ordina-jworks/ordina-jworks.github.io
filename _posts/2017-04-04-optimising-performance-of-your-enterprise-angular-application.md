@@ -264,4 +264,4 @@ As you can see it’s not that difficult to integrate so why wouldn’t you?
 Every bit of data that doesn’t end up downloading to the device of your users is a bless.
 
 **Hat tip:** Try to integrate these changes when setting up your project.
-It would be a shame to end up refactoring your code when 
+It would be a shame to end up refactoring your code when halfway into development.
