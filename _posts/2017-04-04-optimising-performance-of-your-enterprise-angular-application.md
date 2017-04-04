@@ -9,7 +9,7 @@ comments: true
 ---
 
 This blog post contains best practices that helped us optimise performance of our Enterprise Angular (v2+) Application we created for one of our clients.
-The project has been created in under 6 months with a dedicated team of 7 people of which 4 people are from JWorks (2 frontend, 2 backend) and consists of two Angular Applications that use modules and components from a shared library.
+The project has been created in under 6 months with a dedicated team of 7 people of which 4 people are from the JWorks unit (2 front-end, 2 backend) and consists of two Angular Applications that use modules and components from a shared library.
 The use of Angular Universal does not apply (yet) for this project.
 
 ### Topics
@@ -56,7 +56,7 @@ And define your routes like this:
 {% endhighlight %}
 
 Note that when using guards, the CanLoad guard blocks loading of feature module assets until authorised to do so.
-If you want to both preload a module and guard against unauthorized access, [use the CanActivate guard instead](https://angular.io/docs/ts/latest/guide/router.html#!#canload-blocks-preload).
+If you want to both preload a module and guard against unauthorised access, [use the CanActivate guard instead](https://angular.io/docs/ts/latest/guide/router.html#!#canload-blocks-preload).
 
 Want to get started with lazy loading?
 Maybe create a custom preloading strategy?
@@ -67,7 +67,7 @@ Check out the talk [Manfred Steyer gave at NG-BE 2016](https://www.youtube.com/w
 
 [Code splitting](https://webpack.js.org/guides/code-splitting/) is one of the most compelling features of webpack.
 It allows you to split your code into various bundles which you can then load on demand — like when a user navigates to a matching route, or on an event from the user.
-This allows for smaller bundles, and allows you to control resource load prioritization, which if used correctly, can have a major impact on your application load time.
+This allows for smaller bundles, and allows you to control resource load prioritization, which, if used correctly, can have a major impact on your application load time.
 There are mainly two kinds of code splitting that can be accomplished with webpack: "Vendor code splitting" and "On demand code-splitting" (used for lazy loading).
 
 The CommonsChunkPlugin is an opt-in feature that creates a separate file (known as a chunk), consisting of common modules shared between multiple entry points.
@@ -94,10 +94,9 @@ new webpack.optimize.CommonsChunkPlugin({
 
 ## 3.1 The problem
 
-Unlike using a Virtual DOM, like ReactJS.
-Angular uses change detection to update the actual DOM presented to the user.
+Unlike using a Virtual DOM, like ReactJS, Angular uses change detection to update the actual DOM presented to the user.
 Each component in an Angular application has its own change detector and in order to guarantee the latest data is always presented to the user, the default change detection strategy on an Angular component is set to always update.
-This means that any time Javascript finishes executing, Angular will check for changes in all components.
+This means that any time JavaScript finishes executing, Angular will check for changes in all components.
 This usually works fast in small applications.
 
 However, when a component has a large subset of components (e.g.: a list with several items in which every row is presented by a component), performance may take a hit, even when (almost) nothing changes.
@@ -115,7 +114,7 @@ The OnPush strategy will let the change detector run only in the following situa
 
 ## 3.3 Setting up OnPush
 
-There are 2 ways to set up the OnPush strategy
+There are two ways to set up the OnPush strategy
 
 ### 3.3.1. Immutable input objects
 
@@ -189,7 +188,7 @@ This prevents writing the same CSS over and over again and keeps the code base s
 # 5. GZIP
 
 Gzip is a file format and also a method of compressing files (making them smaller) for faster network transfers.
-It allows your web server to provide files with a smaller size which will be loaded faster by your browser.
+It allows your web server to provide files with a smaller size that will be loaded faster by your browser.
 Compression of your files with gzip typically **saves around fifty to seventy percent** of the file size.
 
 You can easily enable gzip compression on your server by editing your .htaccess file:
@@ -235,7 +234,7 @@ Header append Vary User-Agent env=!dont-vary
 
 # 6. AOT
 
-At this time of writing the application still runs using the just-in-time (JIT) compiler.
+At the time of writing, the application still runs using the just-in-time (JIT) compiler.
 But we are looking into how we can integrate AOT.
 
 JIT compilation incurs a runtime performance penalty.
@@ -259,8 +258,8 @@ The [ahead-of-time (AOT) compiler](https://angular.io/docs/ts/latest/cookbook/ao
 
 # Conclusion
 
-While Angular states it’s performance driven out of the box, it is very important to optimise where possible especially when building a large Enterprise Angular Application.
-As you can see it’s not that difficult to integrate so why wouldn’t you?
+While Angular states it’s performance driven out of the box, it is very important to optimise, where possible, especially when building a large Enterprise Angular Application.
+As you can see it’s not that difficult to integrate, so why wouldn’t you?
 Every bit of data that doesn’t end up downloading to the device of your users is a bless.
 
 **Hat tip:** Try to integrate these changes when setting up your project.
