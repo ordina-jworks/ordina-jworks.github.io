@@ -14,12 +14,12 @@ The use of Angular Universal does not apply (yet) for this project.
 
 ### Topics
 
-1. [Lazy loading](#lazy-loading)
-1. [Code splitting and commons chunk plugin (webpack)](#code-splitting-and-commons-chunk-plugin-webpack)
-1. [ChangeDetectionStrategy: OnPush](#changedetectionstrategy-onpush)
-1. [Reusable CSS with BEM and Sass](#reusable-css-with-bem-and-sass)
-1. [GZIP](#gzip)
-1. [AOT](#aot)
+1. [Lazy loading](#1-lazy-loading)
+1. [Code splitting and commons chunk plugin (webpack)](#2-code-splitting-and-commons-chunk-plugin-webpack)
+1. [ChangeDetectionStrategy: OnPush](#3-changedetectionstrategy-onpush)
+1. [Reusable CSS with BEM and Sass](#4-reusable-css-with-bem-and-sass)
+1. [GZIP](#5-gzip)
+1. [AOT](#6-aot)
 
 # 1. Lazy loading
 
