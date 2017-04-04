@@ -32,7 +32,7 @@ The Router offers two preloading strategies out of the box:
 * No preloading at all which is the default. Lazy loaded feature areas are still loaded on demand.
 * Preloading of all lazy loaded feature areas.
 
-We implemented the default PreloadAllModules strategy, but know that it is possible to create your own custom preloading strategy.
+We implemented the PreloadAllModules strategy in its default configuration, but know that it is possible to create your own custom preloading strategy.
 
 To do so, include the preloadingStrategy in your @NgModule like so:
 
@@ -74,7 +74,7 @@ The CommonsChunkPlugin is an opt-in feature that creates a separate file (known 
 By separating common modules from bundles, the resulting chunked file can be loaded once initially, and stored in cache for later use.
 This results in pagespeed optimizations as the browser can quickly serve the shared code from cache, rather than being forced to load a larger bundle whenever a new page is visited.
 
-Among other optimisations the [extra async commons chunk](https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk) allows us to drastically improve performance by moving common modules into the parent (which increases initial load time) so that a new async-loaded additional commons chunk is used.
+Among other optimisations the [extra async commons chunk](https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk) allows us to drastically improve performance by moving common modules out of the parent so that a new async-loaded additional commons chunk is used, which decreases initial load time.
 This is automatically downloaded in parallel when the additional chunk is downloaded.
 
 {% highlight typescript %}
@@ -101,7 +101,7 @@ This means that any time Javascript finishes executing, Angular will check for c
 This usually works fast in small applications.
 
 However, when a component has a large subset of components (e.g.: a list with several items in which every row is presented by a component), performance may take a hit, even when (almost) nothing changes.
-The reason is that, due to the default change detection, Angular will also check for updates on a component when a change occurs on its sibling or ancestors or child components, while this is not needed in most cases.
+The reason is that, due to the default change detection, Angular will also check for updates on a component when a change occurs on its siblings or ancestors or child components, while this is not needed in most cases.
 
 ## 3.2 The solution
 
@@ -126,7 +126,7 @@ There are 2 ways to set up the OnPush strategy
 
    @Component({
        selector: 'my-sub-component',
-       template: `{{ item.name }}`,
+       template: '{{ item.name }}',
        changeDetection: ChangeDetectionStrategy.OnPush
    })
    export class MySubComponent implements OnInit {
@@ -149,7 +149,7 @@ There are 2 ways to set up the OnPush strategy
 
    @Component({
        selector: 'my-sub-component',
-       template: `{{ myItemName }}`,
+       template: '{{ myItemName }}',
        changeDetection: ChangeDetectionStrategy.OnPush
    })
    export class MySubComponent implements OnInit {
