@@ -4,7 +4,7 @@ authors: [tom_verelst]
 title: 'DockerCon 2016 - What is new in Docker 1.12'
 image: /img/dockercon/dockercon.png
 tags: [DockerCon,Docker,Conference]
-category: Conferences
+category: Conference
 comments: true
 ---
 

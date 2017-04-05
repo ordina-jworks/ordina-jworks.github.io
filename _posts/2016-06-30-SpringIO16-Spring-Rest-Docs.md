@@ -4,7 +4,7 @@ authors: [kevin_van_houtte]
 title: 'Spring I/O 16: Test-driven documentation with Spring REST Docs'
 image: /img/springio.jpg
 tags: [Spring IO,Spring,Conference]
-category: Conferences
+category: Conference
 comments: true
 ---
 

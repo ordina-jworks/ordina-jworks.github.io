@@ -4,7 +4,7 @@ authors: [jan_de_wilde, steve_de_zitter]
 title: 'JS Conf Budapest Day 2'
 image: /img/js-conf-budapest-2016.jpg
 tags: [JS Conf Budapest,JavaScript,Conference]
-category: Conferences
+category: Conference
 comments: true
 ---
 

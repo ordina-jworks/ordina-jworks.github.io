@@ -4,7 +4,7 @@ authors: [martin_kwee]
 title: 'Spring I/O 16: Bridging the worlds of DDD & REST'
 image: /img/springio.jpg
 tags: [Spring IO,Spring,Conference]
-category: Conferences
+category: Conference
 comments: true
 ---
 
