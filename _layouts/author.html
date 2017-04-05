@@ -41,23 +41,22 @@
                     {% endif %}
                 </div>
             </section>
-            {% if page.author.posts.size > 0 %}
+
+            {% capture posts %}
+            {% for post in site.posts %}
+                {% if post.authors contains page.author %}
+                <div class="post">
+                    <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a>
+                </div>
+                {% endif %}
+            {% endfor %}
+            {% endcapture %}
+
+            {% if posts contains 'class="post"' %}
             <section class="wrapper alt style2">
                 <div class="inner">
                     <h1>Articles</h1>
-                    <!--{% for post in page.author.posts %}
-                        <div class="post">
-                            <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a>
-                        </div>
-                    {% endfor %}-->
-
-                    {% for post in site.posts %}
-                        {% if post.authors contains page.author %}
-                        <div class="post">
-                            <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a>
-                        </div>
-                        {% endif %}
-                    {% endfor %}
+                    {{ posts }}
                 </div>
             </section>
             {% endif %}
