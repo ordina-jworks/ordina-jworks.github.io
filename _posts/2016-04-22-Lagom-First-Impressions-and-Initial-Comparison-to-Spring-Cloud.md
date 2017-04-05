@@ -3,7 +3,7 @@ layout: post
 authors: [yannick_de_turck, andreas_evers]
 title: 'Lagom: First Impressions and Initial Comparison to Spring Cloud'
 image: /img/lagom.png
-tags: [Lagom, Java, Reactive, Domain-Driven Design, CQRS, Event-Sourcing]
+tags: [Lagom, Java, Reactive, Domain-Driven Design, CQRS, Event Sourcing]
 category: Microservices
 comments: true
 ---
