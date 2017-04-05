@@ -3,7 +3,6 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{{ site.title }}</title>
 
     <!-- Description, Keywords and Author -->
     <meta name="description" content="{{ site.description }}">
@@ -19,16 +18,34 @@
                 {% if forloop.rindex0 == 1 %}
                      {% capture authors %}{{ authors }} and{% endcapture %}
                 {% else %}
-                    {% capture authors %}{{ authors }}, {% endcapture %}}
+                    {% capture authors %}{{ authors }},{% endcapture %}
                 {% endif %}
             {% endif%}
         {% endfor %}
+
+        <!-- Twitter Card data -->
+        <meta name="twitter:card" content="summary">
+        <!--<meta name="twitter:site" content="@publisher_handle">-->
+        <meta name="twitter:title" content="{{ page.title }}{% if authors %}{{ authors }}{% endif %}">
+        <meta name="twitter:description" content="{{ site.title }}">
+        <!--<meta name="twitter:creator" content="@author_handle">-->
+        <!-- Twitter Summary card images must be at least 120x120px -->
+        <meta name="twitter:image" content="http://ordina-jworks.github.io{{ page.image }}">        
+
         <!-- Facebook Open Graph -->
         <meta property="og:url" content="http://ordina-jworks.github.io{{ page.url }}"/>
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="{{ page.title }}{% if authors %}{{ authors }}{% endif %}"/>
         <meta property="og:description" content="{{ site.title }}"/>
         <meta property="og:image" content="http://ordina-jworks.github.io{{ page.image }}"/>
+    {% endif %}
+
+    {% if page.layout == 'post' %}
+    <title>{{ page.title }}{% if authors %}{{ authors }}{% endif %} &mdash; {{ site.title }}</title>
+    {% else if page.layout == 'job' %}
+    <title>{{ page.title }} &mdash; {{ site.title }}</title>
+    {% else %}
+    <title>{{ page.title }} &mdash; {{ site.title }}</title>
     {% endif %}
 
     <!-- Styles -->
