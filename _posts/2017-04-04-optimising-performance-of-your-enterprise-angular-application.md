@@ -36,7 +36,7 @@ We implemented the PreloadAllModules strategy in its default configuration, but 
 
 To do so, include the preloadingStrategy in your @NgModule like so:
 
-{% highlight typescript %}
+{% highlight coffeescript %}
 @NgModule({
     ...
     imports: [
@@ -47,7 +47,7 @@ To do so, include the preloadingStrategy in your @NgModule like so:
 
 And define your routes like this:
 
-{% highlight typescript %}
+{% highlight coffeescript %}
 {
     path: 'performance',
     loadChildren: 'performance.module#PerformanceModule',
@@ -72,12 +72,12 @@ There are mainly two kinds of code splitting that can be accomplished with webpa
 
 The CommonsChunkPlugin is an opt-in feature that creates a separate file (known as a chunk), consisting of common modules shared between multiple entry points.
 By separating common modules from bundles, the resulting chunked file can be loaded once initially, and stored in cache for later use.
-This results in pagespeed optimizations as the browser can quickly serve the shared code from cache, rather than being forced to load a larger bundle whenever a new page is visited.
+This results in pagespeed optimisations as the browser can quickly serve the shared code from cache, rather than being forced to load a larger bundle whenever a new page is visited.
 
 Among other optimisations the [extra async commons chunk](https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk) allows us to drastically improve performance by moving common modules out of the parent so that a new async-loaded additional commons chunk is used, which decreases initial load time.
 This is automatically downloaded in parallel when the additional chunk is downloaded.
 
-{% highlight typescript %}
+{% highlight coffeescript %}
 
 new webpack.optimize.CommonsChunkPlugin({
   children: true,
@@ -120,7 +120,7 @@ There are two ways to set up the OnPush strategy
 
    The simplest way is to use only immutable objects.
 
-   {% highlight typescript %}
+   {% highlight coffeescript %}
    import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
    @Component({
@@ -143,7 +143,7 @@ There are two ways to set up the OnPush strategy
 
    Another way is to use observables as inputs.
 
-   {% highlight typescript %}
+   {% highlight coffeescript %}
    import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
    @Component({
