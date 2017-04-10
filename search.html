@@ -27,8 +27,18 @@ permalink: /search/
         "url": "{{ post.url | xml_escape }}",
         "image": "{{ post.image }}",
         "date": "{{ post.date | date_to_string }}",
-        // "abstract": "{{ post.abstract | xml_escape }}",
+        "category": "post, blog post, blog",
         "content": {{ post.content | strip_html | strip_newlines | jsonify }}
+      },
+    {% endfor %}
+    {% for job in site.jobs %}
+      "{{ job.url | slugify }}": {
+        "title": "{{ job.title | xml_escape }}",
+        "url": "{{ job.url | xml_escape }}",
+        "image": "{{ job.image }}",
+        "date": "",
+        "category": "job, vacancy, jobs, vacancies",
+        "content": {{ job.content | strip_html | strip_newlines | jsonify }}
       }
       {% unless forloop.last %},{% endunless %}
     {% endfor %}
