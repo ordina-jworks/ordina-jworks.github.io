@@ -20,11 +20,11 @@ The training covers the essential technical tasks of architecting (architecture 
 
 ### Topics
 
-1. [Architecture](#1-architecture)
-1. [Strategy)](#2-strategy)
-1. [Conceptual Architecture](#3-conceptual-architecture)
-1. [Logical Architecture](#4-logical-architecture)
-1. [Leadership](#5-leadership)
+1. [Architecture](#architecture)
+1. [Strategy](#strategy)
+1. [Conceptual Architecture](#conceptual-architecture)
+1. [Logical Architecture](#logical-architecture)
+1. [Leadership](#leadership)
 
 # 1. Architecture
 
@@ -39,13 +39,13 @@ To illustrate this difficulty, the following properties should be kept in mind w
 An architectural description can be:
 
 * Good
-** Technically sound (eg. having well-defined interfaces)
-** Well-documented
-** Elegant
+	* Technically sound (eg. having well-defined interfaces)
+	* Well-documented
+	* Elegant
 * Right
-** A solution to the problem
+	* A solution to the problem
 * Successful
-** When the system realizes value
+	* When the system realizes value
 
 It is up to the architect to make sure value is realized.
 
@@ -102,7 +102,7 @@ Another way to refine business concepts, is using the [Business Model Canvas](ht
 
 # 3. Conceptual Architecture
 
-The goal of the Conceptual Architecture, is to define components (subsystems) and the interation between these components. 
+The goal of the [Conceptual Architecture](http://www.bredemeyer.com/ArchitectingProcess/ConceptualArchitecture.htm), is to define components (subsystems) and the interation between these components. 
 The Conceptual Architecture must remain high-level, because in this phase, the architect wants to explore alternatives and adding too much detail to the Conceptual Architecture will become expensive.
 
 White board sketching can be a useful method to determine to Conceptual Architecture: talking with the business users by a white board and drawing the system together.
@@ -114,27 +114,39 @@ Dana shared a couple of tips and tricks to increase participation from business 
 
 Another tool to define components are [CRC-R Templates](http://www.bredemeyer.com/pdf_files/CRCR_Template.PDF). These are typically half a page narratives that define a component, its responsibility, its collaboration with other components and the rationale behind its responsibilities.
 
-The Conceptual Architecture can be used to validate the feasibility of alternatives.
-
+The Conceptual Architecture can be used to validate the feasibility of alternatives (eg. by going over use-cases or by identifying if the system can be in a state that renders the architecture invalid).
 
 # 4. Logical Architecture
 
-details full responsibilties per component
-interaction diagram
-data that moves between components
+The Logical Architecture details out the **full responsibilities** per component and also the interfaces per component. 
+It adds precision, providing a detailed "blueprint" from which component developers and component users can work in relative independence. 
+These components ought to be derived from the Conceptual Architecture.
+By selecting the core behaviour of the components and defining the data that moves between components (eg. in a sequence diagram), the architecture becomes actionnable and ready for implementation.
+In larger systems, the sequence diagram can aid a component owner how his component lives in the bigger system.
+When the state of the data (moving between components) it might also be useful to draw a state diagram.
 
-ackoff
+A very interesting attention point to creating a logical architecture is that the value of a system is not the sum of its parts, but the sum of the interaction between the parts.
+This is beautifully explained by [Russell Ackoff](http://ackoffcenter.blogs.com/) in this video on [YouTube](https://www.youtube.com/watch?v=waTq3bUBCgk). 
+
 
 # 5. Leadership
 
-what do you do
-- trust
-- listen
-- get the team to do more
-what do you know : "i know me"
-who are you: integrity
+Leadership is defined by what someone does:
 
-define reality, serve, say thanks
+* Trust
+* Listen
+* Get the team to do more
+
+Being succesful as a leader often depends on the ability to influence others: getting from a lot of (possibly good) ideas to a shared vision.
+This only strengthens the importance of interaction and collaboration.
+The activities of a leader range from inspiring, mentoring, listening and setting directions.
+Settings directions means formally defining where one wants to go and this is easier to achieve (and will result in a better end-goal) if as a leader, you get buy-in from your stakeholders.
+
+
+A good leader has three main tasks:
+
+* Define reality
+* Serve
+* Say Thanks
+
 Passion and Discipline: Don Quixote's Lessons for Leadership
-
-liminal thinking
