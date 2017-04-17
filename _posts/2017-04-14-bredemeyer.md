@@ -19,11 +19,11 @@ The training covers the essential technical tasks of architecting (architecture 
 
 ### Topics
 
-1. [Architecture](#architecture)
-1. [Strategy](#strategy)
-1. [Conceptual Architecture](#conceptual-architecture)
-1. [Logical Architecture](#logical-architecture)
-1. [Leadership](#leadership)
+1. [Architecture](#1-architecture)
+1. [Strategy](#2-strategy)
+1. [Conceptual Architecture](#3-conceptual-architecture)
+1. [Logical Architecture](#4-logical-architecture)
+1. [Leadership](#5-leadership)
 
 # 1. Architecture
 
