@@ -9,7 +9,7 @@ comments: true
 ---
 
 DockerCon 2017 has kicked off, and Docker has changed a great deal since last year's edition.
-Docker has constantly stated that they wish to make the Docker experience as simple as possible.
+The authors of Docker have constantly stated that they wish to make the Docker experience as simple as possible.
 Nothing is less true if you look at some of the new features they released in the last few months,
 which are being presented now at DockerCon.
 I have compiled a list of the most useful changes and features.
