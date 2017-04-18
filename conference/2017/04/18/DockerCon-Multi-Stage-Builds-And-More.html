@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+        
+
+        <!-- Twitter Card data -->
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="DockerCon 2017: Multi-Stage Builds and More - Tom Verelst">
+        <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+        <meta name="twitter:image" content="http://ordina-jworks.github.io/img/dockercon2017/thumbnail.jpg"/>
+
+        <!-- Facebook Open Graph -->
+        <meta property="og:url" content="http://ordina-jworks.github.io/conference/2017/04/18/DockerCon-Multi-Stage-Builds-And-More.html"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="DockerCon 2017: Multi-Stage Builds and More - Tom Verelst"/>
+        <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+        <meta property="og:image" content="http://ordina-jworks.github.io/img/dockercon2017/thumbnail.jpg"/>
+    
+
+    
+    <title>DockerCon 2017: Multi-Stage Builds and More - Tom Verelst &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>DockerCon 2017: Multi-Stage Builds and More</h2>
+                
+
+                
+                    Posted Apr 18, 2017
+
+
+    in <a href="/categories/conference/">Conference</a>
+
+
+
+    by
+    
+        <a href="/author/tom-verelst/">Tom Verelst</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/dockercon/">DockerCon</a>, 
+    
+        <a href="/tags/docker/">Docker</a>, 
+    
+        <a href="/tags/conference/">Conference</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <p>DockerCon 2017 has kicked off, and Docker has changed a great deal since last year’s edition.
+The authors of Docker have constantly stated that they wish to make the Docker experience as simple as possible.
+Nothing is less true if you look at some of the new features they released in the last few months,
+which are being presented now at DockerCon.
+I have compiled a list of the most useful changes and features.
+These will certainly help you when building your own Docker images!</p>
+
+<h1 id="multi-stage-builds">Multi-Stage Builds</h1>
+
+<p>Building an image is often done in multiple stages.
+First you compile your application.
+Then you run your tests.
+When the tests succeed, you package it into an artifact.
+Finally, you add this artifact to an image.</p>
+
+<p>You could put all these steps within one Dockerfile,
+but that would result into an image that is bloated with stuff that is not required for the final product, like the compilation and build frameworks.
+The Docker images would also be huge!</p>
+
+<p>A solution to this problem is to build the application outside of Docker,
+or to use multiple Dockerfiles.
+You can build the artifact with one build,
+extract the artifact,
+and use that artifact for a final build.
+However,
+this whole build process is often tied together with a script that has been hacked together,
+and does not truly feel like the Docker way of doing things.</p>
+
+<p>Docker has often been sceptical about adding new features or making changes to the Dockerfile syntax,
+but finally decided to tackle this build problem with a simple and elegant solution.
+Introducing <strong>multi-stage builds</strong>,
+it is now possible to define multiple stages by using several <code class="highlighter-rouge">FROM</code> statements.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># First stage to build the application
+FROM maven:3.5.0-jdk-8-alpine AS build-env
+ADD ./pom.xml pom.xml
+ADD ./src src/
+RUN mvn clean package
+
+# Final stage to define our minimal runtime
+FROM FROM openjdk:8-jre
+COPY --from=build-env target/app.jar app.jar
+RUN java -jar app.jar
+</code></pre>
+</div>
+
+<p>Each time <code class="highlighter-rouge">FROM</code> is used,
+you define which image is used for that stage,
+and in subsequent stages you can use the <code class="highlighter-rouge">COPY --from=&lt;stage&gt;</code> to copy artifacts from a previous stage.</p>
+
+<p>The final stage results in the image,
+which can contain the minimal runtime environment and the final artifact.
+Perfect!</p>
+
+<h1 id="using-arguments-in-from">Using arguments in FROM</h1>
+
+<p>Using arguments isn’t a new thing with Dockerfiles.
+You could already use <code class="highlighter-rouge">ARG</code> statements to pass on arguments to the build process.
+These arguments are not persisted in the Dockerfile,
+and are frequently used to pass on versions,
+or secrets like SSH keys.
+Now it is also possible to use arguments in the version of the base image.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ARG GO_VERSION=1.8
+FROM golang:${GO_VERSION}
+ADD . /src
+WORKDIR /src
+RUN go build
+CMD ["/bin/app"]
+</code></pre>
+</div>
+
+<p>For above Dockerfile,
+I could build an image with another Go version!</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker build --arg=GO_VERSION=1.7 .
+</code></pre>
+</div>
+
+<h1 id="cleaning-up-docker">Cleaning up Docker</h1>
+
+<p>A comment I often hear is that Docker takes a lot of space.
+This can be true,
+if you never clean up!
+Docker has added the <code class="highlighter-rouge">docker system</code> subcommand a while ago,
+You can use this subcommand to check the disk usage,
+and to free up space!</p>
+
+<p>The following command outputs the disk usage:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker system df
+TYPE                TOTAL               ACTIVE              SIZE                RECLAIMABLE
+Images              7                   5                   1.247GB             769MB (61%)
+Containers          7                   2                   115.9MB             99.23MB (85%)
+Local Volumes       1                   1                   85.59MB             0B (0%)
+</code></pre>
+</div>
+
+<p>You can then use <code class="highlighter-rouge">prune</code> to clean up all resources that are no longer needed:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker system prune
+WARNING! This will remove:
+	- all stopped containers
+	- all volumes not used by at least one container
+	- all networks not used by at least one container
+	- all dangling images
+Are you sure you want to continue? [y/N] y
+</code></pre>
+</div>
+
+<p>It is also possible to prune certain subsystems:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker image/container/volume/network prune
+</code></pre>
+</div>
+
+<h1 id="which-ports">Which Ports?</h1>
+
+<p>People often have trouble understanding or defining the published ports of a container,
+since the syntax can be confusing.
+Here’s a list of all possible formats that you can use to define which ports are published on a container:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ports:
+ - 3000
+ - 3000-3005
+ - 49100:22
+ - 9090-9091:8080-8081
+ - 127.0.0.1:8001:8080-8081
+ - 6060:7060/udp
+</code></pre>
+</div>
+
+<p>This syntax is okay when using the CLI,
+but when you have to define a lot of them in a Compose file,
+it is no longer readable.</p>
+
+<p>To counter this issue,
+you can now use a more verbose format to define ports:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ports:
+  - target: 6060
+    published: 7060
+    protocol: udp
+</code></pre>
+</div>
+
+<h1 id="this-volume-is-mounted-where">This Volume Is Mounted Where?</h1>
+
+<p>Just like the ports,
+volumes have a similar syntax.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>volumes:
+  - /var/lib/mysql
+  - /opt/data:/var/lib/mysql
+  - ./cache:/tmp/cached
+  - datavolume:/var/lib/mysql
+  - ~/configs/etc/configs/:ro
+</code></pre>
+</div>
+
+<p>A verbose syntax has been added as well for volumes:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>volumes:
+  - type: bind
+    source: ~/configs
+    target: /etc/configs
+    read_only: true
+</code></pre>
+</div>
+
+<h1 id="to-be-continued">To be continued</h1>
+
+<p>These few changes,
+especially the multi-stage builds,
+will certainly make your life as developer easier!</p>
+
+<p>I am curious what DockerCon has to offer more today and tomorrow!</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/conference/2017/04/18/DockerCon-Multi-Stage-Builds-And-More.html&title=DockerCon 2017: Multi-Stage Builds and More&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=DockerCon 2017: Multi-Stage Builds and More&url=https://ordina-jworks.github.io/conference/2017/04/18/DockerCon-Multi-Stage-Builds-And-More.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/conference/2017/04/18/DockerCon-Multi-Stage-Builds-And-More.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/tom-verelst/" class="image spotlight-image">
+            <img src="/img/author/tom-verelst.png"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Tom is a senior developer and coach at Ordina Belgium. Some friends like to refer to him as a Java code monkey, which is not completely true! Tom is familiar with many different domains.  He loves to learn about everything. Currently he is very fond of Docker, Go and all things DevOps.<br /><br />In his spare time he likes spending time with friends, going out for a run with his marathon club or just swinging around some drum sticks.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:info@ordina.be">info@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2017 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina.
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/dockercon2017/thumbnail.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+    
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/conference/2017/04/18/DockerCon-Multi-Stage-Builds-And-More.html";
+        this.page.identifier = "/conference/2017/04/18/DockerCon-Multi-Stage-Builds-And-More.html";
+        this.page.title = "DockerCon 2017: Multi-Stage Builds and More";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>
