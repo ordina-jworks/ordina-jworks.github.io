@@ -1,19 +1,17 @@
 # Ordina JWorks Tech Blog
 
-## Setting up and running Jekyll on your Windows (with docker)
+## Running the blog with Docker
 
-    - Make sure your drive is shared with docker (docker settings)
-    - Make sure your cloned repo is on the path C:\Users\
-    - Open a command prompt inside your cloned repo
-    - Execute `docker run --name jekyll --label=jekyll --volume=%cd%:/srv/jekyll -it -p 127.0.0.1:4000:4000 jekyll/jekyll`
+    - When running on Windows, make sure your drive is shared with Docker (docker settings)
+    - Execute `docker-compose up -d`
     - Browse to [http://localhost:4000/](http://localhost:4000/)
-    - After making changes in the blog run `docker start jekyll -i` to rebuild and watch the blog
-    
+    - After making changes in the blog run, the blog is automatically rebuilt
+
 ## Setting up Jekyll on your Mac or Linux
 You need to have at least Ruby 2.4.0 installed, this can be easily accomplished by using [rvm](https://rvm.io).
 
 Execute the following commands:
-    
+
     $ rvm install 2.4.0
     $ rvm use 2.4.0
     $ (sudo) gem install bundler
