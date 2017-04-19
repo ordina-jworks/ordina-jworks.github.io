@@ -58,7 +58,7 @@ and copied the idea of **common assemblies**.
 Just like cars can be completely different,
 they can share the same chassis.
 And this is how **the Moby project** was born.
-It attempts to bring a set of standards and best practices together,
+It attempts to bring a set of standards and best practices together.
 Instead of spending months of work tying all these loose components together,
 you can now build a tool with the components you need within a few hours.
 
@@ -66,7 +66,7 @@ you can now build a tool with the components you need within a few hours.
 
 Docker stays true to its battery philosophy.
 You can choose which version of the kernel you want,
-you can choose to use whatever tool you want.
+you can choose to use which components you want.
 It is all up to you!
 An example shown at DockerCon was "RedisOS".
 They composed LinuxKit, containerd and Redis,
