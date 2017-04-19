@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+        
+
+        <!-- Twitter Card data -->
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="DockerCon 2017: LinuxKit and Moby - Tom Verelst">
+        <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+        <meta name="twitter:image" content="http://ordina-jworks.github.io/img/dockercon2017/thumbnail.jpg"/>
+
+        <!-- Facebook Open Graph -->
+        <meta property="og:url" content="http://ordina-jworks.github.io/conference/2017/04/19/DockerCon-LinuxKit-And-Moby.html"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="DockerCon 2017: LinuxKit and Moby - Tom Verelst"/>
+        <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+        <meta property="og:image" content="http://ordina-jworks.github.io/img/dockercon2017/thumbnail.jpg"/>
+    
+
+    
+    <title>DockerCon 2017: LinuxKit and Moby - Tom Verelst &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>DockerCon 2017: LinuxKit and Moby</h2>
+                
+
+                
+                    Posted Apr 19, 2017
+
+
+    in <a href="/categories/conference/">Conference</a>
+
+
+
+    by
+    
+        <a href="/author/tom-verelst/">Tom Verelst</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/dockercon/">DockerCon</a>, 
+    
+        <a href="/tags/docker/">Docker</a>, 
+    
+        <a href="/tags/conference/">Conference</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <p>Batteries included, but swappable.
+That has always been the philosophy of Docker.
+Since the incubation of Docker four years ago,
+the project has undergone many evolutions.
+Over the years, it has split up parts of Docker into smaller reusable components,
+which moved to their own projects.
+Docker, instead of being just one project,
+can now be considered a composition of multiple projects.
+We got runC, VPNKit, containerd, SwarmKit, InfraKit and so on.
+These projects are now used by many other projects other than Docker.
+Docker Inc. now open-sourced two new projects,
+called <strong>LinuxKut</strong> and <strong>The Moby Project</strong></p>
+
+<h1 id="linuxkit">LinuxKit</h1>
+
+<p><img src="/img/dockercon2017/linux-kit.png" alt="LinuxKit" /></p>
+
+<p>LinuxKit is a toolkit to create small, lean Linux subsystems.
+The difference with other Linux distributions is the fact that you can create a distribution that only contains exactly what is needed.
+All system services are containers and can be removed or replaced at will.
+Docker partnered with multiple companies like Intel, HPE, ARM, IBM and Microsoft and the Linux Foundation,
+to create this new component.
+The minimal image size is only 35MB!
+These portable distributions can be used to run Linux on platforms that do not support Linux out-of-the-box.
+For example,
+LinuxKit is now being used to run Linux containers on Windows Server,
+using Hyper-V isolation techniques.
+This means you can run both Windows and Linux containers side-by-side,
+and create Linux/Windows hybrid clusters!</p>
+
+<h1 id="the-moby-project">The Moby Project</h1>
+
+<p><img src="/img/dockercon2017/moby.png" alt="Moby Project" /></p>
+
+<p>Users have been asking for the Docker-native experience on their favorite platform.
+These requests have not gone unheard.
+We received Docker for Mac, Docker for Windows, Docker for AWS and Docker for Azure.
+All these tools are built by composing the same open components that are used for Docker.
+Docker now, in total, has a library of over 80 containerized components.
+The problem here is,
+a lot of work is duplicated,
+to compose all these components together.
+Each project has its own assembly system.</p>
+
+<p>To fix this problem,
+Docker Inc. looked at the automotive industry,
+and copied the idea of <strong>common assemblies</strong>.
+Just like cars can be completely different,
+they can share the same chassis.
+And this is how <strong>the Moby project</strong> was born.
+It attempts to bring a set of standards and best practices together.
+Instead of spending months of work tying all these loose components together,
+you can now build a tool with the components you need within a few hours.</p>
+
+<p><img src="/img/dockercon2017/common-assemblies.png" alt="Production Model" /></p>
+
+<p>Docker stays true to its battery philosophy.
+You can choose which version of the kernel you want,
+you can choose to use which components you want.
+It is all up to you!
+An example shown at DockerCon was “RedisOS”.
+They composed LinuxKit, containerd and Redis,
+and exported it to different formats that can run on Mac, Windows and GCP.
+Since these distributions are so small and portable,
+it is possible for companies to use this for IoT, cloud, desktop and many more platforms.
+You can find some examples in the <a href="https://github.com/linuxkit/linuxkit/tree/master/examples">LinuxKit examples repository</a>.</p>
+
+<h1 id="trying-it-out">Trying it out</h1>
+
+<p>I wanted to try it out myself,
+so I went to the <a href="https://github.com/linuxkit/linuxkit">LinuxKit Github repository</a> and cloned it.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git clone git@github.com:linuxkit/linuxkit.git
+</code></pre>
+</div>
+
+<p>Then I ran <code class="highlighter-rouge">make</code> to build the <code class="highlighter-rouge">moby</code> tool:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ make
+</code></pre>
+</div>
+
+<p>This created the <code class="highlighter-rouge">moby</code> tool in the <code class="highlighter-rouge">bin</code> directory.
+I added this to my <code class="highlighter-rouge">PATH</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ export PATH=$PATH:$(pwd)/bin
+</code></pre>
+</div>
+
+<p>Now that I have the Moby tool available and on my <code class="highlighter-rouge">PATH</code>,
+I can build LinuxKit.
+Let’s take a look first at the YAML file that is used to build it.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cat linuxkit.yml
+kernel:
+  image: "mobylinux/kernel:4.9.x"
+  cmdline: "console=ttyS0 console=tty0 page_poison=1"
+init:
+  - linuxkit/init:42fe8cb1508b3afed39eb89821906e3cc7a70551
+  - mobylinux/runc:b0fb122e10dbb7e4e45115177a61a3f8d68c19a9
+  - linuxkit/containerd:60e2486a74c665ba4df57e561729aec20758daed
+  - mobylinux/ca-certificates:eabc5a6e59f05aa91529d80e9a595b85b046f935
+onboot:
+  - name: sysctl
+    image: "mobylinux/sysctl:2cf2f9d5b4d314ba1bfc22b2fe931924af666d8c"
+    net: host
+    pid: host
+    ipc: host
+    capabilities:
+     - CAP_SYS_ADMIN
+    readonly: true
+  - name: binfmt
+    image: "linuxkit/binfmt:8881283ac627be1542811bd25c85e7782aebc692"
+    binds:
+     - /proc/sys/fs/binfmt_misc:/binfmt_misc
+    readonly: true
+  - name: dhcpcd
+    image: "linuxkit/dhcpcd:48e249ebef6a521eed886b3bce032db69fbb4afa"
+    binds:
+     - /var:/var
+     - /tmp/etc:/etc
+    capabilities:
+     - CAP_NET_ADMIN
+     - CAP_NET_BIND_SERVICE
+     - CAP_NET_RAW
+    net: host
+    command: ["/sbin/dhcpcd", "--nobackground", "-f", "/dhcpcd.conf", "-1"]
+services:
+  - name: rngd
+    image: "mobylinux/rngd:3dad6dd43270fa632ac031e99d1947f20b22eec9"
+    capabilities:
+     - CAP_SYS_ADMIN
+    oomScoreAdj: -800
+    readonly: true
+  - name: nginx
+    image: "nginx:alpine"
+    capabilities:
+     - CAP_NET_BIND_SERVICE
+     - CAP_CHOWN
+     - CAP_SETUID
+     - CAP_SETGID
+     - CAP_DAC_OVERRIDE
+    net: host
+files:
+  - path: etc/docker/daemon.json
+    contents: '{"debug": true}'
+trust:
+  image:
+    - mobylinux/kernel
+outputs:
+  - format: kernel+initrd
+  - format: iso-bios
+  - format: iso-efi
+</code></pre>
+</div>
+
+<p>This YAML file contains all the necessary information to create a distribution,
+that will be available in multiple formats.
+In this case,
+a random number generated and nginx are added as services.
+Let’s build it!</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ moby build linuxkit.yml
+Extract kernel image: mobylinux/kernel:4.9.x
+Add init containers:
+Process init image: linuxkit/init:42fe8cb1508b3afed39eb89821906e3cc7a70551
+Process init image: mobylinux/runc:b0fb122e10dbb7e4e45115177a61a3f8d68c19a9
+Process init image: linuxkit/containerd:60e2486a74c665ba4df57e561729aec20758daed
+Process init image: mobylinux/ca-certificates:eabc5a6e59f05aa91529d80e9a595b85b046f935
+Add onboot containers:
+  Create OCI config for mobylinux/sysctl:2cf2f9d5b4d314ba1bfc22b2fe931924af666d8c
+  Create OCI config for linuxkit/binfmt:8881283ac627be1542811bd25c85e7782aebc692
+  Create OCI config for linuxkit/dhcpcd:48e249ebef6a521eed886b3bce032db69fbb4afa
+Add service containers:
+  Create OCI config for mobylinux/rngd:3dad6dd43270fa632ac031e99d1947f20b22eec9
+  Create OCI config for nginx:alpine
+Add files:
+  etc/docker/daemon.json
+Create outputs:
+  linuxkit-bzImage linuxkit-initrd.img linuxkit-cmdline
+  linuxkit.iso
+  linuxkit-efi.iso
+</code></pre>
+</div>
+
+<p>You can see that a few init, onboot and service containers were added,
+and a configuration file was added for Docker.
+Finally,
+you can see the tool was outputted in multiple formats.
+Let’s try to run it:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ moby run linuxkit
+# ...
+# Lots of boot information
+# ...
+Welcome to LinuxKit
+
+                        ##         .
+                  ## ## ##        ==
+               ## ## ## ## ##    ===
+           /"""""""""""""""""\___/ ===
+      ~~~ {~~ ~~~~ ~~~ ~~~~ ~~~ ~ /  ===- ~~~
+           \______ o           __/
+             \    \         __/
+              \____\_______/
+
+
+/ # [    2.464063] IPVS: Creating netns size=2104 id=1
+[    2.464434] IPVS: ftp: loaded support on port[0] = 21
+[    2.490221] tsc: Refined TSC clocksource calibration: 1993.943 MHz
+[    2.490613] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x397ba967053, max_idle_ns: 881590807276 ns
+[    2.713076] IPVS: Creating netns size=2104 id=2
+[    2.713560] IPVS: ftp: loaded support on port[0] = 21
+[    3.503395] clocksource: Switched to clocksource tsc
+/ #
+</code></pre>
+</div>
+
+<p>This image booted in just a few seconds!
+Now let’s see which service containers are running using runC:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/ # runc list
+ID          PID         STATUS      BUNDLE                        CREATED                        OWNER
+nginx       542         running     /run/containerd/linux/nginx   2017-04-19T12:34:42.1852841Z   root
+rngd        601         running     /run/containerd/linux/rngd    2017-04-19T12:34:42.3200486Z   root
+</code></pre>
+</div>
+
+<p>As you can see,
+all the service containers are up and running.
+Within just a few minutes,
+I created a Linux distribution and got it up and running,
+with everything running in a container.</p>
+
+<p>If you would like to learn more about LinuxKit and the Moby Project,
+you can check out the following resources:</p>
+
+<ul>
+  <li><a href="https://mobyproject.org/">The Moby Project</a></li>
+  <li><a href="https://blog.docker.com/2017/04/introducing-linuxkit-container-os-toolkit/">Docker Blog: Anouncing LinuxKit</a></li>
+  <li><a href="https://blog.docker.com/2017/04/introducing-the-moby-project/">Docker Blog: Introducing Moby Project</a></li>
+  <li><a href="https://github.com/linuxkit/linuxkit">GitHub: LinuxKit</a></li>
+  <li><a href="https://github.com/moby/moby">GitHub: Moby</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/conference/2017/04/19/DockerCon-LinuxKit-And-Moby.html&title=DockerCon 2017: LinuxKit and Moby&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=DockerCon 2017: LinuxKit and Moby&url=https://ordina-jworks.github.io/conference/2017/04/19/DockerCon-LinuxKit-And-Moby.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/conference/2017/04/19/DockerCon-LinuxKit-And-Moby.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/tom-verelst/" class="image spotlight-image">
+            <img src="/img/author/tom-verelst.png"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Tom is a senior developer and coach at Ordina Belgium. Some friends like to refer to him as a Java code monkey, which is not completely true! Tom is familiar with many different domains.  He loves to learn about everything. Currently he is very fond of Docker, Go and all things DevOps.<br /><br />In his spare time he likes spending time with friends, going out for a run with his marathon club or just swinging around some drum sticks.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:info@ordina.be">info@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2017 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina.
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/dockercon2017/thumbnail.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+    
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/conference/2017/04/19/DockerCon-LinuxKit-And-Moby.html";
+        this.page.identifier = "/conference/2017/04/19/DockerCon-LinuxKit-And-Moby.html";
+        this.page.title = "DockerCon 2017: LinuxKit and Moby";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>
