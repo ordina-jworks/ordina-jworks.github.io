@@ -19,7 +19,7 @@ can now be considered a composition of multiple projects.
 We got runC, VPNKit, containerd, SwarmKit, InfraKit and so on.
 These projects are now used by many other projects other than Docker.
 Docker Inc. now open-sourced two new projects,
-called **LinuxKut** and **The Moby Project**
+called **LinuxKit** and **The Moby Project**
 
 # LinuxKit
 
