@@ -281,7 +281,7 @@ People aren't waiting for yet another technological revolution.
 Instead, we need to start small.
 Blockchain and distributed ledger technology in general will have to evolve naturally.
 
-The way I see it, private blockchain solutions like [IBM Blockchain](http://www.ibm.com/blockchain/)
+The way we see it, private blockchain solutions like [IBM Blockchain](http://www.ibm.com/blockchain/)
 IBM Blockchain - United States
 ibm.com
 IBM Blockchain empowers businesses to digitize your transaction workflow through a highly secured, shared and replicated ledger.
