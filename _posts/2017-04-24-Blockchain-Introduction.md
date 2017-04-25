@@ -133,7 +133,7 @@ Other times, the term is used to refer to a specific application of that technol
 
 
 ### Types of Blockchain
-#### Public blockchains
+#### Public blockchains (permissionless)
 This is a blockchain that everyone in the world can view, write transactions to, expect that these transactions will be validated and added to the blockchain. 
 In this blockchain everybody can help with the consensus process. 
 This process is used to determine if a block is valid or not. 
@@ -148,7 +148,7 @@ In this blockchain the read rights can be public or restricted to the members of
 We can also limit public view to a set number of times for example. 
 These types of chains are decentralized ( not completely peer-to-peer because not everyone is equal).
 
-#### Private Blockchains
+#### Private Blockchains (permissioned)
 There is only a small difference between consortium and private. 
 This is that all the write rights are with one organization instead of multiple. 
 The read rights are the same as with a consortium chain.
@@ -261,11 +261,16 @@ It's not even sure whether the technology will last.
 Although these statements are purely hypothetical, I find much food for thought in them.
 
 ###  Some platforms
-We will now discuss a few technologies that can be used to set up a blockchain. 
+We will now discuss a few technologies that can be used to set up a blockchain and also compare Bluemix and Azure. 
 
-The first one is [__Ethereum__](https://www.ethereum.org/). Ethereum looks like the Bitcoin blockchain, but it uses Ether as the currency.
+The first one is [__Ethereum__](https://www.ethereum.org/), a public blockchain. Ethereum looks like the Bitcoin blockchain, but it uses Ether as the currency.
 It is faster than Bitcoin with a transaction taking 7 seconds instead of 10 minutes. 
-We can also put smart contracts on the chain, with bitcoin you can only put transactions on there. 
+We can also put smart contracts on the chain, with bitcoin you can only put transactions on there.
+
+Another big one we have is [__Hyperledger__](https://www.hyperledger.org/). 
+This is a open source collaborative effort created by The Linux Foundation. 
+Another big partner in Hyperledger is IBM because they helped them with development and donated some patents. 
+Hyperledger is also more focused on private networks. 
 
 The next one is [__Multichain__](http://www.multichain.com/). 
 Multichain is a open source private blockchain, which is Bitcoin compatible. 
@@ -279,7 +284,22 @@ The last one we will discuss is [__BigChainDB__](https://www.bigchaindb.com/).
 BigChainDB is not really a complete blockchain but it is more a database with blockchain features like: decentralization, immutable, public/private and consensus. 
 BigChainDB is also open source.
 
+Now on to __IBM Bluemix__.
+Bluemix uses the Blockchain as a Service(BaaS) in a more private manner. 
+They focus on private blockchains but to do this they found that the privacy with the current technologies wasn't cutting it so they added to the Hyperledger project.
 
+Now we only have __Microsoft Azure__ left to discuss. 
+As you may be able to guess Azure is the complete opposite of Bluemix. 
+Azure focuses on being public, although this does not mean they don't believe in the private model.
+Microsoft has said that private networks will still be important for the commercial adaptation of the blockchain technology.
+Microsoft also don't dedicate their platform to one type of technology like Hyperledger for Bluemix but they support many different technologies like Ethereum, Hyperledger and more. 
+They do have a preference though for Ethereum because they joined the Enterprise Ethereum Alliance.
+
+<div class="row" style="margin: 0 auto 2.5rem auto; width: 66%;">
+  <div class="col-md-offset-3 col-md-6">
+	{% include image.html img="/img/blockchain/partners.png" alt="short explanation" title="Companies and consortiums" caption="Figure 2: IBM is part of Hyperledger and Microsoft is part of Enterprise Ethereum Alliance" %}
+</div>
+</div>
 
 
 ### Conclusion
