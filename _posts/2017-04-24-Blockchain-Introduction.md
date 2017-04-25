@@ -13,7 +13,17 @@ comments: true
 They're talking about blockchain as the next big thing after mainframes, computers, the internet and social networking.
 This introduction is the first part in a series of blockchain posts.
 
-### Blockchain and it's relation to Bitcoin
+### Topics
+1. [Blockchain and it's relation to Bitcoin](#blockchain-and-it's-relation-to-bitcoin)
+2. [What is Blockchain](#what-is-blockchain)
+3. [Under the hood](#under-the-hood)
+4. [Valid blockchain use cases](#valid-blockchain-use-cases)
+5. [Some platforms](#some-platforms)
+6. [Conclusion](#conclusion)
+7. [Some thoughts](#some-thoughts)
+8. [Recommended reading](#recommended-reading)
+
+## Blockchain and it's relation to Bitcoin
 
 First of all, Bitcoin and blockchain are two different things.
 People tend to use both words by each other in three different contexts:
@@ -42,7 +52,7 @@ Bitcoin isn't the first attempt to digital currency, but it's the first that use
 
 You should see Bitcoin as the first platform that implemented blockchain technology.
 
-### Blockchain
+## What is Blockchain
 
 So forget about Bitcoin now.
 That's not what this post is about.
@@ -95,11 +105,53 @@ The transactions of the discarded chains will be put back in the memory pool to 
 
 
 You now have a basic understanding of why we call it __the blockchain__.
-<div class="row" style="margin: 2.5rem 0;">
+<div class="row" style="margin: 0 auto 2.5rem auto;">
   <div class="col-md-offset-3 col-md-6">
-	{% include image.html img="/img/blockchain/blockchain.png" alt="short explanation" title="Short explenation" caption="Figure 1: Blockchain short non-technical explanation" %}
+	{% include image.html img="/img/blockchain/how-blockchain-works.png" alt="short explanation" title="Short explanation"%}
 </div>
 </div>
+
+## Under the hood
+### Types of Blockchain
+#### Public blockchains (permissionless)
+This is a blockchain that everyone in the world can view, write transactions to, expect that these transactions will be validated and added to the blockchain. 
+In this blockchain everybody can help with the consensus process. 
+This process is used to determine if a block is valid or not. 
+As consensus processes we can use proof-of-work or proof-of-stake but there are also other options. (See above at [Proof-of-work vs proof-of-stake](#proof-of-work-vs-proof-of-stake))
+The public blockchain is generally a complete peer-to-peer network.
+
+#### Consortium blockchains
+In this type of blockchain the consensus process happens by a predetermined group of nodes in the network. 
+For example a consortium of 15 financial institutions, each with a node. 
+From this group of 15 there are 10 nodes that need to sign each block before it is valid. 
+In this blockchain the read rights can be public or restricted to the members of the network. 
+We can also limit public view to a set number of times for example. 
+These types of chains are decentralized ( not completely peer-to-peer because not everyone is equal).
+
+#### Private Blockchains (permissioned)
+There is only a small difference between consortium and private. 
+This is that all the write rights are with one organization instead of multiple. 
+The read rights are the same as with a consortium chain.
+
+
+### Private vs Public
+#### Private
+* The company that controls the private chain can alter the rules of the chain. In some cases this can be necessary.
+* The nodes that confirm a block are known so there can’t be a majority by a mining farm with a 51% attack.
+* Transactions are cheaper than with public chains. This is because they need to be verified by less nodes.
+* Nodes are well connected and errors can be fixed quickly with manual interaction. 
+This means that these networks give a faster confirmation and they will always be faster than public networks. 
+* Private blockchains are just better at privacy because the access to the blockchain can be limited.
+
+#### Public
+* The users from the chain get protected from the developers because there is stuff that they can’t even do to the network. 
+The developers / creators are not the owners of the network and don't have more or less privileges than normal users.
+* These chains are a lot more transparent because everyone can always see what is happening inside the chain. 
+<blockquote class="clear"><p>
+“In some cases, public is clearly better; in others, some degree of private control is simply necessary.
+ As is often the case in the real world, it depends.” 
+ - Vitalik Buterin of Ethereum
+</p></blockquote>
 
 
 ### PROOF OF WORK vs PROOF OF STAKE 
@@ -131,49 +183,13 @@ Sometimes the term is used to identify a specific technology – code that is st
 
 Other times, the term is used to refer to a specific application of that technology: as a complement, or substitute, for legal contracts.
 
+<div class="row" style="margin: 0 auto 2.5rem auto; padding: 0;">
+  <div class="col-md-offset-3 col-md-6" style="padding: 0;">
+	{% include image.html img="/img/blockchain/smart-contract.png" alt="Smart contract explained" title="Smart contract explained" %}
+</div>
+</div>
 
-### Types of Blockchain
-#### Public blockchains (permissionless)
-This is a blockchain that everyone in the world can view, write transactions to, expect that these transactions will be validated and added to the blockchain. 
-In this blockchain everybody can help with the consensus process. 
-This process is used to determine if a block is valid or not. 
-As consensus processes we can use proof-of-work or proof-of-stake but there are also other options. (See above at [Proof-of-work vs proof-of-stake](#proof-of-work-vs-proof-of-stake))
-The public blockchain is generally a complete peer-to-peer network.
-
-#### Consortium blockchains
-In this type of blockchain the consensus process happens by a predetermined group of nodes in the network. 
-For example a consortium of 15 financial institutions, each with a node. 
-From this group of 15 there are 10 nodes that need to sign each block before it is valid. 
-In this blockchain the read rights can be public or restricted to the members of the network. 
-We can also limit public view to a set number of times for example. 
-These types of chains are decentralized ( not completely peer-to-peer because not everyone is equal).
-
-#### Private Blockchains (permissioned)
-There is only a small difference between consortium and private. 
-This is that all the write rights are with one organization instead of multiple. 
-The read rights are the same as with a consortium chain.
-### Private vs Public
-#### Private
-* The company that controls the private chain can alter the rules of the chain. In some cases this can be necessary.
-* The nodes that confirm a block are known so there can’t be a majority by a mining farm with a 51% attack.
-* Transactions are cheaper than with public chains. This is because they need to be verified by less nodes.
-* Nodes are well connected and errors can be fixed quickly with manual interaction. 
-This means that these networks give a faster confirmation and they will always be faster than public networks. 
-* Private blockchains are just better at privacy because the access to the blockchain can be limited.
-
-#### Public
-* The users from the chain get protected from the developers because there is stuff that they can’t even do to the network. 
-The developers / creators are not the owners of the network and don't have more or less privileges than normal users.
-* These chains are a lot more transparent because everyone can always see what is happening inside the chain. 
-<blockquote class="clear"><p>
-“In some cases, public is clearly better; in others, some degree of private control is simply necessary.
- As is often the case in the real world, it depends.” 
- - Vitalik Buterin of Ethereum
-</p></blockquote>
-
-
-
-### Valid blockchain use cases
+## Valid blockchain use cases
 It's important to understand that blockchain isn't a solution to all of your problems.
 Like in any other project, you shouldn't make critical technology decisions on hyped buzzwords.
 Instead you should focus on the business value it delivers.
@@ -184,11 +200,12 @@ When we translate the blockchain characteristics to business values, it can pote
 3. [Business continuity](#business-continuity)
 4. [Permanence](#permanence)
 5. [Security](#security)
+6. [Decentralized](#thinking-decentralized)
 
 We'll discuss each element in more detail and explain why blockchain technology can be an answer to that business problem.
 
 
-#### Transparency
+### Transparency
 All members of the ecosystem can access the information. 
 An example of improved transparency is in the supply chain. 
 Documenting a product’s journey across the supply chain reveals its true origin and touchpoints, which increases trust and helps eliminate the bias found in today’s opaque supply chains. 
@@ -198,16 +215,16 @@ Another potential use involves the recording of patents and intellectual propert
 Due to the blockchain’s 100% transparency and its unforgeable nature, the information cannot be altered. It is also easily trackable, thus being the perfect solution for recording ownership of patents and properties.
 Please note that this doesn't mean you cannot define access rules to say which members can query certain information.
 
-#### Operation harmonization
+### Operation harmonization
 Smart contracts as business logic, executed by all nodes.
 
-#### Business continuity
+### Business continuity
 By using blockchain technology, you have less dependency on a central infrastructure.
 That is because all nodes can execute transactions.
 When one node goes down, other nodes take over the processing.
 You can say that by using blockchain, you have __automatic failover__.
 
-#### Permanence
+### Permanence
 We already talked about the fact that activities in a blockchain cannot be undone.
 They are __immutable__.
 Because of this characteristic have an __audit trail__ of what happened in the system.
@@ -222,11 +239,11 @@ Our colleague Yannick De Turck also has a chapter on Event Sourcing in his [blog
 Ken Coenen has written about [CQRS and Event Sourcing](/domain-driven%20design/2016/02/02/A-Decade-Of-DDD-CQRS-And-Event-Sourcing.html) too when we visited DDD Europe last year.
 
 
-#### Security
+### Security
 Blocks are time-stamped and protected with __cryptographic technology__ that is considered unbreakable. 
 If a block is added it can’t be removed or altered. 
 If you change a single bit of a transaction, the hash of this transaction will be completely different. 
-So the __merkle root__ hash (Merkle trees are explained in the section [blockchain](#blockchain)) won’t be the same, the __nonce__ number will then be wrong and the block will be considered invalid. 
+So the __merkle root__ hash (Merkle trees are explained in the section [blockchain](#what-is-blockchain)) won’t be the same, the __nonce__ number will then be wrong and the block will be considered invalid. 
 In this way transactions are secure once chained to the blockchain. 
 
 The cryptographic technology works with the principal of __public and private keys__ but hashing is also a part of this technology. 
@@ -241,8 +258,7 @@ The proof-of-work can also help deter these attacks and spam because of the high
 Even if a hacker is able to penetrate one network and attempts to steal funds, there are multiple redundant copies of the same ledger stored around the world. 
 If one is tampered with, the others could be used as a backup to prove what funds actually belong in each account. 
 
-
-### Thinking decentralized: *"Collaborative Economy 2.0"*
+### Thinking decentralized
 Last year, Ken Coenen gave a presentation about the popularity of APIs, and how companies team up to create innovative solutions.
 Data is freed from their silo's and made available through APIs.
 It's consumable for other departments and even other companies.
@@ -265,7 +281,13 @@ Of course, blockchain technology is still in its early stages.
 It's not even sure whether the technology will last.
 Although these statements are purely hypothetical, I find much food for thought in them.
 
-###  Some platforms
+<div class="row" style="margin: 0 auto 2.5rem auto; width: 66%; padding: 0;">
+  <div class="col-md-offset-3 col-md-6" style="padding: 0;">
+	{% include image.html img="/img/blockchain/network-types.jpg" alt="Network types" title="Nerwork types" %}
+</div>
+</div>
+
+##  Some platforms
 We will now discuss a few technologies that can be used to set up a blockchain and also compare Bluemix and Azure. 
 
 The first one is [__Ethereum__](https://www.ethereum.org/), a public blockchain. Ethereum looks like the Bitcoin blockchain, but it uses Ether as the currency.
@@ -285,15 +307,15 @@ Openchain is a little bit special because it doesn’t use the concept of blocks
 Openchain is an open source private blockchain. 
 It also doesn’t use proof-of-work but proof-of-authority. 
 
-The last one we will discuss is [__BigChainDB__](https://www.bigchaindb.com/). 
-BigChainDB is not really a complete blockchain but it is more a database with blockchain features like: decentralization, immutable, public/private and consensus. 
+[__BigChainDB__](https://www.bigchaindb.com/) is not really a complete blockchain but it is more a database with blockchain features like: decentralization, immutable, public/private and consensus. 
 BigChainDB is also open source.
 
-Now on to __IBM Bluemix__.
+Now on to [__IBM Blockchain__](http://www.ibm.com/blockchain/).
 Bluemix uses the Blockchain as a Service(BaaS) in a more private manner. 
-They focus on private blockchains but to do this they found that the privacy with the current technologies wasn't cutting it so they added to the Hyperledger project.
+They focus on private blockchains. 
+The current technologies wasn't cutting it in terms of privacy so they added their code and patents to the Hyperledger project.
 
-Now we only have __Microsoft Azure__ left to discuss. 
+Last but not least we have [__Microsoft Azure blockchain__](https://azure.microsoft.com/en-us/solutions/blockchain/) left to discuss. 
 As you may be able to guess Azure is the complete opposite of Bluemix. 
 Azure focuses on being public, although this does not mean they don't believe in the private model.
 Microsoft has said that private networks will still be important for the commercial adaptation of the blockchain technology.
@@ -301,25 +323,23 @@ Microsoft also don't dedicate their platform to one type of technology like Hype
 They do have a preference though for Ethereum because they joined the Enterprise Ethereum Alliance.
 
 <div class="row" style="margin: 0 auto 2.5rem auto; width: 66%;">
-  <div class="col-md-offset-3 col-md-6">
-	{% include image.html img="/img/blockchain/partners.png" alt="short explanation" title="Companies and consortiums" caption="Figure 2: IBM is part of Hyperledger and Microsoft is part of Enterprise Ethereum Alliance" %}
+  <div class="col-md-offset-3 col-md-6" style="padding: 0;">
+	{% include image.html img="/img/blockchain/partners.png" alt="Companies and consortiums" title="Companies and consortiums" caption="IBM is part of Hyperledger and Microsoft is part of Enterprise Ethereum Alliance" %}
 </div>
 </div>
 
 
-### Conclusion
+## Conclusion
 When talking with people about the possibilities of blockchain, it quickly becomes clear that we still have a long way to go.
 People aren't waiting for yet another technological revolution.
 Instead, we need to start small.
 Blockchain and distributed ledger technology in general will have to evolve naturally.
 
-The way we see it, private blockchain solutions like [IBM Blockchain](http://www.ibm.com/blockchain/)
-IBM Blockchain - United States
-ibm.com
+The way we see it, private blockchain solutions like IBM Blockchain. 
 IBM Blockchain empowers businesses to digitize your transaction workflow through a highly secured, shared and replicated ledger.
 
 
-or Windows' [Blockchain-as-a-Service](https://azure.microsoft.com/en-us/solutions/blockchain/) are more accessible to companies in this early stage. 
+or Microsoft Azure blockchain are more accessible to companies in this early stage. 
 Azure uses the Ethereum technology.
 
 or one of the many independent open source platforms, which can be used in combination with BlueMix or Azure.
@@ -328,14 +348,14 @@ Companies are starting to develop applications on their Bluemix- or Azure platfo
 Get inspired by visiting [State of the DApps](http://dapps.ethercasts.com/)
 
 
-### Some thoughts
-Blockchain is per definition immutable. 
+## Some thoughts
+Blockchain is per definition __immutable__. 
 But if there is one thing we learn in school it is that in the IT nothing stays the same for a long time. 
 So we need to adapt our system. 
-Use normalized systems. 
-What to do with upgrades and changes in code / smart contracts ?
+Use [__normalized systems__](https://en.wikipedia.org/wiki/Normalized_Systems). 
+What to do with __upgrades and changes__ in code / smart contracts ?
 
-### Recommended reading
+## Recommended reading
 You can read the following books if you like to get a grasp on possible use cases which can be implemented using blockchain technology.
 Please note that neither of these books will deep dive into the technical aspects.
 
