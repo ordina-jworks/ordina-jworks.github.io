@@ -75,17 +75,16 @@ The block stores the validated transactions together with a hash and a reference
 Now a little more in detail:
 Transactions are broadcasted to the network for miners to __mine__. 
 They assess the non-validated transactions on the memory pool by solving a mathematical puzzle. 
-A miner builds a block containing all transactions, a proof of work that the puzzle was solved(__merkle root hash__) and a link to the previous block. 
-A block also contains following items: A hash to the previous block, a timestamp, a nonce and a root hash(). 
+A miner builds a block containing all transactions, a proof of work that the puzzle was solved (__block root hash__ which is also the ID of the block) and a hash to the previous block. 
+A block also contains following items: A timestamp, a nonce and a __merkle root hash__ .
+Merkle roots do not verify transactions, they verify a set of transactions. 
+Transaction ID's are hashes of the transaction, and the Merkle tree is constructed from these hashes. 
+It means that if a single detail in any of the transactions changes, so does the Merkle root. 
+It also means that if the exact same transactions are listed in a different order, the Merkle root will also change.
+So the Merkle root is cryptographic proof of which transactions are in the block, and which order they are in.
 The nonce number specifies that the root hash must start with a specified number, like 4 leading zero’s. 
-The hash root is build through a valid merkle tree. 
-It hashes the transactions. 
-Then hashes the hashes of 2 transactions to create a new hash. 
-Then hashes the hashes of the hashes of the transactions and so on until you have 1 hash at the end. 
-Because of this, when a transaction is changed, the hash will change and the merkle tree would be invalid. 
 This way blockchain is very secure. 
 Sha-256 is used to hash.
-
 
 
 The miner appends the block to the blockchain. 
@@ -95,6 +94,14 @@ When this occurs, which doesn't happen often, the principle of “Longest Chain 
 So the chain, who is the longest will stay and the other chain will be discarded. 
 The transactions of the discarded chains will be put back in the memory pool to be mined another time.
 
+
+
+You now have a basic understanding of why we call it __the blockchain__.
+<div class="row" style="margin: 2.5rem 0;">
+  <div class="col-md-offset-3 col-md-6">
+	{% include image.html img="/img/blockchain/blockchain.png" alt="Appending a transaction block" title="Appending a transaction block" caption="Figure 1: A block with validated transactions is appended to the existing blockchain" %}
+</div>
+</div>
 
 
 ### PROOF OF WORK vs PROOF OF STAKE
@@ -113,19 +120,6 @@ For example in the blockchain they need to find the correct nonce number that is
 In this case you don’t need to find a nonce number but you just need to proof that you have a certain stake in the network. 
 The bigger your stake, the more you can mine from the network.
 
-
-
-
-You now have a basic understanding of why we call it __the blockchain__.
-<div class="row" style="margin: 2.5rem 0;">
-  <div class="col-md-offset-3 col-md-6">
-	{% include image.html img="/img/blockchain/blockchain.png" alt="Appending a transaction block" title="Appending a transaction block" caption="Figure 1: A block with validated transactions is appended to the existing blockchain" %}
-</div>
-</div>
-
-It's because of the hash inside the block that the data stored in the blockchain is __immutable__.
-Transactions cannot be modified.
-Whenever a node wants to alter a transaction inside a block, it is rejected by the other nodes in the network.
 
 ### Smart Contracts
 The term “smart contract” has no clear and settled definition. 
@@ -200,7 +194,6 @@ All members of the ecosystem can access the information.
 Please note that this doesn't mean you cannot define access rules to say which members can query certain information.
 
 
-
 #### Operation harmonization
 Smart contracts as business logic, executed by all nodes.
 
@@ -212,7 +205,7 @@ You can say that by using blockchain, you have __automatic failover__.
 
 #### Permanence
 We already talked about the fact that activities in a blockchain cannot be undone.
-They are immutable.
+They are __immutable__.
 Because of this characteristic have an __audit trail__ of what happened in the system.
 You could say that this audit trail has a lot of similarities with the architectural pattern __Event Sourcing__.
 With Event Sourcing, all changes to application state are stored as a sequence of events.
