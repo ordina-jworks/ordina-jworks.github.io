@@ -98,10 +98,10 @@ The transactions of the discarded chains will be put back in the memory pool to 
 
 
 ### PROOF OF WORK vs PROOF OF STAKE
-As we wrote before, the network must reach a consensus. 
+As we mentioned before, the network must reach a consensus. 
 There are a few ways a blockchain will do this. 
 We will be discussing the two most used. 
-See more at [Consensus mechanisms used blockchain ronald chan](https://www.linkedin.com/pulse/consensus-mechanisms-used-blockchain-ronald-chan) .
+See more at [Consensus mechanisms used blockchain ronald chan](https://www.linkedin.com/pulse/consensus-mechanisms-used-blockchain-ronald-chan) 
 
 #### Proof-of-Work: 
 This is used to deter people from tampering with the blocks and launching (d)dos attacks. 
@@ -128,14 +128,14 @@ Transactions cannot be modified.
 Whenever a node wants to alter a transaction inside a block, it is rejected by the other nodes in the network.
 
 ### Smart Contracts
-The term “smart contract” has no clear and settled definition. 
+The term “__smart contract__” has no clear and settled definition. 
 So what is it?
 Smart contracts are traditional contracts, but written in code. 
 As such, the contract is understandable for everyone across the globe, irrespective of the jurisdiction it is related to. 
 Smart contracts are like If This Then That statements, only they tend to be a lot more complex. 
 
 The different definitions usually fall into one of two categories. 
-Sometimes the term is used to identify a specific technology – code that is stored, verified and executed on a blockchain. 
+Sometimes the term is used to identify a specific technology – code that is stored, verified and executed on a blockchain. For example a hello world program.
 
 Other times, the term is used to refer to a specific application of that technology: as a complement, or substitute, for legal contracts.
 
@@ -167,7 +167,7 @@ The read rights are the same as with a consortium chain.
 * Transactions are cheaper then with public chains. This is because they need to be verified by less nodes.
 * Nodes are well connected and errors can be fixed quickly with manual interaction. 
 This means that these networks give a faster confirmation and they will always be faster than public networks. 
-* Private blockchains are just better at privacy… obviously.
+* Private blockchains are just better at privacy because the access to the blockchain can be limited.
 
 #### Public
 * The users from the chain get protected from the developers because there is stuff that they can’t even do to the network.
@@ -229,12 +229,12 @@ I've written about [CQRS and Event Sourcing](/domain-driven%20design/2016/02/02/
 Blocks are time-stamped and protected with __cryptographic technology__ that is considered unbreakable. 
 If a block is added it can’t be removed or altered. 
 If you change a single bit of a transaction, the hash of this transaction will be completely different. 
-So the __merkle root__ hash (Merkle trees are explained in the section blockchain) won’t be the same, the __nonce__ number will then be wrong and the block will be considered invalid. 
+So the __merkle root__ hash (Merkle trees are explained in the section [blockchain](#blockchain)) won’t be the same, the __nonce__ number will then be wrong and the block will be considered invalid. 
 In this way transactions are secure once chained to the blockchain. 
 
 The cryptographic technology works with the principal of __public and private keys__ but hashing, we explained in the beginning of this post, is also a part of this technology. 
 The private key is linked to the public key, but you can not find out the private key if you have the public key. 
-The private key allows you to verify that you are the owner of the public key? 
+The private key allows you to verify that you are the owner of the public key. 
 To make transactions, you’ll need a unique key (private key) to make a digital signature to prove you are the owner. 
 The private key is stored in your __wallet__. Your wallet can just be your identity , without any money, ethereum etc...  in it.
 
@@ -296,15 +296,13 @@ ibm.com
 IBM Blockchain empowers businesses to digitize your transaction workflow through a highly secured, shared and replicated ledger.
 
 
- or Windows' [Blockchain-as-a-Service](https://azure.microsoft.com/en-us/solutions/blockchain/) are more accessible to companies in this early stage.
+or Windows' [Blockchain-as-a-Service](https://azure.microsoft.com/en-us/solutions/blockchain/) are more accessible to companies in this early stage. 
+Azure uses the Ethereum technology.
+
+or one of the many independent open source platforms, which can be used in combination with BlueMix or Azure.
+
 Companies are starting to develop applications on their Bluemix- or Azure platform, without exposing everything to the outside world.
 Get inspired by visiting [State of the DApps](http://dapps.ethercasts.com/)
-
-or one of the many independent open source platforms that can be used today.
-EtherCasts
-ethercasts.com
-Ethereum: Write your own smart contracts, which showcases hundreds of blockchain applications.
-
 
 
 ### Some thoughts
