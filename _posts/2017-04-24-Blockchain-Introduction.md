@@ -189,9 +189,14 @@ We'll discuss each element in more detail and explain why blockchain technology 
 
 
 #### Transparency
-All members of the ecosystem can access the information.
-Please note that this doesn't mean you cannot define access rules to say which members can query certain information.
+All members of the ecosystem can access the information. 
+An example of improved transparency is in the supply chain. 
+Documenting a product’s journey across the supply chain reveals its true origin and touchpoints, which increases trust and helps eliminate the bias found in today’s opaque supply chains. 
+Manufacturers can also reduce recalls by sharing logs with OEMs and regulators.
 
+Another potential use involves the recording of patents and intellectual property. 
+Due to the blockchain’s 100% transparency and its unforgeable nature, the information cannot be altered. It is also easily trackable, thus being the perfect solution for recording ownership of patents and properties.
+Please note that this doesn't mean you cannot define access rules to say which members can query certain information.
 
 #### Operation harmonization
 Smart contracts as business logic, executed by all nodes.
