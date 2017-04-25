@@ -60,7 +60,7 @@ I think blockchain's definition is a good starting point...
 > "Blockchain is a type of __distributed database__ that stores a __permanent__ and __tamper-proof__ ledger of __transaction data__."
 
 In other words blockchain is a __decentralized immutable data structure__.
-First, the blockchain is a network of computers, called nodes in the blockchain world. 
+In short the blockchain is a network of computers, called nodes in the blockchain world. 
 Every node has the same copy of the database which they manage together. 
 A transaction is encrypted and signed on a mathematical way. 
 When a transaction is saved in the blockchain, it is duplicated across all nodes in the network.
@@ -75,9 +75,9 @@ The block stores the validated transactions together with a hash and a reference
 Now a little more in detail:
 Transactions are broadcasted to the network for miners to __mine__. 
 They assess the non-validated transactions on the memory pool by solving a mathematical puzzle. 
-A miner builds a block containing all transactions, a proof of work that the puzzle was solved and a link to the previous block. 
-A block is contains following items: A hash to the previous block, a timestamp, a nonce and a root hash. 
-The nonce specify that the root hash must start with a specified number, like 4 leading zero’s. 
+A miner builds a block containing all transactions, a proof of work that the puzzle was solved(__merkle root hash__) and a link to the previous block. 
+A block also contains following items: A hash to the previous block, a timestamp, a nonce and a root hash(). 
+The nonce number specifies that the root hash must start with a specified number, like 4 leading zero’s. 
 The hash root is build through a valid merkle tree. 
 It hashes the transactions. 
 Then hashes the hashes of 2 transactions to create a new hash. 
