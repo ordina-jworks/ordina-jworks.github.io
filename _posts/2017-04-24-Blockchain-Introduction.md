@@ -121,7 +121,7 @@ The bigger your stake, the more you can mine from the network.
 
 ### Smart Contracts
 The term “smart contract” has no clear and settled definition. 
-So what is it? 
+So what is it?  
 Smart contracts are traditional contracts, but written in code. 
 As such, the contract is understandable for everyone across the globe, irrespective of the jurisdiction it is related to. 
 Smart contracts are like If This Then That statements, only they tend to be a lot more complex. 
@@ -134,7 +134,7 @@ Other times, the term is used to refer to a specific application of that technol
 
 ### Types of Blockchain
 #### Public blockchains
-This is a blockchain that everyone in the world can view, write transactions to, expect that that these transactions will be validated and added to the blockchain. 
+This is a blockchain that everyone in the world can view, write transactions to, expect that these transactions will be validated and added to the blockchain. 
 In this blockchain everybody can help with the consensus process. 
 This process is used to determine if a block is valid or not. 
 As consensus processes we can use proof-of-work or proof-of-stake but there are also other options. (See above at [Proof-of-work vs proof-of-stake](#proof-of-work-vs-proof-of-stake))
@@ -155,14 +155,15 @@ The read rights are the same as with a consortium chain.
 ### Private vs Public
 #### Private
 * The company that controls the private chain can alter the rules of the chain. In some cases this can be necessary.
-* The nodes that confirm a block are known so there can’t be a majority by a chinese mining farm with a 51% attack.
-* Transactions are cheaper then with public chains. This is because they need to be verified by less nodes.
+* The nodes that confirm a block are known so there can’t be a majority by a mining farm with a 51% attack.
+* Transactions are cheaper than with public chains. This is because they need to be verified by less nodes.
 * Nodes are well connected and errors can be fixed quickly with manual interaction. 
 This means that these networks give a faster confirmation and they will always be faster than public networks. 
 * Private blockchains are just better at privacy because the access to the blockchain can be limited.
 
 #### Public
-* The users from the chain get protected from the developers because there is stuff that they can’t even do to the network.
+* The users from the chain get protected from the developers because there is stuff that they can’t even do to the network. 
+The developers / creators are not the owners of the network and don't have more or less privileges than normal users.
 * These chains are a lot more transparent because everyone can always see what is happening inside the chain. 
 <blockquote class="clear"><p>
 “In some cases, public is clearly better; in others, some degree of private control is simply necessary.
@@ -211,9 +212,9 @@ It could be interesting to combine blockchain technology with this architectural
 
 You can read more about Event Sourcing on [Martin Fowler's blog](http://martinfowler.com/eaaDev/EventSourcing.html).
 
-My colleague Yannick De Turck also has a chapter on Event Sourcing in his [blogpost about Lagom](/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html#cqrs-and-event-sourcing).
+Our colleague Yannick De Turck also has a chapter on Event Sourcing in his [blogpost about Lagom](/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html#cqrs-and-event-sourcing).
 
-I've written about [CQRS and Event Sourcing](/domain-driven%20design/2016/02/02/A-Decade-Of-DDD-CQRS-And-Event-Sourcing.html) too when we visited DDD Europe last year.
+Ken Coenen has written about [CQRS and Event Sourcing](/domain-driven%20design/2016/02/02/A-Decade-Of-DDD-CQRS-And-Event-Sourcing.html) too when we visited DDD Europe last year.
 
 
 #### Security
@@ -223,21 +224,21 @@ If you change a single bit of a transaction, the hash of this transaction will b
 So the __merkle root__ hash (Merkle trees are explained in the section [blockchain](#blockchain)) won’t be the same, the __nonce__ number will then be wrong and the block will be considered invalid. 
 In this way transactions are secure once chained to the blockchain. 
 
-The cryptographic technology works with the principal of __public and private keys__ but hashing, we explained in the beginning of this post, is also a part of this technology. 
+The cryptographic technology works with the principal of __public and private keys__ but hashing is also a part of this technology. 
 The private key is linked to the public key, but you can not find out the private key if you have the public key. 
 The private key allows you to verify that you are the owner of the public key. 
 To make transactions, you’ll need a unique key (private key) to make a digital signature to prove you are the owner. 
 The private key is stored in your __wallet__. Your wallet can just be your identity , without any money, ethereum etc...  in it.
 
+The network is also protected from (d)dos attacks because of the distributed nature of blockchain. 
+If a hacker wants to take down the blockchain they would need to take down every node in the network. 
+The proof-of-work can also help deter these attacks and spam because of the high costs of mining. 
 Even if a hacker is able to penetrate one network and attempts to steal funds, there are multiple redundant copies of the same ledger stored around the world. 
 If one is tampered with, the others could be used as a backup to prove what funds actually belong in each account. 
 
-The network is also protected from (d)dos attacks because of the distributed nature of blockchain. 
-If a hacker wants to take down the blockchain they would need to take down every node in the network. 
-The proof-of-work can also help deter these attacks and spam because of the high costs of mining.
 
 ### Thinking decentralized: *"Collaborative Economy 2.0"*
-Last year, I gave a presentation about the popularity of APIs, and how companies team up to create innovative solutions.
+Last year, Ken Coenen gave a presentation about the popularity of APIs, and how companies team up to create innovative solutions.
 Data is freed from their silo's and made available through APIs.
 It's consumable for other departments and even other companies.
 However, when you think of it, all of this data is centralized and we need extra effort to expose it to other parties.
@@ -259,17 +260,23 @@ Of course, blockchain technology is still in its early stages.
 It's not even sure whether the technology will last.
 Although these statements are purely hypothetical, I find much food for thought in them.
 
-###  Implementations of Blockchain
+###  Some platforms
 We will now discuss a few technologies that can be used to set up a blockchain. 
 
-The first one is [__Ethereum__](https://www.ethereum.org/). Ethereum looks like the Bitcoin blockchain but it uses Ether as the currency, it is faster than Bitcoin with a transaction taking 7 seconds instead of 10 minutes. We can also put smart contracts on the chain, with bitcoin you can only put transactions on there. 
+The first one is [__Ethereum__](https://www.ethereum.org/). Ethereum looks like the Bitcoin blockchain, but it uses Ether as the currency.
+It is faster than Bitcoin with a transaction taking 7 seconds instead of 10 minutes. 
+We can also put smart contracts on the chain, with bitcoin you can only put transactions on there. 
+
 The next one is [__Multichain__](http://www.multichain.com/). 
 Multichain is a open source private blockchain, which is Bitcoin compatible. 
+
 Next up is [__Openchain__](https://www.openchain.org/). 
 Openchain is a little bit special because it doesn’t use the concept of blocks but the transactions are directly chained with one another, this makes it a lot faster. 
-Openchain is also a open source private blockchain. It also doesn’t use proof-of-work but proof-of-authority. 
+Openchain is an open source private blockchain. 
+It also doesn’t use proof-of-work but proof-of-authority. 
+
 The last one we will discuss is [__BigChainDB__](https://www.bigchaindb.com/). 
-BigChainDB is also not really a complete blockchain but it is more a database with blockchain features like: decentralization, immutable, public/private and consensus. 
+BigChainDB is not really a complete blockchain but it is more a database with blockchain features like: decentralization, immutable, public/private and consensus. 
 BigChainDB is also open source.
 
 
