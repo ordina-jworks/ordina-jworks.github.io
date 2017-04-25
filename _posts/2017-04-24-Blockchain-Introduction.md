@@ -2,7 +2,7 @@
 layout: post
 authors: [ken_coenen, jeroen_de_prest, kevin_leyssens]
 title: 'Blockchain introduction'
-image: 
+image: /img/blockchain/blockchainHeaderImagePNG.png
 tags: [Blockchain, Smart contracts]
 category: Blockchain
 comments: true
