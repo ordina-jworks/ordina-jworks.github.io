@@ -19,19 +19,18 @@ First of all, Bitcoin and blockchain are two different things.
 People tend to use both words by each other in three different contexts:
 
 <div class="row" style="margin: 2.5rem 0;">
-  <div class="col-md-offset-3 col-md-2">
+  <div class="col-md-offset-3 col-md-2" style="width:32%">
 {% include image.html img="/img/blockchain/bitcoin_currency.png" alt="Crypto-currency" title="Crypto-currency" caption="1. Digital cryptocurrency" style="max-width: 80px;" %}
   </div>
-  <div class="col-md-2">
+  <div class="col-md-2" style="width:32%">
 {% include image.html img="/img/blockchain/bitcoin_protocol.png" alt="Protocol" title="Protocol" caption="2. Protocol and client for executing transactions" style="max-width: 80px;" %}
   </div>
-  <div class="col-md-2">
+  <div class="col-md-2" style="width:32%">
 	{% include image.html img="/img/blockchain/bitcoin_blockchain.png" alt="Blockchain" title="Blockchain" caption="3. The blockchain which stores all Bitcoin transactions" style="max-width: 80px;" %}
 </div>
 </div>
 
 So when talking about Bitcoin or blockchain with people, it's important to mind this terminology.
-
 Here's a funny quote I read in the book [Blockchain: A Blueprint for a New Economy](http://www.goodreads.com/book/show/24714901-blockchain),
 which describes this ambiguity very well:
 <blockquote class="clear"><p>
@@ -60,35 +59,34 @@ I think blockchain's definition is a good starting point...
 > "Blockchain is a type of __distributed database__ that stores a __permanent__ and __tamper-proof__ ledger of __transaction data__."
 
 In other words blockchain is a __decentralized immutable data structure__.
-In short the blockchain is a network of computers, called nodes in the blockchain world. 
+In short the blockchain is a network of computers, called nodes. 
 Every node has the same copy of the database which they manage together. 
 A transaction is encrypted and signed on a mathematical way. 
 When a transaction is saved in the blockchain, it is duplicated across all nodes in the network.
 That's why we talk of blockchain as __distributed ledger technology__.
 It's a ledger of transactions, distributed across a computer network.
-Stored transactions cannot be undone.
-Why is that?
 Transactions are bundled in one __block__ before they are validated by other nodes.
 Once the network reached consensus about the validity of these transactions, the block is appended to the existing __chain__ of blocks.
 The block stores the validated transactions together with a hash and a reference to the previous block.
+Stored transactions cannot be undone.
 
 Now a little more in detail:
 Transactions are broadcasted to the network for miners to __mine__. 
 They assess the non-validated transactions on the memory pool by solving a mathematical puzzle. 
 A miner builds a block containing all transactions, a proof of work that the puzzle was solved (__block root hash__ which is also the ID of the block) and a hash to the previous block. 
 A block also contains following items: A timestamp, a nonce and a __merkle root hash__ .
-Merkle roots do not verify transactions, they verify a set of transactions. 
+A merkle root does not verify transactions, but verifies a set of transactions. 
 Transaction ID's are hashes of the transaction, and the Merkle tree is constructed from these hashes. 
-It means that if a single detail in any of the transactions changes, so does the Merkle root. 
-It also means that if the exact same transactions are listed in a different order, the Merkle root will also change.
-So the Merkle root is cryptographic proof of which transactions are in the block, and which order they are in.
-The nonce number specifies that the root hash must start with a specified number, like 4 leading zero’s. 
+It means that if a single detail in any of the transactions changes, so does the merkle root. 
+It also means that if the exact same transactions are listed in a different order, the merkle root will also change.
+So the merkle root is cryptographic proof of which transactions are in the block, and which order they are in.
+The nonce number specifies that the block root hash must start with a specified number, like 4 leading zero’s. 
 This way blockchain is very secure. 
 Sha-256 is used to hash.
 
 
 The miner appends the block to the blockchain. 
-And the other nodes double-check by verifying the proof of work in the block. 
+And the majority of the other nodes, 50% + 1, double-check by verifying the proof of work in the block. 
 It sometimes occurs that miners will validate 2 blocks at the same time and they will be appended to the chain. 
 When this occurs, which doesn't happen often, the principle of “Longest Chain Wins” will be implemented. 
 So the chain, who is the longest will stay and the other chain will be discarded. 
@@ -99,22 +97,22 @@ The transactions of the discarded chains will be put back in the memory pool to 
 You now have a basic understanding of why we call it __the blockchain__.
 <div class="row" style="margin: 2.5rem 0;">
   <div class="col-md-offset-3 col-md-6">
-	{% include image.html img="/img/blockchain/blockchain.png" alt="Appending a transaction block" title="Appending a transaction block" caption="Figure 1: A block with validated transactions is appended to the existing blockchain" %}
+	{% include image.html img="/img/blockchain/blockchain.png" alt="short explanation" title="Short explenation" caption="Figure 1: Blockchain short non-technical explanation" %}
 </div>
 </div>
 
 
 ### PROOF OF WORK vs PROOF OF STAKE
-As we wrote before, the network must reach a consensus. 
+As we wrote before, the network must reach a __consensus__ of 50%+1. 
 There are a few ways a blockchain will do this. 
 We will be discussing the two most used. 
 See more at [Consensus mechanisms used blockchain ronald chan](https://www.linkedin.com/pulse/consensus-mechanisms-used-blockchain-ronald-chan) .
 
 #### Proof-of-Work: 
 This is used to deter people from tampering with the blocks and launching (d)dos attacks. 
-We do this by making them work for a consensus. 
-This means that we let them do a feasible but not insignificant amount of work to get a consensus. 
-For example in the blockchain they need to find the correct nonce number that is part of the block to create a hash that fits the predetermined rules, like for example the hash starts with six zeros.
+We let them do a feasible but not insignificant amount of work to get a consensus. 
+For example in the blockchain they need to find the correct nonce number that is part of the block to create a hash that fits the predetermined rules. 
+A rule can be that the hash must start with six zeros.
 
 #### Proof-of-Stake: 
 In this case you don’t need to find a nonce number but you just need to proof that you have a certain stake in the network. 
@@ -123,7 +121,7 @@ The bigger your stake, the more you can mine from the network.
 
 ### Smart Contracts
 The term “smart contract” has no clear and settled definition. 
-So what is it?
+So what is it? 
 Smart contracts are traditional contracts, but written in code. 
 As such, the contract is understandable for everyone across the globe, irrespective of the jurisdiction it is related to. 
 Smart contracts are like If This Then That statements, only they tend to be a lot more complex. 
