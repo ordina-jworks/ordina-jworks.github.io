@@ -411,12 +411,5 @@ Get inspired by visiting [State of the Dapps](http://dapps.ethercasts.com/).
 You can read the following books if you like to get a grasp on possible use cases which can be implemented using blockchain technology.
 Please note that neither of these books will deep dive into the technical aspects.
 
-<script src="http://www.goodreads.com/book/avg_rating_widget/24714901" type="text/javascript"></script><div style="clear: both;"></div>
-<script src="http://www.goodreads.com/book/avg_rating_widget/25894041" type="text/javascript"></script><div style="clear: both;"></div>
-
-
-
-
-
-
-
+* [Blockchain: Blueprint for a New Economy by Melanie Swan](http://www.goodreads.com/book/show/24714901-blockchain)
+* [Blockchain Revolution: How the Technology Behind Bitcoin Is Changing Money, Business, and the World by Don Tapscott, Alex Tapscott](http://www.goodreads.com/book/show/25894041-blockchain-revolution)
