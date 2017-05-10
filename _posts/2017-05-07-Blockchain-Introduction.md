@@ -109,7 +109,7 @@ It also means that if the exact same transactions are listed in a different orde
 So the merkle root is cryptographic proof of the transactions in the block together with the order they are in.
 
 The __nonce number__ specifies that the block root hash must start with a specified number, like four leading zeros.
-This way**,** blockchain is very secure. 
+This way, blockchain is very secure. 
 Sha-256 is used to hash.
 
 The miner appends the block to the blockchain. 
@@ -212,7 +212,7 @@ The different definitions usually fall into one of the following two categories:
 
 1. Sometimes the term is used to identify a specific technology.
 __Pieces of code__ that are stored, verified and executed on a blockchain.
-For example**,** a hello world program.
+For example, a hello world program.
 2. The term can also be used to refer to a specific application of that technology: as a complement, or substitute, for __legal contracts__.
 
 <div class="row" style="margin: 0 auto 2.5rem auto; padding: 0;">
@@ -241,7 +241,7 @@ We'll discuss each element in detail and explain why blockchain technology can b
 
 ### Transparency
 
-In a public blockchain network**,** by default every member of the ecosystem can access all transactions stored in the chain.
+In a public blockchain network, by default every member of the ecosystem can access all transactions stored in the chain.
 They can even access smart contracts.
 
 An example of improved transparency is in the supply chain. 
