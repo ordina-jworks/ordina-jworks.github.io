@@ -108,9 +108,9 @@ It means that if a single detail in any of the transactions changes, so does the
 It also means that if the exact same transactions are listed in a different order, the merkle root will also change.
 So the merkle root is cryptographic proof of the transactions in the block together with the order they are in.
 
-The __nonce number__ specifies that the block root hash must start with a specified number, like four leading zeros.
-This way, blockchain is very secure. 
-Sha-256 is used to hash.
+The __nonce number__ is a field whose value is set so that the hash of the block will comply with the predefined network rules (eg: a run of leading zeros in Bitcoin).
+ Miners increase the nonce until the hash is valid.
+ Sha-256 is used to hash.
 
 The miner appends the block to the blockchain. 
 And the majority of the other nodes, 50% + 1, double-check by __verifying the proof of work__ in the block.
