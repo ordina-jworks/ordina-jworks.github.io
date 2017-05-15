@@ -155,15 +155,50 @@ By being involved in the codebase, you can make sure that the architectual descr
 
 # Visual?
 
-Todo
+<p style="text-align: center;">
+  <img class="image fit" alt="Visual" src="/img/prag-arch/visual.png">
+</p>
 
-# How?
+While the code is a very important asset of a working system, code alone is not enough to have an accurate and lasting description of a system.
 
-Todo
+> [Grady Booch](https://nl.wikipedia.org/wiki/Grady_Booch)
+>
+> One cannot see the ocean's currents by studying drops of water.
+
+The goal of visually representing a system, through the architectural description, is to make sure the architecture of the system is in the stakeholder's heads.
+The visual representation can be used to check for consistency, for reporting, for validation and for **sharing information**.
+
+### Some ground rules
+
+While UML has its merits, often it's not necessary to create an extensive UML model for the architecture.
+It will be time-consuming and, unfortunately, often it is not correctly understood by stakeholders.
+An alternative to UML is to use plain _boxes and lines_.
+However, when using boxes and lines:
+
+* Be consistent (especially when collaborating on the architecture).
+Try to be consistent over multiple projects. 
+Templates offer a good start, but not every architecture needs the same viewpoints.
+* Avoid mixed responsibilities.
+* Avoid fluffy diagrams. Documents should not be vague. They should be about one abstraction.
+* **Always** provide a legend: what does a certain line mean? Don't make stakeholders guess.
+* Don't be afraid to add text to the diagram.
+* Don't document what you don't need. 
+If you are not using a data store, do not make an _Information View_.
+* Make sure your stakeholders understand what you are documenting.
+
+Whatever your preferred visualisation approach is, keep a **decision log**.
+Document your decisions, the considered alternatives and the timing a decision was made.
+Since the system will evolve, a decision log will keep track of the reasoning behind a certain decision.
+Decisions might need to change, so keeping track of the rationale behind a decision is valuable.
 
 # Why?
 
+Why, why, whyyyyyyyy ... Delilah.
+
 Todo
+
+
+
 
 # How?
 
