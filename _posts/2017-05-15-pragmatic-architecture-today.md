@@ -188,20 +188,88 @@ If you are not using a data store, do not make an _Information View_.
 
 Whatever your preferred visualisation approach is, keep a **decision log**.
 Document your decisions, the considered alternatives and the timing a decision was made.
-Since the system will evolve, a decision log will keep track of the reasoning behind a certain decision.
+Since the system will evolve, a decision log will keep track of the reasoning behind a certain decisions.
 Decisions might need to change, so keeping track of the rationale behind a decision is valuable.
 
 # Why?
 
-Why, why, whyyyyyyyy ... Delilah.
+<p style="text-align: center;">
+  <img class="image fit" alt="Why" src="/img/prag-arch/why.png">
+</p>
 
-Todo
+### Up-front design
 
+Some up-front design is necessary in order to start efficiently and to prevent too much rework.
+This means thinking about the big picture:
 
+* Used technology
+* Automation
+* Architectural patterns
+* Layering
+* Evolution
+* ...
 
+> [Simon Brown](http://www.codingthearchitecture.com/authors/sbrown/)
+>
+> Just enough up front design to create firm foundations for the software product and its delivery. 
+
+But what does this mean?
+Just enough?
+Just enough depends on a lot of variables like budget, scope, team, ... 
+The approach will also be different for greenfield or existing projects.
+When an architect is working on a **greenfield project**, it's important tot start with a **high-level view** of all components in the application.
+These components are all the pieces necessary for a system to operate.
+Other components and details can be added in the future.
+Working with **existing systems** benefits from a slightly different approach, where the architect can start with an accurate high-level diagram of the **as-is architecture** of the existing codebase.
+Once this view is available, identify the **domain-of-change** of the architecture: the reason people are working on the system.
+On top of that, adding **extension points** will enable evolvability.
+
+### Communication
+
+* In the inception phase of a project, the architect will need to talk to all the different stakeholders and make sure that their desired product will be build.
+Aligning requirements from different stakeholders, will always be a challenge.
+* In the development phase, it is important for the team to share a technical vision.
+All team members need to collaborate to the same end-goal, which requires strong communication skills.
+
+### Politics
+
+The architecture of a system will have a large impact on the implementation, delivery and usage of the system.
+Systems generally consist of multiple parts and it's the responsibility of the architect to focus on system integrity, creating a system that has a built-in ability to respond to change.
+When the system lacks integrity, it will quickly become a system nobody wants to touch.
+Unfortunately many enterprises have this fear of change embedded in the processes and it will take strategy and people skils to prevent this from happening.
+Influence maps present an interesting way to map the relationships between people and to visualise who influences who in an enterprise.
+Being aware of these relationships might be a game-changer.
 
 # How?
 
-Todo
+<p style="text-align: center;">
+  <img class="image fit" alt="How" src="/img/prag-arch/how.png">
+</p>
 
+One way of creating an architecture is the _Deming Cycle_ (TODO LINK) or OODA: Observe, Orient, Decide, Act.
+OODA can be compared with PDCA (TODO LINK) or with Discovery Activities (TODO LINK).
 
+<p style="text-align: center;">
+  <img class="image fit" alt="OODA" src="/img/prag-arch/ooda.png">
+</p>
+
+Any architectural model introduces abstraction and removes noise.
+This model should be well-understood and feedback loops can help with this.
+As an examply, comparing a written down version with bullet points of a certain idea, will help in verifying if the message hasn't changed.
+This insight should be mapped on the model.
+
+* **Observe**: Observing both external and internal circumstances or dependencies of our systems.
+	* Collect up-to-date information from different sources: stakeholders, competitors, similar systems, other viewpoints,...
+* **Orient**: Using our past experience to make sense of these observations.
+	* Analyse this information and use it to update your current reality. View events, filtered through your own experiences and perceptions.
+* **Decide**: Deciding on a response, because their might be multiple alternative solutions.
+	* Determine a course of actions
+* **Act**: Execute the selected decision.
+	* Follow through on your decision.
+
+This is not a linear process. 
+This process benefits from **continuous feedback loops**.
+Feedback loops imply that certain decisions may lead to new observations etc.
+The OODA process can be used as a means of getting to an architectural description.
+Consequently, significant decisions will become part of the architectural description.
+Since the creation of (significant parts of the) the architectural description, starts with _(runtime)_ observations, capturing data and measuring stakeholder value will help to achieve better observations of the system.
