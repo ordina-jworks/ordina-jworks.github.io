@@ -159,19 +159,19 @@ By being involved in the codebase, you can make sure that the architectual descr
   <img class="image fit" alt="Visual" src="/img/prag-arch/visual.png">
 </p>
 
-While the code is a very important asset of a working system, code alone is not enough to have an accurate and lasting description of a system.
+While code is a very important asset of a working system, code alone is not enough to have an accurate and lasting description of a system.
 
 > [Grady Booch](https://nl.wikipedia.org/wiki/Grady_Booch)
 >
 > One cannot see the ocean's currents by studying drops of water.
 
 The goal of visually representing a system, through the architectural description, is to make sure the architecture of the system is in the stakeholder's heads.
-The visual representation can be used to check for consistency, for reporting, for validation and for **sharing information**.
+The visual representation can be used to check for consistency,  reporting, validation and **sharing information**.
 
 ### Some ground rules
 
 While UML has its merits, often it's not necessary to create an extensive UML model for the architecture.
-It will be time-consuming and, unfortunately, often it is not correctly understood by stakeholders.
+It will be time-consuming and, unfortunately, often UML is not correctly understood by stakeholders.
 An alternative to UML is to use plain _boxes and lines_.
 However, when using boxes and lines:
 
@@ -180,15 +180,17 @@ Try to be consistent over multiple projects.
 Templates offer a good start, but not every architecture needs the same viewpoints.
 * Avoid mixed responsibilities.
 * Avoid fluffy diagrams. Documents should not be vague. They should be about one abstraction.
-* **Always** provide a legend: what does a certain line mean? Don't make stakeholders guess.
-* Don't be afraid to add text to the diagram.
-* Don't document what you don't need. 
-If you are not using a data store, do not make an _Information View_.
+* **Always** provide a legend.
+Explain what a certain line or box means. 
+Don't make stakeholders guess.
+* Don't be afraid to add text to a diagram.
+* Don't model what nobody needs. 
+Eg. if you are not using a data store, do not create an _Information View_.
 * Make sure your stakeholders understand what you are documenting.
 
 Whatever your preferred visualisation approach is, keep a **decision log**.
 Document your decisions, the considered alternatives and the timing a decision was made.
-Since the system will evolve, a decision log will keep track of the reasoning behind a certain decisions.
+Since the system will (very likely) evolve, a decision log will keep track of the reasoning behind a certain decisions.
 Decisions might need to change, so keeping track of the rationale behind a decision is valuable.
 
 # Why?
@@ -199,7 +201,7 @@ Decisions might need to change, so keeping track of the rationale behind a decis
 
 ### Up-front design
 
-Some up-front design is necessary in order to start efficiently and to prevent too much rework.
+Some up-front design is necessary to start efficiently and to prevent too much rework.
 This means thinking about the big picture:
 
 * Used technology
@@ -213,31 +215,31 @@ This means thinking about the big picture:
 >
 > Just enough up front design to create firm foundations for the software product and its delivery. 
 
-But what does this mean?
-Just enough?
+But what does _just enough_ mean?
 Just enough depends on a lot of variables like budget, scope, team, ... 
-The approach will also be different for greenfield or existing projects.
-When an architect is working on a **greenfield project**, it's important tot start with a **high-level view** of all components in the application.
+The approach will also be different for greenfield projects or for existing projects.
+When you are working on a **greenfield project**, it's important tot start with a **high-level view** of all components in the application.
 These components are all the pieces necessary for a system to operate.
-Other components and details can be added in the future.
-Working with **existing systems** benefits from a slightly different approach, where the architect can start with an accurate high-level diagram of the **as-is architecture** of the existing codebase.
-Once this view is available, identify the **domain-of-change** of the architecture: the reason people are working on the system.
+Other components and details can be added later.
+Working with **existing systems** benefits from a slightly different approach, where you can start with an accurate high-level diagram of the **current** architecture of the existing application.
+Once this diagram is available, identify the **domain-of-change** of the architecture: the reason people are working on the system.
 On top of that, adding **extension points** will enable evolvability.
 
 ### Communication
 
-* In the inception phase of a project, the architect will need to talk to all the different stakeholders and make sure that their desired product will be build.
-Aligning requirements from different stakeholders, will always be a challenge.
-* In the development phase, it is important for the team to share a technical vision.
+* In the inception phase of a project, you will need to talk to all the different stakeholders and make sure that their desired product will be build.
+Aligning requirements from different stakeholders, will often be a challenge.
+* In the implementation phase, it is important for the team to share a technical vision.
 All team members need to collaborate to the same end-goal, which requires strong communication skills.
+Including team members in defining the technical vision is useful to make sure everybody knows how they, individually, are contributing to the technical vision on a day-to-day basis. 
 
 ### Politics
 
 The architecture of a system will have a large impact on the implementation, delivery and usage of the system.
 Systems generally consist of multiple parts and it's the responsibility of the architect to focus on system integrity, creating a system that has a built-in ability to respond to change.
-When the system lacks integrity, it will quickly become a system nobody wants to touch.
-Unfortunately many enterprises have this fear of change embedded in the processes and it will take strategy and people skils to prevent this from happening.
-Influence maps present an interesting way to map the relationships between people and to visualise who influences who in an enterprise.
+When the system lacks integrity, it will rapidly become _a system nobody wants to touch_.
+Unfortunately many enterprises have this fear of change embedded in their culture and it will take strategy and sound people skills to prevent this from happening.
+Influence Maps (TODO LINK) present an interesting way to map  relationships between people and to visualise who influences who, in an enterprise.
 Being aware of these relationships might be a game-changer.
 
 # How?
@@ -246,8 +248,9 @@ Being aware of these relationships might be a game-changer.
   <img class="image fit" alt="How" src="/img/prag-arch/how.png">
 </p>
 
-One way of creating an architecture is the _Deming Cycle_ (TODO LINK) or OODA: Observe, Orient, Decide, Act.
+One way of creating an architectural description is the _Deming Cycle_ (TODO LINK), better known as **OODA**: Observe, Orient, Decide, Act.
 OODA can be compared with PDCA (TODO LINK) or with Discovery Activities (TODO LINK).
+TODO: Checking Deming - PDCA - OODA
 
 <p style="text-align: center;">
   <img class="image fit" alt="OODA" src="/img/prag-arch/ooda.png">
@@ -255,21 +258,21 @@ OODA can be compared with PDCA (TODO LINK) or with Discovery Activities (TODO LI
 
 Any architectural model introduces abstraction and removes noise.
 This model should be well-understood and feedback loops can help with this.
-As an examply, comparing a written down version with bullet points of a certain idea, will help in verifying if the message hasn't changed.
+As an examply, comparing a written down version with bullet points of a certain idea, will help in verifying that the message hasn't changed.
 This insight should be mapped on the model.
 
-* **Observe**: Observing both external and internal circumstances or dependencies of our systems.
+* **Observe**: Observing both external and internal circumstances or dependencies of your systems.
 	* Collect up-to-date information from different sources: stakeholders, competitors, similar systems, other viewpoints,...
-* **Orient**: Using our past experience to make sense of these observations.
-	* Analyse this information and use it to update your current reality. View events, filtered through your own experiences and perceptions.
+* **Orient**: Using your past experience to make sense of these observations.
+	* Analyse the observed information and use it to update your current reality. View events, filtered through your own experiences and perceptions.
 * **Decide**: Deciding on a response, because their might be multiple alternative solutions.
-	* Determine a course of actions
+	* Determine a course of actions.
 * **Act**: Execute the selected decision.
 	* Follow through on your decision.
 
 This is not a linear process. 
 This process benefits from **continuous feedback loops**.
 Feedback loops imply that certain decisions may lead to new observations etc.
-The OODA process can be used as a means of getting to an architectural description.
-Consequently, significant decisions will become part of the architectural description.
+The OODA process can be used as a means of creating an architectural description.
+Consequently, significant decisions will become part of it.
 Since the creation of (significant parts of the) the architectural description, starts with _(runtime)_ observations, capturing data and measuring stakeholder value will help to achieve better observations of the system.
