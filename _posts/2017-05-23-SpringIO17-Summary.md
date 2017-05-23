@@ -190,3 +190,89 @@ public Function<Flux<String>, Flux<String>> uppercase() {
   - CORS config mechanism
   - improved headers
   - improved media type support
+
+# The future of event driven microservices with spring cloud stream
+
+### by [Kenny Bastani](https://twitter.com/kennybastani)
+
+## Evolution
+
+### Monolith application
+* Slows our velocity getting into production
+* Not as easy to add new engineers to a project
+* To large for any one person to fully comprehend
+
+### Monolith organization
+* Centralized authority for operations, database and change management slows progress
+* Coordinated releases batch many changes together from different teams
+* Operations drives the runtime environment of applications
+* Operations take all operation responsibility including upgrades of virtual machines
+* Deploy everything at once or nothing at all
+
+### Move towards SOA
+Independent services: 
+Key problem => shared libraries
+
+### Microservices
+Small teams organized around business capabilities with responsibility of running
+Use rest api to communicates
+Developers can choose tools
+
+### Is it a Monolith or Microservice? 
+If it takes longer than a day for an engineer to ramp up its probably a monolith
+
+Antipattern to have frontend communicate directly to microservices
+Instead use edge service 
+
+## Splitting the monolith
+-> Slice off (hard in practice) service migration
+
+### Why we need event-driven microservices
+Problems:
+* No foreign key constraints between services
+* Distributed transactions are brittle
+* Distributed systems are hard
+
+Without event-driven microservices
+
+    You will drown in problems you didn't know that existed!
+    
+### Event-driven microservices
+Domain events as a first class citizen 
+
+(based on eventuate from Chris..)
+
+* Use domain events for audit trails
+* Each domain events contains subject and imutable data
+* Every domain event applies a state transition to aggregate
+* Event handler generate commands, commands generate events
+...
+* Regenerate state of aggregate by processing events 
+
+Terminal state -> eventual consistency (order failed or succeeded)
+
+Build hypermedia api's that attach:
+* Event logs 
+* Commands 
+* Commits
+as a link to an aggregate
+
+### Event Handlers
+Subscribe to an event an apply state changes to an aggregate.
+...
+
+CQRS is used to create materialized views from streams of events
+
+Command side
+Update Status
+
+Query side
+
+
+Command service writes events into kafka event store
+Event processor loads events from store and update data store (mysql) 
+Query side reads from the data stores
+
+Serverless event handlers
+
+---
