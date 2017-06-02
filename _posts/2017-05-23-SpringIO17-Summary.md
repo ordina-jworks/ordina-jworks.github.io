@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [dieter_hubau]
+authors: [dieter_hubau, gina_de_beukelaer]
 title: 'Spring I/O 2017 Recap'
 image: /img/springio2017.jpg
 tags: [Spring, IO, Pivotal, Google, Spring Boot, Java, Reactive, Reactor]
@@ -276,3 +276,101 @@ Query side reads from the data stores
 Serverless event handlers
 
 ---
+
+# Spring Auto REST Docs
+### by [Florian Benz](https://twitter.com/flbenz)
+
+Spring Auto REST Docs is an extension on Spring REST Docs (our post on Spring REST Docs can be found [here](https://ordina-jworks.github.io/conference/2016/06/30/SpringIO16-Spring-Rest-Docs.html)).
+This extension helps you to write even less code by including your Javadoc into the Spring REST Docs. 
+
+#### Small usage example
+
+_For a more detailed overview on what is possible and how to start using this extension, please visit the official documentation [here](https://scacap.github.io/spring-auto-restdocs/)._
+
+Imagine you have the following method in your controller:
+```Java
+@RequestMapping("users")
+public Page<ItemResponse> searchItem(@RequestParam("page") Integer page, @RequestParam("per_page") Integer per_page) { ... }
+```
+
+With the following POJO:
+```Java
+public class User {
+    private String username;
+    private String firstName;
+    private String lastName;
+    
+    ...
+}
+```
+
+And the test that generates Spring REST Docs:
+```Java
+this.mockMvc.perform(get("/users?page=2&per_page=100")) 
+	.andExpect(status().isOk())
+	.andDo(document("users", 
+    requestParameters( 
+        parameterWithName("page").description("The page to retrieve"), 
+        parameterWithName("per_page").description("Entries per page") 
+    ),
+    responseFields(
+            fieldWithPath("username").description("The user's unique database identifier."),
+            fieldWithPath("firstName").description("The user's first name."),
+            fieldWithPath("lastName").description("The user's last name."),
+    )));
+```
+
+##### Now using Spring Auto REST Docs, this could be replaced by 
+
+Adding Javadoc to the method in the controller:
+```Java
+/**
+ * @param page The page to retrieve
+ * @param per_page Entries per page
+ */
+@RequestMapping("users")
+public Page<ItemResponse> searchItem(@RequestParam("page") Integer page, @RequestParam("per_page") Integer per_page) { ... }
+```
+
+And adding Javadoc to the POJO fields:
+```Java
+public class User {
+    /**
+    * The user's unique database identifier.
+    */
+    @NotBlank
+    private String username;
+    
+    /**
+    * The user's first name.
+    */
+    @Size(max = 20)
+    private String firstName;
+    
+    /**
+    * The user's last name.
+    */
+    @Size(max = 50)
+    private String lastName;
+    
+    ...
+}
+```
+
+And then removing the requestParameters and responseFields from the test:
+```Java
+this.mockMvc.perform(get("/users?page=2&per_page=100")) 
+	.andExpect(status().isOk());
+```
+
+You notice that I added the annotations @NotBlank and @Size in the POJO, these annotations will also be reflected in the resulting documentation. You could also create your own annotations.
+
+Result:
+
+Path | Type | Optional | Description
+-----|-----|-----|-----
+username|String|false|The user's unique database identifier.
+firstName|String|true|The user's first name. Size must be between 0 and 20 inclusive.
+lastName|String|true|The user's last name. Size must be between 0 and 50 inclusive.
+
+Because the description of the POJO is now added on field level, it is guaranteed that this description will be the same everywhere this field is used => less maintenance.
