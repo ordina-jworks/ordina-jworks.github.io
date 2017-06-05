@@ -275,6 +275,132 @@ Query side reads from the data stores
 
 Serverless event handlers
 
+# New in Spring 5: Functional Web Framework
+
+### by [Arjen Poutsma](https://twitter.com/poutsma)
+
+In the keynote Andy Wilkinson and Stéphane Nicoll mentioned that the Spring framework and especially Spring boot is all about providing choices to developers.
+The framework provides us with tools to tackle problems in multiple ways. 
+In the light of this, starting from Spring 5 there will be a new functional alternative to handle incoming web requests.
+
+This new functional web framework is an alternative to annotation driven approach that is broadly applied in current applications.
+Arjen Poutsma states that some people are not happy with magic that happens behind the scenes when you use annotations like @RequestMapping or the newer @GetMapping.
+This was one of the reasons that made Spring develop this new framework.
+
+In the next sections we show a quick introduction to what was shown at Spring IO about what this new framework has to offer.
+
+#### Handler function example
+
+The following UserHandler class is the replacement of the Controller class that we would have annotated in the regular web framework. 
+In this new functional style the way we handle requests is a bit different.
+We define functions that have a ServerRequest as parameter and we return a Mono with a ServerResponse.
+
+The request contains all the information we need.
+It contains the body of the request, pathvariables, request headers, ...
+So no more injecting pathvariables and body objects, we have everything we need in this ServerRequest.
+
+What we return is the ServerResponse in which we can easily put all the information we want to give back to the client.
+And Spring provides us with an easy builder to create such a response as it already did with the ResponseEntity builder.
+
+You can see that these new objects and builders provide us with an easy and declarative way to handle request and create responses, without the "magic" that we used previously with the annotations.
+```Java
+public class UserHandler {
+
+    public UserHandler(UserRepository repository) {
+        this.repository = repository;
+    }
+    
+    public Mono<ServerResponse> getUser(ServerRequest request) {
+        int userId = Integer.valueOf(request.pathVariable("id"));
+        Mono<ServerResponse> notFound = ServerResponse.notFound().build();
+        Mono<User> userMono = this.repository.getUser(personId);
+        
+        return userMono
+                .flatMap(user -> ServerResponse.ok().contentType(APPLICATION_JSON).body(fromObject(user)))
+                .switchIfEmpty(notFound);
+    }
+    
+    public Mono<ServerResponse> createUser(ServerRequest request) {
+        Mono<User> user = request.bodyToMono(User.class);
+        return ServerResponse.ok().build(this.repository.saveUser(user));
+    }
+    
+    public Mono<ServerResponse> listUsers(ServerRequest request) {
+        Flux<User> people = this.repository.allUsers();
+        return ServerResponse.ok().contentType(APPLICATION_JSON).body(users, User.class);
+    }
+}
+```
+
+Now we have defined how we want to handle request and how we translate it to a response.
+What we need next is a way to say which requests will be handled by which handler function.
+
+In the old way this was done by defining an annotation that defined some parameters to couple for example a path to a method.
+The functional web framework does this by creating RouterFunctions.
+
+This RouterFunction is a function that takes a ServerRequest and returns a `Mono<HandlerFunction>`. 
+To choose which requests get handled by which HandlerFunction Spring again provides us with some builder functions.
+
+That way we can easily bind the handlers we just created with a path as shown in the next code example.
+
+#### Router example
+
+
+```Java
+public RouterFunction<ServerResponse> routingFunction() {
+    PersonHandler handler = new PersonHandler(userRepository);
+    
+    return nest(path("/person"),
+            nest(accept(APPLICATION_JSON),
+                    route(GET("/{id}"), handler::getPerson)
+                    .andRoute(method(HttpMethod.GET), handler::listPeople)
+            ).andRoute(POST("/").and(contentType(APPLICATION_JSON)), handler::createPerson));
+}
+```
+
+#### Create tomcat server
+
+Now that we have declared which routes are handled by which functions we have to let our server know this.
+In the next code example we show how to create a Tomcat server and how to bind the RouterFunction to our server.
+
+```Java
+public void startTomcatServer() throws LifecycleException {
+    RouterFunction<?> route = routingFunction();
+    HttpHandler httpHandler = toHttpHandler(route);
+    
+    Tomcat tomcatServer = new Tomcat();
+    tomcatServer.setHostname(HOST);
+    tomcatServer.setPort(PORT);
+    Context rootContext = tomcatServer.addContext("", System.getProperty("java.io.tmpdir"));
+    ServletHttpHandlerAdapter servlet = new ServletHttpHandlerAdapter(httpHandler);
+    Tomcat.addServlet(rootContext, "httpHandlerServlet", servlet);
+    rootContext.addServletMapping("/", "httpHandlerServlet");
+    tomcatServer.start();
+}
+```
+
+And then in the main method we only have to start our Tomcat server and we're up and running.
+
+```Java
+public static void main(String[] args) throws Exception {
+    Server server = new Server();
+    server.startTomcatServer();
+}
+```
+
+### Conclusion
+The new functional web framework gives us a more declarative and functional way to create a server and handle web requests. 
+In my opinion this code is a lot clearer because you have a direct link between routing and handling requests.
+
+This code may also be easer to test than the annotation driven web request handling because we don't necessarily need to fire up our spring context to test the routing.
+We can just create a unit test for our RouterFunction and verify our routes are correct. 
+
+What I do still wonder about is how this integrates with Spring security.
+How can we define which users can access which handler.
+Do we still do this with annotations or will we get a new way to do this as well?
+
+The Spring functional web framework is an interesting new development and we will be following it closely to see how we can use it in our new projects.
+
 ---
 
 # Spring Auto REST Docs
