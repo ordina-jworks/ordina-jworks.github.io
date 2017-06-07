@@ -9,19 +9,28 @@ comments: true
 ---
 
 
-> When I was at Spring IO back in May, I was intrigued by a presentation given by Jeroen Sterkens. 
+> When I was at Spring IO back in May, I was intrigued by a presentation given by Jeroen Sterken. 
 There he talked about the Spring Ecosystem in 50 minutes. 
-As only having 50 minutes, he could not focus on all the projects and I wanted to get a feel what Pivotal Software has to offer in all its glory by getting to know all the main projects.
+As only having 50 minutes, he could not focus on all the projects and I wanted to get a feel what The Spring Team has to offer in all its glory by getting to know all the main projects.
 
 <span class="image left small"><img class="p-image" alt="Jeroen Sterken" src="/img/spring-ecosystem/jeroen-sterken.jpg"></span>
 
-Jeroen Sterken ([@jeroensterken](https://twitter.com/jeroensterken)) is a Java and Spring consultant from Belgium. He's a certified Spring instructor. He currently works at Faros Belgium. His slides of his talk _The Spring Ecosystem in 50 minutes_ can be found [here](https://www.slideshare.net/JeroenSterken1/the-spring-ecosystem-in-50-min).
+Jeroen Sterken ([@jeroensterken](https://twitter.com/jeroensterken)) is a Java and Spring consultant from Belgium. He's a certified Spring instructor and currently employed at Faros Belgium. His slides of his talk _The Spring Ecosystem in 50 minutes_ can be found [here](https://www.slideshare.net/JeroenSterken1/the-spring-ecosystem-in-50-min).
 
 # The Spring Ecosystem
 
 There are many ways to divide the Spring Portfolio. 
 One way is a more architectural way, but Jeroen divided the Spring Ecosystem in three categories: [Classic](#classic), [popular](#popular) and [other](#other).
 
+Before we dive into the Spring ecosystem, let's take a look at our own JWorks unit and see which main Spring projects have been used by JWorks over the past two years. Here's the JWorks top 10, beside the Spring Framework. 
+<div class="row" style="margin: 0 auto 2.5rem auto;">
+<div class="col-md-offset-3 col-md-6">
+{% include image.html img="/img/spring-ecosystem/spring-top-10.png" alt="JWorks Top 10 projects" title="JWorks Top 10 projects"%}
+</div>
+</div>
+
+Spring Boot is currently at the top. The popular projects missing from this are Spring Session, Spring Social and Spring Cloud Data Flow.
+But what's even more interesting is the Spring projects that haven't been used in the last two years: Spring Mobile, Spring for Android, Spring Kafka, Spring Statemachine, Spring Shell, Spring Flo and Spring XD.
 
 # Classic
 
@@ -43,7 +52,7 @@ It provides key components for dependency injection, web apps, transaction manag
 Just add the modules you need and start programming. 
 In the fifth version, the focus lays upon reactive programming with reactive streams, but also other features and revisions like support for JUnit 5. 
 Spring 5 will require at least JDK 8 but will be built upon JDK9. 
-A release is planned after the release of Java 9.
+A release is planned after the release of Java 9 which is currently September 21st, after several delays.
 
 ## Spring IO Platform
 
@@ -61,11 +70,11 @@ The platform supports JDK 7 and 8 and is still being updated frequently.
 
 <span class="image left small"><img class="p-image" alt="Spring Security" src="/img/spring-ecosystem/spring-security.png"></span>
 
-Nowadays you can't look anywhere or you read about problems of security failures and the importance of privacy. 
-Spring Security will provide your application with authentication and authorisation. 
-It will also protect your application against a hand full of possible attacks. 
-Spring Security supports a lot of popular authentication protocols and services like OpenID, LDAP, HTTP, … and support is extended through the available third party modules. 
-The fifth version of Spring Security will add OAuth 2.0.
+Nowadays you can't look anywhere without reading about problems of security failures and the importance of privacy. 
+Spring Security provides your application with authentication and authorisation. 
+It will also protect your application against a handful of possible attacks. 
+Spring Security supports many popular authentication protocols and services like OpenID, LDAP, HTTP, … and support is extended through the available third party modules. 
+The fifth version of Spring Security will add OAuth 2.0 support.
 
 ## Spring LDAP
 
@@ -100,10 +109,10 @@ But also supports a transaction manager, job processing statistics, job status c
 
 <span class="image left small"><img class="p-image" alt="Spring Web Flow" src="/img/spring-ecosystem/spring-web-flow.png"></span>
 
-The Spring Web Flow is created to help users to navigate through the different views of a stateful web application. 
+The Spring Web Flow was created to help users navigate through the different views of a stateful web application. 
 A common example could be when shopping online. 
 The process has a clear starting and finishing view, but in between it can change state or views dynamically. 
-Through guided navigations, the user makes changes and it should register those changes as well as a possibility to finalise those change through a confirmation. 
+Through guided navigations, the user makes changes and it should register those changes as well as a possibility to finalise those changes through a confirmation. 
 All this is possible with Spring Web Flow. 
 Although this project is listed with the main projects, there hasn't been any progress over the last years.
 
@@ -114,6 +123,7 @@ Although this project is listed with the main projects, there hasn't been any pr
 There are several ways to develop a web service, and one of which is used in combination with SOAP. 
 Spring Web Services helps with creating contract-first SOAP web services which are flexible by manipulating the XML contents. 
 But due to the popularity of the architectural style of REST, the interest in SOAP has diminished and that is noticeable in the maintenance of this Spring project which hasn't had any significant version updates. 
+Version 2.4.0 was released on August 26th 2016 and only brought some CI jobs that are built for every commit for Spring 4.2, 4.3, and 5.0.
 
 # Popular
 
@@ -137,15 +147,15 @@ A modern application might look like this:
 
 <span class="image left small"><img class="p-image" alt="Spring Boot" src="/img/spring-ecosystem/spring-boot.png"></span>
 
-Being built upon the Spring Framework, the popular Spring Boot provides an easy to use way for creating stand-alone Spring applications without code generation and configuration of XML files. 
-If you want to get started quickly without to much hassle, Spring Boot is the way to go by adding the modules you need. 
-Spring beans are not needed to be defined in XML, but are mostly automatically being configured by Spring Boot. 
-There's also so no need to find and configure libraries for your specific Spring version, Spring Boot tries to do that for you. 
+Being built upon the Spring Framework, the popular Spring Boot project provides an easy to use way for creating stand-alone Spring applications without code generation and configuration of XML files. 
+If you want to get started quickly without too much hassle, Spring Boot is the way to go by adding the dependencies you need. 
+Spring Beans don't need to be defined in XML or Java, but are mostly configured automatically by Spring Boot. 
+This way, there is no need to find and configure libraries for your specific Spring version, Spring Boot tries to do that for you.
 But if you wish, you can finetune it to your own needs by adding the library to the classpath of the application. 
-When you want to deploy your Spring Boot application there's no need to Web Application Archive file due to an embedded servers like Jetty, Tomcat and Undertow. 
+When you want to deploy your Spring Boot application, there's no need to build a WAR file, since you can build self-contained JAR files with an embedded servlet container such as Jetty, Tomcat and Undertow.
 Spring Boot also features a command line tool for quick prototyping with Spring. 
 The easiest way to get started with Spring Boot is to go to the [Spring Initialiser](https://start.spring.io/) and add the dependencies to the project. 
-Pivotal Software is maintaining the Spring Boot project regularly and is becoming one of the popular Spring projects on the rise.
+The Spring Team is maintaining the Spring Boot project regularly and is becoming one of the popular Spring projects on the rise.
 
 ## Spring Cloud
 
@@ -153,7 +163,7 @@ Pivotal Software is maintaining the Spring Boot project regularly and is becomin
 
 An umbrella project which lets you build distributed systems by implementing many best practice patterns. 
 Spring Cloud consists of many subprojects. 
-With the use of Spring Cloud Config Server you can set-up a server with a repository, like Git, as its data store and view the changes made in the configuration. 
+With the use of Spring Cloud Config Server you can setup a server with a repository, like Git, as its data store and view the changes made in the configuration. 
 You can easily integrate this with Amazon Web Services or Cloud Foundry, through their related subprojects. 
 And of course with a cloud service there's often a lot of security involved which is provided by the Spring Cloud Security. 
 Spring Cloud Security is build upon OAuth2 and Spring Boot which provides single sign-on, token relay and token exchange. 
@@ -165,7 +175,7 @@ The full list of subprojects are available [here](https://cloud.spring.io/spring
 
 Spring Cloud Data Flow used to be know as Spring XD and is part of Spring Cloud. 
 It's an updated and revised toolkit for cloud-native message-driven microservices. 
-The change was made by Pivotal Software after their experience with Spring Boot. 
+The change was made by The Spring Team after their experience with Spring Boot. 
 Spring Cloud Data Flow is suitable for processing, analyzing and predicting data. 
 Through streaming it can consume data from an HTTP endpoint and writes the payloads to a database of your choice. 
 It also manages to scale the data pipelines to your liking without any interruptions. 
@@ -196,21 +206,24 @@ HATEOAS requires that the RESTful service methods  GET, POST, PUT, and DELETE or
 Spring Security will also help with the relational link creation.
 
 
-## Spring Rest Docs 
+## Spring REST Docs 
 
 <span class="image right small"><img class="p-image" alt="Spring REST Docs" src="/img/spring-ecosystem/spring-rest-docs.png"></span>
 
 When you develop a RESTful service, you'll probably want to document it so it's easy for other developers to implement your API. 
 Spring REST Docs helps you with the documentation process to make it more accurate and readable. 
-It does this by using Asciidoctor which processes text into HTML. 
+It does this by running integration tests, which generates snippets when those tests succeed. Those snippets can be included in Asciidoctor templates, which are then converted to HTML output.
 Alternatively it can be configured to use Markdown. 
-There are also option for you to customize the layout of the documentation.
+The advantage here is that the documentation is always up-to-date with your code, since the integration tests will fail otherwise.
+There are also options for you to customize the layout of the documentation.
+A more in-depth look at Spring REST Docs was presented at Spring IO 2016 by JWorks colleague Andreas Evers: [_Writing Comprehensive and Guaranteed Up-to-date REST API Documentation_](https://speakerdeck.com/andreasevers/writing-comprehensive-and-guaranteed-up-to-date-rest-api-documentation-springone-platform-2016).
+
 
 ## Spring Social
 
 <span class="image left small"><img class="p-image" alt="Spring Scoial" src="/img/spring-ecosystem/spring-social.png"></span>
 
-Spring Social gives you access to connect your application with Facebook, Twitter and LinkedIn. 
+Spring Social lets you connect your application with Facebook, Twitter and LinkedIn. 
 But through its many community projects it's possible to connect to dozens other like Google, Instagram, Pinterest, … 
 The full list is of supported third-party APIs is available [here](http://projects.spring.io/spring-social)
 
@@ -218,15 +231,17 @@ The full list is of supported third-party APIs is available [here](http://projec
 
 <span class="image right small"><img class="p-image" alt="Spring Session" src="/img/spring-ecosystem/spring-session.png"></span>
 
-When a user uses your application, you might want to consider their session, that is where Spring Session comes in. 
+When someone uses your web application, they will be using an HTTP session underneath. 
+Spring Session allows you to manage those sessions separately, outside of the servlet container.
 It supports multiple sessions at once and even can send the sessions in the header. 
 Spring sessions can be used and not be specifically tied to any container. 
-Although sounding very interesting with popular use, the project hasn't had any major changes over the past year.
+Although the project is quite popular and has very interesting features, the project hasn't had any major changes over the past year.
 
 
 # Other
 
-These projects are mainly focused on one specific (niche) part of an application. Some wil help you with the development of specific front-end applications, while others will help you implement specific patterns.
+These projects are mainly focused on one specific (niche) part of an application. 
+Some wil help you with the development of specific front-end applications, while others will help you implement specific patterns.
 
 <div class="row" style="margin: 0 auto 2.5rem auto;">
 <div class="col-md-offset-3 col-md-6">
@@ -248,7 +263,7 @@ In the upcoming second version of Spring AMQP it uses version 4.0.x version of t
 
 <span class="image right small"><img class="p-image" alt="Spring Mobile" src="/img/spring-ecosystem/spring-mobile.png"></span>
 
-Spring Mobile is Pivotals try at making it easier to develop mobile web applications with the use of Spring MVC. 
+Spring Mobile is The Spring Team's attempt at making it easier to develop mobile web applications with the use of Spring MVC. 
 Spring Mobile implements a way of detecting the type of the device used to view the url and tries to adjust its view accordingly.
 Unfortunately the project isn't that well maintained as significant updates are several years ago.
 
@@ -256,7 +271,7 @@ Unfortunately the project isn't that well maintained as significant updates are 
 
 <span class="image left small"><img class="p-image" alt="Spring for Android" src="/img/spring-ecosystem/spring-for-android.png"></span>
 
-Another project that currently isn't much updated is Spring for Android.
+Another project without any recent updates is Spring for Android
 Spring for Android brings some of the key benefits of using Spring to Google's mobile operating system, Android. 
 It has a REST API client for Android with authentication support. 
 For your social media authentication, you can use Spring Social in conjunction with Spring for Android. 
@@ -266,7 +281,7 @@ But there's no use of Spring's dependency injection, transaction manager or othe
 
 <span class="image right small"><img class="p-image" alt="Spring Shell" src="/img/spring-ecosystem/spring-shell.png"></span>
 
-Pivotal Software provided a way for building command-line applications. 
+The Spring Team provided a way for building command-line applications. 
 Through the use of Spring you could build a full-features shell application with your very own commands or just use the default commands that are already implemented. 
 Or get access to an exposed REST API. 
 The Spring Shell hasn't been updated with new functionality in more than 3 years.
@@ -315,4 +330,4 @@ It is focused on using the new Spring projects, like Spring Boot and Spring Data
 
 When developing applications in Scala, you can make use of Spring through Spring Scala, a community project. 
 This brings a lot of Spring technologies to the Scala programming language.
-This is one of the two presented community projects by Pivotal Software on their main project page, the other one being Spring Roo.
+This is one of the two presented community projects by The Spring Team on their main project page, the other one being Spring Roo.
