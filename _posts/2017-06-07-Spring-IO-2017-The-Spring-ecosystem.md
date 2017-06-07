@@ -50,15 +50,16 @@ Or where the Spring IO platform will show you the insights in its development.
 The framework that started it all and currently its fifth revision is in the works. 
 It provides key components for dependency injection, web apps, transaction management, testing, messaging, model-view-controller, remote access, data access and plenty more. 
 Just add the modules you need and start programming. 
-In the fifth version, the focus lays upon reactive programming with reactive streams, but also other features and revisions like support for JUnit 5. 
-Spring 5 will require at least JDK 8 but will be built upon JDK9. 
+In the fifth version, the focus lays on reactive programming with reactive streams, but also other features and revisions like support for JUnit 5. 
+Spring 5 will require at least JDK 8 but will be built on JDK9. 
 A release is planned after the release of Java 9 which is currently September 21st, after several delays.
+Spring 5 will be released at the end of the year, even if Java 9 is not released.
 
 ## Spring IO Platform
 
 <span class="image right small"><img class="p-image" alt="Spring IO Platform" src="/img/spring-ecosystem/spring-io-platform.png"></span>
 
-The Spring IO Platform is build upon Spring Boot and is mainly used in combination with a dependency management system. 
+The Spring IO Platform is build on Spring Boot and is mainly used in combination with a dependency management system. 
 It provides dependencies that just work. 
 It's basically a library on the classpath of your application which gives developers production-ready features. 
 It does this by providing a bill-of-material Maven artifact. 
@@ -147,7 +148,7 @@ A modern application might look like this:
 
 <span class="image left small"><img class="p-image" alt="Spring Boot" src="/img/spring-ecosystem/spring-boot.png"></span>
 
-Being built upon the Spring Framework, the popular Spring Boot project provides an easy to use way for creating stand-alone Spring applications without code generation and configuration of XML files. 
+Being built onto the Spring Framework, the popular Spring Boot project provides an easy to use way for creating stand-alone Spring applications without code generation and configuration of XML files. 
 If you want to get started quickly without too much hassle, Spring Boot is the way to go by adding the dependencies you need. 
 Spring Beans don't need to be defined in XML or Java, but are mostly configured automatically by Spring Boot. 
 This way, there is no need to find and configure libraries for your specific Spring version, Spring Boot tries to do that for you.
@@ -166,7 +167,7 @@ Spring Cloud consists of many subprojects.
 With the use of Spring Cloud Config Server you can setup a server with a repository, like Git, as its data store and view the changes made in the configuration. 
 You can easily integrate this with Amazon Web Services or Cloud Foundry, through their related subprojects. 
 And of course with a cloud service there's often a lot of security involved which is provided by the Spring Cloud Security. 
-Spring Cloud Security is build upon OAuth2 and Spring Boot which provides single sign-on, token relay and token exchange. 
+Spring Cloud Security is build on OAuth2 and Spring Boot which provides single sign-on, token relay and token exchange. 
 The full list of subprojects are available [here](https://cloud.spring.io/spring-cloud-aws).
 
 ## Spring Cloud Data Flow
