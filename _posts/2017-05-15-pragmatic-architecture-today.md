@@ -26,7 +26,7 @@ Intro
 
 Architecture exists, because we want to create a **system**. 
 A system is the combination of all the different components that together define an application.
-These components can be loosely coupled, eg. using Microservices; it can be a monolithic application or any other combination of runtime components that fullfill certain business needs.
+These components can be loosely coupled, eg. using Microservices; it can be a monolithic application or any other combination of runtime components that fulfill certain business needs.
 This is a different scope than a system of systems.
 That would be the goal of Enterprise Architecture where the focus is on the strategic vision of an enterprise.
 
@@ -37,7 +37,7 @@ I believe, sharing a crystal-clear vision with these stakeholders and getting bu
 Every system has an architecture, even when it's not formally defined. 
 The architecture of a system is typically described in an **Architectural Description**.
 The architectural description documents the system for the stakeholders and needs to make architectural decisions **explicit**.
-The goal of the architectural description is to help in understandig how the system will behave.
+The goal of the architectural description is to help in understanding how the system will behave.
 
 <p style="text-align: center;">
   <img class="image fit" alt="Views and Perspecives" src="/img/prag-arch/views-and-perspectives.png">
@@ -75,8 +75,8 @@ Sometimes perspectives are also called quality properties or non-functional requ
 * Usability
 
 Again, summaries are available on the website of the book.
-If you want a more in-depth explanation, I really recommened reading the book.
-In todays, agile world, I believe the **Evolution perspective** is a key differentiator in any architectural description.
+If you want a more in-depth explanation, I really recommend reading the book.
+In today's, agile world, I believe the **Evolution perspective** is a key differentiator in any architectural description.
 Generally, perspectives shape the architecture and deserve the necessary attention.
 
 ### Example
@@ -86,30 +86,30 @@ Generally, perspectives shape the architecture and deserve the necessary attenti
 </p>
 
 This is the 2017 Mercedes F1 W08 Hybrid. 
-It weights 702kg and has between 750 and 850 horse power. 
+It weights 702kg and has between 750 and 850 horsepower. 
 It is made out of approximately 80 000 different components. 
 The price of the car is an estimated 10 million Eur. 
-That’s just for the car, not for the R &amp; D that made the car possible.
+That’s just for the car, not for the R&amp;D that made the car possible.
 
 Looking back at the viewpoints from above, it is easy to identify how these relate to the construction of the car:
 
-* A Formule One car needs a very specific factory (_Development View_).
+* A Formula One car needs a very specific factory (_Development View_).
 It's not built in the same factory Mercedes builds its trucks.
-* The cars need to be transported all around the world (all the Formule One cars travel over 100 000 miles in the air).
+* The cars need to be transported all around the world (all the Formula One cars travel over 100 000 miles in the air).
 This can be documented in the _Deployment view_.
-* Maintaining a Formule One car during a race has a huge operational cost and requires a lot of coordination (_Operational View_).
+* Maintaining a Formula One car during a race has a huge operational cost and requires a lot of coordination (_Operational View_).
 Just count the number of engineers during a pitstop.
 * ...
 
-In the 2015 and 2016, the predecessors of this car won the Formule One World Championship.
+In the 2015 and 2016, the predecessors of this car won the Formula One World Championship.
 At the moment of writing, the 2017 car is also leading the championship.
-This pattern is quite common in Formule One.
+This pattern is quite common in Formula One.
 The older cars however, are currently up for display in a museum.
 They are rarely used anymore.
 This _throw-away_ approach can also be noticed when comparing to other industries like smartphones or smartwatches.
 A lot of the success of the car, must be its architecture then.
-More specifically, its **ability to change**: to adopt to new rules, competitors and market change.
-If the architecture of a system, has the ability to change, it immediately has a competitive advange.
+More specifically, its **ability to change**: to adapt to new rules, competitors and market change.
+If the architecture of a system, has the ability to change, it immediately has a competitive advantage.
 This is especially true in agile projects.
 
 > [Grady Booch](https://nl.wikipedia.org/wiki/Grady_Booch)
@@ -128,7 +128,7 @@ Nowadays loosely coupled, replaceable services are favoured.
   <img class="image fit" alt="System Integrity" src="/img/prag-arch/engine.png">
 </p>
 
-When creating a 10 million Eur car, many teams (with different responsibilies) are involved.
+When creating a 10 million Eur car, many teams (with different responsibilities) are involved.
 The people who design the engine are different from the people who design the brakes.
 Creating the best engine, creating the best brakes, ... does not imply you will have the best car.
 Everything needs to work together.
@@ -145,7 +145,7 @@ To ensure system integrity, the software architect needs to be part of the proje
 He must make sure he enables the right people to collaborate on the system architecture.
 Being part of the team does not mean not taking **responsibility**.
 It's great to give **ownership** to members of the team, but in the end the architect needs to stay accountable.
-When collaborating, an architect should not enforce all technnical decisions.
+When collaborating, an architect should not enforce all technical decisions.
 Part of working as a team, is accepting to be challenged and embracing this challenge.
 When team members have spirited discussions, it shows they are passionate enough about their craft to care.
 Disagreeing and discussing alternatives is a great way to come to a better solution and to learn from each other.
@@ -218,7 +218,7 @@ This means thinking about the big picture:
 But what does _just enough_ mean?
 Just enough depends on a lot of variables like budget, scope, team, ... 
 The approach will also be different for greenfield projects or for existing projects.
-When you are working on a **greenfield project**, it's important tot start with a **high-level view** of all components in the application.
+When you are working on a **greenfield project**, it's important to start with a **high-level view** of all components in the application.
 These components are all the pieces necessary for a system to operate.
 Other components and details can be added later.
 Working with **existing systems** benefits from a slightly different approach, where you can start with an accurate high-level diagram of the **current** architecture of the existing application.
@@ -239,7 +239,7 @@ The architecture of a system will have a large impact on the implementation, del
 Systems generally consist of multiple parts and it's the responsibility of the architect to focus on system integrity, creating a system that has a built-in ability to respond to change.
 When the system lacks integrity, it will rapidly become _a system nobody wants to touch_.
 Unfortunately many enterprises have this fear of change embedded in their culture and it will take strategy and sound people skills to prevent this from happening.
-Influence Maps (TODO LINK) present an interesting way to map  relationships between people and to visualise who influences who, in an enterprise.
+Influence Maps present an interesting way to map  relationships between people and to visualise who influences who, in an enterprise.
 Being aware of these relationships might be a game-changer.
 
 # How?
@@ -248,9 +248,8 @@ Being aware of these relationships might be a game-changer.
   <img class="image fit" alt="How" src="/img/prag-arch/how.png">
 </p>
 
-One way of creating an architectural description is the _Deming Cycle_ (TODO LINK), better known as **OODA**: Observe, Orient, Decide, Act.
-OODA can be compared with PDCA (TODO LINK) or with Discovery Activities (TODO LINK).
-TODO: Checking Deming - PDCA - OODA
+One way of creating an architectural description is **OODA**: Observe, Orient, Decide, Act.
+OODA can be compared with PDCA, also known as the [_Deming Cycle_](https://www.isixsigma.com/dictionary/deming-cycle-pdca/) or with Discovery Activities.
 
 <p style="text-align: center;">
   <img class="image fit" alt="OODA" src="/img/prag-arch/ooda.png">
@@ -258,7 +257,7 @@ TODO: Checking Deming - PDCA - OODA
 
 Any architectural model introduces abstraction and removes noise.
 This model should be well-understood and feedback loops can help with this.
-As an examply, comparing a written down version with bullet points of a certain idea, will help in verifying that the message hasn't changed.
+As an example, comparing a written down version with bullet points of a certain idea, will help in verifying that the message hasn't changed.
 This insight should be mapped on the model.
 
 * **Observe**: Observing both external and internal circumstances or dependencies of your systems.
