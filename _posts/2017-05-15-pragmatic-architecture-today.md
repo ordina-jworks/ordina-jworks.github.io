@@ -8,7 +8,12 @@ category: Architecture
 comments: true
 ---
 
-Intro
+Software development has evolved. 
+Agile is now the de facto standard. 
+The role of an architect in an agile project is very different than the typical role in a more classic waterfall approach. 
+This article presents an updated interpretation of _viewpoints and perspectives_ and will demonstrate how to make rapid, agile delivery sustainable in a constantly changing world. 
+These viewpoints and perspectives can be linked to easy-to-produce models that can be used immediately. 
+A good agile architect needs to strive for consensus and buy-in.
 
 ### Topics
 
@@ -20,8 +25,8 @@ Intro
 
 # What?
 
-<p style="text-align: center;">
-  <img class="image fit" alt="What" src="/img/prag-arch/what.png">
+<p style="text-align: center;"
+>  <img class="image fit" alt="What" src="/img/prag-arch/what.png">
 </p>
 
 Architecture exists, because we want to create a **system**. 
@@ -44,7 +49,7 @@ The goal of the architectural description is to help in understanding how the sy
 </p>
 
 Following the approach in the book [Software Systems Architecture](http://www.viewpoints-and-perspectives.info/) by [Nick Rozanski](https://twitter.com/nickrozanski) and [Eoin Woods](https://twitter.com/eoinwoodz) an architectural description is composed of a number views.
-These views describe what it is architecturally significant: info that is worth writing down because the system can not be successful without it or because stakeholders say it's significant.
+These _views_ describe what it is architecturally significant: info that is worth writing down because the system can not be successful without it or because stakeholders say it's significant.
 Deciding what to put in these views, means making decisions.
 Woods and Rozanski identified the following viewpoints:
 
