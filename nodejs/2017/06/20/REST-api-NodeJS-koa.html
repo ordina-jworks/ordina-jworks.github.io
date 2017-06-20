@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+        
+
+        <!-- Twitter Card data -->
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Creating a REST API with NodeJS, TypeScript and Koa. - Ivar van Hartingsveldt">
+        <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+        <meta name="twitter:image" content="http://ordina-jworks.github.io/img/nodejs-typescript-koa/koa-logo.png"/>
+
+        <!-- Facebook Open Graph -->
+        <meta property="og:url" content="http://ordina-jworks.github.io/nodejs/2017/06/20/REST-api-NodeJS-koa.html"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Creating a REST API with NodeJS, TypeScript and Koa. - Ivar van Hartingsveldt"/>
+        <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+        <meta property="og:image" content="http://ordina-jworks.github.io/img/nodejs-typescript-koa/koa-logo.png"/>
+    
+
+    
+    <title>Creating a REST API with NodeJS, TypeScript and Koa. - Ivar van Hartingsveldt &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Creating a REST API with NodeJS, TypeScript and Koa.</h2>
+                
+
+                
+                    Posted Jun 20, 2017
+
+
+    in <a href="/categories/nodejs/">NodeJS</a>
+
+
+
+    by
+    
+        <a href="/author/ivar-van-hartingsveldt/">Ivar van Hartingsveldt</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/nodejs/">NodeJS</a>, 
+    
+        <a href="/tags/typescript/">TypeScript</a>, 
+    
+        <a href="/tags/javascript/">JavaScript</a>, 
+    
+        <a href="/tags/koa/">Koa</a>, 
+    
+        <a href="/tags/rest/">REST</a>, 
+    
+        <a href="/tags/mysql/">MySQL</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>This article assumes you already have some knowledge of npm and JavaScript development in general. It will not be a detailed tutorial about how to write a REST API, it’s more of an extra explanation for the application I made, the libraries I used and my experience with them.</p>
+</blockquote>
+
+<h1 id="why">Why?</h1>
+
+<p>I started this little project because I wanted to be able to quickly write backends for small personal projects with little overhead. Coming from the Java backend world, I have been writing almost only JavaScript for close to 2 years now, but only frontend. I had tried NodeJS in the past for a small project with plain old JavaScript and had a very bad time. Now however, with my new experience in JavaScript, the arrival of ES6 and TypeScript, I wanted to give it another shot.</p>
+
+<h1 id="what-exactly-did-i-make">What exactly did I make?</h1>
+
+<p>The idea was to write a backend for an application called MovieListr. It’s a simple application to track movies you have watched or want to watch. The API allows you to create, delete, update and see movies and directors. A movie also has a one-to-one relation with a director.</p>
+
+<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc">You can find the code on Github.</a></p>
+
+<h1 id="setup">Setup</h1>
+
+<p>Setting up a node project with TypeScript doesn’t require a lot of effort, the following commands are enough to get started.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">mkdir &lt;project-name&gt;
+<span class="nb">cd</span> &lt;project-name&gt;
+mkdir src
+npm init //follow the setup
+npm install --save-dev typescript tsc //install TypeScript and the TypeScript compiler
+tsc --init //generates a <span class="sb">`</span>tsconfig.json<span class="sb">`</span>, a config <span class="k">for </span>the TypeScript compiler</code></pre></figure>
+
+<p>This is it, you still have to tinker with the tsconfig.json to get it to your liking, but after that you can just start writing code.</p>
+
+<h1 id="using-async--await">Using async / await</h1>
+
+<p>I want to start with talking about the async / await features. They were what really made this code so fast to write and easy to read. The async keyword marks a function that will always return a promise. The await keyword will automatically unwrap the value from the promise and continue the code when the promise has been resolved. A small example:</p>
+
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript">  
+    <span class="nx">const</span> <span class="nx">promiseFn</span> <span class="o">=</span> <span class="p">()</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+	    <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="na">resolve</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">);</span>
+    <span class="p">}</span>
+ 
+    <span class="o">//</span> <span class="nx">Old</span> <span class="na">way</span><span class="o">:</span>
+ 
+    <span class="nx">const</span> <span class="nx">asyncFn</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+	    <span class="nx">promiseFn</span><span class="p">()</span>
+		    <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="nx">value</span> <span class="o">=&gt;</span> <span class="p">{</span>
+			    <span class="nx">console</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+            <span class="p">});</span>
+    <span class="p">}</span>
+ 
+    <span class="o">/</span><span class="sr">/ With async /</span> <span class="nx">await</span>
+ 
+    <span class="nx">const</span> <span class="nx">asyncFn</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+	    <span class="nx">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">promiseFn</span><span class="p">();</span>
+	    <span class="nx">console</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+    <span class="p">}</span></code></pre></figure>
+
+<p>You can see how readable it is with the async / await syntax. You can write asynchronous code in a synchronous way and I used it heavily everywhere in my code. I think this is one of the things that will really make writing JavaScript fun. No more callbacks, no more boilerplate code, just the important bits. For error handling you can rely on try catch statements to catch errors and act on them.</p>
+
+<p>To use the async / await syntax, you can have to add <code class="highlighter-rouge">esnext.asynciterable</code> to the lib array in the <code class="highlighter-rouge">tsconfig.json</code> file.</p>
+
+<h1 id="the-libraries-i-used">The libraries I used</h1>
+
+<h3 id="koa">Koa</h3>
+
+<p>Koa is a small node library to create REST APIs. It was made by the guys who created Express. It takes advantage of the new ES6 feature of generator functions and it allows you to write very readable code by using the async / await features (that are based on the generator functions). For a full understanding of koa and generator functions, I suggest the <a href="https://www.pluralsight.com/courses/JavaScript-koa-introduction">Koa course</a> on Pluralsight from Hammarberg.</p>
+
+<p>Koa relies heavily on middleware, so for every “step” of the process we need middleware. For instance <a href="https://github.com/koajs/bodyparser"><code class="highlighter-rouge">koa-bodyparser</code></a> middleware will parse the request body to json, the <a href="https://github.com/koajs/logger"><code class="highlighter-rouge">koa-logger</code></a> middleware will log all the incoming requests and the <a href="https://github.com/alexmingoia/koa-router"><code class="highlighter-rouge">koa-router</code></a> middleware will make it easy for us to configure the url mapping to certain actions. These middlewares are installed apart from the Koa framework or you can write them yourself.</p>
+
+<h3 id="typescript-ioc">typescript-ioc</h3>
+
+<p>To make testing easy, I started looking for a dependency injection framework for TypeScript. I wanted to more or less copy the way I wrote unit tests in Java, which is using dependency injection in your actual code and just creating an instance in your unit test while passing mocks instead of the dependencies. The first dependency injection framework I found, was <a href="https://github.com/jeffijoe/awilix">Awilix</a>. I got Awilix to work, and it worked quite well, but there was still a lot of boilerplate code to write to actually register the services to the container and to get it working. You can also pass folder names so it will register all the services in that folder, but I didn’t find this optimal. I was also using Webpack in the beginning (which I write about later in the article) to build my application and bundle my code, by bundling the code, the paths of the folders obviously didn’t work out anymore in the compiled code, so Awilix was no good for me. I kept searching and I found the library typescript-ioc. This library was based on annotations, so there is barely any configuration overhead and it worked much more like I was used to in Java. typescript-ioc requires you to set experimentalDecorators and emitDecoratorMetadata to true in the tsconfig.json file. You can then just write code like</p>
+
+<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript">  
+    <span class="nx">import</span> <span class="p">{</span> <span class="nx">Container</span> <span class="p">}</span> <span class="nx">from</span> <span class="s">"typescript-ioc"</span><span class="p">;</span>
+    
+    <span class="k">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+        <span class="nx">doSomething</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span> <span class="p">{</span>
+        	<span class="k">return</span> <span class="s">"Hello World"</span><span class="p">;</span>
+        <span class="p">}</span>	
+    <span class="p">}</span>
+    
+    <span class="k">class</span> <span class="nx">Bar</span> <span class="p">{</span>
+        <span class="nx">constructor</span><span class="p">(</span><span class="vi">@</span><span class="na">Inject</span> <span class="nx">private</span> <span class="na">foo</span><span class="o">:</span> <span class="nx">Foo</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">}</span>	
+    
+    	<span class="nx">doAnotherThing</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span> <span class="p">{</span>
+    		<span class="k">this</span><span class="p">.</span><span class="na">foo</span><span class="p">.</span><span class="na">doSomething</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="nx">const</span> <span class="na">bar</span><span class="o">:</span><span class="nx">Bar</span> <span class="o">=</span> <span class="nx">Container</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="nx">Bar</span><span class="p">);</span>
+    <span class="nx">bar</span><span class="p">.</span><span class="na">doAnotherThing</span><span class="p">();</span></code></pre></figure>
+
+<h3 id="typeorm">typeorm</h3>
+
+<p>At first I just saved the movies and directors in the services as an in-memory array for testing purposes, but in a real application you will want persistence of some sort, so I needed a database. I decided on a regular old MySQL database and an ORM library to do the mapping between the database records and my TypeScript model classes. For ORM I used <a href="https://github.com/typeorm/typeorm">typeorm</a>. It’s pretty easy to use. It also uses the annotations like typescript-ioc, which makes code very readable. The experience with this library was more or less pain free, so I really recommend it. To check a real example from my repository, check the <a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/src/models/Movie.ts">Movie</a> model.</p>
+
+<h1 id="testing">Testing</h1>
+
+<h3 id="unit-testing">Unit testing</h3>
+
+<p>For unit testing I used the classic combination of <a href="https://mochajs.org/">Mocha</a>, <a href="http://sinonjs.org/">Sinon</a> and <a href="http://chaijs.com/">Chai</a>. Since I was using dependency injection, I also needed a good way of mocking my dependencies, for this I found <a href="https://github.com/NagRock/ts-mockito">ts-mockito</a>. Ts-mockito is more or less a clone of the <a href="http://site.mockito.org/">Mockito</a> library in Java. It allows you to create mocks of classes, make functions return certain values and verify that calls have been made. This made it super easy to write tests. For examples check the tests folder in my repository. To execute the TypeScript tests, I used <a href="https://github.com/TypeStrong/ts-node">ts-node</a>. Ts-node compiles the TypeScript and keeps the compiled JavaScript in memory while it executes it. This way you don’t have to create an additional folder to compile the tests to and execute them. You can then easily create an npm script like this:</p>
+
+<p><code class="highlighter-rouge">mocha -r ts-node/register test/**/*.spec.ts</code></p>
+
+<p>This tells Mocha  to require the ts-node/register module (this is what the <code class="highlighter-rouge">-r ts-node/register</code>) means and then it just passes the path of the test files to it. This also worked pretty much painlessly.</p>
+
+<h3 id="end-to-end-testing">end-to-end testing</h3>
+
+<p>I wanted to be able to do some real end to end testing. So I wanted to be able to spin up my application, pass some HTTP requests to it and then verify the output of the requests. The first question was how to pass the requests to my application. For this I found the library <a href="https://github.com/visionmedia/supertest">SuperTest</a>. You can just start you Koa app and pass the HTTP server (the return value of the <code class="highlighter-rouge">app.listen</code> function) to the agent and it will make sure the app is started and you can do some requests and check the results. This worked pretty well.</p>
+
+<p>The second problem was a test database. I needed a database that was as close to the real one as possible. I ran the real database in a <a href="https://www.docker.com/">Docker</a> container with a volume that mapped the <code class="highlighter-rouge">/var/lib/mysql</code> (the configuration / data folder for MySQL) to a host directory, so I could recreate the container without losing data. I figured I could more or less copy the Docker configuration for the database for a test database, only without the volume. Without the volume, the data would just be saved to the container itself, so it would be lost every time the container was recreated, which is perfect for end-to-end tests, because we want to start the tests with the exact same dataset, so we can make sure our assertions keep working.</p>
+
+<p>So I created an npm script to start the Docker and to do healthchecks to the Docker container until it told me that the entire container was up and running and MySQL was ready to take connections. Then I wrote a script to start the actual end to end tests, which was simply the same mocha call I wrote earlier, only pointing to the e2e folder instead of the test folder. At last I wrote an npm script to stop the Docker container and remove it. You can check these scripts <a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/tree/master/scripts">here</a>. I made heavy use of the <a href="https://github.com/shelljs/shelljs">shelljs</a> package. This npm package allows you to execute shell commands, which I used to start Docker containers from JavaScript.</p>
+
+<p>NOTE: this setup works well, but the starting of the Docker container takes ~30 seconds, which is quite long, considering that the tests take maybe a few seconds. In a continuous integration build, this doesn’t matter as much, but when you are trying to fix tests, it does take a lot of time if you have to wait about a minute for each test run.</p>
+
+<h1 id="task-runner">Task runner</h1>
+
+<h3 id="webpack">Webpack</h3>
+
+<p>When I started this project, I was looking up some best practices for node. I came across an <a href="http://jlongster.com/Backend-Apps-with-Webpack--Part-I">article</a> that suggested you should use <a href="https://webpack.github.io/">Webpack</a> for backend too. I already have some experience with Webpack from frontend development, so at first it seemed logical to use it for backend too. When I was trying to get the dependency injection to work with Awilix, I realized that I could not pass any paths to libraries, because when my code was bundled, the paths would be invalid. Then I started to actually wonder why I was bundling my code. In frontend you bundle your code to make it as small as possible so you don’t waste the user’s bandwidth and make you website load faster, but in backend, that does not matter, since the code does not have to be sent anywhere. At this point I decided I didn’t need Webpack at all and I could just use npm scripts’ functionality to create tasks.</p>
+
+<h3 id="npm">npm</h3>
+
+<p>Npm is actually the only build tool you need. If what you want to do is more than a single line command, you can just write scripts in either TypeScript (you can execute them with ts-node), bash, JavaScript, … whatever you like. I wrote my scripts in TypeScript, because to me it makes more sense to use TypeScript for everything, but I could just as well have written them using bash. Npm also gives you pre and post task hooks. So if you write a task with the name “e2e” as I did, you can also add a task with the “pre” prefix or the “post” prefix that will automatically be executed before and after the task is executed. This way I could easily separate the starting of the Docker container, the executing of the tests and the stopping of the Docker container into different scripts. I could then just execute <code class="highlighter-rouge">npm run pree2e</code> to check if my script to start the Docker worked. I really like this approach and the fact that I don’t need another tool to learn like gulp or Webpack.</p>
+
+<h1 id="debugging">Debugging</h1>
+
+<h3 id="application-code">Application code</h3>
+
+<p>I had some trouble at the beginning with debugging my TypeScript. For some reason in the Chrome Devtools I could not get my sourcemaps working (even though they were inline sourcemaps). Then I tried the Visual Studio Code debugger and that worked much better. To get this to work, I did the following:</p>
+
+<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/tsconfig.json"><code class="highlighter-rouge">tsconfig.json</code></a></p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">  
+    {
+        "compilerOptions": {
+
+            "inlineSourceMap": true,
+            "inlineSources": true,
+
+        }
+    }</code></pre></figure>
+
+<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/package.json"><code class="highlighter-rouge">package.json</code></a></p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">  
+
+    "scripts": {
+        
+	    "start:debug": "ts-node --inspect=5858 --debug-brk --ignore false src/index.ts",
+        
+    }</code></pre></figure>
+
+<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/.vscode/launch.json"><code class="highlighter-rouge">.vscode/launch.json</code></a></p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">  
+    {
+	    "configurations": [
+	        {
+                "type": "node",
+                "request": "launch",
+                "name": "Debug Application",
+                "runtimeExecutable": "npm",
+                "windows": {
+                    "runtimeExecutable": "npm.cmd"
+                },
+                "runtimeArgs": [
+                    "run-script",
+                    "start:debug"
+                ],
+                "outFiles": [],
+                "protocol": "inspector",
+                "sourceMaps": true,
+                "port": 5858
+            }
+        ]
+    }</code></pre></figure>
+
+<p>The npm script will start the execution of the <code class="highlighter-rouge">index.ts</code> with ts-node in debug mode on port 5858 and the <code class="highlighter-rouge">--debug-brk</code> tells it to break on the first line of code. The launch configuration will just execute this npm script and attach it to the debugger.</p>
+
+<h3 id="test-code">Test code</h3>
+
+<p>Debugging the test code is more or less the same as the application code, there is just a small caveat. When you create breakpoints in Visual Studio Code, they will appear gray as if they cannot be reached. But when you execute the code, it will break on the breakpoints and then they will become red like a normal breakpoint.</p>
+
+<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/package.json"><code class="highlighter-rouge">package.json</code></a></p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">  
+    "scripts": {
+	    "test:debug": "mocha --inspect --debug-brk --not-timeouts --compilers ts:ts-node/register test/**/*.spec.ts",
+    }</code></pre></figure>
+
+<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/.vscode/launch.json"><code class="highlighter-rouge">.vscode/launch.json</code></a></p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">  
+{
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Tests",
+            "runtimeExecutable": "npm",
+            "windows": {
+                "runtimeExecutable": "npm.cmd"
+            },
+            "runtimeArgs": [
+                "run-script",
+                "test:debug"
+            ],
+            "outFiles": [],
+            "protocol": "inspector",
+            "sourceMaps": true,
+            "port": 9229
+        }
+    ]
+}</code></pre></figure>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>I really had a good time making this project. I really love readable and compact code and with TypeScript and the async / await syntax, I really got what I asked for. My previous experience with node.js and regular old JavaScript was really bad, mostly because of the loose typing, which forces you to constantly write a lot of tedious checks on parameters. With TypeScript that is all in the past. Apart from that, the enormous amount of npm packages available, makes it very easy to find some package that does what you need. If for some reason you can’t find something, you can easily write it yourself and publish it to npm.
+I always used to use Java for my backends, but the setup is always a bit of work and you have to write more boilerplate code than with TypeScript. If I make more small projects in the future, I will probably use TypeScript and Node, but for me at this point, it’s hard to tell if NodeJS will hold up in bigger projects. I would assume so, since the structure for me at this point, is very similar to Java, just a more concise syntax.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/nodejs/2017/06/20/REST-api-NodeJS-koa.html&title=Creating a REST API with NodeJS, TypeScript and Koa.&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Creating a REST API with NodeJS, TypeScript and Koa.&url=https://ordina-jworks.github.io/nodejs/2017/06/20/REST-api-NodeJS-koa.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/nodejs/2017/06/20/REST-api-NodeJS-koa.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/ivar-van-hartingsveldt/" class="image spotlight-image">
+            <img src="/img/author/ivar-van-hartingsveldt.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Ivar is a backend Java developer who converted to frontend. When ES6 and TypeScript came along, he really started investing his time in that and now he writes Javascript / Typescript almost exclusively.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:info@ordina.be">info@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2017 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina.
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/nodejs-typescript-koa/koa-logo.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+    
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/nodejs/2017/06/20/REST-api-NodeJS-koa.html";
+        this.page.identifier = "/nodejs/2017/06/20/REST-api-NodeJS-koa.html";
+        this.page.title = "Creating a REST API with NodeJS, TypeScript and Koa.";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+</body>
+</html>
