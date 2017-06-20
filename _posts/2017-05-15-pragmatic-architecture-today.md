@@ -39,7 +39,7 @@ A system is built for its stakeholders.
 And stakeholders are diverse: the customer (who is paying for the system), the users, the developers, ... 
 I believe, sharing a crystal-clear vision with these stakeholders and getting buy-in from them, is necessary to create a successful system.
 
-Every system has an architecture, even when it's not formally defined. 
+Every system has an architecture, even when it is not formally defined. 
 The architecture of a system is typically described in an **Architectural Description**.
 The architectural description documents the system for the stakeholders and needs to make architectural decisions **explicit**.
 The goal of the architectural description is to help in understanding how the system will behave.
@@ -49,7 +49,7 @@ The goal of the architectural description is to help in understanding how the sy
 </p>
 
 Following the approach in the book [Software Systems Architecture](http://www.viewpoints-and-perspectives.info/) by [Nick Rozanski](https://twitter.com/nickrozanski) and [Eoin Woods](https://twitter.com/eoinwoodz) an architectural description is composed of a number views.
-These _views_ describe what it is architecturally significant: info that is worth writing down because the system can not be successful without it or because stakeholders say it's significant.
+These _views_ describe what it is architecturally significant: info that is worth writing down because the system can not be successful without it or because stakeholders say it is significant.
 Deciding what to put in these views, means making decisions.
 Woods and Rozanski identified the following viewpoints:
 
@@ -94,12 +94,12 @@ This is the 2017 Mercedes F1 W08 Hybrid.
 It weights 702kg and has between 750 and 850 horsepower. 
 It is made out of approximately 80 000 different components. 
 The price of the car is an estimated 10 million Eur. 
-That’s just for the car, not for the R&amp;D that made the car possible.
+That is just for the car, not for the R&amp;D that made the car possible.
 
 Looking back at the viewpoints from above, it is easy to identify how these relate to the construction of the car:
 
 * A Formula One car needs a very specific factory (_Development View_).
-It's not built in the same factory Mercedes builds its trucks.
+It is not built in the same factory Mercedes builds its trucks.
 * The cars need to be transported all around the world (all the Formula One cars travel over 100 000 miles in the air).
 This can be documented in the _Deployment view_.
 * Maintaining a Formula One car during a race has a huge operational cost and requires a lot of coordination (_Operational View_).
@@ -122,9 +122,9 @@ This is especially true in agile projects.
 > Architecture represents the significant design decisions that shape a system, where significant is measured by cost of change.
 
 Often it is very difficult to get a system right from the beginning.
-That's why creating a system that has the ability to evolve is important.
+That is why creating a system that has the ability to evolve is important.
 Things are changing all the time: **known** change and **unknown** change.
-Within this evolving system, it's the responsibility of the software architect to make sure the system remains consistent.
+Within this evolving system, it is the responsibility of the software architect to make sure the system remains consistent.
 Multiple architectural patterns exist to support this:
 In the past many systems were built with a configurable metamodel. 
 Nowadays loosely coupled, replaceable services are favoured.
@@ -149,7 +149,7 @@ They might win some races, but they haven't won the world championship
 To ensure system integrity, the software architect needs to be part of the project team.
 He must make sure he enables the right people to collaborate on the system architecture.
 Being part of the team does not mean not taking **responsibility**.
-It's great to give **ownership** to members of the team, but in the end the architect needs to stay accountable.
+It is great to give **ownership** to members of the team, but in the end the architect needs to stay accountable.
 When collaborating, an architect should not enforce all technical decisions.
 Part of working as a team, is accepting to be challenged and embracing this challenge.
 When team members have spirited discussions, it shows they are passionate enough about their craft to care.
@@ -175,7 +175,7 @@ The visual representation can be used to check for consistency,  reporting, vali
 
 ### Some ground rules
 
-While UML has its merits, often it's not necessary to create an extensive UML model for the architecture.
+While UML has its merits, often it is not necessary to create an extensive UML model for the architecture.
 It will be time-consuming and, unfortunately, often UML is not correctly understood by stakeholders.
 An alternative to UML is to use plain _boxes and lines_.
 However, when using boxes and lines:
@@ -223,7 +223,7 @@ This means thinking about the big picture:
 But what does _just enough_ mean?
 Just enough depends on a lot of variables like budget, scope, team, ... 
 The approach will also be different for greenfield projects or for existing projects.
-When you are working on a **greenfield project**, it's important to start with a **high-level view** of all components in the application.
+When you are working on a **greenfield project**, it is important to start with a **high-level view** of all components in the application.
 These components are all the pieces necessary for a system to operate.
 Other components and details can be added later.
 Working with **existing systems** benefits from a slightly different approach, where you can start with an accurate high-level diagram of the **current** architecture of the existing application.
@@ -241,7 +241,7 @@ Including team members in defining the technical vision is useful to make sure e
 ### Politics
 
 The architecture of a system will have a large impact on the implementation, delivery and usage of the system.
-Systems generally consist of multiple parts and it's the responsibility of the architect to focus on system integrity, creating a system that has a built-in ability to respond to change.
+Systems generally consist of multiple parts and it is the responsibility of the architect to focus on system integrity, creating a system that has a built-in ability to respond to change.
 When the system lacks integrity, it will rapidly become _a system nobody wants to touch_.
 Unfortunately many enterprises have this fear of change embedded in their culture and it will take strategy and sound people skills to prevent this from happening.
 Influence Maps present an interesting way to map  relationships between people and to visualise who influences who, in an enterprise.
