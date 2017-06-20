@@ -4,7 +4,7 @@ authors: [ivar_van_hartingsveldt]
 title: 'Creating a REST API with NodeJS, TypeScript and Koa.'
 image: /img/nodejs-typescript-koa/koa-logo.png
 tags: [NodeJS, TypeScript, JavaScript, Koa, REST, MySQL]
-category: Spring
+category: NodeJS
 comments: true
 ---
 > This article assumes you already have some knowledge of npm and JavaScript development in general. It will not be a detailed tutorial about how to write a REST API, it’s more of an extra explanation for the application I made, the libraries I used and my experience with them.
