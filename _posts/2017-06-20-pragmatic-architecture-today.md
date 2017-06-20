@@ -10,18 +10,16 @@ comments: true
 
 Software development has evolved. 
 Agile is now the de facto standard. 
-The role of an architect in an agile project is very different than the typical role in a more classic waterfall approach. 
+The role of an architect in an agile project is very different from the typical role in a more classic waterfall approach. 
 This article presents an updated interpretation of _viewpoints and perspectives_ and will demonstrate how to make rapid, agile delivery sustainable in a constantly changing world. 
 These viewpoints and perspectives can be linked to easy-to-produce models that can be used immediately. 
 A good agile architect needs to strive for consensus and buy-in.
 
-### Topics
+### Content
 
-1. [What](#1-what)
-1. [How](#2-how)
-1. [Visual](#3-visual)
-1. [Why](#4-why)
-1. [How](#5-how)
+1. [What?](#1-what)
+1. [Why?](#2-why)
+1. [How?](#3-how)
 
 # What?
 
@@ -84,7 +82,7 @@ If you want a more in-depth explanation, I really recommend reading the book.
 In today's, agile world, I believe the **Evolution perspective** is a key differentiator in any architectural description.
 Generally, perspectives shape the architecture and deserve the necessary attention.
 
-### Example
+## Example
 
 <p style="text-align: center;">
   <img class="image fit" alt="Example" src="/img/prag-arch/f1.png">
@@ -147,7 +145,7 @@ They might win some races, but they haven't won the world championship
 > It loses its essential properties when it is taken apart.
 
 To ensure system integrity, the software architect needs to be part of the project team.
-He must make sure he enables the right people to collaborate on the system architecture.
+He must make sure that he enables the right people to collaborate on the system architecture.
 Being part of the team does not mean not taking **responsibility**.
 It is great to give **ownership** to members of the team, but in the end the architect needs to stay accountable.
 When collaborating, an architect should not enforce all technical decisions.
@@ -158,7 +156,7 @@ Being part of the team, as an architect, will lead to a system with a consistent
 This also implies that an architect should be involved in the codebase of the system: writing code, performing code-reviews, doing proof-of-concepts, supporting others, ...
 By being involved in the codebase, you can make sure that the architectual description is understood by the developers.
 
-# Visual?
+## Visual?
 
 <p style="text-align: center;">
   <img class="image fit" alt="Visual" src="/img/prag-arch/visual.png">
