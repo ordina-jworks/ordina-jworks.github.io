@@ -24,7 +24,7 @@ A good agile architect needs to strive for consensus and buy-in.
 # What?
 
 <p style="text-align: center;"
->  <img class="image fit" alt="What" src="/img/prag-arch/what.png">
+>  <img class="image fit" alt="What" src="/img/prag-arch/what.jpg">
 </p>
 
 Architecture exists, because we want to create a **system**. 
@@ -85,7 +85,7 @@ Generally, perspectives shape the architecture and deserve the necessary attenti
 ## Example
 
 <p style="text-align: center;">
-  <img class="image fit" alt="Example" src="/img/prag-arch/f1.png">
+  <img class="image fit" alt="Example" src="/img/prag-arch/f1.jpg">
 </p>
 
 This is the 2017 Mercedes F1 W08 Hybrid. 
@@ -128,7 +128,7 @@ In the past many systems were built with a configurable metamodel.
 Nowadays loosely coupled, replaceable services are favoured.
 
 <p style="text-align: center;">
-  <img class="image fit" alt="System Integrity" src="/img/prag-arch/engine.png">
+  <img class="image fit" alt="System Integrity" src="/img/prag-arch/engine.jpg">
 </p>
 
 When creating a 10 million Eur car, many teams (with different responsibilities) are involved.
@@ -159,7 +159,7 @@ By being involved in the codebase, you can make sure that the architectual descr
 ## Visual?
 
 <p style="text-align: center;">
-  <img class="image fit" alt="Visual" src="/img/prag-arch/visual.png">
+  <img class="image fit" alt="Visual" src="/img/prag-arch/visual.jpg">
 </p>
 
 While code is a very important asset of a working system, code alone is not enough to have an accurate and lasting description of a system.
@@ -199,7 +199,7 @@ Decisions might need to change, so keeping track of the rationale behind a decis
 # Why?
 
 <p style="text-align: center;">
-  <img class="image fit" alt="Why" src="/img/prag-arch/why.png">
+  <img class="image fit" alt="Why" src="/img/prag-arch/why.jpg">
 </p>
 
 ### Up-front design
@@ -248,7 +248,7 @@ Being aware of these relationships might be a game-changer.
 # How?
 
 <p style="text-align: center;">
-  <img class="image fit" alt="How" src="/img/prag-arch/how.png">
+  <img class="image fit" alt="How" src="/img/prag-arch/how.jpg">
 </p>
 
 One way of creating an architectural description is **OODA**: Observe, Orient, Decide, Act.
