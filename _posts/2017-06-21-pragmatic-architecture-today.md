@@ -46,7 +46,7 @@ The goal of the architectural description is to help in understanding how the sy
   <img class="image fit" alt="Views and Perspecives" src="/img/prag-arch/views-and-perspectives.png">
 </p>
 
-Following the approach in the book [Software Systems Architecture](http://www.viewpoints-and-perspectives.info/) by [Nick Rozanski](https://twitter.com/nickrozanski) and [Eoin Woods](https://twitter.com/eoinwoodz) an architectural description is composed of a number views.
+Following the approach in the book [Software Systems Architecture](http://www.viewpoints-and-perspectives.info/) by [Nick Rozanski](https://twitter.com/nickrozanski) and [Eoin Woods](https://twitter.com/eoinwoodz), an architectural description is composed of a number views.
 These _views_ describe what it is architecturally significant: info that is worth writing down because the system can not be successful without it or because stakeholders say it is significant.
 Deciding what to put in these views, means making decisions.
 Woods and Rozanski identified the following viewpoints:
@@ -79,7 +79,7 @@ Sometimes perspectives are also called quality properties or non-functional requ
 
 Again, summaries are available on the website of the book.
 If you want a more in-depth explanation, I really recommend reading the book.
-In today's, agile world, I believe the **Evolution perspective** is a key differentiator in any architectural description.
+In today's agile world, I believe the **Evolution perspective** is a key differentiator in any architectural description.
 Generally, perspectives shape the architecture and deserve the necessary attention.
 
 ## Example
@@ -90,21 +90,21 @@ Generally, perspectives shape the architecture and deserve the necessary attenti
 
 This is the 2017 Mercedes F1 W08 Hybrid. 
 It weights 702kg and has between 750 and 850 horsepower. 
-It is made out of approximately 80 000 different components. 
-The price of the car is an estimated 10 million Eur. 
+It is made out of approximately 80.000 different components. 
+The price of the car is an estimated 10 million Euro. 
 That is just for the car, not for the R&amp;D that made the car possible.
 
 Looking back at the viewpoints from above, it is easy to identify how these relate to the construction of the car:
 
 * A Formula One car needs a very specific factory (_Development View_).
 It is not built in the same factory Mercedes builds its trucks.
-* The cars need to be transported all around the world (all the Formula One cars travel over 100 000 miles in the air).
+* The cars need to be transported all around the world (all the Formula One cars travel over 100.000 miles in the air).
 This can be documented in the _Deployment view_.
 * Maintaining a Formula One car during a race has a huge operational cost and requires a lot of coordination (_Operational View_).
 Just count the number of engineers during a pitstop.
 * ...
 
-In the 2015 and 2016, the predecessors of this car won the Formula One World Championship.
+In the 2015 and 2016 season, the predecessors of this car won the Formula One World Championship.
 At the moment of writing, the 2017 car is also leading the championship.
 This pattern is quite common in Formula One.
 The older cars however, are currently up for display in a museum.
@@ -119,19 +119,19 @@ This is especially true in agile projects.
 >
 > Architecture represents the significant design decisions that shape a system, where significant is measured by cost of change.
 
-Often it is very difficult to get a system right from the beginning.
-That is why creating a system that has the ability to evolve is important.
+Often, it is very difficult to get a system right from the beginning.
+That is why creating a system, that has the ability to evolve, is important.
 Things are changing all the time: **known** change and **unknown** change.
 Within this evolving system, it is the responsibility of the software architect to make sure the system remains consistent.
 Multiple architectural patterns exist to support this:
-In the past many systems were built with a configurable metamodel. 
-Nowadays loosely coupled, replaceable services are favoured.
+In the past, many systems were built with a configurable metamodel. 
+Nowadays, loosely coupled, replaceable services are favoured.
 
 <p style="text-align: center;">
   <img class="image fit" alt="System Integrity" src="/img/prag-arch/engine.jpg">
 </p>
 
-When creating a 10 million Eur car, many teams (with different responsibilities) are involved.
+When creating a 10 million Euro car, many teams (with different responsibilities) are involved.
 The people who design the engine are different from the people who design the brakes.
 Creating the best engine, creating the best brakes, ... does not imply you will have the best car.
 Everything needs to work together.
@@ -147,13 +147,13 @@ They might win some races, but they haven't won the world championship
 To ensure system integrity, the software architect needs to be part of the project team.
 He must make sure that he enables the right people to collaborate on the system architecture.
 Being part of the team does not mean not taking **responsibility**.
-It is great to give **ownership** to members of the team, but in the end the architect needs to stay accountable.
+It is great to give **ownership** to members of the team, but in the end, the architect needs to stay accountable.
 When collaborating, an architect should not enforce all technical decisions.
 Part of working as a team, is accepting to be challenged and embracing this challenge.
 When team members have spirited discussions, it shows they are passionate enough about their craft to care.
 Disagreeing and discussing alternatives is a great way to come to a better solution and to learn from each other.
 Being part of the team, as an architect, will lead to a system with a consistent vision, where the implementation matches the architectural description.
-This also implies that an architect should be involved in the codebase of the system: writing code, performing code-reviews, doing proof-of-concepts, supporting others, ...
+This also implies that **an architect should be involved in the codebase of the system**: writing code, performing code-reviews, doing proof-of-concepts, supporting others, ...
 By being involved in the codebase, you can make sure that the architectual description is understood by the developers.
 
 ## Visual?
@@ -169,12 +169,12 @@ While code is a very important asset of a working system, code alone is not enou
 > One cannot see the ocean's currents by studying drops of water.
 
 The goal of visually representing a system, through the architectural description, is to make sure the architecture of the system is in the stakeholder's heads.
-The visual representation can be used to check for consistency,  reporting, validation and **sharing information**.
+The visual representation can be used to check for consistency, reporting, validation and **sharing information**.
 
 ### Some ground rules
 
 While UML has its merits, often it is not necessary to create an extensive UML model for the architecture.
-It will be time-consuming and, unfortunately, often UML is not correctly understood by stakeholders.
+It will be time-consuming and, unfortunately, it is often the case that UML is not correctly understood by stakeholders.
 An alternative to UML is to use plain _boxes and lines_.
 However, when using boxes and lines:
 
@@ -216,7 +216,7 @@ This means thinking about the big picture:
 
 > [Simon Brown](http://www.codingthearchitecture.com/authors/sbrown/)
 >
-> Just enough up front design to create firm foundations for the software product and its delivery. 
+> Just enough up-front design to create firm foundations for the software product and its delivery. 
 
 But what does _just enough_ mean?
 Just enough depends on a lot of variables like budget, scope, team, ... 
@@ -242,7 +242,7 @@ The architecture of a system will have a large impact on the implementation, del
 Systems generally consist of multiple parts and it is the responsibility of the architect to focus on system integrity, creating a system that has a built-in ability to respond to change.
 When the system lacks integrity, it will rapidly become _a system nobody wants to touch_.
 Unfortunately many enterprises have this fear of change embedded in their culture and it will take strategy and sound people skills to prevent this from happening.
-Influence Maps present an interesting way to map  relationships between people and to visualise who influences who, in an enterprise.
+Influence Maps present an interesting way to map relationships between people and to visualise who influences who, in an enterprise.
 Being aware of these relationships might be a game-changer.
 
 # How?
@@ -267,7 +267,7 @@ This insight should be mapped on the model.
 	* Collect up-to-date information from different sources: stakeholders, competitors, similar systems, other viewpoints,...
 * **Orient**: Using your past experience to make sense of these observations.
 	* Analyse the observed information and use it to update your current reality. View events, filtered through your own experiences and perceptions.
-* **Decide**: Deciding on a response, because their might be multiple alternative solutions.
+* **Decide**: Deciding on a response, because there might be multiple alternative solutions.
 	* Determine a course of actions.
 * **Act**: Execute the selected decision.
 	* Follow through on your decision.
