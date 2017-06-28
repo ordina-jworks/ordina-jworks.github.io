@@ -112,22 +112,22 @@ As of this writing the openshift landscape looks like this.
   <img class="image fit" alt="openshiftlandscape" src="/img/openshift-an introduction/openshiftlandscape.png">
 </p>
 
-* __Openshift origin:__
+### Openshift origin
 It's the upstream community project used in openshift Online, Openshift dedicated and Openshift container Platform.
 It's build around docker and kubernetes cluster management.
 Origin is augmented by application lifecycle management functionality and DevOps tooling.
 Origin updates as often as open source developers contribute via git sometimes as often as several times per week. Here you get the new feature the quickest but at the cost of stability.
 
-* __Openshift container platform:__
+### Openshift container platform
 Formaly known as openshift enterprise.
 It's the  platform software  to deploy and manage openshift on your own  infrastructure of choice.
 It integrates with Red Hat Enterprise Linux 6 and is tested via Red Hat's QA process in order to offer a stable, supportable product with may be important for enterprises.
 
-* __Openshift dedicated:__
+### Openshift dedicated
 Openshift dedicated is the latest offering of openshift.
 It's OpenShift 3 hosted on AWS and maintained by Red Hat but it is dedicated to you
 
-* __Openshift online:__
+### Openshift online
 OpenShift Online is managed by Red Hat’s OpenShift operations team, and quickstart templates enable developers to push code with one click, helping to avoid the intricacies of application provisioning.
 You can view it as openshift delivered as a SAAS(software as a service)
 
