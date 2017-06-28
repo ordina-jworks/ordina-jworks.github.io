@@ -3,7 +3,7 @@ layout: post
 authors: [hans_michiels]
 title: 'Openshift: An introduction'
 image: /img/openshift.png
-tags: [Openshift, PaaS, Cloud, Container, Devops]
+tags: [Openshift, PaaS, Cloud, Container, Devops, Kubernetes]
 category: Paas
 comments: true
 ---
