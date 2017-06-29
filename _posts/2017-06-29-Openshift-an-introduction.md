@@ -8,7 +8,7 @@ category: PaaS
 comments: true
 ---
 <div class="col-md-2" style="width:32%">
-{% include image.html img="/img/OpenShift-an introduction/Ease-of-PaaS.png" alt="easeofpaas" title="PaaS" style="max-width: 80px;" %}</div>
+{% include image.html img="/img/openshift-an-introduction/Ease-of-PaaS.png" alt="easeofpaas" title="PaaS" style="max-width: 80px;" %}</div>
 
 
 # Why my first blog about OpenShift
@@ -59,7 +59,7 @@ It is build on top of Kubernetes and gives you tools like a webconsole and CLI t
 Okay, I know this is still pretty vague and it can do so much, so why don't we simply start with seeing where OpenShift fits in.
 
 <p>
-  <img class="image fit" alt="evolve" src="/img/OpenShift-an introduction/evolve.png">
+  <img class="image fit" alt="evolve" src="/img/openshift-an-introduction/evolve.png">
 </p>
 
 As you can see in the image, the IT landscape has evolved a lot in recent years.
@@ -71,23 +71,23 @@ So it actually fits right on top of all of that.
 # Overview
 
 <p>
-  <img class="image fit" alt="overview" src="/img/OpenShift-an introduction/overview.png">
+  <img class="image fit" alt="overview" src="/img/openshift-an-introduction/overview.png">
 </p>
 
 ### SELF-SERVICE
-<span class="image left small"><img class="p-image" alt="Self-service" src="/img/OpenShift-an introduction/self-service.png"></span>
+<span class="image left small"><img class="p-image" alt="Self-service" src="/img/openshift-an-introduction/self-service.png"></span>
 Developers can quickly and easily create applications and deploy them.
 With [S2I (Source-to-Image)](#benefits-for-developers), a developer can even deploy his code without needing to create a container first.
 Operators can leverage placement and policy to orchestrate environments that meet their best practices.
 It makes your development and operations work fluently together when combining them in a single platform.
 
 ### POLYGLOT, MULTI-LANGUAGE
-<span class="image left small"><img class="p-image" alt="multilanguage" src="/img/OpenShift-an introduction/multilanguage.png"></span>
+<span class="image left small"><img class="p-image" alt="multilanguage" src="/img/openshift-an-introduction/multilanguage.png"></span>
 Since it deploys Docker containers, it gives you the ability to run multiple languages, frameworks and databases on the same platform.
 You can easily deploy microservices written in Java, Python or other languages.
 
 ### AUTOMATION
-<span class="image left small"><img class="p-image" alt="automation" src="/img/OpenShift-an introduction/automation.png"></span>
+<span class="image left small"><img class="p-image" alt="automation" src="/img/openshift-an-introduction/automation.png"></span>
 __Build automation:__
 OpenShift automates the process of building new container images for all of your users.
 It can run standard Docker builds based on the Dockerfiles you provide and it also provides a "Source-to-Image" feature which allows you to specify the source from which to generate your images.
@@ -102,13 +102,13 @@ __Continuous integration:__
 It provides built-in continuous integration capabilities with Jenkins and can also tie into your existing CI solutions.The OpenShift Jenkins image can also be used to run your Jenkins masters and slaves on OpenShift.
 
 ### Scale
-<span class="image left small"><img class="p-image" alt="scale" src="/img/OpenShift-an introduction/scale.png"></span>
+<span class="image left small"><img class="p-image" alt="scale" src="/img/openshift-an-introduction/scale.png"></span>
 When you want to start scaling your application, whether it's from one replica to two or scale it to 2000 replicas, a lot of complexity is added.
 OpenShift leverages the power of containers and an incredibly powerful orchestration engine to make that happen. Containers make sure that applications are packed up in their own space and are independent from the OS, this makes applications incredibly portable and hyper scalable. OpenShift's orchestration layer, Google's Kubernetes, automates the scheduling and replication of these containers meaning that they're highly available and able to accommodate whatever your users can throw at it.
 This means that your team spends less time in the weeds and keeping the lights on, and more time being innovative and productive. 
 
 ### Opensource
-<span class="image left small"><img class="p-image" alt="opensource" src="/img/OpenShift-an introduction/opensource.png"></span>
+<span class="image left small"><img class="p-image" alt="opensource" src="/img/openshift-an-introduction/opensource.png"></span>
 There are multiple versions of OpenShift (spoiler: it's going to be the next topic in this blog post) but they are all based on OpenShift Origin.
 Origin provides an open source application container platform. 
 All source code for the Origin project is available under the Apache License (Version 2.0) on [GitHub](https://Github.com/OpenShift)
@@ -119,7 +119,7 @@ There are a few different OpenShift releases depending on what you need.
 As of this writing, the OpenShift landscape looks like this:
 
 <p>
-  <img class="image fit" alt="OpenShiftlandscape" src="/img/OpenShift-an introduction/OpenShiftlandscape.png">
+  <img class="image fit" alt="OpenShiftlandscape" src="/img/openshift-an-introduction/OpenShiftlandscape.png">
 </p>
 
 ### OpenShift Origin
@@ -153,7 +153,7 @@ Let's see how easy your life can be with the following image:
 
 So now that you know S2I, let's take a look at the next picture
 <p>
-  <img class="image fit" alt="devopsoverview" src="/img/OpenShift-an introduction/devopsoverview.jpg">
+  <img class="image fit" alt="devopsoverview" src="/img/openshift-an-introduction/devopsoverview.jpg">
 </p>
 * __Code:__
 If you're a developer I assume you know how to code and push it to Git, so nothing new here...
@@ -174,7 +174,7 @@ Time to get a little bit more technical and take a deeper look at how it works.
 I already talked about the developer part of the picture below, so let's focus on the rest!
 
 <p>
-  <img class="image fit" alt="deeperlook" src="/img/OpenShift-an introduction/deeperlook.svg">
+  <img class="image fit" alt="deeperlook" src="/img/openshift-an-introduction/deeperlook.svg">
 </p>
 
 
@@ -199,7 +199,7 @@ A node is ignored until it passes the health checks, and the master continues ch
 In OpenShift nodes are instances of RHEL (Redhat Enterprise Linux).
 
 ### Pods
-<span class="image right"><img  alt="pods" src="/img/OpenShift-an introduction/pods.png"></span>
+<span class="image right"><img  alt="pods" src="/img/openshift-an-introduction/pods.png"></span>
 OpenShift leverages the Kubernetes concept of a pod, which is one or more containers deployed together on one host, and the smallest compute unit that can be defined, deployed, and managed.
 Each pod is allocated its own internal IP address, therefore owning its entire port space, and containers within pods can share their local storage and networking.
 Pods have a lifecycle; they are defined, then they are assigned to run on a node, then they run until their container(s) exit or they are removed for some other reason.
