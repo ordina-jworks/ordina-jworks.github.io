@@ -39,7 +39,7 @@ For those who are not sure anymore, here is a quick reminder.
 
 > __Platform as a service (PaaS)__ or application platform as a service (aPaaS) is a category of cloud computing services that provides a platform allowing customers to develop, run, and manage applications without the complexity of building and maintaining the infrastructure typically associated with developing and launching an app
 
-There are multiple Paas providers when you want to one.
+There are multiple PaaS providers when you want to one.
 For example You got OpenShift, Cloudfoundry, Heroku, Google App Engine and many more.
 Most of these platforms offer a lot of the same solutions each with their own pros and cons but today we are going talk about OpenShift specifically.
 
