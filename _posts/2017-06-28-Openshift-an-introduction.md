@@ -27,8 +27,7 @@ Recently, Ordina gave me the chance to visit the [Red Hat's partner conference](
 My body not able to contain all that energy for OpenShift, I had to ventilate it into a blogpost or otherwise I would spontaneous combust.
 
 I do have to mention that when you want to work with OpenShift, you still need to have a basic understanding about containers, PaaS and Kubernetes if you want to understand some of its magic.
-
-If you have no idea what Docker containers are or what kubernetes is, don't panic! There are some great blogposts on the Jworks blog explaining more about them.
+If you have no idea what Docker containers are or what Kubernetes is, don't panic! There are some great blogposts on the Jworks blog explaining more about them.
 
 # What is OpenShift
 
