@@ -119,7 +119,7 @@ There are a few different OpenShift releases depending on what you need.
 As of this writing, the OpenShift landscape looks like this:
 
 <p>
-  <img class="image fit" alt="OpenShiftlandscape" src="/img/openshift-an-introduction/OpenShiftlandscape.png">
+  <img class="image fit" alt="OpenShiftlandscape" src="/img/openshift-an-introduction/openshiftlandscape.png">
 </p>
 
 ### OpenShift Origin
