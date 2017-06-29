@@ -48,8 +48,8 @@ When I look up OpenShift in Google(since that's the first thing we do these days
 > __OpenShift Container Platform__ (formerly known as OpenShift Enterprise) is Red Hat's on-premise private platform as a service product, built around a core of application containers powered by Docker, with orchestration and management provided by Kubernetes, on a foundation of Red Hat Enterprise Linux.
 
 Well that explains it!
-Never thought writing my first blog post would be that easy!
-Obviously you wouldn't be reading this blog if this was my only explanation since my my pull request would never be accepted.
+I never thought writing my first blog post would be that easy!
+Obviously you wouldn't be reading this blog if this was my only explanation since my pull request would never be accepted.
 
 If I would try to explain it with my own words to someone who never heard of OpenShift I would define it like this.
 
@@ -159,18 +159,19 @@ So now you know S2I let's take a look at the next picture
 If your a developer I assume you know how to code and push it to git, so nothing new here ..
 
 * __Build:__
-The developer can push code to be built and run on OpenShift through their software version control solution or OpenShift can be integrated with a developer's own automated build and continuous integration/continuous deployment system. Here is were S2I can get usefull.
+The developer can push code to be built and run on OpenShift through their software version control solution or OpenShift can be integrated with a developer's own automated build and continuous integration/continuous deployment system.
+Here is were S2I can get usefull.
 
-* __deploy:__
-OpenShift then orchestrates where application containers will run and manages the the application to ensure it's available for end users.
+* __Deploy:__
+OpenShift then orchestrates where application containers will run and manages the application to ensure it's available for end users.
 
-* __manage:__
+* __Manage:__
 With your app running in the cloud you can monitor, debug, and tune on the fly.
-Scale your application automatically or allocate capacity ahead of time
+Scale your application automatically or allocate capacity ahead of time.
 
 
 # A deeper look 
-Time to get a little bit more technical and take a deeper look how it works.
+Time to get a little bit more technical and take a deeper look at how it works.
 I already talked about the developer part of the picture below, so let's focus on the rest!
 
 <p>
@@ -246,7 +247,7 @@ As of this moment it's not yet available but you can try to register for the pre
 I didn't had the change yet to play with it yet since i have not yet recieved my access.
 Basically it's an online development environment for planning, creating and deploying hybrid cloud services.
 
-It provides following futures:
+It provides the following features:
 
 * Hosted, integrated toolchain
 * Planning tools for managing and prioritizing work
