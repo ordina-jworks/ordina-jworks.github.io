@@ -262,4 +262,4 @@ Of course there is so much more to tell you and show about PaaS and OpenShift.
 I hope that with this post you got a nice introduction to OpenShift itself and some of the benefits it offers.
 If you enjoyed the post, I intend to write another post later this year about OpenShift, so make sure to regularly check our JWorks blog!
 
-May The PaaS be with you.
+May the PaaS be with you.
