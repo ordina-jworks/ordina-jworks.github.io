@@ -17,7 +17,7 @@ So obviously I wanted to see what all the fuzz was about and started taking a de
 Soon, I got introduced with so many new technologies I was not familiar with: microservices, containers, pods, Kubernetes, load balancing, Docker, PaaS,...
 
 To be honest, for me it was really overwhelming.
-I told myself, I would never have the time to become a guru of all these technologies to start with cloud native development.
+I told myself, I would never have the time to become a guru in all these technologies to start with cloud native development.
 So I just sat in a corner crying about why I became a dev in a time where things never looked more complicated and changed faster than ever before.
 But actually it's not all that complicated.
 To be honest, deploying your containers in the cloud and managing things are easier than ever before with PaaS and OpenShift.
@@ -26,12 +26,12 @@ A couple of months ago, I got introduced to OpenShift and got really excited abo
 Recently, Ordina gave me the chance to visit the [Red Hat's partner conference](https://www.redhat.com/en/about/events/red-hat-partner-conference-emea-2017) and my excitement for OpenShift reached new heights.
 With my body being unable to contain all that excitement for OpenShift, I had to funnel it into a blog post or otherwise I would spontaneously combust.
 
-I do have to mention that when you want to work with OpenShift, you still need to have a basic understanding about containers, PaaS and Kubernetes if you want to understand some of its magic.
+I do have to mention that if you want to work with OpenShift, you still need to have a basic understanding about containers, PaaS and Kubernetes if you want to understand some of its magic.
 If you have no idea what Docker containers are or what Kubernetes is, don't panic! There are some great blogposts on the JWorks blog explaining more about them.
 
 # What is OpenShift
 
-OpenShift is a __PaaS__. For those who don't know what a PAAS is, stop reading now, take a timecab to the year 2011 and check it out cause PaaS is awesome.
+OpenShift is a __PaaS__. For those who don't know what a PAAS is, stop reading now, take a timecab to the year 2011 and check it out because PaaS is awesome.
 
 Gartner calls OpenShift a __Cloud Enabled Application Platform (CEAP)__.
 
@@ -162,7 +162,7 @@ If you're a developer I assume you know how to code and push it to Git, so nothi
 The developer can push code to be built and run on OpenShift through their software version control solution or OpenShift can be integrated with a developer's own automated build and continuous integration/continuous deployment system. Here is were S2I can get useful.
 
 * __Deploy:__
-OpenShift then orchestrates where application containers will run and manages the application to ensure it's available for end users.
+OpenShift orchestrates where application containers will run and manages the application to ensure it's available for end users.
 
 * __Manage:__
 With your app running in the cloud you can monitor, debug, and tune on the fly.
@@ -244,9 +244,9 @@ After a PV has been bound to a PVC, however, that PV cannot then be bound to add
 This has the effect of scoping a bound PV to a single namespace (that of the binding project).
 
 # OpenShift.io
-So before ending this blog post, I have to quickly mention [OpenShift.io](https://OpenShift.io/)
+So before ending this blog post, I have to quickly mention [OpenShift.io](https://OpenShift.io/).
 As of this moment, it's not yet available but you can try to register for the preview.
-I haven't had the chance to play with it as I haven't received my access just yet.
+I haven't had the chance to play with it, as I haven't received my access just yet.
 Basically it's an online development environment for planning, creating and deploying hybrid cloud services.
 
 It provides the following features:
@@ -259,7 +259,7 @@ It provides the following features:
 
 # Conclusion
 Of course there is so much more to tell you and show about PaaS and OpenShift.
-I hope that with this post you got a nice introduction to OpenShift and some of the benefits it can offer.
-If you enjoyed the post, I intend to write another post later this year about OpenShift, so make sure to regularly check our JWorks blog.
+I hope that with this post you got a nice introduction to OpenShift itself and some of the benefits it offers.
+If you enjoyed the post, I intend to write another post later this year about OpenShift, so make sure to regularly check our JWorks blog!
 
 May The PaaS be with you.
