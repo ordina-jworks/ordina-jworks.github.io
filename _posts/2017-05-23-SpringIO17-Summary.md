@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [dieter_hubau, gina_de_beukelaer]
+authors: [dieter_hubau, gina_de_beukelaer, hans_michiels]
 title: 'Spring I/O 2017 Recap'
 image: /img/springio2017.jpg
 tags: [Spring, IO, Pivotal, Google, Spring Boot, Java, Reactive, Reactor]
@@ -48,6 +48,25 @@ This release was announced very shortly after [Spring Framework 5.0 went RC1](ht
   - much more extensive collection of SQL functions and possibilities
 
 # Google Spanner
+
+### by [Robert Kubis](https://twitter.com/hostirosti)
+
+Google Spanner is a  globally distributed relational database service that provides ACID transactions and SQL semantics, without giving up horizontal scaling and high availability.
+When building cloud applications, you are no longer forced to choose between  traditional databases that guarantee transactional consistency, or NoSQL databases that offer simple, horizontal scaling and data distribution.
+Cloud Spanner offers both of these critical capabilities in a single, fully managed service.
+With Spanner, your database can scale up and down as needed, and you only pay for the amount you use.
+Spanner keeps application development simple by supporting standard tools and languages in a familiar relational database environment.
+It supports distributed transactions, schemas and DDL statements, SQL queries and JDBC drivers and offers client libraries for the most popular languages, including Java, Go, Python and Node.js.
+As a managed service, Cloud Spanner provides key benefits to DBAs:
+- Focus on your application logic instead of spending valuable time managing hardware and software.
+- Scale out your RDBMS solutions without complex sharding or clustering
+Gain horizontal scaling without migration from relational to NoSQL databases.
+- Maintain high availability and protect against disaster without needing to engineer a complex replication and failover infrastructure.
+- Gain integrated security with data-layer encryption, identity and access management and audit logging
+<p style="text-align: center;">
+  <img class="image fit" alt="Google Spanner" src="/img/cloud-spanner.png">
+</p>
+
 
 # Keycloak
 
