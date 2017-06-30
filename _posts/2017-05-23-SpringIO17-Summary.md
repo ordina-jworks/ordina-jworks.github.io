@@ -64,7 +64,7 @@ Gain horizontal scaling without migration from relational to NoSQL databases.
 - Maintain high availability and protect against disaster without needing to engineer a complex replication and failover infrastructure.
 - Gain integrated security with data-layer encryption, identity and access management and audit logging
 <p style="text-align: center;">
-  <img class="image fit" alt="Google Spanner" src="/img/cloud-spanner.png">
+  <img class="image fit" alt="Google Spanner" src="/img/SpringIO2017/cloud-spanner.png">
 </p>
 
 
@@ -167,6 +167,16 @@ public Function<Flux<String>, Flux<String>> uppercase() {
   return flux -> flux.filter(this::isNotRude).map(String::toUpperCase);
 }
 ````
+
+# Spring Break
+What have Barcelona and a trampoline have common ?
+
+Spring-time !!!
+
+<p style="text-align: center;">
+  <img class="image fit" alt="Google Spanner" src="/img/SpringIO2017/pizza.jpg">
+</p>
+
 
 # Reactive Spring Data
 
@@ -294,6 +304,16 @@ Query side reads from the data stores
 
 Serverless event handlers
 
+# Spring break
+What did the tree say to spring...?
+
+What a re-leaf. 
+
+<p style="text-align: center;">
+  <img class="image fit" alt="Google Spanner" src="/img/SpringIO2017/terras.jpg">
+</p>
+
+
 # New in Spring 5: Functional Web Framework
 
 ### by [Arjen Poutsma](https://twitter.com/poutsma)
@@ -420,7 +440,15 @@ Do we still do this with annotations or will we get a new way to do this as well
 
 The Spring functional web framework is an interesting new development and we will be following it closely to see how we can use it in our new projects.
 
----
+# Spring break
+
+What did summer say to spring .. ?
+
+Help! I'm going to fall.
+
+<p style="text-align: center;">
+  <img class="image fit" alt="Google Spanner" src="/img/SpringIO2017/SpringIO2017group.jpg">
+</p>
 
 # Spring Auto REST Docs
 ### by [Florian Benz](https://twitter.com/flbenz)
@@ -519,3 +547,6 @@ firstName|String|true|The user's first name. Size must be between 0 and 20 inclu
 lastName|String|true|The user's last name. Size must be between 0 and 50 inclusive.
 
 Because the description of the POJO is now added on field level, it is guaranteed that this description will be the same everywhere this field is used => less maintenance.
+
+
+
