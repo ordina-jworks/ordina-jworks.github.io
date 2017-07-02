@@ -548,5 +548,62 @@ lastName|String|true|The user's last name. Size must be between 0 and 50 inclusi
 
 Because the description of the POJO is now added on field level, it is guaranteed that this description will be the same everywhere this field is used => less maintenance.
 
+# References
+### Day 1
 
+Topic | Presenter(s) | Resource(s)
+--- | --- | ---
+KEYNOTE - The Only Constant Is Change | Stéphane Nicoll, Andy Wilkinson | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/snicoll-demos/demo-webflux-streaming)
+Reactor 3, the reactive foundation for Java 8 (and Spring 5) | Simon Baslé | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/simonbasle/reactor-3)
+Architecture Deep Dive in Spring Security | Joe Grandja | 
+The Spring ecosystem in 50 minutes | Jeroen Sterken | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/JeroenSterken1/the-spring-ecosystem-in-50-min)
+Bootiful Development with Spring Boot and Angular [WORKSHOP] |Matt Raible | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/mraible/bootiful-development-with-spring-boot-and-angular-spring-io-2017)
+Spring Boot at AliExpress | Juven Xu | 
+Database centric applications with Spring Boot and jOOQ | Michael Simons | 
+Testing for Unicorns | Alex Soto | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/asotobu/testing-for-unicorns-77069262)
+Front Ends for Back End Developers | Matt Raible | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/mraible/front-ends-for-back-end-developers-spring-io-2017)
+The Beginner’s Guide To Spring Cloud | Ryan Baxter | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/ryanjbaxter/beginners-guide-to-spring-cloud)
+Microservices, but what about the UI | Marten Deinum | 
+Making the most of Spring boot: adapt to your environment! [WORKSHOP] | Arjan Jorritsma, Erwin Hoeckx
+New in Spring 5: Functional Web Framework | Arjen Poutsma | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/poutsma/web-function-sample)
+Deep Learning with DeepLearning4J and Spring Boot | Artur Garcia, Dimas Cabré| 
+Easily secure and add Identity Management to your Spring(Boot) applications | Sébastien Blanc
+The Future of Event-driven Microservices with Spring Cloud Stream | Kenny Bastani | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/kbastani/event-stream-processing-microservices)
+Container orchestration on Apache Mesos - DC/OS for Spring Boot devs | Johannes Unterstein | 
+Building Spring boot + Angular4 apps in minutes with JHipster | Deepu K Sasidharan | 
+Hands-on reactive applications with Spring Framework 5 [WORKSHOP] | Brian Clozel, Violeta Georgieva | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/bclozel/webflux-workshop)
+DDD Strategic Design with Spring Boot | Michael Plöd | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/mploed/ddd-strategic-design-spring-boot)
+Awesome Tools to Level Up Your Spring Cloud Architecture | Andreas Evers | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/AndreasEvers1/awesome-tools-to-level-up-your-spring-cloud-architecture-spring-io-2017)
+Surviving in a Microservices Team | Steve Pember | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/StevePember/surviving-in-a-microservices-environment)
 
+## Day 2
+
+Topic | Presenter(s) | Resource(s)
+--- | --- | ---
+Reactive Spring | Mark Heckler, Josh Long | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/joshlong/flux-flix-service)
+Spanner - a fully managed horizontally scalable relational database with ACID transactions that speaks SQL | Robert Kubis
+Reactive Spring UI's for business | Risto Yrjänä
+Hands-on reactive applications with Spring Framework 5 [WORKSHOP] | Brian Clozel, Violeta Georgieva | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/bclozel/webflux-workshop)
+Data Processing With Microservices | Michael T Minella | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/mminella/data-microservices)
+Protection and Verification of Security Design Flaws | Marcus Pinto, Roberto Velasco
+Experiences from using discovery services in a microservice landscape | Magnus Larsson
+Harnessing the Power of Spark & Cassandra within your Spring App | Steve Pember | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/spember/spark-cass-spring-demo)
+It's a kind of magic: under the covers of Spring Boot | Andy Wilkinson, Stéphane Nicoll
+Introducing Spring Auto REST Docs | Florian Benz | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/fbenz/introducing-spring-auto-rest-docs)
+Leveraging Domain Events in your Spring Boot Microservices [WORKSHOP] | Michael Plöd | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/mploed/event-driven-spring-boot)
+Functional web applications with Spring and Kotlin | Sébastien Deleuze | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/sdeleuze/functional-web-applications-with-spring-and-kotlin)
+Setting up a scalable CI platform with jenkins, docker and rancher in 50 minutes | Wolfgang Brauneis, Rainer Burgstaller | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://github.com/rburgst/rancherci-presentation) [![code](/img/SpringIO2017/icon-code.png)](https://github.com/rburgst/rancherci-seedjob) [![code](/img/SpringIO2017/icon-code.png)](https://github.com/rburgst/rancherci-demoapp)
+The Road to Serverless: Functions as Applications | Dave Syer | [![presentation](/img/SpringIO2017/icon-presentation.png)](http://presos.dsyer.com/decks/road-to-serverless.html) [![code](/img/SpringIO2017/icon-code.png)](https://github.com/dsyer/spring-cloud-function)
+TDD with Spring Boot - Testing the Harder Stuff  | Sannidhi Jalukar | 
+Splitting component containers to simplify dependencies | Eugene Petrenko | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://docs.google.com/presentation/d/1CRjAKdQEvVNi9JzuudEKlnncJffKi5k8Lw0J335IYMk/edit?usp=sharing)
+Build complex Spring Boot microservices architecture using JHipster [WORKSHOP] | Deepu K Sasidharan | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://deepu.js.org/jh-slides-springio-2017/index-ms.html)
+Caching Made Bootiful | Neil Stevenson | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/neilstevenson/springIO2017)
+Getting Thymeleaf ready for Spring 5 and Reactive | Daniel Fernández | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/dfernandez/o-2017-getting-thymeleaf-ready-for-spring-5-and-reactive) [![code](/img/SpringIO2017/icon-code.png)](https://github.com/danielfernandez/reactive-matchday)
+Developing a Spring Boot Starter for distributed logging | Carlos Barragan
+Reactive Meets Data Access | Christoph Strobl | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/christophstrobl/spring-data-reactive-demo)
+Building on spring boot lastminute.com microservices way | Luca Viola, Michele Orsi
+Growing Spring-based commons, lessons learned | Piotr Betkier | 
+CQRS with Spring Cloud Stream [WORKSHOP] | Jakub Pilimon
+Develop and Run your Spring Boot application on Google App Engine Flexible | Rafael Sánchez | [![code](/img/SpringIO2017/icon-code.png)](https://codelabs.developers.google.com/codelabs/cloud-app-engine-springboot/#0)
+Manage distributed configuration and secrets with Spring Cloud and Vault | Andreas Falk | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/AndreasFalk2/manage-distributed-configuration-and-secrets-with-spring-cloud-and-vault-spring-io-2017)
+From Zero to Open Source Hero: Contributing to Spring projects | Vedran Pavic | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/vpavic/from-zero-to-open-source-hero-contributing-to-spring-projects-1)
