@@ -14,20 +14,20 @@
 
         <!-- Twitter Card data -->
         <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="Devoxx Poland 2017 - Bart Blommaerts and Jeff Mesens">
+        <meta name="twitter:title" content="Devoxx Poland 2017 - Jeff Mesens and Bart Blommaerts">
         <meta name="twitter:description" content="Ordina JWorks Tech Blog">
         <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2017-devoxx-pl/devoxx-poland.jpg"/>
 
         <!-- Facebook Open Graph -->
         <meta property="og:url" content="http://ordina-jworks.github.io/conference/2017/06/21/Devoxx-pl.html"/>
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Devoxx Poland 2017 - Bart Blommaerts and Jeff Mesens"/>
+        <meta property="og:title" content="Devoxx Poland 2017 - Jeff Mesens and Bart Blommaerts"/>
         <meta property="og:description" content="Ordina JWorks Tech Blog"/>
         <meta property="og:image" content="http://ordina-jworks.github.io/img/2017-devoxx-pl/devoxx-poland.jpg"/>
     
 
     
-    <title>Devoxx Poland 2017 - Bart Blommaerts and Jeff Mesens &mdash; Ordina JWorks Tech Blog</title>
+    <title>Devoxx Poland 2017 - Jeff Mesens and Bart Blommaerts &mdash; Ordina JWorks Tech Blog</title>
     
 
         <!-- Styles -->
@@ -114,7 +114,7 @@
                 
 
                 
-                    Posted Jun 21, 2017
+                    Posted Jul 3, 2017
 
 
     in <a href="/categories/conference/">Conference</a>
@@ -123,14 +123,14 @@
 
     by
     
-        <a href="/author/bart-blommaerts/">Bart Blommaerts</a>
+        <a href="/author/jeff-mesens/">Jeff Mesens</a>
         
             
                  and 
         
         
     
-        <a href="/author/jeff-mesens/">Jeff Mesens</a>
+        <a href="/author/bart-blommaerts/">Bart Blommaerts</a>
         
     
 
@@ -141,7 +141,9 @@
     
         <a href="/tags/testing/">Testing</a>, 
     
-        <a href="/tags/software-patterns/">Software Patterns</a>
+        <a href="/tags/software-patterns/">Software Patterns</a>, 
+    
+        <a href="/tags/git/">Git</a>
     
 
                 
@@ -158,7 +160,6 @@
     <div class="inner" style="text-align: left;">
         <div class="content">
             <h1 id="devoxx-poland-2017">Devoxx Poland 2017</h1>
-<p><em>(This post is still in progress and will be updated on a regular base)</em></p>
 
 <p>Krakow in the ICE Krakow Congress Centre.</p>
 
@@ -189,9 +190,9 @@ Venkat went on to state that programming in a functional style is declarative, b
   <span class="k">if</span><span class="p">(</span><span class="nx">name</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">4</span><span class="p">)</span>
     <span class="nx">count</span><span class="o">++</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">count</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">count</span><span class="p">);</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">names</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">name</span> <span class="o">=&gt;</span> <span class="nx">name</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">4</span><span class="p">).</span><span class="nx">size</span><span class="p">)</span></code></pre></figure>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">names</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">name</span> <span class="o">=&gt;</span> <span class="nx">name</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">4</span><span class="p">).</span><span class="nx">size</span><span class="p">);</span></code></pre></figure>
 
 <h3 id="declarative-vs-imperative">Declarative vs Imperative</h3>
 
@@ -226,44 +227,107 @@ Obviously, TDD (Test Driven Development) makes a lot more sense.</p>
 Verification is the process that checks if the code (still) works.
 This is not something anyone should do manually, verification is exactly what should be automated.
 Testing is the process that checks if a feature is correctly implemented.
-Code represents what you have typed, not what you might wanted the system to do.
+Code represents what you have typed, not what you might have wanted the system to do.
 It is the act of gaining insight in the application and the business.
 This could well be a manual task.
 Unfortunately, most of our industry has neglected this important difference.</p>
 
 <p>The maturity of software verification can be categorized in three maturity stages. 
-Projects without verification automation are in denial, they are building up an increasing technical depth.
-The second stage describes projects which have some automated verification on the UI level. 
+Projects without verification automation are in denial, they are building up an increasing technical debt.
+The second stage describes projects that have some automated verification on the UI level. 
 Venkat describes tools using WebDriver for UI level verification as a pathway to hell automation.
-This testmethod can be represented in the ice-cream cone anti-pattern. 
-For projects with the right level of automation the pyramid pattern is a good representation.
+This test method can be represented in the ice-cream cone anti-pattern. 
+For projects with the right level of automation, the pyramid pattern is a good representation.
 The last maturity stage contains these projects with the right measure of automated verification.</p>
 
 <p><img src="/img/2017-devoxx-pl/testing-ice-cream-cone.png" alt="Testing ice-cream cone" class="image" width="49%" />
 <img src="/img/2017-devoxx-pl/testing-pyramid.png" alt="Testing pyramic" class="image" width="49%" /></p>
 
 <h3 id="discipline">Discipline</h3>
-<p>Venkat drew a comparison with 1820, where patients died regularly within three weeks after operating.
+<p>Venkat drew a comparison with 1820, where patients died regularly within three weeks after being operating.
 Doctors (Joseph Lister, Louis Pasteur) started cleaning their tools after surgery and noticed a positive trend in survival.</p>
 
 <p>Analogous to the doctors back then, we need to discipline ourselves in software engineering.
-This discipline is needed to keep up to speed and stay agile, so that teams can react rapidly to customer requests. 
+This discipline is needed to keep up to speed and to stay agile, so that teams can react rapidly to customer requests. 
 To build up this discipline, automated verification can be seen as the software equivalent of exercising.</p>
 
 <blockquote>
   <p>We’re practicing a beautiful craft, let’s go turn it into a wonderful profession. Focusing on quality and creative things.</p>
 </blockquote>
 
-<h2 id="consumer-driven-contracts-and-your-microservice-architecture-marcin-grzejszczak-and-josh-long">Consumer Driven Contracts and Your Microservice Architecture (<a href="https://twitter.com/@mgrzejszczak">Marcin Grzejszczak</a> and <a href="https://twitter.com/@starbuxman">Josh Long</a>)</h2>
+<h2 id="feature-branches-and-toggles-in-a-post-github-world-sam-newman">Feature Branches And Toggles In A Post-GitHub World (<a href="https://twitter.com/@samnewman">Sam Newman</a>)</h2>
 
-<p>Extended blog coming later.</p>
+<p>Sam told us about his experience at a project where the team was having trouble merging branches.
+The release branch for the next release was called R3, but for a large refactoring, branch R4 was created.
+Afterwards, he described merging the branches as a car crash.
+They even needed to introduce a dedicated R3-R4 merge bug fix team.
+Later on, they set up <strong>Continuous Integration</strong> in order to prevent the merging issues.
+The code, pushed by the developers, would get automatically validated by the CI setup.
+The problem with the R3-R4 release was that validation was done only for a branch and not on the integrated branches.</p>
 
-<!-- 
-    Next up:
-    ## Feature Branches And Toggles In A Post-GitHub World
-    By [Sam Newman](https://twitter.com/@samnewman)
--->
+<blockquote>
+  <p>The integration should be validated every day and when the build breaks, fix it!</p>
+</blockquote>
 
+<p>For unfinished work, we can wait until it is ready before checking in.
+This exposes us to the risk of losing work when it’s only on the developer’s computer.</p>
+
+<h3 id="feature-branch">Feature Branch</h3>
+
+<p>An alternative would be to create a <strong>feature branch</strong>, which brings us back to the problem of merging branches.</p>
+
+<blockquote>
+  <p>Pain of merge = fn(size_of_merge, duration_since_last_merge)</p>
+</blockquote>
+
+<p>Merging branches can be a difficult task and might lead to a commit race, offloading the effort to a colleague.</p>
+
+<h3 id="trunk-based-development">Trunk-based development</h3>
+
+<p>A third option would be to ‘check in anyway’, called <strong>trunk-based development</strong>.
+Every commit integrates to the trunk and developers should integrate their local changes daily.
+Small changes and integrating often makes it easier to merge new code.</p>
+
+<p>New half-finished features can be hidden with <strong>feature toggles</strong>.
+These toggles can be managed using flags or configurations (eg, in Zookeeper, Consul, …).</p>
+<blockquote>
+  <p>A flag should be set and evaluated in as few places as possible, preferably only once each.
+Flags should be removed when the new implementation is done.</p>
+</blockquote>
+
+<p>More info: <a href="https://trunkbaseddevelopment.com/">Trunk-based development</a></p>
+
+<p>Changes to an existing functionality can be done by providing an abstraction above the existing functionality.
+The new functionality can then be developed for the abstraction and when it is done, changed to the new implementation.
+<strong>Branch by abstraction</strong> has the side-benefit that it can be used for <strong>A/B and canary releasing</strong>.</p>
+
+<p><a href="https://www.amazon.de/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912">The Continuous Delivery</a> book tells us to treat every check-in as a possible release candidate.
+Developers start with the assumption that it is worthy, the CI tool decides whether it truly is.
+Deploy frequently with small changes, making it easier to rollback and lowering the risk of running into problems.</p>
+
+<h3 id="git">Git</h3>
+
+<p>And then there was <strong>Git</strong>, developed by <a href="https://en.wikipedia.org/wiki/Linus_Torvalds">Linus Torvalds</a> with the goal to merge a patch in less than three seconds.
+In Git, branches are much more lightweight and every local repository contains the full source history.</p>
+
+<p>In 2008, <strong><a href="https://github.com">GitHub</a></strong> was founded and introduced pull requests.
+If you wanted to contribute to open source projects before pull requests you had to:</p>
+<ul>
+  <li>Develop it locally</li>
+  <li>Generate a patch file</li>
+  <li>Mail it over to the project owners</li>
+</ul>
+
+<p>This feature contributed to GitHub’s success as three years later in 2011, they passed SourceForge and Google Code in popularity.</p>
+
+<p>Sam made the remark that pull requests use branches, which might bring problems. 
+On top of that <strong><a href="https://www.atlassian.com/git/tutorials/comparing-workflows#gitflow-workflow">GitFlow</a></strong> was introduced.
+Because GitFlow introduces even more branches, it is in controversy with fast deployment and small changes cycle.
+With tools like <a href="https://www.split.io">Split</a> and <a href="https://launchdarkly.com">LaunchDarkly</a>, GitFlow is not needed, if merged frequently.</p>
+
+<p>The conclusion was that experimental and release branches, that might even never get merged, still have their uses.
+The pull request mechanism works well in open source projects.
+Except for experiments, releases and pull requests, Sam recommends to prevent branches and to <strong>keep batch sizes small, integrate often and ship often</strong>.</p>
 
         </div>
     </div>
@@ -287,20 +351,6 @@ To build up this discipline, automated verification can be seen as the software 
 <section id="two" class="wrapper alt spotlight style2">
     
     <div class="inner">
-        <a href="/author/bart-blommaerts/" class="image spotlight-image">
-            <img src="/img/author/bart-blommaerts.png"
-                 alt="" class="p-image"/>
-        </a>
-
-        <div class="content">
-            
-            <p><p>Bart Blommaerts is a passionate Software Architect at Ordina, who believes closing the model-code gap is essential to make rapid, agile delivery sustainable. Bart has a strong focus on API design, reuse, automation and security. He is always looking for technical challenges.</p>
-</p>
-            
-        </div>
-    </div>
-    
-    <div class="inner">
         <a href="/author/jeff-mesens/" class="image spotlight-image">
             <img src="/img/author/jeff-mesens.jpg"
                  alt="" class="p-image"/>
@@ -309,6 +359,20 @@ To build up this discipline, automated verification can be seen as the software 
         <div class="content">
             
             <p><p>Jeff Mesens is a Software Engineer at Ordina Belgium.</p>
+</p>
+            
+        </div>
+    </div>
+    
+    <div class="inner">
+        <a href="/author/bart-blommaerts/" class="image spotlight-image">
+            <img src="/img/author/bart-blommaerts.png"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Bart Blommaerts is a passionate Software Architect at Ordina, who believes closing the model-code gap is essential to make rapid, agile delivery sustainable. Bart has a strong focus on API design, reuse, automation and security. He is always looking for technical challenges.</p>
 </p>
             
         </div>
