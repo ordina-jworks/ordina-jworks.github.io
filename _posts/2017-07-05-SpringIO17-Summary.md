@@ -8,61 +8,113 @@ category: Spring
 comments: true
 ---
 
-> Last week, we had another great edition of Spring I/O, brought to us by organizer [Sergi Almar](https://twitter.com/sergialmar).
-In this blogpost, we will go over some of our favourite sessions of the conference.
+> On the 18th and 19th of May, we had another great edition of Spring I/O, brought to us by organizer [Sergi Almar](https://twitter.com/sergialmar){:target="_blank"}.
+In this blog post, we will go over some of our favourite sessions of the conference.
 
-> **DISCLAIMER**: this is obviously a very opinionated list of talks. This does not mean that the other talks were of lower quality, it just means we weren't able to attend or did not take extensive notes.
+> **DISCLAIMER**: this is obviously a very opinionated list of talks. This does not mean that the other talks were of lower quality, it just means we were not able to attend or did not take extensive notes.
 
 # Keynote
 
-### by [Andy Wilkinson](https://twitter.com/ankinson) and [Stéphane Nicoll](https://twitter.com/snicoll)
+### by [Andy Wilkinson](https://twitter.com/ankinson){:target="_blank"} and [Stéphane Nicoll](https://twitter.com/snicoll){:target="_blank"}
 
-Obviously, the keynote presentation was filled with announcements, interesting tidbits and two great presenters. They report the [Spring Boot 2.0.0 M1 release](https://spring.io/blog/2017/05/16/spring-boot-2-0-0-m1-available-now).
+Obviously, the keynote presentation was filled with announcements, interesting tidbits and two great presenters.
+They reported the [Spring Boot 2.0.0 M1 release](https://spring.io/blog/2017/05/16/spring-boot-2-0-0-m1-available-now).
 This release was announced very shortly after [Spring Framework 5.0 went RC1](https://spring.io/blog/2017/05/08/spring-framework-5-0-goes-rc1) on the 8th of May.
 
 # Bootiful Database-centric applications with JOOQ
 
-### by Michael Simons
+### by [Michael Simons](https://twitter.com/rotnroll666){:target="_blank"}
 
-- use case: power and gas usage, time-series data, SQL databases, PL/SQL
-- Desktop GIS using Oracle Spatial
-- question: SQL, ORM or something in between / something else?
-- many options: JDBCTemplate, JDBC, JPA, JPQL, Criteria API, ... and JOOQ... again, there is no **silver bullet**
-- just becuase you use HIbernate, doesnt mean you need to use it for everything
-- JOOQ:
-  - exposes a legible DSL
-  - is typesafe
-  - query builder Framework
-  - generates java-based schema (gradle, maven integration)
-  - can reverse-engineer existing DB
-  - generates SQL
-- integration with Spring Boot:
-  - spring boot starter called spring-boot-starter-jooq
-- using maven:
-  - runs database migration with Flyway or Liquibase first!
-  - then runs code generator to generate java DSL context (in generate-sources build step)
-  - this way, database is always up-to-date with DSL context
-- difference between Query API and Hibernate ModelGen:
-  - much more similar to the native SQL
-  - easier to migrate existing PL/SQL applications?
-  - much more extensive collection of SQL functions and possibilities
+<span class="image left small"><img class="p-image" alt="Michael Simons" src="/img/SpringIO2017/michael-simons.jpg"></span>
+
+As a personal fan of `@rotnroll666`, I went to see his talk, fully expecting to be impressed by the level of quality and code.
+As always, Michael delivered: he made me realize **there are still plenty of PL/SQL developers out there in the enterprise landscape, who hold on to their code like kids to their favorite stuffed animal before bedtime**.
+
+Luckily for us, someone created a library called **JOOQ**:
+
+> jOOQ generates Java code from your database and lets you build type safe SQL queries through its fluent API
+
+<span class="image left small"><img alt="jOOQ" src="/img/SpringIO2017/jooq.png"></span>
+
+There are many use cases where jOOQ can prove useful, but the example that Michael used described the enterprise environment at his current employer:
+He was working for a **big utility company** in Germany, who developed applications on power and gas usage consisting of **lots of time-series data**.
+Almost all of the data was stored in SQL databases with a **big layer of PL/SQL on top**.
+They also developed some desktop GIS applications using **Oracle Spatial** to visualize the data.
+
+So the question they asked themselves at a certain moment:
+
+> Should we approach all of our data using plain PL/SQL? Should we use an ORM tool like Hibernate? Or can we use something in between?
+
+Of course, as with any good question, the answer is:
+
+> It depends. **There is no silver bullet**
+
+There are many options in the Java space to approach this problem:
+
+- Plain JDBC
+- Using a `JDBCTemplate`
+- JPA with JPQL and / or Criteria API
+
+Michael's team solved most of their problems using Hibernate, and while that comes with several advantages, it doesn't mean you have to use it for everything.
+One of the improvements they made was using **Hibernate combined with jOOQ**:
+
+- Use Hibernate for the regular database queries and *day-to-day manipulations of your database*
+- Use jOOQ for your complex queries and database migrations
+
+To briefly summarize what jOOQ can do for you:
+
+- jOOQ is **SQL-centric** which means jOOQ infers information from the actual database, not from the ORM model
+- It exposes a **typesafe meta-model** generated from your SQL
+- The Query Builder framework uses a **very legible DSL** (in a much more concise way than the `Criteria API`)
+- It generates a Java-based schema (using Maven or Gradle)
+- It can reverse-engineer an existing DB and generate SQL
+- Spring provides **integration with Spring Boot** through the `spring-boot-starter-jooq` dependency
+
+An ideal scenario to use jOOQ would be to:
+
+- Run your **database migration** with Flyway or Liquibase first
+- Run the **code generator** to generate the Java DSL context (this happens in the Maven `generate-sources` lifecycle phase)
+- Use the DSL context to **write your typesafe queries**, for example:
+
+{% highlight java %}
+
+BookRecord book = create.selectFrom(BOOK).where(BOOK.ID.eq(1)).fetchOne();
+
+{% endhighlight %}
+
+For more information about jOOQ, you can check out their website [here](https://www.jooq.org/){:target="_blank"}.
+
+> Question: What's the difference between the jOOQ Query API and using JPA Criteria API with the Hibernate ModelGen, which is also typesafe?
+
+- It resembles the native SQL much better
+- jOOQ provides **standardization** since it performs SQL transformations that work for **any SQL dialect**
+- It should make it easier to migrate existing PL/SQL applications
+- There is a much more extensive collection of SQL functions and possibilities
+- jOOQ provides POJO mappers which are also generated from the code generator
+- As much as you hate them, it supports calling **Stored Procedures**!
+
+The code from Michael's talk can be found on [Github](https://github.com/michael-simons/bootiful-databases){:target="_blank"}.
 
 # Google Spanner
 
-### by [Robert Kubis](https://twitter.com/hostirosti)
+### by [Robert Kubis](https://twitter.com/hostirosti){:target="_blank"}
 
-Google Spanner is a  globally distributed relational database service that provides ACID transactions and SQL semantics, without giving up horizontal scaling and high availability.
-When building cloud applications, you are no longer forced to choose between  traditional databases that guarantee transactional consistency, or NoSQL databases that offer simple, horizontal scaling and data distribution.
+Google Spanner is a **globally distributed relational database service** that provides ACID transactions and SQL semantics, without giving up horizontal scaling and high availability.
+
+When building cloud applications, you are no longer forced to choose between traditional databases that guarantee transactional consistency, or NoSQL databases that offer simple, horizontal scaling and data distribution.
 Cloud Spanner offers both of these critical capabilities in a single, fully managed service.
 With Spanner, your database can scale up and down as needed, and you only pay for the amount you use.
+
 Spanner keeps application development simple by supporting standard tools and languages in a familiar relational database environment.
 It supports distributed transactions, schemas and DDL statements, SQL queries and JDBC drivers and offers client libraries for the most popular languages, including Java, Go, Python and Node.js.
+
 As a managed service, Cloud Spanner provides key benefits to DBAs:
-- Focus on your application logic instead of spending valuable time managing hardware and software.
-- Scale out your RDBMS solutions without complex sharding or clustering
-Gain horizontal scaling without migration from relational to NoSQL databases.
-- Maintain high availability and protect against disaster without needing to engineer a complex replication and failover infrastructure.
-- Gain integrated security with data-layer encryption, identity and access management and audit logging
+- **Focus on your application logic** instead of spending valuable time managing hardware and software.
+- Scale out your RDBMS solutions without complex sharding or clustering.
+- Gain **horizontal scaling** without migration from relational to NoSQL databases
+- Maintain **high availability** and protect against disaster without needing to engineer a complex replication and failover infrastructure.
+- Gain **integrated security** with data-layer encryption, identity and access management and audit logging
+
 <p style="text-align: center;">
   <img class="image fit" alt="Google Spanner" src="/img/SpringIO2017/cloud-spanner.png">
 </p>
@@ -70,7 +122,7 @@ Gain horizontal scaling without migration from relational to NoSQL databases.
 
 # Keycloak
 
-### by [Sébastien Blanc](https://twitter.com/sebi2706)
+### by [Sébastien Blanc](https://twitter.com/sebi2706){:target="_blank"}
 
 - Download Keycloak server
 - Extract and run Keycloak server
@@ -87,7 +139,7 @@ Gain horizontal scaling without migration from relational to NoSQL databases.
 
 # Spring Cloud Streams (Data Services)
 
-### by [Michael Minella](https://twitter.com/michaelminella)
+### by [Michael Minella](https://twitter.com/michaelminella){:target="_blank"}
 
 - Lots of Big Data frameworks out there (Hadoop, Spark, ...)
 - They can handle BIG amounts of data very well
@@ -139,7 +191,7 @@ Gain horizontal scaling without migration from relational to NoSQL databases.
 
 - Compared to Spring as an application framework: Spring allows us to write business logic
 
-> "Serverless" is just ridiculous, of course you're gonna have servers, you just don't care about them
+> The naming of "Serverless" is just ridiculous, of course you're gonna have servers, you just don't care about them
 
 - Functions:
   - Event driven
@@ -161,22 +213,19 @@ Gain horizontal scaling without migration from relational to NoSQL databases.
   - Run the same business logic as web endpoint, stream processor or a task
   - uniform programming model across providers and able to run standalone (not on a IAAS or PAAS).
   - Supports reactive programming model (Flux, Mono) as well
-````
+
+{% highlight java %}
 @Bean
 public Function<Flux<String>, Flux<String>> uppercase() {
   return flux -> flux.filter(this::isNotRude).map(String::toUpperCase);
 }
-````
+{% endhighlight %}
 
 # Spring Break
-What have Barcelona and a trampoline have common ?
-
-Spring-time !!!
 
 <p style="text-align: center;">
-  <img class="image fit" alt="Google Spanner" src="/img/SpringIO2017/pizza.jpg">
+  <img class="image fit" alt="Google Spanner" src="/img/SpringIO2017/Pizza.jpg">
 </p>
-
 
 # Reactive Spring Data
 
@@ -222,16 +271,18 @@ Spring-time !!!
 
 # The future of event driven microservices with spring cloud stream
 
-### by [Kenny Bastani](https://twitter.com/kennybastani)
+### by [Kenny Bastani](https://twitter.com/kennybastani){:target="_blank"}
 
 ## Evolution
 
 ### Monolith application
+
 * Slows our velocity getting into production
 * Not as easy to add new engineers to a project
 * To large for any one person to fully comprehend
 
 ### Monolith organization
+
 * Centralized authority for operations, database and change management slows progress
 * Coordinated releases batch many changes together from different teams
 * Operations drives the runtime environment of applications
@@ -239,24 +290,29 @@ Spring-time !!!
 * Deploy everything at once or nothing at all
 
 ### Move towards SOA
+
 Independent services: 
 Key problem => shared libraries
 
 ### Microservices
+
 Small teams organized around business capabilities with responsibility of running
 Use rest api to communicates
 Developers can choose tools
 
-### Is it a Monolith or Microservice? 
+### Is it a Monolith or Microservice?
+
 If it takes longer than a day for an engineer to ramp up its probably a monolith
 
 Antipattern to have frontend communicate directly to microservices
 Instead use edge service 
 
 ## Splitting the monolith
+
 -> Slice off (hard in practice) service migration
 
 ### Why we need event-driven microservices
+
 Problems:
 * No foreign key constraints between services
 * Distributed transactions are brittle
@@ -264,9 +320,10 @@ Problems:
 
 Without event-driven microservices
 
-    You will drown in problems you didn't know that existed!
+> You will drown in problems you didn't know existed!
     
 ### Event-driven microservices
+
 Domain events as a first class citizen 
 
 (based on eventuate from Chris..)
@@ -281,14 +338,16 @@ Domain events as a first class citizen
 Terminal state -> eventual consistency (order failed or succeeded)
 
 Build hypermedia api's that attach:
+
 * Event logs 
 * Commands 
 * Commits
+
 as a link to an aggregate
 
 ### Event Handlers
+
 Subscribe to an event an apply state changes to an aggregate.
-...
 
 CQRS is used to create materialized views from streams of events
 
@@ -297,7 +356,6 @@ Update Status
 
 Query side
 
-
 Command service writes events into kafka event store
 Event processor loads events from store and update data store (mysql) 
 Query side reads from the data stores
@@ -305,26 +363,24 @@ Query side reads from the data stores
 Serverless event handlers
 
 # Spring break
-What did the tree say to spring...?
-
-What a re-leaf. 
 
 <p style="text-align: center;">
   <img class="image fit" alt="Google Spanner" src="/img/SpringIO2017/terras.jpg">
 </p>
 
-
 # New in Spring 5: Functional Web Framework
 
-### by [Arjen Poutsma](https://twitter.com/poutsma)
+### by [Arjen Poutsma](https://twitter.com/poutsma){:target="_blank"}
 
-In the keynote Andy Wilkinson and Stéphane Nicoll mentioned that the Spring framework and especially Spring boot is all about providing choices to developers.
+In the keynote Andy Wilkinson and Stéphane Nicoll mentioned that the Spring framework and especially **Spring Boot is all about providing choices to developers**.
 The framework provides us with tools to tackle problems in multiple ways. 
 In the light of this, starting from Spring 5 there will be a new functional alternative to handle incoming web requests.
 
-This new functional web framework is an alternative to annotation driven approach that is broadly applied in current applications.
-Arjen Poutsma states that some people are not happy with magic that happens behind the scenes when you use annotations like @RequestMapping or the newer @GetMapping.
-This was one of the reasons that made Spring develop this new framework.
+This new functional web library is an alternative to annotation driven approach that is broadly applied in current applications.
+
+> Arjen Poutsma states that some people are not happy with magic that happens behind the scenes when you use annotations like `@RequestMapping` or the newer `@GetMapping`
+
+This was one of the reasons that made Spring develop this new library.
 
 In the next sections we show a quick introduction to what was shown at Spring IO about what this new framework has to offer.
 
@@ -342,7 +398,8 @@ What we return is the ServerResponse in which we can easily put all the informat
 And Spring provides us with an easy builder to create such a response as it already did with the ResponseEntity builder.
 
 You can see that these new objects and builders provide us with an easy and declarative way to handle request and create responses, without the "magic" that we used previously with the annotations.
-```Java
+
+{% highlight java %}
 public class UserHandler {
 
     public UserHandler(UserRepository repository) {
@@ -369,7 +426,7 @@ public class UserHandler {
         return ServerResponse.ok().contentType(APPLICATION_JSON).body(users, User.class);
     }
 }
-```
+{% endhighlight %}
 
 Now we have defined how we want to handle request and how we translate it to a response.
 What we need next is a way to say which requests will be handled by which handler function.
@@ -377,15 +434,14 @@ What we need next is a way to say which requests will be handled by which handle
 In the old way this was done by defining an annotation that defined some parameters to couple for example a path to a method.
 The functional web framework does this by creating RouterFunctions.
 
-This RouterFunction is a function that takes a ServerRequest and returns a `Mono<HandlerFunction>`. 
-To choose which requests get handled by which HandlerFunction Spring again provides us with some builder functions.
+This RouterFunction is a function that takes a `ServerRequest` and returns a `Mono<HandlerFunction>`. 
+To choose which requests get handled by which HandlerFunction, Spring again provides us with some builder functions.
 
 That way we can easily bind the handlers we just created with a path as shown in the next code example.
 
 #### Router example
 
-
-```Java
+{% highlight java %}
 public RouterFunction<ServerResponse> routingFunction() {
     PersonHandler handler = new PersonHandler(userRepository);
     
@@ -395,14 +451,14 @@ public RouterFunction<ServerResponse> routingFunction() {
                     .andRoute(method(HttpMethod.GET), handler::listPeople)
             ).andRoute(POST("/").and(contentType(APPLICATION_JSON)), handler::createPerson));
 }
-```
+{% endhighlight %}
 
-#### Create tomcat server
+#### Creating a Tomcat server
 
 Now that we have declared which routes are handled by which functions we have to let our server know this.
-In the next code example we show how to create a Tomcat server and how to bind the RouterFunction to our server.
+In the next code example we show how to create a Tomcat server and how to bind the `RouterFunction` to our server.
 
-```Java
+{% highlight java %}
 public void startTomcatServer() throws LifecycleException {
     RouterFunction<?> route = routingFunction();
     HttpHandler httpHandler = toHttpHandler(route);
@@ -416,16 +472,16 @@ public void startTomcatServer() throws LifecycleException {
     rootContext.addServletMapping("/", "httpHandlerServlet");
     tomcatServer.start();
 }
-```
+{% endhighlight %}
 
-And then in the main method we only have to start our Tomcat server and we're up and running.
+And then in the main method we only have to start our Tomcat server and we're up and running:
 
-```Java
+{% highlight java %}
 public static void main(String[] args) throws Exception {
     Server server = new Server();
     server.startTomcatServer();
 }
-```
+{% endhighlight %}
 
 ### Conclusion
 The new functional web framework gives us a more declarative and functional way to create a server and handle web requests. 
@@ -442,32 +498,28 @@ The Spring functional web framework is an interesting new development and we wil
 
 # Spring break
 
-What did summer say to spring .. ?
-
-Help! I'm going to fall.
-
 <p style="text-align: center;">
   <img class="image fit" alt="Google Spanner" src="/img/SpringIO2017/SpringIO2017group.jpg">
 </p>
 
 # Spring Auto REST Docs
-### by [Florian Benz](https://twitter.com/flbenz)
+### by [Florian Benz](https://twitter.com/flbenz){:target="_blank"}
 
-Spring Auto REST Docs is an extension on Spring REST Docs (our post on Spring REST Docs can be found [here](https://ordina-jworks.github.io/conference/2016/06/30/SpringIO16-Spring-Rest-Docs.html)).
+Spring Auto REST Docs is an extension on Spring REST Docs (**our post on Spring REST Docs can be found [here](https://ordina-jworks.github.io/conference/2016/06/30/SpringIO16-Spring-Rest-Docs.html){:target="_blank"}**).
 This extension helps you to write even less code by including your Javadoc into the Spring REST Docs. 
 
-#### Small usage example
-
-_For a more detailed overview on what is possible and how to start using this extension, please visit the official documentation [here](https://scacap.github.io/spring-auto-restdocs/)._
+For a more detailed overview on what is possible and how to start using this extension, please visit the official documentation [here](https://scacap.github.io/spring-auto-restdocs/){:target="_blank"}.
 
 Imagine you have the following method in your controller:
-```Java
+
+{% highlight java %}
 @RequestMapping("users")
 public Page<ItemResponse> searchItem(@RequestParam("page") Integer page, @RequestParam("per_page") Integer per_page) { ... }
-```
+{% endhighlight %}
 
 With the following POJO:
-```Java
+
+{% highlight java %}
 public class User {
     private String username;
     private String firstName;
@@ -475,10 +527,11 @@ public class User {
     
     ...
 }
-```
+{% endhighlight %}
 
 And the test that generates Spring REST Docs:
-```Java
+
+{% highlight java %}
 this.mockMvc.perform(get("/users?page=2&per_page=100")) 
 	.andExpect(status().isOk())
 	.andDo(document("users", 
@@ -491,22 +544,22 @@ this.mockMvc.perform(get("/users?page=2&per_page=100"))
             fieldWithPath("firstName").description("The user's first name."),
             fieldWithPath("lastName").description("The user's last name."),
     )));
-```
+{% endhighlight %}
 
-##### Now using Spring Auto REST Docs, this could be replaced by 
+When using Spring Auto REST Docs, this could be replaced by adding **Javadoc** to the method in the controller:
 
-Adding Javadoc to the method in the controller:
-```Java
+{% highlight java %}
 /**
  * @param page The page to retrieve
  * @param per_page Entries per page
  */
 @RequestMapping("users")
 public Page<ItemResponse> searchItem(@RequestParam("page") Integer page, @RequestParam("per_page") Integer per_page) { ... }
-```
+{% endhighlight %}
 
 And adding Javadoc to the POJO fields:
-```Java
+
+{% highlight java %}
 public class User {
     /**
     * The user's unique database identifier.
@@ -528,15 +581,17 @@ public class User {
     
     ...
 }
-```
+{% endhighlight %}
 
-And then removing the requestParameters and responseFields from the test:
-```Java
+And then removing the `requestParameters` and `responseFields` from the test:
+
+{% highlight java %}
 this.mockMvc.perform(get("/users?page=2&per_page=100")) 
 	.andExpect(status().isOk());
-```
+{% endhighlight %}
 
-You notice that I added the annotations @NotBlank and @Size in the POJO, these annotations will also be reflected in the resulting documentation. You could also create your own annotations.
+You notice that I added the annotations `@NotBlank` and `@Size` in the POJO, these annotations will also be reflected in the resulting documentation.
+You could also create your own annotations.
 
 Result:
 
@@ -546,64 +601,64 @@ username|String|false|The user's unique database identifier.
 firstName|String|true|The user's first name. Size must be between 0 and 20 inclusive.
 lastName|String|true|The user's last name. Size must be between 0 and 50 inclusive.
 
-Because the description of the POJO is now added on field level, it is guaranteed that this description will be the same everywhere this field is used => less maintenance.
+Because the description of the POJO is now added on field level, it is guaranteed that this description will be the same everywhere this field is used, meaning less maintenance is needed.
 
 # References
-### Day 1
+### Day One
 
 Topic | Presenter(s) | Resource(s)
 --- | --- | ---
-KEYNOTE - The Only Constant Is Change | Stéphane Nicoll, Andy Wilkinson | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/snicoll-demos/demo-webflux-streaming)
-Reactor 3, the reactive foundation for Java 8 (and Spring 5) | Simon Baslé | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/simonbasle/reactor-3)
+KEYNOTE - The Only Constant Is Change | Stéphane Nicoll, Andy Wilkinson | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/snicoll-demos/demo-webflux-streaming){:target="_blank"}
+Reactor 3, the reactive foundation for Java 8 (and Spring 5) | Simon Baslé | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/simonbasle/reactor-3){:target="_blank"}
 Architecture Deep Dive in Spring Security | Joe Grandja | 
-The Spring ecosystem in 50 minutes | Jeroen Sterken | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/JeroenSterken1/the-spring-ecosystem-in-50-min)
-Bootiful Development with Spring Boot and Angular [WORKSHOP] |Matt Raible | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/mraible/bootiful-development-with-spring-boot-and-angular-spring-io-2017)
+The Spring ecosystem in 50 minutes | Jeroen Sterken | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/JeroenSterken1/the-spring-ecosystem-in-50-min){:target="_blank"}
+Bootiful Development with Spring Boot and Angular [WORKSHOP] |Matt Raible | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/mraible/bootiful-development-with-spring-boot-and-angular-spring-io-2017){:target="_blank"}
 Spring Boot at AliExpress | Juven Xu | 
-Database centric applications with Spring Boot and jOOQ | Michael Simons | 
-Testing for Unicorns | Alex Soto | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/asotobu/testing-for-unicorns-77069262)
-Front Ends for Back End Developers | Matt Raible | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/mraible/front-ends-for-back-end-developers-spring-io-2017)
-The Beginner’s Guide To Spring Cloud | Ryan Baxter | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/ryanjbaxter/beginners-guide-to-spring-cloud)
+Database centric applications with Spring Boot and jOOQ | Michael Simons | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/michael-simons/bootiful-databases){:target="_blank"}
+Testing for Unicorns | Alex Soto | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/asotobu/testing-for-unicorns-77069262){:target="_blank"}
+Front Ends for Back End Developers | Matt Raible | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/mraible/front-ends-for-back-end-developers-spring-io-2017){:target="_blank"}
+The Beginner’s Guide To Spring Cloud | Ryan Baxter | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/ryanjbaxter/beginners-guide-to-spring-cloud){:target="_blank"}
 Microservices, but what about the UI | Marten Deinum | 
 Making the most of Spring boot: adapt to your environment! [WORKSHOP] | Arjan Jorritsma, Erwin Hoeckx
-New in Spring 5: Functional Web Framework | Arjen Poutsma | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/poutsma/web-function-sample)
+New in Spring 5: Functional Web Framework | Arjen Poutsma | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/poutsma/web-function-sample){:target="_blank"}
 Deep Learning with DeepLearning4J and Spring Boot | Artur Garcia, Dimas Cabré| 
 Easily secure and add Identity Management to your Spring(Boot) applications | Sébastien Blanc
-The Future of Event-driven Microservices with Spring Cloud Stream | Kenny Bastani | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/kbastani/event-stream-processing-microservices)
+The Future of Event-driven Microservices with Spring Cloud Stream | Kenny Bastani | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/kbastani/event-stream-processing-microservices){:target="_blank"}
 Container orchestration on Apache Mesos - DC/OS for Spring Boot devs | Johannes Unterstein | 
 Building Spring boot + Angular4 apps in minutes with JHipster | Deepu K Sasidharan | 
-Hands-on reactive applications with Spring Framework 5 [WORKSHOP] | Brian Clozel, Violeta Georgieva | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/bclozel/webflux-workshop)
-DDD Strategic Design with Spring Boot | Michael Plöd | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/mploed/ddd-strategic-design-spring-boot)
-Awesome Tools to Level Up Your Spring Cloud Architecture | Andreas Evers | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/AndreasEvers1/awesome-tools-to-level-up-your-spring-cloud-architecture-spring-io-2017)
-Surviving in a Microservices Team | Steve Pember | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/StevePember/surviving-in-a-microservices-environment)
+Hands-on reactive applications with Spring Framework 5 [WORKSHOP] | Brian Clozel, Violeta Georgieva | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/bclozel/webflux-workshop){:target="_blank"}
+DDD Strategic Design with Spring Boot | Michael Plöd | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/mploed/ddd-strategic-design-spring-boot){:target="_blank"}
+Awesome Tools to Level Up Your Spring Cloud Architecture | Andreas Evers | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/AndreasEvers1/awesome-tools-to-level-up-your-spring-cloud-architecture-spring-io-2017){:target="_blank"}
+Surviving in a Microservices Team | Steve Pember | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/StevePember/surviving-in-a-microservices-environment){:target="_blank"}
 
-## Day 2
+## Day Two
 
 Topic | Presenter(s) | Resource(s)
 --- | --- | ---
-Reactive Spring | Mark Heckler, Josh Long | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/joshlong/flux-flix-service)
+Reactive Spring | Mark Heckler, Josh Long | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/joshlong/flux-flix-service){:target="_blank"}
 Spanner - a fully managed horizontally scalable relational database with ACID transactions that speaks SQL | Robert Kubis
 Reactive Spring UI's for business | Risto Yrjänä
-Hands-on reactive applications with Spring Framework 5 [WORKSHOP] | Brian Clozel, Violeta Georgieva | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/bclozel/webflux-workshop)
-Data Processing With Microservices | Michael T Minella | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/mminella/data-microservices)
+Hands-on reactive applications with Spring Framework 5 [WORKSHOP] | Brian Clozel, Violeta Georgieva | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/bclozel/webflux-workshop){:target="_blank"}
+Data Processing With Microservices | Michael T Minella | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/mminella/data-microservices){:target="_blank"}
 Protection and Verification of Security Design Flaws | Marcus Pinto, Roberto Velasco
 Experiences from using discovery services in a microservice landscape | Magnus Larsson
-Harnessing the Power of Spark & Cassandra within your Spring App | Steve Pember | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/spember/spark-cass-spring-demo)
+Harnessing the Power of Spark & Cassandra within your Spring App | Steve Pember | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/spember/spark-cass-spring-demo){:target="_blank"}
 It's a kind of magic: under the covers of Spring Boot | Andy Wilkinson, Stéphane Nicoll
-Introducing Spring Auto REST Docs | Florian Benz | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/fbenz/introducing-spring-auto-rest-docs)
-Leveraging Domain Events in your Spring Boot Microservices [WORKSHOP] | Michael Plöd | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/mploed/event-driven-spring-boot)
-Functional web applications with Spring and Kotlin | Sébastien Deleuze | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/sdeleuze/functional-web-applications-with-spring-and-kotlin)
-Setting up a scalable CI platform with jenkins, docker and rancher in 50 minutes | Wolfgang Brauneis, Rainer Burgstaller | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://github.com/rburgst/rancherci-presentation) [![code](/img/SpringIO2017/icon-code.png)](https://github.com/rburgst/rancherci-seedjob) [![code](/img/SpringIO2017/icon-code.png)](https://github.com/rburgst/rancherci-demoapp)
-The Road to Serverless: Functions as Applications | Dave Syer | [![presentation](/img/SpringIO2017/icon-presentation.png)](http://presos.dsyer.com/decks/road-to-serverless.html) [![code](/img/SpringIO2017/icon-code.png)](https://github.com/dsyer/spring-cloud-function)
+Introducing Spring Auto REST Docs | Florian Benz | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/fbenz/introducing-spring-auto-rest-docs){:target="_blank"}
+Leveraging Domain Events in your Spring Boot Microservices [WORKSHOP] | Michael Plöd | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/mploed/event-driven-spring-boot){:target="_blank"}
+Functional web applications with Spring and Kotlin | Sébastien Deleuze | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/sdeleuze/functional-web-applications-with-spring-and-kotlin){:target="_blank"}
+Setting up a scalable CI platform with jenkins, docker and rancher in 50 minutes | Wolfgang Brauneis, Rainer Burgstaller | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://github.com/rburgst/rancherci-presentation){:target="_blank"} [![code](/img/SpringIO2017/icon-code.png)](https://github.com/rburgst/rancherci-seedjob){:target="_blank"} [![code](/img/SpringIO2017/icon-code.png)](https://github.com/rburgst/rancherci-demoapp){:target="_blank"}
+The Road to Serverless: Functions as Applications | Dave Syer | [![presentation](/img/SpringIO2017/icon-presentation.png)](http://presos.dsyer.com/decks/road-to-serverless.html){:target="_blank"} [![code](/img/SpringIO2017/icon-code.png)](https://github.com/dsyer/spring-cloud-function){:target="_blank"}
 TDD with Spring Boot - Testing the Harder Stuff  | Sannidhi Jalukar | 
-Splitting component containers to simplify dependencies | Eugene Petrenko | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://docs.google.com/presentation/d/1CRjAKdQEvVNi9JzuudEKlnncJffKi5k8Lw0J335IYMk/edit?usp=sharing)
-Build complex Spring Boot microservices architecture using JHipster [WORKSHOP] | Deepu K Sasidharan | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://deepu.js.org/jh-slides-springio-2017/index-ms.html)
-Caching Made Bootiful | Neil Stevenson | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/neilstevenson/springIO2017)
-Getting Thymeleaf ready for Spring 5 and Reactive | Daniel Fernández | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/dfernandez/o-2017-getting-thymeleaf-ready-for-spring-5-and-reactive) [![code](/img/SpringIO2017/icon-code.png)](https://github.com/danielfernandez/reactive-matchday)
+Splitting component containers to simplify dependencies | Eugene Petrenko | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://docs.google.com/presentation/d/1CRjAKdQEvVNi9JzuudEKlnncJffKi5k8Lw0J335IYMk/edit?usp=sharing){:target="_blank"}
+Build complex Spring Boot microservices architecture using JHipster [WORKSHOP] | Deepu K Sasidharan | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://deepu.js.org/jh-slides-springio-2017/index-ms.html){:target="_blank"}
+Caching Made Bootiful | Neil Stevenson | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/neilstevenson/springIO2017){:target="_blank"}
+Getting Thymeleaf ready for Spring 5 and Reactive | Daniel Fernández | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/dfernandez/o-2017-getting-thymeleaf-ready-for-spring-5-and-reactive){:target="_blank"} [![code](/img/SpringIO2017/icon-code.png)](https://github.com/danielfernandez/reactive-matchday){:target="_blank"}
 Developing a Spring Boot Starter for distributed logging | Carlos Barragan
-Reactive Meets Data Access | Christoph Strobl | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/christophstrobl/spring-data-reactive-demo)
+Reactive Meets Data Access | Christoph Strobl | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/christophstrobl/spring-data-reactive-demo){:target="_blank"}
 Building on spring boot lastminute.com microservices way | Luca Viola, Michele Orsi
 Growing Spring-based commons, lessons learned | Piotr Betkier | 
 CQRS with Spring Cloud Stream [WORKSHOP] | Jakub Pilimon
-Develop and Run your Spring Boot application on Google App Engine Flexible | Rafael Sánchez | [![code](/img/SpringIO2017/icon-code.png)](https://codelabs.developers.google.com/codelabs/cloud-app-engine-springboot/#0)
-Manage distributed configuration and secrets with Spring Cloud and Vault | Andreas Falk | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/AndreasFalk2/manage-distributed-configuration-and-secrets-with-spring-cloud-and-vault-spring-io-2017)
-From Zero to Open Source Hero: Contributing to Spring projects | Vedran Pavic | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/vpavic/from-zero-to-open-source-hero-contributing-to-spring-projects-1)
+Develop and Run your Spring Boot application on Google App Engine Flexible | Rafael Sánchez | [![code](/img/SpringIO2017/icon-code.png)](https://codelabs.developers.google.com/codelabs/cloud-app-engine-springboot/#0){:target="_blank"}
+Manage distributed configuration and secrets with Spring Cloud and Vault | Andreas Falk | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/AndreasFalk2/manage-distributed-configuration-and-secrets-with-spring-cloud-and-vault-spring-io-2017){:target="_blank"}
+From Zero to Open Source Hero: Contributing to Spring projects | Vedran Pavic | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/vpavic/from-zero-to-open-source-hero-contributing-to-spring-projects-1){:target="_blank"}
