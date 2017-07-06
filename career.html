@@ -50,13 +50,13 @@ image: /img/career/career-launch.png
                     <a href="{{ '/launch-your-career/kickstarter-programme' | prepend: site.baseurl }}" class="special">Read more</a>
                 </article>
                 <article>
-                    <a href="{{ '/launch-your-career/proficient-to-expert-programme' | prepend: site.baseurl }}" class="image article-image">
-                        <img src="/img/career/proficient-to-expert-badge-article.png" alt="">
+                    <a href="{{ '/launch-your-career/professional-programme' | prepend: site.baseurl }}" class="image article-image">
+                        <img src="/img/career/professional-badge-article.png" alt="">
                     </a>
 
-                    <h3 class="major">Proficient to Expert programme</h3>
+                    <h3 class="major">Professional programme</h3>
 
-                    <a href="{{ '/launch-your-career/proficient-to-expert-programme' | prepend: site.baseurl }}" class="special">Read more</a>
+                    <a href="{{ '/launch-your-career/professional-programme' | prepend: site.baseurl }}" class="special">Read more</a>
                 </article>
             </div>
         </div>
@@ -70,18 +70,21 @@ image: /img/career/career-launch.png
 
 <script>
 var seriesData = [
-    ["Novice",75, "Kickstarter Programme", "kickstarter-badge.png"],
-    ["Competent",150],
-    ["Proficient",300, "Proficient to Expert Programme", "proficient-to-expert-badge.png"],
-    ["Expert",500],
-    ["Master",800]
-];  
+    ["Student", 150],
+    ["→", 40, "Kickstarter programme:<ul><li>Hands-on experiences</li><li>Learning challenges</li><li>Objectives</li></ul>"],
+    ["Ordina Associate", 250],
+    // Label needs to be unique, otherwise popup information is incorrect
+    [" → ", 40, "Professional programme:<ul><li>Project experiences</li><li>Learning challenges</li><li>Objectives</li></ul>"],
+    ["Ordina Professional", 600],
+    ["  →  ", 0],
+    ["Ordina Master", 1200]
+];
 
 function findProgramme(name) {
     for (i = 0; i< seriesData.length; ++i) {
          if (i in seriesData) {
 	            if (seriesData[i][0] === name && seriesData[i][2] !== undefined) {
-                  return '<img src="/img/career/' + seriesData[i][3] + '" style="width: 80px; float: left;"></img><p style="padding-left: 5px;">' + seriesData[i][2] + '</p>';
+                  return seriesData[i][2];
               }
          }
      }
@@ -101,7 +104,7 @@ var chart = new Highcharts.Chart({
             viewDistance: 50
         }
     },
-    colors: ['#db1a0d', '#e98300', '#db1a0d', '#e98300', '#e98300'],
+    colors: ['#e98300', '#dd2100', '#e98300', '#dd2100', '#e98300', 'transparent', '#e98300'],
     xAxis: {
         tickInterval: 1,
         labels: {
@@ -161,8 +164,28 @@ var chart = new Highcharts.Chart({
     },
     series: [{
         data: seriesData
+    }, {
+        type: 'spline',
+        name: 'Average',
+        data: [100, 150, 225, 350, 550, 800, 1150],
+        marker: {
+            lineWidth: 2,
+            lineColor: Highcharts.getOptions().colors[3],
+            fillColor: 'white'
+        }
     }]
 });
+/*
+
+    ["Student", 75],
+    ["→", 20, "Kickstarter programme:<ul><li>Hands-on experiences</li><li>Learning challenges</li><li>Objectives</li></ul>"],
+    ["Ordina Associate", 200],
+    // Label needs to be unique, otherwise popup information is incorrect
+    [" → ", 20, "Professional programme:<ul><li>Project experiences</li><li>Learning challenges</li><li>Objectives</li></ul>"],
+    ["Ordina Professional", 500],
+    ["  →  ", 0],
+    ["Ordina Master", 1000]
+*/
 
 // Activate the sliders
 $('#sliders input').on('input change', function () {
