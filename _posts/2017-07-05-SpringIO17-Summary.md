@@ -13,13 +13,19 @@ In this blog post, we will go over some of our favourite sessions of the confere
 
 > **DISCLAIMER**: this is obviously a very opinionated list of talks. This does not mean that the other talks were of lower quality, it just means we were not able to attend or did not take extensive notes.
 
-# Keynote
+# Keynote: The Only Constant Is Change
 
 ### by [Andy Wilkinson](https://twitter.com/ankinson){:target="_blank"} and [Stéphane Nicoll](https://twitter.com/snicoll){:target="_blank"}
 
 Obviously, the keynote presentation was filled with announcements, interesting tidbits and two great presenters.
-They reported the [Spring Boot 2.0.0 M1 release](https://spring.io/blog/2017/05/16/spring-boot-2-0-0-m1-available-now).
+
+The biggest topic revolved around how **Spring has always tried to enable developers to adapt their applications rapidly**.
+This capacity of adapting to change increased dramatically when Spring Boot was released, which explains part of its success.
+
+They also reported the release of [Spring Boot 2.0.0 M1](https://spring.io/blog/2017/05/16/spring-boot-2-0-0-m1-available-now).
 This release was announced very shortly after [Spring Framework 5.0 went RC1](https://spring.io/blog/2017/05/08/spring-framework-5-0-goes-rc1) on the 8th of May.
+
+The keynote can be found [here](https://www.youtube.com/watch?v=uJSYnqIhcIo){:target="_blank"} and the demo code [here](https://github.com/snicoll-demos/demo-webflux-streaming){:target="_blank"}.
 
 # Bootiful Database-centric applications with JOOQ
 
@@ -124,18 +130,52 @@ As a managed service, Cloud Spanner provides key benefits to DBAs:
 
 ### by [Sébastien Blanc](https://twitter.com/sebi2706){:target="_blank"}
 
-- Download Keycloak server
-- Extract and run Keycloak server
-- Create Spring Boot application
-- Add keycloak Maven/Gradle dependency
-- Add keycloak server URL property, the project name registered in Keycloak and the user role required
+<span class="image left small"><img class="p-image" alt="Sébastien Blanc" src="/img/SpringIO2017/sebi.jpg"></span>
+
+I must say, this was one of the funniest talks of the conference.
+Sébastien knows how to entertain the crowd and he kicked off with a great quote which, of course, I immediately stole and tweeted:
+
+<blockquote class="twitter-tweet" style="margin-top: 2em" data-lang="en"><p lang="en" dir="ltr">Similar to a quite from <a href="https://twitter.com/sebi2706">@sebi2706</a> last week at <a href="https://twitter.com/hashtag/springio17?src=hash">#springio17</a> : forget about companies, it&#39;s all about community and code! 🙌</p>&mdash; Dieter Hubau (@dhubau) <a href="https://twitter.com/dhubau/status/867999793280413698">May 26, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+First of all, let's forget that Keycloak was created by Redhat and that it is written in Java EE.
+The following aspects of Keycloak are more important:
+
+- It's Open Source ([homepage](http://www.keycloak.org/){:target="_blank"})
+- Redhat provides support through their commercial fork called **Redhat SSO** ([homepage](https://access.redhat.com/products/red-hat-single-sign-on){:target="_blank"})
+- Great **Spring Boot Integration** through the use of a starter ([documentation](https://keycloak.gitbooks.io/documentation/securing_apps/topics/oidc/java/spring-boot-adapter.html){:target="_blank"})
+- Seamless **Spring Security Integration**
+- Supports OAuth 2.0, SAML 2.0, OpenID Connect
+- Integration with Active Directory, LDAP and even Kerberos (*start drooling enterprise users!*)
+
+It's actually quite easy to setup Keycloak:
+
+- Download the Keycloak standalone server [here](https://downloads.jboss.org/keycloak/3.2.0.Final/keycloak-3.2.0.Final.zip){:target="_blank"}
+- Extract and run it
+- Start the server and create an admin user
+- Create a new realm
+- Create a new application
+- Add roles to your application
+- Create a user to authenticate with
+- Create a Spring Boot application at [https://start.spring.io](start.spring.io){:target="_blank"}) and include the Keycloak starter
+- Add the Keycloak properties to your application.yml:
+    - server URL
+    - realm
+    - resource name of your application
+    - security constraints for your users
 - Run!
-- Integration with Spring Boot
-- Integration with Spring Security
-- Automatic registration of application possible using one-time tokens
-- Supports openID connect, SAML, Kerberos, ...
-- User mgmt, social integration, registration page, forgot password functionality, all out-of-the-box, configurable at runtime
-- All Keycloak logon pages are stylable through templates
+
+There are many additional features for power users:
+
+- Automatic registration of applications should be possible using a one-time token (coming soon?)
+- Centralized User Management
+- **CORS support** for Single Page Applications
+- Social Login Integration
+- Registration and Forgot Password functionality, all out-of-the-box, configurable at runtime
+- UI Customization of all pages is possible through theming (*start drooling designers!*)
+
+All in all, the setup and demo went very smooth and **I genuinely feel this product is about to become very popular**, partly because of the Spring Boot integration, but also because it just seems very solid and user-friendly.
+There might be a dedicated blogpost coming soon about Keycloak, so stay tuned and check our blog regularly or subscribe to our [RSS feed](http://localhost:4000/feed.xml){:target="_blank"}!
 
 # Spring Cloud Streams (Data Services)
 
