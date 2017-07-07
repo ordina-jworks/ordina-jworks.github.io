@@ -316,59 +316,66 @@ public Function<Flux<String>, Flux<String>> uppercase() {
 ## Evolution
 
 ### Monolith application
-
-* Slows our velocity getting into production
-* Not as easy to add new engineers to a project
-* To large for any one person to fully comprehend
+There are some cultural problems with monoliths.
+One big application slows down the velocity of getting into production.
+Everyone has to use a shared deployment pipeline.
+For large code-bases it is harder for new engineers to get up to speed.
+The engineers that were there from the beginning, who designed the application, are busy explaining the history of the application to new engineers joining the project. 
+These developers are creating change but might get blocked by DBA and Ops teams.
 
 ### Monolith organization
 
-* Centralized authority for operations, database and change management slows progress
-* Coordinated releases batch many changes together from different teams
-* Operations drives the runtime environment of applications
-* Operations take all operation responsibility including upgrades of virtual machines
-* Deploy everything at once or nothing at all
+Centralized authority for operations, database and change management slows progress.
+These coordinated releases batch many changes together from different teams.
+Usually operations drives the runtime environment of applications because they take all operation responsibility including upgrades of virtual machines.
+The key problem is that everything is deployed at once or nothing at all.
 
 ### Move towards SOA
 
-Independent services: 
-Key problem => shared libraries
+With Service-oriented Architecture the application is split up in components which can be deployed individually but now the key problem are the shared libraries.
+Releasing a change in an object that is not shared can be done separate, but still a problem for the shared ones.
 
-### Microservices
+### Now we arrived at Microservices
 
-Small teams organized around business capabilities with responsibility of running
-Use rest api to communicates
-Developers can choose tools
+There are a lot of improvements but Microservices also adds the complexity of running a distributed system.
+Small, two pizza (5-8 members), teams organized around business capabilities with responsibility of running their own services.
+We gain independent deployability because each team produces and consumes rest api's to communicate.
+Team also have more freedom to chose the best tool for the job they are facing.
+Microservices brings the challenge of eventual consistency, in a monolith you could rollback a transaction at the database level if something went wrong. Now eventual consistency is not guaranteed, inconsistency happens all the time. 
+Rolling back transactions across multiple services is not easy.
 
 ### Is it a Monolith or Microservice?
 
-If it takes longer than a day for an engineer to ramp up its probably a monolith
+> If it takes longer than a day for an engineer to ramp up its probably a monolith
 
-Antipattern to have frontend communicate directly to microservices
-Instead use edge service 
+In a typical architecture the front-end teams integrate directly with the microservices.
+This is an anti-pattern in distributed systems. 
+Consumers should not have to worry which instance of the replicated services they have to go to.
+You could use Spring Cloud, it allows you to centralize authentication with OAuth tokens and routing through an  API Gateway. The front-end does not need to be concerned with all these services, for them it looks like consuming a monolithic api.
 
 ## Splitting the monolith
 
--> Slice off (hard in practice) service migration
+The popular route from monolith to a microservice architecture is slicing off bits of functionality.
+This is hard in practice, splitting up a schema is usually the complex part.
+Refactoring out functionality and tables to new services can be hard because of foreign key constraints for example.
 
 ### Why we need event-driven microservices
 
-Problems:
-* No foreign key constraints between services
-* Distributed transactions are brittle
-* Distributed systems are hard
-
-Without event-driven microservices
+The problem with microservices is that there are no foreign key constraints between services.
+Furthermore, distributed transactions are brittle and distributed systems are hard.
 
 > You will drown in problems you didn't know existed!
+
+Without event-driven microservices and an audit trail you will never know why something went wrong.
     
-### Event-driven microservices
+### Rules for Event-driven microservices
 
-Domain events as a first class citizen 
+A lot of these rules are from reference applications and working with [Chris Richardson](http://microservices.io/).
+(based on eventuate from Chris Richardson microservices.io)
 
-(based on eventuate from Chris..)
+*Domain events* as a first class citizen, everytime you change some piece of data domain events should be exchanged.
+These events can be used as an audit trail to determine why state changed in a system.
 
-* Use domain events for audit trails
 * Each domain events contains subject and imutable data
 * Every domain event applies a state transition to aggregate
 * Event handler generate commands, commands generate events
