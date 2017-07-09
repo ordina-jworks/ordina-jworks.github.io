@@ -1,9 +1,9 @@
 ---
 layout: post
-authors: [dieter_hubau, gina_de_beukelaer, hans_michiels]
+authors: [dieter_hubau, gina_de_beukelaer, hans_michiels, jeff_mesens]
 title: 'Spring I/O 2017 Recap'
 image: /img/springio2017.jpg
-tags: [Spring, IO, Pivotal, Google, Spring Boot, Java, Reactive, Reactor]
+tags: [Spring, IO, Pivotal, Google, Spring Boot, Java, Reactive, Reactor, DDD, CQRS, Spring Cloud, Spring Cloud Stream, Serverless]
 category: Spring
 comments: true
 ---
@@ -367,47 +367,56 @@ Furthermore, distributed transactions are brittle and distributed systems are ha
 > You will drown in problems you didn't know existed!
 
 Without event-driven microservices and an audit trail you will never know why something went wrong.
+This audit trail allows you to reason about what went wrong and roll back state.
     
-### Rules for Event-driven microservices
+## Rules for Event-driven microservices
 
-A lot of these rules are from reference applications and working with [Chris Richardson](http://microservices.io/).
-(based on eventuate from Chris Richardson microservices.io)
+A lot of these rules are from reference applications and Kenny's work with [Chris Richardson](http://microservices.io/).
 
-*Domain events* as a first class citizen, everytime you change some piece of data domain events should be exchanged.
+*Domain events* are a first class citizen, every time you change some piece of data, domain events should be exchanged.
 These events can be used as an audit trail to determine why state changed in a system.
+Each domain event contains a subject with the project aggregate and a payload with immutable data.
 
-* Each domain events contains subject and imutable data
-* Every domain event applies a state transition to aggregate
-* Event handler generate commands, commands generate events
-...
-* Regenerate state of aggregate by processing events 
+{% highlight java %}
+@Entity
+@EntityListeners(AuditionEntityListener.class)
+public class ProjectEvent {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long eventId;
+    
+    @Enumerated(EnumType.STRING)
+    private ProjectEventType type;
+    
+    private Project entity;
+    
+    private Map<String, Object> payload;
+{% endhighlight %}
 
-Terminal state -> eventual consistency (order failed or succeeded)
+To make this way of working accessible to the developers, hypermedia api's need to expose links on the aggregates.
+A traversal list of command and a log of events that happened should be accessible.
 
-Build hypermedia api's that attach:
+**Command handlers** trigger commands on aggregate and then the command is going to generate events.
+Every domain event applies a state transition to an aggregate.
 
-* Event logs 
-* Commands 
-* Commits
+**Event handlers** are going to subscribe to an event and apply changes to an aggregate to change the state.
+In a graph representation, event handlers would be the nodes and events the edges.
 
-as a link to an aggregate
+**CQRS** is used to create materialized views from streams of events.
+With CQRS you will have a command side and a query side.
+For example the commands might be written to an Apache Kafka event store.
+Then an event processor could be using Spring Cloud Stream to retrieve these events and create a data model.
+The data model is then written to a Data Store like MySQL, where the query side reads the data.
+An API gateway, like Spring Cloud Netflix Zuul, can be put in front so it looks for the consumer like a regular microservice.
+For deploying this application you can combine these components together of scale em independently.
 
-### Event Handlers
+### Serverless
 
-Subscribe to an event an apply state changes to an aggregate.
+Changes the pricing model for the execution on a cloud provider.
+With Serverless you are going to have a function in the cloud and you are going to pay for each execution.
+It is an event driven model, so if data is fed to for instance a AWS Lambda function this can invoke other functions in Python for example.
 
-CQRS is used to create materialized views from streams of events
-
-Command side
-Update Status
-
-Query side
-
-Command service writes events into kafka event store
-Event processor loads events from store and update data store (mysql) 
-Query side reads from the data stores
-
-Serverless event handlers
+Kenny concluded with a demo and recommended Dave Syer's Talk on [Spring Cloud Functions](#spring-cloud-functions) for more info about serverless.
 
 # Spring break
 
