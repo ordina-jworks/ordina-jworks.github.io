@@ -34,9 +34,7 @@ After taking our seat, we played the waiting game and all of a sudden, we got th
 <iframe src="http://usefulthink.com/jsconf.bp-intro/" width="100%" height="100%;" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0;"></iframe>
 </div>
 
-
 ****
-
 
 ## Day 1: Talks
 
@@ -49,9 +47,7 @@ After taking our seat, we played the waiting game and all of a sudden, we got th
 * [Rachel Watson: The Internet of Cats](#rachel-watson-the-internet-of-cats)
 * [Nick Hehr: The other side of empathy](#nick-hehr-the-other-side-of-empathy)
 
-
 ****
-
 
 ## Day 1: Morning
 
