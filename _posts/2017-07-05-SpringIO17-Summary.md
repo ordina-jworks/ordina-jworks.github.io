@@ -11,7 +11,21 @@ comments: true
 > On the 18th and 19th of May, we had another great edition of Spring I/O, brought to us by organizer [Sergi Almar](https://twitter.com/sergialmar){:target="_blank"}.
 In this blog post, we will go over some of our favourite sessions of the conference.
 
-> **DISCLAIMER**: this is obviously a very opinionated list of talks. This does not mean that the other talks were of lower quality, it just means we were not able to attend or did not take extensive notes.
+> **DISCLAIMER**: we could not include **ALL** the talks from Spring IO in this blogpost. We provide an extensive summary of our favorite talks and created a curated list of all the talks and resources at the bottom of this post.
+
+# Table Of Contents
+
+* [Keynote: The Only Constant Is Change](#keynote-the-only-constant-is-change)
+* [Bootiful Database-centric Applications with jOOQ](#bootiful-database-centric-applications-with-jooq)
+* [Google Spanner](#google-spanner)
+* [Easily secure and add Identity Management to your Spring(Boot) applications with Keycloak](#easily-secure-and-add-identity-management-to-your-springboot-applications-with-keycloak)
+* [Spring Cloud Streams (Data Services)](#spring-cloud-streams-data-services)
+* [The Road To Serverless: Spring Cloud Function](#the-road-to-serverless-spring-cloud-function)
+* [Reactive Spring Data](#reactive-spring-data)
+* [The Future Of Event Driven Microservices With Spring Cloud Stream](#the-future-of-event-driven-microservices-with-spring-cloud-stream)
+* [New in Spring 5: Functional Web Framework](#new-in-spring-5-functional-web-framework)
+* [Spring Auto REST Docs](#spring-auto-rest-docs)
+* [References](#references)
 
 # Keynote: The Only Constant Is Change
 
@@ -25,18 +39,18 @@ This capacity of adapting to change increased dramatically when Spring Boot was 
 They also reported the release of [Spring Boot 2.0.0 M1](https://spring.io/blog/2017/05/16/spring-boot-2-0-0-m1-available-now).
 This release was announced very shortly after [Spring Framework 5.0 went RC1](https://spring.io/blog/2017/05/08/spring-framework-5-0-goes-rc1) on the 8th of May.
 
-The keynote can be found [here](https://www.youtube.com/watch?v=uJSYnqIhcIo){:target="_blank"} and the demo code [here](https://github.com/snicoll-demos/demo-webflux-streaming){:target="_blank"}.
+[The keynote can be found here](https://www.youtube.com/watch?v=uJSYnqIhcIo){:target="_blank"} and the demo code [here](https://github.com/snicoll-demos/demo-webflux-streaming){:target="_blank"}.
 
-# Bootiful Database-centric applications with JOOQ
+# Bootiful Database-centric applications with jOOQ
 
 ### by [Michael Simons](https://twitter.com/rotnroll666){:target="_blank"}
 
 <span class="image left small"><img class="p-image" alt="Michael Simons" src="/img/SpringIO2017/michael-simons.jpg"></span>
 
-As a personal fan of `@rotnroll666`, I went to see his talk, fully expecting to be impressed by the level of quality and code.
+As a personal fan of [@rotnroll666](https://twitter.com/rotnroll666){:target="_blank"}, I went to see his talk, fully expecting to be impressed by the level of quality and code.
 As always, Michael delivered: he made me realize **there are still plenty of PL/SQL developers out there in the enterprise landscape, who hold on to their code like kids to their favorite stuffed animal before bedtime**.
 
-Luckily for us, someone created a library called **JOOQ**:
+Luckily for us, someone created a library called **jOOQ**:
 
 > jOOQ generates Java code from your database and lets you build type safe SQL queries through its fluent API
 
@@ -88,7 +102,7 @@ BookRecord book = create.selectFrom(BOOK).where(BOOK.ID.eq(1)).fetchOne();
 
 {% endhighlight %}
 
-For more information about jOOQ, you can check out their website [here](https://www.jooq.org/){:target="_blank"}.
+For more information about jOOQ, [you can check out their website](https://www.jooq.org/){:target="_blank"}.
 
 > Question: What's the difference between the jOOQ Query API and using JPA Criteria API with the Hibernate ModelGen, which is also typesafe?
 
@@ -99,7 +113,7 @@ For more information about jOOQ, you can check out their website [here](https://
 - jOOQ provides POJO mappers which are also generated from the code generator
 - As much as you hate them, it supports calling **Stored Procedures**!
 
-The code from Michael's talk can be found on [Github](https://github.com/michael-simons/bootiful-databases){:target="_blank"}.
+The [code from Michael's talk can be found on Github](https://github.com/michael-simons/bootiful-databases){:target="_blank"}.
 
 # Google Spanner
 
@@ -126,7 +140,7 @@ As a managed service, Cloud Spanner provides key benefits to DBAs:
 </p>
 
 
-# Keycloak
+# Easily secure and add Identity Management to your Spring(Boot) applications with Keycloak
 
 ### by [Sébastien Blanc](https://twitter.com/sebi2706){:target="_blank"}
 
@@ -141,16 +155,16 @@ Sébastien knows how to entertain the crowd and he kicked off with a great quote
 First of all, let's forget that Keycloak was created by Redhat and that it is written in Java EE.
 The following aspects of Keycloak are more important:
 
-- It's Open Source ([homepage](http://www.keycloak.org/){:target="_blank"})
-- Redhat provides support through their commercial fork called **Redhat SSO** ([homepage](https://access.redhat.com/products/red-hat-single-sign-on){:target="_blank"})
-- Great **Spring Boot Integration** through the use of a starter ([documentation](https://keycloak.gitbooks.io/documentation/securing_apps/topics/oidc/java/spring-boot-adapter.html){:target="_blank"})
+- [It's Open Source](http://www.keycloak.org/){:target="_blank"})
+- Redhat provides support through their commercial fork called [Redhat SSO](https://access.redhat.com/products/red-hat-single-sign-on){:target="_blank"})
+- Great **Spring Boot Integration** through the use of a [Spring Boot Starter](https://keycloak.gitbooks.io/documentation/securing_apps/topics/oidc/java/spring-boot-adapter.html){:target="_blank"})
 - Seamless **Spring Security Integration**
 - Supports OAuth 2.0, SAML 2.0, OpenID Connect
 - Integration with Active Directory, LDAP and even Kerberos (*start drooling enterprise users!*)
 
 It's actually quite easy to setup Keycloak:
 
-- Download the Keycloak standalone server [here](https://downloads.jboss.org/keycloak/3.2.0.Final/keycloak-3.2.0.Final.zip){:target="_blank"}
+- Download [the Keycloak standalone server](https://downloads.jboss.org/keycloak/3.2.0.Final/keycloak-3.2.0.Final.zip){:target="_blank"}
 - Extract and run it
 - Start the server and create an admin user
 - Create a new realm
@@ -175,13 +189,13 @@ There are many additional features for power users:
 - UI Customization of all pages is possible through theming (*start drooling designers!*)
 
 All in all, the setup and demo went very smooth and **I genuinely feel this product is about to become very popular**, partly because of the Spring Boot integration, but also because it just seems very solid and user-friendly.
-There might be a dedicated blogpost coming soon about Keycloak, so stay tuned and check our blog regularly or subscribe to our [RSS feed](https://ordina-jworks.github.io/feed.xml){:target="_blank"}!
+There might be a dedicated blogpost coming soon about Keycloak, so stay tuned and check our blog regularly or [subscribe to our RSS feed](https://ordina-jworks.github.io/feed.xml){:target="_blank"}!
 
 # Spring Cloud Streams (Data Services)
 
 ### by [Michael Minella](https://twitter.com/michaelminella){:target="_blank"}
 
-Michael gave a summary about all the new projects in the Spring ecosystem that process data and / or message very well.
+Michael gave a summary about all the new projects in the Spring ecosystem that process data and / or messages very well.
 He explained that there are lots of big data frameworks out there (Hadoop, Spark, ...), which can handle BIG amounts of data very well.
 However, they are usually **too bulky / difficult / inappropriate for handling smaller volumes of data**.
 Also, for quickly setting up something like Hadoop or Spark, the **learning curve is too high** and the effort doesn't justify the benefits.
@@ -195,7 +209,7 @@ Also, for quickly setting up something like Hadoop or Spark, the **learning curv
   - So the need for data / app integration / composition arises
   - Which means the need for orchestration and operational coverage arises (lots of plumbing required)
 
-#### Spring Cloud Stream
+#### [Spring Cloud Stream](https://cloud.spring.io/spring-cloud-stream/){:target="_blank"}
 
   - Streams are thin wrappers around Spring integration
   - Supported binder for integration between services: Kafka, RabbitMQ, ...
@@ -221,7 +235,7 @@ Also, for quickly setting up something like Hadoop or Spark, the **learning curv
   - Data Flow server has datastore for task repository, batch repository, configuration, ...
   - Data Flow server does **not** do any of the actual work
   
-We will be publishing a fun blogpost about Spring Cloud Streams soon, so stay tuned or subscribe to the [RSS feed](https://ordina-jworks.github.io/feed.xml){:target="_blank"}!
+We will be publishing a fun blogpost about Spring Cloud Streams soon, so stay tuned or [subscribe to the RSS feed](https://ordina-jworks.github.io/feed.xml){:target="_blank"}!
 
 # The Road to Serverless: Spring Cloud Function
 
@@ -326,7 +340,7 @@ to focus even more on his main purpose; programming things that deliver real val
 
 - Java 8 baseline
 - ID classes don't need to be Serializable anymore
-- **breaking change**: No more `null`s in the repositories (arguments or return  values)
+- **breaking change**: No more `null` in the repositories (arguments or return values)
 - **breaking change**: More consistent naming (eg. `findOne -> findOneById`)
 - Composable interfaces (separate Readable / Insertable and make custom repositories as composable interface as well)
 - Builder style `Template` APIs
@@ -390,7 +404,7 @@ Releasing a change in an object that is not shared can be done separate, but sti
 
 There are a lot of improvements but Microservices also adds the complexity of running a distributed system.
 Small, two pizza (5-8 members), teams organized around business capabilities with responsibility of running their own services.
-We gain independent deployability because each team produces and consumes rest api's to communicate.
+We gain independent deployability because each team produces and consumes rest APIs to communicate.
 Team also have more freedom to chose the best tool for the job they are facing.
 Microservices brings the challenge of eventual consistency, in a monolith you could rollback a transaction at the database level if something went wrong. Now eventual consistency is not guaranteed, inconsistency happens all the time. 
 Rolling back transactions across multiple services is not easy.
@@ -402,7 +416,7 @@ Rolling back transactions across multiple services is not easy.
 In a typical architecture the front-end teams integrate directly with the microservices.
 This is an anti-pattern in distributed systems. 
 Consumers should not have to worry which instance of the replicated services they have to go to.
-You could use Spring Cloud, it allows you to centralize authentication with OAuth tokens and routing through an  API Gateway. The front-end does not need to be concerned with all these services, for them it looks like consuming a monolithic api.
+You could use Spring Cloud, it allows you to centralize authentication with OAuth tokens and routing through an  API Gateway. The front-end does not need to be concerned with all these services, for them it looks like consuming a monolithic API.
 
 ## Splitting the monolith
 
@@ -446,7 +460,7 @@ public class ProjectEvent {
 
 {% endhighlight %}
 
-To make this way of working accessible to the developers, hypermedia api's need to expose links on the aggregates.
+To make this way of working accessible to the developers, hypermedia APIs need to expose links on the aggregates.
 A traversal list of command and a log of events that happened should be accessible.
 
 **Command handlers** trigger commands on aggregate and then the command is going to generate events.
@@ -461,7 +475,7 @@ For example the commands might be written to an Apache Kafka event store.
 Then an event processor could be using Spring Cloud Stream to retrieve these events and create a data model.
 The data model is then written to a Data Store like MySQL, where the query side reads the data.
 An API gateway, like Spring Cloud Netflix Zuul, can be put in front so it looks for the consumer like a regular microservice.
-For deploying this application you can combine these components together of scale em independently.
+For deploying this application you can combine these components together or scale them independently.
 
 ### Serverless
 
@@ -469,7 +483,7 @@ Changes the pricing model for the execution on a cloud provider.
 With Serverless you are going to have a function in the cloud and you are going to pay for each execution.
 It is an event driven model, so if data is fed to for instance a AWS Lambda function this can invoke other functions in Python for example.
 
-Kenny concluded with a demo and recommended Dave Syer's Talk on [Spring Cloud Functions](#spring-cloud-functions) for more info about serverless.
+Kenny concluded with a demo and recommended [Dave Syer's Talk on Spring Cloud Functions](#spring-cloud-functions) for more info about serverless.
 
 # Spring break
 
@@ -506,7 +520,7 @@ So no more injecting pathvariables and body objects, we have everything we need 
 What we return is the ServerResponse in which we can easily put all the information we want to give back to the client.
 And Spring provides us with an easy builder to create such a response as it already did with the ResponseEntity builder.
 
-You can see that these new objects and builders provide us with an easy and declarative way to handle request and create responses, without the "magic" that we used previously with the annotations.
+You can see that these new objects and builders provide us with an easy and declarative way to handle requests and create responses, without the "magic" that we used previously with the annotations.
 
 {% highlight java %}
 public class UserHandler {
@@ -537,11 +551,11 @@ public class UserHandler {
 }
 {% endhighlight %}
 
-Now we have defined how we want to handle request and how we translate it to a response.
-What we need next is a way to say which requests will be handled by which handler function.
+We have defined how we want to handle requests and how we translate it to a response.
+What we need next, is a way to say which requests will be handled by which handler function.
 
-In the old way this was done by defining an annotation that defined some parameters to couple for example a path to a method.
-The functional web framework does this by creating RouterFunctions.
+In Spring MVC, this was done by adding an annotation that declared some parameters, for example, to couple a request path to a controller method.
+The functional web framework does this by creating `RouterFunctions`.
 
 This RouterFunction is a function that takes a `ServerRequest` and returns a `Mono<HandlerFunction>`. 
 To choose which requests get handled by which HandlerFunction, Spring again provides us with some builder functions.
@@ -713,7 +727,12 @@ lastName|String|true|The user's last name. Size must be between 0 and 50 inclusi
 Because the description of the POJO is now added on field level, it is guaranteed that this description will be the same everywhere this field is used, meaning less maintenance is needed.
 
 # References
-### Day One
+
+### Youtube Playlist
+
+[All the talks of Spring IO 2017 are available on Youtube](https://www.youtube.com/watch?v=uJSYnqIhcIo&list=PLe6FX2SlkJdSkg3C_H_x9jzMqh1mrbNoJ){:target="_blank"}.
+
+### Talks: Day One
 
 Topic | Presenter(s) | Resource(s)
 --- | --- | ---
@@ -722,7 +741,7 @@ Reactor 3, the reactive foundation for Java 8 (and Spring 5) | Simon Baslé | [!
 Architecture Deep Dive in Spring Security | Joe Grandja | 
 The Spring ecosystem in 50 minutes | Jeroen Sterken | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/JeroenSterken1/the-spring-ecosystem-in-50-min){:target="_blank"}
 Bootiful Development with Spring Boot and Angular [WORKSHOP] |Matt Raible | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/mraible/bootiful-development-with-spring-boot-and-angular-spring-io-2017){:target="_blank"}
-Spring Boot at AliExpress | Juven Xu | 
+Spring Boot at AliExpress | Juven Xu | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/juvenxu/aliexpress-way-to-microservices-microxchg-2017){:target="_blank"}
 Database centric applications with Spring Boot and jOOQ | Michael Simons | [![code](/img/SpringIO2017/icon-code.png)](https://github.com/michael-simons/bootiful-databases){:target="_blank"}
 Testing for Unicorns | Alex Soto | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/asotobu/testing-for-unicorns-77069262){:target="_blank"}
 Front Ends for Back End Developers | Matt Raible | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://speakerdeck.com/mraible/front-ends-for-back-end-developers-spring-io-2017){:target="_blank"}
@@ -740,7 +759,7 @@ DDD Strategic Design with Spring Boot | Michael Plöd | [![code](/img/SpringIO20
 Awesome Tools to Level Up Your Spring Cloud Architecture | Andreas Evers | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/AndreasEvers1/awesome-tools-to-level-up-your-spring-cloud-architecture-spring-io-2017){:target="_blank"}
 Surviving in a Microservices Team | Steve Pember | [![presentation](/img/SpringIO2017/icon-presentation.png)](https://www.slideshare.net/StevePember/surviving-in-a-microservices-environment){:target="_blank"}
 
-## Day Two
+## Talks: Day Two
 
 Topic | Presenter(s) | Resource(s)
 --- | --- | ---
