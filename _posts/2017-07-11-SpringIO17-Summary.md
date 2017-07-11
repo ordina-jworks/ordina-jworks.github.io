@@ -253,7 +253,7 @@ We will be publishing a fun blogpost about Spring Cloud Streams soon, so stay tu
 
 # 6. The Road to Serverless: Spring Cloud Function
 
-### by Dr. Dave Syer
+### by [Dr. Dave Syer](https://twitter.com/david_syer){:target="_blank"}
 
 #### FaaS
 In recent years we've seen the emergence and evolution of following cloud abstraction layers in order of abstraction level: 
