@@ -15,23 +15,29 @@ In this blog post, we will go over some of our favourite sessions of the confere
 
 # Table Of Contents
 
-* [Keynote: The Only Constant Is Change](#keynote-the-only-constant-is-change)
-* [Bootiful Database-centric Applications with jOOQ](#bootiful-database-centric-applications-with-jooq)
-* [Google Spanner](#google-spanner)
-* [Easily secure and add Identity Management to your Spring(Boot) applications with Keycloak](#easily-secure-and-add-identity-management-to-your-springboot-applications-with-keycloak)
-* [Spring Cloud Streams (Data Services)](#spring-cloud-streams-data-services)
-* [The Road To Serverless: Spring Cloud Function](#the-road-to-serverless-spring-cloud-function)
-* [Reactive Spring Data](#reactive-spring-data)
-* [The Future Of Event Driven Microservices With Spring Cloud Stream](#the-future-of-event-driven-microservices-with-spring-cloud-stream)
-* [New in Spring 5: Functional Web Framework](#new-in-spring-5-functional-web-framework)
-* [Spring Auto REST Docs](#spring-auto-rest-docs)
-* [References](#references)
+1. [Keynote: The Only Constant Is Change](#1-keynote-the-only-constant-is-change)
+2. [Bootiful Database-centric Applications with jOOQ](#2-bootiful-database-centric-applications-with-jooq)
+3. [Google Spanner](#3-google-spanner)
+4. [Easily secure and add Identity Management to your Spring(Boot) applications with Keycloak](#4-easily-secure-and-add-identity-management-to-your-springboot-applications-with-keycloak)
+5. [Spring Cloud Streams (Data Services)](#5-spring-cloud-streams-data-services)
+6. [The Road To Serverless: Spring Cloud Function](#6-the-road-to-serverless-spring-cloud-function)
+7. [Reactive Spring Data](#7-reactive-spring-data)
+8. [The Future Of Event Driven Microservices With Spring Cloud Stream](#8-the-future-of-event-driven-microservices-with-spring-cloud-stream)
+9. [New in Spring 5: Functional Web Framework](#9-new-in-spring-5-functional-web-framework)
+10. [Spring Auto REST Docs](#10-spring-auto-rest-docs)
+11. [References](#11-references)
 
-# Keynote: The Only Constant Is Change
+**** 
+
+# 1. Keynote: The Only Constant Is Change
 
 ### by [Andy Wilkinson](https://twitter.com/ankinson){:target="_blank"} and [Stéphane Nicoll](https://twitter.com/snicoll){:target="_blank"}
 
 Obviously, the keynote presentation was filled with announcements, interesting tidbits and two great presenters.
+
+<p style="text-align: center;">
+  <img class="image fit" style="max-width:595px" alt="Andy Wilkinson and Stéphane Nicoll" src="/img/SpringIO2017/andy-wilkinson-stephane-nicoll.jpg">
+</p>
 
 The biggest topic revolved around how **Spring has always tried to enable developers to adapt their applications rapidly**.
 This capacity of adapting to change increased dramatically when Spring Boot was released, which explains part of its success.
@@ -41,7 +47,7 @@ This release was announced very shortly after [Spring Framework 5.0 went RC1](ht
 
 [The keynote can be found here](https://www.youtube.com/watch?v=uJSYnqIhcIo){:target="_blank"} and the demo code [here](https://github.com/snicoll-demos/demo-webflux-streaming){:target="_blank"}.
 
-# Bootiful Database-centric applications with jOOQ
+# 2. Bootiful Database-centric applications with jOOQ
 
 ### by [Michael Simons](https://twitter.com/rotnroll666){:target="_blank"}
 
@@ -115,7 +121,7 @@ For more information about jOOQ, [you can check out their website](https://www.j
 
 The [code from Michael's talk can be found on Github](https://github.com/michael-simons/bootiful-databases){:target="_blank"}.
 
-# Google Spanner
+# 3. Google Spanner
 
 ### by [Robert Kubis](https://twitter.com/hostirosti){:target="_blank"}
 
@@ -139,8 +145,7 @@ As a managed service, Cloud Spanner provides key benefits to DBAs:
   <img class="image fit" alt="Google Spanner" src="/img/SpringIO2017/cloud-spanner.png">
 </p>
 
-
-# Easily secure and add Identity Management to your Spring(Boot) applications with Keycloak
+# 4. Easily secure and add Identity Management to your Spring(Boot) applications with Keycloak
 
 ### by [Sébastien Blanc](https://twitter.com/sebi2706){:target="_blank"}
 
@@ -171,13 +176,17 @@ It's actually quite easy to setup Keycloak:
 - Create a new application
 - Add roles to your application
 - Create a user to authenticate with
-- Create a Spring Boot application at [https://start.spring.io](start.spring.io){:target="_blank"}) and include the Keycloak starter
+- Create a Spring Boot application at [The Happiest Place On Earth](http://start.spring.io){:target="_blank"}) and include the Keycloak starter
 - Add the Keycloak properties to your application.yml:
     - server URL
     - realm
     - resource name of your application
     - security constraints for your users
 - Run!
+
+<p style="text-align: center;">
+  <img class="image fit" alt="Keycloak Client configuration" src="/img/SpringIO2017/keycloak.png">
+</p>
 
 There are many additional features for power users:
 
@@ -189,9 +198,10 @@ There are many additional features for power users:
 - UI Customization of all pages is possible through theming (*start drooling designers!*)
 
 All in all, the setup and demo went very smooth and **I genuinely feel this product is about to become very popular**, partly because of the Spring Boot integration, but also because it just seems very solid and user-friendly.
+
 There might be a dedicated blogpost coming soon about Keycloak, so stay tuned and check our blog regularly or [subscribe to our RSS feed](https://ordina-jworks.github.io/feed.xml){:target="_blank"}!
 
-# Spring Cloud Streams (Data Services)
+# 5. Spring Cloud Streams (Data Services)
 
 ### by [Michael Minella](https://twitter.com/michaelminella){:target="_blank"}
 
@@ -215,7 +225,7 @@ Also, for quickly setting up something like Hadoop or Spark, the **learning curv
   - Supported binder for integration between services: Kafka, RabbitMQ, ...
   - Source, Processor, Sink model is easy to comprehend
 
-#### Spring Cloud Task
+#### [Spring Cloud Task](https://cloud.spring.io/spring-cloud-task/){:target="_blank"}
 
   - Tasks are finite microservices, built around Spring Batch
   - "Microservices that end"
@@ -234,13 +244,16 @@ Also, for quickly setting up something like Hadoop or Spark, the **learning curv
   - All the components are regular Spring Boot apps (Data Flow server, Shell, ...)
   - Data Flow server has datastore for task repository, batch repository, configuration, ...
   - Data Flow server does **not** do any of the actual work
-  
+
+<p style="text-align: center;">
+  <img class="image fit" alt="Keycloak Client configuration" src="/img/SpringIO2017/spring-cloud-data-flow.jpg">
+</p>
+
 We will be publishing a fun blogpost about Spring Cloud Streams soon, so stay tuned or [subscribe to the RSS feed](https://ordina-jworks.github.io/feed.xml){:target="_blank"}!
 
-# The Road to Serverless: Spring Cloud Function
+# 6. The Road to Serverless: Spring Cloud Function
 
 ### by Dr. Dave Syer
-
 
 #### FaaS
 In recent years we've seen the emergence and evolution of following cloud abstraction layers in order of abstraction level: 
@@ -326,13 +339,17 @@ Spring cloud function will allow us to write and deploy these functions in an (a
 At the same time, it will enable the programmer to leverage the Spring Framework with it's various features that helps the programmer 
 to focus even more on his main purpose; programming things that deliver real value: business code!
 
+PS: [Kenny Bastani](https://twitter.com/kennybastani){:target="_blank"} has just published a [**VERY** detailed blogpost about Spring Cloud Function on AWS Lambda](http://www.kennybastani.com/2017/07/microservices-to-service-blocks-spring-cloud-function-aws-lambda.html){:target="_blank"}.
+It's a follow-up of his earlier [blogpost about Event-driven Microservices using CQRS and Serverless](http://www.kennybastani.com/2017/01/building-event-driven-microservices.html){:target="_blank"}.
+I would highly recommend his blog!
+
 # Spring Break
 
 <p style="text-align: center;">
   <img class="image fit" alt="Google Spanner" src="/img/SpringIO2017/Pizza.jpg">
 </p>
 
-# Reactive Spring Data
+# 7. Reactive Spring Data
 
 ### by Christophe Strobl
 
@@ -374,7 +391,7 @@ to focus even more on his main purpose; programming things that deliver real val
   - Improved headers
   - Improved media type support
 
-# The future of event driven microservices with Spring Cloud Stream
+# 8. The future of event driven microservices with Spring Cloud Stream
 
 ### by [Kenny Bastani](https://twitter.com/kennybastani){:target="_blank"}
 
@@ -491,7 +508,7 @@ Kenny concluded with a demo and recommended [Dave Syer's Talk on Spring Cloud Fu
   <img class="image fit" alt="Google Spanner" src="/img/SpringIO2017/terras.jpg">
 </p>
 
-# New in Spring 5: Functional Web Framework
+# 9. New in Spring 5: Functional Web Framework
 
 ### by [Arjen Poutsma](https://twitter.com/poutsma){:target="_blank"}
 
@@ -625,7 +642,8 @@ The Spring functional web framework is an interesting new development and we wil
   <img class="image fit" alt="Google Spanner" src="/img/SpringIO2017/SpringIO2017group.jpg">
 </p>
 
-# Spring Auto REST Docs
+# 10. Spring Auto REST Docs
+
 ### by [Florian Benz](https://twitter.com/flbenz){:target="_blank"}
 
 Spring Auto REST Docs is an extension on Spring REST Docs (**our post on Spring REST Docs can be found [here](https://ordina-jworks.github.io/conference/2016/06/30/SpringIO16-Spring-Rest-Docs.html){:target="_blank"}**).
@@ -726,7 +744,7 @@ lastName|String|true|The user's last name. Size must be between 0 and 50 inclusi
 
 Because the description of the POJO is now added on field level, it is guaranteed that this description will be the same everywhere this field is used, meaning less maintenance is needed.
 
-# References
+# 11. References
 
 ### Youtube Playlist
 
