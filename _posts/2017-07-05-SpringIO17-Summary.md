@@ -175,91 +175,142 @@ There are many additional features for power users:
 - UI Customization of all pages is possible through theming (*start drooling designers!*)
 
 All in all, the setup and demo went very smooth and **I genuinely feel this product is about to become very popular**, partly because of the Spring Boot integration, but also because it just seems very solid and user-friendly.
-There might be a dedicated blogpost coming soon about Keycloak, so stay tuned and check our blog regularly or subscribe to our [RSS feed](http://localhost:4000/feed.xml){:target="_blank"}!
+There might be a dedicated blogpost coming soon about Keycloak, so stay tuned and check our blog regularly or subscribe to our [RSS feed](https://ordina-jworks.github.io/feed.xml){:target="_blank"}!
 
 # Spring Cloud Streams (Data Services)
 
 ### by [Michael Minella](https://twitter.com/michaelminella){:target="_blank"}
 
-- Lots of Big Data frameworks out there (Hadoop, Spark, ...)
-- They can handle BIG amounts of data very well
-- They are too bulky/difficult/inappropriate for smaller volumes of data
-- Learning curve too high
-- Use case: data microservices:
-  - developed and tested in isolation, also easier to test
-  - independently scalable depending on data processing load
-  - familiar development model, just like regular cloud-native Spring microservices
-  - easier to govern for Ops
-  - the need for data/app integration/composition arises
-  - the need for orchestration and operational coverage arises (lots of plumbing required)
-- Spring Cloud Stream
+Michael gave a summary about all the new projects in the Spring ecosystem that process data and / or message very well.
+He explained that there are lots of big data frameworks out there (Hadoop, Spark, ...), which can handle BIG amounts of data very well.
+However, they are usually **too bulky / difficult / inappropriate for handling smaller volumes of data**.
+Also, for quickly setting up something like Hadoop or Spark, the **learning curve is too high** and the effort doesn't justify the benefits.
+
+#### Solution: data microservices
+
+  - Developed and tested in isolation, also easier to test
+  - Independently scalable depending on data processing load
+  - Familiar development model, just like regular cloud-native Spring microservices
+  - Easier to govern for Ops
+  - So the need for data / app integration / composition arises
+  - Which means the need for orchestration and operational coverage arises (lots of plumbing required)
+
+#### Spring Cloud Stream
+
   - Streams are thin wrappers around Spring integration
   - Supported binder for integration between services: Kafka, RabbitMQ, ...
-  - Source, Processor, Sink
-- Spring Cloud Task
+  - Source, Processor, Sink model is easy to comprehend
+
+#### Spring Cloud Task
+
   - Tasks are finite microservices, built around Spring Batch
   - "Microservices that end"
-  - contains Task repository which tracks run/start/end of the tasks
-  - has Spring Batch integration (partition steps using workers)
-  - has Spring Cloud Stream integration (eg. launch Tasks via Streams)
-  - simple annotation `@EnableTask`
-  - use cases: batch jobs, scheduled one-off processes, ETL processing, data science
-- Spring Cloud Data Flow
-  - New and Improved Spring XD
+  - Contain Task repository which tracks run/start/end of the tasks
+  - Has Spring Batch integration (partition steps using workers)
+  - Has Spring Cloud Stream integration (eg. launch Tasks via Streams)
+  - Simple annotation `@EnableTask`
+  - Use cases: batch jobs, scheduled one-off processes, ETL processing, data science
+
+#### Spring Cloud Data Flow
+
+  - *AKA* the new and Improved Spring XD
   - Data flow orchestrator
   - Use a shell or the UI which goes over REST endpoints
   - Has custom DSL
-  - Everything is Spring Boot (Data Flow server, Shell, ...)
+  - All the components are regular Spring Boot apps (Data Flow server, Shell, ...)
   - Data Flow server has datastore for task repository, batch repository, configuration, ...
   - Data Flow server does **not** do any of the actual work
+  
+We will be publishing a fun blogpost about Spring Cloud Streams soon, so stay tuned or subscribe to the [RSS feed](https://ordina-jworks.github.io/feed.xml){:target="_blank"}!
 
-# Spring Cloud Functions
+# The Road to Serverless: Spring Cloud Function
 
 ### by Dr. Dave Syer
 
-- Cloud abstraction layers:
-  - Virtual Machines (IaaS)
+
+#### FaaS
+In recent years we've seen the emergence and evolution of following cloud abstraction layers in order of abstraction level: 
+  - Virtual Machines (IaaS) 
   - Containers (CaaS)
   - Applications (PaaS)
   - Functions (FaaS)
+  
+The Goal of each of these is raising the value line; 
+in other words, the purpose of each of these is to abstract away various concerns that are of no business value
+(e.g. setting up and maintaining infrastructure, the environment the code has to run in...).
+The latest and most extreme level of these is FaaS (or 'serverless').
+Basically all the programmer should do in a FaaS environment is write a Function and hand it over to the platform. 
 
-- Goal: raising the value line, going up the abstraction layers
+The platform takes care of:
+ - Making sure the function is executed on demand 
+ - **Deploying and undeploying (often on demand!)**
+ - **Scaling up** the amount of instances quickly and in parallel if the need arises (is easier with functions since they are simpler in nature than applications)
+ - **Managing integrations** with other systems
 
-- There are still other problems to be solved: service discovery, datastore connections, messaging systems
+> The naming scheme of "serverless" is unfortunate; of course you're gonna have servers, you just don't care about them 
 
-- Functions: a way of expressing business logic without having these others issues, small unit of work, a single deployment unit
+#### Problem
+ - By now there are a lot of FaaS solutions out there; AWS Lambda, Google Cloud Function, Azure Function, IBM Openwhisk, Fission, Kubeless, ...
+ - Deploying and programming functions is different for each platform because you have to use their native APIs and they have their own platform to deploy on.
+ - Running and testing these functions locally
 
-- Compared to Spring as an application framework: Spring allows us to write business logic
+#### Enter Spring Cloud Function
 
-> The naming of "Serverless" is just ridiculous, of course you're gonna have servers, you just don't care about them
+The purpose of the new project called **Spring Cloud Function** is to solve these problems by: 
+  - Keeping all advantages of serverless/functions, but with all the possibilities that Spring offers (DI, integration, autoconfig, build tools)
+  - Providing a low entry level for Spring devs to jump on the FaaS model
+  - Providing a low entry level for FaaS people without having knowledge of Spring
+  - Making it possible to run the same business logic as web endpoint, stream processor or a task
+  - Introduce an uniform programming model across providers and **able to run standalone** (not on a IAAS or PAAS).
+  - Support a reactive programming model (Flux, Mono) as well
 
-- Functions:
-  - Event driven
-  - Dynamic resource utilization
-  - Billing per message (changes the way we design software, has implications on how we think about software)
-  - Prototypes become production code really quickly (going from idea to product in days or weeks)
-  - Focus on business logic
+The project will try to achieve this by:
+ 
+  - Supporting the familiar Java 8 Function types:
 
-  > Visual Basic was a tool we gave to idiots, since it was easy to create a program quickly - doesn't mean it was a good thing - so we have to be careful!
+    {% highlight java %}
+    
+    @SpringBootApplication
+    public class Application {
+        @Bean
+        public Function<String, String> uppercase(){
+           return (value) -> value.toUpperCase();
+        }
 
-- Get out of the business of infra and automation, aka "undifferentiated heavy lifting" does not deliver business value
-- Functions make this possible
-- Comparable: AWS Lambda, Google Cloud Function, Azure Function, IBM Openwhisk, Fission, Kubeless, ...
+        public static void main(String[] args) {
+            SpringApplication.run(Application.class, args);
+        }
+    }
+    
+    {% endhighlight %}
 
-- Spring Cloud Functions:
-  - All advantages of serverless/functions, but with all the possibilities that Spring offers (DI, integration, autoconfig, build tools)
-  - Easy for Spring devs to jump on the FaaS model
-  - Easy for FaaS people without having knowledge of Spring
-  - Run the same business logic as web endpoint, stream processor or a task
-  - uniform programming model across providers and able to run standalone (not on a IAAS or PAAS).
-  - Supports reactive programming model (Flux, Mono) as well
+  - As well as the Reactive Types Flux and Mono : 
 
-{% highlight java %}
-@Bean
-public Function<Flux<String>, Flux<String>> uppercase() {
-  return flux -> flux.filter(this::isNotRude).map(String::toUpperCase);
-}
-{% endhighlight %}
+    {% highlight java %}
+    
+    ...
+    public Function<Flux<String>, Flux<String>> uppercase() {
+        return flux -> flux.map(String::toUpperCase);
+    }
+    ...
+    
+    {% endhighlight %}
+
+
+  - Building/deploying the Function as a web endpoint, a task or a stream  can be done by merely altering dependencies, for example:
+    - Deploying the function as a web endpoint can be done by adding the dependency spring-cloud-function-web
+  
+  - In a similar fashion, it will also possible to build for a platform like AWS 
+
+#### Conclusion 
+
+In a way the goal of FaaS is similar to the Spring framework; 
+allowing the developer (or the IT department) to **focus on writing code that has real value**.
+
+The purpose of FaaS is to help us with infrastructure, scalability etc for the functions we write while 
+Spring cloud function will allow us to write and deploy these functions in an (almost) platform agnostic fashion.
+At the same time, it will enable the programmer to leverage the Spring Framework with it's various features that helps the programmer 
+to focus even more on his main purpose; programming things that deliver real value: business code!
 
 # Spring Break
 
@@ -271,7 +322,7 @@ public Function<Flux<String>, Flux<String>> uppercase() {
 
 ### by Christophe Strobl
 
-#### Biggest changes of M3
+#### Biggest changes of Spring Data Kay M3
 
 - Java 8 baseline
 - ID classes don't need to be Serializable anymore
@@ -279,19 +330,19 @@ public Function<Flux<String>, Flux<String>> uppercase() {
 - **breaking change**: More consistent naming (eg. `findOne -> findOneById`)
 - Composable interfaces (separate Readable / Insertable and make custom repositories as composable interface as well)
 - Builder style `Template` APIs
-- Kotlin extensions in M4
+- Kotlin extensions are coming in M4
 
-#### Store specifics
+#### Data Store specifics
 
 - MongoDB:
   - **breaking change**: MongoDB driver baseline to 3.x
-  - Introduction of ReactiveMongoTemplate
+  - Introduction of `ReactiveMongoTemplate`
   - Enhanced aggregation support
   - Collation support
 
 - Cassandra:
   - **breaking change**: Update to Cassandra 3.2
-  - no reactive native driver --> mimicking reactive driver with threadpool (and blocking) underneath (with ReactiveCassandraTemplate)
+  - No reactive native driver --> mimicking reactive driver with thread pool (and blocking) underneath (with `ReactiveCassandraTemplate`)
 
 - Redis:
   - JRedis discontinued
@@ -306,10 +357,10 @@ public Function<Flux<String>, Flux<String>> uppercase() {
 
 - Spring Data REST:
   - CORS config mechanism
-  - improved headers
-  - improved media type support
+  - Improved headers
+  - Improved media type support
 
-# The future of event driven microservices with spring cloud stream
+# The future of event driven microservices with Spring Cloud Stream
 
 ### by [Kenny Bastani](https://twitter.com/kennybastani){:target="_blank"}
 
@@ -378,6 +429,7 @@ These events can be used as an audit trail to determine why state changed in a s
 Each domain event contains a subject with the project aggregate and a payload with immutable data.
 
 {% highlight java %}
+
 @Entity
 @EntityListeners(AuditionEntityListener.class)
 public class ProjectEvent {
@@ -391,6 +443,7 @@ public class ProjectEvent {
     private Project entity;
     
     private Map<String, Object> payload;
+
 {% endhighlight %}
 
 To make this way of working accessible to the developers, hypermedia api's need to expose links on the aggregates.
