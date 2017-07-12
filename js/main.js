@@ -28,46 +28,51 @@ $(document).ready(function() {
 
 	var toc, tocClone;
 
-	instantiateToC = function() {
+	var instantiateToC = function() {
 		if (!$('.pin-wrapper').length) {
 			toc.addClass('fixed').pin({
 				containerSelector: '.post-body .inner',
 				padding: {top: $('header').height(), bottom: 0}
 			});
+			$('.the-toc__heading').append('<span class="the-toc__toggle">✖</span>');
+			$('.the-toc__heading').on('click', function() {
+				if (toc.hasClass('closed')) {
+					toc.removeClass('closed');
+				} else {
+					toc.addClass('closed');
+				}
+			});
 		}
 	}
 
-	resetToC = function() {
+	var resetToC = function() {
 		if ($('.pin-wrapper').length) {
 			$('.the-toc').remove();
 			$('.pin-wrapper').before(tocClone);
 			$('.pin-wrapper').remove();
 			$('.the-toc').removeClass('fixed');
-			cloneToc();
+			cloneToC();
 		}
 	}
 	
-	cloneToc = function() {
+	var cloneToC = function() {
 		toc = $('.the-toc');
 		tocClone = toc.clone();
 	}
 
-	cloneToc();
-
-	$(document).on('scroll', function() {
-
-		console.log('something');
-
+	var detectToCPosition = function() {
 		if ($(document).scrollTop() >= Math.floor($('.post-body .content > h1:first-of-type').offset().top) - 1 && $(document).scrollTop() < $('.post-body').offset().top + $('.post-body').outerHeight() - $(window).height()) {
 			instantiateToC();
 		} else {
 			resetToC();
 		}
+	}
 
-		// if ($(document).scrollTop() < Math.floor($('.post-body .content > h1:first-of-type').offset().top) - 1 || $(document).scrollTop() >= $('.post-body').offset().top + $('.post-body').outerHeight() - $(window).height()) {
-		// 	resetToC();
-		// }
+	cloneToC();
+	detectToCPosition();
 
+	$(document).on('scroll', function() {
+		detectToCPosition();
 	});
 
 	$(window).on('resize', function() {
