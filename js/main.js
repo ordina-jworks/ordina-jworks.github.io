@@ -61,10 +61,12 @@ $(document).ready(function() {
 	}
 
 	var detectToCPosition = function() {
-		if ($(document).scrollTop() >= Math.floor($('.post-body .content > h1:first-of-type').offset().top) - 1 && $(document).scrollTop() < $('.post-body').offset().top + $('.post-body').outerHeight() - $(window).height()) {
-			instantiateToC();
-		} else {
-			resetToC();
+		if ($('.post-body .content > h1:first-of-type').offset() !== undefined) {
+			if ($(document).scrollTop() >= Math.floor($('.post-body .content > h1:first-of-type').offset().top) - 1 && $(document).scrollTop() < $('.post-body').offset().top + $('.post-body').outerHeight() - $(window).height()) {
+				instantiateToC();
+			} else {
+				resetToC();
+			}
 		}
 	}
 
