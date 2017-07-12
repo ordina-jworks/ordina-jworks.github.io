@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [dieter_hubau, gina_de_beukelaer, hans_michiels, jeff_mesens]
+authors: [dieter_hubau, gina_de_beukelaer, hans_michiels, jeff_mesens, tim_schmitte]
 title: 'Spring I/O 2017 Recap'
 image: /img/springio2017.jpg
 tags: [Spring, IO, Pivotal, Google, Spring Boot, Java, Reactive, Reactor, DDD, CQRS, Spring Cloud, Spring Cloud Stream, Serverless]
@@ -259,7 +259,7 @@ We will be publishing a fun blogpost about Spring Cloud Streams soon, so stay tu
 
 # 6. The Road to Serverless: Spring Cloud Function
 
-### by Dr. Dave Syer
+### by [Dr. Dave Syer](https://twitter.com/david_syer){:target="_blank"}
 
 #### FaaS
 In recent years we've seen the emergence and evolution of following cloud abstraction layers in order of abstraction level: 
