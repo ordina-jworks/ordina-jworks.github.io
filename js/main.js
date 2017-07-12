@@ -19,6 +19,64 @@ $(document).ready(function() {
   $('.lightbox').magnificPopup({type:'image'});
 });
 
+
+/* ******* */
+/* The ToC */
+/* ******* */
+
+$(document).ready(function() {
+
+	var toc, tocClone;
+
+	instantiateToC = function() {
+		if (!$('.pin-wrapper').length) {
+			toc.addClass('fixed').pin({
+				containerSelector: '.post-body .inner',
+				padding: {top: $('header').height(), bottom: 0}
+			});
+		}
+	}
+
+	resetToC = function() {
+		if ($('.pin-wrapper').length) {
+			$('.the-toc').remove();
+			$('.pin-wrapper').before(tocClone);
+			$('.pin-wrapper').remove();
+			$('.the-toc').removeClass('fixed');
+			cloneToc();
+		}
+	}
+	
+	cloneToc = function() {
+		toc = $('.the-toc');
+		tocClone = toc.clone();
+	}
+
+	cloneToc();
+
+	$(document).on('scroll', function() {
+
+		console.log('something');
+
+		if ($(document).scrollTop() >= Math.floor($('.post-body .content > h1:first-of-type').offset().top) - 1 && $(document).scrollTop() < $('.post-body').offset().top + $('.post-body').outerHeight() - $(window).height()) {
+			instantiateToC();
+		} else {
+			resetToC();
+		}
+
+		// if ($(document).scrollTop() < Math.floor($('.post-body .content > h1:first-of-type').offset().top) - 1 || $(document).scrollTop() >= $('.post-body').offset().top + $('.post-body').outerHeight() - $(window).height()) {
+		// 	resetToC();
+		// }
+
+	});
+
+	$(window).on('resize', function() {
+		resetToC();
+		instantiateToC();
+	});
+	
+});
+
 /* *************** */
 /* Custom Dropdown */
 /* *************** */
@@ -211,7 +269,6 @@ $(document).ready(function(){
 			$banner.scrollex({
 				bottom: $header.outerHeight() - 100,
 				enter: function() {
-					console.log('enter');
 					// $body.addClass('custom-image');
 					// $body.css("background-image", "url('" + imageHref + "')");
 
@@ -220,7 +277,6 @@ $(document).ready(function(){
 					$('#over').css("display", "block");
 				},
 				leave: function() {
-					console.log('leave');
 					$body.removeClass('custom-image');
 					$body.css('background-image', '');
 					$('#over').css("display", "none");
