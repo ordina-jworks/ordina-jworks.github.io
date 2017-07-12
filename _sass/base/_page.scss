@@ -95,3 +95,57 @@ body.custom-image {
     border: none;
   }
 }
+
+/**
+ * The ToC
+ */
+.content .the-toc.fixed {
+    padding: 12px 20px 0;
+    left: 0 !important;
+    max-width: 300px;
+    background: #fff;
+    z-index: 9999;
+    box-shadow: 1px 1px 5px #ddd;
+
+    .the-toc__heading {
+      position: relative;
+      padding-top: 13px;
+
+      .the-toc__toggle {
+        position: absolute;
+        top: 13px;
+        right: -10px;
+        padding: 1px 10px;
+        cursor: pointer;
+        transition: transform 200ms ease;
+      }
+    }
+
+    .the-toc__list {
+      margin-bottom: 0;
+      padding-bottom: 20px;
+
+      font-size: 0.80em;
+
+      @media screen and (min-width: 1681px) {
+        font-size: 0.65em;
+      }
+    }
+
+    &.closed {
+      .the-toc__heading {
+        margin-bottom: 0;
+        padding-top: 0;
+        border: 0 none;
+
+        .the-toc__toggle {
+          top: -1px;
+          transform: rotate(45deg);
+        }
+      }
+
+      .the-toc__list {
+        display: none;
+      }
+    }
+}

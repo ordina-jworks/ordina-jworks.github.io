@@ -19,6 +19,69 @@ $(document).ready(function() {
   $('.lightbox').magnificPopup({type:'image'});
 });
 
+
+/* ******* */
+/* The ToC */
+/* ******* */
+
+$(document).ready(function() {
+
+	var toc, tocClone;
+
+	var instantiateToC = function() {
+		if (!$('.pin-wrapper').length) {
+			toc.addClass('fixed').pin({
+				containerSelector: '.post-body .inner',
+				padding: {top: $('header').height(), bottom: 0}
+			});
+			$('.the-toc__heading').append('<span class="the-toc__toggle">✖</span>');
+			$('.the-toc__heading').on('click', function() {
+				if (toc.hasClass('closed')) {
+					toc.removeClass('closed');
+				} else {
+					toc.addClass('closed');
+				}
+			});
+		}
+	}
+
+	var resetToC = function() {
+		if ($('.pin-wrapper').length) {
+			$('.the-toc').remove();
+			$('.pin-wrapper').before(tocClone);
+			$('.pin-wrapper').remove();
+			$('.the-toc').removeClass('fixed');
+			cloneToC();
+		}
+	}
+	
+	var cloneToC = function() {
+		toc = $('.the-toc');
+		tocClone = toc.clone();
+	}
+
+	var detectToCPosition = function() {
+		if ($(document).scrollTop() >= Math.floor($('.post-body .content > h1:first-of-type').offset().top) - 1 && $(document).scrollTop() < $('.post-body').offset().top + $('.post-body').outerHeight() - $(window).height()) {
+			instantiateToC();
+		} else {
+			resetToC();
+		}
+	}
+
+	cloneToC();
+	detectToCPosition();
+
+	$(document).on('scroll', function() {
+		detectToCPosition();
+	});
+
+	$(window).on('resize', function() {
+		resetToC();
+		instantiateToC();
+	});
+	
+});
+
 /* *************** */
 /* Custom Dropdown */
 /* *************** */
@@ -211,7 +274,6 @@ $(document).ready(function(){
 			$banner.scrollex({
 				bottom: $header.outerHeight() - 100,
 				enter: function() {
-					console.log('enter');
 					// $body.addClass('custom-image');
 					// $body.css("background-image", "url('" + imageHref + "')");
 
@@ -220,7 +282,6 @@ $(document).ready(function(){
 					$('#over').css("display", "block");
 				},
 				leave: function() {
-					console.log('leave');
 					$body.removeClass('custom-image');
 					$body.css('background-image', '');
 					$('#over').css("display", "none");
