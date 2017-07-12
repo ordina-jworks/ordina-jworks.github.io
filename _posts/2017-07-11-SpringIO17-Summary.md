@@ -13,19 +13,25 @@ In this blog post, we will go over some of our favourite sessions of the confere
 
 > **DISCLAIMER**: we could not include **ALL** the talks from Spring IO in this blogpost. We provide an extensive summary of our favorite talks and created a curated list of all the talks and resources at the bottom of this post.
 
-# Table Of Contents
+<div class="the-toc">
 
-1. [Keynote: The Only Constant Is Change](#1-keynote-the-only-constant-is-change)
-2. [Bootiful Database-centric Applications with jOOQ](#2-bootiful-database-centric-applications-with-jooq)
-3. [Google Spanner](#3-google-spanner)
-4. [Easily secure and add Identity Management to your Spring(Boot) applications with Keycloak](#4-easily-secure-and-add-identity-management-to-your-springboot-applications-with-keycloak)
-5. [Spring Cloud Streams (Data Services)](#5-spring-cloud-streams-data-services)
-6. [The Road To Serverless: Spring Cloud Function](#6-the-road-to-serverless-spring-cloud-function)
-7. [Reactive Spring Data](#7-reactive-spring-data)
-8. [The Future Of Event Driven Microservices With Spring Cloud Stream](#8-the-future-of-event-driven-microservices-with-spring-cloud-stream)
-9. [New in Spring 5: Functional Web Framework](#9-new-in-spring-5-functional-web-framework)
-10. [Spring Auto REST Docs](#10-spring-auto-rest-docs)
-11. [References](#11-references)
+  <h1 class="the-toc__heading">Table Of Contents</h1>
+
+  <ol class="the-toc__list">
+    <li><a href="#1-keynote-the-only-constant-is-change" title="Keynote: The Only Constant Is Change">Keynote: The Only Constant Is Change</a></li>
+    <li><a href="#2-bootiful-database-centric-applications-with-jooq" title="Bootiful Database-centric Applications with jOOQ">Bootiful Database-centric Applications with jOOQ</a></li>
+    <li><a href="#3-google-spanner" title="Google Spanner">Google Spanner</a></li>
+    <li><a href="#4-easily-secure-and-add-identity-management-to-your-springboot-applications-with-keycloak" title="Easily secure and add Identity Management to your Spring(Boot) applications with Keycloak">Easily secure and add Identity Management to your Spring(Boot) applications with Keycloak</a></li>
+    <li><a href="#5-spring-cloud-streams-data-services" title="Spring Cloud Streams (Data Services)">Spring Cloud Streams (Data Services)</a></li>
+    <li><a href="#6-the-road-to-serverless-spring-cloud-function" title="The Road To Serverless: Spring Cloud Function">The Road To Serverless: Spring Cloud Function</a></li>
+    <li><a href="#7-reactive-spring-data" title="Reactive Spring Data">Reactive Spring Data</a></li>
+    <li><a href="#8-the-future-of-event-driven-microservices-with-spring-cloud-stream" title="The Future Of Event Driven Microservices With Spring Cloud Stream">The Future Of Event Driven Microservices With Spring Cloud Stream</a></li>
+    <li><a href="#9-new-in-spring-5-functional-web-framework" title="New in Spring 5: Functional Web Framework">New in Spring 5: Functional Web Framework</a></li>
+    <li><a href="#10-spring-auto-rest-docs" title="Spring Auto REST Docs">Spring Auto REST Docs</a></li>
+    <li><a href="#11-references" title="References">References</a></li>
+  </ol>
+
+</div>
 
 **** 
 
