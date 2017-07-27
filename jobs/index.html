@@ -284,7 +284,6 @@
         <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
     </div>
 </footer>
-
 <!-- Scripts -->
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.scrollex.min.js"></script>
@@ -300,7 +299,7 @@
 
 
 <script src="/js/main.js"></script>
-    
+
 <!-- Disqus -->
 
 
@@ -316,15 +315,25 @@
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m);
-        document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
     ga('create', 'UA-70040502-1', 'auto');
     ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
 </script>
 
 <!-- Vertical timeline -->
 <script src="/js/vertical-timeline/modernizr.js"></script>
 <script src="/js/vertical-timeline/main.js"></script>
+
 
 </body>
 </html>
