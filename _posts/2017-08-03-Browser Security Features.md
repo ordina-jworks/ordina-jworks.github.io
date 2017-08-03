@@ -6,7 +6,7 @@ image: /img/security/padlock_code.jpg
 tags: [Security]
 category: Security
 comments: true
-permalink: conference/2017/07/03/Browser-security-features.html
+permalink: conference/2017/08/03/Browser-security-features.html
 ---
 # Browser security features
 Browsers nowadays come with a ton of security features built-in.
@@ -32,6 +32,17 @@ Have a look at [http://www.httpvshttps.com/](http://www.httpvshttps.com/){: targ
 Since speed should no longer prevent you from switching to HTTPS, there's only cost.
 Even that is no longer true: a simple Domain Validation certificate can be obtained for free.
 But even if you need more protection, an Extended Validation certificate can be had for as little as 300$ per year.
+
+### How hard is it?
+The main issue is that all resources you use on your site should be served over HTTPS.
+This means that all third parties should use TLS as well.
+Furthermore, it depends on the complexity of your site.
+Nick Craver wrote an extensive [blog post](https://nickcraver.com/blog/2017/05/22/https-on-stack-overflow/){: target="_blank"} on their road to switching to HTTPS.
+
+### Should you activate this on your site? 
+Absolutely! 
+Modern browsers are shifting from notifying users that a page is secure to warning them that it isn't.
+On top of that, Google gives a slight ranking boost to HTTPS sites.
 
 ## HTTP Strict Transport Security
 Once your server is properly configured to use TLS, your next step is to redirect your users to the secure version.
@@ -63,6 +74,20 @@ If you want your domain to be included in this list, you should add the `preload
 
 Afterwards, you can register your domain at [https://hstspreload.org/](https://hstspreload.org/){: target="_blank" }
 
+### Are there any risks?
+Activating HSTS does offer some risks:
+* If you include the `includesubdomains` directive, you tell the browser that *all* subdomains need to be retrieved over HTTPS.
+  If your internal applications are on a subdomain (e.g. internal.example.com), you'll block access to those that haven't enabled TLS yet.
+* Adding the `preload` directive is even more dangerous: because this tells browser makes to hardcode your HSTS settings.
+  If you've made a mistake in the setup, it can take a long time be removed from the list. 
+  Since this list is *in* the browser, you'll affect both your existing and your new users.
+These risks can be mitigated through extensive testing and conservative settings. 
+Start with a short max-age and slowly increase its length, don't include subdomains if you're not 100% sure that *all* subdomains need to be included
+and perhaps most importantly, **don't** activate preload unless you're 100% sure that everything works as intended.
+
+### Should I activate HSTS?
+For those (subdomains) where TLS is enabled, you should start rolling out HSTS (while keeping in mind the warnings above).
+
 ## Public key pinning
 Alright, now you've secured your site with HTTPS, and you've made sure your users can't fall victim to a Man in the Middle attack.
 Or have you?
@@ -76,7 +101,9 @@ In the future, that browser will compare the public key that's actually used for
 
 An HPKP header looks like this:
 
-```public-key-pins:pin-sha256="YLh1...uihg=";pin-sha256="9dNi...Dwg=";pin-sha256="Vjs...eWys=";max-age=2592000;includeSubdomains;report-uri="report-uri"```
+{% highlight http %}
+public-key-pins:pin-sha256="YLh1...uihg=";pin-sha256="9dNi...Dwg=";pin-sha256="Vjs...eWys=";max-age=2592000;includeSubdomains;report-uri="report-uri"
+{% endhighlight %}{: style="scroll: auto" }
 
 The `max-age` directive tells the browser for how long these pins are valid. 
 You can use `report-uri` to get a report when an invalid certificate is used.
@@ -106,16 +133,22 @@ The browser will POST a JSON message to the URL you specify here.
 If you don't want to implement your own processing of these reports, have a look at [report-uri.io](https://report-uri.io/){: target="_blank" }
 It will process the reports from your site and display the results in a nice format, allowing you to take action when you see something that's wrong.
 
-### Dangers
-HPKP is quite a dangerous header: it's quite easy to commit "pinning-suicide".
-Pin the wrong certificate, have a CA change keys on you or have something else go wrong and your site is inaccessible until your users' max-age expires.
-Be careful rolling out this one as it's way too easy to shoot yourself in the foot.
-
 ### Report-only
 Besides the normal CSP header, there's also the Report-only variant: `Public-Key-Pins-Report-Only`.
 This header has the exact same specifications as the normal HPKP, **but** it won't block access to your site if there's no valid pin.
 As the name says, it will simply report violations to the report-uri.
 Obviously, this header isn't meant to increase the security of your site on its own, rather it's a way to help you on your way to a full HPKP implementation.
+
+### Dangers
+HPKP is quite a dangerous header: it's quite easy to commit "pinning-suicide".
+Pin the wrong certificate, have a CA change keys on you or have something else go wrong and your site is inaccessible until your users' max-age expires.
+Be careful rolling out this one as it's way too easy to shoot yourself in the foot.
+
+### Should I use it?
+This header has some serious dangers associated with it.
+It's not enough to know that the current configuration is correct, you also need to be sure that you're equipped to deal with certificate updates without breaking the site.
+And then you need to be sure that you've got a backup in place in case you ever want to switch CA's.
+Unless you're 100% sure that this won't be an issue, hold off for now as it's too easy to DoS your own site.
 
 ## Content Security Policy
 Even though your connection is secured with TLS, that doesn't mean that the content can't be tampered with in other ways (such as cross-site scripting (XSS)).
@@ -193,6 +226,12 @@ As with HPKP, CSP also supports a Report-Only variant with `Content-Security-Pol
 Once again the specifications are exactly the same but it won't block loading or execution of disallowed resources and simply report violations.
 You can then use the reports it generates to decide what you need to allow in your actual CSP header, before you deploy it (and break your site).
 
+### Should I use it?
+CSP has some risks: it can break your site's functionality, but overall it's relatively easy to test it. 
+The `report-uri` directive allows you to monitor if there are any issues and you can use the report-only version of the header to easily validate the setup you're planning in the wild.
+If you have a system that relies a lot on third party content, it might not be for you.
+For everyone else, try out the Report-Only header and see if you get any issues.
+
 ## Subresource integrity
 When you're developing a web application, you'll often depend on some javascript frameworks such as angular or jQuery.
 Loading these files from a CDN can speed up load times from your application, since it's quite likely that the user already has a cached version of the script available.
@@ -219,6 +258,11 @@ For resources coming from the same origin, you can omit the `crossorigin` attrib
 In order to add the `integrity` attribute, you need to know the correct hash of the file. 
 The easiest way to calculate it is by simply specifying a random value and checking the resulting error in your browser.
 ![Chrome SRI error](/img/2017-security-features/integrity-error.png){: .image height="50px" }
+
+### Should I use it?
+Most likely. 
+If you're depending on third party scripts, you should make sure that they aren't changed without your knowledge.
+This does mean that you shouldn't just include the latest version of a script (e.g. example.com/library/latest/) as that will change whenever a new version is released.
  
 ## Cookie protection
 Most websites nowadays use a variety of cookies for different purposes.
@@ -230,6 +274,11 @@ You can easily do this by adding the `secure` flag to the cookies you send.
 
 To make the cookies even more secure, you'll also need to prevent them from being read/modified by scripts running on the page.
 In most cases there's no reason for a script to have access to these cookies, so you can simply mark them as `HttpOnly`. 
+
+### Should I use this?
+Yes.
+Your session cookies should not be available to scripts, to the `HttpOnly` flag should be set on those.
+If you're using TLS (and you should) you should definitely set the `secure` flag as well.
 
 ## Conclusion
 Browsers nowadays support a wide array of security features you can use to keep your users safe.
