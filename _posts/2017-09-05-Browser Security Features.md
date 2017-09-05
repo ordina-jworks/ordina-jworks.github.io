@@ -6,7 +6,7 @@ image: /img/security/padlock_code.jpg
 tags: [Security]
 category: Security
 comments: true
-permalink: conference/2017/08/03/Browser-security-features.html
+permalink: conference/2017/09/05/Browser-security-features.html
 ---
 # Browser security features
 Browsers nowadays come with a ton of security features built-in.
