@@ -109,7 +109,7 @@ Over the last couple of years, there were several incidents where malicious acto
 When this happens, your users will think they're safe (as their browser shows the green padlock), but the attacker can still manipulate your content.
 To protect yourself against this, there's a mechanism called "HTTP Public Key Pinning" (HPKP [[1](#fn1)]).
 With HPKP you "pin" the public key of your TLS certificate to the browser.
-In the future, that browser will compare the public key, that's actually used for the TLS connection, with the pinned one and, if they don't match, refuse the connection altogether.
+In the future, that browser will compare the public key that's actually used for the TLS connection, with the pinned one and, if they don't match, refuse the connection altogether.
 ![HPPK error](/img/2017-security-features/hpkp-error.png){: .image height="245px" }
 
 An HPKP header looks like this:
