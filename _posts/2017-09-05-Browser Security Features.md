@@ -14,6 +14,15 @@ These features are there to protect the people using your application as well as
 Most of these features are quite easy to implement, however for some of them (such as key-pinning), you have to be careful not to break your site.
 It's this danger, combined with the lack of knowledge, that prevents people from taking full advantage of them.
 
+## Table of contents
+1. [Transport Layer Security](#transport-layer-security)
+2. [HTTP Strict Transport Security](#http-strict-transport-security)
+3. [Public Key Pinning](#public-key-pinning)
+4. [Content Security Policy](#content-security-policy)
+5. [Subresource Integrity](#subresource-integrity)
+6. [Cookie Protection](#cookie-protection)
+7. [Conclusion](#conclusion)
+
 ## Transport Layer Security
 The first layer of defense is not a new one at all: Transport Layer Security (TLS).
 TLS is sometimes (incorrectly) referred to as SSL (Secured Socket Layer). 
@@ -72,12 +81,12 @@ If you want your domain to be included in this list, you should add the `preload
 
 ```Strict-Transport-Security: max-age=31536000; includeSubDomains; preload```
 
-Afterwards, you can register your domain at [https://hstspreload.org/](https://hstspreload.org/){: target="_blank" }
+Afterwards, you can register yourself for the  [HSTS Preload List](https://hstspreload.org/){: target="_blank" }.
 
 ### Are there any risks?
 Activating HSTS does offer some risks:
 * If you include the `includesubdomains` directive, you tell the browser that *all* subdomains need to be retrieved over HTTPS.
-  If your internal applications are on a subdomain (e.g. internal.example.com), you'll block access to those that haven't enabled TLS yet.
+  If your internal applications are on a subdomain (e.g. `internal.example.com`), you'll block access to those that haven't enabled TLS yet.
 * Adding the `preload` directive is even more dangerous because this tells browser makers to hardcode your HSTS settings.
   If you've made a mistake in the setup, it can take a long time to be removed from the list. 
   Since this list is *in* the browser, you'll affect both your existing and your new users.
