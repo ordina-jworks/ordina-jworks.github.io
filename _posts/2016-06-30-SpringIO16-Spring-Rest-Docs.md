@@ -4,7 +4,7 @@ authors: [kevin_van_houtte]
 title: 'Spring I/O 16: Test-driven documentation with Spring REST Docs'
 image: /img/springio.jpg
 tags: [Spring IO,Spring,Conference]
-category: Conferences
+category: Conference
 comments: true
 ---
 
@@ -18,7 +18,7 @@ Last but not least, he talked about the new features that came out in version 1.
 Since I implemented Spring REST Docs in a project, I'll use examples from my experiences.
 
 
-<img class="p-image float-image" width="200" alt="Andy Wilkinson" src="/img/rest-docs/andywilkinson.jpg">
+<span class="image left small"><img class="p-image" alt="Andy Wilkinson" src="/img/rest-docs/andywilkinson.jpg"></span>
 
 ### Andy Wilkinson
 

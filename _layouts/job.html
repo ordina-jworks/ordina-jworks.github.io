@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    {% include header-default-meta.html %}
+
+    <title>{{ page.title }} &mdash; {{ site.title }}</title>
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ page.title }}">
+    <meta name="twitter:description" content="{{ site.title }}">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io{{ page.image }}"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io{{ page.url }}"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="{{ page.title }}"/>
+    <meta property="og:description" content="{{ site.title }}"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io{{ page.image }}"/>
+
+    {% include header-styles-scripts.html %}
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+    {% include header-navigation-banner.html %}
+
+    <section id="wrapper">
+        <div class="inner">
+            {{content}}
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+{% include footer.html %}
+{% include footer-scripts.html %}
+
+</body>
+</html>

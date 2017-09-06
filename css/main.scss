@@ -1,51 +1,62 @@
 ---
-# Only the main Sass file needs front matter (the dashes are enough)
+# this ensures Jekyll reads the file to be transformed into CSS later
+# only Main files contain this front matter, not partials.
 ---
-@charset "utf-8";
 
+@import '../_sass/libs/vars';
+@import '../_sass/libs/functions';
+@import '../_sass/libs/mixins';
+@import '../_sass/libs/skel';
 
+/*
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+*/
 
-// Our variables
-$base-font-family: Helvetica, Arial, sans-serif;
-$base-font-size:   16px;
-$small-font-size:  $base-font-size * 0.875;
-$base-line-height: 1.5;
+@include skel-breakpoints((
+        xlarge: '(max-width: 1680px)',
+        large: '(max-width: 1280px)',
+        medium: '(max-width: 980px)',
+        small: '(max-width: 736px)',
+        xsmall: '(max-width: 640px)',
+        xxsmall: '(max-width: 360px)'
+));
 
-$spacing-unit:     30px;
+@include skel-layout((
+        reset: 'full',
+        boxModel: 'border',
+        grid: (gutters: 1.75em),
+        breakpoints: (
+                small: (
+                        grid: (gutters: 1.25em)
+                )
+        )
+));
 
-$text-color:       #111;
-$background-color: #fdfdfd;
-$brand-color:      #2a7ae2;
+// Base.
 
-$grey-color:       #828282;
-$grey-color-light: lighten($grey-color, 40%);
-$grey-color-dark:  darken($grey-color, 25%);
+@import '../_sass/base/page';
+@import '../_sass/base/typography';
+@import '../_sass/base/colors';
 
-// Width of the content area
-$content-width:    800px;
+// Component.
 
-$on-palm:          600px;
-$on-laptop:        800px;
+@import '../_sass/components/section';
+@import '../_sass/components/form';
+@import '../_sass/components/box';
+@import '../_sass/components/icon';
+@import '../_sass/components/image';
+@import '../_sass/components/list';
+@import '../_sass/components/table';
+@import '../_sass/components/button';
+@import '../_sass/components/features';
 
+// Layout.
 
-
-// Using media queries with like this:
-// @include media-query($on-palm) {
-//     .wrapper {
-//         padding-right: $spacing-unit / 2;
-//         padding-left: $spacing-unit / 2;
-//     }
-// }
-@mixin media-query($device) {
-    @media screen and (max-width: $device) {
-        @content;
-    }
-}
-
-
-
-// Import partials from `sass_dir` (defaults to `_sass`)
-@import
-        "base",
-        "layout"
-;
+@import '../_sass/layout/header';
+@import '../_sass/layout/menu';
+@import '../_sass/layout/banner';
+@import '../_sass/layout/wrapper';
+@import '../_sass/layout/footer';
+@import '../_sass/layout/about';

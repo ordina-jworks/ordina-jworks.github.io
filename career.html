@@ -1,0 +1,185 @@
+---
+layout: default
+title: Launch your career
+subtitle: Boost your career with our educational programmes
+description: Whether you're a student or a seasoned developer, for each phase in your career, Ordina JWorks has something to offer.
+permalink: /launch-your-career/
+image: /img/career/career-launch.png
+---
+
+<section id="one" class="wrapper spotlight style2">
+    <div class="inner">
+        <div class="content">
+            <h2 class="major">Ordina JWorks career path</h2>
+
+            <p>
+                The <span class="accentuate">Ordina JWorks career path</span> defines several experience levels, from Associate to Master.
+                Usually, companies only offer a training when you're a young graduate.
+                We want to give potential and existing colleagues the chance to level up during their career.
+                We therefore set up two <span class="accentuate">education programmes</span> that an Ordina JWorks consultant can follow.
+                One in the beginning of his or her career,
+                and one for when someone already gained professional experience.
+            </p>
+
+            <div style="clear: both;"></div>
+
+            <div id="container" style="width: 100%;"></div>
+        </div>
+    </div>
+</section>
+
+<section class="wrapper spotlight alt style1">
+    <div class="inner">
+        <div class="content" style="text-align: left;">
+            <h2 class="major">Ordina JWorks Training Programmes</h2>
+
+            <p>
+                Whether you're a student or a seasoned developer, 
+                for each phase in your career, 
+                Ordina JWorks has something to offer.
+                We have two tracks to boost your career.
+            </p>
+
+            <div class="features">
+                <article>
+                    <a href="{{ '/launch-your-career/kickstarter-programme' | prepend: site.baseurl }}" class="image article-image">
+                        <img src="/img/career/kickstarter-badge-article.png" alt="">
+                    </a>
+
+                    <h3 class="major">Kickstarter programme</h3>
+
+                    <a href="{{ '/launch-your-career/kickstarter-programme' | prepend: site.baseurl }}" class="special">Read more</a>
+                </article>
+                <article>
+                    <a href="{{ '/launch-your-career/professional-programme' | prepend: site.baseurl }}" class="image article-image">
+                        <img src="/img/career/professional-badge-article.png" alt="">
+                    </a>
+
+                    <h3 class="major">Professional programme</h3>
+
+                    <a href="{{ '/launch-your-career/professional-programme' | prepend: site.baseurl }}" class="special">Read more</a>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<script>
+var seriesData = [
+    ["Student", 150],
+    ["→", 40, "Kickstarter programme:<ul><li>Hands-on experiences</li><li>Learning challenges</li><li>Objectives</li></ul>"],
+    ["Ordina Associate", 250],
+    // Label needs to be unique, otherwise popup information is incorrect
+    [" → ", 40, "Professional programme:<ul><li>Project experiences</li><li>Learning challenges</li><li>Objectives</li></ul>"],
+    ["Ordina Professional", 600],
+    ["  →  ", 0],
+    ["Ordina Master", 1200]
+];
+
+function findProgramme(name) {
+    for (i = 0; i< seriesData.length; ++i) {
+         if (i in seriesData) {
+	            if (seriesData[i][0] === name && seriesData[i][2] !== undefined) {
+                  return seriesData[i][2];
+              }
+         }
+     }
+     return false;
+}
+
+var chart = new Highcharts.Chart({
+    chart: {
+        backgroundColor: 'transparent',
+        renderTo: 'container',
+        type: 'column',
+        options3d: {
+            enabled: true,
+            alpha: 0,
+            beta: 0,
+            depth: 10,
+            viewDistance: 50
+        }
+    },
+    colors: ['#e98300', '#dd2100', '#e98300', '#dd2100', '#e98300', 'transparent', '#e98300'],
+    xAxis: {
+        tickInterval: 1,
+        labels: {
+            enabled: true,
+            formatter: function() { return seriesData[this.value][0];},
+            style: {
+                'font-family': 'Futura Md BT',
+                'fontSize': '1.4rem'
+            }
+        },
+        lineWidth: 0,
+        gridLineWidth:0
+    },
+    yAxis: [{
+        labels: {
+            enabled: false
+        },
+        title: {
+            enabled: false
+        },
+        lineWidth: 0,
+        gridLineWidth:0
+    }],
+    title: {
+        text: null
+    },
+    credits: {
+        enabled: false
+    },
+    legend: {
+        enabled: false
+    },
+    exporting: {
+        enabled: false
+    },
+    tooltip: {
+        padding: 15,
+        headerFormat: '',
+        hideDelay: 0,
+        style: {
+            'fontFamily': 'Futura Md BT',
+            'fontSize': '1.1rem',
+            'fontWeight': 'bold',
+            'width': '200px',
+        },
+        formatter: function() {
+            // to disable the tooltip at a point return false
+            return findProgramme(this.point.name);
+        },
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            colorByPoint: true,
+            depth: 25
+        }
+    },
+    series: [{
+        data: seriesData
+    }, {
+        type: 'spline',
+        name: 'Average',
+        data: [100, 150, 225, 350, 550, 800, 1150],
+        marker: {
+            lineWidth: 2,
+            lineColor: Highcharts.getOptions().colors[3],
+            fillColor: 'white'
+        }
+    }]
+});
+
+// Activate the sliders
+$('#sliders input').on('input change', function () {
+    chart.options.chart.options3d[this.id] = parseFloat(this.value);
+    chart.redraw(false);
+});
+</script>

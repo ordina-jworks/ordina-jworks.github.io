@@ -1,0 +1,80 @@
+footer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: _size(inner);
+    padding: 5em 0;
+    color:_palette(fg-header);
+
+    a {
+        color: _palette(fg-header);
+    }
+    
+    .contact {
+        .address, .phone, .email {
+            padding-bottom: 1em;
+        }
+        
+        .icon {
+            display: table-cell;
+            vertical-align: top;
+        }
+        .text {
+            display: table-cell;
+            padding-left: 1em;
+            vertical-align: top;
+        }
+    }
+    
+    .social {
+        list-style: none;
+        text-align: left;
+        
+        li {
+            a {
+                border-style: none;
+            }
+            
+            span {
+                padding-left: 0.5em;
+            }
+        }
+    }
+
+    .copyright {
+        border-top: solid 2px _palette(border);
+        margin: 2em 0;
+        padding: 2em 0 0 0;
+        width: 100%;
+        font-size: 0.8em;
+    }
+
+    @include breakpoint(medium) {
+        margin-top: (_size(wrapper-edges, medium) * 1);
+        padding: _size(wrapper-edges, medium) 3em 3em 3em;
+    }
+
+    @include breakpoint(small) {
+        display: block;
+        padding-top: 1.5em;
+        
+        .social {
+            display: flex;
+            margin-top: 1em;
+            padding: 1em 0 0 0;
+            
+            li {
+                margin: 0 auto;
+                
+                span {
+                    display: none;
+                }
+            }
+        }
+    }
+    
+    @include breakpoint(xxsmall) {
+        @include padding(2em, 1.5em);
+    }
+}

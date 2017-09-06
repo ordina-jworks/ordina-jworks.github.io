@@ -4,14 +4,14 @@ authors: [dieter_wallecan]
 title: 'Percona Live Amsterdam 2016'
 image: /img/2016-10-16-Percona-Live/PLAM-16-01.png
 tags: [Percona Live, MySql, MongoDB, MariaDB, DBA, PostgreSQL]
-category: Conferences
+category: Conference
 comments: true
 ---
 
 [Percona Live](https://www.percona.com/live/plam16/) Open Source Database Conference 2016, Amsterdam
 
-<p style="text-align: center;">
-  <img style="max-width: 640px;" alt="Percona Live Amsterdam Logo" src="/img/2016-10-16-Percona-Live/PLAM-16-01.png">
+<p>
+  <img class="image fit" alt="Percona Live Amsterdam Logo" src="/img/2016-10-16-Percona-Live/PLAM-16-01.png">
 </p>
 
 It was only three weeks before the conference, that I coincidentally discovered (and by Googling) that Percona was organizing one of the biggest Open Source Databases conferences in Amsterdam, Percona Live Europe.

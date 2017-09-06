@@ -1,0 +1,65 @@
+<!-- Scripts -->
+<script src="{{ site.baseurl }}/js/jquery.min.js"></script>
+<script src="{{ site.baseurl }}/js/jquery.scrollex.min.js"></script>
+<script src="{{ site.baseurl }}/js/jquery.magnific-popup.min.js"></script>
+<script src="{{ site.baseurl }}/js/owl.carousel.min.js"></script>
+<script src="{{ site.baseurl }}/js/bootstrap.min.js"></script>
+<script src="{{ site.baseurl }}/js/skel.min.js"></script>
+<script src="{{ site.baseurl }}/js/jquery.pin.min.js"></script>
+<script src="{{ site.baseurl }}/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="{{ site.baseurl }}/js/ie/respond.min.js"></script><![endif]-->
+
+{% if page.image %}
+<script>
+    var imageHref = "{{ site.baseurl }}{{ page.image }}";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+{% endif %}
+
+<script src="{{ site.baseurl }}/js/main.js"></script>
+
+<!-- Disqus -->
+{% if page.comments %}
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "{{ page.url | prepend: site.url }}";
+        this.page.identifier = "{{ page.url }}";
+        this.page.title = "{{ page.title }}";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+{% endif %}
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="{{ site.baseurl }}/js/vertical-timeline/modernizr.js"></script>
+<script src="{{ site.baseurl }}/js/vertical-timeline/main.js"></script>

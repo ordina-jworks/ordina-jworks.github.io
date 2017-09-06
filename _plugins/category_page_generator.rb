@@ -16,12 +16,32 @@ module Jekyll
         def initialize( site, base, category )
             @site = site
             @base = base
-            @dir = "categories/#{category.downcase.gsub(' ','-')}"
+            @dir = getPermalink(category)
             @name = "index.html"
             
             self.process(@name)
             self.read_yaml(File.join(base, '_layouts'), 'by_category.html')
-            self.data['category'] = category
+            self.data['layout'] = 'by_category'
+            self.data['title'] = "#{category}"
+            self.data['subtitle'] = 'Posts by category'
+            
+            self.data['posts'] = Array.new
+            site.posts.docs.each{ |post|
+                if post.data['category'] == category
+                    self.data['posts'].push(post)
+                end
+            }
+            
+            self.data['other_categories'] = Array.new
+            site.categories.each_key{ |cat|
+                if cat != category
+                    self.data['other_categories'].push({ 'title' => cat, 'permalink' => getPermalink(cat) })
+                end
+            }
+        end
+        
+        def getPermalink( category )
+            return "/categories/#{category.downcase.gsub(' ','-')}"
         end
     end
     

@@ -1,56 +1,73 @@
----
-layout: default
----
-<div class="row">
-    <div class="col-md-3 col-sm-12">
-        <div class="team-six">
-            <!-- Team Member -->
-            <div class="team-member">
-                <!-- Image -->
-                <img class="img-responsive p-image" src="{{ '/img/author/' | append: page.author.avatar | prepend: site.baseurl }}"
-                     alt="{{ page.author.name }}"/>
-                <!-- Name -->
-                <h4>{{ page.author.first_name }} {{ page.author.last_name }}</h4>
-                <span class="deg">{{ page.author.title }}</span>
-                {% if page.author.title2 %}
-                <div class="clearfix"></div>
-                <span class="deg">{{ page.author.title2 }}</span>
-                {% endif %}
-                <!-- Team Links -->
-                <div class="team-links">
-                    {% if page.author.email %}
-                    <a href="mailto:{{ page.author.email }}"><i class="fa fa-envelope"></i></a>
-                    {% endif %}
-                    {% if page.author.twitter %}
-                    <a href="https://www.twitter.com/{{ page.author.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>
-                    {% endif %}
-                    {% if page.author.github %}
-                    <a href="https://www.github.com/{{ page.author.github }}" target="_blank"><i class="fa fa-github"></i></a>
-                    {% endif %}
-                    {% if page.author.linkedin %}
-                    <a href="https://be.linkedin.com/in/{{ page.author.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a>
-                    {% endif %}
-                    {% if page.author.phone %}
-                    <a href="tel:{{ page.author.phone }}"><i class="fa fa-phone"></i></a>
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    {% include header-default-meta.html %}
+
+    <title>{{ page.title }}, {{ page.author.title }} &mdash; {{ site.title }}</title>
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ page.title }}">
+    <meta name="twitter:description" content="{{ page.author.title }}">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io{{ '/img/author/' | append: page.author.avatar }}"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io{{ page.url }}"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="{{ page.title }}"/>
+    <meta property="og:description" content="{{ page.author.title }}"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io{{ '/img/author/' | append: page.author.avatar }}"/>
+
+    {% include header-styles-scripts.html %}
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+    {% include header-navigation-banner.html %}
+
+    <section id="wrapper">
+        <div class="inner">
+            <section class="wrapper style1">
+                <div class="inner">
+                    <h1>More information about {{ page.author.first_name }}</h1>
+                    {% if page.author.bio %}
+                        {{ page.author.bio | markdownify }}
                     {% endif %}
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-9 col-sm-12">
-        <h1>More information about {{ page.author.first_name }}</h1>
-        {% if page.author.bio %}
-            {{ page.author.bio | markdownify }}
-        {% endif %}
-    </div>
-    <div class="col-md-9 col-sm-12">
-        <h1>Articles</h1>
-        {% for post in site.posts %}
-            {% if post.authors contains page.author.username %}
+            </section>
+
+            {% capture posts %}
+            {% for post in site.posts %}
+                {% if post.authors contains page.author %}
                 <div class="post">
                     <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a>
                 </div>
+                {% endif %}
+            {% endfor %}
+            {% endcapture %}
+
+            {% if posts contains 'class="post"' %}
+            <section class="wrapper alt style2">
+                <div class="inner">
+                    <h1>Articles</h1>
+                    {{ posts }}
+                </div>
+            </section>
             {% endif %}
-        {% endfor %}
-    </div>
+        </div>
+    </section>
 </div>
+
+<div id="over"></div>
+
+{% include footer.html %}
+{% include footer-scripts.html %}
+
+</body>
+</html>

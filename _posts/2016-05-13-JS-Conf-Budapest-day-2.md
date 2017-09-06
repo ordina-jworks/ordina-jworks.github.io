@@ -4,7 +4,7 @@ authors: [jan_de_wilde, steve_de_zitter]
 title: 'JS Conf Budapest Day 2'
 image: /img/js-conf-budapest-2016.jpg
 tags: [JS Conf Budapest,JavaScript,Conference]
-category: Conferences
+category: Conference
 comments: true
 ---
 
@@ -20,7 +20,8 @@ JS Conf Budapest is hosted by the one and only [Jake Archibald](https://twitter.
 Day 2 started at 9 o'clock.
 Enough time to drink great coffee and enjoy the breakfast.
 
-![JS Conf Budapest 2016 Photo Collage]({{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }})
+
+<img class="image fit" src="{{ '/img/js-conf-budapest/js-conf-budapest-2016-collage.jpg' | prepend: site.baseurl }}" alt="JS Conf Budapest 2016 Photo Collage" />
 
 
 ****
@@ -44,7 +45,7 @@ Enough time to drink great coffee and enjoy the breakfast.
 
 ## Day 2: Morning
 
-<img class="p-image float-image" width="200" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-noopkat.jpg">
+<span class="image left"><img class="p-image" alt="Suz Hinton" src="/img/js-conf-budapest/speaker-noopkat.jpg"></span>
 
 ### Suz Hinton: The Formulartic Spectrum
 
@@ -171,7 +172,7 @@ So Suz created a [subway card with built in speaker](https://noopkat.github.io/f
 ****
 
 
-<img class="p-image float-image" width="200" alt="Oliver Joseph Ash" src="/img/js-conf-budapest/speaker-oliverjash.jpg">
+<span class="image left"><img class="p-image" alt="Oliver Joseph Ash" src="/img/js-conf-budapest/speaker-oliverjash.jpg"></span>
 
 ### Oliver Joseph Ash: Building an Offline Page for theguardian.com
 
@@ -390,7 +391,7 @@ This can be fixed with a cache manifest.
 ****
 
 
-<img class="p-image float-image" width="200" alt="Nicolás Bevacqua" src="/img/js-conf-budapest/speaker-nzgb.jpg">
+<span class="image left"><img class="p-image" alt="Nicolás Bevacqua" src="/img/js-conf-budapest/speaker-nzgb.jpg"></span>
 
 ### Nicolás Bevacqua: High Performance in the Critical Rendering Path
 
@@ -491,7 +492,7 @@ For all the detailed tips and tricks we suggest to [view the slides for Nicolá
 
 ****
 
-<img class="p-image float-image" width="200" alt="Anand Vemuri" src="/img/js-conf-budapest/speaker-brownhat57.jpg">
+<span class="image left"><img class="p-image" alt="Anand Vemuri" src="/img/js-conf-budapest/speaker-brownhat57.jpg"></span>
 
 ### Anand Vemuri: Offensive and Defensive Strategies for Client-Side JavaScript
 
@@ -596,7 +597,7 @@ Oh... And
 
 ## Day 2: afternoon
 
-<img class="p-image float-image" width="200" alt="Sam Bellen" src="/img/js-conf-budapest/speaker-sambego.jpg">
+<span class="image left"><img class="p-image" alt="Sam Bellen" src="/img/js-conf-budapest/speaker-sambego.jpg"></span>
 
 ### Sam Bellen: Changing live audio with the web-audio-api
 
@@ -659,7 +660,7 @@ Presentation can be found here: https://github.com/Sambego/pedalboard-presentati
 ****
 
 
-<img class="p-image float-image" width="200" alt="Rob Kerr" src="/img/js-conf-budapest/speaker-robrkerr.jpg">
+<span class="image left"><img class="p-image" alt="Rob Kerr" src="/img/js-conf-budapest/speaker-robrkerr.jpg"></span>
 
 ### Rob Kerr: Science in the Browser: Orchestrating and Visualising Neural Simulations
 
@@ -715,7 +716,7 @@ The algorithm is written in C and is based on mathematic formula which is shown 
 
 **Hodgkin-Huxley Model of the Squid Giant Axon**
 
-<img alt="Hodgkin-Huxley Model of the Squid Giant Axon" src="/img/js-conf-budapest/Hodgkin-Huxley_equation.png">
+<img class="image fit" alt="Hodgkin-Huxley Model of the Squid Giant Axon" src="/img/js-conf-budapest/Hodgkin-Huxley_equation.png">
 
 The web application used to render the neurons used a combination of tools, most importantly:
 
@@ -740,7 +741,7 @@ He introduced us to just the right amount of neuroscience to be able to follow w
 ****
 
 
-<img class="p-image float-image" width="200" alt="Stefan Baumgartner" src="/img/js-conf-budapest/speaker-ddprrt.jpg">
+<span class="image left"><img class="p-image" alt="Stefan Baumgartner" src="/img/js-conf-budapest/speaker-ddprrt.jpg"></span>
 
 ### Stefan Baumgartner: HTTP/2 is coming! Unbundle all the things?!?
 
@@ -800,7 +801,7 @@ Use tools, not rules!
 ****
 
 
-<img class="p-image float-image" width="200" alt="Claudia Hernández" src="/img/js-conf-budapest/speaker-koste4.jpg">
+<span class="image left"><img class="p-image" alt="Claudia Hernández" src="/img/js-conf-budapest/speaker-koste4.jpg"></span>
 
 ### Claudia Hernández: Down the Rabbit Hole: JS in Wonderland
 
@@ -827,7 +828,7 @@ Be sure to check out [jsfuck.com](http://www.jsfuck.com/) for some fun times and
 ****
 
 
-<img class="p-image float-image" width="200" alt="Lena Reinhard" src="/img/js-conf-budapest/speaker-lrnrd.jpg">
+<span class="image left"><img class="p-image" alt="Lena Reinhard" src="/img/js-conf-budapest/speaker-lrnrd.jpg"></span>
 
 ### Lena Reinhard: Works On My Machine, or the Problem is between Keyboard and Chair
 
@@ -975,7 +976,7 @@ A big thank you to the organisers and volunteers to make JS Conf Budapest what i
 
 ### Find us on the family photo!
 
-![JS Conf Budapest 2016 Family Photo]({{ '/img/js-conf-budapest/js-conf-budapest-2016-family-photo.jpg' | prepend: site.baseurl }})
+<img class="image fit" src="{{ '/img/js-conf-budapest/js-conf-budapest-2016-family-photo.jpg' | prepend: site.baseurl }}" alt="JS Conf Budapest 2016 Family Photo" />
 
 ### Next year
 

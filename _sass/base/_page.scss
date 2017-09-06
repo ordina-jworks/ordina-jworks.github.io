@@ -1,0 +1,151 @@
+///
+/// Solid State by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* Basic */
+
+// MSIE: Required for IEMobile.
+@-ms-viewport {
+  width: device-width;
+}
+
+// MSIE: Prevents scrollbar from overlapping content.
+body {
+  -ms-overflow-style: scrollbar;
+}
+
+// Ensures page width is always >=320px.
+@include breakpoint(xsmall) {
+  html, body {
+    min-width: 320px;
+  }
+}
+
+body {
+  background-color: _palette(bg);
+
+  background-image: linear-gradient(to top, transparentize(_palette(bg-header), 0.2), transparentize(_palette(bg-header), 0.2)),
+  url('../../img/backgrounds/bg.jpg');
+
+  background-size: auto,
+  cover;
+
+  background-attachment: fixed,
+  fixed;
+
+  background-position: center,
+  center;
+
+  // Prevents animation/transition "flicker" on page load.
+  // Automatically added/removed by js/main.js.
+  &.is-loading {
+    *, *:before, *:after {
+      @include vendor('animation', 'none !important');
+      @include vendor('transition', 'none !important');
+    }
+  }
+
+}
+
+body.custom-image {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.header-image {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: block;
+  height: 800px;
+  filter: blur(5px);
+  background-color: _palette(bg);
+  z-index: -10;
+}
+
+#over {
+  background-color: _palette(bg-header);
+  opacity: 0.7;
+  position: absolute;
+  top: 0;
+  display: none;
+  height: 800px;
+  width: 100%;
+  z-index: -10;
+}
+
+.share-page {
+  text-align: center;
+  a {
+    margin-left: 15px;
+    border: none;
+  }
+}
+
+/**
+ * The ToC
+ */
+.content .the-toc.fixed {
+    padding: 12px 20px 0;
+    left: 0 !important;
+    max-width: 300px;
+    background: #fff;
+    z-index: 9999;
+    box-shadow: 1px 1px 5px #ddd;
+
+    .the-toc__heading {
+      position: relative;
+      padding-top: 13px;
+
+      .the-toc__toggle {
+        position: absolute;
+        top: 13px;
+        right: -10px;
+        padding: 1px 10px;
+        cursor: pointer;
+        transition: transform 200ms ease;
+      }
+    }
+
+    .the-toc__list {
+      margin-bottom: 0;
+      padding-bottom: 20px;
+
+      font-size: 0.80em;
+
+      @media screen and (min-width: 1681px) {
+        font-size: 0.65em;
+      }
+    }
+
+    &.closed {
+      .the-toc__heading {
+        margin-bottom: 0;
+        padding-top: 0;
+        border: 0 none;
+
+        .the-toc__toggle {
+          top: -1px;
+          transform: rotate(45deg);
+        }
+      }
+
+      .the-toc__list {
+        display: none;
+      }
+    }
+}

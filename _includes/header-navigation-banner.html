@@ -1,0 +1,55 @@
+    <!-- Header -->
+    <header id="header"{% if page.transparent_header %} class="alt" {% endif %}>
+        <h1>
+            <a href="{{ site.baseurl }}/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="{{ site.baseurl }}/">Home</a></li>
+                <li class="menu-item"><a href="{{ site.baseurl }}/about">About Us</a></li>
+                <li class="menu-item"><a href="{{ site.baseurl }}/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="{{ site.baseurl }}/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="{{ site.baseurl }}/search">Search</a></li>
+                <li class="menu-item"><a href="{{ site.baseurl }}/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                {% if page.show_logo %}
+                <div class="logo">
+                    <img src="{{ site.baseurl }}/img/jworks/jworks-200x200-white.png" width="100" />
+                </div>
+                {% endif %}
+
+                <h2>{{ page.title }}</h2>
+                {% if page.subtitle %}
+                    <p>{{ page.subtitle }}</p>
+                {% endif %}
+
+                {% if page.layout == 'post' %}
+                    {% include banner-post.html %}
+                {% endif %}
+
+                {% include banner-team-member.html %}
+
+            </div>
+        </header>
+    </section>

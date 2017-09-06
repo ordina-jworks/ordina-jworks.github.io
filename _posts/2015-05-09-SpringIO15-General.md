@@ -10,13 +10,12 @@ comments: true
 
 >Last week Barcelona was the place to be for Spring enthusiasts. With tons of Pivotal speakers and many more community leaders it was a two-day goldmine for anyone looking to update their Spring knowledge. This is my report ranging many different topics, including quite some one on one discussions and hacking sessions with the people behind the Spring ecosystem.
 
-![Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)](https://www.ordina.be/~/media/images/ordinabe/blogs/andreas2.jpg?la=nl-nl&amp;h=429&amp;w=763)
-
+<img class="image fit" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas2.jpg?la=nl-nl&amp;h=429&amp;w=763" alt="Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)" />
 *Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)*
 
 ### One on one talk with Juergen Hoeller:
 
-<img  class="p-image float-image" alt="Juergen Hoeller" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas3.jpg?la=nl-nl">Groovy has now become an Apache Incubator project, as Pivotal decided Groovy isn't a core project for them. Most of the people behind Groovy are not working for Pivotal anymore but for other companies which means they can only work on it part-time. Juergen doesn't like this but it wasn't his decision. Luckily Groovy has a huge userbase and they truly love the language. That's why Juergen is not too concerned about Groovy dying, but of course the speed of new developments will be a lot slower than the past two or three years.
+<span class="image left"><img  class="p-image" alt="Juergen Hoeller" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas3.jpg?la=nl-nl"></span>Groovy has now become an Apache Incubator project, as Pivotal decided Groovy isn't a core project for them. Most of the people behind Groovy are not working for Pivotal anymore but for other companies which means they can only work on it part-time. Juergen doesn't like this but it wasn't his decision. Luckily Groovy has a huge userbase and they truly love the language. That's why Juergen is not too concerned about Groovy dying, but of course the speed of new developments will be a lot slower than the past two or three years.
 Gradle has strong dependencies on Groovy, as it's using a Groovy-based DSL language. The story is different here however, as Gradle is backed by Gradleware, a Silicon Valley company with its own vision. Spring is using Gradle for most of its projects, because for one the devs like to use Groovy, but foremost because it offers more flexibility compared to maven which is necessary when dealing with an open-source framework.
 
 The Netflix stack is Amazon based as it's the most important player in the market at the moment. Of course there is support for Cloud Foundry but there are no guarantees it will work on all clouds. Especially Google App Engine is kind of a mess as the team behind it doesn't really cooperate with Pivotal or anyone else as far as Juergen knows.
@@ -25,7 +24,7 @@ Currently it's hard to find decent books about microservices but they should be 
 
 ### One on one hacking session with Oliver Gierke:
 
-<img  class="p-image float-image" alt="Oliver Gierke" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas5.png?la=nl-nl">Lots of stuff can still be moved from Spring Data REST to Spring Hateoas. This afternoon I'm sitting down with Oliver Gierke to do some hacking on the subject.
+<span class="image left"><img  class="p-image" alt="Oliver Gierke" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas5.png?la=nl-nl"></span>Lots of stuff can still be moved from Spring Data REST to Spring Hateoas. This afternoon I'm sitting down with Oliver Gierke to do some hacking on the subject.
 
 It's possible to have a resource with many different embedded resources inside by nesting domain POJOs in eachother. The thing Spring Data REST is missing is the possibility to distinguish between domain model nested classes and resource model nested classes (aka embedded resources). There is no way to embed a Car resource as an embedded resource into a Person resource without actually having Car as a property of Person in the domain model. Having the possibility to manually add embedded resources to a resource would solve this.
 To achieve this we should have an extension of ResourceSupport with a Set of EmbeddedWrappers inside. Using the EmbeddedWrappers class, we can add embedded resources to our resource in its Assembler. This Wrapper will take care of relation resolving, especially handy when dealing with collections which require plural-forms. The relation value can be annotated in the model or passed along as a second parameter.
@@ -45,7 +44,7 @@ Implementation of the [hypertext cache pattern of HAL](https://tools.ietf.org/ht
 
 ## More on Spring I/O 2015 Barcelona ....
 
-<img  class="p-image float-image" alt="Christoph Strobl" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas4.png?la=nl-nl">
+<span class="image left"><img  class="p-image" alt="Christoph Strobl" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas4.png?la=nl-nl"></span>
 
 #### Boot your Search with Spring talk:
 
@@ -55,13 +54,13 @@ Solr feels like an old kitchen sink for anything you want to do. Not exactly a f
 
 Spring Data Solr does just what you expect: clean to-the-point interfaces with annotations that do the DAO magic for you. Spring Data Elasticsearch does that as well for the complexity of Elasticsearch. I never really liked the query system that Elasticsearch has so having this abstraction layer could prove really useful.
 
-<img  class="p-image float-image" alt="Brian Clozel" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas6.jpg?la=nl-nl&h=227&w=227">
+<span class="image left"><img  class="p-image" alt="Brian Clozel" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas6.jpg?la=nl-nl&h=227&w=227"></span>
 
 #### Inside http://spring.io - a production spring reference application & one on one talk with Brian Clozel
 
 [on this blog](http://ordina-jworks.github.io/spring/2015/05/08/SpringIO15-Sagan.html)
 <p style="clear:both"></p>
-<img  class="p-image float-image" alt="Sergi Almar" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas7.jpg?la=nl-nl&h=224&w=227">
+<span class="image left"><img  class="p-image" alt="Sergi Almar" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas7.jpg?la=nl-nl&h=224&w=227"></span>
 
 #### Real-time with Spring: SSE and WebSockets talk
 
@@ -69,7 +68,7 @@ Speaker: Sergi Almar - [Talk & speaker description](http://www.springio.net/real
 
 Spring WebSockets is better than JSR356 because: there is a fallback with SockJS, there is support for STOMP subprotocol, Spring Security can jump in, and of course flawless integration with messaging components and the Spring messaging style. Security is important because there are no URLs anymore. We have to secure at message level.
 <p style="clear:both"></p>
-<img  class="p-image float-image" alt="Oliver Gierke" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas8.png?la=nl-nl&h=223&w=223">
+<span class="image left"><img  class="p-image" alt="Oliver Gierke" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas8.png?la=nl-nl&h=223&w=223"></span>
 
 #### Spring Data REST - Repositories meet hypermedia talk
 
@@ -77,7 +76,7 @@ Speaker: Oliver Gierke - [Talk & speaker description](http://www.springio.net/sp
 
 Recommended reading: Domain Driven Design. Although very boring, it introduces vital concepts in the repository world. When combining ALPS and JSON Schema, it should be possible to create a client that is smart enough to discover verbs and even fields of the payload.
 <p style="clear:both"></p>
-<img  class="p-image float-image" alt="Dave Syer" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas9.jpg?la=nl-nl">
+<span class="image left"><img  class="p-image" alt="Dave Syer" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas9.jpg?la=nl-nl"></span>
 
 #### Building Microservices with Spring Cloud and Netflix OSS talk
 
@@ -85,13 +84,13 @@ Speaker: Dr. Dave Syer  - [Talk & speaker description](http://www.springio.net/b
 
 Another great book is Release It!. It describes a lot of the patterns microservices use such as circuit breaker. It's definitely a great book for devops.
 <p style="clear:both"></p>
-<img  class="p-image float-image" alt="Stéphane Nicoll" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas10.png?la=nl-nl">
+<span class="image left"><img  class="p-image" alt="Stéphane Nicoll" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas10.png?la=nl-nl"></span>
 
 #### Master Spring Boot autoconfiguration talk
 
 [on this blog](http://ordina-jworks.github.io/spring/2015/05/08/SpringIO15-Autoconfig.html)
 <p style="clear:both"></p>
-<img  class="p-image float-image" alt="Josh Long" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas11.jpg?la=nl-nl">
+<span class="image left"><img  class="p-image" alt="Josh Long" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas11.jpg?la=nl-nl"></span>
 
 #### Can Your Cloud Do This? Getting started with Cloud Foundry talk & Building "Bootiful" Microservices with Spring Cloud workshop & One one one talk with Josh Long
 

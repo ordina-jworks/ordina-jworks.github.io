@@ -77,8 +77,7 @@ Although they still had to follow a few courses along the way, like the basic pr
 The kickstarters already had learned how to write clean code and how to do this in the best possible way.
 The purpose of the SensyMcSenseFace project was to give the kickstarters a use case where they could develop an end-to-end IoT solution, in which they could test and use their newly acquired skills.
 
-![SensyMcSenseFaceProject]({{ '/img/kickstarters/2016/IoT.jpg' | prepend: site.baseurl }})
-
+<img alt="SensyMcSenseFaceProject" src="{{ '/img/kickstarters/2016/IoT.jpg' | prepend: site.baseurl }}" class="image fit">
 
 ### What did the client request
 
@@ -94,7 +93,7 @@ Here the frontend developers made sure that all the data has been received and o
 
 The following picture depicts the two meeting rooms that are equipped with three different sensors, which send their data back to the application's backend.
 
-![Floor Plan]({{ '/img/kickstarters/2016/floorplan.jpg' | prepend: site.baseurl }})
+<img alt="Floor Plan" src="{{ '/img/kickstarters/2016/floorplan.jpg' | prepend: site.baseurl }}" class="image fit">
 
 Each meeting room equipped with the sensors, which have their values read by an Arduino that then sends these across the Proximus LoRa network to the backend. For the initial stages and testing the LoRa part was omitted and a simple node server instance was used to relay the sensor values to the actual backend.
 
@@ -191,11 +190,11 @@ Because there wasn't enough time to completely finish the project, this project 
 
 ## The new JWorks colleagues
 
-<img class="p-image float-image" width="100" alt="Axel Bergmans" src="/img/kickstarters/2016/axel-bergmans.jpg" />
-<img class="p-image float-image" width="100" alt="Matthias Caryn" src="/img/kickstarters/2016/matthias-caryn.jpg" />
-<img class="p-image float-image" width="100" alt="Madi Dudaeva" src="/img/kickstarters/2016/madi-dudaeva.jpg" />
-<img class="p-image float-image" width="100" alt="Christophe Theyssen" src="/img/kickstarters/2016/christophe-theyssen.jpg" />
-<img class="p-image float-image" width="100" alt="Ines Verstappen" src="/img/kickstarters/2016/ines-vanstappen.jpg" />
-<img class="p-image float-image" width="100" alt="Tim Verté" src="/img/kickstarters/2016/tim-verte.jpg" />
+<span class="image left "><img class="p-image" alt="Axel Bergmans" src="/img/kickstarters/2016/axel-bergmans.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Matthias Caryn" src="/img/kickstarters/2016/matthias-caryn.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Madi Dudaeva" src="/img/kickstarters/2016/madi-dudaeva.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Christophe Theyssen" src="/img/kickstarters/2016/christophe-theyssen.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Ines Verstappen" src="/img/kickstarters/2016/ines-vanstappen.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Tim Verté" src="/img/kickstarters/2016/tim-verte.jpg" /></span>
 
 <br /><br /><br /><br /><br /><br />

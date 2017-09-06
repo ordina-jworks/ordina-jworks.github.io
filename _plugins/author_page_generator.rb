@@ -22,6 +22,8 @@ module Jekyll
             
             self.process(@name)
             self.read_yaml(File.join(base, '_layouts'), 'author.html')
+            self.data['layout'] = 'author'
+            self.data['title'] = "#{author['first_name']} #{author['last_name']}"
             self.data['author'] = author
         end
     end
@@ -32,7 +34,6 @@ module Jekyll
         def generate( site )
             if site.layouts.key? 'author'
                 site.data["authors"].each do |author, data|
-                    data["username"] = author
                     site.pages << AuthorPage.new( site, site.source, data )
                 end
             end

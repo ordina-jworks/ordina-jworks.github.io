@@ -131,9 +131,7 @@ There was a sharp rise in contributions, questions, GitHub issues, conference in
 
 The following image depicts the amount of stars the project received on GitHub since its inception.
 
-<p style="text-align: center;">
-  <img style="max-width: 640px;" alt="Prometheus Github Stars" src="/img/prometheus/prometheus-github-stars.png">
-</p>
+<img class="image fit" alt="Prometheus Github Stars" src="/img/prometheus/prometheus-github-stars.png">
 
 <a name="architecture" />
 
@@ -156,9 +154,8 @@ or static configuration.
 Service discovery is more common and also recommended,
 as it allows you to dynamically discover targets.
 
-<p style="text-align: center;">
-  <img alt="Prometheus Architecture" src="/img/prometheus/prometheus-architecture.svg">
-</p>
+<img class="image fit" alt="Prometheus Architecture" src="/img/prometheus/prometheus-architecture.svg">
+
 
 <a name="architecture" />
 
@@ -440,20 +437,19 @@ and makes setting up metrics visualization effortless.
 After adding a Prometheus data source,
 you can immediately start creating dashboards using [PromQL](#slice-dice-with-the-query-language):
 
-<div class="figures">
-  <a href="{{ '/img/prometheus/grafana-datasource.jpg' | prepend: site.baseurl }}">
-  <figure>
-      <img style="max-width: 320px;" alt="Prometheus Datasource" src="{{ '/img/prometheus/grafana-datasource.jpg' | prepend: site.baseurl }}">
-      <figcaption>Step 1: Create datasource</figcaption>
-  </figure>
-  </a>
-
-  <a href="{{ '/img/prometheus/grafana-dashboard.jpg' | prepend: site.baseurl }}">
-  <figure>
-    <img style="max-width: 320px;" alt="Grafana Dashboard" src="{{ '/img/prometheus/grafana-dashboard.jpg' | prepend: site.baseurl }}">
-    <figcaption>Step 2: Profit</figcaption>
-  </figure>
-  </a>
+<div class="row">
+  <div class="6u">
+    <a href="{{ '/img/prometheus/grafana-datasource.jpg' | prepend: site.baseurl }}">
+      <img class="image fit" alt="Prometheus Datasource" src="{{ '/img/prometheus/grafana-datasource.jpg' | prepend: site.baseurl }}">
+      <figcaption class="align-center">Step 1: Create datasource</figcaption>
+    </a>
+  </div>
+  <div class="6u$">
+    <a href="{{ '/img/prometheus/grafana-dashboard.jpg' | prepend: site.baseurl }}">
+      <img class="image fit"  alt="Grafana Dashboard" src="{{ '/img/prometheus/grafana-dashboard.jpg' | prepend: site.baseurl }}">
+      <figcaption class="align-center">Step 2: Profit</figcaption>
+    </a>
+  </div>
 </div>
 
 <a name="alert-alert" />
@@ -618,25 +614,11 @@ the alert is fired.
 This alert is sent to the **Alert Manager**,
 which in turn routes it to the custom **alert console** through a webhook.
 
-<div class="figures">
-  <a href="{{ '/img/prometheus/demo-rule-inactive.png' | prepend: site.baseurl }}">
-  <figure>
-      <img style="max-width: 320px;" alt="Inactive alert" src="{{ '/img/prometheus/demo-rule-inactive.png' | prepend: site.baseurl }}">
-      <figcaption>Inactive alert</figcaption>
-  </figure>
-  </a>
-
-
-</div>
-
-<div class="figures">
-  <a href="{{ '/img/prometheus/demo-rule-active.png' | prepend: site.baseurl }}">
-  <figure>
-    <img style="max-width: 320px;" alt="Active alert" src="{{ '/img/prometheus/demo-rule-active.png' | prepend: site.baseurl }}">
-    <figcaption>The alert is fired</figcaption>
-  </figure>
-  </a>
-</div>
+<img class="image fit" alt="Inactive alert" src="{{ '/img/prometheus/demo-rule-inactive.png' | prepend: site.baseurl }}">
+<figcaption class="align-center">Inactive alert</figcaption>
+<br />
+<img class="image fit"  alt="Active alert" src="{{ '/img/prometheus/demo-rule-active.png' | prepend: site.baseurl }}">
+<figcaption class="align-center">The alert is fired</figcaption>
 
 <br />
 
@@ -663,20 +645,19 @@ After logging in,
 you must first configure a **Prometheus data source**.
 Prometheus is available at `http://prometheus:9090` (from within the container).
 
-<div class="figures">
-  <a href="{{ '/img/prometheus/grafana-datasource.jpg' | prepend: site.baseurl }}">
-  <figure>
-      <img style="max-width: 320px;" alt="Configuring Data source" src="{{ '/img/prometheus/grafana-datasource.jpg' | prepend: site.baseurl }}">
-      <figcaption>Configuring the data source</figcaption>
-  </figure>
-  </a>
-
-  <a href="{{ '/img/prometheus/grafana-dashboard.jpg' | prepend: site.baseurl }}">
-  <figure>
-    <img style="max-width: 320px;" alt="Grafana Dashboard" src="{{ '/img/prometheus/grafana-dashboard.jpg' | prepend: site.baseurl }}">
-    <figcaption>Visualizing metrics</figcaption>
-  </figure>
-  </a>
+<div class="row">
+  <div class="6u">
+    <a href="{{ '/img/prometheus/grafana-datasource.jpg' | prepend: site.baseurl }}">
+      <img class="image fit" alt="Prometheus Datasource" src="{{ '/img/prometheus/grafana-datasource.jpg' | prepend: site.baseurl }}">
+      <figcaption class="align-center">Configuring the data source</figcaption>
+    </a>
+  </div>
+  <div class="6u$">
+    <a href="{{ '/img/prometheus/grafana-dashboard.jpg' | prepend: site.baseurl }}">
+      <img class="image fit"  alt="Grafana Dashboard" src="{{ '/img/prometheus/grafana-dashboard.jpg' | prepend: site.baseurl }}">
+      <figcaption class="align-center">Visualizing metrics</figcaption>
+    </a>
+  </div>
 </div>
 
 <br />
@@ -688,21 +669,19 @@ Since Prometheus scrapes cAdvisor,
 these metrics are also available from Grafana.
 
 
-<div class="figures">
-  <a href="{{ '/img/prometheus/cadvisor-throughput.png' | prepend: site.baseurl }}">
-  <figure>
-      <img style="max-width: 320px;" alt="Throughput" src="{{ '/img/prometheus/cadvisor-throughput.png' | prepend: site.baseurl }}">
-      <figcaption>Network Throughput</figcaption>
-  </figure>
-
-  </a>
-
-  <a href="{{ '/img/prometheus/cadvisor-cpu-usage.png' | prepend: site.baseurl }}">
-  <figure>
-      <img style="max-width: 320px;" alt="CPU Usage per Core" src="{{ '/img/prometheus/cadvisor-cpu-usage.png' | prepend: site.baseurl }}">
-      <figcaption>CPU Usage per Core</figcaption>
-  </figure>
-  </a>
+<div class="row">
+  <div class="6u">
+    <a href="{{ '/img/prometheus/cadvisor-throughput.png' | prepend: site.baseurl }}">
+      <img class="image fit" alt="Throughput" src="{{ '/img/prometheus/cadvisor-throughput.png' | prepend: site.baseurl }}">
+      <figcaption class="align-center">Network Throughput</figcaption>
+    </a>
+  </div>
+  <div class="6u$">
+    <a href="{{ '/img/prometheus/cadvisor-cpu-usage.png' | prepend: site.baseurl }}">
+      <img class="image fit"  alt="CPU Usage per Core" src="{{ '/img/prometheus/cadvisor-cpu-usage.png' | prepend: site.baseurl }}">
+      <figcaption class="align-center">CPU Usage per Core</figcaption>
+    </a>
+  </div>
 </div>
 
 <a name="final-words" />
