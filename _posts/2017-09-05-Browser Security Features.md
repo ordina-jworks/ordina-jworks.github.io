@@ -103,7 +103,7 @@ Or have you?
 It's true that HSTS will make sure that the user only connects using a secured connection, but that doesn't mean the HTTPS connection is actually made to **your** server.
 Over the last couple of years, there were several incidents where malicious actors were able to generate valid certificates for domains they didn't control.
 When this happens, your users will think they're safe (as their browser shows the green padlock), but the attacker can still manipulate your content.
-To protect yourself against this, there's a mechanism called "HTTP Public Key Pinning" (HPKP).
+To protect yourself against this, there's a mechanism called "HTTP Public Key Pinning" (HPKP [[1](#fn1)]).
 With HPKP you "pin" the public key of your TLS certificate to the browser.
 In the future, that browser will compare the public key, that's actually used for the TLS connection, with the pinned one and, if they don't match, refuse the connection altogether.
 ![HPPK error](/img/2017-security-features/hpkp-error.png){: .image height="245px" }
@@ -297,3 +297,5 @@ Because of that, you need to be really careful when you implement (most of) thes
 Do proper testing and (where possible) use the Report-Only variant for a while to spot possible issues before they become real problems.
 Make sure you really understand what you're doing and what the consequences are of getting things wrong.
 When you have all that, don't be afraid to experiment, just make sure you do so safely.
+
+<a name="fn1"></a>[1] [Public Key Pinning with Spring Security](http://ordina-jworks.github.io/spring/2016/03/05/HTTP-Public-Key-Pinning-with-Spring-Security.html)
