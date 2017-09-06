@@ -3,7 +3,7 @@ layout: post
 authors: [tim_de_grande]
 title: "Browser Security Features"
 image: /img/security/padlock_code.jpg
-tags: [Security]
+tags: [Security,Browser features, Response headers]
 category: Security
 comments: true
 permalink: conference/2017/09/05/Browser-security-features.html
@@ -66,7 +66,9 @@ This means that even following a link that explicitly defines `http://` will ins
 
 The configuration of HSTS is as easy as can be: you simply add the following header to your response:
 
-```Strict-Transport-Security: max-age=31536000; includeSubDomains```
+```
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+```
 
 This will tell the browser that for the next 365 days, it should connect to your domain using HTTPS.
 The `includesubdomains` directive tells the browser that your subdomains should also be called using https.
@@ -79,7 +81,9 @@ To prevent this, most major browsers (Chrome, Firefox, Safari, Edge, IE11 and Op
 Domains on this list will automatically be loaded over HTTPS from the start, without having to go through the HTTP -> HTTPS redirect.
 If you want your domain to be included in this list, you should add the `preload` directive to the HSTS header.
 
-```Strict-Transport-Security: max-age=31536000; includeSubDomains; preload```
+```
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+```
 
 Afterwards, you can register yourself for the  [HSTS Preload List](https://hstspreload.org/){: target="_blank" }.
 
@@ -110,9 +114,9 @@ In the future, that browser will compare the public key, that's actually used fo
 
 An HPKP header looks like this:
 
-{% highlight http %}
+```
 public-key-pins:pin-sha256="YLh1...uihg=";pin-sha256="9dNi...Dwg=";pin-sha256="Vjs...eWys=";max-age=2592000;includeSubdomains;report-uri="report-uri"
-{% endhighlight %}{: style="scroll: auto" }
+```
 
 The `max-age` directive tells the browser for how long these pins are valid. 
 You can use `report-uri` to get a report when an invalid certificate is used.
@@ -217,7 +221,9 @@ Keep in mind though that you should **never** hardcode the nonce or use a value 
 It's best to generate a new nonce for each request and add it to those scripts you need to execute.
 E.g. if you have the following CSP setting:
 
-```Content-Security-Policy: script-src 'nonce-randomValue'```
+```
+Content-Security-Policy: script-src 'nonce-randomValue'
+```
 
 will only execute scripts that have the nonce attribute defined like this:
 {% highlight html %}
