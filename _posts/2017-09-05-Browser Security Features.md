@@ -85,7 +85,7 @@ If you want your domain to be included in this list, you should add the `preload
 Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 ```
 
-Afterwards, you can register yourself for the  [HSTS Preload List](https://hstspreload.org/){: target="_blank" }.
+Afterwards, you can register yourself for the [HSTS Preload List](https://hstspreload.org/){: target="_blank" }.
 
 ### Are there any risks?
 Activating HSTS does offer some risks:
