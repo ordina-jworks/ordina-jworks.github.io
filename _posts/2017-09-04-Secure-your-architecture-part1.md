@@ -24,7 +24,7 @@ In this blog series we will cover these questions and guide you on how to apply 
 We are using an example architecture, just to visualize how security flows through these components.
 The components are crucial for building a cloud-native architecture. 
 The technology can differ from project to project. 
-Since we are visualized human beings, you can see where we are in our journey by looking at the topic names. 
+Since we are vision-oriented human beings, you can see where we are in our journey by looking at the topic names. 
 * User Authentication & Authorization Server: [Spring Cloud Security OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/)
 * Service Registry: [Spring Cloud Eureka](https://spring.io/blog/2015/01/20/microservice-registration-and-discovery-with-spring-cloud-and-netflix-s-eureka)
 * Resilience: [Spring Cloud Hystrix](https://spring.io/guides/gs/circuit-breaker/)
@@ -74,7 +74,7 @@ OAuth 2.0 scopes provide a way to limit the amount of access that is granted to 
 If the scope is not defined, the client is not limited by scope.
 
 > A JWT issued to a client can be granted READ or/and WRITE access to protected resources.
-> If you enforce a READ scope to your API endpoint and it tries to call the endpoint with a token granted a WRITE scope, the call will fail
+> If you enforce a WRITE scope to your API endpoint and it tries to call the endpoint with a token granted a READ scope, the call will fail
 
 ### OAuth2 Grant Types
 
