@@ -140,7 +140,7 @@ In essence, a token should be able to:
 
 ### Dealing with time
 
-When propagating the identity of the user, you don’t want it to last for a infinite of time. <br />
+When propagating the identity of the user, you don’t want it to last for a infinite amount of time. <br />
 That's why JWTs have an expiration time.
 This triggers a refresh token of the identity that results in a new JWT.
 JWTs have three fields that relate to time and expiry, all of which are optional.
