@@ -10,7 +10,6 @@ comments: true
 
 When developing cloud-native microservices, we need to think about securing the data that is being propagated from one service to another service and securing the data at rest. 
 So how much security is enough to secure our architecture? Is it the user that identifies itself and decides what data he has access to?
-In this blog series I will cover these questions and guide you in applying the security layer to your cloud-native blueprint.
 
 # Overview
 * [Our cloud-native architecture](#our-cloud-native-architecture)
@@ -22,13 +21,10 @@ In this blog series I will cover these questions and guide you in applying the s
 * [Secure your microservice](#secure-your-microservice)
 
 # Our cloud-native architecture
-To visualize the security flow in a microservice based system, we are using the following example.
-These components are crucial for building a cloud-native architecture, using the [Spring ecosystem](https://spring.io/). 
-The technology can differ from project to project. 
-To facilitate understanding our example, the visual overview depicts the core components.
+In this blog series I will cover these questions and guide you in applying the security layer to your cloud-native blueprint.
+With this blueprint, we are going to use the [Spring ecosystem](https://spring.io/) throughout the series.
+All of these are crucial for building a cloud-native microservices architecture, but it should be technology-agnostic.
 * User Authentication & Authorization Server: [Spring Cloud Security OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/)
-* Service Registry: [Spring Cloud Eureka](https://spring.io/blog/2015/01/20/microservice-registration-and-discovery-with-spring-cloud-and-netflix-s-eureka)
-* Resilience: [Spring Cloud Hystrix](https://spring.io/guides/gs/circuit-breaker/)
 * Load Balancer & Routing: [Spring Cloud Zuul](https://spring.io/guides/gs/routing-and-filtering/)
 * Communication client: [Spring Cloud Feign](http://projects.spring.io/spring-cloud/spring-cloud.html#spring-cloud-feign)
 * Externalized Config: [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/)
@@ -40,8 +36,8 @@ To facilitate understanding our example, the visual overview depicts the core co
 </div>
 
 # Where our journey begins...
-When it comes to users interacting with our system, we want to verify that the person can identify who he says he is.
-Most of the time this appears in a login form where you enter your credentials or in login page form a third party application (Facebook, Google, etc).
+When it comes to users interacting with our system, we want to verify that the person can identify him- or herself.
+Most of the time this appears in a login form where you enter your credentials or in a login page from a third party application (Facebook, Google, etc).
 
 <div class="row" style="margin: 0 auto 2.5rem auto; width: 100%;">
   <div class="col-md-offset-3 col-md-6" style="padding: 0;">
@@ -57,7 +53,7 @@ Authorization is the mechanism that uses the user's data to verify what he is al
 >For instance, who has access to which resources and what the access rights are (eg. execute or edit) to those resources.
 
 To use these two mechanisms in our system, we will be using a security protocol that fits our microservices architecture.
-Since we don't want everyone to log in separately in each service, we aim to have a single identity, that we only have to authenticate once.
+Since we don’t want everyone to have an account for each (micro)service, we aim to have one single identity per person so that the user needs to authenticate only once.
 
 # Using the OAuth2 Protocol
 When searching for a security protocol, we don't want to reinvent the wheel and looked at what is supported by the Spring framework.
@@ -65,26 +61,30 @@ Obviously, it depends on the use-case of the applications that require resources
 Is it a third party application like Facebook or a first party like your own application? Or both? 
 I will explain both [OAuth2](#oauth2-scopes) & [JSON Web Token](#jwt) and how they solve these requirements. 
 
-The OAuth2 delegation protocol allows us to secure the user's credentials from third- and first party applications and gain access to a microservice via a JWT.
-When introducing the OAuth2 framework to our system, we will be using three grant types. 
-These three grant types are different ways to obtain a JWT, some clients are more trusted than others. 
+The OAuth2 delegation protocol allows us to retrieve an access token from an idenity provider and gain access to a microservice by passing the token with subsequent requests.
+When introducing the OAuth2 framework to our system, we will be using four grant types. 
+These three grant types are different ways to obtain an access token, some clients are more trusted than others. 
 
 ### OAuth2 Grant Types
 
-#### Third party applications: Authorization Code grant type
-The most common used grant type for third party applications,
-where user's confidentiality can be maintained.
+#### Third party applications: Authorization Code grant type & Implicit grant type
+Authorization Code is the most common used grant type for third party applications, where user's confidentiality can be maintained.
 The user won't have to share his credentials with the application that is requesting resources from our backend. 
-This is a redirection-based flow, which means that the application must be capable of interacting with the user's web browser
-and receiving API authorization codes that are routed through the user's web browser.
+This is a redirection-based flow, which means that the application must be capable of interacting with the user's web browser.
 
 * The frontend (application) makes a request to the UAA server on behalf of the user
-* The UAA server opens a permission window for the user to grant permission, the user authenticates and grants permission
+* The UAA server redirects to a permission window of a third party for the user to grant permission, the user authenticates and grants permission
 * The UAA server returns an authorization code with a redirect url
-* The frontend uses the authorization code and an application identification to request a JWT token from the UAA server
-* The UAA verifies the authorization code and returns a JWT
+* The frontend uses the authorization code and an application identification to request an access token from the UAA server
+* The UAA verifies the authorization code and returns an access token
+
+> Implicit grant type follows the same principle as the Authorization Code type but does not exchange an authorization code to issue an access token.
 
 <script async class="speakerdeck-embed" data-id="57b5f3f256a3449b9b3038bc69bf2d5f" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
+
+
+<br />
+<br />
 
 #### First party applications: Password grant type
 This grant type is best used for first party applications,
@@ -97,9 +97,11 @@ The application authenticates on behalf of the user and receives the proper JWT.
 
 <script async class="speakerdeck-embed" data-id="1a77277934e14454bf3a66f22a31a26a" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
 
+<br />
+<br />
 
 #### Trusted Service to Service communication: Client Credentials grant type
-The trusted service can request a JWT using only its client-id and client-secret
+The trusted service can request an access token using only its client-id and client-secret
 when the client is requesting access to the protected resources under its control, 
 It is very important that the client credentials grant type MUST only be used by confidential clients.
 
@@ -108,10 +110,10 @@ It is very important that the client credentials grant type MUST only be used by
 
 
 ### OAuth2 Scopes
-OAuth 2.0 scopes provide a way to limit the amount of access that is granted to a JWT.
+OAuth 2.0 scopes provide a way to limit the amount of access that is granted to an access token.
 If the scope is not defined, the client is not limited by scope.
 
-> A JWT issued to a client can be granted READ or/and WRITE access to protected resources.
+> an access token issued to a client can be granted READ or/and WRITE access to protected resources.
 > If you enforce a WRITE scope to your API endpoint and it tries to call the endpoint with a token granted a READ scope, the call will fail
 
 <a name="jwt" />
@@ -252,16 +254,14 @@ public class Application {
 </div>
 </div>
 
-* The user logs into the UAA server and grants permission with frontend 1
+* The user logs into the UAA server and grants permission with frontend app 1
 * The UAA server creates a sessionID for this user
 * The redis database confirms the creation
-* After the redirect mechanism of the authorization grant, the UAA creates a cookie in the user’s browser with the user’s sessionID and returns a JWT token specific for that frontend
-* The frontend 2 uses the same browser (same sessionID cookie) to visit the UAA server
+* After the redirect mechanism of the authorization grant, the UAA creates a cookie in the user’s browser with the user’s sessionID and returns a JWT specific for that frontend
+* The frontend app 2 uses the same browser (same sessionID cookie) to visit the UAA server
 * The UAA finds a sessionID in the request and consults the redis database for its existence
 * The redis database confirms the existence
-* The UAA directly logs in frontend 2 and returns a JWT token specific to frontend 2
-
-
+* The UAA directly logs in frontend app 2 and returns a JWT specific to frontend app 2
 
 # Secure your microservice
 When enabling security in your service, the most common issues are developer-induced.
@@ -272,7 +272,7 @@ We are in a 'downstream service', where data is load balanced from Zuul.
 Next thing to question is, how do we decode this JWT? How can we secure our classes and methods with the help of Spring Security?
 
 ## Decoding the JWT
-It is the responsibility of a microservice (Resource Server) to extract information about the user and client application from the JWT token and make an access decision based on that information.
+It is the responsibility of a microservice (Resource Server) to extract information about the user and client application from the JWT and make an access decision based on that information.
 Decoding the JWT allows extraction of the users information and allows putting it in the security context.
 Spring Security will assemble a Principal with this information to use.
 When enabling Spring Security, we want to decode the JWT at the beginning of our chain so that the rest of the chain can work with the data retrieved from the JWT.
