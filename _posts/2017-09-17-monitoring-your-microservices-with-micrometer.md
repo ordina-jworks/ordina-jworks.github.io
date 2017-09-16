@@ -1,8 +1,8 @@
 ---
 layout: post
 authors: [tim_ysewyn]
-title: "Monitoring your microservices using Micrometer.io"
-image: /img/2017-09-15-monitoring-your-microservices-with-micrometer/post-image.jpg
+title: "Monitoring your microservices with Micrometer.io"
+image: /img/2017-09-17-monitoring-your-microservices-with-micrometer/post-image.jpg
 tags: [microservices, monitoring]
 category: Microservices
 comments: true
@@ -67,7 +67,7 @@ Counters should **not** be used to expose current counts of items whose number c
 
 <div class="row">
   <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
-    <img class="image fit" alt="Counter showing how many errors have occurred" src="/img/2017-09-15-monitoring-your-microservices-with-micrometer/counter.png">
+    <img class="image fit" alt="Counter showing how many errors have occurred" src="/img/2017-09-17-monitoring-your-microservices-with-micrometer/counter.png">
   </div>
 </div>
 
@@ -85,7 +85,7 @@ Gauges are typically used for measured values like current memory usage, but als
 
 <div class="row">
   <div class="6u -3u 8u(small) -2u(small) 12u(xsmall)">
-    <img class="image fit" alt="Gauge showing how many messages still need to be processed" src="/img/2017-09-15-monitoring-your-microservices-with-micrometer/gauge.png">
+    <img class="image fit" alt="Gauge showing how many messages still need to be processed" src="/img/2017-09-17-monitoring-your-microservices-with-micrometer/gauge.png">
   </div>
 </div>
 
@@ -105,7 +105,7 @@ Timers measure both the rate that a particular piece of code is called and the d
 They do not record the duration until the task is complete.
 These are useful for measuring short-duration latencies and the frequency of such events.
 
-![Timer showing how long it takes to process messages](/img/2017-09-15-monitoring-your-microservices-with-micrometer/timer.png){: .image .fit }
+![Timer showing how long it takes to process messages](/img/2017-09-17-monitoring-your-microservices-with-micrometer/timer.png){: .image .fit }
 
 ``` java
 long startTime = System.nanoTime();
