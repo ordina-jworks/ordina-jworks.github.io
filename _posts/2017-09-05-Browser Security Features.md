@@ -11,7 +11,7 @@ permalink: conference/2017/09/05/Browser-security-features.html
 # Browser security features
 Browsers nowadays come with a ton of security features built-in.
 These features are there to protect the people using your application as well as protecting your application from malicious others.
-Most of these features are quite easy to implement, however for some of them (such as key-pinning), you have to be careful not to break your site.
+Most of these features are quite easy to implement, however for some of them (such as key-pinning) you have to be careful not to break your site.
 It's this danger, combined with the lack of knowledge, that prevents people from taking full advantage of them.
 
 ## Table of contents
@@ -147,8 +147,8 @@ If you don't want to implement your own processing of these reports, have a look
 It will process the reports from your site and display the results in a nice format, allowing you to take action when you see something that's wrong.
 
 ### Report-only
-Besides the normal CSP header, there's also the Report-only variant: `Public-Key-Pins-Report-Only`.
-This header has the exact same specifications as the normal HPKP, **but** it won't block access to your site if there's no valid pin.
+Besides the normal HPKP header, there's also the report-only variant: `Public-Key-Pins-Report-Only`.
+This header has the exact same specifications, **but** it won't block access to your site if there's no valid pin.
 As the name says, it will simply report violations to the `report-uri`.
 Obviously, this header isn't meant to increase the security of your site on its own, rather it's a way to help you on your way to a full HPKP implementation.
 
@@ -193,7 +193,7 @@ For that you need to use the following properties instead:
  * `img-src` - images
  * `font-src` - fonts
  * `object-src` - objects (e.g. `<object>`, `<embed>`, ...)
- * `object-src` - media such as `<audio>` and `<video>` elements
+ * `media-src` - media such as `<audio>` and `<video>` elements
  * `connect-src` - where the page can connect to using `XmlHttpRequest`, `WebSocket` or `EventSource`.
  The browser will immediately return a 400 status code when your page attempts to connect to a non-valid domain.
  * `frame-src` - Specify which locations can be embedded in a `<frame>` and `<iframe>`
@@ -215,7 +215,8 @@ Besides these, CSP allows for quite a few other directives:
  (have a look at [Mozilla's documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/sandbox){: target='_blank' } for more information)
  
 ### Nonce
-A nonce allows you to load specific inline scripts without allowing all of them. 
+A nonce, pronounced "/nɒns/" (nance), is a term that means "number (used) once".
+It allows you to load specific inline scripts without allowing all of them. 
 Only those scripts that have a nonce attribute that matches the value specified in the CSP header will get executed.
 Keep in mind though that you should **never** hardcode the nonce or use a value that can be guessed.
 It's best to generate a new nonce for each request and add it to those scripts you need to execute.
@@ -237,7 +238,7 @@ You are allowed to specify multiple CSP policies simply by specifying the header
 If you do this however, it's important to keep in mind that subsequent CSPs are not allowed to loosen the rules, only to tighten them.
 
 ### Report-only
-As with HPKP, CSP also supports a Report-Only variant with `Content-Security-Policy-Report-Only`.
+As with HPKP, CSP also supports a report-only variant with `Content-Security-Policy-Report-Only`.
 Once again the specifications are exactly the same but it won't block loading or execution of disallowed resources and simply report violations.
 You can then use the reports it generates to decide what you need to allow in your actual CSP header, before you deploy it (and break your site).
 
@@ -245,7 +246,7 @@ You can then use the reports it generates to decide what you need to allow in yo
 CSP has some risks: it can break your site's functionality, but overall it's relatively easy to test it. 
 The `report-uri` directive allows you to monitor if there are any issues and you can use the report-only version of the header to easily validate the setup you're planning in the wild.
 If you have a system that relies a lot on third party content, it might not be for you.
-For everyone else, try out the Report-Only header and see if you get any issues.
+For everyone else, try out the report-only header and see if you get any issues.
 
 ## Subresource integrity
 When you're developing a web application, you'll often depend on some JavaScript frameworks such as Angular or jQuery.
