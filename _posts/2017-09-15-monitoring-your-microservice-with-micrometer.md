@@ -178,3 +178,14 @@ It samples observations, like HTTP request durations or database transaction dur
 They can be used to compute quantiles or other summary statistics like min, max, average or median.
 Because histograms buckets are exposed as individual counters to the monitoring backend, it is possible to aggregate observations across a distributed system and compute summary statistics like quantiles for an entire cluster.
 Naturally, the error rate of the computed summary statistic will be higher because of the lossy nature of putting data in buckets.
+
+## Binders
+
+Binders define a collection of meters and are used to encapsulate best practices for monitoring certain types of objects or a part of the application's environment.
+For example, the `JvmThreadMetrics` binder which gauges thread peak, number of daemon threads, and live threads.
+
+Micrometer ships with a basic set of binders:
+- JVM and system monitoring
+- Cache monitoring
+- `Executor` and `ExecutorService` monitoring
+- Logback monitoring
