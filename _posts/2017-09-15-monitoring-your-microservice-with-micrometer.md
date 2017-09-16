@@ -65,10 +65,27 @@ Counters are a cumulative metric that represents a single numerical value that o
 They are typically used to count requests served, tasks completed, errors occurred, etc.
 Counters should not be used to expose current counts of items whose number can also go down, gauges are a better fit for this use case.
 
+``` java
+MeterRegistry registry = ...
+Counter counter = registry.counter("received.messages");
+    
+counter.increment();
+```
+
 ### Gauges
 
 A gauge is a metric that represents a single numerical value that can arbitrarily go up and down.
 Gauges are typically used for measured values like current memory usage, but also "counts" that can go up and down, like the number of messages in a queue.
+
+``` java
+MeterRegistry registry = ...
+
+AtomicInteger currentHttpRequests = registry.gauge("current.http.requests", new AtomicInteger(0));
+Queue<Message> receivedMessages = registry.gauge("unprocessed.messages", new ConcurrentLinkedQueue<>(), ConcurrentLinkedQueue::size);
+```
+
+Instead of returning a gauge, the `gauge` method will rather return the thing that is being observed.
+This allows us to have quick one liners that both create the object to be observed and set up metrics around it.
 
 ### Timers
 
@@ -76,14 +93,65 @@ Timers measure both the rate that a particular piece of code is called and the d
 They do not record the duration until the task is complete.
 These are useful for measuring short-duration latencies and the frequency of such events.
 
+``` java
+long startTime = System.nanoTime();
+
+MeterRegistry registry = ...
+
+Timer timer = registry.timer("timer");
+    
+// this will record how long it took us to get a registry and create a new timer
+timer.record(System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
+```
+
+Or we could just annotate a method with `@Timed` and let Micrometer do the rest for us
+
+``` java
+@Timed
+public void doSomethingWhichShouldBeFastButIsActuallyReallySlow() {
+
+}
+```
+
 ### Long task timers
 
 The long task timer is a special type of timer that lets you measure time while an event being measured is **still running**.
+To time a long running task we use the same `@Timed` annotation, but we set the property `longTask` to `true`.
+
+``` java
+@Timed(longTask = true)
+@Scheduled
+public void doSomethingWhichCanTakeALoooooongTime() {
+
+}
+```
+
+It is up to the application framework to make something happen with `@Timed`.
+In case it isn't able to do that, you can still use the long task timer.
+
+``` java
+MeterRegistry registry = ...
+
+LongTaskTimer looooongTimer = registry.more().longTaskTimer("scrape");
+
+private void doSomethingWhichCanTakeALoooooongTime() {
+    scrapeTimer.record(() => {
+        // actually do something which takes a loooooong time
+    });
+}
+```
 
 ### Distribution summaries
 
 A distribution summary is used to track the distribution of events.
 It is similar to a timer but more general in that the size does not have to be a period of time.
+Usually it is used to sample observations of things like response sizes.
+
+``` java
+MeterRegistry registry = ...
+
+DistributionSummary summary = registry.summary("response.size");
+```
 
 ## Summary statistics
 
