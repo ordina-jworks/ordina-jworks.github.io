@@ -27,7 +27,7 @@ It already contains built-in support for [**Prometheus**](https://prometheus.io)
 
 ## Using Micrometer in your application
 
-Starting with Spring Boot 2, Micrometer becomes the defacto instrumentation library that will be powering the delivery of application metrics from Spring.
+Starting with Spring Boot 2, more specifically since milestone [M4](https://spring.io/blog/2017/09/15/spring-boot-2-0-0-m4-available-now), Micrometer becomes the defacto instrumentation library that will be powering the delivery of application metrics from Spring.
 Luckily for us, they also backported this functionality to Spring Boot 1.x through an additional library dependency!
 Just add the `micrometer-spring-legacy` module together with the additional monitoring system module, and you're good to go!
 
