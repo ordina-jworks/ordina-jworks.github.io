@@ -7,7 +7,7 @@ tags: [microservices, monitoring]
 category: Microservices
 comments: true
 ---
-# Monitoring your microservices using Micrometer.io
+# Monitoring your microservices with Micrometer.io
 
 When we want to instrument our application, we don't want to worry about which monitoring system we want to use, now or in the future.
 Nor do we want to change a lot of code throughout our microservice because we need to change from system X to system Y.
