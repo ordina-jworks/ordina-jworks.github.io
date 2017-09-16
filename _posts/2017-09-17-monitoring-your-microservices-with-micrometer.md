@@ -145,11 +145,11 @@ In case it isn't able to do that, you can still use the long task timer.
 ``` java
 MeterRegistry registry = ...
 
-LongTaskTimer looooongTimer = registry.more().longTaskTimer("scrape");
+LongTaskTimer looooongTimer = registry.more().longTaskTimer("sync");
 
 private void doSomethingWhichCanTakeALoooooongTime() {
     looooongTimer.record(() => {
-        // actually do something which takes a loooooong time
+        // actually do some synchronization which takes a loooooong time
     });
 }
 ```
