@@ -2,7 +2,7 @@
 layout: post
 authors: [tim_ysewyn]
 title: "Monitoring your microservices using Micrometer.io"
-image: /img/2017-devoxx-pl/devoxx-poland.jpg
+image: /img/2017-09-15-monitoring-your-microservice-with-micrometer/post-image.jpg
 tags: [microservices, monitoring]
 category: Microservices
 comments: true
