@@ -148,7 +148,7 @@ MeterRegistry registry = ...
 LongTaskTimer looooongTimer = registry.more().longTaskTimer("scrape");
 
 private void doSomethingWhichCanTakeALoooooongTime() {
-    scrapeTimer.record(() => {
+    looooongTimer.record(() => {
         // actually do something which takes a loooooong time
     });
 }
