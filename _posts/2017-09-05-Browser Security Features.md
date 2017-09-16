@@ -199,6 +199,7 @@ For that you need to use the following properties instead:
  * `frame-src` - Specify which locations can be embedded in a `<frame>` and `<iframe>`
  * `worker-src` - Worker scripts
  * `child-src` - Is either deprecated or serves as fallback for `frame-src` and `worker-src`, depending on the browser and the CSP level implemented.
+ * `manifest-src` - defines which [manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest){: target='_blank'} can be applied to the resource. (This is still experimental though).
  
 ### Navigation directives
 These directives tell the browser what kind of navigation is allowed:
