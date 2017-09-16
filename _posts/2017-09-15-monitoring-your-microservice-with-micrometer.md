@@ -9,25 +9,25 @@ comments: true
 ---
 # Monitoring your microservices using Micrometer.io
 
-When we want to instrument our application, we don't want to worry about which monitoring system we want to use now or in the future.
+When we want to instrument our application, we don't want to worry about which monitoring system we want to use, now or in the future.
 Nor do we want to change a lot of code throughout our microservice because we need to change from system X to system Y.
 
 ## Meet Micrometer!
 
 So what is Micrometer you ask?
 
-Basically, it comes down to this line:
+Basically, it comes down to this:
 > Think SLF4J, but for metrics.
 
-[Micrometer](https://micrometer.io) provides a simple facade over the instrumentation clients for the most popular monitoring systems.
-It allows you to instrument your code with dimensional metrics with a vendor-neutral interface and decide on the monitoring system as a last step.
+<a href="https://micrometer.io" target="_blank">Micrometer</a> provides a simple facade over the instrumentation clients for the most popular monitoring systems.
+It allows you to instrument your code with **dimensional metrics with a vendor-neutral interface** and decide on the monitoring system as a last step.
 Using this interface, we can support multiple monitoring systems and switch easily to an other system with little to no hassle.
-It already contains built-in support for [**Prometheus**](https://prometheus.io), Netflix [**Atlas**](https://github.com/Netflix/atlas), and [**Datadog**](https://www.datadoghq.com), while [InfluxDB](https://www.influxdata.com), [statsd](https://github.com/etsy/statsd), and [Graphite](https://graphiteapp.org) are on their way!
+It already contains built-in support for <a href="https://prometheus.io" target="_blank">**Prometheus**</a>, Netflix <a href="https://github.com/Netflix/atlas" target="_blank">**Atlas**</a>, and <a href="https://www.datadoghq.com" target="_blank">**Datadog**</a>, while <a href="https://www.influxdata.com" target="_blank">InfluxDB</a>, <a href="https://github.com/etsy/statsd" target="_blank">statsd</a>, and <a href="https://graphiteapp.org" target="_blank">Graphite</a> are on their way!
 
 
 ## Using Micrometer in your application
 
-Starting with Spring Boot 2, more specifically since milestone [M4](https://spring.io/blog/2017/09/15/spring-boot-2-0-0-m4-available-now), Micrometer becomes the defacto instrumentation library that will be powering the delivery of application metrics from Spring.
+Starting with Spring Boot 2, more specifically since milestone <a href="https://spring.io/blog/2017/09/15/spring-boot-2-0-0-m4-available-now" target="_blank">M4</a>, Micrometer becomes the defacto instrumentation library that will be powering the delivery of application metrics from Spring.
 Luckily for us, they also backported this functionality to Spring Boot 1.x through an additional library dependency!
 Just add the `micrometer-spring-legacy` module together with the additional monitoring system module, and you're good to go!
 
@@ -63,7 +63,7 @@ With this meter we could see the overall amount of HTTP request, but also have t
 
 Counters are a cumulative metric that represents a single numerical value that only ever goes up.
 They are typically used to count requests served, tasks completed, errors occurred, etc.
-Counters should not be used to expose current counts of items whose number can also go down, gauges are a better fit for this use case.
+Counters should **not** be used to expose current counts of items whose number can also go down, gauges are a better fit for this use case.
 
 ``` java
 MeterRegistry registry = ...
@@ -166,10 +166,15 @@ It is **not possible** to aggregate quantiles across a cluster.
 
 Four quantile algorithms are provided out of the box with different tradeoffs:
 
-- `WindowSketchQuantiles` - The importance of an observation is decayed as it ages. This is the most computationally costly algorithm.
-- `Frugal2UQuantiles` - Successive approximation algorithm that converges towards the true quantile with enough observations. This is by least costly algorithm, but exhibits a higher error ratio in early observations.
-- `CKMSQuantiles` - Lets you trade computational complexity for error ratio on a per-quantile basis. Often, it is desirable for higher quantiles to have a lower error ratio (e.g. 0.99 at 1% error vs. 0.5 at 5% error). This algorithm is still more computationally expensive than Frugal.
-- `GKQuantiles` - Lets you trade computational complexity for error ratio across all quantiles. This is used inside of WindowSketchQuantiles.
+- `WindowSketchQuantiles` - The importance of an observation is decayed as it ages.
+This is the most computationally costly algorithm.
+- `Frugal2UQuantiles` - Successive approximation algorithm that converges towards the true quantile with enough observations.
+This is the least costly algorithm, but exhibits a higher error ratio in early observations.
+- `CKMSQuantiles` - Lets you trade computational complexity for error ratio on a per-quantile basis.
+Often, it is desirable for higher quantiles to have a lower error ratio (e.g. 0.99 at 1% error vs. 0.5 at 5% error).
+This algorithm is still more computationally expensive than Frugal.
+- `GKQuantiles` - Lets you trade computational complexity for error ratio across all quantiles.
+This is used inside of WindowSketchQuantiles.
 
 ### Histograms
 
