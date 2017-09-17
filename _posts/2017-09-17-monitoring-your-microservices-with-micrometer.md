@@ -56,7 +56,7 @@ We will cover all different types, when to use them, and furthermore how to impl
 A meter is uniquely identified by its name and dimensions (also called tags).
 Dimensions are a way of adding dimensions to metrics, so they can be sliced, diced, aggregated and compared.
 For example, we have a meter named `http.requests` with a tag `uri`.
-With this meter we could see the overall amount of HTTP request, but also have the option to drill down and see the amount of HTTP requests for a specific URI.
+With this meter we could see the overall amount of HTTP requests, but also have the option to drill down and see the amount of HTTP requests for a specific URI.
 
 ### Counters
 
