@@ -1,5 +1,207 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-09-17T13:03:02+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Devoxx Poland 2017</title><link href="https://ordina-jworks.github.io/conference/2017/06/21/Devoxx-pl.html" rel="alternate" type="text/html" title="Devoxx Poland 2017" /><published>2017-07-12T00:00:00+00:00</published><updated>2017-07-12T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2017/06/21/Devoxx-pl</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2017/06/21/Devoxx-pl.html">&lt;h1 id=&quot;devoxx-poland-2017&quot;&gt;Devoxx Poland 2017&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-09-17T14:00:44+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Monitoring your microservices with Micrometer.io</title><link href="https://ordina-jworks.github.io/microservices/2017/09/17/monitoring-your-microservices-with-micrometer.html" rel="alternate" type="text/html" title="Monitoring your microservices with Micrometer.io" /><published>2017-09-17T00:00:00+00:00</published><updated>2017-09-17T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/microservices/2017/09/17/monitoring-your-microservices-with-micrometer</id><content type="html" xml:base="https://ordina-jworks.github.io/microservices/2017/09/17/monitoring-your-microservices-with-micrometer.html">&lt;p&gt;When we want to instrument our application, we don’t want to worry about which monitoring system we want to use, now or in the future.
+Nor do we want to change a lot of code throughout our microservice because we need to change from system X to system Y.&lt;/p&gt;
+
+&lt;h2 id=&quot;meet-micrometer&quot;&gt;Meet Micrometer!&lt;/h2&gt;
+
+&lt;p&gt;So what is Micrometer you ask?&lt;/p&gt;
+
+&lt;p&gt;Basically, it comes down to this:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Think SLF4J, but for metrics.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://micrometer.io&quot; target=&quot;_blank&quot;&gt;Micrometer&lt;/a&gt; provides a simple facade over the instrumentation clients for the most popular monitoring systems.
+It allows you to instrument your code with &lt;strong&gt;dimensional metrics with a vendor-neutral interface&lt;/strong&gt; and decide on the monitoring system as a last step.
+Using this interface, we can support multiple monitoring systems and switch easily to an other system with little to no hassle.
+It already contains built-in support for &lt;a href=&quot;https://prometheus.io&quot; target=&quot;_blank&quot;&gt;&lt;strong&gt;Prometheus&lt;/strong&gt;&lt;/a&gt;, Netflix &lt;a href=&quot;https://github.com/Netflix/atlas&quot; target=&quot;_blank&quot;&gt;&lt;strong&gt;Atlas&lt;/strong&gt;&lt;/a&gt;, and &lt;a href=&quot;https://www.datadoghq.com&quot; target=&quot;_blank&quot;&gt;&lt;strong&gt;Datadog&lt;/strong&gt;&lt;/a&gt;, while &lt;a href=&quot;https://www.influxdata.com&quot; target=&quot;_blank&quot;&gt;InfluxDB&lt;/a&gt;, &lt;a href=&quot;https://github.com/etsy/statsd&quot; target=&quot;_blank&quot;&gt;statsd&lt;/a&gt;, and &lt;a href=&quot;https://graphiteapp.org&quot; target=&quot;_blank&quot;&gt;Graphite&lt;/a&gt; are on their way!&lt;/p&gt;
+
+&lt;h2 id=&quot;using-micrometer-in-your-application&quot;&gt;Using Micrometer in your application&lt;/h2&gt;
+
+&lt;p&gt;Starting with Spring Boot 2, more specifically since milestone &lt;a href=&quot;https://spring.io/blog/2017/09/15/spring-boot-2-0-0-m4-available-now&quot; target=&quot;_blank&quot;&gt;M4&lt;/a&gt;, Micrometer becomes the defacto instrumentation library that will be powering the delivery of application metrics from Spring.
+Luckily for us, they also backported this functionality to Spring Boot 1.x through an additional library dependency!
+Just add the &lt;code class=&quot;highlighter-rouge&quot;&gt;micrometer-spring-legacy&lt;/code&gt; module together with the additional monitoring system module, and you’re good to go!&lt;/p&gt;
+
+&lt;p&gt;In Gradle:&lt;/p&gt;
+
+&lt;div class=&quot;language-gradle highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'io.micrometer:micrometer-spring-legacy:latest.release'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Or in Maven:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-maven&quot;&gt;&amp;lt;dependency&amp;gt;
+  &amp;lt;groupId&amp;gt;io.micrometer&amp;lt;/groupId&amp;gt;
+  &amp;lt;artifactId&amp;gt;micrometer-spring-legacy&amp;lt;/artifactId&amp;gt;
+  &amp;lt;version&amp;gt;${micrometer.version}&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;creating-metrics&quot;&gt;Creating metrics&lt;/h2&gt;
+
+&lt;p&gt;There are a couple of ways to create meters.
+We will cover all different types, when to use them, and furthermore how to implement them.&lt;/p&gt;
+
+&lt;h3 id=&quot;dimensionstags&quot;&gt;Dimensions/Tags&lt;/h3&gt;
+
+&lt;p&gt;A meter is uniquely identified by its name and dimensions (also called tags).
+Dimensions are a way of adding dimensions to metrics, so they can be sliced, diced, aggregated and compared.
+For example, we have a meter named &lt;code class=&quot;highlighter-rouge&quot;&gt;http.requests&lt;/code&gt; with a tag &lt;code class=&quot;highlighter-rouge&quot;&gt;uri&lt;/code&gt;.
+With this meter we could see the overall amount of HTTP requests, but also have the option to drill down and see the amount of HTTP requests for a specific URI.&lt;/p&gt;
+
+&lt;h3 id=&quot;counters&quot;&gt;Counters&lt;/h3&gt;
+
+&lt;p&gt;Counters are a cumulative metric that represents a single numerical value that only ever goes up.
+They are typically used to count requests served, tasks completed, errors occurred, etc.
+Counters should &lt;strong&gt;not&lt;/strong&gt; be used to expose current counts of items whose number can also go down, gauges are a better fit for this use case.&lt;/p&gt;
+
+&lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)&quot;&gt;
+    &lt;img class=&quot;image fit&quot; alt=&quot;Counter showing how many errors have occurred&quot; src=&quot;/img/2017-09-17-monitoring-your-microservices-with-micrometer/counter.png&quot; /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;MeterRegistry&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;received.messages&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    
+&lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;increment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;gauges&quot;&gt;Gauges&lt;/h3&gt;
+
+&lt;p&gt;A gauge is a metric that represents a single numerical value that can arbitrarily go up and down.
+Gauges are typically used for measured values like current memory usage, but also “counts” that can go up and down, like the number of messages in a queue.&lt;/p&gt;
+
+&lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;6u -3u 8u(small) -2u(small) 12u(xsmall)&quot;&gt;
+    &lt;img class=&quot;image fit&quot; alt=&quot;Gauge showing how many messages still need to be processed&quot; src=&quot;/img/2017-09-17-monitoring-your-microservices-with-micrometer/gauge.png&quot; /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;MeterRegistry&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;AtomicInteger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currentHttpRequests&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;gauge&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;current.http.requests&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AtomicInteger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;receivedMessages&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;gauge&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;unprocessed.messages&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ConcurrentLinkedQueue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;(),&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;ConcurrentLinkedQueue:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Instead of returning a gauge, the &lt;code class=&quot;highlighter-rouge&quot;&gt;gauge&lt;/code&gt; method will rather return the thing that is being observed.
+This allows us to have quick one liners that both create the object to be observed and set up metrics around it.&lt;/p&gt;
+
+&lt;h3 id=&quot;timers&quot;&gt;Timers&lt;/h3&gt;
+
+&lt;p&gt;Timers measure both the rate that a particular piece of code is called and the distribution of its duration.
+They do not record the duration until the task is complete.
+These are useful for measuring short-duration latencies and the frequency of such events.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2017-09-17-monitoring-your-microservices-with-micrometer/timer.png&quot; alt=&quot;Timer showing how long it takes to process messages&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;startTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;nanoTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;MeterRegistry&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;Timer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;timer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;timer&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    
+&lt;span class=&quot;c1&quot;&gt;// this will record how long it took us to get a registry and create a new timer&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;timer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;nanoTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;startTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TimeUnit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;NANOSECONDS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Or we could just annotate a method with &lt;code class=&quot;highlighter-rouge&quot;&gt;@Timed&lt;/code&gt; and let Micrometer do the rest for us&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Timed&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;doSomethingWhichShouldBeFastButIsActuallyReallySlow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;long-task-timers&quot;&gt;Long task timers&lt;/h3&gt;
+
+&lt;p&gt;The long task timer is a special type of timer that lets you measure time while an event being measured is &lt;strong&gt;still running&lt;/strong&gt;.
+To time a long running task we use the same &lt;code class=&quot;highlighter-rouge&quot;&gt;@Timed&lt;/code&gt; annotation, but we set the property &lt;code class=&quot;highlighter-rouge&quot;&gt;longTask&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Timed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;longTask&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Scheduled&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;doSomethingWhichCanTakeALoooooongTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;It is up to the application framework to make something happen with &lt;code class=&quot;highlighter-rouge&quot;&gt;@Timed&lt;/code&gt;.
+In case it isn’t able to do that, you can still use the long task timer.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;MeterRegistry&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;LongTaskTimer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;looooongTimer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;more&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;longTaskTimer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;sync&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;doSomethingWhichCanTakeALoooooongTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;looooongTimer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// actually do some synchronization which takes a loooooong time&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;distribution-summaries&quot;&gt;Distribution summaries&lt;/h3&gt;
+
+&lt;p&gt;A distribution summary is used to track the distribution of events.
+It is similar to a timer but more general in that the size does not have to be a period of time.
+Usually it is used to sample observations of things like response sizes.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;MeterRegistry&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;DistributionSummary&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;summary&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;response.size&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;summary-statistics&quot;&gt;Summary statistics&lt;/h2&gt;
+
+&lt;p&gt;Micrometer provides quantile statistics computed at &lt;strong&gt;instrumentation time&lt;/strong&gt; and histograms for use in calculating quantile statistics at &lt;strong&gt;query time&lt;/strong&gt; for monitoring systems that support this.&lt;/p&gt;
+
+&lt;h3 id=&quot;quantiles&quot;&gt;Quantiles&lt;/h3&gt;
+
+&lt;p&gt;Quantiles are cutpoints dividing the range of a probability distribution into contiguous intervals with equal probabilities, or dividing the observations in a sample in the same way.
+Timers and distribution summaries can be enriched with quantiles computed in your app prior to shipping to a monitoring backend.
+Depending on the size of your deployments, computing quantiles at instrumentation time may or may not be useful.
+It is &lt;strong&gt;not possible&lt;/strong&gt; to aggregate quantiles across a cluster.&lt;/p&gt;
+
+&lt;p&gt;Four quantile algorithms are provided out of the box with different tradeoffs:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;WindowSketchQuantiles&lt;/code&gt; - The importance of an observation is decayed as it ages.
+This is the most computationally costly algorithm.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Frugal2UQuantiles&lt;/code&gt; - Successive approximation algorithm that converges towards the true quantile with enough observations.
+This is the least costly algorithm, but exhibits a higher error ratio in early observations.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CKMSQuantiles&lt;/code&gt; - Lets you trade computational complexity for error ratio on a per-quantile basis.
+Often, it is desirable for higher quantiles to have a lower error ratio (e.g. 0.99 at 1% error vs. 0.5 at 5% error).
+This algorithm is still more computationally expensive than Frugal.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;GKQuantiles&lt;/code&gt; - Lets you trade computational complexity for error ratio across all quantiles.
+This is used inside of WindowSketchQuantiles.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;histograms&quot;&gt;Histograms&lt;/h3&gt;
+
+&lt;p&gt;A histogram measures the statistical distribution of values in a stream of data.
+It samples observations, like HTTP request durations or database transaction durations, and counts them in buckets.
+They can be used to compute quantiles or other summary statistics like min, max, average or median.
+Because histograms buckets are exposed as individual counters to the monitoring backend, it is possible to aggregate observations across a distributed system and compute summary statistics like quantiles for an entire cluster.
+Naturally, the error rate of the computed summary statistic will be higher because of the lossy nature of putting data in buckets.&lt;/p&gt;
+
+&lt;h2 id=&quot;binders&quot;&gt;Binders&lt;/h2&gt;
+
+&lt;p&gt;Binders define a collection of meters and are used to encapsulate best practices for monitoring certain types of objects or a part of the application’s environment.
+For example, the &lt;code class=&quot;highlighter-rouge&quot;&gt;JvmThreadMetrics&lt;/code&gt; binder which gauges thread peak, number of daemon threads, and live threads.&lt;/p&gt;
+
+&lt;p&gt;Micrometer ships with a basic set of binders:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;JVM and system monitoring&lt;/li&gt;
+  &lt;li&gt;Cache monitoring&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Executor&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;ExecutorService&lt;/code&gt; monitoring&lt;/li&gt;
+  &lt;li&gt;Logback monitoring&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Ysewyn&quot;, &quot;avatar&quot;=&gt;&quot;tim-ysewyn.png&quot;, &quot;twitter&quot;=&gt;&quot;TYsewyn&quot;, &quot;linkedin&quot;=&gt;&quot;tysewyn&quot;, &quot;github&quot;=&gt;&quot;TYsewyn&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-ysewyn/&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader API &amp; Microservices&quot;, &quot;email&quot;=&gt;&quot;Tim.Ysewyn@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a Principal Consultant at Ordina, where he helps fellow developers discovering top-notch technologies and methodologies as a Competence Leader for API &amp; Microservices. You can also find him working on various parts of the &lt;a href=\&quot;https://www.spring.io\&quot; target=\&quot;_blank\&quot;&gt;Spring&lt;/a&gt; framework or helping out at &lt;a href=\&quot;https://ng-be.org\&quot; target=\&quot;_blank\&quot;&gt;NG-BE&lt;/a&gt;. When you can\\'t get a hold of him, he will probably be under water since he is also an underwater photographer &amp; rescue diver.&quot;}</name><email>Tim.Ysewyn@ordina.be</email></author><category term="Microservices" /><category term="microservices" /><category term="monitoring" /><summary type="html">When we want to instrument our application, we don’t want to worry about which monitoring system we want to use, now or in the future. Nor do we want to change a lot of code throughout our microservice because we need to change from system X to system Y.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2017-09-17-monitoring-your-microservices-with-micrometer/post-image.jpg" /></entry><entry><title type="html">Devoxx Poland 2017</title><link href="https://ordina-jworks.github.io/conference/2017/06/21/Devoxx-pl.html" rel="alternate" type="text/html" title="Devoxx Poland 2017" /><published>2017-07-12T00:00:00+00:00</published><updated>2017-07-12T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2017/06/21/Devoxx-pl</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2017/06/21/Devoxx-pl.html">&lt;h1 id=&quot;devoxx-poland-2017&quot;&gt;Devoxx Poland 2017&lt;/h1&gt;
 
 &lt;p&gt;Krakow in the ICE Krakow Congress Centre.&lt;/p&gt;
 
@@ -3463,180 +3665,4 @@ you can check out the following resources:&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;https://blog.docker.com/2017/04/introducing-the-moby-project/&quot;&gt;Docker Blog: Introducing Moby Project&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/linuxkit/linuxkit&quot;&gt;GitHub: LinuxKit&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/moby/moby&quot;&gt;GitHub: Moby&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tom&quot;, &quot;last_name&quot;=&gt;&quot;Verelst&quot;, &quot;permalink&quot;=&gt;&quot;/author/tom-verelst/&quot;, &quot;avatar&quot;=&gt;&quot;tom-verelst.png&quot;, &quot;twitter&quot;=&gt;&quot;tomverelst&quot;, &quot;linkedin&quot;=&gt;&quot;tomverelst&quot;, &quot;github&quot;=&gt;&quot;tomverelst&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Coach&quot;, &quot;email&quot;=&gt;&quot;tom.verelst@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tom is a senior developer and coach at Ordina Belgium. Some friends like to refer to him as a Java code monkey, which is not completely true! Tom is familiar with many different domains.  He loves to learn about everything. Currently he is very fond of Docker, Go and all things DevOps.&lt;br /&gt;&lt;br /&gt;In his spare time he likes spending time with friends, going out for a run with his marathon club or just swinging around some drum sticks.&quot;}</name><email>tom.verelst@ordina.be</email></author><category term="Conference" /><category term="DockerCon" /><category term="Docker" /><category term="Conference" /><summary type="html">Batteries included, but swappable. That has always been the philosophy of Docker. Since the incubation of Docker four years ago, the project has undergone many evolutions. Over the years, it has split up parts of Docker into smaller reusable components, which moved to their own projects. Docker, instead of being just one project, can now be considered a composition of multiple projects. We got runC, VPNKit, containerd, SwarmKit, InfraKit and so on. These projects are now used by many other projects other than Docker. Docker Inc. now open-sourced two new projects, called LinuxKit and The Moby Project</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/dockercon2017/thumbnail.jpg" /></entry><entry><title type="html">DockerCon 2017: Multi-Stage Builds and More</title><link href="https://ordina-jworks.github.io/conference/2017/04/18/DockerCon-Multi-Stage-Builds-And-More.html" rel="alternate" type="text/html" title="DockerCon 2017: Multi-Stage Builds and More" /><published>2017-04-18T00:00:00+00:00</published><updated>2017-04-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2017/04/18/DockerCon-Multi-Stage-Builds-And-More</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2017/04/18/DockerCon-Multi-Stage-Builds-And-More.html">&lt;p&gt;DockerCon 2017 has kicked off, and Docker has changed a great deal since last year’s edition.
-The authors of Docker have constantly stated that they wish to make the Docker experience as simple as possible.
-Nothing is less true if you look at some of the new features they released in the last few months,
-which are being presented now at DockerCon.
-I have compiled a list of the most useful changes and features.
-These will certainly help you when building your own Docker images!&lt;/p&gt;
-
-&lt;h1 id=&quot;multi-stage-builds&quot;&gt;Multi-Stage Builds&lt;/h1&gt;
-
-&lt;p&gt;Building an image is often done in multiple stages.
-First you compile your application.
-Then you run your tests.
-When the tests succeed, you package it into an artifact.
-Finally, you add this artifact to an image.&lt;/p&gt;
-
-&lt;p&gt;You could put all these steps within one Dockerfile,
-but that would result into an image that is bloated with stuff that is not required for the final product, like the compilation and build frameworks.
-The Docker images would also be huge!&lt;/p&gt;
-
-&lt;p&gt;A solution to this problem is to build the application outside of Docker,
-or to use multiple Dockerfiles.
-You can build the artifact with one build,
-extract the artifact,
-and use that artifact for a final build.
-However,
-this whole build process is often tied together with a script that has been hacked together,
-and does not truly feel like the Docker way of doing things.&lt;/p&gt;
-
-&lt;p&gt;Docker has often been sceptical about adding new features or making changes to the Dockerfile syntax,
-but finally decided to tackle this build problem with a simple and elegant solution.
-Introducing &lt;strong&gt;multi-stage builds&lt;/strong&gt;,
-it is now possible to define multiple stages by using several &lt;code class=&quot;highlighter-rouge&quot;&gt;FROM&lt;/code&gt; statements.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# First stage to build the application
-FROM maven:3.5.0-jdk-8-alpine AS build-env
-ADD ./pom.xml pom.xml
-ADD ./src src/
-RUN mvn clean package
-
-# Final stage to define our minimal runtime
-FROM FROM openjdk:8-jre
-COPY --from=build-env target/app.jar app.jar
-RUN java -jar app.jar
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Each time &lt;code class=&quot;highlighter-rouge&quot;&gt;FROM&lt;/code&gt; is used,
-you define which image is used for that stage,
-and in subsequent stages you can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;COPY --from=&amp;lt;stage&amp;gt;&lt;/code&gt; to copy artifacts from a previous stage.&lt;/p&gt;
-
-&lt;p&gt;The final stage results in the image,
-which can contain the minimal runtime environment and the final artifact.
-Perfect!&lt;/p&gt;
-
-&lt;h1 id=&quot;using-arguments-in-from&quot;&gt;Using arguments in FROM&lt;/h1&gt;
-
-&lt;p&gt;Using arguments isn’t a new thing with Dockerfiles.
-You could already use &lt;code class=&quot;highlighter-rouge&quot;&gt;ARG&lt;/code&gt; statements to pass on arguments to the build process.
-These arguments are not persisted in the Dockerfile,
-and are frequently used to pass on versions,
-or secrets like SSH keys.
-Now it is also possible to use arguments in the version of the base image.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ARG GO_VERSION=1.8
-FROM golang:${GO_VERSION}
-ADD . /src
-WORKDIR /src
-RUN go build
-CMD [&quot;/bin/app&quot;]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;For above Dockerfile,
-I could build an image with another Go version!&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker build --arg=GO_VERSION=1.7 .
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;cleaning-up-docker&quot;&gt;Cleaning up Docker&lt;/h1&gt;
-
-&lt;p&gt;A comment I often hear is that Docker takes a lot of space.
-This can be true,
-if you never clean up!
-Docker has added the &lt;code class=&quot;highlighter-rouge&quot;&gt;docker system&lt;/code&gt; subcommand a while ago,
-You can use this subcommand to check the disk usage,
-and to free up space!&lt;/p&gt;
-
-&lt;p&gt;The following command outputs the disk usage:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker system df
-TYPE                TOTAL               ACTIVE              SIZE                RECLAIMABLE
-Images              7                   5                   1.247GB             769MB (61%)
-Containers          7                   2                   115.9MB             99.23MB (85%)
-Local Volumes       1                   1                   85.59MB             0B (0%)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;You can then use &lt;code class=&quot;highlighter-rouge&quot;&gt;prune&lt;/code&gt; to clean up all resources that are no longer needed:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker system prune
-WARNING! This will remove:
-	- all stopped containers
-	- all volumes not used by at least one container
-	- all networks not used by at least one container
-	- all dangling images
-Are you sure you want to continue? [y/N] y
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;It is also possible to prune certain subsystems:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker image/container/volume/network prune
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;which-ports&quot;&gt;Which Ports?&lt;/h1&gt;
-
-&lt;p&gt;People often have trouble understanding or defining the published ports of a container,
-since the syntax can be confusing.
-Here’s a list of all possible formats that you can use to define which ports are published on a container:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ports:
- - 3000
- - 3000-3005
- - 49100:22
- - 9090-9091:8080-8081
- - 127.0.0.1:8001:8080-8081
- - 6060:7060/udp
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;This syntax is okay when using the CLI,
-but when you have to define a lot of them in a Compose file,
-it is no longer readable.&lt;/p&gt;
-
-&lt;p&gt;To counter this issue,
-you can now use a more verbose format to define ports:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ports:
-  - target: 6060
-    published: 7060
-    protocol: udp
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;this-volume-is-mounted-where&quot;&gt;This Volume Is Mounted Where?&lt;/h1&gt;
-
-&lt;p&gt;Just like the ports,
-volumes have a similar syntax.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;volumes:
-  - /var/lib/mysql
-  - /opt/data:/var/lib/mysql
-  - ./cache:/tmp/cached
-  - datavolume:/var/lib/mysql
-  - ~/configs/etc/configs/:ro
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;A verbose syntax has been added as well for volumes:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;volumes:
-  - type: bind
-    source: ~/configs
-    target: /etc/configs
-    read_only: true
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;to-be-continued&quot;&gt;To be continued&lt;/h1&gt;
-
-&lt;p&gt;These few changes,
-especially the multi-stage builds,
-will certainly make your life as developer easier!&lt;/p&gt;
-
-&lt;p&gt;I am curious what DockerCon has to offer more today and tomorrow!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tom&quot;, &quot;last_name&quot;=&gt;&quot;Verelst&quot;, &quot;permalink&quot;=&gt;&quot;/author/tom-verelst/&quot;, &quot;avatar&quot;=&gt;&quot;tom-verelst.png&quot;, &quot;twitter&quot;=&gt;&quot;tomverelst&quot;, &quot;linkedin&quot;=&gt;&quot;tomverelst&quot;, &quot;github&quot;=&gt;&quot;tomverelst&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Coach&quot;, &quot;email&quot;=&gt;&quot;tom.verelst@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tom is a senior developer and coach at Ordina Belgium. Some friends like to refer to him as a Java code monkey, which is not completely true! Tom is familiar with many different domains.  He loves to learn about everything. Currently he is very fond of Docker, Go and all things DevOps.&lt;br /&gt;&lt;br /&gt;In his spare time he likes spending time with friends, going out for a run with his marathon club or just swinging around some drum sticks.&quot;}</name><email>tom.verelst@ordina.be</email></author><category term="Conference" /><category term="DockerCon" /><category term="Docker" /><category term="Conference" /><summary type="html">DockerCon 2017 has kicked off, and Docker has changed a great deal since last year’s edition. The authors of Docker have constantly stated that they wish to make the Docker experience as simple as possible. Nothing is less true if you look at some of the new features they released in the last few months, which are being presented now at DockerCon. I have compiled a list of the most useful changes and features. These will certainly help you when building your own Docker images!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/dockercon2017/thumbnail.jpg" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tom&quot;, &quot;last_name&quot;=&gt;&quot;Verelst&quot;, &quot;permalink&quot;=&gt;&quot;/author/tom-verelst/&quot;, &quot;avatar&quot;=&gt;&quot;tom-verelst.png&quot;, &quot;twitter&quot;=&gt;&quot;tomverelst&quot;, &quot;linkedin&quot;=&gt;&quot;tomverelst&quot;, &quot;github&quot;=&gt;&quot;tomverelst&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Coach&quot;, &quot;email&quot;=&gt;&quot;tom.verelst@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tom is a senior developer and coach at Ordina Belgium. Some friends like to refer to him as a Java code monkey, which is not completely true! Tom is familiar with many different domains.  He loves to learn about everything. Currently he is very fond of Docker, Go and all things DevOps.&lt;br /&gt;&lt;br /&gt;In his spare time he likes spending time with friends, going out for a run with his marathon club or just swinging around some drum sticks.&quot;}</name><email>tom.verelst@ordina.be</email></author><category term="Conference" /><category term="DockerCon" /><category term="Docker" /><category term="Conference" /><summary type="html">Batteries included, but swappable. That has always been the philosophy of Docker. Since the incubation of Docker four years ago, the project has undergone many evolutions. Over the years, it has split up parts of Docker into smaller reusable components, which moved to their own projects. Docker, instead of being just one project, can now be considered a composition of multiple projects. We got runC, VPNKit, containerd, SwarmKit, InfraKit and so on. These projects are now used by many other projects other than Docker. Docker Inc. now open-sourced two new projects, called LinuxKit and The Moby Project</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/dockercon2017/thumbnail.jpg" /></entry></feed>
