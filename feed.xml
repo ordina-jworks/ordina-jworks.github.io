@@ -1,5 +1,314 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-09-17T14:00:44+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Monitoring your microservices with Micrometer.io</title><link href="https://ordina-jworks.github.io/microservices/2017/09/17/monitoring-your-microservices-with-micrometer.html" rel="alternate" type="text/html" title="Monitoring your microservices with Micrometer.io" /><published>2017-09-17T00:00:00+00:00</published><updated>2017-09-17T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/microservices/2017/09/17/monitoring-your-microservices-with-micrometer</id><content type="html" xml:base="https://ordina-jworks.github.io/microservices/2017/09/17/monitoring-your-microservices-with-micrometer.html">&lt;p&gt;When we want to instrument our application, we don’t want to worry about which monitoring system we want to use, now or in the future.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-09-18T07:02:35+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Browser Security Features</title><link href="https://ordina-jworks.github.io/conference/2017/09/18/Browser-security-features.html" rel="alternate" type="text/html" title="Browser Security Features" /><published>2017-09-18T00:00:00+00:00</published><updated>2017-09-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2017/09/18/Browser-Security-Features</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2017/09/18/Browser-security-features.html">&lt;h1 id=&quot;browser-security-features&quot;&gt;Browser security features&lt;/h1&gt;
+&lt;p&gt;Browsers nowadays come with a ton of security features built-in.
+These features are there to protect the people using your application as well as protecting your application from malicious others.
+Most of these features are quite easy to implement, however for some of them (such as key-pinning) you have to be careful not to break your site.
+It’s this danger, combined with the lack of knowledge, that prevents people from taking full advantage of them.&lt;/p&gt;
+
+&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#transport-layer-security&quot;&gt;Transport Layer Security&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#http-strict-transport-security&quot;&gt;HTTP Strict Transport Security&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#public-key-pinning&quot;&gt;Public Key Pinning&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#content-security-policy&quot;&gt;Content Security Policy&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#subresource-integrity&quot;&gt;Subresource Integrity&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#cookie-protection&quot;&gt;Cookie Protection&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;transport-layer-security&quot;&gt;Transport Layer Security&lt;/h2&gt;
+&lt;p&gt;The first layer of defense is not a new one at all: Transport Layer Security (TLS).
+TLS is sometimes (incorrectly) referred to as SSL (Secured Socket Layer). 
+In reality SSL is an obsolete technology, with TLS being its successor, but the name stuck.&lt;/p&gt;
+
+&lt;p&gt;Having said this, why should you use TLS? 
+First of all, most of the features described below &lt;em&gt;only&lt;/em&gt; work when you’re on a secured connection.
+Besides that, it guarantees the end user that the site they’re communicating with is actually the site they think it is.
+It also provides the guarantee that the content they see was not tampered with while travelling over the network.&lt;/p&gt;
+
+&lt;p&gt;Another thing TLS brings to the table is speed: it used to be true that a secure connection was slower than an unsecured one.
+Modern hardware however is more than up to the task of handling this efficiently for you.
+Besides that, HTTP/2 is &lt;em&gt;only&lt;/em&gt; available over a secure connection and it allows for faster page loads.
+Have a look at &lt;a href=&quot;http://www.httpvshttps.com/&quot; target=&quot;_blank&quot;&gt;HTTP vs HTTPS&lt;/a&gt; for a demo of the difference.&lt;/p&gt;
+
+&lt;p&gt;Since speed should no longer prevent you from switching to HTTPS, there’s only cost.
+Even that is no longer true: a simple &lt;a href=&quot;https://en.wikipedia.org/wiki/Domain-validated_certificate&quot; target=&quot;_blank&quot;&gt;Domain Validation&lt;/a&gt; certificate can be obtained for free.
+But even if you need more protection, an &lt;a href=&quot;https://en.wikipedia.org/wiki/Extended_Validation_Certificate&quot; target=&quot;_blank&quot;&gt;Extended Validation&lt;/a&gt; certificate can be had for as little as $300 per year.&lt;/p&gt;
+
+&lt;h3 id=&quot;how-hard-is-it&quot;&gt;How hard is it?&lt;/h3&gt;
+&lt;p&gt;The main issue is that all resources you use on your site should be served over HTTPS.
+This means that all third parties should use TLS as well.
+Furthermore, it depends on the complexity of your site.
+Nick Craver wrote an extensive &lt;a href=&quot;https://nickcraver.com/blog/2017/05/22/https-on-stack-overflow/&quot; target=&quot;_blank&quot;&gt;blog post&lt;/a&gt; on their road to switching to HTTPS.&lt;/p&gt;
+
+&lt;h3 id=&quot;should-you-activate-this-on-your-site&quot;&gt;Should you activate this on your site?&lt;/h3&gt;
+&lt;p&gt;Absolutely! 
+Modern browsers are shifting from notifying users that a page is secure to warning them that it isn’t.
+On top of that, Google gives a slight ranking boost to HTTPS sites.&lt;/p&gt;
+
+&lt;h2 id=&quot;http-strict-transport-security&quot;&gt;HTTP Strict Transport Security&lt;/h2&gt;
+&lt;p&gt;Once your server is properly configured to use TLS, your next step is to redirect your users to the secure version.
+You could do this by simply adding a redirect-rule in your web server for the non-secure pages.
+This means that users will still first connect to your non-secure site, allowing a potential attacker to intercept the request and do his nefarious deeds.
+Wouldn’t it be nice if you could tell the browser to just go straight to the secure version?
+That’s the thinking behind the HSTS (HTTP Strict Transport Security) header.&lt;/p&gt;
+
+&lt;p&gt;HSTS simply tells the browser that you’re expecting it to use HTTPS for a certain time.
+As a result, the browser will &lt;em&gt;automatically&lt;/em&gt; replace &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;https://&lt;/code&gt; &lt;strong&gt;before&lt;/strong&gt; making the call.
+This means that even following a link that explicitly defines &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&lt;/code&gt; will instead be called using a secure connection.&lt;/p&gt;
+
+&lt;p&gt;The configuration of HSTS is as easy as can be: you simply add the following header to your response:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Strict-Transport-Security: max-age=31536000; includeSubDomains
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This will tell the browser that for the next 365 days, it should connect to your domain using HTTPS.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;includesubdomains&lt;/code&gt; directive tells the browser that your subdomains should also be called using https.
+Setting the &lt;code class=&quot;highlighter-rouge&quot;&gt;max-age&lt;/code&gt; to 0 tells the browser that you no longer wish your domain to be HSTS-enabled.&lt;/p&gt;
+
+&lt;h3 id=&quot;hsts-preload&quot;&gt;HSTS preload&lt;/h3&gt;
+&lt;p&gt;Of course in this scenario, the user’s first connection will still take place over an unsecured connection.
+This would offer an attacker a brief period in which he can still hijack the connection.
+To prevent this, most major browsers (Chrome, Firefox, Safari, Edge, IE11 and Opera) offer an HSTS preload list.
+Domains on this list will automatically be loaded over HTTPS from the start, without having to go through the HTTP -&amp;gt; HTTPS redirect.
+If you want your domain to be included in this list, you should add the &lt;code class=&quot;highlighter-rouge&quot;&gt;preload&lt;/code&gt; directive to the HSTS header.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Afterwards, you can register yourself for the &lt;a href=&quot;https://hstspreload.org/&quot; target=&quot;_blank&quot;&gt;HSTS Preload List&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;are-there-any-risks&quot;&gt;Are there any risks?&lt;/h3&gt;
+&lt;p&gt;Activating HSTS does offer some risks:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;If you include the &lt;code class=&quot;highlighter-rouge&quot;&gt;includesubdomains&lt;/code&gt; directive, you tell the browser that &lt;em&gt;all&lt;/em&gt; subdomains need to be retrieved over HTTPS.
+If your internal applications are on a subdomain (e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;internal.example.com&lt;/code&gt;), you’ll block access to those that haven’t enabled TLS yet.&lt;/li&gt;
+  &lt;li&gt;Adding the &lt;code class=&quot;highlighter-rouge&quot;&gt;preload&lt;/code&gt; directive is even more dangerous because this tells browser makers to hardcode your HSTS settings.
+If you’ve made a mistake in the setup, it can take a long time to be removed from the list. 
+Since this list is &lt;em&gt;in&lt;/em&gt; the browser, you’ll affect both your existing and your new users.
+These risks can be mitigated through extensive testing and conservative settings. 
+Start with a short &lt;code class=&quot;highlighter-rouge&quot;&gt;max-age&lt;/code&gt; and slowly increase its length, don’t include subdomains if you’re not 100% sure that &lt;em&gt;all&lt;/em&gt; subdomains need to be included
+and perhaps most importantly, &lt;strong&gt;don’t&lt;/strong&gt; activate preload unless you’re 100% sure that everything works as intended.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;should-i-activate-hsts&quot;&gt;Should I activate HSTS?&lt;/h3&gt;
+&lt;p&gt;For those (subdomains) where TLS is enabled, you should start rolling out HSTS (while keeping in mind the warnings above).&lt;/p&gt;
+
+&lt;h2 id=&quot;public-key-pinning&quot;&gt;Public key pinning&lt;/h2&gt;
+&lt;p&gt;Alright, now you’ve secured your site with HTTPS, and you’ve made sure your users can’t fall victim to a Man in the Middle attack.
+Or have you?
+It’s true that HSTS will make sure that the user only connects using a secured connection, but that doesn’t mean the HTTPS connection is actually made to &lt;strong&gt;your&lt;/strong&gt; server.
+Over the last couple of years, there were several incidents where malicious actors were able to generate valid certificates for domains they didn’t control.
+When this happens, your users will think they’re safe (as their browser shows the green padlock), but the attacker can still manipulate your content.
+To protect yourself against this, there’s a mechanism called “HTTP Public Key Pinning” (HPKP [&lt;a href=&quot;#fn1&quot;&gt;1&lt;/a&gt;]).
+With HPKP you “pin” the public key of your TLS certificate to the browser.
+In the future, that browser will compare the public key that’s actually used for the TLS connection, with the pinned one and, if they don’t match, refuse the connection altogether.
+&lt;img src=&quot;/img/2017-security-features/hpkp-error.png&quot; alt=&quot;HPPK error&quot; class=&quot;image&quot; height=&quot;245px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;An HPKP header looks like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public-key-pins:pin-sha256=&quot;YLh1...uihg=&quot;;pin-sha256=&quot;9dNi...Dwg=&quot;;pin-sha256=&quot;Vjs...eWys=&quot;;max-age=2592000;includeSubdomains;report-uri=&quot;report-uri&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;max-age&lt;/code&gt; directive tells the browser for how long these pins are valid. 
+You can use &lt;code class=&quot;highlighter-rouge&quot;&gt;report-uri&lt;/code&gt; to get a report when an invalid certificate is used.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;includesubdomains&lt;/code&gt; makes sure that the policy also applies to your subdomains.
+Finally, there are the actual pins.
+You need to pin at least 2 fingerprints: 1 that should be active at the moment and 1 that isn’t.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-to-pin&quot;&gt;What to pin?&lt;/h3&gt;
+&lt;p&gt;First of all, you need to pin at least one of the keys in your certificate chain.
+While you can pin the key of the actual certificate, that might not be the best idea.
+Doing this means that you need to update the keys every time your certificate is changed or you will risk your users being unable to visit your site.
+Alternatively, you could pin the key for the root certificate of your CA (Certificate Authority).
+While this is a lot safer, it does mean that if your CA, or any of its intermediates is compromised, they could issue valid certificates for your site.
+Finally, you have the option to pin the key to the intermediate certificate. 
+Doing so limits the attack surface to that intermediate, while it also allows you to roll out new certificates whenever you need to.
+Of course you can’t control when your CA will change their intermediate certificate, so that’s a danger in its own.&lt;/p&gt;
+
+&lt;p&gt;Besides that you also need to have a second key pinned that’s &lt;em&gt;not&lt;/em&gt; in your current certificate chain, otherwise your HPKP header will be ignored.
+Fortunately, you don’t have to have certificates ready for this.
+It’s enough to pin the public key of a CSR (Certificate Signing Request).
+Obviously, you can’t use the CSR of your current certificate (as that would be valid for this chain), so you’ll need to create a backup CSR.
+You’ll need to keep this CSR and the associated private key in a secure location, because you don’t want these to be compromised together with the original.&lt;/p&gt;
+
+&lt;h3 id=&quot;report-uri&quot;&gt;report-uri&lt;/h3&gt;
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;report-uri&lt;/code&gt; directive is used to tell the browser where to send reports if it encounters an invalid certificate.
+The browser will POST a JSON message to the URL you specify here.
+If you don’t want to implement your own processing of these reports, have a look at &lt;a href=&quot;https://report-uri.io/&quot; target=&quot;_blank&quot;&gt;report-uri.io&lt;/a&gt;
+It will process the reports from your site and display the results in a nice format, allowing you to take action when you see something that’s wrong.&lt;/p&gt;
+
+&lt;h3 id=&quot;report-only&quot;&gt;Report-only&lt;/h3&gt;
+&lt;p&gt;Besides the normal HPKP header, there’s also the report-only variant: &lt;code class=&quot;highlighter-rouge&quot;&gt;Public-Key-Pins-Report-Only&lt;/code&gt;.
+This header has the exact same specifications, &lt;strong&gt;but&lt;/strong&gt; it won’t block access to your site if there’s no valid pin.
+As the name says, it will simply report violations to the &lt;code class=&quot;highlighter-rouge&quot;&gt;report-uri&lt;/code&gt;.
+Obviously, this header isn’t meant to increase the security of your site on its own, rather it’s a way to help you on your way to a full HPKP implementation.&lt;/p&gt;
+
+&lt;h3 id=&quot;dangers&quot;&gt;Dangers&lt;/h3&gt;
+&lt;p&gt;HPKP is quite a dangerous header: it’s quite easy to commit “pinning-suicide”.
+Pin the wrong certificate, have a CA change keys on you or have something else go wrong and your site is inaccessible until your users’ &lt;code class=&quot;highlighter-rouge&quot;&gt;max-age&lt;/code&gt; expires.
+Be careful rolling out this one as it’s way too easy to shoot yourself in the foot.&lt;/p&gt;
+
+&lt;h3 id=&quot;should-i-use-it&quot;&gt;Should I use it?&lt;/h3&gt;
+&lt;p&gt;This header has some serious dangers associated with it.
+It’s not enough to know that the current configuration is correct, you also need to be sure that you’re equipped to deal with certificate updates without breaking the site.
+And then you need to be sure that you’ve got a backup in place in case you ever want to switch CAs.
+Unless you’re 100% sure that this won’t be an issue, hold off for now as it’s too easy to DoS your own site.&lt;/p&gt;
+
+&lt;h2 id=&quot;content-security-policy&quot;&gt;Content Security Policy&lt;/h2&gt;
+&lt;p&gt;Even though your connection is secured with TLS, that doesn’t mean that the content can’t be tampered with in other ways (such as cross-site scripting (XSS)).
+An attacker could use these kinds of attacks to load malicious content.
+The Content Security Policy (CSP) header is designed to prevent this kind of attacks.
+It allows you to specify exactly what content your site is allowed to load through a load of directives.&lt;/p&gt;
+
+&lt;h3 id=&quot;fetch-directives&quot;&gt;Fetch directives&lt;/h3&gt;
+&lt;p&gt;First of all, you can define what source content can be fetched from. 
+There’s a specific directive for each resource type and a fallback directive &lt;code class=&quot;highlighter-rouge&quot;&gt;default-src&lt;/code&gt;.
+You define the sources where the content can be loaded from as follows:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;self&lt;/code&gt; only load content from the same origin as the page&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;none&lt;/code&gt; don’t load any content of this type&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;unsafe-inline&lt;/code&gt; lets you use inline javascript and CSS (although it’s preferable to use a nonce)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;unsafe-eval&lt;/code&gt; allows the use of &lt;code class=&quot;highlighter-rouge&quot;&gt;eval()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;setTimeout(String)&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;setInterval(String)&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;new Function(String)&lt;/code&gt;.
+ There’s a reason it has “unsafe” in its name though: these functions are typically used as attack vectors for XSS.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;https:&lt;/code&gt; allow content loaded from anywhere, as long as it’s served over HTTPS&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;example.com&lt;/code&gt; allow content loaded from anywhere on &lt;code class=&quot;highlighter-rouge&quot;&gt;example.com&lt;/code&gt;, both HTTP and HTTPS&lt;/li&gt;
+  &lt;li&gt;You can also use wildcards to control which origins are allowed. 
+ E.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;*://*.example.com:*&lt;/code&gt; will allow resources to be loaded from all &lt;em&gt;subdomains&lt;/em&gt; of &lt;code class=&quot;highlighter-rouge&quot;&gt;example.com&lt;/code&gt;, using any scheme and port.
+ Note that it won’t allow you to load resources from &lt;code class=&quot;highlighter-rouge&quot;&gt;example.com&lt;/code&gt; itself.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nonce-...&lt;/code&gt; Allows you to specify a &lt;a href=&quot;#nonce&quot;&gt;nonce&lt;/a&gt;. Scripts or styles that have this nonce are then allowed to execute.
+It’s also important to note that you can pass multiple values to these directives: &lt;code class=&quot;highlighter-rouge&quot;&gt;self https://example.com&lt;/code&gt; will allow resources to be loaded both from the domain itself as well as from &lt;code class=&quot;highlighter-rouge&quot;&gt;https://example.com&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can use these to define &lt;code class=&quot;highlighter-rouge&quot;&gt;default-src&lt;/code&gt;, but CSP gives you more fine-grained control over where each type of resource can be loaded from.
+For that you need to use the following properties instead:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;script-src&lt;/code&gt; - Javascript&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;style-src&lt;/code&gt; - CSS&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;img-src&lt;/code&gt; - images&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;font-src&lt;/code&gt; - fonts&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;object-src&lt;/code&gt; - objects (e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;object&amp;gt;&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;embed&amp;gt;&lt;/code&gt;, …)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;media-src&lt;/code&gt; - media such as &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;audio&amp;gt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;video&amp;gt;&lt;/code&gt; elements&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;connect-src&lt;/code&gt; - where the page can connect to using &lt;code class=&quot;highlighter-rouge&quot;&gt;XmlHttpRequest&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;WebSocket&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;EventSource&lt;/code&gt;.
+ The browser will immediately return a 400 status code when your page attempts to connect to a non-valid domain.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;frame-src&lt;/code&gt; - Specify which locations can be embedded in a &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;frame&amp;gt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;iframe&amp;gt;&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;worker-src&lt;/code&gt; - Worker scripts&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;child-src&lt;/code&gt; - Is either deprecated or serves as fallback for &lt;code class=&quot;highlighter-rouge&quot;&gt;frame-src&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;worker-src&lt;/code&gt;, depending on the browser and the CSP level implemented.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;manifest-src&lt;/code&gt; - defines which &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/Manifest&quot; target=&quot;_blank&quot;&gt;manifest&lt;/a&gt; can be applied to the resource. (This is still experimental though).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;navigation-directives&quot;&gt;Navigation directives&lt;/h3&gt;
+&lt;p&gt;These directives tell the browser what kind of navigation is allowed:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;form-action&lt;/code&gt; limits to where forms can be submitted&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;frame-ancestors&lt;/code&gt; specifies who may embed pages using elements such as &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;frame&amp;gt;&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;iframe&amp;gt;&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;embed&amp;gt;&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;object&amp;gt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;applet&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;other-directives&quot;&gt;Other directives&lt;/h3&gt;
+&lt;p&gt;Besides these, CSP allows for quite a few other directives:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;report-uri&lt;/code&gt; works the same way as the &lt;code class=&quot;highlighter-rouge&quot;&gt;report-uri&lt;/code&gt; directive of HPKP&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;require-sri-for&lt;/code&gt; allows you to force the use or Subresource Integrity ((SRI)[#Subresource-integrity]) for stylesheets, scripts or both. 
+ Allowed values are &lt;code class=&quot;highlighter-rouge&quot;&gt;script&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;style&lt;/code&gt; (or both).&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;base-uri&lt;/code&gt; defines which URLs you can use in the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;base&amp;gt;&lt;/code&gt; element&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sandbox&lt;/code&gt; to enable a sandbox for requested resources 
+ (have a look at &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/sandbox&quot; target=&quot;_blank&quot;&gt;Mozilla’s documentation&lt;/a&gt; for more information)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;nonce&quot;&gt;Nonce&lt;/h3&gt;
+&lt;p&gt;A nonce, pronounced “/nɒns/” (nance), is a term that means “number (used) once”.
+It allows you to load specific inline scripts without allowing all of them. 
+Only those scripts that have a nonce attribute that matches the value specified in the CSP header will get executed.
+Keep in mind though that you should &lt;strong&gt;never&lt;/strong&gt; hardcode the nonce or use a value that can be guessed.
+It’s best to generate a new nonce for each request and add it to those scripts you need to execute.
+E.g. if you have the following CSP setting:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Content-Security-Policy: script-src 'nonce-randomValue'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;will only execute scripts that have the nonce attribute defined like this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;nonce=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;randomValue&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// ... script contents&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;multiple-policies&quot;&gt;Multiple policies&lt;/h3&gt;
+&lt;p&gt;You are allowed to specify multiple CSP policies simply by specifying the header multiple times.
+If you do this however, it’s important to keep in mind that subsequent CSPs are not allowed to loosen the rules, only to tighten them.&lt;/p&gt;
+
+&lt;h3 id=&quot;report-only-1&quot;&gt;Report-only&lt;/h3&gt;
+&lt;p&gt;As with HPKP, CSP also supports a report-only variant with &lt;code class=&quot;highlighter-rouge&quot;&gt;Content-Security-Policy-Report-Only&lt;/code&gt;.
+Once again the specifications are exactly the same but it won’t block loading or execution of disallowed resources and simply report violations.
+You can then use the reports it generates to decide what you need to allow in your actual CSP header, before you deploy it (and break your site).&lt;/p&gt;
+
+&lt;h3 id=&quot;should-i-use-it-1&quot;&gt;Should I use it?&lt;/h3&gt;
+&lt;p&gt;CSP has some risks: it can break your site’s functionality, but overall it’s relatively easy to test it. 
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;report-uri&lt;/code&gt; directive allows you to monitor if there are any issues and you can use the report-only version of the header to easily validate the setup you’re planning in the wild.
+If you have a system that relies a lot on third party content, it might not be for you.
+For everyone else, try out the report-only header and see if you get any issues.&lt;/p&gt;
+
+&lt;h2 id=&quot;subresource-integrity&quot;&gt;Subresource integrity&lt;/h2&gt;
+&lt;p&gt;When you’re developing a web application, you’ll often depend on some JavaScript frameworks such as Angular or jQuery.
+Loading these files from a CDN can speed up load times from your application, since it’s quite likely that the user already has a cached version of the script available.
+Of course it’s a good idea to be careful about the content of these scripts.
+Whenever you’re loading resources that aren’t under your control, you’re depending on someone else to make sure that they aren’t tampered with.
+To make sure that they aren’t changed without your knowledge, you can use subresource integrity (SRI).
+With SRI, you add an &lt;code class=&quot;highlighter-rouge&quot;&gt;integrity&lt;/code&gt; attribute to your &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;link&amp;gt;&lt;/code&gt; tag.
+This attribute contains the hash of the file you expect.
+Your browser will then download the file, hash it with the same algorithm and compare the results.
+If the hash matches, the resource will be used; otherwise it will be ignored and an error will be shown in the console.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js&quot;&lt;/span&gt; 
+    &lt;span class=&quot;na&quot;&gt;integrity=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=&quot;&lt;/span&gt; 
+    &lt;span class=&quot;na&quot;&gt;crossorigin=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;anonymous&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;As you can see in the example above, the integrity of the script will be checked using a ‘SHA256’ hash. 
+You’ll also notice the &lt;code class=&quot;highlighter-rouge&quot;&gt;crossorigin&lt;/code&gt; attribute: this attribute is required when loading SRI validated resources from a different origin.
+Possible values are &lt;code class=&quot;highlighter-rouge&quot;&gt;use-credentials&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;anonymous&lt;/code&gt;, indicating whether a request will have the credentials flag set.
+If you’re using a CDN, you’ll probably want to use &lt;code class=&quot;highlighter-rouge&quot;&gt;anonymous&lt;/code&gt;.
+Note that you only need to add the &lt;code class=&quot;highlighter-rouge&quot;&gt;crossorigin&lt;/code&gt; attribute if you’re loading the resource from a different origin.
+For resources coming from the same origin, you can omit the &lt;code class=&quot;highlighter-rouge&quot;&gt;crossorigin&lt;/code&gt; attribute.&lt;/p&gt;
+
+&lt;h3 id=&quot;calculating-the-sri-value&quot;&gt;Calculating the SRI value.&lt;/h3&gt;
+&lt;p&gt;In order to add the &lt;code class=&quot;highlighter-rouge&quot;&gt;integrity&lt;/code&gt; attribute, you need to know the correct hash of the file. 
+The easiest way to calculate it is by simply specifying a random value and checking the resulting error in your browser.
+&lt;img src=&quot;/img/2017-security-features/integrity-error.png&quot; alt=&quot;Chrome SRI error&quot; class=&quot;image&quot; height=&quot;50px&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;should-i-use-it-2&quot;&gt;Should I use it?&lt;/h3&gt;
+&lt;p&gt;Most likely. 
+If you’re depending on third party scripts, you should make sure that they aren’t changed without your knowledge.
+This does mean that you shouldn’t just include the latest version of a script (e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;example.com/library/latest/&lt;/code&gt;) as that will change whenever a new version is released.&lt;/p&gt;
+
+&lt;h2 id=&quot;cookie-protection&quot;&gt;Cookie protection&lt;/h2&gt;
+&lt;p&gt;Most websites nowadays use a variety of cookies for different purposes.
+These too can be a source of problems: session cookies grant the user access to certain content or allow them to perform certain actions.
+If this cookie can be intercepted or altered, the consequences can be enormous.
+Because of this, it’s a good idea to protect your cookies as much as possible.
+Since you’re already running your site on HTTPS, it’s a good idea to make sure the cookies aren’t sent on insecure requests.
+You can easily do this by adding the &lt;code class=&quot;highlighter-rouge&quot;&gt;secure&lt;/code&gt; flag to the cookies you send.&lt;/p&gt;
+
+&lt;p&gt;To make the cookies even more secure, you’ll also need to prevent them from being read/modified by scripts running in the page.
+In most cases there’s no reason for a script to have access to these cookies, so you can simply mark them as &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpOnly&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;should-i-use-this&quot;&gt;Should I use this?&lt;/h3&gt;
+&lt;p&gt;Yes.
+Your session cookies should not be available to scripts, so the &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpOnly&lt;/code&gt; flag should be set on those.
+If you’re using TLS (and you should) you should definitely set the &lt;code class=&quot;highlighter-rouge&quot;&gt;secure&lt;/code&gt; flag as well.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Browsers nowadays support a wide array of security features you can use to keep your users safe.
+But, as with all things, powerful tools require you to wield them carefully.
+If you apply them without proper thought, you can easily make your website inaccessible or render it unusable.
+Because of that, you need to be really careful when you implement (most of) these measures.
+Do proper testing and (where possible) use the Report-Only variant for a while to spot possible issues before they become real problems.
+Make sure you really understand what you’re doing and what the consequences are of getting things wrong.
+When you have all that, don’t be afraid to experiment, just make sure you do so safely.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;fn1&quot;&gt;&lt;/a&gt;[1] &lt;a href=&quot;http://ordina-jworks.github.io/spring/2016/03/05/HTTP-Public-Key-Pinning-with-Spring-Security.html&quot;&gt;Public Key Pinning with Spring Security&lt;/a&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;De Grande&quot;, &quot;twitter&quot;=&gt;&quot;TimDG&quot;, &quot;linkedin&quot;=&gt;&quot;timdegrande&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-de-grande/&quot;, &quot;avatar&quot;=&gt;&quot;tim-de-grande.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Aplication Security&quot;, &quot;email&quot;=&gt;&quot;tim.degrande@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a principal Java Consultant at Ordina who is interested in security, cryptography and privacy. As Compentence Leader Application Security, he keeps his colleagues up to date on the latest security news and works to broaden their understanding by giving workshops and classes.&quot;}</name><email>tim.degrande@ordina.be</email></author><category term="Security" /><category term="Security" /><category term="Browser features" /><category term="Response headers" /><summary type="html">Browser security features Browsers nowadays come with a ton of security features built-in. These features are there to protect the people using your application as well as protecting your application from malicious others. Most of these features are quite easy to implement, however for some of them (such as key-pinning) you have to be careful not to break your site. It’s this danger, combined with the lack of knowledge, that prevents people from taking full advantage of them.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/security/padlock_code.jpg" /></entry><entry><title type="html">Monitoring your microservices with Micrometer.io</title><link href="https://ordina-jworks.github.io/microservices/2017/09/17/monitoring-your-microservices-with-micrometer.html" rel="alternate" type="text/html" title="Monitoring your microservices with Micrometer.io" /><published>2017-09-17T00:00:00+00:00</published><updated>2017-09-17T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/microservices/2017/09/17/monitoring-your-microservices-with-micrometer</id><content type="html" xml:base="https://ordina-jworks.github.io/microservices/2017/09/17/monitoring-your-microservices-with-micrometer.html">&lt;p&gt;When we want to instrument our application, we don’t want to worry about which monitoring system we want to use, now or in the future.
 Nor do we want to change a lot of code throughout our microservice because we need to change from system X to system Y.&lt;/p&gt;
 
 &lt;h2 id=&quot;meet-micrometer&quot;&gt;Meet Micrometer!&lt;/h2&gt;
@@ -3422,247 +3731,4 @@ Adi shared a couple of really great tips:&lt;/p&gt;
       &lt;li&gt;Listen to people who disagree&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bart&quot;, &quot;last_name&quot;=&gt;&quot;Blommaerts&quot;, &quot;avatar&quot;=&gt;&quot;bart-blommaerts.png&quot;, &quot;twitter&quot;=&gt;&quot;DaggieBe&quot;, &quot;linkedin&quot;=&gt;&quot;bartblommaerts&quot;, &quot;github&quot;=&gt;&quot;bart-blommaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/bart-blommaerts/&quot;, &quot;title&quot;=&gt;&quot;Software Architect&quot;, &quot;title2&quot;=&gt;&quot;Competence Manager Architecture&quot;, &quot;email&quot;=&gt;&quot;bart.blommaerts@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Bart Blommaerts is a passionate Software Architect at Ordina, who believes closing the model-code gap is essential to make rapid, agile delivery sustainable. Bart has a strong focus on API design, reuse, automation and security. He is always looking for technical challenges.&quot;}</name><email>bart.blommaerts@ordina.be</email></author><category term="Conference" /><category term="Saturn" /><category term="Denver" /><category term="Conference" /><category term="Architecture" /><summary type="html">SATURN is the leading international conference for software architecture practitioners who look beyond the details of today’s technologies to the underlying trends, techniques and principles that underpin lasting success in our fast-moving field. SATURN offers a unique mix to learn, exchange ideas, and find collaborators at the leading edge of modern software architecture practice.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/saturn/denver.jpg" /></entry><entry><title type="html">DockerCon 2017: LinuxKit and Moby</title><link href="https://ordina-jworks.github.io/conference/2017/04/19/DockerCon-LinuxKit-And-Moby.html" rel="alternate" type="text/html" title="DockerCon 2017: LinuxKit and Moby" /><published>2017-04-19T00:00:00+00:00</published><updated>2017-04-19T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2017/04/19/DockerCon-LinuxKit-And-Moby</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2017/04/19/DockerCon-LinuxKit-And-Moby.html">&lt;p&gt;Batteries included, but swappable.
-That has always been the philosophy of Docker.
-Since the incubation of Docker four years ago,
-the project has undergone many evolutions.
-Over the years, it has split up parts of Docker into smaller reusable components,
-which moved to their own projects.
-Docker, instead of being just one project,
-can now be considered a composition of multiple projects.
-We got runC, VPNKit, containerd, SwarmKit, InfraKit and so on.
-These projects are now used by many other projects other than Docker.
-Docker Inc. now open-sourced two new projects,
-called &lt;strong&gt;LinuxKit&lt;/strong&gt; and &lt;strong&gt;The Moby Project&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;linuxkit&quot;&gt;LinuxKit&lt;/h1&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/dockercon2017/linux-kit.png&quot; alt=&quot;LinuxKit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;LinuxKit is a toolkit to create small, lean Linux subsystems.
-The difference with other Linux distributions is the fact that you can create a distribution that only contains exactly what is needed.
-All system services are containers and can be removed or replaced at will.
-Docker partnered with multiple companies like Intel, HPE, ARM, IBM and Microsoft and the Linux Foundation,
-to create this new component.
-The minimal image size is only 35MB!
-These portable distributions can be used to run Linux on platforms that do not support Linux out-of-the-box.
-For example,
-LinuxKit is now being used to run Linux containers on Windows Server,
-using Hyper-V isolation techniques.
-This means you can run both Windows and Linux containers side-by-side,
-and create Linux/Windows hybrid clusters!&lt;/p&gt;
-
-&lt;h1 id=&quot;the-moby-project&quot;&gt;The Moby Project&lt;/h1&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/dockercon2017/moby.png&quot; alt=&quot;Moby Project&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Users have been asking for the Docker-native experience on their favorite platform.
-These requests have not gone unheard.
-We received Docker for Mac, Docker for Windows, Docker for AWS and Docker for Azure.
-All these tools are built by composing the same open components that are used for Docker.
-Docker now, in total, has a library of over 80 containerized components.
-The problem here is,
-a lot of work is duplicated,
-to compose all these components together.
-Each project has its own assembly system.&lt;/p&gt;
-
-&lt;p&gt;To fix this problem,
-Docker Inc. looked at the automotive industry,
-and copied the idea of &lt;strong&gt;common assemblies&lt;/strong&gt;.
-Just like cars can be completely different,
-they can share the same chassis.
-And this is how &lt;strong&gt;the Moby project&lt;/strong&gt; was born.
-It attempts to bring a set of standards and best practices together.
-Instead of spending months of work tying all these loose components together,
-you can now build a tool with the components you need within a few hours.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/dockercon2017/common-assemblies.png&quot; alt=&quot;Production Model&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Docker stays true to its battery philosophy.
-You can choose which version of the kernel you want,
-you can choose to use which components you want.
-It is all up to you!
-An example shown at DockerCon was “RedisOS”.
-They composed LinuxKit, containerd and Redis,
-and exported it to different formats that can run on Mac, Windows and GCP.
-Since these distributions are so small and portable,
-it is possible for companies to use this for IoT, cloud, desktop and many more platforms.
-You can find some examples in the &lt;a href=&quot;https://github.com/linuxkit/linuxkit/tree/master/examples&quot;&gt;LinuxKit examples repository&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h1 id=&quot;trying-it-out&quot;&gt;Trying it out&lt;/h1&gt;
-
-&lt;p&gt;I wanted to try it out myself,
-so I went to the &lt;a href=&quot;https://github.com/linuxkit/linuxkit&quot;&gt;LinuxKit Github repository&lt;/a&gt; and cloned it.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git clone git@github.com:linuxkit/linuxkit.git
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Then I ran &lt;code class=&quot;highlighter-rouge&quot;&gt;make&lt;/code&gt; to build the &lt;code class=&quot;highlighter-rouge&quot;&gt;moby&lt;/code&gt; tool:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ make
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;This created the &lt;code class=&quot;highlighter-rouge&quot;&gt;moby&lt;/code&gt; tool in the &lt;code class=&quot;highlighter-rouge&quot;&gt;bin&lt;/code&gt; directory.
-I added this to my &lt;code class=&quot;highlighter-rouge&quot;&gt;PATH&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ export PATH=$PATH:$(pwd)/bin
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Now that I have the Moby tool available and on my &lt;code class=&quot;highlighter-rouge&quot;&gt;PATH&lt;/code&gt;,
-I can build LinuxKit.
-Let’s take a look first at the YAML file that is used to build it.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat linuxkit.yml
-kernel:
-  image: &quot;mobylinux/kernel:4.9.x&quot;
-  cmdline: &quot;console=ttyS0 console=tty0 page_poison=1&quot;
-init:
-  - linuxkit/init:42fe8cb1508b3afed39eb89821906e3cc7a70551
-  - mobylinux/runc:b0fb122e10dbb7e4e45115177a61a3f8d68c19a9
-  - linuxkit/containerd:60e2486a74c665ba4df57e561729aec20758daed
-  - mobylinux/ca-certificates:eabc5a6e59f05aa91529d80e9a595b85b046f935
-onboot:
-  - name: sysctl
-    image: &quot;mobylinux/sysctl:2cf2f9d5b4d314ba1bfc22b2fe931924af666d8c&quot;
-    net: host
-    pid: host
-    ipc: host
-    capabilities:
-     - CAP_SYS_ADMIN
-    readonly: true
-  - name: binfmt
-    image: &quot;linuxkit/binfmt:8881283ac627be1542811bd25c85e7782aebc692&quot;
-    binds:
-     - /proc/sys/fs/binfmt_misc:/binfmt_misc
-    readonly: true
-  - name: dhcpcd
-    image: &quot;linuxkit/dhcpcd:48e249ebef6a521eed886b3bce032db69fbb4afa&quot;
-    binds:
-     - /var:/var
-     - /tmp/etc:/etc
-    capabilities:
-     - CAP_NET_ADMIN
-     - CAP_NET_BIND_SERVICE
-     - CAP_NET_RAW
-    net: host
-    command: [&quot;/sbin/dhcpcd&quot;, &quot;--nobackground&quot;, &quot;-f&quot;, &quot;/dhcpcd.conf&quot;, &quot;-1&quot;]
-services:
-  - name: rngd
-    image: &quot;mobylinux/rngd:3dad6dd43270fa632ac031e99d1947f20b22eec9&quot;
-    capabilities:
-     - CAP_SYS_ADMIN
-    oomScoreAdj: -800
-    readonly: true
-  - name: nginx
-    image: &quot;nginx:alpine&quot;
-    capabilities:
-     - CAP_NET_BIND_SERVICE
-     - CAP_CHOWN
-     - CAP_SETUID
-     - CAP_SETGID
-     - CAP_DAC_OVERRIDE
-    net: host
-files:
-  - path: etc/docker/daemon.json
-    contents: '{&quot;debug&quot;: true}'
-trust:
-  image:
-    - mobylinux/kernel
-outputs:
-  - format: kernel+initrd
-  - format: iso-bios
-  - format: iso-efi
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;This YAML file contains all the necessary information to create a distribution,
-that will be available in multiple formats.
-In this case,
-a random number generated and nginx are added as services.
-Let’s build it!&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ moby build linuxkit.yml
-Extract kernel image: mobylinux/kernel:4.9.x
-Add init containers:
-Process init image: linuxkit/init:42fe8cb1508b3afed39eb89821906e3cc7a70551
-Process init image: mobylinux/runc:b0fb122e10dbb7e4e45115177a61a3f8d68c19a9
-Process init image: linuxkit/containerd:60e2486a74c665ba4df57e561729aec20758daed
-Process init image: mobylinux/ca-certificates:eabc5a6e59f05aa91529d80e9a595b85b046f935
-Add onboot containers:
-  Create OCI config for mobylinux/sysctl:2cf2f9d5b4d314ba1bfc22b2fe931924af666d8c
-  Create OCI config for linuxkit/binfmt:8881283ac627be1542811bd25c85e7782aebc692
-  Create OCI config for linuxkit/dhcpcd:48e249ebef6a521eed886b3bce032db69fbb4afa
-Add service containers:
-  Create OCI config for mobylinux/rngd:3dad6dd43270fa632ac031e99d1947f20b22eec9
-  Create OCI config for nginx:alpine
-Add files:
-  etc/docker/daemon.json
-Create outputs:
-  linuxkit-bzImage linuxkit-initrd.img linuxkit-cmdline
-  linuxkit.iso
-  linuxkit-efi.iso
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;You can see that a few init, onboot and service containers were added,
-and a configuration file was added for Docker.
-Finally,
-you can see the tool was outputted in multiple formats.
-Let’s try to run it:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ moby run linuxkit
-# ...
-# Lots of boot information
-# ...
-Welcome to LinuxKit
-
-                        ##         .
-                  ## ## ##        ==
-               ## ## ## ## ##    ===
-           /&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;\___/ ===
-      ~~~ {~~ ~~~~ ~~~ ~~~~ ~~~ ~ /  ===- ~~~
-           \______ o           __/
-             \    \         __/
-              \____\_______/
-
-
-/ # [    2.464063] IPVS: Creating netns size=2104 id=1
-[    2.464434] IPVS: ftp: loaded support on port[0] = 21
-[    2.490221] tsc: Refined TSC clocksource calibration: 1993.943 MHz
-[    2.490613] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x397ba967053, max_idle_ns: 881590807276 ns
-[    2.713076] IPVS: Creating netns size=2104 id=2
-[    2.713560] IPVS: ftp: loaded support on port[0] = 21
-[    3.503395] clocksource: Switched to clocksource tsc
-/ #
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;This image booted in just a few seconds!
-Now let’s see which service containers are running using runC:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/ # runc list
-ID          PID         STATUS      BUNDLE                        CREATED                        OWNER
-nginx       542         running     /run/containerd/linux/nginx   2017-04-19T12:34:42.1852841Z   root
-rngd        601         running     /run/containerd/linux/rngd    2017-04-19T12:34:42.3200486Z   root
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;As you can see,
-all the service containers are up and running.
-Within just a few minutes,
-I created a Linux distribution and got it up and running,
-with everything running in a container.&lt;/p&gt;
-
-&lt;p&gt;If you would like to learn more about LinuxKit and the Moby Project,
-you can check out the following resources:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mobyproject.org/&quot;&gt;The Moby Project&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://blog.docker.com/2017/04/introducing-linuxkit-container-os-toolkit/&quot;&gt;Docker Blog: Anouncing LinuxKit&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://blog.docker.com/2017/04/introducing-the-moby-project/&quot;&gt;Docker Blog: Introducing Moby Project&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/linuxkit/linuxkit&quot;&gt;GitHub: LinuxKit&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/moby/moby&quot;&gt;GitHub: Moby&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tom&quot;, &quot;last_name&quot;=&gt;&quot;Verelst&quot;, &quot;permalink&quot;=&gt;&quot;/author/tom-verelst/&quot;, &quot;avatar&quot;=&gt;&quot;tom-verelst.png&quot;, &quot;twitter&quot;=&gt;&quot;tomverelst&quot;, &quot;linkedin&quot;=&gt;&quot;tomverelst&quot;, &quot;github&quot;=&gt;&quot;tomverelst&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Coach&quot;, &quot;email&quot;=&gt;&quot;tom.verelst@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tom is a senior developer and coach at Ordina Belgium. Some friends like to refer to him as a Java code monkey, which is not completely true! Tom is familiar with many different domains.  He loves to learn about everything. Currently he is very fond of Docker, Go and all things DevOps.&lt;br /&gt;&lt;br /&gt;In his spare time he likes spending time with friends, going out for a run with his marathon club or just swinging around some drum sticks.&quot;}</name><email>tom.verelst@ordina.be</email></author><category term="Conference" /><category term="DockerCon" /><category term="Docker" /><category term="Conference" /><summary type="html">Batteries included, but swappable. That has always been the philosophy of Docker. Since the incubation of Docker four years ago, the project has undergone many evolutions. Over the years, it has split up parts of Docker into smaller reusable components, which moved to their own projects. Docker, instead of being just one project, can now be considered a composition of multiple projects. We got runC, VPNKit, containerd, SwarmKit, InfraKit and so on. These projects are now used by many other projects other than Docker. Docker Inc. now open-sourced two new projects, called LinuxKit and The Moby Project</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/dockercon2017/thumbnail.jpg" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bart&quot;, &quot;last_name&quot;=&gt;&quot;Blommaerts&quot;, &quot;avatar&quot;=&gt;&quot;bart-blommaerts.png&quot;, &quot;twitter&quot;=&gt;&quot;DaggieBe&quot;, &quot;linkedin&quot;=&gt;&quot;bartblommaerts&quot;, &quot;github&quot;=&gt;&quot;bart-blommaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/bart-blommaerts/&quot;, &quot;title&quot;=&gt;&quot;Software Architect&quot;, &quot;title2&quot;=&gt;&quot;Competence Manager Architecture&quot;, &quot;email&quot;=&gt;&quot;bart.blommaerts@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Bart Blommaerts is a passionate Software Architect at Ordina, who believes closing the model-code gap is essential to make rapid, agile delivery sustainable. Bart has a strong focus on API design, reuse, automation and security. He is always looking for technical challenges.&quot;}</name><email>bart.blommaerts@ordina.be</email></author><category term="Conference" /><category term="Saturn" /><category term="Denver" /><category term="Conference" /><category term="Architecture" /><summary type="html">SATURN is the leading international conference for software architecture practitioners who look beyond the details of today’s technologies to the underlying trends, techniques and principles that underpin lasting success in our fast-moving field. SATURN offers a unique mix to learn, exchange ideas, and find collaborators at the leading edge of modern software architecture practice.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/saturn/denver.jpg" /></entry></feed>
