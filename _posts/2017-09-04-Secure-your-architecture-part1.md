@@ -17,7 +17,6 @@ So how much security is enough to secure our architecture? Is it the user that i
 * [Using the OAuth2 Protocol](#using-the-oauth2-protocol)
 * [Understanding JSON Web Tokens](#jwt)
 * [Using a User Authentication & Authorization Server](#uaa)
-* [Enabling Single Sign-On with Spring Session & Redis](#enabling-single-sign-on)
 * [Securing your microservice](#secure-your-microservice)
 
 # Our cloud-native architecture
@@ -119,19 +118,19 @@ If the scope is not defined, the client is not limited by scope.
 <a name="jwt" />
 
 ## JSON Web Tokens (JWT)
-[JSON Web Tokens](https://jwt.io/){:target="_blank"} (pronounced “jot”) are compact, URL friendly and contain the JSON structure.
-The structure consists of some standard attributes (called claims), such as issuer, subject (the user’s identity), and expiration time.
+[JSON Web Tokens](https://jwt.io/){:target="_blank"} (JWT) is a compact URL-safe means of representing claims to be transferred between two parties.
+The claims in a JWT are encoded as a JavaScript Object Notation (JSON) object that is used as the payload of a JSON Web Signature (JWS) structure or as the plaintext of a JSON Web Encryption (JWE) structure, enabling the claims to be digitally signed or MACed and/or encrypted.
+The suggested pronunciation of JWT is the same as the English word "jot".
+The payload consists of some standard attributes (called claims), such as issuer, subject (the user’s identity), and expiration time.
 The specification allows these claims to be customized, allowing additional information to be passed along.
-[Jwt.io](https://jwt.io/){:target="_blank"} provides a quick way to verify whether the encoded JWT is valid or not. 
+Be careful when passing additional information, if you like to go deeper on this topic with a real use case, you can read [Using JWT for State Transfer](http://ordina-jworks.github.io/microservices/2016/05/01/Using-JWT-Tokens-for-State-Transfer.html)
+[Jwt.io](https://jwt.io/){:target="_blank"} provides a quick way to decode your JWT. 
 
-One of the challenges in a microservice-based architecture is Identity Propagation.
+One of the challenges in a microservice-based architecture is identity propagation.
 After the authentication, the identity of the user needs to be propagated to the next microservice in a trusted way. <br />
-When we want to verify the identity, frequent callbacks to the UAA server are inefficient.
 JWT is used here to carry along information of the user.
-In essence, a token should be able to:
-* Know that the request was initiated from a user request
-* Know the identity that the request was made on behalf of
-* Know that this request is not a malicious replay of a previous request
+Based on a token, your microservice needs to be able to create a principal object. 
+This principal object needs to contain all the necessary info so the system can decide whether or not the request should be executed or not.
 
 <div class="row" style="margin: 0 auto 2.5rem auto; width: 100%;">
   <div class="col-md-offset-3 col-md-6" style="padding: 0;">
@@ -142,22 +141,24 @@ In essence, a token should be able to:
 ### Dealing with time
 
 When propagating the identity of the user, you don’t want it to last for a infinite amount of time. <br />
-That's why JWTs have an expiration time that will trigger a refresh token.
+That's why JWTs have an expiration time.
+When expired, the JWT will be invalid and the client needs to request a new JWT with the refresh token.
 These refresh tokens carry the needed information to issue a new JWT.
 Refresh tokens can also expire but are rather long-lived.
 JWTs have three fields that relate to time and expiry, all of which are optional.
-In most cases, you should include these fields and validate them when they are present as follows:
-* The time the JWT was created (iat) is before the current time and is valid.
-* The “not process before” claim time (nbf) is before the current time and is valid.
-* The expiration time (exp) is after the current time and is valid.
+In most cases, you should include these fields and validate that the token:
+* is not expired (exp)
+* was created before the current time (iat)
+* should not be used before the current time (nbf)
 
-All of these times are expressed as UNIX epoch timestamps.
+All of these times are expressed as UNIX epoch timestamps, and are best checked in the order as described above.
 
 ### Signed JWTs
 
-Signing a JWT helps establish trust between services, as the receiver can verify that the contents on the identity of the signer, and the contents of the JWT have not been modified in transit.
+Signing a JWT helps establish trust between services, because it gives a recipient reason to believe that the message was created by a known sender and that the message was not altered in transit.
 JWTs are being signed by a public/private key pair.
-Common JWT libraries all support signing.
+Almost all of the JWT libraries support signing. To check if yours supports it, visit [JWT Libraries](https://jwt.io/#libraries-io).
+For a deeper dive into signing JWT, check our tech post about [Digitally signing your JSON Documents](http://ordina-jworks.github.io/security/2016/03/12/Digitally-signing-your-JSON-documents.html){:target="_blank"}
 
 * The user requests a resource
 * The frontend assembles a request with an Authorization header and a Bearer token inside, fires off the request to Zuul
@@ -166,32 +167,26 @@ Common JWT libraries all support signing.
 * The microservice checks for authorization to the resource, if access granted, the correct resource is returned
 
 ### Stateless
-Since we are not working with one server, we need a stateless way of working. 
-Having all the necessary information in the token, JWT eliminates the session state in each service.
-We can reuse the JWT on each service to authenticate the user. 
+Since we are working with cloud-native applications, we can't have any state within them.
+Because we have all the necessary information and create a new principal object for each request, the token eliminates the risk of having in-memory session state in the microservice.
 
-For a deeper dive into JWT, check our tech post about [Digitally signing your JSON](http://ordina-jworks.github.io/security/2016/03/12/Digitally-signing-your-JSON-documents.html){:target="_blank"}
 
 <a name="uaa" />
 
-# Using a User Authentication Authorization Server (UAA)
-The UAA is a multi tenant identity management service, used as a stand alone OAuth2 server. 
+# Using a User Authentication & Authorization Server (UAA)
+The UAA server is an identity provider. It adds authentication to applications and secures services with minimum fuss.
 It’s primary role is as an OAuth2 provider, issuing tokens for client applications to use when they act on behalf of users. 
 It can also authenticate users with their credentials, and can act as an SSO service using those credentials.
 
 For using an UAA server, there are some options available:
 * Using a third party for issuing tokens (ex. Github, Facebook). [Tutorial Github social login](https://spring.io/guides/tutorials/spring-boot-oauth2/#_social_login_github){:target="_blank"}
-* Using KeyCloak, an open source solution aimed to make it easy to secure your application. [Tutorial on how to use KeyCloak in Spring](https://dzone.com/articles/easily-secure-your-spring-boot-applications-with-k){:target="_blank"}
+* Using [KeyCloak](http://www.keycloak.org/){:target="_blank"} , an open source solution aimed to make it easy to secure your application. [Tutorial on how to use KeyCloak in Spring](https://dzone.com/articles/easily-secure-your-spring-boot-applications-with-k){:target="_blank"}
 * Implementing your own UAA is not really best practice because KeyCloak covers most of it. [Explanatory video of the UAA server](https://youtu.be/EoK5a99Bmjc?t=4){:target="_blank"}
 
 ## Enabling Single Sign-On
 Now that we have a way to achieve Authentication & Authorization by applying OAuth2 and JWT, we still have one problem.
 By having multiple frontends in our architecture, the user will have to log in to each of these applications.
 With Single Sign-On (SSO) we can eradicate this problem by requesting only one authentication from the user.
-To enable SSO, we have to implement this feature in the UAA & Zuul service. 
-Since we can have multiple instances of our UAA server for high availability and load, we use Spring session & Redis to share our session between these instances.
-[Redis](https://redis.io/){:target="_blank"} is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. 
-To gain high availability with our Redis server, we can use the [sentinel mechanism](https://redis.io/topics/sentinel){:target="_blank"}.
 
 ### Enable OAuth2 SSO flow on Zuul service
 The `@EnableOAuth2Sso` annotation on Zuul will forward OAuth2 tokens to the services it is proxying.
@@ -207,62 +202,14 @@ How it works: [Sensitive Headers](https://github.com/spring-cloud/spring-cloud-n
 Based on [Netflix’s Zuul](https://github.com/Netflix/Zuul){:target="_blank"}, Zuul brings a filter mechanism.
 Filters are capable of performing a range of actions during the routing of HTTP requests and responses.
 This can help you customize security on your incoming and outgoing traffic.
-Review the guide from Netflix about how filters work.
+Review the [Zuul filter guide](https://github.com/Netflix/Zuul/wiki/How-it-Works){:target="_blank"} from Netflix about how filters work.
 
-How filters work: [Zuul Filters](https://github.com/Netflix/Zuul/wiki/How-it-Works){:target="_blank"}
 
 #### The Token Verifier
 When the frontend sends a request with a token, Zuul will first contact a specific uri of the UAA server to check the validity of the token.
 When the token is valid, Zuul will redirect the request with token to the proper microservice.
 The grant type we use is the `client credentials` type, where Zuul will connect to the UAA server with a service-id and service-secret.
 
-### Configuration Spring Session & Redis
-To add Redis and Spring Session to the classpath, add the following in the pom.xml
-
-{% highlight maven %}
-
-<dependency>
-    <groupId>org.springframework.session</groupId>
-	<artifactId>spring-session-data-redis</artifactId>
-	<version>(version of current release)</version>
-	<type>pom</type>
-</dependency>
-<dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-data-redis</artifactId>
-</dependency>
-
-{% endhighlight %}
-
-### Enabling Spring Session & Redis
-Just one annotation is needed to enable it with default configuration on your application.
-If you need to customize your Redis configuration, you can use on of the following configurations:
-* [Sentinel configuration](http://docs.spring.io/spring-data/redis/docs/current/reference/html/#redis:sentinel){:target="_blank"}
-* [Default configuration](https://docs.spring.io/spring-session/docs/current/reference/html5/guides/boot.html#boot-redis-configuration){:target="_blank"}
-
-{% highlight java %}
-
-@EnableRedisHttpSession
-public class Application {
-}
-{% endhighlight %}
-
-### Single Sign-On Flow
-
-<div class="row" style="margin: 0 auto 2.5rem auto; width: 100%;">
-  <div class="col-md-offset-3 col-md-6" style="padding: 0;">
-	{% include image.html img="/img/microservices/part1/SSOSecurity.jpg" alt="Single Sign-On" title="SSO" %}
-</div>
-</div>
-
-* The user logs into the UAA server and grants permission with frontend app 1
-* The UAA server creates a sessionID for this user
-* The Redis database confirms the creation
-* After the redirect mechanism of the authorization grant, the UAA creates a cookie in the user’s browser with the user’s sessionID and returns a JWT specific for that frontend
-* The frontend app 2 uses the same browser (same sessionID cookie) to visit the UAA server
-* The UAA finds a sessionID in the request and consults the Redis database for its existence
-* The Redis database confirms the existence
-* The UAA directly logs in frontend app 2 and returns a JWT specific to frontend app 2
 
 # Securing your microservice
 When enabling security in your service, the most common issues are developer-induced.
@@ -395,12 +342,12 @@ User findByUuid(@Param("uuid") UUID uuid);
 ##### @PostAuthorize
 Less commonly, you may wish to perform the access-control check after the method has been invoked.
 The returnObject is the returned value of that method.
->A USER role can only view his own details and not from everyone else, but an ADMIN role can.
->You get the returned object from the method and compare it to the principals uuid.
+>A user can only view his own details and not those of someone else, but an administrator can.
+>You validate this by checking if the user has the admin role or if the principal's UUID is the same as the one of the returned user object.
  
  {% highlight java %}
 @PreAuthorize("hasAnyRole('ADMIN','USER')")
-@PostAuthorize("returnObject==null or hasRole('ADMIN') or returnObject.uuid.toString() == authentication.principal.uuid")
+@PostAuthorize("returnObject!=null or hasRole('ADMIN') or returnObject.uuid.toString() == authentication.principal.uuid")
 User findOne(@Param("uuid") UUID uuid);
  {% endhighlight %}
 
