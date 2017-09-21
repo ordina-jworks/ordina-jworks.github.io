@@ -219,93 +219,19 @@ We enter the phase where we passed the authentication and retrieved a JWT from o
 We are in a 'downstream service', where data is load balanced from Zuul. 
 Next thing to question is, how do we decode this JWT? How can we secure our classes and methods with the help of Spring Security?
 
-## Decoding the JWT
+## Assembling the Principal
 It is the responsibility of a microservice (Resource Server) to extract information about the user and client application from the JWT and make an access decision based on that information.
 Decoding the JWT allows extraction of the users information and allows putting it in the security context.
-Spring Security will assemble a Principal with this information to use.
-When enabling Spring Security, we want to decode the JWT at the beginning of our chain so that the rest of the chain can work with the data retrieved from the JWT.
+Spring Security will assemble a `Principal` with this information to use.
 
-After decoding the JWT, you know who the user is, what role they have, and all of that.
+After decoding the JWT, you know who the user is, what role(s) he/she has, and all of that.
 The Spring OAuth2 project gives us the mechanism to retrieve a JWT out of the box. 
 To enable the mechanism, we need the `@EnableOAuth2SSO` annotation for Zuul and the `@EnableResourceServer` annotation on every microservice that needs to accept the JWT.
 The mechanism goes as followed:
 * Frontend requests a resource with a JWT
 * Zuul accepts the JWT and verifies it with UAA
 * If valid, Zuul sends the JWT to the microservice annotated with `@EnableResourceServer`
-
-### Account service
-Let's implement this flow into our account service. 
-First, we have to add two dependencies to our classpath. 
-
-{% highlight maven %}
-<dependency>
-	<groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-security</artifactId>
-</dependency>
-<dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-oauth2</artifactId>
-</dependency>
-{% endhighlight %}
-
-To catch the OAuth2 token, we have to add the extra `@EnableResourceServer` annotation and because we are using JWT, we need an extra implementation to store and convert our JWT.
-The OAuth2 starter includes the JWT dependency of Spring Security.
-Secondly, we make a class to decode our incoming JWT.
-
-{% highlight java %}
-
-public class JwtAccessTokenConvertDecoder extends JwtAccessTokenConverter {
-
-    final String EXP = "exp";
-    
-    private JsonParser objectMapper = JsonParserFactory.create();
-
-    protected Map<String, Object> decode(String token) {
-        try {
-            Jwt jwt = JwtHelper.decode(token);
-            String content = jwt.getClaims();
-            Map<String, Object> map = objectMapper.parseMap(content);
-            if (map.containsKey(EXP) && map.get(EXP) instanceof Integer) {
-                Integer intValue = (Integer) map.get(EXP);
-                map.put(EXP, Long.valueOf(intValue));
-            }
-            return map;
-        }
-        catch (Exception e) {
-            throw new InvalidTokenException("Cannot convert access token to JSON", e);
-        }
-    }
-}
-
-{% endhighlight %}
-
-And add these as beans to get it working. 
-
-{% highlight java %}
-@Configuration
-@EnableResourceServer
-public class ResourceServiceConfiguration extends ResourceServerConfigurerAdapter {
-
-    @Bean
-    public JwtAccessTokenConvertDecoder accessTokenConverter() {
-        return new JwtAccessTokenConvertDecoder();
-    }
-
-    @Bean
-    public TokenStore tokenStore() {
-        return new JwtTokenStore(accessTokenConverter());
-    }
-
-    @Bean
-    @Primary
-    public DefaultTokenServices tokenServices() {
-        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-        defaultTokenServices.setTokenStore(tokenStore());
-        return defaultTokenServices;
-  }
-}
-
-{% endhighlight %}
+* The JWT will be placed inside the `Principal`for the microservice to use
 
 ### Common mistake with keys
 The UAA signs the token with a private key and verifies it with a public key. 
