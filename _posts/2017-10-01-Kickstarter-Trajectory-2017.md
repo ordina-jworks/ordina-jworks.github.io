@@ -21,7 +21,7 @@ When we arrived the first day, we were welcomed with breakfast and afterwards, w
 We immediately felt at home. Everybody is really friendly and helpful. The corporate culture here is truly a plus for Ordina.
 We also got our tools which consisted of a car and a laptop. Some people had a preference for mac, which was no problem at al.  
 
-# What is the Kickstarter project?
+## What is the Kickstarter project?
 
 The Kickstarter project consisted of intensive training spanning 2 months. During this time, courses on different 
 front- and backend technologies, methods and tools and soft skills were given by senior consultants and external 
@@ -44,7 +44,7 @@ JWorks unit or at least see them, since there are over 100 members in JWorks.
 Other events we could participate in were the CC-meetings and the Ordina Boardgame Night. These also provided 
 opportunities to get to know both our and other units as we deepened our understanding of the presented subjects. 
 
-# Training
+## Training
 
 We kicked off our career at Ordina in the unit JWorks. The main technologies used in this unit are JAVA & JavaScript. 
 Most of the workshops in the kickstart trajectory are based on these two technologies. Small sidenote, don’t be fooled 
@@ -83,4 +83,11 @@ In our projects, we learned to utilize the control system Git to collaborate wit
 progress. One thing we’ll never forget is that if push breaking changes to the master branch and break the build, we’ll 
 have to buy “boterkoeken” for the unit! Last but not least, we were introduced to the wonderful world where clean code & 
 microservices are the heroes that kick spaghetti code & monoliths in the butt. 
+
+## Lessons learned
+
+## The new JWorks colleagues
+
+<span class="image left "><img class="p-image" alt="Ken De Becker" src="/img/kickstarters/2017/ken-de-becker.jpg" /></span>
+
 
