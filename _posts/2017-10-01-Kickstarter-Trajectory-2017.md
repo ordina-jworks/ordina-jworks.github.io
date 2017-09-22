@@ -46,12 +46,20 @@ opportunities to get to know both our and other units as we deepened our underst
 
 # Training
 
-We kicked off our career at Ordina in the unit JWorks. The main technologies used in this unit are JAVA & JavaScript. Most of the workshops in the kickstart trajectory are based on these two technologies. Small sidenote, don’t be fooled by these names: JAVA & JavaScript have no underlying connection. In general, the development of current applications is divided in two main groups: the front-end part and the backend part. JAVA dominates in the backend part, while JavaScript is located in the front-end part. For 2 months, we’ve had the luxury to deepen our knowledge in both domains, in order to obtain a comprehensive understanding of the cutting-edge technology stack that’s being used in JWorks. Below you’ll find a brief overview of the technologies we explored & applied in the workshops.
+We kicked off our career at Ordina in the unit JWorks. The main technologies used in this unit are JAVA & JavaScript. 
+Most of the workshops in the kickstart trajectory are based on these two technologies. Small sidenote, don’t be fooled 
+by these names: JAVA & JavaScript have no underlying connection. In general, the development of current applications is 
+divided in two main groups: the front-end part and the backend part. JAVA dominates in the backend part, while JavaScript 
+is located in the front-end part. For 2 months, we’ve had the luxury to deepen our knowledge in both domains, in order 
+to obtain a comprehensive understanding of the cutting-edge technology stack that’s being used in JWorks. Below you’ll 
+find a brief overview of the technologies we explored & applied in the workshops.
+
 Front-end
 •	HTML5, CSS3, BEM, SASS
 •	JavaScript, TypeScript
 •	Angular (2+), Ionic
 •	Npm, bower, webpack
+
 Back-end
 •	Newest features in Java 7/8/9
 •	Java EE, Spring, Spring Boot with Maven
@@ -60,12 +68,19 @@ Back-end
 •	MongoDB
 •	Cloud solutions (PaaS, Iaas, Saas)
 •	Docker, Git
+
 Design principles and methodologies
 •	Microservices 
 •	Agile, Scrum 
 •	DevOps, Continuous Integration
 •	DDD, BDD, TDD
 
-Rather than learning these technologies in isolation, we learned to create applications by combining them together. For example, we used TypeScript, CSS and Ionic to build mobile apps, we wrote backend logic by uniting the forces of Spring Boot, Java and unit testing. Thirdly we combined Angular, TypeScript, SASS, HTML and npm to create a web application. 
-In our projects, we learned to utilize the control system Git to collaborate with your team and share projects and code progress. One thing we’ll never forget is that if push breaking changes to the master branch and break the build, we’ll have to buy “boterkoeken” for the unit! Last but not least, we were introduced to the wonderful world where clean code & microservices are the heroes that kick spaghetti code & monoliths in the butt. 
+Rather than learning these technologies in isolation, we learned to create applications by combining them together. 
+For example, we used TypeScript, CSS and Ionic to build mobile apps, we wrote backend logic by uniting the forces of 
+Spring Boot, Java and unit testing. Thirdly we combined Angular, TypeScript, SASS, HTML and npm to create a web application. 
+
+In our projects, we learned to utilize the control system Git to collaborate with your team and share projects and code 
+progress. One thing we’ll never forget is that if push breaking changes to the master branch and break the build, we’ll 
+have to buy “boterkoeken” for the unit! Last but not least, we were introduced to the wonderful world where clean code & 
+microservices are the heroes that kick spaghetti code & monoliths in the butt. 
 
