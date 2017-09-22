@@ -55,25 +55,25 @@ to obtain a comprehensive understanding of the cutting-edge technology stack tha
 find a brief overview of the technologies we explored & applied in the workshops.
 
 Front-end
-•	HTML5, CSS3, BEM, SASS
-•	JavaScript, TypeScript
-•	Angular (2+), Ionic
-•	Npm, bower, webpack
+  * HTML5, CSS3, BEM, SASS
+  * JavaScript, TypeScript
+  * Angular (2+), Ionic
+  * Npm, bower, webpack
 
 Back-end
-•	Newest features in Java 7/8/9
-•	Java EE, Spring, Spring Boot with Maven
-•	JPA, Hibernate
-•	Unit Testing: JUnit, Mockito, etc. 
-•	MongoDB
-•	Cloud solutions (PaaS, Iaas, Saas)
-•	Docker, Git
+  * Newest features in Java 7/8/9
+  * Java EE, Spring, Spring Boot with Maven
+  * JPA, Hibernate
+  * Unit Testing: JUnit, Mockito, etc. 
+  * MongoDB
+  * Cloud solutions (PaaS, Iaas, Saas)
+  * Docker, Git
 
 Design principles and methodologies
-•	Microservices 
-•	Agile, Scrum 
-•	DevOps, Continuous Integration
-•	DDD, BDD, TDD
+  * Microservices 
+  * Agile, Scrum 
+  * DevOps, Continuous Integration
+  * DDD, BDD, TDD
 
 Rather than learning these technologies in isolation, we learned to create applications by combining them together. 
 For example, we used TypeScript, CSS and Ionic to build mobile apps, we wrote backend logic by uniting the forces of 
@@ -88,6 +88,7 @@ microservices are the heroes that kick spaghetti code & monoliths in the butt.
 
 ## The new JWorks colleagues
 
-<span class="image left "><img class="p-image" alt="Ken De Becker" src="/img/kickstarters/2017/ken-de-becker.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Ken De Becker" width="210px"  src="/img/kickstarters/2017/ken-de-becker.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Michiel Willems" width="210px"  src="/img/kickstarters/2017/michiel-willems.jpg" /></span>
 
 
