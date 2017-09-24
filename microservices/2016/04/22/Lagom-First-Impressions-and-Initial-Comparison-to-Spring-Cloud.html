@@ -300,7 +300,7 @@ The <a href="https://www.lightbend.com/activator/template/lagom-java">Lagom Java
 
 <p><code class="highlighter-rouge">$ runAll</code></p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">&gt; </span>runAll
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">&gt;</span> runAll
 <span class="o">[</span>info] Starting embedded Cassandra server
 .......
 <span class="o">[</span>info] Cassandra server running at 127.0.0.1:4000
@@ -325,7 +325,7 @@ In general, a restart is only required when adding a new microservice API and im
 
 <h2 id="anatomy-of-a-lagom-project">Anatomy of a Lagom project</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>helloworld-api           → Microservice API submodule
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helloworld-api           → Microservice API submodule
  └ src/main/java         → Java source code interfaces with model objects
 helloworld-impl          → Microservice implementation submodule
  └ logs                  → Logs of the microservice
@@ -338,8 +338,7 @@ project                  → Sbt configuration files
  └ plugins.sbt           → Sbt plugins including the declaration for Lagom itself
 .gitignore               → Git ignore file
 build.sbt                → Application build script
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="example-of-a-microservice">Example of a microservice</h2>
 <p>In order to write a new microservice you create a new API and implementation project.
@@ -427,10 +426,10 @@ We also need to implement the module that binds the HelloService so that it can 
 
 <p>We can then test our endpoint:</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>curl localhost:24266/api/hello/World
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>curl localhost:24266/api/hello/World
 Hello, World!
 
-<span class="gp">$ </span>curl -H <span class="s2">"Content-Type: application/json"</span> -X POST -d <span class="s1">'{"message": "Hello "}'</span> http://localhost:24266/api/hello/World
+<span class="nv">$ </span>curl <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="nt">-X</span> POST <span class="nt">-d</span> <span class="s1">'{"message": "Hello "}'</span> http://localhost:24266/api/hello/World
 Hello World</code></pre></figure>
 
 <p>Seeing as any good developer writes unit tests for his/her code so should we!</p>
@@ -479,7 +478,7 @@ Hello World</code></pre></figure>
 <p>Tests can be executed in Activator via the following command:
 <code class="highlighter-rouge">$ test</code></p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">&gt; </span><span class="nb">test</span>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">&gt;</span> <span class="nb">test</span>
 <span class="o">[</span>info] Test run started
 <span class="o">[</span>info] Test sample.helloworld.impl.HelloServiceTest.testHello started
 <span class="o">[</span>info] Test sample.helloworld.impl.HelloServiceTest.testGreeting started

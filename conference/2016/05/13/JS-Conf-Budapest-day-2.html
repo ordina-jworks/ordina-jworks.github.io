@@ -446,8 +446,8 @@ We summarized the key parts of the talk for you.</p>
 <p><strong>1. Create and register the service worker</strong></p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
-<span class="k">if</span> <span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">'/service-worker.js'</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">'/service-worker.js'</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="o">&lt;</span><span class="sr">/script&gt;</span></code></pre></figure>
 
@@ -476,7 +476,7 @@ We summarized the key parts of the talk for you.</p>
         <span class="p">});</span>
 <span class="p">};</span>
 
-<span class="nx">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'install'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'install'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">event</span><span class="p">.</span><span class="nx">waitUntil</span><span class="p">(</span><span class="nx">updateCache</span><span class="p">());</span>
 <span class="p">});</span>
 <span class="o">&lt;</span><span class="sr">/script&gt;</span></code></pre></figure>
@@ -500,7 +500,7 @@ We summarized the key parts of the talk for you.</p>
 </ul>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
-<span class="nx">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'fetch'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'fetch'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">event</span><span class="p">.</span><span class="nx">respondWith</span><span class="p">(</span><span class="nx">fetch</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">request</span><span class="p">));</span>
 <span class="p">});</span>
 <span class="o">&lt;</span><span class="sr">/script&gt;</span></code></pre></figure>
@@ -508,7 +508,7 @@ We summarized the key parts of the talk for you.</p>
 <p>It is possible to use custom responses when using Service Workers. E.g. Use templating to construct a HTML respose from JSON.</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
-<span class="nx">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'fetch'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'fetch'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">responseBody</span> <span class="o">=</span> <span class="s1">'&lt;h1&gt;Hello, world!&lt;/h1&gt;'</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">responseOptions</span> <span class="o">=</span> <span class="p">{</span>
         <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
@@ -572,8 +572,8 @@ We summarized the key parts of the talk for you.</p>
 
 <figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="err">//</span><span class="w"> </span><span class="err">/offline-page.json</span><span class="w">
 </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;html&gt;&lt;!-- v1 --&gt;&lt;/html&gt;"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"assets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"/v1.css"</span><span class="p">]</span><span class="w">
+    </span><span class="s2">"html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;html&gt;&lt;!-- v1 --&gt;&lt;/html&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"assets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"/v1.css"</span><span class="p">]</span><span class="w">
 </span><span class="p">}</span></code></pre></figure>
 
 <h4 id="why-is-this-valuable">Why? Is this valuable</h4>
@@ -675,7 +675,7 @@ Afterwards we'll look at the future, and what HTTP 2.0 has in store for us, goin
 
 <p>PageSpeed Insights is available as npm module.</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm install psi -g</code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm install psi <span class="nt">-g</span></code></pre></figure>
 
 <p>Webpagetest is also available as npm module but is a bit slower.</p>
 
@@ -683,7 +683,7 @@ Afterwards we'll look at the future, and what HTTP 2.0 has in store for us, goin
 
 <p>YSlow is available for different platforms.</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm install grunt-yslow --save-dev</code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm install grunt-yslow <span class="nt">--save-dev</span></code></pre></figure>
 
 <h4 id="budgets">Budgets</h4>
 
@@ -702,7 +702,7 @@ Afterwards we'll look at the future, and what HTTP 2.0 has in store for us, goin
 
 <p>Budgeting can also be automated using the grunt-perfbudget plugin.</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm install grunt-perfbudget --save-dev</code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm install grunt-perfbudget <span class="nt">--save-dev</span></code></pre></figure>
 
 <h4 id="what-can-we-do-beyond-minification">What can we do beyond minification?</h4>
 

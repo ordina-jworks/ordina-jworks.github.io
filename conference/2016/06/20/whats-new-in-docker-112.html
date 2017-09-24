@@ -172,18 +172,16 @@ let’s take a step back and look at how easy it has become to set up a Swarm cl
 
 <p>Creating a Swarm manager can be done with one simple command:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker swarm init
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker swarm init
+</code></pre></div></div>
 
 <p>You can run this command on any Docker 1.12 host.</p>
 
 <p>After we created the Swarm manager,
 we can add additional nodes to the swarm by running the following command on other Docker hosts:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker swarm join &lt;IP of manager&gt;:2377
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker swarm join &lt;IP of manager&gt;:2377
+</code></pre></div></div>
 
 <p>That’s it.
 No messing around with key-value stores or certificates.
@@ -209,10 +207,9 @@ It can only take work and report back on the status.</p>
 <p>The role of a node is dynamic.
 We can increment or reduce the amount of managers by promoting or demoting nodes.</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker node promote &lt;node-id&gt;
-<span class="gp">$ </span>docker node demote &lt;node-id&gt;
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker node promote &lt;node-id&gt;
+<span class="nv">$ </span>docker node demote &lt;node-id&gt;
+</code></pre></div></div>
 
 <h2 id="services">Services</h2>
 
@@ -228,9 +225,8 @@ for example Unikernels.</p>
 <p>The service command is very similar to the <code class="highlighter-rouge">run</code> command
 and utilizes a lot of similar flags which we are used to work with.</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker service create --replicate 3 --name frontend --network mynet --publish 80:80/tcp frontend_image:latest
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker service create <span class="nt">--replicate</span> 3 <span class="nt">--name</span> frontend <span class="nt">--network</span> mynet <span class="nt">--publish</span> 80:80/tcp frontend_image:latest
+</code></pre></div></div>
 
 <p>The above command will create a service named <em>frontend</em>,
 add it to the <em>mynet</em> network,
@@ -251,24 +247,21 @@ you can easily do this using the <em>global</em> mode.
 This will schedule all the tasks of a service on each node.
 This is great for general services like monitoring.</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker service create --mode<span class="o">=</span>global --name prometheus prom/prometheus
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker service create <span class="nt">--mode</span><span class="o">=</span>global <span class="nt">--name</span> prometheus prom/prometheus
+</code></pre></div></div>
 
 <p>Just like we can put constraints on containers,
 we can put constraints on services:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker daemon --label com.example.storage<span class="o">=</span><span class="s2">"ssd"</span>
-<span class="gp">$ </span>docker service ... --constraint com.example.storage<span class="o">=</span><span class="s2">"ssd"</span> ...
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker daemon <span class="nt">--label</span> com.example.storage<span class="o">=</span><span class="s2">"ssd"</span>
+<span class="nv">$ </span>docker service ... <span class="nt">--constraint</span> com.example.storage<span class="o">=</span><span class="s2">"ssd"</span> ...
+</code></pre></div></div>
 
 <p>If we want more instances of our service,
 we can scale our services up and down:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker service scale <span class="nv">frontend</span><span class="o">=</span>10 <span class="nv">backend</span><span class="o">=</span>20
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker service scale <span class="nv">frontend</span><span class="o">=</span>10 <span class="nv">backend</span><span class="o">=</span>20
+</code></pre></div></div>
 
 <p>This will change the desired state of the service(s),
 and the managers will schedule new tasks (or remove existing tasks) to attain this desired state.</p>
@@ -278,9 +271,8 @@ For example,
 if we wish to upgrade our service to a newer version without any downtime,
 we can use the <code class="highlighter-rouge">service update</code> command:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker service update myservice --image myimage:2.0 --update-parallellism 2 --update-delay 10s
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker service update myservice --image myimage:2.0 --update-parallellism 2 --update-delay 10s
+</code></pre></div></div>
 
 <p>This will update our service by replacing 2 tasks at the time,
 every 10 seconds.
@@ -301,30 +293,28 @@ all the way from your laptop to production.</p>
 <p>Currently,
 one way to generate a <em>.dab</em> file is by creating the bundle using Docker Compose:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker-compose bundle
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker-compose bundle
+</code></pre></div></div>
 
 <p>This command will generate a <em>.dab</em> or <em>.dsb</em> file,
 which is just a JSON text file.
 Here’s a partial example:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"db"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"Env"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"constraint:type==backend"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"constraint:storage==ssd"</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="nt">"Image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"postgres@sha256:f76245b04ddbcebab5bb6c28e76947f49222c99fec4aadb0bb1c24821a9e83ef"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"Networks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"back-tier"</span><span class="w">
-      </span><span class="p">]</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "services": {
+    "db": {
+      "Env": [
+        "constraint:type==backend",
+        "constraint:storage==ssd"
+      ],
+      "Image": "postgres@sha256:f76245b04ddbcebab5bb6c28e76947f49222c99fec4aadb0bb1c24821a9e83ef",
+      "Networks": [
+        "back-tier"
+      ]
+    }
+  }
+}
+</code></pre></div></div>
 
 <p>This feature is still experimental in Docker 1.12
 and the specification is still being updated.
@@ -372,9 +362,8 @@ that you don’t want to turn it off!</p>
 <p>A new <code class="highlighter-rouge">HEALTHCHECK</code> keyword is available for Dockerfiles.
 This keyword can be used to define the health check of a container.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>HEALTHCHECK --interval=5m --timeout=3s --retries 3 CMD curl -f http://localhost || exit 1
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HEALTHCHECK --interval=5m --timeout=3s --retries 3 CMD curl -f http://localhost || exit 1
+</code></pre></div></div>
 
 <p>In the above example,
 health checking is done every 5 minutes.
@@ -384,11 +373,10 @@ A container becomes unhealthy if the <code class="highlighter-rouge">curl</code>
 
 <p>A new <code class="highlighter-rouge">plugin</code> subcommand has been added which allows you to easily manager Docker plugins.</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker plugin install &lt;plugin-name&gt;
-<span class="gp">$ </span>docker plugin <span class="nb">enable</span> &lt;plugin-name&gt;
-<span class="gp">$ </span>docker plugin disable &lt;plugin-name&gt;
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker plugin install &lt;plugin-name&gt;
+<span class="nv">$ </span>docker plugin <span class="nb">enable</span> &lt;plugin-name&gt;
+<span class="nv">$ </span>docker plugin disable &lt;plugin-name&gt;
+</code></pre></div></div>
 
 <p>Plugins also have a manifest file which describes the resources it needs.
 You can compare it to how a new app on your smart phone asks for access to different resources,

@@ -252,7 +252,7 @@ These are modules that are “scoped” under an organization name that begins w
 Scopes can be public and private.
 Here is how to use scopes:</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm init --scope<span class="o">=</span>username
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm init <span class="nt">--scope</span><span class="o">=</span>username
 npm install @myusername/mypackage
 require<span class="o">(</span><span class="s1">'@myusername/mypackage'</span><span class="o">)</span></code></pre></figure>
 
@@ -267,7 +267,7 @@ Remember that <code class="highlighter-rouge">npm init</code> can always be re-r
 <p>Simple: because production will install faster! A lot of people don’t tend to do this, so please do this!
 When using this you can simple run the command below on production and be done with it.</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm install --production</code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm install <span class="nt">--production</span></code></pre></figure>
 
 <h4 id="bundled-dependencies">Bundled dependencies</h4>
 <p>One of the biggest problems right now with Node.js is how fast it is changing.
@@ -275,12 +275,12 @@ This means that production systems can be very fragile and an <code class="highl
 Using <code class="highlighter-rouge">bundledDependencies</code> is a way to get round this issue by ensuring that you will always deliver the correct dependencies no matter what else may change.
 You can also use this to bundle up your own, private bundles and deliver them with the install.</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm install --save --save-bundle</code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm install <span class="nt">--save</span> <span class="nt">--save-bundle</span></code></pre></figure>
 
 <h4 id="offline-installs">Offline installs</h4>
 <p>A way to prevent npm to look up the registry, and ensure local installs, is by adding the variable <code class="highlighter-rouge">--cache-min</code> and to set it to a high value such as 999999.</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm install --cache-min 999999</code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm install <span class="nt">--cache-min</span> 999999</code></pre></figure>
 
 <h4 id="run-scripts">Run scripts</h4>
 <p>In <code class="highlighter-rouge">package.json</code> it is possible to define default run scripts as shown below.</p>
@@ -305,7 +305,7 @@ It’s important to communicate what kinds of changes are in a release because s
 Let’s take a look at an example.</p>
 
 <figure class="highlight"><pre><code class="language-sh" data-lang="sh">1.5.6
-Breaking Major . Feature Minor . Fix Patch</code></pre></figure>
+Breaking Major <span class="nb">.</span> Feature Minor <span class="nb">.</span> Fix Patch</code></pre></figure>
 
 <p>This is quite obvious, right?</p>
 
@@ -314,7 +314,7 @@ Breaking Major . Feature Minor . Fix Patch</code></pre></figure>
 <figure class="highlight"><pre><code class="language-sh" data-lang="sh">npm version minor
 npm version major
 npm version patch
-npm version major -m <span class="s2">"Bump to version %s"</span></code></pre></figure>
+npm version major <span class="nt">-m</span> <span class="s2">"Bump to version %s"</span></code></pre></figure>
 
 <h4 id="microservices-architecture">Microservices architecture</h4>
 <p>When working with a microservices architecture, it is possible to work with multiple packages for your services.

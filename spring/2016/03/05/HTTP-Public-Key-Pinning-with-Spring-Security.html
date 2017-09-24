@@ -182,10 +182,10 @@ In the next paragraph you can find the implementation details.</p>
 <p>The web server needs to send following header to the connecting client with the first response</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">    Public-Key-Pins:
-        max-age<span class="o">=</span>5184000;
-        pin-sha256<span class="o">=</span><span class="s2">"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM="</span>;
-        pin-sha256<span class="o">=</span><span class="s2">"E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g="</span>;
-        report-uri<span class="o">=</span><span class="s2">"https://example.net/hpkp-report"</span>;
+        max-age<span class="o">=</span>5184000<span class="p">;</span>
+        pin-sha256<span class="o">=</span><span class="s2">"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM="</span><span class="p">;</span>
+        pin-sha256<span class="o">=</span><span class="s2">"E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g="</span><span class="p">;</span>
+        report-uri<span class="o">=</span><span class="s2">"https://example.net/hpkp-report"</span><span class="p">;</span>
         includeSubdomains</code></pre></figure>
 
 <p>By specifying the <strong>Public-Key-Pins</strong> header the client MUST terminate the connection without allowing the user to proceed anyway. In this example, <strong>pin-sha256=”d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=”</strong> pins the server’s public key used in production. The second pin declaration <strong>pin-sha256=”E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=”</strong> also pins the backup key. <strong>max-age=5184000</strong> tells the client to store this information for two month, which is a reasonable time limit according to the IETF RFC. This key pinning is also valid for all subdomains, which is told by the <strong>includeSubdomains</strong> declaration. Finally, <strong>report-uri=”https://www.example.net/hpkp-report”</strong> explains where to report pin validation failures.
@@ -198,19 +198,19 @@ In the next paragraph you can find the implementation details.</p>
 
 <h5 id="from-a-key-file">From a key file</h5>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">	openssl rsa -in my-key-file.key -outform der -pubout | openssl dgst -sha256 -binary | openssl enc -base64</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">	openssl rsa <span class="nt">-in</span> my-key-file.key <span class="nt">-outform</span> der <span class="nt">-pubout</span> | openssl dgst <span class="nt">-sha256</span> <span class="nt">-binary</span> | openssl enc <span class="nt">-base64</span></code></pre></figure>
 
 <h5 id="from-a-certificate-signing-request-csr">From a Certificate Signing Request (CSR)</h5>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">	openssl req -in my-signing-request.csr -pubkey -noout | openssl rsa -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">	openssl req <span class="nt">-in</span> my-signing-request.csr <span class="nt">-pubkey</span> <span class="nt">-noout</span> | openssl rsa <span class="nt">-pubin</span> <span class="nt">-outform</span> der | openssl dgst <span class="nt">-sha256</span> <span class="nt">-binary</span> | openssl enc <span class="nt">-base64</span></code></pre></figure>
 
 <h5 id="from-a-certificate">From a certificate</h5>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">	openssl x509 -in my-certificate.crt -pubkey -noout | openssl rsa -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">	openssl x509 <span class="nt">-in</span> my-certificate.crt <span class="nt">-pubkey</span> <span class="nt">-noout</span> | openssl rsa <span class="nt">-pubin</span> <span class="nt">-outform</span> der | openssl dgst <span class="nt">-sha256</span> <span class="nt">-binary</span> | openssl enc <span class="nt">-base64</span></code></pre></figure>
 
 <h5 id="from-a-running-web-server">From a running web server</h5>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">	openssl s_client -servername www.example.com -connect www.example.com:443 | openssl x509 -pubkey -noout | openssl rsa -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">	openssl s_client <span class="nt">-servername</span> www.example.com <span class="nt">-connect</span> www.example.com:443 | openssl x509 <span class="nt">-pubkey</span> <span class="nt">-noout</span> | openssl rsa <span class="nt">-pubin</span> <span class="nt">-outform</span> der | openssl dgst <span class="nt">-sha256</span> <span class="nt">-binary</span> | openssl enc <span class="nt">-base64</span></code></pre></figure>
 
 <p><br />
 For now we will assume we got 2 public keys:</p>

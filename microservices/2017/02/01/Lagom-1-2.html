@@ -317,7 +317,7 @@ In this case we log something whenever we receive a new message.</p>
 
 <p>If we run the application, create an item and afterwards check the logs, we see that the order service is receiving messages:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>2016-12-23 22:04:22,337 INFO  b.y.l.i.i.ItemServiceImpl - Creating item: CreateItemRequest{name=newItem, price=15}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2016-12-23 22:04:22,337 INFO  b.y.l.i.i.ItemServiceImpl - Creating item: CreateItemRequest{name=newItem, price=15}
 2016-12-23 22:04:22,349 INFO  b.y.l.i.i.ItemEntity - Setting up initialBehaviour with snapshotState = Optional.empty
 2016-12-23 22:04:22,357 INFO  b.y.l.i.i.ItemEntity - Processed CreateItem command into ItemCreated event ItemCreated{item=Item{id=d370993c-dd75-4a88-bf8b-d9dba1820feb, name=newItem, price=15}, timestamp=2016-12-23T21:04:22.357Z}
 2016-12-23 22:04:22,359 INFO  b.y.l.i.i.ItemEntity - Processed ItemCreated event, updated item state
@@ -326,8 +326,7 @@ In this case we log something whenever we receive a new message.</p>
 2016-12-23 22:04:25,472 INFO  b.y.l.i.i.ItemEventProcessor - Persisted Item Item{id=d370993c-dd75-4a88-bf8b-d9dba1820feb, name=newItem, price=15}
 2016-12-23 22:04:25,776 INFO  b.y.l.i.i.ItemServiceImpl - Converting ItemEventItem{id=d370993c-dd75-4a88-bf8b-d9dba1820feb, name=newItem, price=15}
 2016-12-23 22:04:25,883 INFO  b.y.l.o.i.OrderServiceImpl - Subscriber: doing something with the created item ItemCreated{id=d370993c-dd75-4a88-bf8b-d9dba1820feb, name='newItem', price=15}
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="generic-read-side-support-sharding-support-and-automatic-offset-handling">Generic read-side support, sharding support and automatic offset handling</h2>
 <p>Up until now, the read-side processor API was specific to Cassandra and required you to do the necessary offset tracking.
@@ -407,21 +406,19 @@ At the time of writing only four relational databases are supported:</p>
 Slick requires you to configure it to use the right Slick profile for your database.
 An example of a Slick configuration in <code class="highlighter-rouge">application.conf</code>:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>db.default {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>db.default {
   driver = "org.postgresql.Driver"
   url = "jdbc:postgresql://database.example.com/playdb"
 }
 
 jdbc-defaults.slick.driver = "slick.driver.PostgresDriver$"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>A table and journal table are required by the <code class="highlighter-rouge">akka-persistence-jdbc</code> plugin and by default, Lagom is able to create these automatically for you.
 This automatic generation functionality can be disabled which you will probably want for any environment higher than development.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>lagom.persistence.jdbc.create-tables.auto = false
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lagom.persistence.jdbc.create-tables.auto = false
+</code></pre></div></div>
 
 <p>The definition of the tables differ for each database, here is an example of the table definition for PostgreSQL:</p>
 
@@ -470,23 +467,20 @@ For the purpose of this blogpost, let us see how much work it is to upgrade to 1
 Lagom 1.0 only supported sbt, so our demo is still using that.
 We change the version to be used in <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>addSbtPlugin("com.lightbend.lagom" % "lagom-sbt-plugin" % "1.2.2")
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addSbtPlugin("com.lightbend.lagom" % "lagom-sbt-plugin" % "1.2.2")
+</code></pre></div></div>
 
 <p>For the Lagom Persistence module, Cassandra support has been pulled into its own module so you need to update the <code class="highlighter-rouge">lagomJavadslPersistence</code> dependency to <code class="highlighter-rouge">lagomJavadslPersistenceCassandra</code> in the <code class="highlighter-rouge">build.sbt</code> file.</p>
 
 <p>We also have to update the Scala version in <code class="highlighter-rouge">build.sbt</code>:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>scalaVersion in ThisBuild := "2.11.8"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scalaVersion in ThisBuild := "2.11.8"
+</code></pre></div></div>
 
 <p>The ConductR version in <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>addSbtPlugin("com.lightbend.conductr" % "sbt-conductr" % "2.1.16")
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addSbtPlugin("com.lightbend.conductr" % "sbt-conductr" % "2.1.16")
+</code></pre></div></div>
 
 <p>The <code class="highlighter-rouge">descriptor()</code> in the service interfaces needs to be updated since the <code class="highlighter-rouge">.with(...)</code> has been replaced by <code class="highlighter-rouge">withCalls(...)</code>.</p>
 

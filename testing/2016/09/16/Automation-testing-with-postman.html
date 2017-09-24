@@ -184,18 +184,18 @@ Don’t forget to replace the secret by your own key.</p>
 
 <h3 id="creating-a-post-request">Creating a POST request</h3>
 
-<p>Enter <code class="highlighter-rouge"><span class="p">{</span><span class="err">{url</span><span class="p">}</span><span class="err">}/WayneS/Calculator/</span><span class="mf">0.1</span><span class="err">.</span><span class="mi">0</span></code> in the request field and change the method from GET to POST.
+<p>Enter <code class="highlighter-rouge">{{url}}/WayneS/Calculator/0.1.0</code> in the request field and change the method from GET to POST.
 We need to add some additional headers as well so add <code class="highlighter-rouge">Content-Type application/json</code>, <code class="highlighter-rouge">Authorization Simple {{key}}</code>.
 As you can see,
-we are using the environment variables <code class="highlighter-rouge"><span class="p">{</span><span class="err">{url</span><span class="p">}</span><span class="err">}</span></code> and <code class="highlighter-rouge"><span class="p">{</span><span class="err">{key</span><span class="p">}</span><span class="err">}</span></code> so when switching environments,
+we are using the environment variables <code class="highlighter-rouge">{{url}}</code> and <code class="highlighter-rouge">{{key}}</code> so when switching environments,
 those variables will get replaced.
-The <code class="highlighter-rouge"><span class="p">{</span><span class="err">{...</span><span class="p">}</span><span class="err">}</span></code> format can only be used in the request URL/URL params/Header values/form-data/url-encoded values/Raw body content/Helper fields.</p>
+The <code class="highlighter-rouge">{{...}}</code> format can only be used in the request URL/URL params/Header values/form-data/url-encoded values/Raw body content/Helper fields.</p>
 
 <p><img alt="Request headers" src="/img/postman-2016/request_headers.png" class="image fit" /></p>
 
-<p>Postman also has a few dynamic variables which you can use. For example, <code class="highlighter-rouge"><span class="p">{</span><span class="err">{$guid</span><span class="p">}</span><span class="err">}</span></code> is generating a random v4 style guid,
-<code class="highlighter-rouge"><span class="p">{</span><span class="err">{$timestamp</span><span class="p">}</span><span class="err">}</span></code> is the current timestamp,
-<code class="highlighter-rouge"><span class="p">{</span><span class="err">{$randomInt</span><span class="p">}</span><span class="err">}</span></code> a random integer between 0 and 1000.
+<p>Postman also has a few dynamic variables which you can use. For example, <code class="highlighter-rouge">{{$guid}}</code> is generating a random v4 style guid,
+<code class="highlighter-rouge">{{$timestamp}}</code> is the current timestamp,
+<code class="highlighter-rouge">{{$randomInt}}</code> a random integer between 0 and 1000.
 More of those will be added in future releases.
 But for now,
 let us just simply enter <code class="highlighter-rouge">"x=log(2)"</code> as the raw content of our request.</p>
@@ -219,9 +219,9 @@ we should receive the following response.</p>
 
 <p>A Postman test is essentially JavaScript code which sets values for the special ‘tests’ object. To know which other objects and libraries are available while writing your test cases, make sure you check the following <a href="https://www.getpostman.com/docs/sandbox" target="_blank">link</a>. Let’s copy following code snippet in the Tests sandbox.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">tests[<span class="s2">"Status code is 200"</span><span class="o">]</span> <span class="o">=</span> responseCode.code <span class="o">===</span> 200;
-var jsonData <span class="o">=</span> JSON.parse<span class="o">(</span>responseBody<span class="o">)</span>;
-tests[<span class="s2">"Verify result"</span><span class="o">]</span> <span class="o">=</span> jsonData.result.x <span class="o">===</span> <span class="s2">"0.69314718056"</span>;</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">tests[<span class="s2">"Status code is 200"</span><span class="o">]</span> <span class="o">=</span> responseCode.code <span class="o">===</span> 200<span class="p">;</span>
+var jsonData <span class="o">=</span> JSON.parse<span class="o">(</span>responseBody<span class="o">)</span><span class="p">;</span>
+tests[<span class="s2">"Verify result"</span><span class="o">]</span> <span class="o">=</span> jsonData.result.x <span class="o">===</span> <span class="s2">"0.69314718056"</span><span class="p">;</span></code></pre></figure>
 
 <p><img alt="Test" src="/img/postman-2016/test.jpg" class="image fit" /></p>
 
@@ -253,13 +253,12 @@ This data file can be either a CSV or a JSON file,
 but will allow us to set up data in bulk to be run through the test runner.
 Create a new csv file and copy following snippet into it.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>input,expected_result
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>input,expected_result
 2,"0.69314718056"
 224,"5.41164605186"
 3000,"8.00636756765"
 388949,"12.8712035086"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>We need to rewrite the body of our request so it will use the variable of our csv as follows.</p>
 
@@ -299,9 +298,8 @@ Select the ‘Calculator’ collection and hit export and save as <code class="h
 <p>Now run you test with Newman using following command where <code class="highlighter-rouge">my_collection.json</code> is the exported collection,
 <code class="highlighter-rouge">my_data.csv </code>the csv, <code class="highlighter-rouge">prod_environment.json</code> the environment and <code class="highlighter-rouge">-n</code> the number of lines from our csv.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>newman run my_collection.json -n 4 -d my_data.csv -e prod_environment.json
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>newman run my_collection.json -n 4 -d my_data.csv -e prod_environment.json
+</code></pre></div></div>
 
 <h3 id="summary">Summary</h3>
 

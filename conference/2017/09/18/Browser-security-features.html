@@ -214,9 +214,8 @@ This means that even following a link that explicitly defines <code class="highl
 
 <p>The configuration of HSTS is as easy as can be: you simply add the following header to your response:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Strict-Transport-Security: max-age=31536000; includeSubDomains
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Strict-Transport-Security: max-age=31536000; includeSubDomains
+</code></pre></div></div>
 
 <p>This will tell the browser that for the next 365 days, it should connect to your domain using HTTPS.
 The <code class="highlighter-rouge">includesubdomains</code> directive tells the browser that your subdomains should also be called using https.
@@ -229,9 +228,8 @@ To prevent this, most major browsers (Chrome, Firefox, Safari, Edge, IE11 and Op
 Domains on this list will automatically be loaded over HTTPS from the start, without having to go through the HTTP -&gt; HTTPS redirect.
 If you want your domain to be included in this list, you should add the <code class="highlighter-rouge">preload</code> directive to the HSTS header.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+</code></pre></div></div>
 
 <p>Afterwards, you can register yourself for the <a href="https://hstspreload.org/" target="_blank">HSTS Preload List</a>.</p>
 
@@ -264,9 +262,8 @@ In the future, that browser will compare the public key that’s actually used f
 
 <p>An HPKP header looks like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>public-key-pins:pin-sha256="YLh1...uihg=";pin-sha256="9dNi...Dwg=";pin-sha256="Vjs...eWys=";max-age=2592000;includeSubdomains;report-uri="report-uri"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public-key-pins:pin-sha256="YLh1...uihg=";pin-sha256="9dNi...Dwg=";pin-sha256="Vjs...eWys=";max-age=2592000;includeSubdomains;report-uri="report-uri"
+</code></pre></div></div>
 
 <p>The <code class="highlighter-rouge">max-age</code> directive tells the browser for how long these pins are valid. 
 You can use <code class="highlighter-rouge">report-uri</code> to get a report when an invalid certificate is used.
@@ -381,9 +378,8 @@ Keep in mind though that you should <strong>never</strong> hardcode the nonce or
 It’s best to generate a new nonce for each request and add it to those scripts you need to execute.
 E.g. if you have the following CSP setting:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Content-Security-Policy: script-src 'nonce-randomValue'
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Content-Security-Policy: script-src 'nonce-randomValue'
+</code></pre></div></div>
 
 <p>will only execute scripts that have the nonce attribute defined like this:</p>
 

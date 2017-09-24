@@ -165,12 +165,12 @@
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">  <span class="c"># Individual commit.
 </span>
-  <span class="nv">$ </span>git commit -a -m <span class="s2">"a message"</span> --author <span class="s2">"Sherlock H. &lt;sherlock.h@bakerstreet.org&gt;"</span>
+  <span class="nv">$ </span>git commit <span class="nt">-a</span> <span class="nt">-m</span> <span class="s2">"a message"</span> <span class="nt">--author</span> <span class="s2">"Sherlock H. &lt;sherlock.h@bakerstreet.org&gt;"</span>
 
   <span class="c"># Global settings.
 </span>
-  <span class="nv">$ </span>git config --global user.name <span class="s1">'Sherlock H.'</span>
-  <span class="nv">$ </span>git config --global user.email sherlock.h@bakerstreet.org
+  <span class="nv">$ </span>git config <span class="nt">--global</span> user.name <span class="s1">'Sherlock H.'</span>
+  <span class="nv">$ </span>git config <span class="nt">--global</span> user.email sherlock.h@bakerstreet.org
   </code></pre></figure>
 
 <h2 id="ensuring-trust">Ensuring Trust</h2>
@@ -251,7 +251,7 @@ Should the message been compromised by Jim, then John would have calculated a di
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">      <span class="c"># Generate a new Key Pair.
 </span>
-      <span class="nv">$ </span>gpg --gen-key
+      <span class="nv">$ </span>gpg <span class="nt">--gen-key</span>
       </code></pre></figure>
 
 <ul>
@@ -277,7 +277,7 @@ Should the message been compromised by Jim, then John would have calculated a di
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">      <span class="c"># List all keys.
 </span>
-      <span class="nv">$ </span>gpg --list-keys
+      <span class="nv">$ </span>gpg <span class="nt">--list-keys</span>
         pub   4096R/90C3C3DE 2016-07-24
         uid     Sherlock H &lt;sherlock.h@bakerstreet.org&gt;
         sub   4096R/586B3A7B 2016-07-24
@@ -289,7 +289,7 @@ Should the message been compromised by Jim, then John would have calculated a di
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">    <span class="c"># Export the Public Key to a text file.
 </span>
-    <span class="nv">$ </span>gpg --armor --output pubkey.txt --export <span class="s1">'Sherlock H'</span>
+    <span class="nv">$ </span>gpg <span class="nt">--armor</span> <span class="nt">--output</span> pubkey.txt <span class="nt">--export</span> <span class="s1">'Sherlock H'</span>
     </code></pre></figure>
 
 <h2 id="signing-your-work">Signing Your Work</h2>
@@ -297,19 +297,19 @@ Should the message been compromised by Jim, then John would have calculated a di
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">  <span class="c"># Set the signing key by taking your Public Key id as parameter.
 </span>
-  <span class="nv">$ </span>git config --global user.signingkey 90C3C3DE
+  <span class="nv">$ </span>git config <span class="nt">--global</span> user.signingkey 90C3C3DE
 
   <span class="c"># Automatically signs every commit.
 </span>
-  <span class="nv">$ </span>git config --global commit.gpgsign <span class="nb">true</span>
+  <span class="nv">$ </span>git config <span class="nt">--global</span> commit.gpgsign <span class="nb">true</span>
 
   <span class="c"># Manually sign a commit.
 </span>
-  <span class="nv">$ </span>git commit -S -m <span class="s2">"some commit message"</span>
+  <span class="nv">$ </span>git commit <span class="nt">-S</span> <span class="nt">-m</span> <span class="s2">"some commit message"</span>
 
   <span class="c"># Verify whether your commit has been signed.
 </span>
-  <span class="nv">$ </span>git log --show-signature
+  <span class="nv">$ </span>git log <span class="nt">--show-signature</span>
 
     commit 81314da640320c65896a4348842d303a754f37d2
     gpg: Signature made Sun Jul 24 15:02:25 2016 CEST using RSA key ID 90C3C3DE
@@ -319,7 +319,7 @@ Should the message been compromised by Jim, then John would have calculated a di
 
   <span class="c"># Verify all signatures during merge. If the signatures can not be verified then merge will be aborted.
 </span>
-  <span class="nv">$ </span>git merge --verify-signatures other_branch
+  <span class="nv">$ </span>git merge <span class="nt">--verify-signatures</span> other_branch
   </code></pre></figure>
 
 <p>Earlier this year GitHub <a href="https://github.com/blog/2144-gpg-signature-verification">announced</a> that they now will show when commits and tags are signed and verified using any of the contributor’s GPG keys upload to GitHub. Keep your eyes open for commits and tags labeled with those green <code class="highlighter-rouge">verified</code> badges.</p>

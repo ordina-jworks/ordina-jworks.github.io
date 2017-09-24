@@ -330,9 +330,8 @@ and the HTTP status returned by the server for that request.</p>
 
 <p>The notation for a metric like that could be the following:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">api_http_requests_total</span><span class="p">{</span><span class="nx">method</span><span class="o">=</span><span class="s2">"GET"</span><span class="p">,</span> <span class="nx">endpoint</span><span class="o">=</span><span class="s2">"/api/posts"</span><span class="p">,</span> <span class="nx">status</span><span class="o">=</span><span class="s2">"200"</span><span class="p">}</span>
-</code></pre>
-</div>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">api_http_requests_total</span><span class="p">{</span><span class="nx">method</span><span class="o">=</span><span class="s2">"GET"</span><span class="p">,</span> <span class="nx">endpoint</span><span class="o">=</span><span class="s2">"/api/posts"</span><span class="p">,</span> <span class="nx">status</span><span class="o">=</span><span class="s2">"200"</span><span class="p">}</span>
+</code></pre></div></div>
 
 <p>Now,
 if we start sampling values for this metric,
@@ -428,26 +427,23 @@ you can select time series from a metric.</p>
 Continuing with our API example,
 we can select all the time series of the metric <code class="highlighter-rouge">api_http_requests_total</code>:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">api_http_requests_total</span>
-</code></pre>
-</div>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">api_http_requests_total</span>
+</code></pre></div></div>
 
-<p>We can dive a little bit deeper by filtering these time series on their labels using curly braces (<code class="highlighter-rouge"><span class="p">{}</span></code>).
+<p>We can dive a little bit deeper by filtering these time series on their labels using curly braces (<code class="highlighter-rouge">{}</code>).
 Let’s say we want to monitor requests that failed due to an internal server error.
 We can achieve this by selecting the time series of the metric <code class="highlighter-rouge">api_http_requests_total</code>
 where the label <code class="highlighter-rouge">status</code> is set to <code class="highlighter-rouge">500</code>.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">api_http_requests_total</span><span class="p">{</span><span class="nx">status</span><span class="o">=</span><span class="s2">"500"</span><span class="p">}</span>
-</code></pre>
-</div>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">api_http_requests_total</span><span class="p">{</span><span class="nx">status</span><span class="o">=</span><span class="s2">"500"</span><span class="p">}</span>
+</code></pre></div></div>
 
 <p>We can also define a time window if we only want to have time series of a certain period.
 This is done by using a <strong>range vector selector</strong>.
 The following example selects time series of the last hour:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">api_http_requests_total</span><span class="p">[</span><span class="mi">1</span><span class="nx">h</span><span class="p">]</span>
-</code></pre>
-</div>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">api_http_requests_total</span><span class="p">[</span><span class="mi">1</span><span class="nx">h</span><span class="p">]</span>
+</code></pre></div></div>
 
 <p>The time duration is specified as a number followed by a character depicting the time unit:</p>
 
@@ -463,9 +459,8 @@ The following example selects time series of the last hour:</p>
 <p>You can go further back in time by using an <code class="highlighter-rouge">offset</code>.
 This example selects time series that happened at least an hour ago:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">api_http_requests_total</span> <span class="nx">offset</span> <span class="mi">1</span><span class="nx">h</span>
-</code></pre>
-</div>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">api_http_requests_total</span> <span class="nx">offset</span> <span class="mi">1</span><span class="nx">h</span>
+</code></pre></div></div>
 
 <p>We can use functions in our queries to create more useful results.
 The <code class="highlighter-rouge">rate()</code> function calculates the per-second average rate of time series in a range vector.
@@ -474,20 +469,18 @@ we can get the rates of HTTP requests of a specific timeframe.
 The query below will calculate the per-second rates of all HTTP requests
 that occurred in the last 5 minutes an hour ago:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">rate</span><span class="p">(</span><span class="nx">api_http_requests_total</span><span class="p">{</span><span class="nx">status</span><span class="o">=</span><span class="mi">500</span><span class="p">}[</span><span class="mi">5</span><span class="nx">m</span><span class="p">]</span> <span class="nx">offset</span> <span class="mi">1</span><span class="nx">h</span><span class="p">)</span>
-</code></pre>
-</div>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">rate</span><span class="p">(</span><span class="nx">api_http_requests_total</span><span class="p">{</span><span class="nx">status</span><span class="o">=</span><span class="mi">500</span><span class="p">}[</span><span class="mi">5</span><span class="nx">m</span><span class="p">]</span> <span class="nx">offset</span> <span class="mi">1</span><span class="nx">h</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>A slightly more complex example selects the top 3 endpoints which have the most HTTP requests
 not being served correctly in the last hour:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">topk</span><span class="p">(</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">topk</span><span class="p">(</span>
   <span class="mi">3</span><span class="p">,</span> <span class="nx">sum</span><span class="p">(</span>
     <span class="nx">rate</span><span class="p">(</span><span class="nx">api_http_requests_total</span><span class="p">{</span><span class="nx">status</span><span class="o">=</span><span class="mi">500</span><span class="p">}[</span><span class="mi">1</span><span class="nx">h</span><span class="p">])</span>
   <span class="p">)</span> <span class="nx">by</span> <span class="p">(</span><span class="nx">endpoint</span><span class="p">)</span>
 <span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>As you can see,
 Prometheus can provide a lot of useful information with several simple queries that only have a few basic functions and operators.
@@ -562,30 +555,29 @@ you can write your own <a href="https://prometheus.io/docs/instrumenting/writing
 Scraping is done at configurable intervals by the Prometheus server.
 Prometheus allows you to configure <strong>jobs</strong> that fetch time series from <strong>instances</strong>.</p>
 
-<div class="language-yml highlighter-rouge"><pre class="highlight"><code><span class="s">global</span><span class="pi">:</span>
-  <span class="s">scrape_interval</span><span class="pi">:</span> <span class="s">15s</span> <span class="c1"># Scrape targets every 15 seconds</span>
-  <span class="s">scrape_timeout</span><span class="pi">:</span> <span class="s">15s</span> <span class="c1"># Timeout after 15 seconds</span>
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">global</span><span class="pi">:</span>
+  <span class="na">scrape_interval</span><span class="pi">:</span> <span class="s">15s</span> <span class="c1"># Scrape targets every 15 seconds</span>
+  <span class="na">scrape_timeout</span><span class="pi">:</span> <span class="s">15s</span> <span class="c1"># Timeout after 15 seconds</span>
 
   <span class="c1"># Attach the label monitor=dev-monitor to all scraped time series scraped by this server</span>
-  <span class="s">labels</span><span class="pi">:</span>
-    <span class="s">monitor</span><span class="pi">:</span> <span class="s1">'</span><span class="s">dev-monitor'</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">monitor</span><span class="pi">:</span> <span class="s1">'</span><span class="s">dev-monitor'</span>
 
-<span class="s">scrape_configs</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="s">job_name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">job-name"</span>
-    <span class="s">scrape_interval</span><span class="pi">:</span> <span class="s">10s</span> <span class="c1"># Override the default global interval for this job</span>
-    <span class="s">scrape_timeout</span><span class="pi">:</span> <span class="s">10s</span> <span class="c1"># Override the default global timeout for this job</span>
-    <span class="s">target_groups</span><span class="pi">:</span>
+<span class="na">scrape_configs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">job_name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">job-name"</span>
+    <span class="na">scrape_interval</span><span class="pi">:</span> <span class="s">10s</span> <span class="c1"># Override the default global interval for this job</span>
+    <span class="na">scrape_timeout</span><span class="pi">:</span> <span class="s">10s</span> <span class="c1"># Override the default global timeout for this job</span>
+    <span class="na">target_groups</span><span class="pi">:</span>
     <span class="c1"># First group of scrape targets</span>
-    <span class="pi">-</span> <span class="s">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9100'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">localhost:9101'</span><span class="pi">]</span>
-      <span class="s">labels</span><span class="pi">:</span>
-        <span class="s">group</span><span class="pi">:</span> <span class="s1">'</span><span class="s">first-group'</span>
+    <span class="pi">-</span> <span class="na">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9100'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">localhost:9101'</span><span class="pi">]</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">group</span><span class="pi">:</span> <span class="s1">'</span><span class="s">first-group'</span>
 
     <span class="c1"># Second group of scrape targets</span>
-    <span class="pi">-</span> <span class="s">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9200'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">localhost:9201'</span><span class="pi">]</span>
-      <span class="s">labels</span><span class="pi">:</span>
-        <span class="s">group</span><span class="pi">:</span> <span class="s1">'</span><span class="s">second-group'</span>
-</code></pre>
-</div>
+    <span class="pi">-</span> <span class="na">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9200'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">localhost:9201'</span><span class="pi">]</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">group</span><span class="pi">:</span> <span class="s1">'</span><span class="s">second-group'</span>
+</code></pre></div></div>
 
 <p>This configuration file is pretty self-explanatory.
 You can define defaults for all jobs in the <code class="highlighter-rouge">global</code> root element.
@@ -642,7 +634,7 @@ so you can prevent getting thousands of the same alert if a many-node cluster go
 This is done in Prometheus and not in the Alert Manager.
 Here are a few simple alerting rule examples:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code># Alert for any instance that have a median request latency &gt;1s.
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Alert for any instance that have a median request latency &gt;1s.
 ALERT APIHighRequestLatency
 IF api_http_request_latencies_second{quantile="0.5"} &gt; 1
 FOR 1m
@@ -660,8 +652,7 @@ ANNOTATIONS {
   summary = "YOU MUST CONSTRUCT ADDITIONAL PYLONS"
   description = "CPU usage is above 95%"
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>After an alert is generated and sent to the Alert Manager,
 it can be routed using <strong>routes</strong>.
@@ -669,23 +660,22 @@ There is one root route on which each incoming alert enters,
 and you can define child routes to route alerts to the correct receiver.
 These routes can be configured using a YAML configuration file:</p>
 
-<div class="language-yml highlighter-rouge"><pre class="highlight"><code><span class="c1"># The root route on which each incoming alert enters.</span>
-<span class="s">route</span><span class="pi">:</span>
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># The root route on which each incoming alert enters.</span>
+<span class="na">route</span><span class="pi">:</span>
   <span class="c1"># The default receiver</span>
-  <span class="s">receiver</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team-X'</span>
+  <span class="na">receiver</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team-X'</span>
   <span class="c1"># The child route trees.</span>
-  <span class="s">routes</span><span class="pi">:</span>
+  <span class="na">routes</span><span class="pi">:</span>
   <span class="c1"># This is a regular expressiong based route</span>
-  <span class="pi">-</span> <span class="s">match_re</span><span class="pi">:</span>
-      <span class="s">service</span><span class="pi">:</span> <span class="s">^(foo|bar)$</span>
-    <span class="s">receiver</span><span class="pi">:</span> <span class="s">team-foobar</span>
+  <span class="pi">-</span> <span class="na">match_re</span><span class="pi">:</span>
+      <span class="na">service</span><span class="pi">:</span> <span class="s">^(foo|bar)$</span>
+    <span class="na">receiver</span><span class="pi">:</span> <span class="s">team-foobar</span>
     <span class="c1"># Another child route</span>
-    <span class="s">routes</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="s">match</span><span class="pi">:</span>
-        <span class="s">severity</span><span class="pi">:</span> <span class="s">critical</span>
-      <span class="s">receiver</span><span class="pi">:</span> <span class="s">team-critical</span>
-</code></pre>
-</div>
+    <span class="na">routes</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">match</span><span class="pi">:</span>
+        <span class="na">severity</span><span class="pi">:</span> <span class="s">critical</span>
+      <span class="na">receiver</span><span class="pi">:</span> <span class="s">team-critical</span>
+</code></pre></div></div>
 
 <p>There are multiple types of <a href="https://prometheus.io/docs/alerting/configuration/#receiver-receiver"><strong>receivers</strong></a> to which you can push notifications to.
 You can push alert notifications to SMTP,
@@ -701,24 +691,23 @@ which alerts him when his internet goes down!</p>
 
 <p>The receivers are configured in the same YAML configuration file:</p>
 
-<div class="language-yml highlighter-rouge"><pre class="highlight"><code><span class="s">receivers</span><span class="pi">:</span>
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">receivers</span><span class="pi">:</span>
 <span class="c1"># Email receiver</span>
-<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team-X'</span>
-  <span class="s">email_configs</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="s">to</span><span class="pi">:</span> <span class="s1">'</span><span class="s">alerts@team-x.com'</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team-X'</span>
+  <span class="na">email_configs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">to</span><span class="pi">:</span> <span class="s1">'</span><span class="s">alerts@team-x.com'</span>
 
 <span class="c1"># Slack receiver that sends alerts to the #general channel.</span>
-<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team-foobar'</span>
-  <span class="s">slack_configs</span><span class="pi">:</span>
-    <span class="s">api_url</span><span class="pi">:</span> <span class="s1">'</span><span class="s">https://foobar.slack.com/services/hooks/incoming-webhook?token=&lt;token&gt;'</span>
-    <span class="s">channel</span><span class="pi">:</span> <span class="s1">'</span><span class="s">general'</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team-foobar'</span>
+  <span class="na">slack_configs</span><span class="pi">:</span>
+    <span class="na">api_url</span><span class="pi">:</span> <span class="s1">'</span><span class="s">https://foobar.slack.com/services/hooks/incoming-webhook?token=&lt;token&gt;'</span>
+    <span class="na">channel</span><span class="pi">:</span> <span class="s1">'</span><span class="s">general'</span>
 
 <span class="c1"># Webhook receiver with a custom endpoint</span>
-<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team-critical'</span>
-  <span class="s">webhook_configs</span><span class="pi">:</span>
-    <span class="s">url</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team.critical.com'</span>
-</code></pre>
-</div>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team-critical'</span>
+  <span class="na">webhook_configs</span><span class="pi">:</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s1">'</span><span class="s">team.critical.com'</span>
+</code></pre></div></div>
 
 <p><a name="monitoring-time"></a></p>
 
@@ -734,23 +723,21 @@ It covers most of the features discussed in this blog post.</p>
 
 <p>First clone the project with Git:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>git clone git@github.com:ordina-jworks/prometheus-demo.git
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone git@github.com:ordina-jworks/prometheus-demo.git
+</code></pre></div></div>
 
 <p>After the project is cloned,
 run <code class="highlighter-rouge">make</code> in the project directory:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>make
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>make
+</code></pre></div></div>
 
 <p>This will compile all applications,
 build or pull all necessary Docker images,
 and start the complete project using Docker Compose.
 The following containers are started:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker ps
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker ps
 CONTAINER ID        IMAGE                              COMMAND                  PORTS                     NAMES
 c620b49edf4c        prom/alertmanager                  <span class="s2">"/bin/alertmanager -c"</span>   0.0.0.0:32902-&gt;9093/tcp   prometheusdemo_alertmanager_1
 67b461b6a44b        grafana/grafana                    <span class="s2">"/run.sh"</span>                0.0.0.0:32903-&gt;3000/tcp   prometheusdemo_grafana_1
@@ -761,8 +748,7 @@ f3cfc2f63f00        tomverelst/prommer                 <span class="s2">"/bin/pr
 66f2a00fcbcb        ordina-jworks/alert-console        <span class="s2">"/main"</span>                  0.0.0.0:32898-&gt;8080/tcp   prometheusdemo_alert-console_1
 4fd707d4e80c        ordina-jworks/voting-generator     <span class="s2">"/main -vote=cat -max"</span>   8080/tcp                  prometheusdemo_vote-cats_1
 5b876a131ad0        ordina-jworks/voting-generator     <span class="s2">"/main -vote=dog -max"</span>   8080/tcp                  prometheusdemo_vote-dogs_1
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>As you can see,
 a lot of containers are started!
@@ -803,7 +789,7 @@ which in turn routes it to the custom <strong>alert console</strong> through a w
 
 <p>We can check the output of these logs using Docker Compose:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker-compose logs -f --tail<span class="o">=</span><span class="s2">"all"</span> alert-console
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker-compose logs <span class="nt">-f</span> <span class="nt">--tail</span><span class="o">=</span><span class="s2">"all"</span> alert-console
 Attaching to prometheusdemo_alert-console_1
 alert-console_1  | <span class="o">{</span><span class="s2">"receiver"</span>:<span class="s2">"alert_console"</span>,<span class="s2">"status"</span>:<span class="s2">"firing"</span>,<span class="s2">"alerts"</span>:[<span class="o">{</span><span class="s2">"status"</span>:<span class="s2">"firing"</span>,<span class="s2">"labels"</span>:<span class="o">{</span><span class="s2">"alertname"</span>:<span class="s2">"TooManyCatVotes"</span>,
 <span class="s2">"instance"</span>:<span class="s2">"172.19.0.5:8080"</span>,<span class="s2">"job"</span>:<span class="s2">"voting-app"</span>,<span class="s2">"name"</span>:<span class="s2">"cat"</span>,<span class="s2">"severity"</span>:<span class="s2">"critical"</span><span class="o">}</span>,<span class="s2">"annotations"</span>:<span class="o">{</span><span class="s2">"summary"</span>:<span class="s2">"Too many votes for cats!
@@ -812,8 +798,7 @@ alert-console_1  | <span class="o">{</span><span class="s2">"receiver"</span>:<s
 otes"</span><span class="o">}</span>,<span class="s2">"commonLabels"</span>:<span class="o">{</span><span class="s2">"alertname"</span>:<span class="s2">"TooManyCatVotes"</span>,<span class="s2">"instance"</span>:<span class="s2">"172.19.0.5:8080"</span>,<span class="s2">"job"</span>:<span class="s2">"voting-app"</span>,<span class="s2">"name"</span>:<span class="s2">"cat"</span>,<span class="s2">"severity"</span>:<span class="s2">"critical
 "</span><span class="o">}</span>,<span class="s2">"commonAnnotations"</span>:<span class="o">{</span><span class="s2">"summary"</span>:<span class="s2">"Too many votes for cats!"</span><span class="o">}</span>,<span class="s2">"externalURL"</span>:<span class="s2">"http://c620b49edf4c:9093"</span>,<span class="s2">"version"</span>:<span class="s2">"3"</span>,<span class="s2">"groupKey"</span>:101200
 6562800295578<span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="grafana">Grafana</h3>
 
