@@ -1,15 +1,20 @@
 ---
 layout: post
 authors: [martijn_willekens]
-title: "Unit testing in Angular with Karma"
-image: /img/2017-09-24-unit-testing-in-angular/unit-tests.png
+title: "Unit Testing Angular with Karma 101"
+image: /img/2017-09-24-testing-in-angular/unit-tests.png
 tags: [Angular,Karma,Unit testing,Jasmine]
 category: Angular
 comments: true
 ---
 Testing your code is as important as the writing code itself. 
 This also counts for frontend applications such as Angular apps. 
-I must admit that I’m not too fond of writing tests myself. 
+Unit testing is one way to do so. 
+The goal of these kind of tests is to isolate classes and verify the output of its functions when they are called.
+Karma is a tool that's used to run them. 
+It will open a browser, execute pieces of javascript and report the results back to you.
+
+Now, I must admit that I’m not too fond of writing tests myself. 
 However, I do strongly believe they help a lot towards improving the quality of the code. 
 Writing unit tests is quite a hassle, but with an application that is continuously growing and changing, they are an efficient way to prevent bugs getting to production.
 
@@ -49,7 +54,7 @@ It's best practice to keep the spec file in the same folder as the ts file. So m
 </p>
 
 Next up, the content of a test file. 
-The jasmine spec is used format the tests.
+The jasmine spec is used format the tests ([more info](https://jasmine.github.io/pages/getting_started.html).
 This means that individual tests are grouped together in a `describe` block. 
 A test itself starts with `it`. 
 Besides tests, you can also add other blocks in to a `describe`, like `beforeEach`, `beforeAll`, `afterEach`, `afterAll`... 
@@ -92,8 +97,9 @@ These are mainly used for you to be able to identify the tests if they fail.
 The text should describe what's being tested, like "It should get the brand of the car", could be written as `it('should get the brand of the car', () => ...`.
 
 ## Writing the actual tests
-There are two ways to write unit tests for an Angular app. 
-Either you use the Angular TestBed or you simply call the constructor of the class directly. 
+There are multiple ways to write unit tests for an Angular app. 
+Either you use the Angular TestBed, the ReflectiveInjector or you simply call the constructor of the class directly. 
+TestBed and ReflectiveInjector are kind of the same approach, so I'll only be discussing TestBed here.
 
 ## 1. TestBed
 TestBed is something pretty cool Angular came up with in order to test your components. 
@@ -284,7 +290,7 @@ A side effect of using TestBed is when the component is loaded, the `ngOnInit`, 
 This means you have less control over them. 
 
 Getting all the imports, providers and declarations setup can be quite a struggle too. 
-If there's any subcomponent in the HTML of the component you're testing, they should either be imported through a module or added in the declarations in the TestBed. 
+If there's any subcomponent in the HTML of the component you're testing, they should either be imported through a module or added in the declarations in the TestBed configuration. 
 
 If the Angular router is used in the view of your class, `RouterTestingModule` can be imported instead of the `RouterModule` itself. 
 The routes that are relevant can be defined in the `RouterTestingModule`:
@@ -349,7 +355,7 @@ You have protactor (end to end / integration) tests to test the view.
 ## Async, fakeAsync, tick
 Angular is full of Observables and writing tests for them is a little trickier. 
 You might also be using `setTimeout` and `setInterval`. 
-To cope with all that, there's the `async` and `fakeAsync` function. 
+To cope with all that, Angular provides the `async` and `fakeAsync` function. 
 You can simply wrap your test in an `async` and it should only finish after all async calls are finished. 
 If you want to have more control, you can wrap the test in a `fakeAsync` instead. 
 Then the `tick()` function can be called to advance time with one tick. 
@@ -432,26 +438,22 @@ Testing getters and setters usually isn't needed, unless they are more complex.
 In most cases they're not and it's quite pointless to call a setter and then assert whether it has been set correclty. 
 Most of the time, these will be called indirectly when testing other functions.
 
-Also, I don't see the point in testing functions like this:
-
-{% highlight coffeescript %}  
-    class CarBrand {        
-        findAll(): Observable<CarBrand[]> {
-            return this.http.get(API_URL + 'cars/brands');
-        }
-    }
-{% endhighlight %}  
-
-You could mock the http class, return a response and assert its result. 
-However, that would only increase the code coverage while not adding any real value. 
-When testing a function, there should be some logic to test. 
-That is of course when there's nobody telling you to have at least a certain percentage of code coverage...
+The code coverage report can help you find functions that aren't fully tested yet. 
+However, your goal shouldn't be to get a 100% coverage. 
+Getting a 100% isn't that hard, simply calling all functions with some different inputs so all branches are covered will get you there (e.g. an if else gives you two branches to cover).
+It won't mean that your code is fully tested.
+To give you an example, suppose you have a function that sorts a list.
+You use it in some tests, give it some different inputs so all branches are covered and you get a 100% coverage.
+The ordering of the list could still be completely wrong and not what you expect, although it's full covered.
+By using `expect` to verify that the output is correct, you'll be doing a way better job.
+Even then there may be scenario's that aren't tested despite the coverage report stating that part of the code is covered.
+So try to think of the various possible scenarios (both success and error scenarios) and translate those to tests.
 
 # Tips & tricks
 ## Only run certain tests
-When your test base begins to grow, you don't always want to wait for all tests to have run when only testing a certain class of function. 
-Therefore, you can choose to only run specific `describe` blocks or tests (`it`) by adding an `f` in front of them, like `fdescribe` and `fit`. 
-To exclude certain `describe` blocks or tests, you can prefix them with an `x`, like `xdescribe` and `xit`. 
+When your test base begins to grow, you don't always want to wait for all tests to have run when only testing a certain class or function. 
+Therefore, you can choose to only run specific `describe` blocks or tests (`it`) by adding an `f` (stands for focus) in front of them, like `fdescribe` and `fit`. 
+To exclude certain `describe` blocks or tests, you can prefix them with an `x` (exclude), like `xdescribe` and `xit`. 
 This will certainly come of use.
 
 ## Nesting describe blocks
@@ -484,16 +486,20 @@ If you want for example different `beforeEach` blocks for your tests when testin
 {% endhighlight %}  
 
 ## Using the injector
-When calling the constructor of a class, it can occur that you do need a dependecy to be injected of the class being tested. 
-For example when using Angular's `FormBuilder`. 
-Here's how:
+Dependecy injection is used all over Angular meaning that it isn't possible to simply call `new` for certain classes. 
+Normally, you simply put dependecies in the constructor of your class and Angular takes care of the rest (e.g. `constructor(private formBuilder: FormBuilder)`).
+When calling the constructor of a class in a test, you don't always want to mock those dependecies so you'll need to get instances of them somehow. 
+For example when using Angular's `FormBuilder` or when you need it to create a `FormGroup` to use in your test. 
+In that case you can use Angular's ReflectiveInjector which takes care of getting an instance for you.
+Here's an example how:
 
 {% highlight coffeescript %}  
     const injector = ReflectiveInjector.resolveAndCreate([FormBuilder]);
     const formBuilder = injector.get(FormBuilder);
 {% endhighlight %}  
     
-As you can see, you can simply pass the class name and it will return an instance of that class. That instance can then be passed in the constuctor of the class you're testing.
+As you can see, you can simply pass the class name and it will return an instance of that class. 
+That instance can then be passed in the constuctor of the class you're testing.
 
 # Conclusion
 Only when testing the view is a must, use Angular TestBed. In all other cases, I recommend calling the constructor instead.
