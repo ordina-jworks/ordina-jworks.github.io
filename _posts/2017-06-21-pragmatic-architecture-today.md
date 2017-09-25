@@ -47,7 +47,7 @@ The goal of the architectural description is to help in understanding how the sy
 </p>
 
 Following the approach in the book [Software Systems Architecture](http://www.viewpoints-and-perspectives.info/) by [Nick Rozanski](https://twitter.com/nickrozanski) and [Eoin Woods](https://twitter.com/eoinwoodz), an architectural description is composed of a number views.
-These _views_ describe what it is architecturally significant: info that is worth writing down because the system can not be successful without it or because stakeholders say it is significant.
+These _views_ describe what is architecturally significant: info that is worth writing down because the system can not be successful without it or because stakeholders say it is significant.
 Deciding what to put in these views, means making decisions.
 Woods and Rozanski identified the following viewpoints:
 
@@ -168,7 +168,7 @@ While code is a very important asset of a working system, code alone is not enou
 >
 > One cannot see the ocean's currents by studying drops of water.
 
-The goal of visually representing a system, through the architectural description, is to make sure the architecture of the system is in the stakeholder's heads.
+The goal of visually representing a system, through the architectural description, is to make sure the architecture of the system is in the stakeholders' heads.
 The visual representation can be used to check for consistency, reporting, validation and **sharing information**.
 
 ### Some ground rules
@@ -230,7 +230,7 @@ On top of that, adding **extension points** will enable evolvability.
 
 ### Communication
 
-* In the inception phase of a project, you will need to talk to all the different stakeholders and make sure that their desired product will be build.
+* In the inception phase of a project, you will need to talk to all the different stakeholders and make sure that their desired product will be built.
 Aligning requirements from different stakeholders, will often be a challenge.
 * In the implementation phase, it is important for the team to share a technical vision.
 All team members need to collaborate to the same end-goal, which requires strong communication skills.
@@ -277,4 +277,4 @@ This process benefits from **continuous feedback loops**.
 Feedback loops imply that certain decisions may lead to new observations etc.
 The OODA process can be used as a means of creating an architectural description.
 Consequently, significant decisions will become part of it.
-Since the creation of (significant parts of the) the architectural description, starts with _(runtime)_ observations, capturing data and measuring stakeholder value will help to achieve better observations of the system.
+Since the creation of (significant parts of) the architectural description, starts with _(runtime)_ observations, capturing data and measuring stakeholder value will help to achieve better observations of the system.
