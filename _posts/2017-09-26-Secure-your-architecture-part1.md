@@ -3,7 +3,7 @@ layout: post
 authors: [kevin_van_houtte]
 title: 'Securing your cloud-native microservice architecture in Spring: part 1'
 image: /img/microservices/part1/securitylogo.png
-tags: [Microservices, Security, OAuth2, JWT, Redis, Session, Spring]
+tags: [Microservices, Security, OAuth2, JWT, Spring, Cloud]
 category: Microservices
 comments: true
 ---
@@ -17,7 +17,7 @@ So how much security is enough to secure our architecture? Is it the user that i
 * [Using the OAuth2 Protocol](#using-the-oauth2-protocol)
 * [Understanding JSON Web Tokens](#jwt)
 * [Using a User Authentication & Authorization Server](#uaa)
-* [Securing your microservice](#secure-your-microservice)
+* [Securing your microservice](#securing-your-microservice)
 
 # Our cloud-native architecture
 In this blog series we will cover these questions and guide you in applying the security layer to your cloud-native blueprint.
@@ -175,10 +175,10 @@ Because we have all the necessary information and create a new principal object 
 
 # Using a User Authentication & Authorization Server (UAA)
 The UAA server is an identity provider. It adds authentication to applications and secures services with minimum fuss.
-It’s primary role is that of an OAuth2 provider, issuing tokens for client applications to use when they act on behalf of users. 
+It’s primary role is that of an identity provider, issuing tokens for client applications to use when they act on behalf of users. 
 It can also authenticate users with their credentials, and can act as an SSO service using those credentials.
 
-For using an UAA server, there are some options available:
+There are some options available as a UAA server:
 * Using a third party for issuing tokens (ex. Github, Facebook). [Tutorial Github social login](https://spring.io/guides/tutorials/spring-boot-oauth2/#_social_login_github){:target="_blank"}
 * Using [KeyCloak](http://www.keycloak.org/){:target="_blank"}, an open source solution aimed to make it easy to secure your application. [Tutorial on how to use KeyCloak in Spring](https://dzone.com/articles/easily-secure-your-spring-boot-applications-with-k){:target="_blank"}
 * Using [Okta](https://www.okta.com/){:target="_blank"}, a commercial OAuth2, SAML and general identity management service in the cloud.
@@ -186,11 +186,11 @@ For using an UAA server, there are some options available:
 
 ## Enabling Single Sign-On
 Now that we have a way to achieve Authentication and Authorization by applying OAuth2 and JWT, we still have one problem.
-By having multiple frontends in our architecture, the user will have to log in to each of these applications.
-With Single Sign-On (SSO) we can eradicate this problem by requesting only one authentication from the user.
+Having multiple frontends in our architecture, the user will have to log in to each of these applications.
+With Single Sign-On (SSO) we can eradicate this problem just by using the existing user session and requesting an access token.
 
 ### Enable OAuth2 SSO flow on Zuul service
-The `@EnableOAuth2Sso` annotation on our Zuul service will forward OAuth2 tokens to the services it is proxying.
+The `@EnableOAuth2Sso`  and `@EnableZuulProxy` annotation on our Zuul service will forward OAuth2 tokens to the services it is proxying.
 
 ### Sensitive Headers
 Zuul secures your sensitive headers by blocking these headers downstream (microservice).
@@ -199,63 +199,48 @@ You can choose to set the sensitive header per route or globally.
 
 How it works: [Sensitive Headers](https://github.com/spring-cloud/spring-cloud-netflix/blob/master/docs/src/main/asciidoc/spring-cloud-netflix.adoc#cookies-and-sensitive-headers){:target="_blank"}
 
-#### Zuul Filter
-Based on [Netflix’s Zuul](https://github.com/Netflix/Zuul){:target="_blank"}, Zuul brings a filter mechanism.
+### Zuul Filter
+Based on [Netflix’s Zuul](https://github.com/Netflix/Zuul){:target="_blank"}, Spring's implementation also brings a filter mechanism.
 Filters are capable of performing a range of actions during the routing of HTTP requests and responses.
 This can help you customize security on your incoming and outgoing traffic.
 Review the [Zuul filter guide](https://github.com/Netflix/Zuul/wiki/How-it-Works){:target="_blank"} from Netflix about how filters work.
 
-
-#### The Token Verifier
-When the frontend sends a request with a token, Zuul will first contact a specific URI of the UAA server to check the validity of the token.
-When the token is valid, Zuul will redirect the request with token to the proper microservice.
-The grant type we use is the `client_credentials` type, where Zuul will connect to the UAA server with a service-id and service-secret.
-
-
 # Securing your microservice
 When enabling security in your service, the most common issues are developer-induced.
-Either there is a lack of built-in or easy security controls or we make trade-offs for functionality over security.
+Either there is a lack of built-in or easy security controls, or we make trade-offs for functionality over security.
 Still, we have to think about who can access this functionality and what they can do with it. 
 
-We passed the authentication phase and retrieved a JWT from our Zuul.
-We are in a 'downstream service', where data is being load balanced from Zuul. 
+We got an access token, our gateway performed a coarse grained verification and proxied it to our microservice.
+We are in a 'downstream service', where data is being load-balanced from Zuul. 
 The next questions are:
 * How do we decode this JWT?
 * How can we secure our code with the help of Spring Security?
 
 ## Assembling the Principal
-It is the responsibility of a microservice (Resource Server) to extract information about the user and client application from the JWT and make an access decision based on that information.
-Decoding the JWT allows extraction of the user's information and allows putting it in the security context.
-Spring Security will assemble a `Principal` with this information.
-
-After decoding the JWT, you know who the user is, what role(s) he/she has, and all of that.
-The Spring OAuth2 project gives us the mechanism to retrieve a JWT out of the box. 
-To enable the mechanism, we need the `@EnableOAuth2SSO` annotation for Zuul and the `@EnableResourceServer` annotation on every microservice that needs to accept the JWT.
-The mechanism goes as followed:
-* Frontend requests a resource with a JWT
-* Zuul accepts the JWT and verifies it with UAA
-* If valid, Zuul sends the JWT to the microservice annotated with `@EnableResourceServer`
-* The JWT will be placed inside the `Principal`for the microservice to use
+It is the responsibility of a microservice (Resource Server) to extract information about the user from the access token.
+Decoding the token allows the extraction of the user’s information.
+With this information Spring Security will assemble a Principal object containing eg. the username and the user's roles, and puts it in the security context. 
+Using the security context the `AccessDecisionManager` will be able to make a decision whether or not the request should be performed.
+To enable this, we need to add spring security to our class path and add the `@EnableResourceServer` annotation to our application.
 
 ### Best practices with keys
-The UAA signs the token with a private key and verifies it with a public key.
-
 The problem that might occur is that **every microservice** would need to connect with the UAA server for verification on every request.
 
-### Zuul verification
+#### Zuul verification
 Obviously, we don't want every microservice to depend on the UAA servers availability regardless of startup / testing / CI. 
-The solution is to disable exposure of your microservices to the outer network and handle only incoming traffic via the reverse proxy or load balancer (eg. Zuul, HAProxy, Nginx,...).
+The solution is to disable exposure of your microservices to the outer network and handle only incoming traffic via the gateway (eg. Zuul, HAProxy, nginx,...).
 Zuul will verify the token as a trustworthy client of the UAA server and will propagate the token to the downstream services.
-The microservice will handle the token as trustworthy since the token has been verified.
-So what if a hacker gets inside of your platform? 
+But what if a hacker gets inside of your platform? 
 
-### JSON Web Keys
+#### JSON Web Keys
 To solve this issue, we need an extra validity check on the microservice.
-When verifying a token's validity, it comes down to verifying if the token was generated and signed by the UAA server.
-This can be done by requesting the public key used for signing the JWT. This is called a [JWK or JSON Web Key](https://auth0.com/docs/jwks).
+When verifying a token's validity, it comes down to verifying if the token was issued by the UAA server.
+This can be done by requesting the public key used for signing the JWT. This is called a [JWK or JSON Web Key](http://ordina-jworks.github.io/security/2016/03/12/Digitally-signing-your-JSON-documents.html#jwk){:target="_blank"}.
 Basically, you can restrict the dependency on the UAA server to one single REST call, where the JWK is fetched from a public URI.
 Once a microservice has a cached JWK, it can be used to verify any JWT completely by itself.
 This greatly reduces network calls to the UAA server and still secures all of your microservices.
+When you want to rotate your private/public key pair, you can use [JWKS](https://auth0.com/docs/jwks){:target="_blank"}. 
+We will go deeper into detail in one of our next posts.
 
 ### Securing API endpoints
 At last we're going to secure our resources.
@@ -263,17 +248,16 @@ Spring Security gives us a variety of tools to secure your application at class 
 The one that's used most often enables method security, which you enable by adding `@EnableGlobalMethodSecurity(prePostEnabled = true)` to your configuration. 
 
 #### Authority 
-For the authorization, Spring Security provides us with [authorities](https://docs.spring.io/spring-security/site/docs/3.0.x/reference/authz-arch.html){:target="_blank"}, extracted from the JWT.
-The authorities are placed inside a [Principal](http://www.baeldung.com/get-user-in-spring-security){:target="_blank"}, which will be used throughout the existing security context of your application.
+For the authorization, Spring Security provides us with [authorities](https://docs.spring.io/spring-security/site/docs/3.0.x/reference/authz-arch.html){:target="_blank"}, extracted from the access token.
+The authorities are placed inside a <a target="_blank" href="http://www.baeldung.com/get-user-in-spring-security">`Principal`</a>, which will be used throughout the existing security context of your application.
 You can then reference them using Spring Expression Language (SpEL) to secure your methods.
 There are plenty of options you can use for method security, but we'll highlight the most common ones.
 
 You can find a complete list in the [Spring documentation](https://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html){:target="_blank"}
 
 ##### @PreAuthorize
-Most commonly used, PreAuthorize will decide whether a method can actually be invoked or not.
->When a user logs in and you want the user to only access his detail information, you can use the PreAuthorize annotation to accept USER roles with a specific expression to see if it is the same user calling the endpoint.
->If you want the ADMIN role to access everyone's details, you can just add the hasRole expression.
+Most commonly used, `@PreAuthorize` will decide whether a method can actually be invoked or not.
+>When a user logs in and you want the user to only access his detail information, or everyone's data in case he's an admin, you can use the `@PreAuthorize` annotation.
 
  {% highlight java %}
 @PreAuthorize("(authentication.principal.uuid == #uuid.toString()) or hasRole('ADMIN')")
@@ -302,12 +286,19 @@ In the next post we will cover how to secure your data at rest.
  * [Spring Cloud Feign](http://projects.spring.io/spring-cloud/spring-cloud.html#spring-cloud-feign){:target="_blank"}
  * [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/){:target="_blank"}
  * [Spring Cloud Security OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/){:target="_blank"}
+ * [Two-factor-authentication](https://en.wikipedia.org/wiki/Multi-factor_authentication){:target="_blank"}
+ * [OAuth2 Scopes](#oauth2-scopes){:target="_blank"} 
  * [Josh Long UAA intro](https://youtu.be/EoK5a99Bmjc?t=4){:target="_blank"}
+ * [Tutorial Github social login](https://spring.io/guides/tutorials/spring-boot-oauth2/#_social_login_github){:target="_blank"}
+ * [KeyCloak](http://www.keycloak.org/){:target="_blank"}
+ * [Tutorial on how to use KeyCloak in Spring](https://dzone.com/articles/easily-secure-your-spring-boot-applications-with-k){:target="_blank"}
+ * [Okta](https://www.okta.com/){:target="_blank"}
  * [Spring OAuth2 developers guide](https://projects.spring.io/spring-security-oauth/docs/oauth2.html){:target="_blank"}
- * [Sentinel mechanism](https://redis.io/topics/sentinel){:target="_blank"}
  * [Sensitive Headers](https://github.com/spring-cloud/spring-cloud-netflix/blob/master/docs/src/main/asciidoc/spring-cloud-netflix.adoc#cookies-and-sensitive-headers){:target="_blank"}
  * [Zuul Filters](https://github.com/Netflix/Zuul/wiki/How-it-Works){:target="_blank"}
- * [Sentinel configuration](http://docs.spring.io/spring-data/redis/docs/current/reference/html/#redis:sentinel){:target="_blank"}
- * [Default configuration](https://docs.spring.io/spring-session/docs/current/reference/html5/guides/boot.html#boot-redis-configuration){:target="_blank"}
  * [Spring Expression Language](https://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html){:target="_blank"}
+ * [Authorities](https://docs.spring.io/spring-security/site/docs/3.0.x/reference/authz-arch.html){:target="_blank"}
  * [JWT decoder](https://jwt.io/){:target="_blank"}
+ * [JWT Libraries](https://jwt.io/#libraries-io)
+ * [JWK or JSON Web Key](http://ordina-jworks.github.io/security/2016/03/12/Digitally-signing-your-JSON-documents.html#jwk){:target="_blank"}
+ * [JWKS](https://auth0.com/docs/jwks){:target="_blank"}
