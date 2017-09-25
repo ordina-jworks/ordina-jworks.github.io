@@ -252,8 +252,8 @@ So what if a hacker gets inside of your platform?
 ### JSON Web Keys
 To solve this issue, we need an extra validity check on the microservice.
 When verifying a token's validity, it comes down to verifying if the token was generated and signed by the UAA server.
-This can also be done by requesting the public key used for signing the JWT. This is called a [JWK or JSON Web Key](https://auth0.com/docs/jwks).
-Basically, you can restrict the dependence on the UAA server to one single REST call, where the JWK is fetched from a public URI.
+This can be done by requesting the public key used for signing the JWT. This is called a [JWK or JSON Web Key](https://auth0.com/docs/jwks).
+Basically, you can restrict the dependency on the UAA server to one single REST call, where the JWK is fetched from a public URI.
 Once a microservice has a cached JWK, it can be used to verify any JWT completely by itself.
 This greatly reduces network calls to the UAA server and still secures all of your microservices.
 
