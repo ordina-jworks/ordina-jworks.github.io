@@ -237,19 +237,20 @@ The mechanism goes as followed:
 * If valid, Zuul sends the JWT to the microservice annotated with `@EnableResourceServer`
 * The JWT will be placed inside the `Principal`for the microservice to use
 
-### Common mistake with keys
+### Best practices with keys
 The UAA signs the token with a private key and verifies it with a public key.
 
 The problem that might occur is that **every microservice** would need to connect with the UAA server for verification on every request.
 
+### Zuul verification
 Obviously, we don't want every microservice to depend on the UAA servers availability regardless of startup / testing / CI. 
 The solution is to disable exposure of your microservices to the outer network and handle only incoming traffic via the reverse proxy or load balancer (eg. Zuul, HAProxy, Nginx,...).
 Zuul will verify the token as a trustworthy client of the UAA server and will propagate the token to the downstream services.
 The microservice will handle the token as trustworthy since the token has been verified.
+So what if a hacker gets inside of your platform? 
 
 ### JSON Web Keys
-There is still another solution, which might be the most preferred option.
-
+To solve this issue, we need an extra validity check on the microservice.
 When verifying a token's validity, it comes down to verifying if the token was generated and signed by the UAA server.
 This can also be done by requesting the public key used for signing the JWT. This is called a [JWK or JSON Web Key](https://auth0.com/docs/jwks).
 Basically, you can restrict the dependence on the UAA server to one single REST call, where the JWK is fetched from a public URI.
