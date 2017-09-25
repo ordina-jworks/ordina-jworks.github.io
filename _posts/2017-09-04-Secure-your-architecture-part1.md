@@ -22,7 +22,8 @@ So how much security is enough to secure our architecture? Is it the user that i
 # Our cloud-native architecture
 In this blog series we will cover these questions and guide you in applying the security layer to your cloud-native blueprint.
 With this blueprint, we are going to use the [Spring ecosystem](https://spring.io/){:target="_blank"} throughout the series.
-All of these are crucial for building a cloud-native microservices architecture, but it should be technology-agnostic.
+Solving the following problems is crucial for building a cloud-native microservices architecture, but it should be technology-agnostic:
+
 * User Authentication & Authorization Server: [Spring Cloud Security OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/){:target="_blank"}
 * Load Balancer & Routing: [Spring Cloud Zuul](https://spring.io/guides/gs/routing-and-filtering/){:target="_blank"}
 * Communication client: [Spring Cloud Feign](http://projects.spring.io/spring-cloud/spring-cloud.html#spring-cloud-feign){:target="_blank"}
@@ -36,7 +37,7 @@ All of these are crucial for building a cloud-native microservices architecture,
 
 # Where our journey begins...
 When it comes to users interacting with our system, we want to verify that the person can identify him- or herself.
-Most of the time this appears in a login form where you enter your credentials or in a login page from a third party application (Facebook, Google, etc).
+Most of the time this appears in a login form where you enter your credentials, or in a login page from a third party application (Facebook, Google, etc).
 
 <div class="row" style="margin: 0 auto 2.5rem auto; width: 100%;">
   <div class="col-md-offset-3 col-md-6" style="padding: 0;">
@@ -44,12 +45,12 @@ Most of the time this appears in a login form where you enter your credentials o
 </div>
 </div>
 
->If you like more secure systems, you can add another complexity level on top of it.
-Commonly used is the [Two-factor-authentication](https://en.wikipedia.org/wiki/Multi-factor_authentication){:target="_blank"}, where the client will for example use a Google Authenticator app to issue a token for your registered application.
+> If you like more secure systems, you can add another level of complexity on top of it.
+Most commonly used is [Two-factor-authentication](https://en.wikipedia.org/wiki/Multi-factor_authentication){:target="_blank"}, where the client will use an external provider (Google Authenticator for example) to issue a token for your registered application.
 
 ## Authorization 
 Authorization is the mechanism that uses the user's data to verify what he is allowed to do.
->For instance, who has access to which resources and what the access rights are (eg. execute or edit) to those resources.
+> For instance, who has access to which resources and what are his access rights (eg. read or write) to those resources.
 
 To use these two mechanisms in our system, we will be using a security protocol that fits our microservices architecture.
 Since we don’t want everyone to have an account for each (micro)service, we aim to have one single identity per person so that the user needs to authenticate only once.
@@ -58,15 +59,15 @@ Since we don’t want everyone to have an account for each (micro)service, we ai
 When searching for a security protocol, we don't want to reinvent the wheel and look at what is supported by the Spring framework.
 Obviously, it depends on the use case of the applications that require resources from our system.
 Is it a third party application like Facebook or a first party like your own application? Or both? 
-I will explain both [OAuth2](#oauth2-scopes){:target="_blank"} & [JSON Web Token](#jwt){:target="_blank"} and how they solve these requirements. 
+I will explain both [OAuth2](#oauth2-scopes){:target="_blank"} and [JSON Web Token](#jwt){:target="_blank"} and how they solve these requirements.
 
 The OAuth2 delegation protocol allows us to retrieve an access token from an idenity provider and gain access to a microservice by passing the token with subsequent requests.
-When introducing the OAuth2 framework to our system, we will be using four grant types. 
-These three grant types are different ways to obtain an access token, some clients are more trusted than others. 
+When introducing the OAuth2 framework to our system, we will be using four grant types.
+These grant types are different ways to obtain an access token, some clients are more trusted than others.
 
 ### OAuth2 Grant Types
 
-#### Third party applications: Authorization Code grant type & Implicit grant type
+#### Third party applications: Authorization Code grant type and Implicit grant type
 Authorization Code is the most common used grant type for third party applications, where user's confidentiality can be maintained.
 The user won't have to share his credentials with the application that is requesting resources from our backend. 
 This is a redirection-based flow, which means that the application must be capable of interacting with the user's web browser.
@@ -80,7 +81,6 @@ This is a redirection-based flow, which means that the application must be capab
 > Implicit grant type follows the same principle as the Authorization Code type but does not exchange an authorization code to issue an access token.
 
 <script async class="speakerdeck-embed" data-id="57b5f3f256a3449b9b3038bc69bf2d5f" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
-
 
 <br />
 <br />
@@ -100,9 +100,9 @@ The application authenticates on behalf of the user and receives the proper JWT.
 <br />
 
 #### Trusted Service to Service communication: Client Credentials grant type
-The trusted service can request an access token using only its client-id and client-secret
-when the client is requesting access to the protected resources under its control, 
-It is very important that the client credentials grant type MUST only be used by confidential clients.
+The trusted service can request an access token using only its client-id and client-secret.
+When the client is requesting access to the protected resources under its control, 
+it is very important that the client credentials grant type MUST only be used by confidential clients.
 
 * Zuul authenticates with his client-id and client-secret
 * The UAA validates the credentials and returns a valid JWT
@@ -112,7 +112,7 @@ It is very important that the client credentials grant type MUST only be used by
 OAuth 2.0 scopes provide a way to limit the amount of access that is granted to an access token.
 If the scope is not defined, the client is not limited by scope.
 
-> an access token issued to a client can be granted READ or/and WRITE access to protected resources.
+> An access token issued to a client can be granted READ or/and WRITE access to protected resources.
 > If you enforce a WRITE scope to your API endpoint and it tries to call the endpoint with a token granted a READ scope, the call will fail
 
 <a name="jwt" />
@@ -175,21 +175,22 @@ Because we have all the necessary information and create a new principal object 
 
 # Using a User Authentication & Authorization Server (UAA)
 The UAA server is an identity provider. It adds authentication to applications and secures services with minimum fuss.
-It’s primary role is as an OAuth2 provider, issuing tokens for client applications to use when they act on behalf of users. 
+It’s primary role is that of an OAuth2 provider, issuing tokens for client applications to use when they act on behalf of users. 
 It can also authenticate users with their credentials, and can act as an SSO service using those credentials.
 
 For using an UAA server, there are some options available:
 * Using a third party for issuing tokens (ex. Github, Facebook). [Tutorial Github social login](https://spring.io/guides/tutorials/spring-boot-oauth2/#_social_login_github){:target="_blank"}
-* Using [KeyCloak](http://www.keycloak.org/){:target="_blank"} , an open source solution aimed to make it easy to secure your application. [Tutorial on how to use KeyCloak in Spring](https://dzone.com/articles/easily-secure-your-spring-boot-applications-with-k){:target="_blank"}
-* Implementing your own UAA is not really best practice because KeyCloak covers most of it. [Explanatory video of the UAA server](https://youtu.be/EoK5a99Bmjc?t=4){:target="_blank"}
+* Using [KeyCloak](http://www.keycloak.org/){:target="_blank"}, an open source solution aimed to make it easy to secure your application. [Tutorial on how to use KeyCloak in Spring](https://dzone.com/articles/easily-secure-your-spring-boot-applications-with-k){:target="_blank"}
+* Using [Okta](https://www.okta.com/){:target="_blank"}, a commercial OAuth2, SAML and general identity management service in the cloud.
+* Implementing your own UAA is not really best practice since other providers cover most of the use cases. [Explanatory video of the UAA server](https://youtu.be/EoK5a99Bmjc?t=4){:target="_blank"}
 
 ## Enabling Single Sign-On
-Now that we have a way to achieve Authentication & Authorization by applying OAuth2 and JWT, we still have one problem.
+Now that we have a way to achieve Authentication and Authorization by applying OAuth2 and JWT, we still have one problem.
 By having multiple frontends in our architecture, the user will have to log in to each of these applications.
 With Single Sign-On (SSO) we can eradicate this problem by requesting only one authentication from the user.
 
 ### Enable OAuth2 SSO flow on Zuul service
-The `@EnableOAuth2Sso` annotation on Zuul will forward OAuth2 tokens to the services it is proxying.
+The `@EnableOAuth2Sso` annotation on our Zuul service will forward OAuth2 tokens to the services it is proxying.
 
 ### Sensitive Headers
 Zuul secures your sensitive headers by blocking these headers downstream (microservice).
@@ -206,23 +207,26 @@ Review the [Zuul filter guide](https://github.com/Netflix/Zuul/wiki/How-it-Works
 
 
 #### The Token Verifier
-When the frontend sends a request with a token, Zuul will first contact a specific uri of the UAA server to check the validity of the token.
+When the frontend sends a request with a token, Zuul will first contact a specific URI of the UAA server to check the validity of the token.
 When the token is valid, Zuul will redirect the request with token to the proper microservice.
-The grant type we use is the `client credentials` type, where Zuul will connect to the UAA server with a service-id and service-secret.
+The grant type we use is the `client_credentials` type, where Zuul will connect to the UAA server with a service-id and service-secret.
 
 
 # Securing your microservice
 When enabling security in your service, the most common issues are developer-induced.
 Either there is a lack of built-in or easy security controls or we make trade-offs for functionality over security.
 Still, we have to think about who can access this functionality and what they can do with it. 
-We enter the phase where we passed the authentication and retrieved a JWT from our Zuul.
-We are in a 'downstream service', where data is load balanced from Zuul. 
-Next thing to question is, how do we decode this JWT? How can we secure our classes and methods with the help of Spring Security?
+
+We passed the authentication phase and retrieved a JWT from our Zuul.
+We are in a 'downstream service', where data is being load balanced from Zuul. 
+The next questions are:
+* How do we decode this JWT?
+* How can we secure our code with the help of Spring Security?
 
 ## Assembling the Principal
 It is the responsibility of a microservice (Resource Server) to extract information about the user and client application from the JWT and make an access decision based on that information.
-Decoding the JWT allows extraction of the users information and allows putting it in the security context.
-Spring Security will assemble a `Principal` with this information to use.
+Decoding the JWT allows extraction of the user's information and allows putting it in the security context.
+Spring Security will assemble a `Principal` with this information.
 
 After decoding the JWT, you know who the user is, what role(s) he/she has, and all of that.
 The Spring OAuth2 project gives us the mechanism to retrieve a JWT out of the box. 
@@ -234,17 +238,27 @@ The mechanism goes as followed:
 * The JWT will be placed inside the `Principal`for the microservice to use
 
 ### Common mistake with keys
-The UAA signs the token with a private key and verifies it with a public key. 
-The problem that might occur is that every microservice would need to connect with the UAA server for verification on every request.
-Obviously, we don't want every microservice to depend on the UAA servers availability regardless of startup/testing/CI. 
-The solution to this is to disable exposure of your microservices to the outer network and handle only incoming traffic via the reverse proxy or load balancer (eg. Zuul, HAProxy, Nginx,...).
+The UAA signs the token with a private key and verifies it with a public key.
+
+The problem that might occur is that **every microservice** would need to connect with the UAA server for verification on every request.
+
+Obviously, we don't want every microservice to depend on the UAA servers availability regardless of startup / testing / CI. 
+The solution is to disable exposure of your microservices to the outer network and handle only incoming traffic via the reverse proxy or load balancer (eg. Zuul, HAProxy, Nginx,...).
 Zuul will verify the token as a trustworthy client of the UAA server and will propagate the token to the downstream services.
 The microservice will handle the token as trustworthy since the token has been verified.
 
+### JSON Web Keys
+There is still another solution, which might be the most preferred option.
+
+When verifying a token's validity, it comes down to verifying if the token was generated and signed by the UAA server.
+This can also be done by requesting the public key used for signing the JWT. This is called a [JWK or JSON Web Key](https://auth0.com/docs/jwks).
+Basically, you can restrict the dependence on the UAA server to one single REST call, where the JWK is fetched from a public URI.
+Once a microservice has a cached JWK, it can be used to verify any JWT completely by itself.
+This greatly reduces network calls to the UAA server and still secures all of your microservices.
 
 ### Securing API endpoints
 At last we're going to secure our resources.
-Spring Security gives us a variety of tools to secure at class and method level.
+Spring Security gives us a variety of tools to secure your application at class and method level.
 The one that's used most often enables method security, which you enable by adding `@EnableGlobalMethodSecurity(prePostEnabled = true)` to your configuration. 
 
 #### Authority 
