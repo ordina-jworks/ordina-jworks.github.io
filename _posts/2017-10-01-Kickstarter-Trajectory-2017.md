@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [yannick_de_turck]
+authors: [nick_geudens,ken_de_becker,michiel_willems,jef_willems,simon_buysse]
 title: "Kickstarter Trajectory 2017"
 image: /img/kicks.png
 tags: [Spring, Angular2, Unit Test, Postman, Spring Boot, Spring REST Docs]
@@ -84,11 +84,16 @@ progress. One thing we’ll never forget is that if push breaking changes to the
 have to buy “boterkoeken” for the unit! Last but not least, we were introduced to the wonderful world where clean code & 
 microservices are the heroes that kick spaghetti code & monoliths in the butt. 
 
-## Lessons learned
+## Memorable moments
+
+"The communication sessions were real eyeopeners and gave me a better understanding regarding introducing myself and 
+giving presentations." -- Ken
+
 
 ## The new JWorks colleagues
 
 <span class="image left "><img class="p-image" alt="Ken De Becker" width="210px"  src="/img/kickstarters/2017/ken-de-becker.jpg" /></span>
 <span class="image left "><img class="p-image" alt="Michiel Willems" width="210px"  src="/img/kickstarters/2017/michiel-willems.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Jef Willems" width="210px"  src="/img/kickstarters/2017/jef-willems.jpg" /></span>
 
 
