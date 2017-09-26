@@ -95,5 +95,5 @@ giving presentations." -- Ken
 <span class="image left "><img class="p-image" alt="Ken De Becker" width="210px"  src="/img/kickstarters/2017/ken-de-becker.jpg" /></span>
 <span class="image left "><img class="p-image" alt="Michiel Willems" width="210px"  src="/img/kickstarters/2017/michiel-willems.jpg" /></span>
 <span class="image left "><img class="p-image" alt="Jef Willems" width="210px"  src="/img/kickstarters/2017/jef-willems.jpg" /></span>
-
+<span class="image left "><img class="p-image" alt="Simon Buysse" width="210px"  src="/img/kickstarters/2017/simon-buysse.jpg" /></span>
 
