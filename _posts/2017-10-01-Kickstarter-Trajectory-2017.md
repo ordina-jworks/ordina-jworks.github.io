@@ -28,9 +28,6 @@ front- and backend technologies, methods and tools and soft skills were given by
 lecturers. This project is ideal for graduating students and people who want to make a switch to IT. 
 The constant guidance and support made this a good preparation for our first project.
 
-On our first day as kickstarters we received a laptop and a Kickstarter car. Within the unit JWorks we even got the 
-option to choose a Mac.
-
 During the fourth week we had a teambuilding together with all the kickstarters from the different units. The goal was to 
 get to know the other kickstarters and strengthen our team spirit.
 
@@ -92,8 +89,9 @@ giving presentations." -- Ken
 
 ## The new JWorks colleagues
 
-<span class="image left "><img class="p-image" alt="Ken De Becker" width="210px"  src="/img/kickstarters/2017/ken-de-becker.jpg" /></span>
-<span class="image left "><img class="p-image" alt="Michiel Willems" width="210px"  src="/img/kickstarters/2017/michiel-willems.jpg" /></span>
-<span class="image left "><img class="p-image" alt="Jef Willems" width="210px"  src="/img/kickstarters/2017/jef-willems.jpg" /></span>
-<span class="image left "><img class="p-image" alt="Simon Buysse" width="210px"  src="/img/kickstarters/2017/simon-buysse.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Nick Geudens"   src="/img/kickstarters/2017/nick-geudens.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Ken De Becker" src="/img/kickstarters/2017/ken-de-becker.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Michiel Willems"  src="/img/kickstarters/2017/michiel-willems.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Jef Willems"  src="/img/kickstarters/2017/jef-willems.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Simon Buysse"   src="/img/kickstarters/2017/simon-buysse.jpg" /></span>
 
