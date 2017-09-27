@@ -92,6 +92,9 @@ microservices are the heroes that kick spaghetti code & monoliths in the butt.
 "The soft skill sessions were real eyeopeners and gave me a better understanding regarding introducing myself, 
 giving presentations and the Agile methodology." -- Ken
 
+"The tips received during the communication essentials sessions are a backpack full good enough to present myself in a proper way. 
+Diverse technologies used in Jworks e.g. turning a monolith to Microservices, a different type of databases like MonogDB, 
+running your applications in docker containers and such." -- Michiel
 
 "Learning about the existence of 'Microservices' with 'monoliths'. <br >Making unit-tests to see if the code does what it should do before launching the application in production.<br > And the introduction to the mongoDatabase, how to use it in the command line interface." --Jef
 
