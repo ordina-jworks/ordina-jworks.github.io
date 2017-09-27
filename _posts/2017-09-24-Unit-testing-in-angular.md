@@ -2,7 +2,7 @@
 layout: post
 authors: [martijn_willekens]
 title: "Unit Testing Angular with Karma 101"
-image: /img/2017-09-24-testing-in-angular/unit-tests.png
+image: /img/2017-09-24-unit-testing-in-angular/unit-tests.png
 tags: [Angular,Karma,Unit testing,Jasmine]
 category: Angular
 comments: true
@@ -67,27 +67,27 @@ Assertions are made using `expect`. You can tell it what you expect the result o
 
 Here's an example: 
 
-{% highlight coffeescript %}  
-    describe('NAME_OF_YOUR_CLASS', () => {
-        let component;
+{% highlight coffeescript %}
+describe('NAME_OF_YOUR_CLASS', () => {
+    let component;
 
-        beforeEach(() => {
-            //initialize
-            component = new AppComponent();
-        });
-        
-        //Actual tests
-        it('should have a car selected', () => {
-            //assertions
-            expect(component.carSelected).toBeThruthy();
-        });
+    beforeEach(() => {
+        //initialize
+        component = new AppComponent();
+    });
     
-        it('should find my favorite car brand', () => {
-            //assertions
-            const carBrand = component.getFavoriteCarBrand();
-            expect(carBrand.name).toEqual('Mazda');
-        }); 
+    //Actual tests
+    it('should have a car selected', () => {
+        //assertions
+        expect(component.carSelected).toBeThruthy();
+    });
+
+    it('should find my favorite car brand', () => {
+        //assertions
+        const carBrand = component.getFavoriteCarBrand();
+        expect(carBrand.name).toEqual('Mazda');
     }); 
+}); 
 {% endhighlight %}  
 
 As you can see, you can pass some text as an argument in the `describe` call. 
@@ -107,32 +107,32 @@ It allows to create an instance of a component and injects all dependencies list
 However, you do need to list all dependencies in the TestBed. 
 It kind of looks like a module definition:
 
-{% highlight coffeescript %}  
-    describe('AppComponent', () => {
-        let component: AppComponent;
-        let fixture: ComponentFixture<AppComponent>;
+{% highlight coffeescript %}
+describe('AppComponent', () => {
+    let component: AppComponent;
+    let fixture: ComponentFixture<AppComponent>;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                declarations: [AppComponent],
-                providers: [CarBrandService],
-                imports: [CommonLogicModule]
-            })
-            .compileComponents();
-        }));
-    
-        beforeEach(() => {
-            fixture = TestBed.createComponent(AppComponent);
-            component = fixture.componentInstance;
-            fixture.detectChanges();
-        });
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [AppComponent],
+            providers: [CarBrandService],
+            imports: [CommonLogicModule]
+        })
+        .compileComponents();
+    }));
 
-        it('should test the app component', () => {
-            //use component to test the class itself
-            const carBrand = component.getFavoriteCarBrand();
-            expect(carBrand.name).toEqual('Mazda');
-        });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(AppComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
     });
+
+    it('should test the app component', () => {
+        //use component to test the class itself
+        const carBrand = component.getFavoriteCarBrand();
+        expect(carBrand.name).toEqual('Mazda');
+    });
+});
 {% endhighlight %}  
 
 With TestBed, the view (HTML) is loaded as well. 
@@ -140,18 +140,18 @@ This means it's accessible in the tests.
 You could verify that the correct data is being shown in the view, whether certain elements are visible or not and so on...
 
 {% highlight coffeescript %}
-    ...
-    it('should test the app component', () => {
-        //use component to test the class itself
-        const carBrand = component.getFavoriteCarBrand();
-        expect(carBrand.name).toEqual('Mazda');
+...
+it('should test the app component', () => {
+    //use component to test the class itself
+    const carBrand = component.getFavoriteCarBrand();
+    expect(carBrand.name).toEqual('Mazda');
 
-        //use fixture to access the HTML (e.g. get h1 element)
-        const de = fixture.debugElement.query(By.css('h1'));
-        const el = de.nativeElement;
-        expect(el.textContent).toContain('Mazda');
-    });
-    ...
+    //use fixture to access the HTML (e.g. get h1 element)
+    const de = fixture.debugElement.query(By.css('h1'));
+    const el = de.nativeElement;
+    expect(el.textContent).toContain('Mazda');
+});
+...
 {% endhighlight %}  
 
 
@@ -163,34 +163,34 @@ We also want to be able to easily control the output of all dependencies of our 
 One way to do so is by creating spies for all calls to functions of those dependencies. 
 That's where the `spyOn` function comes into play:
 
-{% highlight coffeescript %}  
-    describe('AppComponent', () => {
-        let component: RequestPopupContainer;
-        let fixture: ComponentFixture<AppComponent>;        
+{% highlight coffeescript %}
+describe('AppComponent', () => {
+    let component: RequestPopupContainer;
+    let fixture: ComponentFixture<AppComponent>;        
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                declarations: [AppComponent],
-                providers: [CarBrandService],
-                imports: [CommonLogicModule]
-            })
-            .compileComponents();
-        }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [AppComponent],
+            providers: [CarBrandService],
+            imports: [CommonLogicModule]
+        })
+        .compileComponents();
+    }));
 
-        beforeEach(() => {
-            fixture = TestBed.createComponent(AppComponent);
-            component = fixture.componentInstance;
+    beforeEach(() => {
+        fixture = TestBed.createComponent(AppComponent);
+        component = fixture.componentInstance;
 
-            const carBrandService = fixture.debugElement.injector.get(CarBrandService);
-            spyOn(carBrandService, 'findAll').and.returnValue(Observable.of([
-                { name: 'Mazda', country: 'Japan' },
-                { name: 'BMW', country: 'Germany' }
-            ]));    
+        const carBrandService = fixture.debugElement.injector.get(CarBrandService);
+        spyOn(carBrandService, 'findAll').and.returnValue(Observable.of([
+            { name: 'Mazda', country: 'Japan' },
+            { name: 'BMW', country: 'Germany' }
+        ]));    
 
-            fixture.detectChanges();
-        });
-        ...
+        fixture.detectChanges();
     });
+    ...
+});
 {% endhighlight %}  
 
 In the example above, you can see when the `AppComponent` would call `carBrandService.findAll()`, instead of making a HTTP call, an Observable is returned with a list of car brands which is defined in the test itself. 
@@ -201,31 +201,31 @@ That's something we do not want at all.
 #### Mock classes
 To prevent forgetting to spy on a certain function, you could create mock classes and inject them instead of the actual classes:
 
-{% highlight coffeescript %}  
-    class MockCarBrandService {
-        findAll(): Observable<CarBrand[]> {
-            return Observable.of([
-                { name: 'Mazda', country: 'Japan' },
-                { name: 'BMW', country: 'Germany' }
-            ]);     
-        }   
-    }
-    
-    describe('AppComponent', () => {
-        let component: AppComponent;
-        let fixture: ComponentFixture<AppComponent>;        
+{% highlight coffeescript %}
+class MockCarBrandService {
+    findAll(): Observable<CarBrand[]> {
+        return Observable.of([
+            { name: 'Mazda', country: 'Japan' },
+            { name: 'BMW', country: 'Germany' }
+        ]);     
+    }   
+}
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                declarations: [AppComponent],
-                providers: [{provide: CarBrandService, useClass: MockCarBrandService}],
-                imports: [CommonLogicModule]
-            })
-            .compileComponents();
-        }));
+describe('AppComponent', () => {
+    let component: AppComponent;
+    let fixture: ComponentFixture<AppComponent>;        
 
-        ...
-    });
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [AppComponent],
+            providers: [{provide: CarBrandService, useClass: MockCarBrandService}],
+            imports: [CommonLogicModule]
+        })
+        .compileComponents();
+    }));
+
+    ...
+});
 {% endhighlight %}
 
 Again we see that `findAll()` will return an Observable containing a list. 
@@ -238,27 +238,27 @@ We can again add spies like in the first approach, but you can imagine that this
 #### Jasmine spy objects
 The first two approaches have some issues, but luckily there's a better way, Jasmine spy objects:
     
-{% highlight coffeescript %}  
-    describe('AppComponent', () => {        
-        let component: AppComponent;
-        let fixture: ComponentFixture<AppComponent>; 
+{% highlight coffeescript %}
+describe('AppComponent', () => {        
+    let component: AppComponent;
+    let fixture: ComponentFixture<AppComponent>; 
 
-        const mockCarBrandService = jasmine.createSpyObj('carBrandService', ['findAll']);
-        mockCarBrandService.findAll.and.returnValue(Observable.of([
-            { name: 'Mazda', country: 'Japan' },
-            { name: 'BMW', country: 'Germany' }
-        ]);
+    const mockCarBrandService = jasmine.createSpyObj('carBrandService', ['findAll']);
+    mockCarBrandService.findAll.and.returnValue(Observable.of([
+        { name: 'Mazda', country: 'Japan' },
+        { name: 'BMW', country: 'Germany' }
+    ]);
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                declarations: [AppComponent],
-                providers: [{provide: CarBrandService, useValue: mockCarBrandService}],
-                imports: [CommonLogicModule]
-            })
-            .compileComponents();
-        }));
-        ...
-    });
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [AppComponent],
+            providers: [{provide: CarBrandService, useValue: mockCarBrandService}],
+            imports: [CommonLogicModule]
+        })
+        .compileComponents();
+    }));
+    ...
+});
 {% endhighlight %}  
 
 The first argument of `jasmine.createSpyObj` is the name for the object and will be used to mention it in the console.
@@ -269,13 +269,13 @@ In other words, not all functions offered by the class that's being mocked have 
 
 Using `spyOn` isn't needed, a spy object is already being spied upon and you can call the `toHaveBeenCalled` and `toHaveBeenCalledWith` functions on them.
 
-{% highlight coffeescript %}  
-    ...
-    it('should call the findAll method' () => {
-        component.getFavoriteCarBrand();
-        expect(mockCarBrandService.findAll).toHaveBeenCalled();
-    }); 
-    ...
+{% highlight coffeescript %}
+...
+it('should call the findAll method' () => {
+    component.getFavoriteCarBrand();
+    expect(mockCarBrandService.findAll).toHaveBeenCalled();
+}); 
+...
 {% endhighlight %}  
 
 I think it's obvious to say that using Jasmine spy objects is the way to go. 
@@ -301,11 +301,11 @@ The routes that are relevant can be defined in the `RouterTestingModule`:
 
 If you don't feel like doing all that, you can also tell Angular to skip elements it doesn't know by adding `NO_ERRORS_SCHEMA` to the TestBed configuration:
 
-{% highlight coffeescript %}  
-    TestBed.configureTestingModule({
-        declarations: [ AppComponent ],
-        schemas: [ NO_ERRORS_SCHEMA ]
-    })
+{% highlight coffeescript %}
+TestBed.configureTestingModule({
+    declarations: [ AppComponent ],
+    schemas: [ NO_ERRORS_SCHEMA ]
+})
 {% endhighlight %}  
 
 To learn more about writing tests using Angular TestBed, I recommend reading this guide: [https://angular.io/guide/testing](https://angular.io/guide/testing).
@@ -316,21 +316,21 @@ A much simpler way to do unit testing is to simply call the constructor of the c
 You should get an instance of each class that's needed in the constructor.
 Of course we want to mock these classes and as we saw in the Angular TestBed section, the Jasmine spy objects are the way to go.
 
-{% highlight coffeescript %}  
-    describe('AppComponent', () => {        
-        let component: AppComponent;
+{% highlight coffeescript %}
+describe('AppComponent', () => {        
+    let component: AppComponent;
 
-        const mockCarBrandService = jasmine.createSpyObj('carBrandService', ['findAll']);
-        mockCarBrandService.findAll.and.returnValue(Observable.of([
-            { name: 'Mazda', country: 'Japan' },
-            { name: 'BMW', country: 'Germany' }
-        ]);
+    const mockCarBrandService = jasmine.createSpyObj('carBrandService', ['findAll']);
+    mockCarBrandService.findAll.and.returnValue(Observable.of([
+        { name: 'Mazda', country: 'Japan' },
+        { name: 'BMW', country: 'Germany' }
+    ]);
 
-        beforeEach(() => {
-            component = new AppComponent(mockCarBrandService);
-        });
-        ...
+    beforeEach(() => {
+        component = new AppComponent(mockCarBrandService);
     });
+    ...
+});
 {% endhighlight %}  
 
 Without the TestBed, you don’t have access to the view. 
@@ -339,12 +339,12 @@ When using TestBed, you’ll probably be including lots of dependencies just to 
 Something you do not want in unit testing. 
 Another difference with TestBed is that you have to call the lifecycle events yourself, again giving you more control over the code you’re testing.
 
-{% highlight coffeescript %}  
-    it('should find the car brand', () => {
-        component.ngOnInit();
-        const carBrand = component.getFavoriteCarBrand();
-        expect(carBrand.name).toEqual('Mazda');
-    }); 
+{% highlight coffeescript %}
+it('should find the car brand', () => {
+    component.ngOnInit();
+    const carBrand = component.getFavoriteCarBrand();
+    expect(carBrand.name).toEqual('Mazda');
+}); 
 {% endhighlight %}  
 
 These kind of tests are much easier to write, give you more control, run faster, allow you to completely isolate the class and take away the hassle of getting the TestBed setup right. 
@@ -363,32 +363,32 @@ By passing an argument to it, time can be advanced by more ticks at once: `tick(
 
 Suppose we have this class:
     
-{% highlight coffeescript %}  
-    export class TimeoutExample {
-        counter = 0;
-    
-        updateCounterWithDelay() {
-            setTimeout(() => {
-                this.counter++;
-            }, 100);
-        }
+{% highlight coffeescript %}
+export class TimeoutExample {
+    counter = 0;
+
+    updateCounterWithDelay() {
+        setTimeout(() => {
+            this.counter++;
+        }, 100);
     }
-{% endhighlight %}  
+}
+{% endhighlight %}
     
 And this test:
 
 {% highlight coffeescript %}  
-    it('should increase the counter with a delay', fakeAsync(() => {
-        const component = new TimeoutExample();
-        expect(component.counter).toBe(0);
-        component.updateCounterWithDelay();
-        tick();
-        expect(component.counter).toBe(0);
-        tick(10);
-        expect(component.counter).toBe(0);
-        tick(90);
-        expect(component.counter).toBe(1);
-    }));
+it('should increase the counter with a delay', fakeAsync(() => {
+    const component = new TimeoutExample();
+    expect(component.counter).toBe(0);
+    component.updateCounterWithDelay();
+    tick();
+    expect(component.counter).toBe(0);
+    tick(10);
+    expect(component.counter).toBe(0);
+    tick(90);
+    expect(component.counter).toBe(1);
+}));
 {% endhighlight %}  
 
 Although it isn't really a useful test, it clearly shows how the tick function manipulates the advancement of time.
@@ -398,17 +398,17 @@ Although it isn't really a useful test, it clearly shows how the tick function m
 Now, what if you want to test a function that returns an Observable? 
 Well, simply subscribe to it in an async block and check the result!
 
-{% highlight coffeescript %}  
-    it('should return a list of cars' async(() => {
-        service.findAll().take(1).subscribe(
-            (result) => {
-                expect(result.length).toBe(9);
-            },
-            (error) => {
-                expect(true).toBeFalsy();
-            }
-        );
-    }));    
+{% highlight coffeescript %}
+it('should return a list of cars' async(() => {
+    service.findAll().take(1).subscribe(
+        (result) => {
+            expect(result.length).toBe(9);
+        },
+        (error) => {
+            expect(true).toBeFalsy();
+        }
+    );
+}));
 {% endhighlight %}  
 
 The error clause may seem strange. 
@@ -460,29 +460,29 @@ This will certainly come of use.
 Describe blocks can also be nested. 
 If you want for example different `beforeEach` blocks for your tests when testing a class, you can create a nested `describe` block for each case.
 
-{% highlight coffeescript %}  
-    describe('AppComponent', () => {
-        let mockCarBrandService = jasmine.createSpyObj('carBrandService', ['findAll']);
+{% highlight coffeescript %}
+describe('AppComponent', () => {
+    let mockCarBrandService = jasmine.createSpyObj('carBrandService', ['findAll']);
 
-        describe('Happy path', () => {
-            beforeEach(() => {
-                mockCarBrandService.findAll.and.returnValue(Observable.of([
-                    { name: 'Mazda', country: 'Japan' },
-                    { name: 'BMW', country: 'Germany' }
-                ]));
-            });
-
-            it(...);
-            ...
+    describe('Happy path', () => {
+        beforeEach(() => {
+            mockCarBrandService.findAll.and.returnValue(Observable.of([
+                { name: 'Mazda', country: 'Japan' },
+                { name: 'BMW', country: 'Germany' }
+            ]));
         });
-        
-        describe('Error path', () => {
-            mockCarBrandService.findAll.and.returnValue(Observable.throw('Error'));
 
-            it(...);
-            ...
-        });
+        it(...);
+        ...
     });
+    
+    describe('Error path', () => {
+        mockCarBrandService.findAll.and.returnValue(Observable.throw('Error'));
+
+        it(...);
+        ...
+    });
+});
 {% endhighlight %}  
 
 ## Using the injector
@@ -493,9 +493,9 @@ For example when using Angular's `FormBuilder` or when you need it to create a `
 In that case you can use Angular's ReflectiveInjector which takes care of getting an instance for you.
 Here's an example how:
 
-{% highlight coffeescript %}  
-    const injector = ReflectiveInjector.resolveAndCreate([FormBuilder]);
-    const formBuilder = injector.get(FormBuilder);
+{% highlight coffeescript %}
+const injector = ReflectiveInjector.resolveAndCreate([FormBuilder]);
+const formBuilder = injector.get(FormBuilder);
 {% endhighlight %}  
     
 As you can see, you can simply pass the class name and it will return an instance of that class. 
