@@ -93,6 +93,8 @@ microservices are the heroes that kick spaghetti code & monoliths in the butt.
 giving presentations and the Agile methodology." -- Ken
 
 
+"Learning about the existence of 'Microservices' with 'monoliths'. <br >Making unit-tests to see if the code does what it should do before launching the application in production.<br > And the introduction to the mongoDatabase, how to use it in the command line interface." --Jef
+
 ## The new JWorks colleagues
 
 <span class="image left "><img class="p-image" alt="Nick Geudens"   src="/img/kickstarters/2017/nick-geudens.jpg" /></span>
