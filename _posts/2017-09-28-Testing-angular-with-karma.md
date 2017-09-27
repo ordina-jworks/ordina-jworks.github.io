@@ -10,8 +10,9 @@ comments: true
 Testing your code is as important as the writing code itself. 
 This also counts for frontend applications such as Angular apps. 
 Unit testing is one way to do so. 
-The goal of these kind of tests is to isolate classes and verify the output of its functions when they are called.
-Karma is a tool that's used to run them. 
+The goal of these kind of tests is to isolate classes and verify the output of its functions to be what you expect when they are called.
+We also need a tool to run our tests written in TypeScript.
+Karma is such a tool and can be used to run tests as described in this blog.
 It will open a browser, execute pieces of javascript and report the results back to you.
 
 Now, I must admit that I’m not too fond of writing tests myself. 
