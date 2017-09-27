@@ -98,6 +98,9 @@ running your applications in docker containers and such." -- Michiel
 
 "Learning about the existence of 'Microservices' with 'monoliths'. <br >Making unit-tests to see if the code does what it should do before launching the application in production.<br > And the introduction to the mongoDatabase, how to use it in the command line interface." --Jef
 
+"The communication sessions were worth their weight in gold! How often do you get a chance to practice
+communication in the most awkward situations? I guess every day, but at least in these sessions there were no real repercussions :)" -- Simon
+
 ## The new JWorks colleagues
 
 <span class="image left "><img class="p-image" alt="Nick Geudens"   src="/img/kickstarters/2017/nick-geudens.jpg" /></span>
