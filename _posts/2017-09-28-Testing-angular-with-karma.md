@@ -2,7 +2,7 @@
 layout: post
 authors: [martijn_willekens]
 title: "Unit Testing Angular with Karma 101"
-image: /img/2017-09-24-unit-testing-in-angular/unit-tests.png
+image: /img/2017-09-28-testing-angular-with-karma/unit-tests.png
 tags: [Angular,Karma,Unit testing,Jasmine]
 category: Angular
 comments: true
@@ -40,7 +40,7 @@ When passing the `--code-coverage` flag, it generates a report in HTML.
 By default it's found under `coverage/index.html` and it indicates which parts of your code were covered by your unit tests.
 
 <div class="row">
-    <img class="image fit" style="max-width: 785px" alt="Code coverage" src="/img/2017-09-24-unit-testing-in-angular/code-coverage.png">
+    <img class="image fit" style="max-width: 785px" alt="Code coverage" src="/img/2017-09-28-testing-angular-with-karma/code-coverage.png">
 </div>
 
 # Writing tests
@@ -50,7 +50,7 @@ First of all, test files should be named after the .ts file you're testing, but 
 It's best practice to keep the spec file in the same folder as the ts file. So mostly, for a component, you’ll end up with a HTML, scss, spec.ts and ts file in one folder.
 
 <p>
-    <img class="image" alt="Folder structure" src="/img/2017-09-24-unit-testing-in-angular/files.png" />
+    <img class="image" alt="Folder structure" src="/img/2017-09-28-testing-angular-with-karma/files.png" />
 </p>
 
 Next up, the content of a test file. 
@@ -99,13 +99,24 @@ The text should describe what's being tested, like "It should get the brand of t
 ## Writing the actual tests
 There are multiple ways to write unit tests for an Angular app. 
 Either you use the Angular TestBed, the ReflectiveInjector or you simply call the constructor of the class directly. 
-TestBed and ReflectiveInjector are kind of the same approach, so I'll only be discussing TestBed here.
+ReflectiveInjector and TestBed are kind of the same approach, so I'll only be discussing TestBed here.
+It's something pretty cool Angular came up with in order to test your components. 
+TestBed can create components and injects all its dependecies.
+The instance of the component that is returned can then be used for testing.
+Accessing the view is also possible.
+
+Now, although I said there are multiple ways to unit test an Angular app, there's actually only one correct way, calling the constructor.
+Since TestBed loads the view as well as any components, directives... used in the view, you're actually also testing how the class integrates with them.
+In other words, you're entering the domain of integration testing, which is also important, but I'm not going into detail about that.
+
+The unit tests you would write using the constructor approach, could practically look the same when you would use TestBed to instatiate the components. 
+However, there are some problems with using the Angular TestBed for unit tests which I'll be explaining below.
 
 ## 1. TestBed
-TestBed is something pretty cool Angular came up with in order to test your components. 
-It allows to create an instance of a component and injects all dependencies listed in the constructor of that component's class. 
-However, you do need to list all dependencies in the TestBed. 
-It kind of looks like a module definition:
+Setting up the TestBed configuration for a component kind of looks like a module definitions, you should list all components, directives and services directly or by importing a module that includes them. 
+Calling `createComponent` will return a 'fixture' which can be used to access the view and also get the instance of the class. 
+With the fixture you can find HTML elements and perform actions on them, verify their content and attributes.
+The instance of the class can be used to test its public functions (unit test).
 
 {% highlight coffeescript %}
 describe('AppComponent', () => {
@@ -127,31 +138,23 @@ describe('AppComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should test the app component', () => {
+    it('should test the class', () => {
         //use component to test the class itself
         const carBrand = component.getFavoriteCarBrand();
         expect(carBrand.name).toEqual('Mazda');
     });
+
+    it('should test the view', () => {
+        //use component to test the class itself
+        const carBrand = component.getFavoriteCarBrand();
+        expect(carBrand.name).toEqual('Mazda');
+
+        //use fixture to access the HTML (e.g. get h1 element)
+        const de = fixture.debugElement.query(By.css('h1'));
+        const el = de.nativeElement;
+        expect(el.textContent).toContain('Mazda');
+    });
 });
-{% endhighlight %}  
-
-With TestBed, the view (HTML) is loaded as well. 
-This means it's accessible in the tests. 
-You could verify that the correct data is being shown in the view, whether certain elements are visible or not and so on...
-
-{% highlight coffeescript %}
-...
-it('should test the app component', () => {
-    //use component to test the class itself
-    const carBrand = component.getFavoriteCarBrand();
-    expect(carBrand.name).toEqual('Mazda');
-
-    //use fixture to access the HTML (e.g. get h1 element)
-    const de = fixture.debugElement.query(By.css('h1'));
-    const el = de.nativeElement;
-    expect(el.textContent).toContain('Mazda');
-});
-...
 {% endhighlight %}  
 
 
@@ -285,20 +288,12 @@ So all the problems with the first and second approach are solved.
 There's even another benefit when using spy objects. 
 The implementation (`returnValue` or `callFake`) can be changed at any time, even in the middle of a test!
 
-### Sidenotes
+### Issues with unit testing
 A side effect of using TestBed is when the component is loaded, the `ngOnInit`, `ngAfterViewInit`... lifecycle events are called automatically.
 This means you have less control over them. 
 
 Getting all the imports, providers and declarations setup can be quite a struggle too. 
-If there's any subcomponent in the HTML of the component you're testing, they should either be imported through a module or added in the declarations in the TestBed configuration. 
-
-If the Angular router is used in the view of your class, `RouterTestingModule` can be imported instead of the `RouterModule` itself. 
-The routes that are relevant can be defined in the `RouterTestingModule`:
-    
-{% highlight coffeescript %}  
-    imports: [RouterTestingModule.withRoutes([/*List mock routes here*/])]
-{% endhighlight %}  
-
+If there's any subcomponent in the HTML of the component you're testing, they should either be imported through a module or added in the declarations of the TestBed configuration.
 If you don't feel like doing all that, you can also tell Angular to skip elements it doesn't know by adding `NO_ERRORS_SCHEMA` to the TestBed configuration:
 
 {% highlight coffeescript %}
@@ -308,12 +303,20 @@ TestBed.configureTestingModule({
 })
 {% endhighlight %}  
 
-To learn more about writing tests using Angular TestBed, I recommend reading this guide: [https://angular.io/guide/testing](https://angular.io/guide/testing).
+It's very likely that you'll be using the Angular router in some of your components, so you'll have to account for that too. 
+You could mock the router dependecy using a Jasmine spy object or you can add `RouterTestingModule` as an import instead of the `RouterModule` itself. 
+The routes that are relevant can then be defined in the `RouterTestingModule`:
+    
+{% highlight coffeescript %}  
+    imports: [RouterTestingModule.withRoutes([/*List mock routes here*/])]
+{% endhighlight %}  
+
+>To learn more about writing tests using Angular TestBed, I recommend reading this guide: [https://angular.io/guide/testing](https://angular.io/guide/testing).
 
 ## 2. Calling the constructor
 
 A much simpler way to do unit testing is to simply call the constructor of the class you want to test.
-You should get an instance of each class that's needed in the constructor.
+You should get an instance of each class that's needed in the component's constructor.
 Of course we want to mock these classes and as we saw in the Angular TestBed section, the Jasmine spy objects are the way to go.
 
 {% highlight coffeescript %}
@@ -336,7 +339,7 @@ describe('AppComponent', () => {
 Without the TestBed, you don’t have access to the view. 
 However, your tests will run much faster as there are less things to load. 
 When using TestBed, you’ll probably be including lots of dependencies just to make it work, giving you less control. 
-Something you do not want in unit testing. 
+Something you do not want in unit testing as you want to isolate the class as much as possible. 
 Another difference with TestBed is that you have to call the lifecycle events yourself, again giving you more control over the code you’re testing.
 
 {% highlight coffeescript %}
@@ -345,12 +348,7 @@ it('should find the car brand', () => {
     const carBrand = component.getFavoriteCarBrand();
     expect(carBrand.name).toEqual('Mazda');
 }); 
-{% endhighlight %}  
-
-These kind of tests are much easier to write, give you more control, run faster, allow you to completely isolate the class and take away the hassle of getting the TestBed setup right. 
-Unless of course, you really want to test the view as well. 
-However, in my opinion, that’s not the point of unit testing. 
-You have protactor (end to end / integration) tests to test the view.
+{% endhighlight %}
 
 ## Async, fakeAsync, tick
 Angular is full of Observables and writing tests for them is a little trickier. 
@@ -502,9 +500,11 @@ As you can see, you can simply pass the class name and it will return an instanc
 That instance can then be passed in the constuctor of the class you're testing.
 
 # Conclusion
-Only when testing the view is a must, use Angular TestBed. In all other cases, I recommend calling the constructor instead.
-It will give you more freedom, more control, run much faster and allow you to completely isolate the classes. 
-Jasmine spy objects are the way to go to mock classes in both cases.
-Enabling code coverage reports can be very usefull to find parts of uncovered code. 
+When writing unit tests, it's better to call the constructors direcly and not to use Angular TestBed. 
+It will give you more freedom and more control, run much faster and allow you to completely isolate the classes. 
+You should also write integration tests and TestBed will serve that purpose very well.
+To mock classes, Jasmine spy objects are simply the way to go.
+Changing their implementation or return value is easy and can be done at any time!
+Code coverage reports can be very usefull to find parts of uncovered code. 
 However, getting a high percentage of code coverage shouldn't be your goal. 
-Write usefull tests and also, don't limit your tests to the happy path.
+Write usefull tests and also, don't limit your tests to the happy path!
