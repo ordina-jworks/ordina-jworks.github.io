@@ -12,7 +12,7 @@ comments: true
 These applications show a full end-to-end implementation of the LoRa technology leveraging the Proximus MyThings Internet of Things platform.
 
 <p style="text-align: center;">
-  <img class="image fit" style="width: 600px; margin:0px auto;" alt="Booze-o-meter at devoxx" src="/img/end-to-end-iot/booze-devoxx.jpg">
+  <img class="image fit" style="max-width: 600px; margin:0px auto;" alt="Booze-o-meter at devoxx" src="/img/end-to-end-iot/booze-devoxx.jpg">
 </p>
 
 > The Booze-o-meter V2 at Devoxx Belgium 2016.
@@ -34,7 +34,7 @@ We will look into each item in full detail below:
 
 
 <p style="text-align: center;">
-  <img class="image fit" style="width: 300px; margin:0px auto;" alt="LoRa" src="/img/end-to-end-iot/lora.png">
+  <img class="image fit" style="max-width: 300px; margin:0px auto;" alt="LoRa" src="/img/end-to-end-iot/lora.png">
 </p>
 ### LoRa
 
@@ -49,7 +49,7 @@ More detailed information and the full specifications can be found on the [LoRa 
 
 
 <p style="text-align: center;">
-  <img class="image fit" style="width: 300px; margin:0px auto;" alt="Proximus MyThings" src="/img/end-to-end-iot/mythings.png">
+  <img class="image fit" style="max-width: 300px; margin:0px auto;" alt="Proximus MyThings" src="/img/end-to-end-iot/mythings.png">
 </p>
 ### Proximus MyThings 
 
@@ -63,7 +63,7 @@ The platform consists of three main parts:
 
 
 <p style="text-align: center;">
-  <img class="image fit" style="width: 250px; margin:0px auto;" alt="NodeJS" src="/img/end-to-end-iot/node.png">
+  <img class="image fit" style="max-width: 250px; margin:0px auto;" alt="NodeJS" src="/img/end-to-end-iot/node.png">
 </p>
 ### Node.js &amp; TypeScript
 
@@ -77,7 +77,7 @@ If you are interested in the **NSS project**, we have a **blog post** about it [
 
 
 <p style="text-align: center;">
-  <img class="image fit" style="width: 200px; margin:0px auto;" alt="Angular" src="/img/end-to-end-iot/angular.png">
+  <img class="image fit" style="max-width: 200px; margin:0px auto;" alt="Angular" src="/img/end-to-end-iot/angular.png">
 </p>
 ### Angular
 
@@ -120,8 +120,8 @@ The effects are controlled the same way the button is controlled but in the oppo
 The frontend application sends a websocket **event to** the **backend** application which **controls** the Arduino and the **LEDs.**
 
 <p style="text-align: center;">
-  <img class="image fit" style="width: 400px; margin:0px auto;" alt="Slotmachine application" src="/img/end-to-end-iot/slotmachine-1.jpg">
-  <img class="image fit" style="width: 400px; margin:0px auto;" alt="Slotmachine application" src="/img/end-to-end-iot/slotmachine-2.jpg">
+  <img class="image fit" style="max-width: 400px; margin:0px auto;" alt="Slotmachine application" src="/img/end-to-end-iot/slotmachine-1.jpg">
+  <img class="image fit" style="max-width: 400px; margin:0px auto;" alt="Slotmachine application" src="/img/end-to-end-iot/slotmachine-2.jpg">
 </p>
 
 > The Slotmachine V1 test setup.
@@ -130,7 +130,7 @@ The frontend application sends a websocket **event to** the **backend** applicat
 The first version was **not LoRa enabled** and used a push button and **Arduino integration** via Johnny-Five to allow interaction. This meant that an Arduino always needed to be connected to the server or laptop that was used as a server.
 
 <p style="text-align: center;">
-  <img class="image fit" style="width: 650px; margin:0px auto;" alt="Slotmachine application at devoxx 2015" src="/img/end-to-end-iot/slotmachine-devoxx.jpg">
+  <img class="image fit" style="max-width: 650px; margin:0px auto;" alt="Slotmachine application at devoxx 2015" src="/img/end-to-end-iot/slotmachine-devoxx.jpg">
 </p>
 
 > The Slotmachine V1 at Devoxx Belgium 2015.
@@ -154,8 +154,8 @@ The application setup is extremely similar to the Slotmachine application.
 The **sensors relay** their **data** via the **MyThings platform** to **our backend**, which in turns **dispatches an event** on a websocket so the **frontend** application can **display the change.**
 
 <p style="text-align: center;">
-  <img class="image fit" style="width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-1.jpg">
-   <img class="image fit" style="width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-2.jpg">
+  <img class="image fit" style="max-width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-1.jpg">
+   <img class="image fit" style="max-width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-2.jpg">
 </p>
 
 > The Booze-o-meter V1 test setup with regular water.
@@ -173,8 +173,8 @@ This data gets represented on the frontend application as the four states as men
 
 #### V2
 <p style="text-align: center;">
-  <img class="image fit" style="width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-3.jpg">
-   <img class="image fit" style="width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-4.jpg">
+  <img class="image fit" style="max-width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-3.jpg">
+   <img class="image fit" style="max-width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-4.jpg">
 </p>
 
 > The Booze-o-meter V2 at Devoxx Belgium 2016 with actual liquor!
