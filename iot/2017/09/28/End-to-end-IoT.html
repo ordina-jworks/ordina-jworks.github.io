@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Building end-to-end IoT demos with LoRa - Kevin Van den Abeele">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/end-to-end-iot/booze-5.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/iot/2017/09/28/End-to-end-IoT.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Building end-to-end IoT demos with LoRa - Kevin Van den Abeele"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/end-to-end-iot/booze-5.jpg"/>
+
+    
+    <title>Building end-to-end IoT demos with LoRa - Kevin Van den Abeele &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Building end-to-end IoT demos with LoRa</h2>
+                
+
+                
+                    Posted Sep 28, 2017
+
+
+    in <a href="/categories/iot/">IoT</a>
+
+
+
+    by
+    
+        <a href="/author/kevin-van-den-abeele/">Kevin Van den Abeele</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/javascript/">JavaScript</a>, 
+    
+        <a href="/tags/typescript/">TypeScript</a>, 
+    
+        <a href="/tags/iot/">IoT</a>, 
+    
+        <a href="/tags/internet-of-things/">Internet Of Things</a>, 
+    
+        <a href="/tags/arduino/">Arduino</a>, 
+    
+        <a href="/tags/prototyping/">Prototyping</a>, 
+    
+        <a href="/tags/sensors/">Sensors</a>, 
+    
+        <a href="/tags/lora/">LoRa</a>, 
+    
+        <a href="/tags/booze/">Booze</a>, 
+    
+        <a href="/tags/node.js/">Node.js</a>, 
+    
+        <a href="/tags/proximus/">Proximus</a>, 
+    
+        <a href="/tags/mythings/">MyThings</a>, 
+    
+        <a href="/tags/smart-tech/">smart tech</a>, 
+    
+        <a href="/tags/smart/">smart</a>, 
+    
+        <a href="/tags/tech/">tech</a>, 
+    
+        <a href="/tags/johnny-five/">johnny-five</a>, 
+    
+        <a href="/tags/electronics/">electronics</a>, 
+    
+        <a href="/tags/modem/">modem</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>To showcase end-to-end LoRa applications we built simple yet fun, real world demo applications. 
+These applications show a full end-to-end implementation of the LoRa technology leveraging the Proximus MyThings Internet of Things platform.</p>
+</blockquote>
+
+<p style="text-align: center;">
+  <img class="image fit" style="width: 600px; margin:0px auto;" alt="Booze-o-meter at devoxx" src="/img/end-to-end-iot/booze-devoxx.jpg" />
+</p>
+
+<blockquote>
+  <p>The Booze-o-meter V2 at Devoxx Belgium 2016.</p>
+</blockquote>
+
+<h1 id="building-end-to-end-lora-iot-solutions">Building end-to-end LoRa Iot Solutions</h1>
+<p><strong>Building an enterprise IoT solution is challenging.</strong> Devices need to be enrolled, monitored and maintained.
+You can <strong>roll your own network</strong> and handle all of this yourself, this however will require quite the backend system to facilitate all of this.
+The <strong>Proximus LoRa network</strong> in combination with their <strong>MyThings platform</strong> takes away most of this and allows us to focus on the actual applications.</p>
+
+<h2 id="technologies-overview">Technologies overview</h2>
+<p>For our rapid prototypes and small to medium applications we have chosen the following technical stack:</p>
+<ul>
+  <li><strong>Proximus LoRa network</strong> for LoRa <strong>connectivity</strong></li>
+  <li><strong>Proximus MyThings</strong> platform for <strong>device management</strong></li>
+  <li><strong>NodeJS</strong> with <strong>TypeScript</strong> on the <strong>backend</strong></li>
+  <li><strong>Angular</strong> on the <strong>frontend</strong> (The older versions are still on AngularJS)</li>
+</ul>
+
+<p>We will look into each item in full detail below:</p>
+
+<p style="text-align: center;">
+  <img class="image fit" style="width: 300px; margin:0px auto;" alt="LoRa" src="/img/end-to-end-iot/lora.png" />
+</p>
+<h3 id="lora">LoRa</h3>
+
+<p><strong>LoRa</strong>, short for <strong>LoRaWAN is a LPWAN</strong> (Low Power Wide Area Network) is meant for wireless battery powered devices or ‘things’.
+It offers a <strong>low power, low bandwidth secure network</strong> to transceive information <strong>across large distances.</strong> The network is laid out in star topology and can easily be extended by placing more base stations also called LoRa gateways.</p>
+
+<p>Some network parameters:</p>
+<ul>
+  <li><strong>Range of 5 to 15 kilometers</strong> (3,1 to 9,3 miles) depending on the conditions and signal strength.</li>
+  <li><strong>Data rate of 0,3 kbps to 50 kbps</strong></li>
+</ul>
+
+<p>More detailed information and the full specifications can be found on the <a href="https://www.lora-alliance.org/technology" target="_blank">LoRa Alliance website</a>.</p>
+
+<p style="text-align: center;">
+  <img class="image fit" style="width: 300px; margin:0px auto;" alt="Proximus MyThings" src="/img/end-to-end-iot/mythings.png" />
+</p>
+<h3 id="proximus-mythings">Proximus MyThings</h3>
+
+<p><a href="https://mythings.proximus.be/#/login/" target="_blank">Proximus MyThings</a> is a LoRa <strong>device onboarding</strong> and management platform. 
+It is used to enroll devices and sensors, to <strong>map their data to specific endpoints</strong> and provide tools for device management.</p>
+
+<p>The platform consists of three main parts:</p>
+<ul>
+  <li>MyThings <strong>Builder</strong>: Charts and <strong>sensor values</strong> (containers)</li>
+  <li>Mythings <strong>Manager</strong>: Online <strong>device onboarding</strong> and user management</li>
+  <li>MyThings <strong>Scanner</strong>: Offline (in the field) <strong>device onboarding</strong></li>
+</ul>
+
+<p style="text-align: center;">
+  <img class="image fit" style="width: 250px; margin:0px auto;" alt="NodeJS" src="/img/end-to-end-iot/node.png" />
+</p>
+<h3 id="nodejs--typescript">Node.js &amp; TypeScript</h3>
+
+<p>Most people should be familiar with <a href="https://nodejs.org/en/" target="_blank">Node</a>.
+It is the <strong>JavaScript runtime</strong> built upon the <strong>V8 engine</strong> that Google Chrome uses.
+It is a <strong>lightweight and efficient runtime</strong> that uses an <strong>event-driven, non-blocking I/O model.</strong>
+This combined with the added <strong>type safety</strong> that <strong>TypeScript</strong> provides makes this an excellent choice for rapid prototyping.</p>
+
+<p>Some of our own <strong>demo applications</strong> make use of the <strong>Node Simple Server</strong> (NSS) application, while others just use <strong><a href="https://expressjs.com" target="_blank">Express</a>.</strong> This depends on the needs of the project.
+If you are interested in the <strong>NSS project</strong>, we have a <strong>blog post</strong> about it <a href="http://ordina-jworks.github.io/iot/2017/01/21/Node-with-TypeScript.html" target="_blank">here</a> and it is <a href="https://github.com/ordina-jworks/NodeSimpleServer" target="_blank">on GitHub</a> too!</p>
+
+<p style="text-align: center;">
+  <img class="image fit" style="width: 200px; margin:0px auto;" alt="Angular" src="/img/end-to-end-iot/angular.png" />
+</p>
+<h3 id="angular">Angular</h3>
+
+<p>Like with Node, most people should be familiar with <a href="https://angular.io" target="_blank">Angular</a> (or the older AngularJS).
+<strong>Angular</strong> is a development platform for building <strong>modern single page web applications.</strong>
+It is a <strong>complete rewrite</strong> of the older <strong>AngularJS</strong> and therefor has some big changes in how things work.
+Angular is easy to set up and use, it also is fully <strong>cross platform/browser compatible.</strong></p>
+
+<h2 id="our-demo-applications">Our demo applications</h2>
+<p>All our demo applications are publicly available in the <a href="https://github.com/ordina-jworks/NodeSimpleServer" target="_blank">GitHub project of NSS</a>.
+These demo applications are ever evolving as we are currently porting them from the older AngularJS to Angular with TypeScript.</p>
+
+<p>Our <strong>demo applications</strong> have been <strong>showcased</strong> and used at <strong>several events</strong> including internal Proximus events as well as conferences like <a href="https://devoxx.be" target="_blank">Devoxx</a>, <a href="https://techorama.be" target="_blank">Techorama</a> and <a href="https://iot-convention.eu/en/home/" target="_blank">The Belgian IoT convention</a> in Mechelen.</p>
+
+<p>Below we will go into detail about each application and how it came to be, as well as the iterations they went through.</p>
+
+<p>Aside from the <strong>Slotmachine</strong> and the <strong>Booze-o-meter</strong> we’ve also developed the <strong>Stairway to Health</strong> application for Proximus. 
+A blog post about this will be available in October.
+For the impatient, the <strong>IoT talk</strong> at the annual <strong>JWorks JOIN</strong> event covered this topic already and can be viewed <strong>on YouTube</strong>.</p>
+
+<p style="text-align: center;">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/BbnwrvfozUs?rel=0" frameborder="0" allowfullscreen=""></iframe>
+</p>
+
+<h3 id="the-slotmachine">The Slotmachine</h3>
+<p>The Slotmachine application does mostly what its name suggests, but with a twist.</p>
+
+<p>The idea is simple:
+If required, the <strong>player registers</strong> him or herself in the application.
+A simple <strong>push button</strong> sends a <strong>signal to</strong> the <strong>backend</strong> application. 
+The <strong>application dispatches an event</strong> via a <strong>websocket</strong> to the frontend application which turns the Slotmachine. 
+The <strong>Slotmachine</strong> can either <strong>result in a win or a loss</strong>. 
+A <strong>maximum of three attempts</strong> are possible per player, after which a new player registration is required to play again.
+The player <strong>registration can be disabled</strong> depending on the requirements of the event/conference.</p>
+
+<p>The <strong>light effects</strong> are also <strong>controlled by</strong> the <strong>application.</strong>
+If the user has registered the <strong>gentle fading</strong> switches to a <strong>running light</strong> effect and if the user wins, the effect changes to a <strong>carrousel of different colors</strong>.
+The effects are controlled the same way the button is controlled but in the opposite direction. 
+The frontend application sends a websocket <strong>event to</strong> the <strong>backend</strong> application which <strong>controls</strong> the Arduino and the <strong>LEDs.</strong></p>
+
+<p style="text-align: center;">
+  <img class="image fit" style="width: 400px; margin:0px auto;" alt="Slotmachine application" src="/img/end-to-end-iot/slotmachine-1.jpg" />
+  <img class="image fit" style="width: 400px; margin:0px auto;" alt="Slotmachine application" src="/img/end-to-end-iot/slotmachine-2.jpg" />
+</p>
+
+<blockquote>
+  <p>The Slotmachine V1 test setup.</p>
+</blockquote>
+
+<h4 id="v1">V1</h4>
+<p>The first version was <strong>not LoRa enabled</strong> and used a push button and <strong>Arduino integration</strong> via Johnny-Five to allow interaction. This meant that an Arduino always needed to be connected to the server or laptop that was used as a server.</p>
+
+<p style="text-align: center;">
+  <img class="image fit" style="width: 650px; margin:0px auto;" alt="Slotmachine application at devoxx 2015" src="/img/end-to-end-iot/slotmachine-devoxx.jpg" />
+</p>
+
+<blockquote>
+  <p>The Slotmachine V1 at Devoxx Belgium 2015.</p>
+</blockquote>
+
+<h4 id="v2">V2</h4>
+<p>The second version of the Slotmachine application swapped out the Arduino and the required wired connection with a <strong>LoRa enabled push button.</strong></p>
+
+<p>This allowed us to <strong>demonstrate the capabilities</strong> of the <strong>LoRa network</strong> in a fun and engaging way.
+The application remained unchanged for the user, and was adapted to be more configurable:
+Setting a win chance (up to 100%) and different images/styling for different events.</p>
+
+<h3 id="the-booze-o-meter">The Booze-o-meter</h3>
+<p>The Booze-o-meter application is a drink dispenser that <strong>relays liquid fill level</strong> in the dispenser.
+It is a fun example to demonstrate how measuring the fill level of a container can be achieved.
+This <strong>idea can be applied</strong> to container in a whole range of different industries and use cases. 
+From <strong>oil tanks</strong> to <strong>garbage cans</strong> and to <strong>containers.</strong></p>
+
+<p>The application setup is extremely similar to the Slotmachine application. 
+The <strong>sensors relay</strong> their <strong>data</strong> via the <strong>MyThings platform</strong> to <strong>our backend</strong>, which in turns <strong>dispatches an event</strong> on a websocket so the <strong>frontend</strong> application can <strong>display the change.</strong></p>
+
+<p style="text-align: center;">
+  <img class="image fit" style="width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-1.jpg" />
+   <img class="image fit" style="width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-2.jpg" />
+</p>
+
+<blockquote>
+  <p>The Booze-o-meter V1 test setup with regular water.</p>
+</blockquote>
+
+<h4 id="v1-1">V1</h4>
+<p>The first version of the Booze-o-meter used <strong>three sensors</strong> that can <strong>detect a liquid</strong> through a thin plastic container. This allowed us to <strong>represent the level</strong> in the container <strong>in a coarse way</strong>:</p>
+<ul>
+  <li>FULL (initial state)</li>
+  <li>HIGH (sensor)</li>
+  <li>MEDIUM (sensor)</li>
+  <li>LOW (sensor)</li>
+</ul>
+
+<p>The sensors have a <strong>simple binary readout</strong>, <code class="highlighter-rouge">true</code> if liquid is detected, <code class="highlighter-rouge">false</code> if not.
+This data gets represented on the frontend application as the four states as mentioned above.</p>
+
+<h4 id="v2-1">V2</h4>
+<p style="text-align: center;">
+  <img class="image fit" style="width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-3.jpg" />
+   <img class="image fit" style="width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-4.jpg" />
+</p>
+
+<blockquote>
+  <p>The Booze-o-meter V2 at Devoxx Belgium 2016 with actual liquor!</p>
+</blockquote>
+
+<p>The second version of the Booze-o-meter application allowed us to get a more <strong>detailed reading</strong> of the remaining <strong>fluid level</strong> in the container thanks to the addition of an <strong>ultrasonic sensor.</strong> 
+This sensor can <strong>measure</strong> the <strong>distance</strong> between itself and a surface, in this case the surface of the liquid in the container.</p>
+
+<p>The application was updated to support this <strong>more granular approach</strong> that is able to show the level in the container <strong>accurately to 1%.</strong></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Our demo applications have <strong>served us well</strong> in bringing across the idea of LoRa to customers and other interested developers. 
+We will <strong>continue to evolve our demo applications</strong> by adding new features, technologies and <strong>keeping them up to date.</strong></p>
+
+<h3 id="useful-links--further-reading">Useful links &amp; further reading</h3>
+<ul>
+  <li><a href="https://www.lora-alliance.org/technology" target="_blank">LoRa Alliance</a></li>
+  <li><a href="https://mythings.proximus.be/#/login/" target="_blank">Proximus MyThings</a></li>
+  <li><a href="https://github.com/ordina-jworks/NodeSimpleServer" target="_blank">Node Simple Server on GitHub</a></li>
+  <li><a href="https://www.youtube.com/watch?v=BbnwrvfozUs&amp;t=21s" target="_blank">StairWay to Health JOIN Presentation</a></li>
+  <li><a href="https://angular.io" target="_blank">Angular</a></li>
+  <li><a href="https://nodejs.org/en/" target="_blank">NodeJS</a></li>
+  <li><a href="https://expressjs.com" target="_blank">Express</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/iot/2017/09/28/End-to-end-IoT.html&title=Building end-to-end IoT demos with LoRa&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Building end-to-end IoT demos with LoRa&url=https://ordina-jworks.github.io/iot/2017/09/28/End-to-end-IoT.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/iot/2017/09/28/End-to-end-IoT.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/kevin-van-den-abeele/" class="image spotlight-image">
+            <img src="/img/author/kevin-van-den-abeele.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Kevin is a Principial Java consultant at Ordina, passionate about all Java and JavaScript related technologies. In his roll as Competence Leader Internet of Things he uses his knowledge of building custom software to build innovative solutions using new technologies. Currently focussing on the internet of things and sensor networks using LoRa. Loves to tinker with gadgets.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2017 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/end-to-end-iot/booze-5.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/iot/2017/09/28/End-to-end-IoT.html";
+        this.page.identifier = "/iot/2017/09/28/End-to-end-IoT.html";
+        this.page.title = "Building end-to-end IoT demos with LoRa";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

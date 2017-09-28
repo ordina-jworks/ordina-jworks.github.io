@@ -1,5 +1,206 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-09-26T08:21:24+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Securing your cloud-native microservice architecture in Spring: part 1</title><link href="https://ordina-jworks.github.io/microservices/2017/09/26/Secure-your-architecture-part1.html" rel="alternate" type="text/html" title="Securing your cloud-native microservice architecture in Spring: part 1" /><published>2017-09-26T00:00:00+00:00</published><updated>2017-09-26T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/microservices/2017/09/26/Secure-your-architecture-part1</id><content type="html" xml:base="https://ordina-jworks.github.io/microservices/2017/09/26/Secure-your-architecture-part1.html">&lt;p&gt;When developing cloud-native microservices, we need to think about securing the data that is being propagated from one service to another service and securing the data at rest. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-09-28T16:38:58+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Building end-to-end IoT demos with LoRa</title><link href="https://ordina-jworks.github.io/iot/2017/09/28/End-to-end-IoT.html" rel="alternate" type="text/html" title="Building end-to-end IoT demos with LoRa" /><published>2017-09-28T00:00:00+00:00</published><updated>2017-09-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2017/09/28/End-to-end-IoT</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2017/09/28/End-to-end-IoT.html">&lt;blockquote&gt;
+  &lt;p&gt;To showcase end-to-end LoRa applications we built simple yet fun, real world demo applications. 
+These applications show a full end-to-end implementation of the LoRa technology leveraging the Proximus MyThings Internet of Things platform.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit&quot; style=&quot;width: 600px; margin:0px auto;&quot; alt=&quot;Booze-o-meter at devoxx&quot; src=&quot;/img/end-to-end-iot/booze-devoxx.jpg&quot; /&gt;
+&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The Booze-o-meter V2 at Devoxx Belgium 2016.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;building-end-to-end-lora-iot-solutions&quot;&gt;Building end-to-end LoRa Iot Solutions&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Building an enterprise IoT solution is challenging.&lt;/strong&gt; Devices need to be enrolled, monitored and maintained.
+You can &lt;strong&gt;roll your own network&lt;/strong&gt; and handle all of this yourself, this however will require quite the backend system to facilitate all of this.
+The &lt;strong&gt;Proximus LoRa network&lt;/strong&gt; in combination with their &lt;strong&gt;MyThings platform&lt;/strong&gt; takes away most of this and allows us to focus on the actual applications.&lt;/p&gt;
+
+&lt;h2 id=&quot;technologies-overview&quot;&gt;Technologies overview&lt;/h2&gt;
+&lt;p&gt;For our rapid prototypes and small to medium applications we have chosen the following technical stack:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Proximus LoRa network&lt;/strong&gt; for LoRa &lt;strong&gt;connectivity&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Proximus MyThings&lt;/strong&gt; platform for &lt;strong&gt;device management&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;NodeJS&lt;/strong&gt; with &lt;strong&gt;TypeScript&lt;/strong&gt; on the &lt;strong&gt;backend&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Angular&lt;/strong&gt; on the &lt;strong&gt;frontend&lt;/strong&gt; (The older versions are still on AngularJS)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We will look into each item in full detail below:&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit&quot; style=&quot;width: 300px; margin:0px auto;&quot; alt=&quot;LoRa&quot; src=&quot;/img/end-to-end-iot/lora.png&quot; /&gt;
+&lt;/p&gt;
+&lt;h3 id=&quot;lora&quot;&gt;LoRa&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;LoRa&lt;/strong&gt;, short for &lt;strong&gt;LoRaWAN is a LPWAN&lt;/strong&gt; (Low Power Wide Area Network) is meant for wireless battery powered devices or ‘things’.
+It offers a &lt;strong&gt;low power, low bandwidth secure network&lt;/strong&gt; to transceive information &lt;strong&gt;across large distances.&lt;/strong&gt; The network is laid out in star topology and can easily be extended by placing more base stations also called LoRa gateways.&lt;/p&gt;
+
+&lt;p&gt;Some network parameters:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Range of 5 to 15 kilometers&lt;/strong&gt; (3,1 to 9,3 miles) depending on the conditions and signal strength.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Data rate of 0,3 kbps to 50 kbps&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;More detailed information and the full specifications can be found on the &lt;a href=&quot;https://www.lora-alliance.org/technology&quot; target=&quot;_blank&quot;&gt;LoRa Alliance website&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit&quot; style=&quot;width: 300px; margin:0px auto;&quot; alt=&quot;Proximus MyThings&quot; src=&quot;/img/end-to-end-iot/mythings.png&quot; /&gt;
+&lt;/p&gt;
+&lt;h3 id=&quot;proximus-mythings&quot;&gt;Proximus MyThings&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://mythings.proximus.be/#/login/&quot; target=&quot;_blank&quot;&gt;Proximus MyThings&lt;/a&gt; is a LoRa &lt;strong&gt;device onboarding&lt;/strong&gt; and management platform. 
+It is used to enroll devices and sensors, to &lt;strong&gt;map their data to specific endpoints&lt;/strong&gt; and provide tools for device management.&lt;/p&gt;
+
+&lt;p&gt;The platform consists of three main parts:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;MyThings &lt;strong&gt;Builder&lt;/strong&gt;: Charts and &lt;strong&gt;sensor values&lt;/strong&gt; (containers)&lt;/li&gt;
+  &lt;li&gt;Mythings &lt;strong&gt;Manager&lt;/strong&gt;: Online &lt;strong&gt;device onboarding&lt;/strong&gt; and user management&lt;/li&gt;
+  &lt;li&gt;MyThings &lt;strong&gt;Scanner&lt;/strong&gt;: Offline (in the field) &lt;strong&gt;device onboarding&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit&quot; style=&quot;width: 250px; margin:0px auto;&quot; alt=&quot;NodeJS&quot; src=&quot;/img/end-to-end-iot/node.png&quot; /&gt;
+&lt;/p&gt;
+&lt;h3 id=&quot;nodejs--typescript&quot;&gt;Node.js &amp;amp; TypeScript&lt;/h3&gt;
+
+&lt;p&gt;Most people should be familiar with &lt;a href=&quot;https://nodejs.org/en/&quot; target=&quot;_blank&quot;&gt;Node&lt;/a&gt;.
+It is the &lt;strong&gt;JavaScript runtime&lt;/strong&gt; built upon the &lt;strong&gt;V8 engine&lt;/strong&gt; that Google Chrome uses.
+It is a &lt;strong&gt;lightweight and efficient runtime&lt;/strong&gt; that uses an &lt;strong&gt;event-driven, non-blocking I/O model.&lt;/strong&gt;
+This combined with the added &lt;strong&gt;type safety&lt;/strong&gt; that &lt;strong&gt;TypeScript&lt;/strong&gt; provides makes this an excellent choice for rapid prototyping.&lt;/p&gt;
+
+&lt;p&gt;Some of our own &lt;strong&gt;demo applications&lt;/strong&gt; make use of the &lt;strong&gt;Node Simple Server&lt;/strong&gt; (NSS) application, while others just use &lt;strong&gt;&lt;a href=&quot;https://expressjs.com&quot; target=&quot;_blank&quot;&gt;Express&lt;/a&gt;.&lt;/strong&gt; This depends on the needs of the project.
+If you are interested in the &lt;strong&gt;NSS project&lt;/strong&gt;, we have a &lt;strong&gt;blog post&lt;/strong&gt; about it &lt;a href=&quot;http://ordina-jworks.github.io/iot/2017/01/21/Node-with-TypeScript.html&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt; and it is &lt;a href=&quot;https://github.com/ordina-jworks/NodeSimpleServer&quot; target=&quot;_blank&quot;&gt;on GitHub&lt;/a&gt; too!&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit&quot; style=&quot;width: 200px; margin:0px auto;&quot; alt=&quot;Angular&quot; src=&quot;/img/end-to-end-iot/angular.png&quot; /&gt;
+&lt;/p&gt;
+&lt;h3 id=&quot;angular&quot;&gt;Angular&lt;/h3&gt;
+
+&lt;p&gt;Like with Node, most people should be familiar with &lt;a href=&quot;https://angular.io&quot; target=&quot;_blank&quot;&gt;Angular&lt;/a&gt; (or the older AngularJS).
+&lt;strong&gt;Angular&lt;/strong&gt; is a development platform for building &lt;strong&gt;modern single page web applications.&lt;/strong&gt;
+It is a &lt;strong&gt;complete rewrite&lt;/strong&gt; of the older &lt;strong&gt;AngularJS&lt;/strong&gt; and therefor has some big changes in how things work.
+Angular is easy to set up and use, it also is fully &lt;strong&gt;cross platform/browser compatible.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;our-demo-applications&quot;&gt;Our demo applications&lt;/h2&gt;
+&lt;p&gt;All our demo applications are publicly available in the &lt;a href=&quot;https://github.com/ordina-jworks/NodeSimpleServer&quot; target=&quot;_blank&quot;&gt;GitHub project of NSS&lt;/a&gt;.
+These demo applications are ever evolving as we are currently porting them from the older AngularJS to Angular with TypeScript.&lt;/p&gt;
+
+&lt;p&gt;Our &lt;strong&gt;demo applications&lt;/strong&gt; have been &lt;strong&gt;showcased&lt;/strong&gt; and used at &lt;strong&gt;several events&lt;/strong&gt; including internal Proximus events as well as conferences like &lt;a href=&quot;https://devoxx.be&quot; target=&quot;_blank&quot;&gt;Devoxx&lt;/a&gt;, &lt;a href=&quot;https://techorama.be&quot; target=&quot;_blank&quot;&gt;Techorama&lt;/a&gt; and &lt;a href=&quot;https://iot-convention.eu/en/home/&quot; target=&quot;_blank&quot;&gt;The Belgian IoT convention&lt;/a&gt; in Mechelen.&lt;/p&gt;
+
+&lt;p&gt;Below we will go into detail about each application and how it came to be, as well as the iterations they went through.&lt;/p&gt;
+
+&lt;p&gt;Aside from the &lt;strong&gt;Slotmachine&lt;/strong&gt; and the &lt;strong&gt;Booze-o-meter&lt;/strong&gt; we’ve also developed the &lt;strong&gt;Stairway to Health&lt;/strong&gt; application for Proximus. 
+A blog post about this will be available in October.
+For the impatient, the &lt;strong&gt;IoT talk&lt;/strong&gt; at the annual &lt;strong&gt;JWorks JOIN&lt;/strong&gt; event covered this topic already and can be viewed &lt;strong&gt;on YouTube&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/BbnwrvfozUs?rel=0&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&quot;the-slotmachine&quot;&gt;The Slotmachine&lt;/h3&gt;
+&lt;p&gt;The Slotmachine application does mostly what its name suggests, but with a twist.&lt;/p&gt;
+
+&lt;p&gt;The idea is simple:
+If required, the &lt;strong&gt;player registers&lt;/strong&gt; him or herself in the application.
+A simple &lt;strong&gt;push button&lt;/strong&gt; sends a &lt;strong&gt;signal to&lt;/strong&gt; the &lt;strong&gt;backend&lt;/strong&gt; application. 
+The &lt;strong&gt;application dispatches an event&lt;/strong&gt; via a &lt;strong&gt;websocket&lt;/strong&gt; to the frontend application which turns the Slotmachine. 
+The &lt;strong&gt;Slotmachine&lt;/strong&gt; can either &lt;strong&gt;result in a win or a loss&lt;/strong&gt;. 
+A &lt;strong&gt;maximum of three attempts&lt;/strong&gt; are possible per player, after which a new player registration is required to play again.
+The player &lt;strong&gt;registration can be disabled&lt;/strong&gt; depending on the requirements of the event/conference.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;light effects&lt;/strong&gt; are also &lt;strong&gt;controlled by&lt;/strong&gt; the &lt;strong&gt;application.&lt;/strong&gt;
+If the user has registered the &lt;strong&gt;gentle fading&lt;/strong&gt; switches to a &lt;strong&gt;running light&lt;/strong&gt; effect and if the user wins, the effect changes to a &lt;strong&gt;carrousel of different colors&lt;/strong&gt;.
+The effects are controlled the same way the button is controlled but in the opposite direction. 
+The frontend application sends a websocket &lt;strong&gt;event to&lt;/strong&gt; the &lt;strong&gt;backend&lt;/strong&gt; application which &lt;strong&gt;controls&lt;/strong&gt; the Arduino and the &lt;strong&gt;LEDs.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit&quot; style=&quot;width: 400px; margin:0px auto;&quot; alt=&quot;Slotmachine application&quot; src=&quot;/img/end-to-end-iot/slotmachine-1.jpg&quot; /&gt;
+  &lt;img class=&quot;image fit&quot; style=&quot;width: 400px; margin:0px auto;&quot; alt=&quot;Slotmachine application&quot; src=&quot;/img/end-to-end-iot/slotmachine-2.jpg&quot; /&gt;
+&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The Slotmachine V1 test setup.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;v1&quot;&gt;V1&lt;/h4&gt;
+&lt;p&gt;The first version was &lt;strong&gt;not LoRa enabled&lt;/strong&gt; and used a push button and &lt;strong&gt;Arduino integration&lt;/strong&gt; via Johnny-Five to allow interaction. This meant that an Arduino always needed to be connected to the server or laptop that was used as a server.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit&quot; style=&quot;width: 650px; margin:0px auto;&quot; alt=&quot;Slotmachine application at devoxx 2015&quot; src=&quot;/img/end-to-end-iot/slotmachine-devoxx.jpg&quot; /&gt;
+&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The Slotmachine V1 at Devoxx Belgium 2015.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;v2&quot;&gt;V2&lt;/h4&gt;
+&lt;p&gt;The second version of the Slotmachine application swapped out the Arduino and the required wired connection with a &lt;strong&gt;LoRa enabled push button.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;This allowed us to &lt;strong&gt;demonstrate the capabilities&lt;/strong&gt; of the &lt;strong&gt;LoRa network&lt;/strong&gt; in a fun and engaging way.
+The application remained unchanged for the user, and was adapted to be more configurable:
+Setting a win chance (up to 100%) and different images/styling for different events.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-booze-o-meter&quot;&gt;The Booze-o-meter&lt;/h3&gt;
+&lt;p&gt;The Booze-o-meter application is a drink dispenser that &lt;strong&gt;relays liquid fill level&lt;/strong&gt; in the dispenser.
+It is a fun example to demonstrate how measuring the fill level of a container can be achieved.
+This &lt;strong&gt;idea can be applied&lt;/strong&gt; to container in a whole range of different industries and use cases. 
+From &lt;strong&gt;oil tanks&lt;/strong&gt; to &lt;strong&gt;garbage cans&lt;/strong&gt; and to &lt;strong&gt;containers.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The application setup is extremely similar to the Slotmachine application. 
+The &lt;strong&gt;sensors relay&lt;/strong&gt; their &lt;strong&gt;data&lt;/strong&gt; via the &lt;strong&gt;MyThings platform&lt;/strong&gt; to &lt;strong&gt;our backend&lt;/strong&gt;, which in turns &lt;strong&gt;dispatches an event&lt;/strong&gt; on a websocket so the &lt;strong&gt;frontend&lt;/strong&gt; application can &lt;strong&gt;display the change.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit&quot; style=&quot;width: 350px; margin:0px auto;&quot; alt=&quot;Booze-o-meter application&quot; src=&quot;/img/end-to-end-iot/booze-1.jpg&quot; /&gt;
+   &lt;img class=&quot;image fit&quot; style=&quot;width: 350px; margin:0px auto;&quot; alt=&quot;Booze-o-meter application&quot; src=&quot;/img/end-to-end-iot/booze-2.jpg&quot; /&gt;
+&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The Booze-o-meter V1 test setup with regular water.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;v1-1&quot;&gt;V1&lt;/h4&gt;
+&lt;p&gt;The first version of the Booze-o-meter used &lt;strong&gt;three sensors&lt;/strong&gt; that can &lt;strong&gt;detect a liquid&lt;/strong&gt; through a thin plastic container. This allowed us to &lt;strong&gt;represent the level&lt;/strong&gt; in the container &lt;strong&gt;in a coarse way&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;FULL (initial state)&lt;/li&gt;
+  &lt;li&gt;HIGH (sensor)&lt;/li&gt;
+  &lt;li&gt;MEDIUM (sensor)&lt;/li&gt;
+  &lt;li&gt;LOW (sensor)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The sensors have a &lt;strong&gt;simple binary readout&lt;/strong&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; if liquid is detected, &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt; if not.
+This data gets represented on the frontend application as the four states as mentioned above.&lt;/p&gt;
+
+&lt;h4 id=&quot;v2-1&quot;&gt;V2&lt;/h4&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit&quot; style=&quot;width: 350px; margin:0px auto;&quot; alt=&quot;Booze-o-meter application&quot; src=&quot;/img/end-to-end-iot/booze-3.jpg&quot; /&gt;
+   &lt;img class=&quot;image fit&quot; style=&quot;width: 350px; margin:0px auto;&quot; alt=&quot;Booze-o-meter application&quot; src=&quot;/img/end-to-end-iot/booze-4.jpg&quot; /&gt;
+&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The Booze-o-meter V2 at Devoxx Belgium 2016 with actual liquor!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The second version of the Booze-o-meter application allowed us to get a more &lt;strong&gt;detailed reading&lt;/strong&gt; of the remaining &lt;strong&gt;fluid level&lt;/strong&gt; in the container thanks to the addition of an &lt;strong&gt;ultrasonic sensor.&lt;/strong&gt; 
+This sensor can &lt;strong&gt;measure&lt;/strong&gt; the &lt;strong&gt;distance&lt;/strong&gt; between itself and a surface, in this case the surface of the liquid in the container.&lt;/p&gt;
+
+&lt;p&gt;The application was updated to support this &lt;strong&gt;more granular approach&lt;/strong&gt; that is able to show the level in the container &lt;strong&gt;accurately to 1%.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Our demo applications have &lt;strong&gt;served us well&lt;/strong&gt; in bringing across the idea of LoRa to customers and other interested developers. 
+We will &lt;strong&gt;continue to evolve our demo applications&lt;/strong&gt; by adding new features, technologies and &lt;strong&gt;keeping them up to date.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;useful-links--further-reading&quot;&gt;Useful links &amp;amp; further reading&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.lora-alliance.org/technology&quot; target=&quot;_blank&quot;&gt;LoRa Alliance&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mythings.proximus.be/#/login/&quot; target=&quot;_blank&quot;&gt;Proximus MyThings&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ordina-jworks/NodeSimpleServer&quot; target=&quot;_blank&quot;&gt;Node Simple Server on GitHub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=BbnwrvfozUs&amp;amp;t=21s&quot; target=&quot;_blank&quot;&gt;StairWay to Health JOIN Presentation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://angular.io&quot; target=&quot;_blank&quot;&gt;Angular&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://nodejs.org/en/&quot; target=&quot;_blank&quot;&gt;NodeJS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://expressjs.com&quot; target=&quot;_blank&quot;&gt;Express&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a Principial Java consultant at Ordina, passionate about all Java and JavaScript related technologies. In his roll as Competence Leader Internet of Things he uses his knowledge of building custom software to build innovative solutions using new technologies. Currently focussing on the internet of things and sensor networks using LoRa. Loves to tinker with gadgets.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="IoT" /><category term="JavaScript" /><category term="TypeScript" /><category term="IoT" /><category term="Internet Of Things" /><category term="Arduino" /><category term="Prototyping" /><category term="Sensors" /><category term="LoRa" /><category term="Booze" /><category term="Node.js" /><category term="Proximus" /><category term="MyThings" /><category term="smart tech" /><category term="smart" /><category term="tech" /><category term="johnny-five" /><category term="electronics" /><category term="modem" /><summary type="html">To showcase end-to-end LoRa applications we built simple yet fun, real world demo applications. These applications show a full end-to-end implementation of the LoRa technology leveraging the Proximus MyThings Internet of Things platform.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/end-to-end-iot/booze-5.jpg" /></entry><entry><title type="html">Securing your cloud-native microservice architecture in Spring: part 1</title><link href="https://ordina-jworks.github.io/microservices/2017/09/26/Secure-your-architecture-part1.html" rel="alternate" type="text/html" title="Securing your cloud-native microservice architecture in Spring: part 1" /><published>2017-09-26T00:00:00+00:00</published><updated>2017-09-26T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/microservices/2017/09/26/Secure-your-architecture-part1</id><content type="html" xml:base="https://ordina-jworks.github.io/microservices/2017/09/26/Secure-your-architecture-part1.html">&lt;p&gt;When developing cloud-native microservices, we need to think about securing the data that is being propagated from one service to another service and securing the data at rest. 
 So how much security is enough to secure our architecture? Is it the user that identifies itself and decides what data he has access to?&lt;/p&gt;
 
 &lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
@@ -3458,456 +3659,4 @@ However, since the introduction of Spring Boot, Spring Roo has become less of a 
 
 &lt;p&gt;When developing applications in Scala, you can make use of Spring through Spring Scala, a community project.
 This brings a lot of Spring technologies to the Scala programming language.
-This is one of the two presented community projects by the Spring team on their main project page, the other one being Spring Roo.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Matthias&quot;, &quot;last_name&quot;=&gt;&quot;Caryn&quot;, &quot;permalink&quot;=&gt;&quot;/author/matthias-caryn/&quot;, &quot;avatar&quot;=&gt;&quot;matthias-caryn.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;email&quot;=&gt;&quot;matthias.caryn@ordina.be&quot;, &quot;github&quot;=&gt;&quot;caryntjen&quot;, &quot;linkedin&quot;=&gt;&quot;caryntjen&quot;, &quot;phone&quot;=&gt;32473836044, &quot;bio&quot;=&gt;&quot;Matthias is Java Developer at Ordina Belgium. He enjoys to discover new Java and JavaScript technologies. He's passionate about machine learning and artificial intelligence. In his spare time he enjoys a good board or tabletop games and a good walk in the park with his dogs.&quot;}</name><email>matthias.caryn@ordina.be</email></author><category term="Spring" /><category term="Spring" /><category term="Ecosystem" /><category term="Cloud" /><category term="Conference" /><summary type="html">When I was at Spring IO back in May, I was intrigued by a presentation given by Jeroen Sterken. There he talked about the Spring Ecosystem in 50 minutes. Since he only had 50 minutes, he could not focus on all the projects Spring boasts. I wanted to get a feel of what the Spring team has to offer in all its glory, by getting to know all of the main projects.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/spring.png" /></entry><entry><title type="html">Blockchain introduction</title><link href="https://ordina-jworks.github.io/blockchain/2017/05/10/Blockchain-Introduction.html" rel="alternate" type="text/html" title="Blockchain introduction" /><published>2017-05-10T00:00:00+00:00</published><updated>2017-05-10T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/blockchain/2017/05/10/Blockchain-Introduction</id><content type="html" xml:base="https://ordina-jworks.github.io/blockchain/2017/05/10/Blockchain-Introduction.html">&lt;blockquote&gt;
-  &lt;p&gt;A lot of people are talking about blockchain these days.
-They’re talking about blockchain as the next big thing after mainframes, computers, the internet and social networking.
-This introduction is the first part in a series of blockchain posts.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;topics&quot;&gt;Topics&lt;/h1&gt;
-
-&lt;p&gt;In this first article about the innovative blockchain technology, we’ll cover the following topics:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#blockchain-and-its-relation-to-bitcoin&quot;&gt;Blockchain and its relation to Bitcoin&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#what-is-blockchain&quot;&gt;What is blockchain&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#types-of-blockchain-networks&quot;&gt;Types of blockchain networks&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#the-consensus-process&quot;&gt;The consensus process&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#smart-contracts&quot;&gt;Smart contracts&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#valid-blockchain-business-cases&quot;&gt;Valid blockchain business cases&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#existing-platforms&quot;&gt;Existing platforms&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#thinking-decentralized&quot;&gt;Thinking decentralized&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#recommended-reading&quot;&gt;Recommended reading&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;blockchain-and-its-relation-to-bitcoin&quot;&gt;Blockchain and its relation to Bitcoin&lt;/h1&gt;
-
-&lt;p&gt;First of all, Bitcoin and blockchain are two different things.
-People tend to use both words by each other in three different contexts:&lt;/p&gt;
-
-&lt;div class=&quot;row&quot; style=&quot;margin: 2.5rem 0;&quot;&gt;
-  &lt;div class=&quot;col-md-offset-3 col-md-2&quot; style=&quot;width:32%&quot;&gt;
-
-&lt;figure&gt;
-    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Crypto-currency&quot; src=&quot;/img/blockchain/bitcoin_currency.png&quot; /&gt;
-    
-    &lt;figcaption&gt;1. Digital cryptocurrency&lt;/figcaption&gt;
-    
-&lt;/figure&gt;
-
-  &lt;/div&gt;
-  &lt;div class=&quot;col-md-2&quot; style=&quot;width:32%&quot;&gt;
-
-&lt;figure&gt;
-    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Protocol&quot; src=&quot;/img/blockchain/bitcoin_protocol.png&quot; /&gt;
-    
-    &lt;figcaption&gt;2. Protocol and client for executing transactions&lt;/figcaption&gt;
-    
-&lt;/figure&gt;
-
-  &lt;/div&gt;
-  &lt;div class=&quot;col-md-2&quot; style=&quot;width:32%&quot;&gt;
-	
-&lt;figure&gt;
-    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Blockchain&quot; src=&quot;/img/blockchain/bitcoin_blockchain.png&quot; /&gt;
-    
-    &lt;figcaption&gt;3. The blockchain which stores all Bitcoin transactions&lt;/figcaption&gt;
-    
-&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;p&gt;So when talking about Bitcoin or blockchain with people, it’s important to mind this terminology.
-Here’s a funny quote I read in the book &lt;a href=&quot;http://www.goodreads.com/book/show/24714901-blockchain&quot;&gt;Blockchain: A Blueprint for a New Economy&lt;/a&gt;,
-which describes this ambiguity very well:&lt;/p&gt;
-&lt;blockquote class=&quot;clear&quot;&gt;&lt;p&gt;
-It's as if PayPal called the internet PayPal on which the PayPal protocol was run to transfer PayPal currency.
-&lt;/p&gt;&lt;/blockquote&gt;
-
-&lt;p&gt;In January 2009, the Bitcoin network came into existence.
-Bitcoin isn’t the first attempt to digital currency, but it’s the first one that uses a &lt;strong&gt;peer-to-peer network&lt;/strong&gt; to create a platform for executing transactions &lt;strong&gt;without depending on central authorities&lt;/strong&gt; who validates them.&lt;/p&gt;
-
-&lt;p&gt;You should see Bitcoin as the first platform that implemented blockchain technology.&lt;/p&gt;
-
-&lt;h1 id=&quot;what-is-blockchain&quot;&gt;What is blockchain?&lt;/h1&gt;
-
-&lt;p&gt;So forget about Bitcoin now.
-That’s not what this post is about.
-People say blockchain is as important as the introduction of the internet. 
-The internet is a worldwide network to &lt;strong&gt;share information&lt;/strong&gt; with one another, but it is far less suitable for transferring value.
-If you send someone a file, it is always a copy of your file, which means you and the receiver are both in possession of the file.
-As we already stated, that is ideal for sharing information, but not applicable for money, certificate of ownership, and so forth.
-And the latter is exactly what blockchain enables: digitalizing and transferring such values.&lt;/p&gt;
-
-&lt;p&gt;Let’s take a look at the underlying decentralized ledger technology.
-We believe blockchain’s definition is a good starting point:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Blockchain is a type of &lt;strong&gt;distributed database&lt;/strong&gt; that stores a &lt;strong&gt;permanent&lt;/strong&gt; and &lt;strong&gt;tamper-proof&lt;/strong&gt; ledger of &lt;strong&gt;transaction data&lt;/strong&gt;.”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;tldr-version&quot;&gt;TL;DR version&lt;/h3&gt;
-
-&lt;p&gt;Blockchain is a &lt;strong&gt;decentralized immutable data structure&lt;/strong&gt;.
-In short the blockchain is a network of computers, called nodes. 
-Every node has the same copy of the database which they manage together. 
-A transaction is encrypted and signed on a mathematical way. 
-When a transaction is saved in the blockchain, it is duplicated across all nodes in the network.
-That’s why we talk of blockchain as &lt;strong&gt;distributed ledger technology&lt;/strong&gt;, a ledger of transactions, distributed across a computer network.
-Transactions are bundled in one &lt;strong&gt;block&lt;/strong&gt; before they are validated by other nodes.
-Once the network reached consensus about the validity of these transactions, the block is appended to the existing &lt;strong&gt;chain&lt;/strong&gt; of blocks.
-The block stores the validated transactions together with a hash and a reference to the previous block.
-Stored transactions cannot be undone, as this would invalidate all hashes in the chain.&lt;/p&gt;
-
-&lt;h3 id=&quot;now-a-little-more-in-detail&quot;&gt;Now a little more in detail…&lt;/h3&gt;
-
-&lt;p&gt;Transactions are broadcasted to the network for miners to &lt;strong&gt;mine&lt;/strong&gt;. 
-They assess the non-validated transactions on the memory pool by solving a mathematical puzzle. 
-A miner builds a block containing all transactions, a proof of work that the puzzle was solved (also known as the &lt;strong&gt;block root hash&lt;/strong&gt;, which is also the ID of the block) and a hash to the previous block.&lt;/p&gt;
-
-&lt;p&gt;A block also contains the following items:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;A timestamp&lt;/li&gt;
-  &lt;li&gt;a nonce&lt;/li&gt;
-  &lt;li&gt;and a &lt;strong&gt;merkle root hash&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;A &lt;strong&gt;merkle root&lt;/strong&gt; does not verify transactions, but verifies a set of transactions.
-Transaction IDs are hashes of the transaction, and the merkle tree is constructed from these hashes.
-It means that if a single detail in any of the transactions changes, so does the merkle root. 
-It also means that if the exact same transactions are listed in a different order, the merkle root will also change.
-So the merkle root is cryptographic proof of the transactions in the block together with the order they are in.&lt;/p&gt;
-
-&lt;p&gt;The &lt;strong&gt;nonce number&lt;/strong&gt; is a field whose value is set so that the hash of the block will comply with the predefined network rules (eg: a run of leading zeros in Bitcoin).
- Miners increase the nonce until the hash is valid.
- Sha-256 is used to hash.&lt;/p&gt;
-
-&lt;p&gt;The miner appends the block to the blockchain. 
-And the majority of the other nodes, 50% + 1, double-check by &lt;strong&gt;verifying the proof of work&lt;/strong&gt; in the block.
-It sometimes occurs that miners will validate two blocks at the same time and they will be appended to the chain. 
-When this occurs, which doesn’t happen often, the principle of &lt;strong&gt;Longest Chain Wins&lt;/strong&gt; will be implemented.
-The longest chain remains and the conflicting chain will be discarded.
-The transactions of the discarded chains will be put back in the memory pool to be mined another time.&lt;/p&gt;
-
-&lt;p&gt;You now have a basic understanding of why we call it &lt;strong&gt;the blockchain&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;row&quot; style=&quot;margin: 0 auto 2.5rem auto;&quot;&gt;
-  &lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
-	
-&lt;figure&gt;
-    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Short explanation&quot; src=&quot;/img/blockchain/how-blockchain-works.png&quot; /&gt;
-    
-&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;types-of-blockchain-networks&quot;&gt;Types of blockchain networks&lt;/h1&gt;
-
-&lt;h3 id=&quot;public-blockchains-aka-permissionless&quot;&gt;Public blockchains (aka. permissionless)&lt;/h3&gt;
-
-&lt;p&gt;This is a blockchain that everyone in the world can view, write transactions to, expect that these transactions will be validated and added to the blockchain.
-In this type of blockchain network, any connected node can contribute the consensus process.
-This process is used to determine if a block is valid or not.
-You can read more about &lt;a href=&quot;#the-consensus-process&quot;&gt;the consensus process&lt;/a&gt; further in this blogpost.&lt;/p&gt;
-
-&lt;p&gt;The public blockchain is generally a complete peer-to-peer network. Its characteristics are:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The users from the chain get protected from the creators of the chain, because there are actions to the network that even they cannot perform.
-&lt;strong&gt;Developers are not the owners&lt;/strong&gt; of the network and don’t have more or less privileges than normal users.&lt;/li&gt;
-  &lt;li&gt;These chains are &lt;strong&gt;transparent&lt;/strong&gt; because everyone can see what is happening inside the chain.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote class=&quot;clear&quot;&gt;&lt;p&gt;
-&quot;In some cases, public is clearly better; in others, some degree of private control is simply necessary.
- As is often the case in the real world, it depends.&quot;
- - Vitalik Buterin of Ethereum
-&lt;/p&gt;&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;consortium-blockchains&quot;&gt;Consortium blockchains&lt;/h3&gt;
-
-&lt;p&gt;In this type of blockchain network, the consensus process is executed by a &lt;strong&gt;predetermined group of nodes&lt;/strong&gt; in the network.
-Let’s take a consortium of fifteen financial institutions as an example, each with a node.
-From this group of fifteen, there are ten nodes that need to sign each block before it is valid.
-You could say that these ten take ownership of the data in the blockchain.
-They decide which transactions are valid and which ones are not.
-&lt;strong&gt;Read rights&lt;/strong&gt; can be &lt;strong&gt;public or restricted&lt;/strong&gt; to the members of the network, eg. we can limit public view to a set number of times.&lt;/p&gt;
-
-&lt;p&gt;Public and consortium blockchain networks are decentralized, with the difference that the consortium network is &lt;strong&gt;not completely peer-to-peer&lt;/strong&gt;, because not everyone is equal.&lt;/p&gt;
-
-&lt;h3 id=&quot;private-blockchains-aka-permissioned&quot;&gt;Private blockchains (aka. permissioned)&lt;/h3&gt;
-
-&lt;p&gt;There is only a small difference between consortium and private blockchain networks: write rights are with &lt;strong&gt;one organization&lt;/strong&gt; instead of multiple.
-The read rights can be the same as with a consortium blockchain.&lt;/p&gt;
-
-&lt;p&gt;The following characteristics apply for a private blockchain network:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The company that controls the private chain can alter the rules of the chain. In some cases this can be necessary.&lt;/li&gt;
-  &lt;li&gt;The nodes that confirm a block are known, so there can’t be a majority by a mining farm with a 51% attack.&lt;/li&gt;
-  &lt;li&gt;Transactions are cheaper than with public chains. This is because they need to be verified by less nodes.&lt;/li&gt;
-  &lt;li&gt;Nodes are well connected and errors can be fixed quickly with manual interaction.
-This means that these networks give a faster confirmation and they will always be &lt;strong&gt;faster&lt;/strong&gt; than public networks.&lt;/li&gt;
-  &lt;li&gt;Private blockchains are just better at privacy because the &lt;strong&gt;access to the blockchain can be limited&lt;/strong&gt;.
-From a &lt;strong&gt;legal point-of-view&lt;/strong&gt;, this characteristic can have significant impact on the type of blockchain network you’ll pick.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;the-consensus-process&quot;&gt;The consensus process&lt;/h1&gt;
-
-&lt;p&gt;As we mentioned before, the network must reach a &lt;strong&gt;consensus&lt;/strong&gt; of 50%+1 for a transaction to be written to the blockchain.
-There are a few ways a blockchain network will do this.
-We will be discussing the two most used.
-Ronald Chan wrote a nice article about consensus mechanisms in &lt;a href=&quot;https://www.linkedin.com/pulse/consensus-mechanisms-used-blockchain-ronald-chan&quot;&gt;Consensus Mechanisms used in blockchain&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;proof-of-work&quot;&gt;Proof-of-Work&lt;/h3&gt;
-
-&lt;p&gt;This is used to deter people from tampering with the blocks and launching (d)dos attacks. 
-We let them do a feasible but not insignificant amount of work to get a consensus. 
-For example in the blockchain they need to find the correct nonce number that is part of the block to create a hash that fits the predetermined rules. 
-A rule can be that the hash must start with six zeros.&lt;/p&gt;
-
-&lt;h3 id=&quot;proof-of-stake&quot;&gt;Proof-of-Stake&lt;/h3&gt;
-
-&lt;p&gt;In this case you don’t need to find a nonce number but you just need to proof that you have a certain stake in the network.
-The bigger your stake, the more you can mine from the network.&lt;/p&gt;
-
-&lt;h1 id=&quot;smart-contracts&quot;&gt;Smart Contracts&lt;/h1&gt;
-&lt;p&gt;The term &lt;strong&gt;smart contract&lt;/strong&gt; has no clear and settled definition.
-So what is it?&lt;br /&gt;
-Smart contracts are traditional contracts and official documents, but written in code.
-As such, the contract is understandable for everyone across the globe, irrespective of the jurisdiction it is related to. 
-Smart contracts are like &lt;strong&gt;If This Then That&lt;/strong&gt; statements, only they tend to be a lot more complex.&lt;/p&gt;
-
-&lt;p&gt;The different definitions usually fall into one of the following two categories:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Sometimes the term is used to identify a specific technology.
-&lt;strong&gt;Pieces of code&lt;/strong&gt; that are stored, verified and executed on a blockchain.
-For example, a hello world program.&lt;/li&gt;
-  &lt;li&gt;The term can also be used to refer to a specific application of that technology: as a complement, or substitute, for &lt;strong&gt;legal contracts&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;row&quot; style=&quot;margin: 0 auto 2.5rem auto; padding: 0;&quot;&gt;
-  &lt;div class=&quot;col-md-offset-3 col-md-6&quot; style=&quot;padding: 0;&quot;&gt;
-	
-&lt;figure&gt;
-    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Smart contract explained&quot; src=&quot;/img/blockchain/smart-contract.png&quot; /&gt;
-    
-&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;valid-blockchain-business-cases&quot;&gt;Valid blockchain business cases&lt;/h1&gt;
-
-&lt;p&gt;It’s important to understand that blockchain isn’t a solution to all of your business problems.
-Like in any other project, you shouldn’t make critical technology decisions on hyped buzzwords.
-Instead you should focus on the business value it delivers.
-When we translate the blockchain characteristics to business values, it can potentially solve business problems in the following five key elements:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#transparency&quot;&gt;Transparency&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#operation-harmonization&quot;&gt;Operation harmonization&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#business-continuity&quot;&gt;Business continuity&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#permanence&quot;&gt;Permanence&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#security&quot;&gt;Security&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#thinking-decentralized&quot;&gt;Decentralized&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;We’ll discuss each element in detail and explain why blockchain technology can be an answer to that business problem.&lt;/p&gt;
-
-&lt;h3 id=&quot;transparency&quot;&gt;Transparency&lt;/h3&gt;
-
-&lt;p&gt;In a public blockchain network, by default every member of the ecosystem can access all transactions stored in the chain.
-They can even access smart contracts.&lt;/p&gt;
-
-&lt;p&gt;An example of improved transparency is in the supply chain. 
-Documenting a product’s journey across the supply chain reveals its true origin and touchpoints, which increases trust and helps eliminate the bias found in today’s opaque supply chains.
-Manufacturers can also reduce recalls by sharing logs with OEMs and regulators.&lt;/p&gt;
-
-&lt;p&gt;Another potential use involves the recording of patents and intellectual property. 
-Due to blockchain’s 100% transparency and its unforgeable nature, the information cannot be altered.
-Because transactions are easily trackable, it’s the perfect solution for recording ownership of patents and properties.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;You can only achieve &lt;strong&gt;100% transparency&lt;/strong&gt; if you setup a public, permissionless blockchain network.
-In a consortium- or private blockchain network, you &lt;strong&gt;can&lt;/strong&gt; define access rules to say which members can query certain information, which reduces its transparent nature.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;operation-harmonization&quot;&gt;Operation harmonization&lt;/h3&gt;
-
-&lt;p&gt;Because business logic is implemented as &lt;strong&gt;smart contracts&lt;/strong&gt;, and smart contracts are replicated over the different nodes that execute them, you have decentralized business logic.
-This allows you to use the same open source technology in all departments of your business.
-As a result, business processes are joint together, in contrast to Enterprise BPM, where business logic reuse is limited due to single enterprise data silos.&lt;/p&gt;
-
-&lt;h3 id=&quot;business-continuity&quot;&gt;Business continuity&lt;/h3&gt;
-
-&lt;p&gt;By using blockchain technology, you have less dependency on a central infrastructure.
-That is because all nodes can execute transactions.
-When one node goes down, other nodes take over the processing.
-You can say that in a blockchain network, you have &lt;strong&gt;automatic failover&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;permanence&quot;&gt;Permanence&lt;/h3&gt;
-
-&lt;p&gt;We already talked about the fact that activities in a blockchain cannot be undone.
-They are &lt;strong&gt;immutable&lt;/strong&gt;.
-Because of this characteristic, there’s an &lt;strong&gt;audit trail&lt;/strong&gt; of what happened in the system.&lt;/p&gt;
-
-&lt;p&gt;You could say that this audit trail has a lot of similarities with the architectural pattern &lt;strong&gt;Event Sourcing&lt;/strong&gt;.
-With Event Sourcing, all changes to application state are stored as a &lt;strong&gt;sequence of events&lt;/strong&gt;.
-This is comparable to how transactions are stored in the blockchain.
-It could be interesting to combine both blockchain technology and Event Sourcing principles in a project.&lt;/p&gt;
-
-&lt;p&gt;If you want to learn more about Event Sourcing, make sure to visit the following pages:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;There’s an excellent article on &lt;a href=&quot;http://martinfowler.com/eaaDev/EventSourcing.html&quot;&gt;Martin Fowler’s blog&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Our colleague Yannick De Turck also has a chapter on Event Sourcing in his &lt;a href=&quot;/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html#cqrs-and-event-sourcing&quot;&gt;blogpost about Lagom&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Ken Coenen has written about &lt;a href=&quot;/domain-driven%20design/2016/02/02/A-Decade-Of-DDD-CQRS-And-Event-Sourcing.html&quot;&gt;CQRS and Event Sourcing&lt;/a&gt; too after Ordina JWorks was present at &lt;a href=&quot;https://dddeurope.com&quot;&gt;DDD Europe&lt;/a&gt; back in 2016&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Please note that you can only achieve &lt;strong&gt;full immutability&lt;/strong&gt; if you setup a public, permissionless blockchain network.
-In a consortium or private blockchain network, transactions can be altered because you know the nodes that validate them.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;security&quot;&gt;Security&lt;/h3&gt;
-
-&lt;p&gt;Blocks are timestamped and protected with &lt;strong&gt;cryptographic technology&lt;/strong&gt; that is considered unbreakable.
-If a block is added it can’t be removed or altered.
-If you change a single bit of a transaction, the hash of this transaction will be completely different. 
-So the &lt;strong&gt;merkle root&lt;/strong&gt; hash (Merkle trees are explained in the section &lt;a href=&quot;#what-is-blockchain&quot;&gt;What is blockchain&lt;/a&gt;) won’t be the same, the &lt;strong&gt;nonce&lt;/strong&gt; number will then be wrong and the block will be considered invalid.
-In this way transactions are secure once chained to the blockchain.&lt;/p&gt;
-
-&lt;p&gt;The cryptographic technology works with the principal of &lt;strong&gt;public and private keys&lt;/strong&gt;, but hashing is also a part of this technology.
-The private key is linked to the public key, but you cannot find out the private key if you have the public key. 
-The private key allows you to verify that you are the owner of the public key. 
-To make transactions, you’ll need a unique key (private key) to make a digital signature to prove that you are the owner.
-The private key is stored in your &lt;strong&gt;wallet&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Your wallet doesn’t always need to contain money, it can also hold your identity.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;The network is also protected from (d)dos attacks because of the distributed nature of blockchain. 
-If a hacker wants to take down the blockchain they would need to take down every node in the network. 
-The proof-of-work can also help deter these attacks and spam because of the high costs of mining. 
-Even if a hacker is able to penetrate one network and attempts to steal funds, there are multiple redundant copies of the same ledger stored around the world. 
-If one is tampered with, the others could be used as a backup to prove what funds actually belong in each account.&lt;/p&gt;
-
-&lt;h1 id=&quot;existing-platforms&quot;&gt;Existing platforms&lt;/h1&gt;
-
-&lt;p&gt;We will now discuss a few platforms that can be used to set up a blockchain and also compare Bluemix and Azure.&lt;/p&gt;
-
-&lt;p&gt;The first one is &lt;a href=&quot;https://www.ethereum.org/&quot;&gt;&lt;strong&gt;Ethereum&lt;/strong&gt;&lt;/a&gt;, a public blockchain. Ethereum looks like the Bitcoin blockchain, but it uses Ether as the currency.
-It is faster than Bitcoin with a transaction taking seven seconds instead of ten minutes. 
-We can also put smart contracts on the chain, with bitcoin you can only put transactions on there.&lt;/p&gt;
-
-&lt;p&gt;Another big one we have is &lt;a href=&quot;https://www.hyperledger.org/&quot;&gt;&lt;strong&gt;Hyperledger&lt;/strong&gt;&lt;/a&gt;. 
-This is a open source collaborative effort created by The Linux Foundation. 
-Another big partner in Hyperledger is IBM because they helped them with development and donated some patents.
-Hyperledger is also more focused on private networks.
-The fun part is that you can run Hyperledger locally on your computer and try out the technology.
-That brings us to &lt;a href=&quot;http://www.ibm.com/blockchain/&quot;&gt;&lt;strong&gt;IBM Blockchain&lt;/strong&gt;&lt;/a&gt;.
-IBM’s Bluemix platform focusses on private blockchains.
-It empowers businesses to digitize their transaction workflow through a highly secured, shared and replicated ledger.
-The current technology possibilities weren’t cutting it in terms of privacy so they added their code and patents to the Hyperledger project.&lt;/p&gt;
-
-&lt;p&gt;The next one is &lt;a href=&quot;http://www.multichain.com/&quot;&gt;&lt;strong&gt;Multichain&lt;/strong&gt;&lt;/a&gt;. 
-Multichain is an open source private blockchain, which is Bitcoin compatible.&lt;/p&gt;
-
-&lt;p&gt;Next up is &lt;a href=&quot;https://www.openchain.org/&quot;&gt;&lt;strong&gt;Openchain&lt;/strong&gt;&lt;/a&gt;. 
-Openchain is a little bit special because it doesn’t use the concept of blocks but the transactions are directly chained with one another, which makes it a lot faster.
-Openchain is an open source private blockchain. 
-It also doesn’t use proof-of-work but proof-of-authority.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.bigchaindb.com/&quot;&gt;&lt;strong&gt;BigChainDB&lt;/strong&gt;&lt;/a&gt; is not really a complete blockchain but it is more a database with blockchain features like: decentralization, immutability, public/private and consensus.
-BigChainDB is also open source.&lt;/p&gt;
-
-&lt;p&gt;Last but not least, we have &lt;a href=&quot;https://azure.microsoft.com/en-us/solutions/blockchain/&quot;&gt;&lt;strong&gt;Microsoft Azure blockchain&lt;/strong&gt;&lt;/a&gt; left to discuss.
-As you may have guessed, Azure is the complete opposite of IBM’s Bluemix.
-Azure focuses on being public, although this does not mean they don’t believe in the private model.
-Microsoft has said that private networks will still be important for the commercial adaptation of the blockchain technology.
-Microsoft also don’t dedicate their platform to one type of technology like Hyperledger for Bluemix but they support many different technologies like Ethereum, Hyperledger and more. 
-They do have a preference though for Ethereum because they joined the Enterprise Ethereum Alliance.&lt;/p&gt;
-
-&lt;div class=&quot;row&quot; style=&quot;margin: 0 auto 2.5rem auto; width: 66%;&quot;&gt;
-  &lt;div class=&quot;col-md-offset-3 col-md-6&quot; style=&quot;padding: 0;&quot;&gt;
-	
-&lt;figure&gt;
-    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Companies and consortiums&quot; src=&quot;/img/blockchain/partners.png&quot; /&gt;
-    
-    &lt;figcaption&gt;Table: IBM is part of Hyperledger and Microsoft is part of Enterprise Ethereum Alliance.&lt;/figcaption&gt;
-    
-&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;thinking-decentralized&quot;&gt;Thinking decentralized&lt;/h1&gt;
-
-&lt;p&gt;Last year, Ken Coenen gave a presentation about the popularity of APIs, and how companies team up to create innovative solutions.
-Data is freed from their silos and made available through APIs.
-It’s consumable for other departments and even other companies.
-However, when you think about it, all of this data is centralized and we need extra effort to expose it to other parties.&lt;/p&gt;
-
-&lt;p&gt;When working with blockchain technology, your data is &lt;strong&gt;decentralized by nature&lt;/strong&gt;.
-It’s funny when you think about it…
-Why do we want to store the data somewhere centralized in a silo and then make an extra effort to expose it?
-Isn’t is easier to start decentralized from the beginning and give access to the people who need it?
-What have we been doing all these years?&lt;/p&gt;
-
-&lt;p&gt;We’ll give an example.
-All applications implement their own user profile functionality.
-All of this user data - &lt;strong&gt;your profile information&lt;/strong&gt; - is duplicated across many companies.
-It’s already a big improvement that applications allow you to use another platform’s credentials.
-Logging in with your Facebook or Google account is becoming a habit.
-This gives the end user a way to minimize his/her digital footprint.
-Don Tapscott explains this really well in summer 2016’s TED Talk &lt;a href=&quot;https://youtu.be/og7PCYlDYsU?t=849&quot;&gt;How the blockchain is changing money and business&lt;/a&gt;.
-Of course, blockchain technology is still in its early stages.
-It’s not even sure whether the technology will last.
-Although these statements are purely hypothetical, we find much food for thought in them.&lt;/p&gt;
-
-&lt;div class=&quot;row&quot; style=&quot;margin: 0 auto 2.5rem auto; width: 66%; padding: 0;&quot;&gt;
-  &lt;div class=&quot;col-md-offset-3 col-md-6&quot; style=&quot;padding: 0;&quot;&gt;
-	
-&lt;figure&gt;
-    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Network types&quot; src=&quot;/img/blockchain/network-types.jpg&quot; /&gt;
-    
-&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;When talking with people about the possibilities of blockchain, it quickly becomes clear that we still have a long way to go.
-People aren’t waiting for yet another technological revolution.
-Instead, we need to start small.
-Blockchain and distributed ledger technology in general will have to evolve naturally.&lt;/p&gt;
-
-&lt;p&gt;Blockchain solutions like IBM Blockchain or Microsoft Azure Blockchain-as-a-Service make the technology very accessible to companies in an early stage.
-We believe that a &lt;strong&gt;private blockchain network&lt;/strong&gt; is the &lt;strong&gt;best way to start&lt;/strong&gt; for a company because of the following reasons:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Throwing all your data at the world is still a very scary idea&lt;/li&gt;
-  &lt;li&gt;You have to take all &lt;strong&gt;legal aspects&lt;/strong&gt; into account (think of the EU’s new &lt;a href=&quot;http://ec.europa.eu/justice/data-protection/reform/files/regulation_oj_en.pdf&quot;&gt;General Data Protection Regulation&lt;/a&gt;)&lt;/li&gt;
-  &lt;li&gt;You can start small and expose some transactions by defining permissions&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Companies are starting to develop applications on their proprietary Bluemix- or Azure platform, without exposing everything to the outside world.
-Get inspired by visiting &lt;a href=&quot;http://dapps.ethercasts.com/&quot;&gt;State of the Dapps&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h1 id=&quot;recommended-reading&quot;&gt;Recommended reading&lt;/h1&gt;
-
-&lt;p&gt;You can read the following books if you like to get a grasp on possible use cases which can be implemented using blockchain technology.
-Please note that neither of these books will deep dive into the technical aspects.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.goodreads.com/book/show/24714901-blockchain&quot;&gt;Blockchain: Blueprint for a New Economy by Melanie Swan&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.goodreads.com/book/show/25894041-blockchain-revolution&quot;&gt;Blockchain Revolution: How the Technology Behind Bitcoin Is Changing Money, Business, and the World by Don Tapscott, Alex Tapscott&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Ken&quot;, &quot;last_name&quot;=&gt;&quot;Coenen&quot;, &quot;twitter&quot;=&gt;&quot;CoenenKen&quot;, &quot;linkedin&quot;=&gt;&quot;coenenken&quot;, &quot;github&quot;=&gt;&quot;kencoenen&quot;, &quot;permalink&quot;=&gt;&quot;/author/ken-coenen/&quot;, &quot;avatar&quot;=&gt;&quot;ken-coenen.png&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Backend Practice Manager&quot;, &quot;email&quot;=&gt;&quot;ken.coenen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Ken is a Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he is also Backend Practice Manager of the Ordina JWorks unit. In this capacity, he narrows the gap between consultants and potential innovative customer projects. He does this by organizing workshops, talks and courses about the newest technologies, whereby people can grow in their role as a software consultant.&quot;}</name><email>ken.coenen@ordina.be</email></author><category term="Blockchain" /><category term="Blockchain" /><category term="Hyperledger" /><category term="Ethereum" /><category term="Smart contracts" /><summary type="html">A lot of people are talking about blockchain these days. They’re talking about blockchain as the next big thing after mainframes, computers, the internet and social networking. This introduction is the first part in a series of blockchain posts.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/blockchain/blockchainHeaderImagePNG.png" /></entry></feed>
+This is one of the two presented community projects by the Spring team on their main project page, the other one being Spring Roo.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Matthias&quot;, &quot;last_name&quot;=&gt;&quot;Caryn&quot;, &quot;permalink&quot;=&gt;&quot;/author/matthias-caryn/&quot;, &quot;avatar&quot;=&gt;&quot;matthias-caryn.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;email&quot;=&gt;&quot;matthias.caryn@ordina.be&quot;, &quot;github&quot;=&gt;&quot;caryntjen&quot;, &quot;linkedin&quot;=&gt;&quot;caryntjen&quot;, &quot;phone&quot;=&gt;32473836044, &quot;bio&quot;=&gt;&quot;Matthias is Java Developer at Ordina Belgium. He enjoys to discover new Java and JavaScript technologies. He's passionate about machine learning and artificial intelligence. In his spare time he enjoys a good board or tabletop games and a good walk in the park with his dogs.&quot;}</name><email>matthias.caryn@ordina.be</email></author><category term="Spring" /><category term="Spring" /><category term="Ecosystem" /><category term="Cloud" /><category term="Conference" /><summary type="html">When I was at Spring IO back in May, I was intrigued by a presentation given by Jeroen Sterken. There he talked about the Spring Ecosystem in 50 minutes. Since he only had 50 minutes, he could not focus on all the projects Spring boasts. I wanted to get a feel of what the Spring team has to offer in all its glory, by getting to know all of the main projects.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/spring.png" /></entry></feed>
