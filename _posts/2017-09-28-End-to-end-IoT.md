@@ -25,7 +25,7 @@ The **Proximus LoRa network** in combination with their **MyThings platform** ta
 
 ## Technologies overview
 For our rapid prototypes and small to medium applications we have chosen the following technical stack:
-- **Proximus LoRa network** for **LoRa connectivity**
+- **Proximus LoRa network** for LoRa **connectivity**
 - **Proximus MyThings** platform for **device management**
 - **NodeJS** with **TypeScript** on the **backend**
 - **Angular** on the **frontend** (The older versions are still on AngularJS)
@@ -38,14 +38,14 @@ We will look into each item in full detail below:
 </p>
 ### LoRa
 
-**LoRa**, short for **LoRaWAN is a LPWAN (Low Power Wide Area Network)** is meant for wireless battery powered devices or 'things'.
+**LoRa**, short for **LoRaWAN is a LPWAN** (Low Power Wide Area Network) is meant for wireless battery powered devices or 'things'.
 It offers a **low power, low bandwidth secure network** to transceive information **across large distances.** The network is laid out in star topology and can easily be extended by placing more base stations also called LoRa gateways.
 
 Some network parameters:
 - **Range of 5 to 15 kilometers** (3,1 to 9,3 miles) depending on the conditions and signal strength.
 - **Data rate of 0,3 kbps to 50 kbps**
 
-More detailed information and the full specifications can be found on the [LoRa Alliance website](https://www.lora-alliance.org/technology).
+More detailed information and the full specifications can be found on the [LoRa Alliance website](https://www.lora-alliance.org/technology){:target="_blank"}.
 
 
 <p style="text-align: center;">
@@ -53,13 +53,13 @@ More detailed information and the full specifications can be found on the [LoRa 
 </p>
 ### Proximus MyThings 
 
-[Proximus MyThings](https://mythings.proximus.be/#/login/) is a LoRa **device onboarding** and management platform. 
+[Proximus MyThings](https://mythings.proximus.be/#/login/){:target="_blank"} is a LoRa **device onboarding** and management platform. 
 It is used to enroll devices and sensors, to **map their data to specific endpoints** and provide tools for device management.
 
 The platform consists of three main parts:
-- **MyThings Builder**: Charts and **sensor values** (containers)
-- **Mythings Manager**: Online **device onboarding** and user management
-- **MyThings Scanner**: Offline (in the field) **device onboarding**
+- MyThings **Builder**: Charts and **sensor values** (containers)
+- Mythings **Manager**: Online **device onboarding** and user management
+- MyThings **Scanner**: Offline (in the field) **device onboarding**
 
 
 <p style="text-align: center;">
@@ -67,13 +67,13 @@ The platform consists of three main parts:
 </p>
 ### Node.js &amp; TypeScript
 
-Most people should be familiar with [Node](https://nodejs.org/en/).
+Most people should be familiar with [Node](https://nodejs.org/en/){:target="_blank"}.
 It is the **JavaScript runtime** built upon the **V8 engine** that Google Chrome uses.
 It is a **lightweight and efficient runtime** that uses an **event-driven, non-blocking I/O model.**
-This combined with the added **type safety that TypeScript** provides makes this an excellent choice for rapid prototyping.
+This combined with the added **type safety** that **TypeScript** provides makes this an excellent choice for rapid prototyping.
 
-Some of **our own demo applications** make use of the **Node Simple Server** (NSS) application, while others just use **[Express](https://expressjs.com).** This depends on the needs of the project.
-If you are interested in **the NSS project, **we have a blog post about it [here]**(http://ordina-jworks.github.io/iot/2017/01/21/Node-with-TypeScript.html) and it is [on GitHub](https://github.com/ordina-jworks/NodeSimpleServer) too!
+Some of our own **demo applications** make use of the **Node Simple Server** (NSS) application, while others just use **[Express](https://expressjs.com){:target="_blank"}.** This depends on the needs of the project.
+If you are interested in the **NSS project**, we have a **blog post** about it [here](http://ordina-jworks.github.io/iot/2017/01/21/Node-with-TypeScript.html){:target="_blank"} and it is [on GitHub](https://github.com/ordina-jworks/NodeSimpleServer){:target="_blank"} too!
 
 
 <p style="text-align: center;">
@@ -81,17 +81,17 @@ If you are interested in **the NSS project, **we have a blog post about it [here
 </p>
 ### Angular
 
-Like with Node, most people should be familiar with [Angular](https://angular.io) (or the older AngularJS).
+Like with Node, most people should be familiar with [Angular](https://angular.io){:target="_blank"} (or the older AngularJS).
 **Angular** is a development platform for building **modern single page web applications.**
 It is a **complete rewrite** of the older **AngularJS** and therefor has some big changes in how things work.
-Angular is easy to set up and use, it also is **fully cross platform/browser compatible.**
+Angular is easy to set up and use, it also is fully **cross platform/browser compatible.**
 
 
 ## Our demo applications
-All our demo applications are publicly available in the [GitHub project of NSS](https://github.com/ordina-jworks/NodeSimpleServer).
+All our demo applications are publicly available in the [GitHub project of NSS](https://github.com/ordina-jworks/NodeSimpleServer){:target="_blank"}.
 These demo applications are ever evolving as we are currently porting them from the older AngularJS to Angular with TypeScript.
 
-Our **demo applications** have been **showcased** and used at **several events** including internal Proximus events as well as conferences like [Devoxx](https://devoxx.be), [Techorama](https://techorama.be) and [The Belgian IoT convention](https://iot-convention.eu/en/home/) in Mechelen.
+Our **demo applications** have been **showcased** and used at **several events** including internal Proximus events as well as conferences like [Devoxx](https://devoxx.be){:target="_blank"}, [Techorama](https://techorama.be){:target="_blank"} and [The Belgian IoT convention](https://iot-convention.eu/en/home/){:target="_blank"} in Mechelen.
 
 Below we will go into detail about each application and how it came to be, as well as the iterations they went through.
 
@@ -107,17 +107,17 @@ For the impatient, the **IoT talk** at the annual **JWorks JOIN** event covered 
 The Slotmachine application does mostly what its name suggests, but with a twist.
 
 The idea is simple:
-If required the **player registers** him or herself in the application.
-A **simple push button** sends a **signal to the backend** application. 
+If required, the **player registers** him or herself in the application.
+A simple **push button** sends a **signal to** the **backend** application. 
 The **application dispatches an event** via a **websocket** to the frontend application which turns the Slotmachine. 
 The **Slotmachine** can either **result in a win or a loss**. 
 A **maximum of three attempts** are possible per player, after which a new player registration is required to play again.
-The player **registration can be disabled** depending on de requirements of the event/conference.
+The player **registration can be disabled** depending on the requirements of the event/conference.
 
-The **light effects** are also **controlled by the application.**
+The **light effects** are also **controlled by** the **application.**
 If the user has registered the **gentle fading** switches to a **running light** effect and if the user wins, the effect changes to a **carrousel of different colors**.
 The effects are controlled the same way the button is controlled but in the opposite direction. 
-The frontend application sends a **websocket event to the backend application** which **controls** the Arduino and the **LEDs.**
+The frontend application sends a websocket **event to** the **backend** application which **controls** the Arduino and the **LEDs.**
 
 <p style="text-align: center;">
   <img class="image fit" style="width: 400px; margin:0px auto;" alt="Slotmachine application" src="/img/end-to-end-iot/slotmachine-1.jpg">
@@ -147,8 +147,8 @@ Setting a win chance (up to 100%) and different images/styling for different eve
 ### The Booze-o-meter
 The Booze-o-meter application is a drink dispenser that **relays liquid fill level** in the dispenser.
 It is a fun example to demonstrate how measuring the fill level of a container can be achieved.
-**This idea can be applied** to container in a whole range of different industries and use cases. 
-**From oil tanks to garbage cans and to containers.**
+This **idea can be applied** to container in a whole range of different industries and use cases. 
+From **oil tanks** to **garbage cans** and to **containers.**
 
 The application setup is extremely similar to the Slotmachine application. 
 The **sensors relay** their **data** via the **MyThings platform** to **our backend**, which in turns **dispatches an event** on a websocket so the **frontend** application can **display the change.**
@@ -179,8 +179,8 @@ This data gets represented on the frontend application as the four states as men
 
 > The Booze-o-meter V2 at Devoxx Belgium 2016 with actual liquor!
 
-The second version of the Booze-o-meter application allowed us to get a **more detailed reading** of the remaining **fluid level** in the container thanks to the addition of an **ultrasonic sensor.** 
-This sensor can measure the **distance between itself and a surface**, in this case the surface of the liquid in the container.
+The second version of the Booze-o-meter application allowed us to get a more **detailed reading** of the remaining **fluid level** in the container thanks to the addition of an **ultrasonic sensor.** 
+This sensor can **measure** the **distance** between itself and a surface, in this case the surface of the liquid in the container.
 
 The application was updated to support this **more granular approach** that is able to show the level in the container **accurately to 1%.**
 
@@ -188,13 +188,13 @@ The application was updated to support this **more granular approach** that is a
 ## Conclusion
 
 Our demo applications have **served us well** in bringing across the idea of LoRa to customers and other interested developers. 
-**We will continue to evolve our demo applications** by adding new features, technologies and **keeping them up to date.**
+We will **continue to evolve our demo applications** by adding new features, technologies and **keeping them up to date.**
 
 ### Useful links &amp; further reading
-- [LoRa Alliance](https://www.lora-alliance.org/technology)
-- [Proximus MyThings](https://mythings.proximus.be/#/login/)
-- [Node Simple Server on GitHub](https://github.com/ordina-jworks/NodeSimpleServer)
-- [StairWay to Health JOIN Presentation](https://www.youtube.com/watch?v=BbnwrvfozUs&t=21s)
-- [Angular](https://angular.io)
-- [NodeJS](https://nodejs.org/en/)
-- [Express](https://expressjs.com)
+- [LoRa Alliance](https://www.lora-alliance.org/technology){:target="_blank"}
+- [Proximus MyThings](https://mythings.proximus.be/#/login/){:target="_blank"}
+- [Node Simple Server on GitHub](https://github.com/ordina-jworks/NodeSimpleServer){:target="_blank"}
+- [StairWay to Health JOIN Presentation](https://www.youtube.com/watch?v=BbnwrvfozUs&t=21s){:target="_blank"}
+- [Angular](https://angular.io){:target="_blank"}
+- [NodeJS](https://nodejs.org/en/){:target="_blank"}
+- [Express](https://expressjs.com){:target="_blank"}
