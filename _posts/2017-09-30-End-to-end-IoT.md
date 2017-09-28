@@ -1,9 +1,9 @@
 ---
 layout: post
 authors: [kevin_van_den_abeele]
-title: 'Building an end-to-end IoT solution with LoRa'
-image: /img/boozeometer.png
-tags: [JavaScript, TypeScript, IoT, Internet Of Things, Arduino, Prototyping Sensors, LoRa, Booze, Node.js, Proximus, MyThings, smart tech]
+title: 'Building end-to-end IoT demos with LoRa'
+image: /img/booze-5.jpg
+tags: [JavaScript, TypeScript, IoT, Internet Of Things, Arduino, Prototyping, Sensors, LoRa, Booze, Node.js, Proximus, MyThings, smart tech, smart, tech, johnny-five, electronics, modem]
 category: IoT
 comments: true
 ---
@@ -95,6 +95,12 @@ Our demo applications have been showcased and used at several events including i
 
 Below we will go into detail about each application and how it came to be, as well as the iterations they went through.
 
+Aside from the Slotmachine and the Booze-o-meter we've also developed the Stairway to Health application for Proximus. 
+A blogpost about this will be available in October.
+For the impatiant, The IoT talk at the annual JWorks JOIN event convered this topic already and can be viewed on YouTube.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BbnwrvfozUs?rel=0" frameborder="0" allowfullscreen></iframe>
+
 
 ### The slotmachine
 The slotmachine application does mostly what its name suggests, but with a twist.
@@ -111,10 +117,11 @@ The effects are controlled the same way the button is controlled but in the opos
 The frontend application sends a websocket event to the backend application which controlles the Arduino and the LEDs.
 
 <p style="text-align: center;">
-  <img class="image fit" style="width: 350px; margin:0px auto;" alt="Slotmachine application" src="../img/end-to-end-iot/slotmachine-1.jpg">
-  <img class="image fit" style="width: 350px; margin:0px auto;" alt="Slotmachine application" src="../img/end-to-end-iot/slotmachine-2.jpg">
+  <img class="image fit" style="width: 400px; margin:0px auto;" alt="Slotmachine application" src="../img/end-to-end-iot/slotmachine-1.jpg">
+  <img class="image fit" style="width: 400px; margin:0px auto;" alt="Slotmachine application" src="../img/end-to-end-iot/slotmachine-2.jpg">
 </p>
 
+> The Slotmachine V1 test setup.
 
 #### V1
 The first version was not LoRa enabled and used a push button and Arduino integration via Johnny-Five to allow interaction. This meant that an Arduino always needed to be connected to the server or laptop that was used as a server.
@@ -135,23 +142,47 @@ Setting a win chance (up to 100%) and different images/styling for different eve
 
 
 ### The booze-o-meter
+The Booze-o-meter application is a drink disperser that relays the remaining level of fluid in the dispenser.
+It is a fun example to demonstrate how measuring a liquid of fill level of a container can be achieved.
+This idea can be applied to container in a whole range of different industries and use cases. 
+From oil tanks to garbage cans and containers.
 
+The application setup is extremely similar to the Slotmachine application. 
+The sensors relay their data via the MyThings platform to our backend, which in turns dispatches an event on a websocket so the frontend application can display the change.
 
 <p style="text-align: center;">
-  <img class="image fit" style="width: 650px; margin:0px auto;" alt="Slotmachine application" src="/img/end-to-end-iot/booze-1.jpg">
+  <img class="image fit" style="width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="../img/end-to-end-iot/booze-1.jpg">
+   <img class="image fit" style="width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="../img/end-to-end-iot/booze-2.jpg">
 </p>
 
-<p style="text-align: center;">
-  <img class="image fit" style="width: 650px; margin:0px auto;" alt="Slotmachine application" src="/img/end-to-end-iot/booze-2.jpg">
-</p>
+> The Booze-o-meter V1 test setup with regular water.
+
 
 #### V1
+The first version of the Booze-o-meter used three sensors that can detect a liquid through a thin plastic container. This allowed us to present the level in the container in a coarse way: 
+- FULL (initial state)
+- HIGH (sensor)
+- MEDIUM (sensor)
+- FULL (sensor)
+
+The sensors have a simple binary readout, true if liquid is detected, false if not.
+This data gets represented on the frontend application as the four states as mentioned above.
 
 #### V2
+<p style="text-align: center;">
+  <img class="image fit" style="width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="../img/end-to-end-iot/booze-3.jpg">
+   <img class="image fit" style="width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="../img/end-to-end-iot/booze-4.jpg">
+</p>
 
-### The future of our demo applications
+> The Booze-o-meter V2 at Devoxx Belgium 2016 with actual liqour!
+
+The second version of the Booze-o-meter application allowed us to get a more detailed reading of the remaining fluid level in the container thanks to the addition of an ultrasonic sensor. 
+This sensor can measure the distance between itself and a surface, in this case the surface of the liquid in the container.
+
+The application was updated to support this more granular approach that is able to show the level in the container accurate to 1%.
+
 
 ## Conclusion
 
-TODO:
-<iframe width="560" height="315" src="https://www.youtube.com/embed/BbnwrvfozUs?rel=0" frameborder="0" allowfullscreen></iframe>
+Our demo applications have served us well in bringing across the idea of LoRa to customers and other interested developers. 
+We will continue to evolve our demo applications to add new features and keep them up to date with newer and experimental techonolgies.
