@@ -40,7 +40,7 @@ transparent_header: true
                 {% for page in (1..paginator.total_pages) %}
                 {% if page == 1 %}
                 {% capture url %}
-                {{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}
+                {{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: 'page:num', '' }}
                 {% endcapture %}
                 {% else %}
                 {% capture url %}
