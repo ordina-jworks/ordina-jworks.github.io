@@ -71,7 +71,7 @@ Below you’ll find a brief overview of the technologies we explored & applied i
   * JPA, Hibernate
   * Unit Testing: JUnit, Mockito, etc. 
   * MongoDB
-  * Cloud solutions (PaaS, Iaas, Saas)
+  * Cloud solutions (PaaS, IaaS, SaaS)
   * Docker, Git
 
 * **Design principles and methodologies**
@@ -90,7 +90,8 @@ Last but not least, we were introduced to the wonderful world where clean code &
 
 ## Memorable moments
 
-"The soft skill sessions were real eyeopeners and gave me a better understanding regarding introducing myself, giving presentations and the Agile methodology." -- Ken
+"The soft skill sessions were real eyeopeners and gave me a better understanding regarding introducing myself, giving presentations and the Agile methodology. 
+The introduction to microservices was very interesting since moving away from monoliths is the way to go." -- Ken
 
 "The tips received during the communication essentials sessions are a backpack full good enough to present myself in a proper way. 
 Diverse technologies used in Jworks e.g. turning a monolith to Microservices, a different type of databases like MonogDB, running your applications in docker containers and such." -- Michiel
