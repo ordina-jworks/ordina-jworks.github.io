@@ -104,6 +104,13 @@ And the introduction to the mongoDatabase, how to use it in the command line int
 How often do you get a chance to practice communication in the most awkward situations? 
 I guess every day, but at least in these sessions there were no real repercussions :)" -- Simon
 
+"Learning about all those different technologies. 
+There really is to much to chose from.
+But if I have to pick something, it's the Spring Boot session.
+I previously experimented with Spring Boot at my internship, where nothing seemed to make sense.
+But after this session, everything I was struggling with became clear and fell in place.
+" --Nick
+
 ## The new JWorks colleagues
 
 <span class="image left "><img class="p-image" alt="Nick Geudens"   src="/img/kickstarters/2017/nick-geudens.jpg" /></span>
