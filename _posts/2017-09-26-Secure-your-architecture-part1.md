@@ -61,7 +61,7 @@ Obviously, it depends on the use case of the applications that require resources
 Is it a third party application like Facebook or a first party like your own application? Or both? 
 I will explain both [OAuth2](#oauth2-scopes){:target="_blank"} and [JSON Web Token](#jwt){:target="_blank"} and how they solve these requirements.
 
-The OAuth2 delegation protocol allows us to retrieve an access token from an idenity provider and gain access to a microservice by passing the token with subsequent requests.
+The OAuth2 delegation protocol allows us to retrieve an access token from an identity provider and gain access to a microservice by passing the token with subsequent requests.
 When introducing the OAuth2 framework to our system, we will be using four grant types.
 These grant types are different ways to obtain an access token, some clients are more trusted than others.
 
@@ -179,7 +179,7 @@ It’s primary role is that of an identity provider, issuing tokens for client a
 It can also authenticate users with their credentials, and can act as an SSO service using those credentials.
 
 There are some options available as a UAA server:
-* Using a third party for issuing tokens (ex. Github, Facebook). [Tutorial Github social login](https://spring.io/guides/tutorials/spring-boot-oauth2/#_social_login_github){:target="_blank"}
+* Using a third party for issuing tokens (ex. GitHub, Facebook). [Tutorial Github social login](https://spring.io/guides/tutorials/spring-boot-oauth2/#_social_login_github){:target="_blank"}
 * Using [KeyCloak](http://www.keycloak.org/){:target="_blank"}, an open source solution aimed to make it easy to secure your application. [Tutorial on how to use KeyCloak in Spring](https://dzone.com/articles/easily-secure-your-spring-boot-applications-with-k){:target="_blank"}
 * Using [Okta](https://www.okta.com/){:target="_blank"}, a commercial OAuth2, SAML and general identity management service in the cloud.
 * Implementing your own UAA is not really best practice since other providers cover most of the use cases. [Explanatory video of the UAA server](https://youtu.be/EoK5a99Bmjc?t=4){:target="_blank"}
