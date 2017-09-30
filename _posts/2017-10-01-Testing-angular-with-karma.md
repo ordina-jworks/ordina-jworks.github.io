@@ -2,7 +2,7 @@
 layout: post
 authors: [martijn_willekens]
 title: "Testing Angular with Karma 101"
-image: /img/2017-09-28-testing-angular-with-karma/unit-tests.png
+image: /img/2017-10-01-testing-angular-with-karma/unit-tests.png
 tags: [Angular,Karma,Unit testing,Jasmine,TypeScript]
 category: Angular
 comments: true
@@ -32,39 +32,39 @@ If you're using the Angular CLI, you’re in luck because setting up the unit te
 It’s already done! 
 All you need to do is run `ng test` (or `npm test`). 
 It will transpile your tests and run them using Karma. 
-If you're not using the Angular CLI yet, I recommend creating a new project with the CLI and copy your existing project to it.
+If you're not using the Angular CLI yet, I recommend creating a new project with the CLI and copying your existing project to it.
 It will make your life a lot easier.
 
-Running `ng test` will run the tests continuously, meaning that every time you save a change to a file, it will automatically rerun your tests. 
+Running `ng test` will run the tests in watch mode, meaning that every time you save a change to a file, it will automatically rerun your tests. 
 Additional flags can be passed like `--single-run` to make it run only once. 
 When passing the `--code-coverage` flag, it generates a report in HTML. 
 By default it's found under `coverage/index.html` and it indicates which parts of your code were covered by your unit tests.
 
 <div class="row">
-    <img class="image fit" style="max-width: 785px" alt="Code coverage" src="/img/2017-09-28-testing-angular-with-karma/code-coverage.png">
+    <img class="image fit" style="max-width: 785px" alt="Code coverage" src="/img/2017-10-01-testing-angular-with-karma/code-coverage.png">
 </div>
 
 # Writing tests
 ## Structure
 Now that the setup is done, let’s look at how to write the tests themselves.
 First of all, test files should be named after the .ts file you're testing, but with `.spec` added to the file name (e.g. when testing `login.component.ts`, the test file should be named `login.component.spec.ts`). 
-It's best practice to keep the spec file in the same folder as the ts file. So mostly, for a component, you’ll end up with a HTML, scss, spec.ts and ts file in one folder.
+It's best practice to keep the spec file in the same folder as the ts file. So mostly, for a component, you’ll end up with a HTML, scss, spec.ts and ts file in one folder (unless you like to inline your HTML and CSS).
 
 <p>
-    <img class="image" alt="Folder structure" src="/img/2017-09-28-testing-angular-with-karma/files.png" />
+    <img class="image" alt="Folder structure" src="/img/2017-10-01-testing-angular-with-karma/files.png" />
 </p>
 
 Next up, the content of a test file. 
-The jasmine spec is used format the tests ([more info](https://jasmine.github.io/pages/getting_started.html).
+The jasmine spec is used format the tests ([more info](https://jasmine.github.io/pages/getting_started.html)).
 This means that individual tests are grouped together in a `describe` block. 
 A test itself starts with `it`. 
-Besides tests, you can also add other blocks in to a `describe`, like `beforeEach`, `beforeAll`, `afterEach`, `afterAll`... 
+Besides tests, you can also add other blocks to a `describe`, like `beforeEach`, `beforeAll`, `afterEach`, `afterAll`... 
 What these blocks do, is quite self-explanatory. 
-Here's an example how it could be used: when testing a class, you’ll want to create an instance of that class for each test, so instead of writing the same code in each test, you could put that code in the `beforeEach` clause. 
-Simply pass `beforeEach` a function (in lambda notation) containing the code you want it to run. 
+Here's an example how it could be used: when testing a class, you’ll want to create an instance of that class for each test, so instead of writing the same code in each test to create an instance, you could put that code in the `beforeEach` clause. 
+Simply pass a function (in lambda notation) to `beforeEach` containing the code you want it to run. 
 
 Within a test itself, the class' public functions can be called and assertions can be made. 
-Assertions are made using `expect`. You can tell it what you expect the result of what you have given it to be with `toBe`, `toEqual`, `toBeTruthy`, `toBeFalsy`, `toBeNull`...
+Assertions are made using the `expect` function. You can give it a variable or a call to a function and tell it what you expect the result to be with `toBe`, `toEqual`, `toBeTruthy`, `toBeFalsy`, `toBeNull`...
 
 Here's an example: 
 
@@ -114,9 +114,10 @@ The unit tests you would write using the constructor approach, could practically
 However, there are some problems with using the Angular TestBed for unit tests which I'll be explaining below.
 
 ## 1. TestBed
-Setting up the TestBed configuration for a component kind of looks like a module definitions, you should list all components, directives and services directly or by importing a module that includes them. 
-Calling `createComponent` will return a 'fixture' which can be used to access the view and also get the instance of the class. 
-With the fixture you can find HTML elements and perform actions on them, verify their content and attributes.
+Setting up the TestBed configuration for a component kind of looks like a module definition. 
+You should list all components, directives and services that are used by the component you're testing directly or by importing a module that includes them. 
+Calling `createComponent` will return a 'fixture' which can be used to access the view and also get the instance of the class linked to it. 
+With the fixture you can find HTML elements and perform actions on them, verify their content and attributes...
 The instance of the class can be used to test its public functions (unit test).
 
 {% highlight coffeescript %}
@@ -240,7 +241,7 @@ The problem is that we don't have any spies, so those functions can't be used.
 We can again add spies like in the first approach, but you can imagine that this is a lot of work and will get quite messy.
 
 #### Jasmine spy objects
-The first two approaches have some issues, but luckily there's a better way, Jasmine spy objects:
+So, the first two approaches have some issues. Luckily there's a better way, Jasmine spy objects:
     
 {% highlight coffeescript %}
 describe('AppComponent', () => {        
@@ -271,7 +272,7 @@ The second argument is an array containing all function names of that correspond
 In other words, not all functions offered by the class that's being mocked have be listed, only the ones actually being used.
 >Also note that in the providers list, we have to use `useValue` instead of `useClass` since `jasmine.createSpyObj` already returns an instance.
 
-Using `spyOn` isn't needed, a spy object is already being spied upon and you can call the `toHaveBeenCalled` and `toHaveBeenCalledWith` functions on them.
+Using `spyOn` isn't needed, a spy object is already being spied upon (hence the name) and you can call the `toHaveBeenCalled` and `toHaveBeenCalledWith` functions on it.
 
 {% highlight coffeescript %}
 ...
@@ -290,7 +291,7 @@ There's even another benefit when using spy objects.
 The implementation (`returnValue` or `callFake`) can be changed at any time, even in the middle of a test!
 
 ### Issues with unit testing
-A side effect of using TestBed is when the component is loaded, the `ngOnInit`, `ngAfterViewInit`... lifecycle events are called automatically.
+A side effect of using TestBed is that when the component is loaded, the `ngOnInit`, `ngAfterViewInit`... lifecycle events are called automatically.
 This means you have less control over them. 
 
 Getting all the imports, providers and declarations setup can be quite a struggle too. 
@@ -308,16 +309,16 @@ It's very likely that you'll be using the Angular router in some of your compone
 You could mock the router dependecy using a Jasmine spy object or you can add `RouterTestingModule` as an import instead of the `RouterModule` itself. 
 The routes that are relevant can then be defined in the `RouterTestingModule`:
     
-{% highlight coffeescript %}  
-    imports: [RouterTestingModule.withRoutes([/*List mock routes here*/])]
+{% highlight coffeescript %}
+imports: [RouterTestingModule.withRoutes([/*List mock routes here*/])]
 {% endhighlight %}  
 
 >To learn more about writing tests using Angular TestBed, I recommend reading this guide: [https://angular.io/guide/testing](https://angular.io/guide/testing).
 
 ## 2. Calling the constructor
 
-A much simpler way to do unit testing is to simply call the constructor of the class you want to test.
-You should get an instance of each class that's needed in the component's constructor.
+A much better way to do unit testing is to simply call the constructor of the class you want to test.
+You should get an instance of each dependency that's needed in the component's constructor.
 Of course we want to mock these classes and as we saw in the Angular TestBed section, the Jasmine spy objects are the way to go.
 
 {% highlight coffeescript %}
@@ -351,10 +352,10 @@ it('should find the car brand', () => {
 }); 
 {% endhighlight %}
 
-## Async, fakeAsync, tick
+# Async, fakeAsync, tick
 Angular is full of Observables and writing tests for them is a little trickier. 
 You might also be using `setTimeout` and `setInterval`. 
-To cope with all that, Angular provides the `async` and `fakeAsync` function. 
+To cope with all that, Angular provides the `async` and `fakeAsync` functions. 
 You can simply wrap your test in an `async` and it should only finish after all async calls are finished. 
 If you want to have more control, you can wrap the test in a `fakeAsync` instead. 
 Then the `tick()` function can be called to advance time with one tick. 
@@ -390,7 +391,7 @@ it('should increase the counter with a delay', fakeAsync(() => {
 }));
 {% endhighlight %}  
 
-Although it isn't really a useful test, it clearly shows how the tick function manipulates the advancement of time.
+It clearly shows how the tick function manipulates the advancement of time, although it isn't really a useful test, 
 
 ### Observables
 
@@ -420,18 +421,19 @@ By adding `expect(true).toBeFalsy();` to the error clause, your test will fail b
 Now that we know a little on how to test, let's have a look at what to test. 
 
 For starters, you don't have access to private and protected variables/functions, so all you can do is test the public ones. 
-All variables that are accessed by the view, should be public so those are the ones you can already test. 
+All variables that are accessed by the view should be public, so those are the ones you can use for your tests. 
 The constructor and all lifecycle events can be called too as they are public. 
 You should never ever set a variable or function to public in order to test it. 
 If you can't test it because it's private, you're doing something wrong. 
 You should be able to get to it through other functions.
 
 Generally, you give an input and assert the output, it's as simple as that. 
+Your different inputs should also make sure that all branches are tested (e.g. an if else gives you 2 branches, one where if resolves to true and one to false).
 Unit tests in Karma also allow you to assert whether a function has been called and optionally with which parameters (`toHaveBeenCalled` and `toHaveBeenCalledWith`). 
 This can be usefull when for example testing a `void` function that calls a mocked function. 
 That way you can still assert the output. 
-So, think of possible scenarios for the functions to test, provide the input and assert the output. 
-Also try to cover other paths than just the happy paths.
+So, think of possible scenarios for the functions to test, provide the input and assert the output using `expect`. 
+Also try to cover other paths than just the happy paths!
 
 Testing getters and setters usually isn't needed, unless they are more complex. 
 In most cases they're not and it's quite pointless to call a setter and then assert whether it has been set correclty. 
@@ -439,11 +441,11 @@ Most of the time, these will be called indirectly when testing other functions.
 
 The code coverage report can help you find functions that aren't fully tested yet. 
 However, your goal shouldn't be to get a 100% coverage. 
-Getting a 100% isn't that hard, simply calling all functions with some different inputs so all branches are covered will get you there (e.g. an if else gives you two branches to cover).
+Getting a 100% isn't that hard, simply calling all functions with some different inputs will get you there.
 It won't mean that your code is fully tested.
 To give you an example, suppose you have a function that sorts a list.
-You use it in some tests, give it some different inputs so all branches are covered and you get a 100% coverage.
-The ordering of the list could still be completely wrong and not what you expect, although it's full covered.
+You write some tests with different inputs so all branches are covered and you get a 100% coverage.
+The ordering of the list could still be completely wrong and not what you expect, although it's fully covered.
 By using `expect` to verify that the output is correct, you'll be doing a way better job.
 Even then there may be scenario's that aren't tested despite the coverage report stating that part of the code is covered.
 So try to think of the various possible scenarios (both success and error scenarios) and translate those to tests.
@@ -486,10 +488,10 @@ describe('AppComponent', () => {
 
 ## Using the injector
 Dependecy injection is used all over Angular meaning that it isn't possible to simply call `new` for certain classes. 
-Normally, you simply put dependecies in the constructor of your class and Angular takes care of the rest (e.g. `constructor(private formBuilder: FormBuilder)`).
-When calling the constructor of a class in a test, you don't always want to mock those dependecies so you'll need to get instances of them somehow. 
+Normally, you simply put the dependecies in the constructor of your class and Angular takes care of the rest (e.g. `constructor(private formBuilder: FormBuilder)`).
+When calling the constructor of a class in a test, you don't always want to mock those dependecies, so you'll need to get instances of them somehow. 
 For example when using Angular's `FormBuilder` or when you need it to create a `FormGroup` to use in your test. 
-In that case you can use Angular's ReflectiveInjector which takes care of getting an instance for you.
+In that case, you can use Angular's ReflectiveInjector which takes care of getting an instance for you.
 Here's an example how:
 
 {% highlight coffeescript %}
@@ -502,7 +504,7 @@ That instance can then be passed in the constuctor of the class you're testing.
 
 # Conclusion
 When writing unit tests, it's better to call the constructors direcly and not to use Angular TestBed. 
-It will give you more freedom and more control, run much faster and allow you to completely isolate the classes. 
+It will give you more freedom and more control, run the tests much faster and allow you to completely isolate the classes. 
 You should also write integration tests and TestBed will serve that purpose very well.
 To mock classes, Jasmine spy objects are simply the way to go.
 Changing their implementation or return value is easy and can be done at any time!
