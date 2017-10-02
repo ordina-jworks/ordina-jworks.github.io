@@ -77,6 +77,8 @@ As I have said earlier in the post, I will explain Spring Cloud Stream using a s
 
 ## Rick
 
+<img alt="Rick Sanchez" style="max-width: 259px" src="{{ '/img/spring-cloud-stream/rick.png' | prepend: site.baseurl }}" class="image fit"/>
+
 This is [Rick Sanchez](http://rickandmorty.wikia.com/wiki/Rick_Sanchez){:target="_blank"}.
 He is Morty's grandfather, a genius mastermind, inventor of inter-dimensional travel, the Microverse, a butter-passing robot and much, much more.
 
@@ -94,9 +96,11 @@ The saying goes that a picture is worth a thousand words, so that means this vid
 
 So now we know that Rick really wants this Szechuan sauce.
 
-> We will create a Spring Cloud Stream application, called *Rick*, which sole purpose is to retrieve Szechuan sauce from McDonalds.
+Now, we have a purpose:
 
-As with every Spring based application these days, it can easily be created by going to the happiest place on earth (next to **production**): [https://start.spring.io](https://start.spring.io){:target="_blank"}.
+> We will create a Spring Cloud Stream application, called *Rick*, which sole purpose is to retrieve Szechuan sauce from McDonalds!
+
+As with every Spring based application these days, it's as easy as going to the happiest place on earth (next to **production**): [https://start.spring.io](https://start.spring.io){:target="_blank"}.
 As our dependencies, we pick **Spring Web MVC** to create some handy web endpoints and **Stream Rabbit** since we want to send our messages over a RabbitMQ broker.
 We end up with the following dependencies:
 
@@ -126,7 +130,124 @@ public class RickApplication {
 }
 ```
 
-Looks pretty familiar, doesn't it? That's because the only new thing in the snippet above is the `@EnableBinding` annotation, which automagically converts your application into a full-fledged messaging beast!
+Looks pretty familiar, doesn't it? That's because the only new thing in the snippet above is the `@EnableBinding` annotation, which automagically converts your application into a **full-fledged messaging beast**!
+The `InputChannels` and `OutputChannels` interfaces are specific to my application.
+
+Very simply explained, we can describe the Rick microservice with the following diagram:
+
+<img alt="Rick Microservice" style="max-width: 640px" src="{{ '/img/spring-cloud-stream/diagram/rick.png' | prepend: site.baseurl }}" class="image fit"/>
+
+As you can see, we have defined one input channel called `rick` and one output channel called `microverse`.
+These are implemented in a Spring Cloud Stream application like this:
+
+```java
+public interface InputChannels {
+	@Input
+	SubscribableChannel rick();
+}
+```
+
+```java
+public interface OutputChannels {
+	@Output
+	MessageChannel microverse();
+}
+```
+
+> Holy sh*t Rick, this almost seems like it's too easy!
+
+Well Morty, erm dear reader, that's because it is!
+Didn't I tell you that Spring is awesome at abstraction?
+Yeah, this is why.
+The only thing that is left for us to do, is write our "business logic", or in our case: the part where we try to find our beloved Szechuan sauce!
+
+Since Rick is very lazy and an arrogant genius, he's not gonna look for the sauce himself.
+I mean, he's got adventures to go on, inventions to invent and generally be a pain in the ass of the [Galactic Federation](http://rickandmorty.wikia.com/wiki/Galactic_Federation){:target="_blank"}.
+
+Let's add another output channel to our interface:
+
+```java
+public interface OutputChannels {
+	@Output
+	MessageChannel meeseeks();
+
+	@Output
+	MessageChannel microverse();
+}
+```
+
+Meeseeks?! What the hell is a meeseeks?
+Patience my dear reader, all will be explained shortly.
+First, let me show you the evil, brilliant piece of code which is gonna get us the Szechuan sauce:
+
+```java
+@Component
+public class SzechuanSauceFinder {
+
+    private static final String C_137 = "C-137";
+    private static final int minimumRequestIntervalInMillis = 50;
+    private static boolean SEARCHING = false;
+
+	void findThatSauce() throws InterruptedException {
+		if (!SEARCHING) {
+			SEARCHING = true;
+			int requestIntervalInMillis = 5000;
+
+			while (SEARCHING) {
+				this.outputChannels.meeseeks().send(buildMessage(I_WANT_MY_SZECHUAN_SAUCE, C_137));
+
+				Thread.sleep(requestIntervalInMillis);
+
+				requestIntervalInMillis = Math.max(minimumRequestIntervalInMillis, requestIntervalInMillis - 200);
+			}
+
+			SEARCHING = false;
+		}
+	}
+
+	void stopSearching() {
+		SEARCHING = false;
+	}
+}
+```
+
+Isn't that some of the most evil code you've ever seen?
+Nothing more evil than static variables controlling the state in your logic, or precisely placed `Thread.sleep()` commands.
+
+Okay, we've got a messaging microservice, pumping out messages at an increasing rate (up until 20 per second).
+How will we know if our *meeseeks*, whatever that is, has found the szechuan sauce?
+
+The rest of the code in this Component will illustrate **how an input channel can handle incoming messages**:
+
+```java
+@Autowired
+public SzechuanSauceFinder(InputChannels inputChannels, OutputChannels outputChannels) {
+    this.outputChannels = outputChannels;
+    inputChannels.rick().subscribe((message -> {
+        GlipGlop glipGlop = (GlipGlop) message.getPayload();
+        if (glipGlop.getQuote() == ALL_DONE) {
+            stopSearching();
+            this.outputChannels.microverse().send(buildMessage(WUBBA_LUBBA_DUB_DUB, C_137));
+        }
+    }));
+}
+
+private Message<?> buildMessage(RickAndMortyQuote quote, String instanceId) {
+    return MessageBuilder.withPayload(new GlipGlop(quote, instanceId)).build();
+}
+```
+
+Since the `rick` input channel is a `SubscribableChannel`, we can subscribe to it.
+Well [duh](http://pa1.narvii.com/6422/b662846ee28e630dd9661ecca86bd9c4ee0275ef_hq.gif){:target="_blank"}!
+A `message` can be of any type but we do need to cast it to our own format, a [GlipGlop](https://www.youtube.com/watch?v=G9Ebl9vEKx0&t=28s){:target="_blank"}, but Spring has [ways to make this easier](https://docs.spring.io/spring-cloud-stream/docs/Elmhurst.BUILD-SNAPSHOT/reference/htmlsingle/#_using_streamlistener_for_automatic_content_type_handling){:target="_blank"} for us.
+We could have created a method annotated with the new `@StreamListener` annotation, which would look like this:
+
+```java
+@StreamListener(InputChannels.RICK)
+public void handle(GlipGlop glipGlop) {
+    ...
+}
+```
 
 ## The Microverse
 
