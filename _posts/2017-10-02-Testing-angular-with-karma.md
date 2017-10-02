@@ -2,7 +2,7 @@
 layout: post
 authors: [martijn_willekens]
 title: "Testing Angular with Karma 101"
-image: /img/2017-10-01-testing-angular-with-karma/unit-tests.png
+image: /img/2017-10-02-testing-angular-with-karma/unit-tests.png
 tags: [Angular,Karma,Unit testing,Jasmine,TypeScript]
 category: Angular
 comments: true
@@ -12,7 +12,7 @@ This also counts for frontend applications such as Angular apps.
 Unit testing is one way to do so. 
 The goal of these kind of tests is to isolate classes and verify the output of its functions to be what you expect when they are called.
 We also need a tool to run our tests written in TypeScript.
-Karma is such a tool and can be used to run tests as described in this blog.
+[Karma](https://karma-runner.github.io/) is such a tool and can be used to run tests as described in this blog.
 It will open a browser, execute pieces of javascript and report the results back to you.
 
 Now, I must admit that I’m not too fond of writing tests myself. 
@@ -41,7 +41,7 @@ When passing the `--code-coverage` flag, it generates a report in HTML.
 By default it's found under `coverage/index.html` and it indicates which parts of your code were covered by your unit tests.
 
 <div class="row">
-    <img class="image fit" style="max-width: 785px" alt="Code coverage" src="/img/2017-10-01-testing-angular-with-karma/code-coverage.png">
+    <img class="image fit" style="max-width: 785px" alt="Code coverage" src="/img/2017-10-02-testing-angular-with-karma/code-coverage.png">
 </div>
 
 # Writing tests
@@ -51,7 +51,7 @@ First of all, test files should be named after the .ts file you're testing, but 
 It's best practice to keep the spec file in the same folder as the ts file. So mostly, for a component, you’ll end up with a HTML, scss, spec.ts and ts file in one folder (unless you like to inline your HTML and CSS).
 
 <p>
-    <img class="image" alt="Folder structure" src="/img/2017-10-01-testing-angular-with-karma/files.png" />
+    <img class="image" alt="Folder structure" src="/img/2017-10-02-testing-angular-with-karma/files.png" />
 </p>
 
 Next up, the content of a test file. 
