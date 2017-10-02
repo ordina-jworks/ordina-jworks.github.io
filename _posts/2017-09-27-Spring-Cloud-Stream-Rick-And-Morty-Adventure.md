@@ -39,7 +39,7 @@ It might be surprising, but [Spring Cloud Stream](https://cloud.spring.io/spring
 The project was called `spring-bus` during its prototype phase and the first real commit was on May 28th 2015.
 [Dave Syer](https://twitter.com/david_syer){:target="_blank"} performed the commit that changed it to its current name on **July 8th 2015**, so I will call that **the birth of Spring Cloud Stream**!
 
-The most active contributor up until now is probably Marius Bogoevici](https://twitter.com/mariusbogoevici){:target="_blank"}.
+The most active contributor up until now is probably [Marius Bogoevici](https://twitter.com/mariusbogoevici){:target="_blank"}.
 Questions about the project can be directed to the community in the [Spring Cloud Stream Gitter channel](https://gitter.im/spring-cloud/spring-cloud-stream){:target="_blank"}.
 
 ## Application Model
@@ -80,11 +80,53 @@ As I have said earlier in the post, I will explain Spring Cloud Stream using a s
 This is [Rick Sanchez](http://rickandmorty.wikia.com/wiki/Rick_Sanchez){:target="_blank"}.
 He is Morty's grandfather, a genius mastermind, inventor of inter-dimensional travel, the Microverse, a butter-passing robot and much, much more.
 
-He is also an asshole.
+He is also an **asshole**.
 
 <img alt="Rick Sanchez" style="max-width: 480px" src="{{ '/img/spring-cloud-stream/purpose.gif' | prepend: site.baseurl }}" class="image fit"/>
 
+## Rick's Obsession
 
+In the first episode of Season 3, Rick expressed his obsession with the [1998 Mulan Szechuan Sauce](http://mcdonalds.wikia.com/wiki/Szechuan_Sauce){:target="_blank"}.
+The saying goes that a picture is worth a thousand words, so that means this video below will explain, like, a bajillion words or something:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xilkhMtZD20" frameborder="0" allowfullscreen></iframe>
+
+
+So now we know that Rick really wants this Szechuan sauce.
+
+> We will create a Spring Cloud Stream application, called *Rick*, which sole purpose is to retrieve Szechuan sauce from McDonalds.
+
+As with every Spring based application these days, it can easily be created by going to the happiest place on earth (next to **production**): [https://start.spring.io](https://start.spring.io){:target="_blank"}.
+As our dependencies, we pick **Spring Web MVC** to create some handy web endpoints and **Stream Rabbit** since we want to send our messages over a RabbitMQ broker.
+We end up with the following dependencies:
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+    </dependency>
+</dependencies>
+```
+
+So how does a basic Spring Cloud Stream application look like? Well, it's actually not that different from a regular Spring Boot application:
+
+```java
+@SpringBootApplication
+@EnableBinding({ InputChannels.class, OutputChannels.class })
+public class RickApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(RickApplication.class, args);
+	}
+}
+```
+
+Looks pretty familiar, doesn't it? That's because the only new thing in the snippet above is the `@EnableBinding` annotation, which automagically converts your application into a full-fledged messaging beast!
 
 ## The Microverse
 
