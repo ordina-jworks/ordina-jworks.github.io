@@ -428,7 +428,7 @@ If you can't test it because it's private, you're doing something wrong.
 You should be able to get to it through other functions.
 
 Generally, you give an input and assert the output, it's as simple as that. 
-Your different inputs should also make sure that all branches are tested (e.g. an if else gives you 2 branches, one where if resolves to true and one to false).
+Your different inputs should also make sure that all branches are tested (e.g. an `if` gives you two branches, one where the `if` resolves to `true` and one to `false`).
 Unit tests in Karma also allow you to assert whether a function has been called and optionally with which parameters (`toHaveBeenCalled` and `toHaveBeenCalledWith`). 
 This can be useful when for example testing a `void` function that calls a mocked function. 
 That way you can still assert the output. 
