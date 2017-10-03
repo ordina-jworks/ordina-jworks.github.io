@@ -7,13 +7,13 @@ tags: [Angular,Karma,Unit testing,Jasmine,TypeScript]
 category: Angular
 comments: true
 ---
-Testing your code is as important as the writing code itself. 
+Testing your code is as important as writing the code itself. 
 This also counts for frontend applications such as Angular apps. 
 Unit testing is one way to do so. 
 The goal of these kind of tests is to isolate classes and verify the output of its functions to be what you expect when they are called.
 We also need a tool to run our tests written in TypeScript.
-[Karma](https://karma-runner.github.io/) is such a tool and can be used to run tests as described in this blog.
-It will open a browser, execute pieces of javascript and report the results back to you.
+[Karma](https://karma-runner.github.io/){:target="_blank"} is the one we'll be using to run tests described in this blog.
+It will open a browser, execute pieces of JavaScript and report the results back to you.
 
 Now, I must admit that I’m not too fond of writing tests myself. 
 However, I do strongly believe they help a lot towards improving the quality of the code. 
@@ -47,7 +47,7 @@ By default it's found under `coverage/index.html` and it indicates which parts o
 # Writing tests
 ## Structure
 Now that the setup is done, let’s look at how to write the tests themselves.
-First of all, test files should be named after the .ts file you're testing, but with `.spec` added to the file name (e.g. when testing `login.component.ts`, the test file should be named `login.component.spec.ts`). 
+First of all, test files should be named after the `.ts` file you're testing, but with `.spec` added to the file name (e.g. when testing `login.component.ts`, the test file should be named `login.component.spec.ts`). 
 It's best practice to keep the spec file in the same folder as the ts file. So mostly, for a component, you’ll end up with a HTML, scss, spec.ts and ts file in one folder (unless you like to inline your HTML and CSS).
 
 <p>
@@ -55,7 +55,7 @@ It's best practice to keep the spec file in the same folder as the ts file. So m
 </p>
 
 Next up, the content of a test file. 
-The jasmine spec is used format the tests ([more info](https://jasmine.github.io/pages/getting_started.html)).
+The Jasmine spec is used format the tests ([more info](https://jasmine.github.io/pages/getting_started.html){:target="_blank"}).
 This means that individual tests are grouped together in a `describe` block. 
 A test itself starts with `it`. 
 Besides tests, you can also add other blocks to a `describe`, like `beforeEach`, `beforeAll`, `afterEach`, `afterAll`... 
@@ -106,7 +106,7 @@ TestBed can create components and injects all its dependecies.
 The instance of the component that is returned can then be used for testing.
 Accessing the view is also possible.
 
-Now, although I said there are multiple ways to unit test an Angular app, there's actually only one correct way, calling the constructor.
+Now, although I said there are multiple ways to unit test an Angular app, there's actually only one correct way: calling the constructor.
 Since TestBed loads the view as well as any components, directives... used in the view, you're actually also testing how the class integrates with them.
 In other words, you're entering the domain of integration testing, which is also important, but I'm not going into detail about that.
 
@@ -313,7 +313,7 @@ The routes that are relevant can then be defined in the `RouterTestingModule`:
 imports: [RouterTestingModule.withRoutes([/*List mock routes here*/])]
 {% endhighlight %}  
 
->To learn more about writing tests using Angular TestBed, I recommend reading this guide: [https://angular.io/guide/testing](https://angular.io/guide/testing).
+>To learn more about writing tests using Angular TestBed, I recommend reading this guide: [https://angular.io/guide/testing](https://angular.io/guide/testing){:target="_blank"}.
 
 ## 2. Calling the constructor
 
@@ -391,7 +391,7 @@ it('should increase the counter with a delay', fakeAsync(() => {
 }));
 {% endhighlight %}  
 
-It clearly shows how the tick function manipulates the advancement of time, although it isn't really a useful test, 
+It clearly shows how the `tick` function manipulates the advancement of time, although it isn't really a useful test, 
 
 ### Observables
 
@@ -430,7 +430,7 @@ You should be able to get to it through other functions.
 Generally, you give an input and assert the output, it's as simple as that. 
 Your different inputs should also make sure that all branches are tested (e.g. an if else gives you 2 branches, one where if resolves to true and one to false).
 Unit tests in Karma also allow you to assert whether a function has been called and optionally with which parameters (`toHaveBeenCalled` and `toHaveBeenCalledWith`). 
-This can be usefull when for example testing a `void` function that calls a mocked function. 
+This can be useful when for example testing a `void` function that calls a mocked function. 
 That way you can still assert the output. 
 So, think of possible scenarios for the functions to test, provide the input and assert the output using `expect`. 
 Also try to cover other paths than just the happy paths!
@@ -447,7 +447,7 @@ To give you an example, suppose you have a function that sorts a list.
 You write some tests with different inputs so all branches are covered and you get a 100% coverage.
 The ordering of the list could still be completely wrong and not what you expect, although it's fully covered.
 By using `expect` to verify that the output is correct, you'll be doing a way better job.
-Even then there may be scenario's that aren't tested despite the coverage report stating that part of the code is covered.
+Even then there may be scenarios that aren't tested despite the coverage report stating that part of the code is covered.
 So try to think of the various possible scenarios (both success and error scenarios) and translate those to tests.
 
 # Tips & tricks
@@ -508,6 +508,6 @@ It will give you more freedom and more control, run the tests much faster and al
 You should also write integration tests and TestBed will serve that purpose very well.
 To mock classes, Jasmine spy objects are simply the way to go.
 Changing their implementation or return value is easy and can be done at any time!
-Code coverage reports can be very usefull to find parts of uncovered code. 
+Code coverage reports can be very useful to find parts of uncovered code. 
 However, getting a high percentage of code coverage shouldn't be your goal. 
-Write usefull tests and also, don't limit your tests to the happy path!
+Write useful tests and also, don't limit your tests to the happy path!
