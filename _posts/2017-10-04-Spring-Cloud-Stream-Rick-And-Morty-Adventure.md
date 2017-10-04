@@ -531,10 +531,11 @@ Go on... Touch him...
 
 # Resources
 
-* Github Repository with all the code: https://github.com/Turbots/szechuan
-* Slides about this topic: http://slides.com/turbots/spring-cloud-stream-rick-morty
-* Spring Cloud Stream documentation: https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/
-* Try out Pivotal Cloud Foundry on your local workstation: https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction
+* Github Repository with all the code: [https://github.com/Turbots/szechuan](https://github.com/Turbots/szechuan){:target="_blank"}
+* Slides about this topic: [http://slides.com/turbots/spring-cloud-stream-rick-morty](http://slides.com/turbots/spring-cloud-stream-rick-morty){:target="_blank"}
+* Spring Cloud Stream documentation: [https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/](https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/){:target="_blank"}
+* My presentation on our yearly JOIN event: [https://www.youtube.com/watch?v=Nl9OIuNRYwI](https://www.youtube.com/watch?v=Nl9OIuNRYwI){:target="_blank"}
+* Try out Pivotal Cloud Foundry on your local workstation: [https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction](https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction){:target="_blank"}
 
 # Improvements
 
