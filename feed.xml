@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-10-04T14:32:52+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-10-04T18:02:25+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
 </subtitle><entry><title type="html">Testing Angular with Karma 101</title><link href="https://ordina-jworks.github.io/angular/2017/10/04/Testing-angular-with-karma.html" rel="alternate" type="text/html" title="Testing Angular with Karma 101" /><published>2017-10-04T00:00:00+00:00</published><updated>2017-10-04T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/angular/2017/10/04/Testing-angular-with-karma</id><content type="html" xml:base="https://ordina-jworks.github.io/angular/2017/10/04/Testing-angular-with-karma.html">&lt;p&gt;Testing your code is as important as writing the code itself. 
 This also counts for frontend applications such as Angular apps. 
 Unit testing is one way to do so. 
@@ -9,7 +9,7 @@ It will open a browser, execute pieces of JavaScript and report the results back
 
 &lt;p&gt;Now, I must admit that I’m not too fond of writing tests myself. 
 However, I do strongly believe they help a lot towards improving the quality of the code. 
-Writing unit tests is quite a hassle, but with an application that is continuously growing and changing, they are an efficient way to prevent bugs getting to production.&lt;/p&gt;
+Writing unit tests can be quite a hassle, but with an application that is continuously growing and changing, they are an efficient way to prevent bugs getting to production.&lt;/p&gt;
 
 &lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 &lt;ol&gt;
@@ -49,7 +49,7 @@ It’s best practice to keep the spec file in the same folder as the ts file. So
 &lt;/p&gt;
 
 &lt;p&gt;Next up, the content of a test file. 
-The Jasmine spec is used format the tests (&lt;a href=&quot;https://jasmine.github.io/pages/getting_started.html&quot; target=&quot;_blank&quot;&gt;more info&lt;/a&gt;).
+The Jasmine spec is used to format the tests (&lt;a href=&quot;https://jasmine.github.io/pages/getting_started.html&quot; target=&quot;_blank&quot;&gt;more info&lt;/a&gt;).
 This means that individual tests are grouped together in a &lt;code class=&quot;highlighter-rouge&quot;&gt;describe&lt;/code&gt; block. 
 A test itself starts with &lt;code class=&quot;highlighter-rouge&quot;&gt;it&lt;/code&gt;. 
 Besides tests, you can also add other blocks to a &lt;code class=&quot;highlighter-rouge&quot;&gt;describe&lt;/code&gt;, like &lt;code class=&quot;highlighter-rouge&quot;&gt;beforeEach&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;beforeAll&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;afterEach&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;afterAll&lt;/code&gt;… 
@@ -86,13 +86,13 @@ Assertions are made using the &lt;code class=&quot;highlighter-rouge&quot;&gt;ex
 &lt;p&gt;As you can see, you can pass some text as an argument in the &lt;code class=&quot;highlighter-rouge&quot;&gt;describe&lt;/code&gt; call. 
 This is usually the name of the class you’re testing and it’ll be shown when running the tests. 
 For the tests themselves, you can also pass some text which will be shown. 
-These are mainly used for you to be able to identify the tests if they fail. 
-The text should describe what’s being tested, like “It should get the brand of the car”, could be written as &lt;code class=&quot;highlighter-rouge&quot;&gt;it('should get the brand of the car', () =&amp;gt; ...&lt;/code&gt;.&lt;/p&gt;
+These are mainly used for you to be able to identify failing tests. 
+The text should describe what’s being tested, for example “It should get the brand of the car”, could be written as &lt;code class=&quot;highlighter-rouge&quot;&gt;it('should get the brand of the car', () =&amp;gt; ...&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;writing-the-actual-tests&quot;&gt;Writing the actual tests&lt;/h2&gt;
 &lt;p&gt;There are multiple ways to write unit tests for an Angular app. 
 Either you use the Angular TestBed, the ReflectiveInjector or you simply call the constructor of the class directly. 
-ReflectiveInjector and TestBed are kind of the same approach, so I’ll only be discussing TestBed here.
+ReflectiveInjector and TestBed have a similar approach, so I’ll only be discussing TestBed here.
 It’s something pretty cool Angular came up with in order to test your components. 
 TestBed can create components and injects all its dependencies.
 The instance of the component that is returned can then be used for testing.
@@ -100,7 +100,7 @@ Accessing the view is also possible.&lt;/p&gt;
 
 &lt;p&gt;Now, although I said there are multiple ways to unit test an Angular app, there’s actually only one correct way: calling the constructor.
 Since TestBed loads the view as well as any components, directives… used in the view, you’re actually also testing how the class integrates with them.
-In other words, you’re entering the domain of integration testing, which is also important, but I’m not going into detail about that.&lt;/p&gt;
+In other words, you’re entering the domain of integration testing, which is also important, but out of scope for this blog post.&lt;/p&gt;
 
 &lt;p&gt;The unit tests you would write using the constructor approach, could practically look the same when you would use TestBed to instatiate the components. 
 However, there are some problems with using the Angular TestBed for unit tests which I’ll be explaining below.&lt;/p&gt;
@@ -186,7 +186,7 @@ That’s where the &lt;code class=&quot;highlighter-rouge&quot;&gt;spyOn&lt;/cod
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;In the example above, you can see when the &lt;code class=&quot;highlighter-rouge&quot;&gt;AppComponent&lt;/code&gt; would call &lt;code class=&quot;highlighter-rouge&quot;&gt;carBrandService.findAll()&lt;/code&gt;, instead of making a HTTP call, an Observable is returned with a list of car brands which is defined in the test itself. 
-This is pretty cool, but there’s a problem with this approach. 
+This is pretty cool, but also very error prone. 
 If you forget to place a spy on a certain function, it will perform the actual call, possibly a HTTP call.
 That’s something we do not want at all.&lt;/p&gt;
 
@@ -219,10 +219,10 @@ That’s something we do not want at all.&lt;/p&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;Again we see that &lt;code class=&quot;highlighter-rouge&quot;&gt;findAll()&lt;/code&gt; will return an Observable containing a list. 
-Using this approach, you’ll get an error when you forgot to define a function in the mock class. 
-This may solve our previous problem, but now we have another one. 
+By using this approach, you’ll get an error when you forgot to define a function in the mock class. 
+This may solve our previous problem, but now we have created another one. 
 Karma allows us to assert whether a function was called using &lt;code class=&quot;highlighter-rouge&quot;&gt;toHaveBeenCalled&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;toHaveBeenCalledWith&lt;/code&gt;. 
-The problem is that we don’t have any spies, so those functions can’t be used.
+The problem here is that we don’t have any spies, so those functions can’t be used.
 We can again add spies like in the first approach, but you can imagine that this is a lot of work and will get quite messy.&lt;/p&gt;
 
 &lt;h4 id=&quot;jasmine-spy-objects&quot;&gt;Jasmine spy objects&lt;/h4&gt;
@@ -279,7 +279,7 @@ This means you have less control over them.&lt;/p&gt;
 
 &lt;p&gt;Getting all the imports, providers and declarations setup can be quite a struggle too. 
 If there’s any subcomponent in the HTML of the component you’re testing, they should either be imported through a module or added in the declarations of the TestBed configuration.
-If you don’t feel like doing all that, you can also tell Angular to skip elements it doesn’t know by adding &lt;code class=&quot;highlighter-rouge&quot;&gt;NO_ERRORS_SCHEMA&lt;/code&gt; to the TestBed configuration:&lt;/p&gt;
+If you don’t feel like doing all that, you can also tell Angular to skip elements it doesn’t recognise by adding &lt;code class=&quot;highlighter-rouge&quot;&gt;NO_ERRORS_SCHEMA&lt;/code&gt; to the TestBed configuration:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;TestBed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;configureTestingModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;declarations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
@@ -320,7 +320,7 @@ Of course we want to mock these classes and as we saw in the Angular TestBed sec
 &lt;p&gt;Without the TestBed, you don’t have access to the view. 
 However, your tests will run much faster as there are less things to load. 
 When using TestBed, you’ll probably be including lots of dependencies just to make it work, giving you less control. 
-Something you do not want in unit testing as you want to isolate the class as much as possible. 
+This is something you do not want in unit testing as you want to isolate the class as much as possible. 
 Another difference with TestBed is that you have to call the lifecycle events yourself, again giving you more control over the code you’re testing.&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'should find the car brand'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -331,7 +331,7 @@ Another difference with TestBed is that you have to call the lifecycle events yo
 
 &lt;h1 id=&quot;async-fakeasync-tick&quot;&gt;Async, fakeAsync, tick&lt;/h1&gt;
 &lt;p&gt;Angular is full of Observables and writing tests for them is a little trickier. 
-You might also be using &lt;code class=&quot;highlighter-rouge&quot;&gt;setTimeout&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;setInterval&lt;/code&gt;. 
+You might also be using the &lt;code class=&quot;highlighter-rouge&quot;&gt;setTimeout&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;setInterval&lt;/code&gt; functions. 
 To cope with all that, Angular provides the &lt;code class=&quot;highlighter-rouge&quot;&gt;async&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;fakeAsync&lt;/code&gt; functions. 
 You can simply wrap your test in an &lt;code class=&quot;highlighter-rouge&quot;&gt;async&lt;/code&gt; and it should only finish after all async calls are finished. 
 If you want to have more control, you can wrap the test in a &lt;code class=&quot;highlighter-rouge&quot;&gt;fakeAsync&lt;/code&gt; instead. 
@@ -394,7 +394,7 @@ By adding &lt;code class=&quot;highlighter-rouge&quot;&gt;expect(true).toBeFalsy
 
 &lt;p&gt;For starters, you don’t have access to private and protected variables/functions, so all you can do is test the public ones. 
 All variables that are accessed by the view should be public, so those are the ones you can use for your tests. 
-The constructor and all lifecycle events can be called too as they are public. 
+The constructor and all lifecycle events can be called as well as they are public. 
 You should never ever set a variable or function to public in order to test it. 
 If you can’t test it because it’s private, you’re doing something wrong. 
 You should be able to get to it through other functions.&lt;/p&gt;
@@ -425,7 +425,7 @@ So try to think of the various possible scenarios (both success and error scenar
 &lt;h1 id=&quot;tips--tricks&quot;&gt;Tips &amp;amp; tricks&lt;/h1&gt;
 &lt;h2 id=&quot;only-run-certain-tests&quot;&gt;Only run certain tests&lt;/h2&gt;
 &lt;p&gt;When your test base begins to grow, you don’t always want to wait for all tests to have run when only testing a certain class or function. 
-Therefore, you can choose to only run specific &lt;code class=&quot;highlighter-rouge&quot;&gt;describe&lt;/code&gt; blocks or tests (&lt;code class=&quot;highlighter-rouge&quot;&gt;it&lt;/code&gt;) by adding an &lt;code class=&quot;highlighter-rouge&quot;&gt;f&lt;/code&gt; (stands for focus) in front of them, like &lt;code class=&quot;highlighter-rouge&quot;&gt;fdescribe&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;fit&lt;/code&gt;. 
+Therefore, you can choose to only run specific &lt;code class=&quot;highlighter-rouge&quot;&gt;describe&lt;/code&gt; blocks or tests (&lt;code class=&quot;highlighter-rouge&quot;&gt;it&lt;/code&gt;) by adding an &lt;code class=&quot;highlighter-rouge&quot;&gt;f&lt;/code&gt; (which stands for focus) in front of them, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;fdescribe&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;fit&lt;/code&gt;. 
 To exclude certain &lt;code class=&quot;highlighter-rouge&quot;&gt;describe&lt;/code&gt; blocks or tests, you can prefix them with an &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; (exclude), like &lt;code class=&quot;highlighter-rouge&quot;&gt;xdescribe&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;xit&lt;/code&gt;. 
 This will certainly come of use.&lt;/p&gt;
 
@@ -472,7 +472,7 @@ That instance can then be passed in the constuctor of the class you’re testing
 
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;When writing unit tests, it’s better to call the constructors direcly and not to use Angular TestBed. 
-It will give you more freedom and more control, run the tests much faster and allow you to completely isolate the classes. 
+It will give you more freedom and more control, run the tests much faster and allow you to completely isolate classes. 
 You should also write integration tests and TestBed will serve that purpose very well.
 To mock classes, Jasmine spy objects are simply the way to go.
 Changing their implementation or return value is easy and can be done at any time!
