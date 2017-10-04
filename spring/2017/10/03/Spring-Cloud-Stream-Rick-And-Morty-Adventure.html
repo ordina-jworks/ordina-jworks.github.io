@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Spring Cloud Stream - A New Rick and Morty Adventure - Dieter Hubau">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/spring-cloud-stream.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/spring/2017/10/03/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Spring Cloud Stream - A New Rick and Morty Adventure - Dieter Hubau"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/spring-cloud-stream.png"/>
+
+    
+    <title>Spring Cloud Stream - A New Rick and Morty Adventure - Dieter Hubau &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Spring Cloud Stream - A New Rick and Morty Adventure</h2>
+                
+
+                
+                    Posted Oct 3, 2017
+
+
+    in <a href="/categories/spring/">Spring</a>
+
+
+
+    by
+    
+        <a href="/author/dieter-hubau/">Dieter Hubau</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/spring/">Spring</a>, 
+    
+        <a href="/tags/cloud/">Cloud</a>, 
+    
+        <a href="/tags/stream/">Stream</a>, 
+    
+        <a href="/tags/microservices/">Microservices</a>, 
+    
+        <a href="/tags/rabbitmq/">RabbitMQ</a>, 
+    
+        <a href="/tags/reactive/">Reactive</a>, 
+    
+        <a href="/tags/spring-boot/">Spring Boot</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="introduction">Introduction</h1>
+
+<p>One of the most interesting aspects of the Spring Framework and its ecosystem is <strong>abstraction</strong>.
+The Spring project maintainers and contributors have always succeeded in hiding complexity from the application developer, by adding different layers of abstraction.</p>
+
+<p>For example, the way a Spring <code class="highlighter-rouge">Bean</code> of a certain Interface can be autowired and how Spring will find a suitable implementation class at runtime, is a very obvious example of the <a href="https://en.wikipedia.org/wiki/Liskov_substitution_principle" target="_blank">Liskov Substitution Principle</a> or <strong>how to abstract away implementation from specification</strong>.</p>
+
+<p>A second, higher level example is the <a href="http://projects.spring.io/spring-data/" target="_blank">Spring Data</a> project which offers a common programming model for SQL as well as NoSQL databases, abstracting away the specifics of the database internals.</p>
+
+<p>Another great example of abstraction is the one I’ll be discussing in this blog post.</p>
+
+<p><strong>DISCLAIMER</strong>: a big part of this blog post will explain how Spring Cloud Stream works by using heavy references to the animated series <a href="http://rickandmorty.wikia.com/wiki/Rickipedia" target="_blank">Rick and Morty</a>, with the intention to be hilarious and informative at the same time.
+If you don’t know the show or have no sense of humor, this blog post will be informative only 😉</p>
+
+<p>I will ignore the obvious third option: <em>this blog post might not be funny at all</em>.</p>
+
+<h1 id="spring-cloud-stream">Spring Cloud Stream</h1>
+
+<p>I just can’t start explaining something without a definition, that would be cruel and irresponsible:</p>
+
+<blockquote>
+  <p>Spring Cloud Stream is a framework for building message-driven microservices
+It provides an <strong>opinionated configuration</strong> of message brokers, introducing the concepts of persistent pub/sub semantics, consumer groups and partitions <strong>across several middleware vendors</strong></p>
+</blockquote>
+
+<p>The last part is what I like the most.
+Spring Cloud Stream abstracts away the complexity of connecting to different middleware solutions.
+It does this <em>the Spring Boot way</em>: by <strong>automatically configuring sensible defaults</strong> and allowing the developer to adapt the parts he wants.</p>
+
+<p>It might be surprising, but <a href="https://cloud.spring.io/spring-cloud-stream/" target="_blank">Spring Cloud Stream</a> is not <em>that</em> new in the Spring Cloud ecosystem.
+The project was called <code class="highlighter-rouge">spring-bus</code> during its prototype phase and the first real commit was on May 28th 2015.
+<a href="https://twitter.com/david_syer" target="_blank">Dave Syer</a> performed the commit that changed it to its current name on <strong>July 8th 2015</strong>, so I will call that <strong>the birth of Spring Cloud Stream</strong>!</p>
+
+<p>The most active contributor up until now is probably <a href="https://twitter.com/mariusbogoevici" target="_blank">Marius Bogoevici</a>.
+Questions about the project can be directed to the most active contributors and community in the <a href="https://gitter.im/spring-cloud/spring-cloud-stream" target="_blank">Spring Cloud Stream Gitter channel</a>.</p>
+
+<h2 id="application-model">Application Model</h2>
+
+<p>As is described in the <a href="https://docs.spring.io/spring-cloud-stream/docs/current-SNAPSHOT/reference/htmlsingle/" target="_blank">very detailed documentation</a>, the following image details how a typical Spring Cloud Stream application is structured:</p>
+
+<p><img alt="Spring Cloud Stream application model" style="max-width: 367px" src="/img/spring-cloud-stream/application-core.png" class="image fit" /></p>
+
+<p>An application defines <code class="highlighter-rouge">Input</code> and <code class="highlighter-rouge">Output</code> channels which are injected by Spring Cloud Stream at runtime.
+Through the use of so-called <code class="highlighter-rouge">Binder</code> implementations, the system connects these channels to external brokers.</p>
+
+<p>So once again, the difficult parts are abstracted away by Spring, leaving it up to the developer to simply define the inputs and outputs of the application.
+How messages are being transformed, directed, transported, received and ingested are all up to the binder implementations.</p>
+
+<h2 id="binder-implementations">Binder Implementations</h2>
+
+<p>Currently, there are two official Binder implementations supported by Spring, for RabbitMQ and Kafka.
+Next to those, there are <strong>several community binder implementations</strong> available:</p>
+
+<p><img alt="Spring Cloud Stream Binders implementations" style="max-width: 367px" src="/img/spring-cloud-stream/binders.png" class="image fit" /></p>
+
+<p>The current - non-exhaustive - list:</p>
+
+<ul>
+  <li><a href="https://github.com/spring-cloud/spring-cloud-stream-binder-jms" target="_blank">JMS (ActiveMQ, HornetQ, IBM MQ,…)</a></li>
+  <li><a href="https://github.com/spring-cloud/spring-cloud-stream-binder-aws-kinesis" target="_blank">AWS Kinesis</a></li>
+  <li><a href="https://github.com/spring-cloud/spring-cloud-stream-binder-google-pubsub" target="_blank">Google Cloud Pub Sub</a></li>
+  <li><a href="https://github.com/spring-cloud/spring-cloud-stream-binder-redis" target="_blank">Redis</a></li>
+  <li><a href="https://github.com/spring-cloud/spring-cloud-stream-binder-gemfire" target="_blank">Gemfire</a></li>
+</ul>
+
+<h1 id="rick-and-morty">Rick and Morty</h1>
+
+<p>As I have said earlier in the post, I will explain Spring Cloud Stream using a somewhat different approach, but I feel it helps to capture the power of the project.</p>
+
+<p><strong>Behold</strong>, our first character appears on stage:</p>
+
+<h2 id="rick">Rick</h2>
+
+<p><img alt="Rick Sanchez" style="max-width: 259px" src="/img/spring-cloud-stream/rick.png" class="image fit" /></p>
+
+<p>This is <a href="http://rickandmorty.wikia.com/wiki/Rick_Sanchez" target="_blank">Rick Sanchez</a>.
+He is Morty’s grandfather, a genius mastermind, inventor of inter-dimensional travel, the Microverse, a butter-passing robot and much, much more.</p>
+
+<p>He is also an <strong>asshole</strong>.</p>
+
+<p><img alt="Rick Sanchez" style="max-width: 480px" src="/img/spring-cloud-stream/purpose.gif" class="image fit" /></p>
+
+<h2 id="ricks-obsession">Rick’s Obsession</h2>
+
+<p>In the first episode of Season 3, Rick expressed his obsession with the <a href="http://mcdonalds.wikia.com/wiki/Szechuan_Sauce" target="_blank">1998 Mulan Szechuan Sauce</a>.
+The saying goes that a picture is worth a thousand words, so that means this video below will explain, like, a bajillion words or something:</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xilkhMtZD20" frameborder="0" allowfullscreen=""></iframe>
+
+<p>So now we know that Rick really wants this Szechuan sauce.</p>
+
+<p>Now, we have a purpose:</p>
+
+<blockquote>
+  <p>We will create a Spring Cloud Stream application, called <em>Rick</em>, which sole purpose is to retrieve Szechuan sauce from McDonalds!</p>
+</blockquote>
+
+<p>As with every Spring based application these days, it’s as easy as going to the happiest place on earth (next to <strong>production</strong>): <a href="https://start.spring.io" target="_blank">https://start.spring.io</a>.
+As our dependencies, we pick <strong>Spring Web MVC</strong> to create some handy web endpoints and <strong>Stream Rabbit</strong> since we want to send our messages over a RabbitMQ broker.
+We end up with the following dependencies:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-stream-rabbit<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></div></div>
+
+<p>So how does a basic Spring Cloud Stream application look like? Well, it’s actually not that different from a regular Spring Boot application:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
+<span class="nd">@EnableBinding</span><span class="o">({</span> <span class="n">InputChannels</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">OutputChannels</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RickApplication</span> <span class="o">{</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">RickApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Looks pretty familiar, doesn’t it? That’s because the only new thing in the snippet above is the <code class="highlighter-rouge">@EnableBinding</code> annotation, which automagically converts your application into a <strong>full-fledged messaging beast</strong>!
+The <code class="highlighter-rouge">InputChannels</code> and <code class="highlighter-rouge">OutputChannels</code> interfaces are specific to my application.</p>
+
+<p>Very simply explained, we can describe the Rick microservice with the following diagram:</p>
+
+<p><img alt="Rick Microservice" style="max-width: 640px" src="/img/spring-cloud-stream/diagram/rick.png" class="image fit" /></p>
+
+<p>As you can see, we have defined one input channel called <code class="highlighter-rouge">rick</code> and one output channel called <code class="highlighter-rouge">microverse</code>.
+These are implemented in a Spring Cloud Stream application like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">InputChannels</span> <span class="o">{</span>
+	<span class="nd">@Input</span>
+	<span class="n">SubscribableChannel</span> <span class="nf">rick</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OutputChannels</span> <span class="o">{</span>
+	<span class="nd">@Output</span>
+	<span class="n">MessageChannel</span> <span class="nf">microverse</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Holy sh*t Rick, this almost seems like it’s too easy!</p>
+</blockquote>
+
+<p>Well Morty, erm dear reader, that’s because it is!
+Didn’t I tell you that Spring is awesome at abstraction?
+Yeah, this is why.
+The only thing that is left for us to do, is write our “business logic”, or in our case: the part where we try to find our beloved Szechuan sauce!</p>
+
+<p>Since Rick is very lazy and an arrogant genius, he’s not gonna look for the sauce himself.
+I mean, he’s got adventures to go on, inventions to invent and generally be a pain in the ass of the <a href="http://rickandmorty.wikia.com/wiki/Galactic_Federation" target="_blank">Galactic Federation</a>.</p>
+
+<p>Let’s add another output channel to our interface:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OutputChannels</span> <span class="o">{</span>
+	<span class="nd">@Output</span>
+	<span class="n">MessageChannel</span> <span class="nf">meeseeks</span><span class="o">();</span>
+
+	<span class="nd">@Output</span>
+	<span class="n">MessageChannel</span> <span class="nf">microverse</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Meeseeks?! What the hell is a meeseeks?
+Patience my dear reader, all will be explained shortly.
+First, let me show you the evil, brilliant piece of code which is gonna get us the Szechuan sauce:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SzechuanSauceFinder</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">C_137</span> <span class="o">=</span> <span class="s">"C-137"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">minimumRequestIntervalInMillis</span> <span class="o">=</span> <span class="mi">50</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="n">SEARCHING</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+	<span class="kt">void</span> <span class="nf">findThatSauce</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(!</span><span class="n">SEARCHING</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">SEARCHING</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+			<span class="kt">int</span> <span class="n">requestIntervalInMillis</span> <span class="o">=</span> <span class="mi">5000</span><span class="o">;</span>
+
+			<span class="k">while</span> <span class="o">(</span><span class="n">SEARCHING</span><span class="o">)</span> <span class="o">{</span>
+				<span class="k">this</span><span class="o">.</span><span class="na">outputChannels</span><span class="o">.</span><span class="na">meeseeks</span><span class="o">().</span><span class="na">send</span><span class="o">(</span><span class="n">buildMessage</span><span class="o">(</span><span class="n">I_WANT_MY_SZECHUAN_SAUCE</span><span class="o">,</span> <span class="n">C_137</span><span class="o">));</span>
+
+				<span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">requestIntervalInMillis</span><span class="o">);</span>
+
+				<span class="n">requestIntervalInMillis</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">minimumRequestIntervalInMillis</span><span class="o">,</span> <span class="n">requestIntervalInMillis</span> <span class="o">-</span> <span class="mi">200</span><span class="o">);</span>
+			<span class="o">}</span>
+
+			<span class="n">SEARCHING</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+
+	<span class="kt">void</span> <span class="nf">stopSearching</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">SEARCHING</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Isn’t that some of the most evil code you’ve ever seen?
+Nothing more evil than static variables controlling state of an application, or precisely placed <code class="highlighter-rouge">Thread.sleep()</code> commands.</p>
+
+<p>Okay, we’ve got a messaging microservice, pumping out messages at an increasing rate (up until 20 per second).
+How will we know if our <em>meeseeks</em>, whatever that is, has found the szechuan sauce?</p>
+
+<p>The rest of the code in this class will illustrate <strong>how an input channel can handle incoming messages</strong>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="kd">public</span> <span class="nf">SzechuanSauceFinder</span><span class="o">(</span><span class="n">InputChannels</span> <span class="n">inputChannels</span><span class="o">,</span> <span class="n">OutputChannels</span> <span class="n">outputChannels</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">outputChannels</span> <span class="o">=</span> <span class="n">outputChannels</span><span class="o">;</span>
+    <span class="n">inputChannels</span><span class="o">.</span><span class="na">rick</span><span class="o">().</span><span class="na">subscribe</span><span class="o">((</span><span class="n">message</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="n">GlipGlop</span> <span class="n">glipGlop</span> <span class="o">=</span> <span class="o">(</span><span class="n">GlipGlop</span><span class="o">)</span> <span class="n">message</span><span class="o">.</span><span class="na">getPayload</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">glipGlop</span><span class="o">.</span><span class="na">getQuote</span><span class="o">()</span> <span class="o">==</span> <span class="n">ALL_DONE</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">stopSearching</span><span class="o">();</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">outputChannels</span><span class="o">.</span><span class="na">microverse</span><span class="o">().</span><span class="na">send</span><span class="o">(</span><span class="n">buildMessage</span><span class="o">(</span><span class="n">WUBBA_LUBBA_DUB_DUB</span><span class="o">,</span> <span class="n">C_137</span><span class="o">));</span>
+        <span class="o">}</span>
+    <span class="o">}));</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">Message</span><span class="o">&lt;?&gt;</span> <span class="n">buildMessage</span><span class="o">(</span><span class="n">RickAndMortyQuote</span> <span class="n">quote</span><span class="o">,</span> <span class="n">String</span> <span class="n">instanceId</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">MessageBuilder</span><span class="o">.</span><span class="na">withPayload</span><span class="o">(</span><span class="k">new</span> <span class="n">GlipGlop</span><span class="o">(</span><span class="n">quote</span><span class="o">,</span> <span class="n">instanceId</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Since the <code class="highlighter-rouge">rick</code> input channel is a <code class="highlighter-rouge">SubscribableChannel</code>, we can subscribe to it.
+Well <a href="http://pa1.narvii.com/6422/b662846ee28e630dd9661ecca86bd9c4ee0275ef_hq.gif" target="_blank">duh</a> Sherlock!
+A <code class="highlighter-rouge">message</code> can be of any type but we do need to cast it to our own format, a <a href="https://www.youtube.com/watch?v=G9Ebl9vEKx0&amp;t=28s" target="_blank">GlipGlop</a>, but Spring has <a href="https://docs.spring.io/spring-cloud-stream/docs/Elmhurst.BUILD-SNAPSHOT/reference/htmlsingle/#_using_streamlistener_for_automatic_content_type_handling" target="_blank">ways to make this easier</a> for us.
+We could have created a method annotated with the new <code class="highlighter-rouge">@StreamListener</code> annotation, which would look like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@StreamListener</span><span class="o">(</span><span class="n">InputChannels</span><span class="o">.</span><span class="na">RICK</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">GlipGlop</span> <span class="n">glipGlop</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Alright, so now we know what Rick wants, and how he intends to get it, we move to the next piece of the puzzle:</p>
+
+<h1 id="mr-meeseeks">Mr Meeseeks</h1>
+
+<p>Rick is such a genius, he invented a box that can spawn as many “Aladdin’s genies” as you want.
+Use with caution though, you have been warned!
+<a href="http://rickandmorty.wikia.com/wiki/Mr._Meeseeks" target="_blank">Meeseeks</a> are creatures created to serve a singular purpose for which they will go to any length to fulfill:</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qUYvIAP3qQk" frameborder="0" allowfullscreen=""></iframe>
+
+<h2 id="finding-the-sauce">Finding the sauce</h2>
+
+<p>So our next task will be to create a <strong>Mr Meeseeks microservice</strong>.
+If I were to draw a very simple diagram of this application, it would look something like this:</p>
+
+<p><img alt="Mr Meeseeks Microservice" style="max-width: 640px" src="/img/spring-cloud-stream/diagram/meeseeks.png" class="image fit" /></p>
+
+<p>Same story as with the Rick microservice.
+We need a very simple Spring Cloud Stream application with one input channel called <code class="highlighter-rouge">meeseeks</code>.
+In this case, we want to send GlipGlops to McDonalds, Rick and the Microverse, so we’re gonna need three output channels.</p>
+
+<p>The only thing we really need to put some effort in - <em>if you can even call it effort, I’ve had more effort tying my velcro shoes the other day</em> - is the <strong>business logic</strong>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MrMeeseekRoutine</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="kd">final</span> <span class="n">OutputChannels</span> <span class="n">outputChannels</span><span class="o">;</span>
+
+	<span class="nd">@Value</span><span class="o">(</span><span class="s">"${INSTANCE_INDEX:${CF_INSTANCE_INDEX:0}}"</span><span class="o">)</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">instanceId</span><span class="o">;</span>
+
+	<span class="nd">@Autowired</span>
+	<span class="kd">public</span> <span class="nf">MrMeeseekRoutine</span><span class="o">(</span><span class="n">InputChannels</span> <span class="n">inputChannels</span><span class="o">,</span> <span class="n">OutputChannels</span> <span class="n">outputChannels</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">outputChannels</span> <span class="o">=</span> <span class="n">outputChannels</span><span class="o">;</span>
+
+		<span class="n">inputChannels</span><span class="o">.</span><span class="na">meeseeks</span><span class="o">().</span><span class="na">subscribe</span><span class="o">(</span><span class="n">message</span> <span class="o">-&gt;</span> <span class="o">{</span>
+			<span class="n">GlipGlop</span> <span class="n">glipGlop</span> <span class="o">=</span> <span class="o">(</span><span class="n">GlipGlop</span><span class="o">)</span> <span class="n">message</span><span class="o">.</span><span class="na">getPayload</span><span class="o">();</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">glipGlop</span><span class="o">.</span><span class="na">getQuote</span><span class="o">()</span> <span class="o">==</span> <span class="n">I_WANT_MY_SZECHUAN_SAUCE</span><span class="o">)</span> <span class="o">{</span>
+				<span class="k">this</span><span class="o">.</span><span class="na">outputChannels</span><span class="o">.</span><span class="na">microverse</span><span class="o">().</span><span class="na">send</span><span class="o">(</span><span class="n">MessageBuilder</span>
+					<span class="o">.</span><span class="na">withPayload</span><span class="o">(</span><span class="k">new</span> <span class="n">GlipGlop</span><span class="o">(</span><span class="n">RickAndMortyQuote</span><span class="o">.</span><span class="na">OOOH_YEAH_CAN_DO</span><span class="o">,</span> <span class="n">instanceId</span><span class="o">))</span>
+					<span class="o">.</span><span class="na">build</span><span class="o">());</span>
+				<span class="k">this</span><span class="o">.</span><span class="na">outputChannels</span><span class="o">.</span><span class="na">mcdonalds</span><span class="o">().</span><span class="na">send</span><span class="o">(</span><span class="n">MessageBuilder</span>
+					<span class="o">.</span><span class="na">withPayload</span><span class="o">(</span><span class="k">new</span> <span class="n">GlipGlop</span><span class="o">(</span><span class="n">RickAndMortyQuote</span><span class="o">.</span><span class="na">PLEASE_GIVE_ME_SOME_SZECHUAN_SAUCE</span><span class="o">,</span> <span class="n">instanceId</span><span class="o">))</span>
+					<span class="o">.</span><span class="na">build</span><span class="o">());</span>
+			<span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">glipGlop</span><span class="o">.</span><span class="na">getQuote</span><span class="o">()</span> <span class="o">==</span> <span class="n">YOU_ARE_A_WINNER</span><span class="o">)</span> <span class="o">{</span>
+				<span class="k">this</span><span class="o">.</span><span class="na">outputChannels</span><span class="o">.</span><span class="na">rick</span><span class="o">().</span><span class="na">send</span><span class="o">(</span>
+					<span class="n">MessageBuilder</span><span class="o">.</span><span class="na">withPayload</span><span class="o">(</span><span class="k">new</span> <span class="n">GlipGlop</span><span class="o">(</span><span class="n">RickAndMortyQuote</span><span class="o">.</span><span class="na">ALL_DONE</span><span class="o">,</span> <span class="n">instanceId</span><span class="o">)).</span><span class="na">build</span><span class="o">());</span>
+			<span class="o">}</span>
+		<span class="o">});</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>It’s getting quite boring already, this is child’s play.
+What I’m <a href="http://1.media.dorkly.cvcdn.com/23/26/c8f59cfc0bef4b6f164072daa2727e71.jpg" target="_blank"><em>obviously</em></a> doing here, is:</p>
+
+<ul>
+  <li>subscribe to the <code class="highlighter-rouge">meeseeks</code> input channel</li>
+  <li>fetch the incoming GlipGlop</li>
+  <li>if its from Rick, comply and send a GlipGlop to the McDonalds channel requesting some Szechuan sauce</li>
+  <li>if its from McDonalds and a confirmation that we have just won some sauce, we let Rick know our task has been fulfilled</li>
+</ul>
+
+<p>Let’s see what our McDonalds microservice looks like.</p>
+
+<h1 id="mcdonalds-where-the-sauce-is">McDonalds: where the sauce is</h1>
+
+<p><img alt="Szechuan Sauce" style="max-width: 600px" src="/img/spring-cloud-stream/szechuan-poster.jpg" class="image fit" /></p>
+
+<p>More recently, to my surprise, <a href="http://www.ign.com/articles/2017/10/02/rick-and-morty-mcdonalds-is-bringing-back-szechuan-sauce-for-one-day-only" target="_blank">McDonalds announced they were actually bringing back the now infamous 1998 Mulan Szechuan Sauce</a>.
+So I guess my demo just got a bit more relevant and my powers of clairvoyance are proven once again.</p>
+
+<p>At this point, it’s just more of the same. Let me show you the diagram:</p>
+
+<p><img alt="McDonalds Microservice" style="max-width: 640px" src="/img/spring-cloud-stream/diagram/mcdonalds.png" class="image fit" /></p>
+
+<ul>
+  <li>Spring Cloud Stream application</li>
+  <li>one input channel <code class="highlighter-rouge">mcdonalds</code></li>
+  <li>one output channel <code class="highlighter-rouge">meeseeks</code></li>
+</ul>
+
+<p>You get it by now.</p>
+
+<p>Here’s the code <strong>yawn</strong>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">McdonaldsCashier</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">ODDS_AT_FINDING_SZECHUAN_SAUCE</span> <span class="o">=</span> <span class="mi">500</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Random</span> <span class="n">RAND</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
+
+	<span class="nd">@Value</span><span class="o">(</span><span class="s">"${INSTANCE_INDEX:${CF_INSTANCE_INDEX:0}}"</span><span class="o">)</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">instanceId</span><span class="o">;</span>
+
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">luckyNumber</span><span class="o">;</span>
+
+	<span class="nd">@Autowired</span>
+	<span class="kd">public</span> <span class="nf">McdonaldsCashier</span><span class="o">(</span><span class="n">InputChannels</span> <span class="n">inputChannels</span><span class="o">,</span> <span class="n">OutputChannels</span> <span class="n">outputChannels</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">luckyNumber</span> <span class="o">=</span> <span class="n">RAND</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">ODDS_AT_FINDING_SZECHUAN_SAUCE</span><span class="o">);</span>
+
+		<span class="n">inputChannels</span><span class="o">.</span><span class="na">mcdonalds</span><span class="o">().</span><span class="na">subscribe</span><span class="o">(</span><span class="n">message</span> <span class="o">-&gt;</span> <span class="o">{</span>
+			<span class="n">GlipGlop</span> <span class="n">glipGlop</span> <span class="o">=</span> <span class="o">(</span><span class="n">GlipGlop</span><span class="o">)</span> <span class="n">message</span><span class="o">.</span><span class="na">getPayload</span><span class="o">();</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">glipGlop</span><span class="o">.</span><span class="na">getQuote</span><span class="o">()</span> <span class="o">==</span> <span class="n">RickAndMortyQuote</span><span class="o">.</span><span class="na">PLEASE_GIVE_ME_SOME_SZECHUAN_SAUCE</span><span class="o">)</span> <span class="o">{</span>
+				<span class="kt">int</span> <span class="n">randomInt</span> <span class="o">=</span> <span class="n">RAND</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">ODDS_AT_FINDING_SZECHUAN_SAUCE</span><span class="o">);</span>
+				<span class="k">if</span> <span class="o">(</span><span class="n">randomInt</span> <span class="o">==</span> <span class="n">luckyNumber</span><span class="o">)</span> <span class="o">{</span>
+					<span class="n">outputChannels</span><span class="o">.</span><span class="na">meeseeks</span><span class="o">().</span><span class="na">send</span><span class="o">(</span>
+						<span class="n">MessageBuilder</span><span class="o">.</span><span class="na">withPayload</span><span class="o">(</span><span class="k">new</span> <span class="n">GlipGlop</span><span class="o">(</span><span class="n">RickAndMortyQuote</span><span class="o">.</span><span class="na">YOU_ARE_A_WINNER</span><span class="o">,</span> <span class="n">instanceId</span><span class="o">))</span>
+							<span class="o">.</span><span class="na">build</span><span class="o">());</span>
+				<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+					<span class="n">outputChannels</span><span class="o">.</span><span class="na">meeseeks</span><span class="o">().</span><span class="na">send</span><span class="o">(</span>
+						<span class="n">MessageBuilder</span><span class="o">.</span><span class="na">withPayload</span><span class="o">(</span><span class="k">new</span> <span class="n">GlipGlop</span><span class="o">(</span><span class="n">RickAndMortyQuote</span><span class="o">.</span><span class="na">SORRY_NO_LUCK</span><span class="o">,</span> <span class="n">instanceId</span><span class="o">)).</span><span class="na">build</span><span class="o">());</span>
+				<span class="o">}</span>
+			<span class="o">}</span>
+		<span class="o">});</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Oh man, I think I’m getting bored even writing this.
+Stick with me, the demo is gonna be worth it.
+Don’t scroll to the bottom just yet!
+There’s only one piece of the puzzle left.</p>
+
+<h1 id="morty">Morty</h1>
+
+<blockquote>
+  <p>“Aw djeez” - Morty</p>
+</blockquote>
+
+<p><img alt="Morty" style="max-width: 167px" src="/img/spring-cloud-stream/morty.png" class="image fit" /></p>
+
+<p>Morty is a young teenage boy.
+He has short brown hair that he wears straight and neatly combed around his head.
+He wears a yellow shirt, blue pants, and white shoes.</p>
+
+<p>He’s cute and adorable and is always along for the ride.
+He gets to see all the incredible things that happen in the universe - <em>and microverse</em> - so he’s the perfect character to represent our frontend.</p>
+
+<p><img alt="Morty Microservice" style="max-width: 640px" src="/img/spring-cloud-stream/diagram/morty.png" class="image fit" /></p>
+
+<p>I just want to clarify that I’m in no way a great frontend developer.
+I dabble in HTML, CSS and the occasional JavaScript, but my designer skills are abysmal.</p>
+
+<p>That’s why I love a framework like <strong>Bootstrap</strong>: easy, intuitive and fast to create a semi decent web application.</p>
+
+<p>So <em>that’s</em> why I choose to work with <a href="http://bulma.io/" target="_blank"><strong>Bulma</strong></a>: the even easier, <em>more</em> intuitive version of Bootstrap.
+You can check out my horrible frontend code <a href="https://github.com/Turbots/szechuan/tree/master/morty/frontend" target="_blank">in the Git repository</a>.</p>
+
+<p>The Morty microservice is a bit different than the others, since it needs to collect all the input messages and transfer them to a browser.
+We do this using <a href="https://www.w3schools.com/html/html5_serversentevents.asp" target="_blank"><strong>server-sent events</strong> or <strong>SSE</strong></a>.</p>
+
+<p>Spring MVC has had support for SSE for a while and it’s actually very easy to use:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="n">produces</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">TEXT_EVENT_STREAM_VALUE</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">SseEmitter</span> <span class="nf">events</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">SseEmitter</span> <span class="n">emitter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SseEmitter</span><span class="o">();</span>
+
+    <span class="k">return</span> <span class="n">emitter</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As you can see, even <a href="http://rickandmorty.wikia.com/wiki/Jerry_Smith" target="_blank">Jerry</a> could figure this stuff out.
+In the example above, nothing is actually being emitted.
+When someone browses to the endpoint, it opens an HTTP connection and waits for messages.
+It’s up to the server to actually start sending data messages from this emitter, which will trigger an <code class="highlighter-rouge">onMessage</code> JavaScript event at client-side.</p>
+
+<p>Let’s see how we implemented this for our Morty microservice:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Slf4j</span>
+<span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/events"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EventController</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">SseEmitter</span><span class="o">&gt;</span> <span class="n">emitters</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+	<span class="nd">@Autowired</span>
+	<span class="kd">public</span> <span class="nf">EventController</span><span class="o">(</span><span class="n">InputChannels</span> <span class="n">inputChannels</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">GlipGlopHandler</span> <span class="n">glipGlopHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GlipGlopHandler</span><span class="o">();</span>
+		<span class="n">inputChannels</span><span class="o">.</span><span class="na">rick</span><span class="o">().</span><span class="na">subscribe</span><span class="o">(</span><span class="n">glipGlopHandler</span><span class="o">);</span>
+		<span class="n">inputChannels</span><span class="o">.</span><span class="na">meeseeks</span><span class="o">().</span><span class="na">subscribe</span><span class="o">(</span><span class="n">glipGlopHandler</span><span class="o">);</span>
+		<span class="n">inputChannels</span><span class="o">.</span><span class="na">mcdonalds</span><span class="o">().</span><span class="na">subscribe</span><span class="o">(</span><span class="n">glipGlopHandler</span><span class="o">);</span>
+		<span class="n">inputChannels</span><span class="o">.</span><span class="na">microverse</span><span class="o">().</span><span class="na">subscribe</span><span class="o">(</span><span class="n">glipGlopHandler</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="nd">@GetMapping</span><span class="o">(</span><span class="n">produces</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">TEXT_EVENT_STREAM_VALUE</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="n">SseEmitter</span> <span class="nf">events</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">SseEmitter</span> <span class="n">emitter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SseEmitter</span><span class="o">();</span>
+		<span class="n">emitters</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">emitter</span><span class="o">);</span>
+		<span class="n">emitter</span><span class="o">.</span><span class="na">onCompletion</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">emitters</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">emitter</span><span class="o">));</span>
+		<span class="n">emitter</span><span class="o">.</span><span class="na">onError</span><span class="o">(</span><span class="n">throwable</span> <span class="o">-&gt;</span> <span class="n">emitters</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">emitter</span><span class="o">));</span>
+		<span class="n">emitter</span><span class="o">.</span><span class="na">onTimeout</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">emitters</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">emitter</span><span class="o">));</span>
+
+		<span class="k">return</span> <span class="n">emitter</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">class</span> <span class="nc">GlipGlopHandler</span> <span class="kd">implements</span> <span class="n">MessageHandler</span> <span class="o">{</span>
+
+		<span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleMessage</span><span class="o">(</span><span class="n">Message</span><span class="o">&lt;?&gt;</span> <span class="n">m</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">MessagingException</span> <span class="o">{</span>
+			<span class="n">GlipGlop</span> <span class="n">glipGlop</span> <span class="o">=</span> <span class="o">(</span><span class="n">GlipGlop</span><span class="o">)</span> <span class="n">m</span><span class="o">.</span><span class="na">getPayload</span><span class="o">();</span>
+			<span class="n">emitters</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">emitter</span> <span class="o">-&gt;</span> <span class="o">{</span>
+				<span class="k">try</span> <span class="o">{</span>
+					<span class="n">emitter</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">glipGlop</span><span class="o">);</span>
+				<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+					<span class="n">emitter</span><span class="o">.</span><span class="na">complete</span><span class="o">();</span>
+					<span class="n">emitters</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">emitter</span><span class="o">);</span>
+					<span class="n">log</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"IOException when trying to send event"</span><span class="o">);</span>
+				<span class="o">}</span>
+			<span class="o">});</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>DISCLAIMER</strong>: this code is not production-ready and can probably cause instant brain damage when observed.
+This code is for demo purposes only.</p>
+
+<p>A quick explanation of the code:</p>
+
+<ul>
+  <li>we subscribe to the four input channels and attach the same message handler since we want to handle all the GlipGlops equally</li>
+  <li>when a client performs a GET request to the <code class="highlighter-rouge">/events</code> endpoint, it is assigned an <code class="highlighter-rouge">SseEmitter</code> which is added to a list</li>
+  <li>whenever a GlipGlop on any of the four input channels is received, it is sent to all the registered SseEmitters</li>
+  <li>exactly nothing is done when errors occur - totally <em>intentional</em></li>
+</ul>
+
+<h2 id="the-microverse">The Microverse</h2>
+
+<p>Everything that is described in this post, is transpiring inside the miniature dimension called <strong>The Microverse</strong>:</p>
+
+<p><img alt="The Microverse" style="max-width: 367px" src="/img/spring-cloud-stream/Microverse_Battery.png" class="image fit" /></p>
+
+<p><a href="http://rickandmorty.wikia.com/wiki/Microverse_Battery" target="_blank"><em>the Microverse</em></a></p>
+
+<p>In all seriousness - yeah, seriously - we are deploying our microservices on the <a href="https://pivotal.io/platform" target="_blank">Pivotal Cloud Foundry</a> (PCF) platform.
+In this case, I’m using a paid account on <a href="https://run.pivotal.io/" target="_blank">Pivotal Web Services</a>, their online version of PCF.
+Inside this powerful Platform as a Service (PaaS) offering, there’s this concept of <strong>organizations and spaces</strong>.</p>
+
+<p>Inside of our Ordina JWorks organization, I have created a space called <code class="highlighter-rouge">microverse</code> to house all of the applications in my demo.
+This way, my wacky adventures cannot interfere with any of our actually useful applications.</p>
+
+<p>Through the powerful <strong>service broker</strong> mechanism, I provisioned a RabbitMQ service and bound it to my applications.
+This means the freshly created RabbitMQ instance’s connection details are automatically shared inside of my application’s containers as system properties.</p>
+
+<p>Since Spring Boot kicks ass at taking system properties and ramming them inside some auto-configuration, we don’t have to worry about anything remotely resembling boilerplate code.</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>Before I go over to the demo, I wanted to share my <strong>grand clarification of the Microverse and all things which lie within</strong>:</p>
+
+<p><img alt="Grand Clarification" style="max-width: 640px" src="/img/spring-cloud-stream/diagram/clarification.png" class="image fit" /></p>
+
+<p>As you can see, I have drawn <strong>multiple Meeseeks instances</strong> in this diagram.
+That’s because I want to spawn multiple Meeseeks to perform my task.</p>
+
+<p>Without any extra configuration, <strong>every Meeseeks instance will pick up every GlipGlop</strong> posted to the <code class="highlighter-rouge">meeseeks</code> input channel.
+This means adding additional Meeseeks instances won’t help us very much (it will increase the total number of GlipGlops in the system and probably overload the server even faster).
+We want every separate Meeseeks instance to pick up a unique message on that input channel.</p>
+
+<p>This can be accomplished by putting the Meeseeks application inside of a <a href="https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#consumer-groups" target="_blank"><strong>consumer group</strong></a>.
+Only <em>one</em> property is required to do this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spring:
+  cloud:
+    stream:
+      bindings:
+        meeseeks:
+          group: szechuan-finder
+</code></pre></div></div>
+
+<p>This indicates we want the <code class="highlighter-rouge">meeseeks</code> message channel to be part of a consumer group called <code class="highlighter-rouge">szechuan-finder</code>.</p>
+
+<h1 id="demo">Demo</h1>
+
+<p>This could be quite anti-climactic, but you’re gonna have to <strong>touch Pickle Rick to see the demo</strong>.
+Go on… Touch him…</p>
+
+<p><a href="https://rnm-morty.cfapps.io" target="_blank">
+    <img alt="Grand Clarification" style="max-width: 275px" src="/img/spring-cloud-stream/pickle-rick.jpg" class="image fit" />
+</a></p>
+
+<p><strong>Press the Rick and Meeseeks image in the demo and enjoy the show!</strong></p>
+
+<h1 id="resources">Resources</h1>
+
+<ul>
+  <li>Github Repository with all the code: https://github.com/Turbots/szechuan</li>
+  <li>Slides about this topic: http://slides.com/turbots/spring-cloud-stream-rick-morty</li>
+  <li>Spring Cloud Stream documentation: https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/</li>
+  <li>Try out Pivotal Cloud Foundry on your local workstation: https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction</li>
+</ul>
+
+<h1 id="improvements">Improvements</h1>
+
+<ul>
+  <li>Better error handling on Morty - too many browser connections when sending 150 messages a second over event streams is quite demanding apparently</li>
+  <li>Addition of Spring Cloud Data Flow in the mix - registering the applications and dragging around inputs and outputs should be fun - also, scaling!</li>
+  <li>Improved UI - obviously</li>
+  <li>Complete event-based demo instead of endpoints to force certain operations (spawning/killing Meeseeks, waking up Rick, …)</li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/spring/2017/10/03/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html&title=Spring Cloud Stream - A New Rick and Morty Adventure&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Spring Cloud Stream - A New Rick and Morty Adventure&url=https://ordina-jworks.github.io/spring/2017/10/03/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/spring/2017/10/03/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/dieter-hubau/" class="image spotlight-image">
+            <img src="/img/author/dieter-hubau.png"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Dieter is a Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he helps fellow developers as a Competence Leader for the Cloud &amp; PaaS Competence Center by giving workshops, talks and courses about the newest technologies. In his spare time, Dieter enjoys playing soccer, running, (online) gaming and fiddling around with all kinds of fancy new software.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2017 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/spring-cloud-stream.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/spring/2017/10/03/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html";
+        this.page.identifier = "/spring/2017/10/03/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html";
+        this.page.title = "Spring Cloud Stream - A New Rick and Morty Adventure";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
