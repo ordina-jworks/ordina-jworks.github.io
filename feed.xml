@@ -1,5 +1,484 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-10-04T08:24:42+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Spring Cloud Stream - A New Rick and Morty Adventure</title><link href="https://ordina-jworks.github.io/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html" rel="alternate" type="text/html" title="Spring Cloud Stream - A New Rick and Morty Adventure" /><published>2017-10-04T00:00:00+00:00</published><updated>2017-10-04T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure</id><content type="html" xml:base="https://ordina-jworks.github.io/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-10-04T14:32:52+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Testing Angular with Karma 101</title><link href="https://ordina-jworks.github.io/angular/2017/10/04/Testing-angular-with-karma.html" rel="alternate" type="text/html" title="Testing Angular with Karma 101" /><published>2017-10-04T00:00:00+00:00</published><updated>2017-10-04T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/angular/2017/10/04/Testing-angular-with-karma</id><content type="html" xml:base="https://ordina-jworks.github.io/angular/2017/10/04/Testing-angular-with-karma.html">&lt;p&gt;Testing your code is as important as writing the code itself. 
+This also counts for frontend applications such as Angular apps. 
+Unit testing is one way to do so. 
+The goal of these kind of tests is to isolate classes and verify the output of its functions to be what you expect when they are called.
+We also need a tool to run our tests written in TypeScript.
+&lt;a href=&quot;https://karma-runner.github.io/&quot; target=&quot;_blank&quot;&gt;Karma&lt;/a&gt; is the one we’ll be using to run tests described in this blog.
+It will open a browser, execute pieces of JavaScript and report the results back to you.&lt;/p&gt;
+
+&lt;p&gt;Now, I must admit that I’m not too fond of writing tests myself. 
+However, I do strongly believe they help a lot towards improving the quality of the code. 
+Writing unit tests is quite a hassle, but with an application that is continuously growing and changing, they are an efficient way to prevent bugs getting to production.&lt;/p&gt;
+
+&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#setup&quot;&gt;Setup&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#writing-tests&quot;&gt;Writing tests&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-to-test&quot;&gt;What to test&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#tips--tricks&quot;&gt;Tips and tricks&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;setup&quot;&gt;Setup&lt;/h1&gt;
+&lt;p&gt;Let’s take a look at how it’s done in an Angular app using Karma.
+If you’re using the Angular CLI, you’re in luck because setting up the unit tests is easy. 
+It’s already done! 
+All you need to do is run &lt;code class=&quot;highlighter-rouge&quot;&gt;ng test&lt;/code&gt; (or &lt;code class=&quot;highlighter-rouge&quot;&gt;npm test&lt;/code&gt;). 
+It will transpile your tests and run them using Karma. 
+If you’re not using the Angular CLI yet, I recommend creating a new project with the CLI and copying your existing project to it.
+It will make your life a lot easier.&lt;/p&gt;
+
+&lt;p&gt;Running &lt;code class=&quot;highlighter-rouge&quot;&gt;ng test&lt;/code&gt; will run the tests in watch mode, meaning that every time you save a change to a file, it will automatically rerun your tests. 
+Additional flags can be passed like &lt;code class=&quot;highlighter-rouge&quot;&gt;--single-run&lt;/code&gt; to make it run only once. 
+When passing the &lt;code class=&quot;highlighter-rouge&quot;&gt;--code-coverage&lt;/code&gt; flag, it generates a report in HTML. 
+By default it’s found under &lt;code class=&quot;highlighter-rouge&quot;&gt;coverage/index.html&lt;/code&gt; and it indicates which parts of your code were covered by your unit tests.&lt;/p&gt;
+
+&lt;div class=&quot;row&quot;&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width: 785px&quot; alt=&quot;Code coverage&quot; src=&quot;/img/2017-10-02-testing-angular-with-karma/code-coverage.png&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;writing-tests&quot;&gt;Writing tests&lt;/h1&gt;
+&lt;h2 id=&quot;structure&quot;&gt;Structure&lt;/h2&gt;
+&lt;p&gt;Now that the setup is done, let’s look at how to write the tests themselves.
+First of all, test files should be named after the &lt;code class=&quot;highlighter-rouge&quot;&gt;.ts&lt;/code&gt; file you’re testing, but with &lt;code class=&quot;highlighter-rouge&quot;&gt;.spec&lt;/code&gt; added to the file name (e.g. when testing &lt;code class=&quot;highlighter-rouge&quot;&gt;login.component.ts&lt;/code&gt;, the test file should be named &lt;code class=&quot;highlighter-rouge&quot;&gt;login.component.spec.ts&lt;/code&gt;). 
+It’s best practice to keep the spec file in the same folder as the ts file. So mostly, for a component, you’ll end up with a HTML, scss, spec.ts and ts file in one folder (unless you like to inline your HTML and CSS).&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; alt=&quot;Folder structure&quot; src=&quot;/img/2017-10-02-testing-angular-with-karma/files.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Next up, the content of a test file. 
+The Jasmine spec is used format the tests (&lt;a href=&quot;https://jasmine.github.io/pages/getting_started.html&quot; target=&quot;_blank&quot;&gt;more info&lt;/a&gt;).
+This means that individual tests are grouped together in a &lt;code class=&quot;highlighter-rouge&quot;&gt;describe&lt;/code&gt; block. 
+A test itself starts with &lt;code class=&quot;highlighter-rouge&quot;&gt;it&lt;/code&gt;. 
+Besides tests, you can also add other blocks to a &lt;code class=&quot;highlighter-rouge&quot;&gt;describe&lt;/code&gt;, like &lt;code class=&quot;highlighter-rouge&quot;&gt;beforeEach&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;beforeAll&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;afterEach&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;afterAll&lt;/code&gt;… 
+What these blocks do, is quite self-explanatory. 
+Here’s an example how it could be used: when testing a class, you’ll want to create an instance of that class for each test, so instead of writing the same code in each test to create an instance, you could put that code in the &lt;code class=&quot;highlighter-rouge&quot;&gt;beforeEach&lt;/code&gt; clause. 
+Simply pass a function (in lambda notation) to &lt;code class=&quot;highlighter-rouge&quot;&gt;beforeEach&lt;/code&gt; containing the code you want it to run.&lt;/p&gt;
+
+&lt;p&gt;Within a test itself, the class’ public functions can be called and assertions can be made. 
+Assertions are made using the &lt;code class=&quot;highlighter-rouge&quot;&gt;expect&lt;/code&gt; function. You can give it a variable or a call to a function and tell it what you expect the result to be with &lt;code class=&quot;highlighter-rouge&quot;&gt;toBe&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;toEqual&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;toBeTruthy&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;toBeFalsy&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;toBeNull&lt;/code&gt;…&lt;/p&gt;
+
+&lt;p&gt;Here’s an example:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'NAME_OF_YOUR_CLASS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;initialize&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    
+    &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Actual&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tests&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'should have a car selected'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;assertions&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;carSelected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toBeThruthy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'should find my favorite car brand'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;assertions&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;carBrand&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getFavoriteCarBrand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;carBrand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Mazda'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;As you can see, you can pass some text as an argument in the &lt;code class=&quot;highlighter-rouge&quot;&gt;describe&lt;/code&gt; call. 
+This is usually the name of the class you’re testing and it’ll be shown when running the tests. 
+For the tests themselves, you can also pass some text which will be shown. 
+These are mainly used for you to be able to identify the tests if they fail. 
+The text should describe what’s being tested, like “It should get the brand of the car”, could be written as &lt;code class=&quot;highlighter-rouge&quot;&gt;it('should get the brand of the car', () =&amp;gt; ...&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;writing-the-actual-tests&quot;&gt;Writing the actual tests&lt;/h2&gt;
+&lt;p&gt;There are multiple ways to write unit tests for an Angular app. 
+Either you use the Angular TestBed, the ReflectiveInjector or you simply call the constructor of the class directly. 
+ReflectiveInjector and TestBed are kind of the same approach, so I’ll only be discussing TestBed here.
+It’s something pretty cool Angular came up with in order to test your components. 
+TestBed can create components and injects all its dependencies.
+The instance of the component that is returned can then be used for testing.
+Accessing the view is also possible.&lt;/p&gt;
+
+&lt;p&gt;Now, although I said there are multiple ways to unit test an Angular app, there’s actually only one correct way: calling the constructor.
+Since TestBed loads the view as well as any components, directives… used in the view, you’re actually also testing how the class integrates with them.
+In other words, you’re entering the domain of integration testing, which is also important, but I’m not going into detail about that.&lt;/p&gt;
+
+&lt;p&gt;The unit tests you would write using the constructor approach, could practically look the same when you would use TestBed to instatiate the components. 
+However, there are some problems with using the Angular TestBed for unit tests which I’ll be explaining below.&lt;/p&gt;
+
+&lt;h2 id=&quot;1-testbed&quot;&gt;1. TestBed&lt;/h2&gt;
+&lt;p&gt;Setting up the TestBed configuration for a component kind of looks like a module definition. 
+You should list all components, directives and services that are used by the component you’re testing directly or by importing a module that includes them. 
+Calling &lt;code class=&quot;highlighter-rouge&quot;&gt;createComponent&lt;/code&gt; will return a ‘fixture’ which can be used to access the view and also get the instance of the class linked to it. 
+With the fixture you can find HTML elements and perform actions on them, verify their content and attributes…
+The instance of the class can be used to test its public functions (unit test).&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'AppComponent'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;fixture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ComponentFixture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;TestBed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;configureTestingModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;declarations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;providers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CarBrandService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;imports&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CommonLogicModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;compileComponents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;fixture&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TestBed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fixture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;componentInstance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;fixture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;detectChanges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'should test the class'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;itself&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;carBrand&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getFavoriteCarBrand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;carBrand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Mazda'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'should test the view'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;itself&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;carBrand&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getFavoriteCarBrand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;carBrand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Mazda'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fixture&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;access&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HTML&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;de&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fixture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;debugElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;css&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'h1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;el&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;de&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;nativeElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;el&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;textContent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toContain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Mazda'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;mocking&quot;&gt;Mocking&lt;/h3&gt;
+&lt;p&gt;In unit testing, we are only interested in testing the class itself and try to isolate it as much as possible. 
+We also want to be able to easily control the output of all dependencies of our class, such as services.&lt;/p&gt;
+
+&lt;h4 id=&quot;spyon&quot;&gt;spyOn&lt;/h4&gt;
+&lt;p&gt;One way to do so is by creating spies for all calls to functions of those dependencies. 
+That’s where the &lt;code class=&quot;highlighter-rouge&quot;&gt;spyOn&lt;/code&gt; function comes into play:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'AppComponent'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;RequestPopupContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;fixture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ComponentFixture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;        
+
+    &lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;TestBed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;configureTestingModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;declarations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;providers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CarBrandService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;imports&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CommonLogicModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;compileComponents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;fixture&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TestBed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fixture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;componentInstance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;carBrandService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fixture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;debugElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;injector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CarBrandService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;spyOn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;carBrandService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'findAll'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;returnValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Mazda'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Japan'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'BMW'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Germany'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;]));&lt;/span&gt;    
+
+        &lt;span class=&quot;nx&quot;&gt;fixture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;detectChanges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;In the example above, you can see when the &lt;code class=&quot;highlighter-rouge&quot;&gt;AppComponent&lt;/code&gt; would call &lt;code class=&quot;highlighter-rouge&quot;&gt;carBrandService.findAll()&lt;/code&gt;, instead of making a HTTP call, an Observable is returned with a list of car brands which is defined in the test itself. 
+This is pretty cool, but there’s a problem with this approach. 
+If you forget to place a spy on a certain function, it will perform the actual call, possibly a HTTP call.
+That’s something we do not want at all.&lt;/p&gt;
+
+&lt;h4 id=&quot;mock-classes&quot;&gt;Mock classes&lt;/h4&gt;
+&lt;p&gt;To prevent forgetting to spy on a certain function, you could create mock classes and inject them instead of the actual classes:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MockCarBrandService&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CarBrand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Mazda'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Japan'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'BMW'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Germany'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;     
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;   
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'AppComponent'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;fixture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ComponentFixture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;        
+
+    &lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;TestBed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;configureTestingModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;declarations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;providers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;provide&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CarBrandService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;useClass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MockCarBrandService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}],&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;imports&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CommonLogicModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;compileComponents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Again we see that &lt;code class=&quot;highlighter-rouge&quot;&gt;findAll()&lt;/code&gt; will return an Observable containing a list. 
+Using this approach, you’ll get an error when you forgot to define a function in the mock class. 
+This may solve our previous problem, but now we have another one. 
+Karma allows us to assert whether a function was called using &lt;code class=&quot;highlighter-rouge&quot;&gt;toHaveBeenCalled&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;toHaveBeenCalledWith&lt;/code&gt;. 
+The problem is that we don’t have any spies, so those functions can’t be used.
+We can again add spies like in the first approach, but you can imagine that this is a lot of work and will get quite messy.&lt;/p&gt;
+
+&lt;h4 id=&quot;jasmine-spy-objects&quot;&gt;Jasmine spy objects&lt;/h4&gt;
+&lt;p&gt;So, the first two approaches have some issues. Luckily there’s a better way, Jasmine spy objects:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'AppComponent'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;        
+    &lt;span class=&quot;nx&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;fixture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ComponentFixture&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
+
+    &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mockCarBrandService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jasmine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createSpyObj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'carBrandService'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'findAll'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;mockCarBrandService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;returnValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Mazda'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Japan'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'BMW'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Germany'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;TestBed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;configureTestingModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;declarations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;providers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;provide&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CarBrandService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;useValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mockCarBrandService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}],&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;imports&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CommonLogicModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;compileComponents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The first argument of &lt;code class=&quot;highlighter-rouge&quot;&gt;jasmine.createSpyObj&lt;/code&gt; is the name for the object and will be used to mention it in the console.
+This is usually the name you gave the instance of the corresponding class in the constructor. 
+The second argument is an array containing all function names of that corresponding class that are called from the class being tested. 
+In other words, not all functions offered by the class that’s being mocked have be listed, only the ones actually being used.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Also note that in the providers list, we have to use &lt;code class=&quot;highlighter-rouge&quot;&gt;useValue&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;useClass&lt;/code&gt; since &lt;code class=&quot;highlighter-rouge&quot;&gt;jasmine.createSpyObj&lt;/code&gt; already returns an instance.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Using &lt;code class=&quot;highlighter-rouge&quot;&gt;spyOn&lt;/code&gt; isn’t needed, a spy object is already being spied upon (hence the name) and you can call the &lt;code class=&quot;highlighter-rouge&quot;&gt;toHaveBeenCalled&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;toHaveBeenCalledWith&lt;/code&gt; functions on it.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'should call the findAll method'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getFavoriteCarBrand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mockCarBrandService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toHaveBeenCalled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;I think it’s obvious to say that using Jasmine spy objects is the way to go. 
+If you forget to define a function, you’ll get an error when it’s called. 
+The functions that are defined, are also spied upon. 
+So all the problems with the first and second approach are solved. 
+There’s even another benefit when using spy objects. 
+The implementation (&lt;code class=&quot;highlighter-rouge&quot;&gt;returnValue&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;callFake&lt;/code&gt;) can be changed at any time, even in the middle of a test!&lt;/p&gt;
+
+&lt;h3 id=&quot;issues-with-unit-testing&quot;&gt;Issues with unit testing&lt;/h3&gt;
+&lt;p&gt;A side effect of using TestBed is that when the component is loaded, the &lt;code class=&quot;highlighter-rouge&quot;&gt;ngOnInit&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;ngAfterViewInit&lt;/code&gt;… lifecycle events are called automatically.
+This means you have less control over them.&lt;/p&gt;
+
+&lt;p&gt;Getting all the imports, providers and declarations setup can be quite a struggle too. 
+If there’s any subcomponent in the HTML of the component you’re testing, they should either be imported through a module or added in the declarations of the TestBed configuration.
+If you don’t feel like doing all that, you can also tell Angular to skip elements it doesn’t know by adding &lt;code class=&quot;highlighter-rouge&quot;&gt;NO_ERRORS_SCHEMA&lt;/code&gt; to the TestBed configuration:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;TestBed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;configureTestingModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;declarations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;schemas&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NO_ERRORS_SCHEMA&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;It’s very likely that you’ll be using the Angular router in some of your components, so you’ll have to account for that too. 
+You could mock the router dependency using a Jasmine spy object or you can add &lt;code class=&quot;highlighter-rouge&quot;&gt;RouterTestingModule&lt;/code&gt; as an import instead of the &lt;code class=&quot;highlighter-rouge&quot;&gt;RouterModule&lt;/code&gt; itself. 
+The routes that are relevant can then be defined in the &lt;code class=&quot;highlighter-rouge&quot;&gt;RouterTestingModule&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;na&quot;&gt;imports&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;RouterTestingModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withRoutes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/*List mock routes here*/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;To learn more about writing tests using Angular TestBed, I recommend reading this guide: &lt;a href=&quot;https://angular.io/guide/testing&quot; target=&quot;_blank&quot;&gt;https://angular.io/guide/testing&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;2-calling-the-constructor&quot;&gt;2. Calling the constructor&lt;/h2&gt;
+
+&lt;p&gt;A much better way to do unit testing is to simply call the constructor of the class you want to test.
+You should get an instance of each dependency that’s needed in the component’s constructor.
+Of course we want to mock these classes and as we saw in the Angular TestBed section, the Jasmine spy objects are the way to go.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'AppComponent'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;        
+    &lt;span class=&quot;nx&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mockCarBrandService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jasmine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createSpyObj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'carBrandService'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'findAll'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;mockCarBrandService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;returnValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Mazda'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Japan'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'BMW'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Germany'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mockCarBrandService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Without the TestBed, you don’t have access to the view. 
+However, your tests will run much faster as there are less things to load. 
+When using TestBed, you’ll probably be including lots of dependencies just to make it work, giving you less control. 
+Something you do not want in unit testing as you want to isolate the class as much as possible. 
+Another difference with TestBed is that you have to call the lifecycle events yourself, again giving you more control over the code you’re testing.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'should find the car brand'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ngOnInit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;carBrand&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getFavoriteCarBrand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;carBrand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Mazda'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h1 id=&quot;async-fakeasync-tick&quot;&gt;Async, fakeAsync, tick&lt;/h1&gt;
+&lt;p&gt;Angular is full of Observables and writing tests for them is a little trickier. 
+You might also be using &lt;code class=&quot;highlighter-rouge&quot;&gt;setTimeout&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;setInterval&lt;/code&gt;. 
+To cope with all that, Angular provides the &lt;code class=&quot;highlighter-rouge&quot;&gt;async&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;fakeAsync&lt;/code&gt; functions. 
+You can simply wrap your test in an &lt;code class=&quot;highlighter-rouge&quot;&gt;async&lt;/code&gt; and it should only finish after all async calls are finished. 
+If you want to have more control, you can wrap the test in a &lt;code class=&quot;highlighter-rouge&quot;&gt;fakeAsync&lt;/code&gt; instead. 
+Then the &lt;code class=&quot;highlighter-rouge&quot;&gt;tick()&lt;/code&gt; function can be called to advance time with one tick. 
+By passing an argument to it, time can be advanced by more ticks at once: &lt;code class=&quot;highlighter-rouge&quot;&gt;tick(500)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Suppose we have this class:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TimeoutExample&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;counter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;updateCounterWithDelay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And this test:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;  
+&lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'should increase the counter with a delay'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fakeAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TimeoutExample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toBe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;updateCounterWithDelay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;tick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toBe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;tick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toBe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;tick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toBe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;It clearly shows how the &lt;code class=&quot;highlighter-rouge&quot;&gt;tick&lt;/code&gt; function manipulates the advancement of time, although it isn’t really a useful test,&lt;/p&gt;
+
+&lt;h3 id=&quot;observables&quot;&gt;Observables&lt;/h3&gt;
+
+&lt;p&gt;Now, what if you want to test a function that returns an Observable? 
+Well, simply subscribe to it in an async block and check the result!&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'should return a list of cars'&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;take&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toBe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toBeFalsy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The error clause may seem strange. 
+However, what if the &lt;code class=&quot;highlighter-rouge&quot;&gt;findAll()&lt;/code&gt; call returns an error and you don’t have the error clause in your test? 
+You’ll simply think that your test has passed because it appears green in the console. 
+With code coverage enabled, you may notice that the part of the code you were testing isn’t marked as covered. 
+By adding &lt;code class=&quot;highlighter-rouge&quot;&gt;expect(true).toBeFalsy();&lt;/code&gt; to the error clause, your test will fail because it shouldn’t get there!&lt;/p&gt;
+
+&lt;h1 id=&quot;what-to-test&quot;&gt;What to test&lt;/h1&gt;
+&lt;p&gt;Now that we know a little on how to test, let’s have a look at what to test.&lt;/p&gt;
+
+&lt;p&gt;For starters, you don’t have access to private and protected variables/functions, so all you can do is test the public ones. 
+All variables that are accessed by the view should be public, so those are the ones you can use for your tests. 
+The constructor and all lifecycle events can be called too as they are public. 
+You should never ever set a variable or function to public in order to test it. 
+If you can’t test it because it’s private, you’re doing something wrong. 
+You should be able to get to it through other functions.&lt;/p&gt;
+
+&lt;p&gt;Generally, you give an input and assert the output, it’s as simple as that. 
+Your different inputs should also make sure that all branches are tested (e.g. an &lt;code class=&quot;highlighter-rouge&quot;&gt;if&lt;/code&gt; gives you two branches, one where the &lt;code class=&quot;highlighter-rouge&quot;&gt;if&lt;/code&gt; resolves to &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; and one to &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;).
+Unit tests in Karma also allow you to assert whether a function has been called and optionally with which parameters (&lt;code class=&quot;highlighter-rouge&quot;&gt;toHaveBeenCalled&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;toHaveBeenCalledWith&lt;/code&gt;). 
+This can be useful when for example testing a &lt;code class=&quot;highlighter-rouge&quot;&gt;void&lt;/code&gt; function that calls a mocked function. 
+That way you can still assert the output. 
+So, think of possible scenarios for the functions to test, provide the input and assert the output using &lt;code class=&quot;highlighter-rouge&quot;&gt;expect&lt;/code&gt;. 
+Also try to cover other paths than just the happy paths!&lt;/p&gt;
+
+&lt;p&gt;Testing getters and setters usually isn’t needed, unless they are more complex. 
+In most cases they’re not and it’s quite pointless to call a setter and then assert whether it has been set correclty. 
+Most of the time, these will be called indirectly when testing other functions.&lt;/p&gt;
+
+&lt;p&gt;The code coverage report can help you find functions that aren’t fully tested yet. 
+However, your goal shouldn’t be to get a 100% coverage. 
+Getting a 100% isn’t that hard, simply calling all functions with some different inputs will get you there.
+It won’t mean that your code is fully tested.
+To give you an example, suppose you have a function that sorts a list.
+You write some tests with different inputs so all branches are covered and you get a 100% coverage.
+The ordering of the list could still be completely wrong and not what you expect, although it’s fully covered.
+By using &lt;code class=&quot;highlighter-rouge&quot;&gt;expect&lt;/code&gt; to verify that the output is correct, you’ll be doing a way better job.
+Even then there may be scenarios that aren’t tested despite the coverage report stating that part of the code is covered.
+So try to think of the various possible scenarios (both success and error scenarios) and translate those to tests.&lt;/p&gt;
+
+&lt;h1 id=&quot;tips--tricks&quot;&gt;Tips &amp;amp; tricks&lt;/h1&gt;
+&lt;h2 id=&quot;only-run-certain-tests&quot;&gt;Only run certain tests&lt;/h2&gt;
+&lt;p&gt;When your test base begins to grow, you don’t always want to wait for all tests to have run when only testing a certain class or function. 
+Therefore, you can choose to only run specific &lt;code class=&quot;highlighter-rouge&quot;&gt;describe&lt;/code&gt; blocks or tests (&lt;code class=&quot;highlighter-rouge&quot;&gt;it&lt;/code&gt;) by adding an &lt;code class=&quot;highlighter-rouge&quot;&gt;f&lt;/code&gt; (stands for focus) in front of them, like &lt;code class=&quot;highlighter-rouge&quot;&gt;fdescribe&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;fit&lt;/code&gt;. 
+To exclude certain &lt;code class=&quot;highlighter-rouge&quot;&gt;describe&lt;/code&gt; blocks or tests, you can prefix them with an &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; (exclude), like &lt;code class=&quot;highlighter-rouge&quot;&gt;xdescribe&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;xit&lt;/code&gt;. 
+This will certainly come of use.&lt;/p&gt;
+
+&lt;h2 id=&quot;nesting-describe-blocks&quot;&gt;Nesting describe blocks&lt;/h2&gt;
+&lt;p&gt;Describe blocks can also be nested. 
+If you want for example different &lt;code class=&quot;highlighter-rouge&quot;&gt;beforeEach&lt;/code&gt; blocks for your tests when testing a class, you can create a nested &lt;code class=&quot;highlighter-rouge&quot;&gt;describe&lt;/code&gt; block for each case.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'AppComponent'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mockCarBrandService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jasmine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createSpyObj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'carBrandService'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'findAll'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Happy path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;mockCarBrandService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;returnValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Mazda'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Japan'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'BMW'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Germany'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;]));&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+        &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(...);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    
+    &lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Error path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;mockCarBrandService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;returnValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;throw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Error'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+
+        &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(...);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;using-the-injector&quot;&gt;Using the injector&lt;/h2&gt;
+&lt;p&gt;Dependency injection is used all over Angular meaning that it isn’t possible to simply call &lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt; for certain classes. 
+Normally, you simply put the dependencies in the constructor of your class and Angular takes care of the rest (e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;constructor(private formBuilder: FormBuilder)&lt;/code&gt;).
+When calling the constructor of a class in a test, you don’t always want to mock those dependencies, so you’ll need to get instances of them somehow. 
+For example when using Angular’s &lt;code class=&quot;highlighter-rouge&quot;&gt;FormBuilder&lt;/code&gt; or when you need it to create a &lt;code class=&quot;highlighter-rouge&quot;&gt;FormGroup&lt;/code&gt; to use in your test. 
+In that case, you can use Angular’s ReflectiveInjector which takes care of getting an instance for you.
+Here’s an example how:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;injector&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ReflectiveInjector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;resolveAndCreate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;FormBuilder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;formBuilder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;injector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;FormBuilder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;As you can see, you can simply pass the class name and it will return an instance of that class. 
+That instance can then be passed in the constuctor of the class you’re testing.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;When writing unit tests, it’s better to call the constructors direcly and not to use Angular TestBed. 
+It will give you more freedom and more control, run the tests much faster and allow you to completely isolate the classes. 
+You should also write integration tests and TestBed will serve that purpose very well.
+To mock classes, Jasmine spy objects are simply the way to go.
+Changing their implementation or return value is easy and can be done at any time!
+Code coverage reports can be very useful to find parts of uncovered code. 
+However, getting a high percentage of code coverage shouldn’t be your goal. 
+Write useful tests and also, don’t limit your tests to the happy path!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Martijn&quot;, &quot;last_name&quot;=&gt;&quot;Willekens&quot;, &quot;linkedin&quot;=&gt;&quot;mwillekens&quot;, &quot;permalink&quot;=&gt;&quot;/author/martijn-willekens/&quot;, &quot;avatar&quot;=&gt;&quot;martijn-willekens.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend developer&quot;, &quot;email&quot;=&gt;&quot;martijn.willekens@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Martijn is a frontend developer at Ordina Belgium. He primarily devotes himself to building Angular and Ionic apps written in TypeScript. ReactiveX is his favorite set of tools to work with.&quot;}</name><email>martijn.willekens@ordina.be</email></author><category term="Angular" /><category term="Angular" /><category term="Karma" /><category term="Unit testing" /><category term="Jasmine" /><category term="TypeScript" /><summary type="html">Testing your code is as important as writing the code itself. This also counts for frontend applications such as Angular apps. Unit testing is one way to do so. The goal of these kind of tests is to isolate classes and verify the output of its functions to be what you expect when they are called. We also need a tool to run our tests written in TypeScript. Karma is the one we’ll be using to run tests described in this blog. It will open a browser, execute pieces of JavaScript and report the results back to you.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2017-10-02-testing-angular-with-karma/unit-tests.png" /></entry><entry><title type="html">Spring Cloud Stream - A New Rick and Morty Adventure</title><link href="https://ordina-jworks.github.io/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html" rel="alternate" type="text/html" title="Spring Cloud Stream - A New Rick and Morty Adventure" /><published>2017-10-04T00:00:00+00:00</published><updated>2017-10-04T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure</id><content type="html" xml:base="https://ordina-jworks.github.io/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
 &lt;p&gt;One of the most interesting aspects of the Spring Framework and its ecosystem is &lt;strong&gt;abstraction&lt;/strong&gt;.
 The Spring project maintainers and contributors have always succeeded in hiding complexity from the application developer, by adding different layers of abstraction.&lt;/p&gt;
@@ -3627,221 +4106,4 @@ This process benefits from &lt;strong&gt;continuous feedback loops&lt;/strong&gt
 Feedback loops imply that certain decisions may lead to new observations etc.
 The OODA process can be used as a means of creating an architectural description.
 Consequently, significant decisions will become part of it.
-Since the creation of (significant parts of) the architectural description, starts with &lt;em&gt;(runtime)&lt;/em&gt; observations, capturing data and measuring stakeholder value will help to achieve better observations of the system.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bart&quot;, &quot;last_name&quot;=&gt;&quot;Blommaerts&quot;, &quot;avatar&quot;=&gt;&quot;bart-blommaerts.png&quot;, &quot;twitter&quot;=&gt;&quot;DaggieBe&quot;, &quot;linkedin&quot;=&gt;&quot;bartblommaerts&quot;, &quot;github&quot;=&gt;&quot;bart-blommaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/bart-blommaerts/&quot;, &quot;title&quot;=&gt;&quot;Software Architect&quot;, &quot;title2&quot;=&gt;&quot;Competence Manager Architecture&quot;, &quot;email&quot;=&gt;&quot;bart.blommaerts@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Bart Blommaerts is a passionate Software Architect at Ordina, who believes closing the model-code gap is essential to make rapid, agile delivery sustainable. Bart has a strong focus on API design, reuse, automation and security. He is always looking for technical challenges.&quot;}</name><email>bart.blommaerts@ordina.be</email></author><category term="Architecture" /><category term="Pragmatic" /><category term="Architecture" /><category term="Agile" /><category term="OODA" /><summary type="html">Software development has evolved. Agile is now the de facto standard. The role of an architect in an agile project is very different from the typical role in a more classic waterfall approach. This article presents an updated interpretation of viewpoints and perspectives and will demonstrate how to make rapid, agile delivery sustainable in a constantly changing world. These viewpoints and perspectives can be linked to easy-to-produce models that can be used immediately. A good agile architect needs to strive for consensus and buy-in.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/prag-arch/arch.png" /></entry><entry><title type="html">Creating a REST API with NodeJS, TypeScript and Koa.</title><link href="https://ordina-jworks.github.io/nodejs/2017/06/20/REST-api-NodeJS-koa.html" rel="alternate" type="text/html" title="Creating a REST API with NodeJS, TypeScript and Koa." /><published>2017-06-20T00:00:00+00:00</published><updated>2017-06-20T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/nodejs/2017/06/20/REST-api-NodeJS-koa</id><content type="html" xml:base="https://ordina-jworks.github.io/nodejs/2017/06/20/REST-api-NodeJS-koa.html">&lt;blockquote&gt;
-  &lt;p&gt;This article assumes you already have some knowledge of npm and JavaScript development in general. It will not be a detailed tutorial about how to write a REST API, it’s more of an extra explanation for the application I made, the libraries I used and my experience with them.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;why&quot;&gt;Why?&lt;/h1&gt;
-
-&lt;p&gt;I started this little project because I wanted to be able to quickly write backends for small personal projects with little overhead. Coming from the Java backend world, I have been writing almost only JavaScript for close to 2 years now, but only frontend. I had tried NodeJS in the past for a small project with plain old JavaScript and had a very bad time. Now however, with my new experience in JavaScript, the arrival of ES6 and TypeScript, I wanted to give it another shot.&lt;/p&gt;
-
-&lt;h1 id=&quot;what-exactly-did-i-make&quot;&gt;What exactly did I make?&lt;/h1&gt;
-
-&lt;p&gt;The idea was to write a backend for an application called MovieListr. It’s a simple application to track movies you have watched or want to watch. The API allows you to create, delete, update and see movies and directors. A movie also has a one-to-one relation with a director.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc&quot;&gt;You can find the code on Github.&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;setup&quot;&gt;Setup&lt;/h1&gt;
-
-&lt;p&gt;Setting up a node project with TypeScript doesn’t require a lot of effort, the following commands are enough to get started.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;mkdir &amp;lt;project-name&amp;gt;
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &amp;lt;project-name&amp;gt;
-mkdir src
-npm init //follow the setup
-npm install &lt;span class=&quot;nt&quot;&gt;--save-dev&lt;/span&gt; typescript tsc //install TypeScript and the TypeScript compiler
-tsc &lt;span class=&quot;nt&quot;&gt;--init&lt;/span&gt; //generates a &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;tsconfig.json&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;, a config &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;the TypeScript compiler&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;This is it, you still have to tinker with the tsconfig.json to get it to your liking, but after that you can just start writing code.&lt;/p&gt;
-
-&lt;h1 id=&quot;using-async--await&quot;&gt;Using async / await&lt;/h1&gt;
-
-&lt;p&gt;I want to start with talking about the async / await features. They were what really made this code so fast to write and easy to read. The async keyword marks a function that will always return a promise. The await keyword will automatically unwrap the value from the promise and continue the code when the promise has been resolved. A small example:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;  
-    &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;promiseFn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
- 
-    &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Old&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;way&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
- 
-    &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;asyncFn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	    &lt;span class=&quot;nx&quot;&gt;promiseFn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-		    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-			    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
- 
-    &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/ With async /&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;await&lt;/span&gt;
- 
-    &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;asyncFn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	    &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;promiseFn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-	    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;You can see how readable it is with the async / await syntax. You can write asynchronous code in a synchronous way and I used it heavily everywhere in my code. I think this is one of the things that will really make writing JavaScript fun. No more callbacks, no more boilerplate code, just the important bits. For error handling you can rely on try catch statements to catch errors and act on them.&lt;/p&gt;
-
-&lt;p&gt;To use the async / await syntax, you can have to add &lt;code class=&quot;highlighter-rouge&quot;&gt;esnext.asynciterable&lt;/code&gt; to the lib array in the &lt;code class=&quot;highlighter-rouge&quot;&gt;tsconfig.json&lt;/code&gt; file.&lt;/p&gt;
-
-&lt;h1 id=&quot;the-libraries-i-used&quot;&gt;The libraries I used&lt;/h1&gt;
-
-&lt;h3 id=&quot;koa&quot;&gt;Koa&lt;/h3&gt;
-
-&lt;p&gt;Koa is a small node library to create REST APIs. It was made by the guys who created Express. It takes advantage of the new ES6 feature of generator functions and it allows you to write very readable code by using the async / await features (that are based on the generator functions). For a full understanding of koa and generator functions, I suggest the &lt;a href=&quot;https://www.pluralsight.com/courses/JavaScript-koa-introduction&quot;&gt;Koa course&lt;/a&gt; on Pluralsight from Hammarberg.&lt;/p&gt;
-
-&lt;p&gt;Koa relies heavily on middleware, so for every “step” of the process we need middleware. For instance &lt;a href=&quot;https://github.com/koajs/bodyparser&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;koa-bodyparser&lt;/code&gt;&lt;/a&gt; middleware will parse the request body to json, the &lt;a href=&quot;https://github.com/koajs/logger&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;koa-logger&lt;/code&gt;&lt;/a&gt; middleware will log all the incoming requests and the &lt;a href=&quot;https://github.com/alexmingoia/koa-router&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;koa-router&lt;/code&gt;&lt;/a&gt; middleware will make it easy for us to configure the url mapping to certain actions. These middlewares are installed apart from the Koa framework or you can write them yourself.&lt;/p&gt;
-
-&lt;h3 id=&quot;typescript-ioc&quot;&gt;typescript-ioc&lt;/h3&gt;
-
-&lt;p&gt;To make testing easy, I started looking for a dependency injection framework for TypeScript. I wanted to more or less copy the way I wrote unit tests in Java, which is using dependency injection in your actual code and just creating an instance in your unit test while passing mocks instead of the dependencies. The first dependency injection framework I found, was &lt;a href=&quot;https://github.com/jeffijoe/awilix&quot;&gt;Awilix&lt;/a&gt;. I got Awilix to work, and it worked quite well, but there was still a lot of boilerplate code to write to actually register the services to the container and to get it working. You can also pass folder names so it will register all the services in that folder, but I didn’t find this optimal. I was also using Webpack in the beginning (which I write about later in the article) to build my application and bundle my code, by bundling the code, the paths of the folders obviously didn’t work out anymore in the compiled code, so Awilix was no good for me. I kept searching and I found the library typescript-ioc. This library was based on annotations, so there is barely any configuration overhead and it worked much more like I was used to in Java. typescript-ioc requires you to set experimentalDecorators and emitDecoratorMetadata to true in the tsconfig.json file. You can then just write code like&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;  
-    &lt;span class=&quot;nx&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;typescript-ioc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    
-    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Hello World&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;	
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    
-    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Bar&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Inject&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;	
-    
-    	&lt;span class=&quot;nx&quot;&gt;doAnotherThing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    		&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    
-    &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Bar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;doAnotherThing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;typeorm&quot;&gt;typeorm&lt;/h3&gt;
-
-&lt;p&gt;At first I just saved the movies and directors in the services as an in-memory array for testing purposes, but in a real application you will want persistence of some sort, so I needed a database. I decided on a regular old MySQL database and an ORM library to do the mapping between the database records and my TypeScript model classes. For ORM I used &lt;a href=&quot;https://github.com/typeorm/typeorm&quot;&gt;typeorm&lt;/a&gt;. It’s pretty easy to use. It also uses the annotations like typescript-ioc, which makes code very readable. The experience with this library was more or less pain free, so I really recommend it. To check a real example from my repository, check the &lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/src/models/Movie.ts&quot;&gt;Movie&lt;/a&gt; model.&lt;/p&gt;
-
-&lt;h1 id=&quot;testing&quot;&gt;Testing&lt;/h1&gt;
-
-&lt;h3 id=&quot;unit-testing&quot;&gt;Unit testing&lt;/h3&gt;
-
-&lt;p&gt;For unit testing I used the classic combination of &lt;a href=&quot;https://mochajs.org/&quot;&gt;Mocha&lt;/a&gt;, &lt;a href=&quot;http://sinonjs.org/&quot;&gt;Sinon&lt;/a&gt; and &lt;a href=&quot;http://chaijs.com/&quot;&gt;Chai&lt;/a&gt;. Since I was using dependency injection, I also needed a good way of mocking my dependencies, for this I found &lt;a href=&quot;https://github.com/NagRock/ts-mockito&quot;&gt;ts-mockito&lt;/a&gt;. Ts-mockito is more or less a clone of the &lt;a href=&quot;http://site.mockito.org/&quot;&gt;Mockito&lt;/a&gt; library in Java. It allows you to create mocks of classes, make functions return certain values and verify that calls have been made. This made it super easy to write tests. For examples check the tests folder in my repository. To execute the TypeScript tests, I used &lt;a href=&quot;https://github.com/TypeStrong/ts-node&quot;&gt;ts-node&lt;/a&gt;. Ts-node compiles the TypeScript and keeps the compiled JavaScript in memory while it executes it. This way you don’t have to create an additional folder to compile the tests to and execute them. You can then easily create an npm script like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mocha -r ts-node/register test/**/*.spec.ts&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This tells Mocha  to require the ts-node/register module (this is what the &lt;code class=&quot;highlighter-rouge&quot;&gt;-r ts-node/register&lt;/code&gt;) means and then it just passes the path of the test files to it. This also worked pretty much painlessly.&lt;/p&gt;
-
-&lt;h3 id=&quot;end-to-end-testing&quot;&gt;end-to-end testing&lt;/h3&gt;
-
-&lt;p&gt;I wanted to be able to do some real end to end testing. So I wanted to be able to spin up my application, pass some HTTP requests to it and then verify the output of the requests. The first question was how to pass the requests to my application. For this I found the library &lt;a href=&quot;https://github.com/visionmedia/supertest&quot;&gt;SuperTest&lt;/a&gt;. You can just start you Koa app and pass the HTTP server (the return value of the &lt;code class=&quot;highlighter-rouge&quot;&gt;app.listen&lt;/code&gt; function) to the agent and it will make sure the app is started and you can do some requests and check the results. This worked pretty well.&lt;/p&gt;
-
-&lt;p&gt;The second problem was a test database. I needed a database that was as close to the real one as possible. I ran the real database in a &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt; container with a volume that mapped the &lt;code class=&quot;highlighter-rouge&quot;&gt;/var/lib/mysql&lt;/code&gt; (the configuration / data folder for MySQL) to a host directory, so I could recreate the container without losing data. I figured I could more or less copy the Docker configuration for the database for a test database, only without the volume. Without the volume, the data would just be saved to the container itself, so it would be lost every time the container was recreated, which is perfect for end-to-end tests, because we want to start the tests with the exact same dataset, so we can make sure our assertions keep working.&lt;/p&gt;
-
-&lt;p&gt;So I created an npm script to start the Docker and to do healthchecks to the Docker container until it told me that the entire container was up and running and MySQL was ready to take connections. Then I wrote a script to start the actual end to end tests, which was simply the same mocha call I wrote earlier, only pointing to the e2e folder instead of the test folder. At last I wrote an npm script to stop the Docker container and remove it. You can check these scripts &lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc/tree/master/scripts&quot;&gt;here&lt;/a&gt;. I made heavy use of the &lt;a href=&quot;https://github.com/shelljs/shelljs&quot;&gt;shelljs&lt;/a&gt; package. This npm package allows you to execute shell commands, which I used to start Docker containers from JavaScript.&lt;/p&gt;
-
-&lt;p&gt;NOTE: this setup works well, but the starting of the Docker container takes ~30 seconds, which is quite long, considering that the tests take maybe a few seconds. In a continuous integration build, this doesn’t matter as much, but when you are trying to fix tests, it does take a lot of time if you have to wait about a minute for each test run.&lt;/p&gt;
-
-&lt;h1 id=&quot;task-runner&quot;&gt;Task runner&lt;/h1&gt;
-
-&lt;h3 id=&quot;webpack&quot;&gt;Webpack&lt;/h3&gt;
-
-&lt;p&gt;When I started this project, I was looking up some best practices for node. I came across an &lt;a href=&quot;http://jlongster.com/Backend-Apps-with-Webpack--Part-I&quot;&gt;article&lt;/a&gt; that suggested you should use &lt;a href=&quot;https://webpack.github.io/&quot;&gt;Webpack&lt;/a&gt; for backend too. I already have some experience with Webpack from frontend development, so at first it seemed logical to use it for backend too. When I was trying to get the dependency injection to work with Awilix, I realized that I could not pass any paths to libraries, because when my code was bundled, the paths would be invalid. Then I started to actually wonder why I was bundling my code. In frontend you bundle your code to make it as small as possible so you don’t waste the user’s bandwidth and make you website load faster, but in backend, that does not matter, since the code does not have to be sent anywhere. At this point I decided I didn’t need Webpack at all and I could just use npm scripts’ functionality to create tasks.&lt;/p&gt;
-
-&lt;h3 id=&quot;npm&quot;&gt;npm&lt;/h3&gt;
-
-&lt;p&gt;Npm is actually the only build tool you need. If what you want to do is more than a single line command, you can just write scripts in either TypeScript (you can execute them with ts-node), bash, JavaScript, … whatever you like. I wrote my scripts in TypeScript, because to me it makes more sense to use TypeScript for everything, but I could just as well have written them using bash. Npm also gives you pre and post task hooks. So if you write a task with the name “e2e” as I did, you can also add a task with the “pre” prefix or the “post” prefix that will automatically be executed before and after the task is executed. This way I could easily separate the starting of the Docker container, the executing of the tests and the stopping of the Docker container into different scripts. I could then just execute &lt;code class=&quot;highlighter-rouge&quot;&gt;npm run pree2e&lt;/code&gt; to check if my script to start the Docker worked. I really like this approach and the fact that I don’t need another tool to learn like gulp or Webpack.&lt;/p&gt;
-
-&lt;h1 id=&quot;debugging&quot;&gt;Debugging&lt;/h1&gt;
-
-&lt;h3 id=&quot;application-code&quot;&gt;Application code&lt;/h3&gt;
-
-&lt;p&gt;I had some trouble at the beginning with debugging my TypeScript. For some reason in the Chrome Devtools I could not get my sourcemaps working (even though they were inline sourcemaps). Then I tried the Visual Studio Code debugger and that worked much better. To get this to work, I did the following:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/tsconfig.json&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;tsconfig.json&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;  
-    {
-        &quot;compilerOptions&quot;: {
-
-            &quot;inlineSourceMap&quot;: true,
-            &quot;inlineSources&quot;: true,
-
-        }
-    }&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/package.json&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;  
-
-    &quot;scripts&quot;: {
-        
-	    &quot;start:debug&quot;: &quot;ts-node --inspect=5858 --debug-brk --ignore false src/index.ts&quot;,
-        
-    }&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/.vscode/launch.json&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.vscode/launch.json&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;  
-    {
-	    &quot;configurations&quot;: [
-	        {
-                &quot;type&quot;: &quot;node&quot;,
-                &quot;request&quot;: &quot;launch&quot;,
-                &quot;name&quot;: &quot;Debug Application&quot;,
-                &quot;runtimeExecutable&quot;: &quot;npm&quot;,
-                &quot;windows&quot;: {
-                    &quot;runtimeExecutable&quot;: &quot;npm.cmd&quot;
-                },
-                &quot;runtimeArgs&quot;: [
-                    &quot;run-script&quot;,
-                    &quot;start:debug&quot;
-                ],
-                &quot;outFiles&quot;: [],
-                &quot;protocol&quot;: &quot;inspector&quot;,
-                &quot;sourceMaps&quot;: true,
-                &quot;port&quot;: 5858
-            }
-        ]
-    }&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;The npm script will start the execution of the &lt;code class=&quot;highlighter-rouge&quot;&gt;index.ts&lt;/code&gt; with ts-node in debug mode on port 5858 and the &lt;code class=&quot;highlighter-rouge&quot;&gt;--debug-brk&lt;/code&gt; tells it to break on the first line of code. The launch configuration will just execute this npm script and attach it to the debugger.&lt;/p&gt;
-
-&lt;h3 id=&quot;test-code&quot;&gt;Test code&lt;/h3&gt;
-
-&lt;p&gt;Debugging the test code is more or less the same as the application code, there is just a small caveat. When you create breakpoints in Visual Studio Code, they will appear gray as if they cannot be reached. But when you execute the code, it will break on the breakpoints and then they will become red like a normal breakpoint.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/package.json&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;  
-    &quot;scripts&quot;: {
-	    &quot;test:debug&quot;: &quot;mocha --inspect --debug-brk --not-timeouts --compilers ts:ts-node/register test/**/*.spec.ts&quot;,
-    }&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/.vscode/launch.json&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.vscode/launch.json&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;  
-{
-    &quot;configurations&quot;: [
-        {
-            &quot;type&quot;: &quot;node&quot;,
-            &quot;request&quot;: &quot;launch&quot;,
-            &quot;name&quot;: &quot;Debug Tests&quot;,
-            &quot;runtimeExecutable&quot;: &quot;npm&quot;,
-            &quot;windows&quot;: {
-                &quot;runtimeExecutable&quot;: &quot;npm.cmd&quot;
-            },
-            &quot;runtimeArgs&quot;: [
-                &quot;run-script&quot;,
-                &quot;test:debug&quot;
-            ],
-            &quot;outFiles&quot;: [],
-            &quot;protocol&quot;: &quot;inspector&quot;,
-            &quot;sourceMaps&quot;: true,
-            &quot;port&quot;: 9229
-        }
-    ]
-}&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;I really had a good time making this project. I really love readable and compact code and with TypeScript and the async / await syntax, I really got what I asked for. My previous experience with node.js and regular old JavaScript was really bad, mostly because of the loose typing, which forces you to constantly write a lot of tedious checks on parameters. With TypeScript that is all in the past. Apart from that, the enormous amount of npm packages available, makes it very easy to find some package that does what you need. If for some reason you can’t find something, you can easily write it yourself and publish it to npm.
-I always used to use Java for my backends, but the setup is always a bit of work and you have to write more boilerplate code than with TypeScript. If I make more small projects in the future, I will probably use TypeScript and Node, but for me at this point, it’s hard to tell if NodeJS will hold up in bigger projects. I would assume so, since the structure for me at this point, is very similar to Java, just a more concise syntax.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Ivar&quot;, &quot;last_name&quot;=&gt;&quot;van Hartingsveldt&quot;, &quot;permalink&quot;=&gt;&quot;/author/ivar-van-hartingsveldt/&quot;, &quot;avatar&quot;=&gt;&quot;ivar-van-hartingsveldt.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;ivar.vanhartingsveldt@ordina.be&quot;, &quot;github&quot;=&gt;&quot;ivarvh&quot;, &quot;linkedin&quot;=&gt;&quot;ivarvh&quot;, &quot;bio&quot;=&gt;&quot;Ivar is a backend Java developer who converted to frontend. When ES6 and TypeScript came along, he really started investing his time in that and now he writes Javascript / Typescript almost exclusively.&quot;}</name><email>ivar.vanhartingsveldt@ordina.be</email></author><category term="NodeJS" /><category term="NodeJS" /><category term="TypeScript" /><category term="JavaScript" /><category term="Koa" /><category term="REST" /><category term="MySQL" /><summary type="html">This article assumes you already have some knowledge of npm and JavaScript development in general. It will not be a detailed tutorial about how to write a REST API, it’s more of an extra explanation for the application I made, the libraries I used and my experience with them.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/nodejs-typescript-koa/koa-logo.png" /></entry></feed>
+Since the creation of (significant parts of) the architectural description, starts with &lt;em&gt;(runtime)&lt;/em&gt; observations, capturing data and measuring stakeholder value will help to achieve better observations of the system.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bart&quot;, &quot;last_name&quot;=&gt;&quot;Blommaerts&quot;, &quot;avatar&quot;=&gt;&quot;bart-blommaerts.png&quot;, &quot;twitter&quot;=&gt;&quot;DaggieBe&quot;, &quot;linkedin&quot;=&gt;&quot;bartblommaerts&quot;, &quot;github&quot;=&gt;&quot;bart-blommaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/bart-blommaerts/&quot;, &quot;title&quot;=&gt;&quot;Software Architect&quot;, &quot;title2&quot;=&gt;&quot;Competence Manager Architecture&quot;, &quot;email&quot;=&gt;&quot;bart.blommaerts@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Bart Blommaerts is a passionate Software Architect at Ordina, who believes closing the model-code gap is essential to make rapid, agile delivery sustainable. Bart has a strong focus on API design, reuse, automation and security. He is always looking for technical challenges.&quot;}</name><email>bart.blommaerts@ordina.be</email></author><category term="Architecture" /><category term="Pragmatic" /><category term="Architecture" /><category term="Agile" /><category term="OODA" /><summary type="html">Software development has evolved. Agile is now the de facto standard. The role of an architect in an agile project is very different from the typical role in a more classic waterfall approach. This article presents an updated interpretation of viewpoints and perspectives and will demonstrate how to make rapid, agile delivery sustainable in a constantly changing world. These viewpoints and perspectives can be linked to easy-to-produce models that can be used immediately. A good agile architect needs to strive for consensus and buy-in.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/prag-arch/arch.png" /></entry></feed>
