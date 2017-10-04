@@ -17,7 +17,7 @@ It will open a browser, execute pieces of JavaScript and report the results back
 
 Now, I must admit that I’m not too fond of writing tests myself. 
 However, I do strongly believe they help a lot towards improving the quality of the code. 
-Writing unit tests is quite a hassle, but with an application that is continuously growing and changing, they are an efficient way to prevent bugs getting to production.
+Writing unit tests can be quite a hassle, but with an application that is continuously growing and changing, they are an efficient way to prevent bugs getting to production.
 
 # Table of contents
 1. [Setup](#setup)
@@ -55,7 +55,7 @@ It's best practice to keep the spec file in the same folder as the ts file. So m
 </p>
 
 Next up, the content of a test file. 
-The Jasmine spec is used format the tests ([more info](https://jasmine.github.io/pages/getting_started.html){:target="_blank"}).
+The Jasmine spec is used to format the tests ([more info](https://jasmine.github.io/pages/getting_started.html){:target="_blank"}).
 This means that individual tests are grouped together in a `describe` block. 
 A test itself starts with `it`. 
 Besides tests, you can also add other blocks to a `describe`, like `beforeEach`, `beforeAll`, `afterEach`, `afterAll`... 
@@ -94,13 +94,13 @@ describe('NAME_OF_YOUR_CLASS', () => {
 As you can see, you can pass some text as an argument in the `describe` call. 
 This is usually the name of the class you're testing and it'll be shown when running the tests. 
 For the tests themselves, you can also pass some text which will be shown. 
-These are mainly used for you to be able to identify the tests if they fail. 
-The text should describe what's being tested, like "It should get the brand of the car", could be written as `it('should get the brand of the car', () => ...`.
+These are mainly used for you to be able to identify failing tests. 
+The text should describe what's being tested, for example "It should get the brand of the car", could be written as `it('should get the brand of the car', () => ...`.
 
 ## Writing the actual tests
 There are multiple ways to write unit tests for an Angular app. 
 Either you use the Angular TestBed, the ReflectiveInjector or you simply call the constructor of the class directly. 
-ReflectiveInjector and TestBed are kind of the same approach, so I'll only be discussing TestBed here.
+ReflectiveInjector and TestBed have a similar approach, so I'll only be discussing TestBed here.
 It's something pretty cool Angular came up with in order to test your components. 
 TestBed can create components and injects all its dependencies.
 The instance of the component that is returned can then be used for testing.
@@ -108,7 +108,7 @@ Accessing the view is also possible.
 
 Now, although I said there are multiple ways to unit test an Angular app, there's actually only one correct way: calling the constructor.
 Since TestBed loads the view as well as any components, directives... used in the view, you're actually also testing how the class integrates with them.
-In other words, you're entering the domain of integration testing, which is also important, but I'm not going into detail about that.
+In other words, you're entering the domain of integration testing, which is also important, but out of scope for this blog post.
 
 The unit tests you would write using the constructor approach, could practically look the same when you would use TestBed to instatiate the components. 
 However, there are some problems with using the Angular TestBed for unit tests which I'll be explaining below.
@@ -199,7 +199,7 @@ describe('AppComponent', () => {
 {% endhighlight %}  
 
 In the example above, you can see when the `AppComponent` would call `carBrandService.findAll()`, instead of making a HTTP call, an Observable is returned with a list of car brands which is defined in the test itself. 
-This is pretty cool, but there's a problem with this approach. 
+This is pretty cool, but also very error prone. 
 If you forget to place a spy on a certain function, it will perform the actual call, possibly a HTTP call.
 That's something we do not want at all.
 
@@ -234,10 +234,10 @@ describe('AppComponent', () => {
 {% endhighlight %}
 
 Again we see that `findAll()` will return an Observable containing a list. 
-Using this approach, you'll get an error when you forgot to define a function in the mock class. 
-This may solve our previous problem, but now we have another one. 
+By using this approach, you'll get an error when you forgot to define a function in the mock class. 
+This may solve our previous problem, but now we have created another one. 
 Karma allows us to assert whether a function was called using `toHaveBeenCalled` and `toHaveBeenCalledWith`. 
-The problem is that we don't have any spies, so those functions can't be used.
+The problem here is that we don't have any spies, so those functions can't be used.
 We can again add spies like in the first approach, but you can imagine that this is a lot of work and will get quite messy.
 
 #### Jasmine spy objects
@@ -296,7 +296,7 @@ This means you have less control over them.
 
 Getting all the imports, providers and declarations setup can be quite a struggle too. 
 If there's any subcomponent in the HTML of the component you're testing, they should either be imported through a module or added in the declarations of the TestBed configuration.
-If you don't feel like doing all that, you can also tell Angular to skip elements it doesn't know by adding `NO_ERRORS_SCHEMA` to the TestBed configuration:
+If you don't feel like doing all that, you can also tell Angular to skip elements it doesn't recognise by adding `NO_ERRORS_SCHEMA` to the TestBed configuration:
 
 {% highlight coffeescript %}
 TestBed.configureTestingModule({
@@ -341,7 +341,7 @@ describe('AppComponent', () => {
 Without the TestBed, you don’t have access to the view. 
 However, your tests will run much faster as there are less things to load. 
 When using TestBed, you’ll probably be including lots of dependencies just to make it work, giving you less control. 
-Something you do not want in unit testing as you want to isolate the class as much as possible. 
+This is something you do not want in unit testing as you want to isolate the class as much as possible. 
 Another difference with TestBed is that you have to call the lifecycle events yourself, again giving you more control over the code you’re testing.
 
 {% highlight coffeescript %}
@@ -354,7 +354,7 @@ it('should find the car brand', () => {
 
 # Async, fakeAsync, tick
 Angular is full of Observables and writing tests for them is a little trickier. 
-You might also be using `setTimeout` and `setInterval`. 
+You might also be using the `setTimeout` and `setInterval` functions. 
 To cope with all that, Angular provides the `async` and `fakeAsync` functions. 
 You can simply wrap your test in an `async` and it should only finish after all async calls are finished. 
 If you want to have more control, you can wrap the test in a `fakeAsync` instead. 
@@ -422,7 +422,7 @@ Now that we know a little on how to test, let's have a look at what to test.
 
 For starters, you don't have access to private and protected variables/functions, so all you can do is test the public ones. 
 All variables that are accessed by the view should be public, so those are the ones you can use for your tests. 
-The constructor and all lifecycle events can be called too as they are public. 
+The constructor and all lifecycle events can be called as well as they are public. 
 You should never ever set a variable or function to public in order to test it. 
 If you can't test it because it's private, you're doing something wrong. 
 You should be able to get to it through other functions.
@@ -453,7 +453,7 @@ So try to think of the various possible scenarios (both success and error scenar
 # Tips & tricks
 ## Only run certain tests
 When your test base begins to grow, you don't always want to wait for all tests to have run when only testing a certain class or function. 
-Therefore, you can choose to only run specific `describe` blocks or tests (`it`) by adding an `f` (stands for focus) in front of them, like `fdescribe` and `fit`. 
+Therefore, you can choose to only run specific `describe` blocks or tests (`it`) by adding an `f` (which stands for focus) in front of them, such as `fdescribe` and `fit`. 
 To exclude certain `describe` blocks or tests, you can prefix them with an `x` (exclude), like `xdescribe` and `xit`. 
 This will certainly come of use.
 
@@ -504,7 +504,7 @@ That instance can then be passed in the constuctor of the class you're testing.
 
 # Conclusion
 When writing unit tests, it's better to call the constructors direcly and not to use Angular TestBed. 
-It will give you more freedom and more control, run the tests much faster and allow you to completely isolate the classes. 
+It will give you more freedom and more control, run the tests much faster and allow you to completely isolate classes. 
 You should also write integration tests and TestBed will serve that purpose very well.
 To mock classes, Jasmine spy objects are simply the way to go.
 Changing their implementation or return value is easy and can be done at any time!
