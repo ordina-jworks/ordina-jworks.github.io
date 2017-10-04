@@ -102,7 +102,7 @@ There are multiple ways to write unit tests for an Angular app.
 Either you use the Angular TestBed, the ReflectiveInjector or you simply call the constructor of the class directly. 
 ReflectiveInjector and TestBed are kind of the same approach, so I'll only be discussing TestBed here.
 It's something pretty cool Angular came up with in order to test your components. 
-TestBed can create components and injects all its dependecies.
+TestBed can create components and injects all its dependencies.
 The instance of the component that is returned can then be used for testing.
 Accessing the view is also possible.
 
@@ -306,7 +306,7 @@ TestBed.configureTestingModule({
 {% endhighlight %}  
 
 It's very likely that you'll be using the Angular router in some of your components, so you'll have to account for that too. 
-You could mock the router dependecy using a Jasmine spy object or you can add `RouterTestingModule` as an import instead of the `RouterModule` itself. 
+You could mock the router dependency using a Jasmine spy object or you can add `RouterTestingModule` as an import instead of the `RouterModule` itself. 
 The routes that are relevant can then be defined in the `RouterTestingModule`:
     
 {% highlight coffeescript %}
@@ -487,9 +487,9 @@ describe('AppComponent', () => {
 {% endhighlight %}  
 
 ## Using the injector
-Dependecy injection is used all over Angular meaning that it isn't possible to simply call `new` for certain classes. 
-Normally, you simply put the dependecies in the constructor of your class and Angular takes care of the rest (e.g. `constructor(private formBuilder: FormBuilder)`).
-When calling the constructor of a class in a test, you don't always want to mock those dependecies, so you'll need to get instances of them somehow. 
+Dependency injection is used all over Angular meaning that it isn't possible to simply call `new` for certain classes. 
+Normally, you simply put the dependencies in the constructor of your class and Angular takes care of the rest (e.g. `constructor(private formBuilder: FormBuilder)`).
+When calling the constructor of a class in a test, you don't always want to mock those dependencies, so you'll need to get instances of them somehow. 
 For example when using Angular's `FormBuilder` or when you need it to create a `FormGroup` to use in your test. 
 In that case, you can use Angular's ReflectiveInjector which takes care of getting an instance for you.
 Here's an example how:
