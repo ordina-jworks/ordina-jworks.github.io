@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-10-04T08:17:57+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-10-04T08:24:42+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
 </subtitle><entry><title type="html">Spring Cloud Stream - A New Rick and Morty Adventure</title><link href="https://ordina-jworks.github.io/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html" rel="alternate" type="text/html" title="Spring Cloud Stream - A New Rick and Morty Adventure" /><published>2017-10-04T00:00:00+00:00</published><updated>2017-10-04T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure</id><content type="html" xml:base="https://ordina-jworks.github.io/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
 &lt;p&gt;One of the most interesting aspects of the Spring Framework and its ecosystem is &lt;strong&gt;abstraction&lt;/strong&gt;.
@@ -538,546 +538,7 @@ Go on… Touch him…&lt;/p&gt;
   &lt;li&gt;Addition of Spring Cloud Data Flow in the mix - registering the applications and dragging around inputs and outputs should be fun - also, scaling!&lt;/li&gt;
   &lt;li&gt;Improved UI - obviously&lt;/li&gt;
   &lt;li&gt;Complete event-based demo instead of endpoints to force certain operations (spawning/killing Meeseeks, waking up Rick, …)&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Dieter&quot;, &quot;last_name&quot;=&gt;&quot;Hubau&quot;, &quot;github&quot;=&gt;&quot;Turbots&quot;, &quot;twitter&quot;=&gt;&quot;dhubau&quot;, &quot;linkedin&quot;=&gt;&quot;dhubau&quot;, &quot;permalink&quot;=&gt;&quot;/author/dieter-hubau/&quot;, &quot;avatar&quot;=&gt;&quot;dieter-hubau.png&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Cloud and PaaS&quot;, &quot;email&quot;=&gt;&quot;dieter.hubau@ordina.be&quot;, &quot;phone&quot;=&gt;&quot;0032478458150&quot;, &quot;bio&quot;=&gt;&quot;Dieter is a Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he helps fellow developers as a Competence Leader for the Cloud &amp;amp; PaaS Competence Center by giving workshops, talks and courses about the newest technologies. In his spare time, Dieter enjoys playing soccer, running, (online) gaming and fiddling around with all kinds of fancy new software.&quot;}</name><email>dieter.hubau@ordina.be</email></author><category term="Spring" /><category term="Spring" /><category term="Cloud" /><category term="Stream" /><category term="Microservices" /><category term="RabbitMQ" /><category term="Messaging" /><category term="Reactive" /><category term="Rick" /><category term="Morty" /><summary type="html">Introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/spring-cloud-stream.png" /></entry><entry><title type="html">Spring Cloud Stream - A New Rick and Morty Adventure</title><link href="https://ordina-jworks.github.io/spring/2017/10/03/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html" rel="alternate" type="text/html" title="Spring Cloud Stream - A New Rick and Morty Adventure" /><published>2017-10-03T00:00:00+00:00</published><updated>2017-10-03T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/spring/2017/10/03/Spring-Cloud-Stream-Rick-And-Morty-Adventure</id><content type="html" xml:base="https://ordina-jworks.github.io/spring/2017/10/03/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-
-&lt;p&gt;One of the most interesting aspects of the Spring Framework and its ecosystem is &lt;strong&gt;abstraction&lt;/strong&gt;.
-The Spring project maintainers and contributors have always succeeded in hiding complexity from the application developer, by adding different layers of abstraction.&lt;/p&gt;
-
-&lt;p&gt;For example, the way a Spring &lt;code class=&quot;highlighter-rouge&quot;&gt;Bean&lt;/code&gt; of a certain Interface can be autowired and how Spring will find a suitable implementation class at runtime, is a very obvious example of the &lt;a href=&quot;https://en.wikipedia.org/wiki/Liskov_substitution_principle&quot; target=&quot;_blank&quot;&gt;Liskov Substitution Principle&lt;/a&gt; or &lt;strong&gt;how to abstract away implementation from specification&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;A second, higher level example is the &lt;a href=&quot;http://projects.spring.io/spring-data/&quot; target=&quot;_blank&quot;&gt;Spring Data&lt;/a&gt; project which offers a common programming model for SQL as well as NoSQL databases, abstracting away the specifics of the database internals.&lt;/p&gt;
-
-&lt;p&gt;Another great example of abstraction is the one I’ll be discussing in this blog post.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;DISCLAIMER&lt;/strong&gt;: a big part of this blog post will explain how Spring Cloud Stream works by using heavy references to the animated series &lt;a href=&quot;http://rickandmorty.wikia.com/wiki/Rickipedia&quot; target=&quot;_blank&quot;&gt;Rick and Morty&lt;/a&gt;, with the intention to be hilarious and informative at the same time.
-If you don’t know the show or have no sense of humor, this blog post will be informative only 😉&lt;/p&gt;
-
-&lt;p&gt;I will ignore the obvious third option: &lt;em&gt;this blog post might not be funny at all&lt;/em&gt;.&lt;/p&gt;
-
-&lt;h1 id=&quot;spring-cloud-stream&quot;&gt;Spring Cloud Stream&lt;/h1&gt;
-
-&lt;p&gt;I just can’t start explaining something without a definition, that would be cruel and irresponsible:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Spring Cloud Stream is a framework for building message-driven microservices
-It provides an &lt;strong&gt;opinionated configuration&lt;/strong&gt; of message brokers, introducing the concepts of persistent pub/sub semantics, consumer groups and partitions &lt;strong&gt;across several middleware vendors&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;The last part is what I like the most.
-Spring Cloud Stream abstracts away the complexity of connecting to different middleware solutions.
-It does this &lt;em&gt;the Spring Boot way&lt;/em&gt;: by &lt;strong&gt;automatically configuring sensible defaults&lt;/strong&gt; and allowing the developer to adapt the parts he wants.&lt;/p&gt;
-
-&lt;p&gt;It might be surprising, but &lt;a href=&quot;https://cloud.spring.io/spring-cloud-stream/&quot; target=&quot;_blank&quot;&gt;Spring Cloud Stream&lt;/a&gt; is not &lt;em&gt;that&lt;/em&gt; new in the Spring Cloud ecosystem.
-The project was called &lt;code class=&quot;highlighter-rouge&quot;&gt;spring-bus&lt;/code&gt; during its prototype phase and the first real commit was on May 28th 2015.
-&lt;a href=&quot;https://twitter.com/david_syer&quot; target=&quot;_blank&quot;&gt;Dave Syer&lt;/a&gt; performed the commit that changed it to its current name on &lt;strong&gt;July 8th 2015&lt;/strong&gt;, so I will call that &lt;strong&gt;the birth of Spring Cloud Stream&lt;/strong&gt;!&lt;/p&gt;
-
-&lt;p&gt;The most active contributor up until now is probably &lt;a href=&quot;https://twitter.com/mariusbogoevici&quot; target=&quot;_blank&quot;&gt;Marius Bogoevici&lt;/a&gt;.
-Questions about the project can be directed to the most active contributors and community in the &lt;a href=&quot;https://gitter.im/spring-cloud/spring-cloud-stream&quot; target=&quot;_blank&quot;&gt;Spring Cloud Stream Gitter channel&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;application-model&quot;&gt;Application Model&lt;/h2&gt;
-
-&lt;p&gt;As is described in the &lt;a href=&quot;https://docs.spring.io/spring-cloud-stream/docs/current-SNAPSHOT/reference/htmlsingle/&quot; target=&quot;_blank&quot;&gt;very detailed documentation&lt;/a&gt;, the following image details how a typical Spring Cloud Stream application is structured:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Spring Cloud Stream application model&quot; style=&quot;max-width: 367px&quot; src=&quot;/img/spring-cloud-stream/application-core.png&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;An application defines &lt;code class=&quot;highlighter-rouge&quot;&gt;Input&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Output&lt;/code&gt; channels which are injected by Spring Cloud Stream at runtime.
-Through the use of so-called &lt;code class=&quot;highlighter-rouge&quot;&gt;Binder&lt;/code&gt; implementations, the system connects these channels to external brokers.&lt;/p&gt;
-
-&lt;p&gt;So once again, the difficult parts are abstracted away by Spring, leaving it up to the developer to simply define the inputs and outputs of the application.
-How messages are being transformed, directed, transported, received and ingested are all up to the binder implementations.&lt;/p&gt;
-
-&lt;h2 id=&quot;binder-implementations&quot;&gt;Binder Implementations&lt;/h2&gt;
-
-&lt;p&gt;Currently, there are two official Binder implementations supported by Spring, for RabbitMQ and Kafka.
-Next to those, there are &lt;strong&gt;several community binder implementations&lt;/strong&gt; available:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Spring Cloud Stream Binders implementations&quot; style=&quot;max-width: 367px&quot; src=&quot;/img/spring-cloud-stream/binders.png&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The current - non-exhaustive - list:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/spring-cloud/spring-cloud-stream-binder-jms&quot; target=&quot;_blank&quot;&gt;JMS (ActiveMQ, HornetQ, IBM MQ,…)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/spring-cloud/spring-cloud-stream-binder-aws-kinesis&quot; target=&quot;_blank&quot;&gt;AWS Kinesis&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/spring-cloud/spring-cloud-stream-binder-google-pubsub&quot; target=&quot;_blank&quot;&gt;Google Cloud Pub Sub&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/spring-cloud/spring-cloud-stream-binder-redis&quot; target=&quot;_blank&quot;&gt;Redis&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/spring-cloud/spring-cloud-stream-binder-gemfire&quot; target=&quot;_blank&quot;&gt;Gemfire&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;rick-and-morty&quot;&gt;Rick and Morty&lt;/h1&gt;
-
-&lt;p&gt;As I have said earlier in the post, I will explain Spring Cloud Stream using a somewhat different approach, but I feel it helps to capture the power of the project.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Behold&lt;/strong&gt;, our first character appears on stage:&lt;/p&gt;
-
-&lt;h2 id=&quot;rick&quot;&gt;Rick&lt;/h2&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Rick Sanchez&quot; style=&quot;max-width: 259px&quot; src=&quot;/img/spring-cloud-stream/rick.png&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This is &lt;a href=&quot;http://rickandmorty.wikia.com/wiki/Rick_Sanchez&quot; target=&quot;_blank&quot;&gt;Rick Sanchez&lt;/a&gt;.
-He is Morty’s grandfather, a genius mastermind, inventor of inter-dimensional travel, the Microverse, a butter-passing robot and much, much more.&lt;/p&gt;
-
-&lt;p&gt;He is also an &lt;strong&gt;asshole&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Rick Sanchez&quot; style=&quot;max-width: 480px&quot; src=&quot;/img/spring-cloud-stream/purpose.gif&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;ricks-obsession&quot;&gt;Rick’s Obsession&lt;/h2&gt;
-
-&lt;p&gt;In the first episode of Season 3, Rick expressed his obsession with the &lt;a href=&quot;http://mcdonalds.wikia.com/wiki/Szechuan_Sauce&quot; target=&quot;_blank&quot;&gt;1998 Mulan Szechuan Sauce&lt;/a&gt;.
-The saying goes that a picture is worth a thousand words, so that means this video below will explain, like, a bajillion words or something:&lt;/p&gt;
-
-&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/xilkhMtZD20&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-
-&lt;p&gt;So now we know that Rick really wants this Szechuan sauce.&lt;/p&gt;
-
-&lt;p&gt;Now, we have a purpose:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;We will create a Spring Cloud Stream application, called &lt;em&gt;Rick&lt;/em&gt;, which sole purpose is to retrieve Szechuan sauce from McDonalds!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;As with every Spring based application these days, it’s as easy as going to the happiest place on earth (next to &lt;strong&gt;production&lt;/strong&gt;): &lt;a href=&quot;https://start.spring.io&quot; target=&quot;_blank&quot;&gt;https://start.spring.io&lt;/a&gt;.
-As our dependencies, we pick &lt;strong&gt;Spring Web MVC&lt;/strong&gt; to create some handy web endpoints and &lt;strong&gt;Stream Rabbit&lt;/strong&gt; since we want to send our messages over a RabbitMQ broker.
-We end up with the following dependencies:&lt;/p&gt;
-
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.boot&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-boot-starter-web&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.cloud&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-cloud-starter-stream-rabbit&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;So how does a basic Spring Cloud Stream application look like? Well, it’s actually not that different from a regular Spring Boot application:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@SpringBootApplication&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@EnableBinding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;InputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OutputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RickApplication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;SpringApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RickApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Looks pretty familiar, doesn’t it? That’s because the only new thing in the snippet above is the &lt;code class=&quot;highlighter-rouge&quot;&gt;@EnableBinding&lt;/code&gt; annotation, which automagically converts your application into a &lt;strong&gt;full-fledged messaging beast&lt;/strong&gt;!
-The &lt;code class=&quot;highlighter-rouge&quot;&gt;InputChannels&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;OutputChannels&lt;/code&gt; interfaces are specific to my application.&lt;/p&gt;
-
-&lt;p&gt;Very simply explained, we can describe the Rick microservice with the following diagram:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Rick Microservice&quot; style=&quot;max-width: 640px&quot; src=&quot;/img/spring-cloud-stream/diagram/rick.png&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;As you can see, we have defined one input channel called &lt;code class=&quot;highlighter-rouge&quot;&gt;rick&lt;/code&gt; and one output channel called &lt;code class=&quot;highlighter-rouge&quot;&gt;microverse&lt;/code&gt;.
-These are implemented in a Spring Cloud Stream application like this:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;InputChannels&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;nd&quot;&gt;@Input&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;SubscribableChannel&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OutputChannels&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;nd&quot;&gt;@Output&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;MessageChannel&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;microverse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Holy sh*t Rick, this almost seems like it’s too easy!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Well Morty, erm dear reader, that’s because it is!
-Didn’t I tell you that Spring is awesome at abstraction?
-Yeah, this is why.
-The only thing that is left for us to do, is write our “business logic”, or in our case: the part where we try to find our beloved Szechuan sauce!&lt;/p&gt;
-
-&lt;p&gt;Since Rick is very lazy and an arrogant genius, he’s not gonna look for the sauce himself.
-I mean, he’s got adventures to go on, inventions to invent and generally be a pain in the ass of the &lt;a href=&quot;http://rickandmorty.wikia.com/wiki/Galactic_Federation&quot; target=&quot;_blank&quot;&gt;Galactic Federation&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Let’s add another output channel to our interface:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OutputChannels&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;nd&quot;&gt;@Output&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;MessageChannel&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;meeseeks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-	&lt;span class=&quot;nd&quot;&gt;@Output&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;MessageChannel&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;microverse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Meeseeks?! What the hell is a meeseeks?
-Patience my dear reader, all will be explained shortly.
-First, let me show you the evil, brilliant piece of code which is gonna get us the Szechuan sauce:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SzechuanSauceFinder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C_137&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-137&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minimumRequestIntervalInMillis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SEARCHING&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findThatSauce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SEARCHING&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;SEARCHING&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-			&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requestIntervalInMillis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-			&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SEARCHING&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-				&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;outputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;meeseeks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buildMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;I_WANT_MY_SZECHUAN_SAUCE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C_137&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-				&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;requestIntervalInMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-				&lt;span class=&quot;n&quot;&gt;requestIntervalInMillis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minimumRequestIntervalInMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requestIntervalInMillis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-			&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-			&lt;span class=&quot;n&quot;&gt;SEARCHING&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;stopSearching&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;SEARCHING&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Isn’t that some of the most evil code you’ve ever seen?
-Nothing more evil than static variables controlling state of an application, or precisely placed &lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.sleep()&lt;/code&gt; commands.&lt;/p&gt;
-
-&lt;p&gt;Okay, we’ve got a messaging microservice, pumping out messages at an increasing rate (up until 20 per second).
-How will we know if our &lt;em&gt;meeseeks&lt;/em&gt;, whatever that is, has found the szechuan sauce?&lt;/p&gt;
-
-&lt;p&gt;The rest of the code in this class will illustrate &lt;strong&gt;how an input channel can handle incoming messages&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;SzechuanSauceFinder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InputChannels&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OutputChannels&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;outputChannels&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;inputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;rick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;glipGlop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPayload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;glipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getQuote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ALL_DONE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;stopSearching&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;outputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;microverse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buildMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WUBBA_LUBBA_DUB_DUB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C_137&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}));&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buildMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RickAndMortyQuote&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;quote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MessageBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withPayload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Since the &lt;code class=&quot;highlighter-rouge&quot;&gt;rick&lt;/code&gt; input channel is a &lt;code class=&quot;highlighter-rouge&quot;&gt;SubscribableChannel&lt;/code&gt;, we can subscribe to it.
-Well &lt;a href=&quot;http://pa1.narvii.com/6422/b662846ee28e630dd9661ecca86bd9c4ee0275ef_hq.gif&quot; target=&quot;_blank&quot;&gt;duh&lt;/a&gt; Sherlock!
-A &lt;code class=&quot;highlighter-rouge&quot;&gt;message&lt;/code&gt; can be of any type but we do need to cast it to our own format, a &lt;a href=&quot;https://www.youtube.com/watch?v=G9Ebl9vEKx0&amp;amp;t=28s&quot; target=&quot;_blank&quot;&gt;GlipGlop&lt;/a&gt;, but Spring has &lt;a href=&quot;https://docs.spring.io/spring-cloud-stream/docs/Elmhurst.BUILD-SNAPSHOT/reference/htmlsingle/#_using_streamlistener_for_automatic_content_type_handling&quot; target=&quot;_blank&quot;&gt;ways to make this easier&lt;/a&gt; for us.
-We could have created a method annotated with the new &lt;code class=&quot;highlighter-rouge&quot;&gt;@StreamListener&lt;/code&gt; annotation, which would look like this:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@StreamListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;RICK&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;handle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;glipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Alright, so now we know what Rick wants, and how he intends to get it, we move to the next piece of the puzzle:&lt;/p&gt;
-
-&lt;h1 id=&quot;mr-meeseeks&quot;&gt;Mr Meeseeks&lt;/h1&gt;
-
-&lt;p&gt;Rick is such a genius, he invented a box that can spawn as many “Aladdin’s genies” as you want.
-Use with caution though, you have been warned!
-&lt;a href=&quot;http://rickandmorty.wikia.com/wiki/Mr._Meeseeks&quot; target=&quot;_blank&quot;&gt;Meeseeks&lt;/a&gt; are creatures created to serve a singular purpose for which they will go to any length to fulfill:&lt;/p&gt;
-
-&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/qUYvIAP3qQk&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-
-&lt;h2 id=&quot;finding-the-sauce&quot;&gt;Finding the sauce&lt;/h2&gt;
-
-&lt;p&gt;So our next task will be to create a &lt;strong&gt;Mr Meeseeks microservice&lt;/strong&gt;.
-If I were to draw a very simple diagram of this application, it would look something like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Mr Meeseeks Microservice&quot; style=&quot;max-width: 640px&quot; src=&quot;/img/spring-cloud-stream/diagram/meeseeks.png&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Same story as with the Rick microservice.
-We need a very simple Spring Cloud Stream application with one input channel called &lt;code class=&quot;highlighter-rouge&quot;&gt;meeseeks&lt;/code&gt;.
-In this case, we want to send GlipGlops to McDonalds, Rick and the Microverse, so we’re gonna need three output channels.&lt;/p&gt;
-
-&lt;p&gt;The only thing we really need to put some effort in - &lt;em&gt;if you can even call it effort, I’ve had more effort tying my velcro shoes the other day&lt;/em&gt; - is the &lt;strong&gt;business logic&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MrMeeseekRoutine&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-	&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OutputChannels&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-	&lt;span class=&quot;nd&quot;&gt;@Value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;${INSTANCE_INDEX:${CF_INSTANCE_INDEX:0}}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-	&lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
-	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MrMeeseekRoutine&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InputChannels&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OutputChannels&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;outputChannels&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-		&lt;span class=&quot;n&quot;&gt;inputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;meeseeks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;glipGlop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPayload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;glipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getQuote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;I_WANT_MY_SZECHUAN_SAUCE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-				&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;outputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;microverse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MessageBuilder&lt;/span&gt;
-					&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withPayload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RickAndMortyQuote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;OOOH_YEAH_CAN_DO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
-					&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-				&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;outputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mcdonalds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MessageBuilder&lt;/span&gt;
-					&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withPayload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RickAndMortyQuote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;PLEASE_GIVE_ME_SOME_SZECHUAN_SAUCE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
-					&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-			&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;glipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getQuote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;YOU_ARE_A_WINNER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-				&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;outputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;rick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-					&lt;span class=&quot;n&quot;&gt;MessageBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withPayload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RickAndMortyQuote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ALL_DONE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-			&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-		&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;It’s getting quite boring already, this is child’s play.
-What I’m &lt;a href=&quot;http://1.media.dorkly.cvcdn.com/23/26/c8f59cfc0bef4b6f164072daa2727e71.jpg&quot; target=&quot;_blank&quot;&gt;&lt;em&gt;obviously&lt;/em&gt;&lt;/a&gt; doing here, is:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;subscribe to the &lt;code class=&quot;highlighter-rouge&quot;&gt;meeseeks&lt;/code&gt; input channel&lt;/li&gt;
-  &lt;li&gt;fetch the incoming GlipGlop&lt;/li&gt;
-  &lt;li&gt;if its from Rick, comply and send a GlipGlop to the McDonalds channel requesting some Szechuan sauce&lt;/li&gt;
-  &lt;li&gt;if its from McDonalds and a confirmation that we have just won some sauce, we let Rick know our task has been fulfilled&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Let’s see what our McDonalds microservice looks like.&lt;/p&gt;
-
-&lt;h1 id=&quot;mcdonalds-where-the-sauce-is&quot;&gt;McDonalds: where the sauce is&lt;/h1&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Szechuan Sauce&quot; style=&quot;max-width: 600px&quot; src=&quot;/img/spring-cloud-stream/szechuan-poster.jpg&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;More recently, to my surprise, &lt;a href=&quot;http://www.ign.com/articles/2017/10/02/rick-and-morty-mcdonalds-is-bringing-back-szechuan-sauce-for-one-day-only&quot; target=&quot;_blank&quot;&gt;McDonalds announced they were actually bringing back the now infamous 1998 Mulan Szechuan Sauce&lt;/a&gt;.
-So I guess my demo just got a bit more relevant and my powers of clairvoyance are proven once again.&lt;/p&gt;
-
-&lt;p&gt;At this point, it’s just more of the same. Let me show you the diagram:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;McDonalds Microservice&quot; style=&quot;max-width: 640px&quot; src=&quot;/img/spring-cloud-stream/diagram/mcdonalds.png&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Spring Cloud Stream application&lt;/li&gt;
-  &lt;li&gt;one input channel &lt;code class=&quot;highlighter-rouge&quot;&gt;mcdonalds&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;one output channel &lt;code class=&quot;highlighter-rouge&quot;&gt;meeseeks&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;You get it by now.&lt;/p&gt;
-
-&lt;p&gt;Here’s the code &lt;strong&gt;yawn&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;McdonaldsCashier&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-	&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ODDS_AT_FINDING_SZECHUAN_SAUCE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Random&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RAND&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-	&lt;span class=&quot;nd&quot;&gt;@Value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;${INSTANCE_INDEX:${CF_INSTANCE_INDEX:0}}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-	&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;luckyNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-	&lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
-	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;McdonaldsCashier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InputChannels&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OutputChannels&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;luckyNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RAND&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;nextInt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ODDS_AT_FINDING_SZECHUAN_SAUCE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-		&lt;span class=&quot;n&quot;&gt;inputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mcdonalds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;glipGlop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPayload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;glipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getQuote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RickAndMortyQuote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;PLEASE_GIVE_ME_SOME_SZECHUAN_SAUCE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-				&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;randomInt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RAND&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;nextInt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ODDS_AT_FINDING_SZECHUAN_SAUCE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-				&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randomInt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;luckyNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-					&lt;span class=&quot;n&quot;&gt;outputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;meeseeks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-						&lt;span class=&quot;n&quot;&gt;MessageBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withPayload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RickAndMortyQuote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;YOU_ARE_A_WINNER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
-							&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-				&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-					&lt;span class=&quot;n&quot;&gt;outputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;meeseeks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-						&lt;span class=&quot;n&quot;&gt;MessageBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withPayload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RickAndMortyQuote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SORRY_NO_LUCK&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-				&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-			&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-		&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Oh man, I think I’m getting bored even writing this.
-Stick with me, the demo is gonna be worth it.
-Don’t scroll to the bottom just yet!
-There’s only one piece of the puzzle left.&lt;/p&gt;
-
-&lt;h1 id=&quot;morty&quot;&gt;Morty&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Aw djeez” - Morty&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Morty&quot; style=&quot;max-width: 167px&quot; src=&quot;/img/spring-cloud-stream/morty.png&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Morty is a young teenage boy.
-He has short brown hair that he wears straight and neatly combed around his head.
-He wears a yellow shirt, blue pants, and white shoes.&lt;/p&gt;
-
-&lt;p&gt;He’s cute and adorable and is always along for the ride.
-He gets to see all the incredible things that happen in the universe - &lt;em&gt;and microverse&lt;/em&gt; - so he’s the perfect character to represent our frontend.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Morty Microservice&quot; style=&quot;max-width: 640px&quot; src=&quot;/img/spring-cloud-stream/diagram/morty.png&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I just want to clarify that I’m in no way a great frontend developer.
-I dabble in HTML, CSS and the occasional JavaScript, but my designer skills are abysmal.&lt;/p&gt;
-
-&lt;p&gt;That’s why I love a framework like &lt;strong&gt;Bootstrap&lt;/strong&gt;: easy, intuitive and fast to create a semi decent web application.&lt;/p&gt;
-
-&lt;p&gt;So &lt;em&gt;that’s&lt;/em&gt; why I choose to work with &lt;a href=&quot;http://bulma.io/&quot; target=&quot;_blank&quot;&gt;&lt;strong&gt;Bulma&lt;/strong&gt;&lt;/a&gt;: the even easier, &lt;em&gt;more&lt;/em&gt; intuitive version of Bootstrap.
-You can check out my horrible frontend code &lt;a href=&quot;https://github.com/Turbots/szechuan/tree/master/morty/frontend&quot; target=&quot;_blank&quot;&gt;in the Git repository&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;The Morty microservice is a bit different than the others, since it needs to collect all the input messages and transfer them to a browser.
-We do this using &lt;a href=&quot;https://www.w3schools.com/html/html5_serversentevents.asp&quot; target=&quot;_blank&quot;&gt;&lt;strong&gt;server-sent events&lt;/strong&gt; or &lt;strong&gt;SSE&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Spring MVC has had support for SSE for a while and it’s actually very easy to use:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@GetMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;produces&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TEXT_EVENT_STREAM_VALUE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SseEmitter&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;SseEmitter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SseEmitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;As you can see, even &lt;a href=&quot;http://rickandmorty.wikia.com/wiki/Jerry_Smith&quot; target=&quot;_blank&quot;&gt;Jerry&lt;/a&gt; could figure this stuff out.
-In the example above, nothing is actually being emitted.
-When someone browses to the endpoint, it opens an HTTP connection and waits for messages.
-It’s up to the server to actually start sending data messages from this emitter, which will trigger an &lt;code class=&quot;highlighter-rouge&quot;&gt;onMessage&lt;/code&gt; JavaScript event at client-side.&lt;/p&gt;
-
-&lt;p&gt;Let’s see how we implemented this for our Morty microservice:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Slf4j&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@RestController&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/events&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;EventController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-	&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SseEmitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emitters&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
-
-	&lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
-	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;EventController&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InputChannels&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;GlipGlopHandler&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;glipGlopHandler&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GlipGlopHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;inputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;rick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;glipGlopHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;inputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;meeseeks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;glipGlopHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;inputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mcdonalds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;glipGlopHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;inputChannels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;microverse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;glipGlopHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-	&lt;span class=&quot;nd&quot;&gt;@GetMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;produces&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TEXT_EVENT_STREAM_VALUE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SseEmitter&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;SseEmitter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SseEmitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;emitters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onCompletion&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emitters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;throwable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emitters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onTimeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emitters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-	&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GlipGlopHandler&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MessageHandler&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-		&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;handleMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MessagingException&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;glipGlop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GlipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPayload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;emitters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-				&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-					&lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;glipGlop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-				&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IOException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-					&lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;complete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-					&lt;span class=&quot;n&quot;&gt;emitters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-					&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;IOException when trying to send event&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-				&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-			&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-		&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;DISCLAIMER&lt;/strong&gt;: this code is not production-ready and can probably cause instant brain damage when observed.
-This code is for demo purposes only.&lt;/p&gt;
-
-&lt;p&gt;A quick explanation of the code:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;we subscribe to the four input channels and attach the same message handler since we want to handle all the GlipGlops equally&lt;/li&gt;
-  &lt;li&gt;when a client performs a GET request to the &lt;code class=&quot;highlighter-rouge&quot;&gt;/events&lt;/code&gt; endpoint, it is assigned an &lt;code class=&quot;highlighter-rouge&quot;&gt;SseEmitter&lt;/code&gt; which is added to a list&lt;/li&gt;
-  &lt;li&gt;whenever a GlipGlop on any of the four input channels is received, it is sent to all the registered SseEmitters&lt;/li&gt;
-  &lt;li&gt;exactly nothing is done when errors occur - totally &lt;em&gt;intentional&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;the-microverse&quot;&gt;The Microverse&lt;/h2&gt;
-
-&lt;p&gt;Everything that is described in this post, is transpiring inside the miniature dimension called &lt;strong&gt;The Microverse&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;The Microverse&quot; style=&quot;max-width: 367px&quot; src=&quot;/img/spring-cloud-stream/Microverse_Battery.png&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://rickandmorty.wikia.com/wiki/Microverse_Battery&quot; target=&quot;_blank&quot;&gt;&lt;em&gt;the Microverse&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;In all seriousness - yeah, seriously - we are deploying our microservices on the &lt;a href=&quot;https://pivotal.io/platform&quot; target=&quot;_blank&quot;&gt;Pivotal Cloud Foundry&lt;/a&gt; (PCF) platform.
-In this case, I’m using a paid account on &lt;a href=&quot;https://run.pivotal.io/&quot; target=&quot;_blank&quot;&gt;Pivotal Web Services&lt;/a&gt;, their online version of PCF.
-Inside this powerful Platform as a Service (PaaS) offering, there’s this concept of &lt;strong&gt;organizations and spaces&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Inside of our Ordina JWorks organization, I have created a space called &lt;code class=&quot;highlighter-rouge&quot;&gt;microverse&lt;/code&gt; to house all of the applications in my demo.
-This way, my wacky adventures cannot interfere with any of our actually useful applications.&lt;/p&gt;
-
-&lt;p&gt;Through the powerful &lt;strong&gt;service broker&lt;/strong&gt; mechanism, I provisioned a RabbitMQ service and bound it to my applications.
-This means the freshly created RabbitMQ instance’s connection details are automatically shared inside of my application’s containers as system properties.&lt;/p&gt;
-
-&lt;p&gt;Since Spring Boot kicks ass at taking system properties and ramming them inside some auto-configuration, we don’t have to worry about anything remotely resembling boilerplate code.&lt;/p&gt;
-
-&lt;h1 id=&quot;summary&quot;&gt;Summary&lt;/h1&gt;
-
-&lt;p&gt;Before I go over to the demo, I wanted to share my &lt;strong&gt;grand clarification of the Microverse and all things which lie within&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Grand Clarification&quot; style=&quot;max-width: 640px&quot; src=&quot;/img/spring-cloud-stream/diagram/clarification.png&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;As you can see, I have drawn &lt;strong&gt;multiple Meeseeks instances&lt;/strong&gt; in this diagram.
-That’s because I want to spawn multiple Meeseeks to perform my task.&lt;/p&gt;
-
-&lt;p&gt;Without any extra configuration, &lt;strong&gt;every Meeseeks instance will pick up every GlipGlop&lt;/strong&gt; posted to the &lt;code class=&quot;highlighter-rouge&quot;&gt;meeseeks&lt;/code&gt; input channel.
-This means adding additional Meeseeks instances won’t help us very much (it will increase the total number of GlipGlops in the system and probably overload the server even faster).
-We want every separate Meeseeks instance to pick up a unique message on that input channel.&lt;/p&gt;
-
-&lt;p&gt;This can be accomplished by putting the Meeseeks application inside of a &lt;a href=&quot;https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#consumer-groups&quot; target=&quot;_blank&quot;&gt;&lt;strong&gt;consumer group&lt;/strong&gt;&lt;/a&gt;.
-Only &lt;em&gt;one&lt;/em&gt; property is required to do this:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;spring:
-  cloud:
-    stream:
-      bindings:
-        meeseeks:
-          group: szechuan-finder
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This indicates we want the &lt;code class=&quot;highlighter-rouge&quot;&gt;meeseeks&lt;/code&gt; message channel to be part of a consumer group called &lt;code class=&quot;highlighter-rouge&quot;&gt;szechuan-finder&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h1 id=&quot;demo&quot;&gt;Demo&lt;/h1&gt;
-
-&lt;p&gt;This could be quite anti-climactic, but you’re gonna have to &lt;strong&gt;touch Pickle Rick to see the demo&lt;/strong&gt;.
-Go on… Touch him…&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://rnm-morty.cfapps.io&quot; target=&quot;_blank&quot;&gt;
-    &lt;img alt=&quot;Grand Clarification&quot; style=&quot;max-width: 275px&quot; src=&quot;/img/spring-cloud-stream/pickle-rick.jpg&quot; class=&quot;image fit&quot; /&gt;
-&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Press the Rick and Meeseeks image in the demo and enjoy the show!&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;resources&quot;&gt;Resources&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Github Repository with all the code: https://github.com/Turbots/szechuan&lt;/li&gt;
-  &lt;li&gt;Slides about this topic: http://slides.com/turbots/spring-cloud-stream-rick-morty&lt;/li&gt;
-  &lt;li&gt;Spring Cloud Stream documentation: https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/&lt;/li&gt;
-  &lt;li&gt;Try out Pivotal Cloud Foundry on your local workstation: https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;improvements&quot;&gt;Improvements&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Better error handling on Morty - too many browser connections when sending 150 messages a second over event streams is quite demanding apparently&lt;/li&gt;
-  &lt;li&gt;Addition of Spring Cloud Data Flow in the mix - registering the applications and dragging around inputs and outputs should be fun - also, scaling!&lt;/li&gt;
-  &lt;li&gt;Improved UI - obviously&lt;/li&gt;
-  &lt;li&gt;Complete event-based demo instead of endpoints to force certain operations (spawning/killing Meeseeks, waking up Rick, …)&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Dieter&quot;, &quot;last_name&quot;=&gt;&quot;Hubau&quot;, &quot;github&quot;=&gt;&quot;Turbots&quot;, &quot;twitter&quot;=&gt;&quot;dhubau&quot;, &quot;linkedin&quot;=&gt;&quot;dhubau&quot;, &quot;permalink&quot;=&gt;&quot;/author/dieter-hubau/&quot;, &quot;avatar&quot;=&gt;&quot;dieter-hubau.png&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Cloud and PaaS&quot;, &quot;email&quot;=&gt;&quot;dieter.hubau@ordina.be&quot;, &quot;phone&quot;=&gt;&quot;0032478458150&quot;, &quot;bio&quot;=&gt;&quot;Dieter is a Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he helps fellow developers as a Competence Leader for the Cloud &amp;amp; PaaS Competence Center by giving workshops, talks and courses about the newest technologies. In his spare time, Dieter enjoys playing soccer, running, (online) gaming and fiddling around with all kinds of fancy new software.&quot;}</name><email>dieter.hubau@ordina.be</email></author><category term="Spring" /><category term="Spring" /><category term="Cloud" /><category term="Stream" /><category term="Microservices" /><category term="RabbitMQ" /><category term="Reactive" /><category term="Spring Boot" /><summary type="html">Introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/spring-cloud-stream.png" /></entry><entry><title type="html">Building end-to-end IoT demos with LoRa</title><link href="https://ordina-jworks.github.io/iot/2017/09/28/End-to-end-IoT.html" rel="alternate" type="text/html" title="Building end-to-end IoT demos with LoRa" /><published>2017-09-28T00:00:00+00:00</published><updated>2017-09-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2017/09/28/End-to-end-IoT</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2017/09/28/End-to-end-IoT.html">&lt;blockquote&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Dieter&quot;, &quot;last_name&quot;=&gt;&quot;Hubau&quot;, &quot;github&quot;=&gt;&quot;Turbots&quot;, &quot;twitter&quot;=&gt;&quot;dhubau&quot;, &quot;linkedin&quot;=&gt;&quot;dhubau&quot;, &quot;permalink&quot;=&gt;&quot;/author/dieter-hubau/&quot;, &quot;avatar&quot;=&gt;&quot;dieter-hubau.png&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Cloud and PaaS&quot;, &quot;email&quot;=&gt;&quot;dieter.hubau@ordina.be&quot;, &quot;phone&quot;=&gt;&quot;0032478458150&quot;, &quot;bio&quot;=&gt;&quot;Dieter is a Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he helps fellow developers as a Competence Leader for the Cloud &amp;amp; PaaS Competence Center by giving workshops, talks and courses about the newest technologies. In his spare time, Dieter enjoys playing soccer, running, (online) gaming and fiddling around with all kinds of fancy new software.&quot;}</name><email>dieter.hubau@ordina.be</email></author><category term="Spring" /><category term="Spring" /><category term="Cloud" /><category term="Stream" /><category term="Microservices" /><category term="RabbitMQ" /><category term="Messaging" /><category term="Reactive" /><category term="Rick" /><category term="Morty" /><summary type="html">Introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/spring-cloud-stream.png" /></entry><entry><title type="html">Building end-to-end IoT demos with LoRa</title><link href="https://ordina-jworks.github.io/iot/2017/09/28/End-to-end-IoT.html" rel="alternate" type="text/html" title="Building end-to-end IoT demos with LoRa" /><published>2017-09-28T00:00:00+00:00</published><updated>2017-09-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2017/09/28/End-to-end-IoT</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2017/09/28/End-to-end-IoT.html">&lt;blockquote&gt;
   &lt;p&gt;To showcase end-to-end LoRa applications we built simple yet fun, real world demo applications. 
 These applications show a full end-to-end implementation of the LoRa technology leveraging the Proximus MyThings Internet of Things platform.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -4166,4 +3627,221 @@ This process benefits from &lt;strong&gt;continuous feedback loops&lt;/strong&gt
 Feedback loops imply that certain decisions may lead to new observations etc.
 The OODA process can be used as a means of creating an architectural description.
 Consequently, significant decisions will become part of it.
-Since the creation of (significant parts of) the architectural description, starts with &lt;em&gt;(runtime)&lt;/em&gt; observations, capturing data and measuring stakeholder value will help to achieve better observations of the system.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bart&quot;, &quot;last_name&quot;=&gt;&quot;Blommaerts&quot;, &quot;avatar&quot;=&gt;&quot;bart-blommaerts.png&quot;, &quot;twitter&quot;=&gt;&quot;DaggieBe&quot;, &quot;linkedin&quot;=&gt;&quot;bartblommaerts&quot;, &quot;github&quot;=&gt;&quot;bart-blommaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/bart-blommaerts/&quot;, &quot;title&quot;=&gt;&quot;Software Architect&quot;, &quot;title2&quot;=&gt;&quot;Competence Manager Architecture&quot;, &quot;email&quot;=&gt;&quot;bart.blommaerts@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Bart Blommaerts is a passionate Software Architect at Ordina, who believes closing the model-code gap is essential to make rapid, agile delivery sustainable. Bart has a strong focus on API design, reuse, automation and security. He is always looking for technical challenges.&quot;}</name><email>bart.blommaerts@ordina.be</email></author><category term="Architecture" /><category term="Pragmatic" /><category term="Architecture" /><category term="Agile" /><category term="OODA" /><summary type="html">Software development has evolved. Agile is now the de facto standard. The role of an architect in an agile project is very different from the typical role in a more classic waterfall approach. This article presents an updated interpretation of viewpoints and perspectives and will demonstrate how to make rapid, agile delivery sustainable in a constantly changing world. These viewpoints and perspectives can be linked to easy-to-produce models that can be used immediately. A good agile architect needs to strive for consensus and buy-in.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/prag-arch/arch.png" /></entry></feed>
+Since the creation of (significant parts of) the architectural description, starts with &lt;em&gt;(runtime)&lt;/em&gt; observations, capturing data and measuring stakeholder value will help to achieve better observations of the system.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bart&quot;, &quot;last_name&quot;=&gt;&quot;Blommaerts&quot;, &quot;avatar&quot;=&gt;&quot;bart-blommaerts.png&quot;, &quot;twitter&quot;=&gt;&quot;DaggieBe&quot;, &quot;linkedin&quot;=&gt;&quot;bartblommaerts&quot;, &quot;github&quot;=&gt;&quot;bart-blommaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/bart-blommaerts/&quot;, &quot;title&quot;=&gt;&quot;Software Architect&quot;, &quot;title2&quot;=&gt;&quot;Competence Manager Architecture&quot;, &quot;email&quot;=&gt;&quot;bart.blommaerts@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Bart Blommaerts is a passionate Software Architect at Ordina, who believes closing the model-code gap is essential to make rapid, agile delivery sustainable. Bart has a strong focus on API design, reuse, automation and security. He is always looking for technical challenges.&quot;}</name><email>bart.blommaerts@ordina.be</email></author><category term="Architecture" /><category term="Pragmatic" /><category term="Architecture" /><category term="Agile" /><category term="OODA" /><summary type="html">Software development has evolved. Agile is now the de facto standard. The role of an architect in an agile project is very different from the typical role in a more classic waterfall approach. This article presents an updated interpretation of viewpoints and perspectives and will demonstrate how to make rapid, agile delivery sustainable in a constantly changing world. These viewpoints and perspectives can be linked to easy-to-produce models that can be used immediately. A good agile architect needs to strive for consensus and buy-in.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/prag-arch/arch.png" /></entry><entry><title type="html">Creating a REST API with NodeJS, TypeScript and Koa.</title><link href="https://ordina-jworks.github.io/nodejs/2017/06/20/REST-api-NodeJS-koa.html" rel="alternate" type="text/html" title="Creating a REST API with NodeJS, TypeScript and Koa." /><published>2017-06-20T00:00:00+00:00</published><updated>2017-06-20T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/nodejs/2017/06/20/REST-api-NodeJS-koa</id><content type="html" xml:base="https://ordina-jworks.github.io/nodejs/2017/06/20/REST-api-NodeJS-koa.html">&lt;blockquote&gt;
+  &lt;p&gt;This article assumes you already have some knowledge of npm and JavaScript development in general. It will not be a detailed tutorial about how to write a REST API, it’s more of an extra explanation for the application I made, the libraries I used and my experience with them.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;why&quot;&gt;Why?&lt;/h1&gt;
+
+&lt;p&gt;I started this little project because I wanted to be able to quickly write backends for small personal projects with little overhead. Coming from the Java backend world, I have been writing almost only JavaScript for close to 2 years now, but only frontend. I had tried NodeJS in the past for a small project with plain old JavaScript and had a very bad time. Now however, with my new experience in JavaScript, the arrival of ES6 and TypeScript, I wanted to give it another shot.&lt;/p&gt;
+
+&lt;h1 id=&quot;what-exactly-did-i-make&quot;&gt;What exactly did I make?&lt;/h1&gt;
+
+&lt;p&gt;The idea was to write a backend for an application called MovieListr. It’s a simple application to track movies you have watched or want to watch. The API allows you to create, delete, update and see movies and directors. A movie also has a one-to-one relation with a director.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc&quot;&gt;You can find the code on Github.&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;setup&quot;&gt;Setup&lt;/h1&gt;
+
+&lt;p&gt;Setting up a node project with TypeScript doesn’t require a lot of effort, the following commands are enough to get started.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;mkdir &amp;lt;project-name&amp;gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &amp;lt;project-name&amp;gt;
+mkdir src
+npm init //follow the setup
+npm install &lt;span class=&quot;nt&quot;&gt;--save-dev&lt;/span&gt; typescript tsc //install TypeScript and the TypeScript compiler
+tsc &lt;span class=&quot;nt&quot;&gt;--init&lt;/span&gt; //generates a &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;tsconfig.json&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;, a config &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;the TypeScript compiler&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This is it, you still have to tinker with the tsconfig.json to get it to your liking, but after that you can just start writing code.&lt;/p&gt;
+
+&lt;h1 id=&quot;using-async--await&quot;&gt;Using async / await&lt;/h1&gt;
+
+&lt;p&gt;I want to start with talking about the async / await features. They were what really made this code so fast to write and easy to read. The async keyword marks a function that will always return a promise. The await keyword will automatically unwrap the value from the promise and continue the code when the promise has been resolved. A small example:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;  
+    &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;promiseFn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+ 
+    &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Old&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;way&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+ 
+    &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;asyncFn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	    &lt;span class=&quot;nx&quot;&gt;promiseFn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+		    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+			    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+ 
+    &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/ With async /&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;await&lt;/span&gt;
+ 
+    &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;asyncFn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	    &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;promiseFn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+	    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;You can see how readable it is with the async / await syntax. You can write asynchronous code in a synchronous way and I used it heavily everywhere in my code. I think this is one of the things that will really make writing JavaScript fun. No more callbacks, no more boilerplate code, just the important bits. For error handling you can rely on try catch statements to catch errors and act on them.&lt;/p&gt;
+
+&lt;p&gt;To use the async / await syntax, you can have to add &lt;code class=&quot;highlighter-rouge&quot;&gt;esnext.asynciterable&lt;/code&gt; to the lib array in the &lt;code class=&quot;highlighter-rouge&quot;&gt;tsconfig.json&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-libraries-i-used&quot;&gt;The libraries I used&lt;/h1&gt;
+
+&lt;h3 id=&quot;koa&quot;&gt;Koa&lt;/h3&gt;
+
+&lt;p&gt;Koa is a small node library to create REST APIs. It was made by the guys who created Express. It takes advantage of the new ES6 feature of generator functions and it allows you to write very readable code by using the async / await features (that are based on the generator functions). For a full understanding of koa and generator functions, I suggest the &lt;a href=&quot;https://www.pluralsight.com/courses/JavaScript-koa-introduction&quot;&gt;Koa course&lt;/a&gt; on Pluralsight from Hammarberg.&lt;/p&gt;
+
+&lt;p&gt;Koa relies heavily on middleware, so for every “step” of the process we need middleware. For instance &lt;a href=&quot;https://github.com/koajs/bodyparser&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;koa-bodyparser&lt;/code&gt;&lt;/a&gt; middleware will parse the request body to json, the &lt;a href=&quot;https://github.com/koajs/logger&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;koa-logger&lt;/code&gt;&lt;/a&gt; middleware will log all the incoming requests and the &lt;a href=&quot;https://github.com/alexmingoia/koa-router&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;koa-router&lt;/code&gt;&lt;/a&gt; middleware will make it easy for us to configure the url mapping to certain actions. These middlewares are installed apart from the Koa framework or you can write them yourself.&lt;/p&gt;
+
+&lt;h3 id=&quot;typescript-ioc&quot;&gt;typescript-ioc&lt;/h3&gt;
+
+&lt;p&gt;To make testing easy, I started looking for a dependency injection framework for TypeScript. I wanted to more or less copy the way I wrote unit tests in Java, which is using dependency injection in your actual code and just creating an instance in your unit test while passing mocks instead of the dependencies. The first dependency injection framework I found, was &lt;a href=&quot;https://github.com/jeffijoe/awilix&quot;&gt;Awilix&lt;/a&gt;. I got Awilix to work, and it worked quite well, but there was still a lot of boilerplate code to write to actually register the services to the container and to get it working. You can also pass folder names so it will register all the services in that folder, but I didn’t find this optimal. I was also using Webpack in the beginning (which I write about later in the article) to build my application and bundle my code, by bundling the code, the paths of the folders obviously didn’t work out anymore in the compiled code, so Awilix was no good for me. I kept searching and I found the library typescript-ioc. This library was based on annotations, so there is barely any configuration overhead and it worked much more like I was used to in Java. typescript-ioc requires you to set experimentalDecorators and emitDecoratorMetadata to true in the tsconfig.json file. You can then just write code like&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;  
+    &lt;span class=&quot;nx&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;typescript-ioc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Hello World&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;	
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Bar&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Inject&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;	
+    
+    	&lt;span class=&quot;nx&quot;&gt;doAnotherThing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    		&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;nx&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Bar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;doAnotherThing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;typeorm&quot;&gt;typeorm&lt;/h3&gt;
+
+&lt;p&gt;At first I just saved the movies and directors in the services as an in-memory array for testing purposes, but in a real application you will want persistence of some sort, so I needed a database. I decided on a regular old MySQL database and an ORM library to do the mapping between the database records and my TypeScript model classes. For ORM I used &lt;a href=&quot;https://github.com/typeorm/typeorm&quot;&gt;typeorm&lt;/a&gt;. It’s pretty easy to use. It also uses the annotations like typescript-ioc, which makes code very readable. The experience with this library was more or less pain free, so I really recommend it. To check a real example from my repository, check the &lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/src/models/Movie.ts&quot;&gt;Movie&lt;/a&gt; model.&lt;/p&gt;
+
+&lt;h1 id=&quot;testing&quot;&gt;Testing&lt;/h1&gt;
+
+&lt;h3 id=&quot;unit-testing&quot;&gt;Unit testing&lt;/h3&gt;
+
+&lt;p&gt;For unit testing I used the classic combination of &lt;a href=&quot;https://mochajs.org/&quot;&gt;Mocha&lt;/a&gt;, &lt;a href=&quot;http://sinonjs.org/&quot;&gt;Sinon&lt;/a&gt; and &lt;a href=&quot;http://chaijs.com/&quot;&gt;Chai&lt;/a&gt;. Since I was using dependency injection, I also needed a good way of mocking my dependencies, for this I found &lt;a href=&quot;https://github.com/NagRock/ts-mockito&quot;&gt;ts-mockito&lt;/a&gt;. Ts-mockito is more or less a clone of the &lt;a href=&quot;http://site.mockito.org/&quot;&gt;Mockito&lt;/a&gt; library in Java. It allows you to create mocks of classes, make functions return certain values and verify that calls have been made. This made it super easy to write tests. For examples check the tests folder in my repository. To execute the TypeScript tests, I used &lt;a href=&quot;https://github.com/TypeStrong/ts-node&quot;&gt;ts-node&lt;/a&gt;. Ts-node compiles the TypeScript and keeps the compiled JavaScript in memory while it executes it. This way you don’t have to create an additional folder to compile the tests to and execute them. You can then easily create an npm script like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mocha -r ts-node/register test/**/*.spec.ts&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This tells Mocha  to require the ts-node/register module (this is what the &lt;code class=&quot;highlighter-rouge&quot;&gt;-r ts-node/register&lt;/code&gt;) means and then it just passes the path of the test files to it. This also worked pretty much painlessly.&lt;/p&gt;
+
+&lt;h3 id=&quot;end-to-end-testing&quot;&gt;end-to-end testing&lt;/h3&gt;
+
+&lt;p&gt;I wanted to be able to do some real end to end testing. So I wanted to be able to spin up my application, pass some HTTP requests to it and then verify the output of the requests. The first question was how to pass the requests to my application. For this I found the library &lt;a href=&quot;https://github.com/visionmedia/supertest&quot;&gt;SuperTest&lt;/a&gt;. You can just start you Koa app and pass the HTTP server (the return value of the &lt;code class=&quot;highlighter-rouge&quot;&gt;app.listen&lt;/code&gt; function) to the agent and it will make sure the app is started and you can do some requests and check the results. This worked pretty well.&lt;/p&gt;
+
+&lt;p&gt;The second problem was a test database. I needed a database that was as close to the real one as possible. I ran the real database in a &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt; container with a volume that mapped the &lt;code class=&quot;highlighter-rouge&quot;&gt;/var/lib/mysql&lt;/code&gt; (the configuration / data folder for MySQL) to a host directory, so I could recreate the container without losing data. I figured I could more or less copy the Docker configuration for the database for a test database, only without the volume. Without the volume, the data would just be saved to the container itself, so it would be lost every time the container was recreated, which is perfect for end-to-end tests, because we want to start the tests with the exact same dataset, so we can make sure our assertions keep working.&lt;/p&gt;
+
+&lt;p&gt;So I created an npm script to start the Docker and to do healthchecks to the Docker container until it told me that the entire container was up and running and MySQL was ready to take connections. Then I wrote a script to start the actual end to end tests, which was simply the same mocha call I wrote earlier, only pointing to the e2e folder instead of the test folder. At last I wrote an npm script to stop the Docker container and remove it. You can check these scripts &lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc/tree/master/scripts&quot;&gt;here&lt;/a&gt;. I made heavy use of the &lt;a href=&quot;https://github.com/shelljs/shelljs&quot;&gt;shelljs&lt;/a&gt; package. This npm package allows you to execute shell commands, which I used to start Docker containers from JavaScript.&lt;/p&gt;
+
+&lt;p&gt;NOTE: this setup works well, but the starting of the Docker container takes ~30 seconds, which is quite long, considering that the tests take maybe a few seconds. In a continuous integration build, this doesn’t matter as much, but when you are trying to fix tests, it does take a lot of time if you have to wait about a minute for each test run.&lt;/p&gt;
+
+&lt;h1 id=&quot;task-runner&quot;&gt;Task runner&lt;/h1&gt;
+
+&lt;h3 id=&quot;webpack&quot;&gt;Webpack&lt;/h3&gt;
+
+&lt;p&gt;When I started this project, I was looking up some best practices for node. I came across an &lt;a href=&quot;http://jlongster.com/Backend-Apps-with-Webpack--Part-I&quot;&gt;article&lt;/a&gt; that suggested you should use &lt;a href=&quot;https://webpack.github.io/&quot;&gt;Webpack&lt;/a&gt; for backend too. I already have some experience with Webpack from frontend development, so at first it seemed logical to use it for backend too. When I was trying to get the dependency injection to work with Awilix, I realized that I could not pass any paths to libraries, because when my code was bundled, the paths would be invalid. Then I started to actually wonder why I was bundling my code. In frontend you bundle your code to make it as small as possible so you don’t waste the user’s bandwidth and make you website load faster, but in backend, that does not matter, since the code does not have to be sent anywhere. At this point I decided I didn’t need Webpack at all and I could just use npm scripts’ functionality to create tasks.&lt;/p&gt;
+
+&lt;h3 id=&quot;npm&quot;&gt;npm&lt;/h3&gt;
+
+&lt;p&gt;Npm is actually the only build tool you need. If what you want to do is more than a single line command, you can just write scripts in either TypeScript (you can execute them with ts-node), bash, JavaScript, … whatever you like. I wrote my scripts in TypeScript, because to me it makes more sense to use TypeScript for everything, but I could just as well have written them using bash. Npm also gives you pre and post task hooks. So if you write a task with the name “e2e” as I did, you can also add a task with the “pre” prefix or the “post” prefix that will automatically be executed before and after the task is executed. This way I could easily separate the starting of the Docker container, the executing of the tests and the stopping of the Docker container into different scripts. I could then just execute &lt;code class=&quot;highlighter-rouge&quot;&gt;npm run pree2e&lt;/code&gt; to check if my script to start the Docker worked. I really like this approach and the fact that I don’t need another tool to learn like gulp or Webpack.&lt;/p&gt;
+
+&lt;h1 id=&quot;debugging&quot;&gt;Debugging&lt;/h1&gt;
+
+&lt;h3 id=&quot;application-code&quot;&gt;Application code&lt;/h3&gt;
+
+&lt;p&gt;I had some trouble at the beginning with debugging my TypeScript. For some reason in the Chrome Devtools I could not get my sourcemaps working (even though they were inline sourcemaps). Then I tried the Visual Studio Code debugger and that worked much better. To get this to work, I did the following:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/tsconfig.json&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;tsconfig.json&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;  
+    {
+        &quot;compilerOptions&quot;: {
+
+            &quot;inlineSourceMap&quot;: true,
+            &quot;inlineSources&quot;: true,
+
+        }
+    }&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/package.json&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;  
+
+    &quot;scripts&quot;: {
+        
+	    &quot;start:debug&quot;: &quot;ts-node --inspect=5858 --debug-brk --ignore false src/index.ts&quot;,
+        
+    }&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/.vscode/launch.json&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.vscode/launch.json&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;  
+    {
+	    &quot;configurations&quot;: [
+	        {
+                &quot;type&quot;: &quot;node&quot;,
+                &quot;request&quot;: &quot;launch&quot;,
+                &quot;name&quot;: &quot;Debug Application&quot;,
+                &quot;runtimeExecutable&quot;: &quot;npm&quot;,
+                &quot;windows&quot;: {
+                    &quot;runtimeExecutable&quot;: &quot;npm.cmd&quot;
+                },
+                &quot;runtimeArgs&quot;: [
+                    &quot;run-script&quot;,
+                    &quot;start:debug&quot;
+                ],
+                &quot;outFiles&quot;: [],
+                &quot;protocol&quot;: &quot;inspector&quot;,
+                &quot;sourceMaps&quot;: true,
+                &quot;port&quot;: 5858
+            }
+        ]
+    }&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The npm script will start the execution of the &lt;code class=&quot;highlighter-rouge&quot;&gt;index.ts&lt;/code&gt; with ts-node in debug mode on port 5858 and the &lt;code class=&quot;highlighter-rouge&quot;&gt;--debug-brk&lt;/code&gt; tells it to break on the first line of code. The launch configuration will just execute this npm script and attach it to the debugger.&lt;/p&gt;
+
+&lt;h3 id=&quot;test-code&quot;&gt;Test code&lt;/h3&gt;
+
+&lt;p&gt;Debugging the test code is more or less the same as the application code, there is just a small caveat. When you create breakpoints in Visual Studio Code, they will appear gray as if they cannot be reached. But when you execute the code, it will break on the breakpoints and then they will become red like a normal breakpoint.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/package.json&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;  
+    &quot;scripts&quot;: {
+	    &quot;test:debug&quot;: &quot;mocha --inspect --debug-brk --not-timeouts --compilers ts:ts-node/register test/**/*.spec.ts&quot;,
+    }&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/.vscode/launch.json&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.vscode/launch.json&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;  
+{
+    &quot;configurations&quot;: [
+        {
+            &quot;type&quot;: &quot;node&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            &quot;name&quot;: &quot;Debug Tests&quot;,
+            &quot;runtimeExecutable&quot;: &quot;npm&quot;,
+            &quot;windows&quot;: {
+                &quot;runtimeExecutable&quot;: &quot;npm.cmd&quot;
+            },
+            &quot;runtimeArgs&quot;: [
+                &quot;run-script&quot;,
+                &quot;test:debug&quot;
+            ],
+            &quot;outFiles&quot;: [],
+            &quot;protocol&quot;: &quot;inspector&quot;,
+            &quot;sourceMaps&quot;: true,
+            &quot;port&quot;: 9229
+        }
+    ]
+}&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;I really had a good time making this project. I really love readable and compact code and with TypeScript and the async / await syntax, I really got what I asked for. My previous experience with node.js and regular old JavaScript was really bad, mostly because of the loose typing, which forces you to constantly write a lot of tedious checks on parameters. With TypeScript that is all in the past. Apart from that, the enormous amount of npm packages available, makes it very easy to find some package that does what you need. If for some reason you can’t find something, you can easily write it yourself and publish it to npm.
+I always used to use Java for my backends, but the setup is always a bit of work and you have to write more boilerplate code than with TypeScript. If I make more small projects in the future, I will probably use TypeScript and Node, but for me at this point, it’s hard to tell if NodeJS will hold up in bigger projects. I would assume so, since the structure for me at this point, is very similar to Java, just a more concise syntax.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Ivar&quot;, &quot;last_name&quot;=&gt;&quot;van Hartingsveldt&quot;, &quot;permalink&quot;=&gt;&quot;/author/ivar-van-hartingsveldt/&quot;, &quot;avatar&quot;=&gt;&quot;ivar-van-hartingsveldt.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;ivar.vanhartingsveldt@ordina.be&quot;, &quot;github&quot;=&gt;&quot;ivarvh&quot;, &quot;linkedin&quot;=&gt;&quot;ivarvh&quot;, &quot;bio&quot;=&gt;&quot;Ivar is a backend Java developer who converted to frontend. When ES6 and TypeScript came along, he really started investing his time in that and now he writes Javascript / Typescript almost exclusively.&quot;}</name><email>ivar.vanhartingsveldt@ordina.be</email></author><category term="NodeJS" /><category term="NodeJS" /><category term="TypeScript" /><category term="JavaScript" /><category term="Koa" /><category term="REST" /><category term="MySQL" /><summary type="html">This article assumes you already have some knowledge of npm and JavaScript development in general. It will not be a detailed tutorial about how to write a REST API, it’s more of an extra explanation for the application I made, the libraries I used and my experience with them.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/nodejs-typescript-koa/koa-logo.png" /></entry></feed>
