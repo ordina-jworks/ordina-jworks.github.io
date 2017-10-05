@@ -19,28 +19,28 @@ This will definitely come in handy during our first project.
 # First impressions
 
 When we arrived the first day, we were welcomed with breakfast and afterwards, we got a tour around the building.
-We immediately felt at home.
-Everybody is really friendly and helpful.
+We immediately felt at home as everybody is really friendly and helpful.
 The corporate culture here is truly a plus for Ordina.
 We also got our equipment which consisted of a car and a laptop.
 Some people had a preference for Mac, which was no problem at all.
-From day one Ordina makes sure their consultants are well equipped to work successfully.  
+From day one Ordina makes sure that their consultants are well equipped to work successfully.
 
 # What is the Kickstarter trajectory?
 
-The Kickstarter trajectory consisted of intensive training spanning 2 months.
-During this time, courses on different front- and backend technologies, methods and tools and soft skills were given by senior consultants and external lecturers. 
+The Kickstarter trajectory consisted of intensive training spanning two months.
+During this time, courses on different frontend and backend technologies, methods, tools and soft skills were given by senior consultants and external lecturers. 
 This trajectory is ideal for graduating students and people who want to make a switch to IT.
 The constant guidance and support made this a good preparation for our first project.
 
-During the fourth week we had a teambuilding together with all the kickstarters from the different units. 
+During the fourth week we had a team building together with all the kickstarters from the different units. 
 The goal was to get to know the other kickstarters and strengthen our team spirit by shooting each other with bow and arrow!
 
 <img alt="Teambuilding" src="{{ '/img/kickstarters/2017/teambuilding-kickstarter.jpg' | prepend: site.baseurl }}" class="image fit">
 
-During the last week of the Kickstarter trajectory, the ‘[JOIN Event](https://jobs.ordina.be/nl-nl/evenementen/2017/join/)’ was held.
-This day was split in two parts, namely the unit meeting where the whole JWorks unit gathers for a year report where every Competence Center presents its past and upcoming activities and the completed and current projects are highlighted. 
-And in the afternoon the JOIN Event itself. There were talks given by members of JWorks as well as by external speakers about upcoming or commonly used technologies such as Docker and Spinnaker, but also about Scrum and User Experience.
+During the last week of the Kickstarter trajectory, the ‘[JOIN Event](https://jobs.ordina.be/nl-nl/evenementen/2017/join/){:target="_blank"}’ was held.
+This day was split into two parts: the unit meeting where the whole JWorks unit gathers for a year report where every competence center presents its past and upcoming activities, and the completed and current projects are highlighted. 
+And in the afternoon the JOIN Event itself. 
+There were talks given by members of JWorks as well as by external speakers about upcoming or commonly used technologies such as Docker and Spinnaker, but also about Scrum and User Experience.
 In addition to gaining knowledge about these subjects, this event provides a unique opportunity to meet most members of the unit or at least see them, since there are over a hundred.
 
 <img alt="Join 2017" src="{{ '/img/kickstarters/2017/join.jpg' | prepend: site.baseurl }}" class="image fit">
@@ -54,11 +54,11 @@ As you can see Ordina employees are very involved.
 We kicked off our career at Ordina in the JWorks unit.
 The main technologies used in this unit are Java & JavaScript.
 Most of the workshops in the Kickstarter trajectory are based on these two technologies.
-Small sidenote, don’t be fooled by these names: Java & JavaScript have no underlying connection.
-In general, the development of modern applications is divided in two main groups: the frontend part and the backend part.
+Small side note, don’t be fooled by these names: Java & JavaScript have no underlying connection.
+In general, the development of modern applications is divided into two main groups: the frontend part and the backend part.
 Java dominates in the backend part, while JavaScript is located in the frontend part.
-For 2 months, we’ve had the luxury to deepen our knowledge in both domains, in order to obtain a comprehensive understanding of the cutting-edge technology stack that’s being used in JWorks.
-Below you’ll find a brief overview of the technologies we explored & applied in the workshops.
+For two months, we’ve had the luxury to deepen our knowledge in both domains, in order to obtain a comprehensive understanding of the cutting-edge technology stack that’s being used in JWorks.
+Below you’ll find a brief overview of the technologies we explored and applied in the workshops.
 
 * **Frontend**
   * HTML5, CSS3, BEM, SASS
@@ -87,7 +87,9 @@ We also combined Angular, TypeScript, SASS, HTML and npm to create a web applica
 
 In our projects, we learned to utilize the Version Control System Git to collaborate with a team and share projects and code progress.
 One thing we’ll never forget is that if we push breaking changes to the master branch and break the build, we’ll have to buy "boterkoeken" for the unit!
-Last but not least, we were introduced to the wonderful world where clean code & microservices are the heroes that kick spaghetti code & monoliths in the butt.
+Last but not least, we were introduced to the wonderful world where clean code and microservices are the heroes that kick spaghetti code and monoliths in the butt.
+
+During the trajectory we also had a couple of "free" days during which we had to read the [Clean Code](https://www.amazon.de/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882){:target="_blank"} book and prepare ourselves for the [Oracle Certified Associate, Java SE 8 Programmer I exam](https://education.oracle.com/pls/web_prod-plq-dad/db_pages.getpage?page_id=5001&get_params=p_exam_id:1Z0-808){:target="_blank"}.
 
 # Memorable moments
 
@@ -95,9 +97,9 @@ Last but not least, we were introduced to the wonderful world where clean code &
 The introduction to microservices was very interesting since moving away from monoliths is the way to go." -- Ken
 
 "The tips received during the communication essentials sessions are a backpack full, good enough to present myself in a proper way.
-Diverse technologies used in JWorks e.g. turning a monolith to Microservices, a different type of database like MongoDB, running your applications in Docker containers and such." -- Michiel
+Diverse technologies used in JWorks e.g. turning a monolith to microservices, a different type of database like MongoDB, running your applications in Docker containers and such." -- Michiel
 
-"Learning about the existence of 'Microservices' versus 'monoliths'.
+"Learning about the existence of 'microservices' versus 'monoliths'.
 Writing unit-tests to see if the code does what it should do before deploying the application in production.
 And the introduction to the MongoDB database and how to use it in the command line interface." -- Jef
 
@@ -106,7 +108,7 @@ How often do you get a chance to practice communication in the most awkward situ
 I guess every day, but at least in these sessions there were no real repercussions :)" -- Simon
 
 "Learning about all those different technologies.
-There really is too much to chose from.
+There really is too much to choose from.
 But if I have to pick something, it's the Spring Boot session.
 I previously experimented with Spring Boot at my internship, where nothing seemed to make sense.
 But after this session, everything I was struggling with became clear and fell into place.
@@ -114,9 +116,9 @@ But after this session, everything I was struggling with became clear and fell i
 
 # The new JWorks colleagues
 
-<span class="image left "><img class="p-image" alt="Nick Geudens"   src="/img/kickstarters/2017/nick-geudens.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Nick Geudens" src="/img/kickstarters/2017/nick-geudens.jpg" /></span>
 <span class="image left "><img class="p-image" alt="Ken De Becker" src="/img/kickstarters/2017/ken-de-becker.jpg" /></span>
-<span class="image left "><img class="p-image" alt="Michiel Willems"  src="/img/kickstarters/2017/michiel-willems.jpg" /></span>
-<span class="image left "><img class="p-image" alt="Jef Willems"  src="/img/kickstarters/2017/jef-willems.jpg" /></span>
-<span class="image left "><img class="p-image" alt="Simon Buysse"   src="/img/kickstarters/2017/simon-buysse.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Michiel Willems" src="/img/kickstarters/2017/michiel-willems.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Jef Willems" src="/img/kickstarters/2017/jef-willems.jpg" /></span>
+<span class="image left "><img class="p-image" alt="Simon Buysse" src="/img/kickstarters/2017/simon-buysse.jpg" /></span>
 
