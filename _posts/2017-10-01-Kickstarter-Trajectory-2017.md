@@ -22,7 +22,7 @@ When we arrived the first day, we were welcomed with breakfast and afterwards, w
 We immediately felt at home.
 Everybody is really friendly and helpful.
 The corporate culture here is truly a plus for Ordina.
-We also got our tools which consisted of a car and a laptop.
+We also got our equipment which consisted of a car and a laptop.
 Some people had a preference for Mac, which was no problem at all.
 From day one Ordina makes sure their consultants are well equipped to work successfully.  
 
@@ -51,7 +51,7 @@ As you can see Ordina employees are very involved.
 
 # Training
 
-We kicked off our career at Ordina in the  JWorks unit.
+We kicked off our career at Ordina in the JWorks unit.
 The main technologies used in this unit are Java & JavaScript.
 Most of the workshops in the Kickstarter trajectory are based on these two technologies.
 Small sidenote, don’t be fooled by these names: Java & JavaScript have no underlying connection.
@@ -106,7 +106,7 @@ How often do you get a chance to practice communication in the most awkward situ
 I guess every day, but at least in these sessions there were no real repercussions :)" -- Simon
 
 "Learning about all those different technologies.
-There really is to much too chose from.
+There really is too much to chose from.
 But if I have to pick something, it's the Spring Boot session.
 I previously experimented with Spring Boot at my internship, where nothing seemed to make sense.
 But after this session, everything I was struggling with became clear and fell into place.
