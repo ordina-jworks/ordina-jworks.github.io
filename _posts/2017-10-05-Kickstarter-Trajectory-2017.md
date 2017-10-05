@@ -19,11 +19,9 @@ This will definitely come in handy during our first project.
 # First impressions
 
 When we arrived the first day, we were welcomed with breakfast and afterwards, we got a tour around the building.
-We immediately felt at home as everybody is really friendly and helpful.
-The corporate culture here is truly a plus for Ordina.
-We also got our equipment which consisted of a car and a laptop.
-Some people had a preference for Mac, which was no problem at all.
-From day one Ordina makes sure that their consultants are well equipped to work successfully.
+The corporate culture here is truly a plus for Ordina and we immediately felt at home as everybody is really friendly and helpful.
+We got our equipment consisting of a car and either a Windows laptop or a MacBook Pro depending on our preference.
+It's clear that, starting from day one, Ordina makes sure that their consultants are well equipped to work successfully.
 
 # What is the Kickstarter trajectory?
 
@@ -32,12 +30,12 @@ During this time, courses on different frontend and backend technologies, method
 This trajectory is ideal for graduating students and people who want to make a switch to IT.
 The constant guidance and support made this a good preparation for our first project.
 
-During the fourth week we had a team building together with all the kickstarters from the different units. 
+During the fourth week we had a team building event with all the kickstarters from the different units. 
 The goal was to get to know the other kickstarters and strengthen our team spirit by shooting each other with bow and arrow!
 
 <img alt="Teambuilding" src="{{ '/img/kickstarters/2017/teambuilding-kickstarter.jpg' | prepend: site.baseurl }}" class="image fit">
 
-During the last week of the Kickstarter trajectory, the ‘[JOIN Event](https://jobs.ordina.be/nl-nl/evenementen/2017/join/){:target="_blank"}’ was held.
+During the last week of the Kickstarter trajectory, the '[JOIN Event](https://jobs.ordina.be/nl-nl/evenementen/2017/join/){:target="_blank"}' was held.
 This day was split into two parts: the unit meeting where the whole JWorks unit gathers for a year report where every competence center presents its past and upcoming activities, and the completed and current projects are highlighted. 
 And in the afternoon the JOIN Event itself. 
 There were talks given by members of JWorks as well as by external speakers about upcoming or commonly used technologies such as Docker and Spinnaker, but also about Scrum and User Experience.
@@ -111,8 +109,7 @@ I guess every day, but at least in these sessions there were no real repercussio
 There really is too much to choose from.
 But if I have to pick something, it's the Spring Boot session.
 I previously experimented with Spring Boot at my internship, where nothing seemed to make sense.
-But after this session, everything I was struggling with became clear and fell into place.
-" -- Nick
+But after this session, everything I was struggling with became clear and fell into place." -- Nick
 
 # The new JWorks colleagues
 
