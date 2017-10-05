@@ -8,7 +8,8 @@ category: Kickstarters
 comments: true
 ---
 
->This year, five talented people started the Ordina Kickstarter trajectory.
+>This year, 45 young professionals started the various Ordina Kickstarter trajectories.
+Five of those, participated in the Kickstarter trajectory of JWorks.
 Each of them looking for a challenge and a fresh start!
 For some, it was a transition between school and work, and Ordina handled this very well.
 The main goal of this trajectory was to widen every student’s knowledge of the IT world.
