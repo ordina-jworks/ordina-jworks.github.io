@@ -19,6 +19,7 @@ Execute the following commands:
 
 ## Running Jekyll on your Mac or Linux
 - Run `jekyll serve` in the root directory of the tech blog
+    - If your post is in the future run `jekyll serve --future`
 - Browse to [http://localhost:4000/](http://localhost:4000/)
 
 ## Add yourself as an author
