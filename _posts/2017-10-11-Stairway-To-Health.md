@@ -191,7 +191,7 @@ So in our case, to let the frontend know when the sensor-log endpoint has receiv
 However, since we have about 60 sensors sending data, this event was triggering quite a lot and with the chart rendering animations on our frontend application we had to wrap the 'log-received' in a timeout so that we would only refresh it once every 30 seconds (if a log was received).
 
 ## Configuration CRUD
-Since didn't want our configuration to be hard coded, we added some configuration screens to be able to change the timespans and entities (towers).
+Since we did not want our configuration to be hard coded, we added some configuration screens to be able to change the timespans and entities (towers).
 
 <a href="{{ '/img/stairwaytohealth/crud1.png' | prepend: site.baseurl }}" data-lightbox="crud" data-title="Entities CRUD">
     <img alt="crud1" src="{{ '/img/stairwaytohealth/crud1.png' | prepend: site.baseurl }}" class="image fit" style="width: 48%; display: inline-block;">
