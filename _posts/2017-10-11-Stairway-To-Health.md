@@ -29,7 +29,7 @@ They can also see a more detailed look of how many people taking the stairs in w
 <img alt="daily" src="{{ '/img/stairwaytohealth/daily.jpg' | prepend: site.baseurl }}" class="image fit">
 
 ## What does it do?
-The stairway to health project is what the internet of things is all about:
+The stairway to health project is a simple, yet great example to show what the internet of things is can do:
  - LoRa sensors detect door openings, these are installed on the doors of the staircases
  - These sensors communicate via the Proximus LoRa network to report their status
  - Sensor data is sent to the Proximus MyThings platform which processes the data
