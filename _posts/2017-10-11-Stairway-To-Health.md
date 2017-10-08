@@ -174,7 +174,7 @@ Since didn't want our configuration to be hard coded, we added some configuratio
 <a href="{{ '/img/stairwaytohealth/crud1.png' | prepend: site.baseurl }}" data-lightbox="crud" data-title="Entities CRUD">
     <img alt="crud1" src="{{ '/img/stairwaytohealth/crud1.png' | prepend: site.baseurl }}" class="image fit" style="width: 48%; display: inline-block;">
 </a>
-<a href="{{ '/img/stairwaytohealth/crud1.png' | prepend: site.baseurl }}" data-lightbox="crud" data-title="Timespans CRUD">
+<a href="{{ '/img/stairwaytohealth/crud2.png' | prepend: site.baseurl }}" data-lightbox="crud" data-title="Timespans CRUD">
     <img alt="crud2" src="{{ '/img/stairwaytohealth/crud2.png' | prepend: site.baseurl }}" class="image fit" style="width: 48%; display: inline-block;">
 </a>
 
