@@ -21,8 +21,8 @@ This should incentivize the employees to take the stairs more often and thus con
 </p>
 
 The Stairway to Health application is [available for everyone](https://www.stairwaytohealth.be) to see on the internet.
-Thus
-They can also see a more detailed look of how many people taking the stairs in which tower of each week, day and even each hour.
+This allows all people, including those who work at Proximus to see how many people are taking the stairs.
+They can get detailed information from day to day, even from hour to hour and compare the results of the different towers.
 
 <p style="text-align: center;">
   <img class="image fit" style="max-width: 600px; margin:0px auto;" alt="Graph" src="/img/stairway-to-health/graph1.jpg">
