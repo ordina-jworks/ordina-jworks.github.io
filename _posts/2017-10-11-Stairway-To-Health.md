@@ -91,6 +91,8 @@ Not only does it make development a lot faster and easier by having a large comm
 
 Now that I've listed some of the pro's of full-stack JS, I should also mention that it might not be the best solution for computation-heavy backend applications.  For projects like machine learning or heavy mathematical calculations the single CPU core and having only one thread that processes one request at a time might be easily blocked by a single compute-intensive task. Yet, there are numerous ways to overcome this limitation. By simply creating child processes or breaking complex tasks into smaller independent microservices.
 
+Let me just note that the comparison with Java above here is not because we are claiming that one is better than the other, it's just to demonstrate that they both have their use cases and can be equally worth considering when choosing a technology for your application.
+
 Some great use cases for JavaScript across the stack are:
 - real-time chat,
 - Internet of Things,
