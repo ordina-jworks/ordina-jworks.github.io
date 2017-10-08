@@ -139,7 +139,7 @@ and create sequence tasks with:
         return ['buildApp', 'runMochaTests'];
     }
 ```
-Now that we have a gulpfile.ts file, we need to ensure that the gulpfile gets transpiled as well, we did this by adding an npm script, so that we can use 'tsd' to transpile the file and make sure we are using the latest changes every time we use gulp.
+Now that we have a gulpfile.ts file, we need to ensure that the gulpfile gets transpiled as well, we did this by adding an npm script, so that we can use 'tsc' to transpile the file and make sure we are using the latest changes every time we use gulp. (to get the tsc command, install typescript globally with npm)
 
 ## Building Stairway to Health
 After setting up our dev environment, database and getting a simple application up and running it's time to start implementing our first features.
