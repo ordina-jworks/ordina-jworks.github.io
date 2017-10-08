@@ -128,8 +128,8 @@ Using the provided decorators our gulp tasks look something like the following:
 ```typescript
 @Task()
     public environment(cb) {
-        return gulp.src('./dist/app/api/config/mongo.connection.js')
-                   .pipe($.if((yargs.env === 'dev'), $.replace('mongodb://localhost:27017/stairway', require('./secrets').mongoUrl)))
+        return gulp.src('./dist/app/server/config/mongo.connection.js')
+                   .pipe($.if((yargs.env === 'prod'), $.replace('mongodb://localhost:27017/stairway', require('./secrets').mongoUrl)))
                    .pipe(gulp.dest('./dist/app/server/config'));
     }
 ```
