@@ -202,6 +202,24 @@ const httpServer = http.createServer(server.Server.bootstrap(eventEmitter).app);
 const httpsServer = https.createServer(options, server.Server.bootstrap(eventEmitter).app);
 ```
 
+After that, we bootstrap the created https server on to the socket.io application. It too gets the same EventEmitter instance passed into it's constructor.
+
+```typescript
+var io = require('socket.io')(httpsServer);
+var sockets = require('../dist/app/sockets');
+var ioApp = sockets.Sockets.bootstrap(io, eventEmitter).io;
+```
+
+In our sockets file, the method that gets executed will listen on the 'logsReceived' from our passed EventEmitter, and emits a 'data' event on our 'io' instance. 
+```typescript
+public sockets(eventEmitter, io){
+    eventEmitter.on('logsReceived', (logs) => {
+        io.of('/socket/').emit('data', logs);
+    });
+}
+```
+
+
 ## Configuration CRUD
 Since we did not want our configuration to be hard coded, we added some configuration screens to be able to change the timespans and entities (towers).
 
