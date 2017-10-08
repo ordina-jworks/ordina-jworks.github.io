@@ -65,10 +65,10 @@ So given all the requirements listed above and the fact we didn't have a lot of 
 write event driven applications with asynchronous I/O powered by the ultra fast Google V8 Engine. Mostly known for running your local dev environment and automating build tasks for front-end developers. NodeJS is probably one of the best and easiest options out there for real-time applications (with socket.io), which is exactly what we needed for our application.
 
 **MongoDB:**
-Awesome to work with when dealing with JavaScript Objects. Good driver support with mongoose for NodeJs. Document based structure, which makes it really flexible when it comes to modelling and it's extremely scalable. We also took advantage of the very performant aggregation functionality for dealing with large amounts of data.
+Great to work with when dealing with JavaScript Objects. Good driver support with mongoose for NodeJs. Document based structure, which makes it really flexible when it comes to modelling and it's extremely scalable. We also took advantage of the very performant aggregation functionality for dealing with large amounts of data.
 
 **ExpressJS:**
-a node frameworkt that comes with some great functionality for setting up your node server and makes it easy to create routes, middleware, handeling requests/responses, serving files from the filesystem, configuring static files, easy connections to the database, and much more.
+A node frameworkt that comes with some great functionality for setting up your node server and makes it easy to create routes, middleware, handeling requests/responses, serving files from the filesystem, configuring static files, easy connections to the database, and much more.
 
 **Angular(4):**
 A TypeScript-based open-source front-end web application platform led by the Angular Team at Google and by a community of individuals and corporations to address all of the parts of the developer's workflow while building complex web applications.
@@ -80,7 +80,7 @@ Socket.IO enables real-time bidirectional event-based communication. It works on
 Interactive JavaScript library for creating dynamic charts. Highcharts is based on native browser technologies and tno reinvent the wheel. Thousands of developers have contributed their work for us to use in our own projects. Also backwards compatible for IE.
 
 ## JavaScript across the stack
-Not only does it make development a lot faster and easier by having a great community with lots of reusable code for your application (npm), It also lowers the barriers between front-end and backend developers by using the same programming language over the entire stack, so more efficiency and faster, leaner development which in turn means lower development costs. Also worth noting is that JavaScript currently is THE most popular programming language, so more developers will be able to easily understand and contribute to the application if needed. And probably the most important criteria: when it comes to cloud hosting, RAM is probably the main influencing factor when it comes to pricing. NodeJs uses less RAM than comparable Java applications.
+Not only does it make development a lot faster and easier by having a large community with lots of reusable code for your application (npm), It also lowers the barriers between front-end and backend developers by using the same programming language over the entire stack, so more efficiency and faster, leaner development which in turn means lower development costs. Also worth noting is that JavaScript currently is THE most popular programming language, so more developers will be able to easily understand and contribute to the application if needed. And probably the most important criteria: when it comes to cloud hosting, RAM is probably the main influencing factor when it comes to pricing. NodeJs uses less RAM than comparable Java applications.
 
 <img alt="performance" src="{{ '/img/stairwaytohealth/performance.png' | prepend: site.baseurl }}" class="image fit" style="width: 70%;">
 
