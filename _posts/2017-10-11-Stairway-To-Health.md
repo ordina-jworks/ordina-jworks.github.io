@@ -7,6 +7,9 @@ tags: [NodeJS, MongoDB, Angular,Angular4, ExpressJS, Express, TypeScript, Angula
 category: IoT
 comments: true
 ---
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js"></script>
 
 > Healthier at the office with the 'Internet of Things'.
 
@@ -156,7 +159,9 @@ Now that we have data that can be retrieved and displayed on the frontend, time 
 
 For this one to be clear we're going to skip ahead in time and show a high level scheme of how the application is made up.
 
-<img alt="folder-structure" src="{{ '/img/stairwaytohealth/folder-structure.png' | prepend: site.baseurl }}" class="image fit" style="width: 70%;">
+<a href="{{ '/img/stairwaytohealth/folder-structure.png' | prepend: site.baseurl }}" data-lightbox="structure" data-title="Structure">
+    <img alt="folder-structure" src="{{ '/img/stairwaytohealth/folder-structure.png' | prepend: site.baseurl }}" class="image fit" style="width: 70%;">
+</a>
 
 The bin (js) file is where we create our http, https and socket servers. To communicate between them, we use the node event emitter. The server.ts file (let's call it the app) gets bootstrapped on to these servers and when creating the app, we pass the created event emitter to it. This enables us to listen and broadcast events back and forward. The event emitter emits events between the backend services and the socket.io server emits events to our front-end application.
 
@@ -166,9 +171,12 @@ However, since we have about 60 sensors sending data, this event was triggering 
 ## Configuration CRUD
 Since didn't want our configuration to be hard coded, we added some configuration screens to be able to change the timespans and entities (towers).
 
-<img alt="crud1" src="{{ '/img/stairwaytohealth/crud1.png' | prepend: site.baseurl }}" class="image fit" style="width: 48%; display: inline-block;">
-<img alt="crud1" src="{{ '/img/stairwaytohealth/crud2.png' | prepend: site.baseurl }}" class="image fit" style="width: 48%; display: inline-block;">
-
+<a href="{{ '/img/stairwaytohealth/crud1.png' | prepend: site.baseurl }}" data-lightbox="crud" data-title="Entities CRUD">
+    <img alt="crud1" src="{{ '/img/stairwaytohealth/crud1.png' | prepend: site.baseurl }}" class="image fit" style="width: 48%; display: inline-block;">
+</a>
+<a href="{{ '/img/stairwaytohealth/crud1.png' | prepend: site.baseurl }}" data-lightbox="crud" data-title="Timespans CRUD">
+    <img alt="crud2" src="{{ '/img/stairwaytohealth/crud2.png' | prepend: site.baseurl }}" class="image fit" style="width: 48%; display: inline-block;">
+</a>
 
 The way we've set up our server code, this was really easy to do, let's take a look at how.
 In our '/routes' directory we keep all files that define the urls and methods of every endpoint, and tell it which controller to use:
@@ -205,6 +213,5 @@ JWT stands for JSON Web Token and is a JSON-based open standard for creating acc
 
 ## Deploy
 Finally we deployed it to the Proximus Datacenter and watched the Proximus employees take on the challenge.
-
-<img alt="result1" src="{{ '/img/stairwaytohealth/result1.jpg' | prepend: site.baseurl }}" style="max-height: 300px; max-width: 100%; display: inline-block;">
-<img alt="result2" src="{{ '/img/stairwaytohealth/result2.jpg' | prepend: site.baseurl }}" style="max-height: 300px; max-width: 100%; display: inline-block;">
+<a href="{{ '/img/stairwaytohealth/result1.jpg' | prepend: site.baseurl }}" data-lightbox="results" data-title="Large screen @ Proximus towers"><img alt="result1" src="{{ '/img/stairwaytohealth/result1.jpg' | prepend: site.baseurl }}" style="max-height: 300px; max-width: 100%; display: inline-block;"></a>
+<a href="{{ '/img/stairwaytohealth/result2.jpg' | prepend: site.baseurl }}" data-lightbox="results" data-title="Informing the employees"><img alt="result2" src="{{ '/img/stairwaytohealth/result2.jpg' | prepend: site.baseurl }}" style="max-height: 300px; max-width: 100%; display: inline-block;"></a>
