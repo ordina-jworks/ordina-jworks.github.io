@@ -148,7 +148,9 @@ After setting up our dev environment, database and getting a simple application 
 
 **Receiving data from MyThings**<br>
 So first things first, on MyThings we took a look at how we were going to structure the data that was going to be streamed to the Stairway to Health application.
-<img alt="stream" src="{{ '/img/stairwaytohealth/stream.jpg' | prepend: site.baseurl }}" style="width: 50%;">
+
+<img alt="stream.png" src="{{ '/img/stairwaytohealth/stream.png' | prepend: site.baseurl }}" class="image" style="max-width: 100%;">
+
 In the MyThings application every sensor can have a friendlyName1 and 2, we used these to specify which tower and which floor they represent. The sensors send a lot more data than just the magnetic pulse counts, therefore we needed the container field, to be able to filter on 'counter' logs only (however, we store the other messages as well, maybe for future use). The 'value' field is the amount of times the sensor was triggered, in other words, the actual counts. And ofcourse a timestamp since we will show the data in time based graph's.
 
 The timestamp represents the time that the sensor has sent it's message to the MyThings application, we also wanted to keep track of when our (Stairway applicaition) has received the log, so before saving we added one extra field to store this in our database.
