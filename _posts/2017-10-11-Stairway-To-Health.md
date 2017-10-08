@@ -16,6 +16,7 @@ comments: true
 ## What is Stairway to Health
 In an effort to improve worker health in a fun and engaging way, Proximus wanted to encourage their employees to choose for the stairs instead of using the elevator.
 This is when they came with the idea of a little game between the three towers. On different dashboards across proximus and online employees could see which tower had the most employees that are taking the stairs.
+
 <img alt="buildings" src="{{ '/img/stairwaytohealth/buildings.jpg' | prepend: site.baseurl }}" class="image fit">
 <img alt="overview" src="{{ '/img/stairwaytohealth/overview.jpg' | prepend: site.baseurl }}" class="image fit">
 
@@ -98,6 +99,24 @@ Some great use cases for JavaScript across the stack are:
 -  event-driven applications
 - server-side proxies
 - many more...
+
+**Blocking vs. Non-Blocking**<br>
+NodeJs takes advantage of JavaScript promises. One of the benefits of this is that we can write non-blocking code.
+To demonstrate how this works, I'll give you some examples in psuedo code for reading a file from the filesystem.
+
+Blocking:<br> 
+<code>read file from filesystem, set equal to "contents"</code><br> 
+<code>print content</code><br> 
+<code>do something else</code> 
+
+Non-Blocking<br>
+<code>read file from filesystem</code><br> 
+<code>&nbsp;&nbsp;&nbsp;&nbsp;Whenever we're complete print contents <span style="color:#e7904b;">(callback)</span> 
+</code> 
+<br> 
+<code>do something else</code>
+
+<img alt="blocking-vs-non-blocking" src="{{ '/img/stairwaytohealth/blocking-vs-non-blocking.png' | prepend: site.baseurl }}">
 
 ## Setting up our dev environment / build
 The front-end part of this was really easy. We used angular-cli to generate a new project. In the future this also gave us the advantage of generating new components, services, pipes and much more.
