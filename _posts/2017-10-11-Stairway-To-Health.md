@@ -116,7 +116,7 @@ Non-Blocking<br>
 <br> 
 <code>do something else</code>
 
-<img alt="blocking-vs-non-blocking" src="{{ '/img/stairwaytohealth/blocking-vs-non-blocking.png' | prepend: site.baseurl }}">
+<img alt="blocking-vs-non-blocking" src="{{ '/img/stairwaytohealth/blocking-vs-non-blocking.png' | prepend: site.baseurl }}" class="image fit">
 
 ## Setting up our dev environment / build
 The front-end part of this was really easy. We used angular-cli to generate a new project. In the future this also gave us the advantage of generating new components, services, pipes and much more.
