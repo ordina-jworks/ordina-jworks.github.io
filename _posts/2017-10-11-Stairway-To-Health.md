@@ -10,70 +10,140 @@ comments: true
 
 > Healthier at the office with the 'Internet of Things'.
 
-## What is Stairway to Health
-In an effort to improve worker health in a fun and engaging way, Proximus wanted to encourage their employees to choose for the stairs instead of using the elevator. 
-This is when they came with the idea of a little game between the three towers. 
-On different dashboards across proximus and online employees could see which tower had the most employees that are taking the stairs. 
+# What is Stairway to Health
+In an effort to improve worker health in a fun and engaging way, Proximus wanted to encourage its employees to choose for the stairs instead of the elevator. 
+This is when the gamified concept was coined for a competition between the main three Proximus tower buildings.
+Spread across the Proximus towers screens with dashboards about the competition would be placed.
+This should incentivize the employees to take the stairs more often and thus contribute to the victory of their tower.
 
 <p style="text-align: center;">
   <img class="image fit" style="max-width: 600px; margin:0px auto;" alt="Dashboard" src="/img/stairway-to-health/dashboard1.jpg">
 </p>
 
+The Stairway to Health application is [available for everyone](https://www.stairwaytohealth.be) to see on the internet.
+Thus
 They can also see a more detailed look of how many people taking the stairs in which tower of each week, day and even each hour.
 
 <p style="text-align: center;">
   <img class="image fit" style="max-width: 600px; margin:0px auto;" alt="Graph" src="/img/stairway-to-health/graph1.jpg">
 </p>
 
+<p style="text-align: center;">
+  <img class="image fit" style="max-width: 600px; margin:0px auto;" alt="Graph" src="/img/stairway-to-health/graph2.jpg">
+</p>
+
+
 ## What does it do?
-The stairway to health project is what the internet of things is all about:
+The Stairway to Health project is what the Internet of Things is all about:
  - LoRa sensors detect door openings, these are installed on the doors of the staircases 
  - These sensors communicate via the Proximus LoRa network to report their status
  - Sensor data is sent to the Proximus MyThings platform which processes the data
- - The data gets sent to the StairwayToHealth application
- - The StairwayToHealth application interprets and visualizes the data
+ - The data gets sent to the Stairway to Health application
+ - The Stairway to Health application interprets and visualizes the data
  
  In summary: 
  We install sensors on the doors (things) to measure usage and we analyse the data to persuade people to move more. 
  The result is a good example of how IoT can influence our daily lives. 
  Proximus  was able to provide us with all the building blocks available to offer a complete end-to-end solution!
 
+
+## Installation of the sensors
+TODO: Text about installing the sensors, where they are placed and why. Code snippet of the on sensor logic. 
+How things are cached/sent from the sensor to the backend, how certain motions are ignored...
+
+<p style="text-align: center;">
+  <img class="image fit" style="max-width: 600px; margin:0px auto;" alt="Sensor installation" src="/img/stairway-to-health/sensor1.jpg">
+</p>
+
+<p style="text-align: center;">
+  <img class="image fit" style="max-width: 600px; margin:0px auto;" alt="Sensor installation" src="/img/stairway-to-health/sensor2.jpg">
+</p>
+
+
+# Architecture
+TODO: Text about the search for an appropriate stack. 
+Come to the conclusion of the mean stack (and add a link to it)
+
+
 ## Why we chose the MEAN(TS) stack
-**Typescript**: 
+
+<p style="text-align: center;">
+  <img class="image fit" style="max-width: 250px; margin:0px auto;" alt="Javascript" src="/img/stairway-to-health/javascript.png">
+</p>
+### JavaScript across the stack
+Giving us  a great ease of development, work with the json objects you create on the backend in the frontend and vice versa. 
+It also breaks the boundaries between frontend and backend developers. 
+Even if they are not familiar with the other frameworks, it's easy to take a look and get an idea what's going on.
+
+<p style="text-align: center;">
+  <img class="image fit" style="max-width: 250px; margin:0px auto;" alt="TypeScript" src="/img/stairway-to-health/typescript.png">
+</p>
+###Typescript###: 
 Typings, you just can't (shouldn't) do without when creating a backend application. 
 Definitely adding some more 'good parts' to the javascript story.
 
-**JavaScript across the stack**: 
-Giving us  a great ease of development, work with the json objects you create on the backend in the frontend and vice versa. 
-It also breaks the boundaries between frontend and backend developers. Even if they are not familiar with the other frameworks, it's easy to take a look and get an idea what's going on.
-
-**MongoDB**: 
-Again, awesome to work with when dealing with JavaScript Objects. 
-Good driver support with mongoose for NodeJs. Document based structure, which makes it really flexible when it comes to structure and extremely scalable. 
-We also took advantage of the very performant aggregation capabilities for dealing with large amounts of data.
-
-**ExpressJS**: 
-Not reinventing the wheel, Express is a great Node server framework that makes it really easy to get started creating routes, middleware and Express itself has a lot of great add-on packages in the npm registry.
-
-**npm**:  
+<p style="text-align: center;">
+  <img class="image fit" style="max-width: 250px; margin:0px auto;" alt="NPM" src="/img/stairway-to-health/npm.png">
+</p>
+### NPM
 Take advantage of the great support that comes from the npm community.  
 Like I've said before, no need to reinvent the wheel. 
 Thousands of developers have contributed their work for us to use in our own projects.
 
-**NodeJS**: 
+<p style="text-align: center;">
+  <img class="image fit" style="max-width: 250px; margin:0px auto;" alt="NodeJS" src="/img/stairway-to-health/node.png">
+</p>
+### NodeJS
 Write event driven applications with asynchronous I/O powered by the ultra fast Google V8 Engine, really easy to set up sockets with socket.io.
 
-**Angular**: 
-A TypeScript-based open-source front-end web application platform led by the Angular Team at Google and by a community of individuals and corporations to address all of the parts of the developer's workflow while building complex web applications. 
+<p style="text-align: center;">
+  <img class="image fit" style="max-width: 250px; margin:0px auto;" alt="Express JS" src="/img/stairway-to-health/ExpressJS.png">
+</p>
+### ExpressJS
+Not reinventing the wheel, Express is a great Node server framework that makes it really easy to get started creating routes, middleware and Express itself has a lot of great add-on packages in the npm registry.
 
-**Angular-CLI**: 
-Command line tool for creating Angular applications with the latest Angular version and creating components, services, interfaces, ... within the application.
+<p style="text-align: center;">
+  <img class="image fit" style="max-width: 250px; margin:0px auto;" alt="MongoDb" src="/img/stairway-to-health/mongo.png">
+</p>
+### MongoDB
+Again, awesome to work with when dealing with JavaScript Objects. 
+Good driver support with mongoose for NodeJs. Document based structure, which makes it really flexible when it comes to structure and extremely scalable. 
+We also took advantage of the very performant aggregation capabilities for dealing with large amounts of data.
 
-**Highcharts**: 
+<p style="text-align: center;">
+  <img class="image fit" style="max-width: 250px; margin:0px auto;" alt="Angular" src="/img/stairway-to-health/angular.png">
+</p>
+### Angular &amp; Angular-CLI
+**Angular:** A TypeScript-based open-source front-end web application platform led by the Angular Team at Google and by a community of individuals and corporations to address all of the parts of the developer's workflow while building complex web applications. 
+
+**Angular-CLI:**Command line tool for creating Angular applications with the latest Angular version and creating components, services, interfaces, ... within the application.
+
+<p style="text-align: center;">
+  <img class="image fit" style="max-width: 250px; margin:0px auto;" alt="Highcharts" src="/img/stairway-to-health/highchart.png">
+</p>
+### Highcharts 
 Interactive JavaScript library for creating dynamic charts. 
 Highcharts is based on native browser technologies and no extra plugins needed to make it work. 
 Also backwards compatible for IE.
 
 
- 
+In the sections below we go into a bit more detail about the actual architecture, divided in both front and backend architecture.
 
+## Backend architecture
+TODO: Describe the backend architecture (diagram), build and deploy pipeline (deploy maybe in its own chapter)
+
+
+### TODO: Backend detail 1 (express)
+TODO: Text detailing expressJS logic and setup (code snippets)
+
+
+### TODO: Backend detail 2 (mongo)
+TODO: Text detailing backend db calls with mongo (code snippets)
+
+
+## Frontend architecture
+TODO: Describe the frontend architecture, the project setup, build pipeline, how to run ((preview and testing))
+
+
+# Conclusion
+TODO: Conclusion on the project so far, lessons learned, ...
