@@ -201,7 +201,7 @@ Since we did not want our configuration to be hard coded, we added some configur
 </a>
 
 The way we've set up our server code, this was really easy to do, let's take a look at how.
-In our '/routes' directory we keep all files that define the urls and methods of every endpoint, and tell it which controller to use:
+In our '/routes' directory we keep all files that define the urls and methods of every endpoint, and tell it which controller to use:<br>
 *timespan.route.ts*
 ```typescript
 router.get('/timespan/', (req: Request, res: Response, next: NextFunction) => {
@@ -212,7 +212,7 @@ router.post(('/timespan/', this.authenticate, (req: Request, res: Response, next
 });
 ```
 
-next under our '/controllers' directory we have our controllers where all our functionality/logic is
+next under our '/controllers' directory we have our controllers where all our functionality/logic is<br>
 *timespan.controller.ts*
 ```typescript
 public getTimespanList(req: Request, res: Response, next: NextFunction) {
