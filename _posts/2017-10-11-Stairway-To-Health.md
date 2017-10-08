@@ -205,9 +205,9 @@ const httpsServer = https.createServer(options, server.Server.bootstrap(eventEmi
 After that, we bootstrap the created https server on to the socket.io application. It too gets the same EventEmitter instance passed into it's constructor.
 
 ```typescript
-var io = require('socket.io')(httpsServer);
-var sockets = require('../dist/app/sockets');
-var ioApp = sockets.Sockets.bootstrap(io, eventEmitter).io;
+const io = require('socket.io')(httpsServer);
+const sockets = require('../dist/app/sockets');
+const ioApp = sockets.Sockets.bootstrap(io, eventEmitter).io;
 ```
 
 In our sockets file, the method that gets executed will listen on the 'logsReceived' from our passed EventEmitter, and emits a 'data' event on our 'io' instance. 
