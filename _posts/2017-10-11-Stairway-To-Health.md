@@ -190,6 +190,18 @@ The bin (js) file is where we create our http, https and socket servers. To comm
 So in our case, to let the frontend know when the sensor-log endpoint has received a message, we emit a 'log-received' event on the node event emitter. In the socket IO server we are listening on this event and we broadcast a 'data' event to every connected frontend application. The frontend applications are listening for this 'data' event and refresh their data by calling the dashboard endpoints.
 However, since we have about 60 sensors sending data, this event was triggering quite a lot and with the chart rendering animations on our frontend application we had to wrap the 'log-received' in a timeout so that we would only refresh it once every 30 seconds (if a log was received).
 
+I've picked a few lines of code from our bin file to demonstrate how we pass the eventEmitter when bootstrapping our appliction on to the http and https services from node.
+```typescript
+const server = require('../dist/app/server');
+const http = require('http');
+const https = require('https');
+const events = require('events');
+const eventEmitter = new events.EventEmitter();
+
+const httpServer = http.createServer(server.Server.bootstrap(eventEmitter).app);
+const httpsServer = https.createServer(options, server.Server.bootstrap(eventEmitter).app);
+```
+
 ## Configuration CRUD
 Since we did not want our configuration to be hard coded, we added some configuration screens to be able to change the timespans and entities (towers).
 
