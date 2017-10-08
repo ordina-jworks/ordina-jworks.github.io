@@ -101,8 +101,8 @@ Some great use cases for JavaScript across the stack are:
 - many more...
 
 **Blocking vs. Non-Blocking**<br>
-NodeJs takes advantage of JavaScript promises. One of the benefits of this is that we can write non-blocking code.
-To demonstrate how this works, I'll give you some examples in psuedo code for reading a file from the filesystem.
+In NodeJs you can take advantage of JavaScript promises. One of the benefits of this is that we can write non-blocking code.
+To demonstrate how this works, I'll give you an example in psuedo code for reading a file from the filesystem.
 
 Blocking:<br> 
 <code>read file from filesystem, set equal to "contents"</code><br> 
