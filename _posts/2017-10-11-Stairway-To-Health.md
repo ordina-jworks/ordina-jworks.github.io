@@ -230,7 +230,8 @@ Since we did not want our configuration to be hard coded, we added some configur
 </a>
 <a href="{{ '/img/stairwaytohealth/crud2.png' | prepend: site.baseurl }}" data-lightbox="crud" data-title="Timespans CRUD">
     <img alt="crud2" src="{{ '/img/stairwaytohealth/crud2.png' | prepend: site.baseurl }}" class="image fit" style="width: 48%; display: inline-block;">
-</a>
+</a><br>
+By the way, 'gewicht' in the first image stands for weight. To make sure the ratio's are fair, we made sure that every tower has a 'weight' to multiply it's log values by. These weights are calculated by the amount of employees/tower, with the largest tower having a weight of 1.
 
 The way we've set up our server code, this was really easy to do, let's take a look at how.
 In our '/routes' directory we keep all files that define the urls and methods of every endpoint, and tell it which controller to use:<br>
