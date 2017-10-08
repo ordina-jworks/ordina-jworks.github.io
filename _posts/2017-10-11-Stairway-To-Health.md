@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [Michael Vervloet, Ines Van Stappen, Kevin van den Abeele]
+authors: [michael_vervloet, kevin_van_den_abeele, ines_van_stappen]
 title: 'Stairway to Health with IoT ft. MEAN(TS)'
 image: /img/stairwaytohealth/stairway-to-health.jpeg
 tags: [NodeJS, MongoDB, Angular,Angular4, ExpressJS, Express, TypeScript, Angular-CLI, Gulp, Internet of Things, IoT, LoRa, Proximus]
@@ -53,8 +53,8 @@ So technically this translates to build an application that:
  - the frontend dashboard data has to reload automatically (since it is shown on some big screens @ Proximus)
  - add multi-language (automatically switch languages when viewing on tower's large screens)
  - is performant (able to handle many logs coming in and calculate the data to be displayed in the graphs)
-- CRUD's for managing timespans and locations.
-- use the timespans / locations when displaying data
+ - CRUD's for managing timespans and locations.
+ - use the timespans / locations when displaying data
 
 oh, and did I mention we were given 4 weeks to complete this mission...
 
@@ -101,20 +101,20 @@ For the backend we decided to go with gulp. We added some tasks to transpile our
 Since we are using TypeScript throughout the application, it only felt right to use the TypeScript version of gulp as well. It takes a little effort to get used to, but once you get the hang of it it makes writing gulp tasks a lot more fun and less error prone.
 Using the provided decorators our gulp tasks look something like the following:
 ```typescript
-    @Task()
-        public environment(cb) {
-            return gulp.src('./dist/app/api/config/mongo.connection.js')
-                       .pipe($.if((yargs.env === 'dev'), $.replace('mongodb://localhost:27017/stairway', require('./secrets').mongoUrl)))
-                       .pipe(gulp.dest('./dist/app/server/config'));
-        }
+@Task()
+    public environment(cb) {
+        return gulp.src('./dist/app/api/config/mongo.connection.js')
+                   .pipe($.if((yargs.env === 'dev'), $.replace('mongodb://localhost:27017/stairway', require('./secrets').mongoUrl)))
+                   .pipe(gulp.dest('./dist/app/server/config'));
+    }
 ```
 
 and create sequence tasks with:
 ```typescript
-    @SequenceTask()
-        public mocha() {
-            return ['buildApp', 'runMochaTests'];
-        }
+@SequenceTask()
+    public mocha() {
+        return ['buildApp', 'runMochaTests'];
+    }
 ```
 Now that we have a gulpfile.ts file, we need to ensure that the gulpfile gets transpiled as well, we did this by adding an npm script, so that we can use 'tsd' to transpile the file and make sure we are using the latest changes every time we use gulp.
 
@@ -138,16 +138,16 @@ In the mean time we started to get an idea on how to model our data to display i
 **Mongo Aggregates**<br>
 So for displaying the daily, weekly and total counts below the buildings, we had to get this data from the database, keeping in mind that we would have to iterate over millions of sensor logs (at the time of writing this blogpost 1.4 million over 4 months). We had to make sure it was performant. This is where the mongo aggregates come in handy. In stead of (say) looping over the results and adding them up, we let mongo take care of this with the '$sum' operator which in code looks like the following:
 ```typescript
-    this.sensorLogModel.aggregate([
-                    {$match: {container: 'counter', value: {$ne: 0}}},
-                    // group them by fn1 (tower) and add up all 'value' fields
-                    {$group: {_id: '$friendlyName1', total: {$sum: '$value'}}}
-                ])
+this.sensorLogModel.aggregate([
+                {$match: {container: 'counter', value: {$ne: 0}}},
+                // group them by fn1 (tower) and add up all 'value' fields
+                {$group: {_id: '$friendlyName1', total: {$sum: '$value'}}}
+            ]);
 ```
 *Remember, we store all the logs, but we only need counter logs. So for a little more performance, we leave out the ones with value 0 (a lot of them in the weekends), that's what the $match is for*
 The result: an array with objects that have a '_id' field with 'friendlyName1' as value and a 'total' field with the sum of all (counter) values per tower. We repeat this for daily and weekly, but add a start and end date (which we simply create with TypeScript). $match then looks something like this:
 ```typescript
-    {$match: {container: 'counter', value: {$ne: 0}, timestamp: {$gt: start, $lt: end}}}
+{$match: {container: 'counter', value: {$ne: 0}, timestamp: {$gt: start, $lt: end}}}
 ```
 Later on we added some more calls to get the data by timespan and location for the more detailed chart data, but you get the idea, we simply edit the timestamps or friendlyName1 (also by friendlyName2 on the hourly chart, wich displays the hourly data per floor).
 
@@ -174,27 +174,27 @@ The way we've set up our server code, this was really easy to do, let's take a l
 In our '/routes' directory we keep all files that define the urls and methods of every endpoint, and tell it which controller to use:
 *timespan.route.ts*
 ```typescript
-    router.get('/timespan/', (req: Request, res: Response, next: NextFunction) => {
-        this.timespanController.getTimespanList(req, res, next);
-    });
-    router.post(('/timespan/', this.authenticate, (req: Request, res: Response, next: NextFunction) => {
-        this.timespanController.createTimespan(req, res, next);
-    });
+router.get('/timespan/', (req: Request, res: Response, next: NextFunction) => {
+    this.timespanController.getTimespanList(req, res, next);
+});
+router.post(('/timespan/', this.authenticate, (req: Request, res: Response, next: NextFunction) => {
+    this.timespanController.createTimespan(req, res, next);
+});
 ```
 
 next under our '/controllers' directory we have our controllers where all our functionality/logic is
 *timespan.controller.ts*
 ```typescript
-    public getTimespanList(req: Request, res: Response, next: NextFunction) {
-    	return this.timespanModel.find({}, [], {sort: {start: 1}})
-    	.then((result) => {
-    		res.json(result).status(200);
-        }, (err)=>{
-	        res.statusCode = 500;
-	        res.statusMessage = err;
-	        res.send();
-        });
-    }
+public getTimespanList(req: Request, res: Response, next: NextFunction) {
+    return this.timespanModel.find({}, [], {sort: {start: 1}})
+    .then((result) => {
+        res.json(result).status(200);
+    }, (err)=>{
+        res.statusCode = 500;
+        res.statusMessage = err;
+        res.send();
+    });
+}
 ```
 
 ## Authentication
