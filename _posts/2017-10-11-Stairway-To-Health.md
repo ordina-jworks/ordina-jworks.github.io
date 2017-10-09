@@ -29,7 +29,7 @@ They can also see a more detailed look of how many people taking the stairs in w
 <img alt="daily" src="{{ '/img/stairwaytohealth/daily.jpg' | prepend: site.baseurl }}" class="image fit">
 
 ## What does it do?
-The stairway to health project is a simple, yet great example to show what the internet of things is can do:
+The stairway to health project is a simple, yet great example to show what the Internet of Things is can do:
  - LoRa sensors detect door openings, these are installed on the doors of the staircases
  - These sensors communicate via the Proximus LoRa network to report their status
  - Sensor data is sent to the Proximus MyThings platform which processes the data
@@ -66,22 +66,22 @@ oh, and did I mention we were given 4 weeks to complete this mission...
 So given all the requirements listed above and the fact we didn't have a lot of time to waste, we chose to use a **MEAN(TS)** stack. MEAN stands for MongoDB Express Angular and NodeJS. It's possible to use the mean stack with plain JavaScript, we chose to implement it with TypeScript since we wanted some strong typings on the backend application and we were going to use Angular 4 on the front-end which comes with TypeScript as well.
 
 **NodeJs:**
-write event driven applications with asynchronous I/O powered by the ultra fast Google V8 Engine. Mostly known for running your local dev environment and automating build tasks for front-end developers. NodeJS is probably one of the best and easiest options out there for real-time applications (with socket.io), which is exactly what we needed for our application.
+Write event driven applications with asynchronous I/O powered by the ultra fast Google V8 Engine. Mostly known for running your local dev environment and automating build tasks for front-end developers. NodeJS is probably one of the best and easiest options out there for real-time applications (with socket.io), which is exactly what we needed for our application.
 
 **MongoDB:**
 Great to work with when dealing with JavaScript Objects. Good driver support with mongoose for NodeJs. Document based structure, which makes it really flexible when it comes to modelling and it's extremely scalable. We also took advantage of the very performant aggregation functionality for dealing with large amounts of data.
 
 **ExpressJS:**
-A node frameworkt that comes with some great functionality for setting up your node server and makes it easy to create routes, middleware, handeling requests/responses, serving files from the filesystem, configuring static files, easy connections to the database, and much more.
+A node framework that comes with some great functionality for setting up your node server and makes it easy to create routes, middleware, handeling requests/responses, serving files from the filesystem, configuring static files, easy connections to the database, and much more.
 
 **Angular(4):**
 A TypeScript-based open-source front-end web application platform led by the Angular Team at Google and by a community of individuals and corporations to address all of the parts of the developer's workflow while building complex web applications.
 
-**Socket.IO**
+**Socket.IO:**
 Socket.IO enables real-time bidirectional event-based communication. It works on every platform, browser or device, focusing equally on reliability and speed. To trigger events on our front-end application we used this great library to be able to detect when new data has been received and refresh the dashboard.
 
 **Highcharts:**
-Interactive JavaScript library for creating dynamic charts. Highcharts is based on native browser technologies and tno reinvent the wheel. Thousands of developers have contributed their work for us to use in our own projects. Also backwards compatible for IE.
+Interactive JavaScript library for creating dynamic charts. Highcharts is based on native browser technologies and not reinvent the wheel. Thousands of developers have contributed their work for us to use in our own projects. Also backwards compatible for IE.
 
 ## JavaScript across the stack
 Not only does it make development a lot faster and easier by having a large community with lots of reusable code for your application (npm), It also lowers the barriers between front-end and backend developers by using the same programming language over the entire stack, so more efficiency and faster, leaner development which in turn means lower development costs. Also worth noting is that JavaScript currently is THE most popular programming language, so more developers will be able to easily understand and contribute to the application if needed. And probably the most important criteria: when it comes to cloud hosting, RAM is probably the main influencing factor when it comes to pricing. NodeJs uses less RAM than comparable Java applications.
@@ -98,8 +98,8 @@ Some great use cases for JavaScript across the stack are:
 - Internet of Things,
 - real-time finance (stocks),
 - monitoring applications,
--  event-driven applications
-- server-side proxies
+-  event-driven applications,
+- server-side proxies,
 - many more...
 
 **Blocking vs. Non-Blocking**<br>
@@ -111,7 +111,7 @@ Blocking:<br>
 <code>print content</code><br> 
 <code>do something else</code> 
 
-Non-Blocking<br>
+Non-Blocking:<br>
 <code>read file from filesystem</code><br> 
 <code>&nbsp;&nbsp;&nbsp;&nbsp;Whenever we're complete print contents <span style="color:#e7904b;">(callback)</span> 
 </code> 
@@ -122,7 +122,7 @@ Non-Blocking<br>
 
 ## Setting up our dev environment / build
 The front-end part of this was really easy. We used angular-cli to generate a new project. In the future this also gave us the advantage of generating new components, services, pipes and much more.
-For the backend we decided to go with gulp. We added some tasks to transpile our server site TypeScript files to javascript so that node can execute it. For local serving we created a sequence task that combines running 'ng build' from the angular-cli and a gulp task to use 'nodemon' for running our server and restarting on changes. When working on the frontend, doing an 'ng build' was a bit too slow, therefore we added a --standalone flag, to the serve task so that we could just build the backend application and do the frontend serve with 'ng serve' which is a lot more performant than having to do a 'ng build' on every change.
+For the backend we decided to go with gulp. We added some tasks to transpile our server site TypeScript files to JavaScript so that node can execute it. For local serving we created a sequence task that combines running 'ng build' from the angular-cli and a gulp task to use 'nodemon' for running our server and restarting on changes. When working on the frontend, doing an 'ng build' was a bit too slow, therefore we added a --standalone flag, to the serve task so that we could just build the backend application and do the frontend serve with 'ng serve' which is a lot more performant than having to do a 'ng build' on every change.
 Since we are using TypeScript throughout the application, it only felt right to use the TypeScript version of gulp as well. It takes a little effort to get used to, but once you get the hang of it it makes writing gulp tasks a lot more fun and less error prone.
 Using the provided decorators our gulp tasks look something like the following:
 ```typescript
@@ -158,9 +158,9 @@ The timestamp represents the time that the sensor has sent it's message to the M
 After we defined our model / schema of our logs, it was simply adding an endpoint to our express router and our first feature was ready. Well not exactly, we needed to trigger an event to refresh the data on our dashboard, but we'll get back to this later.
 
 **The Dashboard**<br>
-Since we created an angular(4) application, we took advantage of the great features of angular-cli which makes it really easy to get a new project up and running and generate new components, services and much more. We started working on our dashboard that shows some building icons with the total counts per day, week and total, added a nice graph below to show an overview of the competition during the event.After adding the Proximus styles and importing the highcharts library from npm, the most important part of the application started to take shape.
+Since we created an Angular(4) application, we took advantage of the great features of angular-cli which makes it really easy to get a new project up and running and generate new components, services and much more. We started by adding all the components needed for the application and adding the Proximus styling to the project. After that we imported the Highcharts library from NPM to first make the charts on the homepage and later on making the charts for the detailed views. Finally after adding all the charts we started on adding the different languages to the application. Here we got our biggest 'lesson learned', it is much faster to start with I18N then to end with it. One of the major time resuming tasks here was getting all the translations for the text from other sources.
 
-In the mean time we started to get an idea on how to model our data to display it in the charts, since we got it running with some mock data in the frontend. Thus we were able to start implementing our dashboard api endpoints.
+In the mean time we started to get an idea on how to model our data to display it in the charts, since we got it first running with some mock data in the frontend for easier development. Thus we were able to start implementing our dashboard api endpoints.
 
 **Mongo Aggregates**<br>
 So for displaying the daily, weekly and total counts below the buildings, we had to get this data from the database, keeping in mind that we would have to iterate over millions of sensor logs (at the time of writing this blogpost 1.4 million over 4 months). We had to make sure it was performant. This is where the mongo aggregates come in handy. In stead of (say) looping over the results and adding them up, we let mongo take care of this with the '$sum' operator which in code looks like the following:
@@ -193,6 +193,7 @@ So in our case, to let the frontend know when the sensor-log endpoint has receiv
 However, since we have about 60 sensors sending data, this event was triggering quite a lot and with the chart rendering animations on our frontend application we had to wrap the 'log-received' in a timeout so that we would only refresh it once every 30 seconds (if a log was received).
 
 I've picked a few lines of code from our bin file to demonstrate how we pass the eventEmitter when bootstrapping our appliction on to the http and https services from node.
+
 ```typescript
 const server = require('../dist/app/server');
 const http = require('http');
@@ -220,7 +221,6 @@ public sockets(eventEmitter, io){
     });
 }
 ```
-
 
 ## Configuration CRUD
 Since we did not want our configuration to be hard coded, we added some configuration screens to be able to change the timespans and entities (towers).
@@ -270,3 +270,9 @@ JWT stands for JSON Web Token and is a JSON-based open standard for creating acc
 Finally we deployed it to the Proximus Datacenter and watched the Proximus employees take on the challenge.
 <a href="{{ '/img/stairwaytohealth/result1.jpg' | prepend: site.baseurl }}" data-lightbox="results" data-title="Large screen @ Proximus towers"><img alt="result1" src="{{ '/img/stairwaytohealth/result1.jpg' | prepend: site.baseurl }}" style="max-height: 300px; max-width: 100%; display: inline-block;"></a>
 <a href="{{ '/img/stairwaytohealth/result2.jpg' | prepend: site.baseurl }}" data-lightbox="results" data-title="Informing the employees"><img alt="result2" src="{{ '/img/stairwaytohealth/result2.jpg' | prepend: site.baseurl }}" style="max-height: 300px; max-width: 100%; display: inline-block;"></a>
+
+
+## Conclusion
+
+After four hard weeks of working and a lot of lines of code written. We delivered our project to Proximus and the contest could start.Also as developers we have learned some thing about this project. Like never do I18N as the last thing, add it after you added your styles to the frontend. Also we learned how complicated it can be to have one component with multiple switching charts. Instead of switching components.
+
