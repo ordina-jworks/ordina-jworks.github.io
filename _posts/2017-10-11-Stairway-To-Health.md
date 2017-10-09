@@ -36,7 +36,7 @@ The stairway to health project is a simple, yet great example to show what the I
  - The data gets sent to the StairwayToHealth application
  - The StairwayToHealth application interprets and visualises the data
 
- In summary: We install sensors on the doors (things) to measure usage and we analyse the data to persuade people to move more. The result is a good example of how IoT can influence our daily lives. Proximus  was able to provide us with all the building blocks available to offer a complete end-to-end solution!
+In summary: we install sensors on the doors (things) to measure usage and we analyse the data to persuade people to move more. The result is a good example of how IoT can influence our daily lives. Proximus  was able to provide us with all the building blocks available to offer a complete end-to-end solution!
 
 <img alt="dataflow" src="{{ '/img/stairwaytohealth/dataflow.jpg' | prepend: site.baseurl }}" class="image fit">
 
@@ -47,7 +47,6 @@ MyThings is the Proximus IoT platform for onboarding, managing, configuring and 
 ## The Requirements
 The usage of the stairways is measured and the results should be visualised on large screens in the towers. These screens should have a qr-code so that employees can easily visit the application on their mobile devices. When visiting the website, they should be able to click on the results to get a more detailed view of the data. The frontend application should be available in dutch and french and  the dashboard should switch between these languages every minute when viewing it on the large screens.
 Admins should be able to manage locations (towers) and chart timespans. It should have an info page with some information about the project and it's purpose.
-
 
 So technically this translates to build an application that:
  - has an endpoint to receive logs from the MyThings Application,
@@ -60,19 +59,29 @@ So technically this translates to build an application that:
  - CRUD's for managing timespans and locations.
  - use the timespans / locations when displaying data
 
-oh, and did I mention we were given 4 weeks to complete this mission...
+Oh, and did I mention we were given 4 weeks to complete this mission...
 
 ## The Ingredients
-So given all the requirements listed above and the fact we didn't have a lot of time to waste, we chose to use a **MEAN(TS)** stack. MEAN stands for MongoDB Express Angular and NodeJS. It's possible to use the mean stack with plain JavaScript, we chose to implement it with TypeScript since we wanted some strong typings on the backend application and we were going to use Angular 4 on the front-end which comes with TypeScript as well.
+So given all the requirements listed above and the fact we didn't have a lot of time to waste, 
+we chose to use a **MEAN(TS)** stack. MEAN stands for MongoDB Express Angular and NodeJS. 
+It's possible to use the mean stack with plain JavaScript, 
+we chose to implement it with TypeScript since we wanted some strong typings on the backend application and we were going to use Angular 4 on the front-end which comes with TypeScript as well.
 
 **NodeJs:**
-Write event driven applications with asynchronous I/O powered by the ultra fast Google V8 Engine. Mostly known for running your local dev environment and automating build tasks for front-end developers. NodeJS is probably one of the best and easiest options out there for real-time applications (with socket.io), which is exactly what we needed for our application.
+Write event driven applications with asynchronous I/O powered by the ultra fast Google V8 Engine. 
+Mostly known for running your local dev environment and automating build tasks for front-end developers. 
+NodeJS is probably one of the best and easiest options out there for real-time applications (with socket.io), 
+which is exactly what we needed for our application.
 
 **MongoDB:**
-Great to work with when dealing with JavaScript Objects. Good driver support with mongoose for NodeJs. Document based structure, which makes it really flexible when it comes to modelling and it's extremely scalable. We also took advantage of the very performant aggregation functionality for dealing with large amounts of data.
+Great to work with when dealing with JavaScript Objects. Good driver support with mongoose for NodeJs. 
+Document based structure, which makes it really flexible when it comes to modelling and it's extremely scalable. 
+We also took advantage of the very performant aggregation functionality for dealing with large amounts of data.
 
 **ExpressJS:**
-A node framework that comes with some great functionality for setting up your node server and makes it easy to create routes, middleware, handeling requests/responses, serving files from the filesystem, configuring static files, easy connections to the database, and much more.
+A node framework that comes with some great functionality for setting up your node server and makes it easy to create routes, 
+middleware, handeling requests/responses, serving files from the filesystem, configuring static files, easy connections to the database, 
+and much more.
 
 **Angular(4):**
 A TypeScript-based open-source front-end web application platform led by the Angular Team at Google and by a community of individuals and corporations to address all of the parts of the developer's workflow while building complex web applications.
