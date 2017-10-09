@@ -51,15 +51,15 @@ Admins should be able to manage locations (towers) and chart timespans. It shoul
 So technically this translates to build an application that:
  - has an endpoint to receive logs from the MyThings Application,
  - stores the data to it's own database,
- - show the data in charts that have multiple layers to see more/less details
- - shows the ratio of the results per tower
- - the frontend dashboard data has to reload automatically (since it is shown on some big screens @ Proximus)
- - add multi-language (automatically switch languages when viewing on tower's large screens)
- - is performant (able to handle many logs coming in and calculate the data to be displayed in the graphs)
- - CRUD's for managing timespans and locations.
- - use the timespans / locations when displaying data
+ - show the data in charts that have multiple layers to see more/less details,
+ - shows the ratio of the results per tower,
+ - the frontend dashboard data has to reload automatically (since it is shown on some big screens @ Proximus),
+ - add multi-language (automatically switch languages when viewing on tower's large screens),
+ - is performant (able to handle many logs coming in and calculate the data to be displayed in the graphs),
+ - CRUD's for managing timespans and locations,
+ - use the timespans / locations when displaying data.
 
-Oh, and did I mention we were given 4 weeks to complete this mission...
+Oh, and did we mention we were only given 4 weeks to complete this mission...
 
 ## The Ingredients
 So given all the requirements listed above and the fact we didn't have a lot of time to waste, 
@@ -107,7 +107,7 @@ Some great use cases for JavaScript across the stack are:
 - Internet of Things,
 - real-time finance (stocks),
 - monitoring applications,
--  event-driven applications,
+- event-driven applications,
 - server-side proxies,
 - many more...
 
