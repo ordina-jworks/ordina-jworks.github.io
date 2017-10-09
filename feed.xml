@@ -1,5 +1,126 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-10-05T18:49:51+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Kickstarter Trajectory 2017</title><link href="https://ordina-jworks.github.io/kickstarters/2017/10/05/Kickstarter-Trajectory-2017.html" rel="alternate" type="text/html" title="Kickstarter Trajectory 2017" /><published>2017-10-05T00:00:00+00:00</published><updated>2017-10-05T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/kickstarters/2017/10/05/Kickstarter-Trajectory-2017</id><content type="html" xml:base="https://ordina-jworks.github.io/kickstarters/2017/10/05/Kickstarter-Trajectory-2017.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-10-09T21:30:37+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Percona Live 2017 Dublin</title><link href="https://ordina-jworks.github.io/conference/2017/10/09/perconaLive2017.html" rel="alternate" type="text/html" title="Percona Live 2017 Dublin" /><published>2017-10-09T00:00:00+00:00</published><updated>2017-10-09T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2017/10/09/perconaLive2017</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2017/10/09/perconaLive2017.html">&lt;p&gt;
+  &lt;img class=&quot;image fit&quot; alt=&quot;Percona Live Europe Dublin Logo&quot; src=&quot;/img/percona-live-2017/logo.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Percona Live Europe is a yearly conference on open source database organized by &lt;a href=&quot;https://www.percona.com/live/e17/&quot; target=&quot;_blank&quot;&gt;Percona&lt;/a&gt;.
+We had the opportunity to attend this year’s conference in the beautiful city of Dublin.
+Beside enjoying the local brews and drafts we attended several sessions out of which we highlight some sessions in this blog post.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;mongodb-shootout-mongodb-atlas-azure-cosmosdb-and-doing-it-yourself&quot;&gt;MongoDB Shootout: MongoDB Atlas, Azure CosmosDB and Doing It Yourself&lt;/h2&gt;
+
+&lt;p&gt;When running MongoDB in the cloud, you have several options. 
+David Murphy compared &lt;a href=&quot;https://www.mongodb.com/cloud/atlas&quot; target=&quot;_blank&quot;&gt;MongoDB Atlas&lt;/a&gt;, &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/cosmos-db/introduction&quot; target=&quot;_blank&quot;&gt;CosmosDB&lt;/a&gt; and the good old DIY.&lt;/p&gt;
+
+&lt;p&gt;Using Atlas, you get monitoring, automation and the possibility to pay for backups.
+You pay per instance and you have a wide variety of instances and regions to choose from on AWS, GCP and Azure.
+The biggest downside is that the cost is about 44% more than running you own servers in the cloud.
+This means that, in contrast to DIY, you continuously pay more instead of writing off your initial investment and paying less in the end.
+The monitoring is really good but the problem here is that if you have have a polyglot environment with your own monitoring and alerting, you can not integrate it with Atlas so you end up with yet another tool.
+Upgrading is really easy and just a click of the button thanks to the automation.
+Backups need to be paid for per GB and are taken continuously.&lt;/p&gt;
+
+&lt;p&gt;CosmosDB is offered by Microsoft on Azure and claims to be MongoDB compatible. 
+This is not completely true because they have no support for the aggregation framework.
+So you can only use it for simple CRUD operations.
+The pricing is based on a pay-per-operation model which means it’s really hard to figure out what your cost will be and how it will evolve over time.
+Here you also have the downside of continuously paying more than DIY.
+The monitoring is very basic and of no help when you run into problems or strange behaviour, it’s like a black box.
+Upgrading is done behind the scenes which means you don’t have to worry unless the upgrade means your code is no longer compatible, then you are stuck.
+Backups are very basic because they are taken approximately every four hours and only the latest 2 backups are stored.&lt;/p&gt;
+
+&lt;p&gt;DIY has the most power to offer IF you have a mature, and complete DevOps team.
+With DIY you pay a high price up-front for hardware and people.
+You need to implement your own monitoring, i.e. with the &lt;a href=&quot;https://www.elastic.co/products&quot; target=&quot;_blank&quot;&gt;Elastic stack&lt;/a&gt; or Percona’s &lt;a href=&quot;https://www.percona.com/doc/percona-monitoring-and-management/index.html&quot; target=&quot;_blank&quot;&gt;PMM&lt;/a&gt;.
+Also, automation is a big part of the effort.
+And last but not least, you need to implement your own backup strategy.
+The biggest upside is that you have full control over what you implement and how you do things.
+You choose the cloud service provider or the hardware you want to use.
+You choose what you want to monitor and how you alert.
+You choose how often and when you backup.
+But of course, it’s all up to you.&lt;/p&gt;
+
+&lt;h2 id=&quot;visualize-your-data-with-grafana&quot;&gt;Visualize Your Data With Grafana&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://grafana.com/&quot; target=&quot;_blank&quot;&gt;Grafana&lt;/a&gt; is used to build monitoring dashboards based on time series data.
+Grafana supports a wide range of &lt;a href=&quot;https://grafana.com/plugins?type=datasource&quot; target=&quot;_blank&quot;&gt;data sources&lt;/a&gt; to get its data and generate the dashboard.
+There are already a lot of pre-built &lt;a href=&quot;https://grafana.com/dashboards&quot; target=&quot;_blank&quot;&gt;dashboards&lt;/a&gt; you can use and customize for your own needs.
+You can build your own dashboards with &lt;a href=&quot;https://grafana.com/plugins?type=panel&quot; target=&quot;_blank&quot;&gt;panels&lt;/a&gt;.
+Each panel is fed with data from a datasource based on a query.
+Grafana has created a query editor with support for different data sources, like PromQL for Prometheus, to make it easier to build the queries you need.
+The end result can look like this :
+&lt;img src=&quot;/img/percona-live-2017/grafanaDashboard.png&quot; alt=&quot;Grafana Dashboard&quot; class=&quot;image&quot; width=&quot;55%&quot; target=&quot;_blank&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;database-reliability-engineering-what-why-and-how&quot;&gt;Database Reliability Engineering: What, Why and How?&lt;/h2&gt;
+
+&lt;p&gt;The DBA from the old days, hidden in a basement behind closets, performing magic on that mysterious thing called a database, is dead.
+Enter the Database Reliability Engineer (DBRE, loosely based on &lt;a href=&quot;https://en.wikipedia.org/wiki/Site_reliability_engineering&quot; target=&quot;_blank&quot;&gt;SRE&lt;/a&gt;), a person who embraces the new paradigms in the IT-world.
+He is an advocate of how data should be treated and used, he teaches his colleagues, he takes part in pair-programming, he is an active team member in cross-functional teams.
+A DBRE’s knowledge is not confined to a single system, he can support polyglot persistence.
+He can support these systems on premise and in the cloud.
+He automates as much as possible and uses tools of the trade including source control systems and helps creating infrastructure as code.
+The DBRE enables his organisation to apply known principles of the software engineering world to the database world.
+In this role he applies principles from Database Reliability Engineering, like designing for scale, availability, operations and performance.
+Also visibility, alerting and database change and release management are just a few parts of the tasks to do.
+For more detailed information make sure to check out the book &lt;a href=&quot;http://shop.oreilly.com/product/0636920039761.do&quot; target=&quot;_blank&quot;&gt;Database Reliability Engineering&lt;/a&gt;, a must read for everyone in the field.&lt;/p&gt;
+
+&lt;h2 id=&quot;mongodb-security-checklist&quot;&gt;MongoDB Security Checklist&lt;/h2&gt;
+
+&lt;p&gt;MongoDB has been in the news lately due to MongoDB ransomware attacks. 
+This might make you wonder whether or not MongoDB is secure.
+Well, rest assured it is very secure.
+But you need to turn security on, at least until the next major release where security will be on by default.
+MongoDB has a plethora of security features in their community edition and the commercial offering provides even more goodies like LDAP integration and baked in encryption-at-rest.
+It starts with simple username/password authentication and moves on to x.509 certificates based authentication.
+Once authenticated you have authorization with either build-in or user-defined roles and privileges, so you can fine-tune which users have access to which database or collection and which actions they can perform on them.
+You can further lock-down your MongoDB by fixing the network interface it is listening to so it’s not open to the internet, or encrypting the communication between replica-set or sharded-cluster members.
+If you are running MongoDB, then reading the &lt;a href=&quot;https://docs.mongodb.com/manual/administration/security-checklist/&quot; target=&quot;_blank&quot;&gt;security checklist&lt;/a&gt; is a must!&lt;/p&gt;
+
+&lt;h2 id=&quot;improvements-to-mongorocks-in-2017&quot;&gt;Improvements to MongoRocks in 2017&lt;/h2&gt;
+
+&lt;p&gt;MongoRocks is MongoDB using RocksDB as the underlying storage engine.
+From the MongoRocks &lt;a href=&quot;http://mongorocks.org/&quot; target=&quot;_blank&quot;&gt;website&lt;/a&gt; :&lt;/p&gt;
+&lt;blockquote class=&quot;clear&quot;&gt;&lt;p&gt;&quot;RocksDB is a key-value library based on Log Structured Merge Trees. It is maintained by the Facebook Database Engineering Team, and is based on LevelDB, by Sanjay Ghemawat and Jeff Dean at Google&quot;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;MongoRocks differs from WiredTiger in the way it stores data.
+WiredTiger uses a B-tree where MongoRocks uses a LSM-tree structure.
+Both have pros and cons of course.
+An LSM-tree structure favours space and insert efficiency over read efficiency.
+An B+ tree structure favours update and read efficiency over space efficiency.
+So depending on your workload you can choose which might suit you better.
+Of course, nothing beats measuring what the effect of your workload is on performance of the choosen storage engine.
+Because, you know, silver bullets and such…
+So testing and measuring is key in deciding which engine you should choose.
+Nevertheless, MongoRocks is showing nice improvements over previous versions and has several interesting benefits over WiredTiger.
+Certainly when storage endurance is an issue or if your working set does not fit into memory.&lt;/p&gt;
+
+&lt;h2 id=&quot;automatic-database-management-system-tuning-through-large-scale-machine-learning&quot;&gt;Automatic Database Management System Tuning Through Large-Scale Machine Learning&lt;/h2&gt;
+
+&lt;p&gt;This is probably the most stunning talk of the conference.
+OtterTune is a tool developed by students and researchers at Carnegie Mellon to automatically tune your database.
+This is done by making clever use of previously collected data of other tunings and applying machine learning to it.
+The presented results showed that for the given workload, OtterTune was at par with DBAs which had double digit years of experience.
+Looking at this from the bright side, OtterTune would help DBAs to focus on areas other than figuring out which combination of the multiple settings they should use to tune their database.
+It would definitely help to do better Database Reliability Engineering.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;This is just a small portion of the huge amount of sessions at Percona Live, but of course, one needs to choose.
+It’s really great to see this conference putting open source on the foreground and displaying the wealth of choice and diversity of technologies in the open source database world.
+We see that this space is continuously expanding and that the future is looking even more promising than the present.
+Good times ahead!&lt;/p&gt;
+
+&lt;h3 id=&quot;useful-links--further-reading&quot;&gt;Useful links &amp;amp; further reading&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.percona.com/live/e17/&quot; target=&quot;_blank&quot;&gt;Percona Live Europe Dublin&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://mongorocks.org/&quot; target=&quot;_blank&quot;&gt;MongoRocks&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://grafana.com/&quot; target=&quot;_blank&quot;&gt;Grafana&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.mongodb.com/cloud/atlas&quot; target=&quot;_blank&quot;&gt;MongoDB Atlas&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.elastic.co/products&quot; target=&quot;_blank&quot;&gt;Elastic&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.mongodb.com/manual/administration/security-checklist/&quot; target=&quot;_blank&quot;&gt;MongoDB security checklist&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://shop.oreilly.com/product/0636920039761.do&quot; target=&quot;_blank&quot;&gt;Database Reliability Engineering&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Chris&quot;, &quot;last_name&quot;=&gt;&quot;De Bruyne&quot;, &quot;permalink&quot;=&gt;&quot;/author/chris-de-bruyne&quot;, &quot;avatar&quot;=&gt;&quot;chris-de-bruyne.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Java Developer&quot;, &quot;title2&quot;=&gt;&quot;Competence Lead Databases&quot;, &quot;email&quot;=&gt;&quot;chris.debruyne@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;ceedeebee2901&quot;, &quot;bio&quot;=&gt;&quot;Chris is a Senior Java Developer at Ordina Belgium, passionate about Java and MongoDB. As competence leader Databases he guides his fellow developers by giving workshops and presentations. Chris is passionate to help colleagues and clients to get the most out of MongoDB and the Java eco system.&quot;}</name><email>chris.debruyne@ordina.be</email></author><category term="Conference" /><category term="Percona Live" /><category term="MySql" /><category term="MongoDB" /><category term="MariaDB" /><category term="DBA" /><category term="PostgreSQL" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/percona-live-2017/logo2.png" /></entry><entry><title type="html">Kickstarter Trajectory 2017</title><link href="https://ordina-jworks.github.io/kickstarters/2017/10/05/Kickstarter-Trajectory-2017.html" rel="alternate" type="text/html" title="Kickstarter Trajectory 2017" /><published>2017-10-05T00:00:00+00:00</published><updated>2017-10-05T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/kickstarters/2017/10/05/Kickstarter-Trajectory-2017</id><content type="html" xml:base="https://ordina-jworks.github.io/kickstarters/2017/10/05/Kickstarter-Trajectory-2017.html">&lt;blockquote&gt;
   &lt;p&gt;This year, 45 young professionals started the various Ordina Kickstarter trajectories.
 Five of those, participated in the Kickstarter trajectory of JWorks.
 Each of them looking for a challenge and a fresh start!
@@ -3647,280 +3768,4 @@ You could also create your own annotations.&lt;/p&gt;
       &lt;td&gt;&lt;a href=&quot;https://speakerdeck.com/vpavic/from-zero-to-open-source-hero-contributing-to-spring-projects-1&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;/img/SpringIO2017/icon-presentation.png&quot; alt=&quot;presentation&quot; /&gt;&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
-&lt;/table&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Dieter&quot;, &quot;last_name&quot;=&gt;&quot;Hubau&quot;, &quot;github&quot;=&gt;&quot;Turbots&quot;, &quot;twitter&quot;=&gt;&quot;dhubau&quot;, &quot;linkedin&quot;=&gt;&quot;dhubau&quot;, &quot;permalink&quot;=&gt;&quot;/author/dieter-hubau/&quot;, &quot;avatar&quot;=&gt;&quot;dieter-hubau.png&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Cloud and PaaS&quot;, &quot;email&quot;=&gt;&quot;dieter.hubau@ordina.be&quot;, &quot;phone&quot;=&gt;&quot;0032478458150&quot;, &quot;bio&quot;=&gt;&quot;Dieter is a Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he helps fellow developers as a Competence Leader for the Cloud &amp;amp; PaaS Competence Center by giving workshops, talks and courses about the newest technologies. In his spare time, Dieter enjoys playing soccer, running, (online) gaming and fiddling around with all kinds of fancy new software.&quot;}</name><email>dieter.hubau@ordina.be</email></author><category term="Spring" /><category term="Spring" /><category term="IO" /><category term="Pivotal" /><category term="Google" /><category term="Spring Boot" /><category term="Java" /><category term="Reactive" /><category term="Reactor" /><category term="DDD" /><category term="CQRS" /><category term="Spring Cloud" /><category term="Spring Cloud Stream" /><category term="Serverless" /><summary type="html">On the 18th and 19th of May, we had another great edition of Spring I/O, brought to us by organizer Sergi Almar. In this blog post, we will go over some of our favourite sessions of the conference.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/springio2017.jpg" /></entry><entry><title type="html">OpenShift: An introduction</title><link href="https://ordina-jworks.github.io/paas/2017/06/29/Openshift-an-introduction.html" rel="alternate" type="text/html" title="OpenShift: An introduction" /><published>2017-06-29T00:00:00+00:00</published><updated>2017-06-29T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/paas/2017/06/29/Openshift-an-introduction</id><content type="html" xml:base="https://ordina-jworks.github.io/paas/2017/06/29/Openshift-an-introduction.html">&lt;div class=&quot;col-md-2&quot; style=&quot;width:32%&quot;&gt;
-
-&lt;figure&gt;
-    &lt;img class=&quot;center-block image fit&quot; alt=&quot;PaaS&quot; src=&quot;/img/openshift-an-introduction/Ease-of-PaaS.png&quot; /&gt;
-    
-&lt;/figure&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;why-my-first-blog-about-openshift&quot;&gt;Why my first blog about OpenShift&lt;/h1&gt;
-&lt;p&gt;When I started as a developer, the cloud ecosystem started expanding and became the next big thing.
-So obviously I wanted to see what all the fuzz was about and started taking a deeper look at it.
-Soon, I got introduced with so many new technologies I was not familiar with: microservices, containers, pods, Kubernetes, load balancing, Docker, PaaS,…&lt;/p&gt;
-
-&lt;p&gt;To be honest, for me it was really overwhelming.
-I told myself, I would never have the time to become a guru in all these technologies to start with cloud native development.
-So I just sat in a corner crying about why I became a dev in a time where things never looked more complicated and changed faster than ever before.
-But actually it’s not all that complicated.
-To be honest, deploying your containers in the cloud and managing things are easier than ever before with PaaS and OpenShift.&lt;/p&gt;
-
-&lt;p&gt;A couple of months ago, I got introduced to OpenShift and got really excited about it!
-Recently, Ordina gave me the chance to visit the &lt;a href=&quot;https://www.redhat.com/en/about/events/red-hat-partner-conference-emea-2017&quot;&gt;Red Hat’s partner conference&lt;/a&gt; and my excitement for OpenShift reached new heights.
-With my body being unable to contain all that excitement for OpenShift, I had to funnel it into a blog post or otherwise I would spontaneously combust.&lt;/p&gt;
-
-&lt;p&gt;I do have to mention that if you want to work with OpenShift, you still need to have a basic understanding about containers, PaaS and Kubernetes if you want to understand some of its magic.
-If you have no idea what Docker containers are or what Kubernetes is, don’t panic! There are some great blogposts on the JWorks blog explaining more about them.&lt;/p&gt;
-
-&lt;h1 id=&quot;what-is-openshift&quot;&gt;What is OpenShift&lt;/h1&gt;
-
-&lt;p&gt;OpenShift is a &lt;strong&gt;PaaS&lt;/strong&gt;. For those who don’t know what a PAAS is, stop reading now, take a timecab to the year 2011 and check it out because PaaS is awesome.&lt;/p&gt;
-
-&lt;p&gt;Gartner calls OpenShift a &lt;strong&gt;Cloud Enabled Application Platform (CEAP)&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;For those who are not sure anymore, here is a quick reminder.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Platform as a service (PaaS)&lt;/strong&gt; or application platform as a service (aPaaS) is a category of cloud computing services that provides a platform allowing customers to develop, run, and manage applications without the complexity of building and maintaining the infrastructure typically associated with developing and launching an app&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;There are multiple PaaS providers available.
-For example, you have OpenShift, Cloudfoundry, Heroku, Google App Engine and more.
-Most of these platforms offer a lot of the same solutions, each with their own pros and cons, but today we are going talk about OpenShift specifically.&lt;/p&gt;
-
-&lt;p&gt;When I look up OpenShift in Google (since that’s the first thing we do these days), it gives me the following explanation:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;OpenShift Container Platform&lt;/strong&gt; (formerly known as OpenShift Enterprise) is Red Hat’s on-premise private platform as a service product, built around a core of application containers powered by Docker, with orchestration and management provided by Kubernetes, on a foundation of Red Hat Enterprise Linux.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Well that explains it!
-I never thought writing my first blog post would be that easy!
-Obviously you wouldn’t be reading this blog post if this was my only explanation since my pull request would never be accepted.&lt;/p&gt;
-
-&lt;p&gt;If I would try to explain it with my own words to someone who never heard of OpenShift, I would define it like this.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;OpenShift container Platform&lt;/strong&gt; is a platform as a service you can deploy on a public, private or hybrid cloud that helps you deploy your applications with the use of Docker containers.
-It is build on top of Kubernetes and gives you tools like a webconsole and CLI to manage features like load balancing and horizontal scaling. It simplifies operations and development for cloud native applications.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Okay, I know this is still pretty vague and it can do so much, so why don’t we simply start with seeing where OpenShift fits in.&lt;/p&gt;
-
-&lt;p&gt;
-  &lt;img class=&quot;image fit&quot; alt=&quot;evolve&quot; src=&quot;/img/openshift-an-introduction/evolve.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;As you can see in the image, the IT landscape has evolved a lot in recent years.
-We now have DevOps, Microservices, Containers, Cloud and Kubernetes.
-OpenShift combines all of those things in one platform you can easily manage.
-So it actually fits right on top of all of that.&lt;/p&gt;
-
-&lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
-
-&lt;p&gt;
-  &lt;img class=&quot;image fit&quot; alt=&quot;overview&quot; src=&quot;/img/openshift-an-introduction/overview.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h3 id=&quot;self-service&quot;&gt;SELF-SERVICE&lt;/h3&gt;
-&lt;p&gt;&lt;span class=&quot;image left small&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Self-service&quot; src=&quot;/img/openshift-an-introduction/self-service.png&quot; /&gt;&lt;/span&gt;
-Developers can quickly and easily create applications and deploy them.
-With &lt;a href=&quot;#benefits-for-developers&quot;&gt;S2I (Source-to-Image)&lt;/a&gt;, a developer can even deploy his code without needing to create a container first.
-Operators can leverage placement and policy to orchestrate environments that meet their best practices.
-It makes your development and operations work fluently together when combining them in a single platform.&lt;/p&gt;
-
-&lt;h3 id=&quot;polyglot-multi-language&quot;&gt;POLYGLOT, MULTI-LANGUAGE&lt;/h3&gt;
-&lt;p&gt;&lt;span class=&quot;image left small&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;multilanguage&quot; src=&quot;/img/openshift-an-introduction/multilanguage.png&quot; /&gt;&lt;/span&gt;
-Since it deploys Docker containers, it gives you the ability to run multiple languages, frameworks and databases on the same platform.
-You can easily deploy microservices written in Java, Python or other languages.&lt;/p&gt;
-
-&lt;h3 id=&quot;automation&quot;&gt;AUTOMATION&lt;/h3&gt;
-&lt;p&gt;&lt;span class=&quot;image left small&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;automation&quot; src=&quot;/img/openshift-an-introduction/automation.png&quot; /&gt;&lt;/span&gt;
-&lt;strong&gt;Build automation:&lt;/strong&gt;
-OpenShift automates the process of building new container images for all of your users.
-It can run standard Docker builds based on the Dockerfiles you provide and it also provides a “Source-to-Image” feature which allows you to specify the source from which to generate your images.
-This allows administrators to control a set of base or “builder images” and then users can layer on top of these.
-The build source could be a Git location, it could also be a binary like a WAR/JAR file.
-Users can also customize the build process and create their own S2I images.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Deployment automation:&lt;/strong&gt;
-OpenShift automates the deployment of application containers. It supports rolling deployments for multi-containers apps and allows you to roll back to an older version.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Continuous integration:&lt;/strong&gt;
-It provides built-in continuous integration capabilities with Jenkins and can also tie into your existing CI solutions.The OpenShift Jenkins image can also be used to run your Jenkins masters and slaves on OpenShift.&lt;/p&gt;
-
-&lt;h3 id=&quot;scale&quot;&gt;Scale&lt;/h3&gt;
-&lt;p&gt;&lt;span class=&quot;image left small&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;scale&quot; src=&quot;/img/openshift-an-introduction/scale.png&quot; /&gt;&lt;/span&gt;
-When you want to start scaling your application, whether it’s from one replica to two or scale it to 2000 replicas, a lot of complexity is added.
-OpenShift leverages the power of containers and an incredibly powerful orchestration engine to make that happen. Containers make sure that applications are packed up in their own space and are independent from the OS, this makes applications incredibly portable and hyper scalable. OpenShift’s orchestration layer, Google’s Kubernetes, automates the scheduling and replication of these containers meaning that they’re highly available and able to accommodate whatever your users can throw at it.
-This means that your team spends less time in the weeds and keeping the lights on, and more time being innovative and productive.&lt;/p&gt;
-
-&lt;h3 id=&quot;opensource&quot;&gt;Opensource&lt;/h3&gt;
-&lt;p&gt;&lt;span class=&quot;image left small&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;opensource&quot; src=&quot;/img/openshift-an-introduction/opensource.png&quot; /&gt;&lt;/span&gt;
-There are multiple versions of OpenShift (spoiler: it’s going to be the next topic in this blog post) but they are all based on OpenShift Origin.
-Origin provides an open source application container platform. 
-All source code for the Origin project is available under the Apache License (Version 2.0) on &lt;a href=&quot;https://Github.com/OpenShift&quot;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;openshift-landscape&quot;&gt;OpenShift landscape&lt;/h1&gt;
-
-&lt;p&gt;There are a few different OpenShift releases depending on what you need.
-As of this writing, the OpenShift landscape looks like this:&lt;/p&gt;
-
-&lt;p&gt;
-  &lt;img class=&quot;image fit&quot; alt=&quot;OpenShiftlandscape&quot; src=&quot;/img/openshift-an-introduction/openshiftlandscape.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h3 id=&quot;openshift-origin&quot;&gt;OpenShift Origin&lt;/h3&gt;
-&lt;p&gt;It’s the upstream community project used in OpenShift Online, OpenShift dedicated and OpenShift container Platform.
-It’s build around Docker and Kubernetes cluster management.
-Origin is augmented by application lifecycle management functionality and DevOps tooling.
-Origin updates as often as open source developers contribute via Git.
-Sometimes as often as several times per week.
-Here you get the new feature the quickest but at the cost of stability.&lt;/p&gt;
-
-&lt;h3 id=&quot;openshift-container-platform&quot;&gt;OpenShift container platform&lt;/h3&gt;
-&lt;p&gt;Formerly known as OpenShift Enterprise.
-It’s the platform software to deploy and manage OpenShift on your own infrastructure of choice.
-It integrates with Red Hat Enterprise Linux 6 and is tested via Red Hat’s QA process in order to offer a stable, supportable product with may be important for enterprises.&lt;/p&gt;
-
-&lt;h3 id=&quot;openshift-dedicated&quot;&gt;OpenShift dedicated&lt;/h3&gt;
-&lt;p&gt;OpenShift dedicated is the latest offering of OpenShift.
-It’s OpenShift 3 hosted on AWS and maintained by Red Hat but it is dedicated to you&lt;/p&gt;
-
-&lt;h3 id=&quot;openshift-online&quot;&gt;OpenShift online&lt;/h3&gt;
-&lt;p&gt;OpenShift Online is managed by Red Hat’s OpenShift operations team, and quickstart templates enable developers to push code with one click, helping to avoid the intricacies of application provisioning.
-You can view it as OpenShift delivered as a SaaS (Software as a Service)&lt;/p&gt;
-
-&lt;h1 id=&quot;benefits-for-developers&quot;&gt;Benefits for developers&lt;/h1&gt;
-
-&lt;p&gt;Before I show you how easy OpenShift is for a developer, let me quickly explain Source-to-Image (S2I).&lt;/p&gt;
-
-&lt;p&gt;Let’s see how easy your life can be with the following image:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Source-to-Image (S2I)&lt;/strong&gt; is a toolkit and workflow that creates a deployable Docker image based on your source code and add it to the image registry. You don’t even need a Docker file anymore.It combines source code with a corresponding builder image from the integrated Docker registry&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;So now that you know S2I, let’s take a look at the next picture&lt;/p&gt;
-&lt;p&gt;
-  &lt;img class=&quot;image fit&quot; alt=&quot;devopsoverview&quot; src=&quot;/img/openshift-an-introduction/devopsoverview.jpg&quot; /&gt;
-&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Code:&lt;/strong&gt;
-If you’re a developer I assume you know how to code and push it to Git, so nothing new here…&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Build:&lt;/strong&gt;
-The developer can push code to be built and run on OpenShift through their software version control solution or OpenShift can be integrated with a developer’s own automated build and continuous integration/continuous deployment system. Here is were S2I can get useful.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Deploy:&lt;/strong&gt;
-OpenShift orchestrates where application containers will run and manages the application to ensure it’s available for end users.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Manage:&lt;/strong&gt;
-With your app running in the cloud you can monitor, debug, and tune on the fly.
-Scale your application automatically or allocate capacity ahead of time
-.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;a-deeper-look&quot;&gt;A deeper look&lt;/h1&gt;
-&lt;p&gt;Time to get a little bit more technical and take a deeper look at how it works.
-I already talked about the developer part of the picture below, so let’s focus on the rest!&lt;/p&gt;
-
-&lt;p&gt;
-  &lt;img class=&quot;image fit&quot; alt=&quot;deeperlook&quot; src=&quot;/img/openshift-an-introduction/deeperlook.svg&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h3 id=&quot;infrastructure&quot;&gt;Infrastructure&lt;/h3&gt;
-&lt;p&gt;OpenShift runs on your choice of infrastructure (Physical, Virtual, Private, Public).
-OpenShift uses a &lt;strong&gt;Software-Defined Networking (SDN)&lt;/strong&gt; approach to provide a unified cluster network that enables communication between pods across the OpenShift cluster.
-This pod network is established and maintained by the OpenShift SDN, which configures an overlay network using &lt;strong&gt;Open vSwitch (OVS)&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The &lt;strong&gt;OVS-subnet&lt;/strong&gt; plug-in is the original plug-in which provides a “flat” pod network where every pod can communicate with every other pod and service.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;The OVS-multitenant&lt;/strong&gt; plug-in provides OpenShift Enterprise project level isolation for pods and services. Each project receives a unique Virtual Network ID (VNID) that identifies traffic from pods assigned to the project. 
-Pods from different projects cannot send packets to or receive packets from pods and services of a different project.
-However, projects which receive VNID 0 are more privileged in that they are allowed to communicate with all other pods, and all other pods can communicate with them.
-In OpenShift Enterprise clusters, the default project has VNID 0.
-This facilitates certain services to communicate with all other pods in the cluster and vice versa.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;nodes&quot;&gt;Nodes&lt;/h3&gt;
-&lt;p&gt;A node provides the runtime environment for containers.
-Each node in a Kubernetes cluster has the required services to be managed by the master. 
-OpenShift creates nodes from a cloud provider, physical systems, or virtual systems.
-Kubernetes interacts with node objects that are a representation of those nodes.
-A node is ignored until it passes the health checks, and the master continues checking nodes until they are valid.
-In OpenShift nodes are instances of RHEL (Redhat Enterprise Linux).&lt;/p&gt;
-
-&lt;h3 id=&quot;pods&quot;&gt;Pods&lt;/h3&gt;
-&lt;p&gt;&lt;span class=&quot;image right&quot;&gt;&lt;img alt=&quot;pods&quot; src=&quot;/img/openshift-an-introduction/pods.png&quot; /&gt;&lt;/span&gt;
-OpenShift leverages the Kubernetes concept of a pod, which is one or more containers deployed together on one host, and the smallest compute unit that can be defined, deployed, and managed.
-Each pod is allocated its own internal IP address, therefore owning its entire port space, and containers within pods can share their local storage and networking.
-Pods have a lifecycle; they are defined, then they are assigned to run on a node, then they run until their container(s) exit or they are removed for some other reason.
-OpenShift treats pods as largely immutable, changes cannot be made to a pod definition while it is running.
-It implements changes by terminating an existing pod and recreating it with modified configuration, base image(s), or both. Pods are also treated as expendable, and do not maintain state when recreated.&lt;/p&gt;
-
-&lt;h3 id=&quot;registry&quot;&gt;Registry&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;Integrated OpenShift Container Registry:&lt;/strong&gt;
-OpenShift Origin provides an integrated container registry called OpenShift Container Registry (OCR) that adds the ability to automatically provision new image repositories on demand.
-This provides users with a built-in location for their application builds to push the resulting images.
-Whenever a new image is pushed to OCR, the registry notifies OpenShift about the new image, passing along all the information about it, such as the namespace, name, and image metadata.
-Different pieces of OpenShift react to new images, creating new builds and deployments.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Third Party Registries:&lt;/strong&gt;
-OpenShift Origin can create containers using images from third party registries, but it is unlikely that these registries offer the same image notification support as the integrated OpenShift Origin registry.
-In this situation OpenShift Origin will fetch tags from the remote registry upon imagestream creation.&lt;/p&gt;
-
-&lt;h3 id=&quot;master&quot;&gt;Master&lt;/h3&gt;
-&lt;p&gt;Managing &lt;strong&gt;data storage&lt;/strong&gt; is a distinct problem from managing compute resources.
-OpenShift leverages the Kubernetes PersistentVolume subsystem, which provides an &lt;strong&gt;API&lt;/strong&gt; for users and administrators that abstracts details of how storage is provided from how it is consumed.
-The Kubernetes pod &lt;strong&gt;scheduler&lt;/strong&gt; is responsible for determining placement of new pods onto nodes within the cluster.
-It reads data from the pod and tries to find a node that is a good fit based on configured policies.
-The &lt;strong&gt;Management/Replication controller&lt;/strong&gt; manages the lifecycle of pods.
-For instance when you deploy a new version of your application and create a new pod, OpenShift can wait until the new pod is fully functional before downscaling the old pod leading to no downtime.
-&lt;strong&gt;But what if the master node goes down? That’s no high availability …&lt;/strong&gt; 
-You can optionally configure your masters for high availability to ensure that the cluster has no single point of failure.&lt;/p&gt;
-
-&lt;h3 id=&quot;service-layer&quot;&gt;Service layer&lt;/h3&gt;
-&lt;p&gt;On top of the domain and persistence layer sits the service layer of the application.
-A Kubernetes service can serve as an internal load balancer.
-It identifies a set of replicated pods in order to proxy the connections it receives to them.
-Backing pods can be added to or removed from a service arbitrarily while the service remains consistently available, enabling anything that depends on the service to refer to it at a consistent internal address.&lt;/p&gt;
-
-&lt;h3 id=&quot;persistant-storage&quot;&gt;Persistant storage&lt;/h3&gt;
-&lt;p&gt;Managing storage is a distinct problem from managing compute resources. 
-OpenShift Origin leverages the &lt;strong&gt;Kubernetes Persistent Volume (PV)&lt;/strong&gt; framework to allow administrators to provision persistent storage for a cluster.
-Using &lt;strong&gt;Persistent Volume Claims (PVCs)&lt;/strong&gt;, developers can request PV resources without having specific knowledge of the underlying storage infrastructure.
-PVCs are specific to a project and are created and used by developers as a means to use a PV.
-PV resources on their own are not scoped to any single project; they can be shared across the entire OpenShift Origin cluster and claimed from any project.
-After a PV has been bound to a PVC, however, that PV cannot then be bound to additional PVCs. 
-This has the effect of scoping a bound PV to a single namespace (that of the binding project).&lt;/p&gt;
-
-&lt;h1 id=&quot;openshiftio&quot;&gt;OpenShift.io&lt;/h1&gt;
-&lt;p&gt;So before ending this blog post, I have to quickly mention &lt;a href=&quot;https://OpenShift.io/&quot;&gt;OpenShift.io&lt;/a&gt;.
-As of this moment, it’s not yet available but you can try to register for the preview.
-I haven’t had the chance to play with it, as I haven’t received my access just yet.
-Basically it’s an online development environment for planning, creating and deploying hybrid cloud services.&lt;/p&gt;
-
-&lt;p&gt;It provides the following features:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Hosted, integrated toolchain&lt;/li&gt;
-  &lt;li&gt;Planning tools for managing and prioritizing work&lt;/li&gt;
-  &lt;li&gt;Code editing and debugging tools built on Eclipse Che&lt;/li&gt;
-  &lt;li&gt;Integrated and automated CI/CD pipelines&lt;/li&gt;
-  &lt;li&gt;Dashboards and reporting tools&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;Of course there is so much more to tell you and show about PaaS and OpenShift.
-I hope that with this post you got a nice introduction to OpenShift itself and some of the benefits it offers.
-If you enjoyed the post, I intend to write another post later this year about OpenShift, so make sure to regularly check our JWorks blog!&lt;/p&gt;
-
-&lt;p&gt;May the PaaS be with you.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Hans&quot;, &quot;last_name&quot;=&gt;&quot;Michiels&quot;, &quot;permalink&quot;=&gt;&quot;/author/hans-michiels/&quot;, &quot;avatar&quot;=&gt;&quot;hans-michiels.png&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;email&quot;=&gt;&quot;hans.michiels@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Hans is a Java Developer at Ordina Belgium. He is passionate about learning new innovative technologies and basically all nerd related stuff.&quot;}</name><email>hans.michiels@ordina.be</email></author><category term="PaaS" /><category term="OpenShift" /><category term="PaaS" /><category term="Cloud" /><category term="Container" /><category term="DevOps" /><category term="Kubernetes" /><category term="CaaS" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/Openshift.png" /></entry></feed>
+&lt;/table&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Dieter&quot;, &quot;last_name&quot;=&gt;&quot;Hubau&quot;, &quot;github&quot;=&gt;&quot;Turbots&quot;, &quot;twitter&quot;=&gt;&quot;dhubau&quot;, &quot;linkedin&quot;=&gt;&quot;dhubau&quot;, &quot;permalink&quot;=&gt;&quot;/author/dieter-hubau/&quot;, &quot;avatar&quot;=&gt;&quot;dieter-hubau.png&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Cloud and PaaS&quot;, &quot;email&quot;=&gt;&quot;dieter.hubau@ordina.be&quot;, &quot;phone&quot;=&gt;&quot;0032478458150&quot;, &quot;bio&quot;=&gt;&quot;Dieter is a Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he helps fellow developers as a Competence Leader for the Cloud &amp;amp; PaaS Competence Center by giving workshops, talks and courses about the newest technologies. In his spare time, Dieter enjoys playing soccer, running, (online) gaming and fiddling around with all kinds of fancy new software.&quot;}</name><email>dieter.hubau@ordina.be</email></author><category term="Spring" /><category term="Spring" /><category term="IO" /><category term="Pivotal" /><category term="Google" /><category term="Spring Boot" /><category term="Java" /><category term="Reactive" /><category term="Reactor" /><category term="DDD" /><category term="CQRS" /><category term="Spring Cloud" /><category term="Spring Cloud Stream" /><category term="Serverless" /><summary type="html">On the 18th and 19th of May, we had another great edition of Spring I/O, brought to us by organizer Sergi Almar. In this blog post, we will go over some of our favourite sessions of the conference.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/springio2017.jpg" /></entry></feed>
