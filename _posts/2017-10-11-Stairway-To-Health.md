@@ -133,7 +133,7 @@ Some great use cases for JavaScript across the stack are:
 ### Blocking vs. Non-Blocking
 In NodeJs you can take advantage of JavaScript promises. 
 One of the benefits of this is that we can write non-blocking code.
-To demonstrate how this works, I'll give you an example in psuedo code for reading a file from the filesystem.
+To demonstrate how this works, I'll give you an example in pseudo code for reading a file from the filesystem.
 
 ### Blocking:
 <code>read file from filesystem, set equal to "contents"</code><br> 
@@ -179,7 +179,7 @@ and create sequence tasks with:
         return ['buildApp', 'runMochaTests'];
     }
 ```
-Now that we have a gulpfile.ts file, we need to ensure that the gulpfile gets transpiled as well, we did this by adding an npm script, so that we can use 'tsc' to transpile the file and make sure we are using the latest changes every time we use gulp.
+Now that we have a gulpfile.ts file, we need to ensure that the gulpfile gets transpiled as well, we did this by adding an npm script, so that we can use TypeScript compiler with the `tsc` command to transpile the file and make sure we are using the latest changes every time we use gulp.
 (to get the tsc command, install typescript globally with npm)
 
 ## Building Stairway to Health
@@ -191,12 +191,12 @@ So first things first, on MyThings we took a look at how we were going to struct
 <img alt="stream.png" src="{{ '/img/stairwaytohealth/stream.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width:800px;">
 
 In the MyThings application every sensor can have a `friendlyName1` and `friendlyName2`, we used these to specify which tower and which floor they represent. 
-The sensors send a lot more data than just the magnetic pulse counts, therefore we needed the `container` field, to be able to filter on 'counter' logs only (however, we store the other messages as well, maybe for future use). 
+The sensors send a lot more data than just the magnetic pulse counts, therefore we needed the `container` field, to be able to filter on `counter` logs only (however, we store the other messages as well, maybe for future use). 
 The `value` field is the amount of times the sensor was triggered, in other words, the actual counts. And of course a `timestamp` since we will show the data in time based graphs.
 
-The `timestamp` represents the time that the sensor has sent it's message to the MyThings application, we also wanted to keep track of when our (Stairway application) has received the log, so before saving we added one extra field to store this in our database.
+The `timestamp` represents the time that the sensor has sent its message to the MyThings application, we also wanted to keep track of when our (Stairway application) has received the log, so before saving we added one extra field to store this in our database.
 
-After we defined our model / schema of our logs, it was simply adding an endpoint to our express router and our first feature was ready. 
+After we defined our model/schema of our logs, it was simply adding an endpoint to our express router and our first feature was ready. 
 Well not exactly, we needed to trigger an event to refresh the data on our dashboard, but we'll get back to this later.
 
 **The Dashboard**<br>
