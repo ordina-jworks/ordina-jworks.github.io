@@ -283,5 +283,11 @@ Finally we deployed it to the Proximus Datacenter and watched the Proximus emplo
 
 ## Conclusion
 
-After four hard weeks of working and a lot of lines of code written. We delivered our project to Proximus and the contest could start.Also as developers we have learned some thing about this project. Like never do I18N as the last thing, add it after you added your styles to the frontend. Also we learned how complicated it can be to have one component with multiple switching charts. Instead of switching components.
+After four hard weeks of working and a lot of lines of code written. We delivered our project to Proximus and the contest could start.
+ Things we would have done differently:
+ - Use mongo indexes and aggregation for large amounts of data.
+ - Use javascript date in stead of timestamps in mongo, easier to create aggregate with dates. 
+ - Dockerize! So far, the most work has gone in to getting the application deployed.
+ - Implement I18N translations afterwards, better to add translations while working on the component.
+ - Also we learned how complicated it can be to have one component with multiple switching charts. Instead of switching components.
 
