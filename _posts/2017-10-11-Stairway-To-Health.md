@@ -51,15 +51,15 @@ Admins should be able to manage locations (towers) and chart timespans. It shoul
 So technically this translates to build an application that:
  - has an endpoint to receive logs from the MyThings Application,
  - stores the data to it's own database,
- - show the data in charts that have multiple layers to see more/less details
- - shows the ratio of the results per tower
- - the frontend dashboard data has to reload automatically (since it is shown on some big screens @ Proximus)
- - add multi-language (automatically switch languages when viewing on tower's large screens)
- - is performant (able to handle many logs coming in and calculate the data to be displayed in the graphs)
- - CRUD's for managing timespans and locations.
- - use the timespans / locations when displaying data
+ - show the data in charts that have multiple layers to see more/less details,
+ - shows the ratio of the results per tower,
+ - the frontend dashboard data has to reload automatically (since it is shown on some big screens @ Proximus),
+ - add multi-language (automatically switch languages when viewing on tower's large screens),
+ - is performant (able to handle many logs coming in and calculate the data to be displayed in the graphs),
+ - CRUD's for managing timespans and locations,
+ - use the timespans / locations when displaying data.
 
-Oh, and did I mention we were given 4 weeks to complete this mission...
+Oh, and did we mention we were only given 4 weeks to complete this mission...
 
 ## The Ingredients
 So given all the requirements listed above and the fact we didn't have a lot of time to waste, 
@@ -107,7 +107,7 @@ Some great use cases for JavaScript across the stack are:
 - Internet of Things,
 - real-time finance (stocks),
 - monitoring applications,
--  event-driven applications,
+- event-driven applications,
 - server-side proxies,
 - many more...
 
@@ -130,7 +130,7 @@ Non-Blocking:<br>
 <img alt="blocking-vs-non-blocking" src="{{ '/img/stairwaytohealth/blocking-vs-non-blocking.png' | prepend: site.baseurl }}" class="image fit">
 
 ## Setting up our dev environment / build
-The front-end part of this was really easy. We used angular-cli to generate a new project. In the future this also gave us the advantage of generating new components, services, pipes and much more. 
+The front-end part of this was really easy. We used angular-cli to generate a new project. In the future this also gave us the advantage of generating new components, services, pipes, testing and much more. 
 Also for the charts and translations we choosse for easy to use libraries like Highcharts and ngx-translate (previous ng2-translate).
  
 For the backend we decided to go with gulp. We added some tasks to transpile our server site TypeScript files to JavaScript so that node can execute it. For local serving we created a sequence task that combines running 'ng build' from the angular-cli and a gulp task to use 'nodemon' for running our server and restarting on changes. When working on the frontend, doing an 'ng build' was a bit too slow, therefore we added a --standalone flag, to the serve task so that we could just build the backend application and do the frontend serve with 'ng serve' which is a lot more performant than having to do a 'ng build' on every change.
@@ -169,7 +169,8 @@ The timestamp represents the time that the sensor has sent it's message to the M
 After we defined our model / schema of our logs, it was simply adding an endpoint to our express router and our first feature was ready. Well not exactly, we needed to trigger an event to refresh the data on our dashboard, but we'll get back to this later.
 
 **The Dashboard**<br>
-Since we created an Angular(4) application, we took advantage of the great features of angular-cli which makes it really easy to get a new project up and running and generate new components, services and much more. We started by adding all the components needed for the application and adding the Proximus styling to the project. After that we imported the Highcharts library from NPM to first make the charts on the homepage and later making the charts for the detailed views. All the charts where first made with mock data so that we perfectly could say from the backend what data we needed and in which format. From now on we knew how our JSON for the charts has to be made and we could implement the api endpoints for the dashboard and the details page. Finally after adding all the charts we started on adding the different languages to the application. Here we got our biggest 'lesson learned', it is much faster to start with I18N then to end with it, this is because you have to find all the normal text in the HTML files and copy them to the JSON-files. ALso we had to fast create a translation list that the business could translate for us. 
+Since we created an Angular(4) application, we took advantage of the great features of angular-cli which makes it really easy to get a new project up and running and generate new components, services, tests and much more. We started by adding all the components needed for the application and adding the Proximus styling to the project. After that we imported the Highcharts library from NPM to first make the charts on the homepage and later making the charts for the detailed views. All the charts where first made with mock data so that we perfectly could say from the backend what data we needed and in which format. From now on we knew how our JSON for the charts has to be made and we could implement the api endpoints for the dashboard and the details page. Finally after adding all the charts we started on adding the different languages to the application. Here we got our biggest 'lesson learned', it is much faster to start with I18N then to end with it, this is because you have to find all the normal text in the HTML files and copy them to the JSON-files. ALso we had to fast create a translation list that the business could translate for us. 
+
 
 **Mongo Aggregates**<br>
 So for displaying the daily, weekly and total counts below the buildings, we had to get this data from the database, keeping in mind that we would have to iterate over millions of sensor logs (at the time of writing this blogpost 1.4 million over 4 months). We had to make sure it was performant. This is where the mongo aggregates come in handy. In stead of (say) looping over the results and adding them up, we let mongo take care of this with the '$sum' operator which in code looks like the following:
