@@ -8,7 +8,7 @@
       for (var i = 0; i < results.length; i++) {  // Iterate over the results
         var item = store[results[i].ref];
 
-        appendString += '<article onclick="location.href = ' + item.url + '">';
+        appendString += '<article onclick="openPage(event, ' + item.url + ')">';
         appendString += '<a href="' + item.url + '"><img src="' + item.image + '" alt="" class="article-image"><h3 class="major">' + item.title + '</h3></a>';
         appendString += '<p>' + item.date + '</p>';
         appendString += '<a href="' + item.url + '" class="special">Read more</a>';
