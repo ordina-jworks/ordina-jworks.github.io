@@ -16,7 +16,7 @@ comments: true
 ## What is Stairway to Health
 In an effort to improve worker health in a fun and engaging way, Proximus wanted to encourage their employees to take the stairs instead of the elevator.
 This is when the idea of a little game between the three towers came along. 
-On different dashboards across proximus and on the Stairway to Health website, the employees could see which tower had the most employees taking the stairs.
+On different dashboards across Proximus and on the Stairway to Health website, the employees could see which tower had the most employees taking the stairs.
 
 <img alt="buildings" src="{{ '/img/stairwaytohealth/buildings.jpg' | prepend: site.baseurl }}" class="image fit">
 <img alt="overview" src="{{ '/img/stairwaytohealth/overview.jpg' | prepend: site.baseurl }}" class="image fit">
@@ -53,24 +53,24 @@ This way every time a log comes in from the sensor, we get the decoded data post
 
 ## The Requirements
 - The usage of the stairways is measured and the results should be visualized on large screens in the towers. 
-- These screens should have a qr-code so that employees can easily visit the application on their mobile devices. 
+- These screens should have a QR code so that employees can easily visit the application on their mobile devices. 
 - When visiting the website, they should be able to click on the results to get a more detailed view of the data. 
-- The frontend application should be available in dutch and french and the dashboard should switch between these languages every minute when viewing it on the large screens.
+- The frontend application should be available in Dutch and French and the dashboard should switch between these languages every minute when viewing it on the large screens.
 - Admins should be able to manage locations (towers) and chart timespans. 
-- It should have an info page with some information about the project and it's purpose.
+- It should have an info page with some information about the project and its purpose.
 
 So technically this translates to build an application that:
  - Has an endpoint to receive logs from the MyThings Application,
- - Stores the data to it's own database,
+ - Stores the data to its own database,
  - Show the data in charts that have multiple layers to see more/less details,
  - Shows the ratio of the results per tower,
  - The frontend dashboard data has to reload automatically (since it is shown on some big screens @ Proximus),
  - Add multi-language (automatically switch languages when viewing on tower's large screens),
  - Is performant (able to handle many logs coming in and calculate the data to be displayed in the graphs),
- - CRUD's for managing timespans and locations,
+ - CRUDs for managing timespans and locations,
  - Use the timespans / locations when displaying data.
 
-Oh, and did we mention we were only given 4 weeks to complete this mission...
+Oh, and did we mention we were only given four weeks to complete this mission...
 
 
 ## The Ingredients
@@ -78,16 +78,16 @@ So given all the requirements listed above and the fact we didn't have a lot of 
 we chose to use a **MEAN(TS)** stack. 
 MEAN stands for MongoDB Express Angular and NodeJS. 
 It's possible to use the mean stack with plain JavaScript, 
-we chose to implement it with TypeScript since we wanted some strong typings on the backend application and we were going to use Angular 4 on the front-end which comes with TypeScript as well.
+we chose to implement it with TypeScript since we wanted some strong typings on the backend application and we were going to use Angular 4 on the frontend which comes with TypeScript as well.
 
 ### NodeJs:
 Write event driven applications with asynchronous I/O powered by the ultra fast Google V8 Engine. 
-Mostly known for running your local dev environment and automating build tasks for front-end developers. 
+Mostly known for running your local dev environment and automating build tasks for frontend developers. 
 NodeJS is probably one of the best and easiest options out there for real-time applications (with socket.io), 
 which is exactly what we needed for our application.
 
 ### MongoDB:
-Great to work with when dealing with JavaScript Objects. Good driver support with mongoose for NodeJs. 
+Great to work with when dealing with JavaScript Objects. Good driver support with Mongoose for NodeJs. 
 Document based structure, which makes it really flexible when it comes to modelling and it's extremely scalable. 
 We also took advantage of the very performant aggregation functionality for dealing with large amounts of data.
 
@@ -97,17 +97,17 @@ middleware, handeling requests/responses, serving files from the filesystem, con
 and much more.
 
 ### Angular(4):
-A TypeScript-based open-source front-end web application platform led by the Angular Team at Google and by a community of individuals and corporations to address all of the parts of the developer's workflow while building complex web applications.
+A TypeScript-based open-source frontend web application platform led by the Angular Team at Google and by a community of individuals and corporations to address all of the parts of the developer's workflow while building complex web applications.
 
 ### Socket.IO:
-Socket.IO enables real-time bidirectional event-based communication. It works on every platform, browser or device, focusing equally on reliability and speed. To trigger events on our front-end application we used this great library to be able to detect when new data has been received and refresh the dashboard.
+Socket.IO enables real-time bidirectional event-based communication. It works on every platform, browser or device, focusing equally on reliability and speed. To trigger events on our frontend application we used this great library to be able to detect when new data has been received and refresh the dashboard.
 
 ### Highcharts:
 Interactive JavaScript library for creating dynamic charts. Highcharts is based on native browser technologies and not reinvent the wheel. Thousands of developers have contributed their work for us to use in our own projects. Also backwards compatible for IE.
 
 
 ## JavaScript across the stack
-Not only does it make development quite a bit faster and easier by having a large community with lots of reusable code for your application (npm), it also lowers the barriers between front-end and backend developers by using the same programming language over the entire stack, so more efficiency and faster, leaner development which in turn means lower development costs. 
+Not only does it make development quite a bit faster and easier by having a large community with lots of reusable code for your application (npm), it also lowers the barriers between frontend and backend developers by using the same programming language over the entire stack, so more efficiency and faster, leaner development which in turn means lower development costs. 
 Also worth noting is that JavaScript currently is THE most popular programming language, so more developers will be able to easily understand and contribute to the application if needed. 
 And probably the most important criteria: when it comes to cloud hosting, RAM is probably the main influencing factor when it comes to pricing. NodeJs uses less RAM than comparable Java applications.
 
@@ -151,7 +151,7 @@ To demonstrate how this works, I'll give you an example in pseudo code for readi
 
 
 ## Setting up our dev environment / build
-The front-end part of this was really easy. 
+The frontend part of this was really easy. 
 We used angular-cli to generate a new project. 
 In the future this also gave us the advantage of generating new components, services, pipes, testing and much more. 
 Also for the charts and translations we choose for easy to use libraries like Highcharts and ngx-translate (previous ng2-translate).
@@ -237,7 +237,7 @@ For this one to be clear we're going to skip ahead in time and show a high level
 The bin (js) file is where we create our http, https and socket servers. To communicate between them, we use the node event emitter. 
 The server.ts file (let's call it the app) gets bootstrapped on to these servers and when creating the app, we pass the created event emitter to it. 
 This enables us to listen and broadcast events back and forward. 
-The event emitter emits events between the backend services and the socket.io server emits events to our front-end application.
+The event emitter emits events between the backend services and the socket.io server emits events to our frontend application.
 
 So in our case, to let the frontend know when the sensor-log endpoint has received a message, we emit a `log-received` event on the node event emitter. 
 In the socket IO server we are listening on this event and we broadcast a 'data' event to every connected frontend application. 
