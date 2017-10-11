@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [michael_vervloet, ines_van_stappen, kevin_van_den_abeele]
-title: 'Stairway to Health with IoT ft. MEAN(TS)'
+title: 'Stairway to Health with IoT and MEAN(TS)'
 image: /img/stairwaytohealth/stairway-to-health.jpeg
 tags: [NodeJS, MongoDB, Angular,Angular4, ExpressJS, Express, TypeScript, Angular-CLI, Gulp, Internet of Things, IoT, LoRa, Proximus]
 category: IoT
@@ -277,7 +277,7 @@ public sockets(eventEmitter, io){
 ## Configuration CRUD
 Since we did not want our configuration to be hard coded, we added some configuration screens to be able to change the time spans and entities (towers).
 
-<div style="margin:0px auto;">
+<div style="text-align: center; margin:0px auto;">
     <a href="{{ '/img/stairwaytohealth/crud1.png' | prepend: site.baseurl }}" data-lightbox="crud" data-title="Entities CRUD">
         <img alt="crud1" src="{{ '/img/stairwaytohealth/crud1.png' | prepend: site.baseurl }}" class="image fit" style="width: 48%; display: inline-block;">
     </a>
@@ -334,15 +334,17 @@ The client could then use that token to prove that he is logged in as admin.
 ## Deploy
 Finally we deployed it to the Proximus data center and watched the Proximus employees take on the challenge.
 
- <a href="{{ '/img/stairwaytohealth/result1.jpg' | prepend: site.baseurl }}" data-lightbox="results" data-title="Large screen @ Proximus towers">
-    <img alt="result1" src="{{ '/img/stairwaytohealth/result1.jpg' | prepend: site.baseurl }}" class="image fit" style="max-width: 600px; margin:0px auto;">
-</a>
-<a href="{{ '/img/stairwaytohealth/result2.jpg' | prepend: site.baseurl }}" data-lightbox="results" data-title="Informing the employees">
-    <img alt="result2" src="{{ '/img/stairwaytohealth/result2.jpg' | prepend: site.baseurl }}" class="image fit" style="max-width: 600px; margin:0px auto;">
-</a>
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/stairwaytohealth/result1.jpg' | prepend: site.baseurl }}" data-lightbox="results" data-title="Large screen @ Proximus towers">
+        <img alt="result1" src="{{ '/img/stairwaytohealth/result1.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 61.45%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/stairwaytohealth/result2.jpg' | prepend: site.baseurl }}" data-lightbox="results" data-title="Informing the employees">
+        <img alt="result2" src="{{ '/img/stairwaytohealth/result2.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 34.55%; display: inline-block;">
+    </a>
+</div>
+
 
 ## Conclusion
-
 After four hard weeks of working and a lot of lines of code written. 
 We delivered our project to Proximus and the contest could start.
  Things we would have done differently:
