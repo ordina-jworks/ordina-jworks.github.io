@@ -190,7 +190,7 @@ These applications show a full end-to-end implementation of the LoRa technology 
 </blockquote>
 
 <p style="text-align: center;">
-  <img class="image fit" style="max-width: 600px; margin:0px auto;" alt="Booze-o-meter at devoxx" src="/img/end-to-end-iot/booze-devoxx.jpg" />
+  <img class="image fit" style="width: auto; max-height: 500px; margin:0px auto;" alt="Booze-o-meter at devoxx" src="/img/end-to-end-iot/booze-devoxx.jpg" />
 </p>
 
 <blockquote>
@@ -198,33 +198,34 @@ These applications show a full end-to-end implementation of the LoRa technology 
 </blockquote>
 
 <h1 id="building-end-to-end-lora-iot-solutions">Building end-to-end LoRa Iot Solutions</h1>
-<p><strong>Building an enterprise IoT solution is challenging.</strong> Devices need to be enrolled, monitored and maintained.
-You can <strong>roll your own network</strong> and handle all of this yourself, this however will require quite the backend system to facilitate all of this.
+<p>Building an enterprise IoT solution is challenging. Devices need to be enrolled, monitored and maintained.
+You can roll your own network and handle all of this yourself, this however will require quite the backend system to facilitate all of this.
 The <strong>Proximus LoRa network</strong> in combination with their <strong>MyThings platform</strong> takes away most of this and allows us to focus on the actual applications.</p>
 
 <h2 id="technologies-overview">Technologies overview</h2>
 <p>For our rapid prototypes and small to medium applications we have chosen the following technical stack:</p>
-<ul>
-  <li><strong>Proximus LoRa network</strong> for LoRa <strong>connectivity</strong></li>
-  <li><strong>Proximus MyThings</strong> platform for <strong>device management</strong></li>
-  <li><strong>NodeJS</strong> with <strong>TypeScript</strong> on the <strong>backend</strong></li>
-  <li><strong>Angular</strong> on the <strong>frontend</strong> (The older versions are still on AngularJS)</li>
-</ul>
+<ol>
+  <li>Proximus LoRa network for LoRa connectivity</li>
+  <li>Proximus MyThings platform for device management</li>
+  <li>NodeJS with TypeScript on the backend</li>
+  <li>Angular on the frontend (The older versions are still on AngularJS)</li>
+</ol>
 
 <p>We will look into each item in full detail below:</p>
 
 <p style="text-align: center;">
   <img class="image fit" style="max-width: 300px; margin:0px auto;" alt="LoRa" src="/img/end-to-end-iot/lora.png" />
 </p>
-<h3 id="lora">LoRa</h3>
 
-<p><strong>LoRa</strong>, short for <strong>LoRaWAN is a LPWAN</strong> (Low Power Wide Area Network) is meant for wireless battery powered devices or ‘things’.
-It offers a <strong>low power, low bandwidth secure network</strong> to transceive information <strong>across large distances.</strong> The network is laid out in star topology and can easily be extended by placing more base stations also called LoRa gateways.</p>
+<h3 id="1-lora">1. LoRa</h3>
+
+<p>LoRa, short for LoRaWAN is a LPWAN (Low Power Wide Area Network) is meant for wireless battery powered devices or ‘things’.
+It offers a low power, low bandwidth secure network to transceive information across large distances. The network is laid out in star topology and can easily be extended by placing more base stations also called LoRa gateways.</p>
 
 <p>Some network parameters:</p>
 <ul>
-  <li><strong>Range of 5 to 15 kilometers</strong> (3,1 to 9,3 miles) depending on the conditions and signal strength.</li>
-  <li><strong>Data rate of 0,3 kbps to 50 kbps</strong></li>
+  <li>Range of 5 to 15 kilometers (3,1 to 9,3 miles) depending on the conditions and signal strength.</li>
+  <li>Data rate of 0,3 kbps to 50 kbps</li>
 </ul>
 
 <p>More detailed information and the full specifications can be found on the <a href="https://www.lora-alliance.org/technology" target="_blank">LoRa Alliance website</a>.</p>
@@ -232,84 +233,89 @@ It offers a <strong>low power, low bandwidth secure network</strong> to transcei
 <p style="text-align: center;">
   <img class="image fit" style="max-width: 300px; margin:0px auto;" alt="Proximus MyThings" src="/img/end-to-end-iot/mythings.png" />
 </p>
-<h3 id="proximus-mythings">Proximus MyThings</h3>
 
-<p><a href="https://mythings.proximus.be/#/login/" target="_blank">Proximus MyThings</a> is a LoRa <strong>device onboarding</strong> and management platform. 
-It is used to enroll devices and sensors, to <strong>map their data to specific endpoints</strong> and provide tools for device management.</p>
+<h3 id="2-proximus-mythings">2. Proximus MyThings</h3>
+
+<p><a href="https://mythings.proximus.be/#/login/" target="_blank">Proximus MyThings</a> is a LoRa device onboarding and management platform. 
+It is used to enroll devices and sensors, to map their data to specific endpoints and provide tools for device management.</p>
 
 <p>The platform consists of three main parts:</p>
 <ul>
-  <li>MyThings <strong>Builder</strong>: Charts and <strong>sensor values</strong> (containers)</li>
-  <li>Mythings <strong>Manager</strong>: Online <strong>device onboarding</strong> and user management</li>
-  <li>MyThings <strong>Scanner</strong>: Offline (in the field) <strong>device onboarding</strong></li>
+  <li>MyThings Builder: Charts and sensor values (containers)</li>
+  <li>Mythings Manager: Online device onboarding and user management</li>
+  <li>MyThings Scanner: Offline (in the field) device onboarding</li>
 </ul>
 
 <p style="text-align: center;">
   <img class="image fit" style="max-width: 250px; margin:0px auto;" alt="NodeJS" src="/img/end-to-end-iot/node.png" />
 </p>
-<h3 id="nodejs--typescript">Node.js &amp; TypeScript</h3>
+
+<h3 id="3-nodejs--typescript">3. Node.js &amp; TypeScript</h3>
 
 <p>Most people should be familiar with <a href="https://nodejs.org/en/" target="_blank">Node</a>.
-It is the <strong>JavaScript runtime</strong> built upon the <strong>V8 engine</strong> that Google Chrome uses.
-It is a <strong>lightweight and efficient runtime</strong> that uses an <strong>event-driven, non-blocking I/O model.</strong>
-This combined with the added <strong>type safety</strong> that <strong>TypeScript</strong> provides makes this an excellent choice for rapid prototyping.</p>
+It is the JavaScript runtime built upon the V8 engine that Google Chrome uses.
+It is a lightweight and efficient runtime that uses an event-driven, non-blocking I/O model.
+This combined with the added type safety that TypeScript provides makes this an excellent choice for rapid prototyping.</p>
 
-<p>Some of our own <strong>demo applications</strong> make use of the <strong>Node Simple Server</strong> (NSS) application, while others just use <strong><a href="https://expressjs.com" target="_blank">Express</a>.</strong> This depends on the needs of the project.
-If you are interested in the <strong>NSS project</strong>, we have a <strong>blog post</strong> about it <a href="http://ordina-jworks.github.io/iot/2017/01/21/Node-with-TypeScript.html" target="_blank">here</a> and it is <a href="https://github.com/ordina-jworks/NodeSimpleServer" target="_blank">on GitHub</a> too!</p>
+<p>Some of our own demo applications make use of the Node Simple Server (NSS) application, while others just use <a href="https://expressjs.com" target="_blank">Express</a>. This depends on the needs of the project.
+If you are interested in the NSS project, we have a blog post about it <a href="http://ordina-jworks.github.io/iot/2017/01/21/Node-with-TypeScript.html" target="_blank">here</a> and it is <a href="https://github.com/ordina-jworks/NodeSimpleServer" target="_blank">on GitHub</a> too!</p>
 
 <p style="text-align: center;">
   <img class="image fit" style="max-width: 200px; margin:0px auto;" alt="Angular" src="/img/end-to-end-iot/angular.png" />
 </p>
-<h3 id="angular">Angular</h3>
+
+<h3 id="4-angular">4. Angular</h3>
 
 <p>Like with Node, most people should be familiar with <a href="https://angular.io" target="_blank">Angular</a> (or the older AngularJS).
-<strong>Angular</strong> is a development platform for building <strong>modern single page web applications.</strong>
-It is a <strong>complete rewrite</strong> of the older <strong>AngularJS</strong> and therefor has some big changes in how things work.
-Angular is easy to set up and use, it also is fully <strong>cross platform/browser compatible.</strong></p>
+Angular is a development platform for building modern single page web applications.
+It is a complete rewrite of the older AngularJS and therefor has some big changes in how things work.
+Angular is easy to set up and use, it also is fully cross platform/browser compatible.</p>
 
 <h2 id="our-demo-applications">Our demo applications</h2>
 <p>All our demo applications are publicly available in the <a href="https://github.com/ordina-jworks/NodeSimpleServer" target="_blank">GitHub project of NSS</a>.
 These demo applications are ever evolving as we are currently porting them from the older AngularJS to Angular with TypeScript.</p>
 
-<p>Our <strong>demo applications</strong> have been <strong>showcased</strong> and used at <strong>several events</strong> including internal Proximus events as well as conferences like <a href="https://devoxx.be" target="_blank">Devoxx</a>, <a href="https://techorama.be" target="_blank">Techorama</a> and <a href="https://iot-convention.eu/en/home/" target="_blank">The Belgian IoT convention</a> in Mechelen.</p>
+<p>Our demo applications have been showcased and used at several events including internal Proximus events as well as conferences like <a href="https://devoxx.be" target="_blank">Devoxx</a>, <a href="https://techorama.be" target="_blank">Techorama</a> and <a href="https://iot-convention.eu/en/home/" target="_blank">The Belgian IoT convention</a> in Mechelen.</p>
 
 <p>Below we will go into detail about each application and how it came to be, as well as the iterations they went through.</p>
 
 <p>Aside from the <strong>Slotmachine</strong> and the <strong>Booze-o-meter</strong> we’ve also developed the <strong>Stairway to Health</strong> application for Proximus. 
 A blog post about this will be available in October.
-For the impatient, the <strong>IoT talk</strong> at the annual <strong>JWorks JOIN</strong> event covered this topic already and can be viewed <strong>on YouTube</strong>.</p>
+For the impatient, the IoT talk at the annual JWorks JOIN event covered this topic already and can be viewed on YouTube.</p>
 
-<p style="text-align: center;">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/BbnwrvfozUs?rel=0" frameborder="0" allowfullscreen=""></iframe>
-</p>
+<div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
+<iframe src="https://www.youtube.com/embed/BbnwrvfozUs?rel=0" width="100%" height="100%;" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0;"></iframe>
+</div>
 
-<h3 id="the-slotmachine">The Slotmachine</h3>
+<hr />
+
+<h3 id="1-the-slotmachine">1. The Slotmachine</h3>
 <p>The Slotmachine application does mostly what its name suggests, but with a twist.</p>
 
 <p>The idea is simple:
-If required, the <strong>player registers</strong> him or herself in the application.
-A simple <strong>push button</strong> sends a <strong>signal to</strong> the <strong>backend</strong> application. 
-The <strong>application dispatches an event</strong> via a <strong>websocket</strong> to the frontend application which turns the Slotmachine. 
-The <strong>Slotmachine</strong> can either <strong>result in a win or a loss</strong>. 
-A <strong>maximum of three attempts</strong> are possible per player, after which a new player registration is required to play again.
-The player <strong>registration can be disabled</strong> depending on the requirements of the event/conference.</p>
+If required, the player registers him or herself in the application.
+A simple push button sends a signal to the backend application. 
+The application dispatches an event via a websocket to the frontend application which turns the Slotmachine. 
+The Slotmachine can either result in a win or a loss. 
+A maximum of three attempts are possible per player, after which a new player registration is required to play again.
+The player registration can be disabled depending on the requirements of the event/conference.</p>
 
-<p>The <strong>light effects</strong> are also <strong>controlled by</strong> the <strong>application.</strong>
-If the user has registered the <strong>gentle fading</strong> switches to a <strong>running light</strong> effect and if the user wins, the effect changes to a <strong>carrousel of different colors</strong>.
+<p>The light effects are also controlled by the application.
+If the user has registered the gentle fading switches to a running light effect and if the user wins, the effect changes to a carrousel of different colors.
 The effects are controlled the same way the button is controlled but in the opposite direction. 
-The frontend application sends a websocket <strong>event to</strong> the <strong>backend</strong> application which <strong>controls</strong> the Arduino and the <strong>LEDs.</strong></p>
+The frontend application sends a websocket event to the backend application which controls the Arduino and the LEDs.</p>
 
-<p style="text-align: center;">
-  <img class="image fit" style="max-width: 400px; margin:0px auto;" alt="Slotmachine application" src="/img/end-to-end-iot/slotmachine-1.jpg" />
-  <img class="image fit" style="max-width: 400px; margin:0px auto;" alt="Slotmachine application" src="/img/end-to-end-iot/slotmachine-2.jpg" />
-</p>
+<div style="text-align:center; margin:0px auto;">
+  <img class="image fit" style="width: 48%; display: inline-block;" alt="Slotmachine application" src="/img/end-to-end-iot/slotmachine-1.jpg" />
+  <img class="image fit" style="width: 48%; display: inline-block;" alt="Slotmachine application" src="/img/end-to-end-iot/slotmachine-2.jpg" />
+</div>
 
 <blockquote>
   <p>The Slotmachine V1 test setup.</p>
 </blockquote>
 
 <h4 id="v1">V1</h4>
-<p>The first version was <strong>not LoRa enabled</strong> and used a push button and <strong>Arduino integration</strong> via Johnny-Five to allow interaction. This meant that an Arduino always needed to be connected to the server or laptop that was used as a server.</p>
+<p>The first version was not LoRa enabled and used a push button and Arduino integration via Johnny-Five to allow interaction. This meant that an Arduino always needed to be connected to the server or laptop that was used as a server.</p>
 
 <p style="text-align: center;">
   <img class="image fit" style="max-width: 650px; margin:0px auto;" alt="Slotmachine application at devoxx 2015" src="/img/end-to-end-iot/slotmachine-devoxx.jpg" />
@@ -322,30 +328,34 @@ The frontend application sends a websocket <strong>event to</strong> the <strong
 <h4 id="v2">V2</h4>
 <p>The second version of the Slotmachine application swapped out the Arduino and the required wired connection with a <strong>LoRa enabled push button.</strong></p>
 
-<p>This allowed us to <strong>demonstrate the capabilities</strong> of the <strong>LoRa network</strong> in a fun and engaging way.
+<p>This allowed us to demonstrate the capabilities of the LoRa network in a fun and engaging way.
 The application remained unchanged for the user, and was adapted to be more configurable:
 Setting a win chance (up to 100%) and different images/styling for different events.</p>
 
-<h3 id="the-booze-o-meter">The Booze-o-meter</h3>
-<p>The Booze-o-meter application is a drink dispenser that <strong>relays liquid fill level</strong> in the dispenser.
+<hr />
+
+<h3 id="2-the-booze-o-meter">2. The Booze-o-meter</h3>
+<p>The Booze-o-meter application is a drink dispenser that relays liquid fill level in the dispenser.
 It is a fun example to demonstrate how measuring the fill level of a container can be achieved.
-This <strong>idea can be applied</strong> to container in a whole range of different industries and use cases. 
-From <strong>oil tanks</strong> to <strong>garbage cans</strong> and to <strong>containers.</strong></p>
+This idea can be applied to container in a whole range of different industries and use cases. 
+From oil tanks to garbage cans and to containers.</p>
 
 <p>The application setup is extremely similar to the Slotmachine application. 
-The <strong>sensors relay</strong> their <strong>data</strong> via the <strong>MyThings platform</strong> to <strong>our backend</strong>, which in turns <strong>dispatches an event</strong> on a websocket so the <strong>frontend</strong> application can <strong>display the change.</strong></p>
+The sensors relay their data via the MyThings platform to our backend, which in turns dispatches an event on a websocket so the frontend application can display the change.</p>
 
-<p style="text-align: center;">
-  <img class="image fit" style="max-width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-1.jpg" />
-   <img class="image fit" style="max-width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-2.jpg" />
-</p>
+<div style="text-align:center; margin:0px auto;">
+  <img class="image fit" style="width: 48%; display: inline-block;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-1.jpg" />
+  <img class="image fit" style="width: 48%; display: inline-block;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-2.jpg" />
+</div>
 
 <blockquote>
   <p>The Booze-o-meter V1 test setup with regular water.</p>
 </blockquote>
 
+<hr />
+
 <h4 id="v1-1">V1</h4>
-<p>The first version of the Booze-o-meter used <strong>three sensors</strong> that can <strong>detect a liquid</strong> through a thin plastic container. This allowed us to <strong>represent the level</strong> in the container <strong>in a coarse way</strong>:</p>
+<p>The first version of the Booze-o-meter used three sensors that can detect a liquid through a thin plastic container. This allowed us to represent the level in the container in a coarse way:</p>
 <ul>
   <li>FULL (initial state)</li>
   <li>HIGH (sensor)</li>
@@ -353,28 +363,30 @@ The <strong>sensors relay</strong> their <strong>data</strong> via the <strong>M
   <li>LOW (sensor)</li>
 </ul>
 
-<p>The sensors have a <strong>simple binary readout</strong>, <code class="highlighter-rouge">true</code> if liquid is detected, <code class="highlighter-rouge">false</code> if not.
+<p>The sensors have a simple binary readout, <code class="highlighter-rouge">true</code> if liquid is detected, <code class="highlighter-rouge">false</code> if not.
 This data gets represented on the frontend application as the four states as mentioned above.</p>
 
+<hr />
+
 <h4 id="v2-1">V2</h4>
-<p style="text-align: center;">
-  <img class="image fit" style="max-width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-3.jpg" />
-   <img class="image fit" style="max-width: 350px; margin:0px auto;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-4.jpg" />
-</p>
+<div style="text-align:center; margin:0px auto;">
+  <img class="image fit" style="width: 48%; display: inline-block;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-3.jpg" />
+  <img class="image fit" style="width: 48%; display: inline-block;" alt="Booze-o-meter application" src="/img/end-to-end-iot/booze-4.jpg" />
+</div>
 
 <blockquote>
   <p>The Booze-o-meter V2 at Devoxx Belgium 2016 with actual liquor!</p>
 </blockquote>
 
-<p>The second version of the Booze-o-meter application allowed us to get a more <strong>detailed reading</strong> of the remaining <strong>fluid level</strong> in the container thanks to the addition of an <strong>ultrasonic sensor.</strong> 
-This sensor can <strong>measure</strong> the <strong>distance</strong> between itself and a surface, in this case the surface of the liquid in the container.</p>
+<p>The second version of the Booze-o-meter application allowed us to get a more detailed reading of the remaining fluid level in the container thanks to the addition of an ultrasonic sensor.
+This sensor can measure the distance between itself and a surface, in this case the surface of the liquid in the container.</p>
 
-<p>The application was updated to support this <strong>more granular approach</strong> that is able to show the level in the container <strong>accurately to 1%.</strong></p>
+<p>The application was updated to support this more granular approach that is able to show the level in the container accurately to 1%.</p>
 
 <h2 id="conclusion">Conclusion</h2>
 
-<p>Our demo applications have <strong>served us well</strong> in bringing across the idea of LoRa to customers and other interested developers. 
-We will <strong>continue to evolve our demo applications</strong> by adding new features, technologies and <strong>keeping them up to date.</strong></p>
+<p>Our demo applications have served us well in bringing across the idea of LoRa to customers and other interested developers. 
+We will continue to evolve our demo applications by adding new features, technologies and keeping them up to date.</p>
 
 <h3 id="useful-links--further-reading">Useful links &amp; further reading</h3>
 <ul>
