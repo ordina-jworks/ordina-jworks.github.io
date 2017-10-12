@@ -12,7 +12,7 @@ comments: true
 These applications show a full end-to-end implementation of the LoRa technology leveraging the Proximus MyThings Internet of Things platform.
 
 <p style="text-align: center;">
-  <img class="image fit" style="max-width: 600px; margin:0px auto;" alt="Booze-o-meter at devoxx" src="/img/end-to-end-iot/booze-devoxx.jpg">
+  <img class="image fit" style="width: auto; max-height: 500px; margin:0px auto;" alt="Booze-o-meter at devoxx" src="/img/end-to-end-iot/booze-devoxx.jpg">
 </p>
 
 > The Booze-o-meter V2 at Devoxx Belgium 2016.
@@ -32,11 +32,11 @@ For our rapid prototypes and small to medium applications we have chosen the fol
 
 We will look into each item in full detail below:
 
-
 <p style="text-align: center;">
   <img class="image fit" style="max-width: 300px; margin:0px auto;" alt="LoRa" src="/img/end-to-end-iot/lora.png">
 </p>
-### LoRa
+
+### 1. LoRa
 
 LoRa, short for LoRaWAN is a LPWAN (Low Power Wide Area Network) is meant for wireless battery powered devices or 'things'.
 It offers a **low power, low bandwidth secure network** to transceive information **across large distances.** The network is laid out in star topology and can easily be extended by placing more base stations also called LoRa gateways.
@@ -47,11 +47,11 @@ Some network parameters:
 
 More detailed information and the full specifications can be found on the [LoRa Alliance website](https://www.lora-alliance.org/technology){:target="_blank"}.
 
-
 <p style="text-align: center;">
   <img class="image fit" style="max-width: 300px; margin:0px auto;" alt="Proximus MyThings" src="/img/end-to-end-iot/mythings.png">
 </p>
-### Proximus MyThings 
+
+### 2. Proximus MyThings 
 
 [Proximus MyThings](https://mythings.proximus.be/#/login/){:target="_blank"} is a LoRa **device onboarding** and management platform. 
 It is used to enroll devices and sensors, to **map their data to specific endpoints** and provide tools for device management.
@@ -61,11 +61,11 @@ The platform consists of three main parts:
 - Mythings **Manager**: Online **device onboarding** and user management
 - MyThings **Scanner**: Offline (in the field) **device onboarding**
 
-
 <p style="text-align: center;">
   <img class="image fit" style="max-width: 250px; margin:0px auto;" alt="NodeJS" src="/img/end-to-end-iot/node.png">
 </p>
-### Node.js &amp; TypeScript
+
+### 3. Node.js &amp; TypeScript
 
 Most people should be familiar with [Node](https://nodejs.org/en/){:target="_blank"}.
 It is the **JavaScript runtime** built upon the **V8 engine** that Google Chrome uses.
@@ -75,11 +75,11 @@ This combined with the added **type safety** that **TypeScript** provides makes 
 Some of our own **demo applications** make use of the **Node Simple Server** (NSS) application, while others just use **[Express](https://expressjs.com){:target="_blank"}.** This depends on the needs of the project.
 If you are interested in the **NSS project**, we have a **blog post** about it [here](http://ordina-jworks.github.io/iot/2017/01/21/Node-with-TypeScript.html){:target="_blank"} and it is [on GitHub](https://github.com/ordina-jworks/NodeSimpleServer){:target="_blank"} too!
 
-
 <p style="text-align: center;">
   <img class="image fit" style="max-width: 200px; margin:0px auto;" alt="Angular" src="/img/end-to-end-iot/angular.png">
 </p>
-### Angular
+
+### 4. Angular
 
 Like with Node, most people should be familiar with [Angular](https://angular.io){:target="_blank"} (or the older AngularJS).
 **Angular** is a development platform for building **modern single page web applications.**
@@ -99,11 +99,13 @@ Aside from the **Slotmachine** and the **Booze-o-meter** we've also developed th
 A blog post about this will be available in October.
 For the impatient, the **IoT talk** at the annual **JWorks JOIN** event covered this topic already and can be viewed **on YouTube**.
 
-<p style="text-align: center;">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/BbnwrvfozUs?rel=0" frameborder="0" allowfullscreen></iframe>
-</p>
+<div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
+<iframe src="https://www.youtube.com/embed/BbnwrvfozUs?rel=0" width="100%" height="100%;" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0;"></iframe>
+</div>
 
-### The Slotmachine
+<hr />
+
+### 1. The Slotmachine
 The Slotmachine application does mostly what its name suggests, but with a twist.
 
 The idea is simple:
@@ -134,7 +136,6 @@ The first version was **not LoRa enabled** and used a push button and **Arduino 
 </p>
 
 > The Slotmachine V1 at Devoxx Belgium 2015.
- 
 
 #### V2
 The second version of the Slotmachine application swapped out the Arduino and the required wired connection with a **LoRa enabled push button.**
@@ -143,8 +144,9 @@ This allowed us to demonstrate the **capabilities** of the **LoRa network** in a
 The application remained unchanged for the user, and was adapted to be more configurable:
 Setting a win chance (up to 100%) and different images/styling for different events.
 
+<hr />
 
-### The Booze-o-meter
+### 2. The Booze-o-meter
 The Booze-o-meter application is a drink dispenser that **relays liquid fill level** in the dispenser.
 It is a fun example to demonstrate how measuring the fill level of a container can be achieved.
 This **idea can be applied** to container in a whole range of different industries and use cases. 
@@ -160,6 +162,7 @@ The **sensors relay** their **data** via the **MyThings platform** to **our back
 
 > The Booze-o-meter V1 test setup with regular water.
 
+<hr />
 
 #### V1
 The first version of the Booze-o-meter used **three sensors** that can **detect a liquid** through a thin plastic container. This allowed us to **represent the level** in the container in a **coarse way**: 
@@ -170,6 +173,8 @@ The first version of the Booze-o-meter used **three sensors** that can **detect 
 
 The sensors have a simple **binary readout**, `true` if liquid is detected, `false` if not.
 This data gets represented on the frontend application as the four states as mentioned above.
+
+<hr />
 
 #### V2
 <div style="text-align:center; margin:0px auto;">
@@ -183,7 +188,6 @@ The second version of the Booze-o-meter application allowed us to get a more **d
 This sensor can **measure** the **distance** between itself and a surface, in this case the surface of the liquid in the container.
 
 The application was updated to support this more **granular approach** that is able to show the level in the container accurately to 1%.
-
 
 ## Conclusion
 
