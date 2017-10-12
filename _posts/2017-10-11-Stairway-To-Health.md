@@ -114,7 +114,7 @@ And probably the most important criteria: when it comes to cloud hosting, RAM is
 <img alt="performance" src="{{ '/img/stairwaytohealth/performance.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width:800px;">
 <small style="font-size: 70%;"><a target="_blank" href="https://www.ibm.com/developerworks/library/mo-nodejs-1/index.html">Source and more about these tests</a></small>
 
-Now that I've listed some of the pro's of full-stack JS, I should also mention that it might not be the best solution for computation-heavy backend applications.
+Now that I've listed some of the pros of full-stack JS, I should also mention that it might not be the best solution for computation-heavy backend applications.
 For projects like machine learning or heavy mathematical calculations the single CPU core and having only one thread that processes one request at a time might be easily blocked by a single compute-intensive task. 
 Yet, there are numerous ways to overcome this limitation. 
 By simply creating child processes or breaking complex tasks into smaller independent microservices.
@@ -158,11 +158,11 @@ Also for the charts and translations we choose for easy to use libraries like Hi
  
 For the backend we decided to go with gulp. 
 We added some tasks to transpile our server site TypeScript files to JavaScript so that node can execute it. 
-For local serving we created a sequence task that combines running 'ng build' from the angular-cli and a gulp task to use 'nodemon' for running our server and restarting on changes. 
-When working on the frontend, doing an 'ng build' was a bit too slow, therefore we added a --standalone flag, to the serve task so that we could just build the backend application and do the frontend serve with 'ng serve' which is a lot more performant than having to do a 'ng build' on every change.
+For local serving we created a sequence task that combines running `ng build` from the angular-cli and a gulp task to use `nodemon` for running our server and restarting on changes. 
+When working on the frontend, doing an 'ng build' was a bit too slow, therefore we added a `--standalone` flag, to the serve task so that we could just build the backend application and do the frontend serve with `ng serve` which is a lot more performant than having to do a 'ng build' on every change.
 Since we are using TypeScript throughout the application, it only felt right to use the TypeScript version of gulp as well. 
-It takes a little effort to get used to, but once you get the hang of it it makes writing gulp tasks a lot more fun and less error prone.
-Using the provided decorators our gulp tasks look something like the following:
+It takes a little effort to get used to, but once you get the hang of it, it makes writing gulp tasks a lot more fun and less error prone.
+Using the provided decorators, our gulp tasks look something like the following:
 ```typescript
 @Task()
     public environment(cb) {
@@ -179,7 +179,7 @@ and create sequence tasks with:
         return ['buildApp', 'runMochaTests'];
     }
 ```
-Now that we have a gulpfile.ts file, we need to ensure that the gulpfile gets transpiled as well, we did this by adding an npm script, so that we can use TypeScript compiler with the `tsc` command to transpile the file and make sure we are using the latest changes every time we use gulp.
+Now that we have a `gulpfile.ts` file, we need to ensure that the gulpfile gets transpiled as well, we did this by adding an npm script, so that we can use TypeScript compiler with the `tsc` command to transpile the file and make sure we are using the latest changes every time we use gulp.
 (to get the tsc command, install typescript globally with npm)
 
 ## Building Stairway to Health
@@ -194,7 +194,7 @@ In the MyThings application every sensor can have a `friendlyName1` and `friendl
 The sensors send a lot more data than just the magnetic pulse counts, therefore we needed the `container` field, to be able to filter on `counter` logs only (however, we store the other messages as well, maybe for future use). 
 The `value` field is the amount of times the sensor was triggered, in other words, the actual counts. And of course a `timestamp` since we will show the data in time based graphs.
 
-The `timestamp` represents the time that the sensor has sent its message to the MyThings application, we also wanted to keep track of when our (Stairway application) has received the log, so before saving we added one extra field to store this in our database.
+The `timestamp` represents the time that the sensor has sent its message to the MyThings application, we also wanted to keep track of when our application has received the log, so before saving we added one extra field to store this in our database.
 
 After we defined our model/schema of our logs, it was simply adding an endpoint to our express router and our first feature was ready. 
 Well not exactly, we needed to trigger an event to refresh the data on our dashboard, but we'll get back to this later.
@@ -202,15 +202,15 @@ Well not exactly, we needed to trigger an event to refresh the data on our dashb
 **The Dashboard**<br>
 Since we created an Angular(4) application, we took advantage of the great features of angular-cli which makes it really easy to get a new project up and running and generate new components, services, tests and much more. 
 We started by adding all the components needed for the application and adding the Proximus styling to the project. 
-After that we imported the Highcharts library from NPM to first make the charts on the homepage and later making the charts for the detailed views. 
-All the charts where first made with mock data so that we perfectly could say from the backend what data we needed and in which format. 
-From now on we knew how our JSON for the charts has to be made and we could implement the api endpoints for the dashboard and the details page. 
+After that we imported the Highcharts library from npm to first make the charts on the homepage and later making the charts for the detailed views. 
+All the charts were first made with mock data so that we could perfectly say from the backend what data we needed and in which format. 
+From now on we knew how our JSON for the charts had to be made and we could implement the api endpoints for the dashboard and the details page. 
 Finally after adding all the charts we started on adding the different languages to the application. Here we got our biggest 'lesson learned', it is much faster to start with I18N then to end with it, this is because you have to find all the normal text in the HTML files and copy them to the JSON-files. 
-ALso we had to fast create a translation list that the business could translate for us. 
+ALso we had to quickly create a translation list that the business could translate for us. 
 
 
 **Mongo Aggregates**<br>
-So for displaying the daily, weekly and total counts below the buildings, we had to get this data from the database, keeping in mind that we would have to iterate over millions of sensor logs (at the time of writing this blog post 1.4 million over 4 months). We had to make sure it was performant. This is where the mongo aggregates come in handy. In stead of (say) looping over the results and adding them up, we let mongo take care of this with the '$sum' operator which in code looks like the following:
+As for displaying the daily, weekly and total counts below the buildings, we had to get this data from the database, keeping in mind that we would have to iterate over millions of sensor logs (at the time of writing this blog post, 1.4 million over 4 months). We had to make sure it was performant. This is where the Mongo aggregates come in handy. Instead of looping over the results and adding them up, we let Mongo take care of this with the `$sum` operator which in code looks like the following:
 ```typescript
 this.sensorLogModel.aggregate([
                 {$match: {container: 'counter', value: {$ne: 0}}},
@@ -218,12 +218,12 @@ this.sensorLogModel.aggregate([
                 {$group: {_id: '$friendlyName1', total: {$sum: '$value'}}}
             ]);
 ```
-*Remember, we store all the logs, but we only need counter logs. So for a little more performance, we leave out the ones with value 0 (a lot of them in the weekends), that's what the $match is for*
-The result: an array with objects that have an `_id` field with `friendlyName1` as value and a `total` field with the sum of all (counter) values per tower. We repeat this for daily and weekly, but add a start and end date (which we simply create with TypeScript). $match then looks something like this:
+*Remember, we store all the logs, but we only need counter logs. So for a little more performance, we leave out the ones with value 0 (a lot of them in the weekends), that's what the `$match` is for*
+The result: an array with objects that have an `_id` field with `friendlyName1` as value and a `total` field with the sum of all (counter) values per tower. We repeat this for daily and weekly, but add a start and end date (which we simply create with TypeScript). `$match` then looks something like this:
 ```typescript
 {$match: {container: 'counter', value: {$ne: 0}, timestamp: {$gt: start, $lt: end}}}
 ```
-Later on we added some more calls to get the data by time span and location for the more detailed chart data, but you get the idea, we simply edit the timestamps or friendlyName1 (also by friendlyName2 on the hourly chart, which displays the hourly data per floor).
+Later on we added some more calls to get the data by time span and location for the more detailed chart data, but you get the idea, we simply edit the timestamps or `friendlyName1` (also by `friendlyName2` on the hourly chart, which displays the hourly data per floor).
 
 **Socket.IO**<br>
 Now that we have data that can be retrieved and displayed on the frontend, time to implement some way to let our frontend application know when we receive some new data, so that it in turn can do a request for that new data.
@@ -235,16 +235,16 @@ For this one to be clear we're going to skip ahead in time and show a high level
 </a>
 
 The bin (js) file is where we create our http, https and socket servers. To communicate between them, we use the node event emitter. 
-The server.ts file (let's call it the app) gets bootstrapped on to these servers and when creating the app, we pass the created event emitter to it. 
+The `server.ts` file (let's call it the app) gets bootstrapped onto these servers and when creating the app, we pass the created event emitter to it. 
 This enables us to listen and broadcast events back and forward. 
 The event emitter emits events between the backend services and the socket.io server emits events to our frontend application.
 
 So in our case, to let the frontend know when the sensor-log endpoint has received a message, we emit a `log-received` event on the node event emitter. 
-In the socket IO server we are listening on this event and we broadcast a 'data' event to every connected frontend application. 
+In the socket IO server we are listening on this event and we broadcast a `data` event to every connected frontend application. 
 The frontend applications are listening for this `data` event and refresh their data by calling the dashboard endpoints.
-However, since we have about 60 sensors sending data, this event was triggering quite a lot and with the chart rendering animations on our frontend application we had to wrap the 'log-received' in a timeout so that we would only refresh it once every 30 seconds (if a log was received).
+However, since we have about 60 sensors sending data, this event was triggering quite a lot and with the chart rendering animations on our frontend application we had to wrap the `log-received` in a timeout so that we would only refresh it once every 30 seconds (if a log was received).
 
-I've picked a few lines of code from our bin file to demonstrate how we pass the eventEmitter when bootstrapping our application on to the http and https services from node.
+I've picked a few lines of code from our bin file to demonstrate how we pass the `eventEmitter` when bootstrapping our application on to the http and https services from node.
 
 ```typescript
 const server = require('../dist/app/server');
@@ -257,7 +257,7 @@ const httpServer = http.createServer(server.Server.bootstrap(eventEmitter).app);
 const httpsServer = https.createServer(options, server.Server.bootstrap(eventEmitter).app);
 ```
 
-After that, we bootstrap the created https server on to the socket.io application. It too gets the same EventEmitter instance passed into its constructor.
+After that, we bootstrap the created https server on to the socket.io application. It too gets the same `EventEmitter` instance passed into its constructor.
 
 ```typescript
 const io = require('socket.io')(httpsServer);
@@ -288,10 +288,10 @@ Since we did not want our configuration to be hard coded, we added some configur
 </div>
 
 By the way, 'gewicht' in the first image stands for weight. 
-To make sure the ratio's are fair, we made sure that every tower has a 'weight' to multiply it's log values by. 
+To make sure the ratios are fair, we made sure that every tower has a 'weight' to multiply its log values by. 
 These weights are calculated by the amount of employees/tower, with the largest tower having a weight of 1.
 
-Lets take a look at how we set up our backend structure for creating crud endpoints.
+Let's take a look at how we set up our backend structure for creating crud endpoints.
 In our `/routes` directory we keep all files that define the urls and methods of every endpoint, and tell it which controller and method to use:<br>
 *timespan.route.ts*
 ```typescript
@@ -325,7 +325,8 @@ This checks a JWT token in the headers.
 We check the token to be valid. 
 If it's not valid, we send an `unauthorized` response, and if it is valid, we decode it and add it as a user object on the request. 
 This way we can access it in the controller and do some logic depending on its role, etc.
-`this.authenticate` is a method we added to the `core.route.ts` every route extends this super class so that we can put common code and middleware in this file.
+`this.authenticate` is a method we added to the `core.route.ts`.
+Every route extends this super class so that we can put common code and middleware in this file.
 
 JWT stands for JSON Web Token and is a JSON-based open standard for creating access tokens that assert some number of claims. 
 For example, a server could generate a token that has the claim `logged in as admin` and provide that to a client. 
@@ -345,12 +346,11 @@ Finally we deployed it to the Proximus data center and watched the Proximus empl
 
 
 ## Conclusion
-After four hard weeks of working and a lot of lines of code written. 
-We delivered our project to Proximus and the contest could start.
+After four hard weeks of working and writing many lines of code, we delivered our project to Proximus and the contest could start.
  Things we would have done differently:
- - Use mongo indexes and aggregation for large amounts of data.
- - Use javascript date in stead of timestamps in mongo, easier to create aggregate with dates. 
- - Dockerize! So far, the most work has gone in to getting the application deployed.
- - Implement I18N translations afterwards, better to add translations while working on the component.
- - Also we learned how complicated it can be to have one component with multiple switching charts. Instead of switching components.
+ - Use mongo indexes and aggregation for large amounts of data
+ - Use javascript date in stead of timestamps in mongo, easier to create aggregate with dates
+ - Dockerize! So far, the most work has gone into getting the application deployed
+ - Implement I18N translations at the beginning, as it is better to add translations while working on the component
+ - Also we learned how complicated it can be to have one component with multiple switching charts. Instead of switching components
 
