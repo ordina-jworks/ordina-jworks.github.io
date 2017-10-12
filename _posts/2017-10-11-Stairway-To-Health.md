@@ -1,8 +1,8 @@
 ---
 layout: post
 authors: [michael_vervloet, ines_van_stappen, kevin_van_den_abeele]
-title: 'Stairway to Health with IoT and MEAN(TS)'
-image: /img/stairwaytohealth/stairway-to-health.jpeg
+title: 'Stairway to Health with IoT and the MEAN stack'
+image: /img/stairwaytohealth/stairway-to-health.jpg
 tags: [NodeJS, MongoDB, Angular,Angular4, ExpressJS, Express, TypeScript, Angular-CLI, Gulp, Internet of Things, IoT, LoRa, Proximus]
 category: IoT
 comments: true
@@ -75,7 +75,7 @@ Oh, and did we mention we were only given four weeks to complete this mission...
 
 ## The Ingredients
 So given all the requirements listed above and the fact we didn't have a lot of time to waste, 
-we chose to use a **MEAN(TS)** stack. 
+we chose to use a **MEAN (TypeScript)** stack. 
 MEAN stands for MongoDB Express Angular and NodeJS. 
 It's possible to use the mean stack with plain JavaScript, 
 we chose to implement it with TypeScript since we wanted some strong typings on the backend application and we were going to use Angular 4 on the frontend which comes with TypeScript as well.
@@ -352,5 +352,5 @@ After four hard weeks of working and writing many lines of code, we delivered ou
  - Use javascript date in stead of timestamps in mongo, easier to create aggregate with dates
  - Dockerize! So far, the most work has gone into getting the application deployed
  - Implement I18N translations at the beginning, as it is better to add translations while working on the component
- - Also we learned how complicated it can be to have one component with multiple switching charts. Instead of switching components
+ - Also we learned how complicated it can be to have one component with multiple switching charts. Instead of switching components.
 
