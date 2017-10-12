@@ -111,9 +111,9 @@ The Slotmachine application does mostly what its name suggests, but with a twist
 The idea is simple:
 If required, the **player registers** him or herself in the application.
 A simple **push button** sends a **signal to** the **backend** application. 
-The **application dispatches an event** via a **websocket** to the frontend application which turns the Slotmachine. 
+The application **dispatches an event** via a **websocket** to the frontend application which turns the Slotmachine. 
 The **Slotmachine** can either result in a **win or a loss**. 
-A **maximum of three attempts** are possible per player, after which a new player registration is required to play again.
+A maximum of **three attempts** are possible per player, after which a new player registration is required to play again.
 The player registration can be disabled depending on the requirements of the event/conference.
 
 The **light effects** are also **controlled by** the **application.**
