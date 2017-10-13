@@ -93,7 +93,7 @@ We also took advantage of the very performant aggregation functionality for deal
 
 ### ExpressJS:
 A node framework that comes with some great functionality for setting up your node server and makes it easy to create routes, 
-middleware, handeling requests/responses, serving files from the filesystem, configuring static files, easy connections to the database, 
+middleware, handling requests/responses, serving files from the filesystem, configuring static files, easy connections to the database, 
 and much more.
 
 ### Angular(4):
