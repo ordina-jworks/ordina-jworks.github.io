@@ -1,3 +1,6 @@
+---
+some_variable: "jeckyll wont update js without frontmatter.."
+---
 /* ************************ */
 /* Theme name  : Brave      */
 /* Author name : Ashok      */
@@ -19,6 +22,28 @@ $(document).ready(function() {
   $('.lightbox').magnificPopup({type:'image'});
 });
 
+/* ********* */
+/* Open Page */
+/* ********* */
+
+openPage = function(event, link) {
+  var aClicked = false;
+  var node = event.target;
+  while (aClicked === false && node != null && node.nodeName !== 'BODY') {
+    if (node.nodeName === 'A') {
+      aClicked = true;
+    } else {
+      node = node.parentNode;
+    }
+  }
+  if (!aClicked) {
+    if (event.shiftKey || event.ctrlKey || event.metaKey) {
+      window.open(link, '_blank');
+    } else {
+      window.location = link;
+    }
+  }
+}
 
 /* ******* */
 /* The ToC */
