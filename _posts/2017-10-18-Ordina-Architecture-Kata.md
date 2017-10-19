@@ -30,7 +30,7 @@ Since this is very relevant to this Architecture Kata, we recap quickly what we 
 We build a system for a stakeholder, the customer.
 That stakeholder needs to have a clear view on what needs to be built.
 
-Every system has an architecture, even those where architectural decisions weren’t made.
+Every system has an architecture, even those where architectural decisions weren't made.
 
 An architecture is described in an Architectural Description.
 This description is also particularly useful for the stakeholder.
@@ -45,7 +45,7 @@ Observe — Orient — Decide — Act
 3. Take decisions
 4. Implementation
 
-To reach consensus when taking decisions, you can make a list of data, listen to the customers’ explanation, compare and see if they fit.
+To reach consensus when taking decisions, you can make a list of data, listen to the customers' explanation, compare and see if they fit.
 This is also a good practice when making presentations.
 Make a list of what you want to say, do the presentation and compare.
 
@@ -64,19 +64,30 @@ Goals of visualizing your architecture:
  - Checking and validating — Share the architecture with your team
  - Share information — Other people might have experience with a topic/technology
 
+### Unified Modeling Language (UML)
+
 Using a language like __UML__ can be useful, but then you should look at model-driven development. Also, be very aware that this way of working can become very inefficient.
 
-__Boxes and lines__ are a possibility too, and Bart recommends this pragmatic approach.
-Don’t make things more complex than they need to be, boxes and lines are fine.
-Just make sure to be consistent, provide a legend and make sure your stakeholders understand what you’re drawing.
+### Boxes and lines
 
-Document your decisions and alternatives in a __Decision log__.
-It will prove itself useful in the near future and you oblige yourself to think more about the decision.
+__Boxes and lines__ are a possibility too, and Bart recommends this pragmatic approach.
+Don't make things more complex than they need to be, boxes and lines are fine.
+Just make sure to be __consistent__, provide a __legend__.
+Also make sure your stakeholders understand what you're drawing.
+It's important that you can discuss a matter while speaking the same language.
 
 Avoid fluffy diagrams and mixed abstractions.
-Don’t mix eg. user interaction information with data flow information.
+Don't mix eg. user interaction information with data flow information.
 
-Only document what’s useful.
+### Decision log
+
+Document your decisions and alternatives in a __Decision log__, also known as Architecture Decision Record (ADR).
+It will prove itself useful in the near future and you oblige yourself to think more about the decision.
+
+There's no need to invent the wheel here.
+There are several templates for different use cases available on the internet, for example in <a hreaf="https://github.com/joelparkerhenderson/architecture_decision_record" target="_blank">this ADR repo</a> on Github.
+
+Only document what's useful.
 
 ## Viewpoints
 
@@ -118,14 +129,14 @@ You can use a state chart to describe the operations process.
 
 Perspectives shape the views for non-functional requirements.
 
-When you introduce perspectives, you’ll have to make tradeoffs.
+When you introduce perspectives, you'll have to make tradeoffs.
 An architectural decision will favor certain perspectives and at the same time hinder other perspectives.
 For example, strong encryption favors security but hinders performance.
 
 Here's a list of very plausible non-functional requirements:
  - __Accessibility__ — Ability of the system to be used by people with disabilities.
  - __Evolution__ — Ability of the system to be flexible in the face of the inevitable change that all systems experience after deployment, balanced against the cost of providing such flexibility.
- - __Location__ — Ability of your system to overcome problems brought about by the absolute location of your system’s components.
+ - __Location__ — Ability of your system to overcome problems brought about by the absolute location of your system's components.
  - __Performance and scalability__ — Ability of the system to predictably execute within its mandatory performance profile and to handle increased processing volumes.
  - __Regulation__ — Ability of the system to conform to local and international laws, quasi-legal regulations, company policies, and other rules and standards.
  - __Security__ — Ability of the system to reliably control, monitor, and audit who can perform what actions on what resources and to detect and recover from failures in security mechanisms.
@@ -150,10 +161,10 @@ Our kata for today — AM.I.SCK
 ## Takeaways
 
 The different views complement each other.
-When drawing a view, you’ll notice that you’ll be able to add more information to another view and the other way around.
+When drawing a view, you'll notice that you'll be able to add more information to another view and the other way around.
 
 When drawing a context view, focus on the interactions with other systems.
-Don’t be tempted in drawing eg. a frontend and a backend component for your system.
+Don't be tempted in drawing eg. a frontend and a backend component for your system.
 That granularity is not important for the context view.
 
 One view can contain several diagrams, eg. you can have multiple state diagrams in the Information View.
