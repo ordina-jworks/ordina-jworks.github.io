@@ -99,6 +99,7 @@ Only document what's useful.
 ## Viewpoints
 
 Views help you to make architectural decisions.
+Bart explained the different views with sharp-cut examples.
 
 __Context View__ — Describes the relationships, dependencies and interactions between the system and its environment.
 Added in the second print of the book.
@@ -160,8 +161,14 @@ Our kata for today — AM.I.SCK
  - Enable parts of the system for direct patient usage
  - Conversations are not considered medical records
 
- The sixteen attendees were divided in groups of four.
- We had to draw the different architectural views for the AM.I.SCK platform.
+The sixteen attendees were divided in groups of four.
+We had to draw the different architectural views for the AM.I.SCK platform.
+
+Each team had fifteen to twenty minutes to brainstorm about the case and draw the first four views.
+Afterwards, each team had to present their views to the entire group.
+Bart challenged our opinions and gave practical tips on how to improve our thinking.
+
+After a second theoretical deep dive about how perspectives can have an effect on your views, we did the same excercise for the last three views.
 
 <img alt="Ordina Architectural Kata" src="{{ '/img/kata/banner-small.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
 
@@ -178,6 +185,14 @@ One view can contain several diagrams (eg. you can have multiple state diagrams 
 
 Use the experience of every team member to draw the diagrams.
 Think of similar projects and previous professional experiences.
+
+## Ordina Accelerator 2018
+
+This course was part of the <a href="https://ordina-accelerator.be/" target="_blank">Ordina Accelerator program</a>.
+With Accelerator, Ordina offers its employees the necessary tools to develop themselves further.
+Not only technical-, but also social- and organizational skills are included in the program.
+
+Medior and Senior experts get the chance to literally __accelerate their career__ by extensively following courses and workshops over a period of two years.
 
 ## Links and resources
 
