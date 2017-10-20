@@ -32,7 +32,7 @@ Since this is very relevant to this Architecture Kata, we recap quickly what we 
 
 We need to build a system.
 A system is build for stakeholders.
-Customers, user, developers, ... are all stakeholders of a particular system.
+Customers, users, developers, ... are all stakeholders of a particular system.
 Those stakeholders need to have a clear view on what needs to be built.
 
 Every system has an architecture, even those where architectural decisions weren't formally made.
@@ -52,7 +52,7 @@ OODA is a re-entrant feedback loop, that consists of four stages:
 In the decision stage, we take a decision. 
 4. Act: Act on your decision, implement.
 
-An exercise that can help you in the different stages, is to start with some bullet points and then write these out explicitely.
+An exercise that can help you in the different stages, is to start with some bullet points and then writing them out explicitly.
 Comparing the full text with the bullet points, will often be very insightful.
 
 To reach consensus when taking decisions, share these with customers, peers, ... and verify if they share your ideas.
@@ -95,7 +95,7 @@ Document your decisions and alternatives in a __Decision log__, also known as Ar
 It will prove itself useful in the future and requires you to think about a decision.
 
 There's no need to invent the wheel here.
-There are several templates for different use cases available on the internet, for example in <a hreaf="https://github.com/joelparkerhenderson/architecture_decision_record" target="_blank">this ADR repo</a> on Github.
+There are several templates for different use cases available on the internet, for example in <a href="https://github.com/joelparkerhenderson/architecture_decision_record" target="_blank">this ADR repo</a> on Github.
 
 Only document what's useful.
 
@@ -111,7 +111,7 @@ Every component is a part of the greater system.
 
 __Functional View__ — Defines the architectural elements that deliver the systems functionality.
 It documents the systems functional structure.
-You can make decisions on a functional level eg. Two components are doing similar things.
+You can make decisions on a functional level eg. two components are doing similar things.
 Should they be separate components?
 
 __Information View__ — Models the system data and its state.
@@ -121,7 +121,7 @@ The purpose of many applications today is capturing data.
 As an architect, you need to do data modeling at an architecturally significant level of detail.
 Go to the level of detail that is needed for your team of developers.
 
-__Concurrency View__ — Describes the concurrency structure of the system, mapping functional elements to concurrency units to clearly identify the parts of the system that can execute concurrently. eg. process a file in blocks.
+__Concurrency View__ — Describes the concurrency structure of the system, mapping functional elements to concurrency units to clearly identify the parts of the system that can execute concurrently eg. process a file in blocks.
 You can solve a lot with specific language constructs and asynchronous messaging.
 If you want to dig deeper and want to know the nitty gritty details of messaging, a must-read is the book <a href="https://www.goodreads.com/book/show/85012.Enterprise_Integration_Patterns" target="_blank">Enterprise Integration Patterns</a> by Gregor Hohpe and Bobby Woolf.
 
@@ -140,9 +140,9 @@ You can use a state chart to describe the operations process.
 
 Perspectives shape the views for non-functional requirements.
 
-When you introduce perspectives, you'll have to make tradeoffs.
-An architectural decision will favor certain perspectives and at the same time hinder other perspectives.
-For example, strong encryption favors security but hinders performance.
+When you introduce perspectives, you'll have to make trade-offs.
+An architectural decision will favour certain perspectives and at the same time, hinder other perspectives.
+For example, strong encryption favours security but hinders performance.
 
 Here's a list of very plausible non-functional requirements:
  - __Accessibility__ — Ability of the system to be used by people with disabilities.
@@ -205,6 +205,6 @@ In this book, they discuss Viewpoints and Perspectives
 - <a href="https://archkatas.herokuapp.com/" target="_blank">https://archkatas.herokuapp.com/</a>
 - <a href="https://groups.google.com/forum/#!forum/architecturalkatas" target="_blank">ArchitecturalKatas</a> Google User Group
 - <a href="http://liminalthinking.com/" target="_blank">Liminal Thinking</a>
-- <a href="http://www.enterpriseintegrationpatterns.com/">Enterprise Integration Patterns</a>
+- <a href="http://www.enterpriseintegrationpatterns.com/" target="_blank">Enterprise Integration Patterns</a>
 
 
