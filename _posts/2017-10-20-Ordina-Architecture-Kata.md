@@ -14,6 +14,9 @@ A group of sixteen senior consultants, with different areas of expertise, were g
 
 ## What is a Kata?
 
+Kata is a Japanese word most commonly known for the presence in martial arts.
+The English term for Kata is __form__ and it refers to the detailed choreographed patterns of movements practiced either solo or in pairs.
+
 You might know the saying **practice makes perfect**, and Architectural Katas are exactly that: practicing.
 These Katas were born out of a simple desire — Software architects need a chance to practice being software architects.
 
@@ -162,9 +165,8 @@ Our kata for today — AM.I.SCK
  - Conversations are not considered medical records
 
 The sixteen attendees were divided in groups of four.
-We had to draw the different architectural views for the AM.I.SCK platform.
 
-Each team had fifteen to twenty minutes to brainstorm about the case and draw the first four views.
+Each team had fifteen to twenty minutes to brainstorm about the case and create the first four views on a whiteboard together.
 Afterwards, each team had to present their views to the entire group.
 Bart challenged our opinions and gave practical tips on how to improve our thinking.
 
