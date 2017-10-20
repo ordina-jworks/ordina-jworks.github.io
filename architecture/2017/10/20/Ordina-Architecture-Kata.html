@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="First edition of the Ordina Architecture Kata - Ken Coenen and Bart Blommaerts">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/kata/kata-6-thumb.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/architecture/2017/10/20/Ordina-Architecture-Kata.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="First edition of the Ordina Architecture Kata - Ken Coenen and Bart Blommaerts"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/kata/kata-6-thumb.jpg"/>
+
+    
+    <title>First edition of the Ordina Architecture Kata - Ken Coenen and Bart Blommaerts &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>First edition of the Ordina Architecture Kata</h2>
+                
+
+                
+                    Posted Oct 20, 2017
+
+
+    in <a href="/categories/architecture/">Architecture</a>
+
+
+
+    by
+    
+        <a href="/author/ken-coenen/">Ken Coenen</a>
+        
+            
+                 and 
+        
+        
+    
+        <a href="/author/bart-blommaerts/">Bart Blommaerts</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/architecture/">Architecture</a>, 
+    
+        <a href="/tags/agile/">Agile</a>, 
+    
+        <a href="/tags/ooda/">OODA</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>On the 18th of October 2017, Ordina Belgium organized the first <strong>Ordina Architecture Kata</strong>.
+The session was presided by Bart Blommaerts, cross-unit Competence Manager Architecture.
+A group of sixteen senior consultants, with different areas of expertise, were gathered in Mechelen to practice software architecture.</p>
+</blockquote>
+
+<h2 id="what-is-a-kata">What is a Kata?</h2>
+
+<p>Kata is a Japanese word most commonly known for the presence in martial arts.
+The English term for Kata is <strong>form</strong> and it refers to the detailed choreographed patterns of movements practiced either solo or in pairs.</p>
+
+<p>You might know the saying <strong>practice makes perfect</strong>, and Architectural Katas are exactly that: practicing.
+These Katas were born out of a simple desire — Software architects need a chance to practice being software architects.</p>
+
+<blockquote>
+  <p>“So how are we supposed to get great architects, if they only get the chance to architect fewer than a half-dozen times in their career?” - Ted Neward</p>
+</blockquote>
+
+<h2 id="pragmatic-architecture-today---recap">Pragmatic Architecture Today - Recap</h2>
+
+<p>In his conference talk and blog post <a href="https://ordina-jworks.github.io/architecture/2017/06/21/pragmatic-architecture-today.html" target="_blank">Pragmatic Architecture, Today</a>, Bart Blommaerts discusses the need to think about Software Architecture.</p>
+
+<p>Since this is very relevant to this Architecture Kata, we recap quickly what we learned back then.</p>
+
+<h3 id="why-do-we-need-an-architecture">Why do we need an architecture?</h3>
+
+<p>We need to build a system.
+A system is build for stakeholders.
+Customers, users, developers, … are all stakeholders of a particular system.
+Those stakeholders need to have a clear view on what needs to be built.</p>
+
+<p>Every system has an architecture, even those where architectural decisions weren’t formally made.</p>
+
+<p>An architecture is described in an Architectural Description.
+This description is also particularly useful for the stakeholders.</p>
+
+<p>An Architectural Description uses views, which are shaped by perspectives.</p>
+
+<h3 id="ooda">OODA</h3>
+
+<p>OODA is a re-entrant feedback loop, that consists of four stages:</p>
+
+<ol>
+  <li>Observe: Listen to customers, gather requirements, available resources, …</li>
+  <li>Orient: Assess comparable systems, use your experience to make sense of your earlier observations.</li>
+  <li>Decide: From the orientation stage, multiple alternatives might need to be considered. 
+In the decision stage, we take a decision.</li>
+  <li>Act: Act on your decision, implement.</li>
+</ol>
+
+<p>An exercise that can help you in the different stages, is to start with some bullet points and then writing them out explicitly.
+Comparing the full text with the bullet points, will often be very insightful.</p>
+
+<p>To reach consensus when taking decisions, share these with customers, peers, … and verify if they share your ideas.</p>
+
+<h2 id="visualization-of-the-architecture">Visualization of the architecture</h2>
+
+<blockquote>
+  <p>“One cannot see the ocean’s currents by studying drops of water” — Grady Booch.</p>
+</blockquote>
+
+<p>To a certain amount, you can derive business logic from the code.
+One might say that the code is the truth, but not the whole truth.</p>
+
+<p>Goals of visualizing your architecture:</p>
+<ul>
+  <li>Consistency</li>
+  <li>Reporting — Architecture needs to be in the heads of the stakeholders</li>
+  <li>Checking and validating — Share the architecture with your different stakeholders</li>
+  <li>Share information — Other people might have experience with certain challenges</li>
+</ul>
+
+<h3 id="unified-modeling-language-uml">Unified Modeling Language (UML)</h3>
+
+<p>Using a language like <strong>UML</strong> can be useful, especially when doing model-driven development. 
+Also, be very aware that this way of working can become very inefficient.
+When you are not doing MDD, UML can still be used, if there is shared understanding of the created diagrams.</p>
+
+<h3 id="boxes-and-lines">Boxes and lines</h3>
+
+<p><strong>Boxes and lines</strong> are a possibility too, and Bart recommends this more pragmatic approach.
+Don’t make things more complex than they need to be, boxes and lines are fine.
+Just make sure to be <strong>consistent</strong> and always provide a <strong>legend</strong>.
+Also make sure your stakeholders understand what you’re drawing.
+A legend will really help with getting the message across.
+It’s important that you can discuss a matter while speaking a common language.</p>
+
+<p>Avoid fluffy diagrams and mixed abstractions.
+Don’t mix eg. user interaction information with data flow information.</p>
+
+<h3 id="decision-log">Decision log</h3>
+
+<p>Document your decisions and alternatives in a <strong>Decision log</strong>, also known as Architecture Decision Record (ADR).
+It will prove itself useful in the future and requires you to think about a decision.</p>
+
+<p>There’s no need to invent the wheel here.
+There are several templates for different use cases available on the internet, for example in <a href="https://github.com/joelparkerhenderson/architecture_decision_record" target="_blank">this ADR repo</a> on Github.</p>
+
+<p>Only document what’s useful.</p>
+
+<h2 id="viewpoints">Viewpoints</h2>
+
+<p>Views help you to make architectural decisions.
+Bart explained the different views with sharp-cut examples.</p>
+
+<p><strong>Context View</strong> — Describes the relationships, dependencies and interactions between the system and its environment.
+Added in the second print of the book.
+Bart thinks this might be the most important view of them all.
+Every component is a part of the greater system.</p>
+
+<p><strong>Functional View</strong> — Defines the architectural elements that deliver the systems functionality.
+It documents the systems functional structure.
+You can make decisions on a functional level eg. two components are doing similar things.
+Should they be separate components?</p>
+
+<p><strong>Information View</strong> — Models the system data and its state.
+The purpose of many applications today is capturing data.</p>
+
+<blockquote>
+  <p>Sidenote: Data modeling can be a long and complex process.
+As an architect, you need to do data modeling at an architecturally significant level of detail.
+Go to the level of detail that is needed for your team of developers.</p>
+</blockquote>
+
+<p><strong>Concurrency View</strong> — Describes the concurrency structure of the system, mapping functional elements to concurrency units to clearly identify the parts of the system that can execute concurrently eg. process a file in blocks.
+You can solve a lot with specific language constructs and asynchronous messaging.
+If you want to dig deeper and want to know the nitty gritty details of messaging, a must-read is the book <a href="https://www.goodreads.com/book/show/85012.Enterprise_Integration_Patterns" target="_blank">Enterprise Integration Patterns</a> by Gregor Hohpe and Bobby Woolf.</p>
+
+<p><strong>Development view</strong> — Describes the architecture that supports the software development process.
+When you have an experienced development team, this can be very high-level.
+Make sure you include the senior developers in the team, when constructing the development view.
+They have the experience and on top of that… they will be more motivated to be part of the decision making process and technical vision.</p>
+
+<p><strong>Deployment view</strong> — Describes the physical environment into which the system will be deployed, including the system dependencies on its runtime environment.
+Make sure you include all information relevant for deploying the application, eg. OS, Apache HTTPD, Tomcat, etc.</p>
+
+<p><strong>Operational view</strong> — Describe how the system will be operated, administered, and supported when it is running in its production environment.
+You can use a state chart to describe the operations process.</p>
+
+<h2 id="perspectives">Perspectives</h2>
+
+<p>Perspectives shape the views for non-functional requirements.</p>
+
+<p>When you introduce perspectives, you’ll have to make trade-offs.
+An architectural decision will favour certain perspectives and at the same time, hinder other perspectives.
+For example, strong encryption favours security but hinders performance.</p>
+
+<p>Here’s a list of very plausible non-functional requirements:</p>
+<ul>
+  <li><strong>Accessibility</strong> — Ability of the system to be used by people with disabilities.</li>
+  <li><strong>Evolution</strong> — Ability of the system to be flexible in the face of the inevitable change that all systems experience after deployment, balanced against the cost of providing such flexibility.</li>
+  <li><strong>Location</strong> — Ability of your system to overcome problems brought about by the absolute location of your system’s components.</li>
+  <li><strong>Performance and scalability</strong> — Ability of the system to predictably execute within its mandatory performance profile and to handle increased processing volumes.</li>
+  <li><strong>Regulation</strong> — Ability of the system to conform to local and international laws, quasi-legal regulations, company policies, and other rules and standards.</li>
+  <li><strong>Security</strong> — Ability of the system to reliably control, monitor and audit who can perform what actions on what resources and to detect and recover from failures in security mechanisms.</li>
+  <li><strong>Usability</strong> — The ease with which people who interact with the system can work effectively.</li>
+</ul>
+
+<h2 id="the-kata">The Kata</h2>
+
+<p>Our kata for today — AM.I.SCK</p>
+<ul>
+  <li>Nurses that answer questions from patients via a chat platform.</li>
+  <li>250+ nurses</li>
+  <li>Access to medical histories</li>
+  <li>Assist nurses in providing medical diagnosis</li>
+  <li>Reach local medical staff, even ahead of time</li>
+  <li>Enable parts of the system for direct patient usage</li>
+  <li>Conversations are not considered medical records</li>
+</ul>
+
+<p>The sixteen attendees were divided in groups of four.</p>
+
+<p>Each team had fifteen to twenty minutes to brainstorm about the case and create the first four views on a whiteboard together.
+Afterwards, each team had to present their views to the entire group.
+Bart challenged our opinions and gave practical tips on how to improve our thinking.</p>
+
+<p>After a second theoretical deep dive about how perspectives can have an effect on your views, we did the same excercise for the last three views.</p>
+
+<p><img alt="Ordina Architectural Kata" src="/img/kata/banner-small.jpg" class="image fit" style="margin:0px auto;" /></p>
+
+<h2 id="takeaways">Takeaways</h2>
+
+<p>The different viewpoints really complement each other.
+When drawing a view, you’ll notice that you might be able to add more information to another view and vice versa.</p>
+
+<p>When drawing a context view, focus on the interactions with other systems.
+Don’t be tempted in drawing eg. a frontend and a backend component for your system, unless these are separated by external systems.
+That granularity is not important for the context view.</p>
+
+<p>One view can contain several diagrams (eg. you can have multiple state diagrams in the Information View), additional text, tables containing data, etc.</p>
+
+<p>Use the experience of every team member to draw the diagrams.
+Think of similar projects and previous professional experiences.</p>
+
+<h2 id="ordina-accelerator-2018">Ordina Accelerator 2018</h2>
+
+<p>This course was part of the <a href="https://ordina-accelerator.be/" target="_blank">Ordina Accelerator program</a>.
+With Accelerator, Ordina offers its employees the necessary tools to develop themselves further.
+Not only technical-, but also social- and organizational skills are included in the program.</p>
+
+<p>Medior and Senior experts get the chance to literally <strong>accelerate their career</strong> by extensively following courses and workshops over a period of two years.</p>
+
+<h2 id="links-and-resources">Links and resources</h2>
+
+<ul>
+  <li>Recommended reading: 
+<a href="https://www.goodreads.com/book/show/11686849-software-systems-architecture" target="_blank">Software Systems Architecture</a> by Eoin Woods and Nick Rozanski.
+In this book, they discuss Viewpoints and Perspectives</li>
+  <li><a href="http://nealford.com/katas/about.html" target="_blank">Architectural Katas</a> on neilford.com</li>
+  <li><a href="https://archkatas.herokuapp.com/" target="_blank">https://archkatas.herokuapp.com/</a></li>
+  <li><a href="https://groups.google.com/forum/#!forum/architecturalkatas" target="_blank">ArchitecturalKatas</a> Google User Group</li>
+  <li><a href="http://liminalthinking.com/" target="_blank">Liminal Thinking</a></li>
+  <li><a href="http://www.enterpriseintegrationpatterns.com/" target="_blank">Enterprise Integration Patterns</a></li>
+</ul>
+
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/architecture/2017/10/20/Ordina-Architecture-Kata.html&title=First edition of the Ordina Architecture Kata&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=First edition of the Ordina Architecture Kata&url=https://ordina-jworks.github.io/architecture/2017/10/20/Ordina-Architecture-Kata.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/architecture/2017/10/20/Ordina-Architecture-Kata.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/ken-coenen/" class="image spotlight-image">
+            <img src="/img/author/ken-coenen.png"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Ken is a Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he is also Backend Practice Manager of the Ordina JWorks unit. In this capacity, he narrows the gap between consultants and potential innovative customer projects. He does this by organizing workshops, talks and courses about the newest technologies, whereby people can grow in their role as a software consultant.</p>
+</p>
+            
+        </div>
+    </div>
+    
+    <div class="inner">
+        <a href="/author/bart-blommaerts/" class="image spotlight-image">
+            <img src="/img/author/bart-blommaerts.png"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Bart Blommaerts is a passionate Software Architect at Ordina, who believes closing the model-code gap is essential to make rapid, agile delivery sustainable. Bart has a strong focus on API design, reuse, automation and security. He is always looking for technical challenges.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2017 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/kata/kata-6-thumb.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/architecture/2017/10/20/Ordina-Architecture-Kata.html";
+        this.page.identifier = "/architecture/2017/10/20/Ordina-Architecture-Kata.html";
+        this.page.title = "First edition of the Ordina Architecture Kata";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
