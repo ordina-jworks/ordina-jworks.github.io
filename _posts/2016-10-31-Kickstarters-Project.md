@@ -3,7 +3,7 @@ layout: post
 authors: [tim_verte]
 title: 'Kickstarter project 2016'
 image: /img/kicks.png
-tags: [Spring, Angular2, Unit Test, Postman, Spring Boot, Spring REST Docs]
+tags: [Spring, Angular, Unit Test, Postman, Spring Boot, Spring REST Docs]
 category: Kickstarters
 comments: true
 ---

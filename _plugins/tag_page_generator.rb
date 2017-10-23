@@ -27,14 +27,14 @@ module Jekyll
             
             self.data['posts'] = Array.new
             site.posts.docs.each{ |post|
-                if post.data['tags'].include? tag
+                if post.data['tags'].map(&:downcase).include?(tag.downcase)
                     self.data['posts'].push(post)
                 end
             }
             
             self.data['other_tags'] = Array.new
             site.tags.each_key{ |t|
-                if t != tag and not self.data['other_tags'].include? tag
+                if t.downcase != tag.downcase and not self.data['other_tags'].include? tag
                     self.data['other_tags'].push({ 'title' => t, 'permalink' => getPermalink(t) })
                 end
             }
