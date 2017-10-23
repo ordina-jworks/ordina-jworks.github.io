@@ -3,7 +3,7 @@ layout: post
 authors: [nick_geudens,ken_de_becker,michiel_willems,jef_willems,simon_buysse]
 title: "Kickstarter Trajectory 2017"
 image: /img/kicks.png
-tags: [Spring, Angular 2, Unit Test, Microservices, Spring Boot, Ionic, MongoDB]
+tags: [Spring, Angular, Unit Test, Microservices, Spring Boot, Ionic, MongoDB]
 category: Kickstarters
 comments: true
 ---

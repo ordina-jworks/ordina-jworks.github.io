@@ -3,7 +3,7 @@ layout: post
 authors: [michael_vervloet, ines_van_stappen, kevin_van_den_abeele]
 title: 'Stairway to Health with IoT and the MEAN stack'
 image: /img/stairwaytohealth/stairway-to-health.jpg
-tags: [NodeJS, MongoDB, Angular,Angular4, ExpressJS, Express, TypeScript, Angular-CLI, Gulp, Internet of Things, IoT, LoRa, Proximus]
+tags: [NodeJS, MongoDB, Angular, ExpressJS, Express, TypeScript, Angular-CLI, Gulp, Internet of Things, IoT, LoRa, Proximus]
 category: IoT
 comments: true
 ---
