@@ -38,46 +38,68 @@ At 10:00 the second day of the conference started.
 
 ## Day 2: Morning
 
+<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-don.jpg"></span>
+
+
 ### Don Burks: MVC - What a web app and a Mozart Violin Concerto have in common
 
-
-
-
 You can find him on Twitter using the handle [@don_burks](https://twitter.com/don_burks).
+
 The presentation can be found [here]().
 
+<blockquote class="clear"><p>
+INSERT SMALL TALK DESCRIPTION
+</p></blockquote>
 
+INSERT TALK SUMMARY HERE
 
 ****
 
 ### Opher Vishnia: Web Animation: from Disney to SASS
 
-
-
+<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-opher.jpg"></span>
 
 You can find Opher on Twitter using the handle [@opherv](https://twitter.com/opherv).
+
 The presentation can be found [here](http://slides.com/opherv/jsconfbp2017/).
+
+<blockquote class="clear"><p>
+INSERT SMALL TALK DESCRIPTION
+</p></blockquote>
+
+INSERT TALK SUMMARY HERE
 
 ****
 
 ### Imad Elyafi: Migrating Pinterest profiles to React
 
-
-
+<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-imad.jpg"></span>
 
 You can find Imad on Twitter using the handle [@eelyafi](https://twitter.com/eelyafi).
+
 The presentation can be found [here]().
+
+<blockquote class="clear"><p>
+INSERT SMALL TALK DESCRIPTION
+</p></blockquote>
+
+INSERT TALK SUMMARY HERE
 
 ****
 
 ### Laura Carvajali: YES, your site can (and should) be accessible too. Lessons learned in building FT.com
 
-
-
+<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-laura.jpg"></span>
 
 You can find Laura on Twitter using the handle [@lc512k](https://twitter.com/lc512k).
+
 The presentation can be found [here]().
 
+<blockquote class="clear"><p>
+INSERT SMALL TALK DESCRIPTION
+</p></blockquote>
+
+INSERT TALK SUMMARY HERE
 
 ****
 
@@ -86,56 +108,76 @@ The presentation can be found [here]().
 
 ### Nikita Baksalyar: Exploring the P2P world with WebRTC & JavaScript
 
-
-
+<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-nikita.jpg"></span>
 
 You can find Nikita on Twitter using the handle [@nbaksalyar](https://twitter.com/nbaksalyar).
 The presentation can be found [here]().
 
+<blockquote class="clear"><p>
+INSERT SMALL TALK DESCRIPTION
+</p></blockquote>
+
+INSERT TALK SUMMARY HERE
 
 ****
 
 ### Vaidehi Joshi: Goldilocks And The Three Code Reviews
 
-
-
+<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-vaidehi.jpg"></span>
 
 You can find Vaidehi on Twitter using the handle [@vaidehijoshi](https://twitter.com/vaidehijoshi).
 The presentation can be found [here]().
 
+<blockquote class="clear"><p>
+INSERT SMALL TALK DESCRIPTION
+</p></blockquote>
+
+INSERT TALK SUMMARY HERE
 
 ****
 
 ### Anna Migas: Make your animations perform well
 
-
-
+<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-anna.jpg"></span>
 
 You can find Anna on Twitter using the handle [@szynszyliszys](https://twitter.com/szynszyliszys).
 The presentation can be found [here]().
 
+<blockquote class="clear"><p>
+INSERT SMALL TALK DESCRIPTION
+</p></blockquote>
+
+INSERT TALK SUMMARY HERE
 
 ****
 
 ### Peter Mbanugo: Building with empathy for the next billion internet users
 
-
-
+<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-peter.jpg"></span>
 
 You can find Peter on Twitter using the handle [@p_mbanugo](https://twitter.com/p_mbanugo).
 The presentation can be found [here]().
 
+<blockquote class="clear"><p>
+INSERT SMALL TALK DESCRIPTION
+</p></blockquote>
+
+INSERT TALK SUMMARY HERE
 
 ****
 
 ### Trent Willis: Caring For Your Fellow Developers
 
-
-
+<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-trent.jpg"></span>
 
 You can find Trent on Twitter using the handle [@trentmwillis](https://twitter.com/trentmwillis).
 The presentation can be found [here]().
 
+<blockquote class="clear"><p>
+INSERT SMALL TALK DESCRIPTION
+</p></blockquote>
+
+INSERT TALK SUMMARY HERE
 
 ****
 
