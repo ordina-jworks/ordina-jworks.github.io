@@ -63,10 +63,25 @@ You can find Stefan on Twitter using the handle [@stefanjudis](https://twitter.c
 The presentation can be found on [speakerdeck](https://speakerdeck.com/stefanjudis/watch-your-back-browser-youre-being-observed).
 
 <blockquote class="clear"><p>
-INSERT SMALL TALK DESCRIPTION
+To get information from a browser, you always had to do a pull. However, it's now also possible to ask the browser to push this information to you when something has changed by using observables!
 </p></blockquote>
 
-INSERT TALK SUMMARY HERE
+Verifying whether an element has become visible in the viewport is a very common use case. 
+With the pull approach, it's also a very heavy one for your browser since the piece of code doing that verification, is run each time a scroll event is fired. 
+A better way would be to have the browser letting us know when an element has reached the viewport. 
+Therefore, browser offer a so called `IntersectionObserver`. 
+When creating an `IntersectionObserver` you can pass it a callback function which will be fired when the observed elements enters or leaves the viewport. 
+Optionally you can also pass some options such as how much of the element should become visible/hidden in the viewport.
+Unfortionally Safari doesn't support this feature yet, but luckily, it's polyfillable.
+
+There are several more observers such as:
+- `MutationObserver` - fires when an attribute of an observed element has changed (supported by all major browsers)
+- `ResizeObserver` - fires when an element is resized (behind a flag in Chrome, not yet supported in other major browsers)
+- `PerformanceObserver` - emits metrics about the performance of the webpage (e.g. time to paint, `mark` statements, navigation time...) (supported by all major browsers except Edge)
+
+Another great benefit of these Observers is that all functions RxJS offers us (e.g. `skip`, `pairwise`, `filter` ...), can be used as well!
+The emitted values of the Observers are collections so we can use functions such as `map`, `filter` and `reduce` there as well.
+As mentioned in the presentation, these two combined gives us "Collection super powers!".
 
 ****
 
