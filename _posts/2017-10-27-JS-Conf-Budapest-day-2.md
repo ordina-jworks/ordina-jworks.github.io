@@ -31,7 +31,6 @@ At 10:00 the second day of the conference started.
 * [Nikita Baksalyar: Exploring the P2P world with WebRTC & JavaScript](#nikita-baksalyar-exploring-the-p2p-world-with-webrtc-javascript)
 * [Vaidehi Joshi: Goldilocks And The Three Code Reviews](#Vaidehi-joshi-goldilocks-and-the-three-code-reviews)
 * [Anna Migas: Make your animations perform well](#anna-migas-make-your-animations-perform-well)
-* [Peter Mbanugo: Building with empathy for the next billion internet users](#peter-mbanugo-building-with-empathy-for-the-next-billion-internet-users)
 * [Trent Willis: Caring For Your Fellow Developers](#trent-willis-caring-for-your-fellow-developers)
 
 ****
@@ -141,21 +140,6 @@ INSERT TALK SUMMARY HERE
 <span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-anna.jpg"></span>
 
 You can find Anna on Twitter using the handle [@szynszyliszys](https://twitter.com/szynszyliszys).
-The presentation can be found [here]().
-
-<blockquote class="clear"><p>
-INSERT SMALL TALK DESCRIPTION
-</p></blockquote>
-
-INSERT TALK SUMMARY HERE
-
-****
-
-### Peter Mbanugo: Building with empathy for the next billion internet users
-
-<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-peter.jpg"></span>
-
-You can find Peter on Twitter using the handle [@p_mbanugo](https://twitter.com/p_mbanugo).
 The presentation can be found [here]().
 
 <blockquote class="clear"><p>
