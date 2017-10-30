@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [frederic_ghijselinck, orjan_de_smet, stefanie_geldof]
+authors: [frederic_ghijselinck, orjan_de_smet, stefanie_geldof, martijn_willekens]
 title: 'JS Conf Budapest Day 2'
 image: /img/js-conf-budapest-2017/js-conf-budapest-2017.png
 tags: [JS Conf Budapest,JavaScript,Conference]
@@ -92,13 +92,27 @@ INSERT TALK SUMMARY HERE
 
 You can find Laura on Twitter using the handle [@lc512k](https://twitter.com/lc512k).
 
-The presentation can be found [here]().
+The presentation can be found [here](https://speakerdeck.com/lc512k/yes-your-site-can-and-should-be-accessible).
 
 <blockquote class="clear"><p>
-INSERT SMALL TALK DESCRIPTION
+Laura Carvajali works at the Financial Times. 
+She's responsible for the accessibility of their website so that even blind people are able to use it.
+In her talk, she explained how to achieve this.
 </p></blockquote>
 
-INSERT TALK SUMMARY HERE
+Accessibility doesn't happen by accident, you have to make it happen yourself.
+A good starting point is to install pa11y (with npm).
+It checks your HTML and points out where you can improve.
+Color contrast issues, no or bad alt text for images and no related label for input fields are very common issue pa11y reports on.
+Pa11y-ci can be used to integrate it with your CI and can break the build when there are errors.
+
+With that done, there are some extra steps that can be taken.
+First, you can get an external audit to get more feedback.
+They have people that test with voice control, keyboard only mode, text to speech and other tools.
+Next, you could do customer research and user testing with users with various disabilities.
+Another option is to learn to use the tools for people with disabilities yourself and test with them.
+The first option is the most expensive one, the second one is already less expensive while the last one is the cheapest.
+A MacBook for example already has a lot of tools built in for people with disabilities if you want to test yourself.
 
 ****
 
