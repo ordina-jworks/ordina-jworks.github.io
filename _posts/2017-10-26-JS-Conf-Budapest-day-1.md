@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [frederic_ghijselinck, orjan_de_smet, stefanie_geldof, martijn_willekens]
+authors: [frederic_ghijselinck, orjan_de_smet, stefanie_geldof, martijn_willekens, yannick_vergeylen]
 title: 'JS Conf Budapest Day 1'
 image: /img/js-conf-budapest-2017/js-conf-budapest-2017.png
 tags: [JS Conf Budapest,JavaScript,Conference]
@@ -47,10 +47,69 @@ You can find her on Twitter using the handle [@bodil](https://twitter.com/bodil)
 The presentation she gave can be found at her [personal website](https://bodil.lol/join-us-now/).
 
 <blockquote class="clear"><p>
-INSERT SMALL TALK DESCRIPTION
+A talk about the Open Source movement and the Free Software movement it grew out of
 </p></blockquote>
 
-INSERT TALK SUMMARY HERE
+The talk started of with a story about Richard and a Xerox printer. Richard is a developer suffering from a minor
+usability flaw in the Xerox printer at his office. Like the good developer he is, he wants to fix the issue and share
+it with the world for everybody's profit. But therefor he needs access to the code. Turns out that Xerox' code for 
+that particular printer is not publicly available. Therefor Richard can't fix the issue and not only he has to live 
+with the inconvenience, but everyone at the office, and even everyone using that same printer. The clue here is that a 
+minor fix has to wait until someone at Xerox finds the time to solve the issue. Considering the minor status of the 
+issue, it's not even likely to happen... ever. With open source software this fix could be done by a motivated user in 
+a few moments. 
+
+This little intro sets the mood for the talk, and one can consider it a bit opinionated, but there are no doubt some 
+powerful arguments for open source software. The talk also covers the free software movement that all started it, and 
+from which the Open source movement branched of. The difference though is just in its philosophy. First of all a common
+misunderstanding, free software does not mean one can get it with zero cost. It says that anyone can get the code and 
+is free to do with it as pleased. Modify, change, sell or use it for another purpose. Open source software provides 
+some restrictions. Therefor Open source software is more popular and used more widely, it gives control. 
+
+For example: A concurring company might purchase your proprietary software and then have access to the code. They could 
+copy your product and sell it for a lower price. This can be done with Free software but Open source software has some 
+licenses defined to prevent this. In the talk some are covered, I took the liberty to list some of them here with a 
+short explanation. Click trough to see how easily it is to use them and have a legal basis to rely on.
+
+The most popular and widely used licenses are:
+#### [Apache License 2.0](https://opensource.org/licenses/Apache-2.0)
+Designed to be simple and easy to comply with, but more extensive than the previous versions. One can use the licensed 
+software for any purpose, to change and redistribute. Changes can be distributed under other licenses but unchanged 
+code needs to be distributed under the same license.
+
+#### [3-clause BSD license](https://opensource.org/licenses/BSD-3-Clause)
+Designed to be simple and short. It  allows unlimited redistribution for any purpose as long as its copyright notices 
+and the license's disclaimers of warranty are maintained. The license also contains a clause restricting use of the 
+names of contributors for endorsement of a derived work without specific permission. In the 2-clause version that 
+restriction is left out.
+
+#### [GNU General Public License](https://opensource.org/licenses/GPL-3.0)
+Software under GNU GPL is free (as in: do with it as you please). The main restrictions defined by this license are that
+you should always mention the authors of the software and it must always stay under the GNU GPL license.
+
+#### [MIT License](https://opensource.org/licenses/MIT)
+Created by Massachusetts Institute of Technology, it has one simple rule. The copyright statement should stay in any
+copy of the software. 'Copyright (c) <year> <copyright holders>'
+
+#### [Mozilla Public License 2.0](https://opensource.org/licenses/MPL-2.0)
+Code under MPL can be copied or changed, but must stay under MPL. The code can be combined with closed source files.
+
+Open source should be considered by many companies, since many profit form open source. SpaceX for example profits from
+ open source software, non the less their own code is closed. Another company by the same person, Elon Musk, has its 
+ code publicly available: Tesla, the electric car manufacturer. Here is a part I found on 
+ [Tesla's own blog](https://www.tesla.com/blog/all-our-patent-are-belong-you).
+ 
+ <blockquote class="clear"><p>
+ At Tesla we felt compelled to create patents out of concern that the big car companies would copy our technology and 
+ then use their massive manufacturing, sales and marketing power to overwhelm Tesla. We couldn’t have been more wrong. 
+ The unfortunate reality is the opposite: electric car programs (or programs for any vehicle that doesn’t burn 
+ hydrocarbons) at the major manufacturers are small to non-existent, constituting an average of far less than 1% of 
+ their total vehicle sales.
+ </p></blockquote>
+ 
+While sharing your code can benefit the concurrence, it also benefits the world. This counts for Tesla in particular, 
+while there might be a huge market for electric vehicles, we also need them as fast a possible. And open source can 
+help us with achieving that goal.
 
 ****
 
