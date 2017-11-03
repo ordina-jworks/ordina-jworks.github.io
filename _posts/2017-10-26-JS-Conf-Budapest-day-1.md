@@ -164,13 +164,48 @@ INSERT TALK SUMMARY HERE
 
 ### Madeleine Neumann: Impostor syndrome - am I suffering enough to talk about it?
 
+Madeleine is front-developer at 9Elements. Conference organiser of RuhrJS.
 You can find Madeleine on Twitter using the handle [@maggysche](https://twitter.com/maggysche).
 
 <blockquote class="clear"><p>
-INSERT SMALL TALK DESCRIPTION
+The reason we struggle with insecurity is because we compare our behind the scenes with everyone else’s  highlight reel
 </p></blockquote>
 
-INSERT TALK SUMMARY HERE
+Madeleine wanted to share her life experience with us. While se attended secondary school, Madeleine was the creepy loner at school. 
+'What's wrong with me?', 'What did I do wrong?' she asked herself on several occasions. 
+'My behaviour must be wrong, I have to change'. So she decided to take up programming in high school and felt truly belonged.
+After Madeleine graduated high school, she started to work as a frontend developer where she was learning a lot, very quickly! 
+However she soon discovered that the speed at which she was learning gradually stagnated. 
+She had mixed feelings about her profession and abilities, thinking she did not belong there and had no idea what she was doing, so she decided to work even harder. 
+All of her friends and colleagues congratulated her for her effort and hard work, but Madeleine still wasn’t satisfied. Shortly after, she discovered 
+“the imposter syndrome”. Here are some common signs that someone might experience, where one feels like an imposter:  
+* Does everyone overestimate you?
+* Do you tend to discuss yourself?
+* You compare your ability to those around you and think they’re more intelligent than you are?
+* Does the fear of failure freaks you out?
+* Sometimes you’re afraid others will discover how much knowledge you really lack?
+* You can’t understand the compliments you receive?
+* You feel bad when you’re not ‘the best’ or at least ‘very special’?
+* You avoid evaluations if possible and have a dread of others evaluating you?
+* Do you focus more on what you haven’t done?
+
+Madeleine discovered that her answer to all the previous questions was 'yes' and came to the conclusion she sabotaged herself. But how do you escape the 'imposter zone'?
+* You aren't born to live a life of another person
+* Learn to be a healthy perfectionist
+* Answer on the following question 'What would I do, if I was not afraid?'
+* Ask for help
+* Mentor people what you're doing
+* It's a good thing to know, what you don't know
+* Talk about it
+* Bribe your friends
+* Being wrong, doesn't make you a fraud
+* Focus on providing value and write it down
+* Keep a file of nice things someone was saying about you 
+* Stop commenting compliments
+* And finally, take time for yourself
+
+Madeleine learned that sometimes, it’s not that bad to be an imposter. 
+Because you are an imposter, you are an overachiever and you can surprise people with your talent.
 
 ****
 
@@ -199,7 +234,7 @@ INSERT TALK SUMMARY HERE
 
 You can find Sandrina on Twitter using the handle [@a_sandrina_p](https://twitter.com/a_sandrina_p).
 
-All code can be found on her [github](https://github.com/sandrina-p/css-mixins-on-javascript-with-unit-tests) page.
+All code can be found on her [github](https://github.com/sandrina-p/css-mixins-on-javascript-with-unit-tests) page and the slides [here](https://docs.google.com/presentation/d/19v8jkgS_0F7DrGw-8SzHktzy7nkC9W9XCNDqeXzB2wg/edit#slide=id.g235012375a_0_0).
 
 <blockquote class="clear"><p>
 INSERT SMALL TALK DESCRIPTION
