@@ -89,7 +89,7 @@ you should always mention the authors of the software and it must always stay un
 
 #### [MIT License](https://opensource.org/licenses/MIT)
 Created by Massachusetts Institute of Technology, it has one simple rule. The copyright statement should stay in any
-copy of the software. 'Copyright (c) <year> <copyright holders>'
+copy of the software. 'Copyright (c) &lt;year&gt; &lt;copyright holders&gt;'
 
 #### [Mozilla Public License 2.0](https://opensource.org/licenses/MPL-2.0)
 Code under MPL can be copied or changed, but must stay under MPL. The code can be combined with closed source files.
