@@ -214,6 +214,8 @@ The following people have earned the Architect Associate badge:
 - Sebastiaan Tempels
 - Stijn Dierckens
 
+The list will be updated, when more people receive the badge.
+
 Their results, will help shape to future of the Ordina Architecture Katas.
 
 ## Links and resources
