@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [yannick_de_turck, dieter_hubau]
+authors: [yannick_de_turck, dieter_hubau, derya_duru]
 title: 'JavaDay Ukraine 2017'
 image: /img/javaday-ukraine-2017/javaday-ukraine-2017.png
 tags: [JavaDay, Java, Kotlin, Spring, CQRS, Event Sourcing, Microservices, Reactive, Spinnaker, Reactor, WebFlux, Kubernetes]
@@ -29,7 +29,7 @@ In this blog post we will go over some of the talks that we have attended.
 
 </div>
 
-**** 
+****
 
 ### Developing Microservices with Kotlin - Haim Yadid
 
@@ -39,22 +39,23 @@ In his search for a better programming language, he compared different strongly 
 
 The chosen language would have to be concise, safe, versatile, practical and interoperable.
 Being a fan of strongly typed languages, Groovy and JRuby were no option.
-Scala was a good option but due to the complexity of the language, the long compilation times and lack of backwards compatibilty assurance, it was also dropped.
+Scala was a good option but due to the complexity of the language, the long compilation times and lack of backwards compatibility assurance, it was also dropped.
 
-Kotlin proved to be the winner as it contained all the above listed characteristics.
+Kotlin proved to be the winner as it contained all of the above listed characteristics.
 It is also able to make use of the huge Java ecosystem and, being backed by Jetbrains, was very assuring.
-It also helped that Google made Kotlin the official language for Android Development.
+It also helped that Google made Kotlin the official language for Android Development. Not to mention it was the subject of 9 different talks at JavaOne 2017.
 
 In his talk, he wanted to share his findings and experiences when developing in Kotlin which he labeled as a huge success.
 The project he worked on contains a microservices backend over DropWizard deployed to AWS together with serverless endpoints in AWS Lambda.
 Used technologies, frameworks and libraries are amongst others Maven, DropWizard, AWS Lambda, PDFBox, XMPBox, Flyway, Stripe and Mockito Kotlin.
 Building the project was done via the Kotlin Maven plugin.
 
-He started with version 1.0.2 and upgraded to every release immediately which went always very smooth; even the migration to 1.1.0, which included Java 8 support, went without any issues.
-Onboarding new Java developers also went very smooth as they were capable of developing in Kotlin by the time they got to know the architecture.
+He started with version 1.0.2 and upgraded to every release immediately which always went very smooth; even the migration to 1.1.0, which included Java 8 support, went without any issues.
+Onboarding new Java developers is never a hassle as they are capable of developing in Kotlin by the time they get to know the architecture.
 
-Haim really liked **extension methods**, which allows you to add functionality to an existing class or interface.
+Haim really liked **extension methods**, which allow you to add functionality to an existing class or interface.
 The null safety, which is very similar to the null safety of Apple's Swift - where nullability is part of the type of an defined object - was also well-appreciated.
+He also pointed out to us that Java open source libraries work extremely well with Kotlin. All you need to do is add the dependency to your build file and you are good to go.
 
 Data classes, similar to case classes in Scala, offering a concise way to define simple classes for holding data, were used for all their DTOs.
 Also worth mentioning is that IntelliJ has a converter functionality for converting a Java class to Kotlin.
@@ -70,13 +71,13 @@ Haim's presentation is available on SlideShare:
 <span class="image left"><img class="p-image" alt="Christoph Strobl" src="/img/javaday-ukraine-2017/christoph-strobl.jpg"></span>
 [Christoph Strobl](https://twitter.com/stroblchristoph){:target="_blank"} is a developer at Pivotal and is part of the Spring Data team.
 Starting from Spring Framework 5, reactive support was added to all the core Spring Framework projects.
-In a reactive architecture, it is important that your system is reactive from top to bottom in order to gain the full performance gain, the persistence layer is no exception to this.
+In a reactive architecture, it is important that your system is reactive from top to bottom in order to take advantage of the full performance gain, the persistence layer is no exception to this.
 
 During the talk, Christoph went over the classic imperative approach of a Spring application where Spring MVC is used and the performance problems that can arise when all threads are in use.
 A reactive architecture makes better use of server resources but in turn adds more complexity to your architecture.
-In a reactive architecture, the publish-subcribe mechanism is heavily used where you have publishers and subscribers.
-Publishers publish messages to which subscribers can subscribe to.
+The publish-subscribe mechanism is heavily used in this architecture where, how can you guess it, publishers publish messages to which subscribers can subscribe to.
 The mechanism also comes with back pressure for the subscribers, allowing them to define how many messages they want to handle next in order to avoid being overrun.
+It is important to note here that the reactive publish-subscribe mechanism is based on the push model. The subscriber will not actively fetch the data but will instead receive the data from the publisher who pushes the new messages to the subscriber when they're available.
 
 In the other part of the session, Christoph went over several features of Spring's Project Reactor, Spring Data Kay and Spring WebFlux.
 The publish-subscribe mechanism in Reactor is based on the [Reactive Streams specification](http://www.reactive-streams.org){:target="_blank"} and there are two reactive types: `Flux`, an Asynchronous Sequence of 0-N items, and `Mono`, an Asynchronous 0-1 result.
@@ -96,24 +97,24 @@ The presentation is available on Speaker Deck:
 <span class="image left"><img class="p-image" alt="Stéphane Nicoll" src="/img/javaday-ukraine-2017/stephane-nicoll.png"></span>
 
 [Stéphane Nicoll](https://twitter.com/snicoll){:target="_blank"} joined the core Spring Framework development team early 2014, being one of the main contributors to both Spring Framework and Spring Boot since.
-Stéphane's session was all about Spring Framework 5 and Spring Boot 2.0. 
-Spring 5 comes with Spring WebFlux which is the reactive brother of Spring MVC allowing you to build non-blocking APIs. 
-He explained that there is always the issue of supporting all the different clients: like desktops, laptops, smartphones and tablets, and their different internet speeds. 
-Smartphones often having access to the slowest internet speeds and thus requiring the most optimal solution regarding bandwidth and performance.
+Stéphane's session was all about Spring Framework 5 and Spring Boot 2.0.
+Spring 5 comes with Spring WebFlux which is the reactive brother of Spring MVC allowing you to build non-blocking APIs.
+He explained that there is always the issue of supporting all the different clients like desktops, laptops, smartphones and tablets, and their different internet speeds.
+Smartphones often have access to the slowest internet speeds and thus require the most optimal solution regarding bandwidth and performance.
 
 All the different concepts of building a reactive application with Spring Framework 5 and Spring Boot 2.0 were explained with a demo application called [Smart Meter](https://github.com/snicoll-demos/smart-meter){:target="_blank"}.
 Basically you have all these different data inputs via sensors being gathered by an aggregator and then streamed to a dashboard.
 The frontend is written in Thymeleaf 3.0 which is the version in which reactive support was added.
 Besides the frontend needing reactive support, the persistence layer of the backend also needs it.
 In Spring Data Kay, reactive support exists for Redis, MongoDB, Couchbase and Cassandra.
-The other main databases such as Oracle, PostgreSQL and MySQL arn't there just yet as they lack a reactive JDBC driver.
+The other main databases such as Oracle, PostgreSQL and MySQL aren't there just yet as they lack a reactive JDBC driver.
 In the demo, MongoDB is used.
 
-Stéphane also demonstrated some new additions to Spring Boot Actuator such as a unified way to implement custom endpoints, better output format, 
-seperate status endpoints (you now have `/status` and `/health`) and a simplified security model to specify who has access to status and info for example as users with a certain role may be allowed to see more.
+Stéphane also demonstrated some new additions to Spring Boot Actuator such as a unified way to implement custom endpoints, better output format,
+separate status endpoints (you now have `/status` and `/health`) and a simplified security model to specify who has access to (for example) status and info as users with a certain role may be allowed to see more.
 Properties in Actuator now also display the properties file in which they have been declared and the exact position.
 
-Stéphane concluded the talk by announcing that the release candidate was somewhere foreseen at the end of November.
+Stéphane concluded the talk by announcing that the release candidate was foreseen somewhere at the end of November.
 However, a recent tweet of his announced a small change to the release schedule:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Spring Boot is having an extra milestone and RC1 is scheduled early December now.<br><br>See <a href="https://t.co/6kOGdPMtfp">https://t.co/6kOGdPMtfp</a></p>&mdash; Stéphane Nicoll (@snicoll) <a href="https://twitter.com/snicoll/status/928546114512588800?ref_src=twsrc%5Etfw">November 9, 2017</a></blockquote>
@@ -121,7 +122,7 @@ However, a recent tweet of his announced a small change to the release schedule:
 
 
 The demo code is available on [GitHub](https://github.com/snicoll-demos/smart-meter){:target="_blank"}.
-The presentation is avilable on Speaker Deck:
+The presentation is available on Speaker Deck:
 <script async class="speakerdeck-embed" data-id="8be69db43f1741e6b796add45273ee65" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
 
 ### The API Gateway is dead! Long Live the API Gateway! - Spencer Gibb
@@ -129,7 +130,7 @@ The presentation is avilable on Speaker Deck:
 <span class="image left"><img class="p-image" alt="Spencer Gibb" src="/img/javaday-ukraine-2017/spencer-gibb.jpg"></span>
 
 [Spencer Gibb](https://twitter.com/spencerbgibb){:target="_blank"}, Spring Cloud co-founder and co-lead, started by talking about the responsibilities of an API gateway.
-He started by revisiting Netflix's Zuul which is servlet based and thus having blocking APIs, and referred to Mikey Cohen's presentation on [Netflix's Edge Gateway Using Zuul](https://www.youtube.com/watch?v=mHHHpxJuTAo){:target="_blank"} in which Zuul 2 is also mentioned.
+He started by revisiting Netflix's Zuul which is servlet based and thus has blocking APIs, and referred to Mikey Cohen's presentation on [Netflix's Edge Gateway Using Zuul](https://www.youtube.com/watch?v=mHHHpxJuTAo){:target="_blank"} in which Zuul 2 is also mentioned.
 Zuul 2 was supposed to be integrated in Spring Cloud but as it still hadn't been released, Pivotal went with their own solution: Spring Cloud Gateway.
 It is built upon Spring 5, Reactor and Spring Boot 2.
 In order to have the gateway be non-blocking, there is a single event loop similar to how it is in Node.js.
@@ -151,18 +152,19 @@ The presentation is available right [here](https://spencer.gibb.us/preso/pivotal
 <span class="image left"><img class="p-image" alt="Andreas Evers" src="/img/javaday-ukraine-2017/andreas-evers.jpg"></span>
 
 [Andreas Evers](https://twitter.com/andreasevers){:target="_blank"}, principal Java consultant and Solution Expert at Ordina Belgium, held a session on [Spinnaker](https://www.spinnaker.io){:target="_blank"} for doing Continuous Deployment to the Cloud.
-Digital transformations usually require embracing a devops culture and adopting microservice architectures as without microservices, it is harder to go faster to the market.
-Moving your infrastucture to the cloud is possible via either IaaS or PaaS.
+Digital transformations usually require embracing a devops culture and adopting microservice architectures since without microservices, it is harder to go faster to the market.
+Moving your infrastructure to the cloud is possible via either IaaS or PaaS.
 
-With microservices your deployment frequency explodes as it is way more flexible.
+With microservices, your deployment frequency explodes as it is way more flexible.
 Netflix for example deploys over 4.000 times per day and that number is still increasing.
 Andreas explained that cloud deployments are complex and that it is important to be able to do easy rollbacks.
-There is also the fact that we want to plan our deploy at the right timeframe, preferably when traffic is lowest to have the least amount of users impacted.
+There is also the fact that we want to plan our deploy at the right time frame, preferably when traffic is lowest to have the least amount of users impacted.
 
 Andreas explained a couple of other principles such as making sure that infrastructure is immutable, repeatable and predictable across the different environments through baking images or building containers by using for example Docker.
-Another principle are the deployment strategies for example (rolling) blue/green (aka red/black).
-With the blue/green deployment strategy you deploy the new version right next to the old version and depending on how the strategy has been configured e.g. rolling or not, the load balancer will switch the traffic immediately from the old version to the new version or gradually which is very useful for canary testing or smoke tests.
-A third principle is doing automatic deploys by defining a pipeline which is always possible by just scripting all of this yourself but this is usually rather brittle.
+Equally important are the deployment strategies like (rolling) blue/green (or red/black if that's how you roll (pun intented). Looking at you, Netflix!).
+Using the blue/green deployment strategy you can deploy the new version right next to the old version. What happens next depends on how the strategy has been configured.
+Either the load balancer will reroute all traffic from the old version to the new version, or (if the rolling strategy has been configured) the traffic will gradually get rerouted to the new version. The last option is great for canary testing or smoke tests.
+A third principle is doing automatic deployments by defining a pipeline which is always possible by just scripting all of this yourself but this is usually rather brittle.
 
 This is where Spinnaker comes in to help you out with all of that.
 The internal structure of Spinnaker consists of a couple of microservices written in Spring Boot.
@@ -183,7 +185,7 @@ Spinnaker is still heavily being worked on and there are a couple of nice featur
 - Operation monitoring
 
 Finally Andreas did a demo of Spinnaker using a simple application based on Rick &amp; Morty which is also available on [GitHub](https://github.com/andreasevers/spinnaker-demo){:target="_blank"}.
-During the demo he demonstrated on how you can set up pipelines, the deployment strategy, the traffic guard and canary testing in Spinnaker.
+During the demo he demonstrated how you can set up pipelines, the deployment strategy, the traffic guard and canary testing in Spinnaker.
 People attending the talk were able to participate by going to the url to which the application was deployed in order to show how only a part of the traffic was routed to the new version.
 
 The slides of Andreas' talk are available on Speaker Deck:
@@ -201,8 +203,8 @@ You should experience the same pain as your team.
 Try to work together more closely with the people in your team to see if there are any pain points or issues that your team members are experiencing.
 2. **Work through failure and success:**
 It is inevitable that some things will fail now and then.
-It is important to prepare for failure and to take responsability.
-Don't fingerpoint!
+It is important to prepare for failure and to take responsibility.
+Don't finger point!
 Failing is an opportunity to learn and should be embraced.
 Success on the other hand, should be celebrated as early and as often as possible, and not only after the end of a project.
 You should celebrate for example the successful delivery of a sprint or when a feature has been completed.
@@ -210,18 +212,18 @@ Congratulate your team and individuals often as it is good for the moral.
 3. **Stay technical:**
 Reserve the right amount of time to code and review code.
 It is important to hold on to that technical vision and to see how your project's code base evolves.
-At the same time it is important that you still grasp the technical aspect of your project as it will help you making the right decisions for the best of your project and your team.
+At the same time it is important that you still grasp the technical aspect of your project as it will help you to make the right decisions for your project and your team.
 4. **Always available:**
 You should always be available and easily approachable for your team members.
 According to Bart, your time should be spent about 35% on technical design, 25% with the business, 15% on project management and 25% on code.
 5. **Be a mentor of your team:**
-As you have a key position in your team you should avoid being a strict ruler and decision maker, and try to make the best decisions for your team. 
+As you have a key position in your team you should avoid being a strict ruler and decision maker, and try to make the best decisions for your team.
 Instead, try to be a mediator and a mentor for your team members.
 Effective delegation is important and try to hand out responsibilities to your team.
 Know when to give input, when to make decisions and when to step back.
 6. **Surround yourself with other technical leads:**
 Each person is different and everybody has a different way to approach things.
-There is a lot to be gained by making use of cross-polination and learning from other technical leads about how they approach and deal with things.
+There is a lot to be gained by making use of cross-pollination and learning from other technical leads about how they approach and deal with things.
 It is important to be open for other approaches and to widen your vision.
 7. **Think big, bias for action:**
 You should think big and differently.
@@ -237,7 +239,7 @@ Instead, first comfort the interviewee, offer them different options during the 
 Show interest in the person and be sure to offer them a bonus question.
 9. **Embrace cultural differences:**
 Everybody is different and diversity is invaluable.
-Have respect for everybodies' opinion and try to surround yourself with them as they offer you different points of view.
+Have respect for everybody's opinion and try to surround yourself with them as they offer you different points of view.
 Don't forget that everybody in your team has the same shared end goal.
 If you are working with an offshore team, take the time difference into account.
 You can try to change your work hours to be more available to them.
@@ -245,11 +247,11 @@ Focus on good communication and be sure to document the work and tasks well.
 10. **Estimating is hard:**
 Bart quoted Hofstadter's Law: "It always takes longer than you expect, even when you take into account Hofstadter's Law".
 In order to make more educated guesses, doing a planning poker can be useful.
-Define a sequence, set a baseling and allow reasoning.
+Define a sequence, set a baseline and allow reasoning.
 Don't be afraid of uncertainty as it is inevitable.
 Bart suggests using the following formula: `(O + 4*BG + P) / 6` where `O` is the optimistic estimate, `BG` the best guess estimate and `P` the pessimistic estimate.
 You should add 20% to the guess for properly testing, debugging, polishing, documenting and random wtf moments.
-Don't forget, any estimate is better than no estimate, and do share and review estimates.
+Don't forget, any estimate is better than no estimate, and make sure to share and review estimates.
 11. **Interfacing with the outside world:**
 Adapt the way and the language when you communicate with non-technical people.
 Try to be the go-to-guy/girl for the management, the customer and other stakeholders.
