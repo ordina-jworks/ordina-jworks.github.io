@@ -1,9 +1,9 @@
 ---
 layout: post
-authors: [yannick_de_turck]
+authors: [yannick_de_turck, dieter_hubau]
 title: 'JavaDay Ukraine 2017'
 image: /img/javaday-ukraine-2017/javaday-ukraine-2017.png
-tags: [JavaDay, Java, Kotlin, Spring, CQRS, Event Sourcing, Microservices, Reactive, Spinnaker, Reactor, WebFlux]
+tags: [JavaDay, Java, Kotlin, Spring, CQRS, Event Sourcing, Microservices, Reactive, Spinnaker, Reactor, WebFlux, Kubernetes]
 category: Conference
 comments: true
 ---
@@ -11,31 +11,54 @@ comments: true
 > [JavaDay Ukraine](http://javaday.org.ua){:target="_blank"} is an annual international two-day conference in Kyiv with more than 60 global speakers with various topics on Java, software architecture, machine learning, data science, and more.
 In this blog post we will go over some of the talks that we have attended.
 
+<div class="the-toc">
+
+  <h1 class="the-toc__heading">Table Of Contents</h1>
+
+  <ol class="the-toc__list">
+    <li><a href="#developing-microservices-with-kotlin---haim-yadid" title="Developing Microservices With Kotlin">Developing Microservices with Kotlin</a></li>
+    <li><a href="#going-reactive-with-spring-data---christoph-strobl" title="Going Reactive with Spring Data - Christoph Strobl">Going Reactive with Spring Data - Christoph Strobl</a></li>
+    <li><a href="#spring-boot-20-web---stéphane-nicoll" title="Spring Boot 2.0 Web - Stéphane Nicoll">Spring Boot 2.0 Web - Stéphane Nicoll</a></li>
+    <li><a href="#the-api-gateway-is-dead-long-live-the-api-gateway---spencer-gibb" title="The API Gateway is dead! Long Live the API Gateway! - Spencer Gibb">The API Gateway is dead! Long Live the API Gateway! - Spencer Gibb</a></li>
+    <li><a href="#continuous-deployment-to-the-cloud-using-spinnaker---andreas-evers" title="Continuous Deployment to the Cloud using Spinnaker - Andreas Evers">Continuous Deployment to the Cloud using Spinnaker - Andreas Evers</a></li>
+    <li><a href="#10-tips-to-become-an-awesome-technical-lead---bart-blommaerts" title="10 tips to become an awesome Technical Lead - Bart Blommaerts">10 tips to become an awesome Technical Lead - Bart Blommaerts</a></li>
+    <li><a href="#hands-on-introduction-to-cqrs-and-event-sourcing-with-axon-framework---steven-van-beelen" title="Hands-on introduction to CQRS and Event Sourcing with Axon Framework - Steven Van Beelen">Hands-on introduction to CQRS and Event Sourcing with Axon Framework - Steven Van Beelen</a></li>
+    <li><a href="#spring-cloud-stream--a-new-rick-and-morty-adventure---dieter-hubau" title="Spring Cloud Stream — a new Rick and Morty adventure - Dieter Hubau">Spring Cloud Stream — a new Rick and Morty adventure - Dieter Hubau</a></li>
+    <li><a href="#8-steps-to-becoming-awesome-with-kubernetes---burr-sutter" title="8 Steps To Becoming Awesome With Kubernetes - Burr Sutter">8 Steps To Becoming Awesome With Kubernetes - Burr Sutter</a></li>
+  </ol>
+
+</div>
+
+**** 
+
 ### Developing Microservices with Kotlin - Haim Yadid
 
 <span class="image left"><img class="p-image" alt="Haim Yadid" src="/img/javaday-ukraine-2017/haim-yadid.jpg"></span>
 [Haim Yadid](https://twitter.com/lifeyx){:target="_blank"} is a developer, architect and group manager currently working as head of backend engineering in Next Insurance.
-In his search for a better programming language, he compared different strongly and loosely typed JVM languages such as Scala, Ceylon, Groovy, JRuby, Clojure and Kotlin.
+In his search for a better programming language, he compared different strongly and loosely typed JVM languages such as **Scala, Ceylon, Groovy, JRuby, Clojure and Kotlin**.
+
 The chosen language would have to be concise, safe, versatile, practical and interoperable.
 Being a fan of strongly typed languages, Groovy and JRuby were no option.
 Scala was a good option but due to the complexity of the language, the long compilation times and lack of backwards compatibilty assurance, it was also dropped.
+
 Kotlin proved to be the winner as it contained all the above listed characteristics.
 It is also able to make use of the huge Java ecosystem and, being backed by Jetbrains, was very assuring.
 It also helped that Google made Kotlin the official language for Android Development.
 
-In his talk he wanted to share his findings and experiences when developing in Kotlin which he labeled as a huge success.
-The project he worked on contains of a microservices backend over DropWizard deployed to AWS together with serverless endpoints in AWS Lambda.
+In his talk, he wanted to share his findings and experiences when developing in Kotlin which he labeled as a huge success.
+The project he worked on contains a microservices backend over DropWizard deployed to AWS together with serverless endpoints in AWS Lambda.
 Used technologies, frameworks and libraries are amongst others Maven, DropWizard, AWS Lambda, PDFBox, XMPBox, Flyway, Stripe and Mockito Kotlin.
 Building the project was done via the Kotlin Maven plugin.
 
-He started with version 1.0.2 and upgraded to every release immediately which went always very smooth, even the migration to 1.1.0, which included Java 8 support, went without any issues.
-Onboarding new Java devs went also very smooth as they were capable to develop in Kotlin by the time they got to know the architecture.
+He started with version 1.0.2 and upgraded to every release immediately which went always very smooth; even the migration to 1.1.0, which included Java 8 support, went without any issues.
+Onboarding new Java developers also went very smooth as they were capable of developing in Kotlin by the time they got to know the architecture.
 
-Haim really liked extension methods, allowing you to add functionality to an existing class or interface.
-The null safety, which is very similar to the null safety of Apple's Swift where nullability is part of the type of an defined object, was also well-appreciated.
+Haim really liked **extension methods**, which allows you to add functionality to an existing class or interface.
+The null safety, which is very similar to the null safety of Apple's Swift - where nullability is part of the type of an defined object - was also well-appreciated.
+
 Data classes, similar to case classes in Scala, offering a concise way to define simple classes for holding data, were used for all their DTOs.
-Also worthy to mention is that IntelliJ has a converter functionality for converting a Java class to Kotlin.
-Obviously it's mostly handy as a starting point when migrating existing Java classes.
+Also worth mentioning is that IntelliJ has a converter functionality for converting a Java class to Kotlin.
+Obviously it's mostly used as a starting point when migrating existing Java classes.
 We really liked Haim's talk as we are very eager to try out Kotlin in a project.
 
 Haim's presentation is available on SlideShare:
@@ -47,16 +70,16 @@ Haim's presentation is available on SlideShare:
 <span class="image left"><img class="p-image" alt="Christoph Strobl" src="/img/javaday-ukraine-2017/christoph-strobl.jpg"></span>
 [Christoph Strobl](https://twitter.com/stroblchristoph){:target="_blank"} is a developer at Pivotal and is part of the Spring Data team.
 Starting from Spring Framework 5, reactive support was added to all the core Spring Framework projects.
-In a reactive architecture it is important that your system is reactive from top to bottom in order to gain the full performance gain, the persistence layer is no exception to this.
+In a reactive architecture, it is important that your system is reactive from top to bottom in order to gain the full performance gain, the persistence layer is no exception to this.
 
 During the talk, Christoph went over the classic imperative approach of a Spring application where Spring MVC is used and the performance problems that can arise when all threads are in use.
 A reactive architecture makes better use of server resources but in turn adds more complexity to your architecture.
 In a reactive architecture, the publish-subcribe mechanism is heavily used where you have publishers and subscribers.
 Publishers publish messages to which subscribers can subscribe to.
-The mechanism also comes with back pressure for the subscribers, allowing them to define how many messages that want to handle next in order to avoid being overrun.
+The mechanism also comes with back pressure for the subscribers, allowing them to define how many messages they want to handle next in order to avoid being overrun.
 
 In the other part of the session, Christoph went over several features of Spring's Project Reactor, Spring Data Kay and Spring WebFlux.
-The publish-subscribe mechanism in Reactor is based upon the [Reactive Streams specification](http://www.reactive-streams.org){:target="_blank"} and there are two reactive types: `Flux`, an Asynchronous Sequence of 0-N items, and `Mono`, an Asynchronous 0-1 result.
+The publish-subscribe mechanism in Reactor is based on the [Reactive Streams specification](http://www.reactive-streams.org){:target="_blank"} and there are two reactive types: `Flux`, an Asynchronous Sequence of 0-N items, and `Mono`, an Asynchronous 0-1 result.
 Spring WebFlux is the reactive brother of Spring MVC and uses Project Reactor under the hood for building reactive endpoints.
 Spring Data Kay is the newest version of Spring Data which now contains reactive repositories and reactive templates.
 At the time of writing this is only usable for MongoDB, Redis, Couchbase and Cassandra as the other databases lack a reactive JDBC driver.
@@ -76,7 +99,7 @@ The presentation is available on Speaker Deck:
 Stéphane's session was all about Spring Framework 5 and Spring Boot 2.0. 
 Spring 5 comes with Spring WebFlux which is the reactive brother of Spring MVC allowing you to build non-blocking APIs. 
 He explained that there is always the issue of supporting all the different clients: like desktops, laptops, smartphones and tablets, and their different internet speeds. 
-Smartphones often having access to the slowest internet speeds and thus requiring the most optimal solution regarding bandwith and performance.
+Smartphones often having access to the slowest internet speeds and thus requiring the most optimal solution regarding bandwidth and performance.
 
 All the different concepts of building a reactive application with Spring Framework 5 and Spring Boot 2.0 were explained with a demo application called [Smart Meter](https://github.com/snicoll-demos/smart-meter){:target="_blank"}.
 Basically you have all these different data inputs via sensors being gathered by an aggregator and then streamed to a dashboard.
@@ -91,6 +114,11 @@ seperate status endpoints (you now have `/status` and `/health`) and a simplifie
 Properties in Actuator now also display the properties file in which they have been declared and the exact position.
 
 Stéphane concluded the talk by announcing that the release candidate was somewhere foreseen at the end of November.
+However, a recent tweet of his announced a small change to the release schedule:
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Spring Boot is having an extra milestone and RC1 is scheduled early December now.<br><br>See <a href="https://t.co/6kOGdPMtfp">https://t.co/6kOGdPMtfp</a></p>&mdash; Stéphane Nicoll (@snicoll) <a href="https://twitter.com/snicoll/status/928546114512588800?ref_src=twsrc%5Etfw">November 9, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 
 The demo code is available on [GitHub](https://github.com/snicoll-demos/smart-meter){:target="_blank"}.
 The presentation is avilable on Speaker Deck:
@@ -290,3 +318,85 @@ There is also a recorded video available on our [JWorks YouTube channel](https:/
 	<iframe src="https://www.youtube.com/embed/Nl9OIuNRYwI?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 <br/>
+
+### 8 Steps To Becoming Awesome With Kubernetes - Burr Sutter
+
+<span class="image left"><img class="p-image" alt="Burr Sutter" src="/img/javaday-ukraine-2017/burr-sutter.jpg"></span>
+
+[Butter Sutter](https://twitter.com/burrsutter){:target="_blank"}, Director for Developer Experience at Red Hat, gave a cool presentation about Kubernetes.
+
+After a lengthy introduction to DevOps, the challenges of creating and running microservice architectures and Kubernetes, we could dive into some of the more technical features Kubernetes has to offer.
+
+Burr introduced us to **his eight step program to become awesome at Kubernetes**:
+
+## Step 1: Installation
+
+Burr showed us the many ways you could setup a Kubernetes cluster, including [Minikube](https://github.com/kubernetes/minikube/releases){:target="_blank"} or [Minishift](https://github.com/minishift/minishift/releases){:target="_blank"}.
+There are plenty of guides on the web for deploying Kubernetes on any of the major infrastructure providers (AWS, Azure or Google Cloud), but there's also the Kubernetes-as-a-service offerings from Google and Microsoft which can get you going very quickly.
+Running Openshift can be as easy as running `oc cluster up` on your local workstation, which sets up [a local Openshift cluster for you using Docker](https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md){:target="_blank"}.
+
+## Step 2: Building images
+
+There are several ways to build Docker images for Kubernetes or Openshift. I don't like all of them so I will list the options I do like:
+
+- The classical way would be to `docker build` a Docker image, push it to your local Docker registry and run it on Kubernetes cluster using `kubectl run ...` or by creating a Kubernetes deployment using `kubectl create -f deplyoment.yml`
+- For Java applications, the Fabric8 Maven plugin can be used to build, run and debug Docker images on a Kubernetes cluster
+- You can use [Helm Charts](https://docs.helm.sh/using_helm/#quickstart-guide){:target="_blank"} - think of Helm as yum/apt/brew for Kubernetes
+- If you're used to Docker Compose and you have a lot of those config files lying around, you can use [Kompose](https://github.com/kubernetes/kompose){:target="_blank"} to convert them to Kubernetes config files
+- Openshift provides a way to create an image straight from your source code called [Source to Image](https://github.com/openshift/source-to-image){:target="_blank"}
+
+## Step 3: `kubectl exec` or `oc exec`
+
+If you want to find out what is going on inside of these black-box containers, you really should use the `exec` command which allows you to SSH into them so you can snoop around and learn about the internals of your applications.
+It's very handy to debug applications, to figure out issues you might be having and to identify bugs or problems in advance.
+
+## Step 4: Logs
+
+Looking at logs can make troubleshooting so much easier.
+Kubernetes allows the user to look at console logs for any pod in the cluster using `kubectl log <name-of-the-pod>` but it gets quite tiresome rather quickly.
+Luckily for us, the community has come up with another handy tool called [KubeTail](https://github.com/johanhaleby/kubetail/){:target="_blank"} which allows us to tail multiple pods at the same time, with colorized output.
+
+## Step 5: Service Discovery and Load Balancing
+
+In Kubernetes, pods can be exposed as services, which are internal to the cluster but are really handy in inter-service communication.
+Inside of the cluster, services can address each other through DNS via their service names. A service called `producer` running on port 8080 can be called with the following URL: `http://producer:8080`.
+When creating a deployment containing a service inside of Kubernetes with two replicas, a ReplicaSet will be created for you, and all traffic to that deployed service will be load balanced automatically over those two replicas.
+For more specialized load balancing (for example when doing [Canary Deployments](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#canary-deployments){:target="_blank"}) you can make use of multiple deployments.
+
+## Step 6: Live and Ready
+
+This step is really helpful when just starting with Kubernetes, especially when you can't figure out why your app keeps restarting over and over.
+Burr taught us about the existence of and differences between [the **liveness** and **readiness** probes in Kubernetes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/){:target="_blank"}.
+
+Many applications running for long periods of time eventually transition to broken states, and cannot recover except by being restarted. Kubernetes provides **liveness probes** to detect and remedy such situations.
+
+Sometimes, applications are temporarily unable to serve traffic.
+For example, an application might need to load large data or configuration files during startup.
+In such cases, you don’t want to kill the application, but you don’t want to send it requests either.
+Kubernetes provides **readiness probes** to detect and mitigate these situations.
+*A pod with containers reporting that they are not ready does not receive traffic through Kubernetes Services.*
+
+## Step 7: Rolling updates and Blue/Green deployments
+
+As mentioned above for Canary Deployments, Kubernetes offers the possibility to balance load over different versions of your application.
+This makes it a great tool to manage rolling updates of new versions of your application, as well as Blue/Green deployments.
+Although I like the possibilities of the framework, I prefer to use other tools for this like Spinnaker or a service mesh like Istio.
+These tools will use Kubernetes for us, so that we don't have to worry about changing and updating configuration files all the time.
+
+## Step 8: Debugging
+
+As we've said before, debugging in Kubernetes is completely viable and there are several possibilities here.
+
+- Using `kubectl exec` to get inside of the container and live debug the application
+- Using the Fabric8 Maven plugin to debug the application
+- Even Visual Studio Code now has the possibility to [live debug a running Java application](https://code.visualstudio.com/blogs/2017/09/28/java-debug){:target="_blank"}
+- Using the [Red Hat JBoss Developer Studio](https://github.com/VeerMuchandi/openshift-local/blob/master/DebuggingUsingIDE.md){:target="_blank"} can be used to debug Kubernetes or Openshift applications
+
+As a bonus for his talk, Burr also explained one of the new service meshes out there called [Istio](https://istio.io/){:target="_blank"}.
+It promises to deliver **an open platform to connect, manage, and secure microservices**.
+Using a sidecar proxy inside each pod called **Envoy** and some governing tools such as Istio Pilot and Mixer, it solves many of the problems that microservice architectures pose, such as secure inter-service communication, service discovery, circuit breaking, intelligent routing and loading balancing, etc...
+This seems like a very promising technology inside of the Kubernetes and Openshift world and we will keep a close eye on it.
+
+There was [a talk from **Ray Tsang** at Devoxx about Istio](https://www.youtube.com/watch?v=AGztKw580yQ){:target="_blank"} which was very interesting and entertaining, as always.
+
+You can find Burr's presentation right here on [Google Docs](https://docs.google.com/presentation/d/1ij64THksTygvifW5BD-n0ipc6MDF4cGBRQcV3BRYaoM/edit#slide=id.g12c8aac1e6_0_0){:target="_blank"}.
