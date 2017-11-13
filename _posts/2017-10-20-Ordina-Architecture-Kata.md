@@ -211,6 +211,7 @@ The following people have earned the Architect Associate badge:
 - Jos Clijmans 
 - Koen Vanden Bossche
 - Mario Van Hissenhoven 
+- Martin Kwee
 - Sebastiaan Tempels
 - Stijn Dierckens
 
