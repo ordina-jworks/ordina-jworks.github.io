@@ -372,15 +372,15 @@ The demo is built with WebAssembly and WebGL 2, both emerging standards that ena
 
 Use asm.js as a fallback.
 
-When using Binaryen with Emscripten, it can load the compiled code using one of several methods.
-By setting -s BINARYEN_METHOD='..' you can specify those methods, as a comma-separated list It will try them one by one, which allows fallbacks.
+When using Binaryen with Emscripten, it can load the compiled code using one of several methods.<br>
+By setting <code>-s BINARYEN_METHOD='..'</code> you can specify those methods, as a comma-separated list It will try them one by one, which allows fallbacks.
 
 By default, it will try native support. The full list of methods is
 * native-wasm: Use native binary wasm support in the browser.
 * interpret-s-expr: Load a .wast, which contains wasm in s-expression format, and interpret it.
 * nterpret-binary: Load a .wasm, which contains wasm in binary format, and interpret it.
 * interpret-asm2wasm: Load .asm.js, compile to wasm on the fly, and interpret that.
-* asmjs: Load .asm.js and just run it, no wasm. Useful for comparisons, or as a fallback for browsers without WebAssembly support.
+* <u>asmjs</u>: Load .asm.js and just run it, no wasm. Useful for comparisons, or as a fallback for browsers without WebAssembly support.
 
 
 ### Can I compile JS to WASM?
