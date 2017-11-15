@@ -141,7 +141,7 @@ As a filter to rewrite paths was commonly requested before, this was the first f
 Spencer also mentioned that they were also focusing on providing a simple API to write filters.
 Also neat to mention is that route configuration is now possible in YAML.
 
-In the final part, Spencer demoed an implementation of a Gateway showcasing the different ways of how to use the API to define different `byhost`, `rewrite`, `hystrix` and `limited` routes.
+In the final part, Spencer demonstrated an implementation of a Gateway showcasing the different ways of how to use the API to define different `byhost`, `rewrite`, `hystrix` and `limited` routes.
 He started off by visiting the legendary [Spring Initializr webpage](http://start.spring.io){:target="_blank"} and created a Spring Boot 2 application with the Gateway dependency.
 [httpbin](https://httpbin.org){:target="_blank"} is something that he is a big fan of, as it is really useful for testing whether for example the correct rerouting is happening and the right headers are being added to the requests.
 
@@ -341,7 +341,7 @@ Running Openshift can be as easy as running `oc cluster up` on your local workst
 
 There are several ways to build Docker images for Kubernetes or Openshift. I don't like all of them so I will list the options I do like:
 
-- The classical way would be to `docker build` a Docker image, push it to your local Docker registry and run it on Kubernetes cluster using `kubectl run ...` or by creating a Kubernetes deployment using `kubectl create -f deplyoment.yml`
+- The classical way would be to `docker build` a Docker image, push it to your local Docker registry and run it on Kubernetes cluster using `kubectl run ...` or by creating a Kubernetes deployment using `kubectl create -f deployment.yml`
 - For Java applications, the Fabric8 Maven plugin can be used to build, run and debug Docker images on a Kubernetes cluster
 - You can use [Helm Charts](https://docs.helm.sh/using_helm/#quickstart-guide){:target="_blank"} - think of Helm as yum/apt/brew for Kubernetes
 - If you're used to Docker Compose and you have a lot of those config files lying around, you can use [Kompose](https://github.com/kubernetes/kompose){:target="_blank"} to convert them to Kubernetes config files
@@ -396,7 +396,7 @@ As we've said before, debugging in Kubernetes is completely viable and there are
 
 As a bonus for his talk, Burr also explained one of the new service meshes out there called [Istio](https://istio.io/){:target="_blank"}.
 It promises to deliver **an open platform to connect, manage, and secure microservices**.
-Using a sidecar proxy inside each pod called **Envoy** and some governing tools such as Istio Pilot and Mixer, it solves many of the problems that microservice architectures pose, such as secure inter-service communication, service discovery, circuit breaking, intelligent routing and loading balancing, etc...
+Using a sidecar proxy inside each pod called **Envoy** and some governing tools such as Istio Pilot and Mixer, it solves many of the problems that microservice architectures pose, such as secure inter-service communication, service discovery, circuit breaking, intelligent routing and load balancing, etc...
 This seems like a very promising technology inside of the Kubernetes and Openshift world and we will keep a close eye on it.
 
 There was [a talk from **Ray Tsang** at Devoxx about Istio](https://www.youtube.com/watch?v=AGztKw580yQ){:target="_blank"} which was very interesting and entertaining, as always.
