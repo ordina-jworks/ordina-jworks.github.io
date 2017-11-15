@@ -429,7 +429,7 @@ He would have named it Jarvis, but since this would be a far worse butler than J
 </p>
 </div>
 
-Around mid-2014 he started working on a chatbot that does little bits in his house. Basically he put together a Raspberry Pi running JavaScript code, which in it’s core is basically is a router that has some core functionality built in to it like
+Around mid-2014 he started working on a chatbot that does little bits in his house. Basically he put together a Raspberry Pi running JavaScript code, which in it’s core is basically a router that has some core functionality built in to it like
 * broadcasting,
 * preference storage,
 * scheduling
