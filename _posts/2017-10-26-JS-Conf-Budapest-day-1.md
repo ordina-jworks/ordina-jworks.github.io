@@ -317,8 +317,7 @@ INSERT TALK SUMMARY HERE
 ### Dan Callahan: Practical WebAssembly
 
 You can find Dan on Twitter using the handle [@callahad](https://twitter.com/callahad).
-<p style="height: 300px;"></p>
-
+<blockquote><p>In this talk dan explained to us what Web assembly is all about. How it works, what it is for and the features that are already there / yet to come.</p></blockquote>
 Web Assembly, what is it?
 Well according to <a target="_blank" href="http://webassembly.org/">http://webassembly.org/</a>:
 <blockquote>"WebAssembly or wasm is a new portable, size- and load-time-efficient format suitable for compilation to the web."</blockquote>
@@ -364,7 +363,10 @@ Check out <b><a target="_blank" href="http://webassembly.org/demo/">this demo of
 
 This is a video of Epic's "Zen Garden" demo running in Firefox.
 The demo is built with WebAssembly and WebGL 2, both emerging standards that enable amazing video games and applications in the browser.
-<iframe width="560" height="315" src="https://www.youtube.com/embed/TwuIRcpeUWE?rel=0" frameborder="0" allowfullscreen></iframe>
+
+<div class="responsive-video">
+    <iframe src="https://www.youtube.com/embed/TwuIRcpeUWE?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
 
 ### What about older browsers
 
@@ -429,8 +431,9 @@ All of it is open source (MIT) on <a href="https://github.com/Woodhouse/core" ta
 
 
 ### Automating Lamps
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/5YNmMdTzfaQ" frameborder="0" allowfullscreen></iframe>
+<div class="responsive-video">
+    <iframe src="https://www.youtube.com/embed/5YNmMdTzfaQ" frameborder="0" allowfullscreen></iframe>
+</div>
 
 Sending a message in a chat application, that get’s picked up by Woodhouse and he/it then turns on his lamps at home.
 So as he walks down the street getting to his house, in stead of coming home and  stumbling over things searching for the light switch in the dark,
@@ -452,7 +455,9 @@ there’s an endpoint on the plug and when he goes to that endpoint, it switches
 ### Automating the curtains
 For giving talks about the application, he wanted to add something new to the application and so… he automated his curtains.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Crudcsaheoc" frameborder="0" allowfullscreen></iframe>
+<div class="responsive-video">
+    <iframe src="https://www.youtube.com/embed/Crudcsaheoc" frameborder="0" allowfullscreen></iframe>
+</div>
 
 The setup and parts for it are very basic and simple. It’s basically some string, plastic wheels,  a servo and an esp82266.
 
@@ -469,7 +474,9 @@ which let you write JavaScript on your hardware, it takes away a lot of the comp
 
 Not out of frustration or anything like that. Besides the chatbot, he wanted to add voice control to the appcliation so that he could tell his laptop to open/close the curtains or turn on/off the lights.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/CQzn16TzZ0w" frameborder="0" allowfullscreen></iframe>
+<div class="responsive-video">
+    <iframe src="https://www.youtube.com/embed/CQzn16TzZ0w" frameborder="0" allowfullscreen></iframe>
+</div>
 
 It uses a NodeJs library for offline hot words detection so in stead of having it constantly listening to him,
 he can just shout ‘Woodhouse’ which will make it reply to say that it’s listening and then the rest of the complex speech to text is done by Google,
