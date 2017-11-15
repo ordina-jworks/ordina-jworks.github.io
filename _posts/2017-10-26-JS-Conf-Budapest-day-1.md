@@ -171,14 +171,14 @@ You can find Madeleine on Twitter using the handle [@maggysche](https://twitter.
 The reason we struggle with insecurity is because we compare our behind the scenes with everyone else’s  highlight reel
 </p></blockquote>
 
-Madeleine wanted to share her life experience with us. While se attended secondary school, Madeleine was the creepy loner at school. 
+Madeleine wanted to share her life experience with us. While she attended secondary school, Madeleine was the creepy loner at school. 
 'What's wrong with me?', 'What did I do wrong?' she asked herself on several occasions. 
 'My behaviour must be wrong, I have to change'. So she decided to take up programming in high school and felt truly belonged.
 After Madeleine graduated high school, she started to work as a frontend developer where she was learning a lot, very quickly! 
 However she soon discovered that the speed at which she was learning gradually stagnated. 
 She had mixed feelings about her profession and abilities, thinking she did not belong there and had no idea what she was doing, so she decided to work even harder. 
-All of her friends and colleagues congratulated her for her effort and hard work, but Madeleine still wasn’t satisfied. Shortly after, she discovered 
-“the imposter syndrome”. Here are some common signs that someone might experience, where one feels like an imposter:  
+All of her friends and colleagues congratulated her for her effort and hard work, but Madeleine still wasn’t satisfied. Shortly after, she learned about "the imposter syndrome".
+Here are some common signs that someone might experience, where one feels like an imposter:  
 * Does everyone overestimate you?
 * Do you tend to discuss yourself?
 * You compare your ability to those around you and think they’re more intelligent than you are?
@@ -200,7 +200,7 @@ Madeleine discovered that her answer to all the previous questions was 'yes' and
 * Bribe your friends
 * Being wrong, doesn't make you a fraud
 * Focus on providing value and write it down
-* Keep a file of nice things someone was saying about you 
+* Keep a file of nice things someone has said about you
 * Stop commenting compliments
 * And finally, take time for yourself
 
