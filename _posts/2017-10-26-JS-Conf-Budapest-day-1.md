@@ -490,7 +490,7 @@ Not out of frustration or anything like that. Besides the chatbot, he wanted to 
     <iframe src="https://www.youtube.com/embed/CQzn16TzZ0w" frameborder="0" allowfullscreen></iframe>
 </div>
 
-It uses a NodeJs library for offline hot words detection. So instead of having it constantly listening to him,
+It uses a NodeJs library for offline 'hot words' detection. So instead of having it constantly listening to him,
 he can just shout ‘Woodhouse’ which will make it reply to say that it’s listening. The rest of the complex speech to text is done by Google,
 since they have a lot more data than him. There are open source systems for doing speech to text, but you would have to train it yourself and well, we’re doing all this because we want to be lazy…
 So he created a few of these voice control units and spread them around the house and let them connect to one central instance. So he can activate it from wherever he is in the house.
