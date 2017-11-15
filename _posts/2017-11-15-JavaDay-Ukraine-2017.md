@@ -50,7 +50,7 @@ The project he worked on contains a microservices backend over DropWizard deploy
 Used technologies, frameworks and libraries are amongst others Maven, DropWizard, AWS Lambda, PDFBox, XMPBox, Flyway, Stripe and Mockito Kotlin.
 Building the project was done via the Kotlin Maven plugin.
 
-He started with version 1.0.2 and upgraded to every release immediately which always went very smooth; even the migration to 1.1.0, which included Java 8 support, went without any issues.
+He started with version 1.0.2 and immediately upgraded to every release which always went very smooth; even the migration to 1.1.0, which included Java 8 support, went without any issues.
 Onboarding new Java developers is never a hassle as they are capable of developing in Kotlin by the time they get to know the architecture.
 
 Haim really liked extension methods, which allow you to add functionality to an existing class or interface.
@@ -75,7 +75,7 @@ In a reactive architecture, it is important that your system is reactive from to
 
 During the talk, Christoph went over the classic imperative approach of a Spring application where Spring MVC is used and the performance problems that can arise when all threads are in use.
 A reactive architecture makes better use of server resources but in turn adds more complexity to your architecture.
-The publish-subscribe mechanism is heavily used in this architecture where, how can you guess it, publishers publish messages to which subscribers can subscribe to.
+The publish-subscribe mechanism is heavily used in this architecture where, how can you guess it, publishers publish messages to which subscribers can subscribe.
 The mechanism also comes with back pressure for the subscribers, allowing them to define how many messages they want to handle next in order to avoid being overrun.
 It is important to note here that the reactive publish-subscribe mechanism is based on the push model. The subscriber will not actively fetch the data but will instead receive the data from the publisher who pushes the new messages to the subscriber when they're available.
 
@@ -103,7 +103,7 @@ He explained that there is always the issue of supporting all the different clie
 Smartphones often have access to the slowest internet speeds and thus require the most optimal solution regarding bandwidth and performance.
 
 All the different concepts of building a reactive application with Spring Framework 5 and Spring Boot 2.0 were explained with a demo application called [Smart Meter](https://github.com/snicoll-demos/smart-meter){:target="_blank"}.
-Basically you have all these different data inputs via sensors being gathered by an aggregator and then streamed to a dashboard.
+Basically, you have all these different data inputs via sensors being gathered by an aggregator and then streamed to a dashboard.
 The frontend is written in Thymeleaf 3.0 which is the version in which reactive support was added.
 Besides the frontend needing reactive support, the persistence layer of the backend also needs it.
 In Spring Data Kay, reactive support exists for Redis, MongoDB, Couchbase and Cassandra.
@@ -273,7 +273,7 @@ The slides of Bart's talk are available on SlideShare:
 
 [Steven Van Beelen](https://twitter.com/smcvbeelen){:target="_blank"}, Software Engineer at AxonIQ, held a hands-on session on CQRS and Event Sourcing using the [Axon Framework](http://www.axonframework.org){:target="_blank"} which helps developers to focus on application functionality rather than the non-functional requirements of an application.
 
-The main advantages of event sourcing is that there is less info loss as you are storing all the different events, leading to the final state of records whereas in a classical example you only hold on to the final state of a record.
+The main advantage of event sourcing is that there is less info loss as you are storing all the different events, leading to the final state of records whereas in a classical example you only hold on to the final state of a record.
 By using event sourcing you also get a reliable audit log right out of the box.
 At the same time there is also a performance increase as events are processed in the background asynchronously, leading to faster response times.
 With event sourcing you mostly make use of a cache, as replaying events when looking up records can be time consuming.
@@ -283,7 +283,7 @@ Some of the cons are that events are readable forever and that it is a lot of wo
 Sourcing the model from lots and lots of events takes time but this is also resolved by making use of snapshots.
 
 The Axon Framework is open source (Apache 2 license) and supports concepts like DDD (Domain-Driven Design), CQRS (Command and Query Responsibility Segregation) and EDA (Event Driven Architecture).
-The framework helps you focusing on the business functionality as it takes care of the plumbing for you.
+The framework helps you to focus on the business functionality as it takes care of the plumbing for you.
 
 The majority of the time was spent with live coding.
 Steven created a Spring Boot app with Kotlin.
@@ -308,7 +308,7 @@ For more information on the framework, be sure to consult the well-written [refe
 <span class="image left"><img class="p-image" alt="Dieter Hubau" src="/img/javaday-ukraine-2017/dieter-hubau.jpg"></span>
 
 [Dieter Hubau](https://twitter.com/dhubau){:target="_blank"}, principal Java consultant and competence lead Cloud & PaaS at Ordina Belgium, presented his cool Spring Cloud Stream application featuring Rick and Morty.
-Spring Cloud Stream allows you to create message driven microservices and it based upon Spring Integration and builds upon Spring Boot.
+Spring Cloud Stream allows you to create message driven microservices and is based upon Spring Integration and builds upon Spring Boot.
 
 Briefly summarising the talk wouldn't do it justice so instead we will link you to the blog post he has written on the topic available right [here](/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html){:target="_blank"}.
 The presentation is available right here:
@@ -341,7 +341,7 @@ Running Openshift can be as easy as running `oc cluster up` on your local workst
 
 There are several ways to build Docker images for Kubernetes or Openshift. We like the following ones:
 
-- The classical way would be to `docker build` a Docker image, push it to your local Docker registry and run it on Kubernetes cluster using `kubectl run ...` or by creating a Kubernetes deployment using `kubectl create -f deployment.yml`
+- The classical way would be to `docker build` a Docker image, push it to your local Docker registry and run it on a Kubernetes cluster using `kubectl run ...` or by creating a Kubernetes deployment using `kubectl create -f deployment.yml`
 - For Java applications, the Fabric8 Maven plugin can be used to build, run and debug Docker images on a Kubernetes cluster
 - You can use [Helm Charts](https://docs.helm.sh/using_helm/#quickstart-guide){:target="_blank"} - think of Helm as yum/apt/brew for Kubernetes
 - If you're used to Docker Compose and you have a lot of those config files lying around, you can use [Kompose](https://github.com/kubernetes/kompose){:target="_blank"} to convert them to Kubernetes config files
@@ -392,7 +392,7 @@ As we've said before, debugging in Kubernetes is completely viable and there are
 - Using `kubectl exec` to get inside of the container and live debug the application
 - Using the [Fabric8 Maven plugin](https://github.com/fabric8io/fabric8-maven-plugin){:target="_blank"} to debug the application
 - Even Visual Studio Code now has the possibility to [live debug a running Java application](https://code.visualstudio.com/blogs/2017/09/28/java-debug){:target="_blank"}
-- Using the [Red Hat JBoss Developer Studio](https://github.com/VeerMuchandi/openshift-local/blob/master/DebuggingUsingIDE.md){:target="_blank"} can be used to debug Kubernetes or Openshift applications
+- [Red Hat JBoss Developer Studio](https://github.com/VeerMuchandi/openshift-local/blob/master/DebuggingUsingIDE.md){:target="_blank"} can be used to debug Kubernetes or Openshift applications
 
 As a bonus for his talk, Burr also explained one of the new service meshes out there called [Istio](https://istio.io/){:target="_blank"}.
 It promises to deliver **an open platform to connect, manage, and secure microservices**.
