@@ -350,7 +350,7 @@ This is great for portability since code written in C works on mac, linux and wi
 JavaScript is alive, but its client-side monopoly is dead.
 Web Assembly doesn't replace JavaScript, but does expand the web and complements JavaScript:
 <ul>
-    <li>High Levels (JS) vs. Low Level (WASM)</li>
+    <li>High Level (JS) vs. Low Level (WASM)</li>
     <li>Text (JS) vs. Binary (WASM)</li>
 </ul>
 
