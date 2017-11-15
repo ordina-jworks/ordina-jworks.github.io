@@ -360,6 +360,8 @@ Web Assembly doesn't replace JavaScript, but does expand the web and complements
 When it comes to creating 3D games, Unity also has experimental support for Web Assembly.<br>
 Check out <b><a target="_blank" href="http://webassembly.org/demo/">this demo of an in browser game</a></b>
 
+### Unreal Engine
+
 This is a video of Epic's "Zen Garden" demo running in Firefox.
 The demo is built with WebAssembly and WebGL 2, both emerging standards that enable amazing video games and applications in the browser.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/TwuIRcpeUWE?rel=0" frameborder="0" allowfullscreen></iframe>
@@ -401,10 +403,84 @@ Interesting Links:
 You can find Luke on Twitter using the handle [@lukeb_uk](https://twitter.com/lukeb_uk).
 
 <blockquote class="clear"><p>
-INSERT SMALL TALK DESCRIPTION
-</p></blockquote>
+Being lazy can lead to some great out of the box thinking and finding innovative solutions for common everyday stuff.
+Luke talks about how he created a chatbot that automates things for him to make them a bit less common and/or boring.</p></blockquote>
 
-INSERT TALK SUMMARY HERE
+### Woodhouse
+
+<div>
+<p style="width: 60%;">
+<img src="/img/Woodhouse.jpg" alt="Woodhouse" style="float: left; padding: 5px;" height="100px"/>
+He would have named it Jarvis, but since this would be a far worse butler than Jarvis was, he named it Woodhouse after the butler character from the tv-series 'Arthur'.
+</p>
+</div>
+
+Around mid-2014 he started working on a chatbot that does little bits in his house. Basically he put together a Raspberry Pi running JavaScript code, that in it’s core is basically is a router that has some core functionality built in to it like
+* broadcasting,
+* preference storage,
+* scheduling
+
+There’s two types of modules that make it up:
+* there are plugins that do all the heavy-lifting so you can interface with hardware (as long as it’s possible with JavaScript or the node ecosystem) or get it to send a message just from you sending something to it, you could also for example let it connect to api’s to get it to do your builds on your CI tools,
+* and then there are the interfaces which are basically chat systems. They are the way to talk to the chat bots. If the system has a way for you to build stuff for it in JavaScript, you can connect to it and let it do stuff on for example Facebook, Slack, HipChat and many more…
+
+### Open Source
+All of it is open source (MIT) on <a href="https://github.com/Woodhouse/core" target="_blank">GitHub</a> and written in JavaScript and runs on NodeJs.
+
+
+### Automating Lamps
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5YNmMdTzfaQ" frameborder="0" allowfullscreen></iframe>
+
+Sending a message in a chat application, that get’s picked up by Woodhouse and he/it then turns on his lamps at home.
+So as he walks down the street getting to his house, in stead of coming home and  stumbling over things searching for the light switch in the dark,
+he can just send a message and the lights will be on when he gets there.
+
+
+
+<p>
+<img src="/img/lamp-plugs.png" alt="Lamp plugs image" class="image left fit">
+<b>Lamp plugs</b> (they are from China, so super safe, right?). Maybe not, but the cost about £15 and are great for poking around in.
+After poking around with them, he found out that there was a google group that had been hacking around with them and found the SSH password for it
+and since it runs <a href="https://openwrt.org/" target="_blank">OpenWrt</a> which is a router firmware based on linux.
+So being able to SSH into it and work with the linux installed on it, you can run basic scripts on it (it has limited memory so you can’t just install everything you like on it).
+But most importantly, it’s got a web server built into it, so you can hit an endpoint and make the relay turn on. And that’s how his relay works,
+there’s an endpoint on the plug and when he goes to that endpoint, it switches it on or off depending on a parameter.
+</p>
+
+
+### Automating the curtains
+For giving talks about the application, he wanted to add something new to the application and so… he automated his curtains.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Crudcsaheoc" frameborder="0" allowfullscreen></iframe>
+
+The setup and parts for it are very basic and simple. It’s basically some string, plastic wheels,  a servo and an esp82266.
+
+<div style="display: block;">
+<p>
+<img src="/img/esp8266.png" alt="esp8266 board and components" class="image left fit">
+The esp8266 is a wireless Arduino type board, but the cheap Chinese version so you can buy loads of them and connect them
+to your network so you can control stuff over your network for about £2 each. It runs <a href="https://mongoose-os.com/" target="_blank">Mongoose OS</a>
+which let you write JavaScript on your hardware, it takes away a lot of the complexities of the lower level code and lets you use a language you know.
+</p>
+</div>
+<br>
+### Shouting at his laptop
+
+Not out of frustration or anything like that. Besides the chatbot, he wanted to add voice control to the appcliation so that he could tell his laptop to open/close the curtains or turn on/off the lights.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/CQzn16TzZ0w" frameborder="0" allowfullscreen></iframe>
+
+It uses a NodeJs library for offline hot words detection so in stead of having it constantly listening to him,
+he can just shout ‘Woodhouse’ which will make it reply to say that it’s listening and then the rest of the complex speech to text is done by Google,
+since they have a lot more data than him. (there are open source systems for doing speech to text,  but you would have to train it yourself and well, we’re doing all this because we want to be lazy…
+So he created a few of these voice control units and spread them around the house and let them connect to one central instance. So he can activate it from wherever he is in the house.
+
+### Conclusion
+
+So in stead of being lazy, he admits to being the stupid kind of lazy. Because he has spent about hundreds of hours coding for it to do simple stuff.
+So I'ts not really about being lazy, but more being not driven to do those simple things.
+
 
 ****
 
