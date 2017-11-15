@@ -53,7 +53,7 @@ Building the project was done via the Kotlin Maven plugin.
 He started with version 1.0.2 and upgraded to every release immediately which always went very smooth; even the migration to 1.1.0, which included Java 8 support, went without any issues.
 Onboarding new Java developers is never a hassle as they are capable of developing in Kotlin by the time they get to know the architecture.
 
-Haim really liked **extension methods**, which allow you to add functionality to an existing class or interface.
+Haim really liked extension methods, which allow you to add functionality to an existing class or interface.
 The null safety, which is very similar to the null safety of Apple's Swift - where nullability is part of the type of an defined object - was also well-appreciated.
 He also pointed out to us that Java open source libraries work extremely well with Kotlin. All you need to do is add the dependency to your build file and you are good to go.
 
@@ -160,7 +160,7 @@ Netflix for example deploys over 4.000 times per day and that number is still in
 Andreas explained that cloud deployments are complex and that it is important to be able to do easy rollbacks.
 There is also the fact that we want to plan our deploy at the right time frame, preferably when traffic is lowest to have the least amount of users impacted.
 
-Andreas explained a couple of other principles such as making sure that infrastructure is immutable, repeatable and predictable across the different environments through baking images or building containers by using for example Docker.
+Andreas talked about a couple of other principles such as making sure that infrastructure is immutable, repeatable and predictable across the different environments through baking images or building containers by using for example Docker.
 Equally important are the deployment strategies like (rolling) blue/green (or red/black if that's how you roll (pun intented). Looking at you, Netflix!).
 Using the blue/green deployment strategy you can deploy the new version right next to the old version. What happens next depends on how the strategy has been configured.
 Either the load balancer will reroute all traffic from the old version to the new version, or (if the rolling strategy has been configured) the traffic will gradually get rerouted to the new version. The last option is great for canary testing or smoke tests.
@@ -339,7 +339,7 @@ Running Openshift can be as easy as running `oc cluster up` on your local workst
 
 ## Step 2: Building images
 
-There are several ways to build Docker images for Kubernetes or Openshift. I don't like all of them so I will list the options I do like:
+There are several ways to build Docker images for Kubernetes or Openshift. We like the following ones:
 
 - The classical way would be to `docker build` a Docker image, push it to your local Docker registry and run it on Kubernetes cluster using `kubectl run ...` or by creating a Kubernetes deployment using `kubectl create -f deployment.yml`
 - For Java applications, the Fabric8 Maven plugin can be used to build, run and debug Docker images on a Kubernetes cluster
@@ -382,7 +382,7 @@ Kubernetes provides **readiness probes** to detect and mitigate these situations
 
 As mentioned above for Canary Deployments, Kubernetes offers the possibility to balance load over different versions of your application.
 This makes it a great tool to manage rolling updates of new versions of your application, as well as Blue/Green deployments.
-Although I like the possibilities of the framework, I prefer to use other tools for this like Spinnaker or a service mesh like Istio.
+Although I like the possibilities of the framework, I prefer to use other tools for this like Spinnaker or a service mesh like [Istio](https://istio.io){:target="_blank"}.
 These tools will use Kubernetes for us, so that we don't have to worry about changing and updating configuration files all the time.
 
 ## Step 8: Debugging
@@ -390,7 +390,7 @@ These tools will use Kubernetes for us, so that we don't have to worry about cha
 As we've said before, debugging in Kubernetes is completely viable and there are several possibilities here.
 
 - Using `kubectl exec` to get inside of the container and live debug the application
-- Using the Fabric8 Maven plugin to debug the application
+- Using the [Fabric8 Maven plugin](https://github.com/fabric8io/fabric8-maven-plugin){:target="_blank"} to debug the application
 - Even Visual Studio Code now has the possibility to [live debug a running Java application](https://code.visualstudio.com/blogs/2017/09/28/java-debug){:target="_blank"}
 - Using the [Red Hat JBoss Developer Studio](https://github.com/VeerMuchandi/openshift-local/blob/master/DebuggingUsingIDE.md){:target="_blank"} can be used to debug Kubernetes or Openshift applications
 
