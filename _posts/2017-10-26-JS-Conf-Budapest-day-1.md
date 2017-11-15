@@ -477,8 +477,8 @@ The setup and parts for it are very basic and simple. It’s basically some stri
 <p>
 <img src="/img/esp8266.png" alt="esp8266 board and components" class="image left fit">
 The esp8266 is a wireless Arduino type board, but the cheap Chinese version so you can buy loads of them and connect them
-to your network so you can control stuff over your network for about £2 each. It runs <a href="https://mongoose-os.com/" target="_blank">Mongoose OS</a>
-which let you write JavaScript on your hardware, it takes away a lot of the complexities of the lower level code and lets you use a language you know.
+to your network. So for about £2 each you can control stuff over your network from anywhere. It runs <a href="https://mongoose-os.com/" target="_blank">Mongoose OS</a>
+which lets you write JavaScript on your hardware, it takes away a lot of the complexities of the lower level code and lets you use a language you know.
 </p>
 </div>
 <br>
