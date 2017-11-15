@@ -411,7 +411,7 @@ Luke talks about how he created a chatbot that automates things for him to make 
 <div>
 <p style="width: 60%;">
 <img src="/img/Woodhouse.jpg" alt="Woodhouse" style="float: left; padding: 5px;" height="100px"/>
-He would have named it Jarvis, but since this would be a far worse butler than Jarvis was, he named it Woodhouse after the butler character from the tv-series 'Arthur'.
+He would have named it Jarvis, but since this would be a far worse butler than Jarvis was, he named it Woodhouse after the butler character from the tv-series 'Archer'.
 </p>
 </div>
 
