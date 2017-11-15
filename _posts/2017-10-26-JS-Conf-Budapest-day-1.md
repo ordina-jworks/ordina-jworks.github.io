@@ -317,7 +317,7 @@ INSERT TALK SUMMARY HERE
 ### Dan Callahan: Practical WebAssembly
 
 You can find Dan on Twitter using the handle [@callahad](https://twitter.com/callahad).
-<blockquote><p>In this talk dan explained to us what Web assembly is all about. How it works, what it is for and the features that are already there / yet to come.</p></blockquote>
+<blockquote><p>In this talk Dan explained what Web assembly is all about. How it works, what it is for and the features that are already there / yet to come.</p></blockquote>
 Web Assembly, what is it?
 Well according to <a target="_blank" href="http://webassembly.org/">http://webassembly.org/</a>:
 <blockquote>"WebAssembly or wasm is a new portable, size- and load-time-efficient format suitable for compilation to the web."</blockquote>
