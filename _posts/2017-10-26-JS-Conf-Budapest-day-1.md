@@ -201,7 +201,46 @@ The title of his talk contained the word 'Elegant', and this is where the ES2017
 This is a great alternative for dealing with promises in JavaScript. If you're a JavaScript developer you probably know what 'callback hell' is, or at least heard of it.
 When writing complex programs, we could find ourselves in a situation where we would have to create multiple nested promises to make sure we have the results of one call to continue with the next and so on.
 
+Async - declares an asynchronous function (async function someName(){...}).
+* Automatically transforms a regular function into a Promise.
+* When called async functions resolve with whatever is returned in their body.
+* Async functions enable the use of await.
 
+Await - pauses the execution of async functions. (var result = await someAsyncCall();).
+* When placed in front of a Promise call, await forces the rest of the code to wait until that Promise finishes and returns a result.
+* Await works only with Promises, it does not work with callbacks.
+* Await can only be used inside async functions.
+
+<pre class="highlight">
+<code>// Promise approach
+function getJSON(){
+    // To make the function blocking we manually create a Promise.
+    return new Promise( function(resolve) {
+        axios.get('https://myurl.com/example.json')
+            .then( function(json) {
+                // The data from the request is available in a .then block
+                // We return the result using resolve.
+                resolve(json);
+            });
+    });
+}
+</code>
+</pre>
+
+<pre class="highlight">
+<code>// Async/Await approach
+// The async keyword will automatically create a new Promise and return it.
+async function getJSONAsync(){
+    // The await keyword saves us from having to write a .then() block.
+    let json = await axios.get('https://myurl.com/example.json');
+    // The result of the GET request is available in the json variable.
+    // We return it just like in a regular synchronous function.
+    return json;
+}
+</code>
+</pre>
+
+For further reading on how Jonathan used async patterns for multicore JavaScript, he has written an <a href="https://www.bignerdranch.com/blog/cross-stitching-elegant-concurrency-patterns-for-javascript/" target="_blank">elaborate blog post</a> about it
 
 ****
 
