@@ -153,10 +153,55 @@ You can find Jonathan on Twitter using the handle [@nybblr](https://twitter.com/
 The presentation can be found on [speakerdeck](https://speakerdeck.com/nybblr/async-patterns-to-scale-your-multicore-javascript-dot-dot-dot-elegantly).
 
 <blockquote class="clear"><p>
-INSERT SMALL TALK DESCRIPTION
+“JavaScript is single-threaded, so it doesn’t scale. JavaScript is a toy language because it doesn’t support multithreading.”
+Outside (and inside) the web community, statements like these are common.
+
+And in a way, it’s true: JavaScript’s event loop means your program does one thing at a time.
+This intentional design decision shields us from an entire class of multithreading woes,
+but it has also birthed the misconception that JavaScript can’t handle concurrency.
+
+But in fact, JavaScript’s design is well-suited for solving a plethora of concurrency problems
+without succumbing to the “gotchas” of other multithreaded languages. You might say that JavaScript is single-threaded…
+just so it can be multithreaded!
 </p></blockquote>
 
-INSERT TALK SUMMARY HERE
+
+Before diving into solving concurrency problems let's Jonathan explained to us how the (V8) JavaScript runtime actually reacts under the hood.
+How the call stack, event loop WebAPIs and the callback queue works. How it handles synchronous (blocking) and asynchronous (non-blocking) code.
+Explaining that would be an entire blog post on it's own. Luckily he gave us a great link to a video that explains it verry clearly, so I'll add that instead.
+
+<div class="responsive-video">
+<iframe src="https://player.vimeo.com/video/96425312" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<p><a href="https://vimeo.com/96425312">Philip Roberts: Help, I&#039;m stuck in an event-loop.</a> from <a href="https://vimeo.com/edgecaseuk">Cultivate</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+
+#### What is concurrency, multi threading and parallelism
+So if you've just watched the video above, you know that Javascript has one call stack (a single thread), that executes the functions on it in sequence.
+With multi threading, as the word says, we have multiple threads.
+This means that the program can assign these tasks to multiple stacks so that mutiple tasks get executed at the same time.
+
+
+In a computer with a single processor and single core, to do mutit threading,
+the processor would alternate between these tasks really fast so that they appear to be happening at the same time.
+Back in the early days of computing, this was the only option we had. This is called <b>concurrency</b>.
+
+Around 2005 Intel, AMD and the other chip makers started creating processors with multiple cores. This meant that it could actually do multiple things at the same time, since it had multiple "brains".
+Processors could now assign different tasks to different cores and they would run at the same time, this is what we call <b>Paralellism</b>
+
+### JavaScript multi threading: impossible?
+Although your JavaScript code is single-threaded and only does one thing at a time, the JavaScript Runtime and Web APIs are multithreaded!
+When you pass a callback function to setTimeout() or start an AJAX request with fetch(),
+you are essentially spinning up a background thread in the runtime. Once that background thread completes,
+and once the current call stack finishes executing, your callback function is pushed onto the (now empty) call stack and run-to-completion.
+So your JavaScript code itself is single-threaded, but it orchestrates legions of threads!
+
+### ES2017 async functions
+The title of his talk contained the word 'Elegant', and this is where the ES2017 async/await functionality comes in.
+This is a great alternative for dealing with promises in JavaScript. If you're a JavaScript developer you probably know what 'callback hell' is, or at least heard of it.
+When writing complex programs, we could find ourselves in a situation where we would have to create multiple nested promises to make sure we have the results of one call to continue with the next and so on.
+
+
 
 ****
 
