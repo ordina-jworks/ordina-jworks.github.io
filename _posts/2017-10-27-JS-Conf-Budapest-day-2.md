@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [frederic_ghijselinck, orjan_de_smet, stefanie_geldof, martijn_willekens, dimitri_de_kerf]
-title: 'JS Conf Budapest Day 2'
+title: 'JS Conf Budapest 2017 Day 2'
 image: /img/js-conf-budapest-2017/js-conf-budapest-2017.png
 tags: [JS Conf Budapest,JavaScript,Conference]
 category: Conference
@@ -10,26 +10,25 @@ comments: true
 
 ## From JS Conf Budapest with love
 
-This year's edition of JS Conf Budapest returned to the first venue at [Urania National Movie theater](http://akvariumklub.hu/).
+This year's edition of JS Conf Budapest returned to the first venue at [Urania National Movie theater](http://www.urania-nf.hu/).
 
 > Uránia Cinema in the middle of the city, near the party-district.
 > Designed by Henrik Schmahl in the late 1890's, the interior is characterized by the ornamental motifs of the Venetian Gothic and Moor styles.
 > The place is listed as the world's 3rd most beautiful cinema on Bored Panda, and many tech conferences were hosted here recently, like TEDx, and Strech Conference, because of the unique atmosphere.
 
-JS Conf Budapest 2017 is hosted by [](https://twitter.com/) and [](https://twitter.com/).
-
-At 10:00 the second day of the conference started.
+JS Conf Budapest 2017 is hosted by [Glen Maddern](https://twitter.com/glenmaddern) and [Charlie Gleason](https://twitter.com/superhighfives).
+At 10:00 the second day of the conference started. Enough time to drink great coffee and enjoy the breakfast.
 
 ****
 
 ## Day 2: Talks
 
-* [Don Burks: MVC - What a web app and a Mozart Violin Concerto have in common](#don-burks-mvc-what-a-web-app-and-a-mozart-violin-concerto-have-in-common)
+* [Don Burks: MVC - What a web app and a Mozart Violin Concerto have in common](#don-burks-mvc---what-a-web-app-and-a-mozart-violin-concerto-have-in-common)
 * [Opher Vishnia: Web Animation: from Disney to SASS](#opher-vishnia-web-animation-from-disney-to-sass)
 * [Imad Elyafi: Migrating Pinterest profiles to React](#imad-elyafi-migrating-pinterest-profiles-to-react)
-* [Laura Carvajal: YES, your site can (and should) be accessible too. Lessons learned in building FT.com](#laura-carvajal-yes-your-site-can-and-should-be-accessible-too-lessons-learned-in-building-ft-com)
-* [Nikita Baksalyar: Exploring the P2P world with WebRTC & JavaScript](#nikita-baksalyar-exploring-the-p2p-world-with-webrtc-javascript)
-* [Vaidehi Joshi: Goldilocks And The Three Code Reviews](#Vaidehi-joshi-goldilocks-and-the-three-code-reviews)
+* [Laura Carvajal: YES, your site can (and should) be accessible too. Lessons learned in building FT.com](#laura-carvajal-yes-your-site-can-and-should-be-accessible-too-lessons-learned-in-building-ftcom)
+* [Nikita Baksalyar: Exploring the P2P world with WebRTC & JavaScript](#nikita-baksalyar-exploring-the-p2p-world-with-webrtc--javascript)
+* [Vaidehi Joshi: Goldilocks And The Three Code Reviews](#vaidehi-joshi-goldilocks-and-the-three-code-reviews)
 * [Anna Migas: Make your animations perform well](#anna-migas-make-your-animations-perform-well)
 * [Trent Willis: Caring For Your Fellow Developers](#trent-willis-caring-for-your-fellow-developers)
 
@@ -37,14 +36,14 @@ At 10:00 the second day of the conference started.
 
 ## Day 2: Morning
 
-<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-don.jpg"></span>
+<span class="image left"><img class="p-image" alt="Don Burks" src="/img/js-conf-budapest-2017/speaker-don.jpg"></span>
 
 
 ### Don Burks: MVC - What a web app and a Mozart Violin Concerto have in common
 
 You can find him on Twitter using the handle [@don_burks](https://twitter.com/don_burks).
 
-The presentation can be found [here]().
+The presentation can be found [here](https://donburks.com/2017-10-27-jsconfbp-presentation/).
 
 <blockquote class="clear"><p>
 INSERT SMALL TALK DESCRIPTION
@@ -56,7 +55,7 @@ INSERT TALK SUMMARY HERE
 
 ### Opher Vishnia: Web Animation: from Disney to SASS
 
-<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-opher.jpg"></span>
+<span class="image left"><img class="p-image" alt="Opher Vishnia" src="/img/js-conf-budapest-2017/speaker-opher.jpg"></span>
 
 You can find Opher on Twitter using the handle [@opherv](https://twitter.com/opherv).
 
@@ -94,11 +93,11 @@ So, which one should you use in your next project? As for most situations, this 
 
 ### Imad Elyafi: Migrating Pinterest profiles to React
 
-<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-imad.jpg"></span>
+<span class="image left"><img class="p-image" alt="Imad Elyafi" src="/img/js-conf-budapest-2017/speaker-imad.jpg"></span>
 
 You can find Imad on Twitter using the handle [@eelyafi](https://twitter.com/eelyafi).
 
-The presentation can be found [here]().
+The presentation can be found [here](). SEARCH FOR PRESENTATION !!!
 
 <blockquote class="clear"><p>
 INSERT SMALL TALK DESCRIPTION
@@ -108,9 +107,9 @@ INSERT TALK SUMMARY HERE
 
 ****
 
-### Laura Carvajali: YES, your site can (and should) be accessible too. Lessons learned in building FT.com
+### Laura Carvajal: YES, your site can (and should) be accessible too. Lessons learned in building FT.com
 
-<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-laura.jpg"></span>
+<span class="image left"><img class="p-image" alt="Laura Carvajal" src="/img/js-conf-budapest-2017/speaker-laura.jpg"></span>
 
 You can find Laura on Twitter using the handle [@lc512k](https://twitter.com/lc512k).
 
@@ -143,10 +142,10 @@ A MacBook for example already has a lot of tools built in for people with disabi
 
 ### Nikita Baksalyar: Exploring the P2P world with WebRTC & JavaScript
 
-<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-nikita.jpg"></span>
+<span class="image left"><img class="p-image" alt="Nikita Baksalyar" src="/img/js-conf-budapest-2017/speaker-nikita.jpg"></span>
 
 You can find Nikita on Twitter using the handle [@nbaksalyar](https://twitter.com/nbaksalyar).
-The presentation can be found [here]().
+The presentation can be found [here](). SEARCH FOR PRESENTATION !!!
 
 <blockquote class="clear"><p>
 INSERT SMALL TALK DESCRIPTION
@@ -158,10 +157,10 @@ INSERT TALK SUMMARY HERE
 
 ### Vaidehi Joshi: Goldilocks And The Three Code Reviews
 
-<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-vaidehi.jpg"></span>
+<span class="image left"><img class="p-image" alt="Vaidehi Joshi" src="/img/js-conf-budapest-2017/speaker-vaidehi.jpg"></span>
 
 You can find Vaidehi on Twitter using the handle [@vaidehijoshi](https://twitter.com/vaidehijoshi).
-The presentation can be found [here]().
+The presentation can be found [here](http://slides.com/vaidehijoshi/better-code-reviews/).
 
 <blockquote class="clear"><p>
 INSERT SMALL TALK DESCRIPTION
@@ -173,10 +172,10 @@ INSERT TALK SUMMARY HERE
 
 ### Anna Migas: Make your animations perform well
 
-<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-anna.jpg"></span>
+<span class="image left"><img class="p-image" alt="Anna Migas" src="/img/js-conf-budapest-2017/speaker-anna.jpg"></span>
 
 You can find Anna on Twitter using the handle [@szynszyliszys](https://twitter.com/szynszyliszys).
-The presentation can be found [here]().
+The presentation can be found [here](https://www.slideshare.net/AnnaMigas1/make-your-animations-perform-well-js-conf-budapest-2017).
 
 <blockquote class="clear"><p>
 INSERT SMALL TALK DESCRIPTION
@@ -188,10 +187,10 @@ INSERT TALK SUMMARY HERE
 
 ### Trent Willis: Caring For Your Fellow Developers
 
-<span class="image left"><img class="p-image" alt="Bodil Stokke" src="/img/js-conf-budapest-2017/speaker-trent.jpg"></span>
+<span class="image left"><img class="p-image" alt="Trent Willis" src="/img/js-conf-budapest-2017/speaker-trent.jpg"></span>
 
 You can find Trent on Twitter using the handle [@trentmwillis](https://twitter.com/trentmwillis).
-The presentation can be found [here]().
+The presentation can be found [here](). SEARCH FOR PRESENTATION !!!
 
 <blockquote class="clear"><p>
 INSERT SMALL TALK DESCRIPTION
@@ -205,9 +204,9 @@ INSERT TALK SUMMARY HERE
 
 ****
 
-### Afterparty by EPAM
-Join us for drinks, games and hacking at Extra located near the venue
+### Afterparty at EXTRA Budapest by EPAM
 
+EPAM invites everyone to chill, have some drinks and games at the EXTRA ruinpub after JSConf Budapest. Beer and a selection of soft drinks and juices are on the house.
 
 ****
 
@@ -215,13 +214,14 @@ Join us for drinks, games and hacking at Extra located near the venue
 ## Day 2: Conclusion
 
 
+
+
+
 ## After Movie
 <div class="responsive-video">
     <iframe src="https://www.youtube.com/embed/fysiFabvGnQ" frameborder="0" gesture="media" allowfullscreen></iframe>
 </div>
 
+****
 
-
-
-
-[Read our full report on day 1 of JS Conf Budapest here!](/conference/2017/10/26/JS-Conf-Budapest-day-1.html).
+[Read our full report on day 1 of JS Conf Budapest 2017 here!](/conference/2017/10/26/JS-Conf-Budapest-day-1.html).

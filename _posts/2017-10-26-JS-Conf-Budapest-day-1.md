@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [frederic_ghijselinck, orjan_de_smet, stefanie_geldof, martijn_willekens, yannick_vergeylen, dimitri_de_kerf, michael_vervloet]
-title: 'JS Conf Budapest Day 1'
+title: 'JS Conf Budapest 2017 Day 1'
 image: /img/js-conf-budapest-2017/js-conf-budapest-2017.png
 tags: [JS Conf Budapest,JavaScript,Conference]
 category: Conference
@@ -10,15 +10,21 @@ comments: true
 
 ## From JS Conf Budapest with love
 
-This year's edition of JS Conf Budapest returned to the first venue at [Urania National Movie theater](http://akvariumklub.hu/).
+This year's edition of JS Conf Budapest returned to the first venue at [Urania National Movie theater](http://www.urania-nf.hu/).
 
 > Uránia Cinema in the middle of the city, near the party-district.
 > Designed by Henrik Schmahl in the late 1890's, the interior is characterized by the ornamental motifs of the Venetian Gothic and Moor styles.
 > The place is listed as the world's 3rd most beautiful cinema on Bored Panda, and many tech conferences were hosted here recently, like TEDx, and Strech Conference, because of the unique atmosphere.
 
-JS Conf Budapest 2017 is hosted by [](https://twitter.com/) and [](https://twitter.com/).
-
+JS Conf Budapest 2017 is hosted by [Glen Maddern](https://twitter.com/glenmaddern) and [Charlie Gleason](https://twitter.com/superhighfives).
+First thing to do when entering the building was getting our badges.
+Then we could have breakfast at some standing tables on the first floor.
+For the coffee lovers, professional baristas served the best coffee possible. With a nice heart drawn on top if it.
 At 9:45 the conference would officially start so we went to the conference room.
+
+****
+
+SOMEONE INCLUDE SOME PICTURES HERE ;-)
 
 ****
 
@@ -27,8 +33,8 @@ At 9:45 the conference would officially start so we went to the conference room.
 * [Bodil Stokke: You Have Nothing To Lose But Your Chains](#bodil-stokke-you-have-nothing-to-lose-but-your-chains)
 * [Stefan Judis: Watch your back, Browser! You're being observed](#stefan-judis-watch-your-back-browser-youre-being-observed)
 * [Jonathan Martin: Async patterns to scale your multicore JavaScript... elegantly](#jonathan-martin-async-patterns-to-scale-your-multicore-javascript-elegantly)
-* [Madeleine Neumann: Impostor syndrome - am I suffering enough to talk about it?](#madeleine-neumann-impostor-syndrome-am-i-suffering-enough-to-talk-about-it)
-* [Eirik Vullum: JavaScript Metaprogramming - ES6 Proxy Use and Abuse](#eirik-vullum-javascript-metaprogramming-es6-proxy-use-and-abuse)
+* [Madeleine Neumann: Impostor syndrome - am I suffering enough to talk about it?](#madeleine-neumann-impostor-syndrome---am-i-suffering-enough-to-talk-about-it)
+* [Eirik Vullum: JavaScript Metaprogramming - ES6 Proxy Use and Abuse](#eirik-vullum-javascript-metaprogramming---es6-proxy-use-and-abuse)
 * [Sandrina Pereira: How can Javascript improve your CSS mixins](#sandrina-pereira-how-can-javascript-improve-your-css-mixins)
 * [Kacper Sokołowski: You use Content Security Policy, don't you?](#kacper-sokołowski-you-use-content-security-policy-dont-you)
 * [Dan Callahan: Practical WebAssembly](#dan-callahan-practical-webassembly)
@@ -250,6 +256,8 @@ For further reading on how Jonathan used async patterns for multicore JavaScript
 
 Madeleine is front-developer at 9Elements. Conference organiser of RuhrJS.
 You can find Madeleine on Twitter using the handle [@maggysche](https://twitter.com/maggysche).
+
+The presentation can be found on [slideshare](https://www.slideshare.net/MadeleineNeumann/jsconf-budapest-impostor-syndrome-am-i-suffering-enough-to-talk-about-it).
 
 <blockquote class="clear"><p>
 The reason we struggle with insecurity is because we compare our behind the scenes with everyone else’s  highlight reel
@@ -500,6 +508,8 @@ Like in JS, the browser coerces types.
 
 You can find Luke on Twitter using the handle [@lukeb_uk](https://twitter.com/lukeb_uk).
 
+The presentation can be found [here](https://docs.google.com/presentation/d/1lG5SmhHLaFwqw1jSKiyNkjipm2UwxSfaPvxKX-C8VVI/edit#slide=id.p)
+
 <blockquote class="clear"><p>
 Being lazy can lead to some great out of the box thinking and finding innovative solutions for common everyday stuff.
 Luke talks about how he created a chatbot that automates things for him to make them a bit less common and/or boring.</p></blockquote>
@@ -588,17 +598,26 @@ So I'ts not really about being lazy, but more being not driven to do those simpl
 ****
 
 ### Party feat Live:JS by SINNERSCHRADER
-Join us on the roof of Corvinteto located near the venue
 
+After a long day of JavaScript fun we were invited to a rooftop party at [Corvinteto](https://corvinteto.hu/) located near the venue.
+Imagine a party with awesome visuals, music & beats, and lights - all powered and created by JavaScript!
+More info about the concept can be found here: [LiveJS](http://livejs.network)
+
+On the stage, performing live:
+* Ruth John @Rumyra
+* Tim Pietrusky @TimPietrusky
+* Martin Schuhfuss @usefulthink
+* Sam Wray @_2xAA
+
+This awesome gig was brought to you by [Sinnerschrader](https://sinnerschrader.com)
 
 ****
 
 
 ## Day 1: Conclusion
 
+At the first day of the conference we were already inspired by some good talks. Wondering what day 2 would bring. 
 
 
 
-
-
-[Read our full report on day 2 of JS Conf Budapest here!](/conference/2017/10/27/JS-Conf-Budapest-day-2.html).
+[Read our full report on day 2 of JS Conf Budapest 2017 here!](/conference/2017/10/27/JS-Conf-Budapest-day-2.html).
