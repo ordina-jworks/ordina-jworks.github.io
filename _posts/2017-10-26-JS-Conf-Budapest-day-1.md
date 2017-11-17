@@ -485,10 +485,6 @@ Browsers will still have native JavaScript VM along-side wasm.
 There is no reason to compile JS to wasm because you would have to also include a whole javascript vm.
 The resulting code would be huge and slower than the JS VM natively provided.
 
-### What about type errors?
-
-Like in JS, the browser coerces types.
-
 ### Interesting Links:
 
 <ul>
