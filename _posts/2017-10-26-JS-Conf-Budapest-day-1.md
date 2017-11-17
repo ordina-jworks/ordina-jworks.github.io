@@ -522,7 +522,7 @@ He would have named it Jarvis, but since this would be a far worse butler than J
 </p>
 </div>
 
-Around mid-2014 he started working on a chatbot that does little bits in his house. Basically he put together a Raspberry Pi running JavaScript code, which in it’s core is basically a router that has some core functionality built in to it like
+Around mid-2014 he started working on a chatbot that does little bits in his house. Basically he put together a Raspberry Pi running JavaScript code, which in its core is basically a router that has some core functionality built in to it like
 * broadcasting,
 * preference storage,
 * scheduling
@@ -550,7 +550,7 @@ he can just send a message and the lights will be on when he gets there.
 <img src="/img/lamp-plugs.png" alt="Lamp plugs image" class="image left fit">
 <b>Lamp plugs</b> (they are from China, so super safe, right?). Maybe not, but they cost about £15 and are great for poking around.
 After poking around with them, he found out that there was a google group that had been hacking around with them and found the SSH password for it
-and since it runs <a href="https://openwrt.org/" target="_blank">OpenWrt</a> which is a router firmware based on linux.
+and it runs <a href="https://openwrt.org/" target="_blank">OpenWrt</a> which is a router firmware based on linux.
 So being able to SSH into it and work with the linux installed on it, you can run basic scripts on it (it has limited memory so you can’t just install everything you like on it).
 But most importantly, it’s got a web server built into it, so you can hit an endpoint and make the relay turn on. And that’s how his relay works.
 There’s an endpoint on the plug and when he goes to that endpoint, it switches it on or off depending on a parameter.
