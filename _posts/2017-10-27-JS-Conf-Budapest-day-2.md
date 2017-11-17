@@ -124,16 +124,16 @@ In her talk, she explained how to achieve this.
 Accessibility doesn't happen by accident, you have to make it happen yourself.
 A good starting point is to install pa11y (with npm).
 It checks your HTML and points out where you can improve.
-Color contrast issues, no or bad alt text for images and no related label for input fields are very common issue pa11y reports on.
+Color contrast issues, no or bad alt text for images and no related label for input fields are very common issues pa11y reports on.
 Pa11y-ci can be used to integrate it with your CI and can break the build when there are errors.
 
-With that done, there are some extra steps that can be taken.
-First, you can get an external audit to get more feedback.
+Next, there are some extra steps that can be taken.
+The most expensive one is getting an external audit to get more feedback.
 They have people that test with voice control, keyboard only mode, text to speech and other tools.
-Next, you could do customer research and user testing with users with various disabilities.
-Another option is to learn to use the tools for people with disabilities yourself and test with them.
-The first option is the most expensive one, the second one is already less expensive while the last one is the cheapest.
-A MacBook for example already has a lot of tools built in for people with disabilities if you want to test yourself.
+A cheaper option is to do customer research and user testing with users with various disabilities.
+Instead of having other people doing the testing, you could learn how to use the tools for people with disabilities yourself.
+This is of course the cheapest option.
+A MacBook for example already has a lot of tools built in for people with disabilities!
 
 ****
 
