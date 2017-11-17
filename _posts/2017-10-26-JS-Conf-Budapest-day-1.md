@@ -179,7 +179,7 @@ Explaining that would be an entire blog post on it's own. Luckily he gave us a g
 <div class="responsive-video">
 <iframe src="https://player.vimeo.com/video/96425312" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
-<p><a href="https://vimeo.com/96425312" target="_blank">Philip Roberts: Help, I&#039;m stuck in an event-loop.</a> from <a href="https://vimeo.com/edgecaseuk">Cultivate</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+<p><a href="https://vimeo.com/96425312" target="_blank">Philip Roberts: Help, I&#039;m stuck in an event-loop.</a></p>
 
 
 #### What is concurrency, multi threading and parallelism
