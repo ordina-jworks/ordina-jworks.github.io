@@ -249,7 +249,7 @@ async function getJSONAsync(){
 If you are a beginner with async functions and want to learn more this topic, go check out <a href="https://www.youtube.com/watch?v=568g8hxJJp4&t=362s" target="_blank">this video</a>
 
 
-For further reading on how Jonathan used async patterns for multicore JavaScript, he has written an <a href="https://www.bignerdranch.com/blog/cross-stitching-elegant-concurrency-patterns-for-javascript/" target="_blank">elaborate blog post</a> about it
+For further reading on how Jonathan used async patterns for multicore JavaScript, he has written an <a href="https://www.bignerdranch.com/blog/cross-stitching-elegant-concurrency-patterns-for-javascript/" target="_blank">elaborate blog post</a> about it, we suggest you go check it out.
 
 ****
 
