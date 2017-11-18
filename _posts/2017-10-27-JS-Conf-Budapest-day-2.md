@@ -162,11 +162,116 @@ INSERT TALK SUMMARY HERE
 You can find Vaidehi on Twitter using the handle [@vaidehijoshi](https://twitter.com/vaidehijoshi).
 The presentation can be found [here](http://slides.com/vaidehijoshi/better-code-reviews/).
 
+A similar presentation was recorded on RailsConf 2017 and can be found on [YouTube](https://www.youtube.com/watch?v=-6EzycFNwzY).
+A detailed write-out of that presentation can be found on [Medium](https://medium.com/@vaidehijoshi/crafting-better-code-reviews-1a5fc00a9312).
+
 <blockquote class="clear"><p>
-INSERT SMALL TALK DESCRIPTION
+The original intent behind code reviews was that they would help us take collective ownership in the creation of our software.
+In other words, we’d each be stakeholders in our development process by having a hand in controlling the quality of our products.
 </p></blockquote>
 
-INSERT TALK SUMMARY HERE
+While code reviews are generally understood as being a necessity to catch problems at the "lowest-value" stages (the time at which the least investment has been made and at which the cost to correct the problem is the lowest), Vaidehi Joshi asks whether they actually work and, if not, how can we try to improve upon the process.
+Based on Code Complete by Steve McConnell, she identified 3 major formats of code review:
+
+##### 1. Inspections
+
+Inspections are longer, deeper code reviews that typically catch about 60% of defects in a program.
+
+##### 2. Walkthroughs
+
+A walkthrough is shorter, and is usually intended to provide teaching opportunities for senior developers to newer programmers, while giving junior developers the chance to change old methodologies.
+Typically, they catch about 20 to 40% of the defects in a program.
+
+##### 3. Short code reviews
+
+Short reviews are faster, but still in-depth. They focus on small changes, including single-line changes, that tend to be the most error-prone.
+
+McConnell’s research uncovered the following about shorter code review:
+
+<blockquote class="clear">
+An organization that introduced reviews for one-line changes found that its error rate went from 55 percent before reviews to 2 percent afterward.
+A telecommunications organization in the late 80’s went from 86 percent correct before reviewing code changes to 99.6 percent afterward.
+</blockquote>
+
+#### But what do developers think of code reviews?
+
+To know this, Vaidehi did a [survey on Twitter](https://twitter.com/vaidehijoshi/status/835597499813494788) and got about 500 responses.
+The survey had questions with a scale of 1 to 10, where 1 was strongly disagree and 10 was strongly agree.
+These are the stats:
+
+##### The quantitive data
+
+The question "Code reviews are beneficial to my team" had a clear answer.
+The average score was above around 9 for most languages, with the top 3 containing Swift at an average of 9.46, Ruby at an average of 9.19 and JavaScript at an average of 9.1.
+<p class="image"><img src="/img/2017-10-27-js-conf-budapest-day-2/vaidehi-joshi-beneficial.jpeg" alt="Code reviews are beneficial to my team" width="100%"></p>
+
+Another question was "How many pull requests are reviewed", on which the majority answered that all pull request where reviewed.
+But about 10% of the answers indicated that pull requests where only reviewed when someone was explicitly requested to review.
+<p class="image"><img src="/img/2017-10-27-js-conf-budapest-day-2/vaidehi-joshi-how-many-pull-request-reviews.jpeg" alt="How many pull requests are reviewed" width="100%"></p>
+
+##### The qualitative data
+
+So, most developers think code reviews are needed, and state that all code is being reviewed.
+But what do they think of the quality of code reviews?
+
+<blockquote class="clear"><p>
+Ultimately, what seemed to make or break a code review experience depended upon two things: how much energy was spent during the review process, and how much substance the review itself had.
+</p></blockquote>
+
+A code review was bad (and left a bad taste in the reviewer’s and reviewee’s mouth) if there wasn’t enough energy spend on the review, or if it lacked substance.
+On the other hand, if a code review process was thorough, and time was spent reviewing aspects of the code in a substantive way, it left a much more positive impression overall on both the reviewer and the reviewee.
+
+###### ENERGY
+
+On the question "Who all is doing the review? And how much time are they spending on it?", a lot of things could be learned.
+
+* A developer blindly thumbs-up everything, or the second or third reviewer is more likely to agree when already seeing an approval.
+This makes the code review a formality, which doesn't carry any weight.
+* A review is performed different dependent on who submits.
+Seniors get no feedback, while juniors are picked to death.
+The review are unfair and can break confidence.
+* Commits are too big, which cause long review time, which in turn has a bad effect on future branches/PR's/merges.
+Long review times take too much energy, which causes them to be postponed.
+
+###### SUBSTANCE
+
+The question "What exactly is someone saying, doing, or making another person feel while they review their code?" brought these answers.
+
+* A reviewee taking all feedback at face value, having a mentality of "see red squiggle, fix red squiggle".
+They just change the code without second thought, as long as it makes the reviewer happy.
+* A reviewers comment is not clearly explained.
+The reviewee just has to change their code to the reviewers vision.
+* A reviewer is unable to distinguish between stylistic preference and functional difference, which causes nitpicking at syntax.
+Multiple reviewers might even have conflicting visions.
+* Words matter, an unkind review might break confidence.
+
+#### How can one do better?
+
+<blockquote class="clear"><p>
+A bad code review almost made me leave the company. A great code review leaves me feeling better equipped to tackle future projects.
+</p></blockquote>
+
+* Use PR templates.
+Github provides some default templates for a PR, in which a couple of questions need to be answered short and clearly.
+* Include screenshots/gif, providing more context on what is changed, and why.
+* Use linters to eliminate style and syntax nitpicking.
+* Encapsulating PR's into small packages, aiming for small commits.
+* Assign specific reviewers, so they may provide valuable input and/or teach or learn something.
+
+#### But even more important
+
+* Review everyone: it's a good horse that never stumbles.
+A senior developer is not unfallible and might even be overconfident.
+* Develop empathy: call out the good stuff, too.
+Make people feel less vulnerable, push for a culture that values vulnerability — both in actions and in words.
+* Most importantly, Iterate: start a conversation when feeling that the code review flow doesn't work well.
+Give everyone the chance to propose their suggestions.
+
+This survey answer summarized the importance of the last part perfectly:
+
+<blockquote class="clear"><p>
+I love code reviews in theory. In practice, they are only as good as the group that’s responsible for conducting them in the right manner.
+</p></blockquote>
 
 ****
 
