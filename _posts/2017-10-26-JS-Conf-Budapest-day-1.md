@@ -220,7 +220,7 @@ Await - pauses the execution of async functions. (var result = await someAsyncCa
 
 ```javascript
 // Promise approach
-function getJSON(){``
+function getJSON(){
     // To make the function blocking we manually create a Promise.
     return new Promise( function(resolve) {
         axios.get('https://myurl.com/example.json')
@@ -231,8 +231,8 @@ function getJSON(){``
             });
     });
 }
-
-
+```
+```javascript
 // Async/Await approach
 // The async keyword will automatically create a new Promise and return it.
 async function getJSONAsync(){
