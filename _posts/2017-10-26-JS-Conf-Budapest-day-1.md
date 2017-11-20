@@ -218,9 +218,9 @@ Await - pauses the execution of async functions. (var result = await someAsyncCa
 * Await works only with Promises, it does not work with callbacks.
 * Await can only be used inside async functions.
 
-<pre class="highlight">
-<code>// Promise approach
-function getJSON(){
+```javascript
+// Promise approach
+function getJSON(){``
     // To make the function blocking we manually create a Promise.
     return new Promise( function(resolve) {
         axios.get('https://myurl.com/example.json')
@@ -231,11 +231,9 @@ function getJSON(){
             });
     });
 }
-</code>
-</pre>
 
-<pre class="highlight">
-<code>// Async/Await approach
+
+// Async/Await approach
 // The async keyword will automatically create a new Promise and return it.
 async function getJSONAsync(){
     // The await keyword saves us from having to write a .then() block.
@@ -244,8 +242,7 @@ async function getJSONAsync(){
     // We return it just like in a regular synchronous function.
     return json;
 }
-</code>
-</pre>
+```
 
 If you are a beginner with async functions and want to learn more this topic, go check out <a href="https://www.youtube.com/watch?v=568g8hxJJp4&t=362s" target="_blank">this video</a>
 
