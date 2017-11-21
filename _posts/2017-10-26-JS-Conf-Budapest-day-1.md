@@ -175,7 +175,7 @@ just so it can be multithreaded!
 
 Before diving into solving concurrency problems Jonathan explained to us how the (V8) JavaScript runtime actually works and reacts under the hood.
 How the call stack, event loop WebAPIs and the callback queue works. How it handles synchronous (blocking) and asynchronous (non-blocking) code.
-Explaining that would be an entire blog post on it's own. Luckily he gave us a great link to a video that explains it verry clearly, so I'll add that instead.
+Explaining that would be an entire blog post on it's own. Luckily he gave us a great link to a video that explains it very clearly, so I'll add that instead.
 
 <div class="responsive-video">
 <iframe src="https://player.vimeo.com/video/96425312" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
