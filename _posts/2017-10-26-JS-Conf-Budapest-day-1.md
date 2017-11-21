@@ -382,17 +382,22 @@ Sandrina is UI Developer at Farfetch. You can find Sandrina on Twitter using the
 All code can be found on her [github](https://github.com/sandrina-p/css-mixins-on-javascript-with-unit-tests) page and the slides [here](https://docs.google.com/presentation/d/19v8jkgS_0F7DrGw-8SzHktzy7nkC9W9XCNDqeXzB2wg/edit#slide=id.g235012375a_0_0).
 
 <blockquote class="clear"><p>
-To write good tests you have to know exactly what you need to do. And when you know what to do, you do less. And when you do less, you can do better. 
+To write good tests, you have to know exactly what you need to do. 
+When you know what to do, you do less.
+When you do less, you can do better!
 </p></blockquote>
 
-Nowadays CSS and JS work together more than ever. Using the good parts of both worlds ensures us that we can get better in Web Development. 
-One of the reasons is because css  primarily doesn’t have logic behind it.  It’s simple and straightforward. 
-However, when you have to start using logic in your css, you can for example add a loop with SCSS.
-And when you find yourself reusing the same css code over and over, you can write a Mixin.
-But at the end of the day, things can get ugly. Therefor, many programmers use PostCSS to write logic in their CSS code. 
-There are more than half a million of downloads per month of PostCSS plugins!
+CSS and JavaScript work together more than ever these days. 
+Using the good parts of both worlds ensures us that we can get better in web development. 
+One of the reasons is because CSS primarily doesn’t have logic behind it. 
+It's simple and straightforward. 
+However, when you have to start using logic in your CSS, you can for example add a loop with SCSS.
+When you find yourself reusing the same CSS code over and over, you can write a _mixin_.
+However, at the end of the day, things can get ugly. 
+Therefore, many programmers use PostCSS to write logic in their CSS code. 
+There are more than half a million downloads per month of PostCSS plugins!
 
-Here’s how you write a mixin in css: 
+Here's how you write a mixin in CSS: 
 ```javascript
 // index.css 
 @define-mixin size $value {
@@ -404,7 +409,7 @@ Here’s how you write a mixin in css:
 }
 ```
 
-How it works in JS:
+This is how it works in JavaScript:
 ```javascript
 // size.js
 module.exports = (mixinNode, value) => ({
@@ -429,7 +434,7 @@ module.exports = {
 }
 ```
 
-But we can't test logic in CSS. Fortunately, we can test the Mixins in JS. 
+Now, we can't test logic in CSS, but in JavaScript we can!
 ```javascript 
 // size.test.js
 import size from '../src/mixins/size.js';
@@ -442,9 +447,10 @@ test('Size returns width and height', () => {
 });
 ```
 
-So you started to use CSS Mixins with JS and you end up with a folder full of Mixins to improve your CSS. 
-Instead of using a series of Mixins in the CSS file itself that only improve **your** project, 
-we will create a custom property with the PostCSS plugin ‘Boilerplate’ so we can do the following: 
+So you started to use CSS mixins with JavaScript and ended up with a folder full of mixins to improve your CSS. 
+Instead of using a series of mixins in the CSS file itself that only improve **your** project, 
+we can create a custom property with the PostCSS plugin called _‘Boilerplate’_.
+Using that, we can do the following: 
 
 ```javascript
 // index.css
@@ -485,7 +491,7 @@ You can find other popular PostCSS plugins [here](https://github.com/postcss/pos
 
 <blockquote class="clear"><p>
 That’s why I came here today. To share something that improved my project and might improve yours as well. 
-Because I believe share is what make us better.
+I believe sharing is what make us better.
 </p></blockquote>
 
 ****
