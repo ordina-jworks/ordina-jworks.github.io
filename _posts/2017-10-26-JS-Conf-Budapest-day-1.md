@@ -676,7 +676,7 @@ which lets you write JavaScript on your hardware, it takes away a lot of the com
 <br>
 ### Shouting at his laptop
 
-Not out of frustration or anything like that. Besides the chatbot, he wanted to add voice control to the appcliation so that he could tell his laptop to open/close the curtains or turn on/off the lights.
+Not out of frustration or anything like that. Besides the chatbot, he wanted to add voice control to the application so that he could tell his laptop to open/close the curtains or turn on/off the lights.
 
 <div class="responsive-video">
     <iframe src="https://www.youtube.com/embed/CQzn16TzZ0w" frameborder="0" allowfullscreen></iframe>
@@ -690,7 +690,7 @@ So he created a few of these voice control units and spread them around the hous
 ### Conclusion
 
 So instead of being lazy, he admits to being the stupid kind of lazy. Because he has spent about hundreds of hours coding for it to do simple stuff.
-So I'ts not really about being lazy, but more being not driven to do those simple things.
+So it's not really about being lazy, but more being not driven to do those simple things.
 
 
 ****
