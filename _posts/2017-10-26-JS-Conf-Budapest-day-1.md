@@ -186,15 +186,15 @@ Explaining that would be an entire blog post on it's own. Luckily he gave us a g
 #### What is concurrency, multi threading and parallelism
 So if you've just watched the video above, you know that Javascript has one call stack (a single thread), that executes the functions on it in sequence.
 With multi threading, as the word says, we have multiple threads.
-This means that the program can assign these tasks to multiple stacks so that mutiple tasks get executed at the same time.
+This means that the program can assign these tasks to multiple stacks so that multiple tasks get executed at the same time.
 
 
-In a computer with a single processor and single core, to do mutit threading,
+In a computer with a single processor and single core, to do multi threading,
 the processor would alternate between these tasks really fast so that they appear to be happening at the same time.
 Back in the early days of computing, this was the only option we had. This is called <b>concurrency</b>.
 
 Around 2005 Intel, AMD and the other chip makers started creating processors with multiple cores. This meant that it could actually do multiple things at the same time, since it had multiple "brains".
-Processors could now assign different tasks to different cores and they would run at the same time, this is what we call <b>Paralellism</b>
+Processors could now assign different tasks to different cores and they would run at the same time, this is what we call <b>Parallelism</b>
 
 ### JavaScript multi threading: impossible?
 Although your JavaScript code is single-threaded and only does one thing at a time, the JavaScript Runtime and Web APIs are multithreaded!
@@ -223,7 +223,7 @@ Await - pauses the execution of async functions. (var result = await someAsyncCa
 function getJSON(){
     // To make the function blocking we manually create a Promise.
     return new Promise( function(resolve) {
-        axios.get('https://myurl.com/example.json')
+        request.get('https://myurl.com/example.json')
             .then( function(json) {
                 // The data from the request is available in a .then block
                 // We return the result using resolve.
@@ -237,7 +237,7 @@ function getJSON(){
 // The async keyword will automatically create a new Promise and return it.
 async function getJSONAsync(){
     // The await keyword saves us from having to write a .then() block.
-    let json = await axios.get('https://myurl.com/example.json');
+    let json = await request.get('https://myurl.com/example.json');
     // The result of the GET request is available in the json variable.
     // We return it just like in a regular synchronous function.
     return json;
