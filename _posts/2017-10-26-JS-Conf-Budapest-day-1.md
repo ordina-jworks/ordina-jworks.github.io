@@ -314,36 +314,36 @@ You can find Eirik on Twitter using the handle [@eiriklv](https://twitter.com/ei
 The presentation can be found [here](http://slides.com/eiriklv/javascript-metaprogramming-with-proxies/).
 
 <blockquote class="clear"><p>
-This very interesting talk handles metaprogramming in javascript, since there is a new feature in es6 which is just 
-recently supported by all major browsers that makes javascript even more exciting. 
+This very interesting talk handles metaprogramming in JavaScript. Recently a new feature in ES6 was added to all 
+major browsers, making JavaScript even more exciting! 
 </p></blockquote>
 
-First of all, what is metaprogramming, according to wikipedia: 'The ability to read, generate, analyse or transform 
-other programs, and even modify itself while running'. And that is clear enough in my opinion. 
+First of all, what is metaprogramming? According to wikipedia: _'The ability to read, generate, analyse or transform 
+other programs, and even modify itself while running'_. That is clear enough in my opinion. 
 
-In metaprogramming one can define 2 branches. The first branch could be described as macros to extend your language, 
-this happens during compile/transpile time. The second branch is called reflection, which happens at runtime. There are three 
-forms of reflection:
+In metaprogramming one can define 2 branches. The first branch could be described as macros to extend your language? 
+This happens during compile/transpile time. The second branch is called reflection and happens at runtime. There are 
+three forms of reflection:
 - introspection: the ability to examine itself
 - self-modification: the ability to alter its structure
 - intercession: the ability to alter its behaviour
 
-In Javascript they are possible by default, let's call it a perk of this beautiful scripting language. But it seldom 
-results in readable code, and you'll probably need to write a lot of code for something we can now achieve in a much 
+In JavaScript they are possible by default. Lets call it a perk of this beautiful scripting language. However, it seldom 
+results in readable code and you'll probably need to write a lot of code for something we can now achieve in a much 
 easier way.
 
-This talk covers some of the possibilities of proxies. Proxies couldn't yet be used until recently, because it is not
-polyfillable. That is because its a feature that needs to be supported by the engine, where reflection truly happens. 
-Therefor nor typescript, nor babel, nor any other javascript preprocessor could solve that for you. By the way,
-preprocessors extend your language trough macros, since their magic happens at transpile time.
+This talk covers some of the possibilities of proxies. Proxies couldn't be used until recently, because it isn't
+polyfillable. It's a feature that needs to be supported by the engine, where reflection truly happens. 
+Therefore, nor typescript, nor babel, nor any other JavaScript preprocessor could solve that for you. 
+By the way, preprocessors extend your language trough macros, since their magic happens at transpile time.
 
-So what is this proxy I am so exited about? Its called a proxy after the same principle we use in networking, a proxy 
-is a middleware which intercepts interaction with an interface. Therefor it has access to the communication stream and 
-it needs access to the interface it's routing to.
-That is very similar to how we can use proxies in javascript. We can wrap any object with a proxy an define a handler.
-That handler is an object which contains traps. A trap is a function that 'mocks' a property or function from the object 
-that is being proxied. The proxy then knows what actions will be done (before they are actually done) and can chose how 
-to handle them. It can just do something totally different or do nothing at all.
+So what is this proxy I am so exited about? It's called a proxy after the same principle we use in networking.
+A proxy is middleware that intercepts interaction with an interface. Therefore, it has access to the communication 
+stream and it needs access to the interface it's routing to. That's very similar to how we can use proxies in 
+JavaScript. We can wrap any object with a proxy and define a handler. That handler is an object containing traps. 
+A trap is a function that 'mocks' a property or function from the object that is being proxied. The proxy then knows 
+which actions will be performed (before they are actually performed) and can chose how to handle them. It could do 
+something totally different or even nothing at all.
 
 ```javascript
 let handler = {
@@ -362,14 +362,14 @@ let handler = {
 let mySquare = new Square(10,10);
 let myProxySquare = new Proxy(mySquare, handler);
 ```
-The above handler will intercept all `get` and `set` calls to a proxied class. `get` and `set` methods here are so called 
-traps. For which purposes can we use this? One of the main purposes is to create developer friendly interfaces. In the 
-slides you'll find some nice examples of great uses. My favorite is the url builder, it's glorious in its simplicity,
-[check it out here](http://slides.com/eiriklv/javascript-metaprogramming-with-proxies/#/46).
+The above handler will intercept all `get` and `set` calls to a proxied class. `get` and `set` methods here are so 
+called traps. For what purposes can we use this? One of the main purposes is to create developer friendly interfaces. 
+In the slides you'll find some nice examples of great uses. My favorite is the url builder, it's glorious in its 
+simplicity, [check it out here](http://slides.com/eiriklv/javascript-metaprogramming-with-proxies/#/46).
 
-Now to wrap it up, proxies are awesome, we can create powerful abstractions, we can be lazy and write less code and add
-functionality in a transparent way. Even though it might seem like magic for anyone else than yourself and there
-is a small performance cost, it's still perfect if you want to create clean interfaces for others to enjoy.
+Now to wrap it all up, proxies are awesome, we can create powerful abstractions, be lazy and write less code and add
+functionality in a transparent way. Even though it might seem like magic for anyone else than yourself and despite a 
+small performance cost, it's still perfect if you want to create clean interfaces for others to enjoy.
 
 ****
 
