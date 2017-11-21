@@ -261,7 +261,7 @@ Github provides some default templates for a PR, in which a couple of questions 
 #### But even more important
 
 * Review everyone: it's a good horse that never stumbles.
-A senior developer is not unfallible and might even be overconfident.
+A senior developer is not infallible and might even be overconfident.
 * Develop empathy: call out the good stuff, too.
 Make people feel less vulnerable, push for a culture that values vulnerability — both in actions and in words.
 * Most importantly, Iterate: start a conversation when feeling that the code review flow doesn't work well.
