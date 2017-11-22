@@ -314,36 +314,36 @@ You can find Eirik on Twitter using the handle [@eiriklv](https://twitter.com/ei
 The presentation can be found [here](http://slides.com/eiriklv/javascript-metaprogramming-with-proxies/).
 
 <blockquote class="clear"><p>
-This very interesting talk handles metaprogramming in javascript, since there is a new feature in es6 which is just 
-recently supported by all major browsers that makes javascript even more exciting. 
+This very interesting talk handles metaprogramming in JavaScript. Recently a new feature in ES6 was added to all 
+major browsers, making JavaScript even more exciting! 
 </p></blockquote>
 
-First of all, what is metaprogramming, according to wikipedia: 'The ability to read, generate, analyse or transform 
-other programs, and even modify itself while running'. And that is clear enough in my opinion. 
+First of all, what is metaprogramming? According to wikipedia: _'The ability to read, generate, analyse or transform 
+other programs, and even modify itself while running'_. That is clear enough in my opinion. 
 
-In metaprogramming one can define 2 branches. The first branch could be described as macros to extend your language, 
-this happens during compile/transpile time. The second branch is called reflection, which happens at runtime. There are three 
-forms of reflection:
+In metaprogramming one can define 2 branches. The first branch could be described as macros to extend your language? 
+This happens during compile/transpile time. The second branch is called reflection and happens at runtime. There are 
+three forms of reflection:
 - introspection: the ability to examine itself
 - self-modification: the ability to alter its structure
 - intercession: the ability to alter its behaviour
 
-In Javascript they are possible by default, let's call it a perk of this beautiful scripting language. But it seldom 
-results in readable code, and you'll probably need to write a lot of code for something we can now achieve in a much 
+In JavaScript they are possible by default. Lets call it a perk of this beautiful scripting language. However, it seldom 
+results in readable code and you'll probably need to write a lot of code for something we can now achieve in a much 
 easier way.
 
-This talk covers some of the possibilities of proxies. Proxies couldn't yet be used until recently, because it is not
-polyfillable. That is because its a feature that needs to be supported by the engine, where reflection truly happens. 
-Therefor nor typescript, nor babel, nor any other javascript preprocessor could solve that for you. By the way,
-preprocessors extend your language trough macros, since their magic happens at transpile time.
+This talk covers some of the possibilities of proxies. Proxies couldn't be used until recently, because it isn't
+polyfillable. It's a feature that needs to be supported by the engine, where reflection truly happens. 
+Therefore, nor typescript, nor babel, nor any other JavaScript preprocessor could solve that for you. 
+By the way, preprocessors extend your language trough macros, since their magic happens at transpile time.
 
-So what is this proxy I am so exited about? Its called a proxy after the same principle we use in networking, a proxy 
-is a middleware which intercepts interaction with an interface. Therefor it has access to the communication stream and 
-it needs access to the interface it's routing to.
-That is very similar to how we can use proxies in javascript. We can wrap any object with a proxy an define a handler.
-That handler is an object which contains traps. A trap is a function that 'mocks' a property or function from the object 
-that is being proxied. The proxy then knows what actions will be done (before they are actually done) and can chose how 
-to handle them. It can just do something totally different or do nothing at all.
+So what is this proxy I am so exited about? It's called a proxy after the same principle we use in networking.
+A proxy is middleware that intercepts interaction with an interface. Therefore, it has access to the communication 
+stream and it needs access to the interface it's routing to. That's very similar to how we can use proxies in 
+JavaScript. We can wrap any object with a proxy and define a handler. That handler is an object containing traps. 
+A trap is a function that 'mocks' a property or function from the object that is being proxied. The proxy then knows 
+which actions will be performed (before they are actually performed) and can chose how to handle them. It could do 
+something totally different or even nothing at all.
 
 ```javascript
 let handler = {
@@ -362,14 +362,14 @@ let handler = {
 let mySquare = new Square(10,10);
 let myProxySquare = new Proxy(mySquare, handler);
 ```
-The above handler will intercept all `get` and `set` calls to a proxied class. `get` and `set` methods here are so called 
-traps. For which purposes can we use this? One of the main purposes is to create developer friendly interfaces. In the 
-slides you'll find some nice examples of great uses. My favorite is the url builder, it's glorious in its simplicity,
-[check it out here](http://slides.com/eiriklv/javascript-metaprogramming-with-proxies/#/46).
+The above handler will intercept all `get` and `set` calls to a proxied class. `get` and `set` methods here are so 
+called traps. For what purposes can we use this? One of the main purposes is to create developer friendly interfaces. 
+In the slides you'll find some nice examples of great uses. My favorite is the url builder, it's glorious in its 
+simplicity, [check it out here](http://slides.com/eiriklv/javascript-metaprogramming-with-proxies/#/46).
 
-Now to wrap it up, proxies are awesome, we can create powerful abstractions, we can be lazy and write less code and add
-functionality in a transparent way. Even though it might seem like magic for anyone else than yourself and there
-is a small performance cost, it's still perfect if you want to create clean interfaces for others to enjoy.
+Now to wrap it all up, proxies are awesome, we can create powerful abstractions, be lazy and write less code and add
+functionality in a transparent way. Even though it might seem like magic for anyone else than yourself and despite a 
+small performance cost, it's still perfect if you want to create clean interfaces for others to enjoy.
 
 ****
 
@@ -382,17 +382,22 @@ Sandrina is UI Developer at Farfetch. You can find Sandrina on Twitter using the
 All code can be found on her [github](https://github.com/sandrina-p/css-mixins-on-javascript-with-unit-tests) page and the slides [here](https://docs.google.com/presentation/d/19v8jkgS_0F7DrGw-8SzHktzy7nkC9W9XCNDqeXzB2wg/edit#slide=id.g235012375a_0_0).
 
 <blockquote class="clear"><p>
-To write good tests you have to know exactly what you need to do. And when you know what to do, you do less. And when you do less, you can do better. 
+To write good tests, you have to know exactly what you need to do. 
+When you know what to do, you do less.
+When you do less, you can do better!
 </p></blockquote>
 
-Nowadays CSS and JS work together more than ever. Using the good parts of both worlds ensures us that we can get better in Web Development. 
-One of the reasons is because css  primarily doesn’t have logic behind it.  It’s simple and straightforward. 
-However, when you have to start using logic in your css, you can for example add a loop with SCSS.
-And when you find yourself reusing the same css code over and over, you can write a Mixin.
-But at the end of the day, things can get ugly. Therefor, many programmers use PostCSS to write logic in their CSS code. 
-There are more than half a million of downloads per month of PostCSS plugins!
+CSS and JavaScript work together more than ever these days. 
+Using the good parts of both worlds ensures us that we can get better in web development. 
+One of the reasons is because CSS primarily doesn’t have logic behind it. 
+It's simple and straightforward. 
+However, when you have to start using logic in your CSS, you can for example add a loop with SCSS.
+When you find yourself reusing the same CSS code over and over, you can write a _mixin_.
+However, at the end of the day, things can get ugly. 
+Therefore, many programmers use PostCSS to write logic in their CSS code. 
+There are more than half a million downloads per month of PostCSS plugins!
 
-Here’s how you write a mixin in css: 
+Here's how you write a mixin in CSS: 
 ```javascript
 // index.css 
 @define-mixin size $value {
@@ -404,7 +409,7 @@ Here’s how you write a mixin in css:
 }
 ```
 
-How it works in JS:
+This is how it works in JavaScript:
 ```javascript
 // size.js
 module.exports = (mixinNode, value) => ({
@@ -429,7 +434,7 @@ module.exports = {
 }
 ```
 
-But we can't test logic in CSS. Fortunately, we can test the Mixins in JS. 
+Now, we can't test logic in CSS, but in JavaScript we can!
 ```javascript 
 // size.test.js
 import size from '../src/mixins/size.js';
@@ -442,9 +447,10 @@ test('Size returns width and height', () => {
 });
 ```
 
-So you started to use CSS Mixins with JS and you end up with a folder full of Mixins to improve your CSS. 
-Instead of using a series of Mixins in the CSS file itself that only improve **your** project, 
-we will create a custom property with the PostCSS plugin ‘Boilerplate’ so we can do the following: 
+So you started to use CSS mixins with JavaScript and ended up with a folder full of mixins to improve your CSS. 
+Instead of using a series of mixins in the CSS file itself that only improve **your** project, 
+we can create a custom property with the PostCSS plugin called _‘Boilerplate’_.
+Using that, we can do the following: 
 
 ```javascript
 // index.css
@@ -485,7 +491,7 @@ You can find other popular PostCSS plugins [here](https://github.com/postcss/pos
 
 <blockquote class="clear"><p>
 That’s why I came here today. To share something that improved my project and might improve yours as well. 
-Because I believe share is what make us better.
+I believe sharing is what make us better.
 </p></blockquote>
 
 ****

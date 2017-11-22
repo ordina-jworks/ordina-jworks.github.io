@@ -104,33 +104,36 @@ A detailed write-out of that presentation can be found on [Medium](https://mediu
 
 <blockquote class="clear"><p>
 Imad Elyafi is a software engineer at Pinterest. 
-In this talk Imad tells you the story of how Pinterest migrated to React, explaining the techniques they tried and challenges they faced
+In this talk Imad tells you the story of how Pinterest migrated to React, explaining the techniques they tried and challenges they faced.
 </p></blockquote>
 
-With the current availability of fantastic modern frameworks Pinterest decided to migrate from their outdated Denzel framework to React.
+With the current availability of fantastic modern frameworks, Pinterest decided to migrate from their outdated Denzel framework to React.
 
 ##### Why React?
 Imad started off by saying they had a list of requirements for the new framework.
 1. Large developer community
 2. Design patterns that are compatible with the existing stack to make the migration easier
-3. Isomorphic rendering, therefor being able to reuse templates on server- and client-side
+3. Isomorphic rendering, therefore being able to reuse templates on server- and client-side
 4. Performance
 5. Developer Experience
 
 ##### Road to React
-Rewriting the whole app from scratch would be risky and expensive, also Pinterest did not want to freeze code and stop shipping new features.
-So they had to migrate a service that is constantly changing. A very complicated challenge Imad compares to changing the engines of an airplane while mid-flight.
+Rewriting the whole app from scratch would be risky and expensive.
+Also, Pinterest did not want to freeze code and stop shipping new features.
+So they had to migrate a service that is constantly changing. 
+A very complicated challenge Imad compares to changing the engines of an airplane while mid-flight.
 
-The solution was to rewrite the app piece by piece. Therefor creating a so called hybrid app where two frameworks can exist together for the time it takes to migrate from the old framework to the new one.
+The solution was to rewrite the app piece by piece. 
+That resulted in creating a so called hybrid app where two frameworks can exist together for the time it takes to migrate from the old framework to the new one.
 
 The very first step they had to take to make this hybrid app was to change their infrastructure and enable server-side JavaScript rendering.
-Before they used the Jinja templating engine for server-side rendering in Python and the JavaScript equivalent Nunjunks for client-side rendering.
-By also enabling Nunjunks rendering on a stand-alone NodeJS server they now achieved pure isomorphic rendering, with JavaScript on the server and on the client.
+Before they used the _Jinja_ templating engine for server-side rendering in Python and the JavaScript equivalent _Nunjunks_ for client-side rendering.
+By also enabling Nunjunks rendering on a stand-alone NodeJS server, they now achieved pure isomorphic rendering with JavaScript on the server and on the client.
 
-Secondly Pinterest had to render React components in their old Denzel framework. 
-So they added React-specific bindings to Nunjucks’ templating language with a new keyword, component, to represent the “bridge” between Denzel and React.
+Secondly, Pinterest had to render React components in their old Denzel framework. 
+So they added React-specific bindings to Nunjucks’ templating language with a new keyword (component), to represent the “bridge” between Denzel and React.
 
-Example of a Nunjunks template with a React-Denzel bridge: 
+An example of a Nunjunks template with a React-Denzel bridge: 
 {% raw %}
 ```
 {% if in_react %}
@@ -141,12 +144,14 @@ Example of a Nunjunks template with a React-Denzel bridge:
 ```
 {% endraw %}
 
-
-Lastly they had to create adapters for the old data resources. For this they used a technique called High-Order Components (HOC).
+Lastly, they had to create adapters for the old data resources. 
+To do so, they used a technique called High-Order Components (HOC).
 A HOC is a function that takes a component and returns another component.
 
-This technique allowed them to compose components with a resource, when the component is added to the dom it will create the resource and send a request to the api.
-A callback function will update it's state and trigger the rendering of the given component. With this approach you can keep your components and data in sync all the time.
+This technique allowed them to compose components with a resource.
+When the component is added to the DOM, it will create the resource and send a request to the API.
+A callback function will update its state and trigger the rendering of the given component. 
+With this approach, you can keep your components and data in sync all the time.
 
 You can read more about HOCs [here](https://reactjs.org/docs/higher-order-components.html)
 
