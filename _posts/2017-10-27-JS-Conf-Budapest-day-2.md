@@ -110,7 +110,7 @@ In this talk Imad tells you the story of how Pinterest migrated to React, explai
 With the current availability of fantastic modern frameworks Pinterest decided to migrate from their outdated Denzel framework to React.
 
 ##### Why React?
-Imad explained they had a list of requirements for the new framework.
+Imad started off by saying they had a list of requirements for the new framework.
 1. Large developer community
 2. Design patterns that are compatible with the existing stack to make the migration easier
 3. Isomorphic rendering, therefor being able to reuse templates on server- and client-side
@@ -131,6 +131,7 @@ Secondly Pinterest had to render React components in their old Denzel framework.
 So they added React-specific bindings to Nunjucks’ templating language with a new keyword, component, to represent the “bridge” between Denzel and React.
 
 Example of a Nunjunks template with a React-Denzel bridge: 
+{% raw %}
 ```
 {% if in_react %}
   {{ component('MyReactComponent', {pinId: '123'}) }}
@@ -138,6 +139,7 @@ Example of a Nunjunks template with a React-Denzel bridge:
   {{ module('MyDenzelComponent', pinId='123') }}
 {% endif %}
 ```
+{% endraw %}
 
 
 Lastly they had to create adapters for the old data resources. For this they used a technique called High-Order Components (HOC).
