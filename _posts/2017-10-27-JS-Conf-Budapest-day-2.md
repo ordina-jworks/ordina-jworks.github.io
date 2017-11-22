@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [frederic_ghijselinck, orjan_de_smet, stefanie_geldof, martijn_willekens, dimitri_de_kerf]
+authors: [frederic_ghijselinck, orjan_de_smet, stefanie_geldof, martijn_willekens, dimitri_de_kerf, dries_gijssels]
 title: 'JS Conf Budapest 2017 Day 2'
 image: /img/js-conf-budapest-2017/js-conf-budapest-2017.png
 tags: [JS Conf Budapest,JavaScript,Conference]
