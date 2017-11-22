@@ -127,13 +127,13 @@ The solution was to rewrite the app piece by piece.
 That resulted in creating a so called hybrid app where two frameworks can exist together for the time it takes to migrate from the old framework to the new one.
 
 The very first step they had to take to make this hybrid app was to change their infrastructure and enable server-side JavaScript rendering.
-Before they used the _Jinja_ templating engine for server-side rendering in Python and the JavaScript equivalent _Nunjunks_ for client-side rendering.
-By also enabling Nunjunks rendering on a stand-alone NodeJS server, they now achieved pure isomorphic rendering with JavaScript on the server and on the client.
+Before they used the _Jinja_ templating engine for server-side rendering in Python and the JavaScript equivalent _Nunjucks_ for client-side rendering.
+By also enabling Nunjucks rendering on a stand-alone NodeJS server, they now achieved pure isomorphic rendering with JavaScript on the server and on the client.
 
 Secondly, Pinterest had to render React components in their old Denzel framework. 
 So they added React-specific bindings to Nunjucks’ templating language with a new keyword (component), to represent the “bridge” between Denzel and React.
 
-An example of a Nunjunks template with a React-Denzel bridge: 
+An example of a Nunjucks template with a React-Denzel bridge: 
 {% raw %}
 ```
 {% if in_react %}
