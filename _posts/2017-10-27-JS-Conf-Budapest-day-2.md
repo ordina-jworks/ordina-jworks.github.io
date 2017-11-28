@@ -238,7 +238,7 @@ Inspections are longer, deeper code reviews that typically catch about 60% of de
 
 ##### 2. Walkthroughs
 
-A walkthrough is shorter, and is usually intended to provide teaching opportunities for senior developers to newer programmers, while giving junior developers the chance to change old methodologies.
+A walkthrough is shorter and is usually intended to provide teaching opportunities for senior developers to newer programmers, while giving junior developers the chance to change old methodologies.
 Typically, they catch about 20 to 40% of the defects in a program.
 
 ##### 3. Short code reviews
@@ -261,35 +261,35 @@ These are the stats:
 ##### The quantitive data
 
 The question "Code reviews are beneficial to my team" had a clear answer.
-The average score was above around 9 for most languages, with the top 3 containing Swift at an average of 9.46, Ruby at an average of 9.19 and JavaScript at an average of 9.1.
+The average score was around 9 for most languages, with the top 3 containing Swift at an average of 9.46, Ruby at an average of 9.19 and JavaScript at an average of 9.1.
 <p class="image"><img src="/img/2017-10-27-js-conf-budapest-day-2/vaidehi-joshi-beneficial.jpeg" alt="Code reviews are beneficial to my team" width="100%"></p>
 
-Another question was "How many pull requests are reviewed", on which the majority answered that all pull request where reviewed.
-But about 10% of the answers indicated that pull requests where only reviewed when someone was explicitly requested to review.
+Another question was "How many pull requests are reviewed", on which the majority answered that all pull request were reviewed.
+However, about 10% of the answers indicated that pull requests where only reviewed when someone was explicitly requested to review.
 <p class="image"><img src="/img/2017-10-27-js-conf-budapest-day-2/vaidehi-joshi-how-many-pull-request-reviews.jpeg" alt="How many pull requests are reviewed" width="100%"></p>
 
 ##### The qualitative data
 
-So, most developers think code reviews are needed, and state that all code is being reviewed.
+So, most developers think code reviews are needed and state that all code is being reviewed.
 But what do they think of the quality of code reviews?
 
 <blockquote class="clear"><p>
-Ultimately, what seemed to make or break a code review experience depended upon two things: how much energy was spent during the review process, and how much substance the review itself had.
+Ultimately, what seemed to make or break a code review experience depended upon two things: how much energy was spent during the review process and how much substance the review itself had.
 </p></blockquote>
 
-A code review was bad (and left a bad taste in the reviewer’s and reviewee’s mouth) if there wasn’t enough energy spend on the review, or if it lacked substance.
-On the other hand, if a code review process was thorough, and time was spent reviewing aspects of the code in a substantive way, it left a much more positive impression overall on both the reviewer and the reviewee.
+A code review was bad (and left a bad taste in the reviewer’s and reviewee’s mouth) if there wasn’t enough energy spent on the review, or if it lacked substance.
+On the other hand, if a code review process was thorough and time was spent reviewing aspects of the code in a substantive way, it left a much more positive impression overall on both the reviewer and the reviewee.
 
 ###### ENERGY
 
-On the question "Who all is doing the review? And how much time are they spending on it?", a lot of things could be learned.
+On the question "Who all is doing the review and how much time are they spending on it?", a lot of things could be learned.
 
-* A developer blindly thumbs-up everything, or the second or third reviewer is more likely to agree when already seeing an approval.
+* A developer blindly thumbs-up everything or the second or third reviewer is more likely to agree when already seeing an approval.
 This makes the code review a formality, which doesn't carry any weight.
-* A review is performed different dependent on who submits.
+* A review is performed different depending on who submits.
 Seniors get no feedback, while juniors are picked to death.
-The review are unfair and can break confidence.
-* Commits are too big, which cause long review time, which in turn has a bad effect on future branches/PR's/merges.
+The reviews are unfair and can break confidence.
+* Commits are too big, which cause long review time, which in turn has a bad effect on future branches/PRs/merges.
 Long review times take too much energy, which causes them to be postponed.
 
 ###### SUBSTANCE
@@ -298,7 +298,7 @@ The question "What exactly is someone saying, doing, or making another person fe
 
 * A reviewee taking all feedback at face value, having a mentality of "see red squiggle, fix red squiggle".
 They just change the code without second thought, as long as it makes the reviewer happy.
-* A reviewers comment is not clearly explained.
+* A reviewer's comment is not clearly explained.
 The reviewee just has to change their code to the reviewers vision.
 * A reviewer is unable to distinguish between stylistic preference and functional difference, which causes nitpicking at syntax.
 Multiple reviewers might even have conflicting visions.
@@ -312,7 +312,7 @@ A bad code review almost made me leave the company. A great code review leaves m
 
 * Use PR templates.
 Github provides some default templates for a PR, in which a couple of questions need to be answered short and clearly.
-* Include screenshots/gif, providing more context on what is changed, and why.
+* Include screenshots/gifs, providing more context on what is changed and why.
 * Use linters to eliminate style and syntax nitpicking.
 * Encapsulating PR's into small packages, aiming for small commits.
 * Assign specific reviewers, so they may provide valuable input and/or teach or learn something.
@@ -323,7 +323,7 @@ Github provides some default templates for a PR, in which a couple of questions 
 A senior developer is not infallible and might even be overconfident.
 * Develop empathy: call out the good stuff, too.
 Make people feel less vulnerable, push for a culture that values vulnerability — both in actions and in words.
-* Most importantly, Iterate: start a conversation when feeling that the code review flow doesn't work well.
+* Most importantly, iterate: start a conversation when feeling that the code review flow doesn't work well.
 Give everyone the chance to propose their suggestions.
 
 This survey answer summarized the importance of the last part perfectly:
