@@ -215,21 +215,21 @@ The Web becomes increasingly centralized. We trust our private data to be stored
 
 ##### What is WebRTC?
 
-Whenever you visit a webpage, you'd typically enter a web address or click a link to view a page. A request is made to the server and that server responds provides the webpage you've requested. The key here is that you make an HTTP request to a locatable server and get a response back. 
-Let's say that you want to do a video chat with mom. Mom's computer is probably not a webserver, so how will she receive my audio and video data? Enter WebRTC.
+Whenever you visit a webpage, you'd typically enter a web address or click a link to view a page. A request is made to the server and that server provides the webpage you've requested. The key here is that you make an HTTP request to a locatable server and get a response back.
+Let's say that you want to do a video chat with mom. Mom's computer is probably not a web-server, so how will she receive my audio and video data? Enter WebRTC.
 
 WebRTC stands for web real-time communications. It is a very exciting, powerful, and highly disruptive cutting-edge technology and standard. WebRTC leverages a set of plugin-free APIs that can be used in both desktop and mobile browsers, and is progressively becoming supported by all major modern browser vendors.
 
-The primary benefit of WebRTC is real-time peer-to-peer audio and video communication. In order to communicate with another person (i.e., peer) via a web browser, each person’s web browser must agree to begin communication, know how to locate one another, bypass security and firewall protections, and transmit all multimedia communications in real-time.
+The primary benefit of WebRTC is real-time peer-to-peer audio and video communication. In order to communicate with another person (i.e., peer) via a web browser, each person’s web browser must agree to begin communication, know how to locate one another and transmit all multimedia communications in real-time.
 
 ##### Decentralized networks
 
-When you think of networks you immediatly start thinking of network providers, hubs and the likes. We are moving away from the initial idea of the internet, which was supposed to be a decentralized network. Now what is a decentralized network? A good example of a decentralized network is BitCoin. Data is shared over multiple nodes and those nodes get updated by sending update events.
+When you think of networks you immediately start thinking of network providers, hubs and the likes. We are moving away from the initial idea of the internet, which was supposed to be a decentralized network. Now what is a decentralized network? A good example of a decentralized network is BitCoin. Data is shared over multiple nodes and those nodes get updated by sending update events.
 
 #### The way forward
 
 The Internet started as a way to have data spread across the world to make sure that in case of a disaster, natural or human made, data would be preserved.
-Peer 2 Peer communication is key in both a decentralized and the internet of old. We are making moves towards this redecentralization with the power of WebRTC and other more commonly known technologies such as BitTorrent for filesharing, Distributed git for code, etc.
+Peer 2 Peer communication is key in both a decentralized and the internet of old. We are making moves towards this redecentralization with the power of WebRTC and other more commonly known technologies such as BitTorrent for file sharing, Distributed git for code, etc.
 
 ****
 
