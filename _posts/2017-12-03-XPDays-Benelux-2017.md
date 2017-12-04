@@ -36,6 +36,36 @@ This session about the roles of a Scrum Master started with a fun energizer. We 
 Easy peasy lemon squeazy. After a minute, he switched this up. Now, when he said 'stop' we had to -start- walking and whenever he said 'walk', we had to -stop- walking. Confusing, but manageable. Until the final switcharoo.
 To finish, he also switched the 'clap' and 'name' actions, so we had to clap whenever he said 'name' and say our name whenever he said 'clap'. Fun way to start the session!
 
+The actual session starts with an overview of the 8 misunderstood stances of a Scrum Master:
+<div class="row">
+  <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
+    <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/8-Misunderstood-Stances.png">
+  </div>
+</div>
+
+* **A Scribe:** Taking notes during Scrum events. Writing down the entire Sprint plan, daily plan,
+refinement discussions and Retrospective commitments. I’ve actually experienced a customer
+that expected the “Scrum Master” to act as a scribe for 4 hours per week…
+* **A Secretary:** Planning all the Scrum events in everyone’s agenda. Responsible for keeping the
+teams’ schedule with holidays and days off up-to-date.
+* **The Scrum Police:** Rigorously following the rules of Scrum without any empathy for the
+team’s current situation and context. If you’re not acting according to the Scrum Guide you’re
+doing it wrong. Period.
+* **The Team Boss:** The so-called “servant-leader”, but actually just the boss of the team. The
+boss who hires and fires. The boss who decides if someone deserves a salary increase.
+* **The Admin:** If you need a change in JIRA, TFS or any other tool: the Scrum Master is your
+friend. He (or she) knows every workflow by heart.
+* **The Chairman:** Every morning the team provides a status update to the chairman of the Daily
+Scrum. This offers the Scrum Master the necessary information to write the daily status report
+to his/her superiors.
+* **A Super Hero:** It’s a bird. It’s a plane. It’s the Super Scrum Master!!! Solving all your
+impediments before it actually even was an impediment. The hero is addicted to the
+adrenaline of solving “problems.” It’s not about the team, it’s about increasing his status as a
+hero.
+* **The Coffee Clerk:** There’s nothing wrong with getting coffee for your team members. This is
+very collegial. But if your main purpose during the day is providing the team with coffee…
+then you’re missing the point of being a Scrum Master.
+
 More info on the 8 Stances of a Scrum Master can be found [here](http://www.barryovereem.com/the-8-stances-of-a-scrum-master-2nd-edition/){:target="_blank"}.
 
 ### Do Not Deal with Resistance! - Remi-Armand Collaris & Linda Dorlandt
