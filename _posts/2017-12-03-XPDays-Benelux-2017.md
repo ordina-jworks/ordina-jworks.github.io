@@ -43,28 +43,17 @@ The actual session starts with an overview of the 8 misunderstood stances of a S
   </div>
 </div>
 
-* **A Scribe:** Taking notes during Scrum events. Writing down the entire Sprint plan, daily plan,
-refinement discussions and Retrospective commitments. I’ve actually experienced a customer
-that expected the “Scrum Master” to act as a scribe for 4 hours per week…
-* **A Secretary:** Planning all the Scrum events in everyone’s agenda. Responsible for keeping the
-teams’ schedule with holidays and days off up-to-date.
-* **The Scrum Police:** Rigorously following the rules of Scrum without any empathy for the
-team’s current situation and context. If you’re not acting according to the Scrum Guide you’re
-doing it wrong. Period.
-* **The Team Boss:** The so-called “servant-leader”, but actually just the boss of the team. The
-boss who hires and fires. The boss who decides if someone deserves a salary increase.
-* **The Admin:** If you need a change in JIRA, TFS or any other tool: the Scrum Master is your
-friend. He (or she) knows every workflow by heart.
-* **The Chairman:** Every morning the team provides a status update to the chairman of the Daily
-Scrum. This offers the Scrum Master the necessary information to write the daily status report
-to his/her superiors.
-* **A Super Hero:** It’s a bird. It’s a plane. It’s the Super Scrum Master!!! Solving all your
-impediments before it actually even was an impediment. The hero is addicted to the
-adrenaline of solving “problems.” It’s not about the team, it’s about increasing his status as a
-hero.
-* **The Coffee Clerk:** There’s nothing wrong with getting coffee for your team members. This is
-very collegial. But if your main purpose during the day is providing the team with coffee…
-then you’re missing the point of being a Scrum Master.
+* **Scrum Police:** Scrum isn't a hard set of rules to be followed. There's absolutely nothing wrong with a bit of flexibility and empathy based on the team's situation.
+Time boxing for example is very important but keep an open mind when the team is having a very valuable conversation when the time box has ended.
+Flexibility regarding time boxing is of course not meant to happen too often. So keep an eye out for recurring discussions to see if they need to be addressed separately.
+* **Hero:** Managing and solving all problems and impediments like nobody's business! While an important task for the Scrum Master, make sure not to get too focused on being the team's impediment super hero.
+* **Scribe:** "Hey John, you're taking notes again for this meeting, right? Thanks!". Do you recognize this exchange? Congratulations, you're the team's personal scribe.
+This is especially to be avoided during retrospectives since this creates a false sense of ownership of the issues and actions towards the Scrum Master.
+* **Admin:** The Scrum Master is the workflow master. Need to add a board in Jira? Ask the Scrum Master. Need to start a sprint in Jira? Ask the Scrum Master. Need a break and have a cigarette? Ask the Scrum Master. Oh. Wait.
+* **Secretary:** The Scrum Master plans all the work in the team members' agendas. Keep up to date with everybody's holidays and toilet breaks.
+* **Chairman:** While this is often the case, the Daily Scrum isn't a meeting where the team members report back to the Scrum Master. It's a meeting by and for the development team. In absense of the Scrum Master, the Daily Scrum must still happen.
+* **Team Boss:** The Scrum Master is the boss of the team. He/she decides who is in and who is out. A sick day? You're fired! Buy the Scrum Master a chocolate cake? Here, have a raise!
+* **Coffee Clerk:** Please do get your team members some coffee once in a while. But no, fetching coffee day in day out is not part of the Scrum Master's job description.
 
 More info on the 8 Stances of a Scrum Master can be found [here](http://www.barryovereem.com/the-8-stances-of-a-scrum-master-2nd-edition/){:target="_blank"}.
 
