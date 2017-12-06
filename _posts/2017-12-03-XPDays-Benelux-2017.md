@@ -55,6 +55,26 @@ This is especially to be avoided during retrospectives since this creates a fals
 * **Team Boss:** The Scrum Master is the boss of the team. He/she decides who is in and who is out. A sick day? You're fired! Buy the Scrum Master a chocolate cake? Here, have a raise!
 * **Coffee Clerk:** Please do get your team members some coffee once in a while. But no, fetching coffee day in day out is not part of the Scrum Master's job description.
 
+So what are the 8 preferred stances of a Scrum Master then, you ask?
+Glad you asked! The 8 preferred stances are:
+
+<div class="row">
+  <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
+    <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/8-Preferred-Stances.png">
+  </div>
+</div>
+
+* **Teacher:** "The art of teaching is the art of assisting discovery." - Mark Van Doren. There is much the Scrum Master can teach the Scrum Team. The Scrum Master must ensure that Scrum is understood and implemented properly by the entire team.
+He or she makes sure the team stays on track of the Agile practices and principles.
+* **Impediment Remover:** An Impediment is a problem that goes beyond the self-organization of the Development Team. Make sure the team understands and uses their own ability to solve problems and be self-organized. It might also create an opportunity for the team to come up with creative ideas to solve the impediment themselves.
+* **Facilitator:** Being a Scrum Master also means facilitating the team in transparency, inspection and adaptation. It is also via great facilitation that the Scrum Master succeeds in getting more value out of every event.
+* **Coach:** It's important to stay away from the solution and ask questions in order to facilitate discovery of solutions. Of course, the Scrum Master may offer new perspectives to help the team reach a solution.
+* **Servant Leader:** Remember that the Scrum Master serves others. Being able to read the room and facilitate conflict within the team is a very important responsibility of the Scrum Master. Make sure to lead by example and make others feel comfortable with failing.
+* **Mentor:** The difference between coaching and mentoring is that for mentoring, having in-depth knowledge is crucial. A mentor helps the team understand the practices and principles of Agile and transfers his or her knowledge of the subject.
+* **Manager:** The Scrum Master manages a whole bunch of things: the culture, the Scrum process, team health, Scrum values, impediments and boundaries of self-organization. These boundaries need managing because boundaries that work for one team might not work for another.
+* **Change Agent:** It's essential to try to influence the company culture to open up to Scrum so the Scrum Team can flourish and thrive.
+
+
 More info on the 8 Stances of a Scrum Master can be found [here](http://www.barryovereem.com/the-8-stances-of-a-scrum-master-2nd-edition/){:target="_blank"}.
 
 ### Do Not Deal with Resistance! - Remi-Armand Collaris & Linda Dorlandt
@@ -64,6 +84,21 @@ More info on the 8 Stances of a Scrum Master can be found [here](http://www.barr
 [Remi-Armand Collaris](https://twitter.com/racollaris){:target="_blank"} is a team and organisation coach who uses Agile, Scrum and LEAN ideas to find new ways to help people both within teams as well as among teams communicate and collaborate better.<br><br>
 [Linda Dorlandt](https://twitter.com/lindadanst){:target="_blank"} is a mentor in change processes that help teams collaborate and reach a common goal. In order to do this, she uses and teaches methods for coaching, project management and process management.
 
+The session by Remi-Armand and Linda started with two exercises. For the first exercise, we had to pair with one of our neighbors where one of us was the coach and the other the coachee.
+The coachee had to open up about an issue they're facing that they cannot solve by themselves and the coach had to try to resolve it by suggesting solutions. After a few minutes, we had to switch roles. Both people then had to show to the group whether they felt better about the problem or not.
+The second exercise dealt with the same problem, but instead of immediately trying to suggest solutions, the coach asked questions to get to the bottom of the issue and figure out the goal of the coachee. Again, both people had to indicate how they felt about their problem, if the feeling was better, worse, or stayed the same.
+The goal of these exercises was to show that trying to push someone towards a solution for their problem isn't the best way to handle the situation since there will always be a 'but'. Asking questions and trying to get the person to thoroughly think about their situation and problem will help them reach a solution themselves that they understand and accept.
+
+As an example of someone trying to actively deal with resistance, they showed the YouTube video called ['It's Not About the Nail'](https://www.youtube.com/watch?v=-4EDhdAHrOg).
+The conclusion is easy and was mentioned in the paragraph above. Pushing someone towards a solution they don't see fit will not give you the outcome you hope for.
+
+Remi-Armand and Linda discussed a series of steps that will help facilitate the conversation with a person that has a problem and is unable to come to a solution by themselves.
+* First step: Make a **connection**. Acknowledge the person's issue and make them feel comfortable opening up to you.
+* Second step: "What is bothering you?" Try to figure out what the actual root cause is of their issue. Get to the bottom of it and **focus** the complaints.
+* Third step: "What do you think will help you?" Guide the person towards a **change in language**. It's important they can see that a change in the situation is actually possible.
+* Fourth step: "When?" Create concrete **plans** for change. Don't postpone taking action. Plan it and make it happen.
+
+More information can be found on the Dutch website [Praktisch op weg naar Teamresultaat](http://www.praktischopweg.nl/).
 
 ### Motivate Your Team with Gamification - Jean-Jacques Courtens
 
