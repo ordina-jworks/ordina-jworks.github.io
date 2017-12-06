@@ -107,7 +107,19 @@ More information can be found on the Dutch website [Praktisch op weg naar Teamre
 [Jean-Jacques Courtens](https://twitter.com/jjcourtens){:target="_blank"} is the Founder and a Managing Partner at Adsdaq where he introduced gamification as a means of motivating the teams to deliver working products consistently.
 
 This was an Open Space session where Jean-Jacques discussed the way he implemented gamification in his company. At Adsdaq, they work with a reward system where points can be earned by completing certain tasks.
+They assign points to three sections: Timesheets, demos and sprint objectives.
+* Timesheets: Filling in the timesheet in time is worth **1 point**
+* Demos: Doing 1 demo is worth **2 points**
+* Sprint objectives: Each completed story point is worth **1 point**. For sprint objectives, they also use a point multiplier. X0 when the sprint has failed, X1 if 90% of the main goal of the sprint was achieved, X2 when 100% of the main goal was achieved and X3 when the entire sprint was a complete success.
 
+For all three sections, they also assign badges. For example, the team can earn the gold badge when 15 sprints in a row are a complete success.
+
+The earned points are actually converted to Euros that are spent on team celebrations where 1 point is worth 1 Euro:
+* 70% of the earned money goes towards team activities, such as team building, team lunch, etc.
+* 30% is spent on personal rewards like cinema tickets, dinner for two, etc. This is only meant for team members that were part of the sprint.
+
+Jean-Jacques noted that the company probably spends around 3500-4000 Euros every year for this reward system, for a team of 8 people.
+It's also important to note that the team is still being rewarded when the sprint fails and not being reprimanded for it. The reward is just a lot bigger when the sprints succeed.
 
 ### An Integral View on Agile - Frederik Vannieuwenhuyse & Johannes Schartau
 
@@ -116,9 +128,76 @@ This was an Open Space session where Jean-Jacques discussed the way he implement
 [Frederik Vannieuwenhuyse](https://twitter.com/vfrederik) is a multidisciplinary generalising specialist and is continuously on a journey of discovery and learning how to grow effective, resilient and agile organisations.<br><br>
 [Johannes Schartau](https://twitter.com/integralagile) is an Agile Coach, consultant, and professional Zombie Scrum fighter from Hamburg, Germany. He is passionate about creating environments for real collaboration and joyful creativity.
 
+The first part of this exercise consisted of reading 6 case studies and writing down on post-it notes how you would handle each situation, what questions you would ask.
+These post-it notes will be used in a later exercise, after an explanation of so-called Integral Theory:
+<div class="row">
+  <div class="6u -3u 8u(small) -2u(small) 12u(xsmall)">
+    <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/Integral-Theory1.png">
+  </div>
+</div>
+Integral Theory was created and shaped by Ken Wilber and consists of the idea that anything can be viewed as a thing by itself or as part of a larger group.
+* Individual VS Collective
+Anything can also be seen from within and from the outside.
+* Interior VS Exterior
+Based on this, Ken suggests that any kind of knowledge or experience can be assigned to any of the four quadrants shown above.
+* Leadership and Engagement: Interprets people's interior experiences and focuses on "I"
+* Culture and Shared Vision: Interprets the collective consciousness of a group of people and focuses on "We"
+* Behavior and Metrics: Observation of the behavior of people and focuses on "It"
+* Organizational Architecture and Systems: Focuses on the behavior of a group of people as functional entities seen from outside: "They"
+
+The following image gives an overview of the questions that help organize knowledge into the quadrants:
+<div class="row">
+  <div class="6u -3u 8u(small) -2u(small) 12u(xsmall)">
+    <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/Integral-Theory2.png">
+  </div>
+</div>
+
+After explaining Integral Theory, we picked up our post-it notes and organized them into the quadrants that were put up across the room.
+When the post-it notes were assigned to their respective quadrant, Frederik and Johannes asked us to move towards the quadrant in the room that we felt we had the most experience in or we felt we were good at.
+Next, we had to discuss in our 'quadrant groups' if the post-it notes that were put up in the quadrant were a good match for it or if they belonged in another quadrant.
+The final exercise consisted of moving with your group to the next quadrants and listening to 1 person that stayed behind from the initial group explain the conclusions they reached during the initial discussion.
+This way, we were able to really understand what the quadrant stood for and what knowledge and experiences are part of it.
+
 ### The Art of Hosting Conversations that Matter - Johan Decoster & Jef Cumps
 
 <span class="image left"><img class="p-image" alt="Johan Decoster" src="/img/xpdays-benelux-2017/Johan-Decoster.png"></span>
 <span class="image left"><img class="p-image" alt="Jef Cumps" src="/img/xpdays-benelux-2017/Jef-Cumps.png"></span>
 [Johan Decoster](https://twitter.com/johan_decoster) is an Agile coach and trainer trying to make a difference in the lives of the people he works with by uncovering everyone’s unique potential and looking deeper into the essence behind any theory or concept.<br><br>
 [Jef Cumps](https://twitter.com/jcumps) is a very experienced coach and trainer supporting organisations in their transformation towards more agility and towards a more engaging, humane and effective way of looking at work.
+
+The session by Johan and Jef started with a small exercise. We paired up with our neighbor and asked each other the question, 'Why are you really at this conference, and what has it meant to you so far?'
+The point of the interview was asking questions to guide the interviewee in telling their story. After these interviews, the person interviewing had to share what they had learned with the rest of the table and the others had to take notes of the summary.
+The steps for executing this exercise are covered in this picture:
+<div class="row">
+  <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
+    <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/Art-of-Hosting2.png">
+  </div>
+</div>
+
+A good and constructive conversation is built upon 4 key elements:
+
+<div class="row">
+  <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
+    <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/Art-of-Hosting3.png">
+  </div>
+</div>
+
+Make sure the conversation stays polite and has a good flow of dialogue, but also take note of the two other sections.
+It's very important to respect the differences in ideas between you and your conversation partner. It's okay to voice your opinion, but be considerate and respectful and make sure to not overpower the other person.
+Listen often and do not judge too quickly. The other person might not be good in voicing their opinion clearly so suspending judgement is always a good idea. Things make become clearer later on in the conversation.
+
+Right before the break, people were invited to write down questions they had where they could use the help of others to solve it.
+Eventually, the top 8 questions were picked and each question owner was going to be the conversation host for each table.
+After the break, the other people helped the question owners answer their question by having three conversations based on the following questions:
+* What is the quest behind the question?
+* What is missing?
+* What actions can be taken?
+Each question was assigned a time box of 15 minutes and you were only allowed to talk about that specific question during that time box.
+After each question, the other people at the table moved around to another table to help with someone else's issue.
+So, after the exercise, every non-question owner was able to help three different persons by helping with a different question each time.
+This exercise is called a [World Cafe](http://www.artofhosting.org/world-cafe/).
+
+The outcome of the exercise was a group of people happy to have some concrete actions to start working with to try and solve their issues.
+
+More info on the Art of Hosting can be found in the following image and on [mentioned websites](http://www.artofhosting.org/).
+
