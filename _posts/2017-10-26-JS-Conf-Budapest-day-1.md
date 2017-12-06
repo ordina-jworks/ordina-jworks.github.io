@@ -500,15 +500,92 @@ I believe sharing is what make us better.
 
 ### Kacper Sokołowski: You use Content Security Policy, don't you?
 
+Kacper is a front-end developer for Codewise.
+He's a speaker and community organiser for KrakowJS.
 You can find Kacper on Twitter using the handle [@kaapa_s](https://twitter.com/kaapa_s)
 
 The presentation can be found [here](http://slides.com/kaapa/deck/)
 
 <blockquote class="clear"><p>
-INSERT SMALL TALK DESCRIPTION
+Everyone know that security is important right?
+The biggest companies like Facebook and Google spend tons of money on bug bounty programs to ensure that their products are secure.
+But is there a way that we can make our website prone to some of the most popular attacks?
+There is one security mechanism which can help, but yet not everyone knows and uses it.
+It’s called Content Security Policy.
 </p></blockquote>
 
-INSERT TALK SUMMARY HERE
+Kacper started his presentation with an example to demonstrate why security is **hard**.
+<blockquote><p>
+In 2005, Kamkar released the Samy worm, the first self-propagating cross-site scripting worm, onto MySpace.
+The worm carried a payload that would display the string "but most of all, Samy is my hero" on a victim's profile and cause the victim to unknowingly send a friend request to Kamkar.
+When a user viewed that profile, they would have the payload planted on their page.
+Within just 20 hours of its October 4, 2005 release, over one million users had run the payload, making it the fastest spreading virus of all time.
+</p></blockquote>
+
+#### XSS
+Cross Site Scripting (XSS) was used to inject and spread the virus.
+It's a technique to inject and execute any JavaScript code in the context of the page.
+
+What can you do with XSS?
+* steal cookies
+* steal localstorage data
+* break the layout and style of the page
+* whatever you can do with javascript...
+
+You can find lot's of information about XSS and other vulnerabilities on this website: [https://www.owasp.org](https://www.owasp.org)
+
+#### HOW TO BE SAFE?!
+
+##### CSP
+Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks.
+
+Inline code is considered harmful so don't use something like this:
+```html
+<script>
+alert('hello JSConfBP!');
+...
+</script>
+
+```
+Instead externalise your code and do something like this:
+```html
+<script src="..."></script>
+```
+
+##### HTTP HEADERS
+
+When you have externalised your scripts, you need to make sure your site only loads these scripts.
+To enable CSP, you need to configure your web server to return the Content-Security-Policy HTTP header.
+
+_Specifying your policy:_
+
+**Content-Security-Policy:** script-src 'self' http://google.com ...
+
+_Specifying your directive(s):_
+
+Content-Security-Policy: **script-src** 'self' http://google.com ...
+
+_Specifying the URL list:_
+
+Content-Security-Policy: script-src **'self' http://google.com ...**
+
+
+
+Other directives you can use:
+* connect-src
+* img-src
+* script-src
+* style-src
+* ...
+
+You can use the fallback directive for other resource types that don't have policies of their own: **default-src**
+
+
+
+##### Conclusion
+
+Many parts of your website **will probably break** when you csp for the first time.
+So, start using it as early as possible!
 
 ****
 
@@ -707,13 +784,9 @@ After a long day of JavaScript fun we were invited to a rooftop party at [Corvin
 Imagine a party with awesome visuals, music & beats, and lights - all powered and created by JavaScript!
 More info about the concept can be found here: [LiveJS](http://livejs.network)
 
-On the stage, performing live:
-* Ruth John @Rumyra
-* Tim Pietrusky @TimPietrusky
-* Martin Schuhfuss @usefulthink
-* Sam Wray @_2xAA
-
-This awesome gig was brought to you by [Sinnerschrader](https://sinnerschrader.com)
+<div class="responsive-video">
+    <iframe src="https://www.youtube.com/embed/G4nIMBWy1bQ" frameborder="0" allowfullscreen></iframe>
+</div>
 
 ****
 
