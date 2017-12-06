@@ -46,10 +46,22 @@ You can find him on Twitter using the handle [@don_burks](https://twitter.com/do
 The presentation can be found [here](https://donburks.com/2017-10-27-jsconfbp-presentation/).
 
 <blockquote class="clear"><p>
-INSERT SMALL TALK DESCRIPTION
+Composers and developers of applications have more in common than you might think. In his talk, Don Burks pointed out the similarities in structure between music and apps.
 </p></blockquote>
 
-INSERT TALK SUMMARY HERE
+An app has a certain structure, being the architecture or the configuration of how all the different components interact with each other. The same applies to a composition, where the structure represents the different themes in the composition.
+ 
+When you look at an application, you see a system of databases, web servers, load balancers, etc. All these components are part of the system. Composers have the same vision on their composition.
+ 
+When creating the flow of an application, developers start from a certain point and move forward from one step to another, where each step describes an action or event in the app. These steps are like a melody in music that moves everything forward.
+ 
+But developers also think vertically to visualize the architecture of the application. All the technologies that are used, are represented in a vertical stack.
+ 
+The goal of the application is to deliver a complete package, where the horizontal problem-solving and the vertical architecture should be transparent to the user.
+ 
+In music it is important that every tune is played on time. The musician must deliver the right tune at the right time in order to create the music like the composer intended it to be. An app should run the same way: it has to deliver the right “tune” at the desired time to provide the best user experience.
+ 
+The talk gave us more insight about various aspects in development, seen from a musician’s perspective. Composing music is an art, and so is coding.
 
 ****
 
