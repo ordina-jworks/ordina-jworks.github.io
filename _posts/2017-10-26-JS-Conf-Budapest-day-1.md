@@ -173,9 +173,9 @@ just so it can be multithreaded!
 </p></blockquote>
 
 
-Before diving into solving concurrency problems Jonathan explained to us how the (V8) JavaScript runtime actually works and reacts under the hood.
-How the call stack, event loop WebAPIs and the callback queue works. How it handles synchronous (blocking) and asynchronous (non-blocking) code.
-Explaining that would be an entire blog post on it's own. Luckily he gave us a great link to a video that explains it very clearly, so I'll add that instead.
+Before diving into solving concurrency problems, Jonathan explained how the (V8) JavaScript runtime actually works and reacts under the hood.
+Next, he told us how the call stack, event loop WebAPIs and the callback queue works and how it handles synchronous (blocking) and asynchronous (non-blocking) code.
+Explaining that would be an entire blog post on its own. Luckily he gave us a great link to a video that explains it very clearly, so I'll add that instead.
 
 <div class="responsive-video">
 <iframe src="https://player.vimeo.com/video/96425312" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
@@ -184,8 +184,8 @@ Explaining that would be an entire blog post on it's own. Luckily he gave us a g
 
 
 #### What is concurrency, multi threading and parallelism
-So if you've just watched the video above, you know that Javascript has one call stack (a single thread), that executes the functions on it in sequence.
-With multi threading, as the word says, we have multiple threads.
+So if you've just watched the video above, you know that JavaScript has one call stack (a single thread) and executes the functions in sequence.
+With multithreading, as the word says, we have multiple threads.
 This means that the program can assign these tasks to multiple stacks so that multiple tasks get executed at the same time.
 
 
@@ -193,24 +193,27 @@ In a computer with a single processor and single core, to do multi threading,
 the processor would alternate between these tasks really fast so that they appear to be happening at the same time.
 Back in the early days of computing, this was the only option we had. This is called <b>concurrency</b>.
 
-Around 2005 Intel, AMD and the other chip makers started creating processors with multiple cores. This meant that it could actually do multiple things at the same time, since it had multiple "brains".
-Processors could now assign different tasks to different cores and they would run at the same time, this is what we call <b>Parallelism</b>
+Around 2005 Intel, AMD and the other chip manufacturers started creating processors with multiple cores. 
+This meant it could actually do multiple things at the same time, since it had multiple "brains".
+Processors could now assign different tasks to different cores and they would run at the same time. 
+This is what we call <b>parallelism</b>
 
 ### JavaScript multi threading: impossible?
 Although your JavaScript code is single-threaded and only does one thing at a time, the JavaScript Runtime and Web APIs are multithreaded!
 When you pass a callback function to setTimeout() or start an AJAX request with fetch(),
-you are essentially spinning up a background thread in the runtime. Once that background thread completes,
-and once the current call stack finishes executing, your callback function is pushed onto the (now empty) call stack and run-to-completion.
+you are essentially spinning up a background thread in the runtime. 
+Once that background thread completes and the current call stack finishes executing, your callback function is pushed onto the (now empty) call stack and run-to-completion.
 So your JavaScript code itself is single-threaded, but it orchestrates legions of threads!
 
 ### ES2017 async functions
-The title of his talk contained the word 'Elegant', and this is where the ES2017 async/await functionality comes in.
-This is a great alternative for dealing with promises in JavaScript. If you're a JavaScript developer you probably know what 'callback hell' is, or at least heard of it.
-When writing complex programs, we could find ourselves in a situation where we would have to create multiple nested promises to make sure we have the results of one call to continue with the next and so on.
+The title of his talk contained the word 'Elegant' and this is where the ES2017 async/await functionality comes in.
+This is a great alternative for dealing with promises in JavaScript. 
+If you're a JavaScript developer you probably know what 'callback hell' is, or at least heard of it.
+When writing complex programs, we could find ourselves in a situation where we would have to create multiple nested Promises to make sure we have the results of one call to continue with the next and so on.
 
 Async - declares an asynchronous function (async function someName(){...}).
 * Automatically transforms a regular function into a Promise.
-* When called async functions resolve with whatever is returned in their body.
+* When called async functions resolve to whatever is returned in their body.
 * Async functions enable the use of await.
 
 Await - pauses the execution of async functions. (var result = await someAsyncCall();).
@@ -244,10 +247,11 @@ async function getJSONAsync(){
 }
 ```
 
-If you are a beginner with async functions and want to learn more this topic, go check out <a href="https://www.youtube.com/watch?v=568g8hxJJp4&t=362s" target="_blank">this video</a>
+If you're a beginner with async functions and want to learn more this topic, go check out <a href="https://www.youtube.com/watch?v=568g8hxJJp4&t=362s" target="_blank">this video</a>
 
 
-For further reading on how Jonathan used async patterns for multicore JavaScript, he has written an <a href="https://www.bignerdranch.com/blog/cross-stitching-elegant-concurrency-patterns-for-javascript/" target="_blank">elaborate blog post</a> about it, we suggest you go check it out.
+For further reading on how Jonathan used async patterns for multicore JavaScript, he has written an <a href="https://www.bignerdranch.com/blog/cross-stitching-elegant-concurrency-patterns-for-javascript/" target="_blank">elaborate blog post</a> about it. 
+We suggest you go check it out!
 
 ****
 
