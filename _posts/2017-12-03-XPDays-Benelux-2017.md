@@ -3,7 +3,7 @@ layout: post
 authors: [derya_duru]
 title: 'XP Days Benelux 2017'
 image: /img/xpdays-benelux-2017/XPDays-Benelux-2017.png
-tags: [XP Days Benelux, Agile]
+tags: [XP Days Benelux, Agile, Scrum, Scrum Master, Gamification, Integral Theory, Art of Hosting, Facilitation, Coaching]
 category: Conference
 comments: true
 ---
@@ -32,11 +32,9 @@ In this post, I will go over some talks and sessions I attended and participated
 <span class="image left"><img class="p-image" alt="Barry Overeem" src="/img/xpdays-benelux-2017/Barry-Overeem.jpg"></span>
 [Barry Overeem](https://twitter.com/barryovereem){:target="_blank"} is a freelance Scrum Master and Professional Scrum Trainer at Scrum.org. He’s an active member of the Scrum community and shares his insights and knowledge by speaking at conferences, facilitating workshops and writing blog posts.
 
-This session about the roles of a Scrum Master started with a fun energizer. We all had to get up and do the following: Clap when Barry said 'clap', say our name when he said 'name', walk when he said 'walk' and stop walking when he said 'stop'.
-Easy peasy lemon squeazy. After a minute, he switched this up. Now, when he said 'stop' we had to -start- walking and whenever he said 'walk', we had to -stop- walking. Confusing, but manageable. Until the final switcharoo.
-To finish, he also switched the 'clap' and 'name' actions, so we had to clap whenever he said 'name' and say our name whenever he said 'clap'. Fun way to start the session!
+It is so common for a Scrum Master to get assigned tasks that aren't actually tasks a Scrum Master should be performing. The job description of a Scrum Master comes with whole other tasks than a lot of people assume, sometimes even the Scrum Master him or herself.
 
-The actual session starts with an overview of the 8 misunderstood stances of a Scrum Master:
+The session starts with an overview of the 8 misunderstood stances of a Scrum Master:
 <div class="row">
   <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
     <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/8-Misunderstood-Stances.png">
@@ -56,7 +54,9 @@ This is especially to be avoided during retrospectives since this creates a fals
 * **Coffee Clerk:** Please do get your team members some coffee once in a while. But no, fetching coffee day in day out is not part of the Scrum Master's job description.
 
 So what are the 8 preferred stances of a Scrum Master then, you ask?
-Glad you asked! The 8 preferred stances are:
+Glad you asked!
+
+The 8 preferred stances are:
 
 <div class="row">
   <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
@@ -67,7 +67,7 @@ Glad you asked! The 8 preferred stances are:
 * **Teacher:** "The art of teaching is the art of assisting discovery." - Mark Van Doren. There is much the Scrum Master can teach the Scrum Team. The Scrum Master must ensure that Scrum is understood and implemented properly by the entire team.
 He or she makes sure the team stays on track of the Agile practices and principles.
 * **Impediment Remover:** An Impediment is a problem that goes beyond the self-organization of the Development Team. Make sure the team understands and uses their own ability to solve problems and be self-organized. It might also create an opportunity for the team to come up with creative ideas to solve the impediment themselves.
-* **Facilitator:** Being a Scrum Master also means facilitating the team in transparency, inspection and adaptation. It is also via great facilitation that the Scrum Master succeeds in getting more value out of every event.
+* **Facilitator:** Being a Scrum Master also means facilitating the team in transparency, inspection and adaptation. It is also through great facilitation that the Scrum Master succeeds in getting more value out of every event.
 * **Coach:** It's important to stay away from the solution and ask questions in order to facilitate discovery of solutions. Of course, the Scrum Master may offer new perspectives to help the team reach a solution.
 * **Servant Leader:** Remember that the Scrum Master serves others. Being able to read the room and facilitate conflict within the team is a very important responsibility of the Scrum Master. Make sure to lead by example and make others feel comfortable with failing.
 * **Mentor:** The difference between coaching and mentoring is that for mentoring, having in-depth knowledge is crucial. A mentor helps the team understand the practices and principles of Agile and transfers his or her knowledge of the subject.
@@ -86,7 +86,7 @@ More info on the 8 Stances of a Scrum Master can be found [here](http://www.barr
 
 The session by Remi-Armand and Linda started with two exercises. For the first exercise, we had to pair with one of our neighbors where one of us was the coach and the other the coachee.
 The coachee had to open up about an issue they're facing that they cannot solve by themselves and the coach had to try to resolve it by suggesting solutions. After a few minutes, we had to switch roles. Both people then had to show to the group whether they felt better about the problem or not.
-The second exercise dealt with the same problem, but instead of immediately trying to suggest solutions, the coach asked questions to get to the bottom of the issue and figure out the goal of the coachee. Again, both people had to indicate how they felt about their problem, if the feeling was better, worse, or stayed the same.
+The second exercise dealt with the same problem, but instead of immediately trying to suggest solutions, the coach asked questions to get to the bottom of the issue and figure out the goal of the coachee. Again, after this round, both people had to show to the rest of the group how they felt about their problem, if the feeling was better, worse, or stayed the same.
 The goal of these exercises was to show that trying to push someone towards a solution for their problem isn't the best way to handle the situation since there will always be a 'but'. Asking questions and trying to get the person to thoroughly think about their situation and problem will help them reach a solution themselves that they understand and accept.
 
 As an example of someone trying to actively deal with resistance, they showed the YouTube video called ['It's Not About the Nail'](https://www.youtube.com/watch?v=-4EDhdAHrOg).
@@ -126,7 +126,7 @@ It's also important to note that the team is still being rewarded when the sprin
 <span class="image left"><img class="p-image" alt="Frederik Vannieuwenhuyse" src="/img/xpdays-benelux-2017/Frederik-Vannieuwenhuyse.png"></span>
 <span class="image left"><img class="p-image" alt="Johannes Schartau" src="/img/xpdays-benelux-2017/Johannes-Schartau.png"></span>
 [Frederik Vannieuwenhuyse](https://twitter.com/vfrederik) is a multidisciplinary generalising specialist and is continuously on a journey of discovery and learning how to grow effective, resilient and agile organisations.<br><br>
-[Johannes Schartau](https://twitter.com/integralagile) is an Agile Coach, consultant, and professional Zombie Scrum fighter from Hamburg, Germany. He is passionate about creating environments for real collaboration and joyful creativity.
+[Johannes Schartau](https://twitter.com/integralagile) is an Agile Coach, consultant and professional Zombie Scrum fighter from Hamburg, Germany. He is passionate about creating environments for real collaboration and joyful creativity.
 
 The first part of this exercise consisted of reading 6 case studies and writing down on post-it notes how you would handle each situation, what questions you would ask.
 These post-it notes will be used in a later exercise, after an explanation of so-called Integral Theory:
