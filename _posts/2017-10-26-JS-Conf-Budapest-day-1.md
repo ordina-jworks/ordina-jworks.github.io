@@ -510,13 +510,13 @@ I believe sharing is what make us better.
 ### Kacper Sokołowski: You use Content Security Policy, don't you?
 
 Kacper is a front-end developer for Codewise.
-He's a speaker and community organiser for KrakowJS.
+He's also a speaker and community organiser for KrakowJS.
 You can find Kacper on Twitter using the handle [@kaapa_s](https://twitter.com/kaapa_s)
 
 The presentation can be found [here](http://slides.com/kaapa/deck/)
 
 <blockquote class="clear"><p>
-Everyone know that security is important right?
+Everyone knows that security is important right?
 The biggest companies like Facebook and Google spend tons of money on bug bounty programs to ensure that their products are secure.
 But is there a way that we can make our website prone to some of the most popular attacks?
 There is one security mechanism which can help, but yet not everyone knows and uses it.
@@ -539,7 +539,7 @@ What can you do with XSS?
 * steal cookies
 * steal localstorage data
 * break the layout and style of the page
-* whatever you can do with javascript...
+* whatever you can do with JavaScript...
 
 You can find lot's of information about XSS and other vulnerabilities on this website: [https://www.owasp.org](https://www.owasp.org)
 
@@ -593,7 +593,7 @@ You can use the fallback directive for other resource types that don't have poli
 
 ##### Conclusion
 
-Many parts of your website **will probably break** when you csp for the first time.
+Many parts of your website **will probably break** when you CSP for the first time.
 So, start using it as early as possible!
 
 ****
@@ -603,17 +603,19 @@ So, start using it as early as possible!
 ### Dan Callahan: Practical WebAssembly
 
 You can find Dan on Twitter using the handle [@callahad](https://twitter.com/callahad).
-<blockquote><p>In this talk Dan explained what Web assembly is all about. How it works, what it is for and the features that are already there / yet to come.</p></blockquote>
-Web Assembly, what is it?
-Well according to <a target="_blank" href="http://webassembly.org/">http://webassembly.org/</a>:
+<blockquote><p>In this talk Dan explained what WebAssembly is all about. 
+How it works, what it's for, the features that are already there and which features are yet to come.</p></blockquote>
+
+WebAssembly, what is it?
+Well, according to <a target="_blank" href="http://webassembly.org/">http://webassembly.org/</a>:
 <blockquote>"WebAssembly or wasm is a new portable, size- and load-time-efficient format suitable for compilation to the web."</blockquote>
 
 <b>A compiler for the web:</b>
 * Low-level, binary format for programs:<br>
-    WebAssembly is a fast, portable, compact, cross-browser binary format for compilation to the Web.
+    WebAssembly is a fast, portable, compact, cross-browser binary format for compilation to the web.
 * It's an <i>open standard<i> supported by <i>all major browsers.</i> <a href="https://caniuse.com/#feat=wasm" target="_blank">caniuse.com</a>
 * Direct successor of asm.js
-* general purpose virtual architecture
+* General purpose virtual architecture
 * It allows new types of applications and heavy 3D games to run efficiently in browsers.
 
 
@@ -621,7 +623,7 @@ Well according to <a target="_blank" href="http://webassembly.org/">http://webas
 
 ##### Performance!
 
-Web assembly is a binary format for JS.
+WebAssembly is a binary format for JS.
 It has 2 major benefits:
 * the JS engine can skip the parsing step
 * it's much more compact than the JS original source
@@ -629,21 +631,19 @@ It has 2 major benefits:
 ##### Portability
 
 At the moment of writing this blog, there are two languages that can compile into wasm, those are C/C++ and Rust.
-This is great for portability since code written in C works on mac, linux and windows.
+This is great for portability since code written in C works on Mac, Linux and Windows.
 
-### Is javascript dead?
+### Is JavaScript dead?
 
 JavaScript is alive, but its client-side monopoly is dead.
-Web Assembly doesn't replace JavaScript, but does expand the web and complements JavaScript:
-<ul>
-    <li>High Level (JS) vs. Low Level (WASM)</li>
-    <li>Text (JS) vs. Binary (WASM)</li>
-</ul>
+WebAssembly doesn't replace JavaScript, but does expand the web and complements JavaScript:
+* High Level (JS) vs. Low Level (WASM)
+* Text (JS) vs. Binary (WASM)
 
 ### Unity Support
 
-When it comes to creating 3D games, Unity also has experimental support for Web Assembly.<br>
-Check out <b><a target="_blank" href="http://webassembly.org/demo/">this demo of an in browser game</a></b>
+When it comes to creating 3D games, Unity also has experimental support for WebAssembly.<br>
+Check out <b><a target="_blank" href="http://webassembly.org/demo/">this demo</a> of an in browser game</b>
 
 ### Unreal Engine
 
@@ -658,29 +658,32 @@ The demo is built with WebAssembly and WebGL 2, both emerging standards that ena
 
 Use asm.js as a fallback.
 
-When using Binaryen with Emscripten, it can load the compiled code using one of several methods.<br>
-By setting <code>-s BINARYEN_METHOD='..'</code> you can specify those methods, as a comma-separated list It will try them one by one, which allows fallbacks.
+When using Binaryen with Emscripten, it can load the compiled code using one of several methods.
 
-By default, it will try native support. The full list of methods is
+
+By setting <code>-s BINARYEN_METHOD='..'</code> you can specify those methods, as a comma-separated list. 
+It will try them one by one, which allows fallbacks.
+
+By default, it will try native support. The full list of methods is:
 * native-wasm: Use native binary wasm support in the browser.
-* interpret-s-expr: Load a .wast, which contains wasm in s-expression format, and interpret it.
-* nterpret-binary: Load a .wasm, which contains wasm in binary format, and interpret it.
-* interpret-asm2wasm: Load .asm.js, compile to wasm on the fly, and interpret that.
-* <u>asmjs</u>: Load .asm.js and just run it, no wasm. Useful for comparisons, or as a fallback for browsers without WebAssembly support.
+* interpret-s-expr: Load a .wast, which contains wasm in s-expression format and interpret it.
+* nterpret-binary: Load a .wasm, which contains wasm in binary format and interpret it.
+* interpret-asm2wasm: Load .asm.js, compile to wasm on the fly and interpret that.
+* <u>asmjs</u>: Load .asm.js and just run it, no wasm. Useful for comparisons or as a fallback for browsers without WebAssembly support.
 
 
 ### Can I compile JS to WASM?
 
 Don't do that!
 Browsers will still have native JavaScript VM along-side wasm.
-There is no reason to compile JS to wasm because you would have to also include a whole javascript vm.
+There's no reason to compile JS to wasm because you would also have to include a whole JavaScript VM.
 The resulting code would be huge and slower than the JS VM natively provided.
 
 ### Interesting Links:
 
 <ul>
     <li>
-        <a href="https://mbebenita.github.io/WasmExplorer/" target="_blank">Here</a> you can translate C/C++ to WebAssembly, and then see the machine code generated by the browser.
+        <a href="https://mbebenita.github.io/WasmExplorer/" target="_blank">Here</a> you can translate C/C++ to WebAssembly and see the machine code generated by the browser.
     </li>
     <li>
         <a href="https://youtu.be/3GHJ4cbxsVQ" target="_blank">YouTube video</a> on what WebAssembly means for React
