@@ -174,7 +174,8 @@ The steps for executing this exercise are covered in this picture:
   </div>
 </div>
 
-A good and constructive conversation is built upon 4 key elements:
+After this exercise, it was already clear that asking appropriate and considerate questions is a key element of hosting a good and constructive conversation.
+This kind of conversation is built upon 4 key elements:
 
 <div class="row">
   <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
