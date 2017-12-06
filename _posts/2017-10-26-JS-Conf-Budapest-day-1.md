@@ -259,22 +259,26 @@ We suggest you go check it out!
 
 ### Madeleine Neumann: Impostor syndrome - am I suffering enough to talk about it?
 
-Madeleine is front-developer at 9Elements. Conference organiser of RuhrJS.
+Madeleine is a front-end developer at 9Elements. She's also a conference organiser of RuhrJS.
 You can find Madeleine on Twitter using the handle [@maggysche](https://twitter.com/maggysche).
 
 The presentation can be found on [slideshare](https://www.slideshare.net/MadeleineNeumann/jsconf-budapest-impostor-syndrome-am-i-suffering-enough-to-talk-about-it).
 
 <blockquote class="clear"><p>
-The reason we struggle with insecurity is because we compare our behind the scenes with everyone else’s  highlight reel
+The reason we struggle with insecurity is because we compare our behind the scenes with everyone else’s highlight reel.
 </p></blockquote>
 
-Madeleine wanted to share her life experience with us. While she attended secondary school, Madeleine was the creepy loner at school. 
+Madeleine wanted to share her life experience with us. 
+While she attended secondary school, Madeleine was the creepy loner. 
 'What's wrong with me?', 'What did I do wrong?' she asked herself on several occasions. 
-'My behaviour must be wrong, I have to change'. So she decided to take up programming in high school and felt truly belonged.
+'My behaviour must be wrong, I have to change'. 
+So she decided to take up programming in high school and felt truly belonged.
 After Madeleine graduated high school, she started to work as a frontend developer where she was learning a lot, very quickly! 
-However she soon discovered that the speed at which she was learning gradually stagnated. 
-She had mixed feelings about her profession and abilities, thinking she did not belong there and had no idea what she was doing, so she decided to work even harder. 
-All of her friends and colleagues congratulated her for her effort and hard work, but Madeleine still wasn’t satisfied. Shortly after, she learned about "the imposter syndrome".
+However, she soon discovered that the speed at which she was learning gradually stagnated. 
+She had mixed feelings about her profession and abilities, thinking she did not belong there and had no idea what she was doing
+So, she decided to work even harder. 
+All of her friends and colleagues congratulated her for her effort and hard work, but Madeleine still wasn’t satisfied. 
+Shortly after, she learned about "the imposter syndrome".
 Here are some common signs that someone might experience, where one feels like an imposter:  
 * Does everyone overestimate you?
 * Do you tend to discuss yourself?
@@ -286,7 +290,8 @@ Here are some common signs that someone might experience, where one feels like a
 * You avoid evaluations if possible and have a dread of others evaluating you?
 * Do you focus more on what you haven’t done?
 
-Madeleine discovered that her answer to all the previous questions was 'yes' and came to the conclusion she sabotaged herself. But how do you escape the 'imposter zone'?
+Madeleine discovered that her answer to all the previous questions was 'yes' and came to the conclusion she sabotaged herself. 
+Now, how do you escape the 'imposter zone'?
 * You aren't born to live a life of another person
 * Learn to be a healthy perfectionist
 * Answer on the following question 'What would I do, if I was not afraid?'
@@ -302,7 +307,7 @@ Madeleine discovered that her answer to all the previous questions was 'yes' and
 * And finally, take time for yourself
 
 Madeleine learned that sometimes, it’s not that bad to be an imposter. 
-Because you are an imposter, you are an overachiever and you can surprise people with your talent.
+Because if you are an imposter, you are an overachiever and you can surprise people with your talent.
 
 ****
 
