@@ -716,17 +716,19 @@ He would have named it Jarvis, but since this would be a far worse butler than J
 </p>
 </div>
 
-Around mid-2014 he started working on a chatbot that does little bits in his house. Basically he put together a Raspberry Pi running JavaScript code, which in its core is basically a router that has some core functionality built in to it like
-* broadcasting,
-* preference storage,
+Around mid-2014 he started working on a chatbot that does little bits in his house. 
+Basically, he put together a Raspberry Pi running JavaScript code that actually serves as a router with some core functionality built in like:
+* broadcasting
+* preference storage
 * scheduling
 
 There’s two types of modules that make it up:
-* there are plugins that do all the heavy-lifting so you can interface with hardware (as long as it’s possible with JavaScript or the node ecosystem) or get it to send a message just from you sending something to it, you could also for example let it connect to api’s to get it to do your builds on your CI tools,
-* and then there are the interfaces which are basically chat systems. They are the way to talk to the chat bots. If the system has a way for you to build stuff for it in JavaScript, you can connect to it and let it do stuff on for example Facebook, Slack, HipChat and many more…
+* Plugins do all the heavy-lifting so you can interface with hardware (as long as it’s possible with JavaScript or the node ecosystem) or get it to send a message. You could for example let it connect to API’s to get it to do your builds on your CI tools.
+* The interfaces which are basically chat systems. They are the way to talk to the chat bots. If the system has a way for you to build stuff for it in JavaScript, you can connect to it and let it do stuff on for example: Facebook, Slack, HipChat and many more…
 
 ### Open Source
-All of it is open source (MIT) on <a href="https://github.com/Woodhouse/core" target="_blank">GitHub</a> and written in JavaScript and runs on NodeJs.
+All of it is open source (MIT) and is avaiable on <a href="https://github.com/Woodhouse/core" target="_blank">GitHub</a>. 
+It's written in JavaScript and runs on NodeJs.
 
 
 ### Automating Lamps
@@ -734,19 +736,18 @@ All of it is open source (MIT) on <a href="https://github.com/Woodhouse/core" ta
     <iframe src="https://www.youtube.com/embed/5YNmMdTzfaQ" frameborder="0" allowfullscreen></iframe>
 </div>
 
-Sending a message in a chat application, that get’s picked up by Woodhouse and he/it then turns on his lamps at home.
-So as he walks down the street getting to his house, instead of coming home and  stumbling over things searching for the light switch in the dark,
+Sending a message in a chat application that gets picked up by Woodhouse and he/it then turns on his lamps at home.
+So, as he walks down the street getting to his house, instead of coming home and stumbling over things searching for the light switch in the dark,
 he can just send a message and the lights will be on when he gets there.
-
 
 
 <p>
 <img src="/img/lamp-plugs.png" alt="Lamp plugs image" class="image left fit">
 <b>Lamp plugs</b> (they are from China, so super safe, right?). Maybe not, but they cost about £15 and are great for poking around.
-After poking around with them, he found out that there was a google group that had been hacking around with them and found the SSH password for it
-and it runs <a href="https://openwrt.org/" target="_blank">OpenWrt</a> which is a router firmware based on linux.
-So being able to SSH into it and work with the linux installed on it, you can run basic scripts on it (it has limited memory so you can’t just install everything you like on it).
-But most importantly, it’s got a web server built into it, so you can hit an endpoint and make the relay turn on. And that’s how his relay works.
+After doing so, he found out that there was a Google group that had been hacking around with them and found the SSH password for it.
+It turned out it runs <a href="https://openwrt.org/" target="_blank">OpenWrt</a> which is a router firmware based on Linux.
+So, after being able to SSH into it and work with the Linux installed on it, you can run basic scripts on it (it has limited memory so you can’t just install everything you like on it).
+But most importantly, it’s got a web server built into it, so you can hit an endpoint and make the relay turn on. That’s how his relay works.
 There’s an endpoint on the plug and when he goes to that endpoint, it switches it on or off depending on a parameter.
 </p>
 
@@ -758,13 +759,14 @@ For giving talks about the application, he wanted to add something new to the ap
     <iframe src="https://www.youtube.com/embed/Crudcsaheoc" frameborder="0" allowfullscreen></iframe>
 </div>
 
-The setup and parts for it are very basic and simple. It’s basically some string, plastic wheels,  a servo and an esp82266.
+The setup and parts for it are very basic and simple. It’s basically some string, plastic wheels, a servo and an esp82266.
 
 <div style="display: block;">
 <p>
 <img src="/img/esp8266.png" alt="esp8266 board and components" class="image left fit">
 The esp8266 is a wireless Arduino type board, but the cheap Chinese version so you can buy loads of them and connect them
-to your network. So for about £2 each you can control stuff over your network from anywhere. It runs <a href="https://mongoose-os.com/" target="_blank">Mongoose OS</a>
+to your network. So for about £2 each you can control stuff over your network from anywhere. 
+It runs <a href="https://mongoose-os.com/" target="_blank">Mongoose OS</a>
 which lets you write JavaScript on your hardware, it takes away a lot of the complexities of the lower level code and lets you use a language you know.
 </p>
 </div>
@@ -784,7 +786,8 @@ So he created a few of these voice control units and spread them around the hous
 
 ### Conclusion
 
-So instead of being lazy, he admits to being the stupid kind of lazy. Because he has spent about hundreds of hours coding for it to do simple stuff.
+So instead of being lazy, he admits to being the stupid kind of lazy. 
+He has spent about hundreds of hours coding for it to do simple stuff.
 So it's not really about being lazy, but more being not driven to do those simple things.
 
 
