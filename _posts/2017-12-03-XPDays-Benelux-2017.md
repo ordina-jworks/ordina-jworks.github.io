@@ -47,11 +47,11 @@ Flexibility regarding time boxing is of course not meant to happen too often. So
 * **Hero:** Managing and solving all problems and impediments like nobody's business! While an important task for the Scrum Master, make sure not to get too focused on being the team's impediment super hero.
 * **Scribe:** "Hey John, you're taking notes again for this meeting, right? Thanks!". Do you recognize this exchange? Congratulations, you're the team's personal scribe.
 This is especially to be avoided during retrospectives since this creates a false sense of ownership of the issues and actions towards the Scrum Master.
-* **Admin:** The Scrum Master is the workflow master. Need to add a board in Jira? Ask the Scrum Master. Need to start a sprint in Jira? Ask the Scrum Master. Need a break and have a cigarette? Ask the Scrum Master. Oh. Wait.
-* **Secretary:** The Scrum Master plans all the work in the team members' agendas. Keep up to date with everybody's holidays and toilet breaks.
-* **Chairman:** While this is often the case, the Daily Scrum isn't a meeting where the team members report back to the Scrum Master. It's a meeting by and for the development team. In absense of the Scrum Master, the Daily Scrum must still happen.
+* **Admin:** The Scrum Master is the workflow master. Need to add a board in Jira? Ask the Scrum Master. Need to start a sprint in Jira? Ask the Scrum Master. Need a break and have a cigarette? Ask the Scrum Master. Oh. Wait. The Scrum Master -can- of course perform these tasks but so can the other team members.
+* **Secretary:** The Scrum Master plans all the work in the team members' agendas. Keep up to date with everybody's holidays, sick days and toilet breaks. (Can you sense the sarcasm?)
+* **Chairman:** While this is often the case, the Daily Scrum isn't a meeting where the team members report back to the Scrum Master. It's a meeting by and for the development team. In absence of the Scrum Master, the Daily Scrum must still happen.
 * **Team Boss:** The Scrum Master is the boss of the team. He/she decides who is in and who is out. A sick day? You're fired! Buy the Scrum Master a chocolate cake? Here, have a raise!
-* **Coffee Clerk:** Please do get your team members some coffee once in a while. But no, fetching coffee day in day out is not part of the Scrum Master's job description.
+* **Coffee Clerk:** Please do get your team members some coffee once in a while. But no, to everyone's surprise, fetching coffee day in day out is not part of the Scrum Master's job description.
 
 So what are the 8 preferred stances of a Scrum Master then, you ask?
 Glad you asked!
@@ -60,13 +60,13 @@ The 8 preferred stances are:
 
 <div class="row">
   <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
-    <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/8-Preferred-Stances.png">
+    <img class="image fit" alt="The 8 Preferred Stances of a Scrum Master" src="/img/xpdays-benelux-2017/8-Preferred-Stances.png">
   </div>
 </div>
 
 * **Teacher:** "The art of teaching is the art of assisting discovery." - Mark Van Doren. There is much the Scrum Master can teach the Scrum Team. The Scrum Master must ensure that Scrum is understood and implemented properly by the entire team.
 He or she makes sure the team stays on track of the Agile practices and principles.
-* **Impediment Remover:** An Impediment is a problem that goes beyond the self-organization of the Development Team. Make sure the team understands and uses their own ability to solve problems and be self-organized. It might also create an opportunity for the team to come up with creative ideas to solve the impediment themselves.
+* **Impediment Remover:** An Impediment is a problem that goes beyond the self-organization of the Development Team. Make sure the team understands and uses their own ability to solve problems and be self-organized. It might also create an opportunity for the team to come up with creative ideas to solve the impediments themselves.
 * **Facilitator:** Being a Scrum Master also means facilitating the team in transparency, inspection and adaptation. It is also through great facilitation that the Scrum Master succeeds in getting more value out of every event.
 * **Coach:** It's important to stay away from the solution and ask questions in order to facilitate discovery of solutions. Of course, the Scrum Master may offer new perspectives to help the team reach a solution.
 * **Servant Leader:** Remember that the Scrum Master serves others. Being able to read the room and facilitate conflict within the team is a very important responsibility of the Scrum Master. Make sure to lead by example and make others feel comfortable with failing.
@@ -98,7 +98,7 @@ Remi-Armand and Linda discussed a series of steps that will help facilitate the 
 * Third step: "What do you think will help you?" Guide the person towards a **change in language**. It's important they can see that a change in the situation is actually possible.
 * Fourth step: "When?" Create concrete **plans** for change. Don't postpone taking action. Plan it and make it happen.
 
-More information can be found on the Dutch website [Praktisch op weg naar Teamresultaat](http://www.praktischopweg.nl/).
+More information can be found on the Dutch website ['Praktisch op weg naar Teamresultaat'](http://www.praktischopweg.nl/).
 
 ### Motivate Your Team with Gamification - Jean-Jacques Courtens
 
@@ -110,7 +110,7 @@ This was an Open Space session where Jean-Jacques discussed the way he implement
 They assign points to three sections: Timesheets, demos and sprint objectives.
 * Timesheets: Filling in the timesheet in time is worth **1 point**
 * Demos: Doing 1 demo is worth **2 points**
-* Sprint objectives: Each completed story point is worth **1 point**. For sprint objectives, they also use a point multiplier. X0 when the sprint has failed, X1 if 90% of the main goal of the sprint was achieved, X2 when 100% of the main goal was achieved and X3 when the entire sprint was a complete success.
+* Sprint objectives: Each completed story point is worth **1 point**. For sprint objectives, they also use a point multiplier. X0 when the sprint has failed, X1 when 90% of their main goal of the sprint was achieved, X2 when 100% of the main goal was achieved and X3 when the entire sprint was a complete success.
 
 For all three sections, they also assign badges. For example, the team can earn the gold badge when 15 sprints in a row are a complete success.
 
