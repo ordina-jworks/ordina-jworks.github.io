@@ -204,16 +204,21 @@ This badge is a pre-requisite to participate in the professional and master prog
 
 The following people have earned the Architect Associate badge:
 
-- Benjamin Haentjes 
+- Andreas Evers
+- Benjamin Haentjes
+- Frederick Bousson
 - Geert Clissen
 - Jochen Van de Voorde
 - Johan Buntinx
 - Jos Clijmans 
+- Ken Coenen
+- Kevin Bosteels
 - Koen Vanden Bossche
 - Mario Van Hissenhoven 
 - Martin Kwee
 - Sebastiaan Tempels
 - Stijn Dierckens
+- Sven Bovens
 
 The list will be updated, when more people receive the badge.
 
