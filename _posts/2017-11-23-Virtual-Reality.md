@@ -11,7 +11,7 @@ comments: true
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js"></script>
 
-> A look into the wonderful world of virtual and alternate reality.
+> A look into the wonderful and exciting world of virtual, alternate and mixed reality.
 
 ## Intro
 TODO
@@ -20,7 +20,8 @@ TODO
 
 VR is not new! <br>
 It is infact pretty old compared to other technologies. //TODO
-AR isn't that new either. Perhaps MR is? I'll leave that up to you to decide.
+AR isn't that new either. 
+Perhaps MR is? I'll leave that up to you to decide.
 
 Ever since we are able to create visual representations of our world or an alternate world, 
 mankind has been fascinated by inhabiting this other world or virtual world.
@@ -91,6 +92,10 @@ With MR, as opposed to AR and AV, the real world and virtual world are aware and
 
 These terms are pretty vague and some have even changed meaning over the years.
 No need to think too much about these terms.
+
+
+## Business cases & Examples
+//TODO: Examples of AR/VR/MR 
 
 
 ## Conclusion
