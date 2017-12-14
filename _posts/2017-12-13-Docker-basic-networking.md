@@ -43,9 +43,9 @@ Our final application setup looks like this:
 
 All of our Docker applications will be deployed on **one host machine**.
 We will have a custom Docker network running with **three containers** attached to that network:
-* The DB container is just a MySQL database running within Docker.
-* The Backend container is a Spring Boot application that connects to the MySQL DB container and provides a REST service to the outside world.
-* The Frontend container is an AngularJS application that consumes the REST service from the backend container.
+* The database container is just a MySQL database running within Docker.
+* The backend container is a Spring Boot application that connects to the MySQL DB container and provides a REST service to the outside world.
+* The frontend container is an AngularJS application that consumes the REST service from the backend container.
 
 You can find all the code examples on [Github](https://github.com/basmoorkens/docker-networking-demo){:target="_blank"}.
 The only thing needed to complete this guide is a working Docker installation.
@@ -105,7 +105,7 @@ Run the following command to look at the container in detail:
 We can see in the output that it has gotten the `172.18.0.2` IP address and that it's using the default gateway of the network that we created.
 Now we should set up the database in our container with the schema for our REST application.
 
-`MySQL -h 127.0.0.1 -P 3306  --user=root --password=test`
+`mysql -h 127.0.0.1 -P 3306  --user=root --password=test`
 
 This will connect a MySQL shell onto our `localhost:3306`.
 We can access this port because we exposed it when we started the container by using the -p flag.
@@ -207,10 +207,10 @@ AngularJS renders in the browser so it's not rendered inside a docker container.
 
 If you would use the name of the container, then our application would not know how to resolve that to an IP address as the names of the containers are only known within the Docker network.
 The reason it does work when you use the internal IP of the REST backend, is that the IP address is known so the Nginx webserver in the Angular container knows how to route this to the REST backend.
-In this case, you have to use the internal port of REST backend as this request will travel over the docker network.
+In this case, you have to use the internal port of REST backend as this request will travel over the Docker network.
 
-In the second case, the Nginx webserver in the Angular container communicates with our REST backend without going through the Docker network.
-This works because we exposed the 8080 port of the REST backend to the outside world on the public accessible 8090 port.
+In the second case the Nginx webserver in the Angular container communicates with our REST backend without going through the Docker network.
+This works because we exposed the 8080 port of the REST backend to the outside world on the publicly accessible 8090 port.
 In both scenarios our Angular app will be able to contact the REST backend so we get following result:
 
 <p>
