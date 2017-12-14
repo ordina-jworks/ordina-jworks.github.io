@@ -188,36 +188,41 @@ Now let's run the container by using:
 
 `docker run --name=angular-frontend --network=basic-bridge -p 8080:80 -d angular-frontend`
 
-To connect our AngularJS application to our REST service we have two options in our current setup:
-* connect it to the internal Docker IP address of the rest-backend container:
+
+AngularJS renders in the browser so it's not rendered inside a Docker container.  
+This means that our angular application would not be able to contact the REST backend container as that container is only known within the docker network.  
+To work around this inconvenience I will explain 2 alternatives:  
+
+* **connect it to the internal Docker IP address of the rest-backend container**  
+In this case we connect the angular application to the ip address of our backend container. 
+This only works because the ip address is known to our browser.  
+The ip address is known because the machine on which our browser runs is also running the Docker network.  
+Note that this is not very portable.  
+If you would deploy the container somewhere else or you would browse to the application from another host this would break.  
+
 
 <p>
     <img class="image" alt="Angular-backend call over internal docker network" src="/img/docker-basic-networking/angular-by-internal-ip.png" />
 </p>
 
-* connect it to the public exposed port of the REST backend container:
+
+* **connect it to the public exposed port of the REST backend container.**  
+When we set the application up like this the angular application can access the backend container through the publicly exposed port 8090.  
+Note that in this case the application would break as well if you deploy the frontend container somewhere else or if you would access it from another host.  
 
 <p>
     <img class="image" alt="Angular-backend call over external network" src="/img/docker-basic-networking/angular-by-external.png" />
 </p>
 
-The reason we cannot use the name of our backend REST container is pretty simple.
-
-AngularJS renders in the browser so it's not rendered inside a docker container.
-
-If you would use the name of the container, then our application would not know how to resolve that to an IP address as the names of the containers are only known within the Docker network.
-The reason it does work when you use the internal IP of the REST backend, is that the IP address is known so the Nginx webserver in the Angular container knows how to route this to the REST backend.
-In this case, you have to use the internal port of REST backend as this request will travel over the Docker network.
-
-In the second case the Nginx webserver in the Angular container communicates with our REST backend without going through the Docker network.
-This works because we exposed the 8080 port of the REST backend to the outside world on the publicly accessible 8090 port.
-In both scenarios our Angular app will be able to contact the REST backend so we get following result:
+The result in both cases is that our angular application can contact the REST backend and serves up a good response.  
 
 <p>
     <img class="image" alt="Angular 200 response from backend" src="/img/docker-basic-networking/angular-ok.png" />
 </p>
 
-Note: in real life you would like to make your REST service publicly available on a webserver so that consuming applications would be able to connect to it by using that public URL.
+As I mentioned before both these alternatives have pretty obvious flaws in them.  
+In a real world setup you would like to make your REST service publicly available on a webserver so that consuming applications would be able to connect to it by using that public URL.  
+If there is interest in this kind of setup I can cover it in a later blogpost.  
 Our application setup is now complete and our full setup looks like this:  
 
 <p>
@@ -226,7 +231,7 @@ Our application setup is now complete and our full setup looks like this:
 
 # Conclusion
 
-As we saw in this guide it is actually pretty simple to create a single host Docker network and enable containers to communicate with each other over this network.
+As we saw in this guide it is actually pretty simple to create a single host Docker network and enable containers to communicate with each other over this network.  
 When we created our Angular application, we saw that this approach has its limitations.
 
 Another limitation of this setup is that this kind of network is limited to a single host as it will not work over multiple hosts.
