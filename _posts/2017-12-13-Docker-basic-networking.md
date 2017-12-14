@@ -41,7 +41,7 @@ Our final application setup looks like this:
     <img class="image" alt="Final docker setup" src="/img/docker-basic-networking/docker-basic-network-setup.png" />
 </p>
 
-All of our Docker application will be deployed on **one host machine**.
+All of our Docker applications will be deployed on **one host machine**.
 We will have a custom Docker network running with **three containers** attached to that network:
 * The DB container is just a MySQL database running within Docker.
 * The Backend container is a Spring Boot application that connects to the MySQL DB container and provides a REST service to the outside world.
@@ -205,12 +205,12 @@ The reason we cannot use the name of our backend REST container is pretty simple
 
 AngularJS renders in the browser so it's not rendered inside a docker container.
 
-If you would use the name of the container, then our application would not know how to resolve that to an IP address as the name of the containers are only known within the Docker network.
-The reason it does work when you use the internal IP of the REST backend is that the IP address is known so the Nginx webserver in the Angular container knows how to route this to the REST backend.
+If you would use the name of the container, then our application would not know how to resolve that to an IP address as the names of the containers are only known within the Docker network.
+The reason it does work when you use the internal IP of the REST backend, is that the IP address is known so the Nginx webserver in the Angular container knows how to route this to the REST backend.
 In this case, you have to use the internal port of REST backend as this request will travel over the docker network.
 
-In the second case, the Nginx webserver in the Angular container communicates with our REST backend not through the Docker network.
-The reason that this works, is because we exposed the 8080 port of the REST backend to the outside world on the public accessible 8090 port.
+In the second case, the Nginx webserver in the Angular container communicates with our REST backend without going through the Docker network.
+This works because we exposed the 8080 port of the REST backend to the outside world on the public accessible 8090 port.
 In both scenarios our Angular app will be able to contact the REST backend so we get following result:
 
 <p>
@@ -226,7 +226,7 @@ Our application setup is now complete and our full setup looks like this:
 
 # Conclusion
 
-As we saw in the guide it is actually pretty simple to create a single host Docker network and enable containers to communicate with each other over this network.
+As we saw in this guide it is actually pretty simple to create a single host Docker network and enable containers to communicate with each other over this network.
 When we created our Angular application, we saw that this approach has its limitations.
 
 Another limitation of this setup is that this kind of network is limited to a single host as it will not work over multiple hosts.
