@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-12-15T08:32:15+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-12-15T12:03:26+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
 </subtitle><entry><title type="html">Docker basic networking</title><link href="https://ordina-jworks.github.io/docker/2017/12/15/Docker-basic-networking.html" rel="alternate" type="text/html" title="Docker basic networking" /><published>2017-12-15T00:00:00+00:00</published><updated>2017-12-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/docker/2017/12/15/Docker-basic-networking</id><content type="html" xml:base="https://ordina-jworks.github.io/docker/2017/12/15/Docker-basic-networking.html">&lt;blockquote&gt;
   &lt;p&gt;Containers are all the rage at the moment so I guess everybody knows how to build and run a container by now.
 &lt;strong&gt;But what use is one container by itself?&lt;/strong&gt;
@@ -36,7 +36,7 @@ In this post I will demonstrate two of these patterns to you.&lt;/p&gt;
 &lt;p&gt;Our final application setup looks like this:&lt;/p&gt;
 
 &lt;p&gt;
-    &lt;img class=&quot;image&quot; alt=&quot;Final docker setup&quot; src=&quot;/img/docker-basic-networking/docker-basic-network-setup.png&quot; /&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:575px&quot; alt=&quot;Final docker setup&quot; src=&quot;/img/docker-basic-networking/docker-basic-network-setup.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;p&gt;All of our Docker applications will be deployed on &lt;strong&gt;one host machine&lt;/strong&gt;.
@@ -73,7 +73,7 @@ The only thing needed to complete this guide is a working Docker installation.&l
 If we look at the Docker network stack, we see that our user defined bridge network is added:&lt;/p&gt;
 
 &lt;p&gt;
-    &lt;img class=&quot;image&quot; alt=&quot;Network stack after adding basic-bridge&quot; src=&quot;/img/docker-basic-networking/docker-network-ls-basic-bridge.png&quot; /&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:633px&quot; alt=&quot;Network stack after adding basic-bridge&quot; src=&quot;/img/docker-basic-networking/docker-network-ls-basic-bridge.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;p&gt;You can look at more details of the network by using following command&lt;/p&gt;
@@ -81,7 +81,7 @@ If we look at the Docker network stack, we see that our user defined bridge netw
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker network inspect basic-bridge&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;
-    &lt;img class=&quot;image&quot; alt=&quot;Basic bridge details&quot; src=&quot;/img/docker-basic-networking/bridged-network-details.png&quot; /&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:736px&quot; alt=&quot;Basic bridge details&quot; src=&quot;/img/docker-basic-networking/bridged-network-details.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;p&gt;The basic-bridge network can use IP addresses from the &lt;code class=&quot;highlighter-rouge&quot;&gt;172.18.0.0/16&lt;/code&gt; range and will use &lt;code class=&quot;highlighter-rouge&quot;&gt;172.18.0.1&lt;/code&gt; as its default gateway.&lt;/p&gt;
@@ -101,7 +101,7 @@ Run the following command to look at the container in detail:&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker inspect mydb&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;
-    &lt;img class=&quot;image&quot; alt=&quot;docker inspect mydb&quot; src=&quot;/img/docker-basic-networking/mydb-inspect.png&quot; /&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:909px&quot; alt=&quot;docker inspect mydb&quot; src=&quot;/img/docker-basic-networking/mydb-inspect.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;p&gt;We can see in the output that it has gotten the &lt;code class=&quot;highlighter-rouge&quot;&gt;172.18.0.2&lt;/code&gt; IP address and that it’s using the default gateway of the network that we created.
@@ -138,7 +138,7 @@ The application fetches its greetings from the database container we set up earl
 I added following properties under &lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/resources&lt;/code&gt; to connect it to our database:&lt;/p&gt;
 
 &lt;p&gt;
-    &lt;img class=&quot;image&quot; alt=&quot;Spring boot app db connection properties&quot; src=&quot;/img/docker-basic-networking/application-props.png&quot; /&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:504px&quot; alt=&quot;Spring boot app db connection properties&quot; src=&quot;/img/docker-basic-networking/application-props.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;p&gt;The important part here is that I referred to our database by using &lt;code class=&quot;highlighter-rouge&quot;&gt;mydb:3306&lt;/code&gt;.&lt;/p&gt;
@@ -162,7 +162,7 @@ To do this run the following command in the &lt;code class=&quot;highlighter-rou
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker inspect rest-backend&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;
-    &lt;img class=&quot;image fit&quot; alt=&quot;Backend container docker inspect&quot; src=&quot;/img/docker-basic-networking/backend-inspect.png&quot; /&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:959px&quot; alt=&quot;Backend container docker inspect&quot; src=&quot;/img/docker-basic-networking/backend-inspect.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;p&gt;We can see in the output that it is attached to the &lt;code class=&quot;highlighter-rouge&quot;&gt;basic-bridge&lt;/code&gt; network just like our mydb container.
@@ -171,7 +171,7 @@ We also used the &lt;code class=&quot;highlighter-rouge&quot;&gt;-p 8090:8080&lt
 &lt;p&gt;We can now curl or browse to &lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:8090/greeting&lt;/code&gt; to verify that everything is working:&lt;/p&gt;
 
 &lt;p&gt;
-    &lt;img class=&quot;image&quot; alt=&quot;Verify backend running&quot; src=&quot;/img/docker-basic-networking/verify-backend.png&quot; /&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:533px&quot; alt=&quot;Verify backend running&quot; src=&quot;/img/docker-basic-networking/verify-backend.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;p&gt;We can see that our service successfully returned a response.&lt;/p&gt;
@@ -203,7 +203,7 @@ If you would deploy the container somewhere else or you would browse to the appl
 &lt;/ul&gt;
 
 &lt;p&gt;
-    &lt;img class=&quot;image&quot; alt=&quot;Angular-backend call over internal docker network&quot; src=&quot;/img/docker-basic-networking/angular-by-internal-ip.png&quot; /&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:488px&quot; alt=&quot;Angular-backend call over internal docker network&quot; src=&quot;/img/docker-basic-networking/angular-by-internal-ip.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;ul&gt;
@@ -213,13 +213,13 @@ Note that in this case the application would break as well if you deploy the fro
 &lt;/ul&gt;
 
 &lt;p&gt;
-    &lt;img class=&quot;image&quot; alt=&quot;Angular-backend call over external network&quot; src=&quot;/img/docker-basic-networking/angular-by-external.png&quot; /&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:494px&quot; alt=&quot;Angular-backend call over external network&quot; src=&quot;/img/docker-basic-networking/angular-by-external.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;p&gt;The result in both cases is that our angular application can contact the REST backend and serves up a good response.&lt;/p&gt;
 
 &lt;p&gt;
-    &lt;img class=&quot;image&quot; alt=&quot;Angular 200 response from backend&quot; src=&quot;/img/docker-basic-networking/angular-ok.png&quot; /&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:447px&quot; alt=&quot;Angular 200 response from backend&quot; src=&quot;/img/docker-basic-networking/angular-ok.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;p&gt;As I mentioned before both these alternatives have pretty obvious flaws in them.&lt;br /&gt;
@@ -228,7 +228,7 @@ If there is interest in this kind of setup I can cover it in a later blogpost.&l
 Our application setup is now complete and our full setup looks like this:&lt;/p&gt;
 
 &lt;p&gt;
-    &lt;img class=&quot;image fit&quot; alt=&quot;Final setup docker ps&quot; src=&quot;/img/docker-basic-networking/docker-ps-final.png&quot; /&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:1359px&quot; alt=&quot;Final setup docker ps&quot; src=&quot;/img/docker-basic-networking/docker-ps-final.png&quot; /&gt;
 &lt;/p&gt;
 
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
