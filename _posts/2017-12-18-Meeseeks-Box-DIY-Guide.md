@@ -11,29 +11,30 @@ comments: true
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js"></script>
 
-> Ooh, I'm Mr Meeseeks, look at me!
+> Ooh, I'm mister Meeseeks, look at me!
 
 
 ## A Meeseeks box?
 For those of you who are already familiar with the show Rick and Morty, the meeseeks box should be a well known object!
-For those who do not know Rick and Morty, go watch it now, I'll wait!
-In short the meeseeks box is a techonogical/magic box crafted by Rick. 
-When the on top is pressed a meeseeks is spawned.
-The meeseeks can be given an assignment (like a wish) and will try to fullfill said request.
+For those who do not know Rick and Morty, go watch it now, I'll wait!  
+
+In short: The meeseeks box is a techonogical/magic box crafted by Rick. 
+When the button on top is pressed a meeseeks is spawned.
+The meeseeks can be given one assignment (like a wish) and he will try to fullfill said request.
 The meeseeks will only disappear when the task has been completed.
 One caveat, the meeseeks does not want to live, it wants to die, the longer it lives the worse it gets!
 
-Our colleague Dieter Hubau made a fully operation Rick and Morty themed example to demonstrate Spring Cloud streams. 
-You can read all about it <a href="https://ordina-jworks.github.io/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html">on our tech blog.</a>
+Our colleague Dieter Hubau made a fully operational Rick and Morty themed example to demonstrate Spring Cloud streams. 
+You can read this excellent story about it <a href="https://ordina-jworks.github.io/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html">on our tech blog.</a>
 Be sure to check it out, it's a good read!
-This blog post will go into detail on building your own meeseeks box, which we integrated to work with the above Spring Cloud streams demo.
+This blog post will go into detail on building your own meeseeks box, which I integrated to work with the above Spring Cloud streams demo.
 
 <img alt="The meeseeks box" src="{{ '/img/meeseeks/concept.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 
 ## What should it do?
 The meeseeks box is intented to complement the Spring Cloud stream demo mentioned above.
-If the button on top is pressed, like in the series, a meeseeks is spawned (a fully new instance, see the Spring Cloud streams blog post) in the demo application.
+If the button on top is pressed, like in the series, a meeseeks is spawned in the demo application. (A new instance, see the Spring Cloud streams blog post)
 The meeseeks will then search for the szechuan sause until it is found.
 For the demo a maximum of three meeseekses can be spawned, as to not overwhelm the people with meeseekses, because they tend to get annoying if they live for too long.
 
@@ -46,9 +47,10 @@ The setup for the box is as follows:
 
 Since the Raspberry Pi 3 has built in WiFi and Bluetooth it is possible to make the box fully wireless.
 The Pi has Node installed on it (the latest version) and is connected to the WiFi.
-The WiFi can be easily configured by placing the SD card in your computer and placing a file name `wpa_supplicant.conf`file in the root of the boot volume.
+The WiFi can be easily configured by placing the SD card in your computer and placing a file name `wpa_supplicant.conf` file in the root of the boot volume.
 This file contains the configuration for WiFi network the Pi should connect to.
 
+*wpa_supplicant.conf*
 ```
 country=BE
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev 
@@ -60,14 +62,14 @@ network={
     key_mgmt=WPA-PSK
 }
 ```
-Make sure you do not ommit any of the first lines or your Pi's WiFi will cease to function untill corrected!
+Make sure you do not ommit any of the first lines or your Pi's WiFi will cease to function untill a corrected version of the file is used!
 
 <img alt="The hardware setup" src="{{ '/img/meeseeks/raspberry-pi-button.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 400px;">
 
 
 ## The build!
 The original idea was to make the box itself from wood or thick cardboard. 
-But since I wanted to try something new, that would entail less manual work with getting all the insets correct on the sides of the box I deciced to go for a 3D printed version.
+But since I wanted to try something new that would entail less manual work with getting all the insets correct on the sides of the box I deciced to go for a 3D printed version.
 
 The box:
 <iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=http://www.diale.org/stl/3knot.scad.stl" style="border:0;margin:0;width:100%;height:100%;"></iframe>
@@ -77,7 +79,7 @@ The lid:
 <iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=http://www.diale.org/stl/3knot.scad.stl" style="border:0;margin:0;width:100%;height:100%;"></iframe>
 You can download the file <a href="/img/meeseeks/lid.stl">here</a>
 
-These two files were originally obtained from the <a href="https://www.thingiverse.com/thing:476252">thingiverse</a> but adapted and scaled by me.
+These two 3D models were originally obtained from the <a href="https://www.thingiverse.com/thing:476252">thingiverse</a> but adapted and scaled by me.
 
 I ordered the 3D prints via makerhub and was suprised it was finished in one day.
 When I went to get the printed versions I was a bit concerned that they might no turn out as hoped.
@@ -85,9 +87,9 @@ And was I right:
 
 <img alt="A failure" src="{{ '/img/meeseeks/small-box.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
-A rookie mistake, I didn't check the models dimensions once I uploaded them into the tool for processing. 
-As that seemed to have messed up the measurements I used and set them to millimeters instead of centimeters.
-An easy fix, and the second printed version was in the correct size, but printed by another colleague to keep costs down.
+A rookie mistake, I didn't check the model dimensions once I uploaded them into the online tool for processing. 
+As that seemed to have converted up the measurements I used and set them to millimeters instead of centimeters.
+An easy fix and the second printed version was in the correct size, but printed by a colleague to keep costs down.
 
 <img alt="That's more like it!" src="{{ '/img/meeseeks/printed-painted-orange.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
@@ -107,19 +109,19 @@ The big issue with these paints and a 3D printed models is that the paints tends
     </a>
 </div>
 
-The button on top was attached by very carefully boring a hole in the top lid and pushing the base of the button through.
-The gap was thight enough for the button to stay firmly in place by friction alone, allowing it to removed later on.
-The Raspberry Pi was attached to the underside on the lid with some standoffs and superglue.
-The Lid fits on the box and is held in place by magnets.
+The button on top was attached by very carefully drilling a hole in the top lid and pushing the base of the button through.
+The gap was tight enough for the button to stay firmly in place by friction alone, allowing it to be removed later on.
+The Raspberry Pi was attached to the underside on the lid with some standoffs and super glue.
+The lid fits on the box and is held in place by magnets.
 This prevents any moving parts that might fail due to material fatigue, of hinges, since attaching these to the box and lid would be cumbersome, as screws can't easily take hold in the 3D printed material.
-A future, more elaborate version of the box could include cutouts for lid in the box.
+A future more elaborate version of the box could include cutouts for the lid in the box.
 
 <img alt="Raspberry Pi attached to the lid" src="{{ '/img/meeseeks/underside-lid.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 
 ## The code behind it
 The code behind the meeseeks box is a simple NodeJS application.
-As it is run on a raspberry pi we need to make use of raspi-io to make use of the GPIO on the board.
+As it is run on a Raspberry Pi we need to make use of `raspi-io` to make use of the GPIO on the board.
 I also use Johnny-Five as an abstraction layer. More information about Johnny-Five can be found <a href="http://johnny-five.io">on their extensive website.</a>
 
 *main.js*
@@ -155,20 +157,20 @@ board.on('ready', function() {
     });
 });
 ```
-The above code is very simple, it makes a new `Board` instance which we pass a new `Raspi` instance telling the Johnny-Five library that we are actually running on a raspberry pi and that it does not need to search for any other connected boards (like Arduinos).
+The above code is very simple, it makes a new `Board` instance which we pass a new `Raspi` instance telling the Johnny-Five library that we are actually running on a Raspberry Pi and that it does not need to search for any other connected boards (like Arduinos).
 
 What you also might notice, for those who have used Johnny-Five in the past, is that we do not make use of the full power of Johnny-Five. 
-We are not using the `LED` of `Button` classes and instead are doing a more lower level approach of controlling the IO pins directly.
+We are not using the `LED` of `Button` classes and instead are taking a more lower level approach by controlling the IO pins directly.
 This has a very good reason.
 The Node application is run at startup, when the Raspberry Pi boots, as a linux service.
 Starting it automatically breaks the REPL functionality of Johnny-Five which results in the application exiting after a good second, making it unusable.
-This is why the `Board` config has the `repl` parameter set to false, this prevents the REPL from starting and makes it so the application does not exit unexpectedly.
+This is why the `Board` config has the `repl` parameter set to `false`, this prevents the REPL from starting and makes it so the application does not exit unexpectedly.
 This unfortunately also prevents us from using the full abstraction power of the Johnny-Five framework.
 
 The actual code is very simple. 
 We wire up a pin as input for the button and another pin as output for the LED.
-We put the input pin to high, prevent the input from flickering between high and low (essentially a pullup to vcc).
-Than we bind a function to the `digitalRead` which gets executed every time the state of the input pin changes (high to low -or- low to high).
+We put the input pin to high, this prevent the input from flickering between high and low (essentially a pullup to vcc).
+We then bind a function to the `digitalRead` which gets executed every time the state of the input pin changes (high to low -or- low to high).
 Since we do a pullup to vcc our button will actually be connected to the GND which will result in the signal of the input pin going to low when the button is pressed and back to high when it is released.
 Please also be sure to wire up the LED with a correct resistor to prevent it from drawing too much current, as that might damage the IO pin it is connected to!
 
@@ -198,9 +200,10 @@ function doCall(method) {
 The code above is a simple snippet used to make a call with no contents to the remote server.
 When the URL is called via the POST method a meeseeks is created.
 When the URL is called via the DELETE method the currently active meeseekses are destroyed (for testing).
+You can edit this to perform any action you like.
 
 <br/>
-A video showing the meeseeks demo in action:
+A video showing a fully operational meeseeks box:
 <video class="image-fit" width="100%" controls>
   <source src="/img/meeseeks/video.mp4" type="video/mp4">
 </video>
@@ -233,10 +236,10 @@ Restart=on-failure
 WantedBy=multi-user.target
 ```
 This file tells systemd what the service is and does, with what executable and which user.
-Ther `After=network.target` tells the service daemon that this service should only start is the network stack has already loaded!
+The `After=network.target` tells the service daemon that this service should only start is the network stack has already loaded!
 
 To test the service first execute: `sudo systemctl daemon-reload`
-This reloads the daemon so it know knows of the newly created service.
+This reloads the daemon so it knows of the newly created service.
 Now we can manually start/stop/reload the service by using: `sudo systemctl start meeseeks` where you swap out `start` with the action you want to perform.
 
 To make the service run at startup use: `sudo systemtl enable meeseeks` and to disable it again, use the same command but swap out `enable` for `disable`.
@@ -246,7 +249,7 @@ A far more detailed explenation about this matter can be found <a href="http://n
 
 ## Meeseeks at Devoxx
 The entire purpose of the meeseeks box was to be part of our booth at the well known Devoxx conference in Belgium.
-Our booth drew quite the crowd this year, mostly because of the nachos and the totally real szechaun sauce to with them. 
+Our booth drew quite the crowd this year, mostly because of the nachos and the totally real szechaun sauce to go with them. 
 Have a look at a couple pictures below:  
 
 <div style="text-align: center; margin: 0px auto;">
@@ -267,4 +270,4 @@ A few lessons learned though:
 - Non spray water based paints are not the best match for painted 3D printed models
 - If you mess up the WiFi on the Pi it can be a real pain to debug it!
 - When starting Node as a service on Linux the Johnny-Five REPL does not work
-- Superglue is not always so super ;) 
+- Super glue is not always so super ;) 
