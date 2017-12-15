@@ -87,7 +87,7 @@ When you're writing code in Kotlin it will give you straightforward assignments 
 Spring Data can now work with immutable classes.
 No need for setters anymore since it can work with named constructor arguments!
 The property names are matched against the constructor parameter names.
-You can do this by explicitly using `@ConstructorProperties`, or they are simply inferred from the class bytecode (if you pass `-parameters` or `-debug` as compilation argument)
+You can do this by explicitly using `@ConstructorProperties`, or they are simply inferred from the class bytecode (if you pass `-parameters` or `-debug` as compilation argument).
 This is a perfect match with Kotlin and Lombok data classes where the getter and setters are generated at compile time.
 
 ### Programmatic Lookup via ObjectProvider
