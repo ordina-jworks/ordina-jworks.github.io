@@ -2,7 +2,7 @@
 layout: post
 authors: [bas_moorkens]
 title: 'Docker basic networking'
-image: /img/docker-basic-networking/docker-basic-networking.jpg
+image: /img/docker-basic-networking/docker-basic-networking.png
 tags: [Docker, Networking, container, DevOps,]
 category: Docker
 comments: true
