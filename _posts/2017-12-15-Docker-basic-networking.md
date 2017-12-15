@@ -38,7 +38,7 @@ In this post I will demonstrate two of these patterns to you.
 Our final application setup looks like this:  
 
 <p>
-    <img class="image" alt="Final docker setup" src="/img/docker-basic-networking/docker-basic-network-setup.png" />
+    <img class="image fit" style="max-width:575px" alt="Final docker setup" src="/img/docker-basic-networking/docker-basic-network-setup.png" />
 </p>
 
 All of our Docker applications will be deployed on **one host machine**.
@@ -71,7 +71,7 @@ This creates a user defined network with the bridge driver that is called `basic
 If we look at the Docker network stack, we see that our user defined bridge network is added:
 
 <p>
-    <img class="image" alt="Network stack after adding basic-bridge" src="/img/docker-basic-networking/docker-network-ls-basic-bridge.png" />
+    <img class="image fit" style="max-width:633px" alt="Network stack after adding basic-bridge" src="/img/docker-basic-networking/docker-network-ls-basic-bridge.png" />
 </p>
 
 You can look at more details of the network by using following command
@@ -79,7 +79,7 @@ You can look at more details of the network by using following command
 `docker network inspect basic-bridge`
 
 <p>
-    <img class="image" alt="Basic bridge details" src="/img/docker-basic-networking/bridged-network-details.png" />
+    <img class="image fit" style="max-width:736px" alt="Basic bridge details" src="/img/docker-basic-networking/bridged-network-details.png" />
 </p>
 
 The basic-bridge network can use IP addresses from the `172.18.0.0/16` range and will use `172.18.0.1` as its default gateway.
@@ -99,7 +99,7 @@ Run the following command to look at the container in detail:
 `docker inspect mydb`
 
 <p>
-    <img class="image" alt="docker inspect mydb" src="/img/docker-basic-networking/mydb-inspect.png" />
+    <img class="image fit" style="max-width:909px" alt="docker inspect mydb" src="/img/docker-basic-networking/mydb-inspect.png" />
 </p>
 
 We can see in the output that it has gotten the `172.18.0.2` IP address and that it's using the default gateway of the network that we created.
@@ -137,7 +137,7 @@ The application fetches its greetings from the database container we set up earl
 I added following properties under `src/main/resources` to connect it to our database:
 
 <p>
-    <img class="image" alt="Spring boot app db connection properties" src="/img/docker-basic-networking/application-props.png" />
+    <img class="image fit" style="max-width:504px" alt="Spring boot app db connection properties" src="/img/docker-basic-networking/application-props.png" />
 </p>
 
 The important part here is that I referred to our database by using `mydb:3306`.
@@ -161,7 +161,7 @@ You can look at the network details of this container by using:
 `docker inspect rest-backend`
 
 <p>
-    <img class="image fit" alt="Backend container docker inspect" src="/img/docker-basic-networking/backend-inspect.png" />
+    <img class="image fit" style="max-width:959px" alt="Backend container docker inspect" src="/img/docker-basic-networking/backend-inspect.png" />
 </p>
 
 We can see in the output that it is attached to the `basic-bridge` network just like our mydb container.
@@ -170,7 +170,7 @@ We also used the `-p 8090:8080` flag to expose the inner 8080 port (the port our
 We can now curl or browse to `localhost:8090/greeting` to verify that everything is working:
 
 <p>
-    <img class="image" alt="Verify backend running" src="/img/docker-basic-networking/verify-backend.png" />
+    <img class="image fit" style="max-width:533px" alt="Verify backend running" src="/img/docker-basic-networking/verify-backend.png" />
 </p>
 
 We can see that our service successfully returned a response.
@@ -202,7 +202,7 @@ If you would deploy the container somewhere else or you would browse to the appl
 
 
 <p>
-    <img class="image" alt="Angular-backend call over internal docker network" src="/img/docker-basic-networking/angular-by-internal-ip.png" />
+    <img class="image fit" style="max-width:488px" alt="Angular-backend call over internal docker network" src="/img/docker-basic-networking/angular-by-internal-ip.png" />
 </p>
 
 
@@ -211,13 +211,13 @@ When we set the application up like this the angular application can access the 
 Note that in this case the application would break as well if you deploy the frontend container somewhere else or if you would access it from another host.  
 
 <p>
-    <img class="image" alt="Angular-backend call over external network" src="/img/docker-basic-networking/angular-by-external.png" />
+    <img class="image fit" style="max-width:494px" alt="Angular-backend call over external network" src="/img/docker-basic-networking/angular-by-external.png" />
 </p>
 
 The result in both cases is that our angular application can contact the REST backend and serves up a good response.  
 
 <p>
-    <img class="image" alt="Angular 200 response from backend" src="/img/docker-basic-networking/angular-ok.png" />
+    <img class="image fit" style="max-width:447px" alt="Angular 200 response from backend" src="/img/docker-basic-networking/angular-ok.png" />
 </p>
 
 As I mentioned before both these alternatives have pretty obvious flaws in them.  
@@ -226,7 +226,7 @@ If there is interest in this kind of setup I can cover it in a later blogpost.
 Our application setup is now complete and our full setup looks like this:  
 
 <p>
-    <img class="image fit" alt="Final setup docker ps" src="/img/docker-basic-networking/docker-ps-final.png" />
+    <img class="image fit" style="max-width:1359px" alt="Final setup docker ps" src="/img/docker-basic-networking/docker-ps-final.png" />
 </p>
 
 # Conclusion
