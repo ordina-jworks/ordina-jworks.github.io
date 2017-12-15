@@ -108,7 +108,7 @@ Now we should set up the database in our container with the schema for our REST 
 `mysql -h 127.0.0.1 -P 3306  --user=root --password=test`
 
 This will connect a MySQL shell onto our `localhost:3306`.
-We can access this port because we exposed it when we started the container by using the -p flag.
+We can access this port because we exposed it when we started the container by using the `-p` flag.
 Note that this is done for convenience only, so we can access the container from our host and set up a schema.
 Now run following SQL commands in the MySQL shell.
 
