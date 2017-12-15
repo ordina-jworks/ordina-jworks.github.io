@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Docker basic networking - Bas Moorkens">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/docker-basic-networking/docker-basic-networking.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/docker/2017/12/15/Docker-basic-networking.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Docker basic networking - Bas Moorkens"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/docker-basic-networking/docker-basic-networking.png"/>
+
+    
+    <title>Docker basic networking - Bas Moorkens &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Docker basic networking</h2>
+                
+
+                
+                    Posted Dec 15, 2017
+
+
+    in <a href="/categories/docker/">Docker</a>
+
+
+
+    by
+    
+        <a href="/author/bas-moorkens/">Bas Moorkens</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/docker/">Docker</a>, 
+    
+        <a href="/tags/networking/">Networking</a>, 
+    
+        <a href="/tags/container/">container</a>, 
+    
+        <a href="/tags/devops/">DevOps</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>Containers are all the rage at the moment so I guess everybody knows how to build and run a container by now.
+<strong>But what use is one container by itself?</strong>
+In this post, I will show how you can create networks within Docker and what they are used for.</p>
+</blockquote>
+
+<blockquote>
+  <p>Afterwards, I will guide you through a step-by-step example on how to create a Docker network and add containers to it.
+This way, we will end up with a multi-tier application that is running on Docker containers in a basic network.</p>
+</blockquote>
+
+<h1 id="table-of-contents">Table of contents</h1>
+<ol>
+  <li><a href="#preface">Preface</a></li>
+  <li><a href="#network-setup">Network setup</a></li>
+  <li><a href="#database-container">Database container</a></li>
+  <li><a href="#backend-container">REST Backend container</a></li>
+  <li><a href="#frontend-container">Frontend container</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ol>
+
+<h1 id="preface">Preface</h1>
+<p>In the current application landscape, we see a strong rise of distributed applications.
+This is done by implementing a <strong>microservice architecture</strong> and deploying these applications in Docker containers.
+It’s important that these containers are able to communicate with each other, after all, <strong>what good is a microservice that is isolated</strong>?</p>
+
+<p>In order to achieve this, a couple of patterns are used.
+In this post I will demonstrate two of these patterns to you.</p>
+
+<ul>
+  <li>Communication within a Docker network between containers</li>
+  <li>Communication outside the Docker network by exposing internal ports</li>
+</ul>
+
+<p>Our final application setup looks like this:</p>
+
+<p>
+    <img class="image" alt="Final docker setup" src="/img/docker-basic-networking/docker-basic-network-setup.png" />
+</p>
+
+<p>All of our Docker applications will be deployed on <strong>one host machine</strong>.
+We will have a custom Docker network running with <strong>three containers</strong> attached to that network:</p>
+<ul>
+  <li>The database container is just a MySQL database running within Docker.</li>
+  <li>The backend container is a Spring Boot application that connects to the MySQL DB container and provides a REST service to the outside world.</li>
+  <li>The frontend container is an AngularJS application that consumes the REST service from the backend container.</li>
+</ul>
+
+<p>You can find all the code examples on <a href="https://github.com/basmoorkens/docker-networking-demo" target="_blank">Github</a>.
+The only thing needed to complete this guide is a working Docker installation.</p>
+
+<p><strong>Ready? Set. Go!</strong></p>
+
+<h1 id="network-setup">Network Setup</h1>
+<p>To start this guide, let’s have a look at the Docker networks that are available on our machine:</p>
+
+<p><code class="highlighter-rouge">docker network ls</code></p>
+
+<blockquote>
+  <p>When you run a Docker container and you do not provide any network settings, it is by default attached to the bridge network.</p>
+</blockquote>
+
+<p>Containers that are connected to this default bridge network can communicate with each other by using their internal Docker IP address.</p>
+
+<p>Docker does not support automatic service discovery on this network.</p>
+
+<p>We want to be able to access our containers by using their container name instead of the internal IP address so we are going to create our own network:</p>
+
+<p><code class="highlighter-rouge">docker network create --driver bridge basic-bridge</code></p>
+
+<p>This creates a user defined network with the bridge driver that is called <code class="highlighter-rouge">basic-bridge</code>.
+If we look at the Docker network stack, we see that our user defined bridge network is added:</p>
+
+<p>
+    <img class="image" alt="Network stack after adding basic-bridge" src="/img/docker-basic-networking/docker-network-ls-basic-bridge.png" />
+</p>
+
+<p>You can look at more details of the network by using following command</p>
+
+<p><code class="highlighter-rouge">docker network inspect basic-bridge</code></p>
+
+<p>
+    <img class="image" alt="Basic bridge details" src="/img/docker-basic-networking/bridged-network-details.png" />
+</p>
+
+<p>The basic-bridge network can use IP addresses from the <code class="highlighter-rouge">172.18.0.0/16</code> range and will use <code class="highlighter-rouge">172.18.0.1</code> as its default gateway.</p>
+
+<h1 id="database-container">Database container</h1>
+
+<p>Now that we have created our own network, we can start attaching our containers to that network.
+Let’s start off by creating the MySQL database container.
+The following command pulls the MySQL image from the Docker repository and starts it as a container that is attached to our network:</p>
+
+<p><code class="highlighter-rouge">docker run --name=mydb --network=basic-bridge -p 3306:3306 -e MySQL_ROOT_PASSWORD=test -d MySQL:8.0.3</code></p>
+
+<p>That’s easy right?
+This container is attached to the <code class="highlighter-rouge">basic-bridge</code> network that we created in the previous step.
+Run the following command to look at the container in detail:</p>
+
+<p><code class="highlighter-rouge">docker inspect mydb</code></p>
+
+<p>
+    <img class="image" alt="docker inspect mydb" src="/img/docker-basic-networking/mydb-inspect.png" />
+</p>
+
+<p>We can see in the output that it has gotten the <code class="highlighter-rouge">172.18.0.2</code> IP address and that it’s using the default gateway of the network that we created.
+Now we should set up the database in our container with the schema for our REST application.</p>
+
+<p><code class="highlighter-rouge">mysql -h 127.0.0.1 -P 3306  --user=root --password=test</code></p>
+
+<p>This will connect a MySQL shell onto our <code class="highlighter-rouge">localhost:3306</code>.
+We can access this port because we exposed it when we started the container by using the <code class="highlighter-rouge">-p</code> flag.
+Note that this is done for convenience only, so we can access the container from our host and set up a schema.
+Now run following SQL commands in the MySQL shell.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">create</span> <span class="k">database</span> <span class="n">greeting</span><span class="p">;</span>
+<span class="n">use</span> <span class="n">greeting</span><span class="p">;</span>
+<span class="k">create</span> <span class="k">table</span> <span class="n">greeting</span> <span class="p">(</span>  
+  <span class="n">id</span> <span class="n">INT</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="n">UNSIGNED</span> <span class="n">AUTO_INCREMENT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+  <span class="n">greetername</span> <span class="n">varchar</span> <span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+  <span class="n">greeting</span> <span class="n">varchar</span> <span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="p">);</span>  
+<span class="k">insert</span> <span class="k">into</span> <span class="n">greeting</span> <span class="p">(</span><span class="n">greetername</span><span class="p">,</span> <span class="n">greeting</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">'bas'</span><span class="p">,</span> <span class="s1">'Hello master'</span><span class="p">);</span>  
+<span class="k">insert</span> <span class="k">into</span> <span class="n">greeting</span>  <span class="p">(</span><span class="n">greetername</span><span class="p">,</span> <span class="n">greeting</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">'Jack'</span><span class="p">,</span> <span class="s1">'Hello slave'</span><span class="p">);</span>  
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">greeting</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Now that we have setup our MySQL container and initialized the schema we are ready to create our REST backend service.</p>
+
+<h1 id="backend-container">Backend container</h1>
+
+<p>You can find the code and Dockerfile for the backend container on the Github link earlier in the post under the <code class="highlighter-rouge">/backend</code> folder.
+The backend application itself is pretty simple.
+It just listens on port 8080 for requests on the path <code class="highlighter-rouge">/greeting</code>.
+You can pass the <code class="highlighter-rouge">name</code> request parameter to this path to get a customized response.
+The application fetches its greetings from the database container we set up earlier.
+I added following properties under <code class="highlighter-rouge">src/main/resources</code> to connect it to our database:</p>
+
+<p>
+    <img class="image" alt="Spring boot app db connection properties" src="/img/docker-basic-networking/application-props.png" />
+</p>
+
+<p>The important part here is that I referred to our database by using <code class="highlighter-rouge">mydb:3306</code>.</p>
+
+<p>We are able to do this because we will launch this backend service on the same docker network as the <code class="highlighter-rouge">mydb</code> container.
+This way, they will be able to resolve each others name by using the basic-bridge network we created.</p>
+
+<p>Next up, we will build the container from the Dockerfile I created.
+To do this run the following command in the <code class="highlighter-rouge">/backend</code> folder:</p>
+
+<p><code class="highlighter-rouge">docker build . -t rest-backend</code></p>
+
+<p>Once the Docker image is built, let’s run it in a container:</p>
+
+<p><code class="highlighter-rouge">docker run --name=rest-backend --network=basic-bridge -p 8090:8080 -d rest-backend</code></p>
+
+<p>By using the <code class="highlighter-rouge">--network=basic-bridge</code>, we attach the container to the <code class="highlighter-rouge">basic-bridge</code> network that we created earlier.</p>
+
+<p>You can look at the network details of this container by using:</p>
+
+<p><code class="highlighter-rouge">docker inspect rest-backend</code></p>
+
+<p>
+    <img class="image fit" alt="Backend container docker inspect" src="/img/docker-basic-networking/backend-inspect.png" />
+</p>
+
+<p>We can see in the output that it is attached to the <code class="highlighter-rouge">basic-bridge</code> network just like our mydb container.
+We also used the <code class="highlighter-rouge">-p 8090:8080</code> flag to expose the inner 8080 port (the port our Spring Boot application uses) to the outside world via the 8090 port.</p>
+
+<p>We can now curl or browse to <code class="highlighter-rouge">localhost:8090/greeting</code> to verify that everything is working:</p>
+
+<p>
+    <img class="image" alt="Verify backend running" src="/img/docker-basic-networking/verify-backend.png" />
+</p>
+
+<p>We can see that our service successfully returned a response.</p>
+
+<h1 id="frontend-container">Frontend container</h1>
+
+<p>We can now create our frontend AngularJS application that consumes the REST service we just created.</p>
+
+<p>You can find the code for this application under the <code class="highlighter-rouge">/frontend</code> folder in the Github repository.
+Create the Docker image for the frontend container by running:</p>
+
+<p><code class="highlighter-rouge">docker build . -t angular-frontend</code></p>
+
+<p>Now let’s run the container by using:</p>
+
+<p><code class="highlighter-rouge">docker run --name=angular-frontend --network=basic-bridge -p 8080:80 -d angular-frontend</code></p>
+
+<p>AngularJS renders in the browser so it’s not rendered inside a Docker container.<br />
+This means that our angular application would not be able to contact the REST backend container as that container is only known within the docker network.<br />
+To work around this inconvenience I will explain 2 alternatives:</p>
+
+<ul>
+  <li><strong>connect it to the internal Docker IP address of the rest-backend container</strong><br />
+In this case we connect the angular application to the ip address of our backend container. 
+This only works because the ip address is known to our browser.<br />
+The ip address is known because the machine on which our browser runs is also running the Docker network.<br />
+Note that this is not very portable.<br />
+If you would deploy the container somewhere else or you would browse to the application from another host this would break.</li>
+</ul>
+
+<p>
+    <img class="image" alt="Angular-backend call over internal docker network" src="/img/docker-basic-networking/angular-by-internal-ip.png" />
+</p>
+
+<ul>
+  <li><strong>connect it to the public exposed port of the REST backend container.</strong><br />
+When we set the application up like this the angular application can access the backend container through the publicly exposed port 8090.<br />
+Note that in this case the application would break as well if you deploy the frontend container somewhere else or if you would access it from another host.</li>
+</ul>
+
+<p>
+    <img class="image" alt="Angular-backend call over external network" src="/img/docker-basic-networking/angular-by-external.png" />
+</p>
+
+<p>The result in both cases is that our angular application can contact the REST backend and serves up a good response.</p>
+
+<p>
+    <img class="image" alt="Angular 200 response from backend" src="/img/docker-basic-networking/angular-ok.png" />
+</p>
+
+<p>As I mentioned before both these alternatives have pretty obvious flaws in them.<br />
+In a real world setup you would like to make your REST service publicly available on a webserver so that consuming applications would be able to connect to it by using that public URL.<br />
+If there is interest in this kind of setup I can cover it in a later blogpost.<br />
+Our application setup is now complete and our full setup looks like this:</p>
+
+<p>
+    <img class="image fit" alt="Final setup docker ps" src="/img/docker-basic-networking/docker-ps-final.png" />
+</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>As we saw in this guide it is actually pretty simple to create a single host Docker network and enable containers to communicate with each other over this network.<br />
+When we created our Angular application, we saw that this approach has its limitations.</p>
+
+<p>Another limitation of this setup is that this kind of network is limited to a single host as it will not work over multiple hosts.
+Of course nobody wants to run a distributed application in containers on one host.</p>
+
+<p>I will make a follow-up blogpost where we look into Docker multi-host networks by using <strong>weave.NET</strong>.</p>
+
+<p><code class="highlighter-rouge">docker stop bas</code></p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/docker/2017/12/15/Docker-basic-networking.html&title=Docker basic networking&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Docker basic networking&url=https://ordina-jworks.github.io/docker/2017/12/15/Docker-basic-networking.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/docker/2017/12/15/Docker-basic-networking.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/bas-moorkens/" class="image spotlight-image">
+            <img src="/img/author/bas-moorkens.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Bas is a Senior Java Developer at Ordina Belgium who discovered he is fascinated by cloud, containers and pipeline automation. He started off as a Java full stack developer but got more and more into the DevOps world where he currently spends most of his time.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2017 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/docker-basic-networking/docker-basic-networking.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/docker/2017/12/15/Docker-basic-networking.html";
+        this.page.identifier = "/docker/2017/12/15/Docker-basic-networking.html";
+        this.page.title = "Docker basic networking";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
