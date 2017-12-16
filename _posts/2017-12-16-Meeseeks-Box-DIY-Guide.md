@@ -2,7 +2,7 @@
 layout: post
 authors: [kevin_van_den_abeele]
 title: 'Building a Meeseeks Box!'
-image: /img/Meeseeks/wallpaper.jpg
+image: /img/meeseeks/wallpaper.jpg
 tags: [NodeJS, Node, V8, JavaScript, Prototyping, 3D print, 3D printing, Raspberry Pi, Raspberry, Pi, Johnny-Five, Smart, Internet of Things, Meeseeks, Rick & Morty, Ricky and Morty, Wubba lubba dub dub, spring cloud, spring cloud stream, streams]
 category: IoT
 comments: true
@@ -28,7 +28,7 @@ You can read this excellent story about it [on our tech blog](https://ordina-jwo
 Be sure to check it out, it's a good read!
 This blog post will go into detail on building your own Meeseeks Box, which I integrated to work with the above Spring Cloud Stream demo.
 
-<img alt="The Meeseeks Box" src="{{ '/img/Meeseeks/concept.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+<img alt="The Meeseeks Box" src="{{ '/img/meeseeks/concept.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 
 ## What should it do?
@@ -71,11 +71,11 @@ The original idea was to make the box itself from wood or thick cardboard.
 But since I wanted to try something new that would entail less manual work with getting all the insets correct on the sides of the box, I decided to go for a 3D printed version.
 
 The box:
-<iframe id="vs_iframe" src="https://ordina-jworks.github.io/img/meeseeks/box.stl" style="border:0;margin:0;width:100%;height:100%;"></iframe>
+<iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/box.stl" style="border:0;margin:0;width:100%;height:100%;"></iframe>
 You can download the file <a href="/img/meeseeks/box.stl">here.</a>
 
 The lid:
-<iframe id="vs_iframe" src="https://ordina-jworks.github.io/img/meeseeks/lid.stl" style="border:0;margin:0;width:100%;height:100%;"></iframe>
+<iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" style="border:0;margin:0;width:100%;height:100%;"></iframe>
 You can download the file <a href="/img/meeseeks/lid.stl">here.</a>
 
 These two 3D models were originally obtained from the [Thingiverse](https://www.thingiverse.com/thing:476252){:target="_blank"} but I've adapted and scaled them properly.
