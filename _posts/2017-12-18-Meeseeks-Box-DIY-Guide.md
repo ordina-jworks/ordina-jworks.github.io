@@ -63,7 +63,7 @@ network={
 ```
 Make sure you do not omit any of the first lines or your Pi's WiFi will cease to function until a corrected version of the file is used!
 
-<img alt="The hardware setup" src="{{ '/img/Meeseeks/raspberry-pi-button.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 400px;">
+<img alt="The hardware setup" src="{{ '/img/meeseeks/raspberry-pi-button.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 400px;">
 
 
 ## The build!
@@ -72,11 +72,11 @@ But since I wanted to try something new that would entail less manual work with 
 
 The box:
 <iframe id="vs_iframe" src="https://ordina-jworks.github.io/img/meeseeks/box.stl" style="border:0;margin:0;width:100%;height:100%;"></iframe>
-You can download the file <a href="/img/Meeseeks/box.stl">here.</a>
+You can download the file <a href="/img/meeseeks/box.stl">here.</a>
 
 The lid:
 <iframe id="vs_iframe" src="https://ordina-jworks.github.io/img/meeseeks/lid.stl" style="border:0;margin:0;width:100%;height:100%;"></iframe>
-You can download the file <a href="/img/Meeseeks/lid.stl">here.</a>
+You can download the file <a href="/img/meeseeks/lid.stl">here.</a>
 
 These two 3D models were originally obtained from the [Thingiverse](https://www.thingiverse.com/thing:476252){:target="_blank"} but I've adapted and scaled them properly.
 
@@ -84,13 +84,13 @@ I ordered the 3D prints via [3D Hubs](https://www.3dhubs.com){:target="_blank"} 
 When I went to get the printed versions I was a bit concerned that they might not have turned out as I had hoped.
 And was I right:
 
-<img alt="A failure" src="{{ '/img/Meeseeks/small-box.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+<img alt="A failure" src="{{ '/img/meeseeks/small-box.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 A rookie mistake, I didn't check the model dimensions once I uploaded them into the online tool for processing. 
 As that seemed to have converted up the measurements I used and set them to millimeters instead of centimeters.
 An easy fix and the second printed version was in the correct size, but printed by a colleague to keep costs down.
 
-<img alt="That's more like it!" src="{{ '/img/Meeseeks/printed-painted-orange.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+<img alt="That's more like it!" src="{{ '/img/meeseeks/printed-painted-orange.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 Next came the task of painting the thing. 
 As time was short and I only had cheap non-spray water based paint available, I decided to proceed anyway.
@@ -100,11 +100,11 @@ Nowhere near perfect but good enough for a first try at painting 3D printed mode
 The big issue with these paints and 3D printed models is that the paints tends to get in between the printed 'lines' and thus requiring a lot more paint without actually getting a nice result.
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/Meeseeks/partially-painted.jpg' | prepend: site.baseurl }}" data-lightbox="painting" data-title="Partially painted Meeseeks Box">
-        <img alt="Partially painted Meeseeks Box" src="{{ '/img/Meeseeks/partially-painted.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 48%; display: inline-block;">
+    <a href="{{ '/img/meeseeks/partially-painted.jpg' | prepend: site.baseurl }}" data-lightbox="painting" data-title="Partially painted Meeseeks Box">
+        <img alt="Partially painted Meeseeks Box" src="{{ '/img/meeseeks/partially-painted.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 48%; display: inline-block;">
     </a>
-    <a href="{{ '/img/Meeseeks/fully-painted.jpg' | prepend: site.baseurl }}" data-lightbox="painting" data-title="Fully painted Meeseeks Box">
-        <img alt="Fully painted Meeseeks Box" src="{{ '/img/Meeseeks/fully-painted.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 48%; display: inline-block;">
+    <a href="{{ '/img/meeseeks/fully-painted.jpg' | prepend: site.baseurl }}" data-lightbox="painting" data-title="Fully painted Meeseeks Box">
+        <img alt="Fully painted Meeseeks Box" src="{{ '/img/meeseeks/fully-painted.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 48%; display: inline-block;">
     </a>
 </div>
 
@@ -115,7 +115,7 @@ The lid fits on the box and is held in place by magnets.
 This prevents any moving parts that might fail due to material fatigue or attaching hinges, since attaching these to the box and lid would be cumbersome, as screws can't easily take hold in the 3D printed material.
 A future, more elaborate version of the box could include cutouts for the lid in the box.
 
-<img alt="Raspberry Pi attached to the lid" src="{{ '/img/Meeseeks/underside-lid.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+<img alt="Raspberry Pi attached to the lid" src="{{ '/img/meeseeks/underside-lid.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 
 ## The code behind it
@@ -174,15 +174,15 @@ Since we do a pull-up to vcc our button will actually be connected to the GND wh
 Please also be sure to wire up the LED with a correct resistor to prevent it from drawing too much current, as that might damage the IO pin it is connected to!
 
 Calculating such a resistor is an easy feat. 
-If the LED needs 3 volts to function and uses 20 milliamps doing so:  
-`R = U / I = 5V (pin out) - 3V (LED) /  0,02A = 2V / 0,02A = 100Ω` 
+If the LED needs 3 volts to function and uses 20 milliamps doing so:   
+`R = U / I = 5V (pin out) - 3V (LED) /  0,02A = 2V / 0,02A = 100Ω`  
 This means that a 100Ω resistor needs to be put in series with the LED to prevent it from causing any damage to the IO pin/circuitry.
 
 *main.js*
 ```javascript
 function doCall(method) {
     var request = http.request({
-        host: 'rnm-Meeseeks-box.cfapps.io',
+        host: 'rnm-meeseeks-box.cfapps.io',
         port: 443,
         path: '/',
         method: method,
@@ -204,7 +204,7 @@ You can edit this to perform any action you like.
 <br/>
 A video showing a fully operational Meeseeks Box:
 <video class="image-fit" width="100%" controls>
-  <source src="/img/Meeseeks/video.mp4" type="video/mp4">
+  <source src="/img/meeseeks/video.mp4" type="video/mp4">
 </video>
 <br/><br/>
 
@@ -215,7 +215,7 @@ The best option was to make a systemd service and run it on system startup.
 
 First we need to create the systemd service file:  
 ```
-sudo nano /lib/systemd/system/Meeseeks.service
+sudo nano /lib/systemd/system/meeseeks.service
 ```
 This will create a new file (if one does not exist yet).
 Place the contents below in this file and save it.
@@ -228,7 +228,7 @@ After=network.target
 [Service]
 Type=simple
 User=your-user-here
-ExecStart=/usr/bin/node /home/Meeseeks/main.js
+ExecStart=/usr/bin/node /home/meeseeks/main.js
 Restart=on-failure
 
 [Install]
@@ -239,9 +239,9 @@ The `After=network.target` tells the service daemon that this service should onl
 
 To test the service, first execute: `sudo systemctl daemon-reload`
 This reloads the daemon so it knows of the newly created service.
-Now we can manually start/stop/reload the service by using: `sudo systemctl start Meeseeks` where you swap out `start` with the action you want to perform.
+Now we can manually start/stop/reload the service by using: `sudo systemctl start meeseeks` where you swap out `start` with the action you want to perform.
 
-To make the service run at startup use: `sudo systemtl enable Meeseeks` and to disable it again, use the same command but swap out `enable` for `disable`.
+To make the service run at startup use: `sudo systemtl enable meeseeks` and to disable it again, use the same command but swap out `enable` for `disable`.
 
 A far more detailed explanation about this matter can be found [here.](http://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/){:target="_blank"}
 
@@ -252,11 +252,11 @@ Our booth drew quite the crowd this year, mostly because of the nachos and the t
 Have a look at a couple pictures below:  
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/Meeseeks/booth-empty.jpg' | prepend: site.baseurl }}" data-lightbox="booth" data-title="Ordina booth at Devoxx 2017">
-        <img alt="Ordina booth at Devoxx 2017" src="{{ '/img/Meeseeks/booth-empty.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 55.45%; display: inline-block;">
+    <a href="{{ '/img/meeseeks/booth-empty.jpg' | prepend: site.baseurl }}" data-lightbox="booth" data-title="Ordina booth at Devoxx 2017">
+        <img alt="Ordina booth at Devoxx 2017" src="{{ '/img/meeseeks/booth-empty.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 55.45%; display: inline-block;">
     </a>
-    <a href="{{ '/img/Meeseeks/Meeseeks-in-action.jpg' | prepend: site.baseurl }}" data-lightbox="booth" data-title="The Meeseeks Box in action at the Ordina booth">
-        <img alt="The Meeseeks Box in action at the Ordina booth" src="{{ '/img/Meeseeks/Meeseeks-in-action.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 41.55%; display: inline-block;">
+    <a href="{{ '/img/meeseeks/meeseeks-in-action.jpg' | prepend: site.baseurl }}" data-lightbox="booth" data-title="The Meeseeks Box in action at the Ordina booth">
+        <img alt="The Meeseeks Box in action at the Ordina booth" src="{{ '/img/meeseeks/meeseeks-in-action.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 41.55%; display: inline-block;">
     </a>
 </div>
 
