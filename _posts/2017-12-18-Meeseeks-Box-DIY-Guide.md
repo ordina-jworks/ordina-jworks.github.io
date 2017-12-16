@@ -71,11 +71,11 @@ The original idea was to make the box itself from wood or thick cardboard.
 But since I wanted to try something new that would entail less manual work with getting all the insets correct on the sides of the box, I decided to go for a 3D printed version.
 
 The box:
-<iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=http://www.diale.org/stl/3knot.scad.stl" style="border:0;margin:0;width:100%;height:100%;"></iframe>
+<iframe id="vs_iframe" src="https://ordina-jworks.github.io/img/meeseeks/box.stl" style="border:0;margin:0;width:100%;height:100%;"></iframe>
 You can download the file <a href="/img/Meeseeks/box.stl">here.</a>
 
 The lid:
-<iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=http://www.diale.org/stl/3knot.scad.stl" style="border:0;margin:0;width:100%;height:100%;"></iframe>
+<iframe id="vs_iframe" src="https://ordina-jworks.github.io/img/meeseeks/lid.stl" style="border:0;margin:0;width:100%;height:100%;"></iframe>
 You can download the file <a href="/img/Meeseeks/lid.stl">here.</a>
 
 These two 3D models were originally obtained from the [Thingiverse](https://www.thingiverse.com/thing:476252){:target="_blank"} but I've adapted and scaled them properly.
