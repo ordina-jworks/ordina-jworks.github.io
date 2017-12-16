@@ -47,13 +47,13 @@ Flexibility regarding time boxing is of course not meant to happen too often. So
 * **Hero:** Managing and solving all problems and impediments like nobody's business! While an important task for the Scrum Master, make sure not to get too focused on being the team's impediment super hero.
 * **Scribe:** "Hey John, you're taking notes again for this meeting, right? Thanks!". Do you recognize this exchange? Congratulations, you're the team's personal scribe.
 This is especially to be avoided during retrospectives since this creates a false sense of ownership of the issues and actions towards the Scrum Master.
-* **Admin:** The Scrum Master is the workflow master. Need to add a board in Jira? Ask the Scrum Master. Need to start a sprint in Jira? Ask the Scrum Master. Need a break and have a cigarette? Ask the Scrum Master. Oh. Wait. The Scrum Master -can- of course perform these tasks but so can the other team members.
+* **Admin:** The Scrum Master is the workflow master. Need to add a board in Jira? Ask the Scrum Master. Need to start a sprint in Jira? Ask the Scrum Master. Now, hold up right there! The Scrum Master *can* of course perform these tasks but yup, so can the other team members.
 * **Secretary:** The Scrum Master plans all the work in the team members' agendas. Keep up to date with everybody's holidays, sick days and toilet breaks. (Can you sense the sarcasm?)
 * **Chairman:** While this is often the case, the Daily Scrum isn't a meeting where the team members report back to the Scrum Master. It's a meeting by and for the development team. In absence of the Scrum Master, the Daily Scrum must still happen.
-* **Team Boss:** The Scrum Master is the boss of the team. He/she decides who is in and who is out. A sick day? You're fired! Buy the Scrum Master a chocolate cake? Here, have a raise!
+* **Team Boss:** The Scrum Master is the boss of the team. He/she decides who is in and who is out. A sick day? You're fired! Buy the Scrum Master a chocolate cake? Here, have a raise! Oh, what a world it would be!
 * **Coffee Clerk:** Please do get your team members some coffee once in a while. But no, to everyone's surprise, fetching coffee day in day out is not part of the Scrum Master's job description.
 
-So what are the 8 preferred stances of a Scrum Master then, you ask?
+So, what are the 8 preferred stances of a Scrum Master then?
 Glad you asked!
 
 The 8 preferred stances are:
@@ -87,7 +87,7 @@ More info on the 8 Stances of a Scrum Master can be found [here](http://www.barr
 The session by Remi-Armand and Linda started with two exercises. For the first exercise, we had to pair with one of our neighbors where one of us was the coach and the other the coachee.
 The coachee had to open up about an issue they're facing that they cannot solve by themselves and the coach had to try to resolve it by suggesting solutions. After a few minutes, we had to switch roles. Both people then had to show to the group whether they felt better about the problem or not.
 The second exercise dealt with the same problem, but instead of immediately trying to suggest solutions, the coach asked questions to get to the bottom of the issue and figure out the goal of the coachee. Again, after this round, both people had to show to the rest of the group how they felt about their problem, if the feeling was better, worse, or stayed the same.
-The goal of these exercises was to show that trying to push someone towards a solution for their problem isn't the best way to handle the situation since there will always be a 'but'. Asking questions and trying to get the person to thoroughly think about their situation and problem will help them reach a solution themselves that they understand and accept.
+The goal of these exercises was to show that trying to push someone towards a solution for their problem isn't the best way to handle the situation since there will always be a 'but' coming from the person with the issue. Asking questions and trying to get the person to thoroughly think about their situation and problem will help them reach a solution themselves that they understand and accept.
 
 As an example of someone trying to actively deal with resistance, they showed the YouTube video called ['It's Not About the Nail'](https://www.youtube.com/watch?v=-4EDhdAHrOg).
 The conclusion is easy and was mentioned in the paragraph above. Pushing someone towards a solution they don't see fit will not give you the outcome you hope for.
@@ -112,13 +112,13 @@ They assign points to three sections: Timesheets, demos and sprint objectives.
 * Demos: Doing 1 demo is worth **2 points**
 * Sprint objectives: Each completed story point is worth **1 point**. For sprint objectives, they also use a point multiplier. X0 when the sprint has failed, X1 when 90% of their main goal of the sprint was achieved, X2 when 100% of the main goal was achieved and X3 when the entire sprint was a complete success.
 
-For all three sections, they also assign badges. For example, the team can earn the gold badge when 15 sprints in a row are a complete success.
+For all three sections, they also assign badges. For example, the team can earn the golden badge when 15 sprints in a row are a complete success.
 
 The earned points are actually converted to Euros that are spent on team celebrations where 1 point is worth 1 Euro:
 * 70% of the earned money goes towards team activities, such as team building, team lunch, etc.
 * 30% is spent on personal rewards like cinema tickets, dinner for two, etc. This is only meant for team members that were part of the sprint.
 
-Jean-Jacques noted that the company probably spends around 3500-4000 Euros every year for this reward system, for a team of 8 people.
+Jean-Jacques noted that the company probably spends around 3.500-4.000 Euros every year for this reward system, for a team of 8 people.
 It's also important to note that the team is still being rewarded when the sprint fails and not being reprimanded for it. The reward is just a lot bigger when the sprints succeed.
 
 ### An Integral View on Agile - Frederik Vannieuwenhuyse & Johannes Schartau
@@ -129,21 +129,18 @@ It's also important to note that the team is still being rewarded when the sprin
 [Johannes Schartau](https://twitter.com/integralagile) is an Agile Coach, consultant and professional Zombie Scrum fighter from Hamburg, Germany. He is passionate about creating environments for real collaboration and joyful creativity.
 
 The first part of this exercise consisted of reading 6 case studies and writing down on post-it notes how you would handle each situation, what questions you would ask.
-These post-it notes will be used in a later exercise, after an explanation of so-called Integral Theory:
+These post-it notes will be used in a later exercise, after an explanation of the so-called Integral Theory:
 <div class="row">
   <div class="6u -3u 8u(small) -2u(small) 12u(xsmall)">
     <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/Integral-Theory1.png">
   </div>
 </div>
-Integral Theory was created and shaped by Ken Wilber and consists of the idea that anything can be viewed as a thing by itself or as part of a larger group.
-* Individual VS Collective
-Anything can also be seen from within and from the outside.
-* Interior VS Exterior
-Based on this, Ken suggests that any kind of knowledge or experience can be assigned to any of the four quadrants shown above.
-* Leadership and Engagement: Interprets people's interior experiences and focuses on "I"
-* Culture and Shared Vision: Interprets the collective consciousness of a group of people and focuses on "We"
-* Behavior and Metrics: Observation of the behavior of people and focuses on "It"
-* Organizational Architecture and Systems: Focuses on the behavior of a group of people as functional entities seen from outside: "They"
+Integral Theory was created and shaped by Ken Wilber and consists of the idea that anything can be viewed as a thing by itself or as part of a larger group (**Individual VS Collective**).
+Anything can also be seen from within and from the outside (**Interior VS Exterior**). Based on this, Ken suggests that any kind of knowledge or experience can be assigned to any of the four quadrants shown above.
+* **Leadership and Engagement:** Interprets people's interior experiences and focuses on "I"
+* **Culture and Shared Vision:** Interprets the collective consciousness of a group of people and focuses on "We"
+* **Behavior and Metrics:** Observation of the behavior of people and focuses on "It"
+* **Organizational Architecture and Systems:** Focuses on the behavior of a group of people as functional entities seen from outside: "They"
 
 The following image gives an overview of the questions that help organize knowledge into the quadrants:
 <div class="row">
@@ -156,7 +153,8 @@ After explaining Integral Theory, we picked up our post-it notes and organized t
 When the post-it notes were assigned to their respective quadrant, Frederik and Johannes asked us to move towards the quadrant in the room that we felt we had the most experience in or we felt we were good at.
 Next, we had to discuss in our 'quadrant groups' if the post-it notes that were put up in the quadrant were a good match for it or if they belonged in another quadrant.
 The final exercise consisted of moving with your group to the next quadrants and listening to 1 person that stayed behind from the initial group explain the conclusions they reached during the initial discussion.
-This way, we were able to really understand what the quadrant stood for and what knowledge and experiences are part of it.
+
+The presentation of Frederik and Johannes can be found [here](https://www.slideshare.net/frederikvannieuwenhuyse/an-integral-view-on-agile){:target="_blank"}.
 
 ### The Art of Hosting Conversations that Matter - Johan Decoster & Jef Cumps
 
@@ -185,14 +183,15 @@ This kind of conversation is built upon 4 key elements:
 
 Make sure the conversation stays polite and has a good flow of dialogue, but also take note of the two other sections.
 It's very important to respect the differences in ideas between you and your conversation partner. It's okay to voice your opinion, but be considerate and respectful and make sure to not overpower the other person.
-Listen often and do not judge too quickly. The other person might not be good in voicing their opinion clearly so suspending judgement is always a good idea. Things make become clearer later on in the conversation.
+Listen often and do not judge too quickly. The other person might not be good in voicing their opinion clearly so suspending judgement is always a good idea. Things may become clearer later on in the conversation.
 
 Right before the break, people were invited to write down questions they had where they could use the help of others to solve it.
 Eventually, the top 8 questions were picked and each question owner was going to be the conversation host for each table.
-After the break, the other people helped the question owners answer their question by having three conversations based on the following questions:
-* What is the quest behind the question?
-* What is missing?
-* What actions can be taken?
+After the break, we joined a question owner at their table with a maximum of 4 persons per table. The other people helped the question owners answer their question by having three conversations based on the following questions:
+* What is the quest behind the question? Try to get into the question as deep as possible and figure out what the real reason is behind the question.
+* What is missing? Is anything from the previous conversation still missing? Are there any other additional reasons behind the question?
+* What actions can be taken? Decide on concrete actions that can be taken.
+
 Each question was assigned a time box of 15 minutes and you were only allowed to talk about that specific question during that time box.
 After each question, the other people at the table moved around to another table to help with someone else's issue.
 So, after the exercise, every non-question owner was able to help three different persons by helping with a different question each time.
@@ -202,3 +201,8 @@ The outcome of the exercise was a group of people happy to have some concrete ac
 
 More info on the Art of Hosting can be found in the following image and on [mentioned websites](http://www.artofhosting.org/).
 
+<div class="row">
+  <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
+    <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/Art-of-Hosting4.png">
+  </div>
+</div>
