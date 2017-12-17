@@ -93,10 +93,119 @@ With MR, as opposed to AR and AV, the real world and virtual world are aware and
 These terms are pretty vague and some have even changed meaning over the years.
 No need to think too much about these terms.
 
+### Virtual Reality
+
+We call something Virtual Reality when the user is emerged in a virtual world and completely blocked out from the real world.
+This can be as simple as a 360 video.
+(In practice you can still see through the cracks of cheaper headsets)
+The user interacts, through various modes of control, with the virtual world.
+
+//TODO FIXME
+Some use cases of virtual reality are
+* Games, both recreational and educational
+* Photo content: photo spheres
+* Video content: video spheres, 360 videos
+* Creative applications like 3D painting or sculpting or dj application //TODO: just say "Creative applications" or already include the examples?
+
+Currently the most popular application for VR is videogames. There are a lot of games out already.
+Shooting games and simulators seem to be an especially well fit for the platform.
+A VR headset is also often used for viewing 360 pictures and videos.
+Thanks to the headtracking, the view of the picture or video can be changed really intuitively.
+Though you have the additional setup to deal with compared to a phone where you can just drag the viewport or use your phone's motion sensors.
+
+//TODO some more. check presentation. controls etc
+
+### Augmented Reality
+
+//TODO !!
+
+// insert picture of pokemon go
+Everyone knows this right?
+Last year, the world exploded with people young and old crowding the streets in search for Pokémon.
+
+Pokémon Go is a fine example of an AR application.
+It is Augmented Reality because the application is still grounded mostly in the real world.
+The virtual elements are layered on top of the real world.
+
+There are 4 types of Augmented Reality applications.
+* Marker
+* Inverse Marker
+* Markerless 
+* Projection
+
+//TODO, add following line?
+(There are other types of classification systems but we have gone with this one)
+
+// TODO include collage picture with 4 types or 4 separate pictures
+Marker based AR apps use image recognition to recognize a specific pattern or marker.
+On the location of this pattern an image is then shown on the screen. //TODO rewrite
+These types of applications are often very simple for example for showing a character from a movie dancing on the table.
+Inverse marker based AR is very similar to regular marker based AR.
+These applications are used in conjunction with large screens with cameras where the user only has to control the marker.
+There are also applications that do not use a marker.
+These markerless applications use positional tracking and gps to determine where to show things.
+The popular Pokémon Go and Ikea apps are perfect examples of this.
+Projection based AR projects images rather than showing them on the screen.
+This requires hardware capable of projecting so is not as widespread.
+It is used more in manufacturing.
+
+The great thing about AR is that any smartphone is capable running AR applications.
+Many AR apps only need a camera to work.
+While specialized depth sensing sensors exist, they are not as widespread.
+
+
+### Mixed Reality
+
+//TODO !!
+
+## Creating realities
+
+Since these kind of applications are often so visual in nature, we can make use of tools used in game development.
+These are some of the most popular and free tools.
+* Unity
+* Unreal Engine
+* CryEngine
+
+Think of these as sort of photoshop for software.
+We can leverage the editors to see what we're working on and make changes immediately.
+These tools are ideal for Virtual Reality.
+Both Unity and Unreal Engine have plugins available for Augmented Reality.
+
+Apple's ARKit and Google's ARCore are the respective Augmented reality APIs for their IOS and Android platforms.
+Since the inception of these two APIs the amount of AR apps has greatly increased.
+There are many other SDKs available.
+Many of which even have their own Unity plugin.
+Vuforia and ARToolkit seem to be the most popular ones.
+
 
 ## Business cases & Examples
 //TODO: Examples of AR/VR/MR 
+// ar and mr seem to have more business value
 
+So, as software developers, what can we do with all this fancy tech?
+
+Our Dutch colleagues already made a cool VR application!
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wnC-jvtwJtY" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+
+
+// ordina boat
+// training and simulation (flying/ aerospace)
+// medical
+// houses/ikea
+// kids
+// patients
+// manufactoring, factory
+
+
+## platforms
+//TODO 
+
+Google is discontinuing it's Tango project in favor of ARCore.
 
 ## Conclusion
 TODO
+
+For us at Ordina, most potential lies in AR and MR.
+
+
+
