@@ -19,7 +19,7 @@ comments: true
 ## Intro
 The concept of virtual reality is not a new one, neither is the one of augmented reality.
 It has been around for quite a long time already.
-Perhaps mixed reality is will be the next big thing? 
+Perhaps mixed reality will be the next big thing? 
 I'll leave that up to you to decide.
 
 Ever since we have been able to create visual representations of our own or other worlds, mankind has been fascinated by transferring the sensory perception into this world.
@@ -32,7 +32,7 @@ It is in the recent years that technological advancements have made it possible 
 In 1962 some crazy person built what is generally believed to be the first virtual reality experience.
 This machine pictured above is called a Sensorama. 
 The user of the Sensorama sits on a tilted chair and watches a short film with stereoscopic 3D images in wide-angle view with stereo sound and even added effects such as wind and aroma. 
-A predecessor of those 4D movies available in cinemas en theme parks these days.
+A predecessor of those 4D movies available in cinemas and theme parks these days.
 
 This of course cannot be compared with the more advanced implementations we have today.
 
@@ -99,13 +99,13 @@ On the other end of the spectrum we see the Virtual Environment.
 Everything in the virtual environment is virtual, so 'not real'.
 It is the imaginary world that you see on a screen.
 The user is locked out of the real world.
-An extreme example we all know of this would be the Matrix, in which the person lives his or her live inside the matrix not knowing the entire thing is not real.
+An extreme example we all know of would be the Matrix, in which the person lives their life inside the matrix not knowing the entire thing is not real.
 
 Augmented Reality (AR) and Augmented Virtuality (AV) are situated in between these two ends of the spectrum.
 As their names suggest, AR is more closely aligned with the real world
 while AV is closer to the virtual world.
 In other words AR consists of a mostly real world with a few virtual elements augmenting the experience.
-AV exists mostly in the virtual world where a few elements of our real world visible.
+AV exists mostly in the virtual world with a few elements of our real world visible.
 
 Mixed or Merged reality (MR) is a term used to describe anything between reality and virtuality.
 This means it contains both elements of the real world and a virtual world.
@@ -121,7 +121,7 @@ They outline the boundaries of the different areas in the spectrum, but they ten
 ### Virtual Reality
 We call something virtual reality when the user is emerged in a virtual world and is completely blocked out from the real one.
 The simplest example of this is a 360° video experience.
-More advanced implementations have the user take part in a fully virtual world where his or hers movements and actions are tracked and translated into actions in the virtual world.
+More advanced implementations have the user take part in a fully virtual world where their movements and actions are tracked and translated into actions in the virtual world.
 
 Some examples of virtual reality implementations are:
 * Games, both recreational and educational
@@ -140,6 +140,14 @@ Although you have to deal with additional setup compared to a phone where you ca
 
 
 ### Augmented Reality
+Last year, the world exploded with people young and old crowding the streets in search for Pokémon.
+
+<img alt="Augmented Reality - Pokémon Go" src="{{ '/img/virtualreality/ar-pokemon.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+
+Pokémon Go is a fine example of an AR application.
+It is Augmented Reality because the application is still grounded mostly in the real world.
+The virtual elements are layered on top of the real world, but they do not interact with it.  
+
 There are 4 types of augmented reality applications.
 - Marker
 - Inverse Marker
@@ -164,24 +172,17 @@ These applications are used in conjunction with large screens with cameras where
 
 #### Markerless
 These markerless applications use positional tracking and GPS to determine where to show things by mapping the environment and creating a spatial awareness to track objects when moving.
+The popular Pokémon Go and Ikea apps are perfect examples of this.
 
 <img alt="Markerless based AR" src="{{ '/img/virtualreality/ar-markerless.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 
 #### Projection based
-The popular Pokémon Go and Ikea apps are perfect examples of this.
 Projection based AR projects images rather than showing them on the screen.
 This requires hardware capable of projecting so is not as widespread.
 It is used more in manufacturing.
 
-<img alt="Pokémon Go, Projection based AR" src="{{ '/img/virtualreality/ar-projection.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
-
-Everyone knows this right?
-Last year, the world exploded with people young and old crowding the streets in search for Pokémon.
-
-Pokémon Go is a fine example of an AR application.
-It is Augmented Reality because the application is still grounded mostly in the real world.
-The virtual elements are layered on top of the real world, but they do not interact with it.  
+<img alt="Projection based AR" src="{{ '/img/virtualreality/ar-projection.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 
 <br/>
