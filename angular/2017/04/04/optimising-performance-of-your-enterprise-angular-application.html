@@ -210,19 +210,19 @@ The Router offers two preloading strategies out of the box:</p>
 
 <p>To do so, include the preloadingStrategy in your @NgModule like so:</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="vi">@</span><span class="na">NgModule</span><span class="p">({</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="p">@</span><span class="nd">NgModule</span><span class="p">({</span>
     <span class="p">...</span>
-    <span class="na">imports</span><span class="o">:</span> <span class="p">[</span>
-        <span class="nx">RouterModule</span><span class="p">.</span><span class="na">forRoot</span><span class="p">(</span><span class="nx">ROUTES</span><span class="p">,</span> <span class="p">{</span> <span class="na">preloadingStrategy</span><span class="o">:</span> <span class="nx">PreloadAllModules</span> <span class="p">})</span>
+    <span class="na">imports</span><span class="p">:</span> <span class="p">[</span>
+        <span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">ROUTES</span><span class="p">,</span> <span class="p">{</span> <span class="na">preloadingStrategy</span><span class="p">:</span> <span class="nx">PreloadAllModules</span> <span class="p">})</span>
     <span class="p">]</span>
 <span class="p">});</span></code></pre></figure>
 
 <p>And define your routes like this:</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="p">{</span>
-    <span class="na">path</span><span class="o">:</span> <span class="s">'performance'</span><span class="p">,</span>
-    <span class="na">loadChildren</span><span class="o">:</span> <span class="s">'performance.module#PerformanceModule'</span><span class="p">,</span>
-    <span class="na">canLoad</span><span class="o">:</span> <span class="p">[</span><span class="nx">AuthGuard</span><span class="p">]</span> <span class="o">//</span> <span class="nx">Optional</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="p">{</span>
+    <span class="nl">path</span><span class="p">:</span> <span class="s1">'performance'</span><span class="p">,</span>
+    <span class="nx">loadChildren</span><span class="p">:</span> <span class="s1">'performance.module#PerformanceModule'</span><span class="p">,</span>
+    <span class="nx">canLoad</span><span class="p">:</span> <span class="p">[</span><span class="nx">AuthGuard</span><span class="p">]</span> <span class="c1">// Optional</span>
 <span class="p">}</span></code></pre></figure>
 
 <p>Note that when using guards, the CanLoad guard blocks loading of feature module assets until authorised to do so.
@@ -246,12 +246,12 @@ This results in pagespeed optimisations as the browser can quickly serve the sha
 <p>Among other optimisations the <a href="https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk">extra async commons chunk</a> allows us to drastically improve performance by moving common modules out of the parent so that a new async-loaded additional commons chunk is used, which decreases initial load time.
 This is automatically downloaded in parallel when the additional chunk is downloaded.</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="na">optimize</span><span class="p">.</span><span class="na">CommonsChunkPlugin</span><span class="p">({</span>
-  <span class="na">children</span><span class="o">:</span> <span class="no">true</span><span class="p">,</span>
-  <span class="o">//</span> <span class="p">(</span><span class="nx">use</span> <span class="nx">all</span> <span class="nx">children</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">chunk</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">optimize</span><span class="p">.</span><span class="nx">CommonsChunkPlugin</span><span class="p">({</span>
+  <span class="na">children</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="c1">// (use all children of the chunk)</span>
 
-  <span class="na">async</span><span class="o">:</span> <span class="no">true</span><span class="p">,</span>
-  <span class="o">//</span> <span class="p">(</span><span class="nx">create</span> <span class="nx">an</span> <span class="nx">async</span> <span class="nx">commons</span> <span class="nx">chunk</span><span class="p">)</span>
+  <span class="na">async</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="c1">// (create an async commons chunk)</span>
 <span class="p">});</span></code></pre></figure>
 
 <h1 id="3-changedetectionstrategy-onpush">3. ChangeDetectionStrategy: OnPush</h1>
@@ -286,17 +286,17 @@ The OnPush strategy will let the change detector run only in the following situa
 
 <p>The simplest way is to use only immutable objects.</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript">   <span class="nx">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">ChangeDetectionStrategy</span> <span class="p">}</span> <span class="nx">from</span> <span class="s">'@angular/core'</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">   <span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">ChangeDetectionStrategy</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
 
-   <span class="vi">@</span><span class="na">Component</span><span class="p">({</span>
-       <span class="na">selector</span><span class="o">:</span> <span class="s">'my-sub-component'</span><span class="p">,</span>
-       <span class="na">template</span><span class="o">:</span> <span class="o">`</span><span class="p">{{</span> <span class="nx">item</span><span class="p">.</span><span class="na">name</span> <span class="p">}}</span><span class="o">`</span><span class="p">,</span>
-       <span class="na">changeDetection</span><span class="o">:</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">.</span><span class="na">OnPush</span>
+   <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+       <span class="na">selector</span><span class="p">:</span> <span class="s1">'my-sub-component'</span><span class="p">,</span>
+       <span class="na">template</span><span class="p">:</span> <span class="s2">`{{ item.name }}`</span><span class="p">,</span>
+       <span class="na">changeDetection</span><span class="p">:</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">.</span><span class="nx">OnPush</span>
    <span class="p">})</span>
-   <span class="nx">export</span> <span class="k">class</span> <span class="nx">MySubComponent</span> <span class="nx">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
-       <span class="vi">@</span><span class="na">Input</span><span class="p">()</span> <span class="na">item</span><span class="o">:</span> <span class="p">{</span><span class="na">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">};</span>
+   <span class="k">export</span> <span class="kd">class</span> <span class="nx">MySubComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+       <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">item</span><span class="p">:</span> <span class="p">{</span><span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">};</span>
 
-       <span class="nx">constructor</span><span class="p">()</span> <span class="p">{}</span>
+       <span class="kd">constructor</span><span class="p">()</span> <span class="p">{}</span>
    <span class="p">}</span>
    </code></pre></figure>
 
@@ -308,23 +308,23 @@ The OnPush strategy will let the change detector run only in the following situa
 
 <p>Another way is to use observables as inputs.</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript">   <span class="nx">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">,</span> <span class="nx">ChangeDetectorRef</span> <span class="p">}</span> <span class="nx">from</span> <span class="s">'@angular/core'</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">   <span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">,</span> <span class="nx">ChangeDetectorRef</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
 
-   <span class="vi">@</span><span class="na">Component</span><span class="p">({</span>
-       <span class="na">selector</span><span class="o">:</span> <span class="s">'my-sub-component'</span><span class="p">,</span>
-       <span class="na">template</span><span class="o">:</span> <span class="o">`</span><span class="p">{{</span> <span class="nx">myItemName</span> <span class="p">}}</span><span class="o">`</span><span class="p">,</span>
-       <span class="na">changeDetection</span><span class="o">:</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">.</span><span class="na">OnPush</span>
+   <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+       <span class="na">selector</span><span class="p">:</span> <span class="s1">'my-sub-component'</span><span class="p">,</span>
+       <span class="na">template</span><span class="p">:</span> <span class="s2">`{{ myItemName }}`</span><span class="p">,</span>
+       <span class="na">changeDetection</span><span class="p">:</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">.</span><span class="nx">OnPush</span>
    <span class="p">})</span>
-   <span class="nx">export</span> <span class="k">class</span> <span class="nx">MySubComponent</span> <span class="nx">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
-       <span class="vi">@</span><span class="na">Input</span><span class="p">()</span> <span class="na">itemStream</span><span class="o">:</span><span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">;</span>
-       <span class="na">myItemName</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+   <span class="k">export</span> <span class="kd">class</span> <span class="nx">MySubComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+       <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">itemStream</span><span class="p">:</span><span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">;</span>
+       <span class="nl">myItemName</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
 
-       <span class="nx">constructor</span><span class="p">(</span><span class="nx">private</span> <span class="na">changeDetectorRef</span><span class="o">:</span> <span class="nx">ChangeDetectorRef</span><span class="p">)</span> <span class="p">{}</span>
+       <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">changeDetectorRef</span><span class="p">:</span> <span class="nx">ChangeDetectorRef</span><span class="p">)</span> <span class="p">{}</span>
 
        <span class="nx">ngOnInit</span><span class="p">()</span> <span class="p">{</span>
-           <span class="k">this</span><span class="p">.</span><span class="na">itemStream</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="p">{</span>
-               <span class="k">this</span><span class="p">.</span><span class="na">myItemName</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="na">name</span><span class="p">;</span>
-               <span class="k">this</span><span class="p">.</span><span class="na">changeDetectorRef</span><span class="p">.</span><span class="na">markForCheck</span><span class="p">();</span>
+           <span class="k">this</span><span class="p">.</span><span class="nx">itemStream</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="p">{</span>
+               <span class="k">this</span><span class="p">.</span><span class="nx">myItemName</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+               <span class="k">this</span><span class="p">.</span><span class="nx">changeDetectorRef</span><span class="p">.</span><span class="nx">markForCheck</span><span class="p">();</span>
            <span class="p">});</span>
        <span class="p">}</span>
    <span class="p">}</span>

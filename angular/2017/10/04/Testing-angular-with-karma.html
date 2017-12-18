@@ -235,24 +235,24 @@ Assertions are made using the <code class="highlighter-rouge">expect</code> func
 
 <p>Here’s an example:</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">describe</span><span class="p">(</span><span class="s">'NAME_OF_YOUR_CLASS'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">let</span> <span class="nx">component</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">describe</span><span class="p">(</span><span class="s1">'NAME_OF_YOUR_CLASS'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">component</span><span class="p">;</span>
 
     <span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="o">//</span><span class="nx">initialize</span>
+        <span class="c1">//initialize</span>
         <span class="nx">component</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppComponent</span><span class="p">();</span>
     <span class="p">});</span>
     
-    <span class="o">//</span><span class="nx">Actual</span> <span class="nx">tests</span>
-    <span class="nx">it</span><span class="p">(</span><span class="s">'should have a car selected'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="o">//</span><span class="nx">assertions</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">component</span><span class="p">.</span><span class="na">carSelected</span><span class="p">).</span><span class="na">toBeThruthy</span><span class="p">();</span>
+    <span class="c1">//Actual tests</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s1">'should have a car selected'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="c1">//assertions</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">component</span><span class="p">.</span><span class="nx">carSelected</span><span class="p">).</span><span class="nx">toBeThruthy</span><span class="p">();</span>
     <span class="p">});</span>
 
-    <span class="nx">it</span><span class="p">(</span><span class="s">'should find my favorite car brand'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="o">//</span><span class="nx">assertions</span>
-        <span class="nx">const</span> <span class="nx">carBrand</span> <span class="o">=</span> <span class="nx">component</span><span class="p">.</span><span class="na">getFavoriteCarBrand</span><span class="p">();</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">carBrand</span><span class="p">.</span><span class="na">name</span><span class="p">).</span><span class="na">toEqual</span><span class="p">(</span><span class="s">'Mazda'</span><span class="p">);</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s1">'should find my favorite car brand'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="c1">//assertions</span>
+        <span class="kd">const</span> <span class="nx">carBrand</span> <span class="o">=</span> <span class="nx">component</span><span class="p">.</span><span class="nx">getFavoriteCarBrand</span><span class="p">();</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">carBrand</span><span class="p">.</span><span class="nx">name</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'Mazda'</span><span class="p">);</span>
     <span class="p">});</span> 
 <span class="p">});</span> </code></pre></figure>
 
@@ -285,40 +285,40 @@ Calling <code class="highlighter-rouge">createComponent</code> will return a ‘
 With the fixture you can find HTML elements and perform actions on them, verify their content and attributes…
 The instance of the class can be used to test its public functions (unit test).</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">describe</span><span class="p">(</span><span class="s">'AppComponent'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">let</span> <span class="na">component</span><span class="o">:</span> <span class="nx">AppComponent</span><span class="p">;</span>
-    <span class="nx">let</span> <span class="na">fixture</span><span class="o">:</span> <span class="nx">ComponentFixture</span><span class="o">&lt;</span><span class="nx">AppComponent</span><span class="o">&gt;</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">describe</span><span class="p">(</span><span class="s1">'AppComponent'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="na">component</span><span class="p">:</span> <span class="nx">AppComponent</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="na">fixture</span><span class="p">:</span> <span class="nx">ComponentFixture</span><span class="o">&lt;</span><span class="nx">AppComponent</span><span class="o">&gt;</span><span class="p">;</span>
 
-    <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">TestBed</span><span class="p">.</span><span class="na">configureTestingModule</span><span class="p">({</span>
-            <span class="na">declarations</span><span class="o">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">],</span>
-            <span class="na">providers</span><span class="o">:</span> <span class="p">[</span><span class="nx">CarBrandService</span><span class="p">],</span>
-            <span class="na">imports</span><span class="o">:</span> <span class="p">[</span><span class="nx">CommonLogicModule</span><span class="p">]</span>
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="k">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">TestBed</span><span class="p">.</span><span class="nx">configureTestingModule</span><span class="p">({</span>
+            <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">],</span>
+            <span class="na">providers</span><span class="p">:</span> <span class="p">[</span><span class="nx">CarBrandService</span><span class="p">],</span>
+            <span class="na">imports</span><span class="p">:</span> <span class="p">[</span><span class="nx">CommonLogicModule</span><span class="p">]</span>
         <span class="p">})</span>
-        <span class="p">.</span><span class="na">compileComponents</span><span class="p">();</span>
+        <span class="p">.</span><span class="nx">compileComponents</span><span class="p">();</span>
     <span class="p">}));</span>
 
     <span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">fixture</span> <span class="o">=</span> <span class="nx">TestBed</span><span class="p">.</span><span class="na">createComponent</span><span class="p">(</span><span class="nx">AppComponent</span><span class="p">);</span>
-        <span class="nx">component</span> <span class="o">=</span> <span class="nx">fixture</span><span class="p">.</span><span class="na">componentInstance</span><span class="p">;</span>
-        <span class="nx">fixture</span><span class="p">.</span><span class="na">detectChanges</span><span class="p">();</span>
+        <span class="nx">fixture</span> <span class="o">=</span> <span class="nx">TestBed</span><span class="p">.</span><span class="nx">createComponent</span><span class="p">(</span><span class="nx">AppComponent</span><span class="p">);</span>
+        <span class="nx">component</span> <span class="o">=</span> <span class="nx">fixture</span><span class="p">.</span><span class="nx">componentInstance</span><span class="p">;</span>
+        <span class="nx">fixture</span><span class="p">.</span><span class="nx">detectChanges</span><span class="p">();</span>
     <span class="p">});</span>
 
-    <span class="nx">it</span><span class="p">(</span><span class="s">'should test the class'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="o">//</span><span class="nx">use</span> <span class="nx">component</span> <span class="nx">to</span> <span class="nx">test</span> <span class="nx">the</span> <span class="k">class</span> <span class="nx">itself</span>
-        <span class="nx">const</span> <span class="nx">carBrand</span> <span class="o">=</span> <span class="nx">component</span><span class="p">.</span><span class="na">getFavoriteCarBrand</span><span class="p">();</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">carBrand</span><span class="p">.</span><span class="na">name</span><span class="p">).</span><span class="na">toEqual</span><span class="p">(</span><span class="s">'Mazda'</span><span class="p">);</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s1">'should test the class'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="c1">//use component to test the class itself</span>
+        <span class="kd">const</span> <span class="nx">carBrand</span> <span class="o">=</span> <span class="nx">component</span><span class="p">.</span><span class="nx">getFavoriteCarBrand</span><span class="p">();</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">carBrand</span><span class="p">.</span><span class="nx">name</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'Mazda'</span><span class="p">);</span>
     <span class="p">});</span>
 
-    <span class="nx">it</span><span class="p">(</span><span class="s">'should test the view'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="o">//</span><span class="nx">use</span> <span class="nx">component</span> <span class="nx">to</span> <span class="nx">test</span> <span class="nx">the</span> <span class="k">class</span> <span class="nx">itself</span>
-        <span class="nx">const</span> <span class="nx">carBrand</span> <span class="o">=</span> <span class="nx">component</span><span class="p">.</span><span class="na">getFavoriteCarBrand</span><span class="p">();</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">carBrand</span><span class="p">.</span><span class="na">name</span><span class="p">).</span><span class="na">toEqual</span><span class="p">(</span><span class="s">'Mazda'</span><span class="p">);</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s1">'should test the view'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="c1">//use component to test the class itself</span>
+        <span class="kd">const</span> <span class="nx">carBrand</span> <span class="o">=</span> <span class="nx">component</span><span class="p">.</span><span class="nx">getFavoriteCarBrand</span><span class="p">();</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">carBrand</span><span class="p">.</span><span class="nx">name</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'Mazda'</span><span class="p">);</span>
 
-        <span class="o">//</span><span class="nx">use</span> <span class="nx">fixture</span> <span class="nx">to</span> <span class="nx">access</span> <span class="nx">the</span> <span class="nx">HTML</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="na">g</span><span class="p">.</span> <span class="na">get</span> <span class="nx">h1</span> <span class="nx">element</span><span class="p">)</span>
-        <span class="nx">const</span> <span class="nx">de</span> <span class="o">=</span> <span class="nx">fixture</span><span class="p">.</span><span class="na">debugElement</span><span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="nx">By</span><span class="p">.</span><span class="na">css</span><span class="p">(</span><span class="s">'h1'</span><span class="p">));</span>
-        <span class="nx">const</span> <span class="nx">el</span> <span class="o">=</span> <span class="nx">de</span><span class="p">.</span><span class="na">nativeElement</span><span class="p">;</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="na">textContent</span><span class="p">).</span><span class="na">toContain</span><span class="p">(</span><span class="s">'Mazda'</span><span class="p">);</span>
+        <span class="c1">//use fixture to access the HTML (e.g. get h1 element)</span>
+        <span class="kd">const</span> <span class="nx">de</span> <span class="o">=</span> <span class="nx">fixture</span><span class="p">.</span><span class="nx">debugElement</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">By</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">'h1'</span><span class="p">));</span>
+        <span class="kd">const</span> <span class="nx">el</span> <span class="o">=</span> <span class="nx">de</span><span class="p">.</span><span class="nx">nativeElement</span><span class="p">;</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">textContent</span><span class="p">).</span><span class="nx">toContain</span><span class="p">(</span><span class="s1">'Mazda'</span><span class="p">);</span>
     <span class="p">});</span>
 <span class="p">});</span></code></pre></figure>
 
@@ -330,30 +330,30 @@ We also want to be able to easily control the output of all dependencies of our 
 <p>One way to do so is by creating spies for all calls to functions of those dependencies. 
 That’s where the <code class="highlighter-rouge">spyOn</code> function comes into play:</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">describe</span><span class="p">(</span><span class="s">'AppComponent'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">let</span> <span class="na">component</span><span class="o">:</span> <span class="nx">RequestPopupContainer</span><span class="p">;</span>
-    <span class="nx">let</span> <span class="na">fixture</span><span class="o">:</span> <span class="nx">ComponentFixture</span><span class="o">&lt;</span><span class="nx">AppComponent</span><span class="o">&gt;</span><span class="p">;</span>        
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">describe</span><span class="p">(</span><span class="s1">'AppComponent'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="na">component</span><span class="p">:</span> <span class="nx">RequestPopupContainer</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="na">fixture</span><span class="p">:</span> <span class="nx">ComponentFixture</span><span class="o">&lt;</span><span class="nx">AppComponent</span><span class="o">&gt;</span><span class="p">;</span>        
 
-    <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">TestBed</span><span class="p">.</span><span class="na">configureTestingModule</span><span class="p">({</span>
-            <span class="na">declarations</span><span class="o">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">],</span>
-            <span class="na">providers</span><span class="o">:</span> <span class="p">[</span><span class="nx">CarBrandService</span><span class="p">],</span>
-            <span class="na">imports</span><span class="o">:</span> <span class="p">[</span><span class="nx">CommonLogicModule</span><span class="p">]</span>
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="k">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">TestBed</span><span class="p">.</span><span class="nx">configureTestingModule</span><span class="p">({</span>
+            <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">],</span>
+            <span class="na">providers</span><span class="p">:</span> <span class="p">[</span><span class="nx">CarBrandService</span><span class="p">],</span>
+            <span class="na">imports</span><span class="p">:</span> <span class="p">[</span><span class="nx">CommonLogicModule</span><span class="p">]</span>
         <span class="p">})</span>
-        <span class="p">.</span><span class="na">compileComponents</span><span class="p">();</span>
+        <span class="p">.</span><span class="nx">compileComponents</span><span class="p">();</span>
     <span class="p">}));</span>
 
     <span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">fixture</span> <span class="o">=</span> <span class="nx">TestBed</span><span class="p">.</span><span class="na">createComponent</span><span class="p">(</span><span class="nx">AppComponent</span><span class="p">);</span>
-        <span class="nx">component</span> <span class="o">=</span> <span class="nx">fixture</span><span class="p">.</span><span class="na">componentInstance</span><span class="p">;</span>
+        <span class="nx">fixture</span> <span class="o">=</span> <span class="nx">TestBed</span><span class="p">.</span><span class="nx">createComponent</span><span class="p">(</span><span class="nx">AppComponent</span><span class="p">);</span>
+        <span class="nx">component</span> <span class="o">=</span> <span class="nx">fixture</span><span class="p">.</span><span class="nx">componentInstance</span><span class="p">;</span>
 
-        <span class="nx">const</span> <span class="nx">carBrandService</span> <span class="o">=</span> <span class="nx">fixture</span><span class="p">.</span><span class="na">debugElement</span><span class="p">.</span><span class="na">injector</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="nx">CarBrandService</span><span class="p">);</span>
-        <span class="nx">spyOn</span><span class="p">(</span><span class="nx">carBrandService</span><span class="p">,</span> <span class="s">'findAll'</span><span class="p">).</span><span class="na">and</span><span class="p">.</span><span class="na">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="na">of</span><span class="p">([</span>
-            <span class="p">{</span> <span class="na">name</span><span class="o">:</span> <span class="s">'Mazda'</span><span class="p">,</span> <span class="na">country</span><span class="o">:</span> <span class="s">'Japan'</span> <span class="p">},</span>
-            <span class="p">{</span> <span class="na">name</span><span class="o">:</span> <span class="s">'BMW'</span><span class="p">,</span> <span class="na">country</span><span class="o">:</span> <span class="s">'Germany'</span> <span class="p">}</span>
+        <span class="kd">const</span> <span class="nx">carBrandService</span> <span class="o">=</span> <span class="nx">fixture</span><span class="p">.</span><span class="nx">debugElement</span><span class="p">.</span><span class="nx">injector</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">CarBrandService</span><span class="p">);</span>
+        <span class="nx">spyOn</span><span class="p">(</span><span class="nx">carBrandService</span><span class="p">,</span> <span class="s1">'findAll'</span><span class="p">).</span><span class="nx">and</span><span class="p">.</span><span class="nx">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="p">([</span>
+            <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Mazda'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="s1">'Japan'</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'BMW'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="s1">'Germany'</span> <span class="p">}</span>
         <span class="p">]));</span>    
 
-        <span class="nx">fixture</span><span class="p">.</span><span class="na">detectChanges</span><span class="p">();</span>
+        <span class="nx">fixture</span><span class="p">.</span><span class="nx">detectChanges</span><span class="p">();</span>
     <span class="p">});</span>
     <span class="p">...</span>
 <span class="p">});</span></code></pre></figure>
@@ -366,26 +366,26 @@ That’s something we do not want at all.</p>
 <h4 id="mock-classes">Mock classes</h4>
 <p>To prevent forgetting to spy on a certain function, you could create mock classes and inject them instead of the actual classes:</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="k">class</span> <span class="nx">MockCarBrandService</span> <span class="p">{</span>
-    <span class="nx">findAll</span><span class="p">()</span><span class="o">:</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">CarBrand</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">Observable</span><span class="p">.</span><span class="na">of</span><span class="p">([</span>
-            <span class="p">{</span> <span class="na">name</span><span class="o">:</span> <span class="s">'Mazda'</span><span class="p">,</span> <span class="na">country</span><span class="o">:</span> <span class="s">'Japan'</span> <span class="p">},</span>
-            <span class="p">{</span> <span class="na">name</span><span class="o">:</span> <span class="s">'BMW'</span><span class="p">,</span> <span class="na">country</span><span class="o">:</span> <span class="s">'Germany'</span> <span class="p">}</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">class</span> <span class="nx">MockCarBrandService</span> <span class="p">{</span>
+    <span class="nx">findAll</span><span class="p">():</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">CarBrand</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="p">([</span>
+            <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Mazda'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="s1">'Japan'</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'BMW'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="s1">'Germany'</span> <span class="p">}</span>
         <span class="p">]);</span>     
     <span class="p">}</span>   
 <span class="p">}</span>
 
-<span class="nx">describe</span><span class="p">(</span><span class="s">'AppComponent'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">let</span> <span class="na">component</span><span class="o">:</span> <span class="nx">AppComponent</span><span class="p">;</span>
-    <span class="nx">let</span> <span class="na">fixture</span><span class="o">:</span> <span class="nx">ComponentFixture</span><span class="o">&lt;</span><span class="nx">AppComponent</span><span class="o">&gt;</span><span class="p">;</span>        
+<span class="nx">describe</span><span class="p">(</span><span class="s1">'AppComponent'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="na">component</span><span class="p">:</span> <span class="nx">AppComponent</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="na">fixture</span><span class="p">:</span> <span class="nx">ComponentFixture</span><span class="o">&lt;</span><span class="nx">AppComponent</span><span class="o">&gt;</span><span class="p">;</span>        
 
-    <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">TestBed</span><span class="p">.</span><span class="na">configureTestingModule</span><span class="p">({</span>
-            <span class="na">declarations</span><span class="o">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">],</span>
-            <span class="na">providers</span><span class="o">:</span> <span class="p">[{</span><span class="na">provide</span><span class="o">:</span> <span class="nx">CarBrandService</span><span class="p">,</span> <span class="na">useClass</span><span class="o">:</span> <span class="nx">MockCarBrandService</span><span class="p">}],</span>
-            <span class="na">imports</span><span class="o">:</span> <span class="p">[</span><span class="nx">CommonLogicModule</span><span class="p">]</span>
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="k">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">TestBed</span><span class="p">.</span><span class="nx">configureTestingModule</span><span class="p">({</span>
+            <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">],</span>
+            <span class="na">providers</span><span class="p">:</span> <span class="p">[{</span><span class="na">provide</span><span class="p">:</span> <span class="nx">CarBrandService</span><span class="p">,</span> <span class="na">useClass</span><span class="p">:</span> <span class="nx">MockCarBrandService</span><span class="p">}],</span>
+            <span class="na">imports</span><span class="p">:</span> <span class="p">[</span><span class="nx">CommonLogicModule</span><span class="p">]</span>
         <span class="p">})</span>
-        <span class="p">.</span><span class="na">compileComponents</span><span class="p">();</span>
+        <span class="p">.</span><span class="nx">compileComponents</span><span class="p">();</span>
     <span class="p">}));</span>
 
     <span class="p">...</span>
@@ -401,23 +401,23 @@ We can again add spies like in the first approach, but you can imagine that this
 <h4 id="jasmine-spy-objects">Jasmine spy objects</h4>
 <p>So, the first two approaches have some issues. Luckily there’s a better way, Jasmine spy objects:</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">describe</span><span class="p">(</span><span class="s">'AppComponent'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>        
-    <span class="nx">let</span> <span class="na">component</span><span class="o">:</span> <span class="nx">AppComponent</span><span class="p">;</span>
-    <span class="nx">let</span> <span class="na">fixture</span><span class="o">:</span> <span class="nx">ComponentFixture</span><span class="o">&lt;</span><span class="nx">AppComponent</span><span class="o">&gt;</span><span class="p">;</span> 
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">describe</span><span class="p">(</span><span class="s1">'AppComponent'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>        
+    <span class="kd">let</span> <span class="na">component</span><span class="p">:</span> <span class="nx">AppComponent</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="na">fixture</span><span class="p">:</span> <span class="nx">ComponentFixture</span><span class="o">&lt;</span><span class="nx">AppComponent</span><span class="o">&gt;</span><span class="p">;</span> 
 
-    <span class="nx">const</span> <span class="nx">mockCarBrandService</span> <span class="o">=</span> <span class="nx">jasmine</span><span class="p">.</span><span class="na">createSpyObj</span><span class="p">(</span><span class="s">'carBrandService'</span><span class="p">,</span> <span class="p">[</span><span class="s">'findAll'</span><span class="p">]);</span>
-    <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="na">findAll</span><span class="p">.</span><span class="na">and</span><span class="p">.</span><span class="na">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="na">of</span><span class="p">([</span>
-        <span class="p">{</span> <span class="na">name</span><span class="o">:</span> <span class="s">'Mazda'</span><span class="p">,</span> <span class="na">country</span><span class="o">:</span> <span class="s">'Japan'</span> <span class="p">},</span>
-        <span class="p">{</span> <span class="na">name</span><span class="o">:</span> <span class="s">'BMW'</span><span class="p">,</span> <span class="na">country</span><span class="o">:</span> <span class="s">'Germany'</span> <span class="p">}</span>
+    <span class="kd">const</span> <span class="nx">mockCarBrandService</span> <span class="o">=</span> <span class="nx">jasmine</span><span class="p">.</span><span class="nx">createSpyObj</span><span class="p">(</span><span class="s1">'carBrandService'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'findAll'</span><span class="p">]);</span>
+    <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">.</span><span class="nx">and</span><span class="p">.</span><span class="nx">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="p">([</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Mazda'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="s1">'Japan'</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'BMW'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="s1">'Germany'</span> <span class="p">}</span>
     <span class="p">]);</span>
 
-    <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">TestBed</span><span class="p">.</span><span class="na">configureTestingModule</span><span class="p">({</span>
-            <span class="na">declarations</span><span class="o">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">],</span>
-            <span class="na">providers</span><span class="o">:</span> <span class="p">[{</span><span class="na">provide</span><span class="o">:</span> <span class="nx">CarBrandService</span><span class="p">,</span> <span class="na">useValue</span><span class="o">:</span> <span class="nx">mockCarBrandService</span><span class="p">}],</span>
-            <span class="na">imports</span><span class="o">:</span> <span class="p">[</span><span class="nx">CommonLogicModule</span><span class="p">]</span>
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="k">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">TestBed</span><span class="p">.</span><span class="nx">configureTestingModule</span><span class="p">({</span>
+            <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">],</span>
+            <span class="na">providers</span><span class="p">:</span> <span class="p">[{</span><span class="na">provide</span><span class="p">:</span> <span class="nx">CarBrandService</span><span class="p">,</span> <span class="na">useValue</span><span class="p">:</span> <span class="nx">mockCarBrandService</span><span class="p">}],</span>
+            <span class="na">imports</span><span class="p">:</span> <span class="p">[</span><span class="nx">CommonLogicModule</span><span class="p">]</span>
         <span class="p">})</span>
-        <span class="p">.</span><span class="na">compileComponents</span><span class="p">();</span>
+        <span class="p">.</span><span class="nx">compileComponents</span><span class="p">();</span>
     <span class="p">}));</span>
     <span class="p">...</span>
 <span class="p">});</span></code></pre></figure>
@@ -432,10 +432,10 @@ In other words, not all functions offered by the class that’s being mocked hav
 
 <p>Using <code class="highlighter-rouge">spyOn</code> isn’t needed, a spy object is already being spied upon (hence the name) and you can call the <code class="highlighter-rouge">toHaveBeenCalled</code> and <code class="highlighter-rouge">toHaveBeenCalledWith</code> functions on it.</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="p">...</span>
-<span class="nx">it</span><span class="p">(</span><span class="s">'should call the findAll method'</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">component</span><span class="p">.</span><span class="na">getFavoriteCarBrand</span><span class="p">();</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">mockCarBrandService</span><span class="p">.</span><span class="na">findAll</span><span class="p">).</span><span class="na">toHaveBeenCalled</span><span class="p">();</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="p">...</span>
+<span class="nx">it</span><span class="p">(</span><span class="s1">'should call the findAll method'</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">component</span><span class="p">.</span><span class="nx">getFavoriteCarBrand</span><span class="p">();</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">mockCarBrandService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">).</span><span class="nx">toHaveBeenCalled</span><span class="p">();</span>
 <span class="p">});</span> 
 <span class="p">...</span></code></pre></figure>
 
@@ -454,16 +454,16 @@ This means you have less control over them.</p>
 If there’s any subcomponent in the HTML of the component you’re testing, they should either be imported through a module or added in the declarations of the TestBed configuration.
 If you don’t feel like doing all that, you can also tell Angular to skip elements it doesn’t recognise by adding <code class="highlighter-rouge">NO_ERRORS_SCHEMA</code> to the TestBed configuration:</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">TestBed</span><span class="p">.</span><span class="na">configureTestingModule</span><span class="p">({</span>
-    <span class="na">declarations</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">],</span>
-    <span class="na">schemas</span><span class="o">:</span> <span class="p">[</span> <span class="nx">NO_ERRORS_SCHEMA</span> <span class="p">]</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">TestBed</span><span class="p">.</span><span class="nx">configureTestingModule</span><span class="p">({</span>
+    <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">],</span>
+    <span class="na">schemas</span><span class="p">:</span> <span class="p">[</span> <span class="nx">NO_ERRORS_SCHEMA</span> <span class="p">]</span>
 <span class="p">})</span></code></pre></figure>
 
 <p>It’s very likely that you’ll be using the Angular router in some of your components, so you’ll have to account for that too. 
 You could mock the router dependency using a Jasmine spy object or you can add <code class="highlighter-rouge">RouterTestingModule</code> as an import instead of the <code class="highlighter-rouge">RouterModule</code> itself. 
 The routes that are relevant can then be defined in the <code class="highlighter-rouge">RouterTestingModule</code>:</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="na">imports</span><span class="o">:</span> <span class="p">[</span><span class="nx">RouterTestingModule</span><span class="p">.</span><span class="na">withRoutes</span><span class="p">([</span><span class="sr">/*List mock routes here*/</span><span class="p">])]</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">imports</span><span class="p">:</span> <span class="p">[</span><span class="nx">RouterTestingModule</span><span class="p">.</span><span class="nx">withRoutes</span><span class="p">([</span><span class="cm">/*List mock routes here*/</span><span class="p">])]</span></code></pre></figure>
 
 <blockquote>
   <p>To learn more about writing tests using Angular TestBed, I recommend reading this guide: <a href="https://angular.io/guide/testing" target="_blank">https://angular.io/guide/testing</a>.</p>
@@ -475,13 +475,13 @@ The routes that are relevant can then be defined in the <code class="highlighter
 You should get an instance of each dependency that’s needed in the component’s constructor.
 Of course we want to mock these classes and as we saw in the Angular TestBed section, the Jasmine spy objects are the way to go.</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">describe</span><span class="p">(</span><span class="s">'AppComponent'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>        
-    <span class="nx">let</span> <span class="na">component</span><span class="o">:</span> <span class="nx">AppComponent</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">describe</span><span class="p">(</span><span class="s1">'AppComponent'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>        
+    <span class="kd">let</span> <span class="na">component</span><span class="p">:</span> <span class="nx">AppComponent</span><span class="p">;</span>
 
-    <span class="nx">const</span> <span class="nx">mockCarBrandService</span> <span class="o">=</span> <span class="nx">jasmine</span><span class="p">.</span><span class="na">createSpyObj</span><span class="p">(</span><span class="s">'carBrandService'</span><span class="p">,</span> <span class="p">[</span><span class="s">'findAll'</span><span class="p">]);</span>
-    <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="na">findAll</span><span class="p">.</span><span class="na">and</span><span class="p">.</span><span class="na">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="na">of</span><span class="p">([</span>
-        <span class="p">{</span> <span class="na">name</span><span class="o">:</span> <span class="s">'Mazda'</span><span class="p">,</span> <span class="na">country</span><span class="o">:</span> <span class="s">'Japan'</span> <span class="p">},</span>
-        <span class="p">{</span> <span class="na">name</span><span class="o">:</span> <span class="s">'BMW'</span><span class="p">,</span> <span class="na">country</span><span class="o">:</span> <span class="s">'Germany'</span> <span class="p">}</span>
+    <span class="kd">const</span> <span class="nx">mockCarBrandService</span> <span class="o">=</span> <span class="nx">jasmine</span><span class="p">.</span><span class="nx">createSpyObj</span><span class="p">(</span><span class="s1">'carBrandService'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'findAll'</span><span class="p">]);</span>
+    <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">.</span><span class="nx">and</span><span class="p">.</span><span class="nx">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="p">([</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Mazda'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="s1">'Japan'</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'BMW'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="s1">'Germany'</span> <span class="p">}</span>
     <span class="p">]);</span>
 
     <span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -496,10 +496,10 @@ When using TestBed, you’ll probably be including lots of dependencies just to 
 This is something you do not want in unit testing as you want to isolate the class as much as possible. 
 Another difference with TestBed is that you have to call the lifecycle events yourself, again giving you more control over the code you’re testing.</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">it</span><span class="p">(</span><span class="s">'should find the car brand'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">component</span><span class="p">.</span><span class="na">ngOnInit</span><span class="p">();</span>
-    <span class="nx">const</span> <span class="nx">carBrand</span> <span class="o">=</span> <span class="nx">component</span><span class="p">.</span><span class="na">getFavoriteCarBrand</span><span class="p">();</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">carBrand</span><span class="p">.</span><span class="na">name</span><span class="p">).</span><span class="na">toEqual</span><span class="p">(</span><span class="s">'Mazda'</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">it</span><span class="p">(</span><span class="s1">'should find the car brand'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">component</span><span class="p">.</span><span class="nx">ngOnInit</span><span class="p">();</span>
+    <span class="kd">const</span> <span class="nx">carBrand</span> <span class="o">=</span> <span class="nx">component</span><span class="p">.</span><span class="nx">getFavoriteCarBrand</span><span class="p">();</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">carBrand</span><span class="p">.</span><span class="nx">name</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'Mazda'</span><span class="p">);</span>
 <span class="p">});</span> </code></pre></figure>
 
 <h1 id="async-fakeasync-tick">Async, fakeAsync, tick</h1>
@@ -513,29 +513,29 @@ By passing an argument to it, time can be advanced by more ticks at once: <code 
 
 <p>Suppose we have this class:</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">export</span> <span class="k">class</span> <span class="nx">TimeoutExample</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">TimeoutExample</span> <span class="p">{</span>
     <span class="nx">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
     <span class="nx">updateCounterWithDelay</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="na">counter</span><span class="o">++</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">counter</span><span class="o">++</span><span class="p">;</span>
         <span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
 <p>And this test:</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript">  
-<span class="nx">it</span><span class="p">(</span><span class="s">'should increase the counter with a delay'</span><span class="p">,</span> <span class="nx">fakeAsync</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">const</span> <span class="nx">component</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TimeoutExample</span><span class="p">();</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">component</span><span class="p">.</span><span class="na">counter</span><span class="p">).</span><span class="na">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="nx">component</span><span class="p">.</span><span class="na">updateCounterWithDelay</span><span class="p">();</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">  
+<span class="nx">it</span><span class="p">(</span><span class="s1">'should increase the counter with a delay'</span><span class="p">,</span> <span class="nx">fakeAsync</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">component</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TimeoutExample</span><span class="p">();</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">component</span><span class="p">.</span><span class="nx">counter</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="nx">component</span><span class="p">.</span><span class="nx">updateCounterWithDelay</span><span class="p">();</span>
     <span class="nx">tick</span><span class="p">();</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">component</span><span class="p">.</span><span class="na">counter</span><span class="p">).</span><span class="na">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">component</span><span class="p">.</span><span class="nx">counter</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
     <span class="nx">tick</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">component</span><span class="p">.</span><span class="na">counter</span><span class="p">).</span><span class="na">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">component</span><span class="p">.</span><span class="nx">counter</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
     <span class="nx">tick</span><span class="p">(</span><span class="mi">90</span><span class="p">);</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">component</span><span class="p">.</span><span class="na">counter</span><span class="p">).</span><span class="na">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">component</span><span class="p">.</span><span class="nx">counter</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="p">}));</span></code></pre></figure>
 
 <p>It clearly shows how the <code class="highlighter-rouge">tick</code> function manipulates the advancement of time, although it isn’t really a useful test,</p>
@@ -545,13 +545,13 @@ By passing an argument to it, time can be advanced by more ticks at once: <code 
 <p>Now, what if you want to test a function that returns an Observable? 
 Well, simply subscribe to it in an async block and check the result!</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">it</span><span class="p">(</span><span class="s">'should return a list of cars'</span> <span class="nx">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">service</span><span class="p">.</span><span class="na">findAll</span><span class="p">().</span><span class="na">take</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="na">subscribe</span><span class="p">(</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">it</span><span class="p">(</span><span class="s1">'should return a list of cars'</span> <span class="k">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">service</span><span class="p">.</span><span class="nx">findAll</span><span class="p">().</span><span class="nx">take</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">(</span>
         <span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="na">length</span><span class="p">).</span><span class="na">toBe</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
         <span class="p">},</span>
         <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="nx">expect</span><span class="p">(</span><span class="no">true</span><span class="p">).</span><span class="na">toBeFalsy</span><span class="p">();</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
         <span class="p">}</span>
     <span class="p">);</span>
 <span class="p">}));</span></code></pre></figure>
@@ -606,14 +606,14 @@ This will certainly come of use.</p>
 <p>Describe blocks can also be nested. 
 If you want for example different <code class="highlighter-rouge">beforeEach</code> blocks for your tests when testing a class, you can create a nested <code class="highlighter-rouge">describe</code> block for each case.</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">describe</span><span class="p">(</span><span class="s">'AppComponent'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">let</span> <span class="nx">mockCarBrandService</span> <span class="o">=</span> <span class="nx">jasmine</span><span class="p">.</span><span class="na">createSpyObj</span><span class="p">(</span><span class="s">'carBrandService'</span><span class="p">,</span> <span class="p">[</span><span class="s">'findAll'</span><span class="p">]);</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">describe</span><span class="p">(</span><span class="s1">'AppComponent'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">mockCarBrandService</span> <span class="o">=</span> <span class="nx">jasmine</span><span class="p">.</span><span class="nx">createSpyObj</span><span class="p">(</span><span class="s1">'carBrandService'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'findAll'</span><span class="p">]);</span>
 
-    <span class="nx">describe</span><span class="p">(</span><span class="s">'Happy path'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">'Happy path'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="na">findAll</span><span class="p">.</span><span class="na">and</span><span class="p">.</span><span class="na">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="na">of</span><span class="p">([</span>
-                <span class="p">{</span> <span class="na">name</span><span class="o">:</span> <span class="s">'Mazda'</span><span class="p">,</span> <span class="na">country</span><span class="o">:</span> <span class="s">'Japan'</span> <span class="p">},</span>
-                <span class="p">{</span> <span class="na">name</span><span class="o">:</span> <span class="s">'BMW'</span><span class="p">,</span> <span class="na">country</span><span class="o">:</span> <span class="s">'Germany'</span> <span class="p">}</span>
+            <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">.</span><span class="nx">and</span><span class="p">.</span><span class="nx">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="p">([</span>
+                <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Mazda'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="s1">'Japan'</span> <span class="p">},</span>
+                <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'BMW'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="s1">'Germany'</span> <span class="p">}</span>
             <span class="p">]));</span>
         <span class="p">});</span>
 
@@ -621,8 +621,8 @@ If you want for example different <code class="highlighter-rouge">beforeEach</co
         <span class="p">...</span>
     <span class="p">});</span>
     
-    <span class="nx">describe</span><span class="p">(</span><span class="s">'Error path'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="na">findAll</span><span class="p">.</span><span class="na">and</span><span class="p">.</span><span class="na">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="na">throw</span><span class="p">(</span><span class="s">'Error'</span><span class="p">));</span>
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">'Error path'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">.</span><span class="nx">and</span><span class="p">.</span><span class="nx">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="k">throw</span><span class="p">(</span><span class="s1">'Error'</span><span class="p">));</span>
 
         <span class="nx">it</span><span class="p">(...);</span>
         <span class="p">...</span>
@@ -637,8 +637,8 @@ For example when using Angular’s <code class="highlighter-rouge">FormBuilder</
 In that case, you can use Angular’s ReflectiveInjector which takes care of getting an instance for you.
 Here’s an example how:</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">const</span> <span class="nx">injector</span> <span class="o">=</span> <span class="nx">ReflectiveInjector</span><span class="p">.</span><span class="na">resolveAndCreate</span><span class="p">([</span><span class="nx">FormBuilder</span><span class="p">]);</span>
-<span class="nx">const</span> <span class="nx">formBuilder</span> <span class="o">=</span> <span class="nx">injector</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="nx">FormBuilder</span><span class="p">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">const</span> <span class="nx">injector</span> <span class="o">=</span> <span class="nx">ReflectiveInjector</span><span class="p">.</span><span class="nx">resolveAndCreate</span><span class="p">([</span><span class="nx">FormBuilder</span><span class="p">]);</span>
+<span class="kd">const</span> <span class="nx">formBuilder</span> <span class="o">=</span> <span class="nx">injector</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">FormBuilder</span><span class="p">);</span></code></pre></figure>
 
 <p>As you can see, you can simply pass the class name and it will return an instance of that class. 
 That instance can then be passed in the constuctor of the class you’re testing.</p>

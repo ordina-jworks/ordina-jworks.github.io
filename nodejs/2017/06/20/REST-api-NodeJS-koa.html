@@ -205,25 +205,25 @@ tsc <span class="nt">--init</span> //generates a <span class="sb">`</span>tsconf
 
 <p>I want to start with talking about the async / await features. They were what really made this code so fast to write and easy to read. The async keyword marks a function that will always return a promise. The await keyword will automatically unwrap the value from the promise and continue the code when the promise has been resolved. A small example:</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript">  
-    <span class="nx">const</span> <span class="nx">promiseFn</span> <span class="o">=</span> <span class="p">()</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
-	    <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="na">resolve</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">  
+    <span class="kd">const</span> <span class="nx">promiseFn</span> <span class="o">=</span> <span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+	    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s2">"Hello World"</span><span class="p">);</span>
     <span class="p">}</span>
  
-    <span class="o">//</span> <span class="nx">Old</span> <span class="na">way</span><span class="o">:</span>
+    <span class="c1">// Old way:</span>
  
-    <span class="nx">const</span> <span class="nx">asyncFn</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">asyncFn</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
 	    <span class="nx">promiseFn</span><span class="p">()</span>
-		    <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="nx">value</span> <span class="o">=&gt;</span> <span class="p">{</span>
-			    <span class="nx">console</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+		    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">value</span> <span class="o">=&gt;</span> <span class="p">{</span>
+			    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
             <span class="p">});</span>
     <span class="p">}</span>
  
-    <span class="o">/</span><span class="sr">/ With async /</span> <span class="nx">await</span>
+    <span class="c1">// With async / await</span>
  
-    <span class="nx">const</span> <span class="nx">asyncFn</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-	    <span class="nx">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">promiseFn</span><span class="p">();</span>
-	    <span class="nx">console</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">asyncFn</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+	    <span class="kd">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">promiseFn</span><span class="p">();</span>
+	    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
     <span class="p">}</span></code></pre></figure>
 
 <p>You can see how readable it is with the async / await syntax. You can write asynchronous code in a synchronous way and I used it heavily everywhere in my code. I think this is one of the things that will really make writing JavaScript fun. No more callbacks, no more boilerplate code, just the important bits. For error handling you can rely on try catch statements to catch errors and act on them.</p>
@@ -242,26 +242,26 @@ tsc <span class="nt">--init</span> //generates a <span class="sb">`</span>tsconf
 
 <p>To make testing easy, I started looking for a dependency injection framework for TypeScript. I wanted to more or less copy the way I wrote unit tests in Java, which is using dependency injection in your actual code and just creating an instance in your unit test while passing mocks instead of the dependencies. The first dependency injection framework I found, was <a href="https://github.com/jeffijoe/awilix">Awilix</a>. I got Awilix to work, and it worked quite well, but there was still a lot of boilerplate code to write to actually register the services to the container and to get it working. You can also pass folder names so it will register all the services in that folder, but I didn’t find this optimal. I was also using Webpack in the beginning (which I write about later in the article) to build my application and bundle my code, by bundling the code, the paths of the folders obviously didn’t work out anymore in the compiled code, so Awilix was no good for me. I kept searching and I found the library typescript-ioc. This library was based on annotations, so there is barely any configuration overhead and it worked much more like I was used to in Java. typescript-ioc requires you to set experimentalDecorators and emitDecoratorMetadata to true in the tsconfig.json file. You can then just write code like</p>
 
-<figure class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript">  
-    <span class="nx">import</span> <span class="p">{</span> <span class="nx">Container</span> <span class="p">}</span> <span class="nx">from</span> <span class="s">"typescript-ioc"</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">  
+    <span class="k">import</span> <span class="p">{</span> <span class="nx">Container</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"typescript-ioc"</span><span class="p">;</span>
     
-    <span class="k">class</span> <span class="nx">Foo</span> <span class="p">{</span>
-        <span class="nx">doSomething</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span> <span class="p">{</span>
-        	<span class="k">return</span> <span class="s">"Hello World"</span><span class="p">;</span>
+    <span class="kd">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+        <span class="nx">doSomething</span><span class="p">():</span> <span class="nx">string</span> <span class="p">{</span>
+        	<span class="k">return</span> <span class="s2">"Hello World"</span><span class="p">;</span>
         <span class="p">}</span>	
     <span class="p">}</span>
     
-    <span class="k">class</span> <span class="nx">Bar</span> <span class="p">{</span>
-        <span class="nx">constructor</span><span class="p">(</span><span class="vi">@</span><span class="na">Inject</span> <span class="nx">private</span> <span class="na">foo</span><span class="o">:</span> <span class="nx">Foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">class</span> <span class="nx">Bar</span> <span class="p">{</span>
+        <span class="kd">constructor</span><span class="p">(@</span><span class="nd">Inject</span> <span class="kr">private</span> <span class="nx">foo</span><span class="p">:</span> <span class="nx">Foo</span><span class="p">)</span> <span class="p">{</span>
         <span class="p">}</span>	
     
-    	<span class="nx">doAnotherThing</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span> <span class="p">{</span>
-    		<span class="k">this</span><span class="p">.</span><span class="na">foo</span><span class="p">.</span><span class="na">doSomething</span><span class="p">();</span>
+    	<span class="nx">doAnotherThing</span><span class="p">():</span> <span class="nx">string</span> <span class="p">{</span>
+    		<span class="k">this</span><span class="p">.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">doSomething</span><span class="p">();</span>
         <span class="p">}</span>
     <span class="p">}</span>
     
-    <span class="nx">const</span> <span class="na">bar</span><span class="o">:</span><span class="nx">Bar</span> <span class="o">=</span> <span class="nx">Container</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="nx">Bar</span><span class="p">);</span>
-    <span class="nx">bar</span><span class="p">.</span><span class="na">doAnotherThing</span><span class="p">();</span></code></pre></figure>
+    <span class="kd">const</span> <span class="nx">bar</span><span class="p">:</span><span class="nx">Bar</span> <span class="o">=</span> <span class="nx">Container</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">Bar</span><span class="p">);</span>
+    <span class="nx">bar</span><span class="p">.</span><span class="nx">doAnotherThing</span><span class="p">();</span></code></pre></figure>
 
 <h3 id="typeorm">typeorm</h3>
 

@@ -286,7 +286,7 @@ Instead they define a public API in which they can receive inputs (<code class="
 
 <p><em>A simple presentational root component.</em></p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">	<span class="k">export</span> <span class="kd">class</span> <span class="nx">RootComponent</span> <span class="kr">implements</span> <span class="nx">IComponentOptions</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">	<span class="k">export</span> <span class="kd">class</span> <span class="nx">RootComponent</span> <span class="kr">implements</span> <span class="nx">IComponentOptions</span> <span class="p">{</span>
 		<span class="kr">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'app'</span><span class="p">;</span>
 
 		<span class="nl">bindings</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
@@ -310,7 +310,7 @@ Also notice how easy it was to register this component directive.</p>
 
 <p><em>Let’s create the same component directive but register it with the <code class="highlighter-rouge">.directive()</code> method.</em></p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">    <span class="k">export</span> <span class="kd">class</span> <span class="nx">RootComponent</span> <span class="kr">implements</span> <span class="nx">IDirective</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">    <span class="k">export</span> <span class="kd">class</span> <span class="nx">RootComponent</span> <span class="kr">implements</span> <span class="nx">IDirective</span> <span class="p">{</span>
         <span class="kr">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'app'</span><span class="p">;</span>
         <span class="nl">restrict</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'E'</span><span class="p">,</span>
         <span class="nx">bindToController</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
@@ -353,7 +353,7 @@ The container component eventually decides what action to take with the data, no
 
 <p><em>First we start with our component definition:</em></p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">    <span class="k">export</span> <span class="kd">class</span> <span class="nx">CurrencyConverter</span> <span class="kr">implements</span> <span class="nx">IComponentOptions</span><span class="p">{</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">    <span class="k">export</span> <span class="kd">class</span> <span class="nx">CurrencyConverter</span> <span class="kr">implements</span> <span class="nx">IComponentOptions</span><span class="p">{</span>
         <span class="kr">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'currencyConverter'</span><span class="p">;</span>
 
         <span class="nl">template</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s2">`
@@ -382,7 +382,7 @@ Our container component can bind a callback method on the on-selected attribute 
 
 <p>Below we define our components controller, here we can set and manipulate our template’s view model.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">CurrencyConverterComponentController</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">CurrencyConverterComponentController</span> <span class="p">{</span>
 
     <span class="nl">selectedFromCurrency</span><span class="p">:</span><span class="nx">Currency</span><span class="p">;</span>
     <span class="nl">selectedToCurrency</span><span class="p">:</span><span class="nx">Currency</span><span class="p">;</span>
@@ -429,7 +429,7 @@ In this method we set our view model properties <code class="highlighter-rouge">
 
 <p>So how does our presentational component definition look like?</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">CurrencySelectComponent</span> <span class="kr">implements</span> <span class="nx">IComponentOptions</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">CurrencySelectComponent</span> <span class="kr">implements</span> <span class="nx">IComponentOptions</span> <span class="p">{</span>
     <span class="kr">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'currenciesSelect'</span><span class="p">;</span>
 
     <span class="nl">bindings</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
@@ -486,26 +486,26 @@ It only receives data through its input bindings:</p>
 <p><strong>Make sure the parameter object key matches the parameter name in the parent component’s viewmodel</strong>, or the component will not be able to communicate any data.
 in this case <code class="highlighter-rouge">selectedCurrency</code>:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">onCurrencyClick</span><span class="p">(</span><span class="nx">currency</span><span class="p">:</span><span class="nx">Currency</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">onCurrencyClick</span><span class="p">(</span><span class="nx">currency</span><span class="p">:</span><span class="nx">Currency</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">selected</span> <span class="o">=</span> <span class="nx">currency</span><span class="p">;</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">onSelected</span><span class="p">({</span><span class="na">selectedCurrency</span><span class="p">:</span> <span class="nx">currency</span><span class="p">});</span>
 <span class="p">}</span></code></pre></figure>
 
 <p>And inside the parent component’s template:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span> <span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="s2">"$ctrl.toSelected(selectedCurrency)"</span> <span class="p">...</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span> <span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="s2">"$ctrl.toSelected(selectedCurrency)"</span> <span class="p">...</span></code></pre></figure>
 
 <p>Another way of accessing selectedCurrency, is to use <code class="highlighter-rouge">$locals</code>.
 This is useful when you want to send multiple types of data back.
 The advantage is you don’t have to specify each parameter separately in the component’s template.
 The disadvantage is <code class="highlighter-rouge">$locals</code> is not descriptive.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span>
 	<span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="s2">"$ctrl.toSelected($locals)"</span><span class="p">...</span></code></pre></figure>
 
 <p>To access the selectedCurrency you would use the property on the $locals object with the same name:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">toSelected</span><span class="p">(</span><span class="nx">$locals</span><span class="p">:</span><span class="nx">any</span><span class="p">):</span><span class="k">void</span><span class="p">{</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">toSelected</span><span class="p">(</span><span class="nx">$locals</span><span class="p">:</span><span class="nx">any</span><span class="p">):</span><span class="k">void</span><span class="p">{</span>
 	<span class="kd">var</span> <span class="na">selected</span><span class="p">:</span><span class="nx">Currency</span> <span class="o">=</span> <span class="nx">$locals</span><span class="p">.</span><span class="nx">selectedCurrency</span> <span class="p">...</span>
 <span class="p">}</span></code></pre></figure>
 
@@ -515,7 +515,7 @@ The disadvantage is <code class="highlighter-rouge">$locals</code> is not descri
 
 <p>In our previous example we saw an example of child to parent communication by mapping an output binding:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">binding</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">binding</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
 	<span class="na">onSelected</span><span class="p">:</span> <span class="s1">'&amp;'</span>
 <span class="p">}</span></code></pre></figure>
 
@@ -525,7 +525,7 @@ The disadvantage is <code class="highlighter-rouge">$locals</code> is not descri
 
 <p>A child component can also require its parent components controller by mapping it in the require property:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">require</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">require</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
 	<span class="na">parentCtrl</span><span class="p">:</span> <span class="s1">'^parentComponentName'</span>
 <span class="p">}</span></code></pre></figure>
 
@@ -540,7 +540,7 @@ The parent controller will get bound on to the property <code class="highlighter
 <p>We should access and manipulate application state in our container components, but only through services, a component’s controller primary responsibility is to manage the template’s view model.
 You can implement a custom observer pattern inside the service, or use the rootscope as an eventbus.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">SampleService</span><span class="p">{</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">SampleService</span><span class="p">{</span>
     <span class="kr">static</span> <span class="nx">SERVICE_NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s2">"mysampleservice"</span><span class="p">;</span>
     <span class="kr">static</span> <span class="nx">EVENT_NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s2">"sampleEvent"</span><span class="p">;</span>
 
@@ -559,7 +559,7 @@ You can implement a custom observer pattern inside the service, or use the roots
 
 <p>A component controller can get notified by any changes by subscribing to the service:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">    <span class="k">export</span> <span class="kd">class</span> <span class="nx">MyComponentController</span><span class="p">{</span>		
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">    <span class="k">export</span> <span class="kd">class</span> <span class="nx">MyComponentController</span><span class="p">{</span>		
         <span class="kr">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'$scope'</span><span class="p">,</span> <span class="nx">SampleService</span><span class="p">.</span><span class="nx">SERVICE_NAME</span><span class="p">];</span>
         <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">isolatescope</span><span class="p">:</span><span class="nx">IScope</span><span class="p">,</span> <span class="kr">private</span> <span class="nx">sampleService</span><span class="p">:</span><span class="nx">SampleService</span><span class="p">){}</span>
 
