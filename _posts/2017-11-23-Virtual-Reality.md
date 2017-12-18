@@ -54,11 +54,10 @@ Head tracking, touch screens, gloves... //TODO add more
 This is also when videogame companies tried to capitalise on this exciting new technology and bring it to a wider public.
 But the technology was still rough and did not catch on in big numbers.
 
-//TODO intro new VR with oculus in 2012
+But then in 2012, when the Oculus Rift was being kickstarted, things started pacing up again.
 
 
-
-## Different types of realities // or should I use the "all kinds of realities" title here?
+## All kinds of realities
 
 Alright, so we have been talking about virtual reality for a while.
 But what exactly is virtual reality (VR), augmented reality (AR), mixed reality (MR) and all that goodness?
@@ -89,6 +88,8 @@ This means it contains both elements of the real world and a virtual world.
 It can go all the way from mostly real world with a bit of virtual world sprinkled on top
 to mostly virtual world with a few traces of the real world visible.
 With MR, as opposed to AR and AV, the real world and virtual world are aware and can interact with eachother!
+
+We see the term X-realities being used to describe any of the VR, AR, MR and any other realities.
 
 These terms are pretty vague and some have even changed meaning over the years.
 No need to think too much about these terms.
@@ -158,9 +159,19 @@ While specialized depth sensing sensors exist, they are not as widespread.
 
 //TODO !!
 
+Mixed Reality takes the best of all worlds!
+Mixed reality will not replace either AR or VR but does take features from both.
+What makes Mixed Reality special is that it understands the environment.
+They take the form of glasses or headsets with cameras and other sensors.
+Often sensors are used to map the physical 3D space so the virtual objects know where they are situated.
+This is where you get the holographic experiences.
+They are not real holograms but look and act exactly as you would expect from a hologram.
+If you are still looking through the glasses or headset that is.
+
+
 ## Creating realities
 
-Since these kind of applications are often so visual in nature, we can make use of tools used in game development.
+Since these kind of applications are often so visual in nature, we can make use of tools used in game development.  
 These are some of the most popular and free tools.
 * Unity
 * Unreal Engine
@@ -176,6 +187,9 @@ Since the inception of these two APIs the amount of AR apps has greatly increase
 There are many other SDKs available.
 Many of which even have their own Unity plugin.
 Vuforia and ARToolkit seem to be the most popular ones.
+Google is even discontinuing it's Tango project in favor of ARCore.
+
+Microsoft created the Windows Mixed Reality framework for Mixed, Virtual or Augmented reality apps to run on windows 10 pc's.
 
 
 ## Business cases & Examples
@@ -187,25 +201,23 @@ So, as software developers, what can we do with all this fancy tech?
 Our Dutch colleagues already made a cool VR application!
 <iframe width="560" height="315" src="https://www.youtube.com/embed/wnC-jvtwJtY" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
 
+Virtual Reality is still widely used for training purposes.
+Whether it is for a boat, an aircraft, a machine or a human body, a virtual space can prepare someone for situations that are otherwise very costly or difficult to simulate.
 
-// ordina boat
-// training and simulation (flying/ aerospace)
-// medical
-// houses/ikea
-// kids
-// patients
-// manufactoring, factory
+Showing information when and where you need it.
+On a mobile phone screen, through glasses or projected on a surface, having the correct information at hand is always useful.
 
+Visualizing a product before it is manufactured can enhance the design process by discovering points of improvement much earlier on.
+Visualization like Ikea's app for trying furniture or a tour through historic Bruges or even business cards with an AR marker for increased memorability.
 
-## platforms
-//TODO 
+For us at Ordina, we see most potential in AR and MR.
 
-Google is discontinuing it's Tango project in favor of ARCore.
 
 ## Conclusion
-TODO
 
-For us at Ordina, most potential lies in AR and MR.
-
-
+A lot of things are still shaping up in the X-realities space.
+Early forms of VR have existed for a while but the current form is still not very mature.
+Virtual Reality is not near the real thing yet.
+A lot of solutions and standards are still being figured out.
+Which means now is a great time for us to try stuff out!
 
