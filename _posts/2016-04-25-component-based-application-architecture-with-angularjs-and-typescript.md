@@ -103,7 +103,7 @@ These components are unaware of any application state, and they only get data pa
 
 *A simple presentational root component.*
 
-{% highlight javascript %}
+{% highlight typescript %}
 	export class RootComponent implements IComponentOptions {
 		static NAME:string = 'app';
 
@@ -130,7 +130,7 @@ Also notice how easy it was to register this component directive.
 
 *Let's create the same component directive but register it with the `.directive()` method.*
 
-{% highlight javascript %}
+{% highlight typescript %}
     export class RootComponent implements IDirective {
         static NAME:string = 'app';
         restrict:string = 'E',
@@ -174,7 +174,7 @@ Let's look at an example of a container component, I will leave out the complete
 
 *First we start with our component definition:*
 
-{% highlight javascript %}
+{% highlight typescript %}
     export class CurrencyConverter implements IComponentOptions{
         static NAME:string = 'currencyConverter';
 
@@ -206,7 +206,7 @@ Our container component can bind a callback method on the on-selected attribute 
 
 Below we define our components controller, here we can set and manipulate our template's view model.
 
-{% highlight javascript %}
+{% highlight typescript %}
 export class CurrencyConverterComponentController {
 
     selectedFromCurrency:Currency;
@@ -256,7 +256,7 @@ The `fromSelected` and `toSelected` methods are passed down as callbacks for the
 
 So how does our presentational component definition look like?
 
-{% highlight javascript %}
+{% highlight typescript %}
 export class CurrencySelectComponent implements IComponentOptions {
     static NAME:string = 'currenciesSelect';
 
@@ -311,7 +311,7 @@ The output binding `public onSelected:Function;` gets called each time the `onCu
 **Make sure the parameter object key matches the parameter name in the parent component's viewmodel**, or the component will not be able to communicate any data.
 in this case `selectedCurrency`:
 
-{% highlight javascript %}
+{% highlight typescript %}
 onCurrencyClick(currency:Currency) {
   this.selected = currency;
   this.onSelected({selectedCurrency: currency});
@@ -320,7 +320,7 @@ onCurrencyClick(currency:Currency) {
 
 And inside the parent component's template:
 
-{% highlight javascript %}
+{% highlight typescript %}
 <currencies-select on-selected="$ctrl.toSelected(selectedCurrency)" ...
 {% endhighlight %}
 
@@ -329,14 +329,14 @@ This is useful when you want to send multiple types of data back.
 The advantage is you don't have to specify each parameter separately in the component's template.
 The disadvantage is `$locals` is not descriptive.
 
-{% highlight javascript %}
+{% highlight typescript %}
 <currencies-select
 	on-selected="$ctrl.toSelected($locals)"...
 {% endhighlight %}
 
 To access the selectedCurrency you would use the property on the $locals object with the same name:
 
-{% highlight javascript %}
+{% highlight typescript %}
 toSelected($locals:any):void{
 	var selected:Currency = $locals.selectedCurrency ...
 }
@@ -348,7 +348,7 @@ toSelected($locals:any):void{
 
 In our previous example we saw an example of child to parent communication by mapping an output binding:
 
-{% highlight javascript %}
+{% highlight typescript %}
 binding:any = {
 	onSelected: '&'
 }
@@ -360,7 +360,7 @@ The parent component can pass a method to this binding which the child component
 
 A child component can also require its parent components controller by mapping it in the require property:
 
-{% highlight javascript %}
+{% highlight typescript %}
 require:any = {
 	parentCtrl: '^parentComponentName'
 }
@@ -377,7 +377,7 @@ Be aware that this creates a tight coupling between the child and parent compone
 We should access and manipulate application state in our container components, but only through services, a component's controller primary responsibility is to manage the template's view model.
 You can implement a custom observer pattern inside the service, or use the rootscope as an eventbus.
 
-{% highlight javascript %}
+{% highlight typescript %}
 export class SampleService{
     static SERVICE_NAME:string = "mysampleservice";
     static EVENT_NAME:string = "sampleEvent";
@@ -398,7 +398,7 @@ export class SampleService{
 
 A component controller can get notified by any changes by subscribing to the service:
 
-{% highlight javascript %}
+{% highlight typescript %}
     export class MyComponentController{		
         static $inject = ['$scope', SampleService.SERVICE_NAME];
         constructor(private isolatescope:IScope, private sampleService:SampleService){}

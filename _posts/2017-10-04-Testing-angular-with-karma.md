@@ -68,7 +68,7 @@ Assertions are made using the `expect` function. You can give it a variable or a
 
 Here's an example: 
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 describe('NAME_OF_YOUR_CLASS', () => {
     let component;
 
@@ -120,7 +120,7 @@ Calling `createComponent` will return a 'fixture' which can be used to access th
 With the fixture you can find HTML elements and perform actions on them, verify their content and attributes...
 The instance of the class can be used to test its public functions (unit test).
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 describe('AppComponent', () => {
     let component: AppComponent;
     let fixture: ComponentFixture<AppComponent>;
@@ -168,7 +168,7 @@ We also want to be able to easily control the output of all dependencies of our 
 One way to do so is by creating spies for all calls to functions of those dependencies. 
 That's where the `spyOn` function comes into play:
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 describe('AppComponent', () => {
     let component: RequestPopupContainer;
     let fixture: ComponentFixture<AppComponent>;        
@@ -206,7 +206,7 @@ That's something we do not want at all.
 #### Mock classes
 To prevent forgetting to spy on a certain function, you could create mock classes and inject them instead of the actual classes:
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 class MockCarBrandService {
     findAll(): Observable<CarBrand[]> {
         return Observable.of([
@@ -243,7 +243,7 @@ We can again add spies like in the first approach, but you can imagine that this
 #### Jasmine spy objects
 So, the first two approaches have some issues. Luckily there's a better way, Jasmine spy objects:
     
-{% highlight coffeescript %}
+{% highlight typescript %}
 describe('AppComponent', () => {        
     let component: AppComponent;
     let fixture: ComponentFixture<AppComponent>; 
@@ -274,7 +274,7 @@ In other words, not all functions offered by the class that's being mocked have 
 
 Using `spyOn` isn't needed, a spy object is already being spied upon (hence the name) and you can call the `toHaveBeenCalled` and `toHaveBeenCalledWith` functions on it.
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 ...
 it('should call the findAll method' () => {
     component.getFavoriteCarBrand();
@@ -298,7 +298,7 @@ Getting all the imports, providers and declarations setup can be quite a struggl
 If there's any subcomponent in the HTML of the component you're testing, they should either be imported through a module or added in the declarations of the TestBed configuration.
 If you don't feel like doing all that, you can also tell Angular to skip elements it doesn't recognise by adding `NO_ERRORS_SCHEMA` to the TestBed configuration:
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 TestBed.configureTestingModule({
     declarations: [ AppComponent ],
     schemas: [ NO_ERRORS_SCHEMA ]
@@ -309,7 +309,7 @@ It's very likely that you'll be using the Angular router in some of your compone
 You could mock the router dependency using a Jasmine spy object or you can add `RouterTestingModule` as an import instead of the `RouterModule` itself. 
 The routes that are relevant can then be defined in the `RouterTestingModule`:
     
-{% highlight coffeescript %}
+{% highlight typescript %}
 imports: [RouterTestingModule.withRoutes([/*List mock routes here*/])]
 {% endhighlight %}  
 
@@ -321,7 +321,7 @@ A much better way to do unit testing is to simply call the constructor of the cl
 You should get an instance of each dependency that's needed in the component's constructor.
 Of course we want to mock these classes and as we saw in the Angular TestBed section, the Jasmine spy objects are the way to go.
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 describe('AppComponent', () => {        
     let component: AppComponent;
 
@@ -344,7 +344,7 @@ When using TestBed, you’ll probably be including lots of dependencies just to 
 This is something you do not want in unit testing as you want to isolate the class as much as possible. 
 Another difference with TestBed is that you have to call the lifecycle events yourself, again giving you more control over the code you’re testing.
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 it('should find the car brand', () => {
     component.ngOnInit();
     const carBrand = component.getFavoriteCarBrand();
@@ -363,7 +363,7 @@ By passing an argument to it, time can be advanced by more ticks at once: `tick(
 
 Suppose we have this class:
     
-{% highlight coffeescript %}
+{% highlight typescript %}
 export class TimeoutExample {
     counter = 0;
 
@@ -377,7 +377,7 @@ export class TimeoutExample {
     
 And this test:
 
-{% highlight coffeescript %}  
+{% highlight typescript %}  
 it('should increase the counter with a delay', fakeAsync(() => {
     const component = new TimeoutExample();
     expect(component.counter).toBe(0);
@@ -398,7 +398,7 @@ It clearly shows how the `tick` function manipulates the advancement of time, al
 Now, what if you want to test a function that returns an Observable? 
 Well, simply subscribe to it in an async block and check the result!
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 it('should return a list of cars' async(() => {
     service.findAll().take(1).subscribe(
         (result) => {
@@ -461,7 +461,7 @@ This will certainly come of use.
 Describe blocks can also be nested. 
 If you want for example different `beforeEach` blocks for your tests when testing a class, you can create a nested `describe` block for each case.
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 describe('AppComponent', () => {
     let mockCarBrandService = jasmine.createSpyObj('carBrandService', ['findAll']);
 
@@ -494,7 +494,7 @@ For example when using Angular's `FormBuilder` or when you need it to create a `
 In that case, you can use Angular's ReflectiveInjector which takes care of getting an instance for you.
 Here's an example how:
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 const injector = ReflectiveInjector.resolveAndCreate([FormBuilder]);
 const formBuilder = injector.get(FormBuilder);
 {% endhighlight %}  

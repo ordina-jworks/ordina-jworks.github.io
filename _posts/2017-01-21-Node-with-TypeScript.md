@@ -126,7 +126,7 @@ The most commonly used dependencies have their typings available here!
 
 You can add the typings to the dependencies in the package.json file.
 
-    {% highlight coffeescript %}
+    {% highlight typescript %}
 
     "dependencies": {
         "typescript": "2.0.8",
@@ -170,7 +170,7 @@ The master instance itself will not execute any application logic.
 Its purpose is to manage the other workers and be the message bridge.
 <br/><br/>
 
-    {% highlight coffeescript %}
+    {% highlight typescript %}
 
     /**
      * Forks the workers, there will always be one DataBroker and one IntervalWorker.
@@ -228,7 +228,7 @@ A `Parameter` is provided with a Generic type for compile time type checking, a 
 A `ParameterValidator` is used to validate the `Parameter` at runtime.
 If the check fails an error is shown to the user.
 
-    {% highlight coffeescript %}
+    {% highlight typescript %}
 
     /**
      * Maps the default endpoints.
@@ -295,7 +295,7 @@ It can also run Arduino scenarios.
 These are Implementations that contain logic to perform actions on the Arduino or in response to something that happens on the Arduino.
 The `IntervalWorker` picks up what type of Arduino `Scenario` you want to run and starts the logic.
 
-    {% highlight coffeescript %}
+    {% highlight typescript %}
 
     /**
      * Sets up the connection to the Arduino and starts the desired Arduino Scenario.
@@ -352,7 +352,7 @@ The callback is executed when a reply to the original message is received.
 Because only basic data types can be sent across Node instances the `MessageManager` instance of the caller stores the callback reference and generates an unique id for said callback.
 This allows the application to send the callback ID across Node instances and execute it when it arrives back at the caller.
 
-    {% highlight coffeescript %}
+    {% highlight typescript %}
 
     /**
          * MessageManager singleton class.
@@ -455,7 +455,7 @@ This allows the application to send the callback ID across Node instances and ex
 
     <br/> <br/>
 
-    {% highlight coffeescript %}
+    {% highlight typescript %}
 
     /**
      * MessageHandler singleton class.
