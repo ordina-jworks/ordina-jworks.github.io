@@ -132,7 +132,7 @@ The first part of this exercise consisted of reading six case studies and writin
 These post-it notes will be used in a later exercise, after an explanation of the so-called Integral Theory:
 <div class="row">
   <div class="6u -3u 8u(small) -2u(small) 12u(xsmall)">
-    <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/Integral-Theory1.png">
+    <img class="image fit" alt="Integral Theory" src="/img/xpdays-benelux-2017/Integral-Theory1.png">
   </div>
 </div>
 Integral Theory was created and shaped by Ken Wilber and consists of the idea that anything can be viewed as a thing by itself or as part of a larger group (**Individual VS Collective**).
@@ -145,7 +145,7 @@ Anything can also be seen from within and from the outside (**Interior VS Exteri
 The following image gives an overview of the questions that help organize knowledge into the quadrants:
 <div class="row">
   <div class="6u -3u 8u(small) -2u(small) 12u(xsmall)">
-    <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/Integral-Theory2.png">
+    <img class="image fit" alt="Integral Theory" src="/img/xpdays-benelux-2017/Integral-Theory2.png">
   </div>
 </div>
 
@@ -168,7 +168,7 @@ The point of the interview was asking questions to guide the interviewee in tell
 The steps for executing this exercise are covered in this picture:
 <div class="row">
   <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
-    <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/Art-of-Hosting2.png">
+    <img class="image fit" alt="The Art of Hosting" src="/img/xpdays-benelux-2017/Art-of-Hosting2.png">
   </div>
 </div>
 
@@ -177,7 +177,7 @@ This kind of conversation is built upon four key elements:
 
 <div class="row">
   <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
-    <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/Art-of-Hosting3.png">
+    <img class="image fit" alt="The Art of Hosting" src="/img/xpdays-benelux-2017/Art-of-Hosting3.png">
   </div>
 </div>
 
@@ -203,6 +203,6 @@ More info on the Art of Hosting can be found in the following image and on the [
 
 <div class="row">
   <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
-    <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/Art-of-Hosting4.png">
+    <img class="image fit" alt="The Art of Hosting" src="/img/xpdays-benelux-2017/Art-of-Hosting4.png">
   </div>
 </div>
