@@ -15,6 +15,7 @@ comments: true
 
 <img alt="Virtual Relaity" src="{{ '/img/virtualreality/matrix.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
+
 ## Intro
 The concept of virtual reality is not a new one, neither is the one of augmented reality.
 It has been around for quite a long time already.
@@ -26,7 +27,6 @@ It is in the recent years that technological advancements have made it possible 
 
 
 ## A trip down memory lane...
-
 <img alt="Sensorama" src="{{ '/img/virtualreality/sensorama.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 In 1962 some crazy person built what is generally believed to be the first virtual reality experience.
@@ -55,54 +55,70 @@ Different ways of interacting with this virtual world also started appearing:
 This is also when video game companies first tried to capitalize on this exciting new technology and bring it to a wider audience.
 But the technology was still too rough and did not catch on.
 Some of these early attempts include:
-- //TODO: Nintento VR glasses en consorts...
-- //TODO: List a few here
+- Nintendo Virtual Boy
+- Virtuality (arcade system)
+- iGlasses
+- VFX-1
 
-But then in 2012, when the Oculus Rift was kickstarted, things started pacing up again and public interest in the technology rose to a new high.
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/virtualreality/virtualboy.jpg' | prepend: site.baseurl }}" data-lightbox="booth" data-title="The Nintento VirtualBoy">
+        <img alt="The Nintento VirtualBoy" src="{{ '/img/virtualreality/virtualboy.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 56.40%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/virtualreality/virtuality.jpg' | prepend: site.baseurl }}" data-lightbox="booth" data-title="The Virtuality arcade system">
+        <img alt="The Virtuality arcade system" src="{{ '/img/virtualreality/virtuality.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 39.65%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/virtualreality/iglasses.jpg' | prepend: site.baseurl }}" data-lightbox="booth" data-title="The iGlasses VR glasses">
+        <img alt="The iGlasses AR glasses" src="{{ '/img/virtualreality/iglasses.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 44.55%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/virtualreality/vfx1.jpg' | prepend: site.baseurl }}" data-lightbox="booth" data-title="The VFX-1 VR glasses">
+        <img alt="The VFX-1 VR glasses" src="{{ '/img/virtualreality/vfx1.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 51.50%; display: inline-block;">
+    </a>
+</div>
+
+But then came 2012.
+The year in which the Oculus Rift was kickstarted. 
+This sparked a renewed interest in virtual reality, which thanks to technological innovations was looking much, much better it ever had!
+
+<img alt="Oculus Rift" src="{{ '/img/virtualreality/oculus.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 
 ## All kinds of realities
-
 Alright, so we have been talking about virtual reality for a while.
-But what exactly is virtual reality (VR), augmented reality (AR), mixed reality (MR) and all that goodness?
+But what exactly are virtual reality (VR), augmented reality (AR) and mixed reality (MR) and how do they relate.
 
-//TODO insert picture reality - virtuality continuum. the one from wikipedia is good, same as in the slides.
-<img alt="Sensorama" src="{{ '/img/virtualreality/sensorama.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
-
+<img alt="The reality - virtuality continuum" src="{{ '/img/virtualreality/continuum.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 Above you see the reality - virtuality continuum.
 
 Let's start on the left side.
 The left side depicts Reality or the Real World. 
-With the Real World we mean the world where you, as the reader of this article, most likely, are sitting in a chair looking at your computer screen or holding your smartphone.
-For the sake of this article we assume that is the real world and there are no matrix-like shenanigans going on.
-Simply put, the world as you know it outside of any screens.
+With the Real World we mean the world where you, as the reader of this article, are sitting in a chair looking at your computer screen or holding your smartphone.
+For the sake of this article we assume that the world is real and there are no matrix-like shenanigans going on.
+Simply put, the world as you know it and experience it every day, the world you and I live in.
 
 On the other end of the spectrum we see the Virtual Environment.
 Everything in the virtual environment is virtual, so 'not real'.
 It is the imaginary world that you see on a screen.
 The user is locked out of the real world.
+An extreme example we all know of this would be the Matrix, in which the person lives his or her live inside the matrix not knowing the entire thing is not real.
 
-Augmented Reality (AR) and Augmented Virtuality (AV) lie a bit in the middle then.
-As their names suggest, AR is more closely aligned to the real world
+Augmented Reality (AR) and Augmented Virtuality (AV) are situated in between these two ends of the spectrum.
+As their names suggest, AR is more closely aligned with the real world
 while AV is closer to the virtual world.
-In other words AR consists of mostly real world with a few virtual elements augmenting the experience.
-AV exists mostly in the virtual world with a few elements of our real world visible.
+In other words AR consists of a mostly real world with a few virtual elements augmenting the experience.
+AV exists mostly in the virtual world where a few elements of our real world visible.
 
- // TODO describe this later ==> In practice this usually means an overlay 
-
-Mixed reality or Merged reality (MR) is a term used to describe anything between reality and virtuality.
+Mixed or Merged reality (MR) is a term used to describe anything between reality and virtuality.
 This means it contains both elements of the real world and a virtual world.
-It can go all the way from mostly real world with a bit of virtual world sprinkled on top
-to mostly virtual world with a few traces of the real world visible.
-With MR, as opposed to AR and AV, the real world and virtual world are aware and can interact with each other!
+It can go all the way from a mostly real world with a bit of virtual world sprinkled on top to mostly virtual world with only trace elements of the real world remaining visible.
+With MR as opposed to AR and AV, the virtual world is aware of the real world and can interact accordingly.
 
 We see the term X-realities being used to describe any of the VR, AR, MR and any other realities.
 
 These terms are pretty vague and some have even changed meaning over the years.
-No need to think too much about these terms.
+They outline the boundaries of the different areas in the spectrum, but they tend to bleed over into one another very easily, and get mixed up a lot!
+
 
 ### Virtual Reality
-
 We call something Virtual Reality when the user is emerged in a virtual world and completely blocked out from the real world.
 This can be as simple as a 360 video.
 (In practice you can still see through the cracks of cheaper headsets)
@@ -123,8 +139,8 @@ Though you have the additional setup to deal with compared to a phone where you 
 
 //TODO some more. check presentation. controls etc
 
-### Augmented Reality
 
+### Augmented Reality
 //TODO insert picture of pokémon go
 <img alt="Sensorama" src="{{ '/img/virtualreality/sensorama.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
