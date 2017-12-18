@@ -8,8 +8,8 @@ category: Conference
 comments: true
 ---
 
-> [XP Days Benelux](http://www.xpdaysbenelux.nl){:target="_blank"} is a two day conference on agile software development for and by Agile practitioners.
-In this post, I will take you along to some talks I attended and some sessions I participated in.
+> [XP Days Benelux](http://www.xpdaysbenelux.nl){:target="_blank"} is a two day conference on agile software development for and by agile practitioners.
+In this post, I will take you along to the talks and sessions I attended and participated in.
 
 <div class="the-toc">
 
@@ -35,15 +35,12 @@ In this post, I will take you along to some talks I attended and some sessions I
 It is very common for a Scrum Master to get tasks assigned, that aren't actually tasks a Scrum Master should be performing in the first place.
 The job description of a Scrum Master comes with a lot of other tasks than people, sometimes including the Scrum Master, assume.
 
-The session starts with an overview of the 8 misunderstood stances of a Scrum Master:
-<div class="row">
-  <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
-    <img class="image fit" alt="The 8 Misunderstood Stances of a Scrum Master" src="/img/xpdays-benelux-2017/8-Misunderstood-Stances.png">
-  </div>
-</div>
+The session starts with an overview of the eight misunderstood stances of a Scrum Master:
+
+<img alt="The 8 Misunderstood Stances of a Scrum Master" src="{{ '/img/xpdays-benelux-2017/8-Misunderstood-Stances.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
 
 * **Scrum Police:** Scrum isn't a hard set of rules to be followed. There's absolutely nothing wrong with a bit of flexibility and empathy based on the team's situation.
-Time boxing for example is very important but keep an open mind when the team is having a very valuable conversation, after the time box has ended.
+Time boxing for example is very important but keep an open mind when the team is having a very valuable conversation after the time box has ended.
 Flexibility regarding time boxing is of course not meant to happen too often. So keep an eye on recurring discussions to see if they need to be addressed individually.
 * **Hero:** Managing and solving all problems and impediments like nobody's business! While an important task for the Scrum Master, make sure not to get too focused on being the team's impediment super hero.
 * **Scribe:** "Hey John, you're taking notes again for this meeting, right? Thanks!". Do you recognize this exchange? Congratulations, you're the team's personal scribe.
@@ -59,14 +56,13 @@ Glad you asked!
 
 The eight preferred stances are:
 
-<div class="row">
-  <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
-    <img class="image fit" alt="The 8 Preferred Stances of a Scrum Master" src="/img/xpdays-benelux-2017/8-Preferred-Stances.png">
-  </div>
-</div>
+<img alt="The 8 Preferred Stances of a Scrum Master" src="{{ '/img/xpdays-benelux-2017/8-Preferred-Stances.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
 
-* **Teacher:** "The art of teaching is the art of assisting discovery." - Mark Van Doren. There is much the Scrum Master can teach the Scrum Team. The Scrum Master must ensure that Scrum is understood and implemented properly by the entire team.
+* **Teacher:** There is much the Scrum Master can teach the Scrum Team. The Scrum Master must ensure that Scrum is understood and implemented properly by the entire team.
 He or she makes sure the team stays on track of the Agile practices and principles.
+
+> "The art of teaching is the art of assisting discovery." - Mark Van Doren
+
 * **Impediment Remover:** An impediment is a problem that goes beyond the self-organization of the Development Team. Make sure the team understands and uses their own ability to solve problems and be self-organized. It might also create an opportunity for the team to come up with creative ideas to solve the impediments themselves.
 * **Facilitator:** Being a Scrum Master also means facilitating the team in transparency, inspection and adaptation. It is also through great facilitation that the Scrum Master succeeds in getting more value out of every event.
 * **Coach:** It's important to stay away from the solution and ask questions in order to facilitate discovery of solutions. Of course, the Scrum Master may offer new perspectives to help the team reach a solution.
@@ -83,7 +79,7 @@ More info on the 8 Stances of a Scrum Master can be found [here](http://www.barr
 <span class="image left"><img class="p-image" alt="Remi-Armand Collaris" src="/img/xpdays-benelux-2017/Remi-Armand-Collaris.png"></span>
 <span class="image left"><img class="p-image" alt="Linda Dorlandt" src="/img/xpdays-benelux-2017/Linda-Dorlandt.png"></span>
 [Remi-Armand Collaris](https://twitter.com/racollaris){:target="_blank"} is a team and organisation coach who uses Agile, Scrum and LEAN ideas to find new ways to help people, both within teams as well as among teams, communicate and collaborate better.<br><br>
-[Linda Dorlandt](https://twitter.com/lindadanst){:target="_blank"} is a mentor in change processes that help teams collaborate and reach a common goal. In order to do this, she uses and teaches methods for coaching, project management and process management.
+[Linda Dorlandt](https://twitter.com/lindadanst){:target="_blank"} is a mentor in change processes that help teams collaborate and reach a common goal. In order to do this, she uses and teaches methods for coaching and process management.
 
 The session by Remi-Armand and Linda started with two exercises. For the first exercise, we had to pair with one of our neighbours where one of us was the coach and the other the coachee.
 The coachee had to open up about an issue they're facing that they cannot solve by themselves and the coach had to try to resolve it by suggesting solutions. After a few minutes, we had to switch roles. Both people then had to show to the group whether they felt better about the problem or not.
@@ -131,12 +127,10 @@ It's also important to note that the team is still being rewarded when the sprin
 
 The first part of this exercise consisted of reading six case studies and writing down on post-it notes how you would handle each situation, what questions you would ask.
 These post-it notes were used in a later exercise, after an explanation of the so-called Integral Theory:
-<div class="row">
-  <div class="6u -3u 8u(small) -2u(small) 12u(xsmall)">
-    <img class="image fit" alt="Integral Theory" src="/img/xpdays-benelux-2017/Integral-Theory1.png">
-  </div>
-</div>
-Integral Theory was created and shaped by Ken Wilber and consists of the idea that anything can be viewed as a thing by itself or as part of a larger group (**Individual VS Collective**).
+
+<img alt="Integral Theory" src="{{ '/img/xpdays-benelux-2017/Integral-Theory1.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+
+Integral Theory was created and shaped by [Ken Wilber](https://twitter.com/thekenwilber){:target="_blank"} and consists of the idea that anything can be viewed as a thing by itself or as part of a larger group (**Individual VS Collective**).
 Anything can also be seen from within and from the outside (**Interior VS Exterior**). Based on this, Ken suggests that any kind of knowledge or experience can be assigned to any of the four quadrants shown above.
 * **Leadership and Engagement:** Interprets people's interior experiences and focuses on "I"
 * **Culture and Shared Vision:** Interprets the collective consciousness of a group of people and focuses on "We"
@@ -144,15 +138,12 @@ Anything can also be seen from within and from the outside (**Interior VS Exteri
 * **Organizational Architecture and Systems:** Focuses on the behavior of a group of people as functional entities seen from outside: "They"
 
 The following image gives an overview of the questions that help organize knowledge into the quadrants:
-<div class="row">
-  <div class="6u -3u 8u(small) -2u(small) 12u(xsmall)">
-    <img class="image fit" alt="Integral Theory" src="/img/xpdays-benelux-2017/Integral-Theory2.png">
-  </div>
-</div>
+
+<img alt="Integral Theory" src="{{ '/img/xpdays-benelux-2017/Integral-Theory2.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 After explaining Integral Theory, we picked up our post-it notes and organized them into the quadrants that were put up across the room.
 When the post-it notes were assigned to their respective quadrant, Frederik and Johannes asked us to move towards the quadrant in the room that we felt we had the most experience in or we felt we were good at.
-Next, we had to discuss in our 'quadrant groups' if the post-it notes that were put up in the quadrant were a good match for it or if they belonged in another quadrant.
+Next, we had to discuss in our 'quadrant groups' whether the post-it notes that were put up in the quadrant were a good match for it or whether they belonged in another quadrant.
 The final exercise consisted of moving with your group to the next quadrants and listening to one person, that stayed behind from the initial group, explain the conclusions they reached during the initial discussion.
 
 The presentation of Frederik and Johannes can be found [here](https://www.slideshare.net/frederikvannieuwenhuyse/an-integral-view-on-agile){:target="_blank"}.
@@ -162,25 +153,18 @@ The presentation of Frederik and Johannes can be found [here](https://www.slides
 <span class="image left"><img class="p-image" alt="Johan Decoster" src="/img/xpdays-benelux-2017/Johan-Decoster.png"></span>
 <span class="image left"><img class="p-image" alt="Jef Cumps" src="/img/xpdays-benelux-2017/Jef-Cumps.png"></span>
 [Johan Decoster](https://twitter.com/johan_decoster){:target="_blank"} is an Agile coach and trainer trying to make a difference in the lives of the people he works with by uncovering everyone’s unique potential and looking deeper into the essence behind any theory or concept.<br><br>
-[Jef Cumps](https://twitter.com/jcumps){:target="_blank"} is a very experienced coach and trainer supporting organisations in their transformation towards more agility and towards a more engaging, humane and effective way of looking at work.
+[Jef Cumps](https://twitter.com/jcumps){:target="_blank"} is an experienced coach and trainer supporting organisations in their transformation towards more agility and a more engaging, humane and effective way of looking at work.
 
 The session by Johan and Jef started with a small exercise. We paired up with our neighbour and asked each other the question, 'Why are you really at this conference, and what has it meant to you so far?'
 The point of the interview was asking questions to guide the interviewee in telling their story. After these interviews, the person interviewing had to share what they had learned with the rest of the table and the others had to take notes of the summary.
 The steps for executing this exercise are covered in this picture:
-<div class="row">
-  <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
-    <img class="image fit" alt="The Art of Hosting" src="/img/xpdays-benelux-2017/Art-of-Hosting2.png">
-  </div>
-</div>
+
+<img alt="The Art of Hosting" src="{{ '/img/xpdays-benelux-2017/Art-of-Hosting2.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
 
 After this exercise, it was clear that asking appropriate and considerate questions is a key element of hosting a good and constructive conversation.
 This kind of conversation is built upon four key elements:
 
-<div class="row">
-  <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
-    <img class="image fit" alt="The Art of Hosting" src="/img/xpdays-benelux-2017/Art-of-Hosting3.png">
-  </div>
-</div>
+<img alt="The Art of Hosting" src="{{ '/img/xpdays-benelux-2017/Art-of-Hosting3.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
 
 Make sure the conversation stays polite and has a good flow of dialogue, but also take note of the two other sections.
 It's very important to respect the differences in ideas between you and your conversation partner. It's okay to voice your opinion, but be considerate and respectful and make sure to not overpower the other person.
@@ -202,8 +186,4 @@ The outcome of the exercise was a group of people, happy to have some concrete a
 
 More info on the Art of Hosting can be found in the following image and on the [mentioned website](http://www.artofhosting.org/){:target="_blank"}.
 
-<div class="row">
-  <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
-    <img class="image fit" alt="The Art of Hosting" src="/img/xpdays-benelux-2017/Art-of-Hosting4.png">
-  </div>
-</div>
+<img alt="The Art of Hosting" src="{{ '/img/xpdays-benelux-2017/Art-of-Hosting4.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
