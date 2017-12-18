@@ -1,9 +1,9 @@
 ---
 layout: post
 authors: [michael_vandendriessche, kevin_van_den_abeele]
-title: 'An introduction into the world of virtual and alternate reality'
+title: 'An introduction to virtual and alternate reality'
 image: /img/virtualreality/banner.jpg
-tags: [Internet of Things, IoT, Virtual reality, Alternate reality, Mixed reality, Merged reality, Oculus rift, Oculus, HTC vive, vive, steamVR, steam, unreal engine, unity, hololens, microsoft, google glass, google]
+tags: [Internet of Things, IoT, Virtual reality, Alternate reality, Mixed reality, Merged reality, Oculus rift, Oculus, HTC vive, vive, steamVR, steam, unreal engine, unity, hololens, holo lens, microsoft, google glass, google]
 category: IoT
 comments: true
 ---
@@ -13,47 +13,52 @@ comments: true
 
 > A look into the wonderful and exciting world of virtual, alternate and mixed reality.
 
-<img alt="Virtual Relaity" src="{{ '/img/virtualreality/concept.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+<img alt="Virtual Relaity" src="{{ '/img/virtualreality/matrix.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 ## Intro
-Virtual reality is not a new concept.
-It is in fact pretty old compared to other technologies. //TODO
-AR isn't that new either. 
-Perhaps MR is? I'll leave that up to you to decide.
+The concept of virtual reality is not a new one, neither is the one of augmented reality.
+It has been around for quite a long time already.
+Perhaps mixed reality is will be the next big thing? 
+I'll leave that up to you to decide.
 
-Ever since we are able to create visual representations of our world or an alternate world, 
-mankind has been fascinated by inhabiting this other world or virtual world.
+Ever since we have been able to create visual representations of our own or other worlds, mankind has been fascinated by transferring the sensory perception into this world.
+It is in the recent years that technological advancements have made it possible to do this in ever increasing realistic and engaging ways.
 
 
 ## A trip down memory lane...
 
 <img alt="Sensorama" src="{{ '/img/virtualreality/sensorama.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
-in 1962 some crazy person built what is generally believed to be the first virtual reality experience.
-This machine pictured above is called the Sensorama. 
-The user of the Sensorama sits on a tilting chair and watches a short film with stereoscopic 3D images in wide-angle view with stereo sound 
-and even wind and aroma. 
-A little bit reminiscent of those 4D films shown in theme parks.
+In 1962 some crazy person built what is generally believed to be the first virtual reality experience.
+This machine pictured above is called a Sensorama. 
+The user of the Sensorama sits on a tilted chair and watches a short film with stereoscopic 3D images in wide-angle view with stereo sound and even added effects such as wind and aroma. 
+A predecessor of those 4D movies available in cinemas en theme parks these days.
 
-Of course this is nothing like the VR experiences we have today.
-// should I use XR instead of VR here? any better term to describe all kinds of realities? "other realities"?
+This of course cannot be compared with the more advanced implementations we have today.
 
-//maybe expand a bit more on the history. might be important parts I missed
 In the 70's and 80's virtual reality really started blossoming in certain specialized areas.
 In 1968 Dr Ivan Sutherland created the Sword of Damocles at MIT.
 This head mounted display (or HMD) was so heavy it needed to be suspended from the ceiling.
 It was able to track head movements and show rudimentary 3D images.
 
-// TODO insert sword of Damocles picture
+<img alt="Sword of Damocles" src="{{ '/img/virtualreality/damocles.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
-In the military flight simulators and combat simulators started showing up,
-simulators for doctors and surgeons.
-Different ways of interacting with this virtual world also started appearing.
-Head tracking, touch screens, gloves... //TODO add more
-This is also when video game companies tried to capitalize on this exciting new technology and bring it to a wider public.
-But the technology was still rough and did not catch on in big numbers.
+During the 90's and 00's more sophisticated military, flight and combat simulators started showing up.
+In the privatized industry simulators for airline pilots, doctors and surgeons.
+Different ways of interacting with this virtual world also started appearing:
+- Head tracking
+- Touch screens
+- Gloves
+- Entire flight simulators
+- ...
 
-But then in 2012, when the Oculus Rift was being kickstarted, things started pacing up again.
+This is also when video game companies first tried to capitalize on this exciting new technology and bring it to a wider audience.
+But the technology was still too rough and did not catch on.
+Some of these early attempts include:
+- //TODO: Nintento VR glasses en consorts...
+- //TODO: List a few here
+
+But then in 2012, when the Oculus Rift was kickstarted, things started pacing up again and public interest in the technology rose to a new high.
 
 
 ## All kinds of realities
