@@ -2,7 +2,7 @@
 layout: post
 authors: [michael_vandendriessche, kevin_van_den_abeele]
 title: 'An introduction into the world of virtual and alternate reality'
-image: /img/virtualreality/virtual-reality.jpg
+image: /img/virtualreality/banner.jpg
 tags: [Internet of Things, IoT, Virtual reality, Alternate reality, Mixed reality, Merged reality, Oculus rift, Oculus, HTC vive, vive, steamVR, steam, unreal engine, unity, hololens, microsoft, google glass, google]
 category: IoT
 comments: true
@@ -13,13 +13,11 @@ comments: true
 
 > A look into the wonderful and exciting world of virtual, alternate and mixed reality.
 
+<img alt="Virtual Relaity" src="{{ '/img/virtualreality/concept.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+
 ## Intro
-TODO
-
-<img alt="TODO image" src="{{ '/img/virtualreality/todo.jpg' | prepend: site.baseurl }}" class="image fit">
-
-VR is not new! <br>
-It is infact pretty old compared to other technologies. //TODO
+Virtual reality is not a new concept.
+It is in fact pretty old compared to other technologies. //TODO
 AR isn't that new either. 
 Perhaps MR is? I'll leave that up to you to decide.
 
@@ -27,18 +25,17 @@ Ever since we are able to create visual representations of our world or an alter
 mankind has been fascinated by inhabiting this other world or virtual world.
 
 
-## History
+## A trip down memory lane...
 
-// TODO can i use the wikipedia picture of the sensorama? what about copyright and stuff. apparently it is free to use but needs proper attribution... didn't read further
+<img alt="Sensorama" src="{{ '/img/virtualreality/sensorama.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
-//TODO insert Sensorama picture here
 in 1962 some crazy person built what is generally believed to be the first virtual reality experience.
 This machine pictured above is called the Sensorama. 
 The user of the Sensorama sits on a tilting chair and watches a short film with stereoscopic 3D images in wide-angle view with stereo sound 
 and even wind and aroma. 
-A little bit reminiscent of those 4D films shown in themeparks.
+A little bit reminiscent of those 4D films shown in theme parks.
 
-Ofcourse this is nothing like the VR experiences we have today.
+Of course this is nothing like the VR experiences we have today.
 // should I use XR instead of VR here? any better term to describe all kinds of realities? "other realities"?
 
 //maybe expand a bit more on the history. might be important parts I missed
@@ -46,12 +43,14 @@ In the 70's and 80's virtual reality really started blossoming in certain specia
 In 1968 Dr Ivan Sutherland created the Sword of Damocles at MIT.
 This head mounted display (or HMD) was so heavy it needed to be suspended from the ceiling.
 It was able to track head movements and show rudimentary 3D images.
-// TODO insert sword of damocles picture
+
+// TODO insert sword of Damocles picture
+
 In the military flight simulators and combat simulators started showing up,
 simulators for doctors and surgeons.
 Different ways of interacting with this virtual world also started appearing.
 Head tracking, touch screens, gloves... //TODO add more
-This is also when videogame companies tried to capitalise on this exciting new technology and bring it to a wider public.
+This is also when video game companies tried to capitalize on this exciting new technology and bring it to a wider public.
 But the technology was still rough and did not catch on in big numbers.
 
 But then in 2012, when the Oculus Rift was being kickstarted, things started pacing up again.
@@ -63,6 +62,8 @@ Alright, so we have been talking about virtual reality for a while.
 But what exactly is virtual reality (VR), augmented reality (AR), mixed reality (MR) and all that goodness?
 
 //TODO insert picture reality - virtuality continuum. the one from wikipedia is good, same as in the slides.
+<img alt="Sensorama" src="{{ '/img/virtualreality/sensorama.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+
 Above you see the reality - virtuality continuum.
 
 Let's start on the left side.
@@ -81,13 +82,14 @@ As their names suggest, AR is more closely aligned to the real world
 while AV is closer to the virtual world.
 In other words AR consists of mostly real world with a few virtual elements augmenting the experience.
 AV exists mostly in the virtual world with a few elements of our real world visible.
+
  // TODO describe this later ==> In practice this usually means an overlay 
 
 Mixed reality or Merged reality (MR) is a term used to describe anything between reality and virtuality.
 This means it contains both elements of the real world and a virtual world.
 It can go all the way from mostly real world with a bit of virtual world sprinkled on top
 to mostly virtual world with a few traces of the real world visible.
-With MR, as opposed to AR and AV, the real world and virtual world are aware and can interact with eachother!
+With MR, as opposed to AR and AV, the real world and virtual world are aware and can interact with each other!
 
 We see the term X-realities being used to describe any of the VR, AR, MR and any other realities.
 
@@ -108,19 +110,19 @@ Some use cases of virtual reality are
 * Video content: video spheres, 360 videos
 * Creative applications like 3D painting or sculpting or dj application //TODO: just say "Creative applications" or already include the examples?
 
-Currently the most popular application for VR is videogames. There are a lot of games out already.
+Currently the most popular application for VR is video games. There are a lot of games out already.
 Shooting games and simulators seem to be an especially well fit for the platform.
 A VR headset is also often used for viewing 360 pictures and videos.
-Thanks to the headtracking, the view of the picture or video can be changed really intuitively.
+Thanks to the head tracking, the view of the picture or video can be changed really intuitively.
 Though you have the additional setup to deal with compared to a phone where you can just drag the viewport or use your phone's motion sensors.
 
 //TODO some more. check presentation. controls etc
 
 ### Augmented Reality
 
-//TODO !!
+//TODO insert picture of pokémon go
+<img alt="Sensorama" src="{{ '/img/virtualreality/sensorama.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
-// insert picture of pokemon go
 Everyone knows this right?
 Last year, the world exploded with people young and old crowding the streets in search for Pokémon.
 
