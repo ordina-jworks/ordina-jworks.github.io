@@ -38,7 +38,7 @@ This is it, you still have to tinker with the tsconfig.json to get it to your li
 
 I want to start with talking about the async / await features. They were what really made this code so fast to write and easy to read. The async keyword marks a function that will always return a promise. The await keyword will automatically unwrap the value from the promise and continue the code when the promise has been resolved. A small example:
 
-{% highlight coffeescript %}  
+{% highlight typescript %}  
     const promiseFn = (): Promise<string> => {
 	    return Promise.resolve("Hello World");
     }
@@ -76,7 +76,7 @@ Koa relies heavily on middleware, so for every "step" of the process we need mid
 
 To make testing easy, I started looking for a dependency injection framework for TypeScript. I wanted to more or less copy the way I wrote unit tests in Java, which is using dependency injection in your actual code and just creating an instance in your unit test while passing mocks instead of the dependencies. The first dependency injection framework I found, was [Awilix](https://github.com/jeffijoe/awilix). I got Awilix to work, and it worked quite well, but there was still a lot of boilerplate code to write to actually register the services to the container and to get it working. You can also pass folder names so it will register all the services in that folder, but I didn’t find this optimal. I was also using Webpack in the beginning (which I write about later in the article) to build my application and bundle my code, by bundling the code, the paths of the folders obviously didn’t work out anymore in the compiled code, so Awilix was no good for me. I kept searching and I found the library typescript-ioc. This library was based on annotations, so there is barely any configuration overhead and it worked much more like I was used to in Java. typescript-ioc requires you to set experimentalDecorators and emitDecoratorMetadata to true in the tsconfig.json file. You can then just write code like
 
-{% highlight coffeescript %}  
+{% highlight typescript %}  
     import { Container } from "typescript-ioc";
     
     class Foo {

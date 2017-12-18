@@ -48,21 +48,21 @@ When using TS we will refer to TSD files.
 These files describe the types defined in external libraries such as Angular. 
 To install the Angular TSD files we use typings.
 To use the typings manager we install it with:
-{% highlight text %}
-npm install typings --global
+{% highlight bash %}
+$ npm install typings --global
 {% endhighlight %}
 
 Afterwards install Angular with:
-{% highlight text %}
-typings install angular --ambient --save
+{% highlight bash %}
+$ typings install angular --ambient --save
 {% endhighlight %}
 `--ambient --save` enables the flag and persists the selection in 'typings.json'
 
 All the installed TSD files are gathered in the typings folder.
 In the main.d.ts file you will see the references the application will use for Angular.
 Since Angular has multiple libraries, you can use the search command to find the required definition.
-{% highlight text %}
-typings search Angular
+{% highlight bash %}
+$ typings search Angular
 {% endhighlight %}
 It is possible that you have to declare the reference on top of your file.
 {% highlight text %}
@@ -80,7 +80,7 @@ Below every component declaration you will see a registration to the module.
 When registering the module you have to add all the libraries you want to depend upon.
 In this example we inject the routing service for navigation. 
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 module JWorks {
     "use strict";
 
@@ -95,7 +95,7 @@ You can define an unique namespace around your code.
 This will encapsulate variables, interfaces and classes. 
 TypeScript supports sub namespaces for further encapsulation.
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 module JWorks {
     "use strict";
 }
@@ -103,7 +103,7 @@ module JWorks {
 
 #### Transpiled JavaScript
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 var JWorks;
 (function(JWorks){
 
@@ -121,7 +121,7 @@ If you have a couple entities, you can even establish a relationship.
 This will provide a clear view on what you want to achieve and have the possibility to create multiple instances of these classes. 
 When building an entity class you can optionally define an interface to show what the intention of the class is.
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 module JWorks {
 
     export interface IEmployee {
@@ -147,22 +147,22 @@ This will expose the class to other classes.
 When exporting the interface you will use it as a data type.
 
 ### Class as property
-{% highlight coffeescript %}
+{% highlight typescript %}
 Employee:IEmployee;
 {% endhighlight %}
 
 ### Instance of the class
-{% highlight coffeescript %}
+{% highlight typescript %}
 employee = new Employee();
 {% endhighlight %}
 
 ### Access property
-{% highlight coffeescript %}
+{% highlight typescript %}
 employee.name
 {% endhighlight %}
 
 ### Call methods
-{% highlight coffeescript %}
+{% highlight typescript %}
 employee.eat(eggs);
 {% endhighlight %}
 
@@ -176,7 +176,7 @@ Classes declare and implement the properties and methods exposed to the view.
 Every class has his own constructor function, in this function we can declare default property values and other initialisation code. 
 
 ### Controller Interface
-{% highlight coffeescript %}
+{% highlight typescript %}
 module Jworks {
 
     interface IEmployeeController{
@@ -194,7 +194,7 @@ The parameters have the same syntax as the properties.
 
 ### Controller Class
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 module JWorks {
 
     class EmployeeController implements IEmployeeController{
@@ -232,27 +232,27 @@ TypeScript supports initialisation of your properties and injections in a constr
 When declaring properties in your class, you can declare them directly into your constructor.
 Although *these two examples are* correct you can have issues in your tests with the second example.
 
-{% highlight coffeescript %}
 So this:
+{% highlight typescript %}
 class Controller {
 
     name:string;
 
     constructor(public name:string){
         this.name=name;
-
     }
-
 }
+{% endhighlight %}
+
 Becomes:
+{% highlight typescript %}
 class Controller {
 
     constructor(public name:string){
     }
 }
-
-
 {% endhighlight %}
+
 Be sure to notice that we are using access modifiers to tell the controller which properties we want to expose to the view.
 The best practice is that you put your injections and Angular services private and all your properties you want to use on your view public.
 When initialising strings, TypeScript makes no distinction between double or single quotes.
@@ -264,7 +264,7 @@ So it’s important to declare this into your routes and views.
 In your HTML you will have to prefix your methods and properties with the ControllerAs syntax.
 
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 module JWorks {
    "use strict";
 
@@ -301,7 +301,7 @@ For my project I used an Angular service that simplifies common verb requests wi
 In my custom services you'll see examples of Restangular in TypeScript.
 If you like to checkout what the difference is with $resource, you can check this [list](https://github.com/mgonto/restAngular#differences-with-resource)
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 module JWorks {
 
    export interface IEmployeeService {
@@ -360,7 +360,7 @@ A directive allows Angular to manipulate the DOM and add its own behaviour.
 These can either be a set of instructions or a JSON representation.
 To define a directive in TypeScript we use the directive service **that Angular** provides.
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 module JWorks {
 
    export interface IAnimate extends ng.IAttributes {
