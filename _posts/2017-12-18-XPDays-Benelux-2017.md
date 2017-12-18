@@ -48,15 +48,15 @@ Flexibility regarding time boxing is of course not meant to happen too often. So
 * **Scribe:** "Hey John, you're taking notes again for this meeting, right? Thanks!". Do you recognize this exchange? Congratulations, you're the team's personal scribe.
 This is especially to be avoided during retrospectives since this creates a false sense of ownership of the issues and actions towards the Scrum Master.
 * **Admin:** The Scrum Master is the workflow master. Need to add a board in Jira? Ask the Scrum Master. Need to start a sprint in Jira? Ask the Scrum Master. Now, hold up right there! The Scrum Master *can* of course perform these tasks but yup, so can the other team members.
-* **Secretary:** The Scrum Master plans all the work in the team members' agendas. Keep up to date with everybody's holidays, sick days and toilet breaks. (Can you sense the sarcasm?)
+* **Secretary:** The Scrum Master plans all the work in the team members' agendas. Keep up-to-date with everybody's holidays, sick days and toilet breaks. (Can you sense the sarcasm?)
 * **Chairman:** While this is often the case, the Daily Scrum isn't a meeting where the team members report back to the Scrum Master. It's a meeting by and for the development team. In absence of the Scrum Master, the Daily Scrum must still happen.
 * **Team Boss:** The Scrum Master is the boss of the team. He/she decides who is in and who is out. A sick day? You're fired! Buy the Scrum Master a chocolate cake? Here, have a raise! Oh, what a world it would be!
-* **Coffee Clerk:** Please do get your team members some coffee once in a while. But no, to everyone's surprise, fetching coffee day in day out is not part of the Scrum Master's job description.
+* **Coffee Clerk:** Please do get your team members some coffee once in a while. But no, to everyone's surprise, fetching coffee day-in day-out is not part of the Scrum Master's job description.
 
-So, what are the 8 preferred stances of a Scrum Master then?
+So, what are the eight preferred stances of a Scrum Master then?
 Glad you asked!
 
-The 8 preferred stances are:
+The eight preferred stances are:
 
 <div class="row">
   <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
@@ -66,7 +66,7 @@ The 8 preferred stances are:
 
 * **Teacher:** "The art of teaching is the art of assisting discovery." - Mark Van Doren. There is much the Scrum Master can teach the Scrum Team. The Scrum Master must ensure that Scrum is understood and implemented properly by the entire team.
 He or she makes sure the team stays on track of the Agile practices and principles.
-* **Impediment Remover:** An Impediment is a problem that goes beyond the self-organization of the Development Team. Make sure the team understands and uses their own ability to solve problems and be self-organized. It might also create an opportunity for the team to come up with creative ideas to solve the impediments themselves.
+* **Impediment Remover:** An impediment is a problem that goes beyond the self-organization of the Development Team. Make sure the team understands and uses their own ability to solve problems and be self-organized. It might also create an opportunity for the team to come up with creative ideas to solve the impediments themselves.
 * **Facilitator:** Being a Scrum Master also means facilitating the team in transparency, inspection and adaptation. It is also through great facilitation that the Scrum Master succeeds in getting more value out of every event.
 * **Coach:** It's important to stay away from the solution and ask questions in order to facilitate discovery of solutions. Of course, the Scrum Master may offer new perspectives to help the team reach a solution.
 * **Servant Leader:** Remember that the Scrum Master serves others. Being able to read the room and facilitate conflict within the team is a very important responsibility of the Scrum Master. Make sure to lead by example and make others feel comfortable with failing.
@@ -81,7 +81,7 @@ More info on the 8 Stances of a Scrum Master can be found [here](http://www.barr
 
 <span class="image left"><img class="p-image" alt="Remi-Armand Collaris" src="/img/xpdays-benelux-2017/Remi-Armand-Collaris.png"></span>
 <span class="image left"><img class="p-image" alt="Linda Dorlandt" src="/img/xpdays-benelux-2017/Linda-Dorlandt.png"></span>
-[Remi-Armand Collaris](https://twitter.com/racollaris){:target="_blank"} is a team and organisation coach who uses Agile, Scrum and LEAN ideas to find new ways to help people both within teams as well as among teams communicate and collaborate better.<br><br>
+[Remi-Armand Collaris](https://twitter.com/racollaris){:target="_blank"} is a team and organisation coach who uses Agile, Scrum and LEAN ideas to find new ways to help people, both within teams as well as among teams, communicate and collaborate better.<br><br>
 [Linda Dorlandt](https://twitter.com/lindadanst){:target="_blank"} is a mentor in change processes that help teams collaborate and reach a common goal. In order to do this, she uses and teaches methods for coaching, project management and process management.
 
 The session by Remi-Armand and Linda started with two exercises. For the first exercise, we had to pair with one of our neighbors where one of us was the coach and the other the coachee.
@@ -89,7 +89,7 @@ The coachee had to open up about an issue they're facing that they cannot solve 
 The second exercise dealt with the same problem, but instead of immediately trying to suggest solutions, the coach asked questions to get to the bottom of the issue and figure out the goal of the coachee. Again, after this round, both people had to show to the rest of the group how they felt about their problem, if the feeling was better, worse, or stayed the same.
 The goal of these exercises was to show that trying to push someone towards a solution for their problem isn't the best way to handle the situation since there will always be a 'but' coming from the person with the issue. Asking questions and trying to get the person to thoroughly think about their situation and problem will help them reach a solution themselves that they understand and accept.
 
-As an example of someone trying to actively deal with resistance, they showed the YouTube video called ['It's Not About the Nail'](https://www.youtube.com/watch?v=-4EDhdAHrOg).
+As an example of someone trying to actively deal with resistance, they showed the YouTube video called ['It's Not About the Nail'](https://www.youtube.com/watch?v=-4EDhdAHrOg){:target="_blank"}.
 The conclusion is easy and was mentioned in the paragraph above. Pushing someone towards a solution they don't see fit will not give you the outcome you hope for.
 
 Remi-Armand and Linda discussed a series of steps that will help facilitate the conversation with a person that has a problem and is unable to come to a solution by themselves.
@@ -98,7 +98,7 @@ Remi-Armand and Linda discussed a series of steps that will help facilitate the 
 * Third step: "What do you think will help you?" Guide the person towards a **change in language**. It's important they can see that a change in the situation is actually possible.
 * Fourth step: "When?" Create concrete **plans** for change. Don't postpone taking action. Plan it and make it happen.
 
-More information can be found on the Dutch website ['Praktisch op weg naar Teamresultaat'](http://www.praktischopweg.nl/).
+More information can be found on the Dutch website ['Praktisch op weg naar Teamresultaat'](http://www.praktischopweg.nl/){:target="_blank"}.
 
 ### Motivate Your Team with Gamification - Jean-Jacques Courtens
 
@@ -109,7 +109,7 @@ More information can be found on the Dutch website ['Praktisch op weg naar Teamr
 This was an Open Space session where Jean-Jacques discussed the way he implemented gamification in his company. At Adsdaq, they work with a reward system where points can be earned by completing certain tasks.
 They assign points to three sections: Timesheets, demos and sprint objectives.
 * Timesheets: Filling in the timesheet in time is worth **1 point**
-* Demos: Doing 1 demo is worth **2 points**
+* Demos: Doing a demo is worth **2 points**
 * Sprint objectives: Each completed story point is worth **1 point**. For sprint objectives, they also use a point multiplier. X0 when the sprint has failed, X1 when 90% of their main goal of the sprint was achieved, X2 when 100% of the main goal was achieved and X3 when the entire sprint was a complete success.
 
 For all three sections, they also assign badges. For example, the team can earn the golden badge when 15 sprints in a row are a complete success.
@@ -125,10 +125,10 @@ It's also important to note that the team is still being rewarded when the sprin
 
 <span class="image left"><img class="p-image" alt="Frederik Vannieuwenhuyse" src="/img/xpdays-benelux-2017/Frederik-Vannieuwenhuyse.png"></span>
 <span class="image left"><img class="p-image" alt="Johannes Schartau" src="/img/xpdays-benelux-2017/Johannes-Schartau.png"></span>
-[Frederik Vannieuwenhuyse](https://twitter.com/vfrederik) is a multidisciplinary generalising specialist and is continuously on a journey of discovery and learning how to grow effective, resilient and agile organisations.<br><br>
-[Johannes Schartau](https://twitter.com/integralagile) is an Agile Coach, consultant and professional Zombie Scrum fighter from Hamburg, Germany. He is passionate about creating environments for real collaboration and joyful creativity.
+[Frederik Vannieuwenhuyse](https://twitter.com/vfrederik){:target="_blank"} is a multidisciplinary generalising specialist and is continuously on a journey of discovery and learning how to grow effective, resilient and agile organisations.<br><br>
+[Johannes Schartau](https://twitter.com/integralagile){:target="_blank"} is an Agile Coach, consultant and professional Zombie Scrum fighter from Hamburg, Germany. He is passionate about creating environments for real collaboration and joyful creativity.
 
-The first part of this exercise consisted of reading 6 case studies and writing down on post-it notes how you would handle each situation, what questions you would ask.
+The first part of this exercise consisted of reading six case studies and writing down on post-it notes how you would handle each situation, what questions you would ask.
 These post-it notes will be used in a later exercise, after an explanation of the so-called Integral Theory:
 <div class="row">
   <div class="6u -3u 8u(small) -2u(small) 12u(xsmall)">
@@ -152,7 +152,7 @@ The following image gives an overview of the questions that help organize knowle
 After explaining Integral Theory, we picked up our post-it notes and organized them into the quadrants that were put up across the room.
 When the post-it notes were assigned to their respective quadrant, Frederik and Johannes asked us to move towards the quadrant in the room that we felt we had the most experience in or we felt we were good at.
 Next, we had to discuss in our 'quadrant groups' if the post-it notes that were put up in the quadrant were a good match for it or if they belonged in another quadrant.
-The final exercise consisted of moving with your group to the next quadrants and listening to 1 person that stayed behind from the initial group explain the conclusions they reached during the initial discussion.
+The final exercise consisted of moving with your group to the next quadrants and listening to one person, that stayed behind from the initial group, explain the conclusions they reached during the initial discussion.
 
 The presentation of Frederik and Johannes can be found [here](https://www.slideshare.net/frederikvannieuwenhuyse/an-integral-view-on-agile){:target="_blank"}.
 
@@ -160,8 +160,8 @@ The presentation of Frederik and Johannes can be found [here](https://www.slides
 
 <span class="image left"><img class="p-image" alt="Johan Decoster" src="/img/xpdays-benelux-2017/Johan-Decoster.png"></span>
 <span class="image left"><img class="p-image" alt="Jef Cumps" src="/img/xpdays-benelux-2017/Jef-Cumps.png"></span>
-[Johan Decoster](https://twitter.com/johan_decoster) is an Agile coach and trainer trying to make a difference in the lives of the people he works with by uncovering everyone’s unique potential and looking deeper into the essence behind any theory or concept.<br><br>
-[Jef Cumps](https://twitter.com/jcumps) is a very experienced coach and trainer supporting organisations in their transformation towards more agility and towards a more engaging, humane and effective way of looking at work.
+[Johan Decoster](https://twitter.com/johan_decoster){:target="_blank"} is an Agile coach and trainer trying to make a difference in the lives of the people he works with by uncovering everyone’s unique potential and looking deeper into the essence behind any theory or concept.<br><br>
+[Jef Cumps](https://twitter.com/jcumps){:target="_blank"} is a very experienced coach and trainer supporting organisations in their transformation towards more agility and towards a more engaging, humane and effective way of looking at work.
 
 The session by Johan and Jef started with a small exercise. We paired up with our neighbor and asked each other the question, 'Why are you really at this conference, and what has it meant to you so far?'
 The point of the interview was asking questions to guide the interviewee in telling their story. After these interviews, the person interviewing had to share what they had learned with the rest of the table and the others had to take notes of the summary.
@@ -173,7 +173,7 @@ The steps for executing this exercise are covered in this picture:
 </div>
 
 After this exercise, it was already clear that asking appropriate and considerate questions is a key element of hosting a good and constructive conversation.
-This kind of conversation is built upon 4 key elements:
+This kind of conversation is built upon four key elements:
 
 <div class="row">
   <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
@@ -195,11 +195,11 @@ After the break, we joined a question owner at their table with a maximum of 4 p
 Each question was assigned a time box of 15 minutes and you were only allowed to talk about that specific question during that time box.
 After each question, the other people at the table moved around to another table to help with someone else's issue.
 So, after the exercise, every non-question owner was able to help three different persons by helping with a different question each time.
-This exercise is called a [World Cafe](http://www.artofhosting.org/world-cafe/).
+This exercise is called a [World Cafe](http://www.artofhosting.org/world-cafe/){:target="_blank"}.
 
 The outcome of the exercise was a group of people happy to have some concrete actions to start working with to try and solve their issues.
 
-More info on the Art of Hosting can be found in the following image and on [mentioned websites](http://www.artofhosting.org/).
+More info on the Art of Hosting can be found in the following image and on the [mentioned website](http://www.artofhosting.org/){:target="_blank"}.
 
 <div class="row">
   <div class="4u -4u 6u(small) -3u(small) 8u(xsmall) -2u(xsmall)">
