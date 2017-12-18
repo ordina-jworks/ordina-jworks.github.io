@@ -119,128 +119,142 @@ They outline the boundaries of the different areas in the spectrum, but they ten
 
 
 ### Virtual Reality
-We call something Virtual Reality when the user is emerged in a virtual world and completely blocked out from the real world.
-This can be as simple as a 360 video.
-(In practice you can still see through the cracks of cheaper headsets)
-The user interacts, through various modes of control, with the virtual world.
+We call something virtual reality when the user is emerged in a virtual world and is completely blocked out from the real one.
+The simplest example of this is a 360° video experience.
+More advanced implementations have the user take part in a fully virtual world where his or hers movements and actions are tracked and translated into actions in the virtual world.
 
-//TODO FIXME
-Some use cases of virtual reality are
+Some examples of virtual reality implementations are:
 * Games, both recreational and educational
 * Photo content: photo spheres
 * Video content: video spheres, 360 videos
-* Creative applications like 3D painting or sculpting or dj application //TODO: just say "Creative applications" or already include the examples?
+* Creative applications like 3D painting, sculpting, DJ applications and many others...
 
-Currently the most popular application for VR is video games. There are a lot of games out already.
-Shooting games and simulators seem to be an especially well fit for the platform.
-A VR headset is also often used for viewing 360 pictures and videos.
-Thanks to the head tracking, the view of the picture or video can be changed really intuitively.
-Though you have the additional setup to deal with compared to a phone where you can just drag the viewport or use your phone's motion sensors.
+Currently the most popular application for VR is video games. There are a lot of games with VR support on the market already, and more are getting released almost every day!
+Shooting games and simulators seem to be an exceptional match for the platform.
+Although mostly used for gaming purposes a VR headset can also be used for viewing 360 scenes and videos.
+Thanks to head tracking, the viewers perspective is adjusted automatically when the head is moved.
+The more advanced headsets like the Oculus Rift and the HTV vive even have external sensor arrays to track user movement, and have hand based controllers for interaction.
+Although you have to deal with additional setup compared to a phone where you can just drag the viewport or use your phone's motion sensors.
 
-//TODO some more. check presentation. controls etc
+<img alt="Virtual reality setup" src="{{ '/img/virtualreality/setup.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 
 ### Augmented Reality
-//TODO insert picture of pokémon go
-<img alt="Sensorama" src="{{ '/img/virtualreality/sensorama.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+There are 4 types of augmented reality applications.
+- Marker
+- Inverse Marker
+- Markerless 
+- Projection
+
+
+#### Marker based
+Marker based AR apps use image recognition to recognize a specific pattern or marker.
+The marker is detected and replaced or covered with a virtual object.
+These types of applications are very simple and used for showcasing or displaying additional information.
+
+<img alt="Marker based AR" src="{{ '/img/virtualreality/ar-marker.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+
+
+#### Inverse marker based
+Inverse marker based AR is very similar to regular marker based AR.
+These applications are used in conjunction with large screens with cameras where the user only has to control the marker.
+
+<img alt="Inverse marker based AR" src="{{ '/img/virtualreality/ar-inverse-marker.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+
+
+#### Markerless
+These markerless applications use positional tracking and GPS to determine where to show things by mapping the environment and creating a spatial awareness to track objects when moving.
+
+<img alt="Markerless based AR" src="{{ '/img/virtualreality/ar-markerless.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+
+
+#### Projection based
+The popular Pokémon Go and Ikea apps are perfect examples of this.
+Projection based AR projects images rather than showing them on the screen.
+This requires hardware capable of projecting so is not as widespread.
+It is used more in manufacturing.
+
+<img alt="Pokémon Go, Projection based AR" src="{{ '/img/virtualreality/ar-projection.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 Everyone knows this right?
 Last year, the world exploded with people young and old crowding the streets in search for Pokémon.
 
 Pokémon Go is a fine example of an AR application.
 It is Augmented Reality because the application is still grounded mostly in the real world.
-The virtual elements are layered on top of the real world.
+The virtual elements are layered on top of the real world, but they do not interact with it.  
 
-There are 4 types of Augmented Reality applications.
-* Marker
-* Inverse Marker
-* Markerless 
-* Projection
 
-//TODO, add following line?
-(There are other types of classification systems but we have gone with this one)
-
-// TODO include collage picture with 4 types or 4 separate pictures
-Marker based AR apps use image recognition to recognize a specific pattern or marker.
-On the location of this pattern an image is then shown on the screen. //TODO rewrite
-These types of applications are often very simple for example for showing a character from a movie dancing on the table.
-Inverse marker based AR is very similar to regular marker based AR.
-These applications are used in conjunction with large screens with cameras where the user only has to control the marker.
-There are also applications that do not use a marker.
-These markerless applications use positional tracking and gps to determine where to show things.
-The popular Pokémon Go and Ikea apps are perfect examples of this.
-Projection based AR projects images rather than showing them on the screen.
-This requires hardware capable of projecting so is not as widespread.
-It is used more in manufacturing.
-
-The great thing about AR is that any smartphone is capable running AR applications.
+<br/>
+The great thing about AR is that any recent smartphone is capable running AR applications.
 Many AR apps only need a camera to work.
-While specialized depth sensing sensors exist, they are not as widespread.
+While specialized depth sensing sensors exist, they are not as widespread and used more in specialized industries.
 
 
 ### Mixed Reality
+Mixed reality takes the best parts of both virtual and augmented reality.
+What makes mixed reality special is that it understands the environment, it can interact with and respond to changes or events happening in the real world.
+Hardware that supports MR take the form of glasses and headsets with cameras and other sensors.
+These sensors are used to map the physical 3D space so the virtual objects know where they are situated and know what is in the real world.
+This is where you get the holographic experiences, even tough they aren't real holograms, they look and feel exactly as you would expect them to.
 
-//TODO !!
+<img alt="Mixed reality" src="{{ '/img/virtualreality/banner.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
-Mixed Reality takes the best of all worlds!
-Mixed reality will not replace either AR or VR but does take features from both.
-What makes Mixed Reality special is that it understands the environment.
-They take the form of glasses or headsets with cameras and other sensors.
-Often sensors are used to map the physical 3D space so the virtual objects know where they are situated.
-This is where you get the holographic experiences.
-They are not real holograms but look and act exactly as you would expect from a hologram.
-If you are still looking through the glasses or headset that is.
 
+## Hardware and current pain points
+//TODO: What are the limits of the current hardware, what is required for a nice and smooth VR/AR/MR experience.
+//TODO: The resolution that the human eye can see (and the rendering techniques being employed to mask the lack thereof)
+//TODO: The frame rate and importance for not getting sick
+//TODO: More advances motion tracking, without the need for room wide setup with sensors and IR/Laser arrays.
 
 ## Creating realities
+Making software that is AR/VR/MR enabled can be quite different from traditional business application development.
+These type of applications are often heavily dependent on visual elements and can require extra artistic knowledge.
+For virtual and mixed reality game engines can be used to create "games" to create these experiences.
 
-Since these kind of applications are often so visual in nature, we can make use of tools used in game development.  
-These are some of the most popular and free tools.
-* Unity
-* Unreal Engine
-* CryEngine
+These are some of the most popular and game engines that are free for personal user:
+- Unity
+- Unreal Engine
+- CryEngine
 
 Think of these as sort of photoshop for software.
 We can leverage the editors to see what we're working on and make changes immediately.
 These tools are ideal for Virtual Reality.
 Both Unity and Unreal Engine have plugins available for Augmented Reality.
 
+The often more business targeted applications are often augmented reality enabled applications.
+Both Apple and Google have made big efforts to support this on their respective OSes and basically every smartphone with a camera is now AR enabled.
 Apple's ARKit and Google's ARCore are the respective Augmented reality APIs for their IOS and Android platforms.
-Since the inception of these two APIs the amount of AR apps has greatly increased.
-There are many other SDKs available.
-Many of which even have their own Unity plugin.
+Since the inception of these two APIs the amount of AR apps has greatly increased, Google is even discontinuing it's Tango project in favor of ARCore.
+There are many other SDKs available, many of which even have their own Unity plugin.
 Vuforia and ARToolkit seem to be the most popular ones.
-Google is even discontinuing it's Tango project in favor of ARCore.
 
-Microsoft created the Windows Mixed Reality framework for Mixed, Virtual or Augmented reality apps to run on windows 10 pc's.
+Microsoft created the Windows Mixed Reality framework for Mixed, Virtual or Augmented reality apps to run on windows 10 based computers.
 
 
 ## Business cases & Examples
-//TODO: Examples of AR/VR/MR 
-// ar and mr seem to have more business value
-
 So, as software developers, what can we do with all this fancy tech?
 
-Our Dutch colleagues already made a cool VR application!
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wnC-jvtwJtY" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+Our Dutch colleagues already made an awesomely detailed VR application to help train personnel of the royal Dutch navy.
+Make sure to have a look since it is a truly impressive feat of software engineering.
+<div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
+    <iframe src="https://www.youtube.com/embed/wnC-jvtwJtY?rel=0" width="100%" height="100%;" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0;"></iframe>
+</div>
 
 Virtual Reality is still widely used for training purposes.
 Whether it is for a boat, an aircraft, a machine or a human body, a virtual space can prepare someone for situations that are otherwise very costly or difficult to simulate.
 
-Showing information when and where you need it.
+Augmented and mixed reality can show information when and where you need it.
 On a mobile phone screen, through glasses or projected on a surface, having the correct information at hand is always useful.
 
 Visualizing a product before it is manufactured can enhance the design process by discovering points of improvement much earlier on.
 Visualization like Ikea's app for trying furniture or a tour through historic Bruges or even business cards with an AR marker for increased memorability.
 
-For us at Ordina, we see most potential in AR and MR.
+For us at Ordina, we see most potential in AR and MR, as making games, even educational ones is a discipline in its own right and game studios have the most experience with this.
+Mobile based AR applications that can be used for showcases, in the IoT world, or even just augmented digital signage with inverse marker based AR.
 
 
 ## Conclusion
-
-A lot of things are still shaping up in the X-realities space.
-Early forms of VR have existed for a while but the current form is still not very mature.
-Virtual Reality is not near the real thing yet.
+The years to come will bring even more advancements to the wonderful world of virtual, augmented and mixed realities.
+A lot of things are still shaping up and being developed, ever improving on earlier versions.
 A lot of solutions and standards are still being figured out.
-Which means now is a great time for us to try stuff out!
-
+Which means now is a great time for us to try stuff out, and get a feel for the technology, whilst preparing and working on proof of concept applications.
