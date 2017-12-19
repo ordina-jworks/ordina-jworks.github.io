@@ -23,7 +23,7 @@ In order to use TypeScript in an Ionic Framework project there are a few small t
 
 * Next, require the package in your **gulpfile.js** like so
 
-   {% highlight text %}var typescript = require('gulp-tsc');{% endhighlight %}
+   {% highlight typescript %}var typescript = require('gulp-tsc');{% endhighlight %}
 
 * Add the following line to the paths object: `ts: ['./src/*.ts', './src/**/*.ts']`.
 You may have noticed two things here: All my TypeScript files are in a **src folder** which means I'm **not using the www folder** that Ionic provides by default.
@@ -63,7 +63,7 @@ TSD is a **TypeScript Definition manager** for [DefinitelyTyped](http://definite
 TypeScript used TypeScript Definition files so it knows how to handle the TypeScript you are writing and gives you intellisense.
 Let's install TSD so we can continue.
 
-{% highlight text %}
+{% highlight bash %}
 $ sudo npm install -g tsd
 $ tsd install ionic cordova --save
 {% endhighlight %}
