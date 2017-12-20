@@ -3,7 +3,7 @@ layout: post
 authors: [michael_vandendriessche, kevin_van_den_abeele]
 title: 'An introduction to virtual and alternate reality'
 image: /img/virtualreality/banner.jpg
-tags: [Internet of Things, IoT, Virtual reality, Alternate reality, Mixed reality, Merged reality, Oculus rift, Oculus, HTC vive, vive, steamVR, steam, unreal engine, unity, hololens, holo lens, microsoft, google glass, google]
+tags: [Internet of Things, IoT, Virtual reality, Alternate reality, Mixed reality, Merged Reality, Oculus Rift, Oculus, HTC Vive, Vive, SteamVR, Steam, Unreal Engine, Unity, Hololens, Holo Lens, Microsoft, Google Glass, Google]
 category: IoT
 comments: true
 ---
@@ -32,9 +32,9 @@ It is in the recent years that technological advancements have made it possible 
 In 1962 some crazy person built what is generally believed to be the first virtual reality experience.
 This machine pictured above is called a Sensorama. 
 The user of the Sensorama sits on a tilted chair and watches a short film with stereoscopic 3D images in wide-angle view with stereo sound and even added effects such as wind and aroma. 
-A predecessor of those 4D movies available in cinemas and theme parks these days.
+A predecessor of those 4D movies, available in cinemas and theme parks these days.
 
-This of course cannot be compared with the more advanced implementations we have today.
+This, of course, cannot be compared with the more advanced implementations we have today.
 
 In the 70's and 80's virtual reality really started blossoming in certain specialized areas.
 In 1968 Dr Ivan Sutherland created the Sword of Damocles at MIT.
@@ -43,8 +43,8 @@ It was able to track head movements and show rudimentary 3D images.
 
 <img alt="Sword of Damocles" src="{{ '/img/virtualreality/damocles.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
-During the 90's and 00's more sophisticated military, flight and combat simulators started showing up.
-In the privatized industry simulators for airline pilots, doctors and surgeons.
+During the 90's and 00's: more sophisticated military, flight and combat simulators started showing up.
+In the privatized industry: simulators for airline pilots, doctors and surgeons.
 Different ways of interacting with this virtual world also started appearing:
 - Head tracking
 - Touch screens
@@ -77,7 +77,7 @@ Some of these early attempts include:
 
 But then came 2012.
 The year in which the Oculus Rift was kickstarted. 
-This sparked a renewed interest in virtual reality, which thanks to technological innovations was looking much, much better it ever had!
+This sparked a renewed interest in virtual reality which, thanks to technological innovations, was looking much, much better it ever had!
 
 <img alt="Oculus Rift" src="{{ '/img/virtualreality/oculus.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
@@ -90,16 +90,16 @@ But what exactly are virtual reality (VR), augmented reality (AR) and mixed real
 Above you see the reality - virtuality continuum.
 
 Let's start on the left side.
-The left side depicts Reality or the Real World. 
+The left side depicts reality or the Real World. 
 With the Real World we mean the world where you, as the reader of this article, are sitting in a chair looking at your computer screen or holding your smartphone.
-For the sake of this article we assume that the world is real and there are no matrix-like shenanigans going on.
+For the sake of this article we assume that the world is real and that there are no matrix-like shenanigans going on.
 Simply put, the world as you know it and experience it every day, the world you and I live in.
 
 On the other end of the spectrum we see the Virtual Environment.
 Everything in the virtual environment is virtual, so 'not real'.
 It is the imaginary world that you see on a screen.
 The user is locked out of the real world.
-An extreme example we all know of would be the Matrix, in which the person lives their life inside the matrix not knowing the entire thing is not real.
+An extreme example we all know of would be The Matrix, in which the person lives their life inside The Matrix not knowing the entire thing is not real.
 
 Augmented Reality (AR) and Augmented Virtuality (AV) are situated in between these two ends of the spectrum.
 As their names suggest, AR is more closely aligned with the real world
@@ -131,9 +131,9 @@ Some examples of virtual reality implementations are:
 
 Currently the most popular application for VR is video games. There are a lot of games with VR support on the market already, and more are getting released almost every day!
 Shooting games and simulators seem to be an exceptional match for the platform.
-Although mostly used for gaming purposes a VR headset can also be used for viewing 360 scenes and videos.
+Although mostly used for gaming purposes, a VR headset can also be used for viewing 360 scenes and videos.
 Thanks to head tracking, the viewers perspective is adjusted automatically when the head is moved.
-The more advanced headsets like the Oculus Rift and the HTV vive even have external sensor arrays to track user movement, and have hand based controllers for interaction.
+The more advanced headsets like the Oculus Rift and the HTC Vive even have external sensor arrays to track user movement, and have hand based controllers for interaction.
 Although you have to deal with additional setup compared to a phone where you can just drag the viewport or use your phone's motion sensors.
 
 <img alt="Virtual reality setup" src="{{ '/img/virtualreality/setup.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
@@ -145,7 +145,7 @@ Last year, the world exploded with people young and old crowding the streets in 
 <img alt="Augmented Reality - Pokémon Go" src="{{ '/img/virtualreality/ar-pokemon.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 Pokémon Go is a fine example of an AR application.
-It is Augmented Reality because the application is still grounded mostly in the real world.
+It is augmented reality because the application is still grounded mostly in the real world.
 The virtual elements are layered on top of the real world, but they do not interact with it.  
 
 There are 4 types of augmented reality applications.
@@ -186,15 +186,15 @@ It is used more in manufacturing.
 
 
 <br/>
-The great thing about AR is that any recent smartphone is capable running AR applications.
+The great thing about AR is that any recent smartphone is capable of running AR applications.
 Many AR apps only need a camera to work.
-While specialized depth sensing sensors exist, they are not as widespread and used more in specialized industries.
+While specialized depth sensing sensors exist, they are not as widespread and are used more in specialized industries.
 
 
 ### Mixed Reality
 Mixed reality takes the best parts of both virtual and augmented reality.
 What makes mixed reality special is that it understands the environment, it can interact with and respond to changes or events happening in the real world.
-Hardware that supports MR take the form of glasses and headsets with cameras and other sensors.
+Hardware that supports MR takes the form of glasses and headsets with cameras and other sensors.
 These sensors are used to map the physical 3D space so the virtual objects know where they are situated and know what is in the real world.
 This is where you get the holographic experiences, even tough they aren't real holograms, they look and feel exactly as you would expect them to.
 
@@ -203,54 +203,54 @@ This is where you get the holographic experiences, even tough they aren't real h
 
 ## Hardware and current pain points
 Current devices are a big step up from what we had even a few years ago, but there are still many improvements to be made.
-The high end VR devices require beefy computers equipped with high-end graphics cards.
+The high-end VR devices require beefy computers equipped with high-end graphics cards.
 The headsets requiring a smartphone offer a more mobile experience but are still limited in the visual effects department.
 For a virtual reality experience to feel smooth and natural it needs to be rendered at a minimum of 90 frames per second.
-If the device can not keep up the user might experience VR sickness, similar to motion sickness.
+If the device can not keep up, the user might experience VR sickness, similar to motion sickness.
 Because our eyes are so close to the screen and the resolution our eyes can perceive is so high, pixels become visible, detracting from the experience.
 When looking closely, the screen looks like a raster.
 This can be solved with a higher resolution but that again requires more computational power.
 This much content at such a high pace also requires a lot of bandwidth and low latency.
 
 Another deterrent for VR headsets is the extensive setup required to make them work.
-High end devices require base stations or tracking cameras to accurately measure movement.
-There are devices with sensors built in so they are not dependent on external base stations, this technique is called inside-out tracking.
+High-end devices require base stations or tracking cameras to accurately measure movement.
+There are devices with sensors built in so that they are not dependent on external base stations, this technique is called inside-out tracking.
 
 ## Creating realities
 Making software that is AR/VR/MR enabled can be quite different from traditional business application development.
 These type of applications are often heavily dependent on visual elements and can require extra artistic knowledge.
 For virtual and mixed reality game engines can be used to create "games" to create these experiences.
 
-These are some of the most popular and game engines that are free for personal user:
+These are some of the most popular game engines that are free for personal user:
 - Unity
 - Unreal Engine
 - CryEngine
 
-Think of these as sort of photoshop for software.
+Think of these as a sort of photoshop for software.
 We can leverage the editors to see what we're working on and make changes immediately.
-These tools are ideal for Virtual Reality.
-Both Unity and Unreal Engine have plugins available for Augmented Reality.
+These tools are ideal for virtual reality.
+Both Unity and Unreal Engine have plugins available for augmented reality.
 
-The often more business targeted applications are often augmented reality enabled applications.
+The more business targeted applications are often augmented reality enabled applications.
 Both Apple and Google have made big efforts to support this on their respective OSes and basically every smartphone with a camera is now AR enabled.
-Apple's ARKit and Google's ARCore are the respective Augmented reality APIs for their IOS and Android platforms.
-Since the inception of these two APIs the amount of AR apps has greatly increased, Google is even discontinuing it's Tango project in favor of ARCore.
+Apple's ARKit and Google's ARCore are the respective augmented reality APIs for their IOS and Android platforms.
+Since the inception of these two APIs the amount of AR apps has greatly increased, Google is even discontinuing its [Tango project](https://developers.google.com/tango/) in favor of ARCore.
 There are many other SDKs available, many of which even have their own Unity plugin.
 Vuforia and ARToolkit seem to be the most popular ones.
 
-Microsoft created the Windows Mixed Reality framework for Mixed, Virtual or Augmented reality apps to run on windows 10 based computers.
+Microsoft created the Windows Mixed Reality framework for mixed, virtual or augmented reality apps to run on windows 10 based computers.
 
 
 ## Business cases & Examples
 So, as software developers, what can we do with all this fancy tech?
 
-Our Dutch colleagues already made an awesomely detailed VR application to help train personnel of the royal Dutch navy.
+Our Dutch colleagues already made an awesomely detailed VR application to help train personnel of the Royal Dutch Navy.
 Make sure to have a look since it is a truly impressive feat of software engineering.
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
     <iframe src="https://www.youtube.com/embed/wnC-jvtwJtY?rel=0" width="100%" height="100%;" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0;"></iframe>
 </div>
 
-Virtual Reality is still widely used for training purposes.
+Virtual reality is still widely used for training purposes.
 Whether it is for a boat, an aircraft, a machine or a human body, a virtual space can prepare someone for situations that are otherwise very costly or difficult to simulate.
 
 Augmented and mixed reality can show information when and where you need it.
@@ -267,4 +267,4 @@ Mobile based AR applications that can be used for showcases, in the IoT world, o
 The years to come will bring even more advancements to the wonderful world of virtual, augmented and mixed realities.
 A lot of things are still shaping up and being developed, ever improving on earlier versions.
 A lot of solutions and standards are still being figured out.
-Which means now is a great time for us to try stuff out, and get a feel for the technology, whilst preparing and working on proof of concept applications.
+Which means that now is a great time for us to try stuff out, and get a feel for the technology, whilst preparing and working on proof of concept applications.
