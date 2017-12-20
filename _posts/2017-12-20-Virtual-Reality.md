@@ -250,10 +250,10 @@ Make sure to have a look since it is a truly impressive feat of software enginee
     <iframe src="https://www.youtube.com/embed/wnC-jvtwJtY?rel=0" width="100%" height="100%;" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0;"></iframe>
 </div>
 
-Virtual reality is widely used for training purposes.
+**Virtual reality is widely used for training purposes.**
 Whether it is for a boat, an aircraft, a machine or a human body, a virtual space can prepare someone for situations that are otherwise very costly or difficult to simulate.
 
-Augmented and mixed reality can show information when and where you need it.
+**Augmented and mixed reality can show information when and where you need it.**
 On a mobile phone screen, through glasses or projected on a surface, having the correct information at hand is always useful.
 
 Visualizing a product before it is manufactured can enhance the design process by discovering points of improvement much earlier on.
