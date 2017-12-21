@@ -202,10 +202,24 @@ This is where you get the holographic experiences, even tough they aren't real h
 
 
 ## Hardware and current pain points
-//TODO: What are the limits of the current hardware, what is required for a nice and smooth VR/AR/MR experience.
-//TODO: The resolution that the human eye can see (and the rendering techniques being employed to mask the lack thereof)
-//TODO: The frame rate and importance for not getting sick
-//TODO: More advances motion tracking, without the need for room wide setup with sensors and IR/Laser arrays.
+Current devices are a big step above what we had even just a few years ago, but there are still many points to improve.
+The high end VR devices require beefy computers equipped with very good graphics cards.
+The headsets requiring a smartphone work but are far from ideal.
+For a virtual reality experience to feel smooth and natural it needs to be rendered at a minimum of 90Hz.
+Or 90 frames per second for each eye.
+If the device can not keep up the user might experience VR sickness, similar to motion sickness.
+Because our eyes are so close to the screen it becomes easy to spot individual pixels.
+When looking closely, the screen looks like a raster.
+This can be solved with a higher resolution but that again requires more computing resources.
+This much content at such a high pace also requires a lot of bandwidth and low latency.
+
+Most current AR implementations make use of a camera and motion sensors.
+Other sensors, like depth sensors, exist but are they worth it on consumer devices?
+
+Another deterrent to VR headsets is the extensive setup required to make them work.
+High end devices require base stations or tracking cameras to accurately measure movement.
+There are devices with sensors built in so they are not dependent on external base stations.
+This technique is called inside-out tracking.
 
 ## Creating realities
 Making software that is AR/VR/MR enabled can be quite different from traditional business application development.
