@@ -250,7 +250,7 @@ On a mobile phone screen, through glasses or projected on a surface, having the 
 Visualizing a product before it is manufactured can enhance the design process by discovering points of improvement much earlier on.
 Visualization like Ikea's app for trying furniture or a tour through historic Bruges or even business cards with an AR marker for increased memorability.
 
-For us at Ordina, we see most potential in AR and MR, as making games, even educational ones is a discipline in its own right and game studios have the most experience with this.
+For us at Ordina, we see most potential in AR and MR.
 Mobile based AR applications that can be used for showcases, in the IoT world, or even just augmented digital signage with inverse marker based AR.
 
 
