@@ -8,26 +8,52 @@ category: Conference
 comments: true
 ---
 
-> It was a pretty last minute decision, but when my colleague Tim Ysewyn and myself got the green light to attend Spring One Platform in sunny San Francisco, we couldn't wait to get our hands on all the tickets and hotel reservations!
+> It was a pretty last minute decision, but when my colleague Tim Ysewyn and myself got the green light to attend **Spring One Platform in sunny San Francisco**, we couldn't wait to get our hands on all the tickets and hotel reservations!
 The always helpful Pieter Humphrey made sure we got conference tickets and our lovely office staff took care of the hotel. We booked our plane tickets only three weeks in advance and probably got the deal of the year at around 470 euros round-trip!
 
-> In this blog post, we will go over some of the (major) announcements made at the conference and a couple of our favorite talks.
+> In this blog post, we will go over some of the (major) **announcements** made at the conference and a couple of our **favorite talks**.
 
 > **DISCLAIMER**: due to a **very** busy conference schedule, we could not include **ALL** the talks in this blogpost, not even a fraction, since there was so much good stuff to be seen. We'll provide an extensive summary of our favorite talks and create a curated list of as many talks and resources at the bottom of this post. Everything we could get our hands on!
 
 ## First impressions
 
+As it was my first time in **San Francisco and California**, I immediately noticed the sunny weather upon arrival.
+Sure feels good to walk around in a T-shirt in December, I knew this was gonna be a great trip!
 
+**INSERT SUNNY SAN FRAN PIC HERE**
+
+After getting to the hotel, we had to check out the downtown area.
+We were staying somewhere around 7th street (*sketchy* neighbourhoods ftw!) so it was a short 10-minute walk to the **Moscone Center**.
+The venue itself is very well-known and is the stage for major conferences such as Google I/O, Apple's WWDC, Oracle's OpenWorld and JavaOne conferences and also, Salesforce's Dreamforce.
+
+So although these other conferences often have over 5000 attendees (Salesforce talks about 171,000 attendees!), one might think that the attendance of around 3000 people at SpringOnePlatform is small.
+However, **SpringOnePlatform's attendance has increased to 3000 from 2000 compared to 2016**, that's simply quite amazing and shows the amount of traction Spring Boot, Spring Cloud and Pivotal Cloud Foundry are getting!
+
+The conference content was looking very promising again, ranging from keynote sessions by various thought leaders, CxOs, vendors, partners and technology evangelists to in-depth technology sessions, workshops and success stories.
+There were a crazy amount of parallel tracks so it was quite hard to see everything you wanted, but luckily, all the talks were recorded and shared on [Youtube](https://www.youtube.com/watch?v=_uB5bBsMZIk&list=PLAdzTan_eSPQ2uPeB0bByiIUMLVAhrPHL) *very* quickly.
+
+So to kick off our recap of SpringOnePlatform, let's talk about the various, some major, announcements that were made during those four days.
 
 ## Announcements
 
+### Pivotal Cloud Foundry 2.0
 
+The announcement of [Pivotal Cloud Foundry 2.0](https://content.pivotal.io/announcements/pivotal-unveils-expansion-of-pivotal-cloud-foundry-and-announces-serverless-computing-product) in [Onsi Fakhouri's talk](https://youtu.be/_uB5bBsMZIk?list=PLAdzTan_eSPQ2uPeB0bByiIUMLVAhrPHL) mentioned so many new products and naming updates, it's more convenient to just link their own article than to repeat ourselves (and risk making mistakes).
+
+<img class="image fit" href="//img/springone-2017/pcf2.jpg"></img>
+
+But here's a quick *&tldr;* for the lazy:
+
+- Pivotal Elastic Runtime will now be called **Pivotal Application Service**
+- They are now offering *managed Kubernetes as a service* in its **Pivotal Container Service or PKS**. This is running ontop of Bosh and is obviously the commercial version of Kubo, which is now officially called [Cloud Foundry Container Runtime](https://www.cloudfoundry.org/container-runtime/).
+- There is a new Function-as-a-Service offering in town: [**Riff**](https://projectriff.io/) (*riff* is for functions). Workloads run on Kubernetes as containers, it has an integrated Zookeeper and Kafka to buffer and route messages to specific functions and **can scale the functions** from `0 to n` or `1 to n` (the former leaving no function instances running while the latter keeps at least one active). Pivotal will start offering this commercially as part of their platform under the clever name of **Pivotal Function Service**. We'll talk about Riff later in this post.
+- Pivotal has **partnered** with a lot of big companies once again to widen their portfolio of managed services including IBM (Open Liberty, Websphere, MQ, DB2, Watson), Virtustream Enterprise Cloud and Github Enterprise to name a few.
 
 ## Cloud Native Batch Processing - Michael Minella
 
-Cloud native batch processing - Michael Minella
+**INSERT MICHAEL MINELLA BIO HERE**
 
-amazon s3 -> import database
+usecase: take files from amazon s3, import them to database
 spring batch processing model, contains basic batch functionality
 Spring batch 4.0
 	GA monday 04/12/17, 4 years between 3 & 4
