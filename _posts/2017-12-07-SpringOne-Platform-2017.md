@@ -40,7 +40,7 @@ So to kick off our recap of SpringOnePlatform, let's talk about the various, som
 
 The announcement of [Pivotal Cloud Foundry 2.0](https://content.pivotal.io/announcements/pivotal-unveils-expansion-of-pivotal-cloud-foundry-and-announces-serverless-computing-product) in [Onsi Fakhouri's talk](https://youtu.be/_uB5bBsMZIk?list=PLAdzTan_eSPQ2uPeB0bByiIUMLVAhrPHL) mentioned so many new products and naming updates, it's more convenient to just link their own article than to repeat ourselves (and risk making mistakes).
 
-<img class="image fit" href="//img/springone-2017/pcf2.jpg"></img>
+<img class="image fit" src="/img/springone-2017/pcf2.jpg"/>
 
 But here's a quick *&tldr;* for the lazy:
 
@@ -51,71 +51,98 @@ But here's a quick *&tldr;* for the lazy:
 
 ## Cloud Native Batch Processing - Michael Minella
 
-**INSERT MICHAEL MINELLA BIO HERE**
+<span class="image left small"><img class="p-image" alt="Michael Minella" src="/img/springone-2017/michael-minella.jpg"></span>
 
-usecase: take files from amazon s3, import them to database
-spring batch processing model, contains basic batch functionality
-Spring batch 4.0
-	GA monday 04/12/17, 4 years between 3 & 4
-	rebased for java 8
-	upgraded all the things
-	spring 5.0 as baseline
-	hibernate 5
-	added builders for configuration ease
-	documentation upgraded: docbook -> asccidoc & XML + java examples with toggle on top of the pages
+Michael Minella ([@michaelminella](https://twitter.com/michaelminella)) is the lead of Spring Batch and a member of the Spring team.
 
-S3JDBC job, single step load, 3 components: FlatFileItemReader, JdbcBatchItemWriter, EnrichmentItemProcessor + REST service outside application
+We'll quickly go over the list of **updates in Spring Batch 4** and then we'll go over the Spring Batch processing model and we can apply it for that use case:
 
-@EnableBatchProcessing
+- Spring Batch 4.0 went **GA** on Monday 4th of December, **four years after Spring Batch 3** was released
+- It has been rebased to fit in Java 8 internally (although it could be used with Java 8 before already)
+- All the baselines and dependencies have been upgraded to fit together with Spring Boot 2 (no more Castor for example)
+- It has **Spring 5.0 as its baseline**
+- Since Spring 5 requires support for Hibernate 5, so does Spring Batch
+- Many builders have been added for configuration ease
+- The documentation has been upgraded a lot: they switched from Docbook to Asciidoc. Very handy feature: **every page contains a toggle to switch between Java or XML examples**
 
-circuit breaker pattern out of the box, spring retry
-@Recover on fallback method + @CircuitBreaker on implementation method
+Michael had a very simple **use case** to demonstrate all the relevant capabilities Spring Batch 4 has to offer:
 
-multiple approaches for config
-	Spring Cloud Config (application)
-	Spring Cloud Eureka (REST service): @EnableDiscoveryClient(autoRegister = false) + @LoadBalanced on custom RestTemplate bean
+> Pull files from Amazon an S3 bucket and import them into a database
 
-How do we scale the batch processing?
+The application:
 
-1. parallel steps
-2. multithreaded steps (chunks)
-3. partitioning
-4. remote chunking
+<img class="image fit" src="/img/springone-2017/spring-batch-usecase.png"/>
 
-partitioning via spring cloud task
-spring cloud task allows you to launch batches dynamically
-1 master, multiple workers
-master stores job in database, worker reads job from database
-stepbuilder -> partitioner understand the data, partitionhandler comes from spring cloud task
-DeployerPartitionHandler starts worker dynamically on platform (local, PCF, Kubernetes,... implementations)
+We'll highlight some of the cloud native patterns that are used in this application:
 
-DeployerStepExecutionHandler
+### Circuit Breaker
 
-select * from cloud_native_batch.batch_step_execution -> track step executions completion
-define job in master, so that the job isn’t executed again when the worker is started
+We don't need Netflix for a circuit breaker, there is a circuit breaker available out-of-the-box in Spring Batch, through a dependency on **Spring Retry**.
+To enable it, we need to annotate our Spring Boot application with `@EnableBatchProcessing` and annotate the relevant methods with `@CircuitBreaker`.
+We also have a fallback mechanism in place, we can enable these by annotating the fallback method with `@Recover`.
 
-upcoming versions: single partition at a time isn’t that resource friendly -> multiple partitions per worker
+For very complicated error and fallback scenarios, we can obviously still use Hystrix.
 
-large files? chop files in multiple parts, or use a staging table
-if a worker fails, step execution status is saved to database -> only restart failed executions
-direct access to database is an anti-pattern, but spring batch resides in the grey zone
+### Service Discovery
 
-how do we orchestrate this?
-spring cloud data flow -> cloud native orchestration tool for microservices
-	launch via REST, streams or on-demand
+We will simply use Spring Cloud Eureka
 
-only 1 minor change -> @EnableTask
-	track status: started, ended, failed,... (not spring batch specific)
+### Config Server
 
-spring cloud data flow server = spring boot application
-spring cloud data flow shell = interactive CLI
+There are multiple approaches to using a Config Server in Spring Batch applications:
 
-spring batch admin is going to the attic, spring cloud data flow is the way forward
-scheduling within dataflow -> spring cloud task launch, PCF, Kubernetes
+- Set the location of the Spring Cloud Config server directly in your application
+- Use Spring Cloud Eureka to find different instances of the REST service + add `@LoadBalanced` on our custom `RestTemplate` bean
 
-restart vs relaunch?
+### Scalability
 
-no dependency on spring cloud data flow server: spring batch will launch the workers & will be visualised by spring cloud data flow server
+There are multiple ways to scale batch processing jobs in Spring Batch 4:
+
+- Parallel steps
+- Multithreaded steps (through chunks)
+- Partitioning
+- Remote chunking
+
+In this use case, **partitioning with Spring Cloud Task** is the ideal solution.
+
+> Spring cloud task allows you to launch batches dynamically
+
+It usually has **one master with multiple workers**. The master stores the job in a database and the worker reads the job information from the database:
+
+<img class="image fit" src="/img/springone-2017/spring-batch-partitioning.png"/>
+
+In the master profile of the batch app, the StepBuilder defines the step to run, together with a `Partioner` and a `PartitionHandler`.
+So it's important to define the job only in the master profile, so that the job isn’t executed again when the app is started under the worker profile.
+
+The Partitioner understands the data and chops up the data into neat partitions.
+The Partitionhandler comes from Spring Cloud Task and does the actual
+In this case, the `DeployerPartitionHandler` is the part that does the magic of starting workers dynamically on the platform of choice (localhost, PCF, Kubernetes, etc) and runs them as tasks.
+
+In the worker profile of the batch app, the configuration is almost completely identical as before, except for the added `DeployerStepExecutionHandler` which checks which step to run, and the `DownloadingStepExecutionListener` which performs the download of its specific S3 file.
+
+There is a way to track the step execution completion of the workers:
+
+````sql
+select * from cloud_native_batch.batch_step_execution
+````
+
+Upcoming versions will support multiple partitions per worker since processing a single partition at a time isn’t that resource friendly at the moment.
+
+### Orchestration
+
+How do we orchestrate this kind of workflow?
+
+**Spring Cloud Data Flow** is the de factor choice as cloud native orchestration tool for Spring microservices.
+Tasks can be launched via REST, streams or on-demand.
+The only minor change is to use the `@EnableTask` annotation.
+The status can be tracked and will be "started", "ended", "failed", so very understandable and not Spring Batch specific.
+
+Spring Cloud Data Flow Server is itself also a Spring Boot application.
+Spring Cloud Data Flow Shell is an interactive CLI created with Spring Shell.
+
+> Spring Batch Admin is going to the attic, Spring Cloud Data Flow is the way forward
+
+Check out the entire [video of the talk](https://www.youtube.com/watch?v=-Icd-s2JoAw) here.
 
 ## State or Events? Which shall I keep? - Kenny Bastani & Jakub Pilimon
 
