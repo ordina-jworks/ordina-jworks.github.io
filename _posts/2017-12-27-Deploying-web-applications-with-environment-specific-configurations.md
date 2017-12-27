@@ -107,4 +107,4 @@ ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/startup.sh"]
 
 This is how we managed to build our application only once, and deploy across numerous environments.
 Although it is not as immutable as we want it to be, at least we have automated the process to get rid of most human errors.
-And this way we can easily create a separate environment in case of there is a bug in production.
+And this way we can easily create a separate environment if there is a bug in production.
