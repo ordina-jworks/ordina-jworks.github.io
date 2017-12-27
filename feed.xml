@@ -1,5 +1,99 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-12-26T15:12:20+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Twelve tips to become an awesome Technical Lead</title><link href="https://ordina-jworks.github.io/architecture/2017/12/22/Tech-Lead.html" rel="alternate" type="text/html" title="Twelve tips to become an awesome Technical Lead" /><published>2017-12-22T00:00:00+00:00</published><updated>2017-12-22T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2017/12/22/Tech-Lead</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2017/12/22/Tech-Lead.html">&lt;h1 id=&quot;what-is-technical-leadership&quot;&gt;What is Technical Leadership&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-12-27T14:57:49+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Deploying web applications with environment-specific configurations</title><link href="https://ordina-jworks.github.io/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations.html" rel="alternate" type="text/html" title="Deploying web applications with environment-specific configurations" /><published>2017-12-27T00:00:00+00:00</published><updated>2017-12-27T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations.html">&lt;h1 id=&quot;the-problem&quot;&gt;The problem&lt;/h1&gt;
+
+&lt;p&gt;Recently one of my colleagues came across a problem when he wanted to create an Angular application which needed to have different configuration values between environments.&lt;/p&gt;
+
+&lt;p&gt;In 2016, Jurgen Van de Moere wrote a &lt;a href=&quot;https://www.jvandemo.com/how-to-configure-your-angularjs-application-using-environment-variables/&quot; target=&quot;_blank&quot;&gt;blogpost&lt;/a&gt; which explained how to create environment-agnostic applications with AngularJS.
+A year later, Rich Franzmeier explained in his &lt;a href=&quot;https://www.intertech.com/Blog/deploying-angular-4-apps-with-environment-specific-info/&quot; target=&quot;_blank&quot;&gt;blogpost&lt;/a&gt; a solution for Angular applications which was based on Jurgen’s post.
+Although both solutions work perfectly, they both have some downsides to it.&lt;/p&gt;
+
+&lt;p&gt;Nowadays we want to push devops to all teams.
+This implies that our applications should be immutable, and that everything should be automated (as much as possible).
+If we want to deploy our application we have to overwrite our configuration file manually, so this was the main disadvantage of the solution they proposed.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-solution&quot;&gt;The solution&lt;/h1&gt;
+
+&lt;p&gt;Our solution is build on top of theirs, and should be able to work for all kinds of frameworks (AngularJS, Angular, React, Vue,…).
+&lt;br /&gt;Here is how we did it.&lt;/p&gt;
+
+&lt;h2 id=&quot;code-setup&quot;&gt;Code setup&lt;/h2&gt;
+
+&lt;p&gt;We started with an &lt;code class=&quot;highlighter-rouge&quot;&gt;env.js&lt;/code&gt; file which contains all environment-specific configuration.
+This file will expose the data as global variables.
+One could set the URL where our API is hosted like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// API url&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;apiUrl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'http://dev.your-api.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next up is to expose this variable to our web application, which in our case is an Angular app.
+We created an injectable &lt;code class=&quot;highlighter-rouge&quot;&gt;Configuration&lt;/code&gt; class, which will have a getter to retrieve our API URL.&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Injectable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@angular/core'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// return the native window obj&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Injectable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Configuration&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  
+  &lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;apiUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;apiUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;All we need to do now is to inject an instance of the &lt;code class=&quot;highlighter-rouge&quot;&gt;Configuration&lt;/code&gt; class in the class where we need the info.&lt;/p&gt;
+
+&lt;h2 id=&quot;deployment-setup&quot;&gt;Deployment setup&lt;/h2&gt;
+
+&lt;p&gt;After building our Angular app, we need to package everything together.
+Since we want to make everything immutable, the obvious choice here is to use Docker.
+While starting a container, we can specify environment variables.
+This is where the second part of our solution starts.&lt;/p&gt;
+
+&lt;p&gt;Using the &lt;code class=&quot;highlighter-rouge&quot;&gt;envsubst&lt;/code&gt; bash command we’re going to convert a template file into an &lt;code class=&quot;highlighter-rouge&quot;&gt;env.js&lt;/code&gt; file which contains all our data.
+Our &lt;code class=&quot;highlighter-rouge&quot;&gt;env.js.tpl&lt;/code&gt; file looks like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// API url&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;apiUrl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'$API_URL'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To perform this conversion we need to create a &lt;code class=&quot;highlighter-rouge&quot;&gt;startup.sh&lt;/code&gt; script which will actually execute the &lt;code class=&quot;highlighter-rouge&quot;&gt;envsubst&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;envsubst &amp;lt; /usr/share/nginx/env.js.tpl &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; /usr/share/nginx/html/env.js
+
+nginx &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'daemon off;'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we need to create a &lt;code class=&quot;highlighter-rouge&quot;&gt;Dockerfile&lt;/code&gt; which in turn will be used to create our Docker image.&lt;/p&gt;
+
+&lt;div class=&quot;language-docker highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; nginx:1.13-alpine&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;COPY&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; dist /usr/share/nginx/html&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;COPY&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; env.js.tpl /usr/share/nginx/env.js.tpl&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;COPY&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; startup.sh /usr/local/bin/startup.sh&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;ENTRYPOINT&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; [&quot;/bin/tini&quot;, &quot;--&quot;, &quot;/usr/local/bin/startup.sh&quot;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;This is how we managed to build our application only once, and deploy across numerous environments.
+Although it is not as immutable as we want it to be, at least we have automated the process to get rid of most human errors.
+And this way we can easily create a separate environment if there is a bug in production.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Ysewyn&quot;, &quot;avatar&quot;=&gt;&quot;tim-ysewyn.png&quot;, &quot;twitter&quot;=&gt;&quot;TYsewyn&quot;, &quot;linkedin&quot;=&gt;&quot;tysewyn&quot;, &quot;github&quot;=&gt;&quot;TYsewyn&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-ysewyn/&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader API &amp; Microservices&quot;, &quot;email&quot;=&gt;&quot;Tim.Ysewyn@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a Principal Consultant at Ordina, where he helps fellow developers discovering top-notch technologies and methodologies as a Competence Leader for API &amp; Microservices. You can also find him working on various parts of the &lt;a href=\&quot;https://www.spring.io\&quot; target=\&quot;_blank\&quot;&gt;Spring&lt;/a&gt; framework or helping out at &lt;a href=\&quot;https://ng-be.org\&quot; target=\&quot;_blank\&quot;&gt;NG-BE&lt;/a&gt;. When you can\\'t get a hold of him, he will probably be under water since he is also an underwater photographer &amp; rescue diver.&quot;}</name><email>Tim.Ysewyn@ordina.be</email></author><category term="architecture" /><category term="Angular" /><category term="Automation" /><summary type="html">The problem</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2017-12-27-Deploying-web-applications-with-environment-specific-configurations/post-image.jpg" /></entry><entry><title type="html">Twelve tips to become an awesome Technical Lead</title><link href="https://ordina-jworks.github.io/architecture/2017/12/22/Tech-Lead.html" rel="alternate" type="text/html" title="Twelve tips to become an awesome Technical Lead" /><published>2017-12-22T00:00:00+00:00</published><updated>2017-12-22T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2017/12/22/Tech-Lead</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2017/12/22/Tech-Lead.html">&lt;h1 id=&quot;what-is-technical-leadership&quot;&gt;What is Technical Leadership&lt;/h1&gt;
 &lt;p&gt;A Technical Lead has the responsibility to help the team move forward. 
 The person assigned to the role, is someone who has sound technical experience and strong communication skills. 
 He or she will be accountable for the technical direction of the project or product and serve as the go-to person for cross-team interactions.&lt;/p&gt;
@@ -2378,125 +2472,4 @@ The client could then use that token to prove that he is logged in as admin.&lt;
   &lt;li&gt;Dockerize! So far, the most work has gone into getting the application deployed&lt;/li&gt;
   &lt;li&gt;Implement I18N translations at the beginning, as it is better to add translations while working on the component&lt;/li&gt;
   &lt;li&gt;Also we learned how complicated it can be to have one component with multiple switching charts. Instead of switching components.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michael&quot;, &quot;last_name&quot;=&gt;&quot;Vervloet&quot;, &quot;permalink&quot;=&gt;&quot;/author/michael-vervloet/&quot;, &quot;avatar&quot;=&gt;&quot;michael-vervloet.jpg&quot;, &quot;linkedin&quot;=&gt;&quot;michaelvervloet&quot;, &quot;github&quot;=&gt;&quot;MiVvlt&quot;, &quot;title&quot;=&gt;&quot;SoftWare Engineer&quot;, &quot;title2&quot;=&gt;&quot;JavaScript Developer&quot;, &quot;email&quot;=&gt;&quot;michael.vervloet@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Michael is a full stack JavaScript developer specializing himself in backend development with NodeJs and Express, with a solid background of frontend/hybrid mobile development. As a member of Ordina's core 'Internet of Things' team he has collaborated on some challenging and innovative IoT applications.&quot;}</name><email>michael.vervloet@ordina.be</email></author><category term="IoT" /><category term="NodeJS" /><category term="MongoDB" /><category term="Angular" /><category term="ExpressJS" /><category term="Express" /><category term="TypeScript" /><category term="Angular-CLI" /><category term="Gulp" /><category term="Internet of Things" /><category term="IoT" /><category term="LoRa" /><category term="Proximus" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/stairwaytohealth/stairway-to-health.jpg" /></entry><entry><title type="html">Percona Live 2017 Dublin</title><link href="https://ordina-jworks.github.io/conference/2017/10/09/perconaLive2017.html" rel="alternate" type="text/html" title="Percona Live 2017 Dublin" /><published>2017-10-09T00:00:00+00:00</published><updated>2017-10-09T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2017/10/09/perconaLive2017</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2017/10/09/perconaLive2017.html">&lt;p&gt;
-  &lt;img class=&quot;image fit&quot; alt=&quot;Percona Live Europe Dublin Logo&quot; src=&quot;/img/percona-live-2017/logo.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Percona Live Europe is a yearly conference on open source database organized by &lt;a href=&quot;https://www.percona.com/live/e17/&quot; target=&quot;_blank&quot;&gt;Percona&lt;/a&gt;.
-We had the opportunity to attend this year’s conference in the beautiful city of Dublin.
-Beside enjoying the local brews and drafts we attended several sessions out of which we highlight some sessions in this blog post.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;mongodb-shootout-mongodb-atlas-azure-cosmosdb-and-doing-it-yourself&quot;&gt;MongoDB Shootout: MongoDB Atlas, Azure CosmosDB and Doing It Yourself&lt;/h2&gt;
-
-&lt;p&gt;When running MongoDB in the cloud, you have several options. 
-David Murphy compared &lt;a href=&quot;https://www.mongodb.com/cloud/atlas&quot; target=&quot;_blank&quot;&gt;MongoDB Atlas&lt;/a&gt;, &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/cosmos-db/introduction&quot; target=&quot;_blank&quot;&gt;CosmosDB&lt;/a&gt; and the good old DIY.&lt;/p&gt;
-
-&lt;p&gt;Using Atlas, you get monitoring, automation and the possibility to pay for backups.
-You pay per instance and you have a wide variety of instances and regions to choose from on AWS, GCP and Azure.
-The biggest downside is that the cost is about 44% more than running you own servers in the cloud.
-This means that, in contrast to DIY, you continuously pay more instead of writing off your initial investment and paying less in the end.
-The monitoring is really good but the problem here is that if you have have a polyglot environment with your own monitoring and alerting, you can not integrate it with Atlas so you end up with yet another tool.
-Upgrading is really easy and just a click of the button thanks to the automation.
-Backups need to be paid for per GB and are taken continuously.&lt;/p&gt;
-
-&lt;p&gt;CosmosDB is offered by Microsoft on Azure and claims to be MongoDB compatible. 
-This is not completely true because they have no support for the aggregation framework.
-So you can only use it for simple CRUD operations.
-The pricing is based on a pay-per-operation model which means it’s really hard to figure out what your cost will be and how it will evolve over time.
-Here you also have the downside of continuously paying more than DIY.
-The monitoring is very basic and of no help when you run into problems or strange behaviour, it’s like a black box.
-Upgrading is done behind the scenes which means you don’t have to worry unless the upgrade means your code is no longer compatible, then you are stuck.
-Backups are very basic because they are taken approximately every four hours and only the latest 2 backups are stored.&lt;/p&gt;
-
-&lt;p&gt;DIY has the most power to offer IF you have a mature, and complete DevOps team.
-With DIY you pay a high price up-front for hardware and people.
-You need to implement your own monitoring, i.e. with the &lt;a href=&quot;https://www.elastic.co/products&quot; target=&quot;_blank&quot;&gt;Elastic stack&lt;/a&gt; or Percona’s &lt;a href=&quot;https://www.percona.com/doc/percona-monitoring-and-management/index.html&quot; target=&quot;_blank&quot;&gt;PMM&lt;/a&gt;.
-Also, automation is a big part of the effort.
-And last but not least, you need to implement your own backup strategy.
-The biggest upside is that you have full control over what you implement and how you do things.
-You choose the cloud service provider or the hardware you want to use.
-You choose what you want to monitor and how you alert.
-You choose how often and when you backup.
-But of course, it’s all up to you.&lt;/p&gt;
-
-&lt;h2 id=&quot;visualize-your-data-with-grafana&quot;&gt;Visualize Your Data With Grafana&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://grafana.com/&quot; target=&quot;_blank&quot;&gt;Grafana&lt;/a&gt; is used to build monitoring dashboards based on time series data.
-Grafana supports a wide range of &lt;a href=&quot;https://grafana.com/plugins?type=datasource&quot; target=&quot;_blank&quot;&gt;data sources&lt;/a&gt; to get its data and generate the dashboard.
-There are already a lot of pre-built &lt;a href=&quot;https://grafana.com/dashboards&quot; target=&quot;_blank&quot;&gt;dashboards&lt;/a&gt; you can use and customize for your own needs.
-You can build your own dashboards with &lt;a href=&quot;https://grafana.com/plugins?type=panel&quot; target=&quot;_blank&quot;&gt;panels&lt;/a&gt;.
-Each panel is fed with data from a datasource based on a query.
-Grafana has created a query editor with support for different data sources, like PromQL for Prometheus, to make it easier to build the queries you need.
-The end result can look like this :
-&lt;img src=&quot;/img/percona-live-2017/grafanaDashboard.png&quot; alt=&quot;Grafana Dashboard&quot; class=&quot;image&quot; width=&quot;55%&quot; target=&quot;_blank&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;database-reliability-engineering-what-why-and-how&quot;&gt;Database Reliability Engineering: What, Why and How?&lt;/h2&gt;
-
-&lt;p&gt;The DBA from the old days, hidden in a basement behind closets, performing magic on that mysterious thing called a database, is dead.
-Enter the Database Reliability Engineer (DBRE, loosely based on &lt;a href=&quot;https://en.wikipedia.org/wiki/Site_reliability_engineering&quot; target=&quot;_blank&quot;&gt;SRE&lt;/a&gt;), a person who embraces the new paradigms in the IT-world.
-He is an advocate of how data should be treated and used, he teaches his colleagues, he takes part in pair-programming, he is an active team member in cross-functional teams.
-A DBRE’s knowledge is not confined to a single system, he can support polyglot persistence.
-He can support these systems on premise and in the cloud.
-He automates as much as possible and uses tools of the trade including source control systems and helps creating infrastructure as code.
-The DBRE enables his organisation to apply known principles of the software engineering world to the database world.
-In this role he applies principles from Database Reliability Engineering, like designing for scale, availability, operations and performance.
-Also visibility, alerting and database change and release management are just a few parts of the tasks to do.
-For more detailed information make sure to check out the book &lt;a href=&quot;http://shop.oreilly.com/product/0636920039761.do&quot; target=&quot;_blank&quot;&gt;Database Reliability Engineering&lt;/a&gt;, a must read for everyone in the field.&lt;/p&gt;
-
-&lt;h2 id=&quot;mongodb-security-checklist&quot;&gt;MongoDB Security Checklist&lt;/h2&gt;
-
-&lt;p&gt;MongoDB has been in the news lately due to MongoDB ransomware attacks. 
-This might make you wonder whether or not MongoDB is secure.
-Well, rest assured it is very secure.
-But you need to turn security on, at least until the next major release where security will be on by default.
-MongoDB has a plethora of security features in their community edition and the commercial offering provides even more goodies like LDAP integration and baked in encryption-at-rest.
-It starts with simple username/password authentication and moves on to x.509 certificates based authentication.
-Once authenticated you have authorization with either build-in or user-defined roles and privileges, so you can fine-tune which users have access to which database or collection and which actions they can perform on them.
-You can further lock-down your MongoDB by fixing the network interface it is listening to so it’s not open to the internet, or encrypting the communication between replica-set or sharded-cluster members.
-If you are running MongoDB, then reading the &lt;a href=&quot;https://docs.mongodb.com/manual/administration/security-checklist/&quot; target=&quot;_blank&quot;&gt;security checklist&lt;/a&gt; is a must!&lt;/p&gt;
-
-&lt;h2 id=&quot;improvements-to-mongorocks-in-2017&quot;&gt;Improvements to MongoRocks in 2017&lt;/h2&gt;
-
-&lt;p&gt;MongoRocks is MongoDB using RocksDB as the underlying storage engine.
-From the MongoRocks &lt;a href=&quot;http://mongorocks.org/&quot; target=&quot;_blank&quot;&gt;website&lt;/a&gt; :&lt;/p&gt;
-&lt;blockquote class=&quot;clear&quot;&gt;&lt;p&gt;&quot;RocksDB is a key-value library based on Log Structured Merge Trees. It is maintained by the Facebook Database Engineering Team, and is based on LevelDB, by Sanjay Ghemawat and Jeff Dean at Google&quot;&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;MongoRocks differs from WiredTiger in the way it stores data.
-WiredTiger uses a B-tree where MongoRocks uses a LSM-tree structure.
-Both have pros and cons of course.
-An LSM-tree structure favours space and insert efficiency over read efficiency.
-An B+ tree structure favours update and read efficiency over space efficiency.
-So depending on your workload you can choose which might suit you better.
-Of course, nothing beats measuring what the effect of your workload is on performance of the choosen storage engine.
-Because, you know, silver bullets and such…
-So testing and measuring is key in deciding which engine you should choose.
-Nevertheless, MongoRocks is showing nice improvements over previous versions and has several interesting benefits over WiredTiger.
-Certainly when storage endurance is an issue or if your working set does not fit into memory.&lt;/p&gt;
-
-&lt;h2 id=&quot;automatic-database-management-system-tuning-through-large-scale-machine-learning&quot;&gt;Automatic Database Management System Tuning Through Large-Scale Machine Learning&lt;/h2&gt;
-
-&lt;p&gt;This is probably the most stunning talk of the conference.
-OtterTune is a tool developed by students and researchers at Carnegie Mellon to automatically tune your database.
-This is done by making clever use of previously collected data of other tunings and applying machine learning to it.
-The presented results showed that for the given workload, OtterTune was at par with DBAs which had double digit years of experience.
-Looking at this from the bright side, OtterTune would help DBAs to focus on areas other than figuring out which combination of the multiple settings they should use to tune their database.
-It would definitely help to do better Database Reliability Engineering.&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;This is just a small portion of the huge amount of sessions at Percona Live, but of course, one needs to choose.
-It’s really great to see this conference putting open source on the foreground and displaying the wealth of choice and diversity of technologies in the open source database world.
-We see that this space is continuously expanding and that the future is looking even more promising than the present.
-Good times ahead!&lt;/p&gt;
-
-&lt;h3 id=&quot;useful-links--further-reading&quot;&gt;Useful links &amp;amp; further reading&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.percona.com/live/e17/&quot; target=&quot;_blank&quot;&gt;Percona Live Europe Dublin&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://mongorocks.org/&quot; target=&quot;_blank&quot;&gt;MongoRocks&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://grafana.com/&quot; target=&quot;_blank&quot;&gt;Grafana&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.mongodb.com/cloud/atlas&quot; target=&quot;_blank&quot;&gt;MongoDB Atlas&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.elastic.co/products&quot; target=&quot;_blank&quot;&gt;Elastic&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.mongodb.com/manual/administration/security-checklist/&quot; target=&quot;_blank&quot;&gt;MongoDB security checklist&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://shop.oreilly.com/product/0636920039761.do&quot; target=&quot;_blank&quot;&gt;Database Reliability Engineering&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Chris&quot;, &quot;last_name&quot;=&gt;&quot;De Bruyne&quot;, &quot;permalink&quot;=&gt;&quot;/author/chris-de-bruyne&quot;, &quot;avatar&quot;=&gt;&quot;chris-de-bruyne.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Java Developer&quot;, &quot;title2&quot;=&gt;&quot;Competence Lead Databases&quot;, &quot;email&quot;=&gt;&quot;chris.debruyne@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;ceedeebee2901&quot;, &quot;bio&quot;=&gt;&quot;Chris is a Senior Java Developer at Ordina Belgium, passionate about Java and MongoDB. As competence leader Databases he guides his fellow developers by giving workshops and presentations. Chris is passionate to help colleagues and clients to get the most out of MongoDB and the Java eco system.&quot;}</name><email>chris.debruyne@ordina.be</email></author><category term="Conference" /><category term="Percona Live" /><category term="MySql" /><category term="MongoDB" /><category term="MariaDB" /><category term="DBA" /><category term="PostgreSQL" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/percona-live-2017/logo2.png" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michael&quot;, &quot;last_name&quot;=&gt;&quot;Vervloet&quot;, &quot;permalink&quot;=&gt;&quot;/author/michael-vervloet/&quot;, &quot;avatar&quot;=&gt;&quot;michael-vervloet.jpg&quot;, &quot;linkedin&quot;=&gt;&quot;michaelvervloet&quot;, &quot;github&quot;=&gt;&quot;MiVvlt&quot;, &quot;title&quot;=&gt;&quot;SoftWare Engineer&quot;, &quot;title2&quot;=&gt;&quot;JavaScript Developer&quot;, &quot;email&quot;=&gt;&quot;michael.vervloet@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Michael is a full stack JavaScript developer specializing himself in backend development with NodeJs and Express, with a solid background of frontend/hybrid mobile development. As a member of Ordina's core 'Internet of Things' team he has collaborated on some challenging and innovative IoT applications.&quot;}</name><email>michael.vervloet@ordina.be</email></author><category term="IoT" /><category term="NodeJS" /><category term="MongoDB" /><category term="Angular" /><category term="ExpressJS" /><category term="Express" /><category term="TypeScript" /><category term="Angular-CLI" /><category term="Gulp" /><category term="Internet of Things" /><category term="IoT" /><category term="LoRa" /><category term="Proximus" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/stairwaytohealth/stairway-to-health.jpg" /></entry></feed>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Deploying web applications with environment-specific configurations - Tim Ysewyn">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2017-12-27-Deploying-web-applications-with-environment-specific-configurations/post-image.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Deploying web applications with environment-specific configurations - Tim Ysewyn"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2017-12-27-Deploying-web-applications-with-environment-specific-configurations/post-image.jpg"/>
+
+    
+    <title>Deploying web applications with environment-specific configurations - Tim Ysewyn &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Deploying web applications with environment-specific configurations</h2>
+                
+
+                
+                    Posted Dec 27, 2017
+
+
+    in <a href="/categories/architecture/">architecture</a>
+
+
+
+    by
+    
+        <a href="/author/tim-ysewyn/">Tim Ysewyn</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/angular/">Angular</a>, 
+    
+        <a href="/tags/automation/">Automation</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="the-problem">The problem</h1>
+
+<p>Recently one of my colleagues came across a problem when he wanted to create an Angular application which needed to have different configuration values between environments.</p>
+
+<p>In 2016, Jurgen Van de Moere wrote a <a href="https://www.jvandemo.com/how-to-configure-your-angularjs-application-using-environment-variables/" target="_blank">blogpost</a> which explained how to create environment-agnostic applications with AngularJS.
+A year later, Rich Franzmeier explained in his <a href="https://www.intertech.com/Blog/deploying-angular-4-apps-with-environment-specific-info/" target="_blank">blogpost</a> a solution for Angular applications which was based on Jurgen’s post.
+Although both solutions work perfectly, they both have some downsides to it.</p>
+
+<p>Nowadays we want to push devops to all teams.
+This implies that our applications should be immutable, and that everything should be automated (as much as possible).
+If we want to deploy our application we have to overwrite our configuration file manually, so this was the main disadvantage of the solution they proposed.</p>
+
+<h1 id="the-solution">The solution</h1>
+
+<p>Our solution is build on top of theirs, and should be able to work for all kinds of frameworks (AngularJS, Angular, React, Vue,…).
+<br />Here is how we did it.</p>
+
+<h2 id="code-setup">Code setup</h2>
+
+<p>We started with an <code class="highlighter-rouge">env.js</code> file which contains all environment-specific configuration.
+This file will expose the data as global variables.
+One could set the URL where our API is hosted like this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span> <span class="o">||</span> <span class="p">{};</span>
+
+  <span class="c1">// API url</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span><span class="p">.</span><span class="nx">apiUrl</span> <span class="o">=</span> <span class="s1">'http://dev.your-api.com'</span><span class="p">;</span>
+<span class="p">}(</span><span class="k">this</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>Next up is to expose this variable to our web application, which in our case is an Angular app.
+We created an injectable <code class="highlighter-rouge">Configuration</code> class, which will have a getter to retrieve our API URL.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">Injectable</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">_env</span><span class="p">():</span> <span class="nx">any</span> <span class="p">{</span>
+  <span class="c1">// return the native window obj</span>
+  <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Configuration</span> <span class="p">{</span>
+  
+  <span class="kd">get</span> <span class="nx">apiUrl</span><span class="p">():</span> <span class="nx">any</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">_env</span><span class="p">().</span><span class="nx">apiUrl</span><span class="p">;</span>
+  <span class="p">}</span>
+  
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>All we need to do now is to inject an instance of the <code class="highlighter-rouge">Configuration</code> class in the class where we need the info.</p>
+
+<h2 id="deployment-setup">Deployment setup</h2>
+
+<p>After building our Angular app, we need to package everything together.
+Since we want to make everything immutable, the obvious choice here is to use Docker.
+While starting a container, we can specify environment variables.
+This is where the second part of our solution starts.</p>
+
+<p>Using the <code class="highlighter-rouge">envsubst</code> bash command we’re going to convert a template file into an <code class="highlighter-rouge">env.js</code> file which contains all our data.
+Our <code class="highlighter-rouge">env.js.tpl</code> file looks like this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span> <span class="o">||</span> <span class="p">{};</span>
+
+  <span class="c1">// API url</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span><span class="p">.</span><span class="nx">apiUrl</span> <span class="o">=</span> <span class="s1">'$API_URL'</span><span class="p">;</span>
+<span class="p">}(</span><span class="k">this</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>To perform this conversion we need to create a <code class="highlighter-rouge">startup.sh</code> script which will actually execute the <code class="highlighter-rouge">envsubst</code> command.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>envsubst &lt; /usr/share/nginx/env.js.tpl <span class="o">&gt;</span> /usr/share/nginx/html/env.js
+
+nginx <span class="nt">-g</span> <span class="s1">'daemon off;'</span>
+</code></pre></div></div>
+
+<p>Now we need to create a <code class="highlighter-rouge">Dockerfile</code> which in turn will be used to create our Docker image.</p>
+
+<div class="language-docker highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> nginx:1.13-alpine</span>
+
+<span class="k">COPY</span><span class="s"> dist /usr/share/nginx/html</span>
+
+<span class="k">COPY</span><span class="s"> env.js.tpl /usr/share/nginx/env.js.tpl</span>
+<span class="k">COPY</span><span class="s"> startup.sh /usr/local/bin/startup.sh</span>
+
+<span class="k">ENTRYPOINT</span><span class="s"> ["/bin/tini", "--", "/usr/local/bin/startup.sh"]</span>
+</code></pre></div></div>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>This is how we managed to build our application only once, and deploy across numerous environments.
+Although it is not as immutable as we want it to be, at least we have automated the process to get rid of most human errors.
+And this way we can easily create a separate environment if there is a bug in production.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations.html&title=Deploying web applications with environment-specific configurations&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Deploying web applications with environment-specific configurations&url=https://ordina-jworks.github.io/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/tim-ysewyn/" class="image spotlight-image">
+            <img src="/img/author/tim-ysewyn.png"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Tim is a Principal Consultant at Ordina, where he helps fellow developers discovering top-notch technologies and methodologies as a Competence Leader for API &amp; Microservices. You can also find him working on various parts of the <a href="https://www.spring.io" target="_blank">Spring</a> framework or helping out at <a href="https://ng-be.org" target="_blank">NG-BE</a>. When you can't get a hold of him, he will probably be under water since he is also an underwater photographer &amp; rescue diver.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2017 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2017-12-27-Deploying-web-applications-with-environment-specific-configurations/post-image.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations.html";
+        this.page.identifier = "/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations.html";
+        this.page.title = "Deploying web applications with environment-specific configurations";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
