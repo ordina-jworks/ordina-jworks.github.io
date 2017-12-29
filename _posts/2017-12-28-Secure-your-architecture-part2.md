@@ -2,7 +2,7 @@
 layout: post
 authors: [kevin_van_houtte]
 title: 'Securing your cloud-native microservice architecture in Spring: part 2'
-image: /img/microservices/part1/securitylogo.png
+image: /img/microservices/part2/part2logo.jpg
 tags: [Microservices, Security, Encryption, Spring, Cloud, Config]
 category: Microservices
 comments: true
@@ -188,3 +188,10 @@ Spring supports using the [Vault as a backend](http://cloud.spring.io/spring-clo
 If you are using Spring Boot, a quick way to enable vault is to set your spring profile to vault. 
 Spring Boot's conditionals will activate all the auto configuration for a connection with the Vault server
 Vault can manage static and dynamic secrets such as username/password for remote applications/resources and provide credentials for external services such as MySQL, PostgreSQL, Apache Cassandra, MongoDB, Consul, AWS and more.
+
+
+# Conclusion
+With the latest technologies coming up, you can expect that our data will be stored in an immutable ledger that is secured by cryptography.
+But we have to be aware of the arrival of quantum computers. 
+This could make the best encryption algorithms useless. 
+But as always, we will find a way to protect ourselves...
