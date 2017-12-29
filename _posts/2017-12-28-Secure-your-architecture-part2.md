@@ -31,7 +31,7 @@ This key becomes very vulnerable if anyone gets a hold on it.
 
 
 ## Asymmetric Encryption
-In asymmetric encryption, a pair of keys are used. One public key that is exposed and encrypts your data and one private key that is only known by the owner that decrypts your data.
+In asymmetric encryption, a pair of keys are used. One public that is exposed and encrypts your data and one private key that is only known by the owner that decrypts your data.
 * Wel known:  [Rivest–Shamir–Adleman encryption](https://en.wikipedia.org/wiki/RSA_(cryptosystem)){:target="_blank"}
 
 # Key Mechanics 
@@ -83,9 +83,9 @@ Explanation properties:
 
 # Cloud-hosted Key management service
 KMS is a fully managed service that lets you manage encryption for your sensitive data on the cloud.
-Most of these KMS's offer the best way for encryption and use rotate and destroy your keys. 
+Most of these KMS's offer the best way for encryption and generate, rotate and destroy your keys. 
 But the KMS is vendor locking so all your keys will stay on the platform.
-To avoid vendor locking, we can implement our own open source version for managing our encryption and keys. 
+To avoid vendor locking, we can implement our own open source version for managing our encryption keys. 
 
 A few examples to get an idea of KMS:
 * [Google Cloud KMS](https://cloud.google.com/kms/){:target="_blank"}
@@ -113,12 +113,12 @@ After the installation, the next step will be securing the config server by addi
 ## Key Management
 The config server is enabled to encrypt with a symmetric or an asymmetric master key.
 The choice of which key you will need is within your security terms. 
-The symmetric key is the easiest to set up but less secure than the asymmetric one. 
+The symmetric key is the easiest way to set up but less secure than the asymmetric one. 
 To set up a symmetric key, you just assign a string to the key holder. 
 `encrypt.key=<key>`
 
-I can only recommend to use the asymmetric key with the RSA key-pair.
-To configure this asymmetric master key, we will need a keystore created by the keytool utility from the JDK.
+I can only recommend using the RSA key-pair.
+To configure thes asymmetric keys, we will need a keystore created by the keytool utility from the JDK.
 The public key will encrypt and the private key will decrypt your data.
 
 To create a keystore you can do something like this in your commandline:
