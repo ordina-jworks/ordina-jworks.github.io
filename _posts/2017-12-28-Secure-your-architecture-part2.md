@@ -198,3 +198,14 @@ With the latest technologies coming up, you can expect that our data will be sto
 But we have to be aware of the arrival of quantum computers. 
 This could make the best encryption algorithms useless. 
 But as always, we will find a way to protect ourselves...
+
+# Sources
+* [Advanced Encryption Standard encryption](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard){:target="_blank"}
+* [Rivest–Shamir–Adleman encryption](https://en.wikipedia.org/wiki/RSA_(cryptosystem)){:target="_blank"}
+* [Google Cloud KMS](https://cloud.google.com/kms/){:target="_blank"}
+* [AWS KMS](https://aws.amazon.com/kms/){:target="_blank"}
+* [Azure Vault](https://azure.microsoft.com/en-us/services/key-vault/){:target="_blank"}
+* [The twelve-factor app](https://12factor.net/){:target="_blank"}
+* [Using JDBC](http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_jdbc_backend){:target="_blank"}
+* [HashiCorp's Vault](https://www.vaultproject.io/){:target="_blank"} 
+* [Vault as a backend](http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_vault_backend){:target="_blank"}
