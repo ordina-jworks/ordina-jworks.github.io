@@ -185,7 +185,7 @@ For more information: [using JDBC](http://cloud.spring.io/spring-cloud-static/sp
 Vault can manage static and dynamic secrets such as username/password for remote applications/resources and provide credentials for external services such as MySQL, PostgreSQL, Apache Cassandra, MongoDB, Consul, AWS and more.
 Spring supports using the [Vault as a backend](http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_vault_backend){:target="_blank"} for Spring Cloud Config.
 If you are using Spring Boot, a quick way to enable vault is to set your spring profile to vault. 
-Spring Boot's conditionals will activate all the auto configuration for a connection with the Vault server
+Spring Boot's conditionals will activate all the auto configuration for a connection with the Vault server.
 
 ### Using File System
 So when you're working locally on your machine, you can always look at the native profile to activate the file system as your "backend".
