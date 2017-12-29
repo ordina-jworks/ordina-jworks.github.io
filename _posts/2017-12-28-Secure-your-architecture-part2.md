@@ -22,7 +22,7 @@ Whether it is in-motion or at-rest, encrypting our data and using the proper pro
 # Cryptographic Algorithms
 When implementing our application, every programming language will provide us with a set of known libraries for cryptographic algorithms. 
 A big flaw is implementing an algorithm by yourself, the known algorithms have been reviewed, patched and been known for their excellent security. 
-There are two ways that you can use encryption at rest: 
+These are the most used types that you can use for encryption at rest: 
 
 ## Symmetric Encryption
 The key used in encrypting data at rest is used for both encrypting and decrypting the data.
@@ -95,7 +95,7 @@ A few examples to get an idea of KMS:
 
 # Spring Cloud Config Server
 The Spring Cloud Config Server provides a centralized external configuration management backed optionally by a git repository or database.
-Using a REST API for external configuration, Config Server supports encryption of properties and yml files. 
+Using a REST API for external configuration, Config Server supports encryption and decryption of properties and yml files. 
 First step is installing the Java Cryptography Extension on our local pc.
 >JCE provides a framework and implementation for encryption, key generation, key agreement and message authentication code algorithms. 
 Downloads are available for Java 6, 7 and 8.
@@ -111,14 +111,13 @@ After the installation, the next step will be securing the config server by addi
 
 
 ## Key Management
-The config server is enabled to encrypt with a symmetric or an asymmetric master key.
+The config server supports encryption and decryption with a symmetric key or an asymmetric key-pair.
 The choice of which key you will need is within your security terms. 
 The symmetric key is the easiest way to set up but less secure than the asymmetric one. 
 To set up a symmetric key, you just assign a string to the key holder. 
 `encrypt.key=<key>`
 
-I can only recommend using the RSA key-pair.
-To configure thes asymmetric keys, we will need a keystore created by the keytool utility from the JDK.
+To configure these asymmetric keys, we will need a keystore created by the keytool utility from the JDK.
 The public key will encrypt and the private key will decrypt your data.
 
 To create a keystore you can do something like this in your commandline:
@@ -144,7 +143,6 @@ encrypt:
 {% endhighlight %}
 
 ## Encryption
-Next up is encrypting our data!
 To encrypt the data, start up your config server locally and enter this in your command line.
 
 {% highlight bash %}
@@ -160,7 +158,6 @@ spring:
     password: '{cipher}FKSAJDFGYOS8F7GLHAKERGFHLSAJ'
 {% endhighlight %}
 
-
 ## What to store where?
 When designing your config server, you have different options on where to store and fetch your sensitive data. 
 
@@ -173,7 +170,9 @@ Config varies substantially across deploys, code does not.
 You can enable your Config Server to health check your repositories by the minute.
 If you do this, always look at which version control would be the best fit, always check when they go in to maintenance. 
 It could be that they host it in another timezone, which could lead to a cascading failure.
-In my opinion, you can just disable the health checks and avoid any failures. 
+In my opinion, you can just disable the health checks with `spring.cloud.config.server.health.enabled=false` and avoid further failures. 
+If you expect the config server might go down temporarily when your client app starts, please provide a retry mechanism after a failure. 
+To enable a retry, first add `spring-retry` to your classpath with `@EnableRetry` annotation and `spring.cloud.config.failFast=true`
 
 ### Using JDBC
 New to this list is the support for JDBC. This enables us to store configuration properties inside a relation database. 
@@ -181,14 +180,18 @@ By switching the active spring profile to jdbc and adding the dependency of spri
 To store the data you will need to set up new tables to your database.
 For more information: [using JDBC](http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_jdbc_backend){:target="_blank"}
 
-
 ### Using Vault
 [HashiCorp's Vault](https://www.vaultproject.io/){:target="_blank"} provides a centralized external management server. 
+Vault can manage static and dynamic secrets such as username/password for remote applications/resources and provide credentials for external services such as MySQL, PostgreSQL, Apache Cassandra, MongoDB, Consul, AWS and more.
 Spring supports using the [Vault as a backend](http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_vault_backend){:target="_blank"} for Spring Cloud Config.
 If you are using Spring Boot, a quick way to enable vault is to set your spring profile to vault. 
 Spring Boot's conditionals will activate all the auto configuration for a connection with the Vault server
-Vault can manage static and dynamic secrets such as username/password for remote applications/resources and provide credentials for external services such as MySQL, PostgreSQL, Apache Cassandra, MongoDB, Consul, AWS and more.
 
+### Using File System
+So when you're working locally on your machine, you can always look at the native profile to activate the file system as your "backend".
+But I don't recommend it for use in a deployment environment since it comes with various problems and extra setup.
+One of those problems would be high availability, unlike eureka, the config server doesn't have the concept of peers.
+The obvious option is to use a shared file system but it requires extra setup. 
 
 # Conclusion
 With the latest technologies coming up, you can expect that our data will be stored in an immutable ledger that is secured by cryptography.
