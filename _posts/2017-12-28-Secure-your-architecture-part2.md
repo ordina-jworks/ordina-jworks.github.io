@@ -14,10 +14,10 @@ We have to be prepared if an attacker breaches in to our network and tries to ha
 Whether it is in-motion or at-rest, encrypting our data and using the proper protection mechanism, will make it worthless for the hacker to use. 
 
 # Overview
-Cryptographic Algorithms
-Key Mechanics
-Cloud-hosted Key management service
-Spring Cloud Config Server
+* [Cryptographic Algorithms](#cryptographic-algorithms)
+* [Key Mechanics](#key-mechanics)
+* [Cloud-hosted Key management service](#cloud-hosted-key-management-service)
+* [Spring Cloud Config Server](#spring-cloud-config-server)
 
 # Cryptographic Algorithms
 When implementing our application, every programming language will provide us with a set of known libraries for cryptographic algorithms. 
@@ -27,12 +27,12 @@ There are two ways that you can use encryption at rest:
 ## Symmetric Encryption
 The key used in encrypting data at rest is used for both encrypting and decrypting the data.
 This key becomes very vulnerable if anyone gets a hold on it. 
-* Well known: [Advanced Encryption Standard encryption]()
+* Well known: [Advanced Encryption Standard encryption](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard){:target="_blank"}
 
 
 ## Asymmetric Encryption
 In asymmetric encryption, a pair of keys are used. One public key that is exposed and encrypts your data and one private key that is only known by the owner that decrypts your data.
-* Wel known:  [Rivest–Shamir–Adleman encryption]()
+* Wel known:  [Rivest–Shamir–Adleman encryption](https://en.wikipedia.org/wiki/RSA_(cryptosystem)){:target="_blank"}
 
 # Key Mechanics 
 Encryption keys are another aspect of encryption, handling the keys become just as sensitive as the data itself. 
@@ -46,7 +46,7 @@ To avoid this, you rotate your keys, and every time the same data field is encry
 ## JSON Web Key (Set)
 We discussed in the previous post about retrieving a JWK(S) to verify our JSON Web Token in our microservice. 
 A JWK is a JSON object that represents a cryptographic key that consists of information to verify a JWT. 
-If you like to dive into Signing JSON documents your can check out this [post](http://localhost:4000/security/2016/03/12/Digitally-signing-your-JSON-documents.html#jwk)
+If you like to dive into Signing JSON documents your can check out this [post](https://ordina-jworks.github.io//security/2016/03/12/Digitally-signing-your-JSON-documents.html#jwk){:target="_blank"}
 
 JWKS example:
 
@@ -88,12 +88,10 @@ But the KMS is vendor locking so all your keys will stay on the platform.
 To avoid vendor locking, we can implement our own open source version for managing our encryption and keys. 
 
 A few examples to get an idea of KMS:
-* [Google Cloud KMS](https://cloud.google.com/kms/)
-* [AWS KMS](https://aws.amazon.com/kms/)
-* [Azure Vault](https://azure.microsoft.com/en-us/services/key-vault/)
+* [Google Cloud KMS](https://cloud.google.com/kms/){:target="_blank"}
+* [AWS KMS](https://aws.amazon.com/kms/){:target="_blank"}
+* [Azure Vault](https://azure.microsoft.com/en-us/services/key-vault/){:target="_blank"}
 
-
-<a name="config" />
 
 # Spring Cloud Config Server
 The Spring Cloud Config Server provides a centralized external configuration management backed optionally by a git repository or database.
@@ -168,7 +166,7 @@ When designing your config server, you have different options on where to store 
 
 ### Using a Git repository
 The default and most common way most of us use it is via private git repositories where we store our sensitive data where the config server can fetch it.
-Be aware, never put configuration inside your code repository, it violates [the twelve-factor app](https://12factor.net/) which requires strict separation of config from code. 
+Be aware, never put configuration inside your code repository, it violates [the twelve-factor app](https://12factor.net/){:target="_blank"} which requires strict separation of config from code. 
 Config varies substantially across deploys, code does not.
 
 #### Health checks
@@ -181,12 +179,12 @@ In my opinion, you can just disable the health checks and avoid any failures.
 New to this list is the support for JDBC. This enables us to store configuration properties inside a relation database. 
 By switching the active spring profile to jdbc and adding the dependency of spring-jdbc to your classpath, Spring Boot will configure the datasource you included on the classpath.
 To store the data you will need to set up new tables to your database.
-For more information: [using JDBC](http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_jdbc_backend)
+For more information: [using JDBC](http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_jdbc_backend){:target="_blank"}
 
 
 ### Using Vault
-[HashiCorp's Vault]() provides a centralized external management server. 
-Spring supports using the [Vault as a backend](http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_vault_backend) for Spring Cloud Config.
+[HashiCorp's Vault](https://www.vaultproject.io/){:target="_blank"} provides a centralized external management server. 
+Spring supports using the [Vault as a backend](http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_vault_backend){:target="_blank"} for Spring Cloud Config.
 If you are using Spring Boot, a quick way to enable vault is to set your spring profile to vault. 
 Spring Boot's conditionals will activate all the auto configuration for a connection with the Vault server
 Vault can manage static and dynamic secrets such as username/password for remote applications/resources and provide credentials for external services such as MySQL, PostgreSQL, Apache Cassandra, MongoDB, Consul, AWS and more.
