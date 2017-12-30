@@ -36,7 +36,7 @@ We implemented the PreloadAllModules strategy in its default configuration, but 
 
 To do so, include the preloadingStrategy in your @NgModule like so:
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 @NgModule({
     ...
     imports: [
@@ -47,7 +47,7 @@ To do so, include the preloadingStrategy in your @NgModule like so:
 
 And define your routes like this:
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 {
     path: 'performance',
     loadChildren: 'performance.module#PerformanceModule',
@@ -77,7 +77,7 @@ This results in pagespeed optimisations as the browser can quickly serve the sha
 Among other optimisations the [extra async commons chunk](https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk) allows us to drastically improve performance by moving common modules out of the parent so that a new async-loaded additional commons chunk is used, which decreases initial load time.
 This is automatically downloaded in parallel when the additional chunk is downloaded.
 
-{% highlight coffeescript %}
+{% highlight typescript %}
 
 new webpack.optimize.CommonsChunkPlugin({
   children: true,
@@ -120,7 +120,7 @@ There are two ways to set up the OnPush strategy
 
    The simplest way is to use only immutable objects.
 
-   {% highlight coffeescript %}
+   {% highlight typescript %}
    import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
    @Component({
@@ -143,7 +143,7 @@ There are two ways to set up the OnPush strategy
 
    Another way is to use observables as inputs.
 
-   {% highlight coffeescript %}
+   {% highlight typescript %}
    import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
    @Component({

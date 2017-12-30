@@ -196,6 +196,34 @@ Not only technical-, but also social- and organizational skills are included in 
 
 Medior and Senior experts get the chance to literally __accelerate their career__ by extensively following courses and workshops over a period of two years.
 
+## Assignment
+
+At the end of the kata, the participants received their assignment.
+Upon succesful completion of this assignment, they received an internal __Architect Associate__ certificate.
+This badge is a pre-requisite to participate in the professional and master programs.
+
+The following people have earned the Architect Associate badge:
+
+- Andreas Evers
+- Benjamin Haentjes
+- Frederick Bousson
+- Geert Clissen
+- Jochen Van de Voorde
+- Johan Buntinx
+- Jos Clijmans 
+- Ken Coenen
+- Kevin Bosteels
+- Koen Vanden Bossche
+- Mario Van Hissenhoven 
+- Martin Kwee
+- Sebastiaan Tempels
+- Stijn Dierckens
+- Sven Bovens
+
+The list will be updated, when more people receive the badge.
+
+Their results, will help shape to future of the Ordina Architecture Katas.
+
 ## Links and resources
 
 - Recommended reading: 
