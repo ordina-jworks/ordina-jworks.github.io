@@ -2,7 +2,7 @@
 layout: post
 authors: [martijn_willekens]
 title: "Automated testing with Gauge"
-image: /img/2017-10-02-testing-angular-with-karma/unit-tests.png
+image: /img/2017-12-30-gauge-automated-testing/gauge.png
 tags: [Gauge,E2E,Testing,Test automation]
 category: Testing
 comments: true
@@ -257,7 +257,9 @@ It shows which tests succeeded and which failed with some additional graphs.
 In the report you'll even find how long it took to run a test and each of its steps.
 There's also a search functionality to quickly find a certain spec. 
 
-***Image here***
+<p>
+    <img class="image fit" style="max-width:768px" alt="Gauge HTML report" src="/img/2017-12-30-gauge-automated-testing/gauge-report.jpg" />
+</p>
 
 # Conclusion
 It's a good idea to write automated tests. 
