@@ -380,4 +380,4 @@ EPAM invited everyone to chill, have some drinks and games at the EXTRA ruinpub 
 
 ****
 
-[Read our full report on day 1 of JS Conf Budapest 2017 here!](/conference/2017/10/26/JS-Conf-Budapest-day-1.html)
+[Read our full report on day 1 of JS Conf Budapest 2017 here!](/conference/2017/12/30/JS-Conf-Budapest-day-1.html)
