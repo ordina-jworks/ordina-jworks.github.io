@@ -95,7 +95,7 @@ A few examples to get an idea of KMS:
 
 A few examples of open-source variants:
 * [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/){:target="_blank"}
-* [Vault](https://www.vaultproject.io/){:target="_blank"}
+* [HashiCorp's Vault](https://www.vaultproject.io/){:target="_blank"}
 * [Keywhiz](https://square.github.io/keywhiz/){:target="_blank"}
 
 
@@ -106,7 +106,7 @@ First step is downloading the Java Cryptography Extension on our local pc.
 >JCE provides a framework and implementation for encryption, key generation, key agreement and message authentication code algorithms. 
 You're not installing JCE itself, because it's packaged within the Java SE binary.
 However, you do need to update its policy files from time to time.
-[Downloads](http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html) are available for Java 6, 7 and 8.
+Downloads are available for Java [6](http://www.oracle.com/technetwork/java/javase/downloads/jce-6-download-429243.html){:target="_blank"}, [7](http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html){:target="_blank"} and [8](http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html){:target="_blank"}.
 This will allow the config server to use the encryption tool of the JCE.
 
 After the download, the next step will be securing the config server by adding Spring Security to the classpath and configuring your Basic/OAuth2 authentication.
@@ -142,7 +142,7 @@ Place it in your repository project and configure it in your yml.
 
 <div markdown="span" class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i> <b>Warning:</b> Be aware if you package your keystore within your application jar/war file, the same encryption keys will be used across all of your environments!</div>
 
-
+<br />
 Example yml in the config server:
 
 {% highlight yml %}
@@ -200,7 +200,7 @@ If you are using Spring Boot, a quick way to enable Vault is to set your spring 
 Spring Boot's conditionals will activate all the auto configuration for a connection with the Vault server.
 
 #### Using File System
-So when you're working locally on your machine, you can always look at the native profile to activate the file system as your "backend".
+So when you're working locally on your machine, you can always look at the `native` profile to activate the file system as your "backend".
 But I don't recommend it for use in a deployment environment since it comes with various problems and extra setup.
 One of those problems would be high availability, unlike Eureka, the config server doesn't have the concept of peers.
 The obvious option is to use a shared file system but it requires extra setup. 
@@ -221,3 +221,8 @@ But as always, we will find a way to protect ourselves...
 * [Using JDBC](http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_jdbc_backend){:target="_blank"}
 * [HashiCorp's Vault](https://www.vaultproject.io/){:target="_blank"} 
 * [Vault as a backend](http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_vault_backend){:target="_blank"}
+* [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/){:target="_blank"}
+* [Keywhiz](https://square.github.io/keywhiz/){:target="_blank"}
+* [JCE 6](http://www.oracle.com/technetwork/java/javase/downloads/jce-6-download-429243.html){:target="_blank"}
+* [JCE 7](http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html){:target="_blank"}
+* [JCE 8](http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html){:target="_blank"}
