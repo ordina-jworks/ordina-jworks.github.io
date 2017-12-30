@@ -1,5 +1,223 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-12-27T14:57:49+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Deploying web applications with environment-specific configurations</title><link href="https://ordina-jworks.github.io/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations.html" rel="alternate" type="text/html" title="Deploying web applications with environment-specific configurations" /><published>2017-12-27T00:00:00+00:00</published><updated>2017-12-27T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations.html">&lt;h1 id=&quot;the-problem&quot;&gt;The problem&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2017-12-30T19:32:15+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Securing your cloud-native microservice architecture in Spring: part 2</title><link href="https://ordina-jworks.github.io/microservices/2017/12/30/Secure-your-architecture-part2.html" rel="alternate" type="text/html" title="Securing your cloud-native microservice architecture in Spring: part 2" /><published>2017-12-30T00:00:00+00:00</published><updated>2017-12-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/microservices/2017/12/30/Secure-your-architecture-part2</id><content type="html" xml:base="https://ordina-jworks.github.io/microservices/2017/12/30/Secure-your-architecture-part2.html">&lt;p&gt;Since the rise of the digital era, most enterprises keep their data in a digital format.
+But if their sensitive data lacks security, it can cause the data to be unreliable, unstable and unavailable to their business.
+We have to be prepared if an attacker breaches into our network and tries to hack our sensitive data.
+Whether it is in motion or at rest, encrypting our data and using the proper protection mechanisms will make it worthless for the hacker to use.&lt;/p&gt;
+
+&lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ordina-jworks.github.io/microservices/2017/09/26/Secure-your-architecture-part1.html&quot;&gt;Securing your cloud-native microservice architechture in Spring: Part 1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#cryptographic-algorithms&quot;&gt;Cryptographic Algorithms&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#key-mechanics&quot;&gt;Key Mechanics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#cloud-hosted-key-management-service&quot;&gt;Cloud-hosted Key management service&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#spring-cloud-config-server&quot;&gt;Spring Cloud Config Server&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;cryptographic-algorithms&quot;&gt;Cryptographic Algorithms&lt;/h2&gt;
+&lt;p&gt;When implementing our application, every programming language will provide us with a set of known libraries for cryptographic algorithms. 
+A big flaw is implementing an algorithm by yourself, the known algorithms have been reviewed, patched and been known for their excellent security. 
+These are the most used types that you can use for encryption at rest:&lt;/p&gt;
+
+&lt;h3 id=&quot;symmetric-encryption&quot;&gt;Symmetric Encryption&lt;/h3&gt;
+&lt;p&gt;The key used in encrypting data at rest is used for both encrypting and decrypting the data.
+This key becomes very vulnerable if anyone gets a hold on it.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Well known: &lt;a href=&quot;https://en.wikipedia.org/wiki/Advanced_Encryption_Standard&quot; target=&quot;_blank&quot;&gt;Advanced Encryption Standard encryption&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;asymmetric-encryption&quot;&gt;Asymmetric Encryption&lt;/h3&gt;
+&lt;p&gt;In asymmetric encryption, a pair of keys are used. A public key that is exposed and encrypts your data and a private key that is only known by the owner that decrypts your data.
+This key-pair can also be used to sign your data, so the application knows that it can trust the source of the data.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Well known:  &lt;a href=&quot;https://en.wikipedia.org/wiki/RSA_(cryptosystem)&quot; target=&quot;_blank&quot;&gt;Rivest–Shamir–Adleman encryption&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;key-mechanics&quot;&gt;Key Mechanics&lt;/h2&gt;
+&lt;p&gt;Encryption keys are another aspect of encryption, handling the keys becomes just as sensitive as the data itself. 
+That’s why we need mechanisms on how keys are stored and shared so attackers can’t get a hold on them.&lt;/p&gt;
+
+&lt;h3 id=&quot;key-rotation&quot;&gt;Key rotation&lt;/h3&gt;
+&lt;p&gt;Encryption key rotation will provide protection especially when the certificate expires, is corrupted or the key management admin is no longer part of the company. 
+Lets say, you got a good eye at detecting patterns and detect that the same key is being used for encrypting data.
+To avoid this, you rotate your keys, and every time the same data field is encrypted it will result in a different encrypted message.&lt;/p&gt;
+
+&lt;h3 id=&quot;json-web-key-set&quot;&gt;JSON Web Key (Set)&lt;/h3&gt;
+&lt;p&gt;We discussed in the &lt;a href=&quot;https://ordina-jworks.github.io/microservices/2017/09/26/Secure-your-architecture-part1.html&quot;&gt;previous post&lt;/a&gt; about retrieving a JWK(S) to verify our JSON Web Token in our microservice. 
+A JWK is a JSON object that represents a cryptographic key that consists of information to verify a JWT. 
+If you like to dive into signing JSON documents you can check out this blog post on &lt;a href=&quot;https://ordina-jworks.github.io//security/2016/03/12/Digitally-signing-your-JSON-documents.html#jwk&quot; target=&quot;_blank&quot;&gt;Digitally signing your JSON documents&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;JWKS example:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;keys&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;alg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;RS256&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;kty&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;RSA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;use&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sig&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;x5c&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MIIC+DCCAeCgAwIBAgIJBIGjYW6hFpn2MA0GCSqGSIb3DQEBBQUAMCMxITAfBgNVBAMTGGN1c3RvbWVyLWRlbW9zLmF1dGgwLmNvbTAeFw0xNjExMjIyMjIyMDVaFw0zMDA4MDEyMjIyMDVaMCMxITAfBgNVBAMTGGN1c3RvbWVyLWRlbW9zLmF1dGgwLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMnjZc5bm/eGIHq09N9HKHahM7Y31P0ul+A2wwP4lSpIwFrWHzxw88/7Dwk9QMc+orGXX95R6av4GF+Es/nG3uK45ooMVMa/hYCh0Mtx3gnSuoTavQEkLzCvSwTqVwzZ+5noukWVqJuMKNwjL77GNcPLY7Xy2/skMCT5bR8UoWaufooQvYq6SyPcRAU4BtdquZRiBT4U5f+4pwNTxSvey7ki50yc1tG49Per/0zA4O6Tlpv8x7Red6m1bCNHt7+Z5nSl3RX/QYyAEUX1a28VcYmR41Osy+o2OUCXYdUAphDaHo4/8rbKTJhlu8jEcc1KoMXAKjgaVZtG/v5ltx6AXY0CAwEAAaMvMC0wDAYDVR0TBAUwAwEB/zAdBgNVHQ4EFgQUQxFG602h1cG+pnyvJoy9pGJJoCswDQYJKoZIhvcNAQEFBQADggEBAGvtCbzGNBUJPLICth3mLsX0Z4z8T8iu4tyoiuAshP/Ry/ZBnFnXmhD8vwgMZ2lTgUWwlrvlgN+fAtYKnwFO2G3BOCFw96Nm8So9sjTda9CCZ3dhoH57F/hVMBB0K6xhklAc0b5ZxUpCIN92v/w+xZoz1XQBHe8ZbRHaP1HpRM4M7DJk2G5cgUCyu3UBvYS41sHvzrxQ3z7vIePRA4WF4bEkfX12gvny0RsPkrbVMXX1Rj9t6V7QXrbPYBAO+43JvDGYawxYVvLhz+BJ45x50GFQmHszfY3BR9TPK8xmMmQwtIvLu1PMttNCs7niCYkSiUv2sc2mlq1i3IashGkkgmo=&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;yeNlzlub94YgerT030codqEztjfU_S6X4DbDA_iVKkjAWtYfPHDzz_sPCT1Axz6isZdf3lHpq_gYX4Sz-cbe4rjmigxUxr-FgKHQy3HeCdK6hNq9ASQvMK9LBOpXDNn7mei6RZWom4wo3CMvvsY1w8tjtfLb-yQwJPltHxShZq5-ihC9irpLI9xEBTgG12q5lGIFPhTl_7inA1PFK97LuSLnTJzW0bj096v_TMDg7pOWm_zHtF53qbVsI0e3v5nmdKXdFf9BjIARRfVrbxVxiZHjU6zL6jY5QJdh1QCmENoejj_ytspMmGW7yMRxzUqgxcAqOBpVm0b-_mW3HoBdjQ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;e&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;AQAB&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;kid&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;NjVBRjY5MDlCMUIwNzU4RTA2QzZFMDQ4QzQ2MDAyQjVDNjk1RTM2Qg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;x5t&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;NjVBRjY5MDlCMUIwNzU4RTA2QzZFMDQ4QzQ2MDAyQjVDNjk1RTM2Qg&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Explanation properties:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;alg&lt;/code&gt;: is the algorithm for the key&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;kty&lt;/code&gt;: is the key type&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;use&lt;/code&gt;: is how the key was meant to be used. For the example above sig represents signature.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;x5c&lt;/code&gt;: is the x.509 certificate chain&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;e&lt;/code&gt;: is the exponent for a standard pem&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt;: is the modulus for a standard pem&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;kid&lt;/code&gt;: is the unique identifier for the key&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;x5t&lt;/code&gt;: is the thumbprint of the x.509 cert (SHA-1 thumbprint)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;cloud-hosted-key-management-service&quot;&gt;Cloud-hosted Key management service&lt;/h2&gt;
+&lt;p&gt;KMS is a fully managed service that allows you to manage your encryption keys in the cloud.
+Most of these KMSs offer the best way for encryption and generate, rotate and destroy your keys. 
+But the KMS is vendor lock-in so all your keys will stay on the platform.
+To avoid vendor lock-in, we can implement our own open source version for managing our encryption keys.&lt;/p&gt;
+
+&lt;p&gt;A few examples to get an idea of KMS:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cloud.google.com/kms/&quot; target=&quot;_blank&quot;&gt;Google Cloud KMS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/kms/&quot; target=&quot;_blank&quot;&gt;AWS KMS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/key-vault/&quot; target=&quot;_blank&quot;&gt;Azure Vault&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A few examples of open-source variants:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cloud.spring.io/spring-cloud-config/&quot; target=&quot;_blank&quot;&gt;Spring Cloud Config Server&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.vaultproject.io/&quot; target=&quot;_blank&quot;&gt;HashiCorp’s Vault&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://square.github.io/keywhiz/&quot; target=&quot;_blank&quot;&gt;Keywhiz&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;spring-cloud-config-server&quot;&gt;Spring Cloud Config Server&lt;/h2&gt;
+&lt;p&gt;The Spring Cloud Config Server provides a centralized external configuration management backed optionally by a Git repository or database.
+Using a REST API for external configuration, Config Server supports encryption and decryption of properties and yml files. 
+First step is downloading the Java Cryptography Extension on our local pc.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;JCE provides a framework and implementation for encryption, key generation, key agreement and message authentication code algorithms. 
+You’re not installing JCE itself, because it’s packaged within the Java SE binary.
+However, you do need to update its policy files from time to time.
+Downloads are available for Java &lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/jce-6-download-429243.html&quot; target=&quot;_blank&quot;&gt;6&lt;/a&gt;, &lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html&quot; target=&quot;_blank&quot;&gt;7&lt;/a&gt; and &lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html&quot; target=&quot;_blank&quot;&gt;8&lt;/a&gt;.
+This will allow the config server to use the encryption tool of the JCE.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;After the download, the next step will be securing the config server by adding Spring Security to the classpath and configuring your Basic/OAuth2 authentication.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-maven&quot; data-lang=&quot;maven&quot;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;spring-boot-starter-security&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;key-management&quot;&gt;Key Management&lt;/h3&gt;
+&lt;p&gt;The config server supports encryption and decryption with a symmetric key or an asymmetric key-pair.
+The choice of which key you will need is within your security terms. 
+The symmetric key is the easiest way to set up but less secure than the asymmetric one. 
+To set up a symmetric key, you just assign a string to the key holder: 
+&lt;code class=&quot;highlighter-rouge&quot;&gt;encrypt.key=&amp;lt;key&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;To configure these asymmetric keys, we will need a keystore created by the keytool utility from the JDK.
+The public key will encrypt and the private key will decrypt your data.&lt;/p&gt;
+
+&lt;p&gt;To create a keystore you can do something like this in your command line:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$&amp;gt;&lt;/span&gt; keytool &lt;span class=&quot;nt&quot;&gt;-genkeypair&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-alias&lt;/span&gt; &amp;lt;keyname&amp;gt; &lt;span class=&quot;nt&quot;&gt;-keyalg&lt;/span&gt; RSA &lt;span class=&quot;nt&quot;&gt;-keysize&lt;/span&gt; 4096 &lt;span class=&quot;nt&quot;&gt;-sigalg&lt;/span&gt; SHA512withRSA &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-dname&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;CN=Config Server,OU=JWorks,O=Ordina,L=Mechelen,S=State,C=BE&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-keypass&lt;/span&gt; &amp;lt;secret&amp;gt; &lt;span class=&quot;nt&quot;&gt;-keystore&lt;/span&gt; config-server.jks &lt;span class=&quot;nt&quot;&gt;-storepass&lt;/span&gt; &amp;lt;password&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This will generate a keystore for the config server to use. 
+Place it in your repository project and configure it in your yml.&lt;/p&gt;
+
+&lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;&lt;i class=&quot;fa fa-exclamation-circle&quot;&gt;&lt;/i&gt; &lt;b&gt;Warning:&lt;/b&gt; Be aware if you package your keystore within your application jar/war file, the same encryption keys will be used across all of your environments!&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
+Example yml in the config server:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;na&quot;&gt;encrypt&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;key-store&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;classpath:config-server.jks // resource location&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;lt;password&amp;gt; // to unlock the keystore&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;alias&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;config-server-key // to identify which key in the store is to be used&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;secret&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;lt;secret&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;encryption&quot;&gt;Encryption&lt;/h3&gt;
+&lt;p&gt;To encrypt the data, start up your config server locally and enter this in your command line.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;SECRET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST &lt;span class=&quot;nt&quot;&gt;--data-urlencode&lt;/span&gt; secret http://user:password@localhost:&amp;lt;port&amp;gt;/encrypt&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;datasource.password=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$SECRET&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; application-dev.yml&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;When the encryption is done, we get an encrypted piece of data in your configuration in the form of:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;na&quot;&gt;spring&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;datasource&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;dbuser&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{cipher}FKSAJDFGYOS8F7GLHAKERGFHLSAJ'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;what-to-store-where&quot;&gt;What to store where?&lt;/h3&gt;
+&lt;p&gt;When designing your config server, you have different options on where and to which our config server has access.&lt;/p&gt;
+
+&lt;h4 id=&quot;using-a-git-repository&quot;&gt;Using a Git repository&lt;/h4&gt;
+&lt;p&gt;The default and most common way most of us use is via private Git repositories where we store our sensitive data where the config server can fetch it.
+Be aware, never put configuration inside your code repository, it violates &lt;a href=&quot;https://12factor.net/&quot; target=&quot;_blank&quot;&gt;the twelve-factor app&lt;/a&gt; which requires strict separation of config from code. 
+Config varies substantially across deploys, code does not.&lt;/p&gt;
+
+&lt;h5 id=&quot;health-checks&quot;&gt;Health checks&lt;/h5&gt;
+&lt;p&gt;You can enable the health check to the config server within the application.
+If you do this, always look at which version control would be the best fit, always check when they go into maintenance. 
+It could be that they host it in another timezone, which could lead to a cascading failure.
+In my opinion, you can just disable the health checks with &lt;code class=&quot;highlighter-rouge&quot;&gt;spring.cloud.config.server.health.enabled=false&lt;/code&gt; and avoid further failures. 
+If you expect that the config server might go down temporarily when your client app starts, please provide a retry mechanism after a failure. 
+To enable a retry, first add &lt;code class=&quot;highlighter-rouge&quot;&gt;spring-retry&lt;/code&gt; to your classpath with &lt;code class=&quot;highlighter-rouge&quot;&gt;@EnableRetry&lt;/code&gt; annotation and &lt;code class=&quot;highlighter-rouge&quot;&gt;spring.cloud.config.failFast=true&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;using-jdbc&quot;&gt;Using JDBC&lt;/h4&gt;
+&lt;p&gt;New to this list is the support for JDBC. This enables us to store configuration properties inside a relational database. 
+By switching the active spring profile to &lt;code class=&quot;highlighter-rouge&quot;&gt;JDBC&lt;/code&gt; and adding the dependency of &lt;code class=&quot;highlighter-rouge&quot;&gt;spring-jdbc&lt;/code&gt; to your classpath, Spring Boot will configure the datasource you included on the classpath.
+To store the data you will need to set up new tables in your database.
+For more information: &lt;a href=&quot;http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_jdbc_backend&quot; target=&quot;_blank&quot;&gt;using JDBC&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;using-vault&quot;&gt;Using Vault&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.vaultproject.io/&quot; target=&quot;_blank&quot;&gt;HashiCorp’s Vault&lt;/a&gt; provides a centralized external management server. 
+Vault can manage static and dynamic secrets such as username/password for remote applications/resources and provide credentials for external services such as MySQL, PostgreSQL, Apache Cassandra, MongoDB, Consul, AWS and more.
+Spring supports using the &lt;a href=&quot;http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_vault_backend&quot; target=&quot;_blank&quot;&gt;Vault as a backend&lt;/a&gt; for Spring Cloud Config.
+If you are using Spring Boot, a quick way to enable Vault is to set your spring profile to &lt;code class=&quot;highlighter-rouge&quot;&gt;vault&lt;/code&gt;. 
+Spring Boot’s conditionals will activate all the auto configuration for a connection with the Vault server.&lt;/p&gt;
+
+&lt;h4 id=&quot;using-file-system&quot;&gt;Using File System&lt;/h4&gt;
+&lt;p&gt;So when you’re working locally on your machine, you can always look at the &lt;code class=&quot;highlighter-rouge&quot;&gt;native&lt;/code&gt; profile to activate the file system as your “backend”.
+But I don’t recommend it for use in a deployment environment since it comes with various problems and extra setup.
+One of those problems would be high availability, unlike Eureka, the config server doesn’t have the concept of peers.
+The obvious option is to use a shared file system but it requires extra setup.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;With the latest technologies coming up, you can expect that our data will be stored in an immutable ledger that is secured by cryptography.
+But we have to be aware of the arrival of quantum computers. 
+This could make the best encryption algorithms useless. 
+But as always, we will find a way to protect ourselves…&lt;/p&gt;
+
+&lt;h1 id=&quot;sources&quot;&gt;Sources&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Advanced_Encryption_Standard&quot; target=&quot;_blank&quot;&gt;Advanced Encryption Standard encryption&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/RSA_(cryptosystem)&quot; target=&quot;_blank&quot;&gt;Rivest–Shamir–Adleman encryption&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cloud.google.com/kms/&quot; target=&quot;_blank&quot;&gt;Google Cloud KMS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/kms/&quot; target=&quot;_blank&quot;&gt;AWS KMS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/key-vault/&quot; target=&quot;_blank&quot;&gt;Azure Vault&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://12factor.net/&quot; target=&quot;_blank&quot;&gt;The twelve-factor app&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_jdbc_backend&quot; target=&quot;_blank&quot;&gt;Using JDBC&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.vaultproject.io/&quot; target=&quot;_blank&quot;&gt;HashiCorp’s Vault&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_vault_backend&quot; target=&quot;_blank&quot;&gt;Vault as a backend&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cloud.spring.io/spring-cloud-config/&quot; target=&quot;_blank&quot;&gt;Spring Cloud Config Server&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://square.github.io/keywhiz/&quot; target=&quot;_blank&quot;&gt;Keywhiz&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/jce-6-download-429243.html&quot; target=&quot;_blank&quot;&gt;JCE 6&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html&quot; target=&quot;_blank&quot;&gt;JCE 7&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html&quot; target=&quot;_blank&quot;&gt;JCE 8&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van Houtte&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-houtte/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-houtte.jpg&quot;, &quot;twitter&quot;=&gt;&quot;KevinVHoutte&quot;, &quot;linkedin&quot;=&gt;&quot;kevin-van-houtte-55ba936a&quot;, &quot;github&quot;=&gt;&quot;KevinVHoutte&quot;, &quot;title&quot;=&gt;&quot;Software Consultant Java&quot;, &quot;email&quot;=&gt;&quot;kevin.vanhoutte@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin Van Houtte is a Software Engineer at Ordina Belgium. Passionate in the Spring ecosystem, Kevin is eager to discover new and efficient ways to solve problems. He enjoys a good challenge and is interested in cutting edge technologies. Kevin has a strong focus on building cloud native architectures with the right mindset on security and API design.&quot;}</name><email>kevin.vanhoutte@ordina.be</email></author><category term="Microservices" /><category term="Microservices" /><category term="Security" /><category term="Encryption" /><category term="Spring" /><category term="Cloud" /><category term="Config" /><summary type="html">Since the rise of the digital era, most enterprises keep their data in a digital format. But if their sensitive data lacks security, it can cause the data to be unreliable, unstable and unavailable to their business. We have to be prepared if an attacker breaches into our network and tries to hack our sensitive data. Whether it is in motion or at rest, encrypting our data and using the proper protection mechanisms will make it worthless for the hacker to use.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/microservices/part2/part2logo.jpg" /></entry><entry><title type="html">Deploying web applications with environment-specific configurations</title><link href="https://ordina-jworks.github.io/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations.html" rel="alternate" type="text/html" title="Deploying web applications with environment-specific configurations" /><published>2017-12-27T00:00:00+00:00</published><updated>2017-12-27T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2017/12/27/Deploying-web-applications-with-environment-specific-configurations.html">&lt;h1 id=&quot;the-problem&quot;&gt;The problem&lt;/h1&gt;
 
 &lt;p&gt;Recently one of my colleagues came across a problem when he wanted to create an Angular application which needed to have different configuration values between environments.&lt;/p&gt;
 
@@ -2130,346 +2348,4 @@ We teamed up with our &lt;a href=&quot;https://www.ordina.nl&quot; target=&quot;
 
 &lt;p style=&quot;text-align: center;&quot;&gt;
   &lt;img class=&quot;image fit&quot; alt=&quot;Oracle Cloud Fest&quot; src=&quot;/img/javaone/att.jpg&quot; /&gt;
-&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bart&quot;, &quot;last_name&quot;=&gt;&quot;Blommaerts&quot;, &quot;avatar&quot;=&gt;&quot;bart-blommaerts.png&quot;, &quot;twitter&quot;=&gt;&quot;DaggieBe&quot;, &quot;linkedin&quot;=&gt;&quot;bartblommaerts&quot;, &quot;github&quot;=&gt;&quot;bart-blommaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/bart-blommaerts/&quot;, &quot;title&quot;=&gt;&quot;Software Architect&quot;, &quot;title2&quot;=&gt;&quot;Competence Manager Architecture&quot;, &quot;email&quot;=&gt;&quot;bart.blommaerts@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Bart Blommaerts is a passionate Software Architect at Ordina, who believes closing the model-code gap is essential to make rapid, agile delivery sustainable. Bart has a strong focus on API design, reuse, automation and security. He is always looking for technical challenges.&quot;}</name><email>bart.blommaerts@ordina.be</email></author><category term="Tech" /><category term="javaone" /><category term="conference" /><summary type="html">The last time I visited JavaOne was back in 2014. So, I was very excited to go back to San Francisco this year.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/j1.jpg" /></entry><entry><title type="html">Stairway to Health with IoT and the MEAN stack</title><link href="https://ordina-jworks.github.io/iot/2017/10/12/Stairway-To-Health.html" rel="alternate" type="text/html" title="Stairway to Health with IoT and the MEAN stack" /><published>2017-10-12T00:00:00+00:00</published><updated>2017-10-12T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2017/10/12/Stairway-To-Health</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2017/10/12/Stairway-To-Health.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
-
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Healthier at the office with the ‘Internet of Things’.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;what-is-stairway-to-health&quot;&gt;What is Stairway to Health&lt;/h2&gt;
-&lt;p&gt;In an effort to improve worker health in a fun and engaging way, Proximus wanted to encourage their employees to take the stairs instead of the elevator.
-This is when the idea of a little game between the three towers came along. 
-On different dashboards across Proximus and on the Stairway to Health website, the employees could see which tower had the most employees taking the stairs.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;buildings&quot; src=&quot;/img/stairwaytohealth/buildings.jpg&quot; class=&quot;image fit&quot; /&gt;
-&lt;img alt=&quot;overview&quot; src=&quot;/img/stairwaytohealth/overview.jpg&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;They can also get a more detailed look of how many people taking the stairs where and when, with drilldown views for monthly, weekly, daily, and even hourly statistics.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;details&quot; src=&quot;/img/stairwaytohealth/details.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;weekly&quot; src=&quot;/img/stairwaytohealth/weekly.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;daily&quot; src=&quot;/img/stairwaytohealth/daily.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;what-does-it-do&quot;&gt;What does it do?&lt;/h2&gt;
-&lt;p&gt;The Stairway to Health project is a simple yet great example to show what the Internet of Things can do:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;LoRa sensors detect door openings, these are installed on the doors of the staircases&lt;/li&gt;
-  &lt;li&gt;These sensors communicate via the Proximus LoRa network to report their status&lt;/li&gt;
-  &lt;li&gt;Sensor data is sent to the Proximus MyThings platform which processes the data&lt;/li&gt;
-  &lt;li&gt;The data gets sent to the Stairway to Health application&lt;/li&gt;
-  &lt;li&gt;The Stairway to Health application interprets and visualizes the data&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In summary: 
-We install sensors on the doors (things) to measure usage and we analyse the data to persuade people to move more. 
-The result is a good example of how IoT can influence our daily lives. 
-Proximus was able to provide us with all the necessary building blocks to offer a complete end-to-end solution!&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;dataflow&quot; src=&quot;/img/stairwaytohealth/dataflow.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;mythings-and-stairway-to-health&quot;&gt;MyThings and Stairway to Health&lt;/h2&gt;
-&lt;p&gt;MyThings is the Proximus IoT platform for onboarding, managing, configuring and monitoring IoT sensors. By registering (onboarding) our sensors to the platform, we can let MyThings take care of decoding the messages and set up a stream to our application.
-This way every time a log comes in from the sensor, we get the decoded data posted to our designated endpoint.&lt;/p&gt;
-
-&lt;h2 id=&quot;the-requirements&quot;&gt;The Requirements&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;The usage of the stairways is measured and the results should be visualized on large screens in the towers.&lt;/li&gt;
-  &lt;li&gt;These screens should have a QR code so that employees can easily visit the application on their mobile devices.&lt;/li&gt;
-  &lt;li&gt;When visiting the website, they should be able to click on the results to get a more detailed view of the data.&lt;/li&gt;
-  &lt;li&gt;The frontend application should be available in Dutch and French and the dashboard should switch between these languages every minute when viewing it on the large screens.&lt;/li&gt;
-  &lt;li&gt;Admins should be able to manage locations (towers) and chart timespans.&lt;/li&gt;
-  &lt;li&gt;It should have an info page with some information about the project and its purpose.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;So technically this translates to build an application that:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Has an endpoint to receive logs from the MyThings Application,&lt;/li&gt;
-  &lt;li&gt;Stores the data to its own database,&lt;/li&gt;
-  &lt;li&gt;Show the data in charts that have multiple layers to see more/less details,&lt;/li&gt;
-  &lt;li&gt;Shows the ratio of the results per tower,&lt;/li&gt;
-  &lt;li&gt;The frontend dashboard data has to reload automatically (since it is shown on some big screens @ Proximus),&lt;/li&gt;
-  &lt;li&gt;Add multi-language (automatically switch languages when viewing on tower’s large screens),&lt;/li&gt;
-  &lt;li&gt;Is performant (able to handle many logs coming in and calculate the data to be displayed in the graphs),&lt;/li&gt;
-  &lt;li&gt;CRUDs for managing timespans and locations,&lt;/li&gt;
-  &lt;li&gt;Use the timespans / locations when displaying data.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Oh, and did we mention we were only given four weeks to complete this mission…&lt;/p&gt;
-
-&lt;h2 id=&quot;the-ingredients&quot;&gt;The Ingredients&lt;/h2&gt;
-&lt;p&gt;So given all the requirements listed above and the fact we didn’t have a lot of time to waste, 
-we chose to use a &lt;strong&gt;MEAN (TypeScript)&lt;/strong&gt; stack. 
-MEAN stands for MongoDB Express Angular and NodeJS. 
-It’s possible to use the mean stack with plain JavaScript, 
-we chose to implement it with TypeScript since we wanted some strong typings on the backend application and we were going to use Angular 4 on the frontend which comes with TypeScript as well.&lt;/p&gt;
-
-&lt;h3 id=&quot;nodejs&quot;&gt;NodeJs:&lt;/h3&gt;
-&lt;p&gt;Write event driven applications with asynchronous I/O powered by the ultra fast Google V8 Engine. 
-Mostly known for running your local dev environment and automating build tasks for frontend developers. 
-NodeJS is probably one of the best and easiest options out there for real-time applications (with socket.io), 
-which is exactly what we needed for our application.&lt;/p&gt;
-
-&lt;h3 id=&quot;mongodb&quot;&gt;MongoDB:&lt;/h3&gt;
-&lt;p&gt;Great to work with when dealing with JavaScript Objects. Good driver support with Mongoose for NodeJs. 
-Document based structure, which makes it really flexible when it comes to modelling and it’s extremely scalable. 
-We also took advantage of the very performant aggregation functionality for dealing with large amounts of data.&lt;/p&gt;
-
-&lt;h3 id=&quot;expressjs&quot;&gt;ExpressJS:&lt;/h3&gt;
-&lt;p&gt;A node framework that comes with some great functionality for setting up your node server and makes it easy to create routes, 
-middleware, handling requests/responses, serving files from the filesystem, configuring static files, easy connections to the database, 
-and much more.&lt;/p&gt;
-
-&lt;h3 id=&quot;angular4&quot;&gt;Angular(4):&lt;/h3&gt;
-&lt;p&gt;A TypeScript-based open-source frontend web application platform led by the Angular Team at Google and by a community of individuals and corporations to address all of the parts of the developer’s workflow while building complex web applications.&lt;/p&gt;
-
-&lt;h3 id=&quot;socketio&quot;&gt;Socket.IO:&lt;/h3&gt;
-&lt;p&gt;Socket.IO enables real-time bidirectional event-based communication. It works on every platform, browser or device, focusing equally on reliability and speed. To trigger events on our frontend application we used this great library to be able to detect when new data has been received and refresh the dashboard.&lt;/p&gt;
-
-&lt;h3 id=&quot;highcharts&quot;&gt;Highcharts:&lt;/h3&gt;
-&lt;p&gt;Interactive JavaScript library for creating dynamic charts. Highcharts is based on native browser technologies and not reinvent the wheel. Thousands of developers have contributed their work for us to use in our own projects. Also backwards compatible for IE.&lt;/p&gt;
-
-&lt;h2 id=&quot;javascript-across-the-stack&quot;&gt;JavaScript across the stack&lt;/h2&gt;
-&lt;p&gt;Not only does it make development quite a bit faster and easier by having a large community with lots of reusable code for your application (npm), it also lowers the barriers between frontend and backend developers by using the same programming language over the entire stack, so more efficiency and faster, leaner development which in turn means lower development costs. 
-Also worth noting is that JavaScript currently is THE most popular programming language, so more developers will be able to easily understand and contribute to the application if needed. 
-And probably the most important criteria: when it comes to cloud hosting, RAM is probably the main influencing factor when it comes to pricing. NodeJs uses less RAM than comparable Java applications.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;performance&quot; src=&quot;/img/stairwaytohealth/performance.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:800px;&quot; /&gt;
-&lt;small style=&quot;font-size: 70%;&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://www.ibm.com/developerworks/library/mo-nodejs-1/index.html&quot;&gt;Source and more about these tests&lt;/a&gt;&lt;/small&gt;&lt;/p&gt;
-
-&lt;p&gt;Now that I’ve listed some of the pros of full-stack JS, I should also mention that it might not be the best solution for computation-heavy backend applications.
-For projects like machine learning or heavy mathematical calculations the single CPU core and having only one thread that processes one request at a time might be easily blocked by a single compute-intensive task. 
-Yet, there are numerous ways to overcome this limitation. 
-By simply creating child processes or breaking complex tasks into smaller independent microservices.&lt;/p&gt;
-
-&lt;p&gt;Let me just note that the comparison with Java above here is not because we are claiming that one is better than the other, it’s just to demonstrate that they both have their use cases and can be equally worth considering when choosing a technology for your application.&lt;/p&gt;
-
-&lt;p&gt;Some great use cases for JavaScript across the stack are:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;real-time chat,&lt;/li&gt;
-  &lt;li&gt;Internet of Things,&lt;/li&gt;
-  &lt;li&gt;real-time finance (stocks),&lt;/li&gt;
-  &lt;li&gt;monitoring applications,&lt;/li&gt;
-  &lt;li&gt;event-driven applications,&lt;/li&gt;
-  &lt;li&gt;server-side proxies,&lt;/li&gt;
-  &lt;li&gt;many more…&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;blocking-vs-non-blocking&quot;&gt;Blocking vs. Non-Blocking&lt;/h3&gt;
-&lt;p&gt;In NodeJs you can take advantage of JavaScript promises. 
-One of the benefits of this is that we can write non-blocking code.
-To demonstrate how this works, I’ll give you an example in pseudo code for reading a file from the filesystem.&lt;/p&gt;
-
-&lt;h3 id=&quot;blocking&quot;&gt;Blocking:&lt;/h3&gt;
-&lt;p&gt;&lt;code&gt;read file from filesystem, set equal to &quot;contents&quot;&lt;/code&gt;&lt;br /&gt; 
-&lt;code&gt;print content&lt;/code&gt;&lt;br /&gt; 
-&lt;code&gt;do something else&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;non-blocking&quot;&gt;Non-Blocking:&lt;/h3&gt;
-&lt;p&gt;&lt;code&gt;read file from filesystem&lt;/code&gt;&lt;br /&gt; 
-&lt;code&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Whenever we're complete print contents &lt;span style=&quot;color:#e7904b;&quot;&gt;(callback)&lt;/span&gt; 
-&lt;/code&gt; 
-&lt;br /&gt; 
-&lt;code&gt;do something else&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;blocking-vs-non-blocking&quot; src=&quot;/img/stairwaytohealth/blocking-vs-non-blocking.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:800px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;setting-up-our-dev-environment--build&quot;&gt;Setting up our dev environment / build&lt;/h2&gt;
-&lt;p&gt;The frontend part of this was really easy. 
-We used angular-cli to generate a new project. 
-In the future this also gave us the advantage of generating new components, services, pipes, testing and much more. 
-Also for the charts and translations we choose for easy to use libraries like Highcharts and ngx-translate (previous ng2-translate).&lt;/p&gt;
-
-&lt;p&gt;For the backend we decided to go with gulp. 
-We added some tasks to transpile our server site TypeScript files to JavaScript so that node can execute it. 
-For local serving we created a sequence task that combines running &lt;code class=&quot;highlighter-rouge&quot;&gt;ng build&lt;/code&gt; from the angular-cli and a gulp task to use &lt;code class=&quot;highlighter-rouge&quot;&gt;nodemon&lt;/code&gt; for running our server and restarting on changes. 
-When working on the frontend, doing an ‘ng build’ was a bit too slow, therefore we added a &lt;code class=&quot;highlighter-rouge&quot;&gt;--standalone&lt;/code&gt; flag, to the serve task so that we could just build the backend application and do the frontend serve with &lt;code class=&quot;highlighter-rouge&quot;&gt;ng serve&lt;/code&gt; which is a lot more performant than having to do a ‘ng build’ on every change.
-Since we are using TypeScript throughout the application, it only felt right to use the TypeScript version of gulp as well. 
-It takes a little effort to get used to, but once you get the hang of it, it makes writing gulp tasks a lot more fun and less error prone.
-Using the provided decorators, our gulp tasks look something like the following:&lt;/p&gt;
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Task&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gulp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'./dist/app/server/config/mongo.connection.js'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                   &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pipe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;yargs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'prod'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'mongodb://localhost:27017/stairway'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'./secrets'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mongoUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-                   &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pipe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gulp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'./dist/app/server/config'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;and create sequence tasks with:&lt;/p&gt;
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;SequenceTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mocha&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'buildApp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'runMochaTests'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Now that we have a &lt;code class=&quot;highlighter-rouge&quot;&gt;gulpfile.ts&lt;/code&gt; file, we need to ensure that the gulpfile gets transpiled as well, we did this by adding an npm script, so that we can use TypeScript compiler with the &lt;code class=&quot;highlighter-rouge&quot;&gt;tsc&lt;/code&gt; command to transpile the file and make sure we are using the latest changes every time we use gulp.
-(to get the tsc command, install typescript globally with npm)&lt;/p&gt;
-
-&lt;h2 id=&quot;building-stairway-to-health&quot;&gt;Building Stairway to Health&lt;/h2&gt;
-&lt;p&gt;After setting up our dev environment, database and getting a simple application up and running it’s time to start implementing our first features.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Receiving data from MyThings&lt;/strong&gt;&lt;br /&gt;
-So first things first, on MyThings we took a look at how we were going to structure the data that was going to be streamed to the Stairway to Health application.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;stream.png&quot; src=&quot;/img/stairwaytohealth/stream.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:800px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;In the MyThings application every sensor can have a &lt;code class=&quot;highlighter-rouge&quot;&gt;friendlyName1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;friendlyName2&lt;/code&gt;, we used these to specify which tower and which floor they represent. 
-The sensors send a lot more data than just the magnetic pulse counts, therefore we needed the &lt;code class=&quot;highlighter-rouge&quot;&gt;container&lt;/code&gt; field, to be able to filter on &lt;code class=&quot;highlighter-rouge&quot;&gt;counter&lt;/code&gt; logs only (however, we store the other messages as well, maybe for future use). 
-The &lt;code class=&quot;highlighter-rouge&quot;&gt;value&lt;/code&gt; field is the amount of times the sensor was triggered, in other words, the actual counts. And of course a &lt;code class=&quot;highlighter-rouge&quot;&gt;timestamp&lt;/code&gt; since we will show the data in time based graphs.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;timestamp&lt;/code&gt; represents the time that the sensor has sent its message to the MyThings application, we also wanted to keep track of when our application has received the log, so before saving we added one extra field to store this in our database.&lt;/p&gt;
-
-&lt;p&gt;After we defined our model/schema of our logs, it was simply adding an endpoint to our express router and our first feature was ready. 
-Well not exactly, we needed to trigger an event to refresh the data on our dashboard, but we’ll get back to this later.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;The Dashboard&lt;/strong&gt;&lt;br /&gt;
-Since we created an Angular(4) application, we took advantage of the great features of angular-cli which makes it really easy to get a new project up and running and generate new components, services, tests and much more. 
-We started by adding all the components needed for the application and adding the Proximus styling to the project. 
-After that we imported the Highcharts library from npm to first make the charts on the homepage and later making the charts for the detailed views. 
-All the charts were first made with mock data so that we could perfectly say from the backend what data we needed and in which format. 
-From now on we knew how our JSON for the charts had to be made and we could implement the api endpoints for the dashboard and the details page. 
-Finally after adding all the charts we started on adding the different languages to the application. Here we got our biggest ‘lesson learned’, it is much faster to start with I18N then to end with it, this is because you have to find all the normal text in the HTML files and copy them to the JSON-files. 
-ALso we had to quickly create a translation list that the business could translate for us.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Mongo Aggregates&lt;/strong&gt;&lt;br /&gt;
-As for displaying the daily, weekly and total counts below the buildings, we had to get this data from the database, keeping in mind that we would have to iterate over millions of sensor logs (at the time of writing this blog post, 1.4 million over 4 months). We had to make sure it was performant. This is where the Mongo aggregates come in handy. Instead of looping over the results and adding them up, we let Mongo take care of this with the &lt;code class=&quot;highlighter-rouge&quot;&gt;$sum&lt;/code&gt; operator which in code looks like the following:&lt;/p&gt;
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sensorLogModel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;aggregate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;
-                &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;$match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'counter'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;$ne&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}},&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;// group them by fn1 (tower) and add up all 'value' fields&lt;/span&gt;
-                &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;$group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'$friendlyName1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;$sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'$value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}}&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;em&gt;Remember, we store all the logs, but we only need counter logs. So for a little more performance, we leave out the ones with value 0 (a lot of them in the weekends), that’s what the &lt;code class=&quot;highlighter-rouge&quot;&gt;$match&lt;/code&gt; is for&lt;/em&gt;
-The result: an array with objects that have an &lt;code class=&quot;highlighter-rouge&quot;&gt;_id&lt;/code&gt; field with &lt;code class=&quot;highlighter-rouge&quot;&gt;friendlyName1&lt;/code&gt; as value and a &lt;code class=&quot;highlighter-rouge&quot;&gt;total&lt;/code&gt; field with the sum of all (counter) values per tower. We repeat this for daily and weekly, but add a start and end date (which we simply create with TypeScript). &lt;code class=&quot;highlighter-rouge&quot;&gt;$match&lt;/code&gt; then looks something like this:&lt;/p&gt;
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;$match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'counter'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;$ne&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;$gt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$lt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Later on we added some more calls to get the data by time span and location for the more detailed chart data, but you get the idea, we simply edit the timestamps or &lt;code class=&quot;highlighter-rouge&quot;&gt;friendlyName1&lt;/code&gt; (also by &lt;code class=&quot;highlighter-rouge&quot;&gt;friendlyName2&lt;/code&gt; on the hourly chart, which displays the hourly data per floor).&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Socket.IO&lt;/strong&gt;&lt;br /&gt;
-Now that we have data that can be retrieved and displayed on the frontend, time to implement some way to let our frontend application know when we receive some new data, so that it in turn can do a request for that new data.&lt;/p&gt;
-
-&lt;p&gt;For this one to be clear we’re going to skip ahead in time and show a high level scheme of how the application is made up.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/img/stairwaytohealth/folder-structure.png&quot; data-lightbox=&quot;structure&quot; data-title=&quot;Structure&quot;&gt;
-    &lt;img alt=&quot;folder-structure&quot; src=&quot;/img/stairwaytohealth/folder-structure.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:800px;&quot; /&gt;
-&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;The bin (js) file is where we create our http, https and socket servers. To communicate between them, we use the node event emitter. 
-The &lt;code class=&quot;highlighter-rouge&quot;&gt;server.ts&lt;/code&gt; file (let’s call it the app) gets bootstrapped onto these servers and when creating the app, we pass the created event emitter to it. 
-This enables us to listen and broadcast events back and forward. 
-The event emitter emits events between the backend services and the socket.io server emits events to our frontend application.&lt;/p&gt;
-
-&lt;p&gt;So in our case, to let the frontend know when the sensor-log endpoint has received a message, we emit a &lt;code class=&quot;highlighter-rouge&quot;&gt;log-received&lt;/code&gt; event on the node event emitter. 
-In the socket IO server we are listening on this event and we broadcast a &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt; event to every connected frontend application. 
-The frontend applications are listening for this &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt; event and refresh their data by calling the dashboard endpoints.
-However, since we have about 60 sensors sending data, this event was triggering quite a lot and with the chart rendering animations on our frontend application we had to wrap the &lt;code class=&quot;highlighter-rouge&quot;&gt;log-received&lt;/code&gt; in a timeout so that we would only refresh it once every 30 seconds (if a log was received).&lt;/p&gt;
-
-&lt;p&gt;I’ve picked a few lines of code from our bin file to demonstrate how we pass the &lt;code class=&quot;highlighter-rouge&quot;&gt;eventEmitter&lt;/code&gt; when bootstrapping our application on to the http and https services from node.&lt;/p&gt;
-
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'../dist/app/server'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'http'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;https&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'https'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;events&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'events'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;eventEmitter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;EventEmitter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;httpServer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bootstrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eventEmitter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;httpsServer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bootstrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eventEmitter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;After that, we bootstrap the created https server on to the socket.io application. It too gets the same &lt;code class=&quot;highlighter-rouge&quot;&gt;EventEmitter&lt;/code&gt; instance passed into its constructor.&lt;/p&gt;
-
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;io&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'socket.io'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;httpsServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sockets&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'../dist/app/sockets'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ioApp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sockets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Sockets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bootstrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;eventEmitter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;In our sockets file, the method that gets executed will listen on the &lt;code class=&quot;highlighter-rouge&quot;&gt;logsReceived&lt;/code&gt; from our passed EventEmitter, and emits a &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt; event on our &lt;code class=&quot;highlighter-rouge&quot;&gt;io&lt;/code&gt; instance.&lt;/p&gt;
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sockets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eventEmitter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;eventEmitter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'logsReceived'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;logs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/socket/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;emit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;logs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;configuration-crud&quot;&gt;Configuration CRUD&lt;/h2&gt;
-&lt;p&gt;Since we did not want our configuration to be hard coded, we added some configuration screens to be able to change the time spans and entities (towers).&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin:0px auto;&quot;&gt;
-    &lt;a href=&quot;/img/stairwaytohealth/crud1.png&quot; data-lightbox=&quot;crud&quot; data-title=&quot;Entities CRUD&quot;&gt;
-        &lt;img alt=&quot;crud1&quot; src=&quot;/img/stairwaytohealth/crud1.png&quot; class=&quot;image fit&quot; style=&quot;width: 48%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/stairwaytohealth/crud2.png&quot; data-lightbox=&quot;crud&quot; data-title=&quot;Timespans CRUD&quot;&gt;
-        &lt;img alt=&quot;crud2&quot; src=&quot;/img/stairwaytohealth/crud2.png&quot; class=&quot;image fit&quot; style=&quot;width: 48%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;br /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;By the way, ‘gewicht’ in the first image stands for weight. 
-To make sure the ratios are fair, we made sure that every tower has a ‘weight’ to multiply its log values by. 
-These weights are calculated by the amount of employees/tower, with the largest tower having a weight of 1.&lt;/p&gt;
-
-&lt;p&gt;Let’s take a look at how we set up our backend structure for creating crud endpoints.
-In our &lt;code class=&quot;highlighter-rouge&quot;&gt;/routes&lt;/code&gt; directory we keep all files that define the urls and methods of every endpoint, and tell it which controller and method to use:&lt;br /&gt;
-&lt;em&gt;timespan.route.ts&lt;/em&gt;&lt;/p&gt;
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;router&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/timespan/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NextFunction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timespanController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getTimespanList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;router&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/timespan/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;authenticate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NextFunction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timespanController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createTimespan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;next under our &lt;code class=&quot;highlighter-rouge&quot;&gt;/controllers&lt;/code&gt; directory we have our controllers where all our functionality/logic is&lt;br /&gt;
-&lt;em&gt;timespan.controller.ts&lt;/em&gt;&lt;/p&gt;
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;getTimespanList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NextFunction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timespanModel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}})&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;statusCode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;statusMessage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;authentication&quot;&gt;Authentication&lt;/h2&gt;
-&lt;p&gt;To prevent everyone from changing these configurations of course we had to add some authentication functionality. 
-As you can see in the router code above, we created an authentication middleware so that on every route that we want the user to be authenticated, we can simply add &lt;code class=&quot;highlighter-rouge&quot;&gt;this.authenticate()&lt;/code&gt; to the route. 
-This checks a JWT token in the headers. 
-We check the token to be valid. 
-If it’s not valid, we send an &lt;code class=&quot;highlighter-rouge&quot;&gt;unauthorized&lt;/code&gt; response, and if it is valid, we decode it and add it as a user object on the request. 
-This way we can access it in the controller and do some logic depending on its role, etc.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;this.authenticate&lt;/code&gt; is a method we added to the &lt;code class=&quot;highlighter-rouge&quot;&gt;core.route.ts&lt;/code&gt;.
-Every route extends this super class so that we can put common code and middleware in this file.&lt;/p&gt;
-
-&lt;p&gt;JWT stands for JSON Web Token and is a JSON-based open standard for creating access tokens that assert some number of claims. 
-For example, a server could generate a token that has the claim &lt;code class=&quot;highlighter-rouge&quot;&gt;logged in as admin&lt;/code&gt; and provide that to a client. 
-The client could then use that token to prove that he is logged in as admin.&lt;/p&gt;
-
-&lt;h2 id=&quot;deploy&quot;&gt;Deploy&lt;/h2&gt;
-&lt;p&gt;Finally we deployed it to the Proximus data center and watched the Proximus employees take on the challenge.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
-    &lt;a href=&quot;/img/stairwaytohealth/result1.jpg&quot; data-lightbox=&quot;results&quot; data-title=&quot;Large screen @ Proximus towers&quot;&gt;
-        &lt;img alt=&quot;result1&quot; src=&quot;/img/stairwaytohealth/result1.jpg&quot; class=&quot;image fit&quot; style=&quot;width: 61.45%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/stairwaytohealth/result2.jpg&quot; data-lightbox=&quot;results&quot; data-title=&quot;Informing the employees&quot;&gt;
-        &lt;img alt=&quot;result2&quot; src=&quot;/img/stairwaytohealth/result2.jpg&quot; class=&quot;image fit&quot; style=&quot;width: 34.55%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;After four hard weeks of working and writing many lines of code, we delivered our project to Proximus and the contest could start.
- Things we would have done differently:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Use mongo indexes and aggregation for large amounts of data&lt;/li&gt;
-  &lt;li&gt;Use javascript date in stead of timestamps in mongo, easier to create aggregate with dates&lt;/li&gt;
-  &lt;li&gt;Dockerize! So far, the most work has gone into getting the application deployed&lt;/li&gt;
-  &lt;li&gt;Implement I18N translations at the beginning, as it is better to add translations while working on the component&lt;/li&gt;
-  &lt;li&gt;Also we learned how complicated it can be to have one component with multiple switching charts. Instead of switching components.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michael&quot;, &quot;last_name&quot;=&gt;&quot;Vervloet&quot;, &quot;permalink&quot;=&gt;&quot;/author/michael-vervloet/&quot;, &quot;avatar&quot;=&gt;&quot;michael-vervloet.jpg&quot;, &quot;linkedin&quot;=&gt;&quot;michaelvervloet&quot;, &quot;github&quot;=&gt;&quot;MiVvlt&quot;, &quot;title&quot;=&gt;&quot;SoftWare Engineer&quot;, &quot;title2&quot;=&gt;&quot;JavaScript Developer&quot;, &quot;email&quot;=&gt;&quot;michael.vervloet@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Michael is a full stack JavaScript developer specializing himself in backend development with NodeJs and Express, with a solid background of frontend/hybrid mobile development. As a member of Ordina's core 'Internet of Things' team he has collaborated on some challenging and innovative IoT applications.&quot;}</name><email>michael.vervloet@ordina.be</email></author><category term="IoT" /><category term="NodeJS" /><category term="MongoDB" /><category term="Angular" /><category term="ExpressJS" /><category term="Express" /><category term="TypeScript" /><category term="Angular-CLI" /><category term="Gulp" /><category term="Internet of Things" /><category term="IoT" /><category term="LoRa" /><category term="Proximus" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/stairwaytohealth/stairway-to-health.jpg" /></entry></feed>
+&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bart&quot;, &quot;last_name&quot;=&gt;&quot;Blommaerts&quot;, &quot;avatar&quot;=&gt;&quot;bart-blommaerts.png&quot;, &quot;twitter&quot;=&gt;&quot;DaggieBe&quot;, &quot;linkedin&quot;=&gt;&quot;bartblommaerts&quot;, &quot;github&quot;=&gt;&quot;bart-blommaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/bart-blommaerts/&quot;, &quot;title&quot;=&gt;&quot;Software Architect&quot;, &quot;title2&quot;=&gt;&quot;Competence Manager Architecture&quot;, &quot;email&quot;=&gt;&quot;bart.blommaerts@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Bart Blommaerts is a passionate Software Architect at Ordina, who believes closing the model-code gap is essential to make rapid, agile delivery sustainable. Bart has a strong focus on API design, reuse, automation and security. He is always looking for technical challenges.&quot;}</name><email>bart.blommaerts@ordina.be</email></author><category term="Tech" /><category term="javaone" /><category term="conference" /><summary type="html">The last time I visited JavaOne was back in 2014. So, I was very excited to go back to San Francisco this year.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/j1.jpg" /></entry></feed>

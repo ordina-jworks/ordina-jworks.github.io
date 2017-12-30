@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Securing your cloud-native microservice architecture in Spring: part 2 - Kevin Van Houtte">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/microservices/part2/part2logo.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/microservices/2017/12/30/Secure-your-architecture-part2.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Securing your cloud-native microservice architecture in Spring: part 2 - Kevin Van Houtte"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/microservices/part2/part2logo.jpg"/>
+
+    
+    <title>Securing your cloud-native microservice architecture in Spring: part 2 - Kevin Van Houtte &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Securing your cloud-native microservice architecture in Spring: part 2</h2>
+                
+
+                
+                    Posted Dec 30, 2017
+
+
+    in <a href="/categories/microservices/">Microservices</a>
+
+
+
+    by
+    
+        <a href="/author/kevin-van-houtte/">Kevin Van Houtte</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/microservices/">Microservices</a>, 
+    
+        <a href="/tags/security/">Security</a>, 
+    
+        <a href="/tags/encryption/">Encryption</a>, 
+    
+        <a href="/tags/spring/">Spring</a>, 
+    
+        <a href="/tags/cloud/">Cloud</a>, 
+    
+        <a href="/tags/config/">Config</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <p>Since the rise of the digital era, most enterprises keep their data in a digital format.
+But if their sensitive data lacks security, it can cause the data to be unreliable, unstable and unavailable to their business.
+We have to be prepared if an attacker breaches into our network and tries to hack our sensitive data.
+Whether it is in motion or at rest, encrypting our data and using the proper protection mechanisms will make it worthless for the hacker to use.</p>
+
+<h1 id="overview">Overview</h1>
+<ul>
+  <li><a href="https://ordina-jworks.github.io/microservices/2017/09/26/Secure-your-architecture-part1.html">Securing your cloud-native microservice architechture in Spring: Part 1</a></li>
+  <li><a href="#cryptographic-algorithms">Cryptographic Algorithms</a></li>
+  <li><a href="#key-mechanics">Key Mechanics</a></li>
+  <li><a href="#cloud-hosted-key-management-service">Cloud-hosted Key management service</a></li>
+  <li><a href="#spring-cloud-config-server">Spring Cloud Config Server</a></li>
+</ul>
+
+<h2 id="cryptographic-algorithms">Cryptographic Algorithms</h2>
+<p>When implementing our application, every programming language will provide us with a set of known libraries for cryptographic algorithms. 
+A big flaw is implementing an algorithm by yourself, the known algorithms have been reviewed, patched and been known for their excellent security. 
+These are the most used types that you can use for encryption at rest:</p>
+
+<h3 id="symmetric-encryption">Symmetric Encryption</h3>
+<p>The key used in encrypting data at rest is used for both encrypting and decrypting the data.
+This key becomes very vulnerable if anyone gets a hold on it.</p>
+<ul>
+  <li>Well known: <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" target="_blank">Advanced Encryption Standard encryption</a></li>
+</ul>
+
+<h3 id="asymmetric-encryption">Asymmetric Encryption</h3>
+<p>In asymmetric encryption, a pair of keys are used. A public key that is exposed and encrypts your data and a private key that is only known by the owner that decrypts your data.
+This key-pair can also be used to sign your data, so the application knows that it can trust the source of the data.</p>
+<ul>
+  <li>Well known:  <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)" target="_blank">Rivest–Shamir–Adleman encryption</a></li>
+</ul>
+
+<h2 id="key-mechanics">Key Mechanics</h2>
+<p>Encryption keys are another aspect of encryption, handling the keys becomes just as sensitive as the data itself. 
+That’s why we need mechanisms on how keys are stored and shared so attackers can’t get a hold on them.</p>
+
+<h3 id="key-rotation">Key rotation</h3>
+<p>Encryption key rotation will provide protection especially when the certificate expires, is corrupted or the key management admin is no longer part of the company. 
+Lets say, you got a good eye at detecting patterns and detect that the same key is being used for encrypting data.
+To avoid this, you rotate your keys, and every time the same data field is encrypted it will result in a different encrypted message.</p>
+
+<h3 id="json-web-key-set">JSON Web Key (Set)</h3>
+<p>We discussed in the <a href="https://ordina-jworks.github.io/microservices/2017/09/26/Secure-your-architecture-part1.html">previous post</a> about retrieving a JWK(S) to verify our JSON Web Token in our microservice. 
+A JWK is a JSON object that represents a cryptographic key that consists of information to verify a JWT. 
+If you like to dive into signing JSON documents you can check out this blog post on <a href="https://ordina-jworks.github.io//security/2016/03/12/Digitally-signing-your-JSON-documents.html#jwk" target="_blank">Digitally signing your JSON documents</a>.</p>
+
+<p>JWKS example:</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+</span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RSA"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"x5c"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"MIIC+DCCAeCgAwIBAgIJBIGjYW6hFpn2MA0GCSqGSIb3DQEBBQUAMCMxITAfBgNVBAMTGGN1c3RvbWVyLWRlbW9zLmF1dGgwLmNvbTAeFw0xNjExMjIyMjIyMDVaFw0zMDA4MDEyMjIyMDVaMCMxITAfBgNVBAMTGGN1c3RvbWVyLWRlbW9zLmF1dGgwLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMnjZc5bm/eGIHq09N9HKHahM7Y31P0ul+A2wwP4lSpIwFrWHzxw88/7Dwk9QMc+orGXX95R6av4GF+Es/nG3uK45ooMVMa/hYCh0Mtx3gnSuoTavQEkLzCvSwTqVwzZ+5noukWVqJuMKNwjL77GNcPLY7Xy2/skMCT5bR8UoWaufooQvYq6SyPcRAU4BtdquZRiBT4U5f+4pwNTxSvey7ki50yc1tG49Per/0zA4O6Tlpv8x7Red6m1bCNHt7+Z5nSl3RX/QYyAEUX1a28VcYmR41Osy+o2OUCXYdUAphDaHo4/8rbKTJhlu8jEcc1KoMXAKjgaVZtG/v5ltx6AXY0CAwEAAaMvMC0wDAYDVR0TBAUwAwEB/zAdBgNVHQ4EFgQUQxFG602h1cG+pnyvJoy9pGJJoCswDQYJKoZIhvcNAQEFBQADggEBAGvtCbzGNBUJPLICth3mLsX0Z4z8T8iu4tyoiuAshP/Ry/ZBnFnXmhD8vwgMZ2lTgUWwlrvlgN+fAtYKnwFO2G3BOCFw96Nm8So9sjTda9CCZ3dhoH57F/hVMBB0K6xhklAc0b5ZxUpCIN92v/w+xZoz1XQBHe8ZbRHaP1HpRM4M7DJk2G5cgUCyu3UBvYS41sHvzrxQ3z7vIePRA4WF4bEkfX12gvny0RsPkrbVMXX1Rj9t6V7QXrbPYBAO+43JvDGYawxYVvLhz+BJ45x50GFQmHszfY3BR9TPK8xmMmQwtIvLu1PMttNCs7niCYkSiUv2sc2mlq1i3IashGkkgmo="</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"n"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yeNlzlub94YgerT030codqEztjfU_S6X4DbDA_iVKkjAWtYfPHDzz_sPCT1Axz6isZdf3lHpq_gYX4Sz-cbe4rjmigxUxr-FgKHQy3HeCdK6hNq9ASQvMK9LBOpXDNn7mei6RZWom4wo3CMvvsY1w8tjtfLb-yQwJPltHxShZq5-ihC9irpLI9xEBTgG12q5lGIFPhTl_7inA1PFK97LuSLnTJzW0bj096v_TMDg7pOWm_zHtF53qbVsI0e3v5nmdKXdFf9BjIARRfVrbxVxiZHjU6zL6jY5QJdh1QCmENoejj_ytspMmGW7yMRxzUqgxcAqOBpVm0b-_mW3HoBdjQ"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"e"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AQAB"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NjVBRjY5MDlCMUIwNzU4RTA2QzZFMDQ4QzQ2MDAyQjVDNjk1RTM2Qg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"x5t"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NjVBRjY5MDlCMUIwNzU4RTA2QzZFMDQ4QzQ2MDAyQjVDNjk1RTM2Qg"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]}</span></code></pre></figure>
+
+<p>Explanation properties:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">alg</code>: is the algorithm for the key</li>
+  <li><code class="highlighter-rouge">kty</code>: is the key type</li>
+  <li><code class="highlighter-rouge">use</code>: is how the key was meant to be used. For the example above sig represents signature.</li>
+  <li><code class="highlighter-rouge">x5c</code>: is the x.509 certificate chain</li>
+  <li><code class="highlighter-rouge">e</code>: is the exponent for a standard pem</li>
+  <li><code class="highlighter-rouge">n</code>: is the modulus for a standard pem</li>
+  <li><code class="highlighter-rouge">kid</code>: is the unique identifier for the key</li>
+  <li><code class="highlighter-rouge">x5t</code>: is the thumbprint of the x.509 cert (SHA-1 thumbprint)</li>
+</ul>
+
+<h2 id="cloud-hosted-key-management-service">Cloud-hosted Key management service</h2>
+<p>KMS is a fully managed service that allows you to manage your encryption keys in the cloud.
+Most of these KMSs offer the best way for encryption and generate, rotate and destroy your keys. 
+But the KMS is vendor lock-in so all your keys will stay on the platform.
+To avoid vendor lock-in, we can implement our own open source version for managing our encryption keys.</p>
+
+<p>A few examples to get an idea of KMS:</p>
+<ul>
+  <li><a href="https://cloud.google.com/kms/" target="_blank">Google Cloud KMS</a></li>
+  <li><a href="https://aws.amazon.com/kms/" target="_blank">AWS KMS</a></li>
+  <li><a href="https://azure.microsoft.com/en-us/services/key-vault/" target="_blank">Azure Vault</a></li>
+</ul>
+
+<p>A few examples of open-source variants:</p>
+<ul>
+  <li><a href="https://cloud.spring.io/spring-cloud-config/" target="_blank">Spring Cloud Config Server</a></li>
+  <li><a href="https://www.vaultproject.io/" target="_blank">HashiCorp’s Vault</a></li>
+  <li><a href="https://square.github.io/keywhiz/" target="_blank">Keywhiz</a></li>
+</ul>
+
+<h2 id="spring-cloud-config-server">Spring Cloud Config Server</h2>
+<p>The Spring Cloud Config Server provides a centralized external configuration management backed optionally by a Git repository or database.
+Using a REST API for external configuration, Config Server supports encryption and decryption of properties and yml files. 
+First step is downloading the Java Cryptography Extension on our local pc.</p>
+<blockquote>
+  <p>JCE provides a framework and implementation for encryption, key generation, key agreement and message authentication code algorithms. 
+You’re not installing JCE itself, because it’s packaged within the Java SE binary.
+However, you do need to update its policy files from time to time.
+Downloads are available for Java <a href="http://www.oracle.com/technetwork/java/javase/downloads/jce-6-download-429243.html" target="_blank">6</a>, <a href="http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html" target="_blank">7</a> and <a href="http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html" target="_blank">8</a>.
+This will allow the config server to use the encryption tool of the JCE.</p>
+</blockquote>
+
+<p>After the download, the next step will be securing the config server by adding Spring Security to the classpath and configuring your Basic/OAuth2 authentication.</p>
+
+<figure class="highlight"><pre><code class="language-maven" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre></figure>
+
+<h3 id="key-management">Key Management</h3>
+<p>The config server supports encryption and decryption with a symmetric key or an asymmetric key-pair.
+The choice of which key you will need is within your security terms. 
+The symmetric key is the easiest way to set up but less secure than the asymmetric one. 
+To set up a symmetric key, you just assign a string to the key holder: 
+<code class="highlighter-rouge">encrypt.key=&lt;key&gt;</code></p>
+
+<p>To configure these asymmetric keys, we will need a keystore created by the keytool utility from the JDK.
+The public key will encrypt and the private key will decrypt your data.</p>
+
+<p>To create a keystore you can do something like this in your command line:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$&gt;</span> keytool <span class="nt">-genkeypair</span> <span class="nt">-alias</span> &lt;keyname&gt; <span class="nt">-keyalg</span> RSA <span class="nt">-keysize</span> 4096 <span class="nt">-sigalg</span> SHA512withRSA <span class="se">\</span>
+  <span class="nt">-dname</span> <span class="s2">"CN=Config Server,OU=JWorks,O=Ordina,L=Mechelen,S=State,C=BE"</span> <span class="se">\</span>
+  <span class="nt">-keypass</span> &lt;secret&gt; <span class="nt">-keystore</span> config-server.jks <span class="nt">-storepass</span> &lt;password&gt;</code></pre></figure>
+
+<p>This will generate a keystore for the config server to use. 
+Place it in your repository project and configure it in your yml.</p>
+
+<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i> <b>Warning:</b> Be aware if you package your keystore within your application jar/war file, the same encryption keys will be used across all of your environments!</div>
+
+<p><br />
+Example yml in the config server:</p>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml"><span class="na">encrypt</span><span class="pi">:</span>
+  <span class="na">key-store</span><span class="pi">:</span>
+    <span class="na">location</span><span class="pi">:</span> <span class="s">classpath:config-server.jks // resource location</span>
+    <span class="na">password</span><span class="pi">:</span> <span class="s">&lt;password&gt; // to unlock the keystore</span>
+    <span class="na">alias</span><span class="pi">:</span> <span class="s">config-server-key // to identify which key in the store is to be used</span>
+    <span class="na">secret</span><span class="pi">:</span> <span class="s">&lt;secret&gt;</span></code></pre></figure>
+
+<h3 id="encryption">Encryption</h3>
+<p>To encrypt the data, start up your config server locally and enter this in your command line.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$&gt;</span> <span class="nv">SECRET</span><span class="o">=</span><span class="k">$(</span>curl <span class="nt">-X</span> POST <span class="nt">--data-urlencode</span> secret http://user:password@localhost:&lt;port&gt;/encrypt<span class="k">)</span>
+<span class="nv">$&gt;</span> <span class="nb">echo</span> <span class="s2">"datasource.password=</span><span class="nv">$SECRET</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> application-dev.yml</code></pre></figure>
+
+<p>When the encryption is done, we get an encrypted piece of data in your configuration in the form of:</p>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml"><span class="na">spring</span><span class="pi">:</span>
+  <span class="na">datasource</span><span class="pi">:</span>
+    <span class="na">username</span><span class="pi">:</span> <span class="s">dbuser</span>
+    <span class="na">password</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{cipher}FKSAJDFGYOS8F7GLHAKERGFHLSAJ'</span></code></pre></figure>
+
+<h3 id="what-to-store-where">What to store where?</h3>
+<p>When designing your config server, you have different options on where and to which our config server has access.</p>
+
+<h4 id="using-a-git-repository">Using a Git repository</h4>
+<p>The default and most common way most of us use is via private Git repositories where we store our sensitive data where the config server can fetch it.
+Be aware, never put configuration inside your code repository, it violates <a href="https://12factor.net/" target="_blank">the twelve-factor app</a> which requires strict separation of config from code. 
+Config varies substantially across deploys, code does not.</p>
+
+<h5 id="health-checks">Health checks</h5>
+<p>You can enable the health check to the config server within the application.
+If you do this, always look at which version control would be the best fit, always check when they go into maintenance. 
+It could be that they host it in another timezone, which could lead to a cascading failure.
+In my opinion, you can just disable the health checks with <code class="highlighter-rouge">spring.cloud.config.server.health.enabled=false</code> and avoid further failures. 
+If you expect that the config server might go down temporarily when your client app starts, please provide a retry mechanism after a failure. 
+To enable a retry, first add <code class="highlighter-rouge">spring-retry</code> to your classpath with <code class="highlighter-rouge">@EnableRetry</code> annotation and <code class="highlighter-rouge">spring.cloud.config.failFast=true</code></p>
+
+<h4 id="using-jdbc">Using JDBC</h4>
+<p>New to this list is the support for JDBC. This enables us to store configuration properties inside a relational database. 
+By switching the active spring profile to <code class="highlighter-rouge">JDBC</code> and adding the dependency of <code class="highlighter-rouge">spring-jdbc</code> to your classpath, Spring Boot will configure the datasource you included on the classpath.
+To store the data you will need to set up new tables in your database.
+For more information: <a href="http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_jdbc_backend" target="_blank">using JDBC</a></p>
+
+<h4 id="using-vault">Using Vault</h4>
+<p><a href="https://www.vaultproject.io/" target="_blank">HashiCorp’s Vault</a> provides a centralized external management server. 
+Vault can manage static and dynamic secrets such as username/password for remote applications/resources and provide credentials for external services such as MySQL, PostgreSQL, Apache Cassandra, MongoDB, Consul, AWS and more.
+Spring supports using the <a href="http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_vault_backend" target="_blank">Vault as a backend</a> for Spring Cloud Config.
+If you are using Spring Boot, a quick way to enable Vault is to set your spring profile to <code class="highlighter-rouge">vault</code>. 
+Spring Boot’s conditionals will activate all the auto configuration for a connection with the Vault server.</p>
+
+<h4 id="using-file-system">Using File System</h4>
+<p>So when you’re working locally on your machine, you can always look at the <code class="highlighter-rouge">native</code> profile to activate the file system as your “backend”.
+But I don’t recommend it for use in a deployment environment since it comes with various problems and extra setup.
+One of those problems would be high availability, unlike Eureka, the config server doesn’t have the concept of peers.
+The obvious option is to use a shared file system but it requires extra setup.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>With the latest technologies coming up, you can expect that our data will be stored in an immutable ledger that is secured by cryptography.
+But we have to be aware of the arrival of quantum computers. 
+This could make the best encryption algorithms useless. 
+But as always, we will find a way to protect ourselves…</p>
+
+<h1 id="sources">Sources</h1>
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" target="_blank">Advanced Encryption Standard encryption</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)" target="_blank">Rivest–Shamir–Adleman encryption</a></li>
+  <li><a href="https://cloud.google.com/kms/" target="_blank">Google Cloud KMS</a></li>
+  <li><a href="https://aws.amazon.com/kms/" target="_blank">AWS KMS</a></li>
+  <li><a href="https://azure.microsoft.com/en-us/services/key-vault/" target="_blank">Azure Vault</a></li>
+  <li><a href="https://12factor.net/" target="_blank">The twelve-factor app</a></li>
+  <li><a href="http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_jdbc_backend" target="_blank">Using JDBC</a></li>
+  <li><a href="https://www.vaultproject.io/" target="_blank">HashiCorp’s Vault</a></li>
+  <li><a href="http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_vault_backend" target="_blank">Vault as a backend</a></li>
+  <li><a href="https://cloud.spring.io/spring-cloud-config/" target="_blank">Spring Cloud Config Server</a></li>
+  <li><a href="https://square.github.io/keywhiz/" target="_blank">Keywhiz</a></li>
+  <li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jce-6-download-429243.html" target="_blank">JCE 6</a></li>
+  <li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html" target="_blank">JCE 7</a></li>
+  <li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html" target="_blank">JCE 8</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/microservices/2017/12/30/Secure-your-architecture-part2.html&title=Securing your cloud-native microservice architecture in Spring: part 2&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Securing your cloud-native microservice architecture in Spring: part 2&url=https://ordina-jworks.github.io/microservices/2017/12/30/Secure-your-architecture-part2.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/microservices/2017/12/30/Secure-your-architecture-part2.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/kevin-van-houtte/" class="image spotlight-image">
+            <img src="/img/author/kevin-van-houtte.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Kevin Van Houtte is a Software Engineer at Ordina Belgium. Passionate in the Spring ecosystem, Kevin is eager to discover new and efficient ways to solve problems. He enjoys a good challenge and is interested in cutting edge technologies. Kevin has a strong focus on building cloud native architectures with the right mindset on security and API design.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2017 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/microservices/part2/part2logo.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/microservices/2017/12/30/Secure-your-architecture-part2.html";
+        this.page.identifier = "/microservices/2017/12/30/Secure-your-architecture-part2.html";
+        this.page.title = "Securing your cloud-native microservice architecture in Spring: part 2";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
