@@ -21,6 +21,10 @@ At 10:00 the second day of the conference started. Enough time to drink great co
 
 ****
 
+<img class="image fit" src="{{ '/img/js-conf-budapest-2017/js-conf-budapest-2017-collage.jpg' | prepend: site.baseurl }}" alt="JS Conf Budapest 2017 Photo Collage" />
+
+****
+
 ## Day 2: Talks
 
 * [Don Burks: MVC - What a web app and a Mozart Violin Concerto have in common](#don-burks-mvc---what-a-web-app-and-a-mozart-violin-concerto-have-in-common)
@@ -293,11 +297,11 @@ These are the stats:
 
 The question "Code reviews are beneficial to my team" had a clear answer.
 The average score was around 9 for most languages, with the top 3 containing Swift at an average of 9.46, Ruby at an average of 9.19 and JavaScript at an average of 9.1.
-<p class="image"><img src="/img/2017-10-27-js-conf-budapest-day-2/vaidehi-joshi-beneficial.jpeg" alt="Code reviews are beneficial to my team" width="100%"></p>
+<p class="image"><img src="/img/js-conf-budapest-2017/vaidehi-joshi-beneficial.jpeg" alt="Code reviews are beneficial to my team" width="100%"></p>
 
 Another question was "How many pull requests are reviewed", on which the majority answered that all pull request were reviewed.
 However, about 10% of the answers indicated that pull requests where only reviewed when someone was explicitly requested to review.
-<p class="image"><img src="/img/2017-10-27-js-conf-budapest-day-2/vaidehi-joshi-how-many-pull-request-reviews.jpeg" alt="How many pull requests are reviewed" width="100%"></p>
+<p class="image"><img src="/img/js-conf-budapest-2017/vaidehi-joshi-how-many-pull-request-reviews.jpeg" alt="How many pull requests are reviewed" width="100%"></p>
 
 ##### The qualitative data
 
@@ -365,52 +369,11 @@ I love code reviews in theory. In practice, they are only as good as the group t
 
 ****
 
-### Anna Migas: Make your animations perform well
-
-<span class="image left"><img class="p-image" alt="Anna Migas" src="/img/js-conf-budapest-2017/speaker-anna.jpg"></span>
-
-You can find Anna on Twitter using the handle [@szynszyliszys](https://twitter.com/szynszyliszys).
-The presentation can be found [here](https://www.slideshare.net/AnnaMigas1/make-your-animations-perform-well-js-conf-budapest-2017).
-
-<blockquote class="clear"><p>
-INSERT SMALL TALK DESCRIPTION
-</p></blockquote>
-
-INSERT TALK SUMMARY HERE
-
-****
-
-### Trent Willis: Caring For Your Fellow Developers
-
-<span class="image left"><img class="p-image" alt="Trent Willis" src="/img/js-conf-budapest-2017/speaker-trent.jpg"></span>
-
-You can find Trent on Twitter using the handle [@trentmwillis](https://twitter.com/trentmwillis).
-The presentation can be found [here](). SEARCH FOR PRESENTATION !!!
-
-<blockquote class="clear"><p>
-INSERT SMALL TALK DESCRIPTION
-</p></blockquote>
-
-INSERT TALK SUMMARY HERE
-
-****
-
-
-
-****
-
 ### Afterparty at EXTRA Budapest by EPAM
 
-EPAM invites everyone to chill, have some drinks and games at the EXTRA ruinpub after JSConf Budapest. Beer and a selection of soft drinks and juices are on the house.
+EPAM invited everyone to chill, have some drinks and games at the EXTRA ruinpub after JSConf Budapest. Beer and a selection of soft drinks and juices are on the house.
 
 ****
-
-
-## Day 2: Conclusion
-
-
-
-
 
 ## After Movie
 <div class="responsive-video">
@@ -419,4 +382,4 @@ EPAM invites everyone to chill, have some drinks and games at the EXTRA ruinpub 
 
 ****
 
-[Read our full report on day 1 of JS Conf Budapest 2017 here!](/conference/2017/10/26/JS-Conf-Budapest-day-1.html).
+[Read our full report on day 1 of JS Conf Budapest 2017 here!](/conference/2017/10/26/JS-Conf-Budapest-day-1.html)

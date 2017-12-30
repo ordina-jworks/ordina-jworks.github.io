@@ -24,7 +24,7 @@ At 9:45 the conference would officially start so we went to the conference room.
 
 ****
 
-SOMEONE INCLUDE SOME PICTURES HERE ;-)
+<img class="image fit" src="{{ '/img/js-conf-budapest-2017/js-conf-budapest-2017-collage.jpg' | prepend: site.baseurl }}" alt="JS Conf Budapest 2017 Photo Collage" />
 
 ****
 
@@ -711,7 +711,7 @@ Luke talks about how he created a chatbot that automates things for him to make 
 
 <div>
 <p style="width: 60%;">
-<img src="/img/Woodhouse.jpg" alt="Woodhouse" style="float: left; padding: 5px;" height="100px"/>
+<img src="/img/js-conf-budapest-2017/luke-woodhouse.jpg" alt="Woodhouse" style="float: left; padding: 5px;" height="100px"/>
 He would have named it Jarvis, but since this would be a far worse butler than Jarvis was, he named it Woodhouse after the butler character from the tv-series 'Archer'.
 </p>
 </div>
@@ -742,7 +742,7 @@ he can just send a message and the lights will be on when he gets there.
 
 
 <p>
-<img src="/img/lamp-plugs.png" alt="Lamp plugs image" class="image left fit">
+<img src="/img/js-conf-budapest-2017/luke-lamp-plugs.jpg" alt="Lamp plugs image" class="image left fit">
 <b>Lamp plugs</b> (they are from China, so super safe, right?). Maybe not, but they cost about £15 and are great for poking around.
 After doing so, he found out that there was a Google group that had been hacking around with them and found the SSH password for it.
 It turned out it runs <a href="https://openwrt.org/" target="_blank">OpenWrt</a> which is a router firmware based on Linux.
@@ -763,7 +763,7 @@ The setup and parts for it are very basic and simple. It’s basically some stri
 
 <div style="display: block;">
 <p>
-<img src="/img/esp8266.png" alt="esp8266 board and components" class="image left fit">
+<img src="/img/js-conf-budapest-2017/luke-esp8266.jpg" alt="esp8266 board and components" class="image left fit">
 The esp8266 is a wireless Arduino type board, but the cheap Chinese version so you can buy loads of them and connect them
 to your network. So for about £2 each you can control stuff over your network from anywhere. 
 It runs <a href="https://mongoose-os.com/" target="_blank">Mongoose OS</a>
@@ -804,7 +804,6 @@ More info about the concept can be found here: [LiveJS](http://livejs.network)
 </div>
 
 ****
-
 
 ## Day 1: Conclusion
 
