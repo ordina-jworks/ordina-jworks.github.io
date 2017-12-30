@@ -146,6 +146,7 @@ We are trusting the Angular framework for the communication part. We want to moc
     <img class="image fit" style="max-width:575px" alt="Easy client server setup" src="/img/3-stages-api-testing/unit-service.png" />
 </p>
 
+For unit testing our back-end, we are using Jest. Jest is a testing framework by Facebook (https://facebook.github.io/jest/). If you are interested in Jest, you should take a look at one of our other blog posts. //insert url to Jest blogpost by Yannick  maar die is nog niet klaar.
 Just as with our front-end, we trust the framework to correctly handle the communication itself. Our unit tests will start at the controller level of our API.
 
 ```
