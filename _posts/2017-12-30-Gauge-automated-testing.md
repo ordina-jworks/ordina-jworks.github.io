@@ -15,9 +15,11 @@ Doing all that manually, filling in forms, clicking around... will take quite so
 So, you'll probably end up not doing it at all or not thorough and assume everything else still works fine.
 That's why you should have automated tests do it for you!
 
-Gauge is yet another test automation tool that serves that purpose.
-It's comparable with Protractor or JUnit extended with Cucumber (if you haven't heard of these, they are worth checking out).
-In this blog we'll be mainly talking about automating browser testing using WebDriver, although that isn't the sole purpose of Gauge.
+Gauge is yet another test automation tool that serves that purpose. 
+The founder is ThoughtWorks, the company that also created Selenium and GoCD. 
+It's still in beta at the moment of writing, but it all works fine!
+Gauge is comparable with Protractor or JUnit extended with Cucumber (if you haven't heard of these, they are worth checking out).
+In this blog we'll be mainly talking about automating browser testing using Selenium WebDriver, although that isn't the sole purpose of Gauge.
 If you don't know WebDriver, it's what allows you to interact with the browser to traverse the DOM, click on elements and so on.
 
 Now, unlike Cucumber, Gauge itself only supports three languages at the moment: Java, Ruby and C#.
@@ -198,10 +200,6 @@ Cucumber only offers this feature in some implementations, they don't in Cucumbe
 They refuse to implement it because they believe this creates too much abstraction and makes you lose sight of the overall picture.
 Gauge does offer it, so it's up to you whether you want to make use of it or not.
 
-### Configuration
-One more thing we need to setup before we can run our specs, is the configuration.
-
-
 ## Running the specs
 Since the project is setup with Maven, the tests can be run with `mvn test`. 
 However, if you want to pass any arguments, you'll need to use `mvg gauge:execute` instead.
@@ -239,6 +237,18 @@ If your sign in relies on the user being signed up through a previous test, thes
 However, if you would want to test whether a user can sign in after having signed up, you should do so in one test.
 That immediately solves our problem and we are safe to use the parallel execution!
 
+## Configuration
+There's actually one more thing we need to setup before we can run our specs, the configuration.
+The config files are located under `env/default`.
+You should have three files in that folder: `default.properties`, `java.properties` and `user.properties`.
+The main thing we need to change is the `APP_URL` in the user properties file.
+
+It's possible to create different configurations by simply duplicating the default folder and renaming it to something else.
+If you need a different configuration for you CI-tool, you can create a folder namen `ci`.
+When running the specs, you can pass an argument stating for which environment.
+
+`mvn gauge:execute -Denv=ci"`
+
 ## Report
 To get HTML reports, the plugin has to be installed first: `gauge install html-report`.
 That's about it!
@@ -250,7 +260,12 @@ There's also a search functionality to quickly find a certain spec.
 ***Image here***
 
 # Conclusion
+It's a good idea to write automated tests. 
+If you do it well, you don't have to spend a lot of time manually testing your application. 
+The chance of something being broken by your changes will decrease dramatically.
+Also, be sure to use the page object pattern and create functions for repetitive actions.
+It avoids code duplication and having to update the same code in multiple places.
 
- - Write automated tests!
- - Use the page object pattern
- - Cucumber vs Gauge
+If you're starting a new project or starting from scratch with writing browser tests, you should consider using Gauge.
+Even though it's still in beta. 
+With ThoughtWorks as the main force behind this tool, it's here to stay!
