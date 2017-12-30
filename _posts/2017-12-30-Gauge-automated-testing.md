@@ -12,7 +12,7 @@ You may have a dedicated tester in your team or maybe you don't even have one at
 When finishing a new feature, you test whether it works, but you may have broken something else.
 To know for sure, you have to test everything.
 Doing all that manually, filling in forms, clicking around... will take quite some time. 
-So, you'll probably end up not doing it at all or not thorough and assume everything else still works fine.
+So, you'll probably end up not doing it thorough or even not at all and assume everything else still works fine.
 That's why you should have automated tests do it for you!
 
 Gauge is yet another test automation tool that serves that purpose. 
@@ -33,7 +33,7 @@ In other words, anyone is able to read and write test scenarios.
 The actual implementation of the steps does require some technical knowledge.
 
 ## Setup
-Gauge offers an installer that can be downloaded [here](https://getgauge.io/get-started.html).
+Gauge offers an installer which can be downloaded [here](https://getgauge.io/get-started.html){:target="_blank"}.
 During the install, you can select which core plugins to install.
 In this blog the tests are written in Java, so we would need the Java core plugin.
 After the install, you'll be able to run `gauge` from the command line. 
@@ -45,29 +45,28 @@ If not, you'll find enough on Google on how to install those.
 
 To start a new project, create a new folder and run `gauge init java` in it.
 This will setup a basic Gauge project.
-Then we need to add a `pom.xml` file ourselves, because we need some dependencies such as Selenium WebDriver.
+Then we need to add a [pom.xml](https://github.com/getgauge-examples/java-maven-selenium/blob/master/pom.xml){:target="_blank"} file ourselves, because we need some dependencies such as Selenium WebDriver.
+Next, WebDriver needs to setup in our test code. 
+A good example of how you could do that can be found [here](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils){:target="_blank"}.
+There, they created a `DriverFactory` so you can easily switch between browsers using environment variables (we'll get to that).
+Gauge hooks are used to start and stop WebDriver when running the test suite.
+Just copy those pieces of code into your own project.
+Or, you could start from the _Maven + Selenium_ example provided by Gauge which can be found on [GitHub](https://github.com/getgauge-examples/java-maven-selenium){:target="_blank"}.
+That way you'd have some examples to start from.
 
 Now we can start writing tests.
 
 ## Writing tests
 On the lowest level we have our Java functions that control the browser using WebDriver commands.
-To these functions we can assign an @Step annotation to be able to identify it.
+To these functions we can assign an `@Step` annotation to be able to identify it.
 It's usually a sentence describing the action being performed.
 The sentences can then be used to write the scenarios of our tests (or specs).
 If you'd like to combine multiple steps into once sentence, you can do so by creating so called "concepts".
 
 A typical folder structure for a Gauge setup using WebDriver and Java is as follows:
-* root/
-  * env/default/
-    * *.properties files
-  * specs/
-    * concepts/
-      * *.cpt files
-    * *.spec files
-  * src/test/java/
-    * *.java files
-  * manifest.json
-  * pom.xml
+<p>
+    <img class="image fit" style="max-width:194px" alt="Gauge Maven project structure" src="/img/2017-12-30-gauge-automated-testing/files.jpg" />
+</p>
   
 ### Writing the specs
 The specs are written in MarkDown.
@@ -96,7 +95,7 @@ tags: sign-up, customer
 
 ### Writing the steps
 The sentences we wrote in the specs still need to be linked to Java functions.
-We can do so by simply adding an @Step annotation to a Java function.
+We can do so by simply adding an `@Step` annotation to a Java function.
 It doesn't matter in which class you put the functions, you're free to choose how to organize them.
 As long as they are under the `src/test/java` folder.
 You could, for example, group them per page or per feature.
@@ -126,7 +125,7 @@ public class CustomerSignup {
 ```
 
 As shown in the example above, you can easily pass parameters to steps.
-You simply have to wrap the keywords in `<>` in the @Step annotation 
+You simply have to wrap the keywords in `<>` in the `@Step` annotation 
 and list the same keywords as parameters in the actual Java function.
 Obviously, you can then use them in your Java code.
 
@@ -187,7 +186,7 @@ It's a good way to avoid too much code duplication.
 ### Concepts
 If you find yourself repeating the same sequence of steps over and over, 
 you could combine those steps into one step using concepts.
-These are also written in MarkDown and you can pass arguments the same way as in the Java @Step annotations.
+These are also written in MarkDown and you can pass arguments the same way as in the Java `@Step` annotations.
 They should be placed in the `/specs/concepts` folder and use the *.cpt extension.
 
 ```markdown
@@ -202,12 +201,12 @@ Gauge does offer it, so it's up to you whether you want to make use of it or not
 
 ## Running the specs
 Since the project is setup with Maven, the tests can be run with `mvn test`. 
-However, if you want to pass any arguments, you'll need to use `mvg gauge:execute` instead.
+However, if you want to pass any arguments, you'll need to use `mvn gauge:execute` instead.
 
 ### Tags
 
-You may have noticed that in the spec files, some tags can be added. 
-They can be used to only run certain specs.
+You may have noticed in the spec files that tags can be added. 
+They can be used to run only certain specs.
 
 `mvn gauge:execute -DspecsDir=specs -Dtags="sign-up & customer"`
 
@@ -237,20 +236,26 @@ If your sign in relies on the user being signed up through a previous test, thes
 However, if you would want to test whether a user can sign in after having signed up, you should do so in one test.
 That immediately solves our problem and we are safe to use the parallel execution!
 
-## Configuration
-There's actually one more thing we need to setup before we can run our specs, the configuration.
+## Environments and configuration
 The config files are located under `env/default`.
 You should have three files in that folder: `default.properties`, `java.properties` and `user.properties`.
-The main thing we need to change is the `APP_URL` in the user properties file.
+In the [example by Gauge](https://github.com/getgauge-examples/java-maven-selenium){:target="_blank"}, they have an `APP_URL` parameter in that last file.
+I recommend using that approach as well, you can get parameters in your Java code using `System.getenv("APP_URL")`.
 
-It's possible to create different configurations by simply duplicating the default folder and renaming it to something else.
-If you need a different configuration for you CI-tool, you can create a folder namen `ci`.
-When running the specs, you can pass an argument stating for which environment.
+It's possible to create different environments by simply creating a new folder and add the configuration files that you want to change there.
+If you need a different configuration for you CI-tool, you can create a folder named `ci`.
+When running the specs, you can pass an argument stating the environment.
 
-`mvn gauge:execute -Denv=ci"`
+`mvn gauge:execute -Denv="ci"`
+
+Environments can also be used to run gauge with another browser like in the [example by Gauge](https://github.com/getgauge-examples/java-maven-selenium){:target="_blank"}. 
+Create a folder named `firefox` for example and add a file called `browser.properties`. 
+In that file you add `browser = FIREFOX`. 
+When you then run the tests with the `firefox` environment, it will use FireFox as a browser instead.
+(This only works if you have your project setup like in the example, the [Driver](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver){:target="_blank"} and [DriverFactory](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver){:target="_blank"} file are required here.)
 
 ## Report
-To get HTML reports, the plugin has to be installed first: `gauge install html-report`.
+To get a HTML report, the plugin has to be installed first: `gauge install html-report`.
 That's about it!
 After running the specs, a nice HTML report will be outputted to the `/reports` folder.
 It shows which tests succeeded and which failed with some additional graphs.
