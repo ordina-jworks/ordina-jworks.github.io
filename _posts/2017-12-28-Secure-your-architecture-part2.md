@@ -30,8 +30,6 @@ The key used in encrypting data at rest is used for both encrypting and decrypti
 This key becomes very vulnerable if anyone gets a hold on it. 
 * Well known: [Advanced Encryption Standard encryption](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard){:target="_blank"}
 
-//I would also mention that you can use this key pair to sign your data, so the application would know that it can trust the source of the data.
-
 ### Asymmetric Encryption
 In asymmetric encryption, a pair of keys are used. A public key that is exposed and encrypts your data and a private key that is only known by the owner that decrypts your data.
 This key-pair can also be used to sign your data, so the application knows that it can trust the source of the data. 
