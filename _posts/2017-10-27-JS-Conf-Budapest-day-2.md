@@ -33,8 +33,6 @@ At 10:00 the second day of the conference started. Enough time to drink great co
 * [Laura Carvajal: YES, your site can (and should) be accessible too. Lessons learned in building FT.com](#laura-carvajal-yes-your-site-can-and-should-be-accessible-too-lessons-learned-in-building-ftcom)
 * [Nikita Baksalyar: Exploring the P2P world with WebRTC & JavaScript](#nikita-baksalyar-exploring-the-p2p-world-with-webrtc--javascript)
 * [Vaidehi Joshi: Goldilocks And The Three Code Reviews](#vaidehi-joshi-goldilocks-and-the-three-code-reviews)
-* [Anna Migas: Make your animations perform well](#anna-migas-make-your-animations-perform-well)
-* [Trent Willis: Caring For Your Fellow Developers](#trent-willis-caring-for-your-fellow-developers)
 
 ****
 
