@@ -14,7 +14,8 @@ This year's edition of JS Conf Budapest returned to the first venue at [Urania N
 
 > Uránia Cinema in the middle of the city, near the party-district.
 > Designed by Henrik Schmahl in the late 1890's, the interior is characterized by the ornamental motifs of the Venetian Gothic and Moor styles.
-> The place is listed as the world's 3rd most beautiful cinema on Bored Panda, and many tech conferences were hosted here recently, like TEDx, and Strech Conference, because of the unique atmosphere.
+> The place is listed as the world's 3rd most beautiful cinema on Bored Panda
+> Many tech conferences were hosted here recently, like TEDx, and Strech Conference, because of the unique atmosphere.
 
 JS Conf Budapest 2017 is hosted by [Glen Maddern](https://twitter.com/glenmaddern) and [Charlie Gleason](https://twitter.com/superhighfives).
 At 10:00 the second day of the conference started. Enough time to drink great coffee and enjoy the breakfast.
@@ -51,19 +52,22 @@ The presentation can be found [here](https://donburks.com/2017-10-27-jsconfbp-pr
 Composers and developers of applications have more in common than you might think. In his talk, Don Burks pointed out the similarities in structure between music and apps.
 </p></blockquote>
 
-An app has a certain structure, being the architecture or the configuration of how all the different components interact with each other. The same applies to a composition, where the structure represents the different themes in the composition.
+An app has a certain structure, being the architecture or the configuration of how all the different components interact with each other. 
+The same applies to a composition, where the structure represents the different themes in the composition. 
+When you look at an application, you see a system of databases, web servers, load balancers, etc. 
+All these components are part of the system. Composers have the same vision on their composition.
  
-When you look at an application, you see a system of databases, web servers, load balancers, etc. All these components are part of the system. Composers have the same vision on their composition.
+When creating the flow of an application, developers start from a certain point and move forward from one step to another, where each step describes an action or event in the app. 
+These steps are like a melody in music that moves everything forward. 
+Developers also think vertically to visualize the architecture of the application. 
+All the technologies that are used, are represented in a vertical stack.
  
-When creating the flow of an application, developers start from a certain point and move forward from one step to another, where each step describes an action or event in the app. These steps are like a melody in music that moves everything forward.
+The goal of the application is to deliver a complete package, where the horizontal problem-solving and the vertical architecture should be transparent to the user. 
+In music it is important that every tune is played on time. 
+The musician must deliver the right tune at the right time in order to create the music like the composer intended it to be. 
+An app should run the same way: it has to deliver the right “tune” at the desired time to provide the best user experience.
  
-But developers also think vertically to visualize the architecture of the application. All the technologies that are used, are represented in a vertical stack.
- 
-The goal of the application is to deliver a complete package, where the horizontal problem-solving and the vertical architecture should be transparent to the user.
- 
-In music it is important that every tune is played on time. The musician must deliver the right tune at the right time in order to create the music like the composer intended it to be. An app should run the same way: it has to deliver the right “tune” at the desired time to provide the best user experience.
- 
-The talk gave us more insight about various aspects in development, seen from a musician’s perspective. Composing music is an art, and so is coding.
+The talk gave us more insight about various aspects in development, seen from a musician’s perspective. Composing music is an art and so is coding.
 
 ****
 
@@ -79,9 +83,9 @@ The presentation can be found [here](http://slides.com/opherv/jsconfbp2017/).
 Opher is a designer and developer. In his talk, Opher shared his vision on how animations come to live.
 </p></blockquote>
 
-After we got introduced to Opher’s cute dog named Blizzard, which grew up to a direwolf that can be casted directly in a TV show about dragons and an upcoming winter, Opher started his talk with some child nostalgia from Disney. He shared his amazement about the animations used in old animated movies such as The Lion King, especially since they were hand drawn, and how these animation bring the characters and surroundings to life.
+After we got introduced to Opher’s cute dog named _Blizzard_, which grew up to a direwolf that can be casted directly in a TV show about dragons and an upcoming winter, Opher started his talk with some child nostalgia from Disney. He shared his amazement about the animations used in old animated movies such as _The Lion King_, especially since they were hand drawn, and how these animation bring the characters and surroundings to life.
  
-But how do animations come to life? Two of the influencing factors are Follow Through and Overlapping Actions, which are part of the 12 basic principles of animation. The Follow Through principle defines that not every part of a moving entity moves the same way and stops the same way. Rather when one part of an entity stops, the other parts will follow through and come back. To illustrate this, Opher showed us an animation of a moving carrot that stopped suddenly, causing the leaves to go further before they stopped moving as well.
+Now, how do animations come to life? Two of the influencing factors are _Follow Through_ and _Overlapping Actions_, which are part of the 12 basic principles of animation. The Follow Through principle defines that not every part of a moving entity moves the same way and stops the same way. Rather when one part of an entity stops, the other parts will follow through and come back. To illustrate this, Opher showed us an animation of a moving carrot that stopped suddenly, causing the leaves to go further before they stopped moving as well.
  
 The Overlapping Action principle means that when an entity is moving, its looser parts start moving later. The animation of the moving carrot clearly showed that the carrot itself moved in a smooth way, while the leaves were being dragged behind the carrot.
  
@@ -174,7 +178,7 @@ You can read more about HOCs [here](https://reactjs.org/docs/higher-order-compon
 Imad explained that they used an A/B testing framework to measure the impact of the migration.
 By doing this they managed to see consistent performance and engagement improvements, both of these metrics have improved by 20 percent.
 
-Last but not least migrating to React was also great for the developers: less duplicated code, 
+Last but not least, migrating to React was also great for the developers: less duplicated code, 
 a single language on client and server and a large developer community Imad was definitely happy to be a part of.
 
 
@@ -225,14 +229,14 @@ A similar presentation as the one given at JSConf can be found [here](https://ww
 Nikita Baksalyar is a Software Engineer at MaidSafe. During his talk he explained how we could use newer and not so new technologies to decentralize the web to its former state.
 </p></blockquote>
 
-The Web becomes increasingly centralized. We trust our private data to be stored in data centers despite news about data leaks. We exchange our messages and they are handled to three-letter agencies without you knowing about it. Can we do better and return the Web to its decentralized roots? A combination of proven and emerging technologies like WebRTC can help us.
+The web becomes increasingly centralized. We trust our private data to be stored in data centers despite news about data leaks. We exchange our messages and they are handled to three-letter agencies without you knowing about it. Can we do better and return the web to its decentralized roots? A combination of proven and emerging technologies like WebRTC can help us.
 
 ##### What is WebRTC?
 
-Whenever you visit a webpage, you'd typically enter a web address or click a link to view a page. A request is made to the server and that server provides the webpage you've requested. The key here is that you make an HTTP request to a locatable server and get a response back.
+Whenever you visit a webpage, you'd typically enter a web address or click a link to view a page. A request is made to the server and that server provides the webpage you've requested. The key here is that you make a HTTP request to a locatable server and get a response back.
 Let's say that you want to do a video chat with mom. Mom's computer is probably not a web-server, so how will she receive my audio and video data? Enter WebRTC.
 
-WebRTC stands for web real-time communications. It is a very exciting, powerful, and highly disruptive cutting-edge technology and standard. WebRTC leverages a set of plugin-free APIs that can be used in both desktop and mobile browsers, and is progressively becoming supported by all major modern browser vendors.
+WebRTC stands for web real-time communications. It is a very exciting, powerful, and highly disruptive cutting-edge technology and standard. WebRTC leverages a set of plugin-free APIs that can be used in both desktop and mobile browsers and is progressively becoming supported by all major modern browser vendors.
 
 The primary benefit of WebRTC is real-time peer-to-peer audio and video communication. In order to communicate with another person (i.e., peer) via a web browser, each person’s web browser must agree to begin communication, know how to locate one another and transmit all multimedia communications in real-time.
 
@@ -347,7 +351,7 @@ A bad code review almost made me leave the company. A great code review leaves m
 Github provides some default templates for a PR, in which a couple of questions need to be answered short and clearly.
 * Include screenshots/gifs, providing more context on what is changed and why.
 * Use linters to eliminate style and syntax nitpicking.
-* Encapsulating PR's into small packages, aiming for small commits.
+* Encapsulating PRs into small packages, aiming for small commits.
 * Assign specific reviewers, so they may provide valuable input and/or teach or learn something.
 
 #### But even more important
