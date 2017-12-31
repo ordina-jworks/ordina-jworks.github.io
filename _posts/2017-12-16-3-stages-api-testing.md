@@ -2,7 +2,7 @@
 layout: post
 authors: [tim_vierbergen]
 title: '3 Stages of API testing'
-image: /img/3-stages-api-testing/intro.png
+image: /img/3-stages-api-testing/overview.png
 tags: [Node-RED,angular,nestjs,jest,GoCD,docker,ci]
 category: Testing
 comments: true
@@ -23,12 +23,12 @@ In this post, we'll have a look at our three stages of API testing we are promot
 # Setup
 
 The example we are going to use is a part of a bigger microfrontend/microservice setup.
-The frontend part of this example is the actual header of the microfrontend setup.
+The front-end part of this example is the actual header of this microfrontend setup. It's the top bar, developed as separate front-end application.
 This header provides the user with a search input field, where the user can search our database of competence centers.
 This part is written in Angular (5).
 The app gets dockerized after the unit tests (and build) are successfully completed.
-It's served by a simple Express server inside a Docker container.
-The backend part provides the data of the competence centers.
+It is served by a simple Express server inside a Docker container.
+The back-end part provides the data of the competence centers.
 It's nothing more than a simple REST API written in TypeScript using the Nest.js framework.
 The data provided by this service is a JSON file.
 Its content is parsed into memory and is exposed through this REST API.
@@ -37,8 +37,8 @@ Its content is parsed into memory and is exposed through this REST API.
     <img class="image fit" style="max-width:575px" alt="Easy client server setup" src="/img/3-stages-api-testing/setup.png" />
 </p>
 
-The frontend (header) is providing the user with an input field.
-This field allows the user to perform a search on our backend service.
+The front-end (header) is providing the user with an input field.
+This field allows the user to perform a search on our back-end service.
 It also provides a `clear` button, so the user can remove the content from the input field and reset the local cache of search results.
 A second button is the `filter` button.
 When pressed, it will emit an event that can be listened to by other microfrontends.
@@ -76,10 +76,10 @@ When there's nothing to search for, the result would be an empty array.
 So we're just resetting our local data to an empty array.
 
 <p>
-    <img class="image fit" style="max-width:575px" alt="Easy client server setup" src="/img/3-stages-api-testing/header.png" />
+    <img class="image fit" style="max-width:925px;" alt="Easy client server setup" src="/img/3-stages-api-testing/header.png" />
 </p>
 
-The backend API is exposing three endpoints:
+The back-end API is exposing three endpoints:
 
 ```
 @Get()
@@ -110,10 +110,12 @@ When the needle is undefined (or an empty string), the search endpoint will retu
     <img class="image fit" style="max-width:575px" alt="decoupled" src="/img/3-stages-api-testing/unit.png" />
 </p>
 
-## Unit testing the communication part of the UI
+The first stage is unit testing each component. This step is almost always part of the component's build. Let's take a quick look at each component.
+
+### Unit testing the communication part of the UI
 
 <p>
-    <img class="image fit" style="max-width:575px" alt="Easy client server setup" src="/img/3-stages-api-testing/unit-client.png" />
+    <img class="image fit" style="max-width:325px" alt="Easy client server setup" src="/img/3-stages-api-testing/unit-client.png" />
 </p>
 
 For unit testing our front-end Angular 5 application, we are going to use the `import { MockBackend } from '@angular/http/testing';` from Angular itself to mock our back-end.
@@ -160,14 +162,14 @@ describe('Should query ccs with an observable', () =>
 
 The Angular framework handles the communication part.
 We want to mock the `$http` call and see how we are handling the result.
-The `mockBackend` is working inbetween our own code and the provided $http part.
+The `mockBackend` is working inbetween our own code and the provided `$http` part.
 Every call is triggering the `mockBackend.connections`, so the subscribers are triggered.
 We are providing our own data and returning it as the response of the `$http` call.
 
-## Unit testing the communication layer of the service
+### Unit testing the communication layer of the service
 
 <p>
-    <img class="image fit" style="max-width:575px" alt="Easy client server setup" src="/img/3-stages-api-testing/unit-service.png" />
+    <img class="image fit" style="max-width:325px" alt="Easy client server setup" src="/img/3-stages-api-testing/unit-service.png" />
 </p>
 
 For unit testing our back-end, we are using Jest.
@@ -191,7 +193,7 @@ describe('searchCCs', () => {
 Where mockResponse is exactly that.
 A simple mock of the response object.
 
-## Purpose of these unit tests
+### Purpose of these unit tests
 
 The goal of these unit tests is to make sure that the functions inside the components are working as expected.
 This way the next stage of testing can only fail due to errors from outside this component.
@@ -211,10 +213,10 @@ This means that we are going to mock 'the other' component by replacing it with 
 Although we are mocking some parts, this can be seen as end-to-end test for each component itself.
 We want to test our component by means of external services, just as it is supposed to work in a complete environment.
 
-## Mocking our back-end to test our front-end.
+### Mocking our back-end to test our front-end.
 
 <p>
-    <img class="image fit" style="max-width:575px" alt="Mocking the backend" src="/img/3-stages-api-testing/front-end-mock.png" />
+    <img class="image fit" style="max-width:575px" alt="Mocking the back-end" src="/img/3-stages-api-testing/front-end-mock.png" />
 </p>
 
 For our front-end component (user interface), we are going to mock the back-end.
@@ -224,7 +226,7 @@ To end-to-end test this part, we are also in need of a framework to mock this us
 <a href="https://getgauge.io/" target="_blank">Gauge</a>, <a href="http://www.protractortest.org/" target="_blank">Protractor</a> and <a href="http://nightwatchjs.org/" target="_blank">Nightwatch.js</a> are some examples of these frameworks.
 Most of them depend on 'Selenium WebDriver'.
 
-### Node-RED for back-end mocking
+#### Node-RED for back-end mocking
 
 We are using Node-RED for our back-end mock because it's so easy to setup and dockerize.
 
@@ -241,7 +243,7 @@ Or you can just use functions where you hard code your data.
 To keep it simple, we will use the latter in our setup.
 
 <p>
-    <img class="image fit" style="max-width:675px" alt="Mocking the backend" src="/img/3-stages-api-testing/node-red-flow.png" />
+    <img class="image fit" style="max-width:875px" alt="Mocking the back-end" src="/img/3-stages-api-testing/node-red-flow.png" />
 </p>
 
 A simple mock for a http-call consists out of three parts:
@@ -251,10 +253,10 @@ A simple mock for a http-call consists out of three parts:
 3. The response definition
 
 <p>
-    <img class="image fit" style="max-width:225px;" alt="Data function config" src="/img/3-stages-api-testing/node-red-data.png" />
+    <img class="image fit" style="max-width:425px;" alt="Data function config" src="/img/3-stages-api-testing/node-red-data.png" />
 </p>
 
-### User interface automation
+#### User interface automation
 
 In this setup we are using Protractor for the e2e tests.
 The user input is limited to an input field to trigger the search REST-call and two buttons, one button for clearing the input and one for sending the search string to other microfrontend components.
@@ -264,7 +266,7 @@ Depending on the effort you can always retest them in these e2e tests, but for t
 We want to trigger the search REST call by sending the search string `tim` to the input field, and testing the outcome in the user interface.
 
 <p>
-    <img class="image fit" style="max-width:725px;" alt="Data function config" src="/img/3-stages-api-testing/search-e2e.png" />
+    <img class="image fit" style="max-width:925px;" alt="Data function config" src="/img/3-stages-api-testing/search-e2e.png" />
 </p>
 
 
@@ -288,17 +290,17 @@ describe('Searching with Tim should show 2 results', () => {
 ...
 ```
 
-### Conclusion for our front-end
+#### Conclusion for our front-end
 
 This mock e2e test is depending on a mock back-end and a user input automation system.
 We are running these tests on our <a href="https://www.gocd.org/" target="_blank">GoCD</a> setup with dockerized elastic agents.
 To run these tests, we are in need of a go-agent that can run these e2e test with Protractor, but we also need an environment where we can serve this front-end and the mocked service.
 We are doing this with a go-agent that first spins up a docker-compose (for our front-end and mock-end), runs the protractor tests to this new environment and then brings it down the environment when tests are finished.
 
-## Mocking our front-end to test our back-end.
+### Mocking our front-end to test our back-end.
 
 <p>
-    <img class="image fit" style="max-width:575px" alt="Mocking the backend" src="/img/3-stages-api-testing/back-end-mock.png" />
+    <img class="image fit" style="max-width:500px" alt="Mocking the back-end" src="/img/3-stages-api-testing/back-end-mock.png" />
 </p>
 
 For testing our back-end service, we only need one other service.
@@ -317,7 +319,7 @@ Luckily, Postman also provides a command-line tool called <a href="https://githu
 Newman let's you run your test scenarios from your command line.
 You can first configure everything though the user interface and then just export the scenario so you can use it through the CLI.
 
-> You can read more about Postman and Newman in our blogpost <a href="https://ordina-jworks.github.io/testing/2016/09/16/Automation-testing-with-postman.html" target="_blank">API Testing with Postman and Newman</a> 
+> You can read more about Postman and Newman in our blogpost <a href="https://ordina-jworks.github.io/testing/2016/09/16/Automation-testing-with-postman.html" target="_blank">API Testing with Postman and Newman</a>
 
 Below, you can find a part of the exported JSON configuration.
 This part will send a GET request to the search endpoint, providing the search string `tim`.
@@ -384,7 +386,7 @@ It will then analyse the response and check if the resulting array contains 2 en
 In our continuous integration system, we are running these test on a simple go-agent that can run these Newman tests.
 This agent spins up our service container, runs these tests and bring down that container.
 
-### Conclusion for our back-end
+#### Conclusion for our back-end
 
 Testing this back-end service with a mock front-end is pretty easy.
 Since our data is included in this service and it is limited to a simple JSON file, we are not running performance tests.
@@ -412,8 +414,8 @@ Right, we already used this in the previous stage where we were testing the user
 </p>
 
 
-This go-agent that is able to run the Protractor tests, will first need to spin up an environment, run its tests and tear down the environment. Same goes for performace tests in this stage.
-You can use some framework to put extra load on your front-end to see how it's behaving when it needs to handle more REST-calls for different parts.
+This go-agent that is able to run the Protractor tests, will first need to spin up this environment, run its tests and tear down the environment. Same goes for performace tests in this stage.
+You can use some frameworks to put extra load on your front-end to see how it's behaving when it needs to handle more REST-calls for different parts.
 Or you can run more instances of the user interface, resulting in more load on the back-end service.
 
 # Conclusion
