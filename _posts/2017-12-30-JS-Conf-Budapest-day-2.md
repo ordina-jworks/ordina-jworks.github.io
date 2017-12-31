@@ -1,21 +1,21 @@
 ---
 layout: post
 authors: [frederic_ghijselinck, orjan_de_smet, stefanie_geldof, martijn_willekens, dimitri_de_kerf, dries_gijssels]
-title: 'JS Conf Budapest 2017 Day 2'
-image: /img/js-conf-budapest-2017/js-conf-budapest-2017.png
+title: 'JSConf Budapest 2017 Day 2'
+image: /img/js-conf-budapest-2017/header.png
 tags: [JS Conf Budapest,JavaScript,Conference]
 category: Conference
 comments: true
 ---
 
-## From JS Conf Budapest with love
+## From JSConf Budapest with love
 
 This year's edition of JS Conf Budapest returned to the first venue at [Urania National Movie theater](http://www.urania-nf.hu/).
 
 > Uránia Cinema in the middle of the city, near the party-district.
 > Designed by Henrik Schmahl in the late 1890's, the interior is characterized by the ornamental motifs of the Venetian Gothic and Moor styles.
 > The place is listed as the world's 3rd most beautiful cinema on Bored Panda.
-> Many tech conferences were hosted here recently, like TEDx, and Strech Conference, because of the unique atmosphere.
+> Many tech conferences were hosted here recently, such as TEDx and Strech Conference, because of the unique atmosphere.
 
 JS Conf Budapest 2017 is hosted by [Glen Maddern](https://twitter.com/glenmaddern) and [Charlie Gleason](https://twitter.com/superhighfives).
 At 10:00 the second day of the conference started. Enough time to drink great coffee and enjoy the breakfast.

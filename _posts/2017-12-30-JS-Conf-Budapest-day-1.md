@@ -1,14 +1,14 @@
 ---
 layout: post
 authors: [frederic_ghijselinck, orjan_de_smet, stefanie_geldof, martijn_willekens, yannick_vergeylen, dimitri_de_kerf, michael_vervloet]
-title: 'JS Conf Budapest 2017 Day 1'
-image: /img/js-conf-budapest-2017/js-conf-budapest-2017.png
+title: 'JSConf Budapest 2017 Day 1'
+image: /img/js-conf-budapest-2017/header.png
 tags: [JS Conf Budapest,JavaScript,Conference]
 category: Conference
 comments: true
 ---
 
-## From JS Conf Budapest with love
+## From JSConf Budapest with love
 
 This year's edition of JS Conf Budapest returned to the first venue at [Urania National Movie theater](http://www.urania-nf.hu/).
 
