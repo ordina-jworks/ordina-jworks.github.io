@@ -7,16 +7,24 @@ tags: [Gauge,E2E,Testing,Test automation]
 category: Testing
 comments: true
 ---
+
+
+# Table of contents
+1. [Intro](#intro)
+2. [Setup](#setup)
+3. [Writing tests](#writing-tests)
+4. [Conclusion](#conclusion)
+
 # Intro
 You may have a dedicated tester in your team or maybe you don't even have one at all and do the testing yourself.
 When finishing a new feature, you test whether it works, but you may have broken something else.
 To know for sure, you have to test everything.
-Doing all that manually, filling in forms, clicking around... will take quite some time. 
+Doing all that manually, filling in forms, clicking around... will take quite some time.
 So, you'll probably end up not doing it thorough or even not at all and assume everything else still works fine.
 That's why you should have automated tests do it for you!
 
-Gauge is yet another test automation tool that serves that purpose. 
-The founder is ThoughtWorks, the company that also created Selenium and GoCD. 
+Gauge is yet another test automation tool that serves that purpose.
+The founder is ThoughtWorks, the company that also created  <a href="http://www.seleniumhq.org/" target="_blank">Selenium</a> and <a href="https://www.gocd.org/" target="_blank">GoCD</a>.
 It's still in beta at the moment of writing, but it all works fine!
 Gauge is comparable with Protractor or JUnit extended with Cucumber (if you haven't heard of these, they are worth checking out).
 In this blog we'll be mainly talking about automating browser testing using Selenium WebDriver, although that isn't the sole purpose of Gauge.
@@ -24,7 +32,7 @@ If you don't know WebDriver, it's what allows you to interact with the browser t
 
 Now, unlike Cucumber, Gauge itself only supports three languages at the moment: Java, Ruby and C#.
 Others may be supported by the community like JavaScript.
-You can define steps written in either one of those languages. 
+You can define steps written in either one of those languages.
 These are the actual tests and can be identified by a sentence you can choose yourself.
 By combining these sentences, you can write test scenarios which are written in MarkDown.
 That means you don't need any programming experience to write test scenarios.
@@ -32,21 +40,21 @@ You could create some sort of dictionary with the step sentences that others can
 In other words, anyone is able to read and write test scenarios.
 The actual implementation of the steps does require some technical knowledge.
 
-## Setup
+# Setup
 Gauge offers an installer which can be downloaded [here](https://getgauge.io/get-started.html){:target="_blank"}.
 During the install, you can select which core plugins to install.
 In this blog the tests are written in Java, so we would need the Java core plugin.
-After the install, you'll be able to run `gauge` from the command line. 
+After the install, you'll be able to run `gauge` from the command line.
 It can, for example, be used to install more plugins (as well as core plugins `gauge install java`).
 
-Next, in order to use WebDriver in our tests, we'll need the Java SDK and Maven. 
-When you're a Java developer, you probably already have those installed. 
+Next, in order to use WebDriver in our tests, we'll need the Java SDK and Maven.
+When you're a Java developer, you probably already have those installed.
 If not, you'll find enough on Google on how to install those.
 
 To start a new project, create a new folder and run `gauge init java` in it.
 This will setup a basic Gauge project.
 Then we need to add a [pom.xml](https://github.com/getgauge-examples/java-maven-selenium/blob/master/pom.xml){:target="_blank"} file ourselves, because we need some dependencies such as Selenium WebDriver.
-Next, WebDriver needs to setup in our test code. 
+Next, WebDriver needs to setup in our test code.
 A good example of how you could do that can be found [here](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils){:target="_blank"}.
 There, they created a `DriverFactory` so you can easily switch between browsers using environment variables (we'll get to that).
 Gauge hooks are used to start and stop WebDriver when running the test suite.
@@ -56,7 +64,7 @@ That way you'd have some examples to start from.
 
 Now we can start writing tests.
 
-## Writing tests
+# Writing tests
 On the lowest level we have our Java functions that control the browser using WebDriver commands.
 To these functions we can assign an `@Step` annotation to be able to identify it.
 It's usually a sentence describing the action being performed.
@@ -67,7 +75,7 @@ A typical folder structure for a Gauge setup using WebDriver and Java is as foll
 <p>
     <img class="image fit" style="max-width:194px" alt="Gauge Maven project structure" src="/img/2017-12-30-gauge-automated-testing/files.jpg" />
 </p>
-  
+
 ### Writing the specs
 The specs are written in MarkDown.
 Each spec file starts with a title and is underlined with `===`.
@@ -125,7 +133,7 @@ public class CustomerSignup {
 ```
 
 As shown in the example above, you can easily pass parameters to steps.
-You simply have to wrap the keywords in `<>` in the `@Step` annotation 
+You simply have to wrap the keywords in `<>` in the `@Step` annotation
 and list the same keywords as parameters in the actual Java function.
 Obviously, you can then use them in your Java code.
 
@@ -144,7 +152,7 @@ public class SignUpPage {
     public WebElement passwordField;
     public WebElement passwordConfirmField;
     public WebElement commitButton;
-    
+
     SignUpPage() {
         WebDriver webDriver = Driver.webDriver;
         webDriver.findElement(By.linkText("Sign up")).click();
@@ -161,7 +169,7 @@ public class SignUpPage {
 Step definition:
 ```java
 public class CustomerSignup {
-    
+
     private SignUpPage signUpPage = new SignUpPage();
 
     @Step("Sign up as <customer> with email <customer@example.com> and <password>")
@@ -184,7 +192,7 @@ In your step definition, you then simply have to call that function to select so
 It's a good way to avoid too much code duplication.
 
 ### Concepts
-If you find yourself repeating the same sequence of steps over and over, 
+If you find yourself repeating the same sequence of steps over and over,
 you could combine those steps into one step using concepts.
 These are also written in MarkDown and you can pass arguments the same way as in the Java `@Step` annotations.
 They should be placed in the `/specs/concepts` folder and use the *.cpt extension.
@@ -200,19 +208,19 @@ They refuse to implement it because they believe this creates too much abstracti
 Gauge does offer it, so it's up to you whether you want to make use of it or not.
 
 ## Running the specs
-Since the project is setup with Maven, the tests can be run with `mvn test`. 
+Since the project is setup with Maven, the tests can be run with `mvn test`.
 However, if you want to pass any arguments, you'll need to use `mvn gauge:execute` instead.
 
 ### Tags
 
-You may have noticed in the spec files that tags can be added. 
+You may have noticed in the spec files that tags can be added.
 They can be used to run only certain specs.
 
 `mvn gauge:execute -DspecsDir=specs -Dtags="sign-up & customer"`
 
 ### Parallel
 So far, Gauge didn't stand out from other automated testing solutions.
-Although there's one thing that really does stand out and that's how easy it is to use parallel execution! 
+Although there's one thing that really does stand out and that's how easy it is to use parallel execution!
 
 `mvn gauge:execute -DspecsDir=specs -DinParallel=true`
 
@@ -223,7 +231,7 @@ You can overwrite the number of parallel executors, but it's recommended not to 
 
 `mvn gauge:execute -DspecsDir=specs -DinParallel=true -Dnodes=2`
 
-Now, some specs may take longer to run than others. 
+Now, some specs may take longer to run than others.
 By default specs are divided dynamically over the streams.
 So when a spec has finished, it will take the next one from the list of specs that still need to be executed.
 It's possible to change this so the specs are divided on startup, but the command is deprecated and will be removed.
@@ -248,9 +256,9 @@ When running the specs, you can pass an argument stating the environment.
 
 `mvn gauge:execute -Denv="ci"`
 
-Environments can also be used to run gauge with another browser like in the [example by Gauge](https://github.com/getgauge-examples/java-maven-selenium){:target="_blank"}. 
-Create a folder named `firefox` for example and add a file called `browser.properties`. 
-In that file you add `browser = FIREFOX`. 
+Environments can also be used to run gauge with another browser like in the [example by Gauge](https://github.com/getgauge-examples/java-maven-selenium){:target="_blank"}.
+Create a folder named `firefox` for example and add a file called `browser.properties`.
+In that file you add `browser = FIREFOX`.
 When you then run the tests with the `firefox` environment, it will use FireFox as a browser instead.
 (This only works if you have your project setup like in the example, the [Driver](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver){:target="_blank"} and [DriverFactory](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver){:target="_blank"} file are required here.)
 
@@ -260,19 +268,19 @@ That's about it!
 After running the specs, a nice HTML report will be outputted to the `/reports` folder.
 It shows which tests succeeded and which failed with some additional graphs.
 In the report you'll even find how long it took to run a test and each of its steps.
-There's also a search functionality to quickly find a certain spec. 
+There's also a search functionality to quickly find a certain spec.
 
 <p>
     <img class="image fit" style="max-width:768px" alt="Gauge HTML report" src="/img/2017-12-30-gauge-automated-testing/gauge-report.jpg" />
 </p>
 
 # Conclusion
-It's a good idea to write automated tests. 
-If you do it well, you don't have to spend a lot of time manually testing your application. 
+It's a good idea to write automated tests.
+If you do it well, you don't have to spend a lot of time manually testing your application.
 The chance of something being broken by your changes will decrease dramatically.
 Also, be sure to use the page object pattern and create functions for repetitive actions.
 It avoids code duplication and having to update the same code in multiple places.
 
 If you're starting a new project or starting from scratch with writing browser tests, you should consider using Gauge.
-Even though it's still in beta. 
+Even though it's still in beta.
 With ThoughtWorks as the main force behind this tool, it's here to stay!
