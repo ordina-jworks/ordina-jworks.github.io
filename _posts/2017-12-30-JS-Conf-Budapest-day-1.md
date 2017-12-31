@@ -14,7 +14,8 @@ This year's edition of JS Conf Budapest returned to the first venue at [Urania N
 
 > Uránia Cinema in the middle of the city, near the party-district.
 > Designed by Henrik Schmahl in the late 1890's, the interior is characterized by the ornamental motifs of the Venetian Gothic and Moor styles.
-> The place is listed as the world's 3rd most beautiful cinema on Bored Panda, and many tech conferences were hosted here recently, like TEDx, and Strech Conference, because of the unique atmosphere.
+> The place is listed as the world's 3rd most beautiful cinema on Bored Panda. 
+> Many tech conferences were hosted here recently, such as TEDx and Strech Conference, because of the unique atmosphere.
 
 JS Conf Budapest 2017 is hosted by [Glen Maddern](https://twitter.com/glenmaddern) and [Charlie Gleason](https://twitter.com/superhighfives).
 First thing to do when entering the building was getting our badges.
@@ -53,12 +54,12 @@ You can find her on Twitter using the handle [@bodil](https://twitter.com/bodil)
 The presentation she gave can be found at her [personal website](https://bodil.lol/join-us-now/).
 
 <blockquote class="clear"><p>
-A talk about the Open Source movement and the Free Software movement it grew out of
+A talk about the open source movement and the Free Software movement it grew out of
 </p></blockquote>
 
 The talk started with a story about Richard and a Xerox printer. Richard is a developer suffering from a minor
 usability flaw in the Xerox printer at his office. Like the good developer he is, he wants to fix the issue and share
-it with the world for everybody's benefit. But therefore, he needs access to the code. However, it turns out that Xerox' 
+it with the world for everybody's benefit. Therefore, he needs access to the code. However, it turns out that Xerox' 
 code for that particular printer is not publicly available. So, Richard can't fix the issue. He will have to live 
 with the inconvenience, as well as everyone at the office and even everyone using that same printer. The clue here is 
 that a minor fix has to wait until someone at Xerox finds the time to solve the issue. Considering the minor status of 
@@ -67,21 +68,21 @@ in a few moments.
 
 This little intro sets the mood for the talk. One can consider it a bit opinionated, but there are with no doubt some 
 powerful arguments for open source software. The talk also covers the free software movement that all started it and 
-from which the Open source movement branched of. The difference though is just in its philosophy. First of all, a common
+from which the open source movement branched of. The difference though is just in its philosophy. First of all, a common
 misunderstanding is that free software does not mean one can get it with zero cost. It says that anyone can get the code 
-and is free to do with it as pleased. Modify, change, sell or use it for another purpose. On the other hand, Open source 
-software provides some restrictions. Therefore, Open source software is more popular and used more widely, because it 
+and is free to do with it as pleased. Modify, change, sell or use it for another purpose. On the other hand, open source 
+software provides some restrictions. Therefore, open source software is more popular and used more widely, because it 
 gives control. 
 
 For example: a concurring company might purchase your proprietary software and then have access to the code. They could 
-copy your product and sell it for a lower price. This can be done with Free software, but Open source software has some 
+copy your product and sell it for a lower price. This can be done with Free software, but open source software has some 
 licenses defined to prevent this. In the talk some of these licenses are covered. I took the liberty to list some of them here with a 
 short explanation. Click trough to see how easily it is to use them and have a legal basis to rely on.
 
 The most popular and widely used licenses are:
 #### [Apache License 2.0](https://opensource.org/licenses/Apache-2.0)
 Designed to be simple and easy to comply with, but more extensive than the previous versions. One can use the licensed 
-software for any purpose, to change and redistribute. Changes can be distributed under other licenses but unchanged 
+software for any purpose, to change and redistribute. Changes can be distributed under other licenses, but unchanged 
 code needs to be distributed under the same license.
 
 #### [3-clause BSD license](https://opensource.org/licenses/BSD-3-Clause)
@@ -145,8 +146,8 @@ There are several more observers such as:
 - `ResizeObserver` - fires when an element is resized (behind a flag in Chrome, not yet supported in other major browsers)
 - `PerformanceObserver` - emits metrics about the performance of the web page (e.g. time to paint, `mark` statements, navigation time...) (supported by all major browsers except Edge)
 
-Another great benefit of these Observers is that all functions RxJS offers us (e.g. `skip`, `pairwise`, `filter` ...), can be used as well!
-The emitted values of the Observers are collections so we can use functions such as `map`, `filter` and `reduce` there as well.
+Another great benefit of these observers is that all functions RxJS offers us (e.g. `skip`, `pairwise`, `filter` ...), can be used as well!
+The emitted values of the observers are collections so we can use functions such as `map`, `filter` and `reduce` there as well.
 As mentioned in the presentation, these two combined gives us "Collection super powers!".
 
 ****
@@ -163,11 +164,11 @@ The presentation can be found on [speakerdeck](https://speakerdeck.com/nybblr/as
 “JavaScript is single-threaded, so it doesn’t scale. JavaScript is a toy language because it doesn’t support multithreading.”
 Outside (and inside) the web community, statements like these are common.
 
-And in a way, it’s true: JavaScript’s event loop means your program does one thing at a time.
+In a way, it’s true: JavaScript’s event loop means your program does one thing at a time.
 This intentional design decision shields us from an entire class of multithreading woes,
 but it has also birthed the misconception that JavaScript can’t handle concurrency.
 
-But in fact, JavaScript’s design is well-suited for solving a plethora of concurrency problems
+In fact, JavaScript’s design is well-suited for solving a plethora of concurrency problems
 without succumbing to the “gotchas” of other multithreaded languages. You might say that JavaScript is single-threaded…
 just so it can be multithreaded!
 </p></blockquote>
@@ -200,7 +201,7 @@ This is what we call <b>parallelism</b>
 
 ### JavaScript multi threading: impossible?
 Although your JavaScript code is single-threaded and only does one thing at a time, the JavaScript Runtime and Web APIs are multithreaded!
-When you pass a callback function to setTimeout() or start an AJAX request with fetch(),
+When you pass a callback function to `setTimeout()` or start an AJAX request with `fetch()`,
 you are essentially spinning up a background thread in the runtime. 
 Once that background thread completes and the current call stack finishes executing, your callback function is pushed onto the (now empty) call stack and run-to-completion.
 So your JavaScript code itself is single-threaded, but it orchestrates legions of threads!
@@ -211,12 +212,12 @@ This is a great alternative for dealing with promises in JavaScript.
 If you're a JavaScript developer you probably know what 'callback hell' is, or at least heard of it.
 When writing complex programs, we could find ourselves in a situation where we would have to create multiple nested Promises to make sure we have the results of one call to continue with the next and so on.
 
-Async - declares an asynchronous function (async function someName(){...}).
+Async - declares an asynchronous function (`async function someName(){...}`).
 * Automatically transforms a regular function into a Promise.
-* When called async functions resolve to whatever is returned in their body.
+* When called, async functions resolve to whatever is returned in their body.
 * Async functions enable the use of await.
 
-Await - pauses the execution of async functions. (var result = await someAsyncCall();).
+Await - pauses the execution of async functions. (`var result = await someAsyncCall();`).
 * When placed in front of a Promise call, await forces the rest of the code to wait until that Promise finishes and returns a result.
 * Await works only with Promises, it does not work with callbacks.
 * Await can only be used inside async functions.
@@ -247,7 +248,7 @@ async function getJSONAsync(){
 }
 ```
 
-If you're a beginner with async functions and want to learn more this topic, go check out <a href="https://www.youtube.com/watch?v=568g8hxJJp4&t=362s" target="_blank">this video</a>
+If you're a beginner with async functions and want to learn more this topic, check out <a href="https://www.youtube.com/watch?v=568g8hxJJp4&t=362s" target="_blank">this video</a>
 
 
 For further reading on how Jonathan used async patterns for multicore JavaScript, he has written an <a href="https://www.bignerdranch.com/blog/cross-stitching-elegant-concurrency-patterns-for-javascript/" target="_blank">elaborate blog post</a> about it. 
@@ -270,20 +271,20 @@ The reason we struggle with insecurity is because we compare our behind the scen
 
 Madeleine wanted to share her life experience with us. 
 While she attended secondary school, Madeleine was the creepy loner. 
-'What's wrong with me?', 'What did I do wrong?' she asked herself on several occasions. 
-'My behaviour must be wrong, I have to change'. 
+_'What's wrong with me?'_, _'What did I do wrong?'_ she asked herself on several occasions. 
+_'My behaviour must be wrong, I have to change'_. 
 So she decided to take up programming in high school and felt truly belonged.
-After Madeleine graduated high school, she started to work as a frontend developer where she was learning a lot, very quickly! 
+After Madeleine graduated high school, she started to work as a front-end developer where she was learning a lot, very quickly! 
 However, she soon discovered that the speed at which she was learning gradually stagnated. 
-She had mixed feelings about her profession and abilities, thinking she did not belong there and had no idea what she was doing
+She had mixed feelings about her profession and abilities, thinking she did not belong there and had no idea what she was doing.
 So, she decided to work even harder. 
 All of her friends and colleagues congratulated her for her effort and hard work, but Madeleine still wasn’t satisfied. 
-Shortly after, she learned about "the imposter syndrome".
+Shortly after, she learned about _"the imposter syndrome"_.
 Here are some common signs that someone might experience, where one feels like an imposter:  
 * Does everyone overestimate you?
 * Do you tend to discuss yourself?
-* You compare your ability to those around you and think they’re more intelligent than you are?
-* Does the fear of failure freaks you out?
+* Do you compare your ability to those around you and think they’re more intelligent than you are?
+* Does the fear of failure freak you out?
 * Sometimes you’re afraid others will discover how much knowledge you really lack?
 * You can’t understand the compliments you receive?
 * You feel bad when you’re not ‘the best’ or at least ‘very special’?
@@ -300,7 +301,7 @@ Now, how do you escape the 'imposter zone'?
 * It's a good thing to know, what you don't know
 * Talk about it
 * Bribe your friends
-* Being wrong, doesn't make you a fraud
+* Being wrong doesn't make you a fraud
 * Focus on providing value and write it down
 * Keep a file of nice things someone has said about you
 * Stop commenting compliments
@@ -726,7 +727,7 @@ There’s two types of modules that make it up:
 * Plugins do all the heavy-lifting so you can interface with hardware (as long as it’s possible with JavaScript or the node ecosystem) or get it to send a message. You could for example let it connect to API’s to get it to do your builds on your CI tools.
 * The interfaces which are basically chat systems. They are the way to talk to the chat bots. If the system has a way for you to build stuff for it in JavaScript, you can connect to it and let it do stuff on for example: Facebook, Slack, HipChat and many more…
 
-### Open Source
+### Open source
 All of it is open source (MIT) and is avaiable on <a href="https://github.com/Woodhouse/core" target="_blank">GitHub</a>. 
 It's written in JavaScript and runs on NodeJs.
 
