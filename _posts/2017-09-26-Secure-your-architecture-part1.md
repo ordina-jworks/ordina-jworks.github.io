@@ -18,6 +18,7 @@ So how much security is enough to secure our architecture? Is it the user that i
 * [Understanding JSON Web Tokens](#jwt)
 * [Using a User Authentication & Authorization Server](#uaa)
 * [Securing your microservice](#securing-your-microservice)
+* [Securing data at rest](https://ordina-jworks.github.io/microservices/2017/12/28/Secure-your-architecture-part2.html)
 
 # Our cloud-native architecture
 In this blog series we will cover these questions and guide you in applying the security layer to your cloud-native blueprint.
@@ -277,7 +278,7 @@ User findOne(@Param("uuid") UUID uuid);
  {% endhighlight %}
 
 # Next step
-In the next post we will cover how to secure your data at rest.
+In the next post we will cover how to [secure your data at rest](https://ordina-jworks.github.io/microservices/2017/12/28/Secure-your-architecture-part2.html).
  
 # Sources
  * [Spring Cloud Eureka](https://spring.io/blog/2015/01/20/microservice-registration-and-discovery-with-spring-cloud-and-netflix-s-eureka){:target="_blank"}
@@ -300,5 +301,5 @@ In the next post we will cover how to secure your data at rest.
  * [Authorities](https://docs.spring.io/spring-security/site/docs/3.0.x/reference/authz-arch.html){:target="_blank"}
  * [JWT decoder](https://jwt.io/){:target="_blank"}
  * [JWT Libraries](https://jwt.io/#libraries-io)
- * [JWK or JSON Web Key](http://ordina-jworks.github.io/security/2016/03/12/Digitally-signing-your-JSON-documents.html#jwk){:target="_blank"}
+ * [JWK or JSON Web Key](https://ordina-jworks.github.io/security/2016/03/12/Digitally-signing-your-JSON-documents.html#jwk){:target="_blank"}
  * [JWKS](https://auth0.com/docs/jwks){:target="_blank"}
