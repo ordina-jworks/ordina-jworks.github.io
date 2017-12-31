@@ -14,7 +14,7 @@ This year's edition of JS Conf Budapest returned to the first venue at [Urania N
 
 > Uránia Cinema in the middle of the city, near the party-district.
 > Designed by Henrik Schmahl in the late 1890's, the interior is characterized by the ornamental motifs of the Venetian Gothic and Moor styles.
-> The place is listed as the world's 3rd most beautiful cinema on Bored Panda
+> The place is listed as the world's 3rd most beautiful cinema on Bored Panda.
 > Many tech conferences were hosted here recently, like TEDx, and Strech Conference, because of the unique atmosphere.
 
 JS Conf Budapest 2017 is hosted by [Glen Maddern](https://twitter.com/glenmaddern) and [Charlie Gleason](https://twitter.com/superhighfives).
