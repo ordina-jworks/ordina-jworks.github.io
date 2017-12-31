@@ -144,58 +144,106 @@ Spring Cloud Data Flow Shell is an interactive CLI created with Spring Shell.
 
 Check out the entire [video of the talk](https://www.youtube.com/watch?v=-Icd-s2JoAw) here.
 
+
 ## State or Events? Which shall I keep? - Kenny Bastani & Jakub Pilimon
 
-modeling
-	Find the methods that change state
-	state change -> fire event
-	Use past tense to name events (eg. LimitAssigned)
-	event contains subject (UUID) + changed data + timestamp
+<span class="image left small"><img class="p-image" alt="Kenny Bastani" src="/img/springone-2017/kenny-bastani.jpg"></span>
 
-event sourcing
+Kenny Bastani ([@kennybastani](https://twitter.com/kennybastani)) is a Spring Developer Advocate and tweets and [blogs](http://www.kennybastani.com) about many things related to Spring, Event Sourcing, CQRS, Microservices, etc.
 
-	dirty context: events that are pending/haven’t been saved
+<span class="image left small"><img class="p-image" alt="Jakub Pilimon" src="/img/springone-2017/jakub-pilimon.jpg"></span>
 
-	functional programming: javaslang foldLeft to replay events
+Jakub Pilimon ([@JakubPilimon](https://twitter.com/jakubpilimon)) is a software developer, trainer and architect at Bottega/ Vattenfall IT Services Poland.
 
-	recreation of state/event sourcing
+Kenny and Jakub had a very interesting conversation about event-based applications and the problems that arise when attempting to implement them.
+They talked about four different subjects:
 
-	Pattern matching on different types of events
+- Aggregate modeling: how can we effectively model our aggregates (the objects that define our bounded context)
+- Event sourcing: when to emit events, how to name them and what they consist of - also, we will see how we can test this
+- Kafka streams for the read model: how can we utilize the highly performant Kafka Streams API to read the state of the system
 
-	return this after state changed, allows for easy handling of all events
+### Aggregate modeling
 
-kafka
+The best way to start modeling an aggregate (once it has been identified) is to describe its behaviour and model them as methods.
+When doing Test Driven Development (TDD), the behaviour can be verified automatically by unit tests, so that's what Jakub starts with.
+He writes a unit test using [Spock](http://spockframework.org/spock/docs/1.1/introduction.html) in Groovy:
 
-	writer -> send event to topic (@EnableKafka)
+<img class="image fit" src="/img/springone-2017/state-or-events-spock.png"/>
 
-	KafkaTemplate<String, DomainEvent>
-	ProducerFactory<String, DomainEvent>
+Once the tests have been implemented, we can start on the actual implementation of our aggregate.
+A simple implementation using the traditional programming model is shown in the talk, without any events being emitted anywhere.
+**State is being saved inside of the aggregate class** and exposed through its convenience methods.
+This is probably not what we want since the state needs to be maintained throughout the class:
 
-	ProducerConfig.BOOTSTRAP_SERVERS_CONFIG
-	ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG
-	ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG
+<img class="image fit" src="/img/springone-2017/state-or-events-state.png"/>
 
-	reader -> get stream of events (@EnableKafkaStreams)
+We can identify different concepts in this first method:
 
-	KTable (aggregate) vs KStream (stream)
+<img class="image fit" src="/img/springone-2017/state-or-events-identified.png"/>
 
-	Serde<DomainEvent> domainEventSerde
-	KStreamBuilder.stream(Serdes.String(), domainEventSerde, <stream_topic>)
-			.group((s, domainEvent) -> )
-			.aggregate(<new domainobject>, (s, domainEvent, domainObject) -> <handle domain event & return new domain object>, <snapshot_topic>)
+- The `assignLimit` method is basically the **Command** that is being given
+- The check whether a limit was already assigned, is what we call an **invariant**
+- When the invariant is true, we deny the command with a Not Acknowledged response (**NACK**)
+- In the other case, we Acknowledge (**ACK**) the command and change our state
 
-	StreamsConfig.BOOTSTRAP_SERVERS_CONFIG
-	StreamsConfig.APPLICATION_ID_CONFIG
+The first step in refactoring our code is to replace the state change with a call to a method which describes what happened.
+In this case, a method is created called `limitAssigned`, which represents our first **Domain Event**:
 
-unit testing with events
+<img class="image fit" src="/img/springone-2017/state-or-events-replaced.png"/>
 
-	check handling of domain event
-	check if last domain event is expected
+It is common to use the past tense to describe domain events, since an event inherently describes something that has happened in the past.
+What we can do now, is replace the parameter of this method with a specific domain event class.
+The domain event contains a timestamp, an ID (the subject) and the data of the event, in this case our `BigDecimal` reference:
 
-SQL correction script, what with events?
+<img class="image fit" src="/img/springone-2017/state-or-events-domain-event.png"/>
+
+The implementation will create an instance of this event and use it to complete the implementation:
+
+<img class="image fit" src="/img/springone-2017/state-or-events-implemented.png"/>
+
+This programming model can then be extended to your entire aggregate, identifying all the domain events in the process.
+
+### Event sourcing
+
+We want to store the different events on our aggregate in some kind data structure before persisting them to a datastore.
+In real life, we would use a persistent datastore like a SQL Database or a messaging system like Kafka or RabbitMQ.
+
+So when a CreditCard has not been saved to a datastore yet, it will have a so-called **Dirty context**: a list of events that haven't been persisted yet.
+A simple implementation shown during the talk is implemented using a `HashMap` for each CreditCard and its respective events.
+After saving a CreditCard in the repository, the dirty context is cleared.
+When loading a CreditCard from the Repository, the events are fetched and a new CreditCard is created with a convenience method:
+
+<img class="image fit" src="/img/springone-2017/state-or-events-javaslang.png"/>
+
+The CreditCard object can be recreated easily using a library called [Vavr](http://www.vavr.io/), previously called [Javaslang](http://blog.vavr.io/javaslang-changes-name-to-vavr/).
+Especially the `foldLeft` method allows for very neat code as shown above, especially when your event methods return `this` to allow for chaining.
+
+### Kafka
+
+While having all the events of a CreditCard in a HashMap is easy, it won't survive a server restart.
+We will need some kind of persistent datastore to save these events and serve them back up to our application when we need them.
+
+That's why Kenny and Jakub go a little deeper into Kafka, and more specifically **the Kafka Streams API**.
+You can find a lot of information about Kafka on the internet, like on [this Confluent blogpost](https://www.confluent.io/blog/event-sourcing-cqrs-stream-processing-apache-kafka-whats-connection/), where they display the following image:
+
+<img class="image fit" src="/img/springone-2017/state-or-events-kafka-topic.jpeg"/>
+
+After adding the Kafka starter dependencies in Maven, Kafka can be configured very easily to connect to the local Kafka instance:
+
+<img class="image fit" src="/img/springone-2017/state-or-events-kafka-configuration.png"/>
+
+Using the above `KafkaTemplate`, it becomes very easy to send events to a specific Kafka topic.
+
+When we now configure Kafka Streams for our read model, we can use a KStreamBuilder to create a KTable aggregate containing all the information about our credit cards:
+
+<img class="image fit" src="/img/springone-2017/state-or-events-ktable.png"/>
+
+All in all, I thought this was a very informative and clear talk on many parts of aggregate modeling and event sourcing, with an easy-to-follow use case.
+There is so much good information in this talk, so you should ideally watch it completely on [Youtube](https://www.youtube.com/watch?v=r7AGQsM7ncA).
 
 ## Kafka Streams - From The Ground Up to the Cloud - Marius Bogoevici
 
+We briefly touched Kafka Streams in the previous segment, but it deserves its own part in this blogpost (or a blogpost of its own, coming 2018!).
 
 
 ## Spring Security 5: The Reactive Bits - Rob Winch
