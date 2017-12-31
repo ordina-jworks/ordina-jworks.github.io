@@ -331,12 +331,12 @@ major browsers, making JavaScript even more exciting!
 First of all, what is metaprogramming? According to wikipedia: _'The ability to read, generate, analyse or transform 
 other programs, and even modify itself while running'_. That is clear enough in my opinion. 
 
-In metaprogramming one can define 2 branches. The first branch could be described as macros to extend your language? 
+In metaprogramming one can define 2 branches. The first branch could be described as macros to extend your language. 
 This happens during compile/transpile time. The second branch is called reflection and happens at runtime. There are 
 three forms of reflection:
-- introspection: the ability to examine itself
-- self-modification: the ability to alter its structure
-- intercession: the ability to alter its behaviour
+- Introspection: the ability to examine itself
+- Self-modification: the ability to alter its structure
+- Intercession: the ability to alter its behaviour
 
 In JavaScript they are possible by default. Lets call it a perk of this beautiful scripting language. However, it seldom 
 results in readable code and you'll probably need to write a lot of code for something we can now achieve in a much 
@@ -345,14 +345,14 @@ easier way.
 This talk covers some of the possibilities of proxies. Proxies couldn't be used until recently, because it isn't
 polyfillable. It's a feature that needs to be supported by the engine, where reflection truly happens. 
 Therefore, nor typescript, nor babel, nor any other JavaScript preprocessor could solve that for you. 
-By the way, preprocessors extend your language trough macros, since their magic happens at transpile time.
+By the way, preprocessors extend your language through macros, since their magic happens at transpile time.
 
 So what is this proxy I am so exited about? It's called a proxy after the same principle we use in networking.
 A proxy is middleware that intercepts interaction with an interface. Therefore, it has access to the communication 
 stream and it needs access to the interface it's routing to. That's very similar to how we can use proxies in 
 JavaScript. We can wrap any object with a proxy and define a handler. That handler is an object containing traps. 
 A trap is a function that 'mocks' a property or function from the object that is being proxied. The proxy then knows 
-which actions will be performed (before they are actually performed) and can chose how to handle them. It could do 
+which actions will be performed (before they are actually performed) and can choose how to handle them. It could do 
 something totally different or even nothing at all.
 
 ```javascript
@@ -389,7 +389,7 @@ small performance cost, it's still perfect if you want to create clean interface
 
 Sandrina is UI Developer at Farfetch. You can find Sandrina on Twitter using the handle [@a_sandrina_p](https://twitter.com/a_sandrina_p).
 
-All code can be found on her [github](https://github.com/sandrina-p/css-mixins-on-javascript-with-unit-tests) page and the slides [here](https://docs.google.com/presentation/d/19v8jkgS_0F7DrGw-8SzHktzy7nkC9W9XCNDqeXzB2wg/edit#slide=id.g235012375a_0_0).
+All code can be found on her [GitHub](https://github.com/sandrina-p/css-mixins-on-javascript-with-unit-tests) page and the slides [here](https://docs.google.com/presentation/d/19v8jkgS_0F7DrGw-8SzHktzy7nkC9W9XCNDqeXzB2wg/edit#slide=id.g235012375a_0_0).
 
 <blockquote class="clear"><p>
 To write good tests, you have to know exactly what you need to do. 
@@ -537,12 +537,12 @@ Cross Site Scripting (XSS) was used to inject and spread the virus.
 It's a technique to inject and execute any JavaScript code in the context of the page.
 
 What can you do with XSS?
-* steal cookies
-* steal localstorage data
-* break the layout and style of the page
-* whatever you can do with JavaScript...
+* Steal cookies
+* Steal localstorage data
+* Break the layout and style of the page
+* Whatever you can do with JavaScript...
 
-You can find lot's of information about XSS and other vulnerabilities on this website: [https://www.owasp.org](https://www.owasp.org)
+You can find a lot of information about XSS and other vulnerabilities on this website: [https://www.owasp.org](https://www.owasp.org)
 
 #### HOW TO BE SAFE?!
 
@@ -604,17 +604,17 @@ So, start using it as early as possible!
 ### Dan Callahan: Practical WebAssembly
 
 You can find Dan on Twitter using the handle [@callahad](https://twitter.com/callahad).
-<blockquote><p>In this talk Dan explained what WebAssembly is all about. 
+<blockquote class="clear"><p>In this talk Dan explained what WebAssembly is all about. 
 How it works, what it's for, the features that are already there and which features are yet to come.</p></blockquote>
 
 WebAssembly, what is it?
 Well, according to <a target="_blank" href="http://webassembly.org/">http://webassembly.org/</a>:
-<blockquote>"WebAssembly or wasm is a new portable, size- and load-time-efficient format suitable for compilation to the web."</blockquote>
+<blockquote class="clear">"WebAssembly or wasm is a new portable, size- and load-time-efficient format suitable for compilation to the web."</blockquote>
 
 <b>A compiler for the web:</b>
 * Low-level, binary format for programs:<br>
     WebAssembly is a fast, portable, compact, cross-browser binary format for compilation to the web.
-* It's an <i>open standard<i> supported by <i>all major browsers.</i> <a href="https://caniuse.com/#feat=wasm" target="_blank">caniuse.com</a>
+* It's an <i>open standard<i> supported by <i>all major browsers</i>. <a href="https://caniuse.com/#feat=wasm" target="_blank">caniuse.com</a>
 * Direct successor of asm.js
 * General purpose virtual architecture
 * It allows new types of applications and heavy 3D games to run efficiently in browsers.
@@ -626,8 +626,8 @@ Well, according to <a target="_blank" href="http://webassembly.org/">http://weba
 
 WebAssembly is a binary format for JS.
 It has 2 major benefits:
-* the JS engine can skip the parsing step
-* it's much more compact than the JS original source
+* The JS engine can skip the parsing step
+* It's much more compact than the JS original source
 
 ##### Portability
 
@@ -719,9 +719,9 @@ He would have named it Jarvis, but since this would be a far worse butler than J
 
 Around mid-2014 he started working on a chatbot that does little bits in his house. 
 Basically, he put together a Raspberry Pi running JavaScript code that actually serves as a router with some core functionality built in like:
-* broadcasting
-* preference storage
-* scheduling
+* Broadcasting
+* Preference storage
+* Scheduling
 
 There’s two types of modules that make it up:
 * Plugins do all the heavy-lifting so you can interface with hardware (as long as it’s possible with JavaScript or the node ecosystem) or get it to send a message. You could for example let it connect to API’s to get it to do your builds on your CI tools.
