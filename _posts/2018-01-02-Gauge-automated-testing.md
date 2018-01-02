@@ -3,17 +3,15 @@ layout: post
 authors: [martijn_willekens]
 title: "Automated testing with Gauge"
 image: /img/2018-01-02-gauge-automated-testing/gauge.png
-tags: [Gauge,E2E,Testing,Test automation]
+tags: [Gauge,E2E,End to end,Testing,Test automation,Automation]
 category: Testing
 comments: true
 ---
 
-
-# Intro
 After finishing a new feature in your web app, you test whether it works.
 However, while working on that new feature, you may have broken something else.
 If you want to know for sure, you have to test everything.
-Doing all that manually, clicking around, filling in forms... will cost you some valuable time.
+Clicking around, filling in forms... will cost you some valuable time.
 So, you'll probably end up not doing it thorough or even not at all, assuming everything else still works fine.
 That's exactly why you should have automated tests do it for you!
 
@@ -37,9 +35,10 @@ The actual implementation of the steps does require some technical knowledge.
 # Table of contents
 1. [Setup](#setup)
 2. [Writing tests](#writing-tests)
-3. [Environments and configuration](#environments-and-configuration)
-3. [Reports](#reports)
-3. [Conclusion](#conclusion)
+3. [Running the specs](#running-the-specs)
+4. [Environments and configuration](#environments-and-configuration)
+5. [Reports](#reports)
+6. [Conclusion](#conclusion)
 
 # Setup
 Gauge offers an installer which can be downloaded [here](https://getgauge.io/get-started.html){:target="_blank"}.
@@ -208,7 +207,7 @@ Cucumber only offers this feature in some implementations, they don't in Cucumbe
 They refuse to implement it because they believe this creates too much abstraction and makes you lose sight of the overall picture.
 Gauge does offer it, so it's up to you whether you want to make use of it or not.
 
-## Running the specs
+# Running the specs
 Since the project is setup with Maven, the tests can be run with `mvn test`.
 However, if you want to pass any arguments, you'll need to use `mvn gauge:execute` instead.
 
@@ -261,7 +260,7 @@ Environments can also be used to run gauge with another browser like in the [exa
 Create a folder named `firefox` for example and add a file called `browser.properties`.
 In that file you add `browser = FIREFOX`.
 When you then run the tests with the `firefox` environment, it will use FireFox as a browser instead.
-(This only works if you have your project setup like in the example, the [Driver](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver){:target="_blank"} and [DriverFactory](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver){:target="_blank"} file are required here.)
+(This only works if you have your project setup like in the example, the [Driver](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver){:target="_blank"} and [DriverFactory](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver){:target="_blank"} files are required here.)
 
 # Reports
 To get a HTML report, the plugin has to be installed first: `gauge install html-report`.
