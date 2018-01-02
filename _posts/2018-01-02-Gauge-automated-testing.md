@@ -2,30 +2,24 @@
 layout: post
 authors: [martijn_willekens]
 title: "Automated testing with Gauge"
-image: /img/2017-12-30-gauge-automated-testing/gauge.png
+image: /img/2018-01-02-gauge-automated-testing/gauge.png
 tags: [Gauge,E2E,Testing,Test automation]
 category: Testing
 comments: true
 ---
 
 
-# Table of contents
-1. [Intro](#intro)
-2. [Setup](#setup)
-3. [Writing tests](#writing-tests)
-4. [Conclusion](#conclusion)
-
 # Intro
-You may have a dedicated tester in your team or maybe you don't even have one at all and do the testing yourself.
-When finishing a new feature, you test whether it works, but you may have broken something else.
-To know for sure, you have to test everything.
-Doing all that manually, filling in forms, clicking around... will take quite some time.
-So, you'll probably end up not doing it thorough or even not at all and assume everything else still works fine.
-That's why you should have automated tests do it for you!
+After finishing a new feature in your web app, you test whether it works.
+However, while working on that new feature, you may have broken something else.
+If you want to know for sure, you have to test everything.
+Doing all that manually, clicking around, filling in forms... will cost you some valuable time.
+So, you'll probably end up not doing it thorough or even not at all, assuming everything else still works fine.
+That's exactly why you should have automated tests do it for you!
 
-Gauge is yet another test automation tool that serves that purpose.
+[Gauge](https://getgauge.io/){:target="_blank"} is yet another test automation tool that serves that purpose.
 The founder is ThoughtWorks, the company that also created  <a href="http://www.seleniumhq.org/" target="_blank">Selenium</a> and <a href="https://www.gocd.org/" target="_blank">GoCD</a>.
-It's still in beta at the moment of writing, but it all works fine!
+It's still in beta at the moment of writing, but it already works terrific!
 Gauge is comparable with Protractor or JUnit extended with Cucumber (if you haven't heard of these, they are worth checking out).
 In this blog we'll be mainly talking about automating browser testing using Selenium WebDriver, although that isn't the sole purpose of Gauge.
 If you don't know WebDriver, it's what allows you to interact with the browser to traverse the DOM, click on elements and so on.
@@ -39,6 +33,13 @@ That means you don't need any programming experience to write test scenarios.
 You could create some sort of dictionary with the step sentences that others can use for the scenarios or the other way around.
 In other words, anyone is able to read and write test scenarios.
 The actual implementation of the steps does require some technical knowledge.
+
+# Table of contents
+1. [Setup](#setup)
+2. [Writing tests](#writing-tests)
+3. [Environments and configuration](#environments-and-configuration)
+3. [Reports](#reports)
+3. [Conclusion](#conclusion)
 
 # Setup
 Gauge offers an installer which can be downloaded [here](https://getgauge.io/get-started.html){:target="_blank"}.
@@ -54,9 +55,9 @@ If not, you'll find enough on Google on how to install those.
 To start a new project, create a new folder and run `gauge init java` in it.
 This will setup a basic Gauge project.
 Then we need to add a [pom.xml](https://github.com/getgauge-examples/java-maven-selenium/blob/master/pom.xml){:target="_blank"} file ourselves, because we need some dependencies such as Selenium WebDriver.
-Next, WebDriver needs to setup in our test code.
+Next, WebDriver needs to be setup in our test code.
 A good example of how you could do that can be found [here](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils){:target="_blank"}.
-There, they created a `DriverFactory` so you can easily switch between browsers using environment variables (we'll get to that).
+They created a `DriverFactory` so you can easily switch between browsers using environment variables (we'll get to that).
 Gauge hooks are used to start and stop WebDriver when running the test suite.
 Just copy those pieces of code into your own project.
 Or, you could start from the _Maven + Selenium_ example provided by Gauge which can be found on [GitHub](https://github.com/getgauge-examples/java-maven-selenium){:target="_blank"}.
@@ -73,7 +74,7 @@ If you'd like to combine multiple steps into once sentence, you can do so by cre
 
 A typical folder structure for a Gauge setup using WebDriver and Java is as follows:
 <p>
-    <img class="image fit" style="max-width:194px" alt="Gauge Maven project structure" src="/img/2017-12-30-gauge-automated-testing/files.jpg" />
+    <img class="image fit" style="max-width:194px" alt="Gauge Maven project structure" src="/img/2018-01-02-gauge-automated-testing/files.jpg" />
 </p>
 
 ### Writing the specs
@@ -244,7 +245,7 @@ If your sign in relies on the user being signed up through a previous test, thes
 However, if you would want to test whether a user can sign in after having signed up, you should do so in one test.
 That immediately solves our problem and we are safe to use the parallel execution!
 
-## Environments and configuration
+# Environments and configuration
 The config files are located under `env/default`.
 You should have three files in that folder: `default.properties`, `java.properties` and `user.properties`.
 In the [example by Gauge](https://github.com/getgauge-examples/java-maven-selenium){:target="_blank"}, they have an `APP_URL` parameter in that last file.
@@ -262,7 +263,7 @@ In that file you add `browser = FIREFOX`.
 When you then run the tests with the `firefox` environment, it will use FireFox as a browser instead.
 (This only works if you have your project setup like in the example, the [Driver](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver){:target="_blank"} and [DriverFactory](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver){:target="_blank"} file are required here.)
 
-## Report
+# Reports
 To get a HTML report, the plugin has to be installed first: `gauge install html-report`.
 That's about it!
 After running the specs, a nice HTML report will be outputted to the `/reports` folder.
@@ -271,7 +272,7 @@ In the report you'll even find how long it took to run a test and each of its st
 There's also a search functionality to quickly find a certain spec.
 
 <p>
-    <img class="image fit" style="max-width:768px" alt="Gauge HTML report" src="/img/2017-12-30-gauge-automated-testing/gauge-report.jpg" />
+    <img class="image fit" style="max-width:768px" alt="Gauge HTML report" src="/img/2018-01-02-gauge-automated-testing/gauge-report.jpg" />
 </p>
 
 # Conclusion
