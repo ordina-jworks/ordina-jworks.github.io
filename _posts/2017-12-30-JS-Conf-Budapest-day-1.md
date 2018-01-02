@@ -651,7 +651,7 @@ Check out <b><a target="_blank" href="http://webassembly.org/demo/">this demo</a
 This is a video of Epic's "Zen Garden" demo running in Firefox.
 The demo is built with WebAssembly and WebGL 2, both emerging standards that enable amazing video games and applications in the browser.
 
-<div class="responsive-video">
+<div class="responsive-video m-b">
     <iframe src="https://www.youtube.com/embed/TwuIRcpeUWE?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 
@@ -670,7 +670,7 @@ By default, it will try native support. The full list of methods is:
 * interpret-s-expr: Load a .wast, which contains wasm in s-expression format and interpret it.
 * nterpret-binary: Load a .wasm, which contains wasm in binary format and interpret it.
 * interpret-asm2wasm: Load .asm.js, compile to wasm on the fly and interpret that.
-* <u>asmjs</u>: Load .asm.js and just run it, no wasm. Useful for comparisons or as a fallback for browsers without WebAssembly support.
+* asmjs: Load .asm.js and just run it, no wasm. Useful for comparisons or as a fallback for browsers without WebAssembly support.
 
 
 ### Can I compile JS to WASM?
@@ -733,7 +733,7 @@ It's written in JavaScript and runs on NodeJs.
 
 
 ### Automating Lamps
-<div class="responsive-video">
+<div class="responsive-video m-b">
     <iframe src="https://www.youtube.com/embed/5YNmMdTzfaQ" frameborder="0" allowfullscreen></iframe>
 </div>
 
@@ -756,7 +756,7 @@ There’s an endpoint on the plug and when he goes to that endpoint, it switches
 ### Automating the curtains
 For giving talks about the application, he wanted to add something new to the application and so… he automated his curtains.
 
-<div class="responsive-video">
+<div class="responsive-video m-b">
     <iframe src="https://www.youtube.com/embed/Crudcsaheoc" frameborder="0" allowfullscreen></iframe>
 </div>
 
@@ -776,7 +776,7 @@ which lets you write JavaScript on your hardware, it takes away a lot of the com
 
 Not out of frustration or anything like that. Besides the chatbot, he wanted to add voice control to the application so that he could tell his laptop to open/close the curtains or turn on/off the lights.
 
-<div class="responsive-video">
+<div class="responsive-video m-b">
     <iframe src="https://www.youtube.com/embed/CQzn16TzZ0w" frameborder="0" allowfullscreen></iframe>
 </div>
 
@@ -811,4 +811,4 @@ More info about the concept can be found here: [LiveJS](http://livejs.network)
 At the first day of the conference we were already inspired by some good talks. Wondering what day 2 would bring. 
 
 
-[Read our full report on day 2 of JS Conf Budapest 2017 here!](/conference/2017/12/30/JS-Conf-Budapest-day-2.html).
+[Read our full report on day 2 of JS Conf Budapest 2017 here!](/conference/2017/12/30/JS-Conf-Budapest-day-2.html)
