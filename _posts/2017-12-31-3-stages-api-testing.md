@@ -422,6 +422,6 @@ Or you can run more instances of the user interface, resulting in more load on t
 
 Decoupling your system and running tests in different stages will make it easier to debug when something is going wrong.
 Finding errors earlier will also save you some time and resources.
-It will lower the cost of your system (cloud) if you'd be able to find bugs before taking it to the next stage and spinning up complete environments.
+Being able to find bugs before taking it to the next stage and spinning up complete environments will reduce the cost of your system (cloud).
 
 Yes, writing tests can be more expensive in time and resources in the short run, but it will save you a lot more time and resources in the long run.
