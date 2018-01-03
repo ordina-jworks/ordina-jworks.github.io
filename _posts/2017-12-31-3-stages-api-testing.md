@@ -406,7 +406,7 @@ Failures in this stage will show you that some integrations are failing and you 
 We now want to end-to-end test the whole system.
 We can use docker-compose to spin up this environment and then again run tests against the user interface.
 It will communicate with the real back-end to query its data and show the results in the user interface.
-Again, we want to run those test on an elastic go-agent, so we are in need of an automated system.
+Again, we want to run those tests on an elastic go-agent, so we are in need of an automated system.
 Right, we already used this in the previous stage where we were testing the user interface against a mocked back-end.
 
 <p>
@@ -414,13 +414,13 @@ Right, we already used this in the previous stage where we were testing the user
 </p>
 
 
-This go-agent that is able to run the Protractor tests, will first need to spin up this environment, run its tests and tear down the environment. Same goes for performace tests in this stage.
+This elastic go-agent must be able to run the Protractor tests (obviously). It will first need to spin up this environment, run the tests and tear down the environment. Same goes for performance tests in this stage.
 You can use some frameworks to put extra load on your front-end to see how it's behaving when it needs to handle more REST-calls for different parts.
 Or you can run more instances of the user interface, resulting in more load on the back-end service.
 
 # Conclusion
 
-Decoupling your system and running test in different stages will make it easier to debug when something is going wrong.
+Decoupling your system and running tests in different stages will make it easier to debug when something is going wrong.
 Finding errors earlier will also save you some time and resources.
 It will lower the cost of your system (cloud) if you'd be able to find bugs before taking it to the next stage and spinning up complete environments.
 
