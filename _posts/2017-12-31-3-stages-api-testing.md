@@ -34,7 +34,7 @@ The data provided by this service is a JSON file.
 Its content is parsed into memory and is exposed through this REST API.
 
 <p>
-    <img class="image fit" style="max-width:575px" alt="Easy client server setup" src="/img/3-stages-api-testing/setup.png" />
+    <img class="image fit" style="margin:0px auto; max-width:575px;" alt="Easy client server setup" src="/img/3-stages-api-testing/setup.png" />
 </p>
 
 The front-end (header) is providing the user with an input field.
@@ -76,7 +76,7 @@ When there's nothing to search for, the result would be an empty array.
 So we're just resetting our local data to an empty array.
 
 <p>
-    <img class="image fit" style="max-width:925px;" alt="Easy client server setup" src="/img/3-stages-api-testing/header.png" />
+    <img class="image fit" style="margin:0px auto; max-width:925px;" alt="Easy client server setup" src="/img/3-stages-api-testing/header.png" />
 </p>
 
 The back-end API is exposing three endpoints:
@@ -107,7 +107,7 @@ When the needle is undefined (or an empty string), the search endpoint will retu
 # Stage 1: Unit testing the communication layer (front and back-end)
 
 <p>
-    <img class="image fit" style="max-width:575px" alt="decoupled" src="/img/3-stages-api-testing/unit.png" />
+    <img class="image fit" style="margin:0px auto; max-width:575px;" alt="decoupled" src="/img/3-stages-api-testing/unit.png" />
 </p>
 
 The first stage is unit testing each component. This step is almost always part of the component's build. Let's take a quick look at each component.
@@ -115,7 +115,7 @@ The first stage is unit testing each component. This step is almost always part 
 ### Unit testing the communication part of the UI
 
 <p>
-    <img class="image fit" style="max-width:325px" alt="Easy client server setup" src="/img/3-stages-api-testing/unit-client.png" />
+    <img class="image fit" style="margin:0px auto; max-width:325px;" alt="Easy client server setup" src="/img/3-stages-api-testing/unit-client.png" />
 </p>
 
 For unit testing our front-end Angular 5 application, we are going to use the `import { MockBackend } from '@angular/http/testing';` from Angular itself to mock our back-end.
@@ -169,7 +169,7 @@ We are providing our own data and returning it as the response of the `$http` ca
 ### Unit testing the communication layer of the service
 
 <p>
-    <img class="image fit" style="max-width:325px" alt="Easy client server setup" src="/img/3-stages-api-testing/unit-service.png" />
+    <img class="image fit" style="margin:0px auto; max-width:325px" alt="Easy client server setup" src="/img/3-stages-api-testing/unit-service.png" />
 </p>
 
 For unit testing our back-end, we are using Jest.
@@ -205,7 +205,7 @@ So it's easier to control them, or ignore unknowns.
 # Stage 2: Testing against a mock-end
 
 <p>
-    <img class="image fit" style="max-width:575px" alt="Easy client server setup" src="/img/3-stages-api-testing/mock-end.png" />
+    <img class="image fit" style="margin:0px auto; max-width:575px" alt="Easy client server setup" src="/img/3-stages-api-testing/mock-end.png" />
 </p>
 
 In our second stage we are going to use a mock service to test against.
@@ -216,7 +216,7 @@ We want to test our component by means of external services, just as it is suppo
 ### Mocking our back-end to test our front-end.
 
 <p>
-    <img class="image fit" style="max-width:575px" alt="Mocking the back-end" src="/img/3-stages-api-testing/front-end-mock.png" />
+    <img class="image fit" style="margin:0px auto; max-width:575px" alt="Mocking the back-end" src="/img/3-stages-api-testing/front-end-mock.png" />
 </p>
 
 For our front-end component (user interface), we are going to mock the back-end.
@@ -243,7 +243,7 @@ Or you can just use functions where you hard code your data.
 To keep it simple, we will use the latter in our setup.
 
 <p>
-    <img class="image fit" style="max-width:875px" alt="Mocking the back-end" src="/img/3-stages-api-testing/node-red-flow.png" />
+    <img class="image fit" style="margin:0px auto; max-width:875px" alt="Mocking the back-end" src="/img/3-stages-api-testing/node-red-flow.png" />
 </p>
 
 A simple mock for a http-call consists out of three parts:
@@ -253,7 +253,7 @@ A simple mock for a http-call consists out of three parts:
 3. The response definition
 
 <p>
-    <img class="image fit" style="max-width:425px;" alt="Data function config" src="/img/3-stages-api-testing/node-red-data.png" />
+    <img class="image fit" style="margin:0px auto; max-width:425px;" alt="Data function config" src="/img/3-stages-api-testing/node-red-data.png" />
 </p>
 
 #### User interface automation
@@ -266,7 +266,7 @@ Depending on the effort you can always retest them in these e2e tests, but for t
 We want to trigger the search REST call by sending the search string `tim` to the input field, and testing the outcome in the user interface.
 
 <p>
-    <img class="image fit" style="max-width:925px;" alt="Data function config" src="/img/3-stages-api-testing/search-e2e.png" />
+    <img class="image fit" style="margin:0px auto; max-width:925px;" alt="Data function config" src="/img/3-stages-api-testing/search-e2e.png" />
 </p>
 
 
@@ -300,7 +300,7 @@ We are doing this with a go-agent that first spins up a docker-compose (for our 
 ### Mocking our front-end to test our back-end.
 
 <p>
-    <img class="image fit" style="max-width:500px" alt="Mocking the back-end" src="/img/3-stages-api-testing/back-end-mock.png" />
+    <img class="image fit" style="margin:0px auto; max-width:500px;" alt="Mocking the back-end" src="/img/3-stages-api-testing/back-end-mock.png" />
 </p>
 
 For testing our back-end service, we only need one other service.
@@ -400,7 +400,7 @@ Failures in this stage will show you that some integrations are failing and you 
 # Stage 3: Testing full environment
 
 <p>
-    <img class="image fit" style="max-width:575px" alt="No more mocking" src="/img/3-stages-api-testing/full-env.png" />
+    <img class="image fit" style="margin:0px auto; max-width:575px;" alt="No more mocking" src="/img/3-stages-api-testing/full-env.png" />
 </p>
 
 We now want to end-to-end test the whole system.
@@ -410,7 +410,7 @@ Again, we want to run those tests on an elastic go-agent, so we are in need of a
 Right, we already used this in the previous stage where we were testing the user interface against a mocked back-end.
 
 <p>
-    <img class="image fit" style="max-width:575px" alt="No more mocking" src="/img/3-stages-api-testing/full-env-ui.png" />
+    <img class="image fit" style="margin:0px auto; max-width:575px;" alt="No more mocking" src="/img/3-stages-api-testing/full-env-ui.png" />
 </p>
 
 
