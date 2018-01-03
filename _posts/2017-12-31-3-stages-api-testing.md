@@ -22,8 +22,8 @@ In this post, we'll have a look at our three stages of API testing we are promot
 
 # Setup
 
-The example we are going to use is a part of a bigger microfrontend/microservice setup.
-The front-end part of this example is the actual header of this microfrontend setup. It's the top bar, developed as separate front-end application.
+The example we are going to use is part of a bigger microfrontend/microservice setup.
+The front-end part of this example is the actual header of this microfrontend setup. It's the top bar, developed as a separate front-end application.
 This header provides the user with a search input field, where the user can search our database of competence centers.
 This part is written in Angular (5).
 The app gets dockerized after the unit tests (and build) are successfully completed.
@@ -210,7 +210,7 @@ So it's easier to control them, or ignore unknowns.
 
 In our second stage we are going to use a mock service to test against.
 This means that we are going to mock 'the other' component by replacing it with an easy to use solution.
-Although we are mocking some parts, this can be seen as end-to-end test for each component itself.
+Although we are mocking some parts, this can be seen as an end-to-end test for each component itself.
 We want to test our component by means of external services, just as it is supposed to work in a complete environment.
 
 ### Mocking our back-end to test our front-end.
@@ -383,7 +383,7 @@ It will then analyse the response and check if the resulting array contains 2 en
 ...        
 ```
 
-In our continuous integration system, we are running these test on a simple go-agent that can run these Newman tests.
+In our continuous integration system, we are running these tests on a simple go-agent that can run these Newman tests.
 This agent spins up our service container, runs these tests and bring down that container.
 
 #### Conclusion for our back-end
@@ -393,7 +393,7 @@ Since our data is included in this service and it is limited to a simple JSON fi
 However, when your back-end needs to communicate with a database and/or make calculations, you can and should already include some performance tests in this stage.
 You can, for example, include some <a href="https://gatling.io/" target="_blank">Gatling</a> tests in this stage and put some load on this service to check response times.
 
-The goal of this stage it to test the whole component, including the frameworks we are using for the communication.
+The goal of this stage is to test the whole component, including the frameworks we are using for the communication.
 It is still a decoupled system.
 Failures in this stage will show you that some integrations are failing and you know exactly where to look for the errors.
 
