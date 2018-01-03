@@ -11,8 +11,8 @@ comments: true
 After finishing a new feature in your web app, you test whether it works.
 However, while working on that new feature, you may have broken something else.
 If you want to know for sure, you have to test everything.
-Clicking around, filling in forms... will cost you some valuable time.
-So, you'll probably end up not doing it thorough or even not at all, assuming everything else still works fine.
+Clicking around, filling in forms, &hellip; will cost you some valuable time.
+So, you'll probably end up not doing it thorough enough or even not at all, assuming everything else still works fine.
 That's exactly why you should have automated tests do it for you!
 
 [Gauge](https://getgauge.io/){:target="_blank"} is yet another test automation tool that serves that purpose.
@@ -66,7 +66,7 @@ Now we can start writing tests.
 
 # Writing tests
 On the lowest level we have our Java functions that control the browser using WebDriver commands.
-To these functions we can assign an `@Step` annotation to be able to identify it.
+To these functions we can assign a `@Step` annotation to be able to identify it.
 It's usually a sentence describing the action being performed.
 The sentences can then be used to write the scenarios of our tests (or specs).
 If you'd like to combine multiple steps into once sentence, you can do so by creating so called "concepts".
@@ -103,10 +103,10 @@ tags: sign-up, customer
 
 ### Writing the steps
 The sentences we wrote in the specs still need to be linked to Java functions.
-We can do so by simply adding an `@Step` annotation to a Java function.
+We can do so by simply adding a `@Step` annotation to a Java function.
 It doesn't matter in which class you put the functions, you're free to choose how to organize them.
 As long as they are under the `src/test/java` folder.
-You could, for example, group them per page or per feature.
+You could, for example, group them per page or feature.
 
 ```java
 public class CustomerSignup {
@@ -271,7 +271,7 @@ In the report you'll even find how long it took to run a test and each of its st
 There's also a search functionality to quickly find a certain spec.
 
 <p>
-    <img class="image fit" style="max-width:768px" alt="Gauge HTML report" src="/img/2018-01-02-gauge-automated-testing/gauge-report.jpg" />
+    <img class="image fit" alt="Gauge HTML report" src="/img/2018-01-02-gauge-automated-testing/gauge-report.jpg" />
 </p>
 
 # Conclusion
