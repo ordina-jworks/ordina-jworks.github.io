@@ -43,7 +43,7 @@ It also provides a `clear` button, so the user can remove the content from the i
 A second button is the `filter` button.
 When pressed, it will emit an event that can be listened to by other microfrontends.
 
-```
+```javascript
 public filterCCs(): void {
   if(isPlatformBrowser(this.platformId)) {
     const event = new CustomEvent('filterCCs', { detail: { needle: this.needle} });
@@ -81,7 +81,7 @@ So we're just resetting our local data to an empty array.
 
 The back-end API is exposing three endpoints:
 
-```
+```javascript
 @Get()
 async getAllCCs(@Response() res) {
     const ccs = await this._ccsService.getAllCCs();
@@ -120,7 +120,7 @@ The first stage is unit testing each component. This step is almost always part 
 
 For unit testing our front-end Angular 5 application, we are going to use the `import { MockBackend } from '@angular/http/testing';` from Angular itself to mock our back-end.
 
-```
+```javascript
 ...
 beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -135,7 +135,7 @@ beforeEach(async(() => {
 ...
 ```
 
-```
+```javascript
 describe('Should query ccs with an observable', () =>
     it('Should return data', inject([CCService, XHRBackend], (ccService, mockBackend) => {
       mockBackend.connections.subscribe((connection) => {
@@ -179,7 +179,7 @@ Just as with our front-end, we trust the framework to correctly handle the commu
 
 Our unit tests will start at the controller level of our API.
 
-```
+```javascript
 describe('searchCCs', () => {
     it('should return a filtered array of competence centers', async () => {
       await ccsController.searchCCs(mockResponse, 'tim');
@@ -270,7 +270,7 @@ We want to trigger the search REST call by sending the search string `tim` to th
 </p>
 
 
-```
+```javascript
 ...
 describe('Searching with Tim should show 2 results', () => {
     page.setSeachText('mySearchString').then(function() {
@@ -325,7 +325,7 @@ Below, you can find a part of the exported JSON configuration.
 This part will send a GET request to the search endpoint, providing the search string `tim`.
 It will then analyse the response and check if the resulting array contains 2 entries and verifies the data.
 
-```
+```javascript
 ...
     {
 	"name": "Search existing ccs",
