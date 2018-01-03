@@ -811,4 +811,4 @@ More info about the concept can be found here: [LiveJS](http://livejs.network)
 At the first day of the conference we were already inspired by some good talks. Wondering what day 2 would bring. 
 
 
-[Read our full report on day 2 of JS Conf Budapest 2017 here!](/conference/2017/12/30/JS-Conf-Budapest-day-2.html)
+[Read our full report on day 2 of JS Conf Budapest 2017 here!](/conference/2018/01/03/JS-Conf-Budapest-day-2.html)

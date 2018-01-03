@@ -66,7 +66,9 @@ The goal of the application is to deliver a complete package, where the horizont
 In music it is important that every tune is played on time. 
 The musician must deliver the right tune at the right time in order to create the music like the composer intended it to be. 
 An app should run the same way: it has to deliver the right “tune” at the desired time to provide the best user experience.
- 
+
+<p class="image"><img src="/img/js-conf-budapest-2017/don-burks-summary.png" alt="Composing music is an art and so is coding" width="100%"></p>
+
 The talk gave us more insight about various aspects in development, seen from a musician’s perspective. Composing music is an art and so is coding.
 
 ****
@@ -333,7 +335,7 @@ Long review times take too much energy, which causes them to be postponed.
 
 The question "What exactly is someone saying, doing, or making another person feel while they review their code?" brought these answers.
 
-* A reviewee taking all feedback at face value, having a mentality of "see red squiggle, fix red squiggle".
+* An assessor who takes all the feedback for his own account, having a mentality of "see red squiggle, fix red squiggle".
 They just change the code without second thought, as long as it makes the reviewer happy.
 * A reviewer's comment is not clearly explained.
 The reviewee just has to change their code to the reviewers vision.
@@ -384,4 +386,10 @@ EPAM invited everyone to chill, have some drinks and games at the EXTRA ruinpub 
 
 ****
 
-[Read our full report on day 1 of JS Conf Budapest 2017 here!](/conference/2017/12/30/JS-Conf-Budapest-day-1.html)
+## Got triggered?
+
+All talks were recorded by the JSconf team. You can view them [here](https://www.youtube.com/playlist?list=PL37ZVnwpeshH9ztZfHqvQhF1_Zm4VcCTD).
+
+****
+
+[Read our full report on day 1 of JS Conf Budapest 2017 here!](/conference/2018/01/03/JS-Conf-Budapest-day-1.html)
