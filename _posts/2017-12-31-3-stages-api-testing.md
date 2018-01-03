@@ -295,7 +295,7 @@ describe('Searching with Tim should show 2 results', () => {
 This mock e2e test is depending on a mock back-end and a user input automation system.
 We are running these tests on our <a href="https://www.gocd.org/" target="_blank">GoCD</a> setup with dockerized elastic agents.
 To run these tests, we are in need of a go-agent that can run these e2e test with Protractor, but we also need an environment where we can serve this front-end and the mocked service.
-We are doing this with a go-agent that first spins up a docker-compose (for our front-end and mock-end), runs the protractor tests to this new environment and then brings it down the environment when tests are finished.
+We are doing this with a go-agent that first spins up a docker-compose (for our front-end and mock-end), runs the protractor tests to this new environment and then brings down the environment when tests are finished.
 
 ### Mocking our front-end to test our back-end.
 
@@ -312,12 +312,12 @@ Postman makes working with APIs faster and easier by supporting developers at ev
 It's available for Mac OS X, Windows, Linux and Chrome users.
 
 You can use Postman for more than just API testing.
-In our setup, we need to create a testing scenario and just run it againt our back-end service.
+In our setup, we need to create a testing scenario and just run it against our back-end service.
 Postman provides a user interface to do so.
 However, because we are running our tests on a cloud elastic go-agent, we need to find a way to automate this step.
 Luckily, Postman also provides a command-line tool called <a href="https://github.com/postmanlabs/newman" target="_blank">Newman</a>.
 Newman let's you run your test scenarios from your command line.
-You can first configure everything though the user interface and then just export the scenario so you can use it through the CLI.
+You can first configure everything through the user interface and then just export the scenario so you can use it through the CLI.
 
 > You can read more about Postman and Newman in our blogpost <a href="https://ordina-jworks.github.io/testing/2016/09/16/Automation-testing-with-postman.html" target="_blank">API Testing with Postman and Newman</a>
 
