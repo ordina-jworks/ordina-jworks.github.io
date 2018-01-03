@@ -2,7 +2,7 @@
 layout: post
 authors: [martijn_willekens]
 title: "Automated testing with Gauge"
-image: /img/2018-01-02-gauge-automated-testing/gauge.png
+image: /img/2018-01-03-gauge-automated-testing/gauge.png
 tags: [Gauge,E2E,End to end,Testing,Test automation,Automation]
 category: Testing
 comments: true
@@ -73,7 +73,7 @@ If you'd like to combine multiple steps into once sentence, you can do so by cre
 
 A typical folder structure for a Gauge setup using WebDriver and Java is as follows:
 <p>
-    <img class="image fit" style="max-width:194px" alt="Gauge Maven project structure" src="/img/2018-01-02-gauge-automated-testing/files.jpg" />
+    <img class="image fit" style="max-width:194px" alt="Gauge Maven project structure" src="/img/2018-01-03-gauge-automated-testing/files.jpg" />
 </p>
 
 ### Writing the specs
@@ -271,7 +271,7 @@ In the report you'll even find how long it took to run a test and each of its st
 There's also a search functionality to quickly find a certain spec.
 
 <p>
-    <img class="image fit" alt="Gauge HTML report" src="/img/2018-01-02-gauge-automated-testing/gauge-report.jpg" />
+    <img class="image fit" alt="Gauge HTML report" src="/img/2018-01-03-gauge-automated-testing/gauge-report.jpg" />
 </p>
 
 # Conclusion
