@@ -180,7 +180,7 @@ After the break, we joined a question owner at their table with a maximum of 4 p
 Each question was assigned a time box of 15 minutes and you were only allowed to talk about that specific question during that time box.
 After each question, the other people at the table moved around to another table to help with someone else's issue.
 So, after the exercise, every non-question owner was able to help three different persons by helping with a different question each time.
-This exercise is called a [World Cafe](http://www.artofhosting.org/world-cafe/){:target="_blank"}.
+This exercise is called a Pro Action Cafe, which is based on [World Cafe](http://www.artofhosting.org/world-cafe/){:target="_blank"} and Open Space.
 
 The outcome of the exercise was a group of people, happy to have some concrete actions to start working with to try and solve their issues.
 
