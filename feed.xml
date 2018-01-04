@@ -1,5 +1,423 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-01-03T22:42:44+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">JSConf Budapest 2017 Day 2</title><link href="https://ordina-jworks.github.io/conference/2018/01/03/JS-Conf-Budapest-day-2.html" rel="alternate" type="text/html" title="JSConf Budapest 2017 Day 2" /><published>2018-01-03T00:00:00+00:00</published><updated>2018-01-03T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2018/01/03/JS-Conf-Budapest-day-2</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2018/01/03/JS-Conf-Budapest-day-2.html">&lt;h2 id=&quot;from-jsconf-budapest-with-love&quot;&gt;From JSConf Budapest with love&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-01-04T13:24:41+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">3 Stages of API testing</title><link href="https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html" rel="alternate" type="text/html" title="3 Stages of API testing" /><published>2018-01-04T00:00:00+00:00</published><updated>2018-01-04T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html">&lt;blockquote&gt;
+  &lt;p&gt;Continuous Integration with automated testing is more and more incorporated in the culture of software delivery companies.
+Running tests in different stages is a big part of it.
+In this post, we’ll have a look at our three stages of API testing we are promoting at Ordina.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#setup&quot;&gt;About the setup&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#unit&quot;&gt;Stage 1: Unit testing&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#mock-end&quot;&gt;Stage 2: Testing against a mock-end&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#full-end&quot;&gt;Stage 3: Testing full environment&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;setup&quot;&gt;Setup&lt;/h1&gt;
+
+&lt;p&gt;The example we are going to use is part of a bigger microfrontend/microservice setup.
+The front-end part of this example is the actual header of this microfrontend setup. It’s the top bar, developed as a separate front-end application.
+This header provides the user with a search input field, where the user can search our database of competence centers.
+This part is written in Angular (5).
+The app gets dockerized after the unit tests (and build) are successfully completed.
+It is served by a simple Express server inside a Docker container.
+The back-end part provides the data of the competence centers.
+It’s nothing more than a simple REST API written in TypeScript using the Nest.js framework.
+The data provided by this service is a JSON file.
+Its content is parsed into memory and is exposed through this REST API.&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:575px;&quot; alt=&quot;Easy client server setup&quot; src=&quot;/img/3-stages-api-testing/setup.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The front-end (header) is providing the user with an input field.
+This field allows the user to perform a search on our back-end service.
+It also provides a &lt;code class=&quot;highlighter-rouge&quot;&gt;clear&lt;/code&gt; button, so the user can remove the content from the input field and reset the local cache of search results.
+A second button is the &lt;code class=&quot;highlighter-rouge&quot;&gt;filter&lt;/code&gt; button.
+When pressed, it will emit an event that can be listened to by other microfrontends.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;filterCCs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isPlatformBrowser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;platformId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CustomEvent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'filterCCs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;detail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;needle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;needle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dispatchEvent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;filterStats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;needle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_updateData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_updateData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_ccService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getStats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;needle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;resetSearch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;needle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When resetting the content with the &lt;code class=&quot;highlighter-rouge&quot;&gt;clear&lt;/code&gt; button, we’re not sending a request.
+When there’s nothing to search for, the result would be an empty array.
+So we’re just resetting our local data to an empty array.&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:925px;&quot; alt=&quot;Easy client server setup&quot; src=&quot;/img/3-stages-api-testing/header.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The back-end API is exposing three endpoints:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;getAllCCs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ccs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_ccsService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getAllCCs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;HttpStatus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;OK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ccs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/search'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;searchCCs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'needle'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;searchString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;filtered&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_ccsService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;searchCCs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;searchString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;HttpStatus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;OK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;filtered&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/:id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;getCC&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Param&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_ccsService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getCC&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;HttpStatus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;OK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The header will always trigger the endpoint at &lt;code class=&quot;highlighter-rouge&quot;&gt;search&lt;/code&gt; with a needle.
+When the needle is undefined (or an empty string), the search endpoint will return an empty list.&lt;/p&gt;
+
+&lt;h1 id=&quot;stage-1-unit-testing-the-communication-layer-front-and-back-end&quot;&gt;Stage 1: Unit testing the communication layer (front and back-end)&lt;/h1&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:575px;&quot; alt=&quot;decoupled&quot; src=&quot;/img/3-stages-api-testing/unit.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The first stage is unit testing each component. This step is almost always part of the component’s build. Let’s take a quick look at each component.&lt;/p&gt;
+
+&lt;h3 id=&quot;unit-testing-the-communication-part-of-the-ui&quot;&gt;Unit testing the communication part of the UI&lt;/h3&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:325px;&quot; alt=&quot;Easy client server setup&quot; src=&quot;/img/3-stages-api-testing/unit-client.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;For unit testing our front-end Angular 5 application, we are going to use the &lt;code class=&quot;highlighter-rouge&quot;&gt;import { MockBackend } from '@angular/http/testing';&lt;/code&gt; from Angular itself to mock our back-end.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;TestBed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;configureTestingModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;providers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;CCService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// our service that is handling the communication&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;provide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;XHRBackend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;useClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MockBackend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// our mock&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;compileComponents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Should query ccs with an observable'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Should return data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;inject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CCService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;XHRBackend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ccService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mockBackend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;mockBackend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ccs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+              &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+              &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mockRespond&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ResponseOptions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ccs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;})));&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;ccService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getStats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'tim'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ccs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ccs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toBe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ccs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;clEmail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toBe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'tim.vierbergen@ordina.be'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The Angular framework handles the communication part.
+We want to mock the &lt;code class=&quot;highlighter-rouge&quot;&gt;$http&lt;/code&gt; call and see how we are handling the result.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;mockBackend&lt;/code&gt; is working inbetween our own code and the provided &lt;code class=&quot;highlighter-rouge&quot;&gt;$http&lt;/code&gt; part.
+Every call is triggering the &lt;code class=&quot;highlighter-rouge&quot;&gt;mockBackend.connections&lt;/code&gt;, so the subscribers are triggered.
+We are providing our own data and returning it as the response of the &lt;code class=&quot;highlighter-rouge&quot;&gt;$http&lt;/code&gt; call.&lt;/p&gt;
+
+&lt;h3 id=&quot;unit-testing-the-communication-layer-of-the-service&quot;&gt;Unit testing the communication layer of the service&lt;/h3&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:325px&quot; alt=&quot;Easy client server setup&quot; src=&quot;/img/3-stages-api-testing/unit-service.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;For unit testing our back-end, we are using Jest.
+&lt;a href=&quot;https://facebook.github.io/jest/&quot; target=&quot;_blank&quot;&gt;Jest&lt;/a&gt; is a testing framework by Facebook.
+If you are interested in Jest, make sure to watch this blog, as a post around this topic is in the making.
+Just as with our front-end, we trust the framework to correctly handle the communication itself.&lt;/p&gt;
+
+&lt;p&gt;Our unit tests will start at the controller level of our API.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'searchCCs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'should return a filtered array of competence centers'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;kr&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ccsController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;searchCCs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mockResponse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'tim'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mockResponse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toBe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;clEmail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toBe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'tim.vierbergen@ordina.be'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Where mockResponse is exactly that.
+A simple mock of the response object.&lt;/p&gt;
+
+&lt;h3 id=&quot;purpose-of-these-unit-tests&quot;&gt;Purpose of these unit tests&lt;/h3&gt;
+
+&lt;p&gt;The goal of these unit tests is to make sure that the functions inside the components are working as expected.
+This way the next stage of testing can only fail due to errors from outside this component.
+However, to make sure this is the case, the mock data should be as close to production data when it comes to data specific characteristics.
+This is more important for your front-end because you have less control over the data itself.
+Your back-end API is only responding to request params that are defined in the specs.
+So it’s easier to control them, or ignore unknowns.&lt;/p&gt;
+
+&lt;h1 id=&quot;stage-2-testing-against-a-mock-end&quot;&gt;Stage 2: Testing against a mock-end&lt;/h1&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:575px&quot; alt=&quot;Easy client server setup&quot; src=&quot;/img/3-stages-api-testing/mock-end.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In our second stage we are going to use a mock service to test against.
+This means that we are going to mock ‘the other’ component by replacing it with an easy to use solution.
+Although we are mocking some parts, this can be seen as an end-to-end test for each component itself.
+We want to test our component by means of external services, just as it is supposed to work in a complete environment.&lt;/p&gt;
+
+&lt;h3 id=&quot;mocking-our-back-end-to-test-our-front-end&quot;&gt;Mocking our back-end to test our front-end.&lt;/h3&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:575px&quot; alt=&quot;Mocking the back-end&quot; src=&quot;/img/3-stages-api-testing/front-end-mock.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;For our front-end component (user interface), we are going to mock the back-end.
+Some front-ends are performing calls even without human interaction.
+However, in most cases, front-end communication is depending on human interaction.
+To end-to-end test this part, we are also in need of a framework to mock this user interaction.
+&lt;a href=&quot;https://getgauge.io/&quot; target=&quot;_blank&quot;&gt;Gauge&lt;/a&gt;, &lt;a href=&quot;http://www.protractortest.org/&quot; target=&quot;_blank&quot;&gt;Protractor&lt;/a&gt; and &lt;a href=&quot;http://nightwatchjs.org/&quot; target=&quot;_blank&quot;&gt;Nightwatch.js&lt;/a&gt; are some examples of these frameworks.
+Most of them depend on ‘Selenium WebDriver’.&lt;/p&gt;
+
+&lt;h4 id=&quot;node-red-for-back-end-mocking&quot;&gt;Node-RED for back-end mocking&lt;/h4&gt;
+
+&lt;p&gt;We are using Node-RED for our back-end mock because it’s so easy to setup and dockerize.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://nodered.org&quot; target=&quot;_blank&quot;&gt;Node-RED&lt;/a&gt; is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Node-RED is much more than just a tool to mock a back-end or any other service.
+It comes with a great User Interface to define your flows and to deploy them on your server.&lt;/p&gt;
+
+&lt;p&gt;For this example we will mock our three endpoints and return test data.
+This test data can come from different sources.
+Node-RED provides multiple ways of working with data.
+You can include a simple MongoDB in your setup and read (even write) data from it.
+Or you can just use functions where you hard code your data.
+To keep it simple, we will use the latter in our setup.&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:875px&quot; alt=&quot;Mocking the back-end&quot; src=&quot;/img/3-stages-api-testing/node-red-flow.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;A simple mock for a http-call consists out of three parts:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The entry point definition itself (input)&lt;/li&gt;
+  &lt;li&gt;The function that handles the data (can be static or database or …)&lt;/li&gt;
+  &lt;li&gt;The response definition&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:425px;&quot; alt=&quot;Data function config&quot; src=&quot;/img/3-stages-api-testing/node-red-data.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h4 id=&quot;user-interface-automation&quot;&gt;User interface automation&lt;/h4&gt;
+
+&lt;p&gt;In this setup we are using Protractor for the e2e tests.
+The user input is limited to an input field to trigger the search REST-call and two buttons, one button for clearing the input and one for sending the search string to other microfrontend components.&lt;/p&gt;
+
+&lt;p&gt;Some of the use cases, such as ‘clearing’ the input, are already covered in the unit tests.
+Depending on the effort you can always retest them in these e2e tests, but for this example, those are not important.
+We want to trigger the search REST call by sending the search string &lt;code class=&quot;highlighter-rouge&quot;&gt;tim&lt;/code&gt; to the input field, and testing the outcome in the user interface.&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:925px;&quot; alt=&quot;Data function config&quot; src=&quot;/img/3-stages-api-testing/search-e2e.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Searching with Tim should show 2 results'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setSeachText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'mySearchString'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Input field should contain 'tim'&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getSearchText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toBe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'tim'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Result should show 2 entries&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    	    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;will show the number 2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getResultNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toBe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;will show a dropdown with 2 results&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getResultList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toBe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;conclusion-for-our-front-end&quot;&gt;Conclusion for our front-end&lt;/h4&gt;
+
+&lt;p&gt;This mock e2e test is depending on a mock back-end and a user input automation system.
+We are running these tests on our &lt;a href=&quot;https://www.gocd.org/&quot; target=&quot;_blank&quot;&gt;GoCD&lt;/a&gt; setup with dockerized elastic agents.
+To run these tests, we are in need of a go-agent that can run these e2e test with Protractor, but we also need an environment where we can serve this front-end and the mocked service.
+We are doing this with a go-agent that first spins up a docker-compose (for our front-end and mock-end), runs the protractor tests to this new environment and then brings down the environment when tests are finished.&lt;/p&gt;
+
+&lt;h3 id=&quot;mocking-our-front-end-to-test-our-back-end&quot;&gt;Mocking our front-end to test our back-end.&lt;/h3&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:500px;&quot; alt=&quot;Mocking the back-end&quot; src=&quot;/img/3-stages-api-testing/back-end-mock.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;For testing our back-end service, we only need one other service.
+This service will need to fire REST calls to our back-end service and analyse the response.
+We can use &lt;a href=&quot;https://www.getpostman.com/&quot; target=&quot;_blank&quot;&gt;Postman&lt;/a&gt; to set this up.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Postman is the complete toolchain for API developers, used by more than 3 million developers and 30000 companies worldwide.
+Postman makes working with APIs faster and easier by supporting developers at every stage of their workflow.
+It’s available for Mac OS X, Windows, Linux and Chrome users.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;You can use Postman for more than just API testing.
+In our setup, we need to create a testing scenario and just run it against our back-end service.
+Postman provides a user interface to do so.
+However, because we are running our tests on a cloud elastic go-agent, we need to find a way to automate this step.
+Luckily, Postman also provides a command-line tool called &lt;a href=&quot;https://github.com/postmanlabs/newman&quot; target=&quot;_blank&quot;&gt;Newman&lt;/a&gt;.
+Newman let’s you run your test scenarios from your command line.
+You can first configure everything through the user interface and then just export the scenario so you can use it through the CLI.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;You can read more about Postman and Newman in our blogpost &lt;a href=&quot;https://ordina-jworks.github.io/testing/2016/09/16/Automation-testing-with-postman.html&quot; target=&quot;_blank&quot;&gt;API Testing with Postman and Newman&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Below, you can find a part of the exported JSON configuration.
+This part will send a GET request to the search endpoint, providing the search string &lt;code class=&quot;highlighter-rouge&quot;&gt;tim&lt;/code&gt;.
+It will then analyse the response and check if the resulting array contains 2 entries and verifies the data.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Search existing ccs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;s2&quot;&gt;&quot;event&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+			&lt;span class=&quot;s2&quot;&gt;&quot;listen&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+			&lt;span class=&quot;s2&quot;&gt;&quot;script&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+				&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+				&lt;span class=&quot;s2&quot;&gt;&quot;exec&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+					&lt;span class=&quot;s2&quot;&gt;&quot;var jsonData = JSON.parse(responseBody);&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+					&lt;span class=&quot;s2&quot;&gt;&quot;var firstResult = jsonData[0];&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+					&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+					&lt;span class=&quot;s2&quot;&gt;&quot;tests[&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Status code is 200&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;] = responseCode.code === 200;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+					&lt;span class=&quot;s2&quot;&gt;&quot;tests[&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;4 results returned&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;] = jsonData.length === 2;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+					&lt;span class=&quot;s2&quot;&gt;&quot;tests[&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;First result contains id &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;] ='id' in firstResult;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+					&lt;span class=&quot;s2&quot;&gt;&quot;tests[&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Cl name contains tim vierbergen&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;] = firstResult.cl === &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Tim Vierbergen&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;;&quot;&lt;/span&gt;
+				&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+			&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+	&lt;span class=&quot;s2&quot;&gt;&quot;request&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;s2&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+			&lt;span class=&quot;s2&quot;&gt;&quot;raw&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;:/ccs/search?needle=tim&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+			&lt;span class=&quot;s2&quot;&gt;&quot;host&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+				&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
+			&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+			&lt;span class=&quot;s2&quot;&gt;&quot;port&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+			&lt;span class=&quot;s2&quot;&gt;&quot;path&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+				&lt;span class=&quot;s2&quot;&gt;&quot;ccs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+				&lt;span class=&quot;s2&quot;&gt;&quot;search&quot;&lt;/span&gt;
+			&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+			&lt;span class=&quot;s2&quot;&gt;&quot;query&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+				&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+					&lt;span class=&quot;s2&quot;&gt;&quot;key&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;needle&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+					&lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;tim&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+					&lt;span class=&quot;s2&quot;&gt;&quot;equals&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+					&lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
+				&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+			&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+			&lt;span class=&quot;s2&quot;&gt;&quot;variable&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+		&lt;span class=&quot;s2&quot;&gt;&quot;method&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;GET&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+		&lt;span class=&quot;s2&quot;&gt;&quot;header&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+			&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+				&lt;span class=&quot;s2&quot;&gt;&quot;key&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Content-Type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+				&lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;application/json&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+				&lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
+			&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+		&lt;span class=&quot;s2&quot;&gt;&quot;body&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;
+		&lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+	&lt;span class=&quot;s2&quot;&gt;&quot;response&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;        
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In our continuous integration system, we are running these tests on a simple go-agent that can run these Newman tests.
+This agent spins up our service container, runs these tests and bring down that container.&lt;/p&gt;
+
+&lt;h4 id=&quot;conclusion-for-our-back-end&quot;&gt;Conclusion for our back-end&lt;/h4&gt;
+
+&lt;p&gt;Testing this back-end service with a mock front-end is pretty easy.
+Since our data is included in this service and it is limited to a simple JSON file, we are not running performance tests.
+However, when your back-end needs to communicate with a database and/or make calculations, you can and should already include some performance tests in this stage.
+You can, for example, include some &lt;a href=&quot;https://gatling.io/&quot; target=&quot;_blank&quot;&gt;Gatling&lt;/a&gt; tests in this stage and put some load on this service to check response times.&lt;/p&gt;
+
+&lt;p&gt;The goal of this stage is to test the whole component, including the frameworks we are using for the communication.
+It is still a decoupled system.
+Failures in this stage will show you that some integrations are failing and you know exactly where to look for the errors.&lt;/p&gt;
+
+&lt;h1 id=&quot;stage-3-testing-full-environment&quot;&gt;Stage 3: Testing full environment&lt;/h1&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:575px;&quot; alt=&quot;No more mocking&quot; src=&quot;/img/3-stages-api-testing/full-env.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We now want to end-to-end test the whole system.
+We can use docker-compose to spin up this environment and then again run tests against the user interface.
+It will communicate with the real back-end to query its data and show the results in the user interface.
+Again, we want to run those tests on an elastic go-agent, so we are in need of an automated system.
+Right, we already used this in the previous stage where we were testing the user interface against a mocked back-end.&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:575px;&quot; alt=&quot;No more mocking&quot; src=&quot;/img/3-stages-api-testing/full-env-ui.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;This elastic go-agent must be able to run the Protractor tests (obviously). It will first need to spin up this environment, run the tests and tear down the environment. Same goes for performance tests in this stage.
+You can use some frameworks to put extra load on your front-end to see how it’s behaving when it needs to handle more REST-calls for different parts.
+Or you can run more instances of the user interface, resulting in more load on the back-end service.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Decoupling your system and running tests in different stages will make it easier to debug when something is going wrong.
+Finding errors earlier will also save you some time and resources.
+Being able to find bugs before taking it to the next stage and spinning up complete environments will reduce the cost of your system (cloud).&lt;/p&gt;
+
+&lt;p&gt;Yes, writing tests can be more expensive in time and resources in the short run, but it will save you a lot more time and resources in the long run.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Vierbergen&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-vierbergen/&quot;, &quot;avatar&quot;=&gt;&quot;tim-vierbergen.jpg&quot;, &quot;twitter&quot;=&gt;&quot;vierbergentim&quot;, &quot;linkedin&quot;=&gt;&quot;tim-vierbergen-82557834&quot;, &quot;github&quot;=&gt;&quot;VeeTeeDev&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;title2&quot;=&gt;&quot;Principal Consultant &amp; Competence Lead CI/CD&quot;, &quot;email&quot;=&gt;&quot;tim.vierbergen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a senior developer and architect at Jworks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.&lt;br /&gt;&lt;br /&gt;Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learing how to snowboard.&quot;}</name><email>tim.vierbergen@ordina.be</email></author><category term="Testing" /><category term="Node-RED" /><category term="angular" /><category term="nestjs" /><category term="jest" /><category term="GoCD" /><category term="docker" /><category term="ci" /><summary type="html">Continuous Integration with automated testing is more and more incorporated in the culture of software delivery companies. Running tests in different stages is a big part of it. In this post, we’ll have a look at our three stages of API testing we are promoting at Ordina.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/3-stages-api-testing/overview.png" /></entry><entry><title type="html">JSConf Budapest 2017 Day 2</title><link href="https://ordina-jworks.github.io/conference/2018/01/03/JS-Conf-Budapest-day-2.html" rel="alternate" type="text/html" title="JSConf Budapest 2017 Day 2" /><published>2018-01-03T00:00:00+00:00</published><updated>2018-01-03T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2018/01/03/JS-Conf-Budapest-day-2</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2018/01/03/JS-Conf-Budapest-day-2.html">&lt;h2 id=&quot;from-jsconf-budapest-with-love&quot;&gt;From JSConf Budapest with love&lt;/h2&gt;
 
 &lt;p&gt;This year’s edition of JS Conf Budapest returned to the first venue at &lt;a href=&quot;http://www.urania-nf.hu/&quot;&gt;Urania National Movie theater&lt;/a&gt;.&lt;/p&gt;
 
@@ -2787,410 +3205,4 @@ Of course nobody wants to run a distributed application in containers on one hos
 
 &lt;p&gt;I will make a follow-up blogpost where we look into Docker multi-host networks by using &lt;strong&gt;weave.NET&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker stop bas&lt;/code&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bas&quot;, &quot;last_name&quot;=&gt;&quot;Moorkens&quot;, &quot;permalink&quot;=&gt;&quot;/author/bas-moorkens/&quot;, &quot;title&quot;=&gt;&quot;Senior Java Developer&quot;, &quot;title2&quot;=&gt;&quot;DevOps Engineer&quot;, &quot;email&quot;=&gt;&quot;bas.moorkens@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;basmoorkens&quot;, &quot;avatar&quot;=&gt;&quot;bas-moorkens.jpg&quot;, &quot;github&quot;=&gt;&quot;basmoorkens&quot;, &quot;bio&quot;=&gt;&quot;Bas is a Senior Java Developer at Ordina Belgium who discovered he is fascinated by cloud, containers and pipeline automation. He started off as a Java full stack developer but got more and more into the DevOps world where he currently spends most of his time.&quot;}</name><email>bas.moorkens@ordina.be</email></author><category term="Docker" /><category term="Docker" /><category term="Networking" /><category term="container" /><category term="DevOps" /><summary type="html">Containers are all the rage at the moment so I guess everybody knows how to build and run a container by now. But what use is one container by itself? In this post, I will show how you can create networks within Docker and what they are used for.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/docker-basic-networking/docker-basic-networking.png" /></entry><entry><title type="html">JavaDay Ukraine 2017</title><link href="https://ordina-jworks.github.io/conference/2017/11/15/JavaDay-Ukraine-2017.html" rel="alternate" type="text/html" title="JavaDay Ukraine 2017" /><published>2017-11-15T00:00:00+00:00</published><updated>2017-11-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2017/11/15/JavaDay-Ukraine-2017</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2017/11/15/JavaDay-Ukraine-2017.html">&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;http://javaday.org.ua&quot; target=&quot;_blank&quot;&gt;JavaDay Ukraine&lt;/a&gt; is an annual international two-day conference in Kyiv with more than 60 global speakers with various topics on Java, software architecture, machine learning, data science, and more.
-In this blog post we will go over some of the talks that we have attended.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;the-toc&quot;&gt;
-
-  &lt;h1 class=&quot;the-toc__heading&quot;&gt;Table Of Contents&lt;/h1&gt;
-
-  &lt;ol class=&quot;the-toc__list&quot;&gt;
-    &lt;li&gt;&lt;a href=&quot;#developing-microservices-with-kotlin---haim-yadid&quot; title=&quot;Developing Microservices With Kotlin&quot;&gt;Developing Microservices with Kotlin&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;#going-reactive-with-spring-data---christoph-strobl&quot; title=&quot;Going Reactive with Spring Data - Christoph Strobl&quot;&gt;Going Reactive with Spring Data - Christoph Strobl&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;#spring-boot-20-web---stéphane-nicoll&quot; title=&quot;Spring Boot 2.0 Web - Stéphane Nicoll&quot;&gt;Spring Boot 2.0 Web - Stéphane Nicoll&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;#the-api-gateway-is-dead-long-live-the-api-gateway---spencer-gibb&quot; title=&quot;The API Gateway is dead! Long Live the API Gateway! - Spencer Gibb&quot;&gt;The API Gateway is dead! Long Live the API Gateway! - Spencer Gibb&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;#continuous-deployment-to-the-cloud-using-spinnaker---andreas-evers&quot; title=&quot;Continuous Deployment to the Cloud using Spinnaker - Andreas Evers&quot;&gt;Continuous Deployment to the Cloud using Spinnaker - Andreas Evers&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;#10-tips-to-become-an-awesome-technical-lead---bart-blommaerts&quot; title=&quot;10 tips to become an awesome Technical Lead - Bart Blommaerts&quot;&gt;10 tips to become an awesome Technical Lead - Bart Blommaerts&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;#hands-on-introduction-to-cqrs-and-event-sourcing-with-axon-framework---steven-van-beelen&quot; title=&quot;Hands-on introduction to CQRS and Event Sourcing with Axon Framework - Steven Van Beelen&quot;&gt;Hands-on introduction to CQRS and Event Sourcing with Axon Framework - Steven Van Beelen&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;#spring-cloud-stream--a-new-rick-and-morty-adventure---dieter-hubau&quot; title=&quot;Spring Cloud Stream — a new Rick and Morty adventure - Dieter Hubau&quot;&gt;Spring Cloud Stream — a new Rick and Morty adventure - Dieter Hubau&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;#8-steps-to-becoming-awesome-with-kubernetes---burr-sutter&quot; title=&quot;8 Steps To Becoming Awesome With Kubernetes - Burr Sutter&quot;&gt;8 Steps To Becoming Awesome With Kubernetes - Burr Sutter&lt;/a&gt;&lt;/li&gt;
-  &lt;/ol&gt;
-
-&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;developing-microservices-with-kotlin---haim-yadid&quot;&gt;Developing Microservices with Kotlin - Haim Yadid&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Haim Yadid&quot; src=&quot;/img/javaday-ukraine-2017/haim-yadid.jpg&quot; /&gt;&lt;/span&gt;
-&lt;a href=&quot;https://twitter.com/lifeyx&quot; target=&quot;_blank&quot;&gt;Haim Yadid&lt;/a&gt; is a developer, architect and group manager currently working as head of backend engineering in Next Insurance.
-In his search for a better programming language, he compared different strongly and loosely typed JVM languages such as &lt;strong&gt;Scala, Ceylon, Groovy, JRuby, Clojure and Kotlin&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;The chosen language would have to be concise, safe, versatile, practical and interoperable.
-Being a fan of strongly typed languages, Groovy and JRuby were no option.
-Scala was a good option but due to the complexity of the language, the long compilation times and lack of backwards compatibility assurance, it was also dropped.&lt;/p&gt;
-
-&lt;p&gt;Kotlin proved to be the winner as it contained all of the above listed characteristics.
-It is also able to make use of the huge Java ecosystem and, being backed by Jetbrains, was very assuring.
-It also helped that Google made Kotlin the official language for Android Development. Not to mention it was the subject of 9 different talks at JavaOne 2017.&lt;/p&gt;
-
-&lt;p&gt;In his talk, he wanted to share his findings and experiences when developing in Kotlin which he labeled as a huge success.
-The project he worked on contains a microservices backend over DropWizard deployed to AWS together with serverless endpoints in AWS Lambda.
-Used technologies, frameworks and libraries are amongst others Maven, DropWizard, AWS Lambda, PDFBox, XMPBox, Flyway, Stripe and Mockito Kotlin.
-Building the project was done via the Kotlin Maven plugin.&lt;/p&gt;
-
-&lt;p&gt;He started with version 1.0.2 and immediately upgraded to every release which always went very smooth; even the migration to 1.1.0, which included Java 8 support, went without any issues.
-Onboarding new Java developers is never a hassle as they are capable of developing in Kotlin by the time they get to know the architecture.&lt;/p&gt;
-
-&lt;p&gt;Haim really liked extension methods, which allow you to add functionality to an existing class or interface.
-The null safety, which is very similar to the null safety of Apple’s Swift - where nullability is part of the type of an defined object - was also well-appreciated.
-He also pointed out to us that Java open source libraries work extremely well with Kotlin. All you need to do is add the dependency to your build file and you are good to go.&lt;/p&gt;
-
-&lt;p&gt;Data classes, similar to case classes in Scala, offering a concise way to define simple classes for holding data, were used for all their DTOs.
-Also worth mentioning is that IntelliJ has a converter functionality for converting a Java class to Kotlin.
-Obviously it’s mostly used as a starting point when migrating existing Java classes.
-We really liked Haim’s talk as we are very eager to try out Kotlin in a project.&lt;/p&gt;
-
-&lt;p&gt;Haim’s presentation is available on SlideShare:&lt;/p&gt;
-&lt;iframe src=&quot;//www.slideshare.net/slideshow/embed_code/key/4D8BpGT2UiMu8A&quot; width=&quot;100%&quot; height=&quot;485&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot; style=&quot;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&quot; allowfullscreen=&quot;&quot;&gt; &lt;/iframe&gt;
-&lt;div style=&quot;margin-bottom:5px&quot;&gt; &lt;strong&gt; &lt;a href=&quot;//www.slideshare.net/haimyadid/building-microservices-with-kotlin&quot; title=&quot;Building microservices with Kotlin&quot; target=&quot;_blank&quot;&gt;Building microservices with Kotlin&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href=&quot;https://www.slideshare.net/haimyadid&quot; target=&quot;_blank&quot;&gt;Haim Yadid&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;going-reactive-with-spring-data---christoph-strobl&quot;&gt;Going Reactive with Spring Data - Christoph Strobl&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Christoph Strobl&quot; src=&quot;/img/javaday-ukraine-2017/christoph-strobl.jpg&quot; /&gt;&lt;/span&gt;
-&lt;a href=&quot;https://twitter.com/stroblchristoph&quot; target=&quot;_blank&quot;&gt;Christoph Strobl&lt;/a&gt; is a developer at Pivotal and is part of the Spring Data team.
-Starting from Spring Framework 5, reactive support was added to all the core Spring Framework projects.
-In a reactive architecture, it is important that your system is reactive from top to bottom in order to take advantage of the full performance gain, the persistence layer is no exception to this.&lt;/p&gt;
-
-&lt;p&gt;During the talk, Christoph went over the classic imperative approach of a Spring application where Spring MVC is used and the performance problems that can arise when all threads are in use.
-A reactive architecture makes better use of server resources but in turn adds more complexity to your architecture.
-The publish-subscribe mechanism is heavily used in this architecture where, how can you guess it, publishers publish messages to which subscribers can subscribe.
-The mechanism also comes with back pressure for the subscribers, allowing them to define how many messages they want to handle next in order to avoid being overrun.
-It is important to note here that the reactive publish-subscribe mechanism is based on the push model. The subscriber will not actively fetch the data but will instead receive the data from the publisher who pushes the new messages to the subscriber when they’re available.&lt;/p&gt;
-
-&lt;p&gt;In the other part of the session, Christoph went over several features of Spring’s Project Reactor, Spring Data Kay and Spring WebFlux.
-The publish-subscribe mechanism in Reactor is based on the &lt;a href=&quot;http://www.reactive-streams.org&quot; target=&quot;_blank&quot;&gt;Reactive Streams specification&lt;/a&gt; and there are two reactive types: &lt;code class=&quot;highlighter-rouge&quot;&gt;Flux&lt;/code&gt;, an Asynchronous Sequence of 0-N items, and &lt;code class=&quot;highlighter-rouge&quot;&gt;Mono&lt;/code&gt;, an Asynchronous 0-1 result.
-Spring WebFlux is the reactive brother of Spring MVC and uses Project Reactor under the hood for building reactive endpoints.
-Spring Data Kay is the newest version of Spring Data which now contains reactive repositories and reactive templates.
-At the time of writing this is only usable for MongoDB, Redis, Couchbase and Cassandra as the other databases lack a reactive JDBC driver.&lt;/p&gt;
-
-&lt;p&gt;In the final part of the talk, Christoph held a demo of a Spring Boot 2 reactive application showcasing all the reactive features.
-All in all, a very interesting talk about building a reactive application using Spring.&lt;/p&gt;
-
-&lt;p&gt;The demo code is available on &lt;a href=&quot;https://github.com/christophstrobl/going-reactive-with-spring-data&quot; target=&quot;_blank&quot;&gt;GitHub&lt;/a&gt;.
-The presentation is available on Speaker Deck:
-&lt;script async=&quot;&quot; class=&quot;speakerdeck-embed&quot; data-id=&quot;be5af757d97042b09c873aedbf8ac81a&quot; data-ratio=&quot;1.77777777777778&quot; src=&quot;//speakerdeck.com/assets/embed.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;spring-boot-20-web---stéphane-nicoll&quot;&gt;Spring Boot 2.0 Web - Stéphane Nicoll&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Stéphane Nicoll&quot; src=&quot;/img/javaday-ukraine-2017/stephane-nicoll.png&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/snicoll&quot; target=&quot;_blank&quot;&gt;Stéphane Nicoll&lt;/a&gt; joined the core Spring Framework development team early 2014, being one of the main contributors to both Spring Framework and Spring Boot since.
-Stéphane’s session was all about Spring Framework 5 and Spring Boot 2.0.
-Spring 5 comes with Spring WebFlux which is the reactive brother of Spring MVC allowing you to build non-blocking APIs.
-He explained that there is always the issue of supporting all the different clients like desktops, laptops, smartphones and tablets, and their different internet speeds.
-Smartphones often have access to the slowest internet speeds and thus require the most optimal solution regarding bandwidth and performance.&lt;/p&gt;
-
-&lt;p&gt;All the different concepts of building a reactive application with Spring Framework 5 and Spring Boot 2.0 were explained with a demo application called &lt;a href=&quot;https://github.com/snicoll-demos/smart-meter&quot; target=&quot;_blank&quot;&gt;Smart Meter&lt;/a&gt;.
-Basically, you have all these different data inputs via sensors being gathered by an aggregator and then streamed to a dashboard.
-The frontend is written in Thymeleaf 3.0 which is the version in which reactive support was added.
-Besides the frontend needing reactive support, the persistence layer of the backend also needs it.
-In Spring Data Kay, reactive support exists for Redis, MongoDB, Couchbase and Cassandra.
-The other main databases such as Oracle, PostgreSQL and MySQL aren’t there just yet as they lack a reactive JDBC driver.
-In the demo, MongoDB is used.&lt;/p&gt;
-
-&lt;p&gt;Stéphane also demonstrated some new additions to Spring Boot Actuator such as a unified way to implement custom endpoints, better output format,
-separate status endpoints (you now have &lt;code class=&quot;highlighter-rouge&quot;&gt;/status&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;/health&lt;/code&gt;) and a simplified security model to specify who has access to (for example) status and info as users with a certain role may be allowed to see more.
-Properties in Actuator now also display the properties file in which they have been declared and the exact position.&lt;/p&gt;
-
-&lt;p&gt;Stéphane concluded the talk by announcing that the release candidate was foreseen somewhere at the end of November.
-However, a recent tweet of his announced a small change to the release schedule:&lt;/p&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Spring Boot is having an extra milestone and RC1 is scheduled early December now.&lt;br /&gt;&lt;br /&gt;See &lt;a href=&quot;https://t.co/6kOGdPMtfp&quot;&gt;https://t.co/6kOGdPMtfp&lt;/a&gt;&lt;/p&gt;&amp;mdash; Stéphane Nicoll (@snicoll) &lt;a href=&quot;https://twitter.com/snicoll/status/928546114512588800?ref_src=twsrc%5Etfw&quot;&gt;November 9, 2017&lt;/a&gt;&lt;/blockquote&gt;
-&lt;script async=&quot;&quot; src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;The demo code is available on &lt;a href=&quot;https://github.com/snicoll-demos/smart-meter&quot; target=&quot;_blank&quot;&gt;GitHub&lt;/a&gt;.
-The presentation is available on Speaker Deck:
-&lt;script async=&quot;&quot; class=&quot;speakerdeck-embed&quot; data-id=&quot;8be69db43f1741e6b796add45273ee65&quot; data-ratio=&quot;1.77777777777778&quot; src=&quot;//speakerdeck.com/assets/embed.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;the-api-gateway-is-dead-long-live-the-api-gateway---spencer-gibb&quot;&gt;The API Gateway is dead! Long Live the API Gateway! - Spencer Gibb&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Spencer Gibb&quot; src=&quot;/img/javaday-ukraine-2017/spencer-gibb.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/spencerbgibb&quot; target=&quot;_blank&quot;&gt;Spencer Gibb&lt;/a&gt;, Spring Cloud co-founder and co-lead, started by talking about the responsibilities of an API gateway.
-He started by revisiting Netflix’s Zuul which is servlet based and thus has blocking APIs, and referred to Mikey Cohen’s presentation on &lt;a href=&quot;https://www.youtube.com/watch?v=mHHHpxJuTAo&quot; target=&quot;_blank&quot;&gt;Netflix’s Edge Gateway Using Zuul&lt;/a&gt; in which Zuul 2 is also mentioned.
-Zuul 2 was supposed to be integrated in Spring Cloud but as it still hadn’t been released, Pivotal went with their own solution: Spring Cloud Gateway.
-It is built upon Spring 5, Reactor and Spring Boot 2.
-In order to have the gateway be non-blocking, there is a single event loop similar to how it is in Node.js.&lt;/p&gt;
-
-&lt;p&gt;In another section, Spencer talked about the internals of Spring Cloud Gateway and the Spring Reactor features it uses.
-This involves the usage of classes such as &lt;code class=&quot;highlighter-rouge&quot;&gt;HandlerMapping&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;WebFilter&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Predicate&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;ServerWebExchange&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;PathPatternMatcher&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;RoutePredicateHandlerMapping&lt;/code&gt; and many more.
-As a filter to rewrite paths was commonly requested before, this was the first filter that they have written when implementing the Spring Cloud Gateway.
-Spencer also mentioned that they were also focusing on providing a simple API to write filters.
-Also neat to mention is that route configuration is now possible in YAML.&lt;/p&gt;
-
-&lt;p&gt;In the final part, Spencer demonstrated an implementation of a Gateway showcasing the different ways of how to use the API to define different &lt;code class=&quot;highlighter-rouge&quot;&gt;byhost&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rewrite&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;hystrix&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;limited&lt;/code&gt; routes.
-He started off by visiting the legendary &lt;a href=&quot;http://start.spring.io&quot; target=&quot;_blank&quot;&gt;Spring Initializr webpage&lt;/a&gt; and created a Spring Boot 2 application with the Gateway dependency.
-&lt;a href=&quot;https://httpbin.org&quot; target=&quot;_blank&quot;&gt;httpbin&lt;/a&gt; is something that he is a big fan of, as it is really useful for testing whether for example the correct rerouting is happening and the right headers are being added to the requests.&lt;/p&gt;
-
-&lt;p&gt;The presentation is available right &lt;a href=&quot;https://spencer.gibb.us/preso/pivotal-toronto-api-gateway-2017-02/#/&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;continuous-deployment-to-the-cloud-using-spinnaker---andreas-evers&quot;&gt;Continuous Deployment to the Cloud using Spinnaker - Andreas Evers&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Andreas Evers&quot; src=&quot;/img/javaday-ukraine-2017/andreas-evers.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/andreasevers&quot; target=&quot;_blank&quot;&gt;Andreas Evers&lt;/a&gt;, principal Java consultant and Solution Expert at Ordina Belgium, held a session on &lt;a href=&quot;https://www.spinnaker.io&quot; target=&quot;_blank&quot;&gt;Spinnaker&lt;/a&gt; for doing Continuous Deployment to the Cloud.
-Digital transformations usually require embracing a devops culture and adopting microservice architectures since without microservices, it is harder to go faster to the market.
-Moving your infrastructure to the cloud is possible via either IaaS or PaaS.&lt;/p&gt;
-
-&lt;p&gt;With microservices, your deployment frequency explodes as it is way more flexible.
-Netflix for example deploys over 4.000 times per day and that number is still increasing.
-Andreas explained that cloud deployments are complex and that it is important to be able to do easy rollbacks.
-There is also the fact that we want to plan our deploy at the right time frame, preferably when traffic is lowest to have the least amount of users impacted.&lt;/p&gt;
-
-&lt;p&gt;Andreas talked about a couple of other principles such as making sure that infrastructure is immutable, repeatable and predictable across the different environments through baking images or building containers by using for example Docker.
-Equally important are the deployment strategies like (rolling) blue/green (or red/black if that’s how you roll (pun intented). Looking at you, Netflix!).
-Using the blue/green deployment strategy you can deploy the new version right next to the old version. What happens next depends on how the strategy has been configured.
-Either the load balancer will reroute all traffic from the old version to the new version, or (if the rolling strategy has been configured) the traffic will gradually get rerouted to the new version. The last option is great for canary testing or smoke tests.
-A third principle is doing automatic deployments by defining a pipeline which is always possible by just scripting all of this yourself but this is usually rather brittle.&lt;/p&gt;
-
-&lt;p&gt;This is where Spinnaker comes in to help you out with all of that.
-The internal structure of Spinnaker consists of a couple of microservices written in Spring Boot.
-Spinnaker fulfills all the principles we have just summed up and more:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;It allows you to specify the pipelines together with all the different environments&lt;/li&gt;
-  &lt;li&gt;It allows you to plan your deployments&lt;/li&gt;
-  &lt;li&gt;You can configure and tune your deployment strategies&lt;/li&gt;
-  &lt;li&gt;It has support for &lt;a href=&quot;https://github.com/Netflix/chaosmonkey&quot; target=&quot;_blank&quot;&gt;Chaos Monkey&lt;/a&gt; which allows you to test your system on how resilient and recoverable it is as VMs get taken out&lt;/li&gt;
-  &lt;li&gt;It has canary analysis&lt;/li&gt;
-  &lt;li&gt;Configuring, installing, and updating Spinnaker is done via &lt;a href=&quot;https://github.com/spinnaker/halyard&quot; target=&quot;_blank&quot;&gt;Halyard&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Spinnaker is still heavily being worked on and there are a couple of nice features coming up:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Canary strategies&lt;/li&gt;
-  &lt;li&gt;Rolling blue/green strategies&lt;/li&gt;
-  &lt;li&gt;Declarative Continuous Deployment (config as code)&lt;/li&gt;
-  &lt;li&gt;Operation monitoring&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Finally Andreas did a demo of Spinnaker using a simple application based on Rick &amp;amp; Morty which is also available on &lt;a href=&quot;https://github.com/andreasevers/spinnaker-demo&quot; target=&quot;_blank&quot;&gt;GitHub&lt;/a&gt;.
-During the demo he demonstrated how you can set up pipelines, the deployment strategy, the traffic guard and canary testing in Spinnaker.
-People attending the talk were able to participate by going to the url to which the application was deployed in order to show how only a part of the traffic was routed to the new version.&lt;/p&gt;
-
-&lt;p&gt;The slides of Andreas’ talk are available on Speaker Deck:
-&lt;script async=&quot;&quot; class=&quot;speakerdeck-embed&quot; data-id=&quot;8b92a507c0af49399311db741a49166c&quot; data-ratio=&quot;1.77777777777778&quot; src=&quot;//speakerdeck.com/assets/embed.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;10-tips-to-become-an-awesome-technical-lead---bart-blommaerts&quot;&gt;10 tips to become an awesome Technical Lead - Bart Blommaerts&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Bart Blommaerts&quot; src=&quot;/img/javaday-ukraine-2017/bart-blommaerts.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/daggiebe&quot; target=&quot;_blank&quot;&gt;Bart Blommaerts&lt;/a&gt;, Application Architect at Ordina Belgium, presented a talk with tips on how to become a better and more awesome technical lead.
-Spoiler alert, there were actually 12 tips instead of 10!&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Advocate for change:&lt;/strong&gt;
-You should experience the same pain as your team.
-Try to work together more closely with the people in your team to see if there are any pain points or issues that your team members are experiencing.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Work through failure and success:&lt;/strong&gt;
-It is inevitable that some things will fail now and then.
-It is important to prepare for failure and to take responsibility.
-Don’t finger point!
-Failing is an opportunity to learn and should be embraced.
-Success on the other hand, should be celebrated as early and as often as possible, and not only after the end of a project.
-You should celebrate for example the successful delivery of a sprint or when a feature has been completed.
-Congratulate your team and individuals often as it is good for the moral.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Stay technical:&lt;/strong&gt;
-Reserve the right amount of time to code and review code.
-It is important to hold on to that technical vision and to see how your project’s code base evolves.
-At the same time it is important that you still grasp the technical aspect of your project as it will help you to make the right decisions for your project and your team.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Always available:&lt;/strong&gt;
-You should always be available and easily approachable for your team members.
-According to Bart, your time should be spent about 35% on technical design, 25% with the business, 15% on project management and 25% on code.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Be a mentor of your team:&lt;/strong&gt;
-As you have a key position in your team you should avoid being a strict ruler and decision maker, and try to make the best decisions for your team.
-Instead, try to be a mediator and a mentor for your team members.
-Effective delegation is important and try to hand out responsibilities to your team.
-Know when to give input, when to make decisions and when to step back.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Surround yourself with other technical leads:&lt;/strong&gt;
-Each person is different and everybody has a different way to approach things.
-There is a lot to be gained by making use of cross-pollination and learning from other technical leads about how they approach and deal with things.
-It is important to be open for other approaches and to widen your vision.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Think big, bias for action:&lt;/strong&gt;
-You should think big and differently.
-Try to focus on opportunities and to create a bold direction.
-Don’t be afraid to undertake action as actions are reversible.
-You don’t always need to do that time-consuming, extensive study before undertaking action as speed matters.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Interviewing potential new team members:&lt;/strong&gt;
-Be prepared for interviewing potential new team members and be sure to go through the resumes.
-The mindset of a potential team member is more important than their knowledge of the tooling.
-You want the person to be eager to learn and to fit in your team.
-As for actually taking the interview, don’t blatantly copy questions from StackOverflow and expect the interviewee to come up with the exact same solution.
-Instead, first comfort the interviewee, offer them different options during the interview and try to build upon the responses they are giving.
-Show interest in the person and be sure to offer them a bonus question.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Embrace cultural differences:&lt;/strong&gt;
-Everybody is different and diversity is invaluable.
-Have respect for everybody’s opinion and try to surround yourself with them as they offer you different points of view.
-Don’t forget that everybody in your team has the same shared end goal.
-If you are working with an offshore team, take the time difference into account.
-You can try to change your work hours to be more available to them.
-Focus on good communication and be sure to document the work and tasks well.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Estimating is hard:&lt;/strong&gt;
-Bart quoted Hofstadter’s Law: “It always takes longer than you expect, even when you take into account Hofstadter’s Law”.
-In order to make more educated guesses, doing a planning poker can be useful.
-Define a sequence, set a baseline and allow reasoning.
-Don’t be afraid of uncertainty as it is inevitable.
-Bart suggests using the following formula: &lt;code class=&quot;highlighter-rouge&quot;&gt;(O + 4*BG + P) / 6&lt;/code&gt; where &lt;code class=&quot;highlighter-rouge&quot;&gt;O&lt;/code&gt; is the optimistic estimate, &lt;code class=&quot;highlighter-rouge&quot;&gt;BG&lt;/code&gt; the best guess estimate and &lt;code class=&quot;highlighter-rouge&quot;&gt;P&lt;/code&gt; the pessimistic estimate.
-You should add 20% to the guess for properly testing, debugging, polishing, documenting and random wtf moments.
-Don’t forget, any estimate is better than no estimate, and make sure to share and review estimates.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Interfacing with the outside world:&lt;/strong&gt;
-Adapt the way and the language when you communicate with non-technical people.
-Try to be the go-to-guy/girl for the management, the customer and other stakeholders.
-And very important: don’t be afraid to say “no”!&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Facilitate (agile) team work:&lt;/strong&gt;
-Be agile, use a prioritised backlog.
-Plan your sprints, use burn down charts and do sprint retrospectives.
-Your team’s strength is not a function of the talent of individual members but rather of their collaboration, tenacity and mutual respect.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;In short, facilitate an awesome team.&lt;/p&gt;
-
-&lt;p&gt;The slides of Bart’s talk are available on SlideShare:&lt;/p&gt;
-&lt;iframe src=&quot;//www.slideshare.net/slideshow/embed_code/key/3YL49tucTjYZo6&quot; width=&quot;100%&quot; height=&quot;485&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot; style=&quot;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&quot; allowfullscreen=&quot;&quot;&gt; &lt;/iframe&gt;
-&lt;div style=&quot;margin-bottom:5px&quot;&gt; &lt;strong&gt; &lt;a href=&quot;//www.slideshare.net/BartBlommaerts/javaday-2017-10-tips-to-become-an-awesome-technical-lead-v4&quot; title=&quot;JavaDay 2017: 10 tips to become an awesome technical lead (v4)&quot; target=&quot;_blank&quot;&gt;JavaDay 2017: 10 tips to become an awesome technical lead (v4)&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href=&quot;//www.slideshare.net/BartBlommaerts&quot; target=&quot;_blank&quot;&gt;Bart Blommaerts&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;hands-on-introduction-to-cqrs-and-event-sourcing-with-axon-framework---steven-van-beelen&quot;&gt;Hands-on introduction to CQRS and Event Sourcing with Axon Framework - Steven Van Beelen&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Steven Van Beelen&quot; src=&quot;/img/javaday-ukraine-2017/steven-van-beelen.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/smcvbeelen&quot; target=&quot;_blank&quot;&gt;Steven Van Beelen&lt;/a&gt;, Software Engineer at AxonIQ, held a hands-on session on CQRS and Event Sourcing using the &lt;a href=&quot;http://www.axonframework.org&quot; target=&quot;_blank&quot;&gt;Axon Framework&lt;/a&gt; which helps developers to focus on application functionality rather than the non-functional requirements of an application.&lt;/p&gt;
-
-&lt;p&gt;The main advantage of event sourcing is that there is less info loss as you are storing all the different events, leading to the final state of records whereas in a classical example you only hold on to the final state of a record.
-By using event sourcing you also get a reliable audit log right out of the box.
-At the same time there is also a performance increase as events are processed in the background asynchronously, leading to faster response times.
-With event sourcing you mostly make use of a cache, as replaying events when looking up records can be time consuming.
-This is further compensated by making use of snapshots every 100 events for example.&lt;/p&gt;
-
-&lt;p&gt;Some of the cons are that events are readable forever and that it is a lot of work if you decide to rewrite the event model and that you also have to think of versioning your model.
-Sourcing the model from lots and lots of events takes time but this is also resolved by making use of snapshots.&lt;/p&gt;
-
-&lt;p&gt;The Axon Framework is open source (Apache 2 license) and supports concepts like DDD (Domain-Driven Design), CQRS (Command and Query Responsibility Segregation) and EDA (Event Driven Architecture).
-The framework helps you to focus on the business functionality as it takes care of the plumbing for you.&lt;/p&gt;
-
-&lt;p&gt;The majority of the time was spent with live coding.
-Steven created a Spring Boot app with Kotlin.
-Useful to mention is that Axon has support for Spring Boot AutoConfiguration by adding the &lt;code class=&quot;highlighter-rouge&quot;&gt;axon-spring-boot-starter&lt;/code&gt; dependency to your project.
-Axon will automatically configure the basic infrastructure components (Command and Event Bus) as well as any component required to run and store Aggregates and Sagas.
-Kotlin was chosen as it provides a concise way to write code, the data classes especially are very useful for writing commands and events as these are immutable POJOs.
-The application was about creating conferences and talks in order to demonstrate the framework.&lt;/p&gt;
-
-&lt;p&gt;For the command model, it came down to marking aggregate classes using the &lt;code class=&quot;highlighter-rouge&quot;&gt;@Aggregate&lt;/code&gt; annotation.
-In the aggregate classes, the identifier gets annotated with &lt;code class=&quot;highlighter-rouge&quot;&gt;AggregateIdentifier&lt;/code&gt;.
-Your command handler gets annotated with &lt;code class=&quot;highlighter-rouge&quot;&gt;@CommandHandler&lt;/code&gt;.
-This is the class where all the logic resides on how to handle all the different commands for the specified aggregate, usually resolving into events.
-Similar to the command handler, there is also an event sourcing handler annotated with &lt;code class=&quot;highlighter-rouge&quot;&gt;@EventSourcingHandler&lt;/code&gt; containing the logic for processing the created events of the specified aggregate.
-Furthermore you have a controller and a command gateway.
-As for the query model, there is an &lt;code class=&quot;highlighter-rouge&quot;&gt;@EventHandler&lt;/code&gt; that processes any events, updating your query models.&lt;/p&gt;
-
-&lt;p&gt;The demo application is available on &lt;a href=&quot;https://github.com/smcvb/javaday17&quot; target=&quot;_blank&quot;&gt;GitHub&lt;/a&gt;.
-For more information on the framework, be sure to consult the well-written &lt;a href=&quot;https://docs.axonframework.org&quot; target=&quot;_blank&quot;&gt;reference guide&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;spring-cloud-stream--a-new-rick-and-morty-adventure---dieter-hubau&quot;&gt;Spring Cloud Stream — a new Rick and Morty adventure - Dieter Hubau&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Dieter Hubau&quot; src=&quot;/img/javaday-ukraine-2017/dieter-hubau.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/dhubau&quot; target=&quot;_blank&quot;&gt;Dieter Hubau&lt;/a&gt;, principal Java consultant and competence lead Cloud &amp;amp; PaaS at Ordina Belgium, presented his cool Spring Cloud Stream application featuring Rick and Morty.
-Spring Cloud Stream allows you to create message driven microservices and is based upon Spring Integration and builds upon Spring Boot.&lt;/p&gt;
-
-&lt;p&gt;Briefly summarising the talk wouldn’t do it justice so instead we will link you to the blog post he has written on the topic available right &lt;a href=&quot;/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.
-The presentation is available right here:&lt;/p&gt;
-&lt;iframe width=&quot;100%&quot; height=&quot;420&quot; src=&quot;//slides.com/turbots/spring-cloud-stream-rick-morty/embed&quot; scrolling=&quot;no&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-
-&lt;p&gt;There is also a recorded video available on our &lt;a href=&quot;https://www.youtube.com/channel/UCsebfWdqV7LqNNDMDvCESIA&quot; target=&quot;_blank&quot;&gt;JWorks YouTube channel&lt;/a&gt;, be sure to check it out!&lt;/p&gt;
-
-&lt;div class=&quot;responsive-embed-youtube&quot;&gt;
-	&lt;iframe src=&quot;https://www.youtube.com/embed/Nl9OIuNRYwI?rel=0&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;8-steps-to-becoming-awesome-with-kubernetes---burr-sutter&quot;&gt;8 Steps To Becoming Awesome With Kubernetes - Burr Sutter&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Burr Sutter&quot; src=&quot;/img/javaday-ukraine-2017/burr-sutter.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/burrsutter&quot; target=&quot;_blank&quot;&gt;Butter Sutter&lt;/a&gt;, Director for Developer Experience at Red Hat, gave a cool presentation about Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;After a lengthy introduction to DevOps, the challenges of creating and running microservice architectures and Kubernetes, we could dive into some of the more technical features Kubernetes has to offer.&lt;/p&gt;
-
-&lt;p&gt;Burr introduced us to &lt;strong&gt;his eight step program to become awesome at Kubernetes&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;h2 id=&quot;step-1-installation&quot;&gt;Step 1: Installation&lt;/h2&gt;
-
-&lt;p&gt;Burr showed us the many ways you could setup a Kubernetes cluster, including &lt;a href=&quot;https://github.com/kubernetes/minikube/releases&quot; target=&quot;_blank&quot;&gt;Minikube&lt;/a&gt; or &lt;a href=&quot;https://github.com/minishift/minishift/releases&quot; target=&quot;_blank&quot;&gt;Minishift&lt;/a&gt;.
-There are plenty of guides on the web for deploying Kubernetes on any of the major infrastructure providers (AWS, Azure or Google Cloud), but there’s also the Kubernetes-as-a-service offerings from Google and Microsoft which can get you going very quickly.
-Running Openshift can be as easy as running &lt;code class=&quot;highlighter-rouge&quot;&gt;oc cluster up&lt;/code&gt; on your local workstation, which sets up &lt;a href=&quot;https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md&quot; target=&quot;_blank&quot;&gt;a local Openshift cluster for you using Docker&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;step-2-building-images&quot;&gt;Step 2: Building images&lt;/h2&gt;
-
-&lt;p&gt;There are several ways to build Docker images for Kubernetes or Openshift. We like the following ones:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The classical way would be to &lt;code class=&quot;highlighter-rouge&quot;&gt;docker build&lt;/code&gt; a Docker image, push it to your local Docker registry and run it on a Kubernetes cluster using &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl run ...&lt;/code&gt; or by creating a Kubernetes deployment using &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl create -f deployment.yml&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;For Java applications, the Fabric8 Maven plugin can be used to build, run and debug Docker images on a Kubernetes cluster&lt;/li&gt;
-  &lt;li&gt;You can use &lt;a href=&quot;https://docs.helm.sh/using_helm/#quickstart-guide&quot; target=&quot;_blank&quot;&gt;Helm Charts&lt;/a&gt; - think of Helm as yum/apt/brew for Kubernetes&lt;/li&gt;
-  &lt;li&gt;If you’re used to Docker Compose and you have a lot of those config files lying around, you can use &lt;a href=&quot;https://github.com/kubernetes/kompose&quot; target=&quot;_blank&quot;&gt;Kompose&lt;/a&gt; to convert them to Kubernetes config files&lt;/li&gt;
-  &lt;li&gt;Openshift provides a way to create an image straight from your source code called &lt;a href=&quot;https://github.com/openshift/source-to-image&quot; target=&quot;_blank&quot;&gt;Source to Image&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;step-3-kubectl-exec-or-oc-exec&quot;&gt;Step 3: &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl exec&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;oc exec&lt;/code&gt;&lt;/h2&gt;
-
-&lt;p&gt;If you want to find out what is going on inside of these black-box containers, you really should use the &lt;code class=&quot;highlighter-rouge&quot;&gt;exec&lt;/code&gt; command which allows you to SSH into them so you can snoop around and learn about the internals of your applications.
-It’s very handy to debug applications, to figure out issues you might be having and to identify bugs or problems in advance.&lt;/p&gt;
-
-&lt;h2 id=&quot;step-4-logs&quot;&gt;Step 4: Logs&lt;/h2&gt;
-
-&lt;p&gt;Looking at logs can make troubleshooting so much easier.
-Kubernetes allows the user to look at console logs for any pod in the cluster using &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl log &amp;lt;name-of-the-pod&amp;gt;&lt;/code&gt; but it gets quite tiresome rather quickly.
-Luckily for us, the community has come up with another handy tool called &lt;a href=&quot;https://github.com/johanhaleby/kubetail/&quot; target=&quot;_blank&quot;&gt;KubeTail&lt;/a&gt; which allows us to tail multiple pods at the same time, with colorized output.&lt;/p&gt;
-
-&lt;h2 id=&quot;step-5-service-discovery-and-load-balancing&quot;&gt;Step 5: Service Discovery and Load Balancing&lt;/h2&gt;
-
-&lt;p&gt;In Kubernetes, pods can be exposed as services, which are internal to the cluster but are really handy in inter-service communication.
-Inside of the cluster, services can address each other through DNS via their service names. A service called &lt;code class=&quot;highlighter-rouge&quot;&gt;producer&lt;/code&gt; running on port 8080 can be called with the following URL: &lt;code class=&quot;highlighter-rouge&quot;&gt;http://producer:8080&lt;/code&gt;.
-When creating a deployment containing a service inside of Kubernetes with two replicas, a ReplicaSet will be created for you, and all traffic to that deployed service will be load balanced automatically over those two replicas.
-For more specialized load balancing (for example when doing &lt;a href=&quot;https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#canary-deployments&quot; target=&quot;_blank&quot;&gt;Canary Deployments&lt;/a&gt;) you can make use of multiple deployments.&lt;/p&gt;
-
-&lt;h2 id=&quot;step-6-live-and-ready&quot;&gt;Step 6: Live and Ready&lt;/h2&gt;
-
-&lt;p&gt;This step is really helpful when just starting with Kubernetes, especially when you can’t figure out why your app keeps restarting over and over.
-Burr taught us about the existence of and differences between &lt;a href=&quot;https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/&quot; target=&quot;_blank&quot;&gt;the &lt;strong&gt;liveness&lt;/strong&gt; and &lt;strong&gt;readiness&lt;/strong&gt; probes in Kubernetes&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Many applications running for long periods of time eventually transition to broken states, and cannot recover except by being restarted. Kubernetes provides &lt;strong&gt;liveness probes&lt;/strong&gt; to detect and remedy such situations.&lt;/p&gt;
-
-&lt;p&gt;Sometimes, applications are temporarily unable to serve traffic.
-For example, an application might need to load large data or configuration files during startup.
-In such cases, you don’t want to kill the application, but you don’t want to send it requests either.
-Kubernetes provides &lt;strong&gt;readiness probes&lt;/strong&gt; to detect and mitigate these situations.
-&lt;em&gt;A pod with containers reporting that they are not ready does not receive traffic through Kubernetes Services.&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;step-7-rolling-updates-and-bluegreen-deployments&quot;&gt;Step 7: Rolling updates and Blue/Green deployments&lt;/h2&gt;
-
-&lt;p&gt;As mentioned above for Canary Deployments, Kubernetes offers the possibility to balance load over different versions of your application.
-This makes it a great tool to manage rolling updates of new versions of your application, as well as Blue/Green deployments.
-Although I like the possibilities of the framework, I prefer to use other tools for this like Spinnaker or a service mesh like &lt;a href=&quot;https://istio.io&quot; target=&quot;_blank&quot;&gt;Istio&lt;/a&gt;.
-These tools will use Kubernetes for us, so that we don’t have to worry about changing and updating configuration files all the time.&lt;/p&gt;
-
-&lt;h2 id=&quot;step-8-debugging&quot;&gt;Step 8: Debugging&lt;/h2&gt;
-
-&lt;p&gt;As we’ve said before, debugging in Kubernetes is completely viable and there are several possibilities here.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Using &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl exec&lt;/code&gt; to get inside of the container and live debug the application&lt;/li&gt;
-  &lt;li&gt;Using the &lt;a href=&quot;https://github.com/fabric8io/fabric8-maven-plugin&quot; target=&quot;_blank&quot;&gt;Fabric8 Maven plugin&lt;/a&gt; to debug the application&lt;/li&gt;
-  &lt;li&gt;Even Visual Studio Code now has the possibility to &lt;a href=&quot;https://code.visualstudio.com/blogs/2017/09/28/java-debug&quot; target=&quot;_blank&quot;&gt;live debug a running Java application&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/VeerMuchandi/openshift-local/blob/master/DebuggingUsingIDE.md&quot; target=&quot;_blank&quot;&gt;Red Hat JBoss Developer Studio&lt;/a&gt; can be used to debug Kubernetes or Openshift applications&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;As a bonus for his talk, Burr also explained one of the new service meshes out there called &lt;a href=&quot;https://istio.io/&quot; target=&quot;_blank&quot;&gt;Istio&lt;/a&gt;.
-It promises to deliver &lt;strong&gt;an open platform to connect, manage, and secure microservices&lt;/strong&gt;.
-Using a sidecar proxy inside each pod called &lt;strong&gt;Envoy&lt;/strong&gt; and some governing tools such as Istio Pilot and Mixer, it solves many of the problems that microservice architectures pose, such as secure inter-service communication, service discovery, circuit breaking, intelligent routing and load balancing, etc…
-This seems like a very promising technology inside of the Kubernetes and Openshift world and we will keep a close eye on it.&lt;/p&gt;
-
-&lt;p&gt;There was &lt;a href=&quot;https://www.youtube.com/watch?v=AGztKw580yQ&quot; target=&quot;_blank&quot;&gt;a talk from &lt;strong&gt;Ray Tsang&lt;/strong&gt; at Devoxx about Istio&lt;/a&gt; which was very interesting and entertaining, as always.&lt;/p&gt;
-
-&lt;p&gt;You can find Burr’s presentation right here on &lt;a href=&quot;https://docs.google.com/presentation/d/1ij64THksTygvifW5BD-n0ipc6MDF4cGBRQcV3BRYaoM/edit#slide=id.g12c8aac1e6_0_0&quot; target=&quot;_blank&quot;&gt;Google Docs&lt;/a&gt;.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yannick&quot;, &quot;last_name&quot;=&gt;&quot;De Turck&quot;, &quot;twitter&quot;=&gt;&quot;YannickDeTurck&quot;, &quot;linkedin&quot;=&gt;&quot;yannickdeturck&quot;, &quot;github&quot;=&gt;&quot;yannickdeturck&quot;, &quot;permalink&quot;=&gt;&quot;/author/yannick-de-turck/&quot;, &quot;avatar&quot;=&gt;&quot;yannick-de-turck.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Consultant&quot;, &quot;title2&quot;=&gt;&quot;Coach&quot;, &quot;email&quot;=&gt;&quot;Yannick.DeTurck@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yannick is a senior Java consultant and competence lead of the JVM languages competence center at Ordina Belgium. He's very much interested in everything Java and Spring related as well as reactive programming, Kotlin, Lightbend technologies, software architectures, and coaching and enabling other colleagues.&quot;}</name><email>Yannick.DeTurck@ordina.be</email></author><category term="Conference" /><category term="JavaDay" /><category term="Java" /><category term="Kotlin" /><category term="Spring" /><category term="CQRS" /><category term="Event Sourcing" /><category term="Microservices" /><category term="Reactive" /><category term="Spinnaker" /><category term="Reactor" /><category term="WebFlux" /><category term="Kubernetes" /><summary type="html">JavaDay Ukraine is an annual international two-day conference in Kyiv with more than 60 global speakers with various topics on Java, software architecture, machine learning, data science, and more. In this blog post we will go over some of the talks that we have attended.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/javaday-ukraine-2017/javaday-ukraine-2017.png" /></entry></feed>
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker stop bas&lt;/code&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bas&quot;, &quot;last_name&quot;=&gt;&quot;Moorkens&quot;, &quot;permalink&quot;=&gt;&quot;/author/bas-moorkens/&quot;, &quot;title&quot;=&gt;&quot;Senior Java Developer&quot;, &quot;title2&quot;=&gt;&quot;DevOps Engineer&quot;, &quot;email&quot;=&gt;&quot;bas.moorkens@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;basmoorkens&quot;, &quot;avatar&quot;=&gt;&quot;bas-moorkens.jpg&quot;, &quot;github&quot;=&gt;&quot;basmoorkens&quot;, &quot;bio&quot;=&gt;&quot;Bas is a Senior Java Developer at Ordina Belgium who discovered he is fascinated by cloud, containers and pipeline automation. He started off as a Java full stack developer but got more and more into the DevOps world where he currently spends most of his time.&quot;}</name><email>bas.moorkens@ordina.be</email></author><category term="Docker" /><category term="Docker" /><category term="Networking" /><category term="container" /><category term="DevOps" /><summary type="html">Containers are all the rage at the moment so I guess everybody knows how to build and run a container by now. But what use is one container by itself? In this post, I will show how you can create networks within Docker and what they are used for.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/docker-basic-networking/docker-basic-networking.png" /></entry></feed>

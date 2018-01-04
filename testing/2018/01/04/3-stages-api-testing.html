@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="3 Stages of API testing - Tim Vierbergen">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/3-stages-api-testing/overview.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="3 Stages of API testing - Tim Vierbergen"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/3-stages-api-testing/overview.png"/>
+
+    
+    <title>3 Stages of API testing - Tim Vierbergen &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>3 Stages of API testing</h2>
+                
+
+                
+                    Posted Jan 4, 2018
+
+
+    in <a href="/categories/testing/">Testing</a>
+
+
+
+    by
+    
+        <a href="/author/tim-vierbergen/">Tim Vierbergen</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/node-red/">Node-RED</a>, 
+    
+        <a href="/tags/angular/">angular</a>, 
+    
+        <a href="/tags/nestjs/">nestjs</a>, 
+    
+        <a href="/tags/jest/">jest</a>, 
+    
+        <a href="/tags/gocd/">GoCD</a>, 
+    
+        <a href="/tags/docker/">docker</a>, 
+    
+        <a href="/tags/ci/">ci</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>Continuous Integration with automated testing is more and more incorporated in the culture of software delivery companies.
+Running tests in different stages is a big part of it.
+In this post, we’ll have a look at our three stages of API testing we are promoting at Ordina.</p>
+</blockquote>
+
+<h1 id="table-of-contents">Table of contents</h1>
+<ol>
+  <li><a href="#setup">About the setup</a></li>
+  <li><a href="#unit">Stage 1: Unit testing</a></li>
+  <li><a href="#mock-end">Stage 2: Testing against a mock-end</a></li>
+  <li><a href="#full-end">Stage 3: Testing full environment</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ol>
+
+<h1 id="setup">Setup</h1>
+
+<p>The example we are going to use is part of a bigger microfrontend/microservice setup.
+The front-end part of this example is the actual header of this microfrontend setup. It’s the top bar, developed as a separate front-end application.
+This header provides the user with a search input field, where the user can search our database of competence centers.
+This part is written in Angular (5).
+The app gets dockerized after the unit tests (and build) are successfully completed.
+It is served by a simple Express server inside a Docker container.
+The back-end part provides the data of the competence centers.
+It’s nothing more than a simple REST API written in TypeScript using the Nest.js framework.
+The data provided by this service is a JSON file.
+Its content is parsed into memory and is exposed through this REST API.</p>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:575px;" alt="Easy client server setup" src="/img/3-stages-api-testing/setup.png" />
+</p>
+
+<p>The front-end (header) is providing the user with an input field.
+This field allows the user to perform a search on our back-end service.
+It also provides a <code class="highlighter-rouge">clear</code> button, so the user can remove the content from the input field and reset the local cache of search results.
+A second button is the <code class="highlighter-rouge">filter</code> button.
+When pressed, it will emit an event that can be listened to by other microfrontends.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">public</span> <span class="nx">filterCCs</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">isPlatformBrowser</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">platformId</span><span class="p">))</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">event</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="p">(</span><span class="s1">'filterCCs'</span><span class="p">,</span> <span class="p">{</span> <span class="na">detail</span><span class="p">:</span> <span class="p">{</span> <span class="na">needle</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">needle</span><span class="p">}</span> <span class="p">});</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">public</span> <span class="nx">filterStats</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">needle</span> <span class="o">===</span> <span class="s1">''</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_updateData</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">private</span> <span class="nx">_updateData</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">_ccService</span><span class="p">.</span><span class="nx">getStats</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">needle</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">response</span><span class="p">;</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kr">public</span> <span class="nx">resetSearch</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">needle</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>When resetting the content with the <code class="highlighter-rouge">clear</code> button, we’re not sending a request.
+When there’s nothing to search for, the result would be an empty array.
+So we’re just resetting our local data to an empty array.</p>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:925px;" alt="Easy client server setup" src="/img/3-stages-api-testing/header.png" />
+</p>
+
+<p>The back-end API is exposing three endpoints:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Get</span><span class="p">()</span>
+<span class="k">async</span> <span class="nx">getAllCCs</span><span class="p">(@</span><span class="nd">Response</span><span class="p">()</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">ccs</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">_ccsService</span><span class="p">.</span><span class="nx">getAllCCs</span><span class="p">();</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">OK</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span><span class="nx">ccs</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="s1">'/search'</span><span class="p">)</span>
+<span class="k">async</span> <span class="nx">searchCCs</span><span class="p">(@</span><span class="nd">Response</span><span class="p">()</span> <span class="nx">res</span><span class="p">,</span> <span class="p">@</span><span class="nd">Query</span><span class="p">(</span><span class="s1">'needle'</span><span class="p">)</span> <span class="nx">searchString</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">filtered</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_ccsService</span><span class="p">.</span><span class="nx">searchCCs</span><span class="p">(</span><span class="nx">searchString</span><span class="p">);</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">OK</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span><span class="nx">filtered</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="s1">'/:id'</span><span class="p">)</span>
+<span class="k">async</span> <span class="nx">getCC</span><span class="p">(@</span><span class="nd">Response</span><span class="p">()</span> <span class="nx">res</span><span class="p">,</span> <span class="p">@</span><span class="nd">Param</span><span class="p">(</span><span class="s1">'id'</span><span class="p">)</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">cc</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">_ccsService</span><span class="p">.</span><span class="nx">getCC</span><span class="p">(</span><span class="o">+</span><span class="nx">id</span><span class="p">);</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">OK</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span><span class="nx">cc</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The header will always trigger the endpoint at <code class="highlighter-rouge">search</code> with a needle.
+When the needle is undefined (or an empty string), the search endpoint will return an empty list.</p>
+
+<h1 id="stage-1-unit-testing-the-communication-layer-front-and-back-end">Stage 1: Unit testing the communication layer (front and back-end)</h1>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:575px;" alt="decoupled" src="/img/3-stages-api-testing/unit.png" />
+</p>
+
+<p>The first stage is unit testing each component. This step is almost always part of the component’s build. Let’s take a quick look at each component.</p>
+
+<h3 id="unit-testing-the-communication-part-of-the-ui">Unit testing the communication part of the UI</h3>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:325px;" alt="Easy client server setup" src="/img/3-stages-api-testing/unit-client.png" />
+</p>
+
+<p>For unit testing our front-end Angular 5 application, we are going to use the <code class="highlighter-rouge">import { MockBackend } from '@angular/http/testing';</code> from Angular itself to mock our back-end.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="nx">beforeEach</span><span class="p">(</span><span class="k">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">TestBed</span><span class="p">.</span><span class="nx">configureTestingModule</span><span class="p">({</span>
+        <span class="p">...</span>
+      <span class="na">providers</span><span class="p">:</span> <span class="p">[</span>
+        <span class="nx">CCService</span><span class="p">,</span> <span class="c1">// our service that is handling the communication</span>
+        <span class="p">{</span><span class="na">provide</span><span class="p">:</span> <span class="nx">XHRBackend</span><span class="p">,</span> <span class="na">useClass</span><span class="p">:</span> <span class="nx">MockBackend</span><span class="p">}</span> <span class="c1">// our mock</span>
+      <span class="p">]</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">compileComponents</span><span class="p">();</span>
+  <span class="p">}));</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="s1">'Should query ccs with an observable'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s1">'Should return data'</span><span class="p">,</span> <span class="nx">inject</span><span class="p">([</span><span class="nx">CCService</span><span class="p">,</span> <span class="nx">XHRBackend</span><span class="p">],</span> <span class="p">(</span><span class="nx">ccService</span><span class="p">,</span> <span class="nx">mockBackend</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">mockBackend</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">((</span><span class="nx">connection</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="na">ccs</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">CC</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
+          <span class="p">{</span>
+              <span class="p">...</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+              <span class="p">...</span>
+          <span class="p">}</span>
+        <span class="p">];</span>
+        <span class="nx">connection</span><span class="p">.</span><span class="nx">mockRespond</span><span class="p">(</span><span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="k">new</span> <span class="nx">ResponseOptions</span><span class="p">({</span>
+          <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">ccs</span><span class="p">)</span>
+        <span class="p">})));</span>
+      <span class="p">});</span>
+      <span class="nx">ccService</span><span class="p">.</span><span class="nx">getStats</span><span class="p">(</span><span class="s1">'tim'</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">((</span><span class="na">ccs</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">CC</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">ccs</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">ccs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">clEmail</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'tim.vierbergen@ordina.be'</span><span class="p">);</span>
+       <span class="p">});</span>
+      <span class="p">})</span>
+    <span class="p">)</span>
+  <span class="p">);</span>
+</code></pre></div></div>
+
+<p>The Angular framework handles the communication part.
+We want to mock the <code class="highlighter-rouge">$http</code> call and see how we are handling the result.
+The <code class="highlighter-rouge">mockBackend</code> is working inbetween our own code and the provided <code class="highlighter-rouge">$http</code> part.
+Every call is triggering the <code class="highlighter-rouge">mockBackend.connections</code>, so the subscribers are triggered.
+We are providing our own data and returning it as the response of the <code class="highlighter-rouge">$http</code> call.</p>
+
+<h3 id="unit-testing-the-communication-layer-of-the-service">Unit testing the communication layer of the service</h3>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:325px" alt="Easy client server setup" src="/img/3-stages-api-testing/unit-service.png" />
+</p>
+
+<p>For unit testing our back-end, we are using Jest.
+<a href="https://facebook.github.io/jest/" target="_blank">Jest</a> is a testing framework by Facebook.
+If you are interested in Jest, make sure to watch this blog, as a post around this topic is in the making.
+Just as with our front-end, we trust the framework to correctly handle the communication itself.</p>
+
+<p>Our unit tests will start at the controller level of our API.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="s1">'searchCCs'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s1">'should return a filtered array of competence centers'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kr">await</span> <span class="nx">ccsController</span><span class="p">.</span><span class="nx">searchCCs</span><span class="p">(</span><span class="nx">mockResponse</span><span class="p">,</span> <span class="s1">'tim'</span><span class="p">);</span>
+      <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">mockResponse</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">clEmail</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'tim.vierbergen@ordina.be'</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Where mockResponse is exactly that.
+A simple mock of the response object.</p>
+
+<h3 id="purpose-of-these-unit-tests">Purpose of these unit tests</h3>
+
+<p>The goal of these unit tests is to make sure that the functions inside the components are working as expected.
+This way the next stage of testing can only fail due to errors from outside this component.
+However, to make sure this is the case, the mock data should be as close to production data when it comes to data specific characteristics.
+This is more important for your front-end because you have less control over the data itself.
+Your back-end API is only responding to request params that are defined in the specs.
+So it’s easier to control them, or ignore unknowns.</p>
+
+<h1 id="stage-2-testing-against-a-mock-end">Stage 2: Testing against a mock-end</h1>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:575px" alt="Easy client server setup" src="/img/3-stages-api-testing/mock-end.png" />
+</p>
+
+<p>In our second stage we are going to use a mock service to test against.
+This means that we are going to mock ‘the other’ component by replacing it with an easy to use solution.
+Although we are mocking some parts, this can be seen as an end-to-end test for each component itself.
+We want to test our component by means of external services, just as it is supposed to work in a complete environment.</p>
+
+<h3 id="mocking-our-back-end-to-test-our-front-end">Mocking our back-end to test our front-end.</h3>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:575px" alt="Mocking the back-end" src="/img/3-stages-api-testing/front-end-mock.png" />
+</p>
+
+<p>For our front-end component (user interface), we are going to mock the back-end.
+Some front-ends are performing calls even without human interaction.
+However, in most cases, front-end communication is depending on human interaction.
+To end-to-end test this part, we are also in need of a framework to mock this user interaction.
+<a href="https://getgauge.io/" target="_blank">Gauge</a>, <a href="http://www.protractortest.org/" target="_blank">Protractor</a> and <a href="http://nightwatchjs.org/" target="_blank">Nightwatch.js</a> are some examples of these frameworks.
+Most of them depend on ‘Selenium WebDriver’.</p>
+
+<h4 id="node-red-for-back-end-mocking">Node-RED for back-end mocking</h4>
+
+<p>We are using Node-RED for our back-end mock because it’s so easy to setup and dockerize.</p>
+
+<blockquote>
+  <p><a href="https://nodered.org" target="_blank">Node-RED</a> is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways.</p>
+</blockquote>
+
+<p>Node-RED is much more than just a tool to mock a back-end or any other service.
+It comes with a great User Interface to define your flows and to deploy them on your server.</p>
+
+<p>For this example we will mock our three endpoints and return test data.
+This test data can come from different sources.
+Node-RED provides multiple ways of working with data.
+You can include a simple MongoDB in your setup and read (even write) data from it.
+Or you can just use functions where you hard code your data.
+To keep it simple, we will use the latter in our setup.</p>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:875px" alt="Mocking the back-end" src="/img/3-stages-api-testing/node-red-flow.png" />
+</p>
+
+<p>A simple mock for a http-call consists out of three parts:</p>
+
+<ol>
+  <li>The entry point definition itself (input)</li>
+  <li>The function that handles the data (can be static or database or …)</li>
+  <li>The response definition</li>
+</ol>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:425px;" alt="Data function config" src="/img/3-stages-api-testing/node-red-data.png" />
+</p>
+
+<h4 id="user-interface-automation">User interface automation</h4>
+
+<p>In this setup we are using Protractor for the e2e tests.
+The user input is limited to an input field to trigger the search REST-call and two buttons, one button for clearing the input and one for sending the search string to other microfrontend components.</p>
+
+<p>Some of the use cases, such as ‘clearing’ the input, are already covered in the unit tests.
+Depending on the effort you can always retest them in these e2e tests, but for this example, those are not important.
+We want to trigger the search REST call by sending the search string <code class="highlighter-rouge">tim</code> to the input field, and testing the outcome in the user interface.</p>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:925px;" alt="Data function config" src="/img/3-stages-api-testing/search-e2e.png" />
+</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s1">'Searching with Tim should show 2 results'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">page</span><span class="p">.</span><span class="nx">setSeachText</span><span class="p">(</span><span class="s1">'mySearchString'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s2">"Input field should contain 'tim'"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">getSearchText</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'tim'</span><span class="p">);</span>
+        <span class="p">});</span>
+        <span class="nx">describe</span><span class="p">(</span><span class="s2">"Result should show 2 entries"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    	    <span class="nx">it</span><span class="p">(</span><span class="s2">"will show the number 2"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">getResultNumber</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'2'</span><span class="p">);</span>
+            <span class="p">});</span>
+            <span class="nx">it</span><span class="p">(</span><span class="s2">"will show a dropdown with 2 results"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">getResultList</span><span class="p">().</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+<h4 id="conclusion-for-our-front-end">Conclusion for our front-end</h4>
+
+<p>This mock e2e test is depending on a mock back-end and a user input automation system.
+We are running these tests on our <a href="https://www.gocd.org/" target="_blank">GoCD</a> setup with dockerized elastic agents.
+To run these tests, we are in need of a go-agent that can run these e2e test with Protractor, but we also need an environment where we can serve this front-end and the mocked service.
+We are doing this with a go-agent that first spins up a docker-compose (for our front-end and mock-end), runs the protractor tests to this new environment and then brings down the environment when tests are finished.</p>
+
+<h3 id="mocking-our-front-end-to-test-our-back-end">Mocking our front-end to test our back-end.</h3>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:500px;" alt="Mocking the back-end" src="/img/3-stages-api-testing/back-end-mock.png" />
+</p>
+
+<p>For testing our back-end service, we only need one other service.
+This service will need to fire REST calls to our back-end service and analyse the response.
+We can use <a href="https://www.getpostman.com/" target="_blank">Postman</a> to set this up.</p>
+
+<blockquote>
+  <p>Postman is the complete toolchain for API developers, used by more than 3 million developers and 30000 companies worldwide.
+Postman makes working with APIs faster and easier by supporting developers at every stage of their workflow.
+It’s available for Mac OS X, Windows, Linux and Chrome users.</p>
+</blockquote>
+
+<p>You can use Postman for more than just API testing.
+In our setup, we need to create a testing scenario and just run it against our back-end service.
+Postman provides a user interface to do so.
+However, because we are running our tests on a cloud elastic go-agent, we need to find a way to automate this step.
+Luckily, Postman also provides a command-line tool called <a href="https://github.com/postmanlabs/newman" target="_blank">Newman</a>.
+Newman let’s you run your test scenarios from your command line.
+You can first configure everything through the user interface and then just export the scenario so you can use it through the CLI.</p>
+
+<blockquote>
+  <p>You can read more about Postman and Newman in our blogpost <a href="https://ordina-jworks.github.io/testing/2016/09/16/Automation-testing-with-postman.html" target="_blank">API Testing with Postman and Newman</a></p>
+</blockquote>
+
+<p>Below, you can find a part of the exported JSON configuration.
+This part will send a GET request to the search endpoint, providing the search string <code class="highlighter-rouge">tim</code>.
+It will then analyse the response and check if the resulting array contains 2 entries and verifies the data.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+    <span class="p">{</span>
+	<span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Search existing ccs"</span><span class="p">,</span>
+	<span class="s2">"event"</span><span class="p">:</span> <span class="p">[</span>
+		<span class="p">{</span>
+			<span class="s2">"listen"</span><span class="p">:</span> <span class="s2">"test"</span><span class="p">,</span>
+			<span class="s2">"script"</span><span class="p">:</span> <span class="p">{</span>
+				<span class="s2">"type"</span><span class="p">:</span> <span class="s2">"text/javascript"</span><span class="p">,</span>
+				<span class="s2">"exec"</span><span class="p">:</span> <span class="p">[</span>
+					<span class="s2">"var jsonData = JSON.parse(responseBody);"</span><span class="p">,</span>
+					<span class="s2">"var firstResult = jsonData[0];"</span><span class="p">,</span>
+					<span class="s2">""</span><span class="p">,</span>
+					<span class="s2">"tests[</span><span class="se">\"</span><span class="s2">Status code is 200</span><span class="se">\"</span><span class="s2">] = responseCode.code === 200;"</span><span class="p">,</span>
+					<span class="s2">"tests[</span><span class="se">\"</span><span class="s2">4 results returned</span><span class="se">\"</span><span class="s2">] = jsonData.length === 2;"</span><span class="p">,</span>
+					<span class="s2">"tests[</span><span class="se">\"</span><span class="s2">First result contains id </span><span class="se">\"</span><span class="s2">] ='id' in firstResult;"</span><span class="p">,</span>
+					<span class="s2">"tests[</span><span class="se">\"</span><span class="s2">Cl name contains tim vierbergen</span><span class="se">\"</span><span class="s2">] = firstResult.cl === </span><span class="se">\"</span><span class="s2">Tim Vierbergen</span><span class="se">\"</span><span class="s2">;"</span>
+				<span class="p">]</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">],</span>
+	<span class="s2">"request"</span><span class="p">:</span> <span class="p">{</span>
+		<span class="s2">"url"</span><span class="p">:</span> <span class="p">{</span>
+			<span class="s2">"raw"</span><span class="p">:</span> <span class="s2">":/ccs/search?needle=tim"</span><span class="p">,</span>
+			<span class="s2">"host"</span><span class="p">:</span> <span class="p">[</span>
+				<span class="s2">""</span>
+			<span class="p">],</span>
+			<span class="s2">"port"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+			<span class="s2">"path"</span><span class="p">:</span> <span class="p">[</span>
+				<span class="s2">"ccs"</span><span class="p">,</span>
+				<span class="s2">"search"</span>
+			<span class="p">],</span>
+			<span class="s2">"query"</span><span class="p">:</span> <span class="p">[</span>
+				<span class="p">{</span>
+					<span class="s2">"key"</span><span class="p">:</span> <span class="s2">"needle"</span><span class="p">,</span>
+					<span class="s2">"value"</span><span class="p">:</span> <span class="s2">"tim"</span><span class="p">,</span>
+					<span class="s2">"equals"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+					<span class="s2">"description"</span><span class="p">:</span> <span class="s2">""</span>
+				<span class="p">}</span>
+			<span class="p">],</span>
+			<span class="s2">"variable"</span><span class="p">:</span> <span class="p">[]</span>
+		<span class="p">},</span>
+		<span class="s2">"method"</span><span class="p">:</span> <span class="s2">"GET"</span><span class="p">,</span>
+		<span class="s2">"header"</span><span class="p">:</span> <span class="p">[</span>
+			<span class="p">{</span>
+				<span class="s2">"key"</span><span class="p">:</span> <span class="s2">"Content-Type"</span><span class="p">,</span>
+				<span class="s2">"value"</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">,</span>
+				<span class="s2">"description"</span><span class="p">:</span> <span class="s2">""</span>
+			<span class="p">}</span>
+		<span class="p">],</span>
+		<span class="s2">"body"</span><span class="p">:</span> <span class="p">{},</span>
+		<span class="s2">"description"</span><span class="p">:</span> <span class="s2">""</span>
+	<span class="p">},</span>
+	<span class="s2">"response"</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+<span class="p">...</span>        
+</code></pre></div></div>
+
+<p>In our continuous integration system, we are running these tests on a simple go-agent that can run these Newman tests.
+This agent spins up our service container, runs these tests and bring down that container.</p>
+
+<h4 id="conclusion-for-our-back-end">Conclusion for our back-end</h4>
+
+<p>Testing this back-end service with a mock front-end is pretty easy.
+Since our data is included in this service and it is limited to a simple JSON file, we are not running performance tests.
+However, when your back-end needs to communicate with a database and/or make calculations, you can and should already include some performance tests in this stage.
+You can, for example, include some <a href="https://gatling.io/" target="_blank">Gatling</a> tests in this stage and put some load on this service to check response times.</p>
+
+<p>The goal of this stage is to test the whole component, including the frameworks we are using for the communication.
+It is still a decoupled system.
+Failures in this stage will show you that some integrations are failing and you know exactly where to look for the errors.</p>
+
+<h1 id="stage-3-testing-full-environment">Stage 3: Testing full environment</h1>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:575px;" alt="No more mocking" src="/img/3-stages-api-testing/full-env.png" />
+</p>
+
+<p>We now want to end-to-end test the whole system.
+We can use docker-compose to spin up this environment and then again run tests against the user interface.
+It will communicate with the real back-end to query its data and show the results in the user interface.
+Again, we want to run those tests on an elastic go-agent, so we are in need of an automated system.
+Right, we already used this in the previous stage where we were testing the user interface against a mocked back-end.</p>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:575px;" alt="No more mocking" src="/img/3-stages-api-testing/full-env-ui.png" />
+</p>
+
+<p>This elastic go-agent must be able to run the Protractor tests (obviously). It will first need to spin up this environment, run the tests and tear down the environment. Same goes for performance tests in this stage.
+You can use some frameworks to put extra load on your front-end to see how it’s behaving when it needs to handle more REST-calls for different parts.
+Or you can run more instances of the user interface, resulting in more load on the back-end service.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Decoupling your system and running tests in different stages will make it easier to debug when something is going wrong.
+Finding errors earlier will also save you some time and resources.
+Being able to find bugs before taking it to the next stage and spinning up complete environments will reduce the cost of your system (cloud).</p>
+
+<p>Yes, writing tests can be more expensive in time and resources in the short run, but it will save you a lot more time and resources in the long run.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html&title=3 Stages of API testing&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=3 Stages of API testing&url=https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/tim-vierbergen/" class="image spotlight-image">
+            <img src="/img/author/tim-vierbergen.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Tim is a senior developer and architect at Jworks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.<br /><br />Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learing how to snowboard.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/3-stages-api-testing/overview.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html";
+        this.page.identifier = "/testing/2018/01/04/3-stages-api-testing.html";
+        this.page.title = "3 Stages of API testing";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
