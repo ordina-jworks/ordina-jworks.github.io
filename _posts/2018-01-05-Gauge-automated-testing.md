@@ -2,7 +2,7 @@
 layout: post
 authors: [martijn_willekens]
 title: "Automated testing with Gauge"
-image: /img/2018-01-03-gauge-automated-testing/gauge.png
+image: /img/2018-01-05-gauge-automated-testing/gauge.png
 tags: [Gauge,E2E,End to end,Testing,Test automation,Automation]
 category: Testing
 comments: true
@@ -16,7 +16,7 @@ So, you'll probably end up not doing it thorough enough or even not at all, assu
 That's exactly why you should have automated tests do it for you!
 
 [Gauge](https://getgauge.io/){:target="_blank"} is yet another test automation tool that serves that purpose.
-The founder is ThoughtWorks, the company that also created  <a href="http://www.seleniumhq.org/" target="_blank">Selenium</a> and <a href="https://www.gocd.org/" target="_blank">GoCD</a>.
+The founder is <a href="https://www.thoughtworks.com/" target="_blank">ThoughtWorks</a>, the company that also created  <a href="http://www.seleniumhq.org/" target="_blank">Selenium</a> and <a href="https://www.gocd.org/" target="_blank">GoCD</a>.
 It's still in beta at the moment of writing, but it already works terrific!
 Gauge is comparable with Protractor or JUnit extended with Cucumber (if you haven't heard of these, they are worth checking out).
 In this blog we'll be mainly talking about automating browser testing using Selenium WebDriver, although that isn't the sole purpose of Gauge.
@@ -26,7 +26,7 @@ Now, unlike Cucumber, Gauge itself only supports three languages at the moment: 
 Others may be supported by the community like JavaScript.
 You can define steps written in either one of those languages.
 These are the actual tests and can be identified by a sentence you can choose yourself.
-By combining these sentences, you can write test scenarios which are written in MarkDown.
+By combining these sentences, you can write test scenarios which are written in Markdown.
 That means you don't need any programming experience to write test scenarios.
 You could create some sort of dictionary with the step sentences that others can use for the scenarios or the other way around.
 In other words, anyone is able to read and write test scenarios.
@@ -54,7 +54,7 @@ If not, you'll find enough on Google on how to install those.
 To start a new project, create a new folder and run `gauge init java` in it.
 This will setup a basic Gauge project.
 Then we need to add a [pom.xml](https://github.com/getgauge-examples/java-maven-selenium/blob/master/pom.xml){:target="_blank"} file ourselves, because we need some dependencies such as Selenium WebDriver.
-Next, WebDriver needs to be setup in our test code.
+Next, WebDriver needs to be set up in our test code.
 A good example of how you could do that can be found [here](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils){:target="_blank"}.
 They created a `DriverFactory` so you can easily switch between browsers using environment variables (we'll get to that).
 Gauge hooks are used to start and stop WebDriver when running the test suite.
@@ -73,17 +73,17 @@ If you'd like to combine multiple steps into once sentence, you can do so by cre
 
 A typical folder structure for a Gauge setup using WebDriver and Java is as follows:
 <p>
-    <img class="image fit" style="max-width:194px" alt="Gauge Maven project structure" src="/img/2018-01-03-gauge-automated-testing/files.jpg" />
+    <img class="image fit" style="max-width:194px" alt="Gauge Maven project structure" src="/img/2018-01-05-gauge-automated-testing/files.jpg" />
 </p>
 
 ### Writing the specs
-The specs are written in MarkDown.
+The specs are written in Markdown.
 Each spec file starts with a title and is underlined with `===`.
 Next, some steps can be defined that will be run before each scenario.
-When listing steps, you need to prefix each step with an asterix (*) as in a MarkDown list.
+When listing steps, you need to prefix each step with an asterix (*) as in a Markdown list.
 After that, the actual scenarios can be written.
 They start with a title and are underlined with `---`.
-Again, the steps for a scenario should be listed as in a MarkDown list.
+Again, the steps for a scenario should be listed as in a Markdown list.
 You can also add some tags which can be used to only run certain specs and to search in the HTML reports.
 Here's an example specification:
 
@@ -194,7 +194,7 @@ It's a good way to avoid too much code duplication.
 ### Concepts
 If you find yourself repeating the same sequence of steps over and over,
 you could combine those steps into one step using concepts.
-These are also written in MarkDown and you can pass arguments the same way as in the Java `@Step` annotations.
+These are also written in Markdown and you can pass arguments the same way as in the Java `@Step` annotations.
 They should be placed in the `/specs/concepts` folder and use the *.cpt extension.
 
 ```markdown
@@ -224,7 +224,7 @@ Although there's one thing that really does stand out and that's how easy it is 
 
 `mvn gauge:execute -DspecsDir=specs -DinParallel=true`
 
-Running this command will look how many CPU cores your computer has and start up that many streams.
+Running this command will start up a stream for each CPU core your computer has.
 For each stream it will open a browser window and execute the specs.
 So if you have four CPU cores, four browser windows will be opened.
 You can overwrite the number of parallel executors, but it's recommended not to exceed the number of CPU cores.
@@ -232,12 +232,12 @@ You can overwrite the number of parallel executors, but it's recommended not to 
 `mvn gauge:execute -DspecsDir=specs -DinParallel=true -Dnodes=2`
 
 Now, some specs may take longer to run than others.
-By default specs are divided dynamically over the streams.
+By default, specs are divided dynamically over the streams.
 So when a spec has finished, it will take the next one from the list of specs that still need to be executed.
 It's possible to change this so the specs are divided on startup, but the command is deprecated and will be removed.
 
 ### Making tests independent
-To make use of this parallel execution, you'll have to make sure your tests don't rely on each other.
+To make use of this parallel execution, you'll have to make sure that your tests don't rely on each other.
 I think it's pretty clear why you shouldn't do that.
 Anyway, suppose you test the sign up and sign in.
 If your sign in relies on the user being signed up through a previous test, these tests should be run synchronously.
@@ -250,9 +250,14 @@ You should have three files in that folder: `default.properties`, `java.properti
 In the [example by Gauge](https://github.com/getgauge-examples/java-maven-selenium){:target="_blank"}, they have an `APP_URL` parameter in that last file.
 I recommend using that approach as well, you can get parameters in your Java code using `System.getenv("APP_URL")`.
 
-It's possible to create different environments by simply creating a new folder and add the configuration files that you want to change there.
-If you need a different configuration for you CI-tool, you can create a folder named `ci`.
-When running the specs, you can pass an argument stating the environment.
+It's possible to create different environments by simply creating a new folder.
+There you can add `*.properties` files containing additional properties or properties overwriting the ones in the default folder.
+So, that means you don't need to copy the whole configuration. 
+Gauge will always load all the default properties. 
+Then it will load those defined for the environment you wish to use. 
+If a property is defined for an environment and it already exists in the default configuration, it will use the one defined for that environment instead.
+Now, suppose you want a different configuration for your CI-tool, you can create a folder named `ci`.
+When running the specs, simply pass an argument stating the environment.
 
 `mvn gauge:execute -Denv="ci"`
 
@@ -260,7 +265,7 @@ Environments can also be used to run gauge with another browser like in the [exa
 Create a folder named `firefox` for example and add a file called `browser.properties`.
 In that file you add `browser = FIREFOX`.
 When you then run the tests with the `firefox` environment, it will use FireFox as a browser instead.
-(This only works if you have your project setup like in the example, the [Driver](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver){:target="_blank"} and [DriverFactory](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver){:target="_blank"} files are required here.)
+(This only works if you have your project set up like in the example, the [Driver](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver){:target="_blank"} and [DriverFactory](https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver){:target="_blank"} files are required here.)
 
 # Reports
 To get a HTML report, the plugin has to be installed first: `gauge install html-report`.
@@ -271,7 +276,7 @@ In the report you'll even find how long it took to run a test and each of its st
 There's also a search functionality to quickly find a certain spec.
 
 <p>
-    <img class="image fit" alt="Gauge HTML report" src="/img/2018-01-03-gauge-automated-testing/gauge-report.jpg" />
+    <img class="image fit" alt="Gauge HTML report" src="/img/2018-01-05-gauge-automated-testing/gauge-report.jpg" />
 </p>
 
 # Conclusion
