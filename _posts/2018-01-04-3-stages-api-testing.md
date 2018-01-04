@@ -15,9 +15,9 @@ In this post, we'll have a look at our three stages of API testing we are promot
 
 # Table of contents
 1. [About the setup](#setup)
-2. [Stage 1: Unit testing](#unit)
-3. [Stage 2: Testing against a mock-end](#mock-end)
-4. [Stage 3: Testing full environment](#full-end)
+2. [Stage 1: Unit testing](#stage-1-unit-testing-the-communication-layer-front-and-back-end)
+3. [Stage 2: Testing against a mock-end](#stage-2-testing-against-a-mock-end)
+4. [Stage 3: Testing full environment](#stage-3-testing-full-environment)
 6. [Conclusion](#conclusion)
 
 # Setup
