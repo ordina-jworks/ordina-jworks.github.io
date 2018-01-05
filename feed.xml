@@ -1,5 +1,282 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-01-04T14:26:41+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">3 Stages of API testing</title><link href="https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html" rel="alternate" type="text/html" title="3 Stages of API testing" /><published>2018-01-04T00:00:00+00:00</published><updated>2018-01-04T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-01-05T07:24:20+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Automated testing with Gauge</title><link href="https://ordina-jworks.github.io/testing/2018/01/05/Gauge-automated-testing.html" rel="alternate" type="text/html" title="Automated testing with Gauge" /><published>2018-01-05T00:00:00+00:00</published><updated>2018-01-05T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/01/05/Gauge-automated-testing</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/01/05/Gauge-automated-testing.html">&lt;p&gt;After finishing a new feature in your web app, you test whether it works.
+However, while working on that new feature, you may have broken something else.
+If you want to know for sure, you have to test everything.
+Clicking around, filling in forms, … will cost you some valuable time.
+So, you’ll probably end up not doing it thorough enough or even not at all, assuming everything else still works fine.
+That’s exactly why you should have automated tests do it for you!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://getgauge.io/&quot; target=&quot;_blank&quot;&gt;Gauge&lt;/a&gt; is yet another test automation tool that serves that purpose.
+The founder is &lt;a href=&quot;https://www.thoughtworks.com/&quot; target=&quot;_blank&quot;&gt;ThoughtWorks&lt;/a&gt;, the company that also created  &lt;a href=&quot;http://www.seleniumhq.org/&quot; target=&quot;_blank&quot;&gt;Selenium&lt;/a&gt; and &lt;a href=&quot;https://www.gocd.org/&quot; target=&quot;_blank&quot;&gt;GoCD&lt;/a&gt;.
+It’s still in beta at the moment of writing, but it already works terrific!
+Gauge is comparable with Protractor or JUnit extended with Cucumber (if you haven’t heard of these, they are worth checking out).
+In this blog we’ll be mainly talking about automating browser testing using Selenium WebDriver, although that isn’t the sole purpose of Gauge.
+If you don’t know WebDriver, it’s what allows you to interact with the browser to traverse the DOM, click on elements and so on.&lt;/p&gt;
+
+&lt;p&gt;Now, unlike Cucumber, Gauge itself only supports three languages at the moment: Java, Ruby and C#.
+Others may be supported by the community like JavaScript.
+You can define steps written in either one of those languages.
+These are the actual tests and can be identified by a sentence you can choose yourself.
+By combining these sentences, you can write test scenarios which are written in Markdown.
+That means you don’t need any programming experience to write test scenarios.
+You could create some sort of dictionary with the step sentences that others can use for the scenarios or the other way around.
+In other words, anyone is able to read and write test scenarios.
+The actual implementation of the steps does require some technical knowledge.&lt;/p&gt;
+
+&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#setup&quot;&gt;Setup&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#writing-tests&quot;&gt;Writing tests&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#running-the-specs&quot;&gt;Running the specs&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#environments-and-configuration&quot;&gt;Environments and configuration&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#reports&quot;&gt;Reports&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;setup&quot;&gt;Setup&lt;/h1&gt;
+&lt;p&gt;Gauge offers an installer which can be downloaded &lt;a href=&quot;https://getgauge.io/get-started.html&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.
+During the install, you can select which core plugins to install.
+In this blog the tests are written in Java, so we would need the Java core plugin.
+After the install, you’ll be able to run &lt;code class=&quot;highlighter-rouge&quot;&gt;gauge&lt;/code&gt; from the command line.
+It can, for example, be used to install more plugins (as well as core plugins &lt;code class=&quot;highlighter-rouge&quot;&gt;gauge install java&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Next, in order to use WebDriver in our tests, we’ll need the Java SDK and Maven.
+When you’re a Java developer, you probably already have those installed.
+If not, you’ll find enough on Google on how to install those.&lt;/p&gt;
+
+&lt;p&gt;To start a new project, create a new folder and run &lt;code class=&quot;highlighter-rouge&quot;&gt;gauge init java&lt;/code&gt; in it.
+This will setup a basic Gauge project.
+Then we need to add a &lt;a href=&quot;https://github.com/getgauge-examples/java-maven-selenium/blob/master/pom.xml&quot; target=&quot;_blank&quot;&gt;pom.xml&lt;/a&gt; file ourselves, because we need some dependencies such as Selenium WebDriver.
+Next, WebDriver needs to be set up in our test code.
+A good example of how you could do that can be found &lt;a href=&quot;https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.
+They created a &lt;code class=&quot;highlighter-rouge&quot;&gt;DriverFactory&lt;/code&gt; so you can easily switch between browsers using environment variables (we’ll get to that).
+Gauge hooks are used to start and stop WebDriver when running the test suite.
+Just copy those pieces of code into your own project.
+Or, you could start from the &lt;em&gt;Maven + Selenium&lt;/em&gt; example provided by Gauge which can be found on &lt;a href=&quot;https://github.com/getgauge-examples/java-maven-selenium&quot; target=&quot;_blank&quot;&gt;GitHub&lt;/a&gt;.
+That way you’d have some examples to start from.&lt;/p&gt;
+
+&lt;p&gt;Now we can start writing tests.&lt;/p&gt;
+
+&lt;h1 id=&quot;writing-tests&quot;&gt;Writing tests&lt;/h1&gt;
+&lt;p&gt;On the lowest level we have our Java functions that control the browser using WebDriver commands.
+To these functions we can assign a &lt;code class=&quot;highlighter-rouge&quot;&gt;@Step&lt;/code&gt; annotation to be able to identify it.
+It’s usually a sentence describing the action being performed.
+The sentences can then be used to write the scenarios of our tests (or specs).
+If you’d like to combine multiple steps into once sentence, you can do so by creating so called “concepts”.&lt;/p&gt;
+
+&lt;p&gt;A typical folder structure for a Gauge setup using WebDriver and Java is as follows:&lt;/p&gt;
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:194px&quot; alt=&quot;Gauge Maven project structure&quot; src=&quot;/img/2018-01-05-gauge-automated-testing/files.jpg&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&quot;writing-the-specs&quot;&gt;Writing the specs&lt;/h3&gt;
+&lt;p&gt;The specs are written in Markdown.
+Each spec file starts with a title and is underlined with &lt;code class=&quot;highlighter-rouge&quot;&gt;===&lt;/code&gt;.
+Next, some steps can be defined that will be run before each scenario.
+When listing steps, you need to prefix each step with an asterix (*) as in a Markdown list.
+After that, the actual scenarios can be written.
+They start with a title and are underlined with &lt;code class=&quot;highlighter-rouge&quot;&gt;---&lt;/code&gt;.
+Again, the steps for a scenario should be listed as in a Markdown list.
+You can also add some tags which can be used to only run certain specs and to search in the HTML reports.
+Here’s an example specification:&lt;/p&gt;
+
+&lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gu&quot;&gt;Customer sign-up
+================
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;
+*&lt;/span&gt; Go to sign up page
+
+&lt;span class=&quot;gh&quot;&gt;Customer sign-up
+----------------
+&lt;/span&gt;tags: sign-up, customer
+&lt;span class=&quot;p&quot;&gt;
+*&lt;/span&gt; Sign up a new customer with name &quot;JWorks&quot; email &quot;jworks@ordina.be&quot; and &quot;password&quot;
+&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; Check if the sign up was successful
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;writing-the-steps&quot;&gt;Writing the steps&lt;/h3&gt;
+&lt;p&gt;The sentences we wrote in the specs still need to be linked to Java functions.
+We can do so by simply adding a &lt;code class=&quot;highlighter-rouge&quot;&gt;@Step&lt;/code&gt; annotation to a Java function.
+It doesn’t matter in which class you put the functions, you’re free to choose how to organize them.
+As long as they are under the &lt;code class=&quot;highlighter-rouge&quot;&gt;src/test/java&lt;/code&gt; folder.
+You could, for example, group them per page or feature.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CustomerSignup&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Step&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Sign up as &amp;lt;customer&amp;gt; with email &amp;lt;customer@example.com&amp;gt; and &amp;lt;password&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;registerCustomerWith&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;WebDriver&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;webDriver&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Driver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;webDriver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;webDriver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;linkText&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Sign up&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;WebElement&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;webDriver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;new_user&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;user[username]&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendKeys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;user[email]&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendKeys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;user[password]&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendKeys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;user[password_confirmation]&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendKeys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;commit&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Step&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Check if the sign up was successful&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;checkSignUpSuccessful&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;WebDriver&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;webDriver&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Driver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;webDriver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;WebElement&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;webDriver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElements&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;className&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;message&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getText&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;You have been signed up successfully!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As shown in the example above, you can easily pass parameters to steps.
+You simply have to wrap the keywords in &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&amp;gt;&lt;/code&gt; in the &lt;code class=&quot;highlighter-rouge&quot;&gt;@Step&lt;/code&gt; annotation
+and list the same keywords as parameters in the actual Java function.
+Obviously, you can then use them in your Java code.&lt;/p&gt;
+
+&lt;h3 id=&quot;page-object-pattern&quot;&gt;Page object pattern&lt;/h3&gt;
+&lt;p&gt;A clean way to organize all your code would be to use the page object pattern.
+This means that for every page in you web app, you should create a class.
+Such a class contains all code to interact with that specific page.&lt;/p&gt;
+
+&lt;p&gt;The example we saw earlier, could be transformed into this:&lt;/p&gt;
+
+&lt;p&gt;Page object:&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SignUpPage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WebElement&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;usernameField&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WebElement&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emailField&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WebElement&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;passwordField&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WebElement&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;passwordConfirmField&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WebElement&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;commitButton&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;SignUpPage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;WebDriver&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;webDriver&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Driver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;webDriver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;webDriver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;linkText&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Sign up&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;WebElement&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;webDriver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;new_user&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;usernameField&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;user[username]&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;emailField&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;user[email]&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;passwordField&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;user[password]&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;passwordConfirmField&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;user[password_confirmation]&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;commitButton&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findElement&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;commit&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Step definition:&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CustomerSignup&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SignUpPage&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;signUpPage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SignUpPage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Step&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Sign up as &amp;lt;customer&amp;gt; with email &amp;lt;customer@example.com&amp;gt; and &amp;lt;password&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;registerCustomerWith&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;signUpPage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;usernameField&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendKeys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;signUpPage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;emailField&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendKeys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;signUpPage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;passwordField&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendKeys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;signUpPage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;passwordConfirmField&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendKeys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;signUpPage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;commitButton&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The great benefit of this approach is that you can reuse a lot of the code.
+You only have to locate the elements once instead of in every step.
+Functions can be added to the page objects as well.
+Suppose you have a dropdown, you first have to click to open it and then select an option from the list.
+You can write a function doing all that.
+In your step definition, you then simply have to call that function to select something from a dropdown.
+It’s a good way to avoid too much code duplication.&lt;/p&gt;
+
+&lt;h3 id=&quot;concepts&quot;&gt;Concepts&lt;/h3&gt;
+&lt;p&gt;If you find yourself repeating the same sequence of steps over and over,
+you could combine those steps into one step using concepts.
+These are also written in Markdown and you can pass arguments the same way as in the Java &lt;code class=&quot;highlighter-rouge&quot;&gt;@Step&lt;/code&gt; annotations.
+They should be placed in the &lt;code class=&quot;highlighter-rouge&quot;&gt;/specs/concepts&lt;/code&gt; folder and use the *.cpt extension.&lt;/p&gt;
+
+&lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gh&quot;&gt;# Sign up a new customer with name &amp;lt;name&amp;gt; email &amp;lt;email&amp;gt; and &amp;lt;password&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; Sign up as &lt;span class=&quot;nt&quot;&gt;&amp;lt;name&amp;gt;&lt;/span&gt; with email &lt;span class=&quot;nt&quot;&gt;&amp;lt;email&amp;gt;&lt;/span&gt; and &lt;span class=&quot;nt&quot;&gt;&amp;lt;password&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; Show a message &quot;Thank you for signing up! You are now logged in.&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Cucumber only offers this feature in some implementations, they don’t in Cucumber.js for example.
+They refuse to implement it because they believe this creates too much abstraction and makes you lose sight of the overall picture.
+Gauge does offer it, so it’s up to you whether you want to make use of it or not.&lt;/p&gt;
+
+&lt;h1 id=&quot;running-the-specs&quot;&gt;Running the specs&lt;/h1&gt;
+&lt;p&gt;Since the project is setup with Maven, the tests can be run with &lt;code class=&quot;highlighter-rouge&quot;&gt;mvn test&lt;/code&gt;.
+However, if you want to pass any arguments, you’ll need to use &lt;code class=&quot;highlighter-rouge&quot;&gt;mvn gauge:execute&lt;/code&gt; instead.&lt;/p&gt;
+
+&lt;h3 id=&quot;tags&quot;&gt;Tags&lt;/h3&gt;
+
+&lt;p&gt;You may have noticed in the spec files that tags can be added.
+They can be used to run only certain specs.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mvn gauge:execute -DspecsDir=specs -Dtags=&quot;sign-up &amp;amp; customer&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;parallel&quot;&gt;Parallel&lt;/h3&gt;
+&lt;p&gt;So far, Gauge didn’t stand out from other automated testing solutions.
+Although there’s one thing that really does stand out and that’s how easy it is to use parallel execution!&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mvn gauge:execute -DspecsDir=specs -DinParallel=true&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Running this command will start up a stream for each CPU core your computer has.
+For each stream it will open a browser window and execute the specs.
+So if you have four CPU cores, four browser windows will be opened.
+You can overwrite the number of parallel executors, but it’s recommended not to exceed the number of CPU cores.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mvn gauge:execute -DspecsDir=specs -DinParallel=true -Dnodes=2&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, some specs may take longer to run than others.
+By default, specs are divided dynamically over the streams.
+So when a spec has finished, it will take the next one from the list of specs that still need to be executed.
+It’s possible to change this so the specs are divided on startup, but the command is deprecated and will be removed.&lt;/p&gt;
+
+&lt;h3 id=&quot;making-tests-independent&quot;&gt;Making tests independent&lt;/h3&gt;
+&lt;p&gt;To make use of this parallel execution, you’ll have to make sure that your tests don’t rely on each other.
+I think it’s pretty clear why you shouldn’t do that.
+Anyway, suppose you test the sign up and sign in.
+If your sign in relies on the user being signed up through a previous test, these tests should be run synchronously.
+However, if you would want to test whether a user can sign in after having signed up, you should do so in one test.
+That immediately solves our problem and we are safe to use the parallel execution!&lt;/p&gt;
+
+&lt;h1 id=&quot;environments-and-configuration&quot;&gt;Environments and configuration&lt;/h1&gt;
+&lt;p&gt;The config files are located under &lt;code class=&quot;highlighter-rouge&quot;&gt;env/default&lt;/code&gt;.
+You should have three files in that folder: &lt;code class=&quot;highlighter-rouge&quot;&gt;default.properties&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;java.properties&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;user.properties&lt;/code&gt;.
+In the &lt;a href=&quot;https://github.com/getgauge-examples/java-maven-selenium&quot; target=&quot;_blank&quot;&gt;example by Gauge&lt;/a&gt;, they have an &lt;code class=&quot;highlighter-rouge&quot;&gt;APP_URL&lt;/code&gt; parameter in that last file.
+I recommend using that approach as well, you can get parameters in your Java code using &lt;code class=&quot;highlighter-rouge&quot;&gt;System.getenv(&quot;APP_URL&quot;)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;It’s possible to create different environments by simply creating a new folder.
+There you can add &lt;code class=&quot;highlighter-rouge&quot;&gt;*.properties&lt;/code&gt; files containing additional properties or properties overwriting the ones in the default folder.
+So, that means you don’t need to copy the whole configuration. 
+Gauge will always load all the default properties. 
+Then it will load those defined for the environment you wish to use. 
+If a property is defined for an environment and it already exists in the default configuration, it will use the one defined for that environment instead.
+Now, suppose you want a different configuration for your CI-tool, you can create a folder named &lt;code class=&quot;highlighter-rouge&quot;&gt;ci&lt;/code&gt;.
+When running the specs, simply pass an argument stating the environment.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mvn gauge:execute -Denv=&quot;ci&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Environments can also be used to run gauge with another browser like in the &lt;a href=&quot;https://github.com/getgauge-examples/java-maven-selenium&quot; target=&quot;_blank&quot;&gt;example by Gauge&lt;/a&gt;.
+Create a folder named &lt;code class=&quot;highlighter-rouge&quot;&gt;firefox&lt;/code&gt; for example and add a file called &lt;code class=&quot;highlighter-rouge&quot;&gt;browser.properties&lt;/code&gt;.
+In that file you add &lt;code class=&quot;highlighter-rouge&quot;&gt;browser = FIREFOX&lt;/code&gt;.
+When you then run the tests with the &lt;code class=&quot;highlighter-rouge&quot;&gt;firefox&lt;/code&gt; environment, it will use FireFox as a browser instead.
+(This only works if you have your project set up like in the example, the &lt;a href=&quot;https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver&quot; target=&quot;_blank&quot;&gt;Driver&lt;/a&gt; and &lt;a href=&quot;https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver&quot; target=&quot;_blank&quot;&gt;DriverFactory&lt;/a&gt; files are required here.)&lt;/p&gt;
+
+&lt;h1 id=&quot;reports&quot;&gt;Reports&lt;/h1&gt;
+&lt;p&gt;To get a HTML report, the plugin has to be installed first: &lt;code class=&quot;highlighter-rouge&quot;&gt;gauge install html-report&lt;/code&gt;.
+That’s about it!
+After running the specs, a nice HTML report will be outputted to the &lt;code class=&quot;highlighter-rouge&quot;&gt;/reports&lt;/code&gt; folder.
+It shows which tests succeeded and which failed with some additional graphs.
+In the report you’ll even find how long it took to run a test and each of its steps.
+There’s also a search functionality to quickly find a certain spec.&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; alt=&quot;Gauge HTML report&quot; src=&quot;/img/2018-01-05-gauge-automated-testing/gauge-report.jpg&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;It’s a good idea to write automated tests.
+If you do it well, you don’t have to spend a lot of time manually testing your application.
+The chance of something being broken by your changes will decrease dramatically.
+Also, be sure to use the page object pattern and create functions for repetitive actions.
+It avoids code duplication and having to update the same code in multiple places.&lt;/p&gt;
+
+&lt;p&gt;If you’re starting a new project or starting from scratch with writing browser tests, you should consider using Gauge.
+Even though it’s still in beta.
+With ThoughtWorks as the main force behind this tool, it’s here to stay!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Martijn&quot;, &quot;last_name&quot;=&gt;&quot;Willekens&quot;, &quot;linkedin&quot;=&gt;&quot;mwillekens&quot;, &quot;permalink&quot;=&gt;&quot;/author/martijn-willekens/&quot;, &quot;avatar&quot;=&gt;&quot;martijn-willekens.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend developer&quot;, &quot;email&quot;=&gt;&quot;martijn.willekens@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Martijn is a frontend developer at Ordina Belgium. He primarily devotes himself to building Angular and Ionic apps written in TypeScript. ReactiveX is his favorite set of tools to work with.&quot;}</name><email>martijn.willekens@ordina.be</email></author><category term="Testing" /><category term="Gauge" /><category term="E2E" /><category term="End to end" /><category term="Testing" /><category term="Test automation" /><category term="Automation" /><summary type="html">After finishing a new feature in your web app, you test whether it works. However, while working on that new feature, you may have broken something else. If you want to know for sure, you have to test everything. Clicking around, filling in forms, … will cost you some valuable time. So, you’ll probably end up not doing it thorough enough or even not at all, assuming everything else still works fine. That’s exactly why you should have automated tests do it for you!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-01-05-gauge-automated-testing/gauge.png" /></entry><entry><title type="html">3 Stages of API testing</title><link href="https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html" rel="alternate" type="text/html" title="3 Stages of API testing" /><published>2018-01-04T00:00:00+00:00</published><updated>2018-01-04T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html">&lt;blockquote&gt;
   &lt;p&gt;Continuous Integration with automated testing is more and more incorporated in the culture of software delivery companies.
 Running tests in different stages is a big part of it.
 In this post, we’ll have a look at our three stages of API testing we are promoting at Ordina.&lt;/p&gt;
@@ -2963,246 +3240,4 @@ Have a look at a couple pictures below:&lt;/p&gt;
   &lt;li&gt;If you mess up the WiFi on the Pi it can be a real pain to debug it!&lt;/li&gt;
   &lt;li&gt;When starting Node as a service on Linux the Johnny-Five REPL does not work&lt;/li&gt;
   &lt;li&gt;Super glue is not always so super ;)&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a Principal Java consultant at Ordina, passionate about all Java and JavaScript related technologies. In his roll as Competence Leader Internet of Things he uses his knowledge of building custom software to build innovative solutions using new technologies. Currently focussing on the internet of things and sensor networks using LoRa. Loves to tinker with gadgets.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="IoT" /><category term="NodeJS" /><category term="Node" /><category term="V8" /><category term="JavaScript" /><category term="Prototyping" /><category term="3D print" /><category term="3D printing" /><category term="Raspberry Pi" /><category term="Raspberry" /><category term="Pi" /><category term="Johnny-Five" /><category term="Smart" /><category term="Internet of Things" /><category term="Meeseeks" /><category term="Rick &amp; Morty" /><category term="Ricky and Morty" /><category term="Wubba lubba dub dub" /><category term="spring cloud" /><category term="spring cloud stream" /><category term="streams" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/meeseeks/wallpaper.jpg" /></entry><entry><title type="html">Docker basic networking</title><link href="https://ordina-jworks.github.io/docker/2017/12/15/Docker-basic-networking.html" rel="alternate" type="text/html" title="Docker basic networking" /><published>2017-12-15T00:00:00+00:00</published><updated>2017-12-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/docker/2017/12/15/Docker-basic-networking</id><content type="html" xml:base="https://ordina-jworks.github.io/docker/2017/12/15/Docker-basic-networking.html">&lt;blockquote&gt;
-  &lt;p&gt;Containers are all the rage at the moment so I guess everybody knows how to build and run a container by now.
-&lt;strong&gt;But what use is one container by itself?&lt;/strong&gt;
-In this post, I will show how you can create networks within Docker and what they are used for.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Afterwards, I will guide you through a step-by-step example on how to create a Docker network and add containers to it.
-This way, we will end up with a multi-tier application that is running on Docker containers in a basic network.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#preface&quot;&gt;Preface&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#network-setup&quot;&gt;Network setup&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#database-container&quot;&gt;Database container&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#backend-container&quot;&gt;REST Backend container&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#frontend-container&quot;&gt;Frontend container&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;preface&quot;&gt;Preface&lt;/h1&gt;
-&lt;p&gt;In the current application landscape, we see a strong rise of distributed applications.
-This is done by implementing a &lt;strong&gt;microservice architecture&lt;/strong&gt; and deploying these applications in Docker containers.
-It’s important that these containers are able to communicate with each other, after all, &lt;strong&gt;what good is a microservice that is isolated&lt;/strong&gt;?&lt;/p&gt;
-
-&lt;p&gt;In order to achieve this, a couple of patterns are used.
-In this post I will demonstrate two of these patterns to you.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Communication within a Docker network between containers&lt;/li&gt;
-  &lt;li&gt;Communication outside the Docker network by exposing internal ports&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Our final application setup looks like this:&lt;/p&gt;
-
-&lt;p&gt;
-    &lt;img class=&quot;image fit&quot; style=&quot;max-width:575px&quot; alt=&quot;Final docker setup&quot; src=&quot;/img/docker-basic-networking/docker-basic-network-setup.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;All of our Docker applications will be deployed on &lt;strong&gt;one host machine&lt;/strong&gt;.
-We will have a custom Docker network running with &lt;strong&gt;three containers&lt;/strong&gt; attached to that network:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;The database container is just a MySQL database running within Docker.&lt;/li&gt;
-  &lt;li&gt;The backend container is a Spring Boot application that connects to the MySQL DB container and provides a REST service to the outside world.&lt;/li&gt;
-  &lt;li&gt;The frontend container is an AngularJS application that consumes the REST service from the backend container.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;You can find all the code examples on &lt;a href=&quot;https://github.com/basmoorkens/docker-networking-demo&quot; target=&quot;_blank&quot;&gt;Github&lt;/a&gt;.
-The only thing needed to complete this guide is a working Docker installation.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ready? Set. Go!&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;network-setup&quot;&gt;Network Setup&lt;/h1&gt;
-&lt;p&gt;To start this guide, let’s have a look at the Docker networks that are available on our machine:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker network ls&lt;/code&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;When you run a Docker container and you do not provide any network settings, it is by default attached to the bridge network.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Containers that are connected to this default bridge network can communicate with each other by using their internal Docker IP address.&lt;/p&gt;
-
-&lt;p&gt;Docker does not support automatic service discovery on this network.&lt;/p&gt;
-
-&lt;p&gt;We want to be able to access our containers by using their container name instead of the internal IP address so we are going to create our own network:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker network create --driver bridge basic-bridge&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This creates a user defined network with the bridge driver that is called &lt;code class=&quot;highlighter-rouge&quot;&gt;basic-bridge&lt;/code&gt;.
-If we look at the Docker network stack, we see that our user defined bridge network is added:&lt;/p&gt;
-
-&lt;p&gt;
-    &lt;img class=&quot;image fit&quot; style=&quot;max-width:633px&quot; alt=&quot;Network stack after adding basic-bridge&quot; src=&quot;/img/docker-basic-networking/docker-network-ls-basic-bridge.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;You can look at more details of the network by using following command&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker network inspect basic-bridge&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;
-    &lt;img class=&quot;image fit&quot; style=&quot;max-width:736px&quot; alt=&quot;Basic bridge details&quot; src=&quot;/img/docker-basic-networking/bridged-network-details.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;The basic-bridge network can use IP addresses from the &lt;code class=&quot;highlighter-rouge&quot;&gt;172.18.0.0/16&lt;/code&gt; range and will use &lt;code class=&quot;highlighter-rouge&quot;&gt;172.18.0.1&lt;/code&gt; as its default gateway.&lt;/p&gt;
-
-&lt;h1 id=&quot;database-container&quot;&gt;Database container&lt;/h1&gt;
-
-&lt;p&gt;Now that we have created our own network, we can start attaching our containers to that network.
-Let’s start off by creating the MySQL database container.
-The following command pulls the MySQL image from the Docker repository and starts it as a container that is attached to our network:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker run --name=mydb --network=basic-bridge -p 3306:3306 -e MySQL_ROOT_PASSWORD=test -d MySQL:8.0.3&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;That’s easy right?
-This container is attached to the &lt;code class=&quot;highlighter-rouge&quot;&gt;basic-bridge&lt;/code&gt; network that we created in the previous step.
-Run the following command to look at the container in detail:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker inspect mydb&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;
-    &lt;img class=&quot;image fit&quot; style=&quot;max-width:909px&quot; alt=&quot;docker inspect mydb&quot; src=&quot;/img/docker-basic-networking/mydb-inspect.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We can see in the output that it has gotten the &lt;code class=&quot;highlighter-rouge&quot;&gt;172.18.0.2&lt;/code&gt; IP address and that it’s using the default gateway of the network that we created.
-Now we should set up the database in our container with the schema for our REST application.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mysql -h 127.0.0.1 -P 3306  --user=root --password=test&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This will connect a MySQL shell onto our &lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:3306&lt;/code&gt;.
-We can access this port because we exposed it when we started the container by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt; flag.
-Note that this is done for convenience only, so we can access the container from our host and set up a schema.
-Now run following SQL commands in the MySQL shell.&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;  
-  &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UNSIGNED&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AUTO_INCREMENT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;PRIMARY&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;KEY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;greetername&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;varchar&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;varchar&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;  
-&lt;span class=&quot;k&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;greetername&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;values&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'bas'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Hello master'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;  
-&lt;span class=&quot;k&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;greetername&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;values&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Jack'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Hello slave'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;  
-&lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now that we have setup our MySQL container and initialized the schema we are ready to create our REST backend service.&lt;/p&gt;
-
-&lt;h1 id=&quot;backend-container&quot;&gt;Backend container&lt;/h1&gt;
-
-&lt;p&gt;You can find the code and Dockerfile for the backend container on the Github link earlier in the post under the &lt;code class=&quot;highlighter-rouge&quot;&gt;/backend&lt;/code&gt; folder.
-The backend application itself is pretty simple.
-It just listens on port 8080 for requests on the path &lt;code class=&quot;highlighter-rouge&quot;&gt;/greeting&lt;/code&gt;.
-You can pass the &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; request parameter to this path to get a customized response.
-The application fetches its greetings from the database container we set up earlier.
-I added following properties under &lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/resources&lt;/code&gt; to connect it to our database:&lt;/p&gt;
-
-&lt;p&gt;
-    &lt;img class=&quot;image fit&quot; style=&quot;max-width:504px&quot; alt=&quot;Spring boot app db connection properties&quot; src=&quot;/img/docker-basic-networking/application-props.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;The important part here is that I referred to our database by using &lt;code class=&quot;highlighter-rouge&quot;&gt;mydb:3306&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;We are able to do this because we will launch this backend service on the same docker network as the &lt;code class=&quot;highlighter-rouge&quot;&gt;mydb&lt;/code&gt; container.
-This way, they will be able to resolve each others name by using the basic-bridge network we created.&lt;/p&gt;
-
-&lt;p&gt;Next up, we will build the container from the Dockerfile I created.
-To do this run the following command in the &lt;code class=&quot;highlighter-rouge&quot;&gt;/backend&lt;/code&gt; folder:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker build . -t rest-backend&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Once the Docker image is built, let’s run it in a container:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker run --name=rest-backend --network=basic-bridge -p 8090:8080 -d rest-backend&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;By using the &lt;code class=&quot;highlighter-rouge&quot;&gt;--network=basic-bridge&lt;/code&gt;, we attach the container to the &lt;code class=&quot;highlighter-rouge&quot;&gt;basic-bridge&lt;/code&gt; network that we created earlier.&lt;/p&gt;
-
-&lt;p&gt;You can look at the network details of this container by using:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker inspect rest-backend&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;
-    &lt;img class=&quot;image fit&quot; style=&quot;max-width:959px&quot; alt=&quot;Backend container docker inspect&quot; src=&quot;/img/docker-basic-networking/backend-inspect.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We can see in the output that it is attached to the &lt;code class=&quot;highlighter-rouge&quot;&gt;basic-bridge&lt;/code&gt; network just like our mydb container.
-We also used the &lt;code class=&quot;highlighter-rouge&quot;&gt;-p 8090:8080&lt;/code&gt; flag to expose the inner 8080 port (the port our Spring Boot application uses) to the outside world via the 8090 port.&lt;/p&gt;
-
-&lt;p&gt;We can now curl or browse to &lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:8090/greeting&lt;/code&gt; to verify that everything is working:&lt;/p&gt;
-
-&lt;p&gt;
-    &lt;img class=&quot;image fit&quot; style=&quot;max-width:533px&quot; alt=&quot;Verify backend running&quot; src=&quot;/img/docker-basic-networking/verify-backend.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We can see that our service successfully returned a response.&lt;/p&gt;
-
-&lt;h1 id=&quot;frontend-container&quot;&gt;Frontend container&lt;/h1&gt;
-
-&lt;p&gt;We can now create our frontend AngularJS application that consumes the REST service we just created.&lt;/p&gt;
-
-&lt;p&gt;You can find the code for this application under the &lt;code class=&quot;highlighter-rouge&quot;&gt;/frontend&lt;/code&gt; folder in the Github repository.
-Create the Docker image for the frontend container by running:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker build . -t angular-frontend&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Now let’s run the container by using:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker run --name=angular-frontend --network=basic-bridge -p 8080:80 -d angular-frontend&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;AngularJS renders in the browser so it’s not rendered inside a Docker container.&lt;br /&gt;
-This means that our angular application would not be able to contact the REST backend container as that container is only known within the docker network.&lt;br /&gt;
-To work around this inconvenience I will explain 2 alternatives:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;connect it to the internal Docker IP address of the rest-backend container&lt;/strong&gt;&lt;br /&gt;
-In this case we connect the angular application to the ip address of our backend container. 
-This only works because the ip address is known to our browser.&lt;br /&gt;
-The ip address is known because the machine on which our browser runs is also running the Docker network.&lt;br /&gt;
-Note that this is not very portable.&lt;br /&gt;
-If you would deploy the container somewhere else or you would browse to the application from another host this would break.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;
-    &lt;img class=&quot;image fit&quot; style=&quot;max-width:488px&quot; alt=&quot;Angular-backend call over internal docker network&quot; src=&quot;/img/docker-basic-networking/angular-by-internal-ip.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;connect it to the public exposed port of the REST backend container.&lt;/strong&gt;&lt;br /&gt;
-When we set the application up like this the angular application can access the backend container through the publicly exposed port 8090.&lt;br /&gt;
-Note that in this case the application would break as well if you deploy the frontend container somewhere else or if you would access it from another host.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;
-    &lt;img class=&quot;image fit&quot; style=&quot;max-width:494px&quot; alt=&quot;Angular-backend call over external network&quot; src=&quot;/img/docker-basic-networking/angular-by-external.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;The result in both cases is that our angular application can contact the REST backend and serves up a good response.&lt;/p&gt;
-
-&lt;p&gt;
-    &lt;img class=&quot;image fit&quot; style=&quot;max-width:447px&quot; alt=&quot;Angular 200 response from backend&quot; src=&quot;/img/docker-basic-networking/angular-ok.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;As I mentioned before both these alternatives have pretty obvious flaws in them.&lt;br /&gt;
-In a real world setup you would like to make your REST service publicly available on a webserver so that consuming applications would be able to connect to it by using that public URL.&lt;br /&gt;
-If there is interest in this kind of setup I can cover it in a later blogpost.&lt;br /&gt;
-Our application setup is now complete and our full setup looks like this:&lt;/p&gt;
-
-&lt;p&gt;
-    &lt;img class=&quot;image fit&quot; style=&quot;max-width:1359px&quot; alt=&quot;Final setup docker ps&quot; src=&quot;/img/docker-basic-networking/docker-ps-final.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;As we saw in this guide it is actually pretty simple to create a single host Docker network and enable containers to communicate with each other over this network.&lt;br /&gt;
-When we created our Angular application, we saw that this approach has its limitations.&lt;/p&gt;
-
-&lt;p&gt;Another limitation of this setup is that this kind of network is limited to a single host as it will not work over multiple hosts.
-Of course nobody wants to run a distributed application in containers on one host.&lt;/p&gt;
-
-&lt;p&gt;I will make a follow-up blogpost where we look into Docker multi-host networks by using &lt;strong&gt;weave.NET&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker stop bas&lt;/code&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bas&quot;, &quot;last_name&quot;=&gt;&quot;Moorkens&quot;, &quot;permalink&quot;=&gt;&quot;/author/bas-moorkens/&quot;, &quot;title&quot;=&gt;&quot;Senior Java Developer&quot;, &quot;title2&quot;=&gt;&quot;DevOps Engineer&quot;, &quot;email&quot;=&gt;&quot;bas.moorkens@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;basmoorkens&quot;, &quot;avatar&quot;=&gt;&quot;bas-moorkens.jpg&quot;, &quot;github&quot;=&gt;&quot;basmoorkens&quot;, &quot;bio&quot;=&gt;&quot;Bas is a Senior Java Developer at Ordina Belgium who discovered he is fascinated by cloud, containers and pipeline automation. He started off as a Java full stack developer but got more and more into the DevOps world where he currently spends most of his time.&quot;}</name><email>bas.moorkens@ordina.be</email></author><category term="Docker" /><category term="Docker" /><category term="Networking" /><category term="container" /><category term="DevOps" /><summary type="html">Containers are all the rage at the moment so I guess everybody knows how to build and run a container by now. But what use is one container by itself? In this post, I will show how you can create networks within Docker and what they are used for.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/docker-basic-networking/docker-basic-networking.png" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a Principal Java consultant at Ordina, passionate about all Java and JavaScript related technologies. In his roll as Competence Leader Internet of Things he uses his knowledge of building custom software to build innovative solutions using new technologies. Currently focussing on the internet of things and sensor networks using LoRa. Loves to tinker with gadgets.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="IoT" /><category term="NodeJS" /><category term="Node" /><category term="V8" /><category term="JavaScript" /><category term="Prototyping" /><category term="3D print" /><category term="3D printing" /><category term="Raspberry Pi" /><category term="Raspberry" /><category term="Pi" /><category term="Johnny-Five" /><category term="Smart" /><category term="Internet of Things" /><category term="Meeseeks" /><category term="Rick &amp; Morty" /><category term="Ricky and Morty" /><category term="Wubba lubba dub dub" /><category term="spring cloud" /><category term="spring cloud stream" /><category term="streams" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/meeseeks/wallpaper.jpg" /></entry></feed>

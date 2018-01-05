@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Automated testing with Gauge - Martijn Willekens">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2018-01-05-gauge-automated-testing/gauge.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/testing/2018/01/05/Gauge-automated-testing.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Automated testing with Gauge - Martijn Willekens"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2018-01-05-gauge-automated-testing/gauge.png"/>
+
+    
+    <title>Automated testing with Gauge - Martijn Willekens &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Automated testing with Gauge</h2>
+                
+
+                
+                    Posted Jan 5, 2018
+
+
+    in <a href="/categories/testing/">Testing</a>
+
+
+
+    by
+    
+        <a href="/author/martijn-willekens/">Martijn Willekens</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/gauge/">Gauge</a>, 
+    
+        <a href="/tags/e2e/">E2E</a>, 
+    
+        <a href="/tags/end-to-end/">End to end</a>, 
+    
+        <a href="/tags/testing/">Testing</a>, 
+    
+        <a href="/tags/test-automation/">Test automation</a>, 
+    
+        <a href="/tags/automation/">Automation</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <p>After finishing a new feature in your web app, you test whether it works.
+However, while working on that new feature, you may have broken something else.
+If you want to know for sure, you have to test everything.
+Clicking around, filling in forms, … will cost you some valuable time.
+So, you’ll probably end up not doing it thorough enough or even not at all, assuming everything else still works fine.
+That’s exactly why you should have automated tests do it for you!</p>
+
+<p><a href="https://getgauge.io/" target="_blank">Gauge</a> is yet another test automation tool that serves that purpose.
+The founder is <a href="https://www.thoughtworks.com/" target="_blank">ThoughtWorks</a>, the company that also created  <a href="http://www.seleniumhq.org/" target="_blank">Selenium</a> and <a href="https://www.gocd.org/" target="_blank">GoCD</a>.
+It’s still in beta at the moment of writing, but it already works terrific!
+Gauge is comparable with Protractor or JUnit extended with Cucumber (if you haven’t heard of these, they are worth checking out).
+In this blog we’ll be mainly talking about automating browser testing using Selenium WebDriver, although that isn’t the sole purpose of Gauge.
+If you don’t know WebDriver, it’s what allows you to interact with the browser to traverse the DOM, click on elements and so on.</p>
+
+<p>Now, unlike Cucumber, Gauge itself only supports three languages at the moment: Java, Ruby and C#.
+Others may be supported by the community like JavaScript.
+You can define steps written in either one of those languages.
+These are the actual tests and can be identified by a sentence you can choose yourself.
+By combining these sentences, you can write test scenarios which are written in Markdown.
+That means you don’t need any programming experience to write test scenarios.
+You could create some sort of dictionary with the step sentences that others can use for the scenarios or the other way around.
+In other words, anyone is able to read and write test scenarios.
+The actual implementation of the steps does require some technical knowledge.</p>
+
+<h1 id="table-of-contents">Table of contents</h1>
+<ol>
+  <li><a href="#setup">Setup</a></li>
+  <li><a href="#writing-tests">Writing tests</a></li>
+  <li><a href="#running-the-specs">Running the specs</a></li>
+  <li><a href="#environments-and-configuration">Environments and configuration</a></li>
+  <li><a href="#reports">Reports</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ol>
+
+<h1 id="setup">Setup</h1>
+<p>Gauge offers an installer which can be downloaded <a href="https://getgauge.io/get-started.html" target="_blank">here</a>.
+During the install, you can select which core plugins to install.
+In this blog the tests are written in Java, so we would need the Java core plugin.
+After the install, you’ll be able to run <code class="highlighter-rouge">gauge</code> from the command line.
+It can, for example, be used to install more plugins (as well as core plugins <code class="highlighter-rouge">gauge install java</code>).</p>
+
+<p>Next, in order to use WebDriver in our tests, we’ll need the Java SDK and Maven.
+When you’re a Java developer, you probably already have those installed.
+If not, you’ll find enough on Google on how to install those.</p>
+
+<p>To start a new project, create a new folder and run <code class="highlighter-rouge">gauge init java</code> in it.
+This will setup a basic Gauge project.
+Then we need to add a <a href="https://github.com/getgauge-examples/java-maven-selenium/blob/master/pom.xml" target="_blank">pom.xml</a> file ourselves, because we need some dependencies such as Selenium WebDriver.
+Next, WebDriver needs to be set up in our test code.
+A good example of how you could do that can be found <a href="https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils" target="_blank">here</a>.
+They created a <code class="highlighter-rouge">DriverFactory</code> so you can easily switch between browsers using environment variables (we’ll get to that).
+Gauge hooks are used to start and stop WebDriver when running the test suite.
+Just copy those pieces of code into your own project.
+Or, you could start from the <em>Maven + Selenium</em> example provided by Gauge which can be found on <a href="https://github.com/getgauge-examples/java-maven-selenium" target="_blank">GitHub</a>.
+That way you’d have some examples to start from.</p>
+
+<p>Now we can start writing tests.</p>
+
+<h1 id="writing-tests">Writing tests</h1>
+<p>On the lowest level we have our Java functions that control the browser using WebDriver commands.
+To these functions we can assign a <code class="highlighter-rouge">@Step</code> annotation to be able to identify it.
+It’s usually a sentence describing the action being performed.
+The sentences can then be used to write the scenarios of our tests (or specs).
+If you’d like to combine multiple steps into once sentence, you can do so by creating so called “concepts”.</p>
+
+<p>A typical folder structure for a Gauge setup using WebDriver and Java is as follows:</p>
+<p>
+    <img class="image fit" style="max-width:194px" alt="Gauge Maven project structure" src="/img/2018-01-05-gauge-automated-testing/files.jpg" />
+</p>
+
+<h3 id="writing-the-specs">Writing the specs</h3>
+<p>The specs are written in Markdown.
+Each spec file starts with a title and is underlined with <code class="highlighter-rouge">===</code>.
+Next, some steps can be defined that will be run before each scenario.
+When listing steps, you need to prefix each step with an asterix (*) as in a Markdown list.
+After that, the actual scenarios can be written.
+They start with a title and are underlined with <code class="highlighter-rouge">---</code>.
+Again, the steps for a scenario should be listed as in a Markdown list.
+You can also add some tags which can be used to only run certain specs and to search in the HTML reports.
+Here’s an example specification:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gu">Customer sign-up
+================
+</span><span class="p">
+*</span> Go to sign up page
+
+<span class="gh">Customer sign-up
+----------------
+</span>tags: sign-up, customer
+<span class="p">
+*</span> Sign up a new customer with name "JWorks" email "jworks@ordina.be" and "password"
+<span class="p">*</span> Check if the sign up was successful
+</code></pre></div></div>
+
+<h3 id="writing-the-steps">Writing the steps</h3>
+<p>The sentences we wrote in the specs still need to be linked to Java functions.
+We can do so by simply adding a <code class="highlighter-rouge">@Step</code> annotation to a Java function.
+It doesn’t matter in which class you put the functions, you’re free to choose how to organize them.
+As long as they are under the <code class="highlighter-rouge">src/test/java</code> folder.
+You could, for example, group them per page or feature.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomerSignup</span> <span class="o">{</span>
+
+    <span class="nd">@Step</span><span class="o">(</span><span class="s">"Sign up as &lt;customer&gt; with email &lt;customer@example.com&gt; and &lt;password&gt;"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">registerCustomerWith</span><span class="o">(</span><span class="n">String</span> <span class="n">customer</span><span class="o">,</span> <span class="n">String</span> <span class="n">email</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">WebDriver</span> <span class="n">webDriver</span> <span class="o">=</span> <span class="n">Driver</span><span class="o">.</span><span class="na">webDriver</span><span class="o">;</span>
+        <span class="n">webDriver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">linkText</span><span class="o">(</span><span class="s">"Sign up"</span><span class="o">)).</span><span class="na">click</span><span class="o">();</span>
+        <span class="n">WebElement</span> <span class="n">form</span> <span class="o">=</span> <span class="n">webDriver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">"new_user"</span><span class="o">));</span>
+        <span class="n">form</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"user[username]"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="n">customer</span><span class="o">);</span>
+        <span class="n">form</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"user[email]"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="n">email</span><span class="o">);</span>
+        <span class="n">form</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"user[password]"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="n">password</span><span class="o">);</span>
+        <span class="n">form</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"user[password_confirmation]"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="n">password</span><span class="o">);</span>
+        <span class="n">form</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"commit"</span><span class="o">)).</span><span class="na">click</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Step</span><span class="o">(</span><span class="s">"Check if the sign up was successful"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">checkSignUpSuccessful</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">WebDriver</span> <span class="n">webDriver</span> <span class="o">=</span> <span class="n">Driver</span><span class="o">.</span><span class="na">webDriver</span><span class="o">;</span>
+        <span class="n">WebElement</span> <span class="n">message</span> <span class="o">=</span> <span class="n">webDriver</span><span class="o">.</span><span class="na">findElements</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">className</span><span class="o">(</span><span class="s">"message"</span><span class="o">));</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">message</span><span class="o">.</span><span class="na">getText</span><span class="o">(),</span> <span class="n">is</span><span class="o">(</span><span class="s">"You have been signed up successfully!"</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As shown in the example above, you can easily pass parameters to steps.
+You simply have to wrap the keywords in <code class="highlighter-rouge">&lt;&gt;</code> in the <code class="highlighter-rouge">@Step</code> annotation
+and list the same keywords as parameters in the actual Java function.
+Obviously, you can then use them in your Java code.</p>
+
+<h3 id="page-object-pattern">Page object pattern</h3>
+<p>A clean way to organize all your code would be to use the page object pattern.
+This means that for every page in you web app, you should create a class.
+Such a class contains all code to interact with that specific page.</p>
+
+<p>The example we saw earlier, could be transformed into this:</p>
+
+<p>Page object:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SignUpPage</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">WebElement</span> <span class="n">usernameField</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">WebElement</span> <span class="n">emailField</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">WebElement</span> <span class="n">passwordField</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">WebElement</span> <span class="n">passwordConfirmField</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">WebElement</span> <span class="n">commitButton</span><span class="o">;</span>
+
+    <span class="n">SignUpPage</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">WebDriver</span> <span class="n">webDriver</span> <span class="o">=</span> <span class="n">Driver</span><span class="o">.</span><span class="na">webDriver</span><span class="o">;</span>
+        <span class="n">webDriver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">linkText</span><span class="o">(</span><span class="s">"Sign up"</span><span class="o">)).</span><span class="na">click</span><span class="o">();</span>
+        <span class="n">WebElement</span> <span class="n">form</span> <span class="o">=</span> <span class="n">webDriver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">"new_user"</span><span class="o">));</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">usernameField</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"user[username]"</span><span class="o">));</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">emailField</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"user[email]"</span><span class="o">));</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">passwordField</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"user[password]"</span><span class="o">));</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">passwordConfirmField</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"user[password_confirmation]"</span><span class="o">));</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">commitButton</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"commit"</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Step definition:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomerSignup</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">SignUpPage</span> <span class="n">signUpPage</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SignUpPage</span><span class="o">();</span>
+
+    <span class="nd">@Step</span><span class="o">(</span><span class="s">"Sign up as &lt;customer&gt; with email &lt;customer@example.com&gt; and &lt;password&gt;"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">registerCustomerWith</span><span class="o">(</span><span class="n">String</span> <span class="n">customer</span><span class="o">,</span> <span class="n">String</span> <span class="n">email</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">signUpPage</span><span class="o">.</span><span class="na">usernameField</span><span class="o">.</span><span class="na">sendKeys</span><span class="o">(</span><span class="n">customer</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">signUpPage</span><span class="o">.</span><span class="na">emailField</span><span class="o">.</span><span class="na">sendKeys</span><span class="o">(</span><span class="n">email</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">signUpPage</span><span class="o">.</span><span class="na">passwordField</span><span class="o">.</span><span class="na">sendKeys</span><span class="o">(</span><span class="n">password</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">signUpPage</span><span class="o">.</span><span class="na">passwordConfirmField</span><span class="o">.</span><span class="na">sendKeys</span><span class="o">(</span><span class="n">password</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">signUpPage</span><span class="o">.</span><span class="na">commitButton</span><span class="o">.</span><span class="na">click</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The great benefit of this approach is that you can reuse a lot of the code.
+You only have to locate the elements once instead of in every step.
+Functions can be added to the page objects as well.
+Suppose you have a dropdown, you first have to click to open it and then select an option from the list.
+You can write a function doing all that.
+In your step definition, you then simply have to call that function to select something from a dropdown.
+It’s a good way to avoid too much code duplication.</p>
+
+<h3 id="concepts">Concepts</h3>
+<p>If you find yourself repeating the same sequence of steps over and over,
+you could combine those steps into one step using concepts.
+These are also written in Markdown and you can pass arguments the same way as in the Java <code class="highlighter-rouge">@Step</code> annotations.
+They should be placed in the <code class="highlighter-rouge">/specs/concepts</code> folder and use the *.cpt extension.</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Sign up a new customer with name &lt;name&gt; email &lt;email&gt; and &lt;password&gt;</span>
+<span class="p">*</span> Sign up as <span class="nt">&lt;name&gt;</span> with email <span class="nt">&lt;email&gt;</span> and <span class="nt">&lt;password&gt;</span>
+<span class="p">*</span> Show a message "Thank you for signing up! You are now logged in."
+</code></pre></div></div>
+
+<p>Cucumber only offers this feature in some implementations, they don’t in Cucumber.js for example.
+They refuse to implement it because they believe this creates too much abstraction and makes you lose sight of the overall picture.
+Gauge does offer it, so it’s up to you whether you want to make use of it or not.</p>
+
+<h1 id="running-the-specs">Running the specs</h1>
+<p>Since the project is setup with Maven, the tests can be run with <code class="highlighter-rouge">mvn test</code>.
+However, if you want to pass any arguments, you’ll need to use <code class="highlighter-rouge">mvn gauge:execute</code> instead.</p>
+
+<h3 id="tags">Tags</h3>
+
+<p>You may have noticed in the spec files that tags can be added.
+They can be used to run only certain specs.</p>
+
+<p><code class="highlighter-rouge">mvn gauge:execute -DspecsDir=specs -Dtags="sign-up &amp; customer"</code></p>
+
+<h3 id="parallel">Parallel</h3>
+<p>So far, Gauge didn’t stand out from other automated testing solutions.
+Although there’s one thing that really does stand out and that’s how easy it is to use parallel execution!</p>
+
+<p><code class="highlighter-rouge">mvn gauge:execute -DspecsDir=specs -DinParallel=true</code></p>
+
+<p>Running this command will start up a stream for each CPU core your computer has.
+For each stream it will open a browser window and execute the specs.
+So if you have four CPU cores, four browser windows will be opened.
+You can overwrite the number of parallel executors, but it’s recommended not to exceed the number of CPU cores.</p>
+
+<p><code class="highlighter-rouge">mvn gauge:execute -DspecsDir=specs -DinParallel=true -Dnodes=2</code></p>
+
+<p>Now, some specs may take longer to run than others.
+By default, specs are divided dynamically over the streams.
+So when a spec has finished, it will take the next one from the list of specs that still need to be executed.
+It’s possible to change this so the specs are divided on startup, but the command is deprecated and will be removed.</p>
+
+<h3 id="making-tests-independent">Making tests independent</h3>
+<p>To make use of this parallel execution, you’ll have to make sure that your tests don’t rely on each other.
+I think it’s pretty clear why you shouldn’t do that.
+Anyway, suppose you test the sign up and sign in.
+If your sign in relies on the user being signed up through a previous test, these tests should be run synchronously.
+However, if you would want to test whether a user can sign in after having signed up, you should do so in one test.
+That immediately solves our problem and we are safe to use the parallel execution!</p>
+
+<h1 id="environments-and-configuration">Environments and configuration</h1>
+<p>The config files are located under <code class="highlighter-rouge">env/default</code>.
+You should have three files in that folder: <code class="highlighter-rouge">default.properties</code>, <code class="highlighter-rouge">java.properties</code> and <code class="highlighter-rouge">user.properties</code>.
+In the <a href="https://github.com/getgauge-examples/java-maven-selenium" target="_blank">example by Gauge</a>, they have an <code class="highlighter-rouge">APP_URL</code> parameter in that last file.
+I recommend using that approach as well, you can get parameters in your Java code using <code class="highlighter-rouge">System.getenv("APP_URL")</code>.</p>
+
+<p>It’s possible to create different environments by simply creating a new folder.
+There you can add <code class="highlighter-rouge">*.properties</code> files containing additional properties or properties overwriting the ones in the default folder.
+So, that means you don’t need to copy the whole configuration. 
+Gauge will always load all the default properties. 
+Then it will load those defined for the environment you wish to use. 
+If a property is defined for an environment and it already exists in the default configuration, it will use the one defined for that environment instead.
+Now, suppose you want a different configuration for your CI-tool, you can create a folder named <code class="highlighter-rouge">ci</code>.
+When running the specs, simply pass an argument stating the environment.</p>
+
+<p><code class="highlighter-rouge">mvn gauge:execute -Denv="ci"</code></p>
+
+<p>Environments can also be used to run gauge with another browser like in the <a href="https://github.com/getgauge-examples/java-maven-selenium" target="_blank">example by Gauge</a>.
+Create a folder named <code class="highlighter-rouge">firefox</code> for example and add a file called <code class="highlighter-rouge">browser.properties</code>.
+In that file you add <code class="highlighter-rouge">browser = FIREFOX</code>.
+When you then run the tests with the <code class="highlighter-rouge">firefox</code> environment, it will use FireFox as a browser instead.
+(This only works if you have your project set up like in the example, the <a href="https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver" target="_blank">Driver</a> and <a href="https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver" target="_blank">DriverFactory</a> files are required here.)</p>
+
+<h1 id="reports">Reports</h1>
+<p>To get a HTML report, the plugin has to be installed first: <code class="highlighter-rouge">gauge install html-report</code>.
+That’s about it!
+After running the specs, a nice HTML report will be outputted to the <code class="highlighter-rouge">/reports</code> folder.
+It shows which tests succeeded and which failed with some additional graphs.
+In the report you’ll even find how long it took to run a test and each of its steps.
+There’s also a search functionality to quickly find a certain spec.</p>
+
+<p>
+    <img class="image fit" alt="Gauge HTML report" src="/img/2018-01-05-gauge-automated-testing/gauge-report.jpg" />
+</p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>It’s a good idea to write automated tests.
+If you do it well, you don’t have to spend a lot of time manually testing your application.
+The chance of something being broken by your changes will decrease dramatically.
+Also, be sure to use the page object pattern and create functions for repetitive actions.
+It avoids code duplication and having to update the same code in multiple places.</p>
+
+<p>If you’re starting a new project or starting from scratch with writing browser tests, you should consider using Gauge.
+Even though it’s still in beta.
+With ThoughtWorks as the main force behind this tool, it’s here to stay!</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/testing/2018/01/05/Gauge-automated-testing.html&title=Automated testing with Gauge&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Automated testing with Gauge&url=https://ordina-jworks.github.io/testing/2018/01/05/Gauge-automated-testing.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/testing/2018/01/05/Gauge-automated-testing.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/martijn-willekens/" class="image spotlight-image">
+            <img src="/img/author/martijn-willekens.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Martijn is a frontend developer at Ordina Belgium. He primarily devotes himself to building Angular and Ionic apps written in TypeScript. ReactiveX is his favorite set of tools to work with.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2018-01-05-gauge-automated-testing/gauge.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/testing/2018/01/05/Gauge-automated-testing.html";
+        this.page.identifier = "/testing/2018/01/05/Gauge-automated-testing.html";
+        this.page.title = "Automated testing with Gauge";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
