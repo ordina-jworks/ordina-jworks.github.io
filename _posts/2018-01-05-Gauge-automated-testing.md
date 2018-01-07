@@ -114,7 +114,6 @@ public class CustomerSignup {
     @Step("Sign up as <customer> with email <customer@example.com> and <password>")
     public void registerCustomerWith(String customer, String email, String password) {
         WebDriver webDriver = Driver.webDriver;
-        webDriver.findElement(By.linkText("Sign up")).click();
         WebElement form = webDriver.findElement(By.id("new_user"));
         form.findElement(By.name("user[username]")).sendKeys(customer);
         form.findElement(By.name("user[email]")).sendKeys(email);
@@ -139,7 +138,7 @@ Obviously, you can then use them in your Java code.
 
 ### Page object pattern
 A clean way to organize all your code would be to use the page object pattern.
-This means that for every page in you web app, you should create a class.
+This means that for every page in your web app, you should create a class.
 Such a class contains all code to interact with that specific page.
 
 The example we saw earlier, could be transformed into this:
@@ -155,7 +154,6 @@ public class SignUpPage {
 
     SignUpPage() {
         WebDriver webDriver = Driver.webDriver;
-        webDriver.findElement(By.linkText("Sign up")).click();
         WebElement form = webDriver.findElement(By.id("new_user"));
         this.usernameField = form.findElement(By.name("user[username]"));
         this.emailField = form.findElement(By.name("user[email]"));
