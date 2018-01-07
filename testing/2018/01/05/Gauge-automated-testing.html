@@ -280,7 +280,6 @@ You could, for example, group them per page or feature.</p>
     <span class="nd">@Step</span><span class="o">(</span><span class="s">"Sign up as &lt;customer&gt; with email &lt;customer@example.com&gt; and &lt;password&gt;"</span><span class="o">)</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">registerCustomerWith</span><span class="o">(</span><span class="n">String</span> <span class="n">customer</span><span class="o">,</span> <span class="n">String</span> <span class="n">email</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">WebDriver</span> <span class="n">webDriver</span> <span class="o">=</span> <span class="n">Driver</span><span class="o">.</span><span class="na">webDriver</span><span class="o">;</span>
-        <span class="n">webDriver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">linkText</span><span class="o">(</span><span class="s">"Sign up"</span><span class="o">)).</span><span class="na">click</span><span class="o">();</span>
         <span class="n">WebElement</span> <span class="n">form</span> <span class="o">=</span> <span class="n">webDriver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">"new_user"</span><span class="o">));</span>
         <span class="n">form</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"user[username]"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="n">customer</span><span class="o">);</span>
         <span class="n">form</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"user[email]"</span><span class="o">)).</span><span class="na">sendKeys</span><span class="o">(</span><span class="n">email</span><span class="o">);</span>
@@ -305,7 +304,7 @@ Obviously, you can then use them in your Java code.</p>
 
 <h3 id="page-object-pattern">Page object pattern</h3>
 <p>A clean way to organize all your code would be to use the page object pattern.
-This means that for every page in you web app, you should create a class.
+This means that for every page in your web app, you should create a class.
 Such a class contains all code to interact with that specific page.</p>
 
 <p>The example we saw earlier, could be transformed into this:</p>
@@ -320,7 +319,6 @@ Such a class contains all code to interact with that specific page.</p>
 
     <span class="n">SignUpPage</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">WebDriver</span> <span class="n">webDriver</span> <span class="o">=</span> <span class="n">Driver</span><span class="o">.</span><span class="na">webDriver</span><span class="o">;</span>
-        <span class="n">webDriver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">linkText</span><span class="o">(</span><span class="s">"Sign up"</span><span class="o">)).</span><span class="na">click</span><span class="o">();</span>
         <span class="n">WebElement</span> <span class="n">form</span> <span class="o">=</span> <span class="n">webDriver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">"new_user"</span><span class="o">));</span>
         <span class="k">this</span><span class="o">.</span><span class="na">usernameField</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"user[username]"</span><span class="o">));</span>
         <span class="k">this</span><span class="o">.</span><span class="na">emailField</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="n">By</span><span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"user[email]"</span><span class="o">));</span>
