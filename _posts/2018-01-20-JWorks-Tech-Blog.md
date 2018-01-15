@@ -1,6 +1,18 @@
-The JWorks Technology Radar is intended to showcase our opinion on the most important tech trends we see today.
+---
+layout: post
+authors: [andreas_evers]
+title: 'The JWorks Tech Blog'
+image: /img/TechRadar.jpg
+tags: [Tech Radar]
+category: Tech
+comments: true
+---
+
+> The JWorks Technology Radar is intended to showcase our opinion on the most important tech trends we see today.
 It is based on the Thoughtworks Technology Radar and uses its open source framework for visualization.
 We adopted the mechanics and methodology from Thoughtworks, as described below.
+
+----------
 
 ##The Radar
 
