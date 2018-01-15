@@ -14,13 +14,13 @@ We adopted the mechanics and methodology from Thoughtworks, as described below.
 
 ----------
 
-##The Radar
+## The Radar
 
 The Radar is a document that sets out the changes that we think are currently interesting in software development - things in motion that we think you should pay attention to and consider using in your projects.
 It reflects the idiosyncratic opinion of a bunch of senior technologists and is based on our day-to-day work and experiences.
 While we think this is interesting, it shouldn’t be taken as a deep market analysis.
 
-##Quadrants
+## Quadrants
 
 The quadrants are a categorization of the type of blips:
 
@@ -31,7 +31,7 @@ The quadrants are a categorization of the type of blips:
 
 We don't make a big deal out of the quadrants - they’re really just a way to break up the Radar into topic areas. We don't think it's important which quadrant a blip goes into, unlike the rings - which generate a lot of discussion.
 
-##Rings
+## Rings
 
 The metaphor of a radar says that the closer a blip is to you, the sooner it will be on top of you. Like most metaphors, you can't take it too seriously, but there's an essential sense to it.
 
