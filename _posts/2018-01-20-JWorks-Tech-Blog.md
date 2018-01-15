@@ -2,7 +2,7 @@
 layout: post
 authors: [andreas_evers]
 title: 'The JWorks Tech Blog'
-image: /img/TechRadar.png
+image: /img/techradar/TechRadar.png
 tags: [Tech Radar]
 category: Tech
 comments: true
