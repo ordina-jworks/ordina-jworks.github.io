@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [andreas_evers]
-title: 'The JWorks Tech Blog'
+title: 'The JWorks Tech Radar'
 image: /img/techradar/TechRadar.png
 tags: [Tech Radar]
 category: Tech
