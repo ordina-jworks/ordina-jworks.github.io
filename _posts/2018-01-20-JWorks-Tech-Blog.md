@@ -12,7 +12,7 @@ comments: true
 It is based on the Thoughtworks Technology Radar and uses its open source framework for visualization.
 We adopted the mechanics and methodology from Thoughtworks, as described below.
 
-Our tech radar can be reached through [this link](https://ordina-jworks.github.io/tech-blog).
+Our tech radar can be reached through [this link](https://ordina-jworks.github.io/tech-radar).
 
 ## The Radar
 
