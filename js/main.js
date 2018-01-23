@@ -106,6 +106,15 @@ $(document).ready(function() {
 	
 });
 
+/* ********** */
+/* Tech Radar */
+/* ********** */
+$(document).ready(function() {
+	setTimeout(function() {
+		$('.tech-radar').addClass('active'); // Wait for tech-radar to load. Setting initial height causes the tech radar to be too big.
+	}, 3000);
+});
+
 /* *************** */
 /* Custom Dropdown */
 /* *************** */
