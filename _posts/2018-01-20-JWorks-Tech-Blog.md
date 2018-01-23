@@ -12,7 +12,7 @@ comments: true
 It is based on the Thoughtworks Technology Radar and uses its open source framework for visualization.
 We adopted the mechanics and methodology from Thoughtworks, as described below.
 
-----------
+Our tech radar can be reached through [this link](https://ordina-jworks.github.io/tech-blog).
 
 ## The Radar
 
@@ -48,5 +48,5 @@ We can only put blips into the Trial ring when we have experience of that blip o
 
 For the Adopt ring, we only include items when we think it would be a poor and potentially irresponsible choice not to use them given the appropriate project context.
 
-More information can be found on the Thoughtworks website: https://www.thoughtworks.com/radar/faq
+More information can be found on the [Thoughtworks website](https://www.thoughtworks.com/radar/faq).
 
