@@ -25,7 +25,7 @@ While we think this is interesting, it shouldn’t be taken as a deep market ana
 The quadrants are a categorization of the type of blips:
 
 - **Programming Languages and Frameworks.** Quite straight-forward, languages and software frameworks.
-- **Tools.** These can be components, such as databases, software development tools, such as versions control systems; or more generic categories of tools, such as the notion of polyglot persistence.
+- **Tools.** These can be components, such as databases, software development tools, such as Versions Control Systems; or more generic categories of tools, such as the notion of polyglot persistence.
 - **Platforms.** Things that we build software on top of such as mobile technologies like Android, virtual platforms like the JVM, or generic kinds of platforms like hybrid clouds.
 - **Techniques.** These include elements of a software development process, such as experience design; and ways of structuring software, such as microservices.
 
@@ -42,7 +42,7 @@ Our Radar has four rings, which we'll describe starting from the middle:
 - The **Assess** ring are things that you should look at closely, but not necessarily trial yet - unless you think they would be a particularly good fit for you. Typically, blips in the Assess ring are things that we're currently trialling, on our projects.
 - The **Hold** ring is for things that are getting attention in the industry, but we don't think are ready for use. Sometimes this is because we don't think they're mature enough yet: sometimes it means we think they're irredeemably flawed. We don't have an "avoid" ring, but we do throw things in the Hold ring that we wish our clients wouldn't use.
 
-Unlike the quadrants, we do have some quite passionate arguments about which ring a blip should go into. We don't tend to have angry arguments, but rings are what generate the most energetic discussions. Over the course of making the Radar we’ve come up with some useful rules of thumb to help us put things into rings.
+Unlike the quadrants, we do have some quite passionate arguments about which ring a blip should go into. We don't tend to have angry debates, but rings are what generate the most energetic discussions. Over the course of making the Radar we’ve come up with some useful rules of thumb to help us put things into rings.
 
 We can only put blips into the Trial ring when we have experience of that blip on a real project. This can mean we sometimes look behind the technology curve, because we may like the look of a technology but haven’t yet persuaded a client to try it out - and until we do that blip cannot pass into Trial.
 
