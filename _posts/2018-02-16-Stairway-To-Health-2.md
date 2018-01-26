@@ -276,17 +276,75 @@ async create(log: ILog, stream?: boolean): Promise<ILog> {
 }
 ```
 
+<h3>The Visible parts</h3>
+<p>
+    The main changes we've made on the frontend are:
+    <ul>
+        <li>Changing the colors, dark theme with Ordina branding</li>
+        <li>Used material design for smooth user experience</li>
+        <li>Replaced highcharts library with @swimlane/ngx-charts</li>
+        <li>Migrated to Angular 5</li>
+    </ul>
+</p>
 
-
-
-
-<!--
-<div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/stairwaytohealth/result1.jpg' | prepend: site.baseurl }}" data-lightbox="results" data-title="Large screen @ Proximus towers">
-        <img alt="result1" src="{{ '/img/stairwaytohealth/result1.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 61.45%; display: inline-block;">
-    </a>
-    <a href="{{ '/img/stairwaytohealth/result2.jpg' | prepend: site.baseurl }}" data-lightbox="results" data-title="Informing the employees">
-        <img alt="result2" src="{{ '/img/stairwaytohealth/result2.jpg' | prepend: site.baseurl }}" class="image fit" style="width: 34.55%; display: inline-block;">
-    </a>
+<div class="row">
+    <div class="col-md-4">
+        <a href="{{ '/img/stairwaytohealth2/frontend1.png' | prepend: site.baseurl }}" data-lightbox="results" data-title="">
+            <img alt="frontend 1" src="{{ '/img/stairwaytohealth2/frontend1.png' | prepend: site.baseurl }}" class="image fit">
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a href="{{ '/img/stairwaytohealth2/frontend2.png' | prepend: site.baseurl }}" data-lightbox="results" data-title="">
+            <img alt="frontend 2" src="{{ '/img/stairwaytohealth2/frontend2.png' | prepend: site.baseurl }}" class="image fit">
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a href="{{ '/img/stairwaytohealth2/frontend3.png' | prepend: site.baseurl }}" data-lightbox="results" data-title="">
+            <img alt="frontend 3" src="{{ '/img/stairwaytohealth2/frontend3.png' | prepend: site.baseurl }}" class="image fit">
+        </a>
+    </div>
 </div>
+
+<p>Since users should now be able to register to the application to cheer for and motivate each other we added these new screens and functionality.</p>
+
+ <div class="row">
+     <div class="col-md-6">
+         <a href="{{ '/img/stairwaytohealth2/register.png' | prepend: site.baseurl }}" data-lightbox="results" data-title="">
+             <img alt="register" src="{{ '/img/stairwaytohealth2/register.png' | prepend: site.baseurl }}" class="image fit">
+         </a>
+     </div>
+     <div class="col-md-6">
+         <a href="{{ '/img/stairwaytohealth2/cheer.png' | prepend: site.baseurl }}" data-lightbox="results" data-title="">
+             <img alt="cheers" src="{{ '/img/stairwaytohealth2/cheer.png' | prepend: site.baseurl }}" class="image fit">
+         </a>
+     </div>
+ </div>
+
+ <h3>Deploy on OpenShift</h3>
+
+ <p>Since we've separated our frontend and backend code we used 2 separate git repositories. The nice thing about deploying
+ to OpenShift is that we can add a webhook to github so that every time we merge a pull request from our develop branch to our
+ master branch to our git remote, it builds and deploys the new code immediately.
+ </p>
+
+
+ <h3>The new MySense sensors</h3>
+ <!--
+ ***************************
+ ** SENSOR TEXT GOES HERE **
+ ***************************
 -->
+
+ <h3>Conclusion</h3>
+
+<p>
+    We made some major improvements when it comes to performance, maintainability and functionality.
+    By deploying our application to OpenShift, we also improved our workflow and made it a lot easier to deploy our changes.
+    <!--
+    ************************
+    ** MySense conclusion **
+    ************************
+    -->
+</p>
+
+
