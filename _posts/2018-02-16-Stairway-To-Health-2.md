@@ -114,9 +114,167 @@ export class EntitiesController {
 }
 ```
 
+<h3>Websockets with NestJs</h3>
 
 
+<p>Working with sockets is also a lot easier and cleaner when working with Nest.
+We can use the <code>@WebSocketGateway</code> to create a new route/gateway, <code>@SubscribeMessage</code> to listen for certain events and
+<code>@OnGatewayConnection</code> or <code>@OnGatewayDisconnect</code> to know when users connect or disconnect to the server.
+There wasn't any straight forward solution for broadcasting to all clients. Once a user sends a message,
+we want to update the messages for everyone that has the client open. So we solved this by pushing all connected clients to an array
+and when we receive a 'cheer-created' event, we loop over the array of clients and emit an event to them one by one.</p>
 
+```typescript
+import {
+	WebSocketGateway, SubscribeMessage, OnGatewayConnection, OnGatewayDisconnect,
+	WsResponse
+} from '@nestjs/websockets';
+
+@WebSocketGateway({namespace: 'events/cheers'})
+export class CheerEventsComponent implements OnGatewayConnection, OnGatewayDisconnect {
+	public clients = [];
+
+	constructor() {
+
+	}
+
+	handleConnection(client: any) {
+		this.clients.push(client);
+	}
+
+	handleDisconnect(client) {
+		for (let i = 0; i < this.clients.length; i++) {
+			if (this.clients[i].id === client.id) {
+				this.clients.splice(i, 1);
+				break;
+			}
+		}
+	}
+
+	@SubscribeMessage('cheer-created')
+	onEvent(): WsResponse<void> {
+		this.broadcast('cheer');
+		return;
+	}
+
+	private broadcast(message: string) {
+		for (let c of this.clients) {
+			c.emit(message);
+		}
+	}
+}
+```
+
+<h3>Optimizing chart data and counts</h3>
+
+<p>On Stairway to Health we used mongo aggregations to get our chart data from the database. Once we hit 1.5 million logs,
+these calls put a lot of stress on our servers and took a long time to load, so in stead we now keep track of daily, weekly, monthly, yearly and total logs in their own collection.
+Whenever we receive a log from the MyThings stream we update all these collections. For example the daily logs collection contains documents that look like this:
+</p>
+
+```json
+{
+  "date": {
+    "$date": "2017-12-20T21:49:15.532Z"
+  },
+  "friendlyName1": "C",
+  "friendlyName2": "1",
+  "hour": 22,
+  "identifier": "20-12-2017",
+  "counts": 55
+}
+```
+
+<p>
+So when we want the hourly data from a certain day, we query the collection for the date we want and and simply return an array with all the different hours, if an hour doesn't exist, we assume it didn't send any logs/counts.
+When we receive a log, we check if there is an entry that has "date" and "hour" equal to the log's date. If so, we update, otherwise we create a new entry.
+We still store the log in a "logs" collection, so that if ever our daily, weekly, ... collections get corrupted, we can run a script that populates these collections with the correct data.
+</p>
+
+```typescript
+async create(log: ILog, stream?: boolean): Promise<ILog> {
+    try {
+
+        // We insert the log into our logs collection
+        let item = await this.logModel.create(log);
+
+        // the identifiers so we can easily query for them
+        let dailyIdentifier = `${item.day}-${item.month}-${item.year}`;
+        let weeklyIdentifier = `${item.week}-${item.year}`;
+        let monthlyIdentifier = `${item.month}-${item.year}`;
+        let yearlyIdentifier = `${item.year}`;
+
+        // sensors send all their containers to us, we only need to update the collections
+        // if they are 'counters' and they have a numeric value
+        if (item.container === 'counter' && item.numericValue) {
+
+            // update all collections
+            // by putting them in a variable, they all get executed without having to wait for each one to complete,
+            // and we have no 'callback hell', below te do a Promise.all so that we know when they are all done.
+
+            let dailyCountPromise = this.dailyCountsModel.update({
+                identifier: dailyIdentifier,
+                friendlyName1: item.friendlyName1,
+                friendlyName2: item.friendlyName2,
+                hour: item.hour
+            }, {
+                // increment, not overwrite the counts
+                $inc: {counts: item.numericValue}
+            }, {
+                // upsert makes sure that if the entry we try to update doesn't exist, we create one
+                upsert: true
+            });
+            let weeklyCountPromise = this.weeklyCountsModel.update({
+                identifier: weeklyIdentifier,
+                friendlyName1: item.friendlyName1,
+                friendlyName2: item.friendlyName2,
+                day: item.day
+            }, {
+                $inc: {counts: item.numericValue}
+            }, {upsert: true});
+            let totalCountPromise = this.totalCountsModel.update({
+                friendlyName1: item.friendlyName1,
+                friendlyName2: item.friendlyName2
+            }, {
+                $inc: {counts: item.numericValue}
+            }, {upsert: true});
+            let yearlyCountPromise = this.yearlyCountsModel.update({
+                friendlyName1: item.friendlyName1,
+                friendlyName2: item.friendlyName2,
+                month: item.month,
+                identifier: yearlyIdentifier
+            }, {
+                $inc: {counts: item.numericValue}
+            }, {upsert: true});
+            let monthlyCountPromise = this.monthlyCountsModel.update({
+                friendlyName1: item.friendlyName1,
+                friendlyName2: item.friendlyName2,
+                week: item.week,
+                identifier: monthlyIdentifier
+            }, {
+                $inc: {counts: item.numericValue}
+            }, {upsert: true});
+
+            // once all collections are updated, we emit a 'stream-received' event,
+            // which will reload the charts on the client application
+            Promise.all([ dailyCountPromise,
+                          weeklyCountPromise,
+                          totalCountPromise,
+                          yearlyCountPromise,
+                          monthlyCountPromise]).then(() => {
+                              if (stream) {
+                                  socket.emit('stream-received');
+                              }
+                          }, (err) => {
+                            console.log(err);
+                          });
+        }
+        return item;
+    } catch (error) {
+        throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+}
+```
 
 
 
