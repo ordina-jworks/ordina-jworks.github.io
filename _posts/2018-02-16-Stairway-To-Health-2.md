@@ -51,7 +51,7 @@ New in the Ordina version is that employees can now also cheer and motivate each
     <li>These sensors communicate via the LoRa network to report their status</li>
     <li>In our case sensor data is sent to the Proximus MyThings platform which processes the data</li>
     <li>The data gets sent to the Stairway to Health application</li>
-    <li>The Stairway to Health application interprets and visualizes the data</li>
+    <li>The Stairway to Health application interprets and visualises the data</li>
 </ul>
 
 In summary: We install sensors on the doors (things) to measure usage and we analyse the data to persuade people to move more.
@@ -165,7 +165,7 @@ export class CheerEventsComponent implements OnGatewayConnection, OnGatewayDisco
 }
 ```
 
-<h3>Optimizing chart data and counts</h3>
+<h3>Optimising chart data and counts</h3>
 
 <p>On Stairway to Health we used mongo aggregations to get our chart data from the database. Once we hit 1.5 million logs,
 these calls put a lot of stress on our servers and took a long time to load, so in stead we now keep track of daily, weekly, monthly, yearly and total logs in their own collection.
@@ -280,7 +280,7 @@ async create(log: ILog, stream?: boolean): Promise<ILog> {
 <p>
     The main changes we've made on the frontend are:
     <ul>
-        <li>Changing the colors, dark theme with Ordina branding</li>
+        <li>Changing the colours, dark theme with Ordina branding</li>
         <li>Used material design for smooth user experience</li>
         <li>Replaced highcharts library with @swimlane/ngx-charts</li>
         <li>Migrated to Angular 5</li>
