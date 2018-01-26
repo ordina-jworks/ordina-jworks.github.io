@@ -328,23 +328,18 @@ async create(log: ILog, stream?: boolean): Promise<ILog> {
  </p>
 
 
- <h3>The new MySense sensors</h3>
- <!--
- ***************************
- ** SENSOR TEXT GOES HERE **
- ***************************
--->
+ <h3>The new sensors: Proximus MySense</h3>
+<p>For the previeus version of Stairway to Health we used Magnetic door sensors, these use a magnet mounted on the doorframe and the sensor mounted on the door itself, when the door is closed the magnet makes contact whith the sensor and the sensor detects the door is closed. This means you need to mount at two places, and it needs to be carefully places to align. This makes it not an ideal solution.</p>
+<p>A solution for this is the MySense sensor. This is a lora sensor programmable with javascript.</p>
+<p>The MySense is a small Lora device containing multiple sensors. It contains a temperature sensor, a button, ... But the most important sensor for our case is the accelerometer. Using the accelerometer we can detect when the door is moving. After detecting a motion we will blackout the sensor for 30 seconds to allow the door to be closed again and not count multiple motions.</p>
+<p>To save battery we do not send on every motion, but count the amount of motions for 15 minutes and then send the counter, also when the counter is 0 we will not send to save battery.</p>
 
  <h3>Conclusion</h3>
 
 <p>
     We made some major improvements when it comes to performance, maintainability and functionality.
     By deploying our application to OpenShift, we also improved our workflow and made it a lot easier to deploy our changes.
-    <!--
-    ************************
-    ** MySense conclusion **
-    ************************
-    -->
+   By using the MySense as our sensor we only have to mount one piece per door. An extra advantage is that this sensor is a lot cheaper 🤑.
 </p>
 
 
