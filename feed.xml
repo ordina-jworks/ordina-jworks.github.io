@@ -1,5 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-01-23T10:51:18+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">The JWorks Tech Radar</title><link href="https://ordina-jworks.github.io/tech/2018/01/20/JWorks-Tech-Blog.html" rel="alternate" type="text/html" title="The JWorks Tech Radar" /><published>2018-01-20T00:00:00+00:00</published><updated>2018-01-20T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/tech/2018/01/20/JWorks-Tech-Blog</id><content type="html" xml:base="https://ordina-jworks.github.io/tech/2018/01/20/JWorks-Tech-Blog.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-01-27T19:19:22+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Visualizing your Spring Integration components &amp;amp; flows</title><link href="https://ordina-jworks.github.io/architecture/2018/01/27/Visualizing-your-Spring-Integration-components-and-flows.html" rel="alternate" type="text/html" title="Visualizing your Spring Integration components &amp; flows" /><published>2018-01-27T00:00:00+00:00</published><updated>2018-01-27T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2018/01/27/Visualizing-your-Spring-Integration-components-and-flows</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2018/01/27/Visualizing-your-Spring-Integration-components-and-flows.html">&lt;blockquote&gt;
+  &lt;p&gt;This post can be useful for everyone who wants to have insights on their application’s internal architecture when integrating with other systems using Spring Integration.
+From the developer that just started in your team and who wants to have an overview, to the seasoned team member that needs to troubleshoot a problem in production.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Currently we are working on the phased roll out of a microservices architecture at one of our clients.
+To ensure that everything works as it’s supposed to we are using a lot of &lt;a href=&quot;http://enterpriseintegrationpatterns.com/&quot; target=&quot;_blank&quot;&gt;Enterprise Integration Patterns&lt;/a&gt; to stitch both the old and the new landscape together.
+The best way to achieve a solution when using Java, is to use Spring Integration.
+A few days ago we wanted to have clear insights on how certain microservices are communicating with the existing systems.&lt;/p&gt;
+
+&lt;h2 id=&quot;creating-your-graph-of-spring-integration-components-and-flows&quot;&gt;Creating your graph of Spring Integration components and flows&lt;/h2&gt;
+
+&lt;p&gt;A first step to expose your Spring Integration components and flows is to add an &lt;code class=&quot;highlighter-rouge&quot;&gt;IntegrationGraphServer&lt;/code&gt; bean to your application.
+This class resides in the &lt;code class=&quot;highlighter-rouge&quot;&gt;o.s.i.support.management.graph&lt;/code&gt; package, between all the required classes to collect, build and render the runtime state of Spring Integration components as a single tree-like &lt;code class=&quot;highlighter-rouge&quot;&gt;Graph&lt;/code&gt; object.&lt;/p&gt;
+
+&lt;h2 id=&quot;exposing-the-graph&quot;&gt;Exposing the graph&lt;/h2&gt;
+
+&lt;p&gt;Using the Spring Integration HTTP module you can easily expose the &lt;code class=&quot;highlighter-rouge&quot;&gt;IntegrationGraphServer&lt;/code&gt; functionality as a REST service.
+Just add the &lt;code class=&quot;highlighter-rouge&quot;&gt;@EnableIntegrationGraphController&lt;/code&gt; annotation to your application, and you’re good to go!
+Or, in case you are using XML config, add the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;int-http:graph-controller/&amp;gt;&lt;/code&gt; XML element to your setup.
+Be sure to edit the &lt;code class=&quot;highlighter-rouge&quot;&gt;allowedOrigins&lt;/code&gt; attribute of the annotation in case you’re accessing the endpoint between 2 domains.
+Sidenote: your application needs to be deployed on a web container, or it needs to use an embedded web container in case you are building on top of Spring Boot.&lt;/p&gt;
+
+&lt;h2 id=&quot;visualizing-the-exposed-graph-of-components-and-flows&quot;&gt;Visualizing the exposed graph of components and flows&lt;/h2&gt;
+
+&lt;p&gt;With &lt;a href=&quot;https://d3js.org/&quot; target=&quot;_blank&quot;&gt;D3.js&lt;/a&gt; we are able to visualize everything within our graph.
+In &lt;a href=&quot;https://gist.github.com/TYsewyn/99f86b42ec4fbedf06db611a1a04bea4&quot; target=&quot;_blank&quot;&gt;this quick &amp;amp; dirty gist&lt;/a&gt; I created, you can find a simple example of a possible visualisation.
+Download the &lt;code class=&quot;highlighter-rouge&quot;&gt;index.html&lt;/code&gt; file, point the script to the correct endpoint by editing the &lt;code class=&quot;highlighter-rouge&quot;&gt;graphEndpoint&lt;/code&gt; variable, open the file in your browser and you should see every component and flow!&lt;/p&gt;
+
+&lt;h2 id=&quot;taking-it-one-step-further&quot;&gt;Taking it one step further&lt;/h2&gt;
+
+&lt;p&gt;If you add the &lt;code class=&quot;highlighter-rouge&quot;&gt;@EnableIntegrationManagement&lt;/code&gt; annotation or the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;int:management /&amp;gt;&lt;/code&gt; XML element to your setup, the graph will even expose all the metrics of your Spring Integration components.
+This will definitely help you out when you want to monitor your components and flows, enabling you to troubleshoot problems even faster in case something goes wrong in production.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Ysewyn&quot;, &quot;avatar&quot;=&gt;&quot;tim-ysewyn.png&quot;, &quot;twitter&quot;=&gt;&quot;TYsewyn&quot;, &quot;linkedin&quot;=&gt;&quot;tysewyn&quot;, &quot;github&quot;=&gt;&quot;TYsewyn&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-ysewyn/&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader API &amp; Microservices&quot;, &quot;email&quot;=&gt;&quot;Tim.Ysewyn@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a Principal Consultant at Ordina, where he helps fellow developers discovering top-notch technologies and methodologies as a Competence Leader for API &amp; Microservices. You can also find him working on various parts of the &lt;a href=\&quot;https://www.spring.io\&quot; target=\&quot;_blank\&quot;&gt;Spring&lt;/a&gt; framework or helping out at &lt;a href=\&quot;https://ng-be.org\&quot; target=\&quot;_blank\&quot;&gt;NG-BE&lt;/a&gt;. When you can\\'t get a hold of him, he will probably be under water since he is also an underwater photographer &amp; rescue diver.&quot;}</name><email>Tim.Ysewyn@ordina.be</email></author><category term="Architecture" /><category term="Spring" /><category term="Integration" /><category term="Spring Integration" /><category term="EIP" /><category term="Microservices" /><summary type="html">This post can be useful for everyone who wants to have insights on their application’s internal architecture when integrating with other systems using Spring Integration. From the developer that just started in your team and who wants to have an overview, to the seasoned team member that needs to troubleshoot a problem in production.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-01-27-Visualizing-your-Spring-Integration-components-and-flows/post-image.jpg" /></entry><entry><title type="html">The JWorks Tech Radar</title><link href="https://ordina-jworks.github.io/tech/2018/01/20/JWorks-Tech-Blog.html" rel="alternate" type="text/html" title="The JWorks Tech Radar" /><published>2018-01-20T00:00:00+00:00</published><updated>2018-01-20T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/tech/2018/01/20/JWorks-Tech-Blog</id><content type="html" xml:base="https://ordina-jworks.github.io/tech/2018/01/20/JWorks-Tech-Blog.html">&lt;blockquote&gt;
   &lt;p&gt;The JWorks Technology Radar is intended to showcase our opinion on the most important tech trends we see today.
 It is based on the Thoughtworks Technology Radar and uses its open source framework for visualization.
 We adopted the mechanics and methodology from Thoughtworks, as described below.&lt;/p&gt;
@@ -2829,201 +2861,4 @@ Mobile based AR applications that can be used for showcases, in the IoT world, o
 &lt;p&gt;&lt;strong&gt;The years to come will bring even more advancements&lt;/strong&gt; to the wonderful world of virtual, augmented and mixed realities.
 A lot of things are still shaping up and being developed, ever improving on earlier versions.
 A lot of solutions and &lt;strong&gt;standards are still being figured out.&lt;/strong&gt;
-Which means that now is a great time for us to try stuff out, and get a feel for the technology, whilst preparing and working on proof of concept applications.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michael&quot;, &quot;last_name&quot;=&gt;&quot;Vandendriessche&quot;, &quot;permalink&quot;=&gt;&quot;/author/michael-vandendriessche&quot;, &quot;avatar&quot;=&gt;&quot;michael-vandendriessche.jpg&quot;, &quot;title&quot;=&gt;&quot;SoftWare Engineer&quot;, &quot;title2&quot;=&gt;&quot;Android developer&quot;, &quot;email&quot;=&gt;&quot;michael.vandendriessche@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;miva2&quot;, &quot;bio&quot;=&gt;&quot;Michael is a Software Engineer at Ordina Belgium with a passion for Android. Besides mobile apps he also enjoys working on backend as well as frontend applications. He is always keen on trying out new things! In his spare time he likes to develop (and play) games.&quot;}</name><email>michael.vandendriessche@ordina.be</email></author><category term="IoT" /><category term="Internet of Things" /><category term="IoT" /><category term="Virtual reality" /><category term="Alternate reality" /><category term="Mixed reality" /><category term="Merged Reality" /><category term="Oculus Rift" /><category term="Oculus" /><category term="HTC Vive" /><category term="Vive" /><category term="SteamVR" /><category term="Steam" /><category term="Unreal Engine" /><category term="Unity" /><category term="Hololens" /><category term="Holo Lens" /><category term="Microsoft" /><category term="Google Glass" /><category term="Google" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/virtualreality/banner.jpg" /></entry><entry><title type="html">XP Days Benelux 2017</title><link href="https://ordina-jworks.github.io/conference/2017/12/19/XPDays-Benelux-2017.html" rel="alternate" type="text/html" title="XP Days Benelux 2017" /><published>2017-12-19T00:00:00+00:00</published><updated>2017-12-19T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2017/12/19/XPDays-Benelux-2017</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2017/12/19/XPDays-Benelux-2017.html">&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;http://www.xpdaysbenelux.nl&quot; target=&quot;_blank&quot;&gt;XP Days Benelux&lt;/a&gt; is a two day conference on agile software development for and by agile practitioners.
-In this post, I will take you along to the talks and sessions I attended and participated in.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;the-toc&quot;&gt;
-
-  &lt;h1 class=&quot;the-toc__heading&quot;&gt;Table Of Contents&lt;/h1&gt;
-
-  &lt;ol class=&quot;the-toc__list&quot;&gt;
-      &lt;li&gt;&lt;a href=&quot;#the-8-stances-of-a-scrum-master---barry-overeem&quot; title=&quot;The 8 Stances of a Scrum Master - Barry Overeem&quot;&gt;The 8 Stances of a Scrum Master - Barry Overeem&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#do-not-deal-with-resistance---remi-armand-collaris--linda-dorlandt&quot; title=&quot;Do Not Deal with Resistance! - Remi-Armand Collaris &amp;amp; Linda Dorlandt&quot;&gt;Do Not Deal with Resistance! - Remi-Armand Collaris &amp;amp; Linda Dorlandt&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#motivate-your-team-with-gamification---jean-jacques-courtens&quot; title=&quot;Motivate Your Team with Gamification - Jean-Jacques Courtens&quot;&gt;Motivate Your Team with Gamification - Jean-Jacques Courtens&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#an-integral-view-on-agile---frederik-vannieuwenhuyse--johannes-schartau&quot; title=&quot;An Integral View on Agile - Frederik Vannieuwenhuyse &amp;amp; Johannes Schartau&quot;&gt;An Integral View on Agile - Frederik Vannieuwenhuyse &amp;amp; Johannes Schartau&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#the-art-of-hosting-conversations-that-matter---johan-decoster--jef-cumps&quot; title=&quot;The Art of Hosting Conversations that Matter - Johan Decoster &amp;amp; Jef Cumps&quot;&gt;The Art of Hosting Conversations that Matter - Johan Decoster &amp;amp; Jef Cumps&lt;/a&gt;&lt;/li&gt;
-    &lt;/ol&gt;
-
-&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;the-8-stances-of-a-scrum-master---barry-overeem&quot;&gt;The 8 Stances of a Scrum Master - Barry Overeem&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Barry Overeem&quot; src=&quot;/img/xpdays-benelux-2017/Barry-Overeem.jpg&quot; /&gt;&lt;/span&gt;
-&lt;a href=&quot;https://twitter.com/barryovereem&quot; target=&quot;_blank&quot;&gt;Barry Overeem&lt;/a&gt; is a freelance Scrum Master and Professional Scrum Trainer at Scrum.org. He’s an active member of the Scrum community and shares his insights and knowledge by speaking at conferences, facilitating workshops and writing blog posts.&lt;/p&gt;
-
-&lt;p&gt;It is very common for a Scrum Master to get tasks assigned, that aren’t actually tasks a Scrum Master should be performing in the first place.
-The job description of a Scrum Master comes with a lot of other tasks than people, sometimes including the Scrum Master, assume.&lt;/p&gt;
-
-&lt;p&gt;The session starts with an overview of the eight misunderstood stances of a Scrum Master:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;The 8 Misunderstood Stances of a Scrum Master&quot; src=&quot;/img/xpdays-benelux-2017/8-Misunderstood-Stances.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 450px;&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Scrum Police:&lt;/strong&gt; Scrum isn’t a hard set of rules to be followed. There’s absolutely nothing wrong with a bit of flexibility and empathy based on the team’s situation.
-Time boxing for example is very important but keep an open mind when the team is having a very valuable conversation after the time box has ended.
-Flexibility regarding time boxing is of course not meant to happen too often. So keep an eye on recurring discussions to see if they need to be addressed individually.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Hero:&lt;/strong&gt; Managing and solving all problems and impediments like nobody’s business! While an important task for the Scrum Master, make sure not to get too focused on being the team’s impediment super hero.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Scribe:&lt;/strong&gt; “Hey John, you’re taking notes again for this meeting, right? Thanks!”. Do you recognize this exchange? Congratulations, you’re the team’s personal scribe.
-This is especially to be avoided during retrospectives since this creates a false sense of ownership of the issues and actions towards the Scrum Master.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Admin:&lt;/strong&gt; The Scrum Master is the workflow master. Need to add a board in Jira? Ask the Scrum Master. Need to start a sprint in Jira? Ask the Scrum Master. Now, hold up right there! The Scrum Master &lt;em&gt;can&lt;/em&gt; of course perform these tasks but yup, so can the other team members.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Secretary:&lt;/strong&gt; The Scrum Master plans all the work in the team members’ agendas. Keep up-to-date with everybody’s holidays, sick days and toilet breaks. &lt;em&gt;(Can you sense the sarcasm?)&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Chairman:&lt;/strong&gt; While this is often the case, the Daily Scrum isn’t a meeting where the team members report back to the Scrum Master. It’s a meeting by and for the development team. In absence of the Scrum Master, the Daily Scrum must still happen.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Team Boss:&lt;/strong&gt; The Scrum Master is the boss of the team. He/she decides who is in and who is out. A sick day? You’re fired! Buy the Scrum Master a chocolate cake? Here, have a raise! Oh, what a world it would be!&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Coffee Clerk:&lt;/strong&gt; Please do get your team members some coffee once in a while. But no, to everyone’s surprise, fetching coffee day-in day-out is not part of the Scrum Master’s job description.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;So, what are the eight preferred stances of a Scrum Master then?
-Glad you asked!&lt;/p&gt;
-
-&lt;p&gt;The eight preferred stances are:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;The 8 Preferred Stances of a Scrum Master&quot; src=&quot;/img/xpdays-benelux-2017/8-Preferred-Stances.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 450px;&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Teacher:&lt;/strong&gt; There is much the Scrum Master can teach the Scrum Team. The Scrum Master must ensure that Scrum is understood and implemented properly by the entire team.
-He or she makes sure the team stays on track of the Agile practices and principles.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“The art of teaching is the art of assisting discovery.” - Mark Van Doren&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Impediment Remover:&lt;/strong&gt; An impediment is a problem that goes beyond the self-organization of the Development Team. Make sure the team understands and uses their own ability to solve problems and be self-organized. It might also create an opportunity for the team to come up with creative ideas to solve the impediments themselves.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Facilitator:&lt;/strong&gt; Being a Scrum Master also means facilitating the team in transparency, inspection and adaptation. It is also through great facilitation that the Scrum Master succeeds in getting more value out of every event.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Coach:&lt;/strong&gt; It’s important to stay away from the solution and ask questions in order to facilitate discovery of solutions. Of course, the Scrum Master may offer new perspectives to help the team reach a solution.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Servant Leader:&lt;/strong&gt; Remember that the Scrum Master serves others. Being able to read the room, manage conflict and facilitate resolutions within the team is a very important responsibility of the Scrum Master. Make sure to lead by example and make others feel comfortable with failing.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Mentor:&lt;/strong&gt; The difference between coaching and mentoring is that for mentoring, having in-depth knowledge is crucial. A mentor helps the team understand the practices and principles of Agile and transfers his or her knowledge of the subject.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Manager:&lt;/strong&gt; The Scrum Master manages a whole bunch of things: the culture, the Scrum process, team health, Scrum values, impediments and boundaries of self-organization. These boundaries need managing because boundaries that work for one team might not work for another.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Change Agent:&lt;/strong&gt; It’s essential to try to influence the company culture to open up to Scrum so the Scrum Team can flourish and thrive.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;More info on the 8 Stances of a Scrum Master can be found &lt;a href=&quot;http://www.barryovereem.com/the-8-stances-of-a-scrum-master-2nd-edition/&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;do-not-deal-with-resistance---remi-armand-collaris--linda-dorlandt&quot;&gt;Do Not Deal with Resistance! - Remi-Armand Collaris &amp;amp; Linda Dorlandt&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Remi-Armand Collaris&quot; src=&quot;/img/xpdays-benelux-2017/Remi-Armand-Collaris.png&quot; /&gt;&lt;/span&gt;
-&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Linda Dorlandt&quot; src=&quot;/img/xpdays-benelux-2017/Linda-Dorlandt.png&quot; /&gt;&lt;/span&gt;
-&lt;a href=&quot;https://twitter.com/racollaris&quot; target=&quot;_blank&quot;&gt;Remi-Armand Collaris&lt;/a&gt; is a team and organisation coach who uses Agile, Scrum and LEAN ideas to find new ways to help people, both within teams as well as among teams, communicate and collaborate better.&lt;br /&gt;&lt;br /&gt;
-&lt;a href=&quot;https://twitter.com/lindadanst&quot; target=&quot;_blank&quot;&gt;Linda Dorlandt&lt;/a&gt; is a mentor in change processes that help teams collaborate and reach a common goal. In order to do this, she uses and teaches methods for coaching and process management.&lt;/p&gt;
-
-&lt;p&gt;The session by Remi-Armand and Linda started with two exercises. For the first exercise, we had to pair with one of our neighbours where one of us was the coach and the other the coachee.
-The coachee had to open up about an issue they’re facing that they cannot solve by themselves and the coach had to try to resolve it by suggesting solutions. After a few minutes, we had to switch roles. Both people then had to show to the group whether they felt better about the problem or not.
-The second exercise dealt with the same problem, but instead of immediately trying to suggest solutions, the coach asked questions to get to the bottom of the issue and figure out the goal of the coachee. Again, after this round, both people had to show to the rest of the group how they felt about their problem, if the feeling was better, worse, or stayed the same.
-The goal of these exercises was to show that trying to push someone towards a solution for their problem isn’t the best way to handle the situation since there will always be a ‘but’ coming from the person with the issue. Asking questions and trying to get the person to thoroughly think about their situation and problem will help them reach a solution themselves that they understand and accept.&lt;/p&gt;
-
-&lt;p&gt;As an example of someone trying to actively deal with resistance, they showed the YouTube video called &lt;a href=&quot;https://www.youtube.com/watch?v=-4EDhdAHrOg&quot; target=&quot;_blank&quot;&gt;‘It’s Not About the Nail’&lt;/a&gt;.
-The conclusion is easy and was mentioned in the paragraph above. Pushing someone towards a solution they don’t see fit will not give you the outcome you hope for.&lt;/p&gt;
-
-&lt;p&gt;Remi-Armand and Linda discussed a series of steps that will help facilitate the conversation with a person that has a problem and is unable to come to a solution by themselves.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;First step: Make a &lt;strong&gt;connection&lt;/strong&gt;. Acknowledge the person’s issue and make them feel comfortable opening up to you.&lt;/li&gt;
-  &lt;li&gt;Second step: “What is bothering you?” Try to figure out what the actual root cause is of their issue. Get to the bottom of it and &lt;strong&gt;focus&lt;/strong&gt; the complaints.&lt;/li&gt;
-  &lt;li&gt;Third step: “What do you think will help you?” Guide the person towards a &lt;strong&gt;change in language&lt;/strong&gt;. It’s important they can see that a change in the situation is actually possible.&lt;/li&gt;
-  &lt;li&gt;Fourth step: “When?” Create concrete &lt;strong&gt;plans&lt;/strong&gt; for change. Don’t postpone taking action. Plan it and make it happen.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;More information can be found on the Dutch website &lt;a href=&quot;http://www.praktischopweg.nl/&quot; target=&quot;_blank&quot;&gt;‘Praktisch op weg naar Teamresultaat’&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;motivate-your-team-with-gamification---jean-jacques-courtens&quot;&gt;Motivate Your Team with Gamification - Jean-Jacques Courtens&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Jean-Jacques Courtens&quot; src=&quot;/img/xpdays-benelux-2017/JJ-Courtens.png&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/jjcourtens&quot; target=&quot;_blank&quot;&gt;Jean-Jacques Courtens&lt;/a&gt; is the founder and managing partner at Adsdaq where he introduced gamification as a means of motivating the teams to deliver working products consistently.&lt;/p&gt;
-
-&lt;p&gt;This was an Open Space session where Jean-Jacques discussed the way he implemented gamification in his company. At Adsdaq, they work with a reward system where points can be earned by completing certain tasks.
-They assign points to three sections: Timesheets, demos and sprint objectives.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Timesheets: Filling in the timesheet in time is worth &lt;strong&gt;1 point&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;Demos: Doing a demo is worth &lt;strong&gt;2 points&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;Sprint objectives: Each completed story point is worth &lt;strong&gt;1 point&lt;/strong&gt;. For sprint objectives, they also use a point multiplier. X0 when the sprint has failed, X1 when 90% of their main goal of the sprint was achieved, X2 when 100% of the main goal was achieved and X3 when the entire sprint was a complete success.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For all three sections, they also assign badges. For example, the team can earn the golden badge when 15 sprints in a row are a complete success.&lt;/p&gt;
-
-&lt;p&gt;The earned points are actually converted to Euros that are spent on team celebrations where 1 point is worth 1 Euro:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;70% of the earned money goes towards team activities, such as team building, team lunch, etc.&lt;/li&gt;
-  &lt;li&gt;30% is spent on personal rewards like cinema tickets, dinner for two, etc. This is only meant for team members that were part of the sprint.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Jean-Jacques noted that the company probably spends around 3.500-4.000 Euros every year for this reward system, for a team of 8 people.
-It’s also important to note that the team is still being rewarded when the sprint fails and not being reprimanded for it. The reward is just a lot bigger when the sprints succeed.&lt;/p&gt;
-
-&lt;h3 id=&quot;an-integral-view-on-agile---frederik-vannieuwenhuyse--johannes-schartau&quot;&gt;An Integral View on Agile - Frederik Vannieuwenhuyse &amp;amp; Johannes Schartau&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Frederik Vannieuwenhuyse&quot; src=&quot;/img/xpdays-benelux-2017/Frederik-Vannieuwenhuyse.png&quot; /&gt;&lt;/span&gt;
-&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Johannes Schartau&quot; src=&quot;/img/xpdays-benelux-2017/Johannes-Schartau.png&quot; /&gt;&lt;/span&gt;
-&lt;a href=&quot;https://twitter.com/vfrederik&quot; target=&quot;_blank&quot;&gt;Frederik Vannieuwenhuyse&lt;/a&gt; is a multidisciplinary generalising specialist and is continuously on a journey of discovery and learning how to grow effective, resilient and agile organisations.&lt;br /&gt;&lt;br /&gt;
-&lt;a href=&quot;https://twitter.com/integralagile&quot; target=&quot;_blank&quot;&gt;Johannes Schartau&lt;/a&gt; is an Agile Coach, consultant and professional Zombie Scrum fighter from Hamburg, Germany. He is passionate about creating environments for real collaboration and joyful creativity.&lt;/p&gt;
-
-&lt;p&gt;The first part of this exercise consisted of reading six case studies and writing down on post-it notes how you would handle each situation, what questions you would ask.
-These post-it notes were used in a later exercise, after an explanation of the so-called Integral Theory:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Integral Theory&quot; src=&quot;/img/xpdays-benelux-2017/Integral-Theory1.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Integral Theory was created and shaped by &lt;a href=&quot;https://twitter.com/thekenwilber&quot; target=&quot;_blank&quot;&gt;Ken Wilber&lt;/a&gt; and consists of the idea that anything can be viewed as a thing by itself or as part of a larger group (&lt;strong&gt;Individual VS Collective&lt;/strong&gt;).
-Anything can also be seen from within and from the outside (&lt;strong&gt;Interior VS Exterior&lt;/strong&gt;). Based on this, Ken suggests that any kind of knowledge or experience can be assigned to any of the four quadrants shown above.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Leadership and Engagement:&lt;/strong&gt; Interprets people’s interior experiences and focuses on “I”&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Culture and Shared Vision:&lt;/strong&gt; Interprets the collective consciousness of a group of people and focuses on “We”&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Behavior and Metrics:&lt;/strong&gt; Observation of the behavior of people and focuses on “It”&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Organizational Architecture and Systems:&lt;/strong&gt; Focuses on the behavior of a group of people as functional entities seen from outside: “They”&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The following image gives an overview of the questions that help organize knowledge into the quadrants:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Integral Theory&quot; src=&quot;/img/xpdays-benelux-2017/Integral-Theory2.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;After explaining Integral Theory, we picked up our post-it notes and organized them into the quadrants that were put up across the room.
-When the post-it notes were assigned to their respective quadrant, Frederik and Johannes asked us to move towards the quadrant in the room that we felt we had the most experience in or we felt we were good at.
-Next, we had to discuss in our ‘quadrant groups’ whether the post-it notes that were put up in the quadrant were a good match for it or whether they belonged in another quadrant.
-The final exercise consisted of moving with your group to the next quadrants and listening to one person, that stayed behind from the initial group, explain the conclusions they reached during the initial discussion.&lt;/p&gt;
-
-&lt;p&gt;The presentation of Frederik and Johannes can be found &lt;a href=&quot;https://www.slideshare.net/frederikvannieuwenhuyse/an-integral-view-on-agile&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-art-of-hosting-conversations-that-matter---johan-decoster--jef-cumps&quot;&gt;The Art of Hosting Conversations that Matter - Johan Decoster &amp;amp; Jef Cumps&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Johan Decoster&quot; src=&quot;/img/xpdays-benelux-2017/Johan-Decoster.png&quot; /&gt;&lt;/span&gt;
-&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Jef Cumps&quot; src=&quot;/img/xpdays-benelux-2017/Jef-Cumps.png&quot; /&gt;&lt;/span&gt;
-&lt;a href=&quot;https://twitter.com/johan_decoster&quot; target=&quot;_blank&quot;&gt;Johan Decoster&lt;/a&gt; is an Agile coach and trainer trying to make a difference in the lives of the people he works with by uncovering everyone’s unique potential and looking deeper into the essence behind any theory or concept.&lt;br /&gt;&lt;br /&gt;
-&lt;a href=&quot;https://twitter.com/jcumps&quot; target=&quot;_blank&quot;&gt;Jef Cumps&lt;/a&gt; is an experienced coach and trainer supporting organisations in their transformation towards more agility and a more engaging, humane and effective way of looking at work.&lt;/p&gt;
-
-&lt;p&gt;The session by Johan and Jef started with a small exercise. We paired up with our neighbour and asked each other the question, ‘Why are you really at this conference, and what has it meant to you so far?’
-The point of the interview was asking questions to guide the interviewee in telling their story. After these interviews, the person interviewing had to share what they had learned with the rest of the table and the others had to take notes of the summary.
-The steps for executing this exercise are covered in this picture:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;The Art of Hosting&quot; src=&quot;/img/xpdays-benelux-2017/Art-of-Hosting2.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 450px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;After this exercise, it was clear that asking appropriate and considerate questions is a key element of hosting a good and constructive conversation.
-This kind of conversation is built upon four key elements:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;The Art of Hosting&quot; src=&quot;/img/xpdays-benelux-2017/Art-of-Hosting3.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 450px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Make sure the conversation stays polite and has a good flow of dialogue, but also take note of the two other sections.
-It’s very important to respect the differences in ideas between you and your conversation partner. It’s okay to voice your opinion, but be considerate and respectful and make sure to not overpower the other person.
-Listen often and do not judge too quickly. The other person might not be good in voicing their opinion clearly so suspending judgement is always a good idea. Things may become clearer later on in the conversation.&lt;/p&gt;
-
-&lt;p&gt;Right before the break, people were invited to write down questions they had, where they could use the help of others to solve it.
-Eventually, the top 8 questions were picked and each question owner was going to be the conversation host for one of the tables.
-After the break, we joined a question owner at their table with a maximum of 4 persons per table. The other people helped the question owners answer their question by having three conversations based on the following questions:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;What is the quest behind the question? Try to get into the question as deep as possible and figure out what the real reason is behind the question.&lt;/li&gt;
-  &lt;li&gt;What is missing? Is anything from the previous conversation still missing? Are there any other additional reasons behind the question?&lt;/li&gt;
-  &lt;li&gt;What actions can be taken? Decide on concrete actions that can be taken.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Each question was assigned a time box of 15 minutes and you were only allowed to talk about that specific question during that time box.
-After each question, the other people at the table moved around to another table to help with someone else’s issue.
-So, after the exercise, every non-question owner was able to help three different persons by helping with a different question each time.
-This exercise is called a Pro Action Cafe, which is based on &lt;a href=&quot;http://www.artofhosting.org/world-cafe/&quot; target=&quot;_blank&quot;&gt;World Cafe&lt;/a&gt; and Open Space.&lt;/p&gt;
-
-&lt;p&gt;The outcome of the exercise was a group of people, happy to have some concrete actions to start working with to try and solve their issues.&lt;/p&gt;
-
-&lt;p&gt;More info on the Art of Hosting can be found in the following image and on the &lt;a href=&quot;http://www.artofhosting.org/&quot; target=&quot;_blank&quot;&gt;mentioned website&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;The Art of Hosting&quot; src=&quot;/img/xpdays-benelux-2017/Art-of-Hosting4.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 450px;&quot; /&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Derya&quot;, &quot;last_name&quot;=&gt;&quot;Duru&quot;, &quot;permalink&quot;=&gt;&quot;/author/derya-duru/&quot;, &quot;title&quot;=&gt;&quot;Scrum Master&quot;, &quot;email&quot;=&gt;&quot;derya.duru@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;derya-duru-52348a3a&quot;, &quot;avatar&quot;=&gt;&quot;derya-duru.jpg&quot;, &quot;twitter&quot;=&gt;&quot;deryaduru_&quot;, &quot;github&quot;=&gt;&quot;Deryaa&quot;, &quot;bio&quot;=&gt;&quot;Derya is a Scrum Master at Ordina Belgium always trying to better herself in Agile frameworks. She enjoys being challenged and as the Competence Leader Agile, she tries to improve her own skills continuously, while hoping to share her knowledge and help others with their understanding of Agile frameworks.&quot;}</name><email>derya.duru@ordina.be</email></author><category term="Conference" /><category term="XP Days Benelux" /><category term="Agile" /><category term="Scrum" /><category term="Scrum Master" /><category term="Gamification" /><category term="Integral Theory" /><category term="Art of Hosting" /><category term="Facilitation" /><category term="Coaching" /><summary type="html">XP Days Benelux is a two day conference on agile software development for and by agile practitioners. In this post, I will take you along to the talks and sessions I attended and participated in.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/xpdays-benelux-2017/XPDays-Benelux-2017.png" /></entry></feed>
+Which means that now is a great time for us to try stuff out, and get a feel for the technology, whilst preparing and working on proof of concept applications.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michael&quot;, &quot;last_name&quot;=&gt;&quot;Vandendriessche&quot;, &quot;permalink&quot;=&gt;&quot;/author/michael-vandendriessche&quot;, &quot;avatar&quot;=&gt;&quot;michael-vandendriessche.jpg&quot;, &quot;title&quot;=&gt;&quot;SoftWare Engineer&quot;, &quot;title2&quot;=&gt;&quot;Android developer&quot;, &quot;email&quot;=&gt;&quot;michael.vandendriessche@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;miva2&quot;, &quot;bio&quot;=&gt;&quot;Michael is a Software Engineer at Ordina Belgium with a passion for Android. Besides mobile apps he also enjoys working on backend as well as frontend applications. He is always keen on trying out new things! In his spare time he likes to develop (and play) games.&quot;}</name><email>michael.vandendriessche@ordina.be</email></author><category term="IoT" /><category term="Internet of Things" /><category term="IoT" /><category term="Virtual reality" /><category term="Alternate reality" /><category term="Mixed reality" /><category term="Merged Reality" /><category term="Oculus Rift" /><category term="Oculus" /><category term="HTC Vive" /><category term="Vive" /><category term="SteamVR" /><category term="Steam" /><category term="Unreal Engine" /><category term="Unity" /><category term="Hololens" /><category term="Holo Lens" /><category term="Microsoft" /><category term="Google Glass" /><category term="Google" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/virtualreality/banner.jpg" /></entry></feed>
