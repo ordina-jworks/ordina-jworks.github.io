@@ -2,7 +2,7 @@
 layout: post
 authors: [tim_ysewyn]
 title: 'Visualizing your Spring Integration components & flows'
-image: /img/2018-01-27-Visualizing-your-Spring-Integration-components-and-flows/post-image.png
+image: /img/2018-01-27-Visualizing-your-Spring-Integration-components-and-flows/post-image.jpg
 tags: [Spring, Integration, Spring Integration, EIP, Microservices]
 category: Architecture
 comments: true
