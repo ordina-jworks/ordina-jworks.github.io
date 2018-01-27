@@ -30,7 +30,7 @@ Sidenote: your application needs to be deployed on a web container, or it needs 
 
 With [D3.js](https://d3js.org/){:target="_blank"} we are able to visualize everything within our graph.
 In [this quick & dirty gist](https://gist.github.com/TYsewyn/99f86b42ec4fbedf06db611a1a04bea4){:target="_blank"} I created you can find a simple example of a possible visualisation.
-Download the `index.html` file, point the script to the correct endpoint by editing the `jsonEndpoint` variable, open the file in your browser and you should see every component and flow!
+Download the `index.html` file, point the script to the correct endpoint by editing the `graphEndpoint` variable, open the file in your browser and you should see every component and flow!
 
 ## Taking it one step further
 
