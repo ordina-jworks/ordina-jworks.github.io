@@ -8,6 +8,9 @@ category: Architecture
 comments: true
 ---
 
+> This post can be useful for everyone who wants to have insights on their application's internal architecture when integrating with other systems using Spring Integration.
+> From the developer that just started in your team and who wants to have an overview, to the seasoned team member that needs to troubleshoot a problem in production.
+
 Currently we are working on the phased roll out of a microservices architecture at one of our clients.
 To ensure that everything works as it's supposed to we are using a lot of [Enterprise Integration Patterns](http://enterpriseintegrationpatterns.com/){:target="_blank"} to stitch both the old and the new landscape together.
 The best way to achieve a solution when using Java, is to use Spring Integration.
