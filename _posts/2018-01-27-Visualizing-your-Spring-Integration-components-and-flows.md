@@ -35,6 +35,11 @@ With [D3.js](https://d3js.org/){:target="_blank"} we are able to visualize every
 In [this quick & dirty gist](https://gist.github.com/TYsewyn/99f86b42ec4fbedf06db611a1a04bea4){:target="_blank"} I created, you can find a simple example of a possible visualisation.
 Download the `index.html` file, point the script to the correct endpoint by editing the `graphEndpoint` variable, open the file in your browser and you should see every component and flow!
 
+As Gary Russell pointed out in [his reply](https://twitter.com/gprussell/status/957370937741111296) to my tweet you can also use Spring Flo for the visualization.
+Spring Flo is an Angular based, embeddable graphical component for pipeline/graph building and editing.
+This is used as the basis of the stream builder in Spring Cloud Data Flow.
+You can find the sample application [here](https://github.com/spring-projects/spring-flo/tree/angular-1.x/samples/spring-flo-si).
+
 ## Taking it one step further
 
 If you add the `@EnableIntegrationManagement` annotation or the `<int:management />` XML element to your setup, the graph will even expose all the metrics of your Spring Integration components.
