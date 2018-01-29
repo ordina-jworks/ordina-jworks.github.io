@@ -187,7 +187,7 @@ Whenever we receive a log from the MyThings stream we update all these collectio
 
 <p>
 So when we want the hourly data from a certain day, we query the collection for the date we want and and simply return an array with all the different hours, if an hour doesn't exist, we assume it didn't send any logs/counts.
-When we receive a log, we check if there is an entry that has "date" and "hour" equal to the log's date. If so, we update, otherwise we create a new entry.
+When we receive a log, we check if there is an entry that has "date" and "hour" equal to the log's date. If so, we update, otherwise we create a new entry (upsert).
 We still store the log in a "logs" collection, so that if ever our daily, weekly, ... collections get corrupted, we can run a script that populates these collections with the correct data.
 </p>
 
