@@ -18,8 +18,8 @@ comments: true
 <h2>Harder, Better, Faster, Stronger</h2>
 
 <p>
-Here we are again, another blog post about Stairway to Health.<br>
-Why? Well, we've created our own Ordina version of the Stairway to Health application.
+Here we are again, another blog post about <a href="http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard" target="_blank">Stairway to Health</a>.<br>
+Why? Well, we've created our own Ordina version of the <a href="http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard" target="_blank">Stairway to Health</a> application.
 There are quite a few interesting bells and whistles, among others, here are a few of those new features:
 <ul>
     <li>New (and awesome) frontend design, with Ordina theming obviously</li>
@@ -36,7 +36,7 @@ There are quite a few interesting bells and whistles, among others, here are a f
 <h2>Stairway to Health @ Ordina</h2>
 
 <p>
-As you might have read in our <a href="" target="_blank">previous post</a> about Stairway to Health, the purpose of the application is to
+As you might have read in our <a href="https://ordina-jworks.github.io/iot/2017/10/12/Stairway-To-Health.html" target="_blank">previous post</a> about Stairway to Health, the purpose of the application is to
 improve worker health in a fun and engaging way. With the app we try to encourage employees to take the stairs instead of the elevator.
 We've put up some sensors that can detect how much stairway usage there is on every floor and how many people take the elevator.
 On the app they can see these results and thus they can do an extra effort if they are falling behind.
@@ -45,7 +45,7 @@ New in the Ordina version is that employees can now also cheer and motivate each
 
 <h2>Internet of Things</h2>
 
-<p>The Stairway to Health project is a simple yet great example to show what the Internet of Things can do:
+<p>The <a href="http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard" target="_blank">Stairway to Health</a> project is a simple yet great example to show what the Internet of Things can do:
 <ul>
     <li>LoRa sensors detect door openings, these are installed on the doors of the staircases</li>
     <li>These sensors communicate via the LoRa network to report their status</li>
@@ -57,7 +57,7 @@ New in the Ordina version is that employees can now also cheer and motivate each
 In summary: We install sensors on the doors (things) to measure usage and we analyse the data to persuade people to move more.
 The result is a good example of how IoT can influence our daily lives.
 
-For more on this topic, check the application's <a href="" target="_blank">About page</a>
+For more on this topic, check the application's <a href="http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/about" target="_blank">About page</a>
 </p>
 
 
@@ -350,5 +350,15 @@ also when the counter is 0 we will not send to save battery.</p>
     By deploying our application to OpenShift, we also improved our workflow and made it a lot easier to deploy our changes.
     By using the MySense as our sensor we only have to mount one piece per door. An extra advantage is that this sensor is a lot cheaper.
 </p>
+
+<h3>Interesting Links</h3>
+
+<ul>
+<li><a href="http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard" target="_blank">Stairway to Health 2.0</a></li>
+    <li><a href="https://ordina-jworks.github.io/iot/2017/10/12/Stairway-To-Health.html" target="_blank">Blogpost Stairway to Health 1</a></li>
+    <li><a href="https://nestjs.com/" target="_blank">NestJs</a></li>
+    <li><a href="https://www.openshift.com/" target="_blank">OpenShift</a></li>
+
+</ul>
 
 
