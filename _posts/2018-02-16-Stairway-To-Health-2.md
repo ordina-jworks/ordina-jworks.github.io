@@ -327,7 +327,9 @@ async create(log: ILog, stream?: boolean): Promise<ILog> {
  master branch to our git remote, it builds and deploys the new code immediately.
  </p>
 
-
+<a href="{{ '/img/stairwaytohealth2/stack.png' | prepend: site.baseurl }}" data-lightbox="results" data-title="">
+ <img alt="stack" src="{{ '/img/stairwaytohealth2/stack.png' | prepend: site.baseurl }}" class="image fit">
+</a>
  <h3>The new sensors: Proximus MySense</h3>
 <p>For the previous version of Stairway to Health we used Magnetic door sensors,
 these use a magnet mounted on the door frame and the sensor mounted on the door itself, when the door is closed the magnet
