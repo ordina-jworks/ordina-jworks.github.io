@@ -17,7 +17,7 @@ comments: true
 
 ## Introduction
 I have been pretty excited about Kotlin since JetBrains released the [first official version](https://blog.jetbrains.com/kotlin/2016/02/kotlin-1-0-released-pragmatic-language-for-jvm-and-android/){:target="_blank"} on the 15th of February 2016.
-It did took me a while before I managed to get my hands dirty which was in between the version 1.1 and 1.2 release.
+It did take me a while before I managed to get my hands dirty, which was in between the version 1.1 and 1.2 release.
 Besides developing in Java, which I'm doing full time as a senior Java consultant, 
 I've also been dabbling in Scala for quite some years with Lightbend's [Play Framework](https://www.playframework.com){:target="_blank"}.
 Everyone knows how verbose Java is, and how it lags a bit behind the newer, fancier programming languages.
