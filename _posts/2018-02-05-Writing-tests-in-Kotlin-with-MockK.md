@@ -24,9 +24,9 @@ Everyone knows how verbose Java is, and how it lags a bit behind the newer, fanc
 It still misses features such as pattern matching, case/data classes and local-variable type inference.
 
 Starting from Java 8 with the introduction of Lambdas, we have finally been given the option to add a more functional programming flavour to our code which was due in time.
-Scala felt very refreshing for me back then when I started to use it which was shortly before the JDK 7 release.
+Scala felt very refreshing for me back then, when I started to use it which was shortly before the JDK 7 release.
 It felt clean and powerful, bringing the best of both worlds of object-oriented programming and functional programming.
-At the same time, Scala houses a lot of complexity as there are so many ways and styles to tackle problems.
+At the same time, Scala houses a lot of complexity since there are so many ways and styles to tackle problems.
 You could compare it a bit to having the toolkit available to build a space rocket when you only plan on building a small airplane. 
 And this is where Kotlin comes in, being very similar to Scala but with a focus on practicality and simplicity.
 Coming from the industry instead of academia, it focuses on solving problems faced daily by programmers.
@@ -114,7 +114,7 @@ I decided to try that one out and replaced my Mockito dependency with it:
 ```
 
 I rewrote my test a bit in order to make use of the cleaner syntax the library had to offer.
-Note how defining the mocks and the mocking is a bit more elegant:
+Note how both defining and using the mocks is a bit more elegant:
 
 ```kotlin
 class ServiceTest {
@@ -156,7 +156,8 @@ Changing your code just for the sake of being able to write good tests is someth
 Starting from Mockito version `2.0.0` it did [became possible to mock final classes](https://github.com/mockito/mockito/wiki/What%27s-new-in-Mockito-2#unmockable){:target="_blank"} although it is an incubating, opt-in feature.
 This however, requires a bit of a setup really.
 It basically consists of creating a file called `org.mockito.plugins.MockMaker` with as content `mock-maker-inline` and placing it under `resources/mockito-extensions`.
-It felt a bit hacky but apparently this is only a temporary way to set it up, as there are supposed to be plans to make it more straightforward and pragmatic as you might have read in the documentation.
+It felt a bit hacky but apparently this is only a temporary way to set it up.
+Although there are supposed to be plans to make it more straightforward.
 [Hadi Hariri](https://twitter.com/hhariri){:target="_blank"} wrote an extensive [blog post](http://hadihariri.com/2016/10/04/Mocking-Kotlin-With-Mockito/){:target="_blank"} on setting this up and you should check it out if you would like to learn more about it.
 
 Good, so this makes it possible to create mocks without having to add the `open` modifier to all your classes and methods!
@@ -277,7 +278,7 @@ spying to mix mocks and real objects, partial argument matching, capturing argum
 After fiddling with Mockito, I happily continued using MockK for my little Kotlin project.
 
 ## Summing it all up
-Mockito for me felt a bit hacky/unnatural to use and too Java-ish when using it in a Kotlin project.
+Mockito for me felt a bit hacky/unnatural and too Java-ish when using it in a Kotlin project.
 I imagine it will probably become better in the near future.
 
 MockK, being a newer library specifically targeted at Kotlin, felt clean and pleasant to use with excellent documentation.
