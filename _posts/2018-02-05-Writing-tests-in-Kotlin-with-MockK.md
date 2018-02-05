@@ -222,7 +222,7 @@ You have the same three parts in which your tests are divided:
 - Executing the logic that you want to test
 - Performing the necessary validation and verification checks to see if the result and behaviour matches your expectations.
 
-The test from above is written as followed:
+The test from above is written as follows:
 
 ```kotlin
 class ServiceTest {
