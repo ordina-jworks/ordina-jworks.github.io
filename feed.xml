@@ -1,5 +1,288 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-01-27T22:43:23+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Visualizing your Spring Integration components &amp;amp; flows</title><link href="https://ordina-jworks.github.io/architecture/2018/01/27/Visualizing-your-Spring-Integration-components-and-flows.html" rel="alternate" type="text/html" title="Visualizing your Spring Integration components &amp; flows" /><published>2018-01-27T00:00:00+00:00</published><updated>2018-01-27T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2018/01/27/Visualizing-your-Spring-Integration-components-and-flows</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2018/01/27/Visualizing-your-Spring-Integration-components-and-flows.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-02-05T14:44:37+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Mocking in Kotlin with MockK</title><link href="https://ordina-jworks.github.io/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK.html" rel="alternate" type="text/html" title="Mocking in Kotlin with MockK" /><published>2018-02-05T00:00:00+00:00</published><updated>2018-02-05T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#mockito-and-its-shortcomings-in-kotlin&quot;&gt;Mockito and its shortcomings in Kotlin&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#the-idiomatic-mocking-framework-for-kotlin&quot;&gt;The idiomatic mocking framework for Kotlin&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#summing-it-all-up&quot;&gt;Summing it all up&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#other-useful-links&quot;&gt;Other useful links&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;I have been pretty excited about Kotlin since JetBrains released the &lt;a href=&quot;https://blog.jetbrains.com/kotlin/2016/02/kotlin-1-0-released-pragmatic-language-for-jvm-and-android/&quot; target=&quot;_blank&quot;&gt;first official version&lt;/a&gt; on the 15th of February 2016.
+It did took me a while before I managed to get my hands dirty which was in between the version 1.1 and 1.2 release.
+Besides developing in Java, which I’m doing full time as a senior Java consultant, 
+I’ve also been dabbling in Scala for quite some years with Lightbend’s &lt;a href=&quot;https://www.playframework.com&quot; target=&quot;_blank&quot;&gt;Play Framework&lt;/a&gt;.
+Everyone knows how verbose Java is, and how it lags a bit behind the newer, fancier programming languages.
+It still misses features such as pattern matching, case/data classes and local-variable type inference.&lt;/p&gt;
+
+&lt;p&gt;Starting from Java 8 with the introduction of Lambdas, we have finally been given the option to add a more functional programming flavour to our code which was due in time.
+Scala felt very refreshing for me back then, when I started to use it which was shortly before the JDK 7 release.
+It felt clean and powerful, bringing the best of both worlds of object-oriented programming and functional programming.
+At the same time, Scala houses a lot of complexity since there are so many ways and styles to tackle problems.
+You could compare it a bit to having the toolkit available to build a space rocket when you only plan on building a small airplane. 
+And this is where Kotlin comes in, being very similar to Scala but with a focus on practicality and simplicity.
+Coming from the industry instead of academia, it focuses on solving problems faced daily by programmers.&lt;/p&gt;
+
+&lt;p&gt;I’m a big fan of Test-Driven Development and thoroughly testing the behaviour of my code by making use of mocks.
+&lt;a href=&quot;http://site.mockito.org&quot; target=&quot;_blank&quot;&gt;Mockito&lt;/a&gt; has been my mocking framework of choice combined with &lt;a href=&quot;https://github.com/powermock/powermock&quot; target=&quot;_blank&quot;&gt;PowerMock&lt;/a&gt; for mocking constructors, static and private methods, and more.
+As Kotlin also runs on the JVM, it can make use of the huge Java ecosystem.
+It was a no-brainer for me to immediately add these testing libraries to my Kotlin project for writing my tests.&lt;/p&gt;
+
+&lt;p&gt;And thus I set off, creating a new Kotlin project to see how it fared.&lt;/p&gt;
+
+&lt;h2 id=&quot;mockito-and-its-shortcomings-in-kotlin&quot;&gt;Mockito and its shortcomings in Kotlin&lt;/h2&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:500px;&quot; alt=&quot;Mockito logo&quot; src=&quot;/img/writing-tests-in-kotlin-with-mockk/mockito.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;I started off with adding the Mockito dependency to my Kotlin project.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.mockito&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mockito-core&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;2.13.0&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And wrote a first simple test in which I wanted to test a &lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt; class that uses a &lt;code class=&quot;highlighter-rouge&quot;&gt;Generator&lt;/code&gt; to generate a record and a &lt;code class=&quot;highlighter-rouge&quot;&gt;Dao&lt;/code&gt; for persisting it.&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ServiceTest&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Generator&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Random String that's not random&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Dao&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;Inserting &quot;$record&quot;&quot;&quot;&quot;) }
+&lt;/span&gt;    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calculate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;record&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;generator&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Mockito&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Generator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;dao&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Mockito&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Dao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;service&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myTest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;mockedRecord&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;mocked String&quot;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Mockito&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;`when`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mockedRecord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calculate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;Mockito&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;verify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Mockito&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;verify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mockedRecord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Mockito&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;verifyNoMoreInteractions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Writing the test went pretty smooth although the code looks a bit funky.
+When I ran it, I stumbled on this nice error:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;org.mockito.exceptions.base.MockitoException: 
+Cannot mock/spy class be.yannickdeturck.HelloTest$Generator
+Mockito cannot mock/spy because :
+ - final class
+ — anonymous classes
+ — primitive types
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As all classes and methods are final by default in Kotlin, using Mockito appears to be a bit problematic due to how Mockito creates its mocks.
+If you are interested in how Mockito’s mocking works internally you should checkout &lt;a href=&quot;https://stackoverflow.com/a/14447878/1320126&quot; target=&quot;_blank&quot;&gt;this response on StackOverflow&lt;/a&gt; that roughly sums it up.&lt;/p&gt;
+
+&lt;p&gt;I did a bit more research on using Mockito and stumbled upon this &lt;a href=&quot;https://github.com/nhaarman/mockito-kotlin&quot; target=&quot;_blank&quot;&gt;slightly tuned version&lt;/a&gt; for Kotlin, wrapping some of Mockito’s functionalities, providing a simpler API.
+I decided to try that one out and replaced my Mockito dependency with it:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.nhaarman&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mockito-kotlin&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.5.0&amp;lt;/version&amp;gt;
+    &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I rewrote my test a bit in order to make use of the cleaner syntax the library had to offer.
+Note how both defining and using the mocks is a bit more elegant:&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ServiceTest&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Generator&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Random String that's not random&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Dao&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;Inserting &quot;$record&quot;&quot;&quot;&quot;) }
+&lt;/span&gt;    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calculate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;record&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;generator&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;()&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;dao&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;service&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myTest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;mockedRecord&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;mocked String&quot;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;whenever&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mockedRecord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calculate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;Mockito&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;verify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Mockito&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;verify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mockedRecord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Mockito&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;verifyNoMoreInteractions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Sadly, we still have the Mockito error.&lt;/p&gt;
+
+&lt;p&gt;As I said, in Kotlin all classes and methods are final by default which &lt;a href=&quot;https://github.com/mockito/mockito/issues/657&quot; target=&quot;_blank&quot;&gt;Mockito cannot deal with&lt;/a&gt;.
+You would have to explicitly make your classes inheritable using the &lt;code class=&quot;highlighter-rouge&quot;&gt;open&lt;/code&gt; modifier.
+Another approach would be to add interfaces to everything.
+Changing your code just for the sake of being able to write good tests is something I’m not exactly fond of, and in this case we are also getting around one of the key features of Kotlin.&lt;/p&gt;
+
+&lt;p&gt;Starting from Mockito version &lt;code class=&quot;highlighter-rouge&quot;&gt;2.0.0&lt;/code&gt; it did &lt;a href=&quot;https://github.com/mockito/mockito/wiki/What%27s-new-in-Mockito-2#unmockable&quot; target=&quot;_blank&quot;&gt;became possible to mock final classes&lt;/a&gt; although it is an incubating, opt-in feature.
+This however, requires a bit of a setup really.
+It basically consists of creating a file called &lt;code class=&quot;highlighter-rouge&quot;&gt;org.mockito.plugins.MockMaker&lt;/code&gt; with as content &lt;code class=&quot;highlighter-rouge&quot;&gt;mock-maker-inline&lt;/code&gt; and placing it under &lt;code class=&quot;highlighter-rouge&quot;&gt;resources/mockito-extensions&lt;/code&gt;.
+It felt a bit hacky but apparently this is only a temporary way to set it up.
+Although there are supposed to be plans to make it more straightforward.
+&lt;a href=&quot;https://twitter.com/hhariri&quot; target=&quot;_blank&quot;&gt;Hadi Hariri&lt;/a&gt; wrote an extensive &lt;a href=&quot;http://hadihariri.com/2016/10/04/Mocking-Kotlin-With-Mockito/&quot; target=&quot;_blank&quot;&gt;blog post&lt;/a&gt; on setting this up and you should check it out if you would like to learn more about it.&lt;/p&gt;
+
+&lt;p&gt;Good, so this makes it possible to create mocks without having to add the &lt;code class=&quot;highlighter-rouge&quot;&gt;open&lt;/code&gt; modifier to all your classes and methods!
+It does’t appear to be completely compatible with Mockito Kotlin even though the library depends on Mockito version &lt;code class=&quot;highlighter-rouge&quot;&gt;2.8.9&lt;/code&gt;.
+Trying to run the test resulted in the following error:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;org.mockito.exceptions.base.MockitoInitializationException: 
+Could not initialize inline Byte Buddy mock maker. (This mock maker is not supported on Android.)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;At the time of writing there is a version &lt;code class=&quot;highlighter-rouge&quot;&gt;2.0.0&lt;/code&gt; in alpha for Mockito Kotlin so I tried to switch to it to see if it changed anything.
+Note that the dependency is a bit different and you need to use the classes in the &lt;code class=&quot;highlighter-rouge&quot;&gt;com.nhaarman.mockitokotlin2&lt;/code&gt; package:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.nhaarman.mockitokotlin2&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mockito-kotlin&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;2.0.0-alpha02&amp;lt;/version&amp;gt;
+    &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It got rid of the above error.
+I did ran into some unexpected behaviour where my mocks’ behaviour was rather unexpected when I also added partial mocking using spies.
+I spent some time to get my head around it and during my quest for answers I stumbled upon this library called &lt;a href=&quot;http://mockk.io&quot; target=&quot;_blank&quot;&gt;MockK&lt;/a&gt;, created by &lt;a href=&quot;https://twitter.com/oleksiyp&quot; target=&quot;_blank&quot;&gt;Oleksiy Pylypenko&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I decided to check it out as I became a bit annoyed with Mockito in Kotlin so far.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-idiomatic-mocking-framework-for-kotlin&quot;&gt;The idiomatic mocking framework for Kotlin&lt;/h2&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:500px;&quot; alt=&quot;MockK logo&quot; src=&quot;/img/writing-tests-in-kotlin-with-mockk/mockk.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Although I am a huge fan of Mockito for mocking in Java, using Mockito in Kotlin just feels a bit too Java-ish when you have this elegant Kotlin code all around in your project. 
+MockK’s main philosophy is offering first-class support for Kotlin features and being able to write idiomatic Kotlin code when using it.
+Adding MockK is as simple as ever as you only have to add the dependency to your project and you are set to go.&lt;/p&gt;
+
+&lt;p&gt;Maven:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;io.mockk&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mockk&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.7.1&amp;lt;/version&amp;gt;
+    &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Gradle:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;testCompile &quot;io.mockk:mockk:1.7.1&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The available &lt;a href=&quot;http://mockk.io&quot; target=&quot;_blank&quot;&gt;MockK documentation&lt;/a&gt; provides a really nice overview of all the different features with a lot of examples, making it very easy to get started.
+If you have used a mocking framework before such as Mockito, everything should come natural as you usually do when writing tests with mocks.
+You have the same three parts in which your tests are divided:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Preparing the test data and setting up the mocking&lt;/li&gt;
+  &lt;li&gt;Executing the logic that you want to test&lt;/li&gt;
+  &lt;li&gt;Performing the necessary validation and verification checks to see if the result and behaviour matches your expectations.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The test from above is written as followed:&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ServiceTest&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Generator&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Random String that's not random&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Dao&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;Inserting &quot;$record&quot;&quot;&quot;&quot;) }
+&lt;/span&gt;    &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calculate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;record&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;generator&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mockk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;()&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;dao&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mockk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;()&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;service&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myTest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;mockedRecord&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;mocked String&quot;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;every&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;returns&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mockedRecord&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;every&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mockedRecord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;just&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Runs&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calculate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;verifyAll&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mockedRecord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Going over the example, everything should feel familiar but more elegant.
+You may however, wonder what the &lt;code class=&quot;highlighter-rouge&quot;&gt;every { dao.insert(mockedRecord) } just Runs&lt;/code&gt; line is doing exactly.
+By default in MockK, mocks are strict so you need to provide some behaviour for them.
+If we were to omit the line, the test would fail as we would run into the following error:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;io.mockk.MockKException: no answer found for: Dao(#2).insert(mocked String)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;A feature I was immediately fond of as I like to write strict tests.
+Note that you can also define the mock as being a &lt;em&gt;relaxed mock&lt;/em&gt; in order to avoid this strict behaviour:&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;dao&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mockk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Dao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;relaxed&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Mockito has something similar for verifying with &lt;code class=&quot;highlighter-rouge&quot;&gt;Mockito.verifyNoMoreInteractions(generator, dao)&lt;/code&gt; which I also extensively use to enforce that all calls of mocked objects are verified.
+Of course, the above example is only the tip of the iceberg as MockK houses a ton of other features such as annotations to simplify creating mock objects, 
+spying to mix mocks and real objects, partial argument matching, capturing arguments, verification order support, matchers, coroutine mocking support, and so much more.&lt;/p&gt;
+
+&lt;p&gt;After fiddling with Mockito, I happily continued using MockK for my little Kotlin project.&lt;/p&gt;
+
+&lt;h2 id=&quot;summing-it-all-up&quot;&gt;Summing it all up&lt;/h2&gt;
+&lt;p&gt;Mockito for me felt a bit hacky/unnatural and too Java-ish when using it in a Kotlin project.
+I imagine it will probably become better in the near future.&lt;/p&gt;
+
+&lt;p&gt;MockK, being a newer library specifically targeted at Kotlin, felt clean and pleasant to use with excellent documentation.
+Oleksiy is also actively working on the library as you can see in the repo’s &lt;a href=&quot;https://github.com/oleksiyp/mockk/releases&quot; target=&quot;_blank&quot;&gt;releases section&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I highly recommend checking out MockK for mocking in a Kotlin project as it is currently a better option in my humble opinion.
+Oleksiy is also very active on the &lt;a href=&quot;https://gitter.im/mockk-io/Lobby&quot; target=&quot;_blank&quot;&gt;MockK Gitter&lt;/a&gt; and he helps you out quickly should you have any questions.
+He is also open to feedback and enjoys being challenged in order to make MockK an even better library.
+If you want to learn more about MockK, you should definitely read Oleksiy’s blog post series in the next section.&lt;/p&gt;
+
+&lt;h2 id=&quot;other-useful-links&quot;&gt;Other useful links&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://mockk.io&quot; target=&quot;_blank&quot;&gt;MockK documenation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/oleksiyp/mockk&quot; target=&quot;_blank&quot;&gt;MockK GitHub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gitter.im/mockk-io/Lobby&quot; target=&quot;_blank&quot;&gt;MockK Gitter&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://twitter.com/oleksiyp&quot; target=&quot;_blank&quot;&gt;Oleksiy Pylypenko’s Twitter&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://hadihariri.com/2016/10/04/Mocking-Kotlin-With-Mockito/&quot; target=&quot;_blank&quot;&gt;Blog post by Hadi Hariri: Mocking Kotlin with Mockito&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.kotlin-academy.com/mocking-is-not-rocket-science-basics-ae55d0aadf2b&quot; target=&quot;_blank&quot;&gt;Blog post by Oleksiy Pylypenko: Mocking is not rocket science: Basics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.kotlin-academy.com/mocking-is-not-rocket-science-expected-behavior-and-behavior-verification-3862dd0e0f03&quot; target=&quot;_blank&quot;&gt;Blog post by Oleksiy Pylypenko: Mocking is not rocket science: Expected behavior and behavior verification&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.kotlin-academy.com/mocking-is-not-rocket-science-mockk-features-e5d55d735a98&quot; target=&quot;_blank&quot;&gt;Blog post by Oleksiy Pylypenko: Mocking is not rocket science: MockK features&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yannick&quot;, &quot;last_name&quot;=&gt;&quot;De Turck&quot;, &quot;twitter&quot;=&gt;&quot;YannickDeTurck&quot;, &quot;linkedin&quot;=&gt;&quot;yannickdeturck&quot;, &quot;github&quot;=&gt;&quot;yannickdeturck&quot;, &quot;permalink&quot;=&gt;&quot;/author/yannick-de-turck/&quot;, &quot;avatar&quot;=&gt;&quot;yannick-de-turck.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Lead JVM Languages&quot;, &quot;email&quot;=&gt;&quot;Yannick.DeTurck@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yannick is a senior Java consultant and competence lead of the JVM languages competence center at Ordina Belgium. He's very much interested in everything Java and Spring related as well as reactive programming, Kotlin, Lightbend technologies, software architectures, and coaching and enabling other colleagues.&quot;}</name><email>Yannick.DeTurck@ordina.be</email></author><category term="Testing" /><category term="Kotlin" /><category term="MockK" /><category term="Unit Testing" /><category term="Mocking" /><category term="Mockito" /><category term="TDD" /><category term="Test-Driven Development" /><summary type="html">Table of contents Introduction Mockito and its shortcomings in Kotlin The idiomatic mocking framework for Kotlin Summing it all up Other useful links</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/writing-tests-in-kotlin-with-mockk/mockk.png" /></entry><entry><title type="html">Visualizing your Spring Integration components &amp;amp; flows</title><link href="https://ordina-jworks.github.io/architecture/2018/01/27/Visualizing-your-Spring-Integration-components-and-flows.html" rel="alternate" type="text/html" title="Visualizing your Spring Integration components &amp; flows" /><published>2018-01-27T00:00:00+00:00</published><updated>2018-01-27T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2018/01/27/Visualizing-your-Spring-Integration-components-and-flows</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2018/01/27/Visualizing-your-Spring-Integration-components-and-flows.html">&lt;blockquote&gt;
   &lt;p&gt;This post can be useful for everyone who wants to have insights on their application’s internal architecture when integrating with other systems using Spring Integration.
 From the developer that just started in your team and who wants to have an overview, to the seasoned team member that needs to troubleshoot a problem in production.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -2606,264 +2889,4 @@ Chances are, this will be you.&lt;/p&gt;
 &lt;p&gt;Your team’s strength is not a function of the talent of individual members. 
 It’s a function of their collaboration, tenacity, and mutual respect.&lt;/p&gt;
 
-&lt;p&gt;If you’d like more information on Technical Leadership, you can check my slides on &lt;a href=&quot;https://www.slideshare.net/BartBlommaerts/javaday-2017-10-tips-to-become-an-awesome-technical-lead-v4&quot;&gt;SlideDeck&lt;/a&gt; or this video on &lt;a href=&quot;https://www.youtube.com/watch?v=yhtK1jQC_4s&quot;&gt;YouTube&lt;/a&gt; of my talk at &lt;a href=&quot;https://devoxx.be/&quot;&gt;Devoxx&lt;/a&gt;.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bart&quot;, &quot;last_name&quot;=&gt;&quot;Blommaerts&quot;, &quot;avatar&quot;=&gt;&quot;bart-blommaerts.png&quot;, &quot;twitter&quot;=&gt;&quot;DaggieBe&quot;, &quot;linkedin&quot;=&gt;&quot;bartblommaerts&quot;, &quot;github&quot;=&gt;&quot;bart-blommaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/bart-blommaerts/&quot;, &quot;title&quot;=&gt;&quot;Software Architect&quot;, &quot;title2&quot;=&gt;&quot;Competence Manager Architecture&quot;, &quot;email&quot;=&gt;&quot;bart.blommaerts@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Bart Blommaerts is a passionate Software Architect at Ordina, who believes closing the model-code gap is essential to make rapid, agile delivery sustainable. Bart has a strong focus on API design, reuse, automation and security. He is always looking for technical challenges.&quot;}</name><email>bart.blommaerts@ordina.be</email></author><category term="architecture" /><category term="Technical Leadership" /><category term="time management" /><category term="interviews" /><category term="leadership" /><category term="principles" /><summary type="html">What is Technical Leadership A Technical Lead has the responsibility to help the team move forward. The person assigned to the role, is someone who has sound technical experience and strong communication skills. He or she will be accountable for the technical direction of the project or product and serve as the go-to person for cross-team interactions.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/tech-lead/world.png" /></entry><entry><title type="html">An introduction to virtual and alternate reality</title><link href="https://ordina-jworks.github.io/iot/2017/12/20/Virtual-Reality.html" rel="alternate" type="text/html" title="An introduction to virtual and alternate reality" /><published>2017-12-20T00:00:00+00:00</published><updated>2017-12-20T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2017/12/20/Virtual-Reality</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2017/12/20/Virtual-Reality.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
-
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;A look into the wonderful and exciting world of virtual, alternate and mixed reality.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Virtual Relaity&quot; src=&quot;/img/virtualreality/matrix.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;intro&quot;&gt;Intro&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;The concept of virtual reality is not a new one&lt;/strong&gt;, neither is the one of augmented reality.
-It has been around for quite a long time already.
-Perhaps mixed reality will be the next big thing? 
-I’ll leave that up to you to decide.&lt;/p&gt;
-
-&lt;p&gt;Ever since we have been able to create visual representations of our own or other worlds, mankind has been fascinated by transferring the sensory perception into this world.
-It is in the recent years that technological advancements have made it possible to do this in ever increasing realistic and engaging ways.&lt;/p&gt;
-
-&lt;h2 id=&quot;a-trip-down-memory-lane&quot;&gt;A trip down memory lane…&lt;/h2&gt;
-&lt;p&gt;&lt;img alt=&quot;Sensorama&quot; src=&quot;/img/virtualreality/sensorama.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;In &lt;strong&gt;1962&lt;/strong&gt; some crazy person built what is generally believed to be &lt;strong&gt;the first virtual reality experience.&lt;/strong&gt;
-This machine pictured above is called &lt;strong&gt;a Sensorama.&lt;/strong&gt; 
-The user of the Sensorama sits on a tilted chair and watches a short film with stereoscopic 3D images in wide-angle view with stereo sound and even added effects such as wind and aroma. 
-A predecessor of those 4D movies, available in cinemas and theme parks these days.&lt;/p&gt;
-
-&lt;p&gt;This, of course, cannot be compared with the more advanced implementations we have today.&lt;/p&gt;
-
-&lt;p&gt;In the &lt;strong&gt;70’s and 80’s&lt;/strong&gt; virtual reality really started blossoming in certain specialized areas.
-In 1968 Dr Ivan Sutherland created the &lt;strong&gt;Sword of Damocles at MIT.&lt;/strong&gt;
-This head mounted display (or HMD) was so heavy it needed to be suspended from the ceiling.
-It was able to track head movements and show rudimentary 3D images.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Sword of Damocles&quot; src=&quot;/img/virtualreality/damocles.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;During the &lt;strong&gt;90’s and 00’s:&lt;/strong&gt; more sophisticated &lt;strong&gt;military, flight and combat simulators started showing up.&lt;/strong&gt;
-In the privatized industry: &lt;strong&gt;simulators for airline pilots, doctors and surgeons.&lt;/strong&gt;
-Different ways of interacting with this virtual world also started appearing:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Head tracking&lt;/li&gt;
-  &lt;li&gt;Touch screens&lt;/li&gt;
-  &lt;li&gt;Gloves&lt;/li&gt;
-  &lt;li&gt;Entire flight simulators&lt;/li&gt;
-  &lt;li&gt;…&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This is also when video game companies first tried to capitalize on this exciting new technology and bring it to a wider audience.
-But the technology was still too rough and did not catch on.
-Some of these early attempts include:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Nintendo Virtual Boy&lt;/li&gt;
-  &lt;li&gt;Virtuality (arcade system)&lt;/li&gt;
-  &lt;li&gt;iGlasses&lt;/li&gt;
-  &lt;li&gt;VFX-1&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
-    &lt;a href=&quot;/img/virtualreality/virtualboy.jpg&quot; data-lightbox=&quot;booth&quot; data-title=&quot;The Nintento VirtualBoy&quot;&gt;
-        &lt;img alt=&quot;The Nintento VirtualBoy&quot; src=&quot;/img/virtualreality/virtualboy.jpg&quot; class=&quot;image fit&quot; style=&quot;width: 56.40%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/virtualreality/virtuality.jpg&quot; data-lightbox=&quot;booth&quot; data-title=&quot;The Virtuality arcade system&quot;&gt;
-        &lt;img alt=&quot;The Virtuality arcade system&quot; src=&quot;/img/virtualreality/virtuality.jpg&quot; class=&quot;image fit&quot; style=&quot;width: 39.65%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/virtualreality/iglasses.jpg&quot; data-lightbox=&quot;booth&quot; data-title=&quot;The iGlasses VR glasses&quot;&gt;
-        &lt;img alt=&quot;The iGlasses AR glasses&quot; src=&quot;/img/virtualreality/iglasses.jpg&quot; class=&quot;image fit&quot; style=&quot;width: 44.55%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/virtualreality/vfx1.jpg&quot; data-lightbox=&quot;booth&quot; data-title=&quot;The VFX-1 VR glasses&quot;&gt;
-        &lt;img alt=&quot;The VFX-1 VR glasses&quot; src=&quot;/img/virtualreality/vfx1.jpg&quot; class=&quot;image fit&quot; style=&quot;width: 51.50%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;But then came 2012.&lt;/strong&gt;
-The year in which the &lt;strong&gt;Oculus Rift was kickstarted.&lt;/strong&gt; 
-This sparked a renewed interest in virtual reality which, thanks to technological innovations, was looking much, much better it ever had!&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Oculus Rift&quot; src=&quot;/img/virtualreality/oculus.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;all-kinds-of-realities&quot;&gt;All kinds of realities&lt;/h2&gt;
-&lt;p&gt;Alright, so we have been talking about virtual reality for a while.
-But what exactly are virtual reality (VR), augmented reality (AR) and mixed reality (MR) and how do they relate.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;The reality - virtuality continuum&quot; src=&quot;/img/virtualreality/continuum.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;
-Above you see the reality - virtuality continuum.&lt;/p&gt;
-
-&lt;p&gt;Let’s start on the left side.
-&lt;strong&gt;The left side depicts reality or the Real World.&lt;/strong&gt; 
-With the Real World we mean the world where you, as the reader of this article, are sitting in a chair looking at your computer screen or holding your smartphone.
-For the sake of this article we assume that the world is real and that there are no matrix-like shenanigans going on.
-Simply put, the world as you know it and experience it every day, the world you and I live in.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;On the other end of the spectrum we see the Virtual Environment.&lt;/strong&gt;
-Everything in the virtual environment is virtual, so ‘not real’.
-It is the imaginary world that you see on a screen.
-The user is locked out of the real world.
-An extreme example we all know of would be The Matrix, in which the person lives their life inside The Matrix not knowing the entire thing is not real.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Augmented Reality (AR) and Augmented Virtuality (AV) are situated in between these two ends of the spectrum.&lt;/strong&gt;
-As their names suggest, AR is more closely aligned with the real world
-while AV is closer to the virtual world.
-In other words AR consists of a mostly real world with a few virtual elements augmenting the experience.
-AV exists mostly in the virtual world with a few elements of our real world visible.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Mixed or Merged reality (MR) is a term used to describe anything between reality and virtuality.&lt;/strong&gt;
-This means it contains both elements of the real world and a virtual world.
-It can go all the way from a mostly real world with a bit of virtual world sprinkled on top to mostly virtual world with only trace elements of the real world remaining visible.
-With MR as opposed to AR and AV, the virtual world is aware of the real world and can interact accordingly.&lt;/p&gt;
-
-&lt;p&gt;We see the term X-realities being used to describe any of the VR, AR, MR and any other realities.&lt;/p&gt;
-
-&lt;p&gt;These terms are pretty vague and some have even changed meaning over the years.
-They outline the boundaries of the different areas in the spectrum, but they tend to bleed over into one another very easily, and get mixed up a lot!&lt;/p&gt;
-
-&lt;h3 id=&quot;virtual-reality&quot;&gt;Virtual Reality&lt;/h3&gt;
-&lt;p&gt;We call something virtual reality &lt;strong&gt;when the user is emerged in a virtual world and is completely blocked out from the real one.&lt;/strong&gt;
-The simplest example of this is a 360° video experience.
-More advanced implementations have the user take part in a fully virtual world where their movements and actions are tracked and translated into actions in the virtual world.&lt;/p&gt;
-
-&lt;p&gt;Some examples of virtual reality implementations are:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Games, both recreational and educational&lt;/li&gt;
-  &lt;li&gt;Photo content: photo spheres&lt;/li&gt;
-  &lt;li&gt;Video content: video spheres, 360 videos&lt;/li&gt;
-  &lt;li&gt;Creative applications like 3D painting, sculpting, DJ applications and many others…&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Currently the most popular application for VR is video games. There are a lot of games with VR support on the market already, and more are getting released almost every day!
-Shooting games and simulators seem to be an exceptional match for the platform.
-Although mostly used for gaming purposes, a VR headset can also be used for viewing 360 scenes and videos.
-Thanks to head tracking, the viewers perspective is adjusted automatically when the head is moved.
-The more advanced headsets like the Oculus Rift and the HTC Vive even have external sensor arrays to track user movement, and have hand based controllers for interaction.
-Although you have to deal with additional setup compared to a phone where you can just drag the viewport or use your phone’s motion sensors.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Virtual reality setup&quot; src=&quot;/img/virtualreality/setup.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;augmented-reality&quot;&gt;Augmented Reality&lt;/h3&gt;
-&lt;p&gt;Last year, the world exploded with people young and old crowding the streets in search for Pokémon.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Augmented Reality - Pokémon Go&quot; src=&quot;/img/virtualreality/ar-pokemon.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Pokémon Go is a fine example of an AR application.
-It is augmented reality because &lt;strong&gt;the application is still grounded mostly in the real world.&lt;/strong&gt;
-The virtual elements are layered on top of the real world, but they do not interact with it.&lt;/p&gt;
-
-&lt;p&gt;There are 4 types of augmented reality applications.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Marker&lt;/li&gt;
-  &lt;li&gt;Inverse Marker&lt;/li&gt;
-  &lt;li&gt;Markerless&lt;/li&gt;
-  &lt;li&gt;Projection&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;marker-based&quot;&gt;Marker based&lt;/h4&gt;
-&lt;p&gt;Marker based AR apps use image recognition to recognize a specific pattern or marker.
-The marker is detected and replaced or covered with a virtual object.
-These types of applications are very simple and used for showcasing or displaying additional information.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Marker based AR&quot; src=&quot;/img/virtualreality/ar-marker.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;inverse-marker-based&quot;&gt;Inverse marker based&lt;/h4&gt;
-&lt;p&gt;Inverse marker based AR is very similar to regular marker based AR.
-These applications are used in conjunction with large screens with cameras where the user only has to control the marker.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Inverse marker based AR&quot; src=&quot;/img/virtualreality/ar-inverse-marker.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;markerless&quot;&gt;Markerless&lt;/h4&gt;
-&lt;p&gt;These markerless applications use positional tracking and GPS to determine where to show things by mapping the environment and creating a spatial awareness to track objects when moving.
-The popular Pokémon Go and Ikea apps are perfect examples of this.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Markerless based AR&quot; src=&quot;/img/virtualreality/ar-markerless.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;projection-based&quot;&gt;Projection based&lt;/h4&gt;
-&lt;p&gt;Projection based AR projects images rather than showing them on the screen.
-This requires hardware capable of projecting so is not as widespread.
-It is used more in manufacturing.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Projection based AR&quot; src=&quot;/img/virtualreality/ar-projection.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-The great thing about AR is that any recent smartphone is capable of running AR applications.
-Many AR apps only need a camera to work.
-While specialized depth sensing sensors exist, they are not as widespread and are used more in specialized industries.&lt;/p&gt;
-
-&lt;h3 id=&quot;mixed-reality&quot;&gt;Mixed Reality&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Mixed reality takes the best parts of both virtual and augmented reality.&lt;/strong&gt;
-What makes mixed reality special is that it understands the environment, it can interact with and respond to changes or events happening in the real world.
-Hardware that supports MR takes the form of glasses and headsets with cameras and other sensors.
-These sensors are used to map the physical 3D space so the virtual objects know where they are situated and know what is in the real world.
-This is where you get the holographic experiences, even tough they aren’t real holograms, they look and feel exactly as you would expect them to.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Mixed reality&quot; src=&quot;/img/virtualreality/banner.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;hardware-and-current-pain-points&quot;&gt;Hardware and current pain points&lt;/h2&gt;
-&lt;p&gt;Current devices are a big step up from what we had even a few years ago, but there are still many improvements to be made.
-&lt;strong&gt;The high-end VR devices require beefy computers equipped with high-end graphics cards.&lt;/strong&gt;
-The headsets requiring a smartphone offer a more mobile experience but are still limited in the visual effects department.
-For a virtual reality experience to feel smooth and natural &lt;strong&gt;it needs to be rendered at a minimum of 90 frames per second.&lt;/strong&gt;
-If the device can not keep up, the user might experience VR sickness, similar to motion sickness.
-Because our eyes are so close to the screen and the resolution our eyes can perceive is so high, pixels become visible, detracting from the experience.
-When looking closely, the screen looks like a raster.
-This can be solved with a higher resolution but that again requires more computational power.
-This much content at such a high pace also requires a lot of bandwidth and low latency.&lt;/p&gt;
-
-&lt;p&gt;Another deterrent for VR headsets is the extensive setup required to make them work.
-High-end devices require base stations or tracking cameras to accurately measure movement.
-There are devices with sensors built in so that they are not dependent on external base stations, this technique is called inside-out tracking.&lt;/p&gt;
-
-&lt;h2 id=&quot;creating-realities&quot;&gt;Creating realities&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Making software that is AR/VR/MR enabled can be quite different from traditional business application development.&lt;/strong&gt;
-These type of applications are often &lt;strong&gt;heavily dependent on visual elements&lt;/strong&gt; and can require extra artistic knowledge.
-For virtual and mixed reality game engines can be used to create “games” to create these experiences.&lt;/p&gt;
-
-&lt;p&gt;These are some of the most popular game engines that are free for personal user:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Unity&lt;/li&gt;
-  &lt;li&gt;Unreal Engine&lt;/li&gt;
-  &lt;li&gt;CryEngine&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Think of these as a sort of photoshop for software.
-We can leverage the editors to see what we’re working on and make changes immediately.
-These tools are ideal for virtual reality.
-Both Unity and Unreal Engine have plugins available for augmented reality.&lt;/p&gt;
-
-&lt;p&gt;The more business targeted applications are often augmented reality enabled applications.
-&lt;strong&gt;Both Apple and Google have made big efforts to support this on their respective OSes&lt;/strong&gt; and basically every smartphone with a camera is now AR enabled.
-Apple’s ARKit and Google’s ARCore are the respective augmented reality APIs for their IOS and Android platforms.
-Since the inception of these two APIs the amount of AR apps has greatly increased, Google is even discontinuing its &lt;a href=&quot;https://developers.google.com/tango/&quot;&gt;Tango project&lt;/a&gt; in favor of ARCore.
-There are many other SDKs available, many of which even have their own Unity plugin.
-Vuforia and ARToolkit seem to be the most popular ones.&lt;/p&gt;
-
-&lt;p&gt;Microsoft created the Windows Mixed Reality framework for mixed, virtual or augmented reality apps to run on windows 10 based computers.&lt;/p&gt;
-
-&lt;h2 id=&quot;business-cases--examples&quot;&gt;Business cases &amp;amp; Examples&lt;/h2&gt;
-&lt;p&gt;So, as software developers, what can we do with all this fancy tech?&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Our Dutch colleagues&lt;/strong&gt; already made an awesomely detailed VR application to help &lt;strong&gt;train personnel of the Royal Dutch Navy.&lt;/strong&gt;
-Make sure to have a look since it is a truly impressive feat of software engineering.&lt;/p&gt;
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%;&quot;&gt;
-    &lt;iframe src=&quot;https://www.youtube.com/embed/wnC-jvtwJtY?rel=0&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Virtual reality is widely used for training purposes.&lt;/strong&gt;
-Whether it is for a boat, an aircraft, a machine or a human body, a virtual space can prepare someone for situations that are otherwise very costly or difficult to simulate.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Augmented and mixed reality can show information when and where you need it.&lt;/strong&gt;
-On a mobile phone screen, through glasses or projected on a surface, having the correct information at hand is always useful.&lt;/p&gt;
-
-&lt;p&gt;Visualizing a product before it is manufactured can enhance the design process by discovering points of improvement much earlier on.
-Visualization like Ikea’s app for trying furniture or a tour through historic Bruges or even business cards with an AR marker for increased memorability.&lt;/p&gt;
-
-&lt;p&gt;For us at Ordina, we see most potential in AR and MR.
-Mobile based AR applications that can be used for showcases, in the IoT world, or even just augmented digital signage with inverse marker based AR.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;The years to come will bring even more advancements&lt;/strong&gt; to the wonderful world of virtual, augmented and mixed realities.
-A lot of things are still shaping up and being developed, ever improving on earlier versions.
-A lot of solutions and &lt;strong&gt;standards are still being figured out.&lt;/strong&gt;
-Which means that now is a great time for us to try stuff out, and get a feel for the technology, whilst preparing and working on proof of concept applications.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michael&quot;, &quot;last_name&quot;=&gt;&quot;Vandendriessche&quot;, &quot;permalink&quot;=&gt;&quot;/author/michael-vandendriessche&quot;, &quot;avatar&quot;=&gt;&quot;michael-vandendriessche.jpg&quot;, &quot;title&quot;=&gt;&quot;SoftWare Engineer&quot;, &quot;title2&quot;=&gt;&quot;Android developer&quot;, &quot;email&quot;=&gt;&quot;michael.vandendriessche@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;miva2&quot;, &quot;bio&quot;=&gt;&quot;Michael is a Software Engineer at Ordina Belgium with a passion for Android. Besides mobile apps he also enjoys working on backend as well as frontend applications. He is always keen on trying out new things! In his spare time he likes to develop (and play) games.&quot;}</name><email>michael.vandendriessche@ordina.be</email></author><category term="IoT" /><category term="Internet of Things" /><category term="IoT" /><category term="Virtual reality" /><category term="Alternate reality" /><category term="Mixed reality" /><category term="Merged Reality" /><category term="Oculus Rift" /><category term="Oculus" /><category term="HTC Vive" /><category term="Vive" /><category term="SteamVR" /><category term="Steam" /><category term="Unreal Engine" /><category term="Unity" /><category term="Hololens" /><category term="Holo Lens" /><category term="Microsoft" /><category term="Google Glass" /><category term="Google" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/virtualreality/banner.jpg" /></entry></feed>
+&lt;p&gt;If you’d like more information on Technical Leadership, you can check my slides on &lt;a href=&quot;https://www.slideshare.net/BartBlommaerts/javaday-2017-10-tips-to-become-an-awesome-technical-lead-v4&quot;&gt;SlideDeck&lt;/a&gt; or this video on &lt;a href=&quot;https://www.youtube.com/watch?v=yhtK1jQC_4s&quot;&gt;YouTube&lt;/a&gt; of my talk at &lt;a href=&quot;https://devoxx.be/&quot;&gt;Devoxx&lt;/a&gt;.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bart&quot;, &quot;last_name&quot;=&gt;&quot;Blommaerts&quot;, &quot;avatar&quot;=&gt;&quot;bart-blommaerts.png&quot;, &quot;twitter&quot;=&gt;&quot;DaggieBe&quot;, &quot;linkedin&quot;=&gt;&quot;bartblommaerts&quot;, &quot;github&quot;=&gt;&quot;bart-blommaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/bart-blommaerts/&quot;, &quot;title&quot;=&gt;&quot;Software Architect&quot;, &quot;title2&quot;=&gt;&quot;Competence Manager Architecture&quot;, &quot;email&quot;=&gt;&quot;bart.blommaerts@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Bart Blommaerts is a passionate Software Architect at Ordina, who believes closing the model-code gap is essential to make rapid, agile delivery sustainable. Bart has a strong focus on API design, reuse, automation and security. He is always looking for technical challenges.&quot;}</name><email>bart.blommaerts@ordina.be</email></author><category term="architecture" /><category term="Technical Leadership" /><category term="time management" /><category term="interviews" /><category term="leadership" /><category term="principles" /><summary type="html">What is Technical Leadership A Technical Lead has the responsibility to help the team move forward. The person assigned to the role, is someone who has sound technical experience and strong communication skills. He or she will be accountable for the technical direction of the project or product and serve as the go-to person for cross-team interactions.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/tech-lead/world.png" /></entry></feed>

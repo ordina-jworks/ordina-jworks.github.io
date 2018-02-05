@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Mocking in Kotlin with MockK - Yannick De Turck">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/writing-tests-in-kotlin-with-mockk/mockk.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Mocking in Kotlin with MockK - Yannick De Turck"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/writing-tests-in-kotlin-with-mockk/mockk.png"/>
+
+    
+    <title>Mocking in Kotlin with MockK - Yannick De Turck &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Mocking in Kotlin with MockK</h2>
+                
+
+                
+                    Posted Feb 5, 2018
+
+
+    in <a href="/categories/testing/">Testing</a>
+
+
+
+    by
+    
+        <a href="/author/yannick-de-turck/">Yannick De Turck</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/kotlin/">Kotlin</a>, 
+    
+        <a href="/tags/mockk/">MockK</a>, 
+    
+        <a href="/tags/unit-testing/">Unit Testing</a>, 
+    
+        <a href="/tags/mocking/">Mocking</a>, 
+    
+        <a href="/tags/mockito/">Mockito</a>, 
+    
+        <a href="/tags/tdd/">TDD</a>, 
+    
+        <a href="/tags/test-driven-development/">Test-Driven Development</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="table-of-contents">Table of contents</h1>
+<ol>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#mockito-and-its-shortcomings-in-kotlin">Mockito and its shortcomings in Kotlin</a></li>
+  <li><a href="#the-idiomatic-mocking-framework-for-kotlin">The idiomatic mocking framework for Kotlin</a></li>
+  <li><a href="#summing-it-all-up">Summing it all up</a></li>
+  <li><a href="#other-useful-links">Other useful links</a></li>
+</ol>
+
+<h2 id="introduction">Introduction</h2>
+<p>I have been pretty excited about Kotlin since JetBrains released the <a href="https://blog.jetbrains.com/kotlin/2016/02/kotlin-1-0-released-pragmatic-language-for-jvm-and-android/" target="_blank">first official version</a> on the 15th of February 2016.
+It did took me a while before I managed to get my hands dirty which was in between the version 1.1 and 1.2 release.
+Besides developing in Java, which I’m doing full time as a senior Java consultant, 
+I’ve also been dabbling in Scala for quite some years with Lightbend’s <a href="https://www.playframework.com" target="_blank">Play Framework</a>.
+Everyone knows how verbose Java is, and how it lags a bit behind the newer, fancier programming languages.
+It still misses features such as pattern matching, case/data classes and local-variable type inference.</p>
+
+<p>Starting from Java 8 with the introduction of Lambdas, we have finally been given the option to add a more functional programming flavour to our code which was due in time.
+Scala felt very refreshing for me back then, when I started to use it which was shortly before the JDK 7 release.
+It felt clean and powerful, bringing the best of both worlds of object-oriented programming and functional programming.
+At the same time, Scala houses a lot of complexity since there are so many ways and styles to tackle problems.
+You could compare it a bit to having the toolkit available to build a space rocket when you only plan on building a small airplane. 
+And this is where Kotlin comes in, being very similar to Scala but with a focus on practicality and simplicity.
+Coming from the industry instead of academia, it focuses on solving problems faced daily by programmers.</p>
+
+<p>I’m a big fan of Test-Driven Development and thoroughly testing the behaviour of my code by making use of mocks.
+<a href="http://site.mockito.org" target="_blank">Mockito</a> has been my mocking framework of choice combined with <a href="https://github.com/powermock/powermock" target="_blank">PowerMock</a> for mocking constructors, static and private methods, and more.
+As Kotlin also runs on the JVM, it can make use of the huge Java ecosystem.
+It was a no-brainer for me to immediately add these testing libraries to my Kotlin project for writing my tests.</p>
+
+<p>And thus I set off, creating a new Kotlin project to see how it fared.</p>
+
+<h2 id="mockito-and-its-shortcomings-in-kotlin">Mockito and its shortcomings in Kotlin</h2>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:500px;" alt="Mockito logo" src="/img/writing-tests-in-kotlin-with-mockk/mockito.png" />
+</p>
+
+<p>I started off with adding the Mockito dependency to my Kotlin project.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.mockito&lt;/groupId&gt;
+    &lt;artifactId&gt;mockito-core&lt;/artifactId&gt;
+    &lt;version&gt;2.13.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre></div></div>
+
+<p>And wrote a first simple test in which I wanted to test a <code class="highlighter-rouge">Service</code> class that uses a <code class="highlighter-rouge">Generator</code> to generate a record and a <code class="highlighter-rouge">Dao</code> for persisting it.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ServiceTest</span> <span class="p">{</span>
+    <span class="kd">class</span> <span class="nc">Generator</span> <span class="p">{</span> <span class="k">fun</span> <span class="n">generate</span><span class="p">():</span> <span class="n">String</span> <span class="p">=</span> <span class="s">"Random String that's not random"</span> <span class="p">}</span>
+    <span class="kd">class</span> <span class="nc">Dao</span> <span class="p">{</span> <span class="k">fun</span> <span class="n">insert</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="s">"""Inserting "$record"""") }
+</span>    <span class="kd">class</span> <span class="nc">Service</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">generator</span><span class="p">:</span> <span class="n">Generator</span><span class="p">,</span> <span class="k">private</span> <span class="kd">val</span> <span class="py">dao</span><span class="p">:</span> <span class="n">Dao</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">fun</span> <span class="n">calculate</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="py">record</span> <span class="p">=</span> <span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">()</span>
+            <span class="n">dao</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">val</span> <span class="py">generator</span> <span class="p">=</span> <span class="n">Mockito</span><span class="p">.</span><span class="n">mock</span><span class="p">(</span><span class="n">Generator</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="py">dao</span> <span class="p">=</span> <span class="n">Mockito</span><span class="p">.</span><span class="n">mock</span><span class="p">(</span><span class="n">Dao</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">)</span>
+
+    <span class="kd">val</span> <span class="py">service</span> <span class="p">=</span> <span class="n">Service</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">dao</span><span class="p">)</span>
+
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="n">myTest</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="py">mockedRecord</span> <span class="p">=</span> <span class="s">"mocked String"</span>
+        <span class="n">Mockito</span><span class="p">.</span><span class="n">`when`</span><span class="p">(</span><span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">()).</span><span class="n">thenReturn</span><span class="p">(</span><span class="n">mockedRecord</span><span class="p">)</span>
+
+        <span class="n">service</span><span class="p">.</span><span class="n">calculate</span><span class="p">()</span>
+
+        <span class="n">Mockito</span><span class="p">.</span><span class="n">verify</span><span class="p">(</span><span class="n">generator</span><span class="p">).</span><span class="n">generate</span><span class="p">()</span>
+        <span class="n">Mockito</span><span class="p">.</span><span class="n">verify</span><span class="p">(</span><span class="n">dao</span><span class="p">).</span><span class="n">insert</span><span class="p">(</span><span class="n">mockedRecord</span><span class="p">)</span>
+        <span class="n">Mockito</span><span class="p">.</span><span class="n">verifyNoMoreInteractions</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">dao</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Writing the test went pretty smooth although the code looks a bit funky.
+When I ran it, I stumbled on this nice error:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>org.mockito.exceptions.base.MockitoException: 
+Cannot mock/spy class be.yannickdeturck.HelloTest$Generator
+Mockito cannot mock/spy because :
+ - final class
+ — anonymous classes
+ — primitive types
+</code></pre></div></div>
+
+<p>As all classes and methods are final by default in Kotlin, using Mockito appears to be a bit problematic due to how Mockito creates its mocks.
+If you are interested in how Mockito’s mocking works internally you should checkout <a href="https://stackoverflow.com/a/14447878/1320126" target="_blank">this response on StackOverflow</a> that roughly sums it up.</p>
+
+<p>I did a bit more research on using Mockito and stumbled upon this <a href="https://github.com/nhaarman/mockito-kotlin" target="_blank">slightly tuned version</a> for Kotlin, wrapping some of Mockito’s functionalities, providing a simpler API.
+I decided to try that one out and replaced my Mockito dependency with it:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.nhaarman&lt;/groupId&gt;
+    &lt;artifactId&gt;mockito-kotlin&lt;/artifactId&gt;
+    &lt;version&gt;1.5.0&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre></div></div>
+
+<p>I rewrote my test a bit in order to make use of the cleaner syntax the library had to offer.
+Note how both defining and using the mocks is a bit more elegant:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ServiceTest</span> <span class="p">{</span>
+    <span class="kd">class</span> <span class="nc">Generator</span> <span class="p">{</span> <span class="k">fun</span> <span class="n">generate</span><span class="p">():</span> <span class="n">String</span> <span class="p">=</span> <span class="s">"Random String that's not random"</span> <span class="p">}</span>
+    <span class="kd">class</span> <span class="nc">Dao</span> <span class="p">{</span> <span class="k">fun</span> <span class="n">insert</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="s">"""Inserting "$record"""") }
+</span>    <span class="kd">class</span> <span class="nc">Service</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">generator</span><span class="p">:</span> <span class="n">Generator</span><span class="p">,</span> <span class="k">private</span> <span class="kd">val</span> <span class="py">dao</span><span class="p">:</span> <span class="n">Dao</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">fun</span> <span class="n">calculate</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="py">record</span> <span class="p">=</span> <span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">()</span>
+            <span class="n">dao</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">val</span> <span class="py">generator</span> <span class="p">=</span> <span class="n">mock</span><span class="p">&lt;</span><span class="n">Generator</span><span class="p">&gt;()</span>
+    <span class="kd">val</span> <span class="py">dao</span> <span class="p">=</span> <span class="n">mock</span><span class="p">&lt;</span><span class="n">Dao</span><span class="p">&gt;()</span>
+
+    <span class="kd">val</span> <span class="py">service</span> <span class="p">=</span> <span class="n">Service</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">dao</span><span class="p">)</span>
+
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="n">myTest</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="py">mockedRecord</span> <span class="p">=</span> <span class="s">"mocked String"</span>
+        <span class="n">whenever</span><span class="p">(</span><span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">()).</span><span class="n">thenReturn</span><span class="p">(</span><span class="n">mockedRecord</span><span class="p">)</span>
+
+        <span class="n">service</span><span class="p">.</span><span class="n">calculate</span><span class="p">()</span>
+
+        <span class="n">Mockito</span><span class="p">.</span><span class="n">verify</span><span class="p">(</span><span class="n">generator</span><span class="p">).</span><span class="n">generate</span><span class="p">()</span>
+        <span class="n">Mockito</span><span class="p">.</span><span class="n">verify</span><span class="p">(</span><span class="n">dao</span><span class="p">).</span><span class="n">insert</span><span class="p">(</span><span class="n">mockedRecord</span><span class="p">)</span>
+        <span class="n">Mockito</span><span class="p">.</span><span class="n">verifyNoMoreInteractions</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">dao</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Sadly, we still have the Mockito error.</p>
+
+<p>As I said, in Kotlin all classes and methods are final by default which <a href="https://github.com/mockito/mockito/issues/657" target="_blank">Mockito cannot deal with</a>.
+You would have to explicitly make your classes inheritable using the <code class="highlighter-rouge">open</code> modifier.
+Another approach would be to add interfaces to everything.
+Changing your code just for the sake of being able to write good tests is something I’m not exactly fond of, and in this case we are also getting around one of the key features of Kotlin.</p>
+
+<p>Starting from Mockito version <code class="highlighter-rouge">2.0.0</code> it did <a href="https://github.com/mockito/mockito/wiki/What%27s-new-in-Mockito-2#unmockable" target="_blank">became possible to mock final classes</a> although it is an incubating, opt-in feature.
+This however, requires a bit of a setup really.
+It basically consists of creating a file called <code class="highlighter-rouge">org.mockito.plugins.MockMaker</code> with as content <code class="highlighter-rouge">mock-maker-inline</code> and placing it under <code class="highlighter-rouge">resources/mockito-extensions</code>.
+It felt a bit hacky but apparently this is only a temporary way to set it up.
+Although there are supposed to be plans to make it more straightforward.
+<a href="https://twitter.com/hhariri" target="_blank">Hadi Hariri</a> wrote an extensive <a href="http://hadihariri.com/2016/10/04/Mocking-Kotlin-With-Mockito/" target="_blank">blog post</a> on setting this up and you should check it out if you would like to learn more about it.</p>
+
+<p>Good, so this makes it possible to create mocks without having to add the <code class="highlighter-rouge">open</code> modifier to all your classes and methods!
+It does’t appear to be completely compatible with Mockito Kotlin even though the library depends on Mockito version <code class="highlighter-rouge">2.8.9</code>.
+Trying to run the test resulted in the following error:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>org.mockito.exceptions.base.MockitoInitializationException: 
+Could not initialize inline Byte Buddy mock maker. (This mock maker is not supported on Android.)
+</code></pre></div></div>
+
+<p>At the time of writing there is a version <code class="highlighter-rouge">2.0.0</code> in alpha for Mockito Kotlin so I tried to switch to it to see if it changed anything.
+Note that the dependency is a bit different and you need to use the classes in the <code class="highlighter-rouge">com.nhaarman.mockitokotlin2</code> package:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.nhaarman.mockitokotlin2&lt;/groupId&gt;
+    &lt;artifactId&gt;mockito-kotlin&lt;/artifactId&gt;
+    &lt;version&gt;2.0.0-alpha02&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre></div></div>
+
+<p>It got rid of the above error.
+I did ran into some unexpected behaviour where my mocks’ behaviour was rather unexpected when I also added partial mocking using spies.
+I spent some time to get my head around it and during my quest for answers I stumbled upon this library called <a href="http://mockk.io" target="_blank">MockK</a>, created by <a href="https://twitter.com/oleksiyp" target="_blank">Oleksiy Pylypenko</a>.</p>
+
+<p>I decided to check it out as I became a bit annoyed with Mockito in Kotlin so far.</p>
+
+<h2 id="the-idiomatic-mocking-framework-for-kotlin">The idiomatic mocking framework for Kotlin</h2>
+
+<p>
+    <img class="image fit" style="margin:0px auto; max-width:500px;" alt="MockK logo" src="/img/writing-tests-in-kotlin-with-mockk/mockk.png" />
+</p>
+
+<p>Although I am a huge fan of Mockito for mocking in Java, using Mockito in Kotlin just feels a bit too Java-ish when you have this elegant Kotlin code all around in your project. 
+MockK’s main philosophy is offering first-class support for Kotlin features and being able to write idiomatic Kotlin code when using it.
+Adding MockK is as simple as ever as you only have to add the dependency to your project and you are set to go.</p>
+
+<p>Maven:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+    &lt;groupId&gt;io.mockk&lt;/groupId&gt;
+    &lt;artifactId&gt;mockk&lt;/artifactId&gt;
+    &lt;version&gt;1.7.1&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre></div></div>
+
+<p>Gradle:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>testCompile "io.mockk:mockk:1.7.1"
+</code></pre></div></div>
+
+<p>The available <a href="http://mockk.io" target="_blank">MockK documentation</a> provides a really nice overview of all the different features with a lot of examples, making it very easy to get started.
+If you have used a mocking framework before such as Mockito, everything should come natural as you usually do when writing tests with mocks.
+You have the same three parts in which your tests are divided:</p>
+
+<ul>
+  <li>Preparing the test data and setting up the mocking</li>
+  <li>Executing the logic that you want to test</li>
+  <li>Performing the necessary validation and verification checks to see if the result and behaviour matches your expectations.</li>
+</ul>
+
+<p>The test from above is written as followed:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ServiceTest</span> <span class="p">{</span>
+    <span class="kd">class</span> <span class="nc">Generator</span> <span class="p">{</span> <span class="k">fun</span> <span class="n">generate</span><span class="p">():</span> <span class="n">String</span> <span class="p">=</span> <span class="s">"Random String that's not random"</span> <span class="p">}</span>
+    <span class="kd">class</span> <span class="nc">Dao</span> <span class="p">{</span> <span class="k">fun</span> <span class="n">insert</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="s">"""Inserting "$record"""") }
+</span>    <span class="kd">class</span> <span class="nc">Service</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">generator</span><span class="p">:</span> <span class="n">Generator</span><span class="p">,</span> <span class="k">private</span> <span class="kd">val</span> <span class="py">dao</span><span class="p">:</span> <span class="n">Dao</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">fun</span> <span class="n">calculate</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="py">record</span> <span class="p">=</span> <span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">()</span>
+            <span class="n">dao</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">val</span> <span class="py">generator</span> <span class="p">=</span> <span class="n">mockk</span><span class="p">&lt;</span><span class="n">Generator</span><span class="p">&gt;()</span>
+    <span class="kd">val</span> <span class="py">dao</span> <span class="p">=</span> <span class="n">mockk</span><span class="p">&lt;</span><span class="n">Dao</span><span class="p">&gt;()</span>
+    <span class="kd">val</span> <span class="py">service</span> <span class="p">=</span> <span class="n">Service</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">dao</span><span class="p">)</span>
+
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="n">myTest</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="py">mockedRecord</span> <span class="p">=</span> <span class="s">"mocked String"</span>
+        <span class="n">every</span> <span class="p">{</span> <span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">()</span> <span class="p">}</span> <span class="n">returns</span> <span class="n">mockedRecord</span>
+        <span class="n">every</span> <span class="p">{</span> <span class="n">dao</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">mockedRecord</span><span class="p">)</span> <span class="p">}</span> <span class="n">just</span> <span class="n">Runs</span>
+
+        <span class="n">service</span><span class="p">.</span><span class="n">calculate</span><span class="p">()</span>
+
+        <span class="n">verifyAll</span> <span class="p">{</span>
+            <span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">()</span>
+            <span class="n">dao</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">mockedRecord</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Going over the example, everything should feel familiar but more elegant.
+You may however, wonder what the <code class="highlighter-rouge">every { dao.insert(mockedRecord) } just Runs</code> line is doing exactly.
+By default in MockK, mocks are strict so you need to provide some behaviour for them.
+If we were to omit the line, the test would fail as we would run into the following error:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>io.mockk.MockKException: no answer found for: Dao(#2).insert(mocked String)
+</code></pre></div></div>
+
+<p>A feature I was immediately fond of as I like to write strict tests.
+Note that you can also define the mock as being a <em>relaxed mock</em> in order to avoid this strict behaviour:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">val</span> <span class="py">dao</span> <span class="p">=</span> <span class="n">mockk</span><span class="p">&lt;</span><span class="n">Dao</span><span class="p">&gt;(</span><span class="n">relaxed</span> <span class="p">=</span> <span class="k">true</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Mockito has something similar for verifying with <code class="highlighter-rouge">Mockito.verifyNoMoreInteractions(generator, dao)</code> which I also extensively use to enforce that all calls of mocked objects are verified.
+Of course, the above example is only the tip of the iceberg as MockK houses a ton of other features such as annotations to simplify creating mock objects, 
+spying to mix mocks and real objects, partial argument matching, capturing arguments, verification order support, matchers, coroutine mocking support, and so much more.</p>
+
+<p>After fiddling with Mockito, I happily continued using MockK for my little Kotlin project.</p>
+
+<h2 id="summing-it-all-up">Summing it all up</h2>
+<p>Mockito for me felt a bit hacky/unnatural and too Java-ish when using it in a Kotlin project.
+I imagine it will probably become better in the near future.</p>
+
+<p>MockK, being a newer library specifically targeted at Kotlin, felt clean and pleasant to use with excellent documentation.
+Oleksiy is also actively working on the library as you can see in the repo’s <a href="https://github.com/oleksiyp/mockk/releases" target="_blank">releases section</a>.</p>
+
+<p>I highly recommend checking out MockK for mocking in a Kotlin project as it is currently a better option in my humble opinion.
+Oleksiy is also very active on the <a href="https://gitter.im/mockk-io/Lobby" target="_blank">MockK Gitter</a> and he helps you out quickly should you have any questions.
+He is also open to feedback and enjoys being challenged in order to make MockK an even better library.
+If you want to learn more about MockK, you should definitely read Oleksiy’s blog post series in the next section.</p>
+
+<h2 id="other-useful-links">Other useful links</h2>
+<ul>
+  <li><a href="http://mockk.io" target="_blank">MockK documenation</a></li>
+  <li><a href="https://github.com/oleksiyp/mockk" target="_blank">MockK GitHub</a></li>
+  <li><a href="https://gitter.im/mockk-io/Lobby" target="_blank">MockK Gitter</a></li>
+  <li><a href="https://twitter.com/oleksiyp" target="_blank">Oleksiy Pylypenko’s Twitter</a></li>
+  <li><a href="http://hadihariri.com/2016/10/04/Mocking-Kotlin-With-Mockito/" target="_blank">Blog post by Hadi Hariri: Mocking Kotlin with Mockito</a></li>
+  <li><a href="https://blog.kotlin-academy.com/mocking-is-not-rocket-science-basics-ae55d0aadf2b" target="_blank">Blog post by Oleksiy Pylypenko: Mocking is not rocket science: Basics</a></li>
+  <li><a href="https://blog.kotlin-academy.com/mocking-is-not-rocket-science-expected-behavior-and-behavior-verification-3862dd0e0f03" target="_blank">Blog post by Oleksiy Pylypenko: Mocking is not rocket science: Expected behavior and behavior verification</a></li>
+  <li><a href="https://blog.kotlin-academy.com/mocking-is-not-rocket-science-mockk-features-e5d55d735a98" target="_blank">Blog post by Oleksiy Pylypenko: Mocking is not rocket science: MockK features</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK.html&title=Mocking in Kotlin with MockK&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Mocking in Kotlin with MockK&url=https://ordina-jworks.github.io/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/yannick-de-turck/" class="image spotlight-image">
+            <img src="/img/author/yannick-de-turck.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Yannick is a senior Java consultant and competence lead of the JVM languages competence center at Ordina Belgium. He’s very much interested in everything Java and Spring related as well as reactive programming, Kotlin, Lightbend technologies, software architectures, and coaching and enabling other colleagues.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+<div id="over"></div>
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/writing-tests-in-kotlin-with-mockk/mockk.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK.html";
+        this.page.identifier = "/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK.html";
+        this.page.title = "Mocking in Kotlin with MockK";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
