@@ -1,5 +1,403 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-02-05T21:37:43+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Mocking in Kotlin with MockK</title><link href="https://ordina-jworks.github.io/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK.html" rel="alternate" type="text/html" title="Mocking in Kotlin with MockK" /><published>2018-02-05T00:00:00+00:00</published><updated>2018-02-05T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-02-12T19:07:22+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Azure Draft</title><link href="https://ordina-jworks.github.io/docker/2018/02/12/Azure-Draft.html" rel="alternate" type="text/html" title="Azure Draft" /><published>2018-02-12T00:00:00+00:00</published><updated>2018-02-12T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/docker/2018/02/12/Azure-Draft</id><content type="html" xml:base="https://ordina-jworks.github.io/docker/2018/02/12/Azure-Draft.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#installing-draft&quot;&gt;Installing Draft&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setting-sail-with-draft&quot;&gt;Setting Sail with Draft&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/Azure/draft&quot;&gt;Draft&lt;/a&gt; is an open-source tool from Microsoft Azure.
+It attempts to make the development for Kubernetes clusters easier, 
+by getting Docker and Kubernetes out of the way.&lt;/p&gt;
+
+&lt;p&gt;Developers no longer require Docker,
+and can just push their applications to a remote Kubernetes clusters using Draft.
+Draft accomplishes this by using only two simple commands.&lt;/p&gt;
+
+&lt;p&gt;The first command is &lt;code class=&quot;highlighter-rouge&quot;&gt;draft create&lt;/code&gt;.
+This tool detects the application language, 
+and writes out a Dockerfile and a &lt;a href=&quot;https://github.com/kubernetes/helm&quot;&gt;Kubernetes Helm&lt;/a&gt; chart in the source tree.
+These files are generated based on Draft “packs”.
+These packs are simple scripts that only detect the language
+and write out the Dockerfile and Helm charts.
+The idea is based on some features of PaaS systems like the CloudFoundry’s &lt;em&gt;buildpacks&lt;/em&gt;.
+The only difference is that the build and deployment descriptors are stored in the source tree.&lt;/p&gt;
+
+&lt;p&gt;The second command is &lt;code class=&quot;highlighter-rouge&quot;&gt;draft up&lt;/code&gt;.
+First, all source code will be uploaded to any Kubernetes cluster, 
+local or remote.
+Then, the application is built on the cluster using the generated Dockerfile.
+Finally, the built image is deployed to a dev environment using the Helm Chart.&lt;/p&gt;
+
+&lt;p&gt;Draft does not support many languages yet, 
+but it currently supports most of the popular languages like Java, Python, Golang, JavaScript, Ruby, Swift, PHP, C# and Clojure.
+It also has support for Gradle and Maven projects.
+You can see all packs &lt;a href=&quot;https://github.com/Azure/draft/tree/master/packs&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;installing-draft&quot;&gt;Installing Draft&lt;/h2&gt;
+
+&lt;p&gt;Before you can start using Draft,
+there are quite a few components that need to be set up before you can start using it.
+However, 
+if you are using a remote Kubernetes cluster,
+you will only need to do the setup once for multiple developers.
+Other developers will only need to install the Draft client to benefit.
+For this example, we will be using Minikube, 
+a local Kubernetes cluster.&lt;/p&gt;
+
+&lt;p&gt;The total list of tools required is the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Minikube: a local Kubernetes cluster&lt;/li&gt;
+  &lt;li&gt;kubectl: the CLI tool for working with Kubernetes&lt;/li&gt;
+  &lt;li&gt;Tiller: the Helm agent running on the Kubernetes cluster which manages installations of your charts.&lt;/li&gt;
+  &lt;li&gt;Helm: the Helm client&lt;/li&gt;
+  &lt;li&gt;Draftd: the Draft agent running on the Kubernetes cluster&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Let’s get started!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Downloading all dependencies&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We will start by installing the latest release of Minikube using &lt;a href=&quot;https://github.com/Homebrew/brew&quot;&gt;Homebrew&lt;/a&gt;.
+If you do not have Homebrew,
+you can check how to install Minikube &lt;a href=&quot;https://kubernetes.io/docs/tasks/tools/install-minikube/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ brew cask install minikube
+==&amp;gt; Satisfying dependencies
+All Formula dependencies satisfied.
+==&amp;gt; Downloading https://storage.googleapis.com/minikube/releases/v0.25.0/minikube-darwin-amd64
+==&amp;gt; Verifying checksum for Cask minikube
+==&amp;gt; Installing Cask minikube
+==&amp;gt; Linking Binary 'minikube-darwin-amd64' to '/usr/local/bin/minikube'.
+minikube was successfully installed!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After Minikube has been installed,
+we can install Azure Draft!
+First, we add the Azure Draft repository by adding a Homebrew tap.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ brew tap azure/draft
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now that we have added the repository,
+we can install Draft!&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ brew install draft
+==&amp;gt; Installing draft from azure/draft
+==&amp;gt; Downloading https://azuredraft.blob.core.windows.net/draft/draft-v0.10.1-darwin-amd64.tar.gz
+/usr/local/Cellar/draft/0.10.1: 5 files, 45.9MB, built in 1 second
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you do not use Homebrew,
+you can download the latest release of Draft &lt;a href=&quot;https://github.com/Azure/draft/releases&quot;&gt;here&lt;/a&gt;.
+You will have to unzip the download and add it to your PATH manually.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Starting Minikube&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We now have downloaded all required dependencies,
+we can start setting up our cluster.
+Let’s start our Kubernetes cluster.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ minikube start
+Starting local Kubernetes v1.9.0 cluster...
+Starting VM...
+Downloading Minikube ISO
+Getting VM IP address...
+Moving files into cluster...
+Downloading localkube binary
+Connecting to cluster...
+Setting up kubeconfig...
+Starting cluster components...
+Kubectl is now configured to use the cluster.
+Loading cached images from config file.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The cluster is up and ready. 
+As you can see from the output,
+Minikube also configured our kubectl client by automatically creating a .kubeconfig file.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ kubectl cluster-info
+Kubernetes master is running at https://192.168.99.100:8443
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Enabling the Docker Registry&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;To be able to use our Draft agent on the server,
+we will need to enable the embedded Docker registry on the cluster.
+Minikube makes this straightforward using an addon.
+We only need to enable it!&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ minikube addons enable registry
+registry was successfully enabled
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Installing Helm&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Now that we have our Minikube up and running,
+we can install the Helm server agent (Tiller) and the Helm client.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ helm init
+$HELM_HOME has been configured at /Users/tomverelst/.helm.
+
+Tiller (the Helm server-side component) has been installed into your Kubernetes Cluster.
+Happy Helming!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Even though Tiller is installed now,
+you must wait for it to be deployed.
+Wait until there is one instance ready!&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ kubectl -n kube-system get deploy tiller-deploy --watch
+NAME            DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+tiller-deploy   1         1         1            1           4m
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Installing Draft&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;All requirements are set up now for Draft.
+Let’s install the final component: Draft!&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Installing default plugins...
+Installation of default plugins complete
+Installing default pack repositories...
+Installing pack repo from https://github.com/Azure/draft
+Error: Unable to update checked out version: exit status 128
+Error: exit status 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Uh, oh! Seems like Git cannot clone the Draft pack repo.
+According to &lt;a href=&quot;https://github.com/Azure/draft/issues/522&quot;&gt;this GitHub issue&lt;/a&gt;,
+this happens with Git version 2.16+.&lt;/p&gt;
+
+&lt;p&gt;If you have this error, the workaround currently is to manually add a specific version of the pack repo.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ draft pack-repo add https://github.com/Azure/draft --version v0.10.0
+Installing pack repo from https://github.com/Azure/draft
+Installed pack repository github.com/Azure/draft
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We manually installed the Draft pack repo now. 
+Let’s try to set up Draft again.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ draft init --auto-accept
+Installing default plugins...
+Installation of default plugins complete
+Installing default pack repositories...
+Installation of default pack repositories complete
+$DRAFT_HOME has been configured at /Users/tomverelst/.draft.
+
+Draft detected that you are using minikube as your cloud provider. AWESOME!
+Draftd has been installed into your Kubernetes Cluster
+Happy Sailing!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Great.
+The workaround works! 
+As you can see, Draft is still in alpha and will not properly work yet.&lt;/p&gt;
+
+&lt;p&gt;This setup is of course for local development.
+If you want to have a production ready, RBAC enabled, Draft setup on a remote Kubernetes cluster,
+you can take a look at the &lt;a href=&quot;https://github.com/Azure/draft/blob/master/docs/install-advanced.md&quot;&gt;Advanced Installation guide&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;setting-sail-with-draft&quot;&gt;Setting Sail with Draft&lt;/h2&gt;
+
+&lt;p&gt;If you managed to get to this point,
+you either went through all the effort to set everything up,
+or you skipped to this part!&lt;/p&gt;
+
+&lt;p&gt;We can now start drafting up some applications. 
+Since I am a fan of Go, 
+I will start with drafting up a Go application.
+Here is a simple Go application that listens on port 8080 and returns “Hello Draft!”.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;fmt&quot;&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;net/http&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ResponseWriter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Fprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello Draft!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HandleFunc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ListenAndServe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;:8080&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let’s run it to see if it works.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ go run main.go
+
+# Open a separate terminal
+$ curl localhost:8080
+Hello, Draft!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The application works. 
+Now we can let Draft create the Dockerfile and the Helm chart.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ draft create
+--&amp;gt; Draft detected Go (100.000000%)
+--&amp;gt; Ready to sail
+$ ls
+Dockerfile	charts		draft.toml	main.go
+$ ls charts/go
+Chart.yaml	charts		templates	values.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Draft detected that it was a Go application, 
+It generated a Dockerfile and the Draft deployment descriptor,
+and it also copied the Go pack to the &lt;code class=&quot;highlighter-rouge&quot;&gt;charts&lt;/code&gt; directory.
+This is great, as it enables the possibility to customize the pack for this specific application.&lt;/p&gt;
+
+&lt;p&gt;Let’s take a look at the generated Dockerfile.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat Dockerfile
+FROM golang:onbuild
+ENV PORT 8080
+EXPOSE 8080
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The official Golang &lt;em&gt;onbuild&lt;/em&gt; image is used.
+This image is great for development purposes,
+but I would not recommend to use this image for production purposes,
+as it is around &lt;strong&gt;700MB&lt;/strong&gt;, 
+while the application is only a few lines of code.&lt;/p&gt;
+
+&lt;p&gt;For demo purposes, 
+let’s continue to use this generated Dockerfile,
+and try to deploy our application on Kubernetes using Draft.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ draft up
+Draft Up Started: 'goapp'
+goapp: Building Docker Image: SUCCESS ?  (60.1681s)
+goapp: Pushing Docker Image: SUCCESS ?  (63.0775s)
+goapp: Releasing Application: SUCCESS ?  (0.5346s)
+goapp: Build ID: 01C653GK70A7SR2FMT2325TBHD
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Building and pushing this application took around 2 minutes,
+which seems pretty long,
+but that is highly likely because of the 700MB base Docker image.
+This image first needs to be downloaded.
+Then it needs to be pushed to the registry.&lt;/p&gt;
+
+&lt;p&gt;We can connect to the application using &lt;code class=&quot;highlighter-rouge&quot;&gt;draft connect&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ draft connect
+Connecting to your app...SUCCESS...Connect to your app on localhost:50066
+Starting log streaming...
++ exec app
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let’s see how the application is installed on our cluster.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ kubectl get deployment
+NAME       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+goapp-go   2         2         2            2           5m
+
+$ kubectl get svc
+NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+goapp-go     ClusterIP   10.103.78.13   &amp;lt;none&amp;gt;        80/TCP    4m
+kubernetes   ClusterIP   10.96.0.1      &amp;lt;none&amp;gt;        443/TCP   1h
+
+$ kubectl get pods
+NAME                       READY     STATUS    RESTARTS   AGE
+goapp-go-88f4b7bc7-4cltn   1/1       Running   0          4m
+goapp-go-88f4b7bc7-wt7kx   1/1       Running   0          4m
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As you can see,
+our application has successfully been deployed to Kubernetes,
+and is deployed using a Kubernetes &lt;em&gt;Deployment&lt;/em&gt; resource.&lt;/p&gt;
+
+&lt;p&gt;The services are not exposed by default,
+so we will need to either use &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl port-forward &amp;lt;pod&amp;gt; 8080&lt;/code&gt;,
+or SSH into our cluster.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ minikube ssh
+$ curl 10.103.78.13
+Hello Draft! 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you want to expose your applications automatically using Draft,
+you can use a Kubernetes &lt;em&gt;Ingress Controller&lt;/em&gt; for this.
+You will need to enable an &lt;em&gt;Ingress Controller&lt;/em&gt; in Kubernetes (&lt;code class=&quot;highlighter-rouge&quot;&gt;minikube addons enable ingress&lt;/code&gt;),
+and initialize draft with the &lt;code class=&quot;highlighter-rouge&quot;&gt;--ingress-enabled&lt;/code&gt; flag.
+More information about this can be found &lt;a href=&quot;https://github.com/Azure/draft/blob/master/docs/ingress.md&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Deploying changes&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Draft is meant to used during development,
+so it is important we can push changes.
+Let’s make a change to our application.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, &quot;Bye Draft!&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now that we have made some changes,
+let’s try to deploy our new version.
+This is done using the same command.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ draft up
+Draft Up Started: 'goapp'
+goapp: Building Docker Image: SUCCESS ?  (12.0163s)
+goapp: Pushing Docker Image: SUCCESS ?  (16.0110s)
+goapp: Releasing Application: SUCCESS ?  (0.2311s)
+goapp: Build ID: 01C65507WTBX5EAJKWWR53T652
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The build time has gone down from 2 minutes, to 28 seconds.
+This is because the Golang Docker image no longer needs to be downloaded and/or pushed to the Docker registry.&lt;/p&gt;
+
+&lt;p&gt;The deployment is updated with the new version of the application.
+Old pods are taken down by Kubernetes and new ones are started.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ kubectl get pods
+NAME                        READY     STATUS              RESTARTS   AGE
+goapp-go-6fb684d887-2kq69   0/1       ContainerCreating   0          23s
+goapp-go-6fb684d887-qmth6   1/1       Running             0          23s
+goapp-go-88f4b7bc7-wt7kx    0/1       Terminating         0          19m
+
+$ minikube ssh
+$ curl 10.103.78.13
+Bye  Draft! 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Our changes are now deployed to the Kubernetes cluster!&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Draft is great for local development using Kubernetes.
+It is meant to be used before committing and pushing your code.&lt;/p&gt;
+
+&lt;p&gt;Applications can be deployed to Kubernetes within minutes,
+without requiring to write Dockerfiles and/or Kubernetes resource files.&lt;/p&gt;
+
+&lt;p&gt;Azure Draft is still experimental for now, 
+but the development team is active, 
+and I have not ran into many issues yet.&lt;/p&gt;
+
+&lt;p&gt;It brings one of CloudFoundry’s best features, namely build packs, to Kubernetes.
+It’s definitely worth a try!&lt;/p&gt;
+
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://draft.sh&quot;&gt;Draft website&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/azure/draft&quot;&gt;Draft GitHub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://helm.sh/&quot;&gt;Helm&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tom&quot;, &quot;last_name&quot;=&gt;&quot;Verelst&quot;, &quot;permalink&quot;=&gt;&quot;/author/tom-verelst/&quot;, &quot;avatar&quot;=&gt;&quot;tom-verelst.png&quot;, &quot;twitter&quot;=&gt;&quot;tomverelst&quot;, &quot;linkedin&quot;=&gt;&quot;tomverelst&quot;, &quot;github&quot;=&gt;&quot;tomverelst&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Cloud Native Platforms&quot;, &quot;email&quot;=&gt;&quot;tom.verelst@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tom is a senior software engineer at Ordina Belgium. He is fond of all things Go and DevOps.&quot;}</name><email>tom.verelst@ordina.be</email></author><category term="Docker" /><category term="Azure" /><category term="Draft" /><category term="Kubernetes" /><category term="Helm" /><category term="Docker" /><category term="CloudFoundry" /><category term="PaaS" /><summary type="html">Table of contents Introduction Installing Draft Setting Sail with Draft Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-02-12-Azure-Draft/draft-logo.png" /></entry><entry><title type="html">Mocking in Kotlin with MockK</title><link href="https://ordina-jworks.github.io/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK.html" rel="alternate" type="text/html" title="Mocking in Kotlin with MockK" /><published>2018-02-05T00:00:00+00:00</published><updated>2018-02-05T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/02/05/Writing-tests-in-Kotlin-with-MockK.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#mockito-and-its-shortcomings-in-kotlin&quot;&gt;Mockito and its shortcomings in Kotlin&lt;/a&gt;&lt;/li&gt;
@@ -2570,323 +2968,4 @@ nginx &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; &lt;span class=&quot;s1&q
 
 &lt;p&gt;This is how we managed to build our application only once, and deploy across numerous environments.
 Although it is not as immutable as we want it to be, at least we have automated the process to get rid of most human errors.
-And this way we can easily create a separate environment if there is a bug in production.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Ysewyn&quot;, &quot;avatar&quot;=&gt;&quot;tim-ysewyn.png&quot;, &quot;twitter&quot;=&gt;&quot;TYsewyn&quot;, &quot;linkedin&quot;=&gt;&quot;tysewyn&quot;, &quot;github&quot;=&gt;&quot;TYsewyn&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-ysewyn/&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader API &amp; Microservices&quot;, &quot;email&quot;=&gt;&quot;Tim.Ysewyn@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a Principal Consultant at Ordina, where he helps fellow developers discovering top-notch technologies and methodologies as a Competence Leader for API &amp; Microservices. You can also find him working on various parts of the &lt;a href=\&quot;https://www.spring.io\&quot; target=\&quot;_blank\&quot;&gt;Spring&lt;/a&gt; framework or helping out at &lt;a href=\&quot;https://ng-be.org\&quot; target=\&quot;_blank\&quot;&gt;NG-BE&lt;/a&gt;. When you can\\'t get a hold of him, he will probably be under water since he is also an underwater photographer &amp; rescue diver.&quot;}</name><email>Tim.Ysewyn@ordina.be</email></author><category term="architecture" /><category term="Angular" /><category term="Automation" /><summary type="html">The problem</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2017-12-27-Deploying-web-applications-with-environment-specific-configurations/post-image.jpg" /></entry><entry><title type="html">Twelve tips to become an awesome Technical Lead</title><link href="https://ordina-jworks.github.io/architecture/2017/12/22/Tech-Lead.html" rel="alternate" type="text/html" title="Twelve tips to become an awesome Technical Lead" /><published>2017-12-22T00:00:00+00:00</published><updated>2017-12-22T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2017/12/22/Tech-Lead</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2017/12/22/Tech-Lead.html">&lt;h1 id=&quot;what-is-technical-leadership&quot;&gt;What is Technical Leadership&lt;/h1&gt;
-&lt;p&gt;A Technical Lead has the responsibility to help the team move forward. 
-The person assigned to the role, is someone who has sound technical experience and strong communication skills. 
-He or she will be accountable for the technical direction of the project or product and serve as the go-to person for cross-team interactions.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img class=&quot;image fit shadowed&quot; alt=&quot;What&quot; src=&quot;/img/tech-lead/what.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;When it comes to medium to large teams it is quite common to have a full-time Tech Lead present, responsible for important leadership activities such as&lt;/p&gt;
-
-&lt;dl&gt;
-	&lt;dt&gt;Guiding the project technical vision.&lt;/dt&gt;
-	&lt;dd&gt;&lt;p&gt;Eg. what technology are we going to use, how are we going to deliver the project, what patterns will we use, etc.&lt;/p&gt;&lt;/dd&gt;
-	&lt;dt&gt;Analyzing risks and cross-functional requirements.&lt;/dt&gt;
-	&lt;dd&gt;
-		&lt;ul&gt;
-			&lt;li&gt;Analysing risk means mitigating risk: can we chose a certain approach or does it have too many unknowns.&lt;/li&gt;
-			&lt;li&gt;What will the impact on the project be when taking a certain risk. 
-			Eg. introducing new technology you saw at a conference.&lt;/li&gt;
-		&lt;/ul&gt;
-	&lt;/dd&gt;
-	&lt;dt&gt;Coaching less experienced people.&lt;/dt&gt;
-	&lt;dd&gt;&lt;p&gt;You most likely will have mixed experience in your team. 
-	This makes a lot of sense when it comes to cost of a project, mixing and matching skills and experience; thus educating less experienced people.&lt;/p&gt;&lt;/dd&gt;
-	&lt;dt&gt;Bridging communication between stakeholders and the team.&lt;/dt&gt;
-	&lt;dd&gt;&lt;p&gt;Business stakeholders are often less technical in nature then developers. 
-	They will use a different language and the Tech Lead will need to mitigate that.&lt;/p&gt;&lt;/dd&gt;
-&lt;/dl&gt;
-
-&lt;h2 id=&quot;do-we-need-a-technical-lead&quot;&gt;Do we need a Technical Lead?&lt;/h2&gt;
-&lt;p&gt;Some people argue against the role; claiming a team of well-functioning developers can make &lt;em&gt;decisions&lt;/em&gt; and &lt;em&gt;prioritise&lt;/em&gt; what is important to work on. 
-Even when these perfect conditions would exist, during which team members talk to each other openly, discussing pros and cons before arriving at an agreed solution, it doesn’t take much to upset this delicate balance.&lt;/p&gt;
-
-&lt;p&gt;The Tech Lead role is just that – a role. 
-Instead of focusing on whether the role should exist, it is better to focus on ensuring all Tech Lead responsibilities are met. 
-As with every leadership position, a bad leader can make things worse. 
-With these tips I would like to help you to make sure that doesn’t happen.&lt;/p&gt;
-
-&lt;h1 id=&quot;two-sides-to-a-story&quot;&gt;Two sides to a story&lt;/h1&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img class=&quot;image fit shadowed&quot; alt=&quot;Two sides to a story&quot; src=&quot;/img/tech-lead/sides.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;As the job title implies, Technical  Lead  is a job with mixed responsibilities: there is a technical and a leadership side to the story.
-I will share tips for both sides, although the distinction is not always clear.
-It is very unlikely these sides will be equally divided. 
-More on this in Tip 4.&lt;/p&gt;
-
-&lt;h1 id=&quot;1-advocate-for-change&quot;&gt;1. Advocate for Change&lt;/h1&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img class=&quot;image fit shadowed&quot; alt=&quot;Change&quot; src=&quot;/img/tech-lead/change.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Advocate for change, means installing a mindset of positive evolution.
-When a proces is slow or cumbersome … try to turn that around and make it better.
-One way of doing this, is by using OODA loops: Observe, Orient, Decide, Act.
-More information on OODA, can be found in this &lt;a href=&quot;https://ordina-jworks.github.io/architecture/2017/06/21/pragmatic-architecture-today.html&quot;&gt;earlier blogpost&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;In order to observe slow or cumbersome processes correctly, it is important to be part of the team and experience the same pain as everybody else on the team.
-You should adopt a state of mind that continuously wants to improve a certain situation. 
-The Japanese call this &lt;a href=&quot;https://en.wikipedia.org/wiki/Kaizen&quot;&gt;“Kaizen”&lt;/a&gt;. 
-In our case, the situation you want to improve is the efficiency and happiness of the team and the delivery of a software project.&lt;/p&gt;
-
-&lt;p&gt;Seek out the issues that prevent good teamwork.&lt;/p&gt;
-
-&lt;h1 id=&quot;2-work-through-failure-and-success&quot;&gt;2. Work through Failure and Success&lt;/h1&gt;
-
-&lt;h2 id=&quot;things-will-fail&quot;&gt;Things will fail&lt;/h2&gt;
-
-&lt;p&gt;Things will fail. 
-Don’t worry &lt;em&gt;too much&lt;/em&gt; about failure.
-Builds will fail. 
-Deploys will fail. 
-Schedules will be missed. 
-Crashes will happen. 
-If you prepare for failure, it will be easier to cope with it.&lt;/p&gt;
-
-&lt;p&gt;When things fail, don’t look for someone to blame. 
-You are the Tech Lead. 
-Take responsibility and use your energy to fix the problem at hand and learn from it. 
-Of course, &lt;strong&gt;don’t fix the same bug twice&lt;/strong&gt;. 
-If you need to fix the same bug twice, then you made a wrong decision.&lt;/p&gt;
-
-&lt;p&gt;Learning from failure, will shape your orientation and make for better decision-making in the future.&lt;/p&gt;
-
-&lt;h2 id=&quot;celebrate-success&quot;&gt;Celebrate success&lt;/h2&gt;
-
-&lt;p&gt;When the team has a sense of achievement, they will be happy and motivated, to be the best they can. 
-It’s important to celebrate smaller achievements, like a successful sprint or a completed feature. 
-I did a project once, where we delivered a system and the customer was really happy with it … Unfortunately, the vision of the customer changed, and the project never made it to production. 
-If that’s the moment you’ve been waiting for …&lt;/p&gt;
-
-&lt;p&gt;When someone comes up with a new idea, maybe an approach or framework they saw at a conference, &lt;em&gt;and&lt;/em&gt; if the idea delivers, it is important that whoever came with the new idea, should be credited. 
-This is very rewarding and will lead to more cooperation, creativity and out-of-the-box thinking.&lt;/p&gt;
-
-&lt;p&gt;A drink on Friday evening, a small lunch, maybe a team building are all good ideas to get a happy and motivated team. Oh, and it’s fun.&lt;/p&gt;
-
-&lt;h1 id=&quot;3-stay-technical&quot;&gt;3. Stay Technical&lt;/h1&gt;
-
-&lt;p&gt;A Tech lead has a lot of non-coding responsibilities, but it is very important not to neglect the hands-on technical activities:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Write code, do proof-of-concepts, define interfaces, … 
-Depending on the maturity of the team your involvement will be different.&lt;/li&gt;
-  &lt;li&gt;Do code reviews and have your code reviewed. 
-When new people arrive at the project, I tend to do most of their code reviews and I will be pretty strict: 
-I will write tests that cause NullPointerExceptions, I will ask them to adhere to conventions, to use the Single Responsibility Principle, to be careful about packaging and naming, etc etc.
-I will also elaborate on the reasoning for these remarks and for the choices that were made.
-This might challenge existing ways of working and increase the maturity of the codebase.
-The number of changes they have to do (after a review) will quickly become less.&lt;/li&gt;
-  &lt;li&gt;Insure a technical vision exists and is shared by the team. 
-This vision needs to be in line with the customers needs. 
-Customer needs will lead to important constraints, eg. regarding reuse (a throwaway project for marketing vs. a multiyear enterprise endeavour … but be aware that this type of constraint might also change).
-Sharing how you got to this vision with your team, will have theyhuge impact its adoption. 
-Try to involve the team to arrive at the technical vision. 
-And make sure they know how they contribute in reaching that vision.&lt;/li&gt;
-  &lt;li&gt;Keep an eye on the evolution of the code: after a while, the amount of actual coding you do &lt;em&gt;might&lt;/em&gt; be lower, but you need to stay up to date on the evolution of the code. 
-You need te maintain awareness of the system and its technical constraints.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Most (if not all) developers will be happy to define frameworks, to advocate certain methodologies, etc. 
-But some non-functional requirements (also called quality attributes) such as networking, security, deployment and consistency are often overlooked.&lt;/p&gt;
-
-&lt;h1 id=&quot;4-always-available&quot;&gt;4. Always Available&lt;/h1&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img class=&quot;image fit shadowed&quot; alt=&quot;Time Management&quot; src=&quot;/img/tech-lead/time_management.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;As a Tech Lead, you should always be available for your team; for questions, for support, for guidance or to make decisions. 
-I started this blogpost by saying the technical leadership role has two important aspects and combining these is never easy. 
-Something that makes a lot of sense (for me) is writing down the amount of effort you expect to put into certain tasks, eg.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Technical design:&lt;/strong&gt; preparing work for the team (that includes you). 
-Making sure it is clear what needs to be implemented and how. 
-This will often take a lot of quality attributes like networking, security, … into consideration.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Business:&lt;/strong&gt; talking to the customer, looking at their needs and goals and matching these with the technical vision of the project.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Project Management:&lt;/strong&gt; defining user stories, estimating, follow-up.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Code:&lt;/strong&gt; writing code, doing code reviews, etc.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The assigned percentages will obviously vary for everyone and for every project. 
-It’s also important to look at the actuals, because these will help you understand on what you are spending time.&lt;/p&gt;
-
-&lt;h1 id=&quot;5-be-a-mentor-for-your-team&quot;&gt;5. Be a mentor for your team&lt;/h1&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img class=&quot;image fit shadowed&quot; alt=&quot;Mentor&quot; src=&quot;/img/tech-lead/mentor.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Mediator:&lt;/strong&gt; A Tech Lead should be a mediator, that facilitates discussion.
-When people have different opinions, you should embrace this. 
-Because it means they care enough about something to discuss about it. 
-In the end we work towards the same goal. 
-Everybody can learn from the opinion of others.
-Get input from the team and try to reach a consensus.
-If reaching a consensus is really impossible and a decision is necessary, decide. 
-Not deciding will always lead to more discussion.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Mentor:&lt;/strong&gt; A technical lead should be a mentor for developers. 
-Be a teacher. 
-When you review code or when you explain certain conventions, be sure to clearly explain the reasoning why you are doing something in a particular manner.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Effective Delegation:&lt;/strong&gt; After a while, your team will adopt certain best practices and less (strict) reviews will be necessary or more people will do reviews. 
-That’s the point where you can also give ownership of user stories to more developers. 
-By transferring ownership to developers, they will be highly motivated to do a great job. 
-&lt;em&gt;A tech lead should not try to own all of the responsibilities. 
-The tech leads needs to make sure responsibilities are taken by someone.&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Match goals:&lt;/strong&gt; match the individual goals of the developers with the larger goals of the project and the organisation. 
-This is &lt;em&gt;specifically targeted dynamic coaching&lt;/em&gt;. 
-Dynamic, because goals can change. 
-Communication is very important when it comes to matching goals: it will make people feel valued.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Optimise for the group:&lt;/strong&gt; Individuals in a team are extremely important, but when it is difficult to find consensus, it’s the team you should focus on. 
-Teams that collaborate well, will perform better and members of a well-performing team are happy members.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;A good Tech Lead&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;knows when to give input&lt;/li&gt;
-  &lt;li&gt;knows when to make decisions&lt;/li&gt;
-  &lt;li&gt;knows when to step back and allow the team to take more ownership.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Share responsibility, give ownership … but stay accountable.&lt;/p&gt;
-
-&lt;h1 id=&quot;6-surround-yourself-with-other-tech-leads&quot;&gt;6. Surround yourself with other Tech Leads&lt;/h1&gt;
-&lt;p&gt;There are many reasons to surround yourself with other Tech Leads. 
-On a personal level, it presents an opportunity to learn from your peers: how do they provide input for their team and how do they divide their time between the different responsibilities of the role.
-On an organisational level, you should verify if there is a clearly understood overarching goal.
-If this is the case, you might want to investigate whether cross-organisational coordination is required to meet objectives.
-It is important to keep track of architectural guidelines to make sure your product will play along nicely with other components and to make sure the larger system is consistent.
-Chances are there will be dependencies on the product of other teams or on the members of other teams.
-Make sure these are taken into account when composing a sprint.&lt;/p&gt;
-
-&lt;p&gt;This kind of coordination is a genuine problem at many (larger) organisations or customers.
-Investing time in networking, is necessary to avoid surprises beyond your control.&lt;/p&gt;
-
-&lt;h1 id=&quot;7-think-big-bias-for-action&quot;&gt;7. Think Big, Bias for Action.&lt;/h1&gt;
-&lt;p&gt;&lt;em&gt;Think Big&lt;/em&gt; and &lt;em&gt;Bias for Action&lt;/em&gt; are two of the &lt;a href=&quot;https://www.amazon.jobs/principles&quot;&gt;twelve leadership principles&lt;/a&gt; at &lt;a href=&quot;https://www.amazon.com/&quot;&gt;Amazon&lt;/a&gt;.
-Thinking big, means creating and communicating a bold direction for the project or the product. 
-This will inspire results, because people are working on something big. 
-Something that makes a difference.
-Focus on the opportunities that might arrive in the future. 
-Make decisions that are not limiting. 
-An excellent book on this, is &lt;a href=&quot;http://liminalthinking.com/&quot;&gt;Liminal Thinking&lt;/a&gt; by Dave Gray.&lt;/p&gt;
-
-&lt;p&gt;A Bias for Action means acknowledging that many actions and decisions are reversible and don’t need extensive study.
-Getting things done … matters.
-When you put a flywheel in motion, it will keep rotating. 
-Focus on simple things to get the flywheel to move. 
-It will encourage people to deliver as initial hurdles have been taken.&lt;/p&gt;
-
-&lt;h1 id=&quot;8-interviewing-potential-new-team-members&quot;&gt;8. Interviewing potential new team members&lt;/h1&gt;
-
-&lt;p&gt;Know what you are interviewing for.
-Are you looking for someone for the longer term or are you looking for someone for a short assignment?
-When you look at a resume, look for patterns: eg. duration of an assignment. 
-Does this match with your needs? 
-If it doesn’t, make sure you ask the candidate if he or she has certain preferences. 
-Some people like long-term projects, others don’t. 
-This does not have to be a blocking issue. 
-But it is something to talk about. 
-Also look at used languages, libraries and frameworks. 
-Do these match with your current choices? 
-When you are looking for a long-term team member, experience with certain tools is less important than the will, ability and eagerness to learn.
-I always try to focus on the mindset of a developer: thinking logically, identifying multiple approaches to tackle a certain problem.
-Personally, I strongly discourage using &lt;a href=&quot;https://stackoverflow.com/&quot;&gt;Stack Overflow&lt;/a&gt; to find questions.
-It is more important to ask questions that are relevant for your project.
-My personal pattern for conducting an interview is as follows:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Comfort&lt;/li&gt;
-  &lt;li&gt;Offer options&lt;/li&gt;
-  &lt;li&gt;Build on the responses&lt;/li&gt;
-  &lt;li&gt;Show interest&lt;/li&gt;
-  &lt;li&gt;Bonus question&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Of course, always, stay polite. 
-If the candidate doesn’t match with your specific goals, don’t send them home with a bad feeling.&lt;/p&gt;
-
-&lt;p&gt;Beware: we still will need to get things done, even when we don’t have the time, resources or influence to fix the team composition.&lt;/p&gt;
-
-&lt;h1 id=&quot;9-embrace-cultural-differences&quot;&gt;9. Embrace cultural differences&lt;/h1&gt;
-&lt;p&gt;Diversity is invaluable.
-All people are different and live different lives.
-This is incredibly valuable, because your users will also be different.
-Surround yourself with passionate people.&lt;/p&gt;
-
-&lt;p&gt;Nowadays most (if not all) teams use some kind of instant messaging.
-When working with teams in different time zones, this becomes even more valuable as it enables asynchronous communication and broadens the potential answers.
-I mentioned this before: everybody is part of the team and everybody’s opinion should be valued.&lt;/p&gt;
-
-&lt;h1 id=&quot;10-estimating-is-hard&quot;&gt;10. Estimating is hard&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Douglas_Hofstadter&quot;&gt;Douglas Hofstadter&lt;/a&gt;&lt;/p&gt;
-
-  &lt;p&gt;Hofstadter’s Law: It always takes longer than you expect, even when you take into account Hofstadter’s Law.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Estimating is hard. 
-When you do it more often, you will get better at it … but you still will get it wrong from time to time.&lt;/p&gt;
-
-&lt;p&gt;In agile projects, the entire team can participate in a &lt;a href=&quot;https://en.wikipedia.org/wiki/Planning_poker&quot;&gt;planning poker&lt;/a&gt; meeting. 
-Planning poker can expose unknowns when estimating a user story.
-In general, there are two approaches to cope with these unknowns: doing a technical design before starting with the user story (eg. by defining a spike) or accepting the risks, together with your business stakeholders.&lt;/p&gt;
-
-&lt;p&gt;As a technical lead, you will likely also need to do estimations before the team is actually building something or when responding to RFPs (request for proposals). 
-This can be to give business stakeholders an idea of the potential cost, to decide on priorities or to evaluate staff.&lt;/p&gt;
-
-&lt;p&gt;To achieve this, I suggest using three point estimates, where you do an optimistic, a best guess and a pessimistic estimate and use this formula: &lt;strong&gt;(O + 4BG + P) ÷ 6&lt;/strong&gt;  to get the weighted mean.
-Depending on the nature of the estimation, the number of unknown unknowns might be large: the project can be very similar to other projects or completely different. 
-Factor these in. 
-Estimate for the team that will do the implementation: you are probably estimating a real project. 
-This is not the fastest time &lt;em&gt;you&lt;/em&gt; can possibly do something, in the best possible conditions. 
-The estimations represent the &lt;strong&gt;ability to execute&lt;/strong&gt; for a team; not your ability to do the implementation yourself. 
-Also make sure, you know your deliverables. 
-This can be more then code and deployment artefacts, eg. code quality assurance reports, manuals, …&lt;/p&gt;
-
-&lt;p&gt;Document assumptions.&lt;/p&gt;
-
-&lt;p&gt;Mastering estimation is a lifelong journey. 
-It will set you apart. 
-And your colleagues will associate you with professionalism, stability, and quality work.&lt;/p&gt;
-
-&lt;h1 id=&quot;11-interfacing-with-the-outside-world&quot;&gt;11. Interfacing with the outside world&lt;/h1&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img class=&quot;image fit shadowed&quot; alt=&quot;Cats&quot; src=&quot;/img/tech-lead/cats.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;The language used by non-technical stakeholders might be very different then that of the development team.
-A Tech Lead must find a way to communicate ideas in ways non-technical people can understand. 
-Eg. by using analogies and using terms others can easily relate to.&lt;/p&gt;
-
-&lt;p&gt;In a &lt;a href=&quot;https://ordina-jworks.github.io/domain-driven%20design/2016/01/28/Evolution-of-DDD.html&quot;&gt;DDD&lt;/a&gt; world, this means establishing a ubiquitous language.&lt;/p&gt;
-
-&lt;p&gt;Work closely with customers, try to detect requirements from them and continuously map their requirements with the on-going implementation.&lt;/p&gt;
-
-&lt;p&gt;As a technical lead, I don’t think you should be the Single Point of Contact. 
-Because then you introduce a potential liability in the project: a strong dependency on you. 
-Include your team in certain discussions, but make sure you prevent continuous interruptions of your team members … 
-So don’t be the Single Point of Contact, but try to be the First Point of Contact.&lt;/p&gt;
-
-&lt;h1 id=&quot;12-facilitate-agile-team-work&quot;&gt;12. Facilitate (agile) team work&lt;/h1&gt;
-
-&lt;p&gt;I would urge all Tech Leads to facilitate agile team working. 
-Of course this works better, when the business is involved as well. 
-But even when they are not involved, assign a proxy product owner. 
-Chances are, this will be you.&lt;/p&gt;
-
-&lt;p&gt;It doesn’t really matter if you use scrum, kanban or something else, but aim for short development cycles, feedback loops, etc.&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;Your team’s strength is not a function of the talent of individual members. 
-It’s a function of their collaboration, tenacity, and mutual respect.&lt;/p&gt;
-
-&lt;p&gt;If you’d like more information on Technical Leadership, you can check my slides on &lt;a href=&quot;https://www.slideshare.net/BartBlommaerts/javaday-2017-10-tips-to-become-an-awesome-technical-lead-v4&quot;&gt;SlideDeck&lt;/a&gt; or this video on &lt;a href=&quot;https://www.youtube.com/watch?v=yhtK1jQC_4s&quot;&gt;YouTube&lt;/a&gt; of my talk at &lt;a href=&quot;https://devoxx.be/&quot;&gt;Devoxx&lt;/a&gt;.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bart&quot;, &quot;last_name&quot;=&gt;&quot;Blommaerts&quot;, &quot;avatar&quot;=&gt;&quot;bart-blommaerts.png&quot;, &quot;twitter&quot;=&gt;&quot;DaggieBe&quot;, &quot;linkedin&quot;=&gt;&quot;bartblommaerts&quot;, &quot;github&quot;=&gt;&quot;bart-blommaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/bart-blommaerts/&quot;, &quot;title&quot;=&gt;&quot;Software Architect&quot;, &quot;title2&quot;=&gt;&quot;Competence Manager Architecture&quot;, &quot;email&quot;=&gt;&quot;bart.blommaerts@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Bart Blommaerts is a passionate Software Architect at Ordina, who believes closing the model-code gap is essential to make rapid, agile delivery sustainable. Bart has a strong focus on API design, reuse, automation and security. He is always looking for technical challenges.&quot;}</name><email>bart.blommaerts@ordina.be</email></author><category term="architecture" /><category term="Technical Leadership" /><category term="time management" /><category term="interviews" /><category term="leadership" /><category term="principles" /><summary type="html">What is Technical Leadership A Technical Lead has the responsibility to help the team move forward. The person assigned to the role, is someone who has sound technical experience and strong communication skills. He or she will be accountable for the technical direction of the project or product and serve as the go-to person for cross-team interactions.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/tech-lead/world.png" /></entry></feed>
+And this way we can easily create a separate environment if there is a bug in production.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Ysewyn&quot;, &quot;avatar&quot;=&gt;&quot;tim-ysewyn.png&quot;, &quot;twitter&quot;=&gt;&quot;TYsewyn&quot;, &quot;linkedin&quot;=&gt;&quot;tysewyn&quot;, &quot;github&quot;=&gt;&quot;TYsewyn&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-ysewyn/&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader API &amp; Microservices&quot;, &quot;email&quot;=&gt;&quot;Tim.Ysewyn@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a Principal Consultant at Ordina, where he helps fellow developers discovering top-notch technologies and methodologies as a Competence Leader for API &amp; Microservices. You can also find him working on various parts of the &lt;a href=\&quot;https://www.spring.io\&quot; target=\&quot;_blank\&quot;&gt;Spring&lt;/a&gt; framework or helping out at &lt;a href=\&quot;https://ng-be.org\&quot; target=\&quot;_blank\&quot;&gt;NG-BE&lt;/a&gt;. When you can\\'t get a hold of him, he will probably be under water since he is also an underwater photographer &amp; rescue diver.&quot;}</name><email>Tim.Ysewyn@ordina.be</email></author><category term="architecture" /><category term="Angular" /><category term="Automation" /><summary type="html">The problem</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2017-12-27-Deploying-web-applications-with-environment-specific-configurations/post-image.jpg" /></entry></feed>
