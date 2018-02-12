@@ -47,7 +47,7 @@ You can see all packs [here](https://github.com/Azure/draft/tree/master/packs).
 ## Installing Draft
 
 Before you can start using Draft,
-there are quite a few components that need to be set up before you can start using it.
+there are quite a few components that need to be set up.
 However, 
 if you are using a remote Kubernetes cluster,
 you will only need to do the setup once for multiple developers.
@@ -106,7 +106,7 @@ You will have to unzip the download and add it to your PATH manually.
 
 **Starting Minikube**
 
-We now have downloaded all required dependencies,
+Now we have downloaded all required dependencies,
 we can start setting up our cluster.
 Let's start our Kubernetes cluster.
 
@@ -177,6 +177,7 @@ All requirements are set up now for Draft.
 Let's install the final component: Draft!
 
 ```
+$ draft init --auto-accept
 Installing default plugins...
 Installation of default plugins complete
 Installing default pack repositories...
@@ -290,7 +291,7 @@ EXPOSE 8080
 
 The official Golang *onbuild* image is used.
 This image is great for development purposes,
-but I would not recommend to use this image for production purposes,
+but I would not recommend using this image for production purposes,
 as it is around **700MB**, 
 while the application is only a few lines of code.
 
@@ -362,7 +363,7 @@ More information about this can be found [here](https://github.com/Azure/draft/b
 
 **Deploying changes**
 
-Draft is meant to used during development,
+Draft is meant to be used during development,
 so it is important we can push changes.
 Let's make a change to our application.
 
@@ -414,7 +415,7 @@ without requiring to write Dockerfiles and/or Kubernetes resource files.
 
 Azure Draft is still experimental for now, 
 but the development team is active, 
-and I have not ran into many issues yet.
+and I have not run into many issues yet.
 
 It brings one of CloudFoundry's best features, namely build packs, to Kubernetes.
 It's definitely worth a try!
