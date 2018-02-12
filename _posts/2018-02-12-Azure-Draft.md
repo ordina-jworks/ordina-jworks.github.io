@@ -69,7 +69,7 @@ Let's get started!
   
 We will start by installing the latest release of Minikube using [Homebrew](https://github.com/Homebrew/brew).
 If you do not have Homebrew,
-you can check how to install it [here](https://kubernetes.io/docs/tasks/tools/install-minikube/)
+you can check how to install Minikube [here](https://kubernetes.io/docs/tasks/tools/install-minikube/).
 
 ```
 $ brew cask install minikube
