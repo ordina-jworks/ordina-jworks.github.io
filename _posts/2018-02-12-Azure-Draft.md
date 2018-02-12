@@ -2,7 +2,7 @@
 layout: post
 authors: [tom_verelst]
 title: 'Azure Draft'
-image: /img/2018-02-15-Azure-Draft/draft-logo.png
+image: /img/2018-02-12-Azure-Draft/draft-logo.png
 tags: [Azure, Draft, Kubernetes, Helm, Docker, CloudFoundry, PaaS]
 category: Docker
 comments: true
@@ -275,7 +275,7 @@ Chart.yaml	charts		templates	values.yaml
 ```
 
 Draft detected that it was a Go application, 
-It generated a Dockerfile and the Helm deployment descriptor,
+It generated a Dockerfile and the Draft deployment descriptor,
 and it also copied the Go pack to the `charts` directory.
 This is great, as it enables the possibility to customize the pack for this specific application.
 
@@ -415,6 +415,9 @@ without requiring to write Dockerfiles and/or Kubernetes resource files.
 Azure Draft is still experimental for now, 
 but the development team is active, 
 and I have not ran into many issues yet.
+
+It brings one of CloudFoundry's best features, namely build packs, to Kubernetes.
+It's definitely worth a try!
 
 ## Resources
 - [Draft website](https://draft.sh)
