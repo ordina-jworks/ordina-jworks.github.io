@@ -10,7 +10,7 @@ permalink: conference/2017/09/18/Browser-security-features.html
 ---
 # Browser security features
 
-**Update**: due to the deprecation of HPKP, we've posted an update to this blog post. (TODO: link!)
+**Update**: due to the deprecation of HPKP, we've posted an [update](/security/2018/02/12/HPKP-deprecated-what-now.html) to this blog post.
 
 Browsers nowadays come with a ton of security features built-in.
 These features are there to protect the people using your application as well as protecting your application from malicious others.
@@ -105,7 +105,7 @@ and perhaps most importantly, **don't** activate preload unless you're 100% sure
 For those (subdomains) where TLS is enabled, you should start rolling out HSTS (while keeping in mind the warnings above).
 
 ## Public key pinning
-**Update**: HPKP is deprecated from Chrome 67, have a look at this post to see what next. (TODO: LINK)
+**Update**: HPKP is deprecated from Chrome 67, have a look at [this post](/security/2018/02/12/HPKP-deprecated-what-now.html) to see what next.
 
 Alright, now you've secured your site with HTTPS, and you've made sure your users can't fall victim to a Man in the Middle attack.
 Or have you?
