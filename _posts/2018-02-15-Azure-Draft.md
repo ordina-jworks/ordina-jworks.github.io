@@ -11,7 +11,7 @@ comments: true
 # Table of contents
 1. [Introduction](#introduction)
 2. [Installing Draft](#installing-draft)
-3. [Setting sail with Draft](#setting-sail-with-draft)
+3. [Setting Sail with Draft](#setting-sail-with-draft)
 3. [Conclusion](#conclusion)
 
 ## Introduction
@@ -40,8 +40,8 @@ Then, the application is built on the cluster using the generated Dockerfile.
 Finally, the built image is deployed to a dev environment using the Helm Chart.
 
 Draft does not support many languages yet, 
-but it currently supports like Java, Python, Golang, JavaScript, Ruby, Swift, PHP, C# and Clojure.
-It also has support for Gradle projects.
+but it currently supports most of the popular languages like Java, Python, Golang, JavaScript, Ruby, Swift, PHP, C# and Clojure.
+It also has support for Gradle and Maven projects.
 You can see all packs [here](https://github.com/Azure/draft/tree/master/packs).
 
 ## Installing Draft
@@ -177,7 +177,246 @@ All requirements are set up now for Draft.
 Let's install the final component: Draft!
 
 ```
-$ draft init --auto-accept
+Installing default plugins...
+Installation of default plugins complete
+Installing default pack repositories...
+Installing pack repo from https://github.com/Azure/draft
+Error: Unable to update checked out version: exit status 128
+Error: exit status 1
 ```
 
+Uh, oh! Seems like Git cannot clone the Draft pack repo.
+According to [this GitHub issue](https://github.com/Azure/draft/issues/522),
+this happens with Git version 2.16+.
 
+If you have this error, the workaround currently is to manually add a specific version of the pack repo.
+
+```
+$ draft pack-repo add https://github.com/Azure/draft --version v0.10.0
+Installing pack repo from https://github.com/Azure/draft
+Installed pack repository github.com/Azure/draft
+```
+
+We manually installed the Draft pack repo now. 
+Let's try to set up Draft again.
+
+```
+$ draft init --auto-accept
+Installing default plugins...
+Installation of default plugins complete
+Installing default pack repositories...
+Installation of default pack repositories complete
+$DRAFT_HOME has been configured at /Users/tomverelst/.draft.
+
+Draft detected that you are using minikube as your cloud provider. AWESOME!
+Draftd has been installed into your Kubernetes Cluster
+Happy Sailing!
+```
+
+Great.
+The workaround works! 
+As you can see, Draft is still in alpha and will not properly work yet. 
+
+This setup is of course for local development.
+If you want to have a production ready, RBAC enabled, Draft setup on a remote Kubernetes cluster,
+you can take a look at the [Advanced Installation guide](https://github.com/Azure/draft/blob/master/docs/install-advanced.md).
+
+## Setting Sail with Draft
+
+If you managed to get to this point,
+you either went through all the effort to set everything up,
+or you skipped to this part!
+
+We can now start drafting up some applications. 
+Since I am a fan of Go, 
+I will start with drafting up a Go application.
+Here is a simple Go application that listens on port 8080 and returns "Hello Draft!".
+
+```
+package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello Draft!")
+}
+
+func main() {
+    http.HandleFunc("/", handler)
+    http.ListenAndServe(":8080", nil)
+}
+
+```
+
+Let's run it to see if it works.
+
+```
+$ go run main.go
+
+# Open a separate terminal
+$ curl localhost:8080
+Hello, Draft!
+```
+
+The application works. 
+Now we can let Draft create the Dockerfile and the Helm chart.
+
+```
+$ draft create
+--> Draft detected Go (100.000000%)
+--> Ready to sail
+$ ls
+Dockerfile	charts		draft.toml	main.go
+$ ls charts/go
+Chart.yaml	charts		templates	values.yaml
+```
+
+Draft detected that it was a Go application, 
+It generated a Dockerfile and the Helm deployment descriptor,
+and it also copied the Go pack to the `charts` directory.
+This is great, as it enables the possibility to customize the pack for this specific application.
+
+Let's take a look at the generated Dockerfile.
+
+```
+$ cat Dockerfile
+FROM golang:onbuild
+ENV PORT 8080
+EXPOSE 8080
+```
+
+The official Golang *onbuild* image is used.
+This image is great for development purposes,
+but I would not recommend to use this image for production purposes,
+as it is around **700MB**, 
+while the application is only a few lines of code.
+
+For demo purposes, 
+let's continue to use this generated Dockerfile,
+and try to deploy our application on Kubernetes using Draft.
+
+```
+$ draft up
+Draft Up Started: 'goapp'
+goapp: Building Docker Image: SUCCESS ?  (60.1681s)
+goapp: Pushing Docker Image: SUCCESS ?  (63.0775s)
+goapp: Releasing Application: SUCCESS ?  (0.5346s)
+goapp: Build ID: 01C653GK70A7SR2FMT2325TBHD
+```
+
+Building and pushing this application took around 2 minutes,
+which seems pretty long,
+but that is highly likely because of the 700MB base Docker image.
+This image first needs to be downloaded.
+Then it needs to be pushed to the registry.
+
+We can connect to the application using `draft connect`.
+
+```
+$ draft connect
+Connecting to your app...SUCCESS...Connect to your app on localhost:50066
+Starting log streaming...
++ exec app
+```
+
+Let's see how the application is installed on our cluster.
+
+```
+$ kubectl get deployment
+NAME       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+goapp-go   2         2         2            2           5m
+
+$ kubectl get svc
+NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+goapp-go     ClusterIP   10.103.78.13   <none>        80/TCP    4m
+kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP   1h
+
+$ kubectl get pods
+NAME                       READY     STATUS    RESTARTS   AGE
+goapp-go-88f4b7bc7-4cltn   1/1       Running   0          4m
+goapp-go-88f4b7bc7-wt7kx   1/1       Running   0          4m
+```
+
+As you can see,
+our application has successfully been deployed to Kubernetes,
+and is deployed using a Kubernetes *Deployment* resource.
+
+The services are not exposed by default,
+so we will need to either use `kubectl port-forward <pod> 8080`,
+or SSH into our cluster.
+
+```
+$ minikube ssh
+$ curl 10.103.78.13
+Hello Draft! 
+```
+
+If you want to expose your applications automatically using Draft,
+you can use a Kubernetes *Ingress Controller* for this.
+You will need to enable an *Ingress Controller* in Kubernetes (`minikube addons enable ingress`),
+and initialize draft with the `--ingress-enabled` flag.
+More information about this can be found [here](https://github.com/Azure/draft/blob/master/docs/ingress.md).
+
+**Deploying changes**
+
+Draft is meant to used during development,
+so it is important we can push changes.
+Let's make a change to our application.
+
+```
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Bye Draft!")
+}
+```
+
+Now that we have made some changes,
+let's try to deploy our new version.
+This is done using the same command.
+
+```
+$ draft up
+Draft Up Started: 'goapp'
+goapp: Building Docker Image: SUCCESS ?  (12.0163s)
+goapp: Pushing Docker Image: SUCCESS ?  (16.0110s)
+goapp: Releasing Application: SUCCESS ?  (0.2311s)
+goapp: Build ID: 01C65507WTBX5EAJKWWR53T652
+```
+
+The build time has gone down from 2 minutes, to 28 seconds.
+This is because the Golang Docker image no longer needs to be downloaded and/or pushed to the Docker registry.
+
+The deployment is updated with the new version of the application.
+Old pods are taken down by Kubernetes and new ones are started.
+
+```
+$ kubectl get pods
+NAME                        READY     STATUS              RESTARTS   AGE
+goapp-go-6fb684d887-2kq69   0/1       ContainerCreating   0          23s
+goapp-go-6fb684d887-qmth6   1/1       Running             0          23s
+goapp-go-88f4b7bc7-wt7kx    0/1       Terminating         0          19m
+
+$ minikube ssh
+$ curl 10.103.78.13
+Bye  Draft! 
+```
+Our changes are now deployed to the Kubernetes cluster!
+
+## Conclusion
+
+Draft is great for local development using Kubernetes.
+It is meant to be used before committing and pushing your code.
+
+Applications can be deployed to Kubernetes within minutes,
+without requiring to write Dockerfiles and/or Kubernetes resource files.
+
+Azure Draft is still experimental for now, 
+but the development team is active, 
+and I have not ran into many issues yet.
+
+## Resources
+- [Draft website](https://draft.sh)
+- [Draft GitHub](https://github.com/azure/draft)
+- [Helm](https://helm.sh/)
