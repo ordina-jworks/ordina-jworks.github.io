@@ -177,6 +177,7 @@ All requirements are set up now for Draft.
 Let's install the final component: Draft!
 
 ```
+$ draft init --auto-accept
 Installing default plugins...
 Installation of default plugins complete
 Installing default pack repositories...
@@ -362,7 +363,7 @@ More information about this can be found [here](https://github.com/Azure/draft/b
 
 **Deploying changes**
 
-Draft is meant to used during development,
+Draft is meant to be used during development,
 so it is important we can push changes.
 Let's make a change to our application.
 
