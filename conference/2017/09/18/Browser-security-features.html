@@ -170,6 +170,9 @@
     <div class="inner" style="text-align: left;">
         <div class="content">
             <h1 id="browser-security-features">Browser security features</h1>
+
+<p><strong>Update</strong>: due to the deprecation of HPKP, we’ve posted an <a href="/security/2018/02/12/HPKP-deprecated-what-now.html">update</a> to this blog post.</p>
+
 <p>Browsers nowadays come with a ton of security features built-in.
 These features are there to protect the people using your application as well as protecting your application from malicious others.
 Most of these features are quite easy to implement, however for some of them (such as key-pinning) you have to be careful not to break your site.
@@ -265,6 +268,8 @@ and perhaps most importantly, <strong>don’t</strong> activate preload unless y
 <p>For those (subdomains) where TLS is enabled, you should start rolling out HSTS (while keeping in mind the warnings above).</p>
 
 <h2 id="public-key-pinning">Public key pinning</h2>
+<p><strong>Update</strong>: HPKP is deprecated from Chrome 67, have a look at <a href="/security/2018/02/12/HPKP-deprecated-what-now.html">this post</a> to see what next.</p>
+
 <p>Alright, now you’ve secured your site with HTTPS, and you’ve made sure your users can’t fall victim to a Man in the Middle attack.
 Or have you?
 It’s true that HSTS will make sure that the user only connects using a secured connection, but that doesn’t mean the HTTPS connection is actually made to <strong>your</strong> server.
