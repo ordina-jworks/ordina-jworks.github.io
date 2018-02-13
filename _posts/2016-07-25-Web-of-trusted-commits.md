@@ -133,7 +133,7 @@ Once Sherlock generated his Key Pair, he can configure Git to use it for signing
 Earlier this year GitHub [announced](https://github.com/blog/2144-gpg-signature-verification) that they now will show when commits and tags are signed and verified using any of the contributor's GPG keys upload to GitHub. Keep your eyes open for commits and tags labeled with those green `verified` badges.
 
 ## Secure-By-Design
-Ordina's [Secure-By-Design programme](https://www.ordina.be/en/services-et-solutions/themas/secure-by-design/) encourages to consider and take account of possible security risks as early as possible in a business process.
+Ordina's [Secure-By-Design programme](https://www.ordina.be/themes/security-and-privacy/) encourages to consider and take account of possible security risks as early as possible in a business process.
 So follow Sherlock's example by embedding and safeguarding security in your daily work as a developer and **Sign Your Work!**
 
 ## Resources
