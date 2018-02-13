@@ -10,7 +10,7 @@ comments: true
 
 >Last week Barcelona was the place to be for Spring enthusiasts. With tons of Pivotal speakers and many more community leaders it was a two-day goldmine for anyone looking to update their Spring knowledge. This is my report ranging many different topics, including quite some one on one discussions and hacking sessions with the people behind the Spring ecosystem.
 
-<img class="image" src="{{ '/img/SpringIO2015/sergi-andreas-josh.jpg' | prepend: site.baseurl }}" alt="Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)" />
+<img class="image fit" src="{{ '/img/SpringIO2015/sergi-andreas-josh.jpg' | prepend: site.baseurl }}" alt="Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)" />
 *Sergi Almar (event organizer), me and Josh Long (Spring developer advocate)*
 
 ### One on one talk with Juergen Hoeller:
