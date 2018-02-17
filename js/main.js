@@ -313,8 +313,10 @@ $(document).ready(function(){
 					// $body.addClass('custom-image');
 					// $body.css("background-image", "url('" + imageHref + "')");
 
+					var background_image = imageHref.splice(imageHref.lastIndexOf('.'), 0, '_blur');
+
                     $('#header-image').addClass('header-image');
-                    $('#header-image').css("background-image", "url('" + imageHref + "')");
+                    $('#header-image').css("background-image", "url('" + background_image + "')");
 					$('#over').css("display", "block");
 				},
 				leave: function() {
@@ -429,3 +431,7 @@ $(document).ready(function(){
 	});
 
 })(jQuery);
+
+String.prototype.splice = function(idx, rem, str) {
+    return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
+};
