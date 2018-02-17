@@ -52,7 +52,7 @@ $(document).ready(function() {
 
 	var instantiateToC = function() {
 		if (!$('.pin-wrapper').length) {
-			toc.addClass('fixed').pin({
+			toc.addClass('fixed closed').pin({
 				containerSelector: '.post-body .inner',
 				padding: {top: $('header').height(), bottom: 0}
 			});
