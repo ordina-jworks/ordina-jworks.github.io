@@ -15,14 +15,18 @@ For running the blog locally you can either opt for using Docker or setting up J
     - After making changes in the blog, the blog is automatically rebuilt
 
 ## Setting up Jekyll on your Mac or Linux
-You need to have at least Ruby 2.4.0 installed, this can be easily accomplished by using [rvm](https://rvm.io).
 
-After installing RVM, execute the following commands to install Ruby and set up Jekyll:
+Prerequisites: 
+- Ruby (>= 2.4.0): this can be easily accomplished by using [rvm](https://rvm.io).
+- ImageMagick: this can be easily accomplished by using [Homebrew](https://brew.sh/): `brew install imagemagick`.
+
+After installing RVM and Homebrew, execute the following commands to install Ruby and ImageMagick and set up Jekyll:
 
     $ rvm install 2.4.0
     $ rvm use 2.4.0
     $ (sudo) gem install bundler
     $ bundle install
+    $ brew install imagemagick
 
 Note that setting the Ruby version via `rvm use 2.4.0` is only active for the current session.
 In order to set 2.4.0 as the default Ruby version you can use the following command:
