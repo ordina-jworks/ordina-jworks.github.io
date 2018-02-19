@@ -1,8 +1,19 @@
-## Security model of the web - Philippe De Ryck
+---
+layout: post
+authors: [tim_de_grande]
+title: "Secappdev 2018 - Day 1"
+image: /img/security/padlock_code.jpg
+tags: [SecuAppDev, Security, Development]
+category: Security
+comments: true
+permalink: conference/2018/02/18/Secappdev-2018-day-1.html
+---
+
+# Security model of the web - Philippe De Ryck
 
 Basics - groundwork for other sessions
 
-### Origin
+## Origin
 Derived from url
 Origin - scheme + host + port
 Same origin policy : same origin ok, different -> no interaction
@@ -117,3 +128,37 @@ whitelist who is allowed to frame you.
 - not just javascript
 
 ## Sessions, cookies, and tokens
+- cookie based session-management
+    - cookies are *domain* based, not *origin* based
+    - read+set through headers + javascript
+- patches to make more secure (band aids):
+    - `Secure` flag
+    - `HttpOnly` flag
+    - Flags not sent back to the server
+    - cookie prefixes
+        - Add prefix to the name
+            - `__Secure-` prefix: only secure connections, and `Secure` flag needs to be active
+            - `__Host-` prefix: cookie will not be sent to different subdomains. Must be set for root path `/` and with the `Secure` flag
+        - Supported in modern browsers
+        
+### CSRF (sea surf)
+- cookies are attached automatically.
+- defending requires explicit action by the developer.
+- common vulnerability (OWASP #8)
+- e.g. ebay account hijack (change phone # through CSRF, then get call to reset password)
+- e.g. hack home router. + change DNS server
+- Defense:
+    - Hidden form tokens (random nonce!)
+    - Transparent tokens (copy CSRF cookie to header: both need to be present and identical, otherwise server rejects.) But: JS required
+        - Automatically present in angular (Cookie: `XSRF-Token`  to header `X-XSRF-Token`) Backend needs to verify!!
+        - copy to form is also possible (still needs js).
+    -  Check origin header. => not always present (e.g. `GET`/`HEAD`) => only in case of CORS
+    - SameSite cookies: only sent on requests from the same site (`SameSite=Strict` flag) (Chrome only, FF soon)
+        - breaks OAuth 2 logins badly -> don't apply on everything.
+- Some server side frameworks handle `GET` and `POST` the same way (careful!)
+
+### JWT
+- JWT can also be in a cookie, not just in the Auth header
+- Choice determines the need for JS support and CSRF defenses
+- Headers not automatically added to DOM requests (e.g. images, form post)
+
