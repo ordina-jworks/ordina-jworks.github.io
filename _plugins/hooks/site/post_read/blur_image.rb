@@ -7,8 +7,8 @@ Jekyll::Hooks.register :site, :post_write do |site|
     @base = site.config['destination']
 
     site.posts.docs.each { |post|
-        @image = post.data['image']
-        original_image = File.read(File.join(@base, @image))
+        @image = File.join(@base, post.data['image'])
+        original_image = File.read(@image)
         blurred_image = BlurImage.blur(original_image, 5)
 
         @image.insert(@image.rindex('.'), '_blur')
