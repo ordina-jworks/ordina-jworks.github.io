@@ -18,7 +18,7 @@ For running the blog locally you can either opt for using Docker or setting up J
 
 Prerequisites: 
 - Ruby (>= 2.4.0): this can be easily accomplished by using [rvm](https://rvm.io).
-- ImageMagick: this can be easily accomplished by using [Homebrew](https://brew.sh/): `brew install imagemagick`.
+- ImageMagick: this can be easily accomplished by using [Homebrew](https://brew.sh/).
 
 After installing RVM and Homebrew, execute the following commands to install Ruby and ImageMagick and set up Jekyll:
 
