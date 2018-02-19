@@ -1,0 +1,119 @@
+## Security model of the web - Philippe De Ryck
+
+Basics - groundwork for other sessions
+
+### Origin
+Derived from url
+Origin - scheme + host + port
+Same origin policy : same origin ok, different -> no interaction
+* same origin -> same data store
+* different origin -> different data store, no cross access
+
+protected resources:
+dom, client-side storage, permissions (e.g. location), XHR, webrtc (video + audio)
+
+=> control your origin!
+
+important: basis security model as well  knowledge needed to fix
+
+
+## Browsing context
+
+### General
+* auxiliary context -> e.g. popup, new tab
+* nested context -> (i)frame (origin hidden)
+
+SOP: isolate context -> browser error
+Doesn't prevent everything:
+* UI redressing attacks: mislead the user (show iframe with malicious button)
+* clickjacking (transparent frame above actual page)
+
+=> can be prevented: mostly caused by framing.
+whitelist who is allowed to frame you.
+* X-Frame-Options
+    * `SAMEORIGIN`, `DENY`, `ALLOW-FROM`
+    * `ALLOW-FROM` not supported everywhere (webkit), combine with `frame-ancestors` (CSP).
+* CSP:
+    * `self`, `none`, list of origins
+    
+### Tabnabbing
+-> change existing tab to something malicious
+-> users trained not to check the url after the page has been opened
+-> auxiliary browsing context -> `window.opener` -> navigate opener to a new page (e.g. password phish)
+-> Fix: `rel="noopener"` op `a` tag.
+-> limited support (no edge/ie) 
+
+### restrict framed content
+- html5: `sandbox` (default: no js)
+    - separate unique origin 
+    - no script exec
+    - no form submission
+    - no external navigation
+    - no popups
+    - no fullscreen
+    - no autoplay
+    => not usable.
+- `sandbox="allow-scripts"` loosen restrictions.
+    - except plugins
+    - except arbitrary context
+    - never `allow-scripts` + `allow-same-origin` => script can break out of the sandbox.
+- supported by *all* browsers
+- powerful when combined by srcdoc
+    -> embed content in tag instead of loading from src. Use both for older browsers.
+
+### communication between contexts
+- Web Messaging API
+- Send cloneable objects
+- When receiving messages: 
+    - check the origin. Don't just trust anything that comes in.
+    - sanitize data
+- Send messages to specific contexts.
+- sandbox -> unique + separate origin => use wildcard (`"*"`) to send there (only public data, as it's everywhere)
+
+## script contexts
+- come from everywhere
+- documents: own context; all scripts share that one context.
+- results in security issues
+    - XSS
+    - Require full trust in 3rd party provider
+    - common to embed 3rd party scripts without checks.
+### XSS
+- Can be anything, not just scripts.
+    - Javascript, CSS, HTML
+    - Check out BeEF (great for demos!)
+- you are what you include
+    - malicious ads
+    - speakaloud -> mine crypto
+    - Google analytics
+- you only have a name when you load a script.
+    - malicious actor can take it over
+    - ...
+- Subresource Integrity (SRI)
+    - add integrity hash to script
+    - no match -> not loaded
+    - fine for libraries -> should never change
+    - fine for your own scripts in a CDN
+    - You should still check the scripts!
+- data leakage: `<script src="..." integrity="..." cross-origin="use-credentials">`
+    - uses CORS
+    - anonymous -> no cookies
+    - authenticated -> send cookies
+- CDNs make it easy
+- browser support relatively ok.
+
+## Leverage context for privilege separation
+- Different browsing context -> different privilege
+- requires effort
+- e.g. 
+    - include chat widget through iframe on different origin.
+        - communicate through messages (web messaging api)
+    - different origin after auth
+
+## CSP
+- Defense in depth against injection
+- _Not a replacement for traditional XSS mitigation techniques_
+- disables dangerous feature (e.g. inline scripts, inline styles, eval)
+- only loads whitelisted resources
+- not just javascript
+
+## Sessions, cookies, and tokens
