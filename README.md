@@ -58,7 +58,7 @@ In order to set 2.4.0 as the default Ruby version you can use the following comm
     - category: {category}
     - comments: true
 - Write your blog post
-- Save your file in the **_post** directory using the following file format: *{year}-{month}-{day}-{title}.md*
+- Save your file in the **_posts** directory using the following file format: *{year}-{month}-{day}-{title}.md*
 	- **example**: *2015-11-09-Awesome-Blog-Post.md*
 - Be sure to publish as **plain text**! (Jekyll will generate the static HTML for us)
 - Make sure the image has a size of 500x293 or has at least the same ratio
