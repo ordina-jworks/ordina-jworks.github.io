@@ -313,7 +313,7 @@ $(document).ready(function(){
 					// $body.addClass('custom-image');
 					// $body.css("background-image", "url('" + imageHref + "')");
 
-					var background_image = imageHref.splice(imageHref.lastIndexOf('.'), 0, '_blur');
+					var background_image = imageHref.splice(imageHref.lastIndexOf('.'), 0, '_header');
 
                     $('#header-image').addClass('header-image');
                     $('#header-image').css("background-image", "url('" + background_image + "')");
