@@ -1,12 +1,12 @@
 ---
 layout: post
 authors: [tim_de_grande]
-title: "Secappdev 2018 - Day 1"
+title: "SecAppDev 2018 - Day 1"
 image: /img/security/padlock_code.jpg
-tags: [SecuAppDev, Security, Development]
+tags: [SecAppDev, Security, Development]
 category: Security
 comments: true
-permalink: conference/2018/02/18/Secappdev-2018-day-1.html
+permalink: conference/2018/02/18/SecAppDev-2018-day-1.html
 ---
 
 # Security model of the web - Philippe De Ryck
@@ -88,6 +88,7 @@ whitelist who is allowed to frame you.
     - XSS
     - Require full trust in 3rd party provider
     - common to embed 3rd party scripts without checks.
+    
 ### XSS
 - Can be anything, not just scripts.
     - Javascript, CSS, HTML
@@ -162,3 +163,90 @@ whitelist who is allowed to frame you.
 - Choice determines the need for JS support and CSRF defenses
 - Headers not automatically added to DOM requests (e.g. images, form post)
 
+# OWASP's top 10 proactive controls (Jim Manico)
+- v2, v3 komt binnenkort uit.
+
+## C1: Verify for security early and often
+- not really tested
+- need to be integral part of software engineering practice
+- ASVS and testing guide. -> define security requirements and testing methodologies
+- Convert scanning output into proactive controls to avoid classes of problems
+    -> don't focus on the bug itself, look for the class (root cause).
+    -> "Hamster wheel of pain"
+- continuous deployment -> normal pen-test impossible
+- automated security testing (part of continuous integration)
+
+## C2: parameterize queries
+Prevent SQL injection.
+Some things can't be parameterized (e.g. table name, order by clause )
+Parameterize everything, even "fixed" values (e.g. config, hard-coded value)
+Improves performance.
+
+## C3: encode data before inputting to a parser
+- Owasp has libraries to sanitize input or output for java
+- Open source
+- **Very** difficult to get right.
+
+## C4: Validate all inputs
+### HTML
+OWASP HTML Sanitizer (open source, donated by Google's AppSec team) -> CAJA
+Even valid data can cause injection -> Irish last names e.g. O'Donnell
+
+### File upload
+- Filename + size validation + antivirus (on separate system)
+- Only trusted filenames + serve from separate domain
+- Beware of "special" files
+- Image upload verification
+    - Enforce size limits
+    - Use image rewrite libs (don't just check the header) 
+        -> on a separate system (to capture attacks against e.g. ImageMagick)
+    - Set the extension to a valid image extension
+    - Ensure the detected content type is safe.
+- Generic upload
+    - Ensure decompressed size < max size
+    - Ensure uploaded archive matches the expected type
+    - Ensure structured uploads follow proper standard.
+
+## C5: Establish authentication and identity controls
+- What is authentication? Verify that an entity is who _it_ claims to be.
+- hash + salt is not enough.
+    - memory hardened function bcrypt
+    - time hardened function scrypt
+    - PBKDF2
+    - thread hardened argon2i (brand new)
+- don't limit length/characters => doomed to failure (too long can cause DoS; 1k is long enough)
+    - NIST guidelines
+    - don't allow common passwords (e.g. top 100k) -> exactly how attacks happen.
+- use modern password policy
+- Password storage:
+    - SHA512 
+    - credential specific salt
+    - bcrypt/scrypt/PBKDF2 (workfactor as high as possible)
+    - (Optional) HMAC round => store keys in a "vault" e.g. hashicorp or amazon KMS
+=> dropbox (blog post)
+
+## C6 access control
+Stop using role based access control
+```java
+if (user.hasAccess("deleteUser")) {
+    user.delete();
+}
+```
+
+## C7: Encrypt data at rest
+Google Tink https://github.com/google/tink
+https://www.ssllabs.com/projects/documentation
+
+## C8: Logging
+honeypots 
+fake entry in robots.txt -> fake login, sounds alarm
+price in hidden field of e-commerce site. -> detect tampering
+
+## C9 3rd party libraries
+OWASP dependency check
+retire.js
+
+## C10 Error and Exception handling
+owasp.org/index.php/Cheat_Sheets
+
+# Cryptographic algorithms (Bart Preneel)
