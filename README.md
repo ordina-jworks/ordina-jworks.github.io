@@ -15,14 +15,18 @@ For running the blog locally you can either opt for using Docker or setting up J
     - After making changes in the blog, the blog is automatically rebuilt
 
 ## Setting up Jekyll on your Mac or Linux
-You need to have at least Ruby 2.4.0 installed, this can be easily accomplished by using [rvm](https://rvm.io).
 
-After installing RVM, execute the following commands to install Ruby and set up Jekyll:
+Prerequisites: 
+- Ruby (>= 2.4.0): this can be easily accomplished by using [rvm](https://rvm.io).
+- ImageMagick: this can be easily accomplished by using [Homebrew](https://brew.sh/).
+
+After installing RVM and Homebrew, execute the following commands to install Ruby and ImageMagick and set up Jekyll:
 
     $ rvm install 2.4.0
     $ rvm use 2.4.0
     $ (sudo) gem install bundler
     $ bundle install
+    $ brew install imagemagick
 
 Note that setting the Ruby version via `rvm use 2.4.0` is only active for the current session.
 In order to set 2.4.0 as the default Ruby version you can use the following command:
@@ -54,10 +58,10 @@ In order to set 2.4.0 as the default Ruby version you can use the following comm
     - category: {category}
     - comments: true
 - Write your blog post
-- Save your file in the **_post** directory using the following file format: *{year}-{month}-{day}-{title}.md*
+- Save your file in the **_posts** directory using the following file format: *{year}-{month}-{day}-{title}.md*
 	- **example**: *2015-11-09-Awesome-Blog-Post.md*
 - Be sure to publish as **plain text**! (Jekyll will generate the static HTML for us)
-- Make sure the image has a size of 500x293 or has at least the same ratio
+- Make sure the image is a JPEG file and has a resolution of 500x293 or has at least the same ratio
 - Tweak and commit your changes until you feel satisfied with it
 
 ## Submit your blog post for publication
