@@ -369,3 +369,57 @@ P -> P' (P = source, P' = target)
 - P' has the same observable behavior as P (as experienced by the user)
 - P' may have side-effects (e.g. more network messages sent) that P doesn't
 - P' may be slower, use more memory, be larger
+
+## Measuring
+- Quality
+    - potency
+    - resilience
+    - cost
+- stealthiness
+- maintainability
+- diversity
+
+### Potency
+- How much more difficult to read and understand (for a human)
+- measured: low, medium, high
+- Measure using software complexity metrics (aim to maximize)
+
+### Resilience
+- resistance to automated deobfuscation techniques
+- potency confuses the human <=> resilience confuses an automatic deobfuscator
+- is't a combination of programmer effort and deobfuscator effort
+- measured on a scale: trivial, weak, strong, full, one-way
+
+### Cost
+- Execution time/space penalty due to transformation
+- Measured with the scale 
+    - free O(1)
+    - cheap O(n)
+    - costly O(n^p) p>1
+    - dear (exponentially more)
+- Impact on performance
+- Impact on loading times
+- File size increase
+
+### Stealthiness
+- How hard is it to spot?
+- Obfuscated is usually not stealthy
+- Avoid telltale indicators :  
+    - `eval()`
+    - `unescape()`
+    - large blocks of meaningless text
+
+### Maintainability
+maintainability = potency ^ -1
+(POV of the attacker **not** the actual developer, better term assessibility/discoverability?)
+Harder to build new features on obfuscated code.
+
+### Diversity
+Dynamic obfuscation -> different obfuscation on every load/deploy
+- increases attack complexity
+- metamorphic & polymorphic code
+- removes attack references
+- precludes some automated attacks
+- passive defense technique
+
+"one of the major reasons attacks succeed is because of the static nature of defense, and the dynamic nature of attack" - Fred Cohen in "Operating System Protection Through Program Evolution", 1993
