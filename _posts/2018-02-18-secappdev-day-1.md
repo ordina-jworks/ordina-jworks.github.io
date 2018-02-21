@@ -249,4 +249,123 @@ retire.js
 ## C10 Error and Exception handling
 owasp.org/index.php/Cheat_Sheets
 
-# Cryptographic algorithms (Bart Preneel)
+----
+Day 3
+
+# Techniques for developing and integrating secure software components (Jan Tobias Mühlberg)
+## Software security for the bad guys
+1. Reverse/search manually (costs brain cycles)
+    - debugger, decompiler, ...
+    - learn a lot
+    - might not help
+    - can be entertaining, or waste your time
+2. Fuzzing
+    - clever software, costs CPU cycles
+    - you won't learn much, but you will get crashes
+    - may be thwarted by anti-debugging techniques.
+3. Combine the 2.
+    - Helps in these cases.
+    
+## Fuzzing
+Find an input that reproducibly leads to a crash (`SIGABRT`, `SIGILL`, `SIGSEGV`)
+Crypto, only binaries shipped, obfuscation, anti-debugging => slow down fuzzing, don't make it impossible.
+
+How to protect against this (or against reverse engineering)?
+- Fuzz harder?
+- Fuzz more cleverly
+- Hire a bad guy for doing good stuff (aka bug bounty)
+- Testing?
+- Buy insurance?
+- Pen testing?
+- Formal verification?
+
+### Testing
+How much testing is enough?
+- Sometimes you can only test in lab conditions
+- concurrency?
+- how do you know you've covered all critical interactions
+- What about security properties?
+- ...
+
+NASA: 
+* 10^-9 probability of failure for a 1 hour mission
+* life-test for >114,000 years 
+-> should be used for other things as well
+    - (self-driving) cars
+    - smart grids
+    - medical devices
+
+Critical components are usually tested quite well. 
+But these components are becoming more connected to non-critical systems, which are not subjected to these tests.
+Not feasible to run all these tests.
+
+### Formal verification
+Not a silver bullet -> even verified systems can contain vulnerabilities (e.g. Krack attack)
+**Tries** to be exhaustive
+VeriFast (created by imec-distrinet)
+Normally only done on "small" (~1k LOC) pieces of code that are critical.
+Verify 1 part of an application at the level of abstraction provided by Java/C
+    - Layer-below attacks (e.g. different java version)
+    - Buggy/malicious libs
+    - Buggy OS, malware?
+fbinfer.com -> static analysis tool by facebook 
+    -> give it java code, produces list of potential bugs.
+
+
+# Code protection through obfuscation (Pedro Fortuna - jscrambler.com)
+## What is code obfuscation?
+Software developer (Alice) vs Bob reverse engineer (wants key algorithms and dat structures)
+
+Intellectual property protection:
+- Legal (expensive)
+- Technical
+    - Encrypt the code
+    - Trusted computing
+    - Server-Side execution
+    - Obfuscation
+
+Obfuscation makes sense when:
+- Sensitive computation on the server is not an option
+    - desktop application
+    - ui control
+    - latency
+    - cost
+- Trusted computing is not an option
+    - not available on all devices
+    - cost
+- Adversary has physical access to the system
+    - mobile app
+    - IoT
+    - desktop applications
+    
+Obfuscation 
+- "transform a program into a form that is *more difficult* for an adversary to understand or change than the original code."
+    -   Requires more human time, money or computing power.
+- Lowers code quality in terms of readability/maintainability
+    - manual reversing is __**always**__ possible.
+
+Encryption vs obfuscation
+- not the same
+- encrypted code van't be executed. Obfuscated code is still valid.
+- Does not require/include a decrypt function.
+
+## Use cases
+- Good
+    - protect IP
+        - conceal data/algorithms
+        - DRM
+        - prevent code theft/reuse
+    - enforce license agreements
+    - prevent tamper/abuse
+    - extra security layer
+    - Test the strength of security controls (IDS/IPS/WAF/web filter)
+- Evil
+    - Bypass security controls (IDS/IPS/WAF/web filter)
+    - Hide malicious code
+
+## Methods
+### Obfuscation transformation
+P -> P' (P = source, P' = target)
+- P' has the same observable behavior as P (as experienced by the user)
+- P' may have side-effects (e.g. more network messages sent) that P doesn't
+- P' may be slower, use more memory, be larger
