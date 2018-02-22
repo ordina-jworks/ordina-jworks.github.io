@@ -423,3 +423,151 @@ Dynamic obfuscation -> different obfuscation on every load/deploy
 - passive defense technique
 
 "one of the major reasons attacks succeed is because of the static nature of defense, and the dynamic nature of attack" - Fred Cohen in "Operating System Protection Through Program Evolution", 1993
+
+# Security enhancements in Java 9 (Jim Manico)
+## DTLS (Datagram Transport Layer Security)
+- Datagram apps need transport security, TLS not sufficient.
+- TLS requires TCP -> UDP?
+- SIP doesn't work over TLS
+
+## ALPN (Application Layer Protocol Negotiation)
+- Multiple protocols supported on the same port
+- Needed for HTTP/2
+
+## OCSP (Online Certificate Status Protocol) stapling
+### OCSP 
+- Revocation doesn't work well -> takes at least 10 days to fully propagate
+- Browser soft-fail policy makes it ineffective (no OCSP response -> just continue), revocation ignored unless EV cert
+- Some OCSP requests can be intercepted.
+- Regular OCSP:
+    - requests over HTTP, not HTTPS -> no privacy, no security, MitM, ...
+
+### OCSP stapling
+- Web server checks the OCSP responder (not the client)
+- response can be cached and sent to the client.
+- Client doesn't need to ask a 3rd party for this info (better privacy)
+
+## DRBG (Deterministic Random Bit Generator)
+- new `SecureRandom` methods for seeding, reseeding, and random-bit generation
+- new `SecureRandomParameters` interface so that additional input ban be provided to the `SecureRandom` methods
+- new `DrbgParameters` class implementing `SecureRandomParameters`
+
+## SHA3
+- 4 new hash functions (SHA3-224, SHA3-256, SHA3-384, SHA3-512)
+- No new APIs
+
+## Disable SHA1 certificates
+- TLS benefits: confidentiality, integrity, authenticity
+- SHA1 can be cracked 2000 times faster than predicted (proven in 2005)
+- Some years ago, used by >90% of websites, now 4%.
+- As long as it's supported, certificates can be forged.
+- Cost of forgery dropped from $2.7m in 2012 to 173k in 2018
+
+## Crypto note
+- Don't use low-level API
+- Use proper API:
+    - Google KeyCzar (old school + battle hardened)
+    - Google Tink (new + shiny)
+    - LibSodium (best of breed, required native APIs)
+- Bouncycastle is a crypto provider, **not** an API 
+
+## Web plugin deprecated
+- Still there, but will be removed in a later version
+- `java.corba` also deprecated in Java 9
+- @DrDeprecator -> Stuart Marks
+
+## Java modularity
+- Reduce JRE attack surface.
+- Server JRE decreases attack surface by not including applets since 2013
+- 72 levels of modularity
+
+## Filter Incoming Serialization Data (JEP-290)
+- Deserialization of untrusted data is bad.
+- 2016 -> deserialization apocalypse
+- Stop doing it.
+- Use JSON/XML instead with **up-to-date** parsers. (older than 3 months? RCE is trivial!)
+- This JEP allows you to filter what is deserialized.
+    - classes
+    - maxdepth, maxrefs, maxbytes, ...
+- Backported down to Java 6.
+
+jim@manicode.com
+
+# A practical introduction to OpenID Connect & OAuth 2.0 (Dominick Baier)
+
+- User: carbon based life form <-> client: silicon based life form
+- OAuth2.0: meant for client authentication
+- OpenID is successor to SAML (old protocol, designed before mobile/IoT)
+- OAuth -> *not* for authentication, just abused for that (through various incompatible, proprietary extensions)
+
+## OpenID Connect
+- https://openid.net/connect
+- piggy backed on OAuth 2.0 (base network protocol)
+    ![OpenId Connect protocol suite](http://openid.net/wordpress-content/uploads/2014/02/OpenIDConnect-Map-4Feb2014.png){: class="image fit" style="max-width:638px"  }
+    TODO: link to self-hosted copy.
+- Added support for logout
+- Makes key rotation possible
+
+### Certification
+- [Certification list](http://openid.net/certification/){: target="blank" rel="noopener noreferrer" }
+- Guarantees spec compliance through tests.
+
+### Endpoints
+- Discovery endpoint: to discover where the other endpoints are.
+- Authorize endpoint (for humans)
+- Token endpoint (for machine to machine processes)
+
+
+#### Discovery endpoint
+- e.g. https://accounts.google.com/.well-known/openid-configuration
+- Document **not** signed, relies completely on HTTPS.
+- issuer name **must** be url where it's located
+- plenty of other fields
+- `jwks_uri` points to the keys endpoint. Use this to get the key defined in the `kid` header of the JWT to validate the signature.
+
+#### Authorize endpoint
+- Authentication for web applications
+- Client makes request to authorize endpoint
+    - required parameters:
+        - callback url: server will verify that it's in the list of allowed callbacks
+        - nonce (for client verification of server response)
+        - scope=openid
+- Server authenticates the user
+- Consent dialog: server tells the user:
+    - who you are
+    - who they are
+    - what access is being requested
+- When allowed
+    - response sent to the client (contains identity token -> JWT)
+    - server sets a cookie (token service will remember the user)
+
+##### Identity token validation
+- Issuer name must match value of iss claim
+- Client must validate that aud contains the client-id registered
+- alg should be correct
+- current time must be before exp
+- iat (issued at) can be used to reject tokens that were issued too long ago 
+- nonce must match what client sent
+- validate signature based on `kid` field in the header.
+
+### Session management
+- /authorize starts a logon session => distribution of stable session ID to all clients
+- /end_session ends it:
+    - end session at OpenID provider
+    - notify all clients that the session has ended
+    
+=> Single Sign-Out
+3 specs:
+- JS-based notification
+    - Load iframe (source is `check_session_iframe` in discovery config)
+    - iframe runs on the same origin as the ID provider and does JS call to parent page to communicate log out.
+- front-channel notification (most common)
+    - best-effort approach
+    - Every client needs a clean-up end point
+    - usually: render web page containing invisible iframes containing the cleanup endpoints (one for each client).
+        Pass along the session id to prevent "signout spam" (embed image to logout endpoint to log out random users)
+- back-channel notification
+    - Server will call a server-endpoint on the client applications
+    - more work for the clients
+    - requires network connection between ID provider and the application server
+
