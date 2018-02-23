@@ -571,3 +571,106 @@ jim@manicode.com
     - more work for the clients
     - requires network connection between ID provider and the application server
 
+# Introduction to privacy technologies (Claudia Diaz)
+## What is privacy?
+- Abstract and subjective concept
+- Depends on
+    - study discipline (lawyer vs psychiatrist, vs programmer)
+    - stakeholder (company, vs customer vs lawmaker)
+    - social norms/expectations
+    - context
+=> If someone is talking about privacy, don't assume you know what they're talking about.
+
+Warren & Brandeis " the right to privacy" (1890)
+- started in 19th century: photography + newspapers -> "information which was previously hidden and private could now be shouted from the rooftops"
+- Slander and libel laws are insufficient -> only deal with damage to reputation
+- privacy = "the right to be left alone"
+    - prevent publication of stories/information about oneself
+    - "protect the privacy of the individual from invasion either by the too enterprising press, the photographer or the possessor of modern devices to record sounds or pictures"
+
+## GDPR
+- will replace the EU Data Protection Directive from the 90s in May 2018
+- Huge fines (up to 10M or 2% of global turnover)
+- Purpose base access control: store purpose for collecting with the data
+    when someone wants to access it, ask for which purpose -> if they don't match, no access.
+
+## Overview of various privacy technologies focusing on
+- concept of "privacy" they embed
+- their goals
+- trust assumptions
+- challenges-limitations
+
+| Offline world | Online world |
+|---|---|
+|Conversation face to face | skype/IM |
+| Letters in the mail | email |
+| papers in physical archive | digital archive |
+| cash | credit card |
+| following your movements | location tracking | 
+| know who your friends are | "online" friends |
+| encyclopedia | google/wikipedia |
+
+- available data -> low cost of collection, replication, transmission, dissemination
+
+### Nothing to hide?
+- "the problem with this argument is its underlying assumption that privacy is about hiding bad things" - Solove
+- Difference between "secret" and "private"
+
+# SSL/TLS/HTTPS Best practices (Jim Manico)
+## SSL - Secure Sockets Layer
+Broken, dead, no longer used
+
+## TLS - Transport Layer Security
+- TLS growing ~30% annually.
+- Growth even faster in recent years (after Snowden, thanks to Let's Encrypt)
+- TLS 1.0 == SSL 3.1
+- TLS 1.1 1999
+- TLS 1.3 2017 Draft status
+
+## TLS certificates
+- X.509 certificates
+- Used to authenticate the other party
+- **NOT** used to help negotiate a symmetric key
+- Certificate from certain CA help websites prove their authenticity.
+    Certificates contain
+    - Certificate holder
+    - Domain that the cert was issued to
+    - Signature of the CA who verified the certificate
+- Can have multiple hostnames via SAN
+
+## When and how
+- Use it always and everywhere
+- Includes internal network
+- Lots of attacks are performed by insiders.
+- Mozilla config guide
+- owasp.org O-Saft
+- https://www.ssllabs.com/projects/best-practices
+- TLS1.0 end of life, start switching over to 1.1 (between servers, use 1.2 and prepare for 1.3)
+
+## SSL fails
+- posting sensitive data over HTTP
+- mixed content
+- weak version/cipher
+- trust the CA system
+- terminate TLS early
+
+## POODLE
+Remediation
+- Disable SSL v3.0 for servers and clients
+- Use TLS_FALLBACK_SCSV
+
+## Improving HTTPS
+### HSTS
+- Released november 2012
+- Mitigates 
+    - downgrade to http
+    - MitM using DNS trickery
+    - browser default behavior of HTTP first
+    - mixed content
+- protects the **user**, not the website
+ 
+### Perfect forward secrecy
+- Older ciphers: every time anyone makes a ssl connection, that message is encrypted with (basically) the same private server key
+- Past communications can be decrypted if the key ever leaks
+- PFS: use a new key every time. Leaks in the future can't cause previous communications to be decrypted
+
