@@ -16,15 +16,15 @@ comments: true
 
 
 <h2>Harder, Better, Faster, Stronger</h2>
-Here we are again, another blog post about [Stairway to Health](http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard).
+Here we are again, another blog post about [Stairway to Health](https://stairwayto.health/dashboard).
 
 
-Why? Well, we've created our own Ordina version of the [Stairway to Health](http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard) application.
+Why? Well, we've created our own Ordina version of the [Stairway to Health](https://stairwayto.health/dashboard) application.
 There are quite a few interesting bells and whistles, among others, here are a few of the new features:
 - New (and awesome) frontend design, with Ordina theming obviously
 - Upgraded from Angular 4 to Angular 5
 - Material Design
-- NEST.js in stead of Express.js (still Express underneath, but cleaner code!)
+- Nest.js in stead of Express.js (still Express underneath, but cleaner code!)
 - Backend e2e tests with Mockgoose
 - Deployed on OpenShift
 - New type of sensors
@@ -40,17 +40,17 @@ New in the Ordina version is that employees can now also cheer and motivate each
 
 
 <h2>Internet of Things</h2>
-The [Stairway to Health](http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard) project is a simple yet great example to show what the Internet of Things can do:
+The [Stairway to Health](https://stairwayto.health/dashboard) project is a simple yet great example to show what the Internet of Things can do:
 - LoRa sensors detect door openings, these are installed on the doors of the staircases
 - These sensors communicate via the LoRa network to report their status
-- In our case sensor data is sent to the Proximus MyThings platform which processes the data
+- In our case, sensor data is sent to the Proximus MyThings platform which processes the data
 - The data gets sent to the Stairway to Health application
 - The Stairway to Health application interprets and visualises the data
 
 In summary: We install sensors on the doors (things) to measure usage and we analyse the data to persuade people to move more.
 The result is a good example of how IoT can influence our daily lives.
 
-For more on this topic, check the application's [About page](http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/about)</a>
+For more on this topic, check the application's [About page](https://stairwayto.health/about)
 
 
 <h2>Dive into the technical details</h2>
@@ -60,8 +60,8 @@ So let's get started.
 
 
 <h3>The API</h3>
-ExpressJs to NestJs: The main difference here is that we've rewritten the application to use the new framework inf favour of the old implementation with ExpressJs.
-Migrating from Express to Nest is not that difficult, since nest is a wrapper on top of the Express framework.
+ExpressJs to Nest.js: The main difference here is that we've rewritten the application to use the new framework inf favour of the old implementation with ExpressJs.
+Migrating from Express to Nest is not that difficult, since Nest is a wrapper on top of the Express framework.
 It provides you with some nice TypeScript decorators which makes your code a lot cleaner, more compact and easier to read.
 
 
@@ -303,9 +303,9 @@ Since users should now be able to register to the application to cheer for and m
 
 
 <h3>Deploy on OpenShift</h3>
-Since we've separated our frontend and backend code we used 2 separate git repositories. 
-The nice thing about deploying to OpenShift is that we can add a webhook to github so that every time we merge a pull request from our develop branch to our
-master branch to our git remote, it builds and deploys the new code immediately.
+Since we've separated our frontend and backend code we used 2 separate Git repositories. 
+The nice thing about deploying to OpenShift is that we can add a webhook to GitHub so that every time we merge a pull request from our develop branch to our
+master branch to our Git remote, it builds and deploys the new code immediately.
 
 <a href="{{ '/img/stairwaytohealth2/stack.png' | prepend: site.baseurl }}" data-lightbox="results" data-title="">
     <img alt="stack" src="{{ '/img/stairwaytohealth2/stack.png' | prepend: site.baseurl }}" class="image fit">
@@ -318,9 +318,9 @@ these use a magnet mounted on the door frame and the sensor mounted on the door 
 makes contact with the sensor and the sensor detects the door is closed. This means you need to mount at two places,
 and it needs to be carefully placed to align. This makes it not an ideal solution.
 
-A solution for this is the MySense sensor. This is a lora sensor programmable with javascript.
+A solution for this is the MySense sensor. This is a LoRa sensor programmable with JavaScript.
 
-The MySense is a small Lora device containing multiple sensors.
+The MySense is a small LoRa device containing multiple sensors.
 It contains a temperature sensor, a button, ...
 But the most important sensor for our case is the accelerometer.
 Using the accelerometer we can detect when the door is moving. After detecting a motion we will blackout the sensor
@@ -338,7 +338,7 @@ By using the MySense as our sensor we only have to mount one piece per door. An 
 
 
 <h3>Interesting Links</h3>
-- [Stairway to Health 2.0](http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard)
+- [Stairway to Health 2.0](https://stairwayto.health/dashboard)
 - [Blogpost Stairway to Health 1](https://ordina-jworks.github.io/iot/2017/10/12/Stairway-To-Health.html)
-- [NestJs](https://nestjs.com/)
+- [Nest.js](https://nestjs.com/)
 - [OpenShift](https://www.openshift.com/)
