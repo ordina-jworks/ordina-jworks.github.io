@@ -14,22 +14,38 @@ comments: true
 
 <image comes here>
 
-Every one
-or two days we took a new item out of the backlog and started working on
-it.  An expert assisted us in putting to practice 
+<inleiding start opleiding Maarten>
+
+
+
 ## What we have done
-### Git
+### Git  <Sam>
 ### Backend
-#### Spring and Spring Boot
-#### Microservices
+
+#### Spring and Spring Boot <Johan>
+#### Microservices <Yen>
+
+#### Unit testing and mocking <Dries>
+
+#### Java language features <Maarten>
+
 ### Frontend
+
+#### Essentials <Sam>
+
+#### Build tools <Yunus>
+
+#### Angular <Sam>
+
 ### Devops
-### CI/CD
-### Security
+#### CI/CD <Yunus>
+### Security <Johan>
 
-## Recap
+### Docker <Nick>
 
-Nu we klaar zijn met al deze onderwerpen, ieder van onsheeft er uit geleerd:
+## Recap <Everyone>
+
+Nu we klaar zijn met al deze onderwerpen, ieder van ons heeft er uit geleerd:
 
 Per persoon (richtlijn 3 à 4 lijnen):
 
