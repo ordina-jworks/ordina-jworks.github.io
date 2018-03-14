@@ -2,7 +2,7 @@
 layout: post
 authors: [michael_vervloet, axel_bergmans]
 title: 'Stairway to Health 2.0 (the Ordina version)'
-image: /img/stairwaytohealth2/sth2-showcase.png
+image: /img/stairwaytohealth2/banner.jpg
 tags: [NodeJS, nestJs, MongoDB, Angular, ExpressJS, Express, TypeScript, Angular-CLI, Internet of Things, IoT, LoRa]
 category: IoT
 comments: true
@@ -16,67 +16,56 @@ comments: true
 
 
 <h2>Harder, Better, Faster, Stronger</h2>
+Here we are again, another blog post about [Stairway to Health](http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard).
 
-<p>
-Here we are again, another blog post about <a href="http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard" target="_blank">Stairway to Health</a>.<br>
-Why? Well, we've created our own Ordina version of the <a href="http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard" target="_blank">Stairway to Health</a> application.
-There are quite a few interesting bells and whistles, among others, here are a few of those new features:
-<ul>
-    <li>New (and awesome) frontend design, with Ordina theming obviously</li>
-    <li>Upgraded from Angular 4 to Angular 5</li>
-    <li>Material Design</li>
-    <li>NEST.js in stead of Express.js (still Express underneath, but cleaner code!)</li>
-    <li>Backend e2e tests with Mockgoose</li>
-    <li>Deployed on OpenShift</li>
-    <li>New type of sensors</li>
-    <li>Cheers feature, users can motivate and support each other</li>
-</ul>
-</p>
+
+Why? Well, we've created our own Ordina version of the [Stairway to Health](http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard) application.
+There are quite a few interesting bells and whistles, among others, here are a few of the new features:
+- New (and awesome) frontend design, with Ordina theming obviously
+- Upgraded from Angular 4 to Angular 5
+- Material Design
+- NEST.js in stead of Express.js (still Express underneath, but cleaner code!)
+- Backend e2e tests with Mockgoose
+- Deployed on OpenShift
+- New type of sensors
+- Cheers feature, users can motivate and support each other
+
 
 <h2>Stairway to Health @ Ordina</h2>
-
-<p>
-As you might have read in our <a href="https://ordina-jworks.github.io/iot/2017/10/12/Stairway-To-Health.html" target="_blank">previous post</a> about Stairway to Health, the purpose of the application is to
-improve worker health in a fun and engaging way. With the app we try to encourage employees to take the stairs instead of the elevator.
-We've put up some sensors that can detect how much stairway usage there is on every floor and how many people take the elevator.
-On the app they can see these results and thus they can do an extra effort if they are falling behind.
+As you might have read in our [previous post](https://ordina-jworks.github.io/iot/2017/10/12/Stairway-To-Health.html) about Stairway to Health, the purpose of the application is to improve worker health in a fun and engaging way. 
+With the app we try to encourage employees to take the stairs instead of the elevator.
+We've put up some sensors that can detect how much the stairs are used on a per floor basis and how many people take the elevator.
+In the app they can see the results and thus they can do an extra effort if they are falling behind.
 New in the Ordina version is that employees can now also cheer and motivate each other since we've added a chat feature to the application.
-</p>
+
 
 <h2>Internet of Things</h2>
-
-<p>The <a href="http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard" target="_blank">Stairway to Health</a> project is a simple yet great example to show what the Internet of Things can do:
-<ul>
-    <li>LoRa sensors detect door openings, these are installed on the doors of the staircases</li>
-    <li>These sensors communicate via the LoRa network to report their status</li>
-    <li>In our case sensor data is sent to the Proximus MyThings platform which processes the data</li>
-    <li>The data gets sent to the Stairway to Health application</li>
-    <li>The Stairway to Health application interprets and visualises the data</li>
-</ul>
+The [Stairway to Health](http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard) project is a simple yet great example to show what the Internet of Things can do:
+- LoRa sensors detect door openings, these are installed on the doors of the staircases
+- These sensors communicate via the LoRa network to report their status
+- In our case sensor data is sent to the Proximus MyThings platform which processes the data
+- The data gets sent to the Stairway to Health application
+- The Stairway to Health application interprets and visualises the data
 
 In summary: We install sensors on the doors (things) to measure usage and we analyse the data to persuade people to move more.
 The result is a good example of how IoT can influence our daily lives.
 
-For more on this topic, check the application's <a href="http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/about" target="_blank">About page</a>
-</p>
+For more on this topic, check the application's [About page](http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/about)</a>
 
 
 <h2>Dive into the technical details</h2>
-<p>
 The reason of us writing this blog post is mainly because we want to explain some of the technical changes and improvements we've made
-since we've updated (pretty much rewritten) the application. So let't get started.
-</p>
+since we've updated (pretty much rewritten) the application. 
+So let's get started.
+
 
 <h3>The API</h3>
-<p>
-ExpressJs to NestJs: the main difference here is that we've rewritten the application to use the new framework we chose for our application.
+ExpressJs to NestJs: The main difference here is that we've rewritten the application to use the new framework inf favour of the old implementation with ExpressJs.
 Migrating from Express to Nest is not that difficult, since nest is a wrapper on top of the Express framework.
-It provides you with some nice typescript decorators which makes your code a lot cleaner, more compact and easier to read.
-</p>
+It provides you with some nice TypeScript decorators which makes your code a lot cleaner, more compact and easier to read.
 
 
 <h4>ExpressJs example</h4>
-
 ```typescript
 export class EntityApi extends CoreApi {
     private entityController: EntityController = new EntityController();
@@ -98,7 +87,6 @@ export class EntityApi extends CoreApi {
 
 
 <h4>NestJs example</h4>
-
 ```typescript
 // automatically registered to the server by nest
 // all /auth routes require user to be logged in (doesn't come standard with Nest)
@@ -114,15 +102,13 @@ export class EntitiesController {
 }
 ```
 
+
 <h3>Websockets with NestJs</h3>
-
-
-<p>Working with sockets is also a lot easier and cleaner when working with Nest.
-We can use the <code>@WebSocketGateway</code> to create a new route/gateway, <code>@SubscribeMessage</code> to listen for certain events and
-<code>@OnGatewayConnection</code> or <code>@OnGatewayDisconnect</code> to know when users connect or disconnect to the server.
-There wasn't any straight forward solution for broadcasting to all clients. Once a user sends a message,
-we want to update the messages for everyone that has the client open. So we solved this by pushing all connected clients to an array
-and when we receive a 'cheer-created' event, we loop over the array of clients and emit an event to them one by one.</p>
+Working with sockets is also a lot easier and cleaner when using Nest.
+We can utilise the `@WebSocketGateway` to create a new route/gateway, `@SubscribeMessage` to listen for certain events and `@OnGatewayConnection` or `@OnGatewayDisconnect` to know when users connect or disconnect to the server.
+There wasn't any straight forward solution for broadcasting to all clients. 
+Once a user sends a message, we want to update the messages for everyone that has the client open. 
+So we solved this by pushing all connected clients to an array and when we receive a 'cheer-created' event, we loop over the array of clients and emit an event to them one by one.
 
 ```typescript
 import {
@@ -165,31 +151,30 @@ export class CheerEventsComponent implements OnGatewayConnection, OnGatewayDisco
 }
 ```
 
-<h3>Optimising chart data and counts</h3>
 
-<p>On Stairway to Health we used mongo aggregations to get our chart data from the database. Once we hit 1.5 million logs,
-these calls put a lot of stress on our servers and took a long time to load, so in stead we now keep track of daily, weekly, monthly, yearly and total logs in their own collection.
-Whenever we receive a log from the MyThings stream we update all these collections. For example the daily logs collection contains documents that look like this:
-</p>
+<h3>Optimising chart data and counts</h3>
+On Stairway to Health we used mongo aggregations to get our chart data from the database. 
+Once we hit 1.5 million logs, these calls put a lot of stress on our servers and took a long time to load, so in stead we now keep track of daily, weekly, monthly, yearly and total logs in their own collection.
+Whenever we receive a log from the MyThings stream we update all these collections. 
+For example the daily logs collection contains documents that look like this:
 
 ```json
 {
-  "date": {
+"date": {
     "$date": "2017-12-20T21:49:15.532Z"
-  },
-  "friendlyName1": "C",
-  "friendlyName2": "1",
-  "hour": 22,
-  "identifier": "20-12-2017",
-  "counts": 55
+},
+"friendlyName1": "C",
+"friendlyName2": "1",
+"hour": 22,
+"identifier": "20-12-2017",
+"counts": 55
 }
 ```
 
-<p>
 So when we want the hourly data from a certain day, we query the collection for the date we want and and simply return an array with all the different hours, if an hour doesn't exist, we assume it didn't send any logs/counts.
-When we receive a log, we check if there is an entry that has "date" and "hour" equal to the log's date. If so, we update, otherwise we create a new entry (upsert).
+When we receive a log, we check if there is an entry that has "date" and "hour" equal to the log's date. 
+If so, we update, otherwise we create a new entry (upsert).
 We still store the log in a "logs" collection, so that if ever our daily, weekly, ... collections get corrupted, we can run a script that populates these collections with the correct data.
-</p>
 
 ```typescript
 async create(log: ILog, stream?: boolean): Promise<ILog> {
@@ -277,15 +262,11 @@ async create(log: ILog, stream?: boolean): Promise<ILog> {
 ```
 
 <h3>The Visible parts</h3>
-<p>
-    The main changes we've made on the frontend are:
-    <ul>
-        <li>Changing the colours, dark theme with Ordina branding</li>
-        <li>Used material design for smooth user experience</li>
-        <li>Replaced highcharts library with @swimlane/ngx-charts</li>
-        <li>Migrated to Angular 5</li>
-    </ul>
-</p>
+The main changes we've made on the frontend are:
+- Changing the colours, we created a dark theme with Ordina branding
+- Used material design for a smoother user experience
+- Replaced Highcharts library with `@swimlane/ngx-charts`
+- Migrated to Angular 5
 
 <div class="row">
     <div class="col-md-4">
@@ -305,62 +286,59 @@ async create(log: ILog, stream?: boolean): Promise<ILog> {
     </div>
 </div>
 
-<p>Since users should now be able to register to the application to cheer for and motivate each other we added these new screens and functionality.</p>
+Since users should now be able to register to the application to cheer for and motivate each other we added these new screens and functionality.
 
- <div class="row">
-     <div class="col-md-6">
-         <a href="{{ '/img/stairwaytohealth2/register.png' | prepend: site.baseurl }}" data-lightbox="results" data-title="">
-             <img alt="register" src="{{ '/img/stairwaytohealth2/register.png' | prepend: site.baseurl }}" class="image fit">
-         </a>
-     </div>
-     <div class="col-md-6">
-         <a href="{{ '/img/stairwaytohealth2/cheer.png' | prepend: site.baseurl }}" data-lightbox="results" data-title="">
-             <img alt="cheers" src="{{ '/img/stairwaytohealth2/cheer.png' | prepend: site.baseurl }}" class="image fit">
-         </a>
-     </div>
- </div>
+<div class="row">
+    <div class="col-md-6">
+        <a href="{{ '/img/stairwaytohealth2/register.png' | prepend: site.baseurl }}" data-lightbox="results" data-title="">
+            <img alt="register" src="{{ '/img/stairwaytohealth2/register.png' | prepend: site.baseurl }}" class="image fit">
+        </a>
+    </div>
+    <div class="col-md-6">
+        <a href="{{ '/img/stairwaytohealth2/cheer.png' | prepend: site.baseurl }}" data-lightbox="results" data-title="">
+            <img alt="cheers" src="{{ '/img/stairwaytohealth2/cheer.png' | prepend: site.baseurl }}" class="image fit">
+        </a>
+    </div>
+</div>
 
- <h3>Deploy on OpenShift</h3>
 
- <p>Since we've separated our frontend and backend code we used 2 separate git repositories. The nice thing about deploying
- to OpenShift is that we can add a webhook to github so that every time we merge a pull request from our develop branch to our
- master branch to our git remote, it builds and deploys the new code immediately.
- </p>
+<h3>Deploy on OpenShift</h3>
+Since we've separated our frontend and backend code we used 2 separate git repositories. 
+The nice thing about deploying to OpenShift is that we can add a webhook to github so that every time we merge a pull request from our develop branch to our
+master branch to our git remote, it builds and deploys the new code immediately.
 
 <a href="{{ '/img/stairwaytohealth2/stack.png' | prepend: site.baseurl }}" data-lightbox="results" data-title="">
- <img alt="stack" src="{{ '/img/stairwaytohealth2/stack.png' | prepend: site.baseurl }}" class="image fit">
+    <img alt="stack" src="{{ '/img/stairwaytohealth2/stack.png' | prepend: site.baseurl }}" class="image fit">
 </a>
- <h3>The new sensors: Proximus MySense</h3>
-<p>For the previous version of Stairway to Health we used Magnetic door sensors,
+
+
+<h3>The new sensors: Proximus MySense</h3>
+For the previous version of Stairway to Health we used Magnetic door sensors,
 these use a magnet mounted on the door frame and the sensor mounted on the door itself, when the door is closed the magnet
- makes contact whith the sensor and the sensor detects the door is closed. This means you need to mount at two places,
- and it needs to be carefully placed to align. This makes it not an ideal solution.</p>
-<p>A solution for this is the MySense sensor. This is a lora sensor programmable with javascript.</p>
-<p>The MySense is a small Lora device containing multiple sensors.
+makes contact with the sensor and the sensor detects the door is closed. This means you need to mount at two places,
+and it needs to be carefully placed to align. This makes it not an ideal solution.
+
+A solution for this is the MySense sensor. This is a lora sensor programmable with javascript.
+
+The MySense is a small Lora device containing multiple sensors.
 It contains a temperature sensor, a button, ...
 But the most important sensor for our case is the accelerometer.
 Using the accelerometer we can detect when the door is moving. After detecting a motion we will blackout the sensor
-for 30 seconds to allow the door to be closed again and not count multiple motions.</p>
-<p>To save battery we do not send on every motion,
+for 30 seconds to allow the door to be closed again and not count multiple motions.
+
+To save battery we do not send on every motion,
 but count the amount of motions for 15 minutes and then send the counter,
-also when the counter is 0 we will not send to save battery.</p>
+also when the counter is 0 we will not send to save battery.
 
- <h3>Conclusion</h3>
 
-<p>
-    We made some major improvements when it comes to performance, maintainability and functionality.
-    By deploying our application to OpenShift, we also improved our workflow and made it a lot easier to deploy our changes.
-    By using the MySense as our sensor we only have to mount one piece per door. An extra advantage is that this sensor is a lot cheaper.
-</p>
+<h3>Conclusion</h3>
+We made some major improvements when it comes to performance, maintainability and functionality.
+By deploying our application to OpenShift, we also improved our workflow and made it a lot easier to deploy our changes.
+By using the MySense as our sensor we only have to mount one piece per door. An extra advantage is that this sensor is a lot cheaper.
+
 
 <h3>Interesting Links</h3>
-
-<ul>
-<li><a href="http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard" target="_blank">Stairway to Health 2.0</a></li>
-    <li><a href="https://ordina-jworks.github.io/iot/2017/10/12/Stairway-To-Health.html" target="_blank">Blogpost Stairway to Health 1</a></li>
-    <li><a href="https://nestjs.com/" target="_blank">NestJs</a></li>
-    <li><a href="https://www.openshift.com/" target="_blank">OpenShift</a></li>
-
-</ul>
-
-
+- [Stairway to Health 2.0](http://sth2-fe-prod-ordina-stairway-to-health.origin.ordina-jworks.io/dashboard)
+- [Blogpost Stairway to Health 1](https://ordina-jworks.github.io/iot/2017/10/12/Stairway-To-Health.html)
+- [NestJs](https://nestjs.com/)
+- [OpenShift](https://www.openshift.com/)
