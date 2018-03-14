@@ -1,52 +1,58 @@
 ---
 layout: post
 authors: [tim_de_grande]
-title: "SecAppDev 2018 - Day 1"
-image: /img/security/padlock_code.jpg
+title: "SecAppDev 2018"
+image: /img/secappdev-2018/secappdev_wide.png
 tags: [SecAppDev, Security, Development]
 category: Security
 comments: true
-permalink: conference/2018/02/18/SecAppDev-2018-day-1.html
+permalink: conference/2018/02/18/SecAppDev-2018.html
 ---
 
 # Security model of the web - Philippe De Ryck
-
-Basics - groundwork for other sessions
-
 ## Origin
-Derived from url
-Origin - scheme + host + port
-Same origin policy : same origin ok, different -> no interaction
-* same origin -> same data store
-* different origin -> different data store, no cross access
+One of the original security controls in the web's security model is the concept of "Origin".
+The origin is derived from the url and consist of the combination of scheme, host and port.
+In those days, life was easy: if the origins matched, everything was fine and you could communicate.
+If the origins didn't match, interaction wasn't allowed.
+This was used to protect cookies, allow communications between frames, etc.
 
-protected resources:
-dom, client-side storage, permissions (e.g. location), XHR, webrtc (video + audio)
-
-=> control your origin!
-
-important: basis security model as well  knowledge needed to fix
-
+Modern browsers protect a lot of resources based on the origin:
+    - The DOM and its contents
+    - Client-side storage (such as localstorage)
+    - Geolocation access
+    - WebRTC (Web Real Time Communications)
+    - ...
+    
+Because of this it's really important to be aware of what's going on in your origin and not just let everyone in there.
 
 ## Browsing context
-
 ### General
-* auxiliary context -> e.g. popup, new tab
-* nested context -> (i)frame (origin hidden)
+[Mozilla](https://developer.mozilla.org/en-US/docs/Glossary/Browsing_context){: target="blank" rel="noopener noreferrer" } defines a browsing context as "the environment in which a browser displays a document".
+For most of us, this is a browser tab.
+Besides this context, there are a few other contexts you have to be aware of:
+    - An auxiliary context (e.g. a popup or a new tab opened by the page)
+    - A nested context (e.g. an iframe that's embedded somewhere on the page)
 
-SOP: isolate context -> browser error
-Doesn't prevent everything:
-* UI redressing attacks: mislead the user (show iframe with malicious button)
-* clickjacking (transparent frame above actual page)
+By default a browser will isolate different contexts from each other, throwing errors when you attempt to work outside your context.
 
-=> can be prevented: mostly caused by framing.
-whitelist who is allowed to frame you.
-* X-Frame-Options
-    * `SAMEORIGIN`, `DENY`, `ALLOW-FROM`
-    * `ALLOW-FROM` not supported everywhere (webkit), combine with `frame-ancestors` (CSP).
-* CSP:
-    * `self`, `none`, list of origins
-    
+Of course, this doesn't fully protect the end-user.
+It's still possible to trick them into performing actions they didn't mean to through UI redressing or clickjacking.
+In UI redressing, you present the user with a normal-looking webpage, but one of the buttons can be part of an iframe which will then perform an action you didn't expect
+This is a very similar attack to clickjacking, where the action you're performing is hidden in a transparent element on top of the one you're actually clicking.
+
+Since both these attacked are caused by an attacker putting your site in a frame, you prevent them easily.
+You need to make sure that only those sites that have a legitimate need to embed your site in a frame can do so.
+In the old days of the internet, that would be done using some frame-busting javascript code, but this has since proven to be ineffective.
+A better solution is to use what the browser offers you:
+* The `X-Frame-Options` header allows you to define how you can be framed.
+  Possible values are `SAMEORIGIN`, `DENY` and `ALLOW-FROM`.
+  The first 2 stand on their own, while `ALLOW-FROM` requires that you specify 1 origin that's allowed to frame you.
+  Besides that, `ALLOW-FROM` is not supported by webkit browsers, which only support the Content Security Policy (CSP) option for this.
+* The other alternative is to use CSP, which has a `frame-ancestors` directive.
+  This directive is slightly more versatile: it supports `self` and `none`, which match `SAMEORIGIN` and `DENY`.
+  It also allows you to provide a _list_ of origins which are allowed to put your site in a frame.
+
 ### Tabnabbing
 -> change existing tab to something malicious
 -> users trained not to check the url after the page has been opened
@@ -164,7 +170,7 @@ whitelist who is allowed to frame you.
 - Headers not automatically added to DOM requests (e.g. images, form post)
 
 # OWASP's top 10 proactive controls (Jim Manico)
-- v2, v3 komt binnenkort uit.
+- v2, v3 will be published soon(-ish).
 
 ## C1: Verify for security early and often
 - not really tested
@@ -674,3 +680,79 @@ Remediation
 - Past communications can be decrypted if the key ever leaks
 - PFS: use a new key every time. Leaks in the future can't cause previous communications to be decrypted
 
+# Designing GDPR compliant software (Alain Cieslik)
+## Overview
+- Enforced from May 25th 2018
+- 2 types of personal data:
+    - identified 
+    - identifiable
+- sensitive data (requires more protection)
+    - biometric
+    - health
+    - political opinions
+    - ...
+- Purpose is required for processing.
+    - requires consent
+- rights of data subject
+    - transparency
+    - access and rectification
+    - right to data portability
+    - right to erasure
+    - right to be informed
+    - right to object
+    - ...
+- data breach notification (within 72 hours)
+    - adequate level of data protection
+    - privacy shield
+    - model contractual clauses
+    - binding corporate rules
+
+## What does compliance mean?
+- respect legal principles
+- management of personal risks
+
+These 2 combined means you're compliant.
+
+### Principles
+- Lawfulness, fairness, transparency (consent)
+- purpose limitation (purpose)
+- data minimisation -> only collect what's needed for the purpose
+- Accuracy (keep up to date)
+- Storage limitation (don't keep longer than necessary)
+- Integrity and confidentiality -> ensure appropriate security controls.
+- Accountability -> demonstrate compliance with previous principles. (audit trail)
+
+### Challenges
+- purpose is a notion that doesn't exist in computer systems
+- Data controller must understand for what purpose(s) data is collected and processed
+- Managing consent can become complex
+    - Consent for each purpose
+    - indicate what data is collected for each purpose
+    - data controller must maintain an audit trail of how data was used and for what purpose
+    - consent becomes a dynamic and flexible feature in an application
+- Authorization mechanisms are not yet designed to manage consent
+
+## What does security mean in the GDPR?
+- Data protection by design and by default (Art. 25)
+    taking into account
+    - state of the art, costs of implementation
+    - nature, scope, context and purposes of processing
+    - the _risk_ of varying _likelihood_ and _severity_ for the rights and freedoms of natural persons
+  implement appropriate technical and organisational measures.  
+- Security of processing (Art. 32)
+- Notification of a personal data breach to the supervisory authority (Art. 33)
+- Communication of a personal data breach to the data subject (Art. 34)
+
+## Privacy design strategies
+- Data oriented strategies
+    - minimize: exclude, select, strip, destroy
+    - hide: restrict, mix, obfuscate, dissociate
+    - separate: distribute, isolate
+    - aggregate: summarize, group
+- Process oriented strategies
+    - inform: supply, notify, explain
+    - control: consent, choose, update, retract
+    - enforce: create, maintain, uphold.
+    - demonstrate: log, audit, report
+
+# GDPR: from regulation to code (Georges Ataya)
