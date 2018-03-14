@@ -10,7 +10,7 @@ comments: true
 
 >Spring Boot, Spring Cloud and CloudFoundry: a perfect match. Josh Long explains how to build Spring Boot microservices, deploy them in CloudFoundry and manage them using the Netflix OSS stack through Spring Cloud. Including a One on One talk.
 
-<img class="image fit" alt="Sagan: The Spring.io website" src="https://www.ordina.be/~/media/images/ordinabe/blogs/hystrix-sample.png">
+<img class="image fit" alt="Sagan: The Spring.io website" src="{{ '/img/SpringIO2015/hystrix-sample.png' | prepend: site.baseurl }}">
 
 ### Can Your Cloud Do This - CloudFoundry talk
 
@@ -28,7 +28,7 @@ An older version of the slidedeck of this talk can be found here: [https://speak
 
 ### Building “Bootiful” Microservices with Spring Cloud (Workshop)
 
-<span class="image left"><img  class="p-image" alt="Josh Long" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas11.jpg?la=nl-nl"/></span>The configprops actuator endpoint is especially useful to figure out what properties are available for certain functionalities. It beats debugging and is a pretty useful form of documentation. For more information check this out: [http://docs.spring.io/spring-boot/docs/current/reference/html/howto-properties-and-configuration.html#howto-discover-build-in-options-for-external-properties](http://docs.spring.io/spring-boot/docs/current/reference/html/howto-properties-and-configuration.html#howto-discover-build-in-options-for-external-properties)
+<span class="image left small"><img  class="p-image" alt="Josh Long" src="{{ '/img/SpringIO2015/josh-long.png' | prepend: site.baseurl }}"/></span>The configprops actuator endpoint is especially useful to figure out what properties are available for certain functionalities. It beats debugging and is a pretty useful form of documentation. For more information check this out: [http://docs.spring.io/spring-boot/docs/current/reference/html/howto-properties-and-configuration.html#howto-discover-build-in-options-for-external-properties](http://docs.spring.io/spring-boot/docs/current/reference/html/howto-properties-and-configuration.html#howto-discover-build-in-options-for-external-properties)
 
 The configuration server supports configuration which is common to all microservices. If the configuration.yml is inside the resources folder of the configuration server itself, it's used only as configuration for the configuration server. But if the server finds an application.yml inside the distributed configuration location (e.g. Git), then those configurations are shared for all other yml files, albeit with lowest priority.
 
@@ -47,7 +47,7 @@ The slidedeck of this talk can be found here: [https://speakerdeck.com/joshlong/
  
 ### One on One talk with Josh Long
 
-<span class="image left"><img  class="p-image" alt="Josh Long" src="https://www.ordina.be/~/media/images/ordinabe/blogs/andreas11.jpg?la=nl-nl"/></span>In many cases there are different access rules for different environments. This applies in a great deal on configuration as well. Most guides showcase one configuration server with all properties for all environments into a single repository. When facing more strict policies, there is no reason why you can't have a configuration server per environment, or at least for production a dedicated one. That server could have different access rules. It's an easy solution worth trying out.
+<span class="image left small"><img class="p-image" alt="Josh Long" src="{{ '/img/SpringIO2015/josh-long.png' | prepend: site.baseurl }}"/></span>In many cases there are different access rules for different environments. This applies in a great deal on configuration as well. Most guides showcase one configuration server with all properties for all environments into a single repository. When facing more strict policies, there is no reason why you can't have a configuration server per environment, or at least for production a dedicated one. That server could have different access rules. It's an easy solution worth trying out.
 
 When you have both public and private microservices, Josh prefers to do the extra security for the private ones on the microservice level instead of in the gateway. It's important to trust the developers, especially in a devops culture which is a requirement in a microservices architecture.
 At the company I work, management fears that the developers will introduce security issues, so the enterprise architects are looking into more governance-minded solutions. One of those solutions is having a full blown ESB as the gateway. Such an ESB would require you to register new endpoints - in case of REST these would be resources with their allowed verbs - and different types of handlers and interceptors. This is a very process-heavy solution where the microservice would have to request access through the ESB for every new resource, or verb on a resource, probably to another team in charge of the ESB.
