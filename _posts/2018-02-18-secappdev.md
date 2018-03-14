@@ -41,6 +41,7 @@ It's still possible to trick them into performing actions they didn't mean to th
 In UI redressing, you present the user with a normal-looking webpage, but one of the buttons can be part of an iframe which will then perform an action you didn't expect
 This is a very similar attack to clickjacking, where the action you're performing is hidden in a transparent element on top of the one you're actually clicking.
 
+### Framing
 Since both these attacked are caused by an attacker putting your site in a frame, you prevent them easily.
 You need to make sure that only those sites that have a legitimate need to embed your site in a frame can do so.
 In the old days of the internet, that would be done using some frame-busting javascript code, but this has since proven to be ineffective.
@@ -54,11 +55,16 @@ A better solution is to use what the browser offers you:
   It also allows you to provide a _list_ of origins which are allowed to put your site in a frame.
 
 ### Tabnabbing
--> change existing tab to something malicious
--> users trained not to check the url after the page has been opened
--> auxiliary browsing context -> `window.opener` -> navigate opener to a new page (e.g. password phish)
--> Fix: `rel="noopener"` op `a` tag.
--> limited support (no edge/ie) 
+Tabnabbing is a sneaky attack which is done when the user clicks a link on your site.
+If you make that link open in a new tab (using e.g. `target="_blank"`), the newly opened page gets a reference to your site in the `window.opener` object.
+It can then use that to redirect that page to a new location (see https://molnarg.github.io/tabnabbing-demo for a demo).
+When you then switch back to the original tab, you most likely won't notice that the page is changed and you're more likely to believe that the sohwn login prompt is real.
+
+If the page you open has no business doing anything with the opener, you need to explicitly cut the link.
+You can do so by adding `rel="noopener` to the `a` tag.
+Unfortunately none of the Microsoft browsers support this. 
+For these you need to add `rel="noreferrer"`.
+Combining them (`rel="noopener noreferrer"`) gives you protection in all major browsers.
 
 ### restrict framed content
 - html5: `sandbox` (default: no js)
