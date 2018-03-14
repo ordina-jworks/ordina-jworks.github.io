@@ -12,11 +12,7 @@ comments: true
 
 # Backlog
 
-<!--TODO fix-->
-
-<img src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/kanban.jpg"/>
-
-<!-- ![kickstart](../img/2018-03-02-Kickstarter-Trajectory-2018-light/kanban.jpg) -->
+<img src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/kanban.jpg" style="max-width:100%"/>
 
 <!--inleiding start opleiding (Maarten) -->
 
