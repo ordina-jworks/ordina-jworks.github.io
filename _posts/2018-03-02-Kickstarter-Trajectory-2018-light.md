@@ -99,6 +99,10 @@ Nick: *“It has been almost a month since I joined Ordina.
       It was great to learn about their top-notch stack from their own experts. Thi is exactly what I was looking for. 
       The kickstarter program just endend and I'm eager to start using my knowledge in an enterprise environment again“*
  
-
+Sam: *“The opportunity you get at Ordina to learn from experienced developers is something you can't miss.
+        The Ordina Kickstarter Traject is the perfect example of how it should be.
+        You're presented some of the newest technologies from really kind, helpful and experienced developers.
+        It's the perfect program to get you started in your career as front or backend developer or even full stack developer!“*
+        
 Someone else: “ … “
 
