@@ -99,7 +99,7 @@ Once again, you want to do this on a separate machine to prevent malicious image
    Use a hashing algorithm that's appropriate, such as PBKDF2, scrypt or bcrypt.
    Alternatively, you could use `HMAC-SHA-256( [private key], [salt] + [password] )` to only make it hard on the attacker.
    However, this introduces a lot more complexity in your system.
-Other authentication best practices should also be applied, such as 2 factor authentication, a proper lockout policy, ...
+Other authentication best practices should also be applied, such as two factor authentication, a proper lockout policy, ...
 
 # A practical introduction to OpenID Connect & OAuth 2.0 (Dominick Baier)
 Dominick Baier gave a very interesting talk on OpenID Connect and OAuth 2.0.
@@ -143,7 +143,7 @@ This means that the token service will remember the user for future logon reques
 ##### Identity token validation
 When you use an identity token to authenticate to an application, the application needs to validate this token.
 It does this by making sure that:
-- the issuer name matches the value of the `iss` claim
+- The issuer name matches the value of the `iss` claim
 - The `aud` must contain the client-id that was used to register the application.
 - The proper signing algorithm must be defined in `alg`.
 - The current time must be before `exp`
@@ -153,12 +153,12 @@ It does this by making sure that:
   For that you check the `kid` field in the header and use find that key in the document you find at the `jwks_uri` field from the discovery endpoint.
 
 ## Session management
-Since the token service places a cookie in the user's browser, this means that you have 1 logon session active.
+Since the token service places a cookie in the user's browser, this means that you have one logon session active.
 When you access another application that uses the same token service, it just needs to show you the consent dialog, without asking you to log in again.
 This is called "Single Sign On" (SSO).
 OpenID Connect also supports "Single Sign Out".
 When you log out of the token service (by calling the /end_session endpoint), it will try to sign you out from all applications.
-It support 3 different ways of doing this:
+It support three different ways of doing this:
 
 ### Javascript based notification
 In order to use this, your application should always contain a specific iframe.
