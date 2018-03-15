@@ -3,7 +3,7 @@ layout: post
 authors: [tim_de_grande]
 title: "SecAppDev 2018"
 image: /img/secappdev-2018/secappdev_wide.png
-tags: [SecAppDev, Security, Development]
+tags: [SecAppDev, Security, Development, Conference]
 category: Security
 comments: true
 permalink: conference/2018/03/15/SecAppDev-2018.html
