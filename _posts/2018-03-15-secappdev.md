@@ -6,7 +6,7 @@ image: /img/secappdev-2018/secappdev_wide.png
 tags: [SecAppDev, Security, Development]
 category: Security
 comments: true
-permalink: conference/2018/02/18/SecAppDev-2018.html
+permalink: conference/2018/03/15/SecAppDev-2018.html
 ---
 
 > Last February I was able to attend the 2018 edition of [SecAppDev](https://www.secappdev.org/){: target="blank" rel="noopener noreferrer" }.
