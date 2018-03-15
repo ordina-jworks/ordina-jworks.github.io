@@ -101,3 +101,83 @@ Once again, you want to do this on a separate machine to prevent malicious image
    However, this introduces a lot more complexity in your system.
 Other authentication best practices should also be applied, such as 2 factor authentication, a proper lockout policy, ...
 
+# A practical introduction to OpenID Connect & OAuth 2.0 (Dominick Baier)
+Dominick Baier gave a very interesting talk on OpenID Connect and OAuth 2.0.
+An important distinction he made at the start is the difference between a _user_ and a _client_.
+Users are people (carbon based life forms) while the word "client" refers to applications (or silicon based life forms).
+OAuth2.0 is a protocol meant for client authentication while OpenID is the successor to SAML (and as such meant to authenticate users).
+OAuth is **not** meant for user authentication, even though it's commonly (ab)used for that through various incompatible, proprietary extensions.
+
+## OpenID Connect
+[OpenID Connect](https://openid.net/connect){: target="blank" rel="noopener noreferrer" } piggy backs on OAuth2.0.
+![OpenId Connect protocol suite](/img/secappdev-2018/OpenIDConnect.png){: class="image fit" style="max-width:638px"  }
+It adds support for logging out and key rotation.
+More importantly, it's an _open_ standard and it publishes a list of [certified implementations](http://openid.net/certification/){: target="blank" rel="noopener noreferrer" }.
+Compliance with the spec is guaranteed through a set of tests.
+
+## Endpoints
+An OpenID Connect server (or token service) has to implement a set of endpoints:
+- A discovery endpoint to discover where the other endpoints are.
+- An authorize endpoint (for users)
+- A token endpoint (for machine to machine processes)
+
+### Discovery endpoint
+An example of a discovery endpoint is at [https://accounts.google.com/.well-known/openid-configuration](https://accounts.google.com/.well-known/openid-configuration){: target="blank" rel="noopener noreferrer" }.
+It returns an **unsigned** JSON document: for security OpenID Connects relies entirely on HTTPS.
+The `issuer` **must** be the URL where the document is located.
+
+### Authorize endpoint
+This endpoint handles authentication for web applications and is found in the `authorization_endpoint` field of the discovery endpoint
+The client (in this case the browser) makes a request to the authorize endpoint and passes along a few required parameters:
+- The callback url: the token service will verify that this url is allowed and perform a callback to this url after the user is logged on.
+- A nonce (**n**umber used **once**) which will be echoed to the client so it can verify server responses.
+- And a scope which needs to include `openid`.
+
+The server will then authenticate the user and show a consent dialog.
+This dialog shows the logged in user, the application that requests access and the access that's being requested.
+![OpenID Connect consent dialog](/img/secappdev-2018/OAuth2Consent.png){: class="image fit" style="max-width:638px"  }
+
+When the user allows this request, the token service sends  response to the client containing a JWT based identity token as well as a cookie.
+This means that the token service will remember the user for future logon requests to other applications.
+
+##### Identity token validation
+When you use an identity token to authenticate on an application, the application needs to validate this token.
+It does this by making sure that:
+- the issuer name matches the value of the `iss` claim
+- The `aud` must contain the client-id that was used to register the application.
+- The proper signing algorithm must be defined in `alg`.
+- The current time must be before `exp`
+- If the token is too old (as defined in `iat` or "issued at"), it can be rejected
+- `nonce` must match what client sent
+- And you need to validate the signature. 
+  For that you check the `kid` field in the header and use find that key in the document you find at the `jwks_uri` field from the discovery endpoint.
+
+## Session management
+Since the token service places a cookie in the user's browser, this means that you have 1 logon session active.
+When you access another application that uses the same token service, it just needs to show you the consent dialog, without asking you to log in again.
+This is called "Single Sign On" (SSO).
+OpenID Connect also supports "Single Sign Out".
+When you log out of the token service (by calling the /end_session endpoint), it will try to sign you out from all applications.
+It support 3 different ways of doing this:
+
+### Javascript based notification
+In order to use this, your application should always contain a specific iframe.
+The source of this iframe is defined in the `check_session_iframe` field of the discovery config.
+This frame is loaded in the same origin as the token service and it will do a JS call to the parent page to log out.
+
+### Front-channel notification
+Even though the spec calls this a "best-effort approach", it's still the method that's most common.
+It requires each client to implement a clean-up endpoint.
+When the user logs out, the token service will render an HTML page that containing an invisible iframe for each client.
+These iframes will call the clean-up endpoints.
+Normally, these iframes will contain the session id in the url to prevent "signout spam".
+Otherwise it would be too easy for a malicious site to add an image to their pages signing you out of your sessions, causing a DOS.
+The reason this approach is "best-effort" is that the browser might not be able to call all endpoints before the user navigates away from the log out page.
+
+### Back-channel notification
+This is the safest option, as it guarantees that the user will be signed off from all applications.
+Unfortunately it's also the most complicated to implement.
+In this method, the token service will can a server-endpoint on all client applications.
+This means that the application server will need to implement the clean up endpoint.
+Besides that, you also need to be sure that a network connection is possible between the ID provider and all application servers.
+
