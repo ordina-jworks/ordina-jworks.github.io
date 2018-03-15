@@ -134,16 +134,20 @@ process.stdout.write('hello\n'); // the \n creates a new line in the terminal
 
 // or a bit simpler, the one we are used to from the browser, console.log
 console.log('world');
+```
 
-Hello World Async
+## Hello World Async
+
+An example of non blocking code
+
+```javascript
 // after 2 secs, print world
 setTimeout( ()=> { console.log('world'); }, 2000);
 
 console.log('hello\n');
-
 // prints  'hello' first, then 'world'
-
 ```
+
 When you've watched the video about how the V8 Engine works, you'll know why 'hello' get's logged first and 'world' second:
 What happens is:
 - setTimeout is added to the call stack,
