@@ -13,6 +13,8 @@ permalink: conference/2018/02/18/SecAppDev-2018.html
 > It's a training/security conference in Leuven that lasts a week and which hosts top-notch speakers.
 > It's organised by Philippe De Ryck of imec-DistriNet, KU Leuven.
 
+SecAppDev for me was a week filled with learning, I'll recap a few of the sessions I attended in this post.
+
 # Security model of the web - Philippe De Ryck
 The most basic security control of the modern internet is the 'Origin'.
 This was thought up over 20 years ago and, at the time, was adequate for its purpose.
@@ -49,55 +51,53 @@ In this session we had a quick look at version 2 of the OWASP [proactive control
 These are the things every developer should do in order to harden their code.
 The full list has 10 items, but because of some very interesting discussions, we only managed to cover the first 5.
 
-<ol>
-    <li>
-        Verify for security early and often:
-        this is not an easy thing in today's DevOps world as code is deployed to production a lot more often.
-        Etsy deploys more than 25 times per day, while Amazon manages a deploy every 11.6 <em>seconds</em>!
-        Make sure that security testing is part of the build process, doing that ensures that your security testing actually happens.
-        There are several tools available that can help you out here (e.g. OWASP ZAP or Nessus) and you can combine them for increased coverage.
-    </li>
-    <li>
-        Parameterize queries:
-        we should all know by now that queries should <strong>never</strong> be built using string concatenations.
-        Use parameterized queries instead to prevent SQL injections.
-    </li>
-    <li>
-        Encode data before use in a parser:
-        the best known vulnerability here is Cross Site Scripting (XSS).
-        Allowing someone to inject HTML tags in your HTML pages gives them nearly unlimited power over your application.
-        Make sure to encode all user input before feeding it to a parser (a browser is basically a very powerful HTML parser) to prevent these kinds of issues.
-        For java applications, you can use the <a href="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" target="blank" rel="noopener noreferrer">OWASP Java encode project</a> to handle your HTML encoding.
-        They also have tools available for other languages (.NET, PHP, ...).
-    </li>
-    <li>
-        Validate all inputs:
-        and don't just do it client-side.
-        Client-side validations are easily bypassed, so you need to repeat them server-side as well.
-        If your users need to be able to post HTML, you need to sanitize it.
-        For that you can use the <a href="https://www.owasp.org/index.php/OWASP_Java_HTML_Sanitizer_Project" target="blank" rel="noopener noreferrer">OWASP HTML Sanitizer</a>.
-        But that's not all, you also need to do this if your users are allowed to upload files (make sure they don't upload Bad Stuff or files that are simply way too big).
-    </li>
-    <li>
-        Establish authentication and identity controls.
-        <ol>
-            <li>
-                Don't limit the password (within reason). 
-                Don't enforce arbitrarily short passwords or limit the type of characters that can be used.
-                You <strong>do</strong> want to limit the length, if only to prevent DOS attacks, but 100+ characters shouldn't be an issue.
-            </li>
-            <li>
-                Use a strong, unique salt.
-                Each credential should have its own salt, and don't skimp on the length.
-                64 or 32 characters (depending on the hashing algorithm) should be the norm.
-            </li>
-            <li>
-                Impose a difficult verification on both attacker and defender.
-                Use a hashing algorithm that's appropriate, such as PBKDF2, scrypt or bcrypt.
-                Alternatively, you could use <code class="highlighter-rouge" style="white-space:nowrap">HMAC-SHA-256( [private key], [salt] + [password] )</code> to only make it hard on the attacker.
-                However, this introduces a lot more complexity in your system.
-            </li>
-        </ol>
-        Other authentication best practices should also be applied, such as 2 factor authentication, a proper lockout policy, ...
-    </li>
-</ol>
+## 1. Verify for security early and often
+This is not an easy thing in today's DevOps world as code is deployed to production a lot more often.
+Etsy deploys more than 25 times per day, while Amazon manages a deploy every 11.6 _seconds_!
+Make sure that security testing is part of the build process, doing that ensures that your security testing actually happens.
+There are several tools available that can help you out here (e.g. OWASP ZAP or Nessus) and you can combine them for increased coverage.
+Make sure you don't end up on the "hamster wheel of pain" where you focus on the specific bugs they reveal, rather than the _class_ of bugs.
+
+## 2. Parameterize queries
+We should all know by now that queries should **never** be built using string concatenations.
+Use parameterized queries instead to prevent SQL injections.
+Use parameters for *everything*: not just the user-supplied input, but configurations and hard-coded values as well.
+This can give you a performance boost as well, since parameterized queries are compiled by the database only once and then reused.
+
+## 3. Encode data before use in a parser
+The best known vulnerability here is Cross Site Scripting (XSS).
+Allowing someone to inject HTML tags in your HTML pages gives them nearly unlimited power over your application.
+Make sure to encode all user input before feeding it to a parser (a browser is basically a very powerful HTML parser) to prevent these kinds of issues.
+For java applications, you can use the [OWASP Java encode project](https://www.owasp.org/index.php/OWASP_Java_Encoder_Project){: target="blank" rel="noopener noreferrer" } to handle your HTML encoding.
+They also have tools available for other languages (.NET, PHP, ...).
+
+## 4. Validate all inputs
+And don't just do it client-side.
+Client-side validations are easily bypassed, so you need to repeat them server-side as well.
+If your users need to be able to post HTML, you need to sanitize it.
+For that you can use the [OWASP HTML Sanitizer](https://www.owasp.org/index.php/OWASP_Java_HTML_Sanitizer_Project){: target="blank" rel="noopener noreferrer" }.
+Keep in mind that even valid data can cause issues: `' OR '1'='1'; --` is a perfectly valid password, and the Irish people will be grateful that you allow the use of `'` in name fields.
+
+### What about files?
+You also need to do this if your users are allowed to upload files.
+Files create even more risks: you need to make sure that the uploaded files are safe.
+First validate the file name, file type and decompressed size (preferably *before* decompressing).
+Run it through a virus scanner on a separate machine to protect against exploits against your antivirus.
+For images, you need to enforce size limits and you'll want to verify that you're actually dealing with an image.
+The easiest way to do that is to rewrite the image (e.g. using ImageMagick).
+Once again, you want to do this on a separate machine to prevent malicious images to take over your application.
+
+## 5. Establish authentication and identity controls.
+1. Don't limit the password (within reason). 
+   Don't enforce arbitrarily short passwords or limit the type of characters that can be used.
+   You **do** want to limit the length, if only to prevent DOS attacks, but 100+ characters shouldn't be an issue.
+2. Check the chosen password against a list of the 100k most common chosen passwords
+3. Use a strong, unique salt.
+   Each credential should have its own salt, and don't skimp on the length.
+   64 or 32 characters (depending on the hashing algorithm) should be the norm.
+4. Impose a difficult verification on both attacker and defender.
+   Use a hashing algorithm that's appropriate, such as PBKDF2, scrypt or bcrypt.
+   Alternatively, you could use `HMAC-SHA-256( [private key], [salt] + [password] )` to only make it hard on the attacker.
+   However, this introduces a lot more complexity in your system.
+Other authentication best practices should also be applied, such as 2 factor authentication, a proper lockout policy, ...
+
