@@ -201,6 +201,7 @@ What happens is:
 - once the timer has completed, it pushes the callback to the task queue,
 - Since there are no more function calls on the call stack, the event loop adds the callback to the call stack
 - 'world' is printed.
+
 There's no need for an additional thread to pause the program for 2 seconds and after that log 'world',
 the V8 Engine handles this for us just like it does with any other async functionality in the browser.
 So this is a very simple example of how non-blocking code works in NodeJs, the timeout didn't block our code, 'hello' got logged right away.
