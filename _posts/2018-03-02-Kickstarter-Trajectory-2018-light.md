@@ -23,11 +23,11 @@ During the first days of our kickstart traject we've got a brief explanation abo
 He explained us that git is an open-source, distributed version control system that keeps track of your files and history.
 Basicly this means git offers us tooling to collaborate on code bases without overwriting each others changes so easily.
  
-We saw which workflow Jworks uses in git and which commands we can use to do so.
+We saw which workflow JWorks uses in git and which commands we can use to do so.
 This way we learned how to create git repo's, create separate branches for features or different environments for example.
 And we even saw the different ways to merge branches for example.
-One thing we'll definitely won't forget that fast is to rebase when pulling to keep a clean non-spaghetti like history,
-something that is preferred by many co-workers at Jworks! 
+One thing we'll definitely won't soon forget is to rebase when pulling to keep a clean non-spaghetti like history,
+something that is preferred by many co-workers at JWorks! 
 At least that is what Yannick has told us ;)
 ## Backend
 
@@ -63,6 +63,10 @@ This way we had some hands-on experience straight away!
 ## Security <!-- Johan --> 
 
 ## Docker <!-- Nick --> 
+We started with a recap of the theory behind creating images and spinning up containers.
+Soon we were setting up our own images and learned how to run our applications in a container. 
+On the way we experienced hands-on the advantages of docker like faster configuration and how it fits nicely in the process
+of CI/CD.
 
 
 # Recap <!--Everyone -->
@@ -71,7 +75,11 @@ Nu we klaar zijn met al deze onderwerpen, ieder van ons heeft er uit geleerd:
 
 Per persoon (richtlijn 3 à 4 lijnen):
 
-Nick: “… “ 
+Nick: *“It has been almost a month since I joined Ordina. 
+      They have given me the chance to further increase my knowledge by involving me in this kickstarters program. 
+      It was great to learn about their top-notch stack from their own experts. Thi is exactly what I was looking for. 
+      The kickstarter program just endend and I'm eager to start using my knowledge in an enterprise environment again“*
+ 
 
 Someone else: “ … “
 
