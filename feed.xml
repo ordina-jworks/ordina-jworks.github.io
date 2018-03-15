@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-03-15T13:35:52+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-03-15T13:44:33+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
 </subtitle><entry><title type="html">SecAppDev 2018</title><link href="https://ordina-jworks.github.io/conference/2018/03/15/SecAppDev-2018.html" rel="alternate" type="text/html" title="SecAppDev 2018" /><published>2018-03-15T00:00:00+00:00</published><updated>2018-03-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2018/03/15/secappdev</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2018/03/15/SecAppDev-2018.html">&lt;blockquote&gt;
   &lt;p&gt;Last February I was able to attend the 2018 edition of &lt;a href=&quot;https://www.secappdev.org/&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;SecAppDev&lt;/a&gt;.
 It’s a training/security conference in Leuven that lasts a week and which hosts top-notch speakers.
@@ -92,7 +92,7 @@ Each credential should have its own salt, and don’t skimp on the length.
 Use a hashing algorithm that’s appropriate, such as PBKDF2, scrypt or bcrypt.
 Alternatively, you could use &lt;code class=&quot;highlighter-rouge&quot;&gt;HMAC-SHA-256( [private key], [salt] + [password] )&lt;/code&gt; to only make it hard on the attacker.
 However, this introduces a lot more complexity in your system.
-Other authentication best practices should also be applied, such as 2 factor authentication, a proper lockout policy, …&lt;/li&gt;
+Other authentication best practices should also be applied, such as two factor authentication, a proper lockout policy, …&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h1 id=&quot;a-practical-introduction-to-openid-connect--oauth-20-dominick-baier&quot;&gt;A practical introduction to OpenID Connect &amp;amp; OAuth 2.0 (Dominick Baier)&lt;/h1&gt;
@@ -142,7 +142,7 @@ This means that the token service will remember the user for future logon reques
 &lt;p&gt;When you use an identity token to authenticate to an application, the application needs to validate this token.
 It does this by making sure that:&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;the issuer name matches the value of the &lt;code class=&quot;highlighter-rouge&quot;&gt;iss&lt;/code&gt; claim&lt;/li&gt;
+  &lt;li&gt;The issuer name matches the value of the &lt;code class=&quot;highlighter-rouge&quot;&gt;iss&lt;/code&gt; claim&lt;/li&gt;
   &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;aud&lt;/code&gt; must contain the client-id that was used to register the application.&lt;/li&gt;
   &lt;li&gt;The proper signing algorithm must be defined in &lt;code class=&quot;highlighter-rouge&quot;&gt;alg&lt;/code&gt;.&lt;/li&gt;
   &lt;li&gt;The current time must be before &lt;code class=&quot;highlighter-rouge&quot;&gt;exp&lt;/code&gt;&lt;/li&gt;
@@ -153,12 +153,12 @@ For that you check the &lt;code class=&quot;highlighter-rouge&quot;&gt;kid&lt;/c
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;session-management&quot;&gt;Session management&lt;/h2&gt;
-&lt;p&gt;Since the token service places a cookie in the user’s browser, this means that you have 1 logon session active.
+&lt;p&gt;Since the token service places a cookie in the user’s browser, this means that you have one logon session active.
 When you access another application that uses the same token service, it just needs to show you the consent dialog, without asking you to log in again.
 This is called “Single Sign On” (SSO).
 OpenID Connect also supports “Single Sign Out”.
 When you log out of the token service (by calling the /end_session endpoint), it will try to sign you out from all applications.
-It support 3 different ways of doing this:&lt;/p&gt;
+It support three different ways of doing this:&lt;/p&gt;
 
 &lt;h3 id=&quot;javascript-based-notification&quot;&gt;Javascript based notification&lt;/h3&gt;
 &lt;p&gt;In order to use this, your application should always contain a specific iframe.

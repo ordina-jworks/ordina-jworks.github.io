@@ -262,7 +262,7 @@ Each credential should have its own salt, and don’t skimp on the length.
 Use a hashing algorithm that’s appropriate, such as PBKDF2, scrypt or bcrypt.
 Alternatively, you could use <code class="highlighter-rouge">HMAC-SHA-256( [private key], [salt] + [password] )</code> to only make it hard on the attacker.
 However, this introduces a lot more complexity in your system.
-Other authentication best practices should also be applied, such as 2 factor authentication, a proper lockout policy, …</li>
+Other authentication best practices should also be applied, such as two factor authentication, a proper lockout policy, …</li>
 </ol>
 
 <h1 id="a-practical-introduction-to-openid-connect--oauth-20-dominick-baier">A practical introduction to OpenID Connect &amp; OAuth 2.0 (Dominick Baier)</h1>
@@ -312,7 +312,7 @@ This means that the token service will remember the user for future logon reques
 <p>When you use an identity token to authenticate to an application, the application needs to validate this token.
 It does this by making sure that:</p>
 <ul>
-  <li>the issuer name matches the value of the <code class="highlighter-rouge">iss</code> claim</li>
+  <li>The issuer name matches the value of the <code class="highlighter-rouge">iss</code> claim</li>
   <li>The <code class="highlighter-rouge">aud</code> must contain the client-id that was used to register the application.</li>
   <li>The proper signing algorithm must be defined in <code class="highlighter-rouge">alg</code>.</li>
   <li>The current time must be before <code class="highlighter-rouge">exp</code></li>
@@ -323,12 +323,12 @@ For that you check the <code class="highlighter-rouge">kid</code> field in the h
 </ul>
 
 <h2 id="session-management">Session management</h2>
-<p>Since the token service places a cookie in the user’s browser, this means that you have 1 logon session active.
+<p>Since the token service places a cookie in the user’s browser, this means that you have one logon session active.
 When you access another application that uses the same token service, it just needs to show you the consent dialog, without asking you to log in again.
 This is called “Single Sign On” (SSO).
 OpenID Connect also supports “Single Sign Out”.
 When you log out of the token service (by calling the /end_session endpoint), it will try to sign you out from all applications.
-It support 3 different ways of doing this:</p>
+It support three different ways of doing this:</p>
 
 <h3 id="javascript-based-notification">Javascript based notification</h3>
 <p>In order to use this, your application should always contain a specific iframe.
