@@ -45,7 +45,7 @@ A single instance of NodeJs runs in a single thread. To take advantage of multi-
 The cluster module allows easy creation of child processes that all share server ports and automatically load balances across these processes.
 
 ## Blocking vs. Non-Blocking
-As we've said before, NodeJs encourages you to take advantage of non-blocking code (JavaScript promises). To demonstrate how this works, I'll give you an example in pseudo code for reading a file from the filesystem.
+As we've said before, NodeJs encourages you to take advantage of non-blocking code (like JavaScript promises). To demonstrate how this works, I'll give you an example in pseudo code for reading a file from the filesystem.
 
 **Blocking:**
 ```
@@ -77,7 +77,7 @@ Node uses google chrome's V8 runtime engine to run javascript code, we've shown 
 ## Installing NodeJs
 Download the installer for your OS at [https://nodejs.org/en/download/](https://nodejs.org/en/download/)
 
-or if you are a MacOS user you can install it with brew,
+or if you are a Mac user and have brew installed you can install it with brew,
 Open a terminal and run the following commands:
 
 Install node<br>
@@ -220,7 +220,7 @@ server.listen(3000, ()=>{
 ```
 You can now open our browser, visit localhost:3000 and should see our 'Hello world' response from the server.
 
-## EventEmitter
+## Event Emitter
 Another great feature that comes with NodeJs is the event emitter.
 The event emitter allows us to emit and listen for named events, whenever the EventEmitter emits an event all the functions attached to the named event are called synchronously.
 
