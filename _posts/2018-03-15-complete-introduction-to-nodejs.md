@@ -329,7 +329,8 @@ const server = http.createServer((request, response)=> {
          // so we keep piping the readable data to the response
           response.write(chunk);
       }
-      // you can test it with curl from the terminal by sending a 'hello' string as data, simply run: curl -d 'hello' http://localhost:3000
+      // you can test it with curl from the terminal by sending a 'hello' string as data,
+      // simply run: curl -d 'hello' http://localhost:3000
       // the 'hello' string is being sent back to the client
   });
 
