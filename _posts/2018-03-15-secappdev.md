@@ -68,7 +68,7 @@ This can give you a performance boost as well, since parameterized queries are c
 The best known vulnerability here is Cross Site Scripting (XSS).
 Allowing someone to inject HTML tags in your HTML pages gives them nearly unlimited power over your application.
 Make sure to encode all user input before feeding it to a parser (a browser is basically a very powerful HTML parser) to prevent these kinds of issues.
-For java applications, you can use the [OWASP Java encoder project](https://www.owasp.org/index.php/OWASP_Java_Encoder_Project){: target="blank" rel="noopener noreferrer" } to handle your HTML encoding.
+For Java applications, you can use the [OWASP Java encoder project](https://www.owasp.org/index.php/OWASP_Java_Encoder_Project){: target="blank" rel="noopener noreferrer" } to handle your HTML encoding.
 They also have tools available for other languages (.NET, PHP, ...).
 
 ## 4. Validate all inputs
