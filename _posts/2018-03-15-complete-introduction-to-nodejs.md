@@ -158,7 +158,7 @@ What happens is:
 - Since there are no more function calls on the call stack, the event loop adds the callback to the call stack
 - 'world' is printed.
 There's no need for an additional thread to pause the program for 2 seconds and after that log 'world', the V8 Engine handles this for us just like it does with any other async functionality in the browser.
-So this is a very simple example of how non-blocking code works in NodeJs, the timeout didn't block our code, because 'hello' got logged right away.
+So this is a very simple example of how non-blocking code works in NodeJs, the timeout didn't block our code, 'hello' got logged right away.
 
 ## Hello Module
 Now lets give you an example how to create a node module (a very simple and not very useful one) but just to give you an idea of how you can export your code and use it in other files.
