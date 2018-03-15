@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [johan_silkens]
+authors: [johan_silkens, nick_van_hoof, sam_schuddinck]
 title: "Kickstarter Trajectory 2018 Light Edition"
 image: /img/kicks.png
 tags: []
