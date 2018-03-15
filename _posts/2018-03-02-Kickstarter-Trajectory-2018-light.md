@@ -27,7 +27,7 @@ We saw which workflow JWorks uses in git and which commands we can use to do so.
 This way we learned how to create git repo's, create separate branches for features or different environments for example.
 And we even saw the different ways to merge these branches.
 One thing we'll definitely won't forget that fast is to rebase when pulling to keep a clean non-spaghetti like history,
-something that is preferred by many co-workers at Jworks! 
+something that is preferred by many co-workers at JWorks! 
 At least that is what Yannick has told us ;)
 ## Backend
 
@@ -41,12 +41,12 @@ At least that is what Yannick has told us ;)
 
 
 ### Essentials <!-- Sam --> 
-At the end of our first week we've learned some of the frontend essentials
+At the end of our first week we went over some of the frontend essentials
 before diving deeper into the frontend frameworks and build tools the next week.
 This workshop was given by [Yannick Vergeylen](/author/yannick-vergeylen/)
 and our colleagues from the Vision Works department accompanied us since they use the topics covered in this workshop as well.
 
-After a theoretical introduction about HTML, CSS and Javascript we learned how to use HTML to create web pages 
+After a theoretical recap about HTML, CSS and Javascript we learned how to use HTML to create web pages 
 and how CSS is used to style these pages and its components. 
 We also used some Javascript and learned how this is used to modify some of the HTML-components.
 
@@ -85,7 +85,7 @@ All these parts combined together we made ourselves a small crypto currency list
 We started with a recap of the theory behind creating images and spinning up containers.
 Soon we were setting up our own images and learned how to run our applications in a container. 
 On the way we experienced hands-on the advantages of docker like faster configuration and how it fits nicely in the process
-of CI/CD.
+of CI/CD. Thanks [Tom Verelst](/author/tom-verelst/) for guiding us in the docker world.
 
 
 # Recap <!--Everyone -->
@@ -94,10 +94,9 @@ Nu we klaar zijn met al deze onderwerpen, ieder van ons heeft er uit geleerd:
 
 Per persoon (richtlijn 3 à 4 lijnen):
 
-Nick: *“It has been almost a month since I joined Ordina. 
-      They have given me the chance to further increase my knowledge by involving me in this kickstarters program. 
-      It was great to learn about their top-notch stack from their own experts. Thi is exactly what I was looking for. 
-      The kickstarter program just endend and I'm eager to start using my knowledge in an enterprise environment again“*
+Nick: *“Ordina has given me the chance to further increase my knowledge by involving me in this 'Kickstarter' program. 
+      It was great to learn about their top-notch stack from our own experts. This is exactly what I was looking for. 
+      The kickstarter program just ended and I'm eager to start using my knowledge in an enterprise environment again“*
  
 Sam: *“The opportunity you get at Ordina to learn from experienced developers is something you can't miss.
         The Ordina Kickstarter Traject is the perfect example of how it should be.
