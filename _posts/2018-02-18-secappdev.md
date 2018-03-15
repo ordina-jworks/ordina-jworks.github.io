@@ -141,7 +141,7 @@ When the user allows this request, the token service sends  response to the clie
 This means that the token service will remember the user for future logon requests to other applications.
 
 ##### Identity token validation
-When you use an identity token to authenticate on an application, the application needs to validate this token.
+When you use an identity token to authenticate to an application, the application needs to validate this token.
 It does this by making sure that:
 - the issuer name matches the value of the `iss` claim
 - The `aud` must contain the client-id that was used to register the application.
@@ -177,7 +177,7 @@ The reason this approach is "best-effort" is that the browser might not be able 
 ### Back-channel notification
 This is the safest option, as it guarantees that the user will be signed off from all applications.
 Unfortunately it's also the most complicated to implement.
-In this method, the token service will can a server-endpoint on all client applications.
+In this method, the token service will call a server-endpoint on all client applications.
 This means that the application server will need to implement the clean up endpoint.
 Besides that, you also need to be sure that a network connection is possible between the ID provider and all application servers.
 
