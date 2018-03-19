@@ -32,7 +32,7 @@ He explained us that git is an open-source, distributed version control system t
 Basicly this means git offers us tooling to collaborate on code bases without overwriting each others changes so easily.
  
 We saw which workflow JWorks uses in git and which commands we can use to do so.
-This way we learned how to create git repo's, create separate branches for features or different environments for example.
+This way we learned how to create git repo's and create separate branches for features or different environments for example.
 And we even saw the different ways to merge these branches.
 One thing we'll definitely won't forget that fast is to rebase when pulling to keep a clean non-spaghetti like history,
 something that is preferred by many co-workers at JWorks! 
@@ -64,8 +64,8 @@ The open atmosphere enabled us to ask a lot of questions which Maarten always an
 ### Essentials <!-- Sam --> 
 At the end of our first week we went over some of the frontend essentials
 before diving deeper into the frontend frameworks and build tools the next week.
-This workshop was given by [Yannick Vergeylen](/author/yannick-vergeylen/)
-and our colleagues from the Vision Works department accompanied us since they use the topics covered in this workshop as well.
+This workshop was given by [Yannick Vergeylen](/author/yannick-vergeylen/).
+Our colleagues from the Vision Works department accompanied us since they use the topics covered in this workshop as well.
 
 After a theoretical recap about HTML, CSS and Javascript we learned how to use HTML to create web pages 
 and how CSS is used to style these pages and its components. 
@@ -83,7 +83,7 @@ Ryan did a very good job at it and gave us a good base to get started with Angul
 He taught us what Angular components are and how we can display data inside these components with the different types of data-binding.
 We also saw how we can let these components communicate with each other
 and pass data from child components to its parent component and vice versa.
-We also saw how Angular directives are used to loop over objects to show multiple elements 
+On top of that we saw how Angular directives are used to loop over objects to show multiple elements 
 or how we can use the *ngIf directive to hide/show elements and many more of these directives.
 But that's not all, he also learned us about modules, services and how dependency injection works within Angular.
 And much more of course!
@@ -122,7 +122,7 @@ Nick: *“Ordina has given me the chance to further increase my knowledge by inv
 Sam: *“The opportunity you get at Ordina to learn from experienced developers is something you can't miss.
         The Ordina Kickstarter Traject is the perfect example of how it should be.
         You're presented some of the newest technologies from really kind, helpful and experienced developers.
-        It's the perfect program to get you started in your career as front or backend developer or even full stack developer!“*
+        It's the perfect program to get you started in your career as developer!“*
         
 Dries: *“As a backend developer with a few years experience I followed the program to see where I had gaps in my knowledge. It appears that I did! 
          But thanks to the great atmosphere and experienced teachers, I was able to fill those gaps. The sessions were very interactive
