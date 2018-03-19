@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [johan_silkens, nick_van_hoof, sam_schuddinck, dries_thieren]
+authors: [johan_silkens, nick_van_hoof, sam_schuddinck, dries_thieren, maarten_westelinck]
 title: "Kickstarter Trajectory 2018 Light Edition"
 image: /img/kicks.png
 tags: []
@@ -16,10 +16,18 @@ comments: true
 
 <!--inleiding start opleiding (Maarten) -->
 
+The Ordina kickstarter traject is a collection of courses tailored and designed by the senior consultants of Ordina.
+These courses are designed to give the beginning software developer a broad knowledge base while also providing an in-depth view on technologies and best practices that Ordina consultants use in day-to-day software development.
+
+This year the kickstarter traject spanned 15 days, with topics ranging far and wide: backend to frontend, Spring Data JPA to TypeScript and everything in between.
+All of these courses will make sure the candidates will be able to hit the ground running on their first project as Ordina consultants.
+
+This post will summarize the training and experiences we've had while following the kickstarter traject. 
+
 # What we have done
 
 ## Git <!-- Sam -->
-During the first days of our kickstart traject we've got a brief explanation about git by [Yannick De Turk](/author/yannick-de-turck/).  
+During the first days of our kickstart traject we've got a brief explanation about git by [Yannick De Turk](/author/yannick-de-turck/).
 He explained us that git is an open-source, distributed version control system that keeps track of your files and history.
 Basicly this means git offers us tooling to collaborate on code bases without overwriting each others changes so easily.
  
