@@ -130,10 +130,10 @@ Dries: *“As a backend developer with a few years experience I followed the pro
          The courses on JS and Angular also sparked my interest in frontend work, which will be very useful in my further career.“*
          
 Maarten: *“The courses were tons of fun and taught me a lot.
-All of our teachers were competent individuals who made sure we learned as much as we could in the time that we had.
-I didn't have any experience in frontend development, so the frontend courses were eye-opening for me.
-To anyone that's having doubts about this kickstarter traject: go for it!
-I can definitely recommend it!“*
+          All of our teachers were competent individuals who made sure we learned as much as we could in the time that we had.
+          I didn't have any experience in frontend development, so the frontend courses were eye-opening for me.
+          To anyone that's having doubts about this kickstarter traject: go for it!
+          I can definitely recommend it!“*
         
 Someone else: “ … “
 
