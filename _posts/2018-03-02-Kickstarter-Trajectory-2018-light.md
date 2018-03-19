@@ -30,7 +30,7 @@ This post will summarize the training and experiences we've had while following 
 During the first days of our kickstart traject we've got a brief explanation about git by [Yannick De Turk](/author/yannick-de-turck/).
 He explained us that git is an open-source, distributed version control system that keeps track of your files and history.
 Basicly this means git offers us tooling to collaborate on code bases without overwriting each others changes so easily.
- 
+
 We saw which workflow JWorks uses in git and which commands we can use to do so.
 This way we learned how to create git repo's and create separate branches for features or different environments for example.
 And we even saw the different ways to merge these branches.
@@ -54,7 +54,7 @@ The first part of the day was a very passionate and interactive theory session a
   
 After the lunch break we did some exercises together that showed us how to mock out dependencies and which pitfalls we should have attention for.
 This gave us a better understanding of the theory we saw that morning. 
- 
+
 All in all it was a great course explaining the big picture of testing but also showing us the ropes in day to day working with tests and code.
 The open atmosphere enabled us to ask a lot of questions which Maarten always answered very thoroughly.  
 
@@ -118,7 +118,7 @@ Per persoon (richtlijn 3 à 4 lijnen):
 Nick: *“Ordina has given me the chance to further increase my knowledge by involving me in this 'Kickstarter' program. 
       It was great to learn about their top-notch stack from our own experts. This is exactly what I was looking for. 
       The kickstarter program just ended and I'm eager to start using my knowledge in an enterprise environment again“*
- 
+
 Sam: *“The opportunity you get at Ordina to learn from experienced developers is something you can't miss.
         The Ordina Kickstarter Traject is the perfect example of how it should be.
         You're presented some of the newest technologies from really kind, helpful and experienced developers.
@@ -134,8 +134,6 @@ Maarten: *“The courses were tons of fun and taught me a lot.
           I didn't have any experience in frontend development, so the frontend courses were eye-opening for me.
           To anyone that's having doubts about this kickstarter traject: go for it!
           I can definitely recommend it!“*
-        
-     
-        
+Johan: *"I'm really eager to learn more about new technologies and this Kickstarter course I followed suits my needs. It had challenged me in a good way on both a personal and technical level. Ordina really knows how to kick start newcomers into the astonishing world of technology. Finally they also encourage you to make the Belgian tech scene great again!"*  
 Someone else: “ … “
 
