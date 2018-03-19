@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [johan_silkens, nick_van_hoof, sam_schuddinck]
+authors: [johan_silkens, nick_van_hoof, sam_schuddinck, dries_thieren]
 title: "Kickstarter Trajectory 2018 Light Edition"
 image: /img/kicks.png
 tags: []
@@ -36,6 +36,19 @@ At least that is what Yannick has told us ;)
 ### Microservices <!-- Yen -->
 
 ### Unit testing and mocking <!-- Dries -->
+On Thursday we got a course about testing from Maarten Casteels, who works as a consultant for Ordina at Belfius.    
+The first part of the day was a very passionate and interactive theory session about following subjects:
+- Goals of testing
+- What to test
+- Fixtures
+- Mocks
+- Assertions
+  
+After the lunch break we did some exercises together that showed us how to mock out dependencies and which pitfalls we should have attention for.
+This gave us a better understanding of the theory we saw that morning. 
+ 
+All in all it was a great course explaining the big picture of testing but also showing us the ropes in day to day working with tests and code.
+The open atmosphere enabled us to ask a lot of questions which Maarten always answered very thoroughly.  
 
 ## Frontend
 
@@ -102,6 +115,12 @@ Sam: *“The opportunity you get at Ordina to learn from experienced developers 
         The Ordina Kickstarter Traject is the perfect example of how it should be.
         You're presented some of the newest technologies from really kind, helpful and experienced developers.
         It's the perfect program to get you started in your career as front or backend developer or even full stack developer!“*
+        
+Dries: *“As a backend developer with a few years experience I followed the program to see where I had gaps in my knowledge. It appears that I did! 
+         But thanks to the great atmosphere and experienced teachers, I was able to fill those gaps. The sessions were very interactive
+         which enabled me to ask any question, they were always met with well-founded answers.  
+         The courses on JS and Angular also sparked my interest in frontend work, which will be very useful in my further career.“*
+
         
 Someone else: “ … “
 
