@@ -135,5 +135,7 @@ Maarten: *“The courses were tons of fun and taught me a lot.
           To anyone that's having doubts about this kickstarter traject: go for it!
           I can definitely recommend it!“*
         
+     
+        
 Someone else: “ … “
 
