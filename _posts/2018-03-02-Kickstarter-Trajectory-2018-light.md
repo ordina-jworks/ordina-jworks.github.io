@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [johan_silkens, nick_van_hoof, sam_schuddinck, dries_thieren, maarten_westelinck]
+authors: [johan_silkens, nick_van_hoof, sam_schuddinck, dries_thieren, maarten_westelinck, yunus_altin]
 title: "Kickstarter Trajectory 2018 Light Edition"
 image: /img/kicks.png
 tags: []
@@ -73,8 +73,8 @@ We also used some Javascript and learned how this is used to modify some of the 
 
 During the workshop we were given an exercise in which we had to recreate a given example page with the above technologies.
 This way we had some hands-on experience straight away!
-### Build Tools <!-- Yunus --> 
-
+### Build Tools <!-- Yunus -->
+We've started the second week with a solid introduction of front-end build tools. The topics of this workshop were Node.js, package managers and build systems & generators (gulp, webpack and angular-cli). After every topic we got the chance to have some hands-on experience. This started from scratch by installing node.js to creating a new project a new angular project and testing the application.
 ### Angular <!-- Sam --> 
 One of the must see frontend frameworks is [Angular](https://www.angular.io) of course.
 We've been introduced to it by [Ryan De Gruyter](/author/ryan-de-gruyter/).
@@ -96,10 +96,10 @@ All these parts combined together we made ourselves a small crypto currency list
 <p>
     <img style="max-width: 100%;" src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/angular-crypto-app.jpg"/>
 </p>
-## DevOps
+## DevOps & CI/CD
+We have learned that the developers should share the responsibility of looking after the system they build. And not just handover the release to operations. The development team can also simplify the deployment and maintenance for the operation team. This could be done by introducing a DevOps culture. Yes, it’s not a role. It’s a culture. We have learned that DevOps aims to remove the isolation between operations and software development team by encouraging collaboration. It should also be easier to have changes in code and put it in production by using Continuous Delivery (CD). The code should always be in a deployable state. 
 
-### CI/CD <!-- Yunus -->
-
+Continuous Integration (CI) is the process of automating the build and testing of code every time a team member commits changes to version control. We have learned how we can configure a CI tool. We had to chance to have some hands-on experience with the tool Go CD.
 ## Security <!-- Johan --> 
 
 ## Docker <!-- Nick --> 
