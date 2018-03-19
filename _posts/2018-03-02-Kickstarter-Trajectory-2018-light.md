@@ -134,6 +134,8 @@ Maarten: *“The courses were tons of fun and taught me a lot.
           I didn't have any experience in frontend development, so the frontend courses were eye-opening for me.
           To anyone that's having doubts about this kickstarter traject: go for it!
           I can definitely recommend it!“*
-Johan: *"I'm really eager to learn more about new technologies and this Kickstarter course I followed suits my needs. It had challenged me in a good way on both a personal and technical level. Ordina really knows how to kick start newcomers into the astonishing world of technology. Finally they also encourage you to make the Belgian tech scene great again!"*  
-Someone else: “ … “
+
+Johan: *"I'm really eager to learn more about new technologies and this Kickstarter course I followed suits my needs. It had challenged me in a good way on both a personal and technical level. Ordina really knows how to kick start newcomers into the astonishing world of technology."*  
+
+**Someone else * ... *
 
