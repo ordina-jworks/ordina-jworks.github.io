@@ -124,9 +124,9 @@ Sam: *“The opportunity you get at Ordina to learn from experienced developers 
         You're presented some of the newest technologies from really kind, helpful and experienced developers.
         It's the perfect program to get you started in your career as developer!“*
         
-Dries: *“As a backend developer with a few years experience I followed the program to see where I had gaps in my knowledge. It appears that I did! 
-         But thanks to the great atmosphere and experienced teachers, I was able to fill those gaps. The sessions were very interactive
-         which enabled me to ask any question, they were always met with well-founded answers.  
+Dries: *“As a backend developer with a few years experience I followed the program to see where I had gaps in my knowledge.
+         Thanks to the great atmosphere and experienced teachers, I was able to fill those gaps.  
+         The sessions were very interactive which enabled me to ask any question, they were always met with well-founded answers.
          The courses on JS and Angular also sparked my interest in frontend work, which will be very useful in my further career.“*
          
 Maarten: *“The courses were tons of fun and taught me a lot.
