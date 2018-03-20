@@ -137,5 +137,6 @@ Maarten: *“The courses were tons of fun and taught me a lot.
 
 Johan: *"I'm really eager to learn more about new technologies and this Kickstarter course I followed suits my needs. It had challenged me in a good way on both a personal and technical level. Ordina really knows how to kick start newcomers into the astonishing world of technology."*  
 
-**Someone else * ... *
+Yunus: *“Ordina gave me the opportunity to put my academic knowledge in practice and to learn about the latest technology. I’ve learned the best practices from our seniors during this intensive kickstarter program. Every graduate needs to have participated a kickstart program like Ordina's, it’s the best way to start your career.“*
 
+**Someone else * ... *
