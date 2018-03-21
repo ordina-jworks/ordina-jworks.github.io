@@ -152,4 +152,3 @@ Yunus: *"Ordina gave me the opportunity to put my academic knowledge in practice
 
 Yen: *"The Kickstarter program at Ordina really got me fast on track with the latest technologies being using in the field. I’m fresh out of school where I had a focus on backend and here at Ordina, this background on backend got greatly improved upon. It was also interesting to get in depth on frontend tech! You notice all the coaches are experienced programmers and it was a privilege to learn from them. And if you need any help after a workshop, they are always quick to help. To summarize, I really recommend this Kickstarter program to accelerate your career!"*
 
-**Someone else * ... *
