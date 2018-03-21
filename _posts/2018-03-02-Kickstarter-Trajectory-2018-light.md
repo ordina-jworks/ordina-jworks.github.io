@@ -26,7 +26,7 @@ This post will summarize the training and experiences we've had while following 
 
 # What we have done
 
-## Git <!-- Sam -->
+### Git <!-- Sam -->
 During the first days of our kickstart traject we've got a brief explanation about git by [Yannick De Turk](/author/yannick-de-turck/).
 He explained us that git is an open-source, distributed version control system that keeps track of your files and history.
 Basicly this means git offers us tooling to collaborate on code bases without overwriting each others changes so easily.
@@ -37,7 +37,6 @@ And we even saw the different ways to merge these branches.
 One thing we'll definitely won't forget that fast is to rebase when pulling to keep a clean non-spaghetti like history,
 something that is preferred by many co-workers at JWorks! 
 At least that is what Yannick has told us ;)
-## Backend
 
 ### Spring and Spring boot <!-- Johan -->
 
@@ -71,10 +70,7 @@ This gave us a better understanding of the theory we saw that morning.
 All in all it was a great course explaining the big picture of testing but also showing us the ropes in day to day working with tests and code.
 The open atmosphere enabled us to ask a lot of questions which Maarten always answered very thoroughly.  
 
-## Frontend
-
-
-### Essentials <!-- Sam --> 
+### Frontend Essentials <!-- Sam --> 
 At the end of our first week we went over some of the frontend essentials
 before diving deeper into the frontend frameworks and build tools the next week.
 This workshop was given by [Yannick Vergeylen](/author/yannick-vergeylen/).
@@ -109,11 +105,11 @@ All these parts combined together we made ourselves a small crypto currency list
 <p>
     <img style="max-width: 100%;" src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/angular-crypto-app.jpg"/>
 </p>
-## DevOps & CI/CD
+### DevOps & CI/CD
 We have learned that the developers should share the responsibility of looking after the system they build. And not just handover the release to operations. The development team can also simplify the deployment and maintenance for the operation team. This could be done by introducing a DevOps culture. Yes, it’s not a role. It’s a culture. We have learned that DevOps aims to remove the isolation between operations and software development team by encouraging collaboration. It should also be easier to have changes in code and put it in production by using Continuous Delivery (CD). The code should always be in a deployable state. 
 
 Continuous Integration (CI) is the process of automating the build and testing of code every time a team member commits changes to version control. We have learned how we can configure a CI tool. We had to chance to have some hands-on experience with the tool Go CD.
-## Security <!-- Johan --> 
+### Security <!-- Johan --> 
 
 Security is nowadays a hot topic in the IT sector and it's important to handle sensitive (personal) information in a secure manner. Because it's not only a PR nightmare for your business, it's also a financial disaster as well because of the GDPR law that will take effect this May. This fascinating lecture was presented by  [Tim De Grande](/author/tim-de-grande/) on our last day of the Kickstarter trajectory. 
 
@@ -121,7 +117,7 @@ We discussed about the basic security fundamentals as well as how common web vul
 
 <img src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/security.jpg" style="max-width:100%"/>
 
-## Docker <!-- Nick --> 
+### Docker <!-- Nick --> 
 We started with a recap of the theory behind creating images and spinning up containers.
 Soon we were setting up our own images and learned how to run our applications in a container. 
 On the way we experienced hands-on the advantages of docker like faster configuration and how it fits nicely in the process
