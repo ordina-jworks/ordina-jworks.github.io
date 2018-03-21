@@ -41,6 +41,12 @@ At least that is what Yannick has told us ;)
 
 ### Spring and Spring boot <!-- Johan -->
 
+Those lectures were given by [Ken Coenen](/author/ken-coenen/) and were spread over two days.  
+
+During the first lecture, We got a recap of the concepts of JPA,Beans, Application contexts and other things that Spring uses in its core fundamentals. Next, we dug deeper into the framework and introduced ourselves with Spring Web Services and spring Security and created a small backend application during the second lecture. 
+
+Both lectures where rather theoretical, but very informative  and elaborate with a lot of examples. So you got everything you need to get familiar with Spring. You can find the course material on his [Github](https://github.com/kencoenen/spring-course) page.
+
 ### Microservices <!-- Yen -->
 The workshop on microservices was lectured by Kevin Van Houtte. It went pretty fast paced but at the end of the workshop, we had acquired a great overview of all the important aspects regarding microservices architecture! The most important thing to know is that each microservice takes care of only one specific business function.
 
