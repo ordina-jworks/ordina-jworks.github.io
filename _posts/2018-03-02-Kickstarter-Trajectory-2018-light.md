@@ -16,18 +16,18 @@ comments: true
 
 <!--inleiding start opleiding (Maarten) -->
 
-The Ordina kickstarter traject is a collection of courses tailored and designed by the senior consultants of Ordina.
+The Ordina kickstarter trajectory is a collection of courses tailored and designed by the senior consultants of Ordina.
 These courses are designed to give the beginning software developer a broad knowledge base while also providing an in-depth view on technologies and best practices that Ordina consultants use in day-to-day software development.
 
-This year the kickstarter traject spanned 15 days, with topics ranging far and wide: backend to frontend, Spring Data JPA to TypeScript and everything in between.
+This year the kickstarter trajectory spanned 15 days, with topics ranging far and wide: backend to frontend, Spring Data JPA to TypeScript and everything in between.
 All of these courses will make sure the candidates will be able to hit the ground running on their first project as Ordina consultants.
 
-This post will summarize the training and experiences we've had while following the kickstarter traject. 
+This post will summarize the training and experiences we've had while following the kickstarter trajectory. 
 
 # What we have done
 
 ### Git <!-- Sam -->
-During the first days of our kickstart traject we've got a brief explanation about git by [Yannick De Turk](/author/yannick-de-turck/).
+During the first days of our kickstart trajectory we've got a brief explanation about git by [Yannick De Turk](/author/yannick-de-turck/).
 He explained us that git is an open-source, distributed version control system that keeps track of your files and history.
 Basicly this means git offers us tooling to collaborate on code bases without overwriting each others changes so easily.
 
@@ -131,7 +131,7 @@ Nick: *"Ordina has given me the chance to further increase my knowledge by invol
       The kickstarter program just ended and I'm eager to start using my knowledge in an enterprise environment again"*
 
 Sam: *"The opportunity you get at Ordina to learn from experienced developers is something you can't miss.
-        The Ordina Kickstarter Traject is the perfect example of how it should be.
+        The Ordina Kickstarter Trajectory is the perfect example of how it should be.
         You're presented some of the newest technologies from really kind, helpful and experienced developers.
         It's the perfect program to get you started in your career as developer!"*
         
@@ -143,7 +143,7 @@ Dries: *"As a backend developer with a few years experience I followed the progr
 Maarten: *"The courses were tons of fun and taught me a lot.
           All of our teachers were competent individuals who made sure we learned as much as we could in the time that we had.
           I didn't have any experience in frontend development, so the frontend courses were eye-opening for me.
-          To anyone that's having doubts about this kickstarter traject: go for it!
+          To anyone that's having doubts about this kickstarter trajectory: go for it!
           I can definitely recommend it!"*
 
 Johan: *"I'm really eager to learn more about new technologies and this Kickstarter course I followed suits my needs. It had challenged me in a good way on both a personal and technical level. Ordina really knows how to kick start newcomers into the astonishing world of technology."*
