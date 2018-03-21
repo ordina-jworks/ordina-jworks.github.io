@@ -47,13 +47,13 @@ During the first lecture, We got a recap of the concepts of JPA,Beans, Applicati
 Both lectures where rather theoretical, but very informative  and elaborate with a lot of examples. So you got everything you need to get familiar with Spring. You can find the course material on his [Github](https://github.com/kencoenen/spring-course) page.
 
 ### Microservices <!-- Yen -->
-The workshop on microservices was lectured by Kevin Van Houtte. It went pretty fast paced but at the end of the workshop, we had acquired a great overview of all the important aspects regarding microservices architecture! The most important thing to know is that each microservice takes care of only one specific business function.
+The workshop on microservices was lectured by [Kevin Van Houtte](/author/kevin-van-houtte/). It went pretty fast but at the end of the workshop, we had acquired a great overview of all the important aspects regarding microservices architecture! The most important thing to know is that each microservice takes care of only one specific business function.
 
-Currently, monolith architectures are still being used a lot within companies, but as an up-to-date IT consultant it’s essentially to know about microservices and where to use it. It’s also our role to persuade clients to use microservices when we see fit.
+Currently, monolith architectures are still being used a lot within companies, but as an up-to-date IT consultant it’s essential to know about microservices and where to use it.
 
 We learned about the 12-factor app methodology, which defines all the important aspects of microservices architecture: regarding codebase, dependencies, configs, backing services, etc.
 
-Over the course of 5 exercises, we got our hands on how to create a microservice, how to register it in a service registry (using Eureka), how to externalize our configuration (using Spring Cloud), how to create routing logic (using Zuul) and finally, how to test the implementation using the Feign HTTP client.
+In a hands-on approach we learned how to create a microservice, how to register it in a service registry (using Eureka), how to externalize our configuration (using Spring Cloud), how to create routing logic (using Zuul) and finally, how to test the implementation using the Feign HTTP client.
 
 ### Unit testing and mocking <!-- Dries -->
 On Thursday we got a course about testing from Maarten Casteels, who works as a consultant for Ordina at Belfius.    
@@ -150,4 +150,6 @@ Johan: *"I'm really eager to learn more about new technologies and this Kickstar
 
 Yunus: *"Ordina gave me the opportunity to put my academic knowledge in practice and to learn about the latest technology. I’ve learned the best practices from our seniors during this intensive kickstarter program. Every graduate needs to have participated a kickstart program like Ordina's, it’s the best way to start your career."*
 
-Yen: *"The Kickstarter program at Ordina really got me fast on track with the latest technologies being using in the field. I’m fresh out of school where I had a focus on back-end and here at Ordina, this background on back-end got greatly improved upon and it was interesting to get in touch with front-end tech! You notice all the coaches are experienced programmers and it was a privilege to learn from them. And if you need any help after a workshop, they are always quick to help. To summarize, I really recommend this Kickstarter program to accelerate your career!"*
+Yen: *"The Kickstarter program at Ordina really got me fast on track with the latest technologies being using in the field. I’m fresh out of school where I had a focus on backend and here at Ordina, this background on backend got greatly improved upon. It was also interesting to get in depth on frontend tech! You notice all the coaches are experienced programmers and it was a privilege to learn from them. And if you need any help after a workshop, they are always quick to help. To summarize, I really recommend this Kickstarter program to accelerate your career!"*
+
+**Someone else * ... *
