@@ -115,6 +115,12 @@ We have learned that the developers should share the responsibility of looking a
 Continuous Integration (CI) is the process of automating the build and testing of code every time a team member commits changes to version control. We have learned how we can configure a CI tool. We had to chance to have some hands-on experience with the tool Go CD.
 ## Security <!-- Johan --> 
 
+Security is nowadays a hot topic in the IT sector and it's important to handle sensitive (personal) information in a secure manner. Because it's not only a PR nightmare for your business, it's also a financial disaster as well because of the GDPR law that will take effect this May. This fascinating lecture was presented by  [Tim De Grande](/author/tim-de-grande/) on our last day of the Kickstarter trajectory. 
+
+We discussed about the basic security fundamentals as well as how common web vulnerabilities work and tips and tricks on how to secure your own application.
+
+<img src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/security.jpg" style="max-width:100%"/>
+
 ## Docker <!-- Nick --> 
 We started with a recap of the theory behind creating images and spinning up containers.
 Soon we were setting up our own images and learned how to run our applications in a container. 
