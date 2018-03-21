@@ -27,10 +27,10 @@ This post will summarize the training and experiences we've had while following 
 ### Git <!-- Sam -->
 During the first days of our kickstart trajectory we've got a brief explanation about git by [Yannick De Turk](/author/yannick-de-turck/).
 He explained us that git is an open-source, distributed version control system that keeps track of your files and history.
-Basicly this means git offers us tooling to collaborate on code bases without overwriting each others changes so easily.
+Basically this means git offers us tooling to collaborate on code bases without overwriting each others changes so easily.
 
 We saw which workflow JWorks uses in git and which commands we can use to do so.
-This way we learned how to create git repo's and create separate branches for features or different environments for example.
+This way we learned how to create git repo's and create separate branches for features or different environments.
 And we even saw the different ways to merge these branches.
 One thing we'll definitely won't forget that fast is to rebase when pulling to keep a clean non-spaghetti like history,
 something that is preferred by many co-workers at JWorks! 
@@ -85,21 +85,21 @@ We've started the second week with a solid introduction of front-end build tools
 ### Angular <!-- Sam --> 
 One of the must see frontend frameworks is [Angular](https://www.angular.io) of course.
 We've been introduced to it by [Ryan De Gruyter](/author/ryan-de-gruyter/).
-Ryan did a very good job at it and gave us a good base to get started with Angular.
+Ryan did a very good job and gave us a good base to get started with Angular.
 
 He taught us what Angular components are and how we can display data inside these components with the different types of data-binding.
 We also saw how we can let these components communicate with each other
 and pass data from child components to its parent component and vice versa.
-On top of that we saw how Angular directives are used to loop over objects to show multiple elements 
-or how we can use the *ngIf directive to hide/show elements and many more of these directives.
+On top of that, we saw how Angular directives are used to loop over objects to show multiple elements. 
+And how we can use the *ngIf directive to hide/show elements and many more of these directives.
 But that's not all, he also learned us about modules, services and how dependency injection works within Angular.
 And much more of course!
 
-One thing was for sure this was a very educational session.
+It was a very educational session for sure.
 Ryan did a good job on giving us some theoretical information about the different parts of Angular.
 After each theoretical part we made some exercises on that part.  
 And the cool thing about it?  
-All these parts combined together we made ourselves a small crypto currency listing application with real data!
+All these parts combined we made ourselves a small crypto currency listing application with real data!
 <p>
     <img style="max-width: 100%;" src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/angular-crypto-app.jpg"/>
 </p>
