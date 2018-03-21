@@ -126,34 +126,28 @@ of CI/CD. Thanks [Tom Verelst](/author/tom-verelst/) for guiding us in the docke
 
 # Recap <!--Everyone -->
 
-Nu we klaar zijn met al deze onderwerpen, ieder van ons heeft er uit geleerd:
-
-Per persoon (richtlijn 3 à 4 lijnen):
-
-Nick: *“Ordina has given me the chance to further increase my knowledge by involving me in this 'Kickstarter' program. 
+Nick: *"Ordina has given me the chance to further increase my knowledge by involving me in this 'Kickstarter' program. 
       It was great to learn about their top-notch stack from our own experts. This is exactly what I was looking for. 
-      The kickstarter program just ended and I'm eager to start using my knowledge in an enterprise environment again“*
+      The kickstarter program just ended and I'm eager to start using my knowledge in an enterprise environment again"*
 
-Sam: *“The opportunity you get at Ordina to learn from experienced developers is something you can't miss.
+Sam: *"The opportunity you get at Ordina to learn from experienced developers is something you can't miss.
         The Ordina Kickstarter Traject is the perfect example of how it should be.
         You're presented some of the newest technologies from really kind, helpful and experienced developers.
-        It's the perfect program to get you started in your career as developer!“*
+        It's the perfect program to get you started in your career as developer!"*
         
-Dries: *“As a backend developer with a few years experience I followed the program to see where I had gaps in my knowledge.
-         Thanks to the great atmosphere and experienced teachers, I was able to fill those gaps.  
+Dries: *"As a backend developer with a few years experience I followed the program to see where I had gaps in my knowledge.
+         Thanks to the great atmosphere and experienced teachers, I was able to fill those gaps.
          The sessions were very interactive which enabled me to ask any question, they were always met with well-founded answers.
-         The courses on JS and Angular also sparked my interest in frontend work, which will be very useful in my further career.“*
+         The courses on JS and Angular also sparked my interest in frontend work, which will be very useful in my further career."*
          
-Maarten: *“The courses were tons of fun and taught me a lot.
+Maarten: *"The courses were tons of fun and taught me a lot.
           All of our teachers were competent individuals who made sure we learned as much as we could in the time that we had.
           I didn't have any experience in frontend development, so the frontend courses were eye-opening for me.
           To anyone that's having doubts about this kickstarter traject: go for it!
-          I can definitely recommend it!“*
+          I can definitely recommend it!"*
 
-Johan: *"I'm really eager to learn more about new technologies and this Kickstarter course I followed suits my needs. It had challenged me in a good way on both a personal and technical level. Ordina really knows how to kick start newcomers into the astonishing world of technology."*  
+Johan: *"I'm really eager to learn more about new technologies and this Kickstarter course I followed suits my needs. It had challenged me in a good way on both a personal and technical level. Ordina really knows how to kick start newcomers into the astonishing world of technology."*
 
-Yunus: *“Ordina gave me the opportunity to put my academic knowledge in practice and to learn about the latest technology. I’ve learned the best practices from our seniors during this intensive kickstarter program. Every graduate needs to have participated a kickstart program like Ordina's, it’s the best way to start your career.“*
+Yunus: *"Ordina gave me the opportunity to put my academic knowledge in practice and to learn about the latest technology. I’ve learned the best practices from our seniors during this intensive kickstarter program. Every graduate needs to have participated a kickstart program like Ordina's, it’s the best way to start your career."*
 
 Yen: *"The Kickstarter program at Ordina really got me fast on track with the latest technologies being using in the field. I’m fresh out of school where I had a focus on back-end and here at Ordina, this background on back-end got greatly improved upon and it was interesting to get in touch with front-end tech! You notice all the coaches are experienced programmers and it was a privilege to learn from them. And if you need any help after a workshop, they are always quick to help. To summarize, I really recommend this Kickstarter program to accelerate your career!"*
-
-**Someone else * ... *
