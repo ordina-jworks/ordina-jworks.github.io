@@ -8,21 +8,19 @@ category: Kickstarters
 comments: true
 ---
 
-> As a developer I want to know the IT landscape so that I can orientate and implement business value on various fields.” We do this by learning from experts and eagerly absorbing knowledge. Ordina happens to provide the perfect way of doing this by enrolling new employees in their “Kickstarter program”. During this three-week iteration we increased our value by familiarizing ourselves with the Ordina stack.
-
-# Backlog
-
-<img src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/kanban.jpg" style="max-width:100%"/>
-
 <!--inleiding start opleiding (Maarten) -->
 
 The Ordina kickstarter trajectory is a collection of courses tailored and designed by the senior consultants of Ordina.
-These courses are designed to give the beginning software developer a broad knowledge base while also providing an in-depth view on technologies and best practices that Ordina consultants use in day-to-day software development.
+These courses are designed to give the beginning software developer a broad knowledge base while also providing an in-depth view on several technologies and best practices.
 
 This year the kickstarter trajectory spanned 15 days, with topics ranging far and wide: backend to frontend, Spring Data JPA to TypeScript and everything in between.
 All of these courses will make sure the candidates will be able to hit the ground running on their first project as Ordina consultants.
 
 This post will summarize the training and experiences we've had while following the kickstarter trajectory. 
+
+# Backlog
+
+<img src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/kanban.jpg" style="max-width:100%"/>
 
 # What we have done
 
