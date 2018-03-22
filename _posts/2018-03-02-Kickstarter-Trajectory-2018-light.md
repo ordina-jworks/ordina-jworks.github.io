@@ -81,7 +81,10 @@ We also used some Javascript and learned how this is used to modify some of the 
 During the workshop we were given an exercise in which we had to recreate a given example page with the above technologies.
 This way we had some hands-on experience straight away!
 ### Build Tools <!-- Yunus -->
-We've started the second week with a solid introduction of front-end build tools. The topics of this workshop were Node.js, package managers and build systems & generators (gulp, webpack and angular-cli). After every topic we got the chance to have some hands-on experience. This started from scratch by installing node.js to creating a new project a new angular project and testing the application.
+We've started the second week with a solid introduction of front-end build tools. 
+The topics of this workshop (given by [Michael Vervloet](/author/michael-vervloet/)) were Node.js, package managers and build systems & generators (gulp, webpack and angular-cli). 
+After every topic we got the chance to put this newly acquired knowlegde into practice. 
+This started from scratch by installing node.js to creating an angular project. 
 ### Angular <!-- Sam --> 
 One of the must see frontend frameworks is [Angular](https://www.angular.io) of course.
 We've been introduced to it by [Ryan De Gruyter](/author/ryan-de-gruyter/).
@@ -103,12 +106,19 @@ All these parts combined we made ourselves a small crypto currency listing appli
 <p>
     <img style="max-width: 100%;" src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/angular-crypto-app.jpg"/>
 </p>
-### DevOps & CI/CD
-We have learned that the developers should share the responsibility of looking after the system they build. And not just handover the release to operations. The development team can also simplify the deployment and maintenance for the operation team. This could be done by introducing a DevOps culture. Yes, it’s not a role. It’s a culture. We have learned that DevOps aims to remove the isolation between operations and software development team by encouraging collaboration. It should also be easier to have changes in code and put it in production by using Continuous Delivery (CD). The code should always be in a deployable state. 
+## DevOps & CI/CD
+We have learned that developers should share the responsibility of looking after the system they build. 
+And not just hand over the release to operations. 
+The development team can also simplify the deployment and maintenance for the operation team. 
+This could be done by introducing a DevOps culture. 
+Yes, it’s not a role. It’s a culture. 
+We have learned that DevOps aims to remove the isolation between operations and software developers by encouraging collaboration. 
+It should also be easier to have changes your code and to push it to production by using Continuous Delivery (CD).
 
-Continuous Integration (CI) is the process of automating the build and testing of code every time a team member commits changes to version control. We have learned how we can configure a CI tool. We had to chance to have some hands-on experience with the tool Go CD.
-### Security <!-- Johan --> 
-
+Continuous Integration (CI) is the process of automating the build and testing of code every time a team member commits changes to version control. 
+We have learned how we can configure a CI tool. 
+We had to chance to have some hands-on experience with the tool [GoCD](https://www.gocd.org), this workshop was given by [Tim Vierbergen](/author/tim-vierbergen/).
+## Security <!-- Johan --> 
 Security is nowadays a hot topic in the IT sector and it's important to handle sensitive (personal) information in a secure manner. Because it's not only a PR nightmare for your business, it's also a financial disaster as well because of the GDPR law that will take effect this May. This fascinating lecture was presented by  [Tim De Grande](/author/tim-de-grande/) on our last day of the Kickstarter trajectory. 
 
 We discussed about the basic security fundamentals as well as how common web vulnerabilities work and tips and tricks on how to secure your own application.
@@ -155,9 +165,11 @@ Yunus: *"Ordina gave me the opportunity to put my academic knowledge in practice
 I’ve learned the best practices from our seniors during this intensive kickstarter program. 
 Every graduate needs to have participated a kickstart program like Ordina's, it’s the best way to start your career."*
 
+
 Yen: *"The Kickstarter program at Ordina really got me fast on track with the latest technologies being using in the field. 
 I’m fresh out of school where I had a focus on backend and here at Ordina, this background on backend got greatly improved upon. 
 It was also interesting to get in depth on frontend tech! 
 You notice all the coaches are experienced programmers and it was a privilege to learn from them. 
 And if you need any help after a workshop, they are always quick to help. To summarize, I really recommend this Kickstarter program to accelerate your career!"*
 
+Yunus: *"Ordina gave me the opportunity to put my academic knowledge in practice and learn about the latest technology. I’ve learned the best practices from our seniors during this intensive kickstarter trajectory. Every graduate needs to have participated in a kickstart trajectory like Ordina's, it’s the best way to start your career."*
