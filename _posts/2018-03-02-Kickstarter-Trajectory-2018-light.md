@@ -117,16 +117,19 @@ We discussed about the basic security fundamentals as well as how common web vul
 
 ### Docker <!-- Nick --> 
 We started with a recap of the theory behind creating images and spinning up containers.
-Soon we were setting up our own images and learned how to run our applications in a container. 
-On the way we experienced hands-on the advantages of docker like faster configuration and how it fits nicely in the process
-of CI/CD. Thanks [Tom Verelst](/author/tom-verelst/) for guiding us in the docker world.
+Soon we were creating our own images and learned how to run our applications in a container. 
+On the way we experienced the advantages of docker and how it fits nicely in the process
+of CI/CD. Thanks [Tom Verelst](/author/tom-verelst/) for guiding us into the docker world.
 
 
 # Recap <!--Everyone -->
 
-Nick: *"Ordina has given me the chance to further increase my knowledge by involving me in this 'Kickstarter' program. 
-      It was great to learn about their top-notch stack from our own experts. This is exactly what I was looking for. 
-      The kickstarter program just ended and I'm eager to start using my knowledge in an enterprise environment again"*
+Nick: *"Ordina has given me the chance to increase my knowledge by involving me in the Kickstarter program. 
+        It was great to learn about the top-notch Ordina stack from our own experts.
+        This is exactly what I was looking for. 
+        The kickstarter program just ended and I'm eager to start using my knowledge in an enterprise environment again.
+        Ordina also provides plenty of other learning opportunities. 
+        Since I arrived, I could join an interesting seminar or workshop every week."*
 
 Sam: *"The opportunity you get at Ordina to learn from experienced developers is something you can't miss.
         The Ordina Kickstarter Trajectory is the perfect example of how it should be.
@@ -144,9 +147,17 @@ Maarten: *"The courses were tons of fun and taught me a lot.
           To anyone that's having doubts about this kickstarter trajectory: go for it!
           I can definitely recommend it!"*
 
-Johan: *"I'm really eager to learn more about new technologies and this Kickstarter course I followed suits my needs. It had challenged me in a good way on both a personal and technical level. Ordina really knows how to kick start newcomers into the astonishing world of technology."*
+Johan:  *"I'm really eager to learn more about new technologies and this Kickstarter course I followed suits my needs. 
+It had challenged me in a good way on both a personal and technical level. 
+Ordina really knows how to kick start newcomers into the astonishing world of technology."*
 
-Yunus: *"Ordina gave me the opportunity to put my academic knowledge in practice and to learn about the latest technology. I’ve learned the best practices from our seniors during this intensive kickstarter program. Every graduate needs to have participated a kickstart program like Ordina's, it’s the best way to start your career."*
+Yunus: *"Ordina gave me the opportunity to put my academic knowledge in practice and to learn about the latest technology. 
+I’ve learned the best practices from our seniors during this intensive kickstarter program. 
+Every graduate needs to have participated a kickstart program like Ordina's, it’s the best way to start your career."*
 
-Yen: *"The Kickstarter program at Ordina really got me fast on track with the latest technologies being using in the field. I’m fresh out of school where I had a focus on backend and here at Ordina, this background on backend got greatly improved upon. It was also interesting to get in depth on frontend tech! You notice all the coaches are experienced programmers and it was a privilege to learn from them. And if you need any help after a workshop, they are always quick to help. To summarize, I really recommend this Kickstarter program to accelerate your career!"*
+Yen: *"The Kickstarter program at Ordina really got me fast on track with the latest technologies being using in the field. 
+I’m fresh out of school where I had a focus on backend and here at Ordina, this background on backend got greatly improved upon. 
+It was also interesting to get in depth on frontend tech! 
+You notice all the coaches are experienced programmers and it was a privilege to learn from them. 
+And if you need any help after a workshop, they are always quick to help. To summarize, I really recommend this Kickstarter program to accelerate your career!"*
 
