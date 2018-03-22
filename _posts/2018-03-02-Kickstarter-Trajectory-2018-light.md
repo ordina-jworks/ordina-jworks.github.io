@@ -38,7 +38,7 @@ At least that is what Yannick has told us ;)
 
 ### Spring and Spring boot <!-- Johan -->
 
-Those lectures were given by [KenCoenen](/author/ken-coenen) and were spread over two days. 
+Those lectures were given by [Ken Coenen](/author/ken-coenen) and were spread over two days. 
 
 During the first lecture, We got a recap of the concepts of JPA, Beans ,Application contexts and other things that Spring uses in its core fundamentals. Next, we dug deeper into the framework and introduced ourselves with Spring Web Services and Spring Security and created a small backend application during the second lecture. 
 
@@ -119,7 +119,7 @@ Continuous Integration (CI) is the process of automating the build and testing o
 We have learned how we can configure a CI tool. 
 We had the chance to have some hands-on experience with the tool [GoCD](https://www.gocd.org), this workshop was given by [Tim Vierbergen](/author/tim-vierbergen/).
 ## Security <!-- Johan --> 
-Nowadays, security is a hot topic and it's important to handle sensitive (personal) information in a secure manner.Because it's not only a PR nightmare for your business, it's also a financial disaster as well because of the GDPR law that will take effect this May 2018.This fascinating lecture was presented by [TimDe Grande](/author/tim-de-grande) on our last day of the Kickstarter trajectory. 
+Nowadays, security is a hot topic and it's important to handle sensitive (personal) information in a secure manner.Because it's not only a PR nightmare for your business, it's also a financial disaster as well because of the GDPR law that will take effect this May 2018.This fascinating lecture was presented by [Tim De Grande](/author/tim-de-grande) on our last day of the Kickstarter trajectory. 
 
 We discussed basic security fundamentals, common web vulnerabilities and tips and tricks on how to secure your own applications.
 
