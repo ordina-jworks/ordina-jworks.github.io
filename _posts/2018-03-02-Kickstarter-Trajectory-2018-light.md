@@ -161,9 +161,9 @@ Johan:  *"I'm really eager to learn more about new technologies and this Kicksta
 It had challenged me in a good way on both a personal and technical level. 
 Ordina really knows how to kick start newcomers into the astonishing world of technology."*
 
-Yunus: *"Ordina gave me the opportunity to put my academic knowledge in practice and to learn about the latest technology. 
-I’ve learned the best practices from our seniors during this intensive kickstarter program. 
-Every graduate needs to have participated a kickstart program like Ordina's, it’s the best way to start your career."*
+Yunus: *"Ordina gave me the opportunity to put my academic knowledge in practice and learn about the latest technology. 
+I’ve learned the best practices from our seniors during this intensive kickstarter trajectory. 
+Every graduate needs to have participated in a kickstart trajectory like Ordina's, it’s the best way to start your career."*
 
 
 Yen: *"The Kickstarter program at Ordina really got me fast on track with the latest technologies being using in the field. 
@@ -171,5 +171,3 @@ I’m fresh out of school where I had a focus on backend and here at Ordina, thi
 It was also interesting to get in depth on frontend tech! 
 You notice all the coaches are experienced programmers and it was a privilege to learn from them. 
 And if you need any help after a workshop, they are always quick to help. To summarize, I really recommend this Kickstarter program to accelerate your career!"*
-
-Yunus: *"Ordina gave me the opportunity to put my academic knowledge in practice and learn about the latest technology. I’ve learned the best practices from our seniors during this intensive kickstarter trajectory. Every graduate needs to have participated in a kickstart trajectory like Ordina's, it’s the best way to start your career."*
