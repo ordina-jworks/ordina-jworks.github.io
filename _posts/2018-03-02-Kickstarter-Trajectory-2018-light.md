@@ -25,7 +25,7 @@ This post will summarize the training and experiences we've had while following 
 # What we have done
 
 ### Git <!-- Sam -->
-During the first days of our kickstart trajectory we've got a brief explanation about git by [Yannick De Turk](/author/yannick-de-turck/).
+During the first days of our kickstart trajectory we've got a brief explanation about git by [Yannick De Turck](/author/yannick-de-turck/).
 He explained us that git is an open-source, distributed version control system that keeps track of your files and history.
 Basically this means git offers us tooling to collaborate on code bases without overwriting each others changes so easily.
 
