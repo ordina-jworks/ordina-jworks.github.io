@@ -54,8 +54,8 @@ We learned about the 12-factor app methodology, which defines all the important 
 In a hands-on approach we learned how to create a microservice, how to register it in a service registry (using Eureka), how to externalize our configuration (using Spring Cloud), how to create routing logic (using Zuul) and finally, how to test the implementation using the Feign HTTP client.
 
 ### Unit testing and mocking <!-- Dries -->
-On Thursday we got a course about testing from Maarten Casteels, who works as a consultant for Ordina at Belfius.    
-The first part of the day was a very passionate and interactive theory session about following subjects:
+On Thursday we got a course about testing from [Maarten Casteels](/author/maarten-casteels/), who works as a consultant for Ordina at Belfius.    
+The first part of the day was a very passionate and interactive theory session about the following subjects:
 - Goals of testing
 - What to test
 - Fixtures
