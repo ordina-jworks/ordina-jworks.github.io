@@ -81,10 +81,10 @@ We also used some Javascript and learned how this is used to modify some of the 
 During the workshop we were given an exercise in which we had to recreate a given example page with the above technologies.
 This way we had some hands-on experience straight away!
 ### Build Tools <!-- Yunus -->
-We've started the second week with a solid introduction of front-end build tools. 
-The topics of this workshop (given by [Michael Vervloet](/author/michael-vervloet/)) were Node.js, package managers and build systems & generators (gulp, webpack and angular-cli). 
+We've started the second week with a solid introduction of frontend build tools. 
+The topics of this workshop (given by [Michael Vervloet](/author/michael-vervloet/)) were [Node.js](https://nodejs.org/en/), package managers and build systems & generators ([gulp](https://gulpjs.com), [webpack](https://webpack.js.org) and [Angular CLI](https://cli.angular.io)). 
 After every topic we got the chance to put this newly acquired knowlegde into practice. 
-This started from scratch by installing node.js to creating an angular project. 
+This started from scratch by installing Node.js and at the end we created an Angular project. 
 ### Angular <!-- Sam --> 
 One of the must see frontend frameworks is [Angular](https://www.angular.io) of course.
 We've been introduced to it by [Ryan De Gruyter](/author/ryan-de-gruyter/).
@@ -117,7 +117,7 @@ It should also be easier to have changes your code and to push it to production 
 
 Continuous Integration (CI) is the process of automating the build and testing of code every time a team member commits changes to version control. 
 We have learned how we can configure a CI tool. 
-We had to chance to have some hands-on experience with the tool [GoCD](https://www.gocd.org), this workshop was given by [Tim Vierbergen](/author/tim-vierbergen/).
+We had the chance to have some hands-on experience with the tool [GoCD](https://www.gocd.org), this workshop was given by [Tim Vierbergen](/author/tim-vierbergen/).
 ## Security <!-- Johan --> 
 Security is nowadays a hot topic in the IT sector and it's important to handle sensitive (personal) information in a secure manner. Because it's not only a PR nightmare for your business, it's also a financial disaster as well because of the GDPR law that will take effect this May. This fascinating lecture was presented by  [Tim De Grande](/author/tim-de-grande/) on our last day of the Kickstarter trajectory. 
 
