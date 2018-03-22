@@ -38,11 +38,11 @@ At least that is what Yannick has told us ;)
 
 ### Spring and Spring boot <!-- Johan -->
 
-Those lectures were given by [Ken Coenen](/author/ken-coenen/) and were spread over two days.  
+Those lectures were given by [KenCoenen](/author/ken-coenen) and were spread over two days. 
 
-During the first lecture, We got a recap of the concepts of JPA,Beans, Application contexts and other things that Spring uses in its core fundamentals. Next, we dug deeper into the framework and introduced ourselves with Spring Web Services and spring Security and created a small backend application during the second lecture. 
+During the first lecture, We got a recap of the concepts of JPA, Beans ,Application contexts and other things that Spring uses in its core fundamentals. Next, we dug deeper into the framework and introduced ourselves with Spring Web Services and Spring Security and created a small backend application during the second lecture. 
 
-Both lectures where rather theoretical, but very informative  and elaborate with a lot of examples. So you got everything you need to get familiar with Spring. You can find the course material on his [Github](https://github.com/kencoenen/spring-course) page.
+Both lectures were rather theoretical, but very informative and elaborate with a lot of examples. So you have got everything you need to get familiar with Spring. You can find the course material on Ken's [Github](https://github.com/kencoenen/spring-course) page.
 
 ### Microservices <!-- Yen -->
 The workshop on microservices was lectured by [Kevin Van Houtte](/author/kevin-van-houtte/). It went pretty fast but at the end of the workshop, we had acquired a great overview of all the important aspects regarding microservices architecture! The most important thing to know is that each microservice takes care of only one specific business function.
@@ -119,9 +119,9 @@ Continuous Integration (CI) is the process of automating the build and testing o
 We have learned how we can configure a CI tool. 
 We had the chance to have some hands-on experience with the tool [GoCD](https://www.gocd.org), this workshop was given by [Tim Vierbergen](/author/tim-vierbergen/).
 ## Security <!-- Johan --> 
-Security is nowadays a hot topic in the IT sector and it's important to handle sensitive (personal) information in a secure manner. Because it's not only a PR nightmare for your business, it's also a financial disaster as well because of the GDPR law that will take effect this May. This fascinating lecture was presented by  [Tim De Grande](/author/tim-de-grande/) on our last day of the Kickstarter trajectory. 
+Nowadays, security is a hot topic and it's important to handle sensitive (personal) information in a secure manner.Because it's not only a PR nightmare for your business, it's also a financial disaster as well because of the GDPR law that will take effect this May 2018.This fascinating lecture was presented by [TimDe Grande](/author/tim-de-grande) on our last day of the Kickstarter trajectory. 
 
-We discussed about the basic security fundamentals as well as how common web vulnerabilities work and tips and tricks on how to secure your own application.
+We discussed basic security fundamentals, common web vulnerabilities and tips and tricks on how to secure your own applications.
 
 <img src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/security.jpg" style="max-width:100%"/>
 
