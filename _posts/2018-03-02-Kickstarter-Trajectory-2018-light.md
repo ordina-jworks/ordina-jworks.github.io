@@ -8,7 +8,6 @@ category: Kickstarters
 comments: true
 ---
 
-<!--inleiding start opleiding (Maarten) -->
 
 The Ordina Kickstarter trajectory is a collection of courses tailored and designed by the senior consultants of Ordina.
 These courses are created to give the beginning software developer a broad knowledge base while also providing an in-depth view on several technologies and best practices.
@@ -24,7 +23,7 @@ This post will summarize the training and experiences we've had while following 
 
 # What we have done
 
-### Git <!-- Sam -->
+### Git
 During the first days of our kickstart trajectory we've got a brief explanation about git by [Yannick De Turck](/author/yannick-de-turck/).
 He explained us that git is an open-source, distributed version control system that keeps track of your files and history.
 Basically this means git offers us tooling to collaborate on code bases without overwriting each others changes so easily.
@@ -36,7 +35,7 @@ One thing we'll definitely won't forget that fast is to rebase when pulling to k
 something that is preferred by many co-workers at JWorks! 
 At least that is what Yannick has told us ;)
 
-### Spring and Spring boot <!-- Johan -->
+### Spring and Spring boot
 
 Those lectures were given by [Ken Coenen](/author/ken-coenen) and were spread over two days. 
 
@@ -44,7 +43,7 @@ During the first lecture, we got a recap of the concepts of JPA, beans, applicat
 
 Both lectures were rather theoretical, but very informative and elaborate with a lot of examples. So you have got everything you need to get familiar with Spring. You can find the course material on Ken's [Github](https://github.com/kencoenen/spring-course) page.
 
-### Microservices <!-- Yen -->
+### Microservices
 The workshop on microservices was lectured by [Kevin Van Houtte](/author/kevin-van-houtte/). 
 It went pretty fast and at the end of the workshop, 
 we had acquired a great overview of all the important aspects regarding the microservices architecture! 
@@ -60,7 +59,7 @@ In a hands-on approach we learned how to create a microservice, how to register 
 how to externalize our configuration (using Spring Cloud), 
 how to create routing logic (using Zuul) and finally how to test the implementation using the Feign HTTP client.
 
-### Unit testing and mocking <!-- Dries -->
+### Unit testing and mocking
 On Thursday we got a course about testing from [Maarten Casteels](/author/maarten-casteels/), who works as a consultant for Ordina at Belfius.    
 The first part of the day was a very passionate and interactive theory session about the following subjects:
 - Goals of testing
