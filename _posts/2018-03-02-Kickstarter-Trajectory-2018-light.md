@@ -3,7 +3,7 @@ layout: post
 authors: [johan_silkens, nick_van_hoof, sam_schuddinck, dries_thieren, maarten_westelinck, yunus_altin, yen_mertens]
 title: "Kickstarter Trajectory 2018 Light Edition"
 image: /img/kicks.png
-tags: []
+tags: [Spring, Spring Boot, Angular, Unit Test, Mocking, Microservices, Git, DevOps, Docker, Typescript, Kickstarter, Security]
 category: Kickstarters
 comments: true
 ---
