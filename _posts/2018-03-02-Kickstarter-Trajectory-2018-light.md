@@ -37,7 +37,7 @@ At least that is what Yannick has told us ;)
 
 ### Spring and Spring boot
 
-Those lectures were given by [Ken Coenen](/author/ken-coenen) and were spread over two days. 
+Those lectures were given by [wKen Coenen](/author/ken-coenen) and were spread over two days. 
 
 During the first lecture, we got a recap of the concepts of JPA, beans, application contexts and other things that Spring uses in its core fundamentals. Next, we dug deeper into the framework and introduced ourselves with Spring Web Services and Spring Security and created a small backend application during the second lecture. 
 
@@ -78,11 +78,11 @@ The open atmosphere enabled us to ask a lot of questions which Maarten always an
 At the end of our first week we went over some of the frontend essentials
 before diving deeper into the frontend frameworks and build tools the next week.
 This workshop was given by [Yannick Vergeylen](/author/yannick-vergeylen/).
-Our colleagues from the Vision Works department accompanied us since they use the topics covered in this workshop as well.
+Our colleagues from the VisionWorks department accompanied us since they use the topics covered in this workshop as well.
 
-After a theoretical recap about HTML, CSS and Javascript we learned how to use HTML to create web pages 
+After a theoretical recap about HTML, CSS and JavaScript we learned how to use HTML to create web pages 
 and how CSS is used to style these pages and its components. 
-We also used some Javascript and learned how this is used to modify some of the HTML-components.
+We also used some JavaScript and learned how this is used to modify some of the HTML-components.
 
 During the workshop we were given an exercise in which we had to recreate a given example page with the above technologies.
 This way we had some hands-on experience straight away!
@@ -138,8 +138,8 @@ We discussed basic security fundamentals, common web vulnerabilities and tips an
 ### Docker
 We started with a recap of the theory behind creating images and spinning up containers.
 Soon we were creating our own images and learned how to run our applications in a container. 
-On the way we experienced the advantages of docker and how it fits nicely in the process
-of CI/CD. Thanks [Tom Verelst](/author/tom-verelst/) for guiding us into the docker world.
+On the way we experienced the advantages of Docker and how it fits nicely in the process
+of CI/CD. Thanks [Tom Verelst](/author/tom-verelst/) for guiding us into the Docker world.
 
 # Recap
 
