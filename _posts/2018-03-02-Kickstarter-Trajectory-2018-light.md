@@ -41,7 +41,7 @@ Those lectures were given by [Ken Coenen](/author/ken-coenen) and were spread ov
 
 During the first lecture, we got a recap of the concepts of JPA, beans, application contexts and other things that Spring uses in its core fundamentals. Next, we dug deeper into the framework and introduced ourselves with Spring Web Services and Spring Security and created a small backend application during the second lecture. 
 
-Both lectures were rather theoretical, but very informative and elaborate with a lot of examples. So you have got everything you need to get familiar with Spring. You can find the course material on Ken's [Github](https://github.com/kencoenen/spring-course) page.
+Both lectures were rather theoretical, but very informative and elaborate with a lot of examples. So you have got everything you need to get familiar with Spring. You can find the course material on Ken's [Github](https://github.com/kencoenen/spring-course){:target="_blank"} page.
 
 ### Microservices
 The workshop on microservices was lectured by [Kevin Van Houtte](/author/kevin-van-houtte/). 
@@ -88,11 +88,11 @@ During the workshop we were given an exercise in which we had to recreate a give
 This way we had some hands-on experience straight away!
 ### Build Tools
 We've started the second week with a solid introduction of frontend build tools. 
-The topics of this workshop (given by [Michael Vervloet](/author/michael-vervloet/)) were [Node.js](https://nodejs.org/en/), package managers and build systems & generators ([gulp](https://gulpjs.com), [webpack](https://webpack.js.org) and [Angular CLI](https://cli.angular.io)). 
+The topics of this workshop (given by [Michael Vervloet](/author/michael-vervloet/)) were [Node.js](https://nodejs.org/en/){:target="_blank"}, package managers and build systems & generators ([gulp](https://gulpjs.com){:target="_blank"}, [webpack](https://webpack.js.org){:target="_blank"} and [Angular CLI](https://cli.angular.io)){:target="_blank"}. 
 After every topic we got the chance to put this newly acquired knowledge into practice. 
 This started from scratch by installing Node.js and at the end we created an Angular project. 
 ### Angular 
-One of the must see frontend frameworks is [Angular](https://www.angular.io) of course.
+One of the must see frontend frameworks is [Angular](https://www.angular.io){:target="_blank"} of course.
 We've been introduced to it by [Ryan De Gruyter](/author/ryan-de-gruyter/).
 Ryan did a very good job and gave us a good base to get started with Angular.
 
@@ -122,14 +122,14 @@ It should also be easier to change your code and push it to production by using 
 
 Continuous Integration (CI) is the process of automating the build and testing of code every time a team member commits changes to version control. 
 We have learned how we can configure a CI tool. 
-We had the chance to have some hands-on experience with [GoCD](https://www.gocd.org).  
+We had the chance to have some hands-on experience with [GoCD](https://www.gocd.org){:target="_blank"}.  
 
 This workshop was given by [Tim Vierbergen](/author/tim-vierbergen/).
 ## Security
 <img src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/security.jpg" style="max-width:100%" align="right"/>
 Nowadays, security is a hot topic and it's important to handle sensitive (personal) information in a secure manner.
 Because it's not only a PR nightmare for your business, 
-it's also a financial disaster because of [GDPR](https://www.eugdpr.org/) that will take effect this May 2018. 
+it's also a financial disaster because of [GDPR](https://www.eugdpr.org/){:target="_blank"} that will take effect this May 2018. 
 This fascinating lecture was presented by [Tim De Grande](/author/tim-de-grande) on our last day of the Kickstarter trajectory. 
  
 We discussed basic security fundamentals, common web vulnerabilities and tips and tricks on how to secure your own applications.
