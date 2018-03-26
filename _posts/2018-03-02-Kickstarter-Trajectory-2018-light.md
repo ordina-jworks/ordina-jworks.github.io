@@ -24,12 +24,12 @@ This post will summarize the training and experiences we've had while following 
 # What we have done
 
 ### Git
-During the first days of our kickstart trajectory we've got a brief explanation about git by [Yannick De Turck](/author/yannick-de-turck/).
-He explained us that git is an open-source, distributed version control system that keeps track of your files and history.
-Basically this means git offers us tooling to collaborate on code bases without overwriting each others changes so easily.
+During the first days of our kickstart trajectory we've got a brief explanation about Git by [Yannick De Turck](/author/yannick-de-turck/).
+He explained us that Git is an open-source, distributed version control system that keeps track of your files and history.
+Basically this means Git offers us tooling to collaborate on code bases without overwriting each others changes so easily.
 
-We saw which workflow JWorks uses in git and which commands we can use to do so.
-This way we learned how to create git repo's and create separate branches for features or different environments.
+We saw which workflow JWorks uses in Git and which commands we can use to do so.
+This way we learned how to create Git repo's and create separate branches for features or different environments.
 And we even saw the different ways to merge these branches.
 One thing we'll definitely won't forget that fast is to rebase when pulling to keep a clean non-spaghetti like history,
 something that is preferred by many co-workers at JWorks! 
