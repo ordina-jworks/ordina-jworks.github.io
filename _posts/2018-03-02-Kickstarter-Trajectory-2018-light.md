@@ -71,7 +71,7 @@ The first part of the day was a very passionate and interactive theory session a
 After the lunch break we did some exercises together that showed us how to mock out dependencies and which pitfalls we should pay attention to.
 This gave us a better understanding of the theory we saw that morning. 
 
-All in all it was a great course explaining the big picture of testing but also showing us the ropes in day to day working with tests and code.
+All in all it was a great course explaining the big picture of testing but also showing us the ropes in day-to-day working with tests and code.
 The open atmosphere enabled us to ask a lot of questions which Maarten always answered thoroughly.  
 
 ### Frontend Essentials
