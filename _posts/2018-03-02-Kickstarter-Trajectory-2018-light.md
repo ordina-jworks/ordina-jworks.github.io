@@ -37,7 +37,7 @@ At least that is what Yannick has told us ;)
 
 ### Spring and Spring boot
 
-Those lectures were given by [wKen Coenen](/author/ken-coenen) and were spread over two days. 
+Those lectures were given by [Ken Coenen](/author/ken-coenen) and were spread over two days. 
 
 During the first lecture, we got a recap of the concepts of JPA, beans, application contexts and other things that Spring uses in its core fundamentals. Next, we dug deeper into the framework and introduced ourselves with Spring Web Services and Spring Security and created a small backend application during the second lecture. 
 
