@@ -15,7 +15,7 @@ These courses are created to give the beginning software developer a broad knowl
 This year the Kickstarter trajectory spanned 15 days, with topics ranging far and wide: backend to frontend, Spring Data JPA to TypeScript and everything in between.
 All of these courses will make sure the candidates will be able to hit the ground running on their first project as Ordina consultants.
 
-This post will summarize the training and experiences we've had while following the Kickstarter trajectory. 
+This post will summarize the training and experiences we've had while following the Kickstarter trajectory of JWorks, Ordina's Java/JavaScript unit. 
 
 # Backlog
 
@@ -24,32 +24,32 @@ This post will summarize the training and experiences we've had while following 
 # What we have done
 
 ### Intro Kickstarter Trajectory & Dev Environment
-On our first day we got a brief introduction to Ordina JWorks by [Yannick De Turck](/author/yannick-de-turck/). 
+On our first day we got a brief introduction to Ordina JWorks by [Yannick De Turck](/author/yannick-de-turck/){:target="_blank"}. 
 We have learned that JWorks consists of 10 competence centers: Agile & DevOps, API & Microservices, Application Security, Cloud Native Platforms, Continuous Integration & Delivery, Big Fast Data, Internet of Things & Machine Learning, Javascript & Hybrid Mobile, JVM Languages and Software Architecture. 
 Every competence center is responsible for organizing workshops and presentations. 
-As an Ordina consultant it’s possible to contribute to one of these competence centers, for example by writing a blog post or an article on the JWorks Docs. 
+As an Ordina consultant it’s possible to contribute to one of these competence centers. For example by writing a blog post on the JWorks Tech Blog, writing an article on the JWorks Docs, or assisting with a workshop. 
 
-We have received two books to read: [Oracle Certified Associate Java SE8](https://www.goodreads.com/book/show/23059696-oca) (to obtain a Java 8 certificate) and [Clean Code](https://www.goodreads.com/book/show/3735293-clean-code?from_search=true). 
+We have received two books to read: [Oracle Certified Associate Java SE8](https://www.goodreads.com/book/show/23059696-oca){:target="_blank"} (to obtain the Java 8 certificate) and [Clean Code](https://www.goodreads.com/book/show/3735293-clean-code?from_search=true){:target="_blank"}. 
 These books are an absolute must for every junior developer!
-[Yannick](/author/yannick-de-turck/) showed us the preferred stack of JWorks for the backend and frontend.
+[Yannick](/author/yannick-de-turck/){:target="_blank"} showed us the preferred stack of JWorks for the backend and frontend.
 Later we have seen that Ordina operates according to the secure-by-design principle which means that every consultant will be trained to achieve certifications in security. 
 Security should be inside every consultant's DNA.
 
 In the afternoon we have learned about the following topics:
 - Integrated Development Environments (IDEs) and how important it is to choose the right one
-- Build tools: Maven, Gradle and NPM 
-- Version Control System: SVN and GIT
+- Build tools: Maven, Gradle and npm 
+- Version Control System: Git
 - Continuous integration
 - Scrum and Agile
 - Improving your productivity as a developer
 
 
 ### Java
-On Tuesday we got our first learning session from [Yannick De Turck](/author/yannick-de-turck/).  
+On Tuesday we got our first learning session from [Yannick De Turck](/author/yannick-de-turck/){:target="_blank"}.  
 In the morning we talked about all the new features since Java 7.
-Especially streams in Java 8 and the var keyword in Java 10 caught my attention.  
+Especially streams in Java 8 and the `var` keyword in Java 10 caught my attention.  
 Streams and lambdas were the biggest change in Java 8 and severely altered the way we write code, 
-I believe 'var' will do the same for Java 10. 
+I believe `var` will do the same for Java 10. 
 But it will take some time before we can use it in production environments of course,
 since Oracle doesn't provide long-term support for versions 9 and 10.
     
@@ -72,18 +72,18 @@ This way we learned how to create Git repos and create separate branches for fea
 And we even saw the different ways to merge these branches.
 One thing we'll definitely won't forget that fast is to rebase when pulling to keep a clean non-spaghetti like history,
 something that is preferred by many co-workers at JWorks! 
-At least that is what Yannick has told us ;)
+At least that is what Yannick has told us. ;)
 
 ### Spring and Spring boot
 
-Those lectures were given by [Ken Coenen](/author/ken-coenen) and were spread over two days. 
+The lectures on Spring and Spring Boot were given by [Ken Coenen](/author/ken-coenen){:target="_blank"} and were spread over two days. 
 
 During the first lecture, we got a recap of the concepts of JPA, beans, application contexts and other things that Spring uses in its core fundamentals. Next, we dug deeper into the framework and introduced ourselves with Spring Web Services and Spring Security and created a small backend application during the second lecture. 
 
 Both lectures were rather theoretical, but very informative and elaborate with a lot of examples. So you have got everything you need to get familiar with Spring. You can find the course material on Ken's [Github](https://github.com/kencoenen/spring-course){:target="_blank"} page.
 
 ### Microservices
-The workshop on microservices was lectured by [Kevin Van Houtte](/author/kevin-van-houtte/). 
+The workshop on microservices was lectured by [Kevin Van Houtte](/author/kevin-van-houtte/){:target="_blank"} and powered by Spring Cloud and Netflix OSS. 
 It went pretty fast and at the end of the workshop, 
 we had acquired a great overview of all the important aspects regarding the microservices architecture! 
 The most important thing to know is that each microservice takes care of only one specific business function.
@@ -99,7 +99,7 @@ how to externalize our configuration (using Spring Cloud),
 how to create routing logic (using Zuul) and finally how to test the implementation using the Feign HTTP client.
 
 ### Unit testing and mocking
-On Thursday we got a course about testing from [Maarten Casteels](/author/maarten-casteels/), who works as a consultant for Ordina at Belfius.    
+On Thursday we got a course about testing from [Maarten Casteels](/author/maarten-casteels/){:target="_blank"}, who works as a consultant for Ordina at Belfius.    
 The first part of the day was a very passionate and interactive theory session about the following subjects:
 - Goals of testing
 - What to test
@@ -116,30 +116,30 @@ The open atmosphere enabled us to ask a lot of questions which Maarten always an
 ### Frontend Essentials
 At the end of our first week we went over some of the frontend essentials
 before diving deeper into the frontend frameworks and build tools the next week.
-This workshop was given by [Yannick Vergeylen](/author/yannick-vergeylen/).
+This workshop was given by [Yannick Vergeylen](/author/yannick-vergeylen/){:target="_blank"}.
 Our colleagues from the VisionWorks department accompanied us since they use the topics covered in this workshop as well.
 
 After a theoretical recap about HTML, CSS and JavaScript we learned how to use HTML to create web pages 
 and how CSS is used to style these pages and its components. 
-We also used some JavaScript and learned how this is used to modify some of the HTML-components.
+We also used some JavaScript and learned how it is used to modify some of the HTML-components.
 
 During the workshop we were given an exercise in which we had to recreate a given example page with the above technologies.
 This way we had some hands-on experience straight away!
 ### Build Tools
-We've started the second week with a solid introduction of frontend build tools. 
-The topics of this workshop (given by [Michael Vervloet](/author/michael-vervloet/)) were [Node.js](https://nodejs.org/en/){:target="_blank"}, package managers and build systems & generators ([gulp](https://gulpjs.com){:target="_blank"}, [webpack](https://webpack.js.org){:target="_blank"} and [Angular CLI](https://cli.angular.io)){:target="_blank"}. 
+We started the second week with a solid introduction of frontend build tools. 
+The topics of this workshop (given by [Michael Vervloet](/author/michael-vervloet/){:target="_blank"}) were [Node.js](https://nodejs.org/en/){:target="_blank"}, package managers and build systems & generators ([gulp](https://gulpjs.com){:target="_blank"}, [webpack](https://webpack.js.org){:target="_blank"} and [Angular CLI](https://cli.angular.io){:target="_blank"}). 
 After every topic we got the chance to put this newly acquired knowledge into practice. 
 This started from scratch by installing Node.js and at the end we created an Angular project. 
 ### Angular 
 One of the must see frontend frameworks is [Angular](https://www.angular.io){:target="_blank"} of course.
-We've been introduced to it by [Ryan De Gruyter](/author/ryan-de-gruyter/).
+We've been introduced to it by [Ryan De Gruyter](/author/ryan-de-gruyter/){:target="_blank"}.
 Ryan did a very good job and gave us a good base to get started with Angular.
 
 He taught us what Angular components are and how we can display data inside these components with the different types of data-binding.
 We also saw how we can let these components communicate with each other
 and pass data from child components to its parent component and vice versa.
 On top of that, we saw how Angular directives are used to loop over objects to show multiple elements. 
-And how we can use the *ngIf directive to hide/show elements and many more of these directives.
+And how we can use the `*ngIf` directive to hide/show elements and many more of these directives.
 But that's not all, he also taught us about modules, services, dependency injection and much more.
 
 It was a very educational session for sure.
@@ -163,22 +163,22 @@ Continuous Integration (CI) is the process of automating the build and testing o
 We have learned how we can configure a CI tool. 
 We had the chance to have some hands-on experience with [GoCD](https://www.gocd.org){:target="_blank"}.  
 
-This workshop was given by [Tim Vierbergen](/author/tim-vierbergen/).
+This workshop was given by [Tim Vierbergen](/author/tim-vierbergen/){:target="_blank"}.
 ## Security
 <img src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/security.jpg" style="max-width:100%" align="right"/>
 Nowadays, security is a hot topic and it's important to handle sensitive (personal) information in a secure manner.
 Because it's not only a PR nightmare for your business, 
 it's also a financial disaster because of [GDPR](https://www.eugdpr.org/){:target="_blank"} that will take effect this May 2018. 
-This fascinating lecture was presented by [Tim De Grande](/author/tim-de-grande) on our last day of the Kickstarter trajectory. 
+This fascinating lecture was presented by [Tim De Grande](/author/tim-de-grande){:target="_blank"} on our last day of the Kickstarter trajectory. 
  
-We discussed basic security fundamentals, common web vulnerabilities and tips and tricks on how to secure your own applications.
+We discussed basic security fundamentals, common web vulnerabilities, and tips and tricks on how to secure your own applications.
 
 <br/>
 ### Docker
 We started with a recap of the theory behind creating images and spinning up containers.
-Soon we were creating our own images and learned how to run our applications in a container. 
+Soon after, we were creating our own images and learned how to run our applications in a container. 
 On the way we experienced the advantages of Docker and how it fits nicely in the process
-of CI/CD. Thanks [Tom Verelst](/author/tom-verelst/) for guiding us into the Docker world.
+of CI/CD. Thanks [Tom Verelst](/author/tom-verelst/){:target="_blank"} for guiding us into the Docker world!
 
 # Recap
 
