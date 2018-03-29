@@ -41,7 +41,7 @@ How it is possible to version the source code with systems like SVN or GIT.
 What the differences are between them. 
 We have learned what continuous integration is.
 Yannick explained what the terms Scrum and Agile mean. 
-Last but not least, he gave us some tips how we can improve our productivity as a developer.
+Last but not least, he gave us some tips about improving our productivity as a developer.
 
 
 ### Java
