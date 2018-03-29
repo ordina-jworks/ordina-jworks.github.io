@@ -27,7 +27,7 @@ This post will summarize the training and experiences we've had while following 
 On our first day we got a brief introduction of Ordina JWorks by [Yannick De Turck](/author/yannick-de-turck/). 
 We have learned that JWorks exists of 10 competence centers: Agile & DevOps, API & Microservices, Application Security, Cloud Native Platforms, Continuous Integration & Delivery, Big Fast Data, Internet of Things & Machine Learning, Javascript & Hybrid Mobile, JVM Languages and Software Architecture. 
 Every competence center is responsible for organizing workshops and presentations. 
-As an Ordina consultant it’s possible to contribute to one of these competence center by writing a blog post or an article on the JWorks Docs for example. 
+As an Ordina consultant it’s possible to contribute to one of these competence centers by writing a blog post or an article on the JWorks Docs for example. 
 
 We have received two books to read: Oracle Certified Associate Java SE8 (to obtain a Java 8 certificate) and Clean Code. 
 These books are absolutely a must for every junior developer!
@@ -35,9 +35,9 @@ Yannick showed us the preferred stack of JWorks for the backend and frontend.
 Later we have seen that Ordina is secure-by-design which means that every consultant will be trained to get certifications in security. 
 Security should be inside every consultant's DNA.
 
-In the afternoon we have learned about Integrated Developer Environment (IDE), how important it is to choose the right IDE. 
+In the afternoon we have learned about Integrated Development Environments (IDEs), how important it is to choose the right IDE. 
 We have learned about build tools: Maven, Gradle and NPM. 
-How it is possible to control the source code with a source control like SVN or GIT. 
+How it is possible to version the source code with systems like SVN or GIT.
 What the differences are between them. 
 We have learned what continuous integration is.
 Yannick explained what the terms Scrum and Agile mean. 
