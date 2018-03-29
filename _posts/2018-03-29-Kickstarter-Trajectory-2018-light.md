@@ -220,3 +220,7 @@ It was also interesting to get in depth on frontend tech!
 You notice all the coaches are experienced programmers and it was a privilege to learn from them. 
 And if you need any help after a workshop, they are always quick to help. 
 To summarize, I really recommend this Kickstarter program to accelerate your career!"*
+
+# About Ordina's kickstarter trajectories
+Interested in knowing more about Ordina's kickstarter trajectories?<br/>
+More information is available on [Ordina's website](https://www.ordina.be/jobs/kickstarter-2018/){:target="_blank"}. 
