@@ -30,7 +30,7 @@ Especially streams in Java 8 and the var keyword in Java 10 caught my attention.
 Streams and lambdas were the biggest change in Java 8 and severely altered the way we write code, 
 I believe 'var' will do the same for Java 10. 
 But it will take some time before we can use it in production environments of course,
-since Oracle doesn't provide long time support for versions 9 and 10.
+since Oracle doesn't provide long-term support for versions 9 and 10.
     
  
 In the afternoon we did some fun exercises 
@@ -41,7 +41,7 @@ Of course most of these were about Java 8 features because...
 
 
 
-### Git //TODO
+### Git
 During the second day of our kickstart trajectory we've got a brief explanation by Yannick again.
 He explained us that Git is an open-source, distributed version control system that keeps track of your files and history.
 Basically this means Git offers us tooling to collaborate on code bases without overwriting each others changes so easily.
