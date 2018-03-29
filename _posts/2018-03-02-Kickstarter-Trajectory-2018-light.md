@@ -24,24 +24,24 @@ This post will summarize the training and experiences we've had while following 
 # What we have done
 
 ### Intro Kickstarter Trajectory & Dev Environment
-On our first day we got a brief introduction of Ordina JWorks by [Yannick De Turck](/author/yannick-de-turck/). 
-We have learned that JWorks exists of 10 competence centers: Agile & DevOps, API & Microservices, Application Security, Cloud Native Platforms, Continuous Integration & Delivery, Big Fast Data, Internet of Things & Machine Learning, Javascript & Hybrid Mobile, JVM Languages and Software Architecture. 
+On our first day we got a brief introduction to Ordina JWorks by [Yannick De Turck](/author/yannick-de-turck/). 
+We have learned that JWorks consists of 10 competence centers: Agile & DevOps, API & Microservices, Application Security, Cloud Native Platforms, Continuous Integration & Delivery, Big Fast Data, Internet of Things & Machine Learning, Javascript & Hybrid Mobile, JVM Languages and Software Architecture. 
 Every competence center is responsible for organizing workshops and presentations. 
-As an Ordina consultant it’s possible to contribute to one of these competence centers by writing a blog post or an article on the JWorks Docs for example. 
+As an Ordina consultant it’s possible to contribute to one of these competence centers, for example by writing a blog post or an article on the JWorks Docs. 
 
-We have received two books to read: Oracle Certified Associate Java SE8 (to obtain a Java 8 certificate) and Clean Code. 
-These books are absolutely a must for every junior developer!
-Yannick showed us the preferred stack of JWorks for the backend and frontend.
-Later we have seen that Ordina is secure-by-design which means that every consultant will be trained to get certifications in security. 
+We have received two books to read: [Oracle Certified Associate Java SE8](https://www.goodreads.com/book/show/23059696-oca) (to obtain a Java 8 certificate) and [Clean Code](https://www.goodreads.com/book/show/3735293-clean-code?from_search=true). 
+These books are an absolute must for every junior developer!
+[Yannick](/author/yannick-de-turck/) showed us the preferred stack of JWorks for the backend and frontend.
+Later we have seen that Ordina operates according to the secure-by-design principle which means that every consultant will be trained to achieve certifications in security. 
 Security should be inside every consultant's DNA.
 
-In the afternoon we have learned about Integrated Development Environments (IDEs), how important it is to choose the right IDE. 
-We have learned about build tools: Maven, Gradle and NPM. 
-How it is possible to version the source code with systems like SVN or GIT.
-What the differences are between them. 
-We have learned what continuous integration is.
-Yannick explained what the terms Scrum and Agile mean. 
-Last but not least, he gave us some tips about improving our productivity as a developer.
+In the afternoon we have learned about the following topics:
+- Integrated Development Environments (IDEs) and how important it is to choose the right one
+- Build tools: Maven, Gradle and NPM 
+- Version Control System: SVN and GIT
+- Continuous integration
+- Scrum and Agile
+- Improving your productivity as a developer
 
 
 ### Java
