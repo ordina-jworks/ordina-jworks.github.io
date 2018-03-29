@@ -57,7 +57,7 @@ since Oracle doesn't provide long-term support for versions 9 and 10.
 In the afternoon we did some fun exercises 
 where we had to implement methods to make pre-made tests pass.
 Of course most of these were about Java 8 features because...
-<img src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/most-popular-java-versions-2017.png" style="max-width:100%"/>
+<img src="/img/2018-03-02-Kickstarter-Trajectory-2018-light/most-popular-java-versions-2017.png" style="max-width:70%;margin: 20px 15%;"/>
 
 
 
