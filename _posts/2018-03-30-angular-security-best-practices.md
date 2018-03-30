@@ -19,17 +19,17 @@ In this blog we'll check what kind of best practices we should have in mind when
 
 The angular team is doing releases at regular intervals for feature enhancements, bug fixes and security patches as appropriate.
 So, it is recommended to update the Angular libraries at regular intervals.
-Not doing so may allow attackers to attack the app using known security vulnerabilities present with older releases.
+Not doing so may allow attackers to attack the app using known security vulnerabilities present within older releases.
 
 
-# Preventing cross-site scripting (XSS)
+## Preventing cross-site scripting (XSS)
 
 XSS enables attackers to inject client-side scripts into web pages viewed by other users.
 Such code can then, for example, steal user data or perform actions to impersonate the user.
 This is one of the **most common attacks** on the web.
 
 
-## 2. Sanitization and security contexts
+## 1. Sanitization and security contexts
 
 To systematically block XSS bugs, Angular treats all values as **untrusted by default**.
 When a value is inserted into the DOM from a template, via property, attribute, style, class binding, or interpolation, Angular _sanitizes_ and _escapes_ untrusted values.
@@ -55,7 +55,7 @@ export class BrowserModule {}
 ### The DOM sanitization service
 The goal of the DomSanitizer is to clean untrusted parts of values.
 
-The skeleton of the class looks like:
+The skeleton of the class looks like this:
 {% highlight typescript %}
 export enum SecurityContext { NONE, HTML, STYLE, SCRIPT, URL, RESOURCE_URL }
 
@@ -74,7 +74,7 @@ The first one is the `sanitize` method, which gets the _context_ and an _untrust
 The other ones are the `bypassSecurityTrustX` methods which are getting the _untrusted value_ according to the value usage and are returning a trusted object.
 
 #### The sanitize method
-If a value is trusted for the context, this sanitize method will (in case of a SafeValue) unwrap the contained safe value and use it directly.
+If a value is trusted for the context, this sanitize method will (in case of a `SafeValue`) unwrap the contained safe value and use it directly.
 Otherwise, the value will be sanitized to be safe according to the security context.
 
 There are three main helper functions for sanitizing the values.
@@ -85,46 +85,73 @@ The `sanitizeStyle` and `sanitizeUrl` functions sanitize the untrusted style or 
 In specific situations, it might be necessary to disable sanitization.
 Users can bypass security by constructing a value with one of the `bypassSecurityTrustX` methods, and then binding to that value from the template.
 
+An example:
+{% highlight typescript %}
+import {BrowserModule, DomSanitizer} from '@angular/platform-browser'
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <div [innerHtml]="html"></div>
+  `,
+})
+export class App {
+  constructor(private sanitizer: DomSanitizer) {
+    this.html = sanitizer.bypassSecurityTrustHtml('<h1>DomSanitizer</h1><script>ourSuperSafeCode()</script>') ;
+  }
+}
+{% endhighlight %}
+
 > Be careful: If you trust a value that might be malicious, you are introducing a security vulnerability into your application!
 
 
-## 3. Content security policy (CSP)
+## 2. Content security policy (CSP)
 
-Content Security Policy is a defense-in-depth technique to prevent XSS.
+Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks.
+These attacks are used for everything from data theft to site defacement or distribution of malware.
+
 To enable CSP, configure your web server to return an appropriate `Content-Security-Policy` HTTP header.
-More info about specifying your CSP can be found on [Google Developers Page about Content Security Policy](https://developers.google.com/web/fundamentals/security/csp/){:target="blank" rel="noopener noreferrer"}.
+You can find a very detailed manual how to enable CSP on the [MDN website](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP){:target="blank" rel="noopener noreferrer"}.
 To check if your CSP is valid you can use the [CSP evaluator from google](https://csp-evaluator.withgoogle.com){:target="blank" rel="noopener noreferrer"}.
 
 
-## 4. Use the offline template compiler
+## 3. Use the offline template compiler (aka AOT-compiler)
 
 _Angular templates_ are the same as executable code: HTML, attributes, and binding expressions (but not the values bound) in templates are trusted to be safe.
 This means that if an attacker can control a value that is being parsed by the template we have a security leak.
 Never generate template source code by concatenating user input and templates.
 To prevent these vulnerabilities, use the **offline template compiler**, also known as _template injection_.
 
+If you use the Angular CLI, it's easy to enable AOT:
+{% highlight bash %}
+ng build --aot
+ng serve --aot
+{% endhighlight %}
 
-## 5. Avoid direct use of the DOM APIs
+More info can be found on the [Angular Guide website](https://angular.io/guide/aot-compiler){:target="blank" rel="noopener noreferrer"}.
+
+
+## 4. Avoid direct use of the DOM APIs
 
 The built-in browser DOM APIs don't automatically protect you from security vulnerabilities.
 For example, _document_, the node available through _ElementRef_, and many _third-party APIs_ contain unsafe methods.
 Avoid interacting with the DOM directly and instead use **Angular templates** where possible.
 
 
-## 6. Server-side XSS protection
+## 5. Server-side XSS protection
 
 Injecting template code into an Angular application is the same as injecting executable code into the application.
 So, validate all data on server-side code and escape appropriately to prevent XSS vulnerabilities on the server.
 Also, Angular recommends _not to generate Angular templates on the server side_ using a templating language.
 
 
-# HTTP-level vulnerabilities
+## HTTP-level vulnerabilities
 
 Angular has built-in support to help prevent two common HTTP vulnerabilities, cross-site request forgery (CSRF or XSRF) and cross-site script inclusion (XSSI).
 Both of these must be mitigated primarily on the server side, but Angular provides helpers to make integration on the client side easier.
 
 
-## 7. Cross-site request forgery (XSRF)
+## 1. Cross-site request forgery (XSRF)
 
 Cross-site request forgery (also known as _one-click attack_ or _session riding_) is abbreviated as CSRF or XSRF.
 It is a type of malicious exploit of a website where unauthorized commands are transmitted from a user that the web application trusts.
@@ -140,7 +167,7 @@ That means only your application can read this cookie token and set the custom h
 Angular HttpClient provides built-in support for doing checks on the client side. Read further details on [Angular XSRF Support](https://angular.io/guide/http#security-xsrf-protection){:target="blank" rel="noopener noreferrer"}.
 
 
-## 8. Cross-site script inclusion (XSSI)
+## 2. Cross-site script inclusion (XSSI)
 
 Cross-site script inclusion (also known as **JSON vulnerability**) can allow an attacker's website to read data from a JSON API.
 The attack works on older browsers by overriding native JavaScript object constructors, and then including an API URL using a <script> tag.
