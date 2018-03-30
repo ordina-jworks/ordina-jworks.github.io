@@ -15,21 +15,21 @@ We, web developers, need to be up-to-date with all latest security issues that w
 In this blog we'll check what kind of best practices we should have in mind when building an Angular app so we limit the amount of security issues we could have.
 
 
-## 1. Up-to-date Angular libraries
+## Up-to-date Angular libraries
 
 The angular team is doing releases at regular intervals for feature enhancements, bug fixes and security patches as appropriate.
 So, it is recommended to update the Angular libraries at regular intervals.
 Not doing so may allow attackers to attack the app using known security vulnerabilities present within older releases.
 
 
-## Preventing cross-site scripting (XSS)
+## 1. Preventing cross-site scripting (XSS)
 
 XSS enables attackers to inject client-side scripts into web pages viewed by other users.
 Such code can then, for example, steal user data or perform actions to impersonate the user.
 This is one of the **most common attacks** on the web.
 
 
-## 1. Sanitization and security contexts
+### 1.1. Sanitization and security contexts
 
 To systematically block XSS bugs, Angular treats all values as **untrusted by default**.
 When a value is inserted into the DOM from a template, via property, attribute, style, class binding, or interpolation, Angular _sanitizes_ and _escapes_ untrusted values.
@@ -105,7 +105,7 @@ export class App {
 > Be careful: If you trust a value that might be malicious, you are introducing a security vulnerability into your application!
 
 
-## 2. Content security policy (CSP)
+### 1.2. Content security policy (CSP)
 
 Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks.
 These attacks are used for everything from data theft to site defacement or distribution of malware.
@@ -115,7 +115,7 @@ You can find a very detailed manual how to enable CSP on the [MDN website](https
 To check if your CSP is valid you can use the [CSP evaluator from google](https://csp-evaluator.withgoogle.com){:target="blank" rel="noopener noreferrer"}.
 
 
-## 3. Use the offline template compiler (aka AOT-compiler)
+### 1.3. Use the offline template compiler (aka AOT-compiler)
 
 _Angular templates_ are the same as executable code: HTML, attributes, and binding expressions (but not the values bound) in templates are trusted to be safe.
 This means that if an attacker can control a value that is being parsed by the template we have a security leak.
@@ -131,27 +131,27 @@ ng serve --aot
 More info can be found on the [Angular Guide website](https://angular.io/guide/aot-compiler){:target="blank" rel="noopener noreferrer"}.
 
 
-## 4. Avoid direct use of the DOM APIs
+### 1.4. Avoid direct use of the DOM APIs
 
 The built-in browser DOM APIs don't automatically protect you from security vulnerabilities.
 For example, _document_, the node available through _ElementRef_, and many _third-party APIs_ contain unsafe methods.
 Avoid interacting with the DOM directly and instead use **Angular templates** where possible.
 
 
-## 5. Server-side XSS protection
+### 1.5. Server-side XSS protection
 
 Injecting template code into an Angular application is the same as injecting executable code into the application.
 So, validate all data on server-side code and escape appropriately to prevent XSS vulnerabilities on the server.
 Also, Angular recommends _not to generate Angular templates on the server side_ using a templating language.
 
 
-## HTTP-level vulnerabilities
+## 2. HTTP-level vulnerabilities
 
 Angular has built-in support to help prevent two common HTTP vulnerabilities, cross-site request forgery (CSRF or XSRF) and cross-site script inclusion (XSSI).
 Both of these must be mitigated primarily on the server side, but Angular provides helpers to make integration on the client side easier.
 
 
-## 1. Cross-site request forgery (XSRF)
+### 2.1. Cross-site request forgery (XSRF)
 
 Cross-site request forgery (also known as _one-click attack_ or _session riding_) is abbreviated as CSRF or XSRF.
 It is a type of malicious exploit of a website where unauthorized commands are transmitted from a user that the web application trusts.
@@ -167,7 +167,7 @@ That means only your application can read this cookie token and set the custom h
 Angular HttpClient provides built-in support for doing checks on the client side. Read further details on [Angular XSRF Support](https://angular.io/guide/http#security-xsrf-protection){:target="blank" rel="noopener noreferrer"}.
 
 
-## 2. Cross-site script inclusion (XSSI)
+### 2.2. Cross-site script inclusion (XSSI)
 
 Cross-site script inclusion (also known as **JSON vulnerability**) can allow an attacker's website to read data from a JSON API.
 The attack works on older browsers by overriding native JavaScript object constructors, and then including an API URL using a <script> tag.
