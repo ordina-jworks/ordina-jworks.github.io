@@ -170,7 +170,7 @@ Angular HttpClient provides built-in support for doing checks on the client side
 ### 2.2. Cross-site script inclusion (XSSI)
 
 Cross-site script inclusion (also known as **JSON vulnerability**) can allow an attacker's website to read data from a JSON API.
-The attack works on older browsers by overriding native JavaScript object constructors, and then including an API URL using a <script> tag.
+The attack works on older browsers by overriding native JavaScript object constructors, and then including an API URL using a `<script>` tag.
 This attack is only successful if the returned JSON is executable as JavaScript.
 
 Servers can prevent an attack by prefixing all JSON responses to make them non-executable, by convention, using the well-known string `")]}',\n"`.
