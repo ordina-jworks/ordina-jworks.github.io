@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Angular Security Best Practices - Frédéric Ghijselinck">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/angular-security-best-practices.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/angular/2018/03/30/angular-security-best-practices.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Angular Security Best Practices - Frédéric Ghijselinck"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/angular-security-best-practices.png"/>
+
+    
+    <title>Angular Security Best Practices - Frédéric Ghijselinck &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Angular Security Best Practices</h2>
+                
+
+                
+                    Posted Mar 30, 2018
+
+
+    in <a href="/categories/angular/">Angular</a>
+
+
+
+    by
+    
+        <a href="/author/frederic-ghijselinck/">Frédéric Ghijselinck</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/angular/">Angular</a>, 
+    
+        <a href="/tags/typescript/">TypeScript</a>, 
+    
+        <a href="/tags/javascript/">JavaScript</a>, 
+    
+        <a href="/tags/security/">Security</a>, 
+    
+        <a href="/tags/xss/">XSS</a>, 
+    
+        <a href="/tags/csp/">CSP</a>, 
+    
+        <a href="/tags/xsrf/">XSRF</a>, 
+    
+        <a href="/tags/xssi/">XSSI</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="angular-security-best-practices">Angular Security Best Practices</h1>
+
+<blockquote>
+  <p>Software security is a hot topic nowadays.
+We, web developers, need to be up-to-date with all latest security issues that we could encounter when developing a web application.
+In this blog we’ll check what kind of best practices we should have in mind when building an Angular app so we limit the amount of security issues we could have.</p>
+</blockquote>
+
+<h2 id="up-to-date-angular-libraries">Up-to-date Angular libraries</h2>
+
+<p>The angular team is doing releases at regular intervals for feature enhancements, bug fixes and security patches as appropriate.
+So, it is recommended to update the Angular libraries at regular intervals.
+Not doing so may allow attackers to attack the app using known security vulnerabilities present within older releases.</p>
+
+<h2 id="1-preventing-cross-site-scripting-xss">1. Preventing cross-site scripting (XSS)</h2>
+
+<p>XSS enables attackers to inject client-side scripts into web pages viewed by other users.
+Such code can then, for example, steal user data or perform actions to impersonate the user.
+This is one of the <strong>most common attacks</strong> on the web.</p>
+
+<h3 id="11-sanitization-and-security-contexts">1.1. Sanitization and security contexts</h3>
+
+<p>To systematically block XSS bugs, Angular treats all values as <strong>untrusted by default</strong>.
+When a value is inserted into the DOM from a template, via property, attribute, style, class binding, or interpolation, Angular <em>sanitizes</em> and <em>escapes</em> untrusted values.</p>
+
+<p>This is the declaration of the sanitization providers in the BrowserModule:</p>
+
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">export</span> <span class="kd">const</span> <span class="nx">BROWSER_SANITIZATION_PROVIDERS</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span><span class="na">provide</span><span class="p">:</span> <span class="nx">Sanitizer</span><span class="p">,</span> <span class="na">useExisting</span><span class="p">:</span> <span class="nx">DomSanitizer</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">provide</span><span class="p">:</span> <span class="nx">DomSanitizer</span><span class="p">,</span> <span class="na">useClass</span><span class="p">:</span> <span class="nx">DomSanitizerImpl</span><span class="p">},</span>
+<span class="p">];</span>
+
+<span class="p">@</span><span class="nd">NgModule</span><span class="p">({</span>
+  <span class="na">providers</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">BROWSER_SANITIZATION_PROVIDERS</span>
+    <span class="p">...</span>
+  <span class="p">],</span>
+  <span class="na">exports</span><span class="p">:</span> <span class="p">[</span><span class="nx">CommonModule</span><span class="p">,</span> <span class="nx">ApplicationModule</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">BrowserModule</span> <span class="p">{}</span></code></pre></figure>
+
+<h3 id="the-dom-sanitization-service">The DOM sanitization service</h3>
+<p>The goal of the DomSanitizer is to clean untrusted parts of values.</p>
+
+<p>The skeleton of the class looks like this:</p>
+
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">export</span> <span class="kr">enum</span> <span class="nx">SecurityContext</span> <span class="p">{</span> <span class="nx">NONE</span><span class="p">,</span> <span class="nx">HTML</span><span class="p">,</span> <span class="nx">STYLE</span><span class="p">,</span> <span class="nx">SCRIPT</span><span class="p">,</span> <span class="nx">URL</span><span class="p">,</span> <span class="nx">RESOURCE_URL</span> <span class="p">}</span>
+
+<span class="k">export</span> <span class="kr">abstract</span> <span class="kd">class</span> <span class="nx">DomSanitizer</span> <span class="kr">implements</span> <span class="nx">Sanitizer</span> <span class="p">{</span>
+  <span class="kr">abstract</span> <span class="nx">sanitize</span><span class="p">(</span><span class="nx">context</span><span class="p">:</span> <span class="nx">SecurityContext</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">SafeValue</span><span class="o">|</span><span class="nx">string</span><span class="o">|</span><span class="kc">null</span><span class="p">):</span> <span class="nx">string</span><span class="o">|</span><span class="kc">null</span><span class="p">;</span>
+  <span class="kr">abstract</span> <span class="nx">bypassSecurityTrustHtml</span><span class="p">(</span><span class="nx">value</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">SafeHtml</span><span class="p">;</span>
+  <span class="kr">abstract</span> <span class="nx">bypassSecurityTrustStyle</span><span class="p">(</span><span class="nx">value</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">SafeStyle</span><span class="p">;</span>
+  <span class="kr">abstract</span> <span class="nx">bypassSecurityTrustScript</span><span class="p">(</span><span class="nx">value</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">SafeScript</span><span class="p">;</span>
+  <span class="kr">abstract</span> <span class="nx">bypassSecurityTrustUrl</span><span class="p">(</span><span class="nx">value</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">SafeUrl</span><span class="p">;</span>
+  <span class="kr">abstract</span> <span class="nx">bypassSecurityTrustResourceUrl</span><span class="p">(</span><span class="nx">value</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">SafeResourceUrl</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>As you can see, there are two kinds of method patterns.
+The first one is the <code class="highlighter-rouge">sanitize</code> method, which gets the <em>context</em> and an <em>untrusted value</em> and returns a trusted value.
+The other ones are the <code class="highlighter-rouge">bypassSecurityTrustX</code> methods which are getting the <em>untrusted value</em> according to the value usage and are returning a trusted object.</p>
+
+<h4 id="the-sanitize-method">The sanitize method</h4>
+<p>If a value is trusted for the context, this sanitize method will (in case of a <code class="highlighter-rouge">SafeValue</code>) unwrap the contained safe value and use it directly.
+Otherwise, the value will be sanitized to be safe according to the security context.</p>
+
+<p>There are three main helper functions for sanitizing the values.
+The <code class="highlighter-rouge">sanitizeHtml</code> function sanitizes the untrusted HTML value by parsing the value and checks its tokens.
+The <code class="highlighter-rouge">sanitizeStyle</code> and <code class="highlighter-rouge">sanitizeUrl</code> functions sanitize the untrusted style or URL value by regular expressions.</p>
+
+<h4 id="how-can-we-disable-the-sanitization-logic">How can we disable the sanitization logic?</h4>
+<p>In specific situations, it might be necessary to disable sanitization.
+Users can bypass security by constructing a value with one of the <code class="highlighter-rouge">bypassSecurityTrustX</code> methods, and then binding to that value from the template.</p>
+
+<p>An example:</p>
+
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">import</span> <span class="p">{</span><span class="nx">BrowserModule</span><span class="p">,</span> <span class="nx">DomSanitizer</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/platform-browser'</span>
+
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'my-app'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`
+    &lt;div [innerHtml]="html"&gt;&lt;/div&gt;
+  `</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">App</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">sanitizer</span><span class="p">:</span> <span class="nx">DomSanitizer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">html</span> <span class="o">=</span> <span class="nx">sanitizer</span><span class="p">.</span><span class="nx">bypassSecurityTrustHtml</span><span class="p">(</span><span class="s1">'&lt;h1&gt;DomSanitizer&lt;/h1&gt;&lt;script&gt;ourSuperSafeCode()&lt;/script&gt;'</span><span class="p">)</span> <span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<blockquote>
+  <p>Be careful: If you trust a value that might be malicious, you are introducing a security vulnerability into your application!</p>
+</blockquote>
+
+<h3 id="12-content-security-policy-csp">1.2. Content security policy (CSP)</h3>
+
+<p>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks.
+These attacks are used for everything from data theft to site defacement or distribution of malware.</p>
+
+<p>To enable CSP, configure your web server to return an appropriate <code class="highlighter-rouge">Content-Security-Policy</code> HTTP header.
+You can find a very detailed manual how to enable CSP on the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP" target="blank" rel="noopener noreferrer">MDN website</a>.
+To check if your CSP is valid you can use the <a href="https://csp-evaluator.withgoogle.com" target="blank" rel="noopener noreferrer">CSP evaluator from google</a>.</p>
+
+<h3 id="13-use-the-offline-template-compiler-aka-aot-compiler">1.3. Use the offline template compiler (aka AOT-compiler)</h3>
+
+<p><em>Angular templates</em> are the same as executable code: HTML, attributes, and binding expressions (but not the values bound) in templates are trusted to be safe.
+This means that if an attacker can control a value that is being parsed by the template we have a security leak.
+Never generate template source code by concatenating user input and templates.
+To prevent these vulnerabilities, use the <strong>offline template compiler</strong>, also known as <em>template injection</em>.</p>
+
+<p>If you use the Angular CLI, it’s easy to enable AOT:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ng build <span class="nt">--aot</span>
+ng serve <span class="nt">--aot</span></code></pre></figure>
+
+<p>More info can be found on the <a href="https://angular.io/guide/aot-compiler" target="blank" rel="noopener noreferrer">Angular Guide website</a>.</p>
+
+<h3 id="14-avoid-direct-use-of-the-dom-apis">1.4. Avoid direct use of the DOM APIs</h3>
+
+<p>The built-in browser DOM APIs don’t automatically protect you from security vulnerabilities.
+For example, <em>document</em>, the node available through <em>ElementRef</em>, and many <em>third-party APIs</em> contain unsafe methods.
+Avoid interacting with the DOM directly and instead use <strong>Angular templates</strong> where possible.</p>
+
+<h3 id="15-server-side-xss-protection">1.5. Server-side XSS protection</h3>
+
+<p>Injecting template code into an Angular application is the same as injecting executable code into the application.
+So, validate all data on server-side code and escape appropriately to prevent XSS vulnerabilities on the server.
+Also, Angular recommends <em>not to generate Angular templates on the server side</em> using a templating language.</p>
+
+<h2 id="2-http-level-vulnerabilities">2. HTTP-level vulnerabilities</h2>
+
+<p>Angular has built-in support to help prevent two common HTTP vulnerabilities, cross-site request forgery (CSRF or XSRF) and cross-site script inclusion (XSSI).
+Both of these must be mitigated primarily on the server side, but Angular provides helpers to make integration on the client side easier.</p>
+
+<h3 id="21-cross-site-request-forgery-xsrf">2.1. Cross-site request forgery (XSRF)</h3>
+
+<p>Cross-site request forgery (also known as <em>one-click attack</em> or <em>session riding</em>) is abbreviated as CSRF or XSRF.
+It is a type of malicious exploit of a website where unauthorized commands are transmitted from a user that the web application trusts.</p>
+
+<p>In a common anti-XSRF technique, the application server sends a randomly generated authentication token in a cookie.
+The client code reads the cookie and adds a custom request header with the token in all subsequent requests.
+The server compares the received cookie value to the request header value and rejects the request if the values are missing or don’t match.</p>
+
+<p>This technique is effective because all browsers implement the same origin policy.
+Only code from the website on which cookies are set can read the cookies from that site and set custom headers on requests to that site.
+That means only your application can read this cookie token and set the custom header.</p>
+
+<p>Angular HttpClient provides built-in support for doing checks on the client side. Read further details on <a href="https://angular.io/guide/http#security-xsrf-protection" target="blank" rel="noopener noreferrer">Angular XSRF Support</a>.</p>
+
+<h3 id="22-cross-site-script-inclusion-xssi">2.2. Cross-site script inclusion (XSSI)</h3>
+
+<p>Cross-site script inclusion (also known as <strong>JSON vulnerability</strong>) can allow an attacker’s website to read data from a JSON API.
+The attack works on older browsers by overriding native JavaScript object constructors, and then including an API URL using a <script> tag.
+This attack is only successful if the returned JSON is executable as JavaScript.</script></p>
+
+<p>Servers can prevent an attack by prefixing all JSON responses to make them non-executable, by convention, using the well-known string <code class="highlighter-rouge">")]}',\n"</code>.
+Angular’s HttpClient library recognizes this convention and automatically strips the string <code class="highlighter-rouge">")]}',\n"</code> from all responses before further parsing.</p>
+
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/angular/2018/03/30/angular-security-best-practices.html&title=Angular Security Best Practices&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Angular Security Best Practices&url=https://ordina-jworks.github.io/angular/2018/03/30/angular-security-best-practices.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/angular/2018/03/30/angular-security-best-practices.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/frederic-ghijselinck/" class="image spotlight-image">
+            <img src="/img/author/frederic-ghijselinck.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Frédéric is a Senior developer at Ordina Belgium, focussing on Frontend Development with technologies as Angular and TypeScript. Next to frontend development, he continues to maintain his backend development skills using the Spring technology stack. Frédéric is also Competence Lead for the JavaScript Competence Center where he gives workshops, talks and courses about the newest technologies.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/angular-security-best-practices.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/angular/2018/03/30/angular-security-best-practices.html";
+        this.page.identifier = "/angular/2018/03/30/angular-security-best-practices.html";
+        this.page.title = "Angular Security Best Practices";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
