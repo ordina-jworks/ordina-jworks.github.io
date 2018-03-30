@@ -330,8 +330,8 @@ That means only your application can read this cookie token and set the custom h
 <h3 id="22-cross-site-script-inclusion-xssi">2.2. Cross-site script inclusion (XSSI)</h3>
 
 <p>Cross-site script inclusion (also known as <strong>JSON vulnerability</strong>) can allow an attacker’s website to read data from a JSON API.
-The attack works on older browsers by overriding native JavaScript object constructors, and then including an API URL using a <script> tag.
-This attack is only successful if the returned JSON is executable as JavaScript.</script></p>
+The attack works on older browsers by overriding native JavaScript object constructors, and then including an API URL using a <code class="highlighter-rouge">&lt;script&gt;</code> tag.
+This attack is only successful if the returned JSON is executable as JavaScript.</p>
 
 <p>Servers can prevent an attack by prefixing all JSON responses to make them non-executable, by convention, using the well-known string <code class="highlighter-rouge">")]}',\n"</code>.
 Angular’s HttpClient library recognizes this convention and automatically strips the string <code class="highlighter-rouge">")]}',\n"</code> from all responses before further parsing.</p>
