@@ -1,6 +1,6 @@
-# Ordina JWorks Tech Blog
+# Ordina SAP Tech Blog
 
-The JWorks Tech Blog is powered by [Jekyll](https://jekyllrb.com).
+The SAP Tech Blog is powered by [Jekyll](https://jekyllrb.com).
 The blog posts are written in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) and are converted to HTML by Jekyll.
 Most code editors and IDEs have support for Markdown files.
 Some of them, such as IntelliJ, offer a preview view to see the result as you type.
@@ -105,3 +105,7 @@ need to go in the `css` directory.
 These files need to begin with two lines of `---` for Jekyll to pick them up for later compilation.
 
 You can read more on Jekyll and SASS integration [here](https://jekyllrb.com/docs/assets/).
+
+## local server
+
+`bundle exec jeckyll server`
