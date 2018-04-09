@@ -173,7 +173,7 @@ To keep it simple for this first project, we'll simply make a program that logs 
 
 `helloworld.js`<br>
 
-```JavaScript
+```javascript
 // process is a global variable that refers to the current node process you are running,
 // it has a stdout property that has a write method which we can call to output data.
 process.stdout.write('hello\n'); // the \n creates a new line in the terminal
@@ -186,7 +186,7 @@ console.log('world');
 
 An example of non-blocking code
 
-```JavaScript
+```javascript
 // after 2 secs, print world
 setTimeout( ()=> { console.log('world'); }, 2000);
 
@@ -216,7 +216,7 @@ to the console. Then we'll import it in another file and call the function from 
 
 `log.js`
 
- ```JavaScript
+ ```javascript
 // Create our custom hello function
 const hello = function(name){ console.log(`Hello ${name}`); } 
 // export this functionality 
@@ -225,7 +225,7 @@ module.exports = log;
 
 `hello.js`
 
-```JavaScript
+```javascript
 // the way we import another module into our file is by using require(), require is a global module for node
 // when requiring local modules (not the ones we install with npm), we give it the path relative to the current file,
 // no need for extensions, since node looks for a .js file
@@ -255,7 +255,7 @@ For this program, we'll use node's `http` module.
 
 `hello-server.js`
 
-```JavaScript
+```javascript
 // import the http module (docs: https://nodejs.org/api/http.html)
 const http = require('http');
 
@@ -281,7 +281,7 @@ The event emitter allows us to emit and listen for named events,
 
 It's real simple, let us show you with an example:
 
-```JavaScript
+```javascript
 // first we require the 'events' module that comes with node
 const events = require('events');
 // next we'll create a new instance of the events module's event emitter
@@ -314,7 +314,7 @@ Let's see it in action with an example:
 
 `streams.js`
 
-```JavaScript
+```javascript
 const http = require('http');
 
 const server = http.createServer((request, response)=> {
@@ -359,7 +359,7 @@ server.listen(3000, ()=>{
 A single instance of Node.js runs in a single thread.
 To take advantage of multi-core systems, the user will sometimes want to launch a cluster of Node.js processes to handle the load.
 
-```JavaScript
+```javascript
 // require the cluster module
 const cluster = require('cluster');
 // we'll set up a http server on all cpus and load balance between them
