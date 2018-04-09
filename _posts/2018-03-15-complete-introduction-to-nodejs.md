@@ -399,7 +399,7 @@ if (cluster.isMaster) {
 More information on clusters on [https://nodejs.org/api/cluster.html](https://nodejs.org/api/cluster.html)
 
 
-Finally
+## Finally
 So that's it for this blogpost. I hope it will be useful for you.
 If you have any suggestions or feel like I've forgotten to mention some important stuff, feel free to comment below.
 I'm currently working on some follow-up tutorials:
