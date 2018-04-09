@@ -238,7 +238,7 @@ log('Mike'); 
 
 To import modules that you've installed with npm, don't specify a path, but give it the package's name.
 For example:
-```
+```javascript
 // this imports the express module from the express package if we installed it`
 require('express');
 ```
