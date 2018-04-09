@@ -3,28 +3,28 @@ layout: post
 authors: [michael_vervloet]
 title: "Complete Introduction to NodeJs"
 image: /img/complete-introduction-node.png
-tags: [NodeJs, tutorial, javascript, node]
+tags: [NodeJs, tutorial, JavaScript, node]
 category: NodeJs
 comments: true
 ---
 
 ## What Is node
-NodeJs is a program that lets you run javascript code on your machine without the need of a browser.
-Underneath the cover of node is the V8 JavaScript runtime which is the engine that allows your browser to run javascript code.
+NodeJs is a program that lets you run JavaScript code on your machine without the need of a browser.
+Underneath the cover of node is the V8 JavaScript runtime which is the engine that allows your browser to run JavaScript code.
 On top of that node adds some extra functionality to create server side applications
-(for example 'fs' to interact with the file system, 'http' or 'https' to send and receive http calls, 'net' for tcp streams, and many more).
+(for example `fs` to interact with the file system, `http` or `https` to send and receive http calls, `net` for tcp streams, and many more).
 
 ## Use cases:
 **Real time applications (chat, stocks, IoT)**<br>
 The event based nature of NodeJs and 'keep-alive' connections makes it ideal for real time applications, whenever an event occurs,
-for example a chat message being received or a stock price being updated, it can emit an event on it's connected sockets to update the clients chat screen or stocks chart.
+for example a chat message being received or a stock price being updated, it can emit an event on it's connected sockets to update the client's chat screen or stocks chart.
 
-**REST Api's**<br>
-This will be a topic on it's own, but with frameworks built on top of NodeJs like Express or Nest it is really easy to get a REST api up and running in no time at all.
+**REST APIs**<br>
+This will be a topic on it's own, but with frameworks built on top of NodeJs like Express or Nest it is really easy to get a REST API up and running in no time at all.
 
 **Serverless:**<br>
 NodeJs is supported with almost any serverless provider (Amazon Lambda, Azure functions, Google Cloud functions, …).
-Where you can focus on your code and business logic in stead of maintaining and setting up complicated server architectures.
+So developers can focus on your code and business logic in stead of maintaining and setting up complicated server architectures.
 
 **File uploading:** <br>
 When writing applications that depend a lot on network access and accessing files on the disk we have to keep an eye on how the data is being transferred back and forward.
@@ -102,7 +102,7 @@ Whenever a 'Promise' of reading a file resolves, it's callback ( in case of our 
 <img src="/img/non-blocking.png" alt="Blocking vs Non-blocking" width="100%">
 
 ## V8 Runtime Engine
-Node uses google chrome's V8 runtime engine to run javascript code, we've shown this video in one of our previous blogposts before,
+Node uses google chrome's V8 runtime engine to run JavaScript code, we've shown this video in one of our previous blogposts before,
 but since it might be useful to know how it works under the hood I'll add it here once again. When it comes to node development there are some differences, since we don't get events from the DOM.
 In node we can get them from the NodeJs event emitter but the way it works stays the same.
 It has some useful tips like avoiding to block the call stack.
@@ -153,7 +153,7 @@ For a full overview of npm commands and further documentation of npm, check out 
 
 ## Node REPL
 Once you have installed node you can open a terminal window and run node.
-This will return a node REPL where you can run javascript code.  for example<br>
+This will return a node REPL where you can run JavaScript code.  for example<br>
 `function add(a, b){ return a + b } <enter>`<br>
 `add(4, 7) <enter>`<br>
 `// Returns 11`<br>
@@ -171,7 +171,7 @@ To keep it simple for this first project, we'll simply make a program that logs 
 
 `helloworld.js`<br>
 
-```javascript
+```JavaScript
 // process is a global variable that refers to the current node process you are running,
 // it has a stdout property that has a write method which we can call to output data.
 process.stdout.write('hello\n'); // the \n creates a new line in the terminal
@@ -184,7 +184,7 @@ console.log('world');
 
 An example of non blocking code
 
-```javascript
+```JavaScript
 // after 2 secs, print world
 setTimeout( ()=> { console.log('world'); }, 2000);
 
@@ -214,7 +214,7 @@ to the console. Then we'll import it in another file and call the function from 
 
 `log.js`
 
- ```javascript
+ ```JavaScript
 // Create our custom hello function
 const hello = function(name){ console.log(`Hello ${name}`); } 
 // export this functionality 
@@ -223,7 +223,7 @@ module.exports = log;
 
 `hello.js`
 
-```javascript
+```JavaScript
 // the way we import another module into our file is by using require(), require is a global module for node
 // when requiring local modules (not the ones we install with npm), we give it the path relative to the current file,
 // no need for extensions, since node looks for a .js file
@@ -253,7 +253,7 @@ For this program, we'll use node's http module.
 
 `hello-server.js`
 
-```javascript
+```JavaScript
 // import the http module (docs: https://nodejs.org/api/http.html)
 const http = require('http');
 
@@ -279,7 +279,7 @@ The event emitter allows us to emit and listen for named events,
 
 It's real simple, let's show you with an example
 
-```javascript
+```JavaScript
 // first we require the 'events' module that comes with node
 const events = require('events');
 // next we'll create a new instance of the events module's event emitter
@@ -304,7 +304,7 @@ eventEmitter.emit('hello'); // logs 'Hello world'
 ```
 
 ## Streams
-There's many ways that you can utilise readable/writable streams with NodeJs, for example the file system to read/write to files.
+There are many ways that you can utilise readable/writable streams with NodeJs, for example the file system to read/write to files.
 But to give you a simple example, let's reuse our code from our hello server.
 Since the request object is a readable stream and the response object is a write-able stream,
 we can create an application that pipes the data from the request, back to the response.
@@ -312,7 +312,7 @@ Let's see it in action with an example:
 
 `streams.js`
 
-```javascript
+```JavaScript
 const http = require('http');
 
 const server = http.createServer((request, response)=> {
@@ -357,17 +357,17 @@ server.listen(3000, ()=>{
 A single instance of Node.js runs in a single thread.
 To take advantage of multi-core systems, the user will sometimes want to launch a cluster of Node.js processes to handle the load.
 
-```javascript
+```JavaScript
 // require the cluster module
 const cluster = require('cluster');
-// we'll set up a http server on all cpu's and load balance between them
+// we'll set up a http server on all cpus and load balance between them
 const http = require('http');
-// we need to know the amount of cpu's our machine has available,
+// we need to know the amount of cpus our machine has available,
 // so we do this with the 'os' module's cpus method which returns an array of cpus, to get the amount we get the array's length
 const numCPUs = require('os').cpus().length;
 
 if (cluster.isMaster) {
-  // the cluster will first start up a master process that forks itself onto the other cpu's and handles the load balancing between these workers
+  // the cluster will first start up a master process that forks itself onto the other cpus and handles the load balancing between these workers
   console.log(`Master ${process.pid} is running`);
 
   // fork this process to a worker for every cpu that is left (not the < and not <=)
@@ -398,8 +398,8 @@ More information on clusters on [https://nodejs.org/api/cluster.html](https://no
 Finally
 So that's it for this blogpost. I hope it will be useful for you.
 If you have any suggestions or feel like I've forgotten to mention some important stuff, feel free to comment below.
-I'm currently working on some follow up tutorials:
-- Building REST api's with NestJs (TypeScript),
+I'm currently working on some follow-up tutorials:
+- Building REST APIs with NestJs (TypeScript),
 - Microservices with NodeJs (Moleculer),
 - Serverless with NodeJs
 
