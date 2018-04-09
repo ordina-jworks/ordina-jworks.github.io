@@ -133,7 +133,7 @@ NPM or 'Node Package Manager' is an online registry for node modules. When you'v
 Whenever you've implemented some common logic that can be reused across projects, it is a common practice in the world of JavaScript development to make it Open Source and share it with other developers who might want to implement the same logic.
 This way they don't have to write it themselves which saves times and headaches. Just like using other people's modules might do for you.
 
-Here are som useful npm commands to get you started:
+Here are some useful npm commands to get you started:
 
 `npm init ` <br>Start a new project. This creates a `package.json` file that keeps track of the installed modules (if you save them).
 
