@@ -291,15 +291,15 @@ const eventEmitter = new events.EventEmitter();
 
 // we'll tell the event emitter that we are going to listen for the 'hello' event
 // and give it a callback function that gets called when the event is triggered.
-eventEmitter.on('hello', (data)=>{
-    // as you can see, our callback function accepts a data parameter,
-    // we'll check if the event was emitted with data and has a 'name' property. If so we log 'Hello <name>'
-    if(data.name){
-        console.log('Hello ${data.name}');
-    } else {
-	    // if no data was passed to the callback, we'll simply log 'Hello world'
-	    console.log('Hello world');
-    }
+eventEmitter.on('hello', (data) => {
+  // as you can see, our callback function accepts a data parameter,
+  // we'll check if the event was emitted with data and has a 'name' property. If so we log 'Hello name'
+  if (data != null && data.name) {
+    console.log(`Hello ${data.name}`);
+  } else {
+    // if no data was passed to the callback, we'll simply log 'Hello world'
+    console.log('Hello world');
+  }
 });
 
 // now that we are listening for the 'hello' event, we'll emit the event, once with data, and once without data.
