@@ -267,7 +267,9 @@ const server = http.createServer((req, res)=> {
 
 // we tell the server to start listening on port 3000
 server.listen(3000, ()=>{
-    // once the server has successfully started listening (if the port isn't already in use) on port 3000, we'll log this in the console
+    // once the server has successfully started listening on port 3000
+    // (if the port isn't already in use)
+    // we'll log this to the console
     console.log('Server running at localhost:3000/');
 });
 
