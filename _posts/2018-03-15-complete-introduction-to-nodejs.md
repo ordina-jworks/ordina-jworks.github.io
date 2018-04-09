@@ -243,7 +243,7 @@ For example:
 require('express');
 ```
 
-To learn more about how to use `require` go check out this useful url: [https://medium.freecodecamp.org/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8](https://medium.freecodecamp.org/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8){: target="blank" rel="noopener noreferrer" }
+To learn more about how to use `require` go check out this useful url: [Requiring Modules](https://medium.freecodecamp.org/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8){: target="blank" rel="noopener noreferrer" }
 
 ## Hello Server
 Now that we know how to require other modules, lets create a basic server application.
