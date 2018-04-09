@@ -9,7 +9,7 @@ comments: true
 ---
 
 ## What Is node
-NodeJs is a program that lets you run JavaScript code on your machine without the need of a browser.
+NodeJs is a program that let's you run JavaScript code on your machine without the need of a browser.
 Underneath the surface of node is the V8 JavaScript runtime which is the engine that allows your browser to run JavaScript code.
 On top of that node adds some extra functionality to create server side applications
 (for example `fs` to interact with the file system, `http` or `https` to send and receive http calls, `net` for tcp streams, and many more).
@@ -17,10 +17,10 @@ On top of that node adds some extra functionality to create server side applicat
 ## Use cases:
 **Real time applications (chat, stocks, IoT)**<br>
 The event based nature of NodeJs and 'keep-alive' connections makes it ideal for real time applications, whenever an event occurs,
-for example a chat message being received or a stock price being updated, it can emit an event on it's connected sockets to update the client's chat screen or stocks chart.
+for example a chat message being received or a stock price being updated, it can emit an event on its connected sockets to update the client's chat screen or stocks chart.
 
 **REST APIs**<br>
-This will be a topic on it's own, but with frameworks built on top of NodeJs like Express or Nest it is really easy to get a REST API up and running in no time at all.
+This will be a topic on its own, but with frameworks built on top of NodeJs like Express or Nest it is really easy to get a REST API up and running in no time at all.
 
 **Serverless:**<br>
 NodeJs is supported with almost any serverless provider (Amazon Lambda, Azure functions, Google Cloud functions, ...).
@@ -28,9 +28,9 @@ So developers can focus on your code and business logic in stead of maintaining 
 
 **File uploading:** <br>
 When writing applications that depend a lot on network access and accessing files on the disk we have to keep an eye on how the data is being transferred back and forward.
-For ultimate efficiency, especially when dealing with large sets of data. We need to be able to access that data piece by piece.
+For ultimate efficiency, especially when dealing with large sets of data, we need to be able to access that data piece by piece.
 When that happens, we can start manipulating that data as soon as it arrives at the server.
-In stead of holding it in memory until all chunks have arrived and writing it to disk, node can for example create a writeable stream on the disk and write the chunks directly to the files without keeping them in memory and without blocking the entire application.
+Instead of holding it in memory until all chunks have arrived and writing it to disk, node can for example create a writable stream on the disk and write the chunks directly to the files without keeping them in memory and without blocking the entire application.
 This way it can also receive multiple files at the same time.
 
 ## Benefits of Javascript across the stack
@@ -38,7 +38,7 @@ Not only does it make development quite a bit faster and easier by having a larg
 It also lowers the barriers between frontend and backend developers by using the same programming language over the entire stack.
 So more efficiency and faster, leaner development which in turn means lower development costs.
 
-Also worth noting is that JavaScript currently is THE most popular programming language [According to StackOverflow](https://insights.stackoverflow.com/survey/2018/?utm_source=Iterable&utm_medium=email&utm_campaign=dev-survey-2018-promotion#most-popular-technologies){: target="blank" rel="noopener noreferrer" },
+Also worth noting is that JavaScript is currently THE most popular programming language [According to StackOverflow](https://insights.stackoverflow.com/survey/2018/?utm_source=Iterable&utm_medium=email&utm_campaign=dev-survey-2018-promotion#most-popular-technologies){: target="blank" rel="noopener noreferrer" },
 so more developers will be able to easily understand and contribute to the application if needed.
 Another important criteria: when it comes to cloud hosting,
 RAM is probably the main influencing factor when it comes to pricing and since node is designed and encourages developers to write programs to use as less memory as possible it is often a cheaper alternative.
@@ -46,12 +46,12 @@ RAM is probably the main influencing factor when it comes to pricing and since n
 ## Multithreading
 This is usually a big issue/talking point when it comes to node.
 
-In short: each NodeJs process is single threaded. if you want multiple threads,
-you have to have multiple processes as well.
-You could say that because of that, NodeJs encourages you to implement microservices when dealing with these larger and complicated applications,
-which is a good thing since it makes not only your entire application but also each process individually very scalable.
+In short: each NodeJs process is single threaded. 
+If you want multiple threads, you have to have multiple processes as well.
+You could say that because of that, NodeJs encourages you to implement microservices when dealing with these larger and complicated applications.
+Which is a good thing since it makes not only your entire application but also each process individually very scalable.
 The downside is that this might introduce some added complexity to your application.
-But with Node's lively modular ecosystem (npm) you can imagine there are already solutions to make setting this up a lot easier, (I.e. moleculer, Seneca, ...).
+But with Node's lively modular ecosystem (npm) you can imagine there are already solutions to make setting this up a lot easier, (I.e. Moleculer, Seneca, ...).
 
 An important characteristic of microservices is "shared nothing".
 Node has a shared-nothing model:
@@ -67,8 +67,8 @@ The advantages of SN architecture versus a central entity that controls the netw
 (src: [Wikipedia](https://en.wikipedia.org/wiki/Shared-nothing_architecture){: target="blank" rel="noopener noreferrer" })
 
 Additionally, node has some other features to make use of multiple cores like for example the cluster:
-A single instance of NodeJs runs in a single thread. To take advantage of multi-core systems,
-the user will sometimes want to launch a cluster of NodeJs processes to handle the load.
+A single instance of NodeJs runs in a single thread. 
+To take advantage of multi-core systems, the user will sometimes want to launch a cluster of NodeJs processes to handle the load.
 The cluster module allows easy creation of child processes that all share server ports and automatically load balances across these processes.
 
 ## Blocking vs. Non-Blocking
@@ -83,7 +83,7 @@ To demonstrate how this works, I'll give you an example in pseudo code for readi
 ```
 
 **Non-Blocking:**
- ```
+```
     read file from filesystem
         Whenever we're complete print contents (callback)
     do something else
@@ -91,22 +91,23 @@ To demonstrate how this works, I'll give you an example in pseudo code for readi
 
 **Difference:**<br>
 When reading two files, the blocking code starts reading the file, in case of a large file let's say this takes 5 seconds.
-After the file has been read, it logs its content. Then starts reading the second file,
-which again takes 5 or so seconds and the content gets logged.
+After the file has been read, it logs its content. 
+Then starts reading the second file, which again takes 5 or so seconds and the content gets logged.
 
 In the non-blocking code, we tell the processor to start reading the file, and when it's done, to "let us know" (resolve promise) so that we can do more stuff with it.
 At the same time since there is another file to be read, we start reading the second file and again tell the processor to notify us when it is ready so that we can do stuff with it.
-Whenever a 'Promise' of reading a file resolves, it's callback (in case of our pseudo code: `print contents`) gets executed.
-(This also means that when file 2 takes less time to be read, it will be resolved and printed first, something you might want to keep in mind).
+Whenever a 'Promise' of reading a file resolves, its callback (in case of our pseudo code: `print contents`) gets executed.
+(this also means that, when file 2 takes less time to be read, it will be resolved and printed first which is something you might want to keep in mind).
 
 <img src="/img/non-blocking.png" alt="Blocking vs Non-blocking" width="100%">
 
 ## V8 Runtime Engine
-Node uses google chrome's V8 runtime engine to run JavaScript code, we've shown this video in one of our previous blogposts before,
-but since it might be useful to know how it works under the hood I'll add it here once again. When it comes to node development there are some differences, since we don't get events from the DOM.
+Node uses google chrome's V8 runtime engine to run JavaScript code, we've shown this video in one of our previous blog posts before,
+but since it might be useful to know how it works under the hood I'll add it here once again.
+When it comes to node development there are some differences, since we don't get events from the DOM.
 In node we can get them from the NodeJs event emitter but the way it works stays the same.
 It has some useful tips like avoiding to block the call stack.
-<iframe src="https://player.vimeo.com/video/96425312" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<iframe src="https://player.vimeo.com/video/96425312" width="100%" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 [Philip Roberts: Help, I&#039;m stuck in an event-loop.](https://vimeo.com/96425312){: target="blank" rel="noopener noreferrer" }
 
@@ -129,9 +130,11 @@ To avoid having to write the same common logic over and over again, node's great
 You can put common logic in a node module that you can reuse over and over again in different components of your projects or even reuse them in other projects.
 
 ## NPM
-NPM or 'Node Package Manager' is an online registry for node modules. When you've written a useful module, why not share it with the world.
+NPM or 'Node Package Manager' is an online registry for node modules. 
+When you've written a useful module, why not share it with the world.
 Whenever you've implemented some common logic that can be reused across projects, it is a common practice in the world of JavaScript development to make it Open Source and share it with other developers who might want to implement the same logic.
-This way they don't have to write it themselves which saves times and headaches. Just like using other people's modules might do for you.
+This way they don't have to write it themselves which saves times and headaches.
+Just like using other people's modules might do for you.
 
 Here are some useful npm commands to get you started:
 
@@ -143,7 +146,7 @@ The downloaded code will be saved in the `node_modules` directory. (Unless globa
 
 `npm install <module_name> —save` <br> installs and also updates your project's dependencies in `package.json`
 
-`npm install <module_name> —save-dev` <br> installs and update's your project's development dependencies in `package.json` (dependencies that you don't need at runtime, I.e. testing frameworks like jasmin or karma, build frameworks like gulp or webpack, ...)
+`npm install <module_name> —save-dev` <br> installs and updates your project's development dependencies in `package.json` (dependencies that you don't need at runtime, i.e. testing frameworks like Jasmine or Karma, build frameworks like gulp or webpack, ...)
 
 `npm install <module_name> --global` <br> installs the package globally, packages with command line interfaces like gulp-cli, angular-cli are installed globally.
 
@@ -166,10 +169,10 @@ Using the REPL can be useful sometimes, but when we want to make some persistent
 we might want to write our code in a file and run the content of that file.
 
 In this example we'll create a `helloworld.js` file.
-Create it in your favourite IDE or run `touch helloworld.js` and open it in your IDE or vim/nano/...
+Create it in your favourite IDE or run `touch helloworld.js` and open it in your IDE or Vim/nano/...
 
 To keep it simple for this first project, we'll simply make a program that logs 'hello' and 'world' in your terminal,
- we'll log them separately just to show you that there's different ways to log data with node.
+we'll log them separately just to show you that there's different ways to log data with node.
 
 `helloworld.js`<br>
 
@@ -197,22 +200,22 @@ console.log('hello\n');
 When you've watched the video about how the V8 Engine works, you'll know why 'hello' gets logged first and 'world' second:
 What happens is:
 - `setTimeout` is added to the call stack,
-- `setTimeout` has a timer and a callback, this fire's up  V8's timer Web API,
-- now that the Web API is taking care of the setTimeout, it get's removed from the call stack,
-- `console.log` is added to the call stack, it logs 'hello', and removes console.log from the call stack,
+- `setTimeout` has a timer and a callback, this fires up  V8's timer Web API,
+- now that the Web API is taking care of the `setTimeout`, it gets removed from the call stack,
+- `console.log` is added to the call stack, it logs 'hello', and removes `console.log` from the call stack,
 - once the timer has completed, it pushes the callback to the task queue,
 - since there are no more function calls on the call stack, the event loop adds the callback to the call stack
 - 'world' is printed.
 
-There's no need for an additional thread to pause the program for 2 seconds and after that log 'world',
-the V8 Engine handles this for us just like it does with any other async functionality in the browser.
-So this is a very simple example of how non-blocking code works in NodeJs, the timeout didn't block our code, 'hello' got logged right away.
+There's no need for an additional thread to pause the program for 2 seconds and after that log 'world'.
+The V8 Engine handles this for us just like it does with any other async functionality in the browser.
+So this is a very simple example of how non-blocking code works in NodeJs, the timeout did not block our code, 'hello' got logged right away.
 
 ## Hello Module
 Now lets give you an example how to create a node module (a very simple and not very useful one) but just to give you an idea of how you can export your code and use it in other files.
 
-We're going to create a module that has a log function which takes a parameter (name) and logs 'hello <name>'
-to the console. Then we'll import it in another file and call the function from there.
+We're going to create a module that has a log function which takes a parameter (name) and logs 'hello <name>' to the console.
+Then we'll import it in another file and call the function from there.
 
 `log.js`
 
@@ -246,10 +249,10 @@ require('express');
 To learn more about how to use `require` go check out this useful url: [Requiring Modules](https://medium.freecodecamp.org/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8){: target="blank" rel="noopener noreferrer" }
 
 ## Hello Server
-Now that we know how to require other modules, lets create a basic server application.
- We're not going to install any server frameworks (like Express) yet, instead we'll require a module that comes with node.
+Now that we know how to require other modules, let's create a basic server application.
+We're not going to install any server frameworks (like Express) yet, instead we'll require a module that comes with node.
 Node has some built-in modules that you can use like `http` (http server), `https`, `fs` (file system), `net` (tcp sockets), ... <br>
-( a list can be found here:[https://www.w3schools.com/nodejs/ref_modules.asp](https://www.w3schools.com/nodejs/ref_modules.asp){: target="blank" rel="noopener noreferrer" } )
+(a list can be found here:[https://www.w3schools.com/nodejs/ref_modules.asp](https://www.w3schools.com/nodejs/ref_modules.asp){: target="blank" rel="noopener noreferrer" })
 
 For this program, we'll use node's `http` module.
 
@@ -279,7 +282,7 @@ You can now open our browser, visit [localhost:3000](localhost:3000){: target="b
 ## Event Emitter
 Another great feature that comes with NodeJs is the event emitter.
 The event emitter allows us to emit and listen for named events,
- whenever the EventEmitter emits an event all the functions attached to the named event are called synchronously.
+whenever the EventEmitter emits an event all the functions attached to the named event are called synchronously.
 
 It's real simple, let us show you with an example:
 
@@ -310,7 +313,7 @@ eventEmitter.emit('hello'); // logs 'Hello world'
 ## Streams
 There are many ways that you can utilise readable/writable streams with NodeJs, for example the file system to read/write to files.
 But to give you a simple example, let's reuse our code from our hello server.
-Since the request object is a readable stream and the response object is a write-able stream,
+Since the request object is a readable stream and the response object is a writable stream,
 we can create an application that pipes the data from the request, back to the response.
 Let's see it in action with an example:
 
@@ -384,8 +387,8 @@ if (cluster.isMaster) {
     console.log(`worker ${worker.process.pid} died`);
   });
 } else {
-  // if the cluster is not master, it (in this case) sets up our http server,
-  // Workers can share any TCP connection
+  // if the cluster is not master, it (in this case) sets up our http server
+  // workers can share any TCP connection
 
   http.createServer((req, res) => {
     res.writeHead(200);
@@ -400,7 +403,7 @@ More information on clusters on [https://nodejs.org/api/cluster.html](https://no
 
 
 ## Finally
-So that's it for this blogpost. I hope it will be useful for you.
+So that's it for this blog post. I hope it will be useful for you.
 If you have any suggestions or feel like I've forgotten to mention some important stuff, feel free to comment below.
 I'm currently working on some follow-up tutorials:
 - Building REST APIs with NestJs (TypeScript),
