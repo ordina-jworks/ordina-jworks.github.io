@@ -534,7 +534,7 @@ To take advantage of multi-core systems, the user will sometimes want to launch 
   <span class="c1">// the cluster will first start up a master process that forks itself onto the other cpus and handles the load balancing between these workers</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Master </span><span class="p">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">}</span><span class="s2"> is running`</span><span class="p">);</span>
 
-  <span class="c1">// fork this process to a worker for every cpu that is left (not the &lt; and not &lt;=)</span>
+  <span class="c1">// fork this process to a worker for every cpu that is left (note the &lt; and not &lt;=)</span>
   <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">numCPUs</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">cluster</span><span class="p">.</span><span class="nx">fork</span><span class="p">();</span>
   <span class="p">}</span>
