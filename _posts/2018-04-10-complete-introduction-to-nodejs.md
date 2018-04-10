@@ -223,7 +223,7 @@ Then we'll import it in another file and call the function from there.
 
  ```javascript
 // create our custom hello function
-const hello = function(name){ console.log(`Hello ${name}`); } 
+const log = (name) => { console.log(`Hello ${name}`); } 
 // export this functionality 
 module.exports = log;
 ```
