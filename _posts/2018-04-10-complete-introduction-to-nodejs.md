@@ -379,7 +379,7 @@ if (cluster.isMaster) {
   // the cluster will first start up a master process that forks itself onto the other cpus and handles the load balancing between these workers
   console.log(`Master ${process.pid} is running`);
 
-  // fork this process to a worker for every cpu that is left (not the < and not <=)
+  // fork this process to a worker for every cpu that is left (note the < and not <=)
   for (let i = 0; i < numCPUs; i++) {
     cluster.fork();
   }
