@@ -11,7 +11,7 @@ comments: true
 ## What Is node
 NodeJs is a program that let's you run JavaScript code on your machine without the need of a browser.
 Underneath the surface of node is the V8 JavaScript runtime which is the engine that allows your browser to run JavaScript code.
-On top of that node adds some extra functionality to create server side applications
+On top of that, node adds some extra functionality to create server side applications
 (for example `fs` to interact with the file system, `http` or `https` to send and receive http calls, `net` for tcp streams, and many more).
 
 ## Use cases:
@@ -24,7 +24,7 @@ This will be a topic on its own, but with frameworks built on top of NodeJs like
 
 **Serverless:**<br>
 NodeJs is supported with almost any serverless provider (Amazon Lambda, Azure functions, Google Cloud functions, ...).
-So developers can focus on your code and business logic in stead of maintaining and setting up complicated server architectures.
+So developers can focus on their code and business logic instead of maintaining and setting up complicated server architectures.
 
 **File uploading:** <br>
 When writing applications that depend a lot on network access and accessing files on the disk we have to keep an eye on how the data is being transferred back and forward.
@@ -51,7 +51,7 @@ If you want multiple threads, you have to have multiple processes as well.
 You could say that because of that, NodeJs encourages you to implement microservices when dealing with these larger and complicated applications.
 Which is a good thing since it makes not only your entire application but also each process individually very scalable.
 The downside is that this might introduce some added complexity to your application.
-But with Node's lively modular ecosystem (npm) you can imagine there are already solutions to make setting this up a lot easier, (I.e. Moleculer, Seneca, ...).
+But with Node's lively modular ecosystem (npm) you can imagine there are already solutions to make setting this up a lot easier, (i.e. Moleculer, Seneca, ...).
 
 An important characteristic of microservices is "shared nothing".
 Node has a shared-nothing model:
@@ -67,9 +67,9 @@ The advantages of SN architecture versus a central entity that controls the netw
 (src: [Wikipedia](https://en.wikipedia.org/wiki/Shared-nothing_architecture){: target="blank" rel="noopener noreferrer" })
 
 Additionally, node has some other features to make use of multiple cores like for example the cluster:
-A single instance of NodeJs runs in a single thread. 
+a single instance of NodeJs runs in a single thread. 
 To take advantage of multi-core systems, the user will sometimes want to launch a cluster of NodeJs processes to handle the load.
-The cluster module allows easy creation of child processes that all share server ports and automatically load balances across these processes.
+The cluster module allows easy creation of child processes that share server ports and automatically load balances across these processes.
 
 ## Blocking vs. Non-Blocking
 As we've said before, NodeJs encourages you to take advantage of non-blocking code (like JavaScript promises).
@@ -85,25 +85,26 @@ To demonstrate how this works, I'll give you an example in pseudo code for readi
 **Non-Blocking:**
 ```
     read file from filesystem
-        Whenever we're complete print contents (callback)
+        Whenever we're complete, print contents (callback)
     do something else
 ```
 
 **Difference:**<br>
-When reading two files, the blocking code starts reading the file, in case of a large file let's say this takes 5 seconds.
+When reading two files, the blocking code starts reading the file.
+In case of a large file, let's say this takes 5 seconds.
 After the file has been read, it logs its content. 
-Then starts reading the second file, which again takes 5 or so seconds and the content gets logged.
+Then it starts reading the second file which again takes around 5 seconds and the content gets logged.
 
 In the non-blocking code, we tell the processor to start reading the file, and when it's done, to "let us know" (resolve promise) so that we can do more stuff with it.
 At the same time since there is another file to be read, we start reading the second file and again tell the processor to notify us when it is ready so that we can do stuff with it.
-Whenever a 'Promise' of reading a file resolves, its callback (in case of our pseudo code: `print contents`) gets executed.
-(this also means that, when file 2 takes less time to be read, it will be resolved and printed first which is something you might want to keep in mind).
+Whenever a 'Promise' of reading a file resolves, its callback (in our case, the pseudo code: `print contents`) gets executed
+(this also means that, when file #2 takes less time to be read, it will be resolved and printed first which is something you might want to keep in mind).
 
 <img src="/img/non-blocking.png" alt="Blocking vs Non-blocking" width="100%">
 
 ## V8 Runtime Engine
-Node uses google chrome's V8 runtime engine to run JavaScript code, we've shown this video in one of our previous blog posts before,
-but since it might be useful to know how it works under the hood I'll add it here once again.
+Node uses Google Chrome's V8 runtime engine to run JavaScript code, we've shown this video in one of our previous blog posts before,
+but since it might be useful to know how it works under the hood I've included the video once more.
 When it comes to node development there are some differences, since we don't get events from the DOM.
 In node we can get them from the NodeJs event emitter but the way it works stays the same.
 It has some useful tips like avoiding to block the call stack.
@@ -112,9 +113,8 @@ It has some useful tips like avoiding to block the call stack.
 [Philip Roberts: Help, I&#039;m stuck in an event-loop.](https://vimeo.com/96425312){: target="blank" rel="noopener noreferrer" }
 
 ## Installing NodeJs
-Download the installer for your OS at [https://nodejs.org/en/download/](https://nodejs.org/en/download/){: target="blank" rel="noopener noreferrer" }
-
-or if you are a Mac user and have brew installed you can install it with brew.
+Download the installer for your OS at [https://nodejs.org/en/download/](https://nodejs.org/en/download/){: target="blank" rel="noopener noreferrer" }.
+Or, if you are a Mac user and have brew installed you can install it with brew.
 
 Open a terminal and run the following commands:
 
@@ -159,10 +159,12 @@ For a full overview of npm commands and further documentation of npm, check out 
 ## Node REPL
 Once you have installed node you can open a terminal window and run node.
 This will return a node REPL where you can run JavaScript code.   For example:<br>
-`function add(a, b){ return a + b } <enter>`<br>
-`add(4, 7) <enter>`<br>
-`// Returns 11`<br>
-To terminate the REPL hit ctrl + c
+```
+function add(a, b){ return a + b } <enter>
+add(4, 7) <enter>
+// Returns 11
+```
+To terminate the REPL hit `CTRL + C`.
 
 ## Hello World
 Using the REPL can be useful sometimes, but when we want to make some persistent programs,
@@ -199,20 +201,20 @@ console.log('hello\n');
 
 When you've watched the video about how the V8 Engine works, you'll know why 'hello' gets logged first and 'world' second:
 What happens is:
-- `setTimeout` is added to the call stack,
-- `setTimeout` has a timer and a callback, this fires up  V8's timer Web API,
-- now that the Web API is taking care of the `setTimeout`, it gets removed from the call stack,
-- `console.log` is added to the call stack, it logs 'hello', and removes `console.log` from the call stack,
-- once the timer has completed, it pushes the callback to the task queue,
+- `setTimeout` is added to the call stack
+- `setTimeout` has a timer and a callback, this fires up  V8's timer Web API
+- now that the Web API is taking care of the `setTimeout`, it gets removed from the call stack
+- `console.log` is added to the call stack, it logs 'hello', and removes `console.log` from the call stack
+- once the timer has completed, it pushes the callback to the task queue
 - since there are no more function calls on the call stack, the event loop adds the callback to the call stack
-- 'world' is printed.
+- finally, 'world' is printed.
 
 There's no need for an additional thread to pause the program for 2 seconds and after that log 'world'.
 The V8 Engine handles this for us just like it does with any other async functionality in the browser.
 So this is a very simple example of how non-blocking code works in NodeJs, the timeout did not block our code, 'hello' got logged right away.
 
 ## Hello Module
-Now lets give you an example how to create a node module (a very simple and not very useful one) but just to give you an idea of how you can export your code and use it in other files.
+Now lets give you an example how to create a node module (a very simple and not a very useful one) but just to give you an idea of how you can export your code and use it in other files.
 
 We're going to create a module that has a log function which takes a parameter (name) and logs 'hello <name>' to the console.
 Then we'll import it in another file and call the function from there.
@@ -220,7 +222,7 @@ Then we'll import it in another file and call the function from there.
 `log.js`
 
  ```javascript
-// Create our custom hello function
+// create our custom hello function
 const hello = function(name){ console.log(`Hello ${name}`); } 
 // export this functionality 
 module.exports = log;
@@ -246,13 +248,13 @@ For example:
 require('express');
 ```
 
-To learn more about how to use `require` go check out this useful url: [Requiring Modules](https://medium.freecodecamp.org/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8){: target="blank" rel="noopener noreferrer" }
+To learn more about how to use `require` go check out this useful url: [Requiring Modules](https://medium.freecodecamp.org/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8){: target="blank" rel="noopener noreferrer" }.
 
 ## Hello Server
 Now that we know how to require other modules, let's create a basic server application.
 We're not going to install any server frameworks (like Express) yet, instead we'll require a module that comes with node.
-Node has some built-in modules that you can use like `http` (http server), `https`, `fs` (file system), `net` (tcp sockets), ... <br>
-(a list can be found here:[https://www.w3schools.com/nodejs/ref_modules.asp](https://www.w3schools.com/nodejs/ref_modules.asp){: target="blank" rel="noopener noreferrer" })
+Node has some built-in modules that you can use like `http` (HTTP server), `https`, `fs` (file system), `net` (TCP sockets), ... <br>
+(a list can be found here: [https://www.w3schools.com/nodejs/ref_modules.asp](https://www.w3schools.com/nodejs/ref_modules.asp){: target="blank" rel="noopener noreferrer" })
 
 For this program, we'll use node's `http` module.
 
@@ -293,10 +295,10 @@ const events = require('events');
 const eventEmitter = new events.EventEmitter();
 
 // we'll tell the event emitter that we are going to listen for the 'hello' event
-// and give it a callback function that gets called when the event is triggered.
+// and give it a callback function that gets called when the event is triggered
 eventEmitter.on('hello', (data) => {
   // as you can see, our callback function accepts a data parameter,
-  // we'll check if the event was emitted with data and has a 'name' property. If so we log 'Hello name'
+  // we'll check if the event was emitted with data and has a 'name' property, if so we log 'Hello name'
   if (data != null && data.name) {
     console.log(`Hello ${data.name}`);
   } else {
@@ -305,7 +307,7 @@ eventEmitter.on('hello', (data) => {
   }
 });
 
-// now that we are listening for the 'hello' event, we'll emit the event, once with data, and once without data.
+// now that we are listening for the 'hello' event, we'll emit the event, once with data, and once without data
 eventEmitter.emit('hello', {name: 'Mike'}); // logs 'Hello Mike'
 eventEmitter.emit('hello'); // logs 'Hello world'
 ```
@@ -324,13 +326,13 @@ const http = require('http');
 
 const server = http.createServer((request, response)=> {
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  // the request is a readable stream, this means that the connection isn't immediately closed,
+  // The request is a readable stream, this means that the connection isn't immediately closed,
   // the connection stays open for as long as the client keeps sending data.
   // Streams inherit from the event emitter, so we can listen for the request stream's 'readable' and 'end' events
   // the readable event is triggered whenever the request has sent a chunk of data that can be read.
   req.on('readable', ()=>{
       let chunk = null;
-      // as long as we can read chunks from the request, we write those chunks to the response.
+      // as long as we can read chunks from the request, we write those chunks to the response
       while(null !== (chunk = request.read())){
          // we can keep writing to the writable response stream as long as the connection is open,
          // so we keep piping the readable data to the response
@@ -361,8 +363,8 @@ server.listen(3000, ()=>{
 ```
 
 ## Cluster
-A single instance of Node.js runs in a single thread.
-To take advantage of multi-core systems, the user will sometimes want to launch a cluster of Node.js processes to handle the load.
+A single instance of NodeJs runs in a single thread.
+To take advantage of multi-core systems, the user will sometimes want to launch a cluster of NodeJs processes to handle the load.
 
 ```javascript
 // require the cluster module
@@ -399,11 +401,11 @@ if (cluster.isMaster) {
 }
 
 ```
-More information on clusters on [https://nodejs.org/api/cluster.html](https://nodejs.org/api/cluster.html)
+More information on clusters on [https://nodejs.org/api/cluster.html](https://nodejs.org/api/cluster.html){: target="blank" rel="noopener noreferrer" }
 
 
 ## Finally
-So that's it for this blog post. I hope it will be useful for you.
+So that's it for this blog post. I hope it was useful to you.
 If you have any suggestions or feel like I've forgotten to mention some important stuff, feel free to comment below.
 I'm currently working on some follow-up tutorials:
 - Building REST APIs with NestJs (TypeScript),
