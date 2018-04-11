@@ -158,7 +158,7 @@ For a full overview of npm commands and further documentation of npm, check out 
 
 ## Node REPL
 Once you have installed node you can open a terminal window and run node.
-This will return a node REPL where you can run JavaScript code.   For example:<br>
+This will return a node REPL where you can run JavaScript code. For example:<br>
 ```
 function add(a, b){ return a + b } <enter>
 add(4, 7) <enter>
@@ -223,8 +223,8 @@ Then we'll import it in another file and call the function from there.
 
  ```javascript
 // create our custom hello function
-const log = (name) => { console.log(`Hello ${name}`); } 
-// export this functionality 
+const log = (name) => { console.log(`Hello ${name}`); }
+// export this functionality
 module.exports = log;
 ```
 
@@ -237,7 +237,7 @@ module.exports = log;
 var log = require('./log');
 
 // now that we have our functionality available in the log variable, we can use it
-log('Mike'); 
+log('Mike');
 // logs 'hello Mike' to the console
 ```
 
