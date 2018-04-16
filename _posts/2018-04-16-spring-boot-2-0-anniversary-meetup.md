@@ -175,6 +175,8 @@ You can record values and expose those values with a registry system to the outs
 For all projects that are supported by Micrometer, the metrics are exposed, eg. HikariCP.
 Spring Boot detects that you use HikariCP and automatically exposes those metrics to the different registries.
 
+To get more into detail we recommend you to check out <a href="https://ordina-jworks.github.io/microservices/2017/09/17/monitoring-your-microservices-with-micrometer.html" target="_blank">this post</a>, which covers Micrometer more in-depth.
+
 ## Q&A
 
 ### How should I convince my manager to upgrade?
