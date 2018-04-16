@@ -72,7 +72,6 @@ body.custom-image {
   right: 0;
   display: block;
   height: 800px;
-  filter: blur(5px);
   background-color: _palette(bg);
   z-index: -10;
 }
@@ -148,4 +147,26 @@ body.custom-image {
         display: none;
       }
     }
+}
+
+/**
+ * Tech Radar
+ */
+.wrapper.tech-radar-spotlight {
+  background-color: #eeeeee;
+  border-top: #eeeeee;
+  border-bottom: #eeeeee;
+
+  &:before, &:after {
+    background-image: svg-url('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="-10,100 100,0 100,100" style="fill:#eeeeee;" /></svg>') !important;
+  }
+
+  .tech-radar {
+    width: 100%;
+    height: 100px;
+
+    &.active {
+      height: 2000px; // Height based on detail view with long text
+    }
+  }
 }

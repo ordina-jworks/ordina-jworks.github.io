@@ -55,7 +55,7 @@ $(document).ready(function() {
 
 	var instantiateToC = function() {
 		if (!$('.pin-wrapper').length) {
-			toc.addClass('fixed').pin({
+			toc.addClass('fixed closed').pin({
 				containerSelector: '.post-body .inner',
 				padding: {top: $('header').height(), bottom: 0}
 			});
@@ -107,6 +107,15 @@ $(document).ready(function() {
 		instantiateToC();
 	});
 	
+});
+
+/* ********** */
+/* Tech Radar */
+/* ********** */
+$(document).ready(function() {
+	setTimeout(function() {
+		$('.tech-radar').addClass('active'); // Wait for tech-radar to load. Setting initial height causes the tech radar to be too big.
+	}, 3000);
 });
 
 /* *************** */
@@ -304,8 +313,10 @@ $(document).ready(function(){
 					// $body.addClass('custom-image');
 					// $body.css("background-image", "url('" + imageHref + "')");
 
+					var background_image = imageHref.splice(imageHref.lastIndexOf('.'), 0, '_header');
+
                     $('#header-image').addClass('header-image');
-                    $('#header-image').css("background-image", "url('" + imageHref + "')");
+                    $('#header-image').css("background-image", "url('" + background_image + "')");
 					$('#over').css("display", "block");
 				},
 				leave: function() {
@@ -420,3 +431,7 @@ $(document).ready(function(){
 	});
 
 })(jQuery);
+
+String.prototype.splice = function(idx, rem, str) {
+    return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
+};

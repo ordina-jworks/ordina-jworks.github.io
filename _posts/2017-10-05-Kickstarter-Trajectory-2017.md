@@ -36,7 +36,7 @@ The goal was to get to know the other kickstarters and strengthen our team spiri
 
 <img alt="Teambuilding" src="{{ '/img/kickstarters/2017/teambuilding-kickstarter.jpg' | prepend: site.baseurl }}" class="image fit">
 
-During the last week of the Kickstarter trajectory, the '[JOIN Event](https://jobs.ordina.be/nl-nl/evenementen/2017/join/){:target="_blank"}' was held.
+During the last week of the Kickstarter trajectory, the 'JOIN Event' was held.
 This day was split into two parts: the unit meeting where the whole JWorks unit gathers for a year report where every competence center presents its past and upcoming activities, and the completed and current projects are highlighted. 
 And in the afternoon the JOIN Event itself. 
 There were talks given by members of JWorks as well as by external speakers about upcoming or commonly used technologies such as Docker and Spinnaker, but also about Scrum and User Experience.
