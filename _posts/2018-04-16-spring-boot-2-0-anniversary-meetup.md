@@ -19,15 +19,15 @@ It was kind of a summary of Phil Webb's announcement post <a href="https://sprin
 
 Code says more than a thousand words.
 And like every talk I attended from Stéphane, he started live coding quite quickly.
-We migrated a a Spring Boot 1.x application to Spring Boot 2.0.
+We migrated a Spring Boot 1.x application to Spring Boot 2.0.
 
 The migration process is **very** simple.
 In short, these are the steps you have to follow:
 1. Change Spring Boot parent version number in your ``pom.xml``
-2. Replace changed property keys with the help of the ``spring-boot-properties-migrator`` module
+2. Replace deprecated property keys with the help of the ``spring-boot-properties-migrator`` module
 3. If you're working with passwords, define a ``PasswordEncoder``
 
-> When you use a lot of hookpoints and Spring Boot classes directly, eg. ``SpringBootServletInitializer``, migrating is a slightly more work.
+> When you use a lot of hookpoints and Spring Boot classes directly, eg. ``SpringBootServletInitializer``, migrating is slightly more work.
 The reason behind this is that a lot of the Spring Boot API's have changed.
 
 ## Change version number
@@ -54,14 +54,14 @@ Stéphane released it on the train to the Ordina HQ in Mechelen.
 ### Property key changes
 
 When you upgrade, you will get compilation errors saying there are unknown properties in your properties files.
-Some property keys are changed and won't work anymore.
+Some property keys have been deprecated and won't work anymore.
 
 | Old property  | New property | 
 | ------------- | -------------|
 | ``spring.datasource.initialize`` | ``spring.datasource.initialization-mode`` |
 | ``endpoints.health.path`` | ``management.endpoints.web.path-mapping`` |
 
-All major IDE's, eg. IntelliJ, Netbeans and STS, will give you nice information about the newer property key.
+All major IDEs, eg. IntelliJ, Netbeans and STS, will give you nice information about the newer property key.
 
 ### Properties migrator
 
@@ -84,7 +84,7 @@ It will not tell you the line on which you defined the property, but it will giv
 Some properties cannot be fixed automatically:
 
 * ``The security auto-configuration is no longer customizable``
-* Replacement key 'spring.datasource.initialization-mode' uses an incompatible target type — String was replaced by an enumeration.
+* ``Replacement key 'spring.datasource.initialization-mode' uses an incompatible target type — String was replaced by an enumeration``
 
 ## Spring Security changes
 
@@ -145,13 +145,13 @@ The ``hello.delay`` autocompletion now also shows the unit behind the value, eg.
 DevTools is a feature in Spring Boot which adds nice development features.
 
 Spring created its own small LiveReload server, with a reload function.
-The communication protocol of LiveReload is opensource.
+The communication protocol of LiveReload is open source.
 When you start the app, it also starts the LiveReload server.
 Something in your application watches the classpath for changes.
 If you change a template or a configuration property, Spring Boot will pick up the change, restart the Spring context and notify LiveReload.
 The restart only takes about 1 to 3 seconds, because the JVM is still hot.
 
-Spring Boot Dev Tools is not new feature from Spring Boot 2, but the Spring developers have added some enhancements.
+Spring Boot Dev Tools is not a new feature from Spring Boot 2, but the Spring developers have added some enhancements.
 One of those new features is that you get a **delta** of what changed and what triggered the LiveReload functionality.
 
 ### Micrometer
@@ -221,7 +221,7 @@ Stéphane tweets the day after that the Java 10 build was fixed.
 # The meetup
 
 The Spring Boot 2.0 Anniversary Meetup event started at 18h at the Ordina headquarters in Mechelen.
-Since you cannot learn on an empty stomach, we started off with belgian French fries.
+Since you cannot learn on an empty stomach, we started off with Belgian French fries.
 
 Stéphane's presentation started at 19h.
 He took us on a two hour ride through the Spring Boot landscape.
