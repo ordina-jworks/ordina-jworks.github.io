@@ -61,7 +61,7 @@ Some property keys have been deprecated and won't work anymore.
 | ``spring.datasource.initialize`` | ``spring.datasource.initialization-mode`` |
 | ``endpoints.health.path`` | ``management.endpoints.web.path-mapping`` |
 
-All major IDEs, eg. IntelliJ, Netbeans and STS, will give you nice information about the newer property key.
+All major IDEs, eg. IntelliJ, Netbeans and STS, will inform you about the newer property key.
 
 ### Properties migrator
 
