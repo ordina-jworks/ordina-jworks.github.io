@@ -16,7 +16,7 @@ Using this kind of tests we can verify whether or not we're going to break some 
 With Spring Cloud Contract we could already define groovy contracts which were packaged as a jar and uploaded to your artifact repository like Nexus or Artifactory.
 Great, but that meant that we could only use these contracts between JVM languages.
 
-What if the consumer of our API is a NodeJS application, or an Angular application?
+What if the consumer of our API is a NodeJS microservice, or an Angular application?
 
 # Spring Cloud Contract, meet Pact
 
