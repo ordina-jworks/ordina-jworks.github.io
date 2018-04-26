@@ -11,7 +11,7 @@ comments: true
 # CDCT, or Consumer-Driven Contract Testing
 
 Consumer-Driven contract tests are actually integration tests that are targetting your API, whether it's REST-based or messaging-based.
-They key in this setup is that the tests are driven by contracts that are defined by the consumer of your API instead of the developer that wrote the implementation of a certain functionality.
+Key in this setup is that the tests are driven by contracts that are defined by the consumer of your API instead of the developer that wrote the implementation of a certain functionality.
 Using this kind of tests we can verify whether or not we're going to break some functionality from our consumer in case we apply some changes to our API.
 With Spring Cloud Contract we could already define groovy contracts which were packaged as a jar and uploaded to your artifact repository like Nexus or Artifactory.
 Great, but that meant that we could only use these contracts between JVM languages.
