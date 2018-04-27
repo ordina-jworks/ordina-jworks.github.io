@@ -110,7 +110,7 @@ Like with every framework, Kanban has its pitfalls.
 Some examples:
 
 #### Kanban board not being up to date
-One of the most important pieces of Kanban is the Kanban board, if that is not up to date it will result in the team having a none up to date view of what needs to be done.
+One of the most important pieces of Kanban is the Kanban board, if that is not up to date it will result in the team not having a up to date view of what needs to be done.
 You would be looking at the past. 
 
 #### Not keeping to the WIP limit
