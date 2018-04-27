@@ -23,19 +23,19 @@ known in Scrum as the Scrum Master and in Kanban he or she is known as the Agile
 
 ## Scrum
 
-A Scrum team works in Sprints, a time boxed period in which the development team deliver a new iteration of the product, 
-most commonly these sprints last 2 weeks, although 3 weeks or even 4 weeks sprint aren’t a rare sight. 
+A Scrum team works in Sprints, a Time-boxed period in which the development team delivers a new iteration of the product.
+Most commonly these Sprints last 2 weeks, although 3 or even 4 weeks Sprint aren’t a rare sight. 
 
 Each Sprint start with a Sprint planning meeting. 
-In this meeting the development team, Scrum Master and Product Owner decide which stories the development team will tackle during this sprint. 
-These selected stories are known as the Sprint Backlog. This backlog is not changed during the sprint. 
+In this meeting the development team, Scrum Master and Product Owner decide which stories the development team will tackle during this Sprint. 
+These selected stories are known as the Sprint Backlog. This backlog should not change during the Sprint. 
 
-On a daily basis in the sprint, there is a Daily Standup meeting, a 15-minute standup meeting in which every member of the development team answers 3 simple questions: 
+On a daily basis in the Sprint, there is a Daily Standup meeting, a 15-minute standup meeting in which every member of the development team answers 3 simple questions: 
 'What have I done yesterday', 'What will I do today' and 'Are there any problems that block me in going forward with my task'.
 
-After a sprint there are 2 rituals; the Sprint review meeting, where all stakeholders are invited to a demonstration of new functionality added to the product;
-and the Sprint Retrospective meeting, in which the development team discusses what went well, what went wrong and what could be improved in the next sprint.
-The goal of the retrospective is to improve the way of working in the team in comparison to the previous sprint.
+After a Sprint there are 2 rituals; the Sprint review meeting, where all stakeholders are invited to a demonstration of new functionality added to the product;
+and the Sprint Retrospective meeting, in which the development team discusses what went well, what went wrong and what could be improved in the next Sprint.
+The goal of the retrospective is to improve the way of working in the team in comparison to the previous Sprint.
 
 
 ### Some pitfalls of Scrum
@@ -47,23 +47,24 @@ Some examples are:
 #### The Product owner not being available for questions of the team
 When a Product Owner is always in meeting, or otherwise engaged, it could happen that the development team has to wait longer for answers on their questions, and by waiting for answers blocking development. 
 
-#### Extending the sprint with just a couple of days
+#### Extending the Sprint with just a couple of days
 Some teams will try to delay the end of a Sprint by a couple of days, just to make sure everything is 'Done'. 
-Every item that is not ‘Done’ at the end of a sprint goes back into the Product Backlog.
+Every item that is not ‘Done’ at the end of a Sprint goes back into the Product Backlog.
 No exceptions. 
 Extending it by just a couple of days would create a desync in the rhythm and possibly create a desync with another team that depends on your team.
 
 #### Changing the Sprint length
-Changing the sprint length during a project is a just not done. 
+Changing the Sprint length during a project is just not done. 
 It will disrupt the team's flow and velocity of the team will go down. 
 Once you’ve chosen a Sprint Length, your team should stick to it.
 
-#### Not having the same sprint rhythm as another team
+#### Not having the same Sprint rhythm as another team
 In larger projects, teams will be dependent on one another. 
 Not having the same Sprint rhythm will cause issues because you’ll have to wait for the other team to be ready for you, or vice versa, which would once again block progress.
 
 #### The Scrum Master being too involved
-A Scrum master is a dedicated role in the team, it is very hard to be a Scrum master and develop at the same time. 
+A Scrum master is a dedicated role in the team.
+It is very hard to be a Scrum master and develop at the same time. 
 He or she should be like a firefighter, be idle at times, but be ready when an emergency occurs. 
 
 #### Trying to solve problems within a Daily Standup
@@ -76,7 +77,7 @@ Kanban is a continuous process.
 There isn’t a Sprint backlog. Only the columns on the board and the prioritized product backlog. 
 
 The Kanban Board is crucial within Kanban. 
-It is usually split in 3 columns: To Do, Doing and Done. 
+It is usually split intp 3 columns: To Do, Doing and Done. 
 More columns can be added to fit your needs but those 3 have to be there. 
 
 To limit the work that can be done there is a Work in Progress limit on every column on the Kanban board which is related to the team’s capacity. 
@@ -84,19 +85,21 @@ For example, a team of 4 developers would be able to handle 6 to 8 stories at th
 The lower the limit the faster work will pass through the board. 
 Having it too low though will result in a bottleneck situation. 
 
-Kanban has Daily Standup meeting, a 15-minute standup meeting in which every member of the development team answers 3 simple questions: 
+Kanban has a Daily Standup meeting, a 15-minute standup meeting in which every member of the development team answers 3 simple questions: 
 What have I done yesterday, what will I do today, are there any problems that block me in going forward with my task. 
 
-Demo meetings are held at regular intervals, during this meeting all stakeholders are invited to a demonstration of the new functionality since the last demo. 
+Demo meetings are held at regular intervals.
+During these meetings all stakeholders are invited to a demonstration of the new functionality since the last demo. 
 
 Kanban also has retrospective meetings, which have the goal to improve the way of working of the team and solve any issues that have risen since the last retrospective. 
 
-In Kanban there are multiple ways you can do retrospectives; one way would be to do them on a regular basis (bit Scrum like). 
+In Kanban there are multiple ways you can do retrospectives.
+One way would be to do them on a regular basis (bit Scrum like). 
 Although this doesn’t fit in the Kanban way of working,
-this provides a welcome disruption of the daily workflow and if conducted well the retrospective will result in a morale boost for the team since they have been listened too and know problems they have will be handled or have been handled during the retro.
+this provides a welcome disruption of the daily workflow and if conducted well the retrospective will result in a morale boost for the team since they have been listened to and know problems they have will be handled or have been handled during the retro.
 
-Since having retrospectives on a regular basis kind of goes against the way of working in Kanban, a simpler way of holding retrospective has been popping up. 
-The ‘Stop and Solve‘ which means that every time there is an issue (that the person who encountered it can’t solve it on their own), 
+Since having retrospectives on a regular basis kind of goes against the way of working in Kanban, a simpler way of holding retrospective has been popping up the ‘Stop and Solve‘. 
+This means that every time there is an issue (that the person who encountered it can’t solve it on their own), 
 an immediate retrospective involving the full team is called. Everyone looks into the problem, and brainstorms for possible solutions until a solution is found.
 
 There are pros and cons on both ways of working; what is chosen depends on the team.
