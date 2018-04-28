@@ -31,7 +31,7 @@ The first release candidate of Spring Cloud Finchley, which was released on the 
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <br />
 
-Spring Cloud Contract has added the support to connect to a <a href="https://github.com/pact-foundation/pact_broker" target="_blank">Pact broker</a>.
+Spring Cloud Contract has added the support for <a href="http://pact.io/" target="_blank">Pact</a> and to connect to a <a href="https://github.com/pact-foundation/pact_broker" target="_blank">Pact broker</a>.
 The Pact broker acts as a repository for sharing the Pact contracts and verification results.
 The most awesome feature in my opinion is the visualisation of the contracts between all known parties.
 In the UI you can see the last time there was a new version of a contract published, when it was verified and what status it had, and last but not least the dependency graph.
