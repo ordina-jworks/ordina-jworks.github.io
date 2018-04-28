@@ -1,5 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-04-23T20:57:34+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Spring Boot 2.0 Anniversary Meetup</title><link href="https://ordina-jworks.github.io/spring/2018/04/16/spring-boot-2-0-anniversary-meetup.html" rel="alternate" type="text/html" title="Spring Boot 2.0 Anniversary Meetup" /><published>2018-04-16T00:00:00+00:00</published><updated>2018-04-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/spring/2018/04/16/spring-boot-2-0-anniversary-meetup</id><content type="html" xml:base="https://ordina-jworks.github.io/spring/2018/04/16/spring-boot-2-0-anniversary-meetup.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-04-28T17:45:16+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Spring Cloud Contract, meet Pact</title><link href="https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html" rel="alternate" type="text/html" title="Spring Cloud Contract, meet Pact" /><published>2018-04-28T00:00:00+00:00</published><updated>2018-04-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact</id><content type="html" xml:base="https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html">&lt;h1 id=&quot;cdct-or-consumer-driven-contract-testing&quot;&gt;CDCT, or Consumer-Driven Contract Testing&lt;/h1&gt;
+
+&lt;p&gt;Consumer-driven contract tests are actually integration tests that are targetting your API, whether it’s REST-based or messaging-based.
+Imagine you’re working on an application that exposes its data using a REST API.
+Another team is using your exposed data for some functionality that they are providing.
+In order to guarantee that the functionality of the other team their application doesn’t break if we make changes to our API, we create a contract between the two teams.
+Key in this setup is that the contracts are defined by the consumer of your API instead of the developer that wrote the implementation of a certain functionality.
+With this aproach we can generate tests by using those consumer-driven contracts, and verify whether we’re going to break any of our consumers’ applications.
+You can find a couple of interesting and useful links on the bottom of this post which go further into detail.&lt;/p&gt;
+
+&lt;p&gt;Spring Cloud Contract provides us with JVM-based libraries, allowing us to generate Groovy contracts, package them as a jar, and upload them to an artifact repository like Nexus or Artifactory.
+Great, but that means we can only use these contracts between two parties that are using a JVM language.
+What if the consumer of our API is a NodeJS or .NET microservice, or even an Angular application?
+For consumers or producers written in other languages, the lack of library support might be a concern.&lt;/p&gt;
+
+&lt;p&gt;With the latest Spring Cloud release, that’s a thing of the past!&lt;/p&gt;
+
+&lt;h1 id=&quot;spring-cloud-contract-meet-pact&quot;&gt;Spring Cloud Contract, meet Pact&lt;/h1&gt;
+
+&lt;p&gt;The first release candidate of Spring Cloud Finchley, which was released on the 25th of April, also ships the first release candidate of Spring Cloud Contract.&lt;/p&gt;
+
+&lt;center&gt;&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Our first release candidate of the Spring Cloud Finchley release train has been released.  Checkout the blog post for more information and as always feedback is welcome! &lt;a href=&quot;https://t.co/8TK0tudkzr&quot;&gt;https://t.co/8TK0tudkzr&lt;/a&gt;&lt;/p&gt;&amp;mdash; Spring Cloud (@springcloud) &lt;a href=&quot;https://twitter.com/springcloud/status/989122422635925504?ref_src=twsrc%5Etfw&quot;&gt;April 25, 2018&lt;/a&gt;&lt;/blockquote&gt;&lt;/center&gt;
+&lt;script async=&quot;&quot; src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Spring Cloud Contract has updated its support for &lt;a href=&quot;http://pact.io/&quot; target=&quot;_blank&quot;&gt;Pact&lt;/a&gt; and added the support to connect to a &lt;a href=&quot;https://github.com/pact-foundation/pact_broker&quot; target=&quot;_blank&quot;&gt;Pact broker&lt;/a&gt;.
+The Pact broker acts as a repository for sharing the Pact contracts and verification results.
+The most awesome feature in my opinion is the visualisation of the contracts between all known parties.
+In the UI you can see the last time there was a new version of a contract published, when it was verified and what status it had, and last but not least the details of the contract.&lt;/p&gt;
+
+&lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;12u$&quot;&gt;
+    &lt;a href=&quot;/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_index.png&quot;&gt;
+      &lt;img class=&quot;image fit&quot; alt=&quot;List of contracts between parties with the timestamps and status&quot; src=&quot;/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_index.png&quot; /&gt;
+      &lt;figcaption class=&quot;align-center&quot;&gt;List of contracts between parties with the timestamps and status&lt;/figcaption&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;6u 12u$(medium)&quot;&gt;
+    &lt;a href=&quot;/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_contract_details.png&quot;&gt;
+      &lt;img class=&quot;image fit&quot; alt=&quot;Details of a contract between two parties&quot; src=&quot;/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_contract_details.png&quot; /&gt;
+      &lt;figcaption class=&quot;align-center&quot;&gt;Details of a contract between two parties&lt;/figcaption&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;6u$ 12u$(medium)&quot;&gt;
+    &lt;a href=&quot;/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_dep_graph.png&quot;&gt;
+      &lt;img class=&quot;image fit&quot; alt=&quot;A graph showing the dependencies between all known consumers and producers&quot; src=&quot;/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_dep_graph.png&quot; /&gt;
+      &lt;figcaption class=&quot;align-center&quot;&gt;A graph showing the dependencies between all known consumers and producers&lt;/figcaption&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Simply add the &lt;code class=&quot;highlighter-rouge&quot;&gt;spring-cloud-contract-pact&lt;/code&gt; dependency, which will add the Pact Converter and Pact Stub Downloader, together with some configuration and you’re good to go!&lt;/p&gt;
+
+&lt;p&gt;The Pact contracts will be retrieved from the Pact broker and converted to Spring Cloud Contract contracts for you, so these in turn can be used to generate stubs and tests.
+It’s also possible to write Spring Cloud Contract contracts, convert them to Pact contracts and upload them to the Pact broker.&lt;/p&gt;
+
+&lt;p&gt;The upside to it is that these contracts are in fact language agnostic as opposed to Spring Cloud Contract, the downside to it is that it lacks some functionality regarding messaging compared to Spring Cloud Contract.
+Currently Pact contracts up until v4 are supported, which means that both request-response and messaging contracts can be used.
+Note that not all functionality is supported though, as is described in &lt;a href=&quot;https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#pact-converter&quot; target=&quot;_blank&quot;&gt;this section&lt;/a&gt; of the reference documentation.&lt;/p&gt;
+
+&lt;p&gt;A typical workflow to define such contracts could look like this:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The consumer of the data writes a test for the feature by doing TDD.
+In this test the contract is defined which will be used as a stub.&lt;/li&gt;
+  &lt;li&gt;Next up the missing implementation is written.&lt;/li&gt;
+  &lt;li&gt;When we push our changes to Git our CI pipeline is triggered, in which we’ll upload all defined contracts to a central artifact repository, eg. a Pact broker, after all our tests have been run.&lt;/li&gt;
+  &lt;li&gt;After our code’s been pushed, we’ll clone the producer’s application.&lt;/li&gt;
+  &lt;li&gt;We create a test that uses the newly added CDC and file a pull request.&lt;/li&gt;
+  &lt;li&gt;The team that works on the producer’s application can take over the pull request and add changes where necessary.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In case you want to go the extra mile: you can also use the same approach for consumer-driven changes within the producer’s application!
+If you want a new REST endpoint or a message that will be delivered through some messaging system like Kafka or RabbitMQ, you can add an initial implementation of the missing functionality in the pull request.
+The other team then only needs to review the changes and add some adjustments if needed.
+Both teams can really benefit from such workflow: the consumer’s team doesn’t need to wait until the producer’s team has time to create the implementation, while the producer’s team can keep their focus on what’s on their product backlog.&lt;/p&gt;
+
+&lt;h1 id=&quot;useful-links&quot;&gt;Useful links&lt;/h1&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#spring-cloud-contract-verifier-intro-three-second-tour&quot; target=&quot;_blank&quot;&gt;three-second&lt;/a&gt; or &lt;a href=&quot;https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#spring-cloud-contract-verifier-intro-three-minute-tour&quot; target=&quot;_blank&quot;&gt;three-minute&lt;/a&gt; tour give you a nice very brief walkthrough of Spring Cloud Contract.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=JEmpIDiX7LU&quot; target=&quot;_blank&quot;&gt;Consumer Driven Contracts and Your Microservice Architecture&lt;/a&gt; by Marcin Grzejszczak (&lt;a href=&quot;https://twitter.com/mgrzejszczak&quot; target=&quot;_blank&quot;&gt;@mgrzejszczak&lt;/a&gt;) and Adib Saikali (&lt;a href=&quot;https://twitter.com/asaikali&quot; target=&quot;_blank&quot;&gt;@asaikali&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#_step_by_step_guide_to_consumer_driven_contracts_cdc&quot; target=&quot;_blank&quot;&gt;A step-by-step guide&lt;/a&gt; to Consumer Driven Contracts with Spring Cloud Contract.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/pact-foundation/pact-js&quot; target=&quot;_blank&quot;&gt;Implementation of the consumer driven contract library Pact for Javascript&lt;/a&gt;, from creating a test to generating the contract and uploading it to the Pact broker.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Ysewyn&quot;, &quot;avatar&quot;=&gt;&quot;tim-ysewyn.png&quot;, &quot;twitter&quot;=&gt;&quot;TYsewyn&quot;, &quot;linkedin&quot;=&gt;&quot;tysewyn&quot;, &quot;github&quot;=&gt;&quot;TYsewyn&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-ysewyn/&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader API &amp; Microservices&quot;, &quot;email&quot;=&gt;&quot;Tim.Ysewyn@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a Principal Consultant at Ordina, where he helps fellow developers discovering top-notch technologies and methodologies as a Competence Leader for API &amp; Microservices. You can also find him working on various parts of the &lt;a href=\&quot;https://www.spring.io\&quot; target=\&quot;_blank\&quot;&gt;Spring&lt;/a&gt; framework or helping out at &lt;a href=\&quot;https://ng-be.org\&quot; target=\&quot;_blank\&quot;&gt;NG-BE&lt;/a&gt;. When you can\\'t get a hold of him, he will probably be under water since he is also an underwater photographer &amp; rescue diver.&quot;}</name><email>Tim.Ysewyn@ordina.be</email></author><category term="Spring" /><category term="Spring" /><category term="Spring Cloud" /><category term="Spring Cloud Contract" /><category term="SCC" /><category term="Pact" /><category term="CDCT" /><summary type="html">CDCT, or Consumer-Driven Contract Testing</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/post-image.jpg" /></entry><entry><title type="html">Spring Boot 2.0 Anniversary Meetup</title><link href="https://ordina-jworks.github.io/spring/2018/04/16/spring-boot-2-0-anniversary-meetup.html" rel="alternate" type="text/html" title="Spring Boot 2.0 Anniversary Meetup" /><published>2018-04-16T00:00:00+00:00</published><updated>2018-04-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/spring/2018/04/16/spring-boot-2-0-anniversary-meetup</id><content type="html" xml:base="https://ordina-jworks.github.io/spring/2018/04/16/spring-boot-2-0-anniversary-meetup.html">&lt;blockquote&gt;
   &lt;p&gt;On March 1st, &lt;a href=&quot;https://spring.io/blog/2018/03/01/spring-boot-2-0-goes-ga&quot; target=&quot;_blank&quot;&gt;Spring Boot reached GA&lt;/a&gt; on its second major version.
 To celebrate this, we invited Spring Boot legend &lt;a href=&quot;https://spring.io/team/snicoll&quot; target=&quot;_blank&quot;&gt;Stéphane Nicoll&lt;/a&gt; to give us an in-depth view on what’s new in Spring Boot 2.
 He talked about the new features while migrating a Spring Boot 1.x application to Spring Boot 2.0.&lt;/p&gt;
@@ -2447,41 +2533,4 @@ If you want to learn more about MockK, you should definitely read Oleksiy’s bl
   &lt;li&gt;&lt;a href=&quot;https://blog.kotlin-academy.com/mocking-is-not-rocket-science-basics-ae55d0aadf2b&quot; target=&quot;_blank&quot;&gt;Blog post by Oleksiy Pylypenko: Mocking is not rocket science: Basics&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://blog.kotlin-academy.com/mocking-is-not-rocket-science-expected-behavior-and-behavior-verification-3862dd0e0f03&quot; target=&quot;_blank&quot;&gt;Blog post by Oleksiy Pylypenko: Mocking is not rocket science: Expected behavior and behavior verification&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://blog.kotlin-academy.com/mocking-is-not-rocket-science-mockk-features-e5d55d735a98&quot; target=&quot;_blank&quot;&gt;Blog post by Oleksiy Pylypenko: Mocking is not rocket science: MockK features&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yannick&quot;, &quot;last_name&quot;=&gt;&quot;De Turck&quot;, &quot;twitter&quot;=&gt;&quot;YannickDeTurck&quot;, &quot;linkedin&quot;=&gt;&quot;yannickdeturck&quot;, &quot;github&quot;=&gt;&quot;yannickdeturck&quot;, &quot;permalink&quot;=&gt;&quot;/author/yannick-de-turck/&quot;, &quot;avatar&quot;=&gt;&quot;yannick-de-turck.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Lead JVM Languages&quot;, &quot;email&quot;=&gt;&quot;Yannick.DeTurck@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yannick is a senior Java consultant and competence lead of the JVM languages competence center at Ordina Belgium. He's very much interested in everything Java and Spring related as well as reactive programming, Kotlin, Lightbend technologies, software architectures, and coaching and enabling other colleagues.&quot;}</name><email>Yannick.DeTurck@ordina.be</email></author><category term="Testing" /><category term="Kotlin" /><category term="MockK" /><category term="Unit Testing" /><category term="Mocking" /><category term="Mockito" /><category term="TDD" /><category term="Test-Driven Development" /><summary type="html">Table of contents Introduction Mockito and its shortcomings in Kotlin The idiomatic mocking framework for Kotlin Summing it all up Other useful links</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/writing-tests-in-kotlin-with-mockk/mockk.png" /></entry><entry><title type="html">Visualizing your Spring Integration components &amp;amp; flows</title><link href="https://ordina-jworks.github.io/architecture/2018/01/27/Visualizing-your-Spring-Integration-components-and-flows.html" rel="alternate" type="text/html" title="Visualizing your Spring Integration components &amp; flows" /><published>2018-01-27T00:00:00+00:00</published><updated>2018-01-27T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2018/01/27/Visualizing-your-Spring-Integration-components-and-flows</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2018/01/27/Visualizing-your-Spring-Integration-components-and-flows.html">&lt;blockquote&gt;
-  &lt;p&gt;This post can be useful for everyone who wants to have insights on their application’s internal architecture when integrating with other systems using Spring Integration.
-From the developer that just started in your team and who wants to have an overview, to the seasoned team member that needs to troubleshoot a problem in production.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Currently we are working on the phased roll out of a microservices architecture at one of our clients.
-To ensure that everything works as it’s supposed to we are using a lot of &lt;a href=&quot;http://enterpriseintegrationpatterns.com/&quot; target=&quot;_blank&quot;&gt;Enterprise Integration Patterns&lt;/a&gt; to stitch both the old and the new landscape together.
-The best way to achieve a solution when using Java, is to use Spring Integration.
-A few days ago we wanted to have clear insights on how certain microservices are communicating with the existing systems.&lt;/p&gt;
-
-&lt;h2 id=&quot;creating-your-graph-of-spring-integration-components-and-flows&quot;&gt;Creating your graph of Spring Integration components and flows&lt;/h2&gt;
-
-&lt;p&gt;A first step to expose your Spring Integration components and flows is to add an &lt;code class=&quot;highlighter-rouge&quot;&gt;IntegrationGraphServer&lt;/code&gt; bean to your application.
-This class resides in the &lt;code class=&quot;highlighter-rouge&quot;&gt;o.s.i.support.management.graph&lt;/code&gt; package, between all the required classes to collect, build and render the runtime state of Spring Integration components as a single tree-like &lt;code class=&quot;highlighter-rouge&quot;&gt;Graph&lt;/code&gt; object.&lt;/p&gt;
-
-&lt;h2 id=&quot;exposing-the-graph&quot;&gt;Exposing the graph&lt;/h2&gt;
-
-&lt;p&gt;Using the Spring Integration HTTP module you can easily expose the &lt;code class=&quot;highlighter-rouge&quot;&gt;IntegrationGraphServer&lt;/code&gt; functionality as a REST service.
-Just add the &lt;code class=&quot;highlighter-rouge&quot;&gt;@EnableIntegrationGraphController&lt;/code&gt; annotation to your application, and you’re good to go!
-Or, in case you are using XML config, add the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;int-http:graph-controller/&amp;gt;&lt;/code&gt; XML element to your setup.
-Be sure to edit the &lt;code class=&quot;highlighter-rouge&quot;&gt;allowedOrigins&lt;/code&gt; attribute of the annotation in case you’re accessing the endpoint between 2 domains.
-Sidenote: your application needs to be deployed on a web container, or it needs to use an embedded web container in case you are building on top of Spring Boot.&lt;/p&gt;
-
-&lt;h2 id=&quot;visualizing-the-exposed-graph-of-components-and-flows&quot;&gt;Visualizing the exposed graph of components and flows&lt;/h2&gt;
-
-&lt;p&gt;With &lt;a href=&quot;https://d3js.org/&quot; target=&quot;_blank&quot;&gt;D3.js&lt;/a&gt; we are able to visualize everything within our graph.
-In &lt;a href=&quot;https://gist.github.com/TYsewyn/99f86b42ec4fbedf06db611a1a04bea4&quot; target=&quot;_blank&quot;&gt;this quick &amp;amp; dirty gist&lt;/a&gt; I created, you can find a simple example of a possible visualisation.
-Download the &lt;code class=&quot;highlighter-rouge&quot;&gt;index.html&lt;/code&gt; file, point the script to the correct endpoint by editing the &lt;code class=&quot;highlighter-rouge&quot;&gt;graphEndpoint&lt;/code&gt; variable, open the file in your browser and you should see every component and flow!&lt;/p&gt;
-
-&lt;p&gt;As Gary Russell pointed out in &lt;a href=&quot;https://twitter.com/gprussell/status/957370937741111296&quot; target=&quot;_blank&quot;&gt;his reply&lt;/a&gt; to my tweet you can also use Spring Flo for the visualization.
-Spring Flo is an Angular based, embeddable graphical component for pipeline/graph building and editing.
-This is used as the basis of the stream builder in Spring Cloud Data Flow.
-You can find the sample application &lt;a href=&quot;https://github.com/spring-projects/spring-flo/tree/angular-1.x/samples/spring-flo-si&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;taking-it-one-step-further&quot;&gt;Taking it one step further&lt;/h2&gt;
-
-&lt;p&gt;If you add the &lt;code class=&quot;highlighter-rouge&quot;&gt;@EnableIntegrationManagement&lt;/code&gt; annotation or the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;int:management /&amp;gt;&lt;/code&gt; XML element to your setup, the graph will even expose all the metrics of your Spring Integration components.
-This will definitely help you out when you want to monitor your components and flows, enabling you to troubleshoot problems even faster in case something goes wrong in production.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Ysewyn&quot;, &quot;avatar&quot;=&gt;&quot;tim-ysewyn.png&quot;, &quot;twitter&quot;=&gt;&quot;TYsewyn&quot;, &quot;linkedin&quot;=&gt;&quot;tysewyn&quot;, &quot;github&quot;=&gt;&quot;TYsewyn&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-ysewyn/&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader API &amp; Microservices&quot;, &quot;email&quot;=&gt;&quot;Tim.Ysewyn@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a Principal Consultant at Ordina, where he helps fellow developers discovering top-notch technologies and methodologies as a Competence Leader for API &amp; Microservices. You can also find him working on various parts of the &lt;a href=\&quot;https://www.spring.io\&quot; target=\&quot;_blank\&quot;&gt;Spring&lt;/a&gt; framework or helping out at &lt;a href=\&quot;https://ng-be.org\&quot; target=\&quot;_blank\&quot;&gt;NG-BE&lt;/a&gt;. When you can\\'t get a hold of him, he will probably be under water since he is also an underwater photographer &amp; rescue diver.&quot;}</name><email>Tim.Ysewyn@ordina.be</email></author><category term="Architecture" /><category term="Spring" /><category term="Integration" /><category term="Spring Integration" /><category term="EIP" /><category term="Microservices" /><summary type="html">This post can be useful for everyone who wants to have insights on their application’s internal architecture when integrating with other systems using Spring Integration. From the developer that just started in your team and who wants to have an overview, to the seasoned team member that needs to troubleshoot a problem in production.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-01-27-Visualizing-your-Spring-Integration-components-and-flows/post-image.jpg" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yannick&quot;, &quot;last_name&quot;=&gt;&quot;De Turck&quot;, &quot;twitter&quot;=&gt;&quot;YannickDeTurck&quot;, &quot;linkedin&quot;=&gt;&quot;yannickdeturck&quot;, &quot;github&quot;=&gt;&quot;yannickdeturck&quot;, &quot;permalink&quot;=&gt;&quot;/author/yannick-de-turck/&quot;, &quot;avatar&quot;=&gt;&quot;yannick-de-turck.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Lead JVM Languages&quot;, &quot;email&quot;=&gt;&quot;Yannick.DeTurck@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yannick is a senior Java consultant and competence lead of the JVM languages competence center at Ordina Belgium. He's very much interested in everything Java and Spring related as well as reactive programming, Kotlin, Lightbend technologies, software architectures, and coaching and enabling other colleagues.&quot;}</name><email>Yannick.DeTurck@ordina.be</email></author><category term="Testing" /><category term="Kotlin" /><category term="MockK" /><category term="Unit Testing" /><category term="Mocking" /><category term="Mockito" /><category term="TDD" /><category term="Test-Driven Development" /><summary type="html">Table of contents Introduction Mockito and its shortcomings in Kotlin The idiomatic mocking framework for Kotlin Summing it all up Other useful links</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/writing-tests-in-kotlin-with-mockk/mockk.png" /></entry></feed>

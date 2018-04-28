@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Spring Cloud Contract, meet Pact - Tim Ysewyn">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/post-image.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Spring Cloud Contract, meet Pact - Tim Ysewyn"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/post-image.jpg"/>
+
+    
+    <title>Spring Cloud Contract, meet Pact - Tim Ysewyn &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Spring Cloud Contract, meet Pact</h2>
+                
+
+                
+                    Posted Apr 28, 2018
+
+
+    in <a href="/categories/spring/">Spring</a>
+
+
+
+    by
+    
+        <a href="/author/tim-ysewyn/">Tim Ysewyn</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/spring/">Spring</a>, 
+    
+        <a href="/tags/spring-cloud/">Spring Cloud</a>, 
+    
+        <a href="/tags/spring-cloud-contract/">Spring Cloud Contract</a>, 
+    
+        <a href="/tags/scc/">SCC</a>, 
+    
+        <a href="/tags/pact/">Pact</a>, 
+    
+        <a href="/tags/cdct/">CDCT</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="cdct-or-consumer-driven-contract-testing">CDCT, or Consumer-Driven Contract Testing</h1>
+
+<p>Consumer-driven contract tests are actually integration tests that are targetting your API, whether it’s REST-based or messaging-based.
+Imagine you’re working on an application that exposes its data using a REST API.
+Another team is using your exposed data for some functionality that they are providing.
+In order to guarantee that the functionality of the other team their application doesn’t break if we make changes to our API, we create a contract between the two teams.
+Key in this setup is that the contracts are defined by the consumer of your API instead of the developer that wrote the implementation of a certain functionality.
+With this aproach we can generate tests by using those consumer-driven contracts, and verify whether we’re going to break any of our consumers’ applications.
+You can find a couple of interesting and useful links on the bottom of this post which go further into detail.</p>
+
+<p>Spring Cloud Contract provides us with JVM-based libraries, allowing us to generate Groovy contracts, package them as a jar, and upload them to an artifact repository like Nexus or Artifactory.
+Great, but that means we can only use these contracts between two parties that are using a JVM language.
+What if the consumer of our API is a NodeJS or .NET microservice, or even an Angular application?
+For consumers or producers written in other languages, the lack of library support might be a concern.</p>
+
+<p>With the latest Spring Cloud release, that’s a thing of the past!</p>
+
+<h1 id="spring-cloud-contract-meet-pact">Spring Cloud Contract, meet Pact</h1>
+
+<p>The first release candidate of Spring Cloud Finchley, which was released on the 25th of April, also ships the first release candidate of Spring Cloud Contract.</p>
+
+<center><blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Our first release candidate of the Spring Cloud Finchley release train has been released.  Checkout the blog post for more information and as always feedback is welcome! <a href="https://t.co/8TK0tudkzr">https://t.co/8TK0tudkzr</a></p>&mdash; Spring Cloud (@springcloud) <a href="https://twitter.com/springcloud/status/989122422635925504?ref_src=twsrc%5Etfw">April 25, 2018</a></blockquote></center>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p><br /></p>
+
+<p>Spring Cloud Contract has updated its support for <a href="http://pact.io/" target="_blank">Pact</a> and added the support to connect to a <a href="https://github.com/pact-foundation/pact_broker" target="_blank">Pact broker</a>.
+The Pact broker acts as a repository for sharing the Pact contracts and verification results.
+The most awesome feature in my opinion is the visualisation of the contracts between all known parties.
+In the UI you can see the last time there was a new version of a contract published, when it was verified and what status it had, and last but not least the details of the contract.</p>
+
+<div class="row">
+  <div class="12u$">
+    <a href="/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_index.png">
+      <img class="image fit" alt="List of contracts between parties with the timestamps and status" src="/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_index.png" />
+      <figcaption class="align-center">List of contracts between parties with the timestamps and status</figcaption>
+    </a>
+  </div>
+  <div class="6u 12u$(medium)">
+    <a href="/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_contract_details.png">
+      <img class="image fit" alt="Details of a contract between two parties" src="/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_contract_details.png" />
+      <figcaption class="align-center">Details of a contract between two parties</figcaption>
+    </a>
+  </div>
+  <div class="6u$ 12u$(medium)">
+    <a href="/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_dep_graph.png">
+      <img class="image fit" alt="A graph showing the dependencies between all known consumers and producers" src="/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_dep_graph.png" />
+      <figcaption class="align-center">A graph showing the dependencies between all known consumers and producers</figcaption>
+    </a>
+  </div>
+</div>
+<p><br /></p>
+
+<p>Simply add the <code class="highlighter-rouge">spring-cloud-contract-pact</code> dependency, which will add the Pact Converter and Pact Stub Downloader, together with some configuration and you’re good to go!</p>
+
+<p>The Pact contracts will be retrieved from the Pact broker and converted to Spring Cloud Contract contracts for you, so these in turn can be used to generate stubs and tests.
+It’s also possible to write Spring Cloud Contract contracts, convert them to Pact contracts and upload them to the Pact broker.</p>
+
+<p>The upside to it is that these contracts are in fact language agnostic as opposed to Spring Cloud Contract, the downside to it is that it lacks some functionality regarding messaging compared to Spring Cloud Contract.
+Currently Pact contracts up until v4 are supported, which means that both request-response and messaging contracts can be used.
+Note that not all functionality is supported though, as is described in <a href="https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#pact-converter" target="_blank">this section</a> of the reference documentation.</p>
+
+<p>A typical workflow to define such contracts could look like this:</p>
+<ul>
+  <li>The consumer of the data writes a test for the feature by doing TDD.
+In this test the contract is defined which will be used as a stub.</li>
+  <li>Next up the missing implementation is written.</li>
+  <li>When we push our changes to Git our CI pipeline is triggered, in which we’ll upload all defined contracts to a central artifact repository, eg. a Pact broker, after all our tests have been run.</li>
+  <li>After our code’s been pushed, we’ll clone the producer’s application.</li>
+  <li>We create a test that uses the newly added CDC and file a pull request.</li>
+  <li>The team that works on the producer’s application can take over the pull request and add changes where necessary.</li>
+</ul>
+
+<p>In case you want to go the extra mile: you can also use the same approach for consumer-driven changes within the producer’s application!
+If you want a new REST endpoint or a message that will be delivered through some messaging system like Kafka or RabbitMQ, you can add an initial implementation of the missing functionality in the pull request.
+The other team then only needs to review the changes and add some adjustments if needed.
+Both teams can really benefit from such workflow: the consumer’s team doesn’t need to wait until the producer’s team has time to create the implementation, while the producer’s team can keep their focus on what’s on their product backlog.</p>
+
+<h1 id="useful-links">Useful links</h1>
+
+<p>The <a href="https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#spring-cloud-contract-verifier-intro-three-second-tour" target="_blank">three-second</a> or <a href="https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#spring-cloud-contract-verifier-intro-three-minute-tour" target="_blank">three-minute</a> tour give you a nice very brief walkthrough of Spring Cloud Contract.</p>
+
+<p><a href="https://www.youtube.com/watch?v=JEmpIDiX7LU" target="_blank">Consumer Driven Contracts and Your Microservice Architecture</a> by Marcin Grzejszczak (<a href="https://twitter.com/mgrzejszczak" target="_blank">@mgrzejszczak</a>) and Adib Saikali (<a href="https://twitter.com/asaikali" target="_blank">@asaikali</a>).</p>
+
+<p><a href="https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#_step_by_step_guide_to_consumer_driven_contracts_cdc" target="_blank">A step-by-step guide</a> to Consumer Driven Contracts with Spring Cloud Contract.</p>
+
+<p><a href="https://github.com/pact-foundation/pact-js" target="_blank">Implementation of the consumer driven contract library Pact for Javascript</a>, from creating a test to generating the contract and uploading it to the Pact broker.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html&title=Spring Cloud Contract, meet Pact&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Spring Cloud Contract, meet Pact&url=https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/tim-ysewyn/" class="image spotlight-image">
+            <img src="/img/author/tim-ysewyn.png"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Tim is a Principal Consultant at Ordina, where he helps fellow developers discovering top-notch technologies and methodologies as a Competence Leader for API &amp; Microservices. You can also find him working on various parts of the <a href="https://www.spring.io" target="_blank">Spring</a> framework or helping out at <a href="https://ng-be.org" target="_blank">NG-BE</a>. When you can't get a hold of him, he will probably be under water since he is also an underwater photographer &amp; rescue diver.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/post-image.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html";
+        this.page.identifier = "/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html";
+        this.page.title = "Spring Cloud Contract, meet Pact";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
