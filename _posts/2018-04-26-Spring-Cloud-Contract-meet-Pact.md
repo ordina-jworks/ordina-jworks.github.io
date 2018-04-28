@@ -13,12 +13,12 @@ comments: true
 Consumer-driven contract tests are actually integration tests that are targetting your API, whether it's REST-based or messaging-based.
 Imagine you're working on an application that exposes its data using a REST API.
 Another team is using your exposed data for some functionality that they are providing.
-In order to guarantee that the functionality of the other team their application doesn't break if we make changes to our API, we create a contract between the 2 teams.
-Key in this setup is that the contracts that are defined by the consumer of your API instead of the developer that wrote the implementation of a certain functionality.
+In order to guarantee that the functionality of the other team their application doesn't break if we make changes to our API, we create a contract between the two teams.
+Key in this setup is that the contracts are defined by the consumer of your API instead of the developer that wrote the implementation of a certain functionality.
 With this aproach we can generate tests using the consumer-driven contracts (CDCs) and verify whether or not we're going to break some functionality from our consumer's application in case we apply some changes to our API.
 You can find a couple of interesting and useful links on the bottom of this post which go further into detail.
 
-With Spring Cloud Contract we could already define groovy contracts which were packaged as a jar and uploaded to your artifact repository like Nexus or Artifactory.
+With Spring Cloud Contract we could already define Groovy contracts which were packaged as a jar and uploaded to your artifact repository like Nexus or Artifactory.
 Great, but that meant that we could only use these contracts between two parties that both are using a JVM language.
 
 What if the consumer of our API is a NodeJS or .NET microservice, or even an Angular application?
@@ -61,7 +61,7 @@ In the UI you can see the last time there was a new version of a contract publis
 
 Simply add the `spring-cloud-contract-pact` dependency, which will add the Pact Converter and Pact Stub Downloader, together with some configuration and you're good to go!
 
-The Pact contracts will be retrieved from the pact broker and converted to Spring Cloud Contract contracts for you, so these in turn can be used to generate stubs and tests.
+The Pact contracts will be retrieved from the Pact broker and converted to Spring Cloud Contract contracts for you, so these in turn can be used to generate stubs and tests.
 It's also possible to write Spring Cloud Contract contracts, convert them to Pact contracts and upload them to the Pact broker.
 
 The upside to it is that these contracts are in fact language agnostic as opposed to Spring Cloud Contract, the downside to it is that it lacks some functionality regarding messaging compared to Spring Cloud Contract.
@@ -73,7 +73,7 @@ A typical workflow to define such contracts could look like this:
 - The consumer of the data writes a test for the feature by doing TDD.
 In this test the contract is defined which will be used as a stub.
 - Next up the missing implementation is written.
-- When we push our changes to git our CI pipeline is triggered, in which we'll upload all defined contracts to a central artifact repository, eg. a Pact broker, after all our tests have been run.
+- When we push our changes to Git our CI pipeline is triggered, in which we'll upload all defined contracts to a central artifact repository, eg. a Pact broker, after all our tests have been run.
 - After our code's been pushed, we'll clone the producer's application.
 - We create a test that uses the newly added CDC and file a pull request.
 - The team that works on the producer's application can take over the pull request and add changes where necessary.
