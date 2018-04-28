@@ -64,7 +64,7 @@ Simply add the `spring-cloud-contract-pact` dependency, which will add the Pact 
 The Pact contracts will be retrieved from the pact broker and converted to Spring Cloud Contract contracts for you, so these in turn can be used to generate stubs and tests.
 It's also possible to write Spring Cloud Contract contracts, convert them to Pact contracts and upload them to the Pact broker.
 
-The upside to it is that these contracts are in fact language agnostic as opposed to Spring Cloud Contract, the downside to it is that it lacks some functionality regarding messaging compared to Spring Cloud Contract:
+The upside to it is that these contracts are in fact language agnostic as opposed to Spring Cloud Contract, the downside to it is that it lacks some functionality regarding messaging compared to Spring Cloud Contract.
 
 Currently Pact contracts up until v4 are supported, which means that both request-response and messaging contracts can be used.
 Note that not all functionality is supported though, as is described in <a href="https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#pact-converter" target="_blank">this section</a> of the reference documentation.
