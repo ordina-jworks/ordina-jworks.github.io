@@ -6,7 +6,7 @@ image: /img/agile/scrum-vs-kanban/boxers.jpg
 tags: [Agile,Scrum, Kanban]
 category: Agile
 comments: true
-permalink: agile/2018/04/27/scrum-vs-kanban.html
+permalink: agile/2018/04/30/scrum-vs-kanban.html
 ---
 
 # Scrum VS Kanban
