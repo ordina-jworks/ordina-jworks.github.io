@@ -11,7 +11,7 @@ permalink: agile/2018/04/27/scrum-vs-kanban.html
 
 # Scrum VS Kanban
 
-> Scrum and Kanban are both agile frameworks that are used to deliver software, or any other sort of project for that matter, in incremental and iterative way. 
+> Scrum and Kanban are both agile frameworks that are used to deliver software, or any other sort of project for that matter, in an incremental and iterative way. 
 Both terms have become incorrectly interchangeable. Although there are many similarities between the two, 
 understanding the key differences between both Scrum and Kanban will bring clarity. 
 
@@ -19,21 +19,21 @@ understanding the key differences between both Scrum and Kanban will bring clari
 As with all agile frameworks, we have a product owner, a development team and an intermediate person, 
 known in Scrum as the Scrum Master and in Kanban he or she is known as the Agile Coach. 
 
- All three work together to get most value to a client in the shortest amount of time.  Work is divided into stories and those stories are put on a product backlog. So far, so good, both Scrum and Kanban do the same at the very basic level. The way both handle these stories is where the difference lies. 
+ All three work together to get the most value to a client in the shortest amount of time.  Work is divided into stories and those stories are put on a product backlog. So far, so good, both Scrum and Kanban do the same at the very basic level. The way both handle these stories is where the difference lies. 
 
 ## Scrum
 
 A Scrum team works in Sprints, a Time-boxed period in which the development team delivers a new iteration of the product.
-Most commonly these Sprints last 2 weeks, although 3 or even 4 weeks Sprint aren’t a rare sight. 
+Most commonly these Sprints last 2 weeks, although 3 or even 4 weeks Sprints aren’t a rare sight. 
 
 Each Sprint start with a Sprint planning meeting. 
 In this meeting the development team, Scrum Master and Product Owner decide which stories the development team will tackle during this Sprint. 
 These selected stories are known as the Sprint Backlog. This backlog should not change during the Sprint. 
 
-On a daily basis in the Sprint, there is a Daily Standup meeting, a 15-minute standup meeting in which every member of the development team answers 3 simple questions: 
+On a daily basis in the Sprint, there is a Daily Standup meeting, a 15-minute standup meeting in which every member of the development team answers three simple questions: 
 'What have I done yesterday', 'What will I do today' and 'Are there any problems that block me in going forward with my task'.
 
-After a Sprint there are 2 rituals; the Sprint review meeting, where all stakeholders are invited to a demonstration of new functionality added to the product;
+After a Sprint there are two rituals; the Sprint review meeting, where all stakeholders are invited to a demonstration of new functionalities added to the product;
 and the Sprint Retrospective meeting, in which the development team discusses what went well, what went wrong and what could be improved in the next Sprint.
 The goal of the retrospective is to improve the way of working in the team in comparison to the previous Sprint.
 
@@ -55,7 +55,7 @@ Extending it by just a couple of days would create a desync in the rhythm and po
 
 #### Changing the Sprint length
 Changing the Sprint length during a project is just not done. 
-It will disrupt the team's flow and velocity of the team will go down. 
+It will disrupt the team's flow and the velocity of the team will go down. 
 Once you’ve chosen a Sprint Length, your team should stick to it.
 
 #### Not having the same Sprint rhythm as another team
@@ -77,15 +77,15 @@ Kanban is a continuous process.
 There isn’t a Sprint backlog. Only the columns on the board and the prioritized product backlog. 
 
 The Kanban Board is crucial within Kanban. 
-It is usually split intp 3 columns: To Do, Doing and Done. 
-More columns can be added to fit your needs but those 3 have to be there. 
+It is usually split into three columns: To Do, Doing and Done. 
+More columns can be added to fit your needs but those three have to be there. 
 
 To limit the work that can be done there is a Work in Progress limit on every column on the Kanban board which is related to the team’s capacity. 
-For example, a team of 4 developers would be able to handle 6 to 8 stories at the time. 
-The lower the limit the faster work will pass through the board. 
+For example, a team of four developers would be able to handle 6 to 8 stories at the time. 
+The lower the limit, the faster work will pass through the board. 
 Having it too low though will result in a bottleneck situation. 
 
-Kanban has a Daily Standup meeting, a 15-minute standup meeting in which every member of the development team answers 3 simple questions: 
+Kanban has a Daily Standup meeting, a 15-minute standup meeting in which every member of the development team answers three simple questions: 
 What have I done yesterday, what will I do today, are there any problems that block me in going forward with my task. 
 
 Demo meetings are held at regular intervals.
@@ -99,7 +99,7 @@ Although this doesn’t fit in the Kanban way of working,
 this provides a welcome disruption of the daily workflow and if conducted well the retrospective will result in a morale boost for the team since they have been listened to and know problems they have will be handled or have been handled during the retro.
 
 Since having retrospectives on a regular basis kind of goes against the way of working in Kanban, a simpler way of holding retrospective has been popping up the ‘Stop and Solve‘. 
-This means that every time there is an issue (that the person who encountered it can’t solve it on their own), 
+This means that every time there is an issue (that the person who encountered it can’t solve on their own), 
 an immediate retrospective involving the full team is called. Everyone looks into the problem, and brainstorms for possible solutions until a solution is found.
 
 There are pros and cons on both ways of working; what is chosen depends on the team.
@@ -109,8 +109,8 @@ There are pros and cons on both ways of working; what is chosen depends on the t
 Like with every framework, Kanban has its pitfalls. 
 Some examples:
 
-#### Kanban board not being up to date
-One of the most important pieces of Kanban is the Kanban board, if that is not up to date it will result in the team not having a up to date view of what needs to be done.
+#### Kanban board not being up-to-date
+One of the most important pieces of Kanban is the Kanban board, if that is not up-to-date it will result in the team not having a up-to-date view of what needs to be done.
 You would be looking at the past. 
 
 #### Not keeping to the WIP limit
@@ -124,8 +124,8 @@ It all depends on the situation you’re in. Scrum would not work for teams that
 What we mean by that is a systems team or a helpdesk team. 
 Kanban would be way more useful for these sort of teams; high priority tickets appear on the backlog and are handled as fast as possible by the team. 
 
-An advantage of Scrum compared to Kanban is that business will know what will be delivered during the next Sprint.  
+An advantage of Scrum compared to Kanban is that the business will know what will be delivered during the next Sprint.  
 Kanban is more dependent on the incoming requests.
 
-As said before; it all depends on the situation you’re in. Analyze the situation before deciding which agile framework will work for your team!
+As said before; it all depends on the situation you’re in. Analyze the situation before deciding which agile framework will work best for your team!
 
