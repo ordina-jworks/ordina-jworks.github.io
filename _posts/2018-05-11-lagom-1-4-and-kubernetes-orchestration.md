@@ -23,7 +23,7 @@ comments: true
 ## Introduction
 In this blog post we will take a closer look at the [Lightbend Orchestration tools](https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/index.html){:target="_blank" rel="noopener noreferrer"}.
 Tools helping you deploy your Lagom application to Kubernetes and DC/OS.
-It was already possible to deploy Lagom application to Kubernetes as [this guide](https://developer.lightbend.com/guides/lagom-kubernetes-k8s-deploy-microservices/){:target="_blank" rel="noopener noreferrer"} demonstrates but it involved more manual tasks and having written the Kubernetes resource and configuration files yourself, as it usually goes.
+It was already possible to deploy Lagom applications to Kubernetes as [this guide](https://developer.lightbend.com/guides/lagom-kubernetes-k8s-deploy-microservices/){:target="_blank" rel="noopener noreferrer"} demonstrates but it involved more manual tasks and having to write the Kubernetes resource and configuration files yourself, as it usually goes.
 
 As it currently stands, the tools are only supported in combination with sbt so Maven users cannot fully take advantage of it just yet.
 Maven supported is planned for a future release.
@@ -155,7 +155,7 @@ lazy val frontend = (project in file("frontend"))
   )
 ```
 
-If you also have a frontend module it is important to define the `httpIngressPaths`, as you might have seen in the code sample above, in order to have your frontend accessible from outside the cluster.
+If you also have a frontend module it is important to define the `httpIngressPaths`, as you might have seen in the code sample above, in order to have your frontend be accessible from outside the cluster.
 
 Mix in the `LagomServiceLocatorComponents` trait in each module’s application loader:
 ```scala
@@ -279,7 +279,7 @@ The task however is not yet supported on Windows unfortunately.
 deploy minikube
 ```
 
-During the setup we encountered an connection initialisation error of Helm:
+During the setup we encountered a connection initialisation error of Helm:
 ```sbtshell
 Cannot initialize Kubernetes connection: Get http://localhost:8080/api: dial tcp 127.0.0.1:8080: getsockopt: connection refused
 ```
