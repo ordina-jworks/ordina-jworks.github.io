@@ -26,7 +26,7 @@ Tools helping you deploy your Lagom application to Kubernetes and DC/OS.
 It was already possible to deploy Lagom applications to Kubernetes as [this guide](https://developer.lightbend.com/guides/lagom-kubernetes-k8s-deploy-microservices/){:target="_blank" rel="noopener noreferrer"} demonstrates but it involved more manual tasks and having to write the Kubernetes resource and configuration files yourself, as it usually goes.
 
 As it currently stands, the tools are only supported in combination with sbt so Maven users cannot fully take advantage of it just yet.
-Maven supported is planned for a future release.
+Maven support will follow soon however as the [Maven equivalent plugin](https://github.com/lightbend/reactive-app-maven-plugin){:target="_blank" rel="noopener noreferrer"} is nearing its first release version.
 
 If you are new to Lagom feel free to take a look at one of our earlier blog posts on Lagom:
 - [Lagom: First Impressions and Initial Comparison to Spring Cloud](/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html){:target="_blank" rel="noopener noreferrer"}
@@ -39,10 +39,12 @@ Afterwards we will take a closer look at how easy it is to integrate the Lightbe
 Note that this blog post is not an in-depth guide on the tools themselves but more a general overview and for us to share our impressions.
 
 ## Upgrading to Lagom 1.4
-In this section we will upgrade our sample application [Lagom Shop Scala](https://github.com/yannickdeturck/lagom-shop-scala){:target="_blank" rel="noopener noreferrer"}, from version 1.2 to 1.4.
+In this section we will upgrade our sample application [Lagom Shop Scala](https://github.com/yannickdeturck/lagom-shop-scala){:target="_blank" rel="noopener noreferrer"}, from version 1.3.4 to 1.4.0.
 Lagom 1.4 uses Play Framework's latest version, 2.6 for which we will also need to change a few things in our project.
  
 Lightbend provides a migration guide for each new version they release, so in this case we followed the [Lagom 1.4 Migration Guide](https://www.lagomframework.com/documentation/1.4.x/scala/Migration14.html){:target="_blank" rel="noopener noreferrer"} and the [Play 2.6 Migration Guide](https://www.playframework.com/documentation/2.6.x/Migration26){:target="_blank" rel="noopener noreferrer"}.
+When upgrading multiple minor versions, it is advised to upgrade one minor version at a time to smoothen the process.
+In our case we are only limited to upgrading a single minor version so we can just use the latest migration guide right away.
 
 Upgrade the Lagom version in `project/plugins.sbt`:
 ```scala
@@ -92,11 +94,14 @@ To see a complete list of changes we did, refer to commit [bdf5ecff](https://git
 
 ## Lightbend's orchestration tools
 As we mentioned in the introduction, Lightbend offers a developer-centric suite of tools helping you deploy your Play/Akka/Lagom applications to Kubernetes and DC/OS.
-The tools help you create a Docker image of all your applications, help with generating Kubernetes and DC/OS resource and configuration files based on the Docker images, and they allow you to deploy your whole Lagom project to Kubernetes using a simple command.
-That way you don't have to fiddle around with JSON or YAML files yourself.
+The tools help you create a Docker image of all your applications, 
+help with generating Kubernetes and DC/OS resource and configuration files based on the Docker images, 
+and they allow you to deploy your whole Lagom project to Kubernetes using a simple command which can be pretty convenient for development. 
+The generated JSON and YAML files could be put under version control after which they can be submitted to a CI/CD integrated central repository.
 
 The suite consists of three different tools:
 - [sbt-reactive-app](https://github.com/lightbend/sbt-reactive-app){:target="_blank" rel="noopener noreferrer"}, an sbt plugin that inspects your projects and bulds annotated Docker images.
+The [Maven equivalent plugin](https://github.com/lightbend/reactive-app-maven-plugin){:target="_blank" rel="noopener noreferrer"} is still being worked on and is nearing its first release version.
 - [reactive-cli](https://github.com/lightbend/reactive-cli){:target="_blank" rel="noopener noreferrer"}, a command-line tool with which you generate the Kubernetes and DC/OS resource and configuration files.
 You need to install this on the device or environment from which you will deploy to Kubernetes.
 Install guidelines are available in the [documentation](https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/cli-installation.html#install-the-cli){:target="_blank" rel="noopener noreferrer"}.
@@ -630,7 +635,7 @@ Kubernetes has gained a lot of popularity lately and with this, Lagom shows that
 
 The single `deploy minikube` command is not yet supported on Windows but we imagine that it will be in the near future.
 Windows users can still utilise the `reactive-cli` command-line tool to generate the resource and configuration files and deploy it themselves via `kubectl` on their Minikube.
-Maven users will also need to wait on a future release to take advantage of everything the tool suite has to offer.
+Maven users will only need to wait a little bit longer to take advantage of everything the tool suite has to offer as the plugin is nearing its first release version.
 
 ## Extra resources
 - [Our Lagom Shop Scala application GitHub repository](https://github.com/yannickdeturck/lagom-shop-scala){:target="_blank" rel="noopener noreferrer"}
