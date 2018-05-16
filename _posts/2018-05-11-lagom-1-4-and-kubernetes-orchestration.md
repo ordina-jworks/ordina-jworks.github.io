@@ -39,7 +39,7 @@ Afterwards we will take a closer look at how easy it is to integrate the Lightbe
 Note that this blog post is not an in-depth guide on the tools themselves but more a general overview and for us to share our impressions.
 
 ## Upgrading to Lagom 1.4
-In this section we will upgrade our sample application [Lagom Shop Scala](https://github.com/yannickdeturck/lagom-shop-scala){:target="_blank" rel="noopener noreferrer"}, from version 1.3.4 to 1.4.0.
+In this section we will upgrade our sample application [Lagom Shop Scala](https://github.com/yannickdeturck/lagom-shop-scala){:target="_blank" rel="noopener noreferrer"}, from version 1.3.4 to 1.4.x.
 Lagom 1.4 uses Play Framework's latest version, 2.6 for which we will also need to change a few things in our project.
  
 Lightbend provides a migration guide for each new version they release, so in this case we followed the [Lagom 1.4 Migration Guide](https://www.lagomframework.com/documentation/1.4.x/scala/Migration14.html){:target="_blank" rel="noopener noreferrer"} and the [Play 2.6 Migration Guide](https://www.playframework.com/documentation/2.6.x/Migration26){:target="_blank" rel="noopener noreferrer"}.
@@ -48,7 +48,7 @@ In our case we are only limited to upgrading a single minor version so we can ju
 
 Upgrade the Lagom version in `project/plugins.sbt`:
 ```scala
-addSbtPlugin("com.lightbend.lagom" % "lagom-sbt-plugin" % "1.4.0")
+addSbtPlugin("com.lightbend.lagom" % "lagom-sbt-plugin" % "1.4.5")
 ```
 
 Upgrade the sbt version in `project/build.properties`:
@@ -307,7 +307,7 @@ You can use the Minikube dashboard to inspect everything at `http://192.168.99.1
 </p>
 
 Note that you can also deploy a single module instead of all of them.
-For example if we only want to deploy the frontend:
+For example if we only want to deploy the frontend, you simply switch to the specific project before running the command:
 ```sbtshell
 $ sbt
 [info] Loading global plugins from /Users/yannickdeturck/.sbt/0.13/plugins
@@ -633,15 +633,15 @@ reactive-sandbox-74fd955ddd-cjpw8        1/1       Running   7          6d
 ```
 
 ## Conclusion
-Upgrading to Lagom 1.4 and Play 2.6 went pretty smooth as the migration guides of Lightbend cover mostly everything in detail as usual.
+Upgrading to Lagom 1.4.x and Play 2.6 went pretty smooth as the migration guides of Lightbend cover mostly everything in detail as usual.
 
 The orchestration tools make it pretty easy to test your Lagom application running in Kubernetes locally while still having the possibility to fine-tune the generated resource and configuration files.
-Integrating the tool suite into our project went smooth.
-Kubernetes has gained a lot of popularity lately and with this, Lagom shows that it wants to embrace kubernetes to deploy your applications onto next to ConductR.
+Integrating the tool suite into our project went smoothly.
+Kubernetes has gained a lot of popularity lately and with this, Lagom shows that it wants to embrace Kubernetes to deploy your applications onto next to ConductR.
 
 The single `deploy minikube` command is not yet supported on Windows but we imagine that it will be in the near future.
 Windows users can still utilise the `reactive-cli` command-line tool to generate the resource and configuration files and deploy it themselves via `kubectl` on their Minikube.
-Maven users will only need to wait a little bit longer to take advantage of everything the tool suite has to offer as the plugin is nearing its first release version.
+Maven users will only need to wait a little bit longer to take advantage of most things the tool suite has to offer as the plugin is nearing its first release version.
 
 ## Extra resources
 - [Our Lagom Shop Scala application GitHub repository](https://github.com/yannickdeturck/lagom-shop-scala){:target="_blank" rel="noopener noreferrer"}
