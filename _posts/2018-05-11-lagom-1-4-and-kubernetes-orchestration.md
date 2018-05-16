@@ -100,7 +100,7 @@ and they allow you to deploy your whole Lagom project to Kubernetes using a simp
 The generated JSON and YAML files could be put under version control after which they can be submitted to a CI/CD integrated central repository.
 
 The suite consists of three different tools:
-- [sbt-reactive-app](https://github.com/lightbend/sbt-reactive-app){:target="_blank" rel="noopener noreferrer"}, an sbt plugin that inspects your projects and bulds annotated Docker images.
+- [sbt-reactive-app](https://github.com/lightbend/sbt-reactive-app){:target="_blank" rel="noopener noreferrer"}, an sbt plugin that inspects your projects and builds annotated Docker images.
 The [Maven equivalent plugin](https://github.com/lightbend/reactive-app-maven-plugin){:target="_blank" rel="noopener noreferrer"} is still being worked on and is nearing its first release version.
 - [reactive-cli](https://github.com/lightbend/reactive-cli){:target="_blank" rel="noopener noreferrer"}, a command-line tool with which you generate the Kubernetes and DC/OS resource and configuration files.
 You need to install this on the device or environment from which you will deploy to Kubernetes.
@@ -245,6 +245,11 @@ REPOSITORY             TAG                 IMAGE ID            CREATED          
 orderimpl              1.0-SNAPSHOT        e9be41c50eb2        32 seconds ago      159MB
 itemimpl               1.0-SNAPSHOT        357a9d546593        9 minutes ago       159MB
 frontend               1.0-SNAPSHOT        7251c13a5373        6 days ago          141MB
+```
+
+As for the [Maven equivalent plugin](https://github.com/lightbend/reactive-app-maven-plugin){:target="_blank" rel="noopener noreferrer"}, the Docker images can be build by executing:
+```
+$ mvn install
 ```
 
 ## Locally deploying to Kubernetes using Minikube
@@ -400,10 +405,11 @@ frontend-v1-0-snapshot   1         1         1            1           6d
 reactive-sandbox         1         1         1            1           6d
 ```
 
-This concludes the development workflow.
+There is currently no equivalent for Maven to deploy everything to Minikube in one simple command.
+In the next section however, we will look at how we can utilise the reactive-cli tool for generating resource and configuration files, and deploying everything to Kubernetes which is also the way to go for development in this case.
 
 ## Generating Kubernetes resources for production
-The following workflow could also be used for development but it is more suited for deploying to your production environment as the development workflow in the previous section simplifies a lot of things for you.
+The following workflow could also be used for development but it is more suited for deploying to your production environment as the `deploy minikube` workflow in the previous section simplifies a lot of things for you.
 
 We will make use of the [reactive-cli](https://github.com/lightbend/reactive-cli){:target="_blank" rel="noopener noreferrer"} command-line tool to have it generate the Kubernetes resource and configuration files.
 Installing is easy, as described in the [documentation](https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/cli-installation.html){:target="_blank" rel="noopener noreferrer"}.
