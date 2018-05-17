@@ -15,6 +15,11 @@ JWorks was present this year on 10 and 11 May and we would love to give you an o
 
   <h1 class="the-toc__heading">Table Of Contents</h1>
     <li><a href="#power-games-for-high-performance-team-culture-psychological-safety-and-ei---richard-kasperowski" title="Power Games for High-performance Team Culture, Psychological Safety, and EI - Richard Kasperowski">Power Games for High-performance Team Culture, Psychological Safety, and EI - Richard Kasperowski</a></li>
+    <li><a href="#perceived-performance-the-only-kind-that-really-matters---eli-fitch" title="Perceived performance: The only kind that really matters - Eli Fitch">Perceived performance: The only kind that really matters - Eli Fitch</a></li>
+    <li><a href="#swarming-scaling-without-a-religious-methodology---dan-north" title="SWARMing: Scaling Without A Religious Methodology - Dan North">SWARMing: Scaling Without A Religious Methodology - Dan North</a></li>
+    <li><a href="#seven-plusminus-two-ways-your-brain-screws-you-up---joseph-pelrine--jasmine-zahno" title="Seven (plus/minus two) ways your brain screws you up - Joseph Pelrine & Jasmine Zahno">Seven (plus/minus two) ways your brain screws you up - Joseph Pelrine & Jasmine Zahno</a></li>
+    <li><a href="#designing-a-high-performing-team---alison-coward" title="Designing a high-performing team - Alison Coward">Designing a high-performing team - Alison Coward</a></li>
+    <li><a href="#estimates-or-noestimates-lets-explore-the-possibilities---woody-zuill" title="Estimates or NoEstimates: Let's explore the possibilities - Woody Zuill">Estimates or NoEstimates: Let's explore the possibilities - Woody Zuill</a></li>
   <ol class="the-toc__list">
   </ol>
 </div>
@@ -126,7 +131,7 @@ Uncertain waits feel longer so make sure to use progress bars and loading animat
 For example bands with accelerating bars feel 12% faster!
 
 What about spinners?
-> "Meh"
+> "Meh" - Eli Fitch
 
 Less than ~1 second wait: Don't indicate loading
 More than ~2 second wait: Use progress bars!
@@ -147,10 +152,10 @@ What if we could predict the user's intent?
 
 ... // TODO continue
 
-3) SWARM - Dan North
+### SWARMing: Scaling Without A Religious Methodology - Dan North
 
-4) Agile Psychology
+### Seven (plus/minus two) ways your brain screws you up - Joseph Pelrine & Jasmine Zahno
 
-5) High Performance Teams - Alison Coward
+### Designing a high-performing team - Alison Coward
 
-6) Estimates
+### Estimates or NoEstimates: Let's explore the possibilities - Woody Zuill
