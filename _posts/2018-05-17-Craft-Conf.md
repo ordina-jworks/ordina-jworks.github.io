@@ -3,7 +3,7 @@ layout: post
 authors: [derya_duru]
 title: 'Craft Conf 2018'
 image: /img/craft-conf-2018/Craft-Conf-2018.png
-tags: [Craft Conf, Agile, Scrum, Coaching, Core Protocols]
+tags: [Craft Conf, Agile, Scrum, Coaching, Core Protocols, High Performance Teams]
 category: Conference
 comments: true
 ---
@@ -24,10 +24,10 @@ JWorks was present this year on 10 and 11 May and we would love to give you an o
 ### Power Games for High-performance Team Culture, Psychological Safety, and EI - Richard Kasperowski
 
 <span class="image left"><img class="p-image" alt="Richard Kasperowski" src="/img/craft-conf-2018/Richard-Kasperowski.jpeg"></span>
-[Richard Kasperowski](https://twitter.com/rkasper){:target="_blank"} is a speaker, trainer, coach, and author focused on high-performance teams. Richard is the author of The Core Protocols: A Guide to Greatness. He leads clients in building great teams that get great results using the Core Protocols, Agile, and Open Space Technology. Richard teaches the class Agile Software Development at Harvard University, and he is a member of the board of directors of Agile New England.
+[Richard Kasperowski](https://twitter.com/rkasper){:target="_blank"} is a speaker, trainer, coach, and author focused on high-performance teams. Richard is the author of The Core Protocols: A Guide to Greatness. He leads clients in building great teams that get great results using the Core Protocols, Agile, and Open Space Technology.
 
 During this talk, Richard provides an overview of some of the conditions that need to be met for the team to become a high performance team.
-It's very important for companies to realize that they need to focus on getting the right people together instead of focusing on achievements.
+In order for this to happen, it's very important that companies realize that they need to focus on getting the right people together instead of focusing on achievements.
 
 A company needs to achieve the best possible team culture. But what does this mean?
 
@@ -35,8 +35,8 @@ A company needs to achieve the best possible team culture. But what does this me
 
 > The collective programming of the mind which distinguishes the members of one group or category of people from another. - Geert Hofstede
 
-Richard talks about 6 different culture dimensions: // TODO meer uitleg
-* Power distance: People with less power accept that they actually have less power.
+Richard talks about 6 different culture dimensions:
+* Power distance
 * Individualism
 * Masculinity
 * Uncertainty avoidance
@@ -68,9 +68,10 @@ At the core, there are 6 building blocks for high performance teams:
 * Productivity
 * Error handling
 
-These building blocks are called the Core Protocols. Hierarchy and power culture erode high performance so
-when setting up and trying to maintain a high performance teams, these Core Protocols are essential.
+The Core Protocols provide the functionality to achieve all six building blocks. Hierarchy and power culture erode high performance so
+when setting up and trying to maintain a high performance teams, these building blocks are essential.
 
+// TODO vul aan
 
 More info on the Core Protocols can be found [here](https://www.greatnessguild.org/tcp/){:target="_blank"}.
 
@@ -85,14 +86,14 @@ When talking about performance, we need to account for both objective time and s
 Usually, we tend to optimize for objective time by using tools like lazy loading.
 But how feasible is this?
 
-Even a 20% increase in objective speed is unnoticeable to the user. So we have to aim for an increase of 30%
-or even more. Of course this is not easy at all, especially when taking into account that when working
-with multiple teams (possibly over different time zones), all the teams have to align on this.
+Even a **20%** increase in objective speed is unnoticeable to the user. So we have to aim for an increase of 30% or even more.
+Of course this is not easy at all, especially when taking into account that when working with multiple teams (possibly over different time zones),
+all the teams have to align on this.
 
 So how do we get the user to perceive an increase on performance?
-We focus on the subjective time!
+**We focus on the subjective time!**
 
-* Active vs passive phase:
+#### Active vs passive phase:
 
 What does a passive phase entail? Our passive phase kicks in when we are waiting for something to happen,
 say for our water to boil. Time spent in passive phases feels ~36% slower!
@@ -114,7 +115,7 @@ This will provide you with a nice 100-150 millisecond head start. This is also u
 Using :active animations also buy you more time. An animation that lasts ~200 milliseconds will provide
 you with 50 milliseconds extra time keeping the user in an active state.
 
-Onto topic two: how to unsuck passive states.
+Onto topic two: how to 'unsuck' passive states.
 A wait of 1-4 seconds is long enough to lose people's interest.
 There are three ways of preventive loss of interest:
 * Use the right loading animation
@@ -125,7 +126,7 @@ Uncertain waits feel longer so make sure to use progress bars and loading animat
 For example bands with accelerating bars feel 12% faster!
 
 What about spinners?
-"Meh" // TODO quote
+> "Meh"
 
 Less than ~1 second wait: Don't indicate loading
 More than ~2 second wait: Use progress bars!
@@ -134,11 +135,11 @@ Spinners are only useful between a 1 second and 2 second wait.
 Don't forget that most progress bars are fake! This is due to the connection differences between the user's
 connection and the backend.
 However, we can use adaptive loading. Measure the actual requests done! You do need baseline times to know how
-long to *expect* it to fun. Of course this needs to be normalized for the resource or payload that needs to load.
+long to *expect* it to run. Of course this needs to be normalized for the resource or payload that needs to load.
 Again, adapt the loading scheme to the user that is requesting data. For example, you can check the user's
 connection to give him a personally optimized experience.
 
-We can also learn a lot from game devs. Remember FIFA who made you play a mini football game while loading the
+We can also learn a lot from game developers. Remember FIFA who made you play a mini football game while loading the
 game in the background?
 
 Predictive preloading:
