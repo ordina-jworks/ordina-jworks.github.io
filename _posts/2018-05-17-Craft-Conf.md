@@ -3,21 +3,20 @@ layout: post
 authors: [derya_duru]
 title: 'Craft Conf 2018'
 image: /img/craft-conf-2018/Craft-Conf-2018.png
-tags: [Craft Conf, Agile, Scrum, Coaching]
+tags: [Craft Conf, Agile, Scrum, Coaching, Core Protocols]
 category: Conference
 comments: true
 ---
 
-> [Craft Conf](https://craft-conf.com/){:target="_blank"} Craft Conf is a two day conference in Budapest, aimed at talks surrounding the 'Software as a craftsmanship' idea.
+> [Craft Conf](https://craft-conf.com/){:target="_blank"} is a two day conference in Budapest, aimed at talks surrounding the 'Software as a craftsmanship' idea.
 JWorks was present this year on 10 and 11 May and we would love to give you an overview of some of the talks we attended.
 
 <div class="the-toc">
 
   <h1 class="the-toc__heading">Table Of Contents</h1>
-
+    <li><a href="#power-games-for-high-performance-team-culture-psychological-safety-and-ei---richard-kasperowski" title="Power Games for High-performance Team Culture, Psychological Safety, and EI - Richard Kasperowski">Power Games for High-performance Team Culture, Psychological Safety, and EI - Richard Kasperowski</a></li>
   <ol class="the-toc__list">
   </ol>
-// TODO adapt
 </div>
 
 ****
@@ -27,14 +26,14 @@ JWorks was present this year on 10 and 11 May and we would love to give you an o
 <span class="image left"><img class="p-image" alt="Richard Kasperowski" src="/img/craft-conf-2018/Richard-Kasperowski.jpeg"></span>
 [Richard Kasperowski](https://twitter.com/rkasper){:target="_blank"} is a speaker, trainer, coach, and author focused on high-performance teams. Richard is the author of The Core Protocols: A Guide to Greatness. He leads clients in building great teams that get great results using the Core Protocols, Agile, and Open Space Technology. Richard teaches the class Agile Software Development at Harvard University, and he is a member of the board of directors of Agile New England.
 
-During this talk, Richard provides an overview of some of the Core Protocols that have proven to be
-very efficient in setting up a high performance team. It's very important for companies to realize
-that they need to focus on getting the right people together instead of focusing on achievements.
+During this talk, Richard provides an overview of some of the conditions that need to be met for the team to become a high performance team.
+It's very important for companies to realize that they need to focus on getting the right people together instead of focusing on achievements.
 
 A company needs to achieve the best possible team culture. But what does this mean?
-What is culture?
 
-"The collective programming of the mind ..." - Geert Hofstede //TODO - vul aan + add quote markup
+#### What is culture?
+
+> The collective programming of the mind which distinguishes the members of one group or category of people from another. - Geert Hofstede
 
 Richard talks about 6 different culture dimensions: // TODO meer uitleg
 * Power distance: People with less power accept that they actually have less power.
