@@ -3,7 +3,7 @@ layout: post
 authors: [derya_duru]
 title: 'Craft Conf 2018'
 image: /img/craft-conf-2018/Craft-Conf-2018.png
-tags: [Craft Conf, Agile, Scrum, Coaching, Core Protocols, High Performance Teams]
+tags: [Craft Conf, Agile, Scrum, Coaching, Core Protocols, High Performance Teams, Perceived Performance, Estimations, Scaling]
 category: Conference
 comments: true
 ---
@@ -26,7 +26,7 @@ JWorks was present this year on 10 and 11 May and we would love to give you an o
 
 ****
 
-### Power Games for High-performance Team Culture, Psychological Safety, and EI - Richard Kasperowski
+## Power Games for High-performance Team Culture, Psychological Safety, and EI - Richard Kasperowski
 
 <span class="image left"><img class="p-image" alt="Richard Kasperowski" src="/img/craft-conf-2018/Richard-Kasperowski.jpeg"></span>
 [Richard Kasperowski](https://twitter.com/rkasper){:target="_blank"} is a speaker, trainer, coach, and author focused on high-performance teams. Richard is the author of The Core Protocols: A Guide to Greatness. He leads clients in building great teams that get great results using the Core Protocols, Agile, and Open Space Technology.
@@ -36,7 +36,7 @@ In order for this to happen, it's very important that companies realize that the
 
 A company needs to achieve the best possible team culture. But what does this mean?
 
-#### What is culture?
+### What is culture?
 
 > The collective programming of the mind which distinguishes the members of one group or category of people from another. - Geert Hofstede
 
@@ -82,7 +82,7 @@ More info on the Core Protocols can be found [here](https://www.greatnessguild.o
 
 
 
-### Perceived performance: The only kind that really matters - Eli Fitch
+## Perceived performance: The only kind that really matters - Eli Fitch
 
 <span class="image left"><img class="p-image" alt="Eli Fitch" src="/img/craft-conf-2018/Eli-Fitch.jpeg"></span>
 [Eli Fitch](https://twitter.com/EliFitch){:target="_blank"} is a frontend developer with a passion for web performance, animation and all things 3D.
@@ -91,14 +91,14 @@ When talking about performance, we need to account for both objective time and s
 Usually, we tend to optimize for objective time by using tools like lazy loading.
 But how feasible is this?
 
-Even a **20%** increase in objective speed is unnoticeable to the user. So we have to aim for an increase of 30% or even more.
+Even a 20% increase in objective speed is unnoticeable to the user. So we have to aim for an increase of 30% or even more.
 Of course this is not easy at all, especially when taking into account that when working with multiple teams (possibly over different time zones),
 all the teams have to align on this.
 
 So how do we get the user to perceive an increase on performance?
 **We focus on the subjective time!**
 
-#### Active vs passive phase:
+### Active vs passive phase:
 
 What does a passive phase entail? Our passive phase kicks in when we are waiting for something to happen,
 say for our water to boil. Time spent in passive phases feels ~36% slower!
@@ -109,7 +109,7 @@ enough to wait:
 * Keep users in an active state
 * Make passive states feel faster
 
-How do we keep users in an active state?
+#### How do we keep users in an active state?
 We can implement an optimistic UI. 99% of requests succeed so why not take advantage of this by *first* updating
 the UI and only then doing the actual request.
 
@@ -120,7 +120,7 @@ This will provide you with a nice 100-150 millisecond head start. This is also u
 Using :active animations also buy you more time. An animation that lasts ~200 milliseconds will provide
 you with 50 milliseconds extra time keeping the user in an active state.
 
-Onto topic two: how to 'unsuck' passive states.
+#### Onto topic two: how to 'unsuck' passive states.
 A wait of 1-4 seconds is long enough to lose people's interest.
 There are three ways of preventive loss of interest:
 * Use the right loading animation
@@ -147,15 +147,28 @@ connection to give him a personally optimized experience.
 We can also learn a lot from game developers. Remember FIFA who made you play a mini football game while loading the
 game in the background?
 
-Predictive preloading:
+### Predictive preloading:
 What if we could predict the user's intent?
+One easy to setup option is to start loading the app and data in the background when a user has just started entering credentials in a login form.
+This quick win will give you a 4 second head start!
+
+Another option is to exploit behavioural quirks:
+1) People tend to watch hover animations: Fancy hovers buy you ±600ms extra time
+2) People slow down when approaching the target: Load on mouse deceleration!
+
+When combining above two techniques (hover animations + futurelink) we can get a ± 1.5 second head start.
+But: **Use predictive preloading wisely!** You *will* get it wrong some of the time. Do some dry runs first and try to mitigate risk by using metrics to improve.
+
+
+
+
 
 ... // TODO continue
 
-### SWARMing: Scaling Without A Religious Methodology - Dan North
+## SWARMing: Scaling Without A Religious Methodology - Dan North
 
-### Seven (plus/minus two) ways your brain screws you up - Joseph Pelrine & Jasmine Zahno
+## Seven (plus/minus two) ways your brain screws you up - Joseph Pelrine & Jasmine Zahno
 
-### Designing a high-performing team - Alison Coward
+## Designing a high-performing team - Alison Coward
 
-### Estimates or NoEstimates: Let's explore the possibilities - Woody Zuill
+## Estimates or NoEstimates: Let's explore the possibilities - Woody Zuill
