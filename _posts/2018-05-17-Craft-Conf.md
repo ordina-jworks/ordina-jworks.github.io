@@ -133,8 +133,9 @@ For example bands with accelerating bars feel 12% faster!
 What about spinners?
 > "Meh" - Eli Fitch
 
-Less than ~1 second wait: Don't indicate loading
-More than ~2 second wait: Use progress bars!
+* Less than ~1 second wait: Don't indicate loading
+* More than ~2 second wait: Use progress bars!
+
 Spinners are only useful between a 1 second and 2 second wait.
 
 Don't forget that most progress bars are fake! This is due to the connection differences between the user's
@@ -159,16 +160,43 @@ Another option is to exploit behavioural quirks:
 When combining above two techniques (hover animations + futurelink) we can get a ± 1.5 second head start.
 But: **Use predictive preloading wisely!** You *will* get it wrong some of the time. Do some dry runs first and try to mitigate risk by using metrics to improve.
 
+### A quick summary
 
+* Perceived performance is low hanging fruit. You can provide the user with immediate feedback.
+* Tailor to individual users
+* React at intent
+* Introduce predictive loading bit by bit
 
+> At the end of the day, it matters how it *feels*.
 
+Eli also covers this talk on his [website](http://assets.eli.wtf/talks/perceived-perf-talk/){:target="_blank"}.
 
-... // TODO continue
 
 ## SWARMing: Scaling Without A Religious Methodology - Dan North
 
+<span class="image left"><img class="p-image" alt="Dan North" src="/img/craft-conf-2018/Dan-North.jpg"></span>
+[Dan North](https://twitter.com/tastapod){:target="_blank"} has been coaching, coding and consulting for over 25 years, with a focus on applying systems thinking and simple technology to solve complex business problems.
+
+Business stakeholders, developers, infrastructure, the project management office and change groups don't understand each other. What are they doing wrong?
+
+> They are aiming at the wrong target!
+
+#### Wrong target: Cost accounting!
+#### Right target: Throughput accounting!
+
 ## Seven (plus/minus two) ways your brain screws you up - Joseph Pelrine & Jasmine Zahno
+
+<span class="image left"><img class="p-image" alt="Joseph Pelrine" src="/img/craft-conf-2018/Joseph-Pelrine.png"></span>
+<span class="image left"><img class="p-image" alt="Jasmine Zahno" src="/img/craft-conf-2018/Jasmine-Zahno.jpg"></span>
+[Joseph Pelrine](https://twitter.com/josephpelrine){:target="_blank"} is a senior certified Scrum Master Practitioner and Trainer as well as one of Europe's leading experts on eXtreme Programming. He has had a successful career as software developer, project manager and consultant. His work focuses on social complexity science and its application to Agile processes.<br><br>
+[Jasmine Zahno](https://twitter.com/jasminezahno){:target="_blank"} is an agile coach who is passionate about the people side of product development. Her master’s degree in organisational psychology uniquely qualifies her to deal with the human issues that arise when the agile paradigm collides with traditional organisational structures. A firm believer in “inspect and adapt”, she has made it her goal to help organisations create productive and motivating environments that encourage and inspire employees to do their best work.
 
 ## Designing a high-performing team - Alison Coward
 
+<span class="image left"><img class="p-image" alt="Alison Coward" src="/img/craft-conf-2018/Alison-Coward.jpeg"></span>
+[Alison Coward](https://twitter.com/alisoncoward){:target="_blank"} is the founder of Bracket and author of “A Pocket Guide to Effective Workshops”. She is a strategist, trainer and workshop facilitator. With over 15 years of experience of working in, leading and facilitating creative teams, Alison is passionate about finding the perfect balance between creativity and productivity.
+
 ## Estimates or NoEstimates: Let's explore the possibilities - Woody Zuill
+
+<span class="image left"><img class="p-image" alt="Woody Zuill" src="/img/craft-conf-2018/Woody-Zuill.png"></span>
+[Woody Zuill](https://twitter.com/woodyzuill){:target="_blank"} has been programming for 30+ years, and works as an Agile Coach and Application Development Manager. He and his team are the originators of the Mob Programming approach to teamwork in software development and he is considered one of the founders of the "#NoEstimates" discussion.
