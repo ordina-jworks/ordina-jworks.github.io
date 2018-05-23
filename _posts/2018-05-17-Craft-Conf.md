@@ -254,8 +254,18 @@ These are based on simple principles:
 
 <span class="image left"><img class="p-image" alt="Joseph Pelrine" src="/img/craft-conf-2018/Joseph-Pelrine.png"></span>
 <span class="image left"><img class="p-image" alt="Jasmine Zahno" src="/img/craft-conf-2018/Jasmine-Zahno.jpg"></span>
-[Joseph Pelrine](https://twitter.com/josephpelrine){:target="_blank"} is a senior certified Scrum Master Practitioner and Trainer as well as one of Europe's leading experts on eXtreme Programming. He has had a successful career as software developer, project manager and consultant. His work focuses on social complexity science and its application to Agile processes.<br><br>
-[Jasmine Zahno](https://twitter.com/jasminezahno){:target="_blank"} is an agile coach who is passionate about the people side of product development. Her master’s degree in organisational psychology uniquely qualifies her to deal with the human issues that arise when the agile paradigm collides with traditional organisational structures. A firm believer in “inspect and adapt”, she has made it her goal to help organisations create productive and motivating environments that encourage and inspire employees to do their best work.
+[Joseph Pelrine](https://twitter.com/josephpelrine){:target="_blank"} is a senior certified Scrum Master Practitioner and Trainer as well as one of Europe's leading experts on eXtreme Programming.<br><br>
+[Jasmine Zahno](https://twitter.com/jasminezahno){:target="_blank"} is an agile coach who is passionate about the people side of product development. Her master’s degree in organisational psychology uniquely qualifies her to deal with the human issues that arise when the agile paradigm collides with traditional organisational structures.
+
+Men find women who were red to be more attractive. Men actually don't realize this.
+A woman in red also triggers an exceptional reaction in other women.
+These women tend to react more aggressive towards women who wear red.
+Also, men who carry a guitar are found more attractive than men who carry a tennis racket.
+
+FACT: We use *more* than 10% of our brain. Even when we sleep, we use more.
+
+### What is willpower?
+
 
 ## Designing a high-performing team - Alison Coward
 
@@ -265,4 +275,4 @@ These are based on simple principles:
 ## Estimates or NoEstimates: Let's explore the possibilities - Woody Zuill
 
 <span class="image left"><img class="p-image" alt="Woody Zuill" src="/img/craft-conf-2018/Woody-Zuill.png"></span>
-[Woody Zuill](https://twitter.com/woodyzuill){:target="_blank"} has been programming for 30+ years, and works as an Agile Coach and Application Development Manager. He and his team are the originators of the Mob Programming approach to teamwork in software development and he is considered one of the founders of the "#NoEstimates" discussion.
+[Woody Zuill](https://twitter.com/woodyzuill){:target="_blank"} has been programming for 30+ years and works as an Agile Coach and Application Development Manager. He and his team are the originators of the Mob Programming approach to teamwork in software development and he is considered one of the founders of the "#NoEstimates" discussion.
