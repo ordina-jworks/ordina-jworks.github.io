@@ -76,10 +76,9 @@ At the core, there are 6 building blocks for high performance teams:
 The Core Protocols provide the functionality to achieve all six building blocks. Hierarchy and power culture erode high performance so
 when setting up and trying to maintain a high performance teams, these building blocks are essential.
 
-// TODO vul aan
+TODO vul talk aan
 
 More info on the Core Protocols can be found [here](https://www.greatnessguild.org/tcp/){:target="_blank"}.
-
 
 
 ## Perceived performance: The only kind that really matters - Eli Fitch
@@ -179,10 +178,77 @@ Eli also covers this talk on his [website](http://assets.eli.wtf/talks/perceived
 
 Business stakeholders, developers, infrastructure, the project management office and change groups don't understand each other. What are they doing wrong?
 
-> They are aiming at the wrong target!
+**They are aiming at the wrong target!**
 
 #### Wrong target: Cost accounting!
+People tend to look at costs & profits.
+Local performance targets are viewed as extremely valuable, such as keeping head count as low as possible.
 #### Right target: Throughput accounting!
+The whole business creates value. Identify and resolve bottlenecks. Check lead time and throughput. TODO!
+
+How can we reach the right target?
+
+> "Agile will save us!" - Everyone
+
+The two people still waiting for Godot might help you with this one.
+*Agile is no holy grail* and people desperately holding on to the agile transformation will realize this soon enough.
+
+Q: How do we always end up at, "Whatever we did was okay, but somehow it stopped working"?
+
+A: Some things are just inevitable:
+* Degradation
+* Dysfunction
+* Expiry
+
+However, these also stimulate positive change: Degradation stimulates maintaining, transforming TODO check
+dysfunction stimulates innovating, challenging and expiry stimulates creating, starting over.
+
+Why?
+
+* Change drives the need to adapt
+* Interdependency drives the need to collaborate
+* Imperfection drives the need to iterate
+
+These are the drivers of Agile and Lean methods!
+
+What are our options?
+
+SWARM!
+
+**S**caling
+**W**ithout
+**A**
+**R**eligious
+**M**ethodology
+
+> religion (n): The structures, constraints and rituals we humans accrete around a kernel of faith because we crave answers and we fear uncertainty. - Dan North
+
+The table stakes are:
+
+* Education
+* Practice
+* Time: 3-5 years to have an impact
+* Investment
+* Influence: we need to reach up and down in the organization. *Everybody* needs to participate.
+* Communication
+* External help: both Amazon Prime and Netflix run on AWS. They don't block each other, they learn from each other.
+* Leadership: consistent, invested, resilient
+
+These are based on simple principles:
+* People are basically good. "Everyone is trying to help". Assume this is always true.
+* Sustainable flow of value is the goal. We need to learn new metrics and techniques.
+* Theory of Constraints: one constraint at a time.
+
+1) Visualize -> stabilize -> optimize!
+2) Start small, get data
+3) Learn from mistakes, iterate
+=> This is all of it
+
+### Summing it up
+* Don't be fooled! It's easy to believe that this time will be different.
+* You can't defeat the universe. Mastery is understanding how to work within the grain. That means adapting, iterating and combining techniques for your context and the changes around you.
+* There is no magic formula!
+* ... TODO check
 
 ## Seven (plus/minus two) ways your brain screws you up - Joseph Pelrine & Jasmine Zahno
 
