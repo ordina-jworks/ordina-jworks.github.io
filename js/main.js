@@ -1,3 +1,6 @@
+---
+some_variable: "jeckyll wont update js without frontmatter.."
+---
 /* ************************ */
 /* Theme name  : Brave      */
 /* Author name : Ashok      */
@@ -17,6 +20,102 @@ $(".b-popover").popover();
 
 $(document).ready(function() {
   $('.lightbox').magnificPopup({type:'image'});
+});
+
+/* ********* */
+/* Open Page */
+/* ********* */
+
+openPage = function(event, link) {
+  var aClicked = false;
+  var node = event.target;
+  while (aClicked === false && node != null && node.nodeName !== 'BODY') {
+    if (node.nodeName === 'A') {
+      aClicked = true;
+    } else {
+      node = node.parentNode;
+    }
+  }
+  if (!aClicked) {
+    if (event.shiftKey || event.ctrlKey || event.metaKey) {
+      window.open(link, '_blank');
+    } else {
+      window.location = link;
+    }
+  }
+}
+
+/* ******* */
+/* The ToC */
+/* ******* */
+
+$(document).ready(function() {
+
+	var toc, tocClone;
+
+	var instantiateToC = function() {
+		if (!$('.pin-wrapper').length) {
+			toc.addClass('fixed closed').pin({
+				containerSelector: '.post-body .inner',
+				padding: {top: $('header').height(), bottom: 0}
+			});
+			$('.the-toc__heading').append('<span class="the-toc__toggle">✖</span>');
+			$('.the-toc__heading').on('click', function() {
+				if (toc.hasClass('closed')) {
+					toc.removeClass('closed');
+				} else {
+					toc.addClass('closed');
+				}
+			});
+		}
+	}
+
+	var resetToC = function() {
+		if ($('.pin-wrapper').length) {
+			$('.the-toc').remove();
+			$('.pin-wrapper').before(tocClone);
+			$('.pin-wrapper').remove();
+			$('.the-toc').removeClass('fixed');
+			cloneToC();
+		}
+	}
+	
+	var cloneToC = function() {
+		toc = $('.the-toc');
+		tocClone = toc.clone();
+	}
+
+	var detectToCPosition = function() {
+		if ($('.post-body .content > h1:first-of-type').offset() !== undefined) {
+			if ($(document).scrollTop() >= Math.floor($('.post-body .content > h1:first-of-type').offset().top) - 1 && $(document).scrollTop() < $('.post-body').offset().top + $('.post-body').outerHeight() - $(window).height()) {
+				instantiateToC();
+			} else {
+				resetToC();
+			}
+		}
+	}
+
+	cloneToC();
+	detectToCPosition();
+
+	$(document).on('scroll', function() {
+		detectToCPosition();
+	});
+
+	$(window).on('resize', function() {
+		resetToC();
+		instantiateToC();
+	});
+	
+});
+
+/* ********** */
+/* Tech Radar */
+/* ********** */
+$(document).ready(function() {
+	setTimeout(function() {
+		$('.tech-radar').addClass('active'); // Wait for tech-radar to load. Setting initial height causes the tech radar to be too big.
+	}, 3000);
 });
 
 /* *************** */
@@ -211,16 +310,16 @@ $(document).ready(function(){
 			$banner.scrollex({
 				bottom: $header.outerHeight() - 100,
 				enter: function() {
-					console.log('enter');
 					// $body.addClass('custom-image');
 					// $body.css("background-image", "url('" + imageHref + "')");
 
+					var background_image = imageHref.splice(imageHref.lastIndexOf('.'), 0, '_header');
+
                     $('#header-image').addClass('header-image');
-                    $('#header-image').css("background-image", "url('" + imageHref + "')");
+                    $('#header-image').css("background-image", "url('" + background_image + "')");
 					$('#over').css("display", "block");
 				},
 				leave: function() {
-					console.log('leave');
 					$body.removeClass('custom-image');
 					$body.css('background-image', '');
 					$('#over').css("display", "none");
@@ -332,3 +431,7 @@ $(document).ready(function(){
 	});
 
 })(jQuery);
+
+String.prototype.splice = function(idx, rem, str) {
+    return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
+};

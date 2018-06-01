@@ -1,24 +1,41 @@
 # Ordina JWorks Tech Blog
 
+The JWorks Tech Blog is powered by [Jekyll](https://jekyllrb.com).
+The blog posts are written in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) and are converted to HTML by Jekyll.
+Most code editors and IDEs have support for Markdown files.
+Some of them, such as IntelliJ, offer a preview view to see the result as you type.
+
+For running the blog locally you can either opt for using Docker or setting up Jekyll yourself.
+
 ## Running the blog with Docker
 
-    - When running on Windows, make sure your drive is shared with Docker (docker settings)
+    - When running on Windows, make sure your drive is shared with Docker (Docker settings)
     - Execute `docker-compose up -d`
     - Browse to [http://localhost:4000/](http://localhost:4000/)
-    - After making changes in the blog run, the blog is automatically rebuilt
+    - After making changes in the blog, the blog is automatically rebuilt
 
 ## Setting up Jekyll on your Mac or Linux
-You need to have at least Ruby 2.4.0 installed, this can be easily accomplished by using [rvm](https://rvm.io).
 
-Execute the following commands:
+Prerequisites: 
+- Ruby (>= 2.4.0): this can be easily accomplished by using [rvm](https://rvm.io).
+- ImageMagick: this can be easily accomplished by using [Homebrew](https://brew.sh/).
+
+After installing RVM and Homebrew, execute the following commands to install Ruby and ImageMagick and set up Jekyll:
 
     $ rvm install 2.4.0
     $ rvm use 2.4.0
     $ (sudo) gem install bundler
     $ bundle install
+    $ brew install imagemagick
+
+Note that setting the Ruby version via `rvm use 2.4.0` is only active for the current session.
+In order to set 2.4.0 as the default Ruby version you can use the following command:
+
+    $ rvm --default use 2.4.0
 
 ## Running Jekyll on your Mac or Linux
 - Run `jekyll serve` in the root directory of the tech blog
+    - If your post is to be published in the future, run `jekyll serve --future`
 - Browse to [http://localhost:4000/](http://localhost:4000/)
 
 ## Add yourself as an author
@@ -40,10 +57,11 @@ Execute the following commands:
     - tags: {tags}
     - category: {category}
     - comments: true
-- Write your blog
-- Save your file in the **_post** directory using the following file format: *{year}-{month}-{day}-{title}.md*
+- Write your blog post
+- Save your file in the **_posts** directory using the following file format: *{year}-{month}-{day}-{title}.md*
 	- **example**: *2015-11-09-Awesome-Blog-Post.md*
 - Be sure to publish as **plain text**! (Jekyll will generate the static HTML for us)
+- Make sure the image is a JPEG file and has a resolution of 500x293 or has at least the same ratio
 - Tweak and commit your changes until you feel satisfied with it
 
 ## Submit your blog post for publication
@@ -52,6 +70,7 @@ Execute the following commands:
 - If changes need to be made, you can just commit and push to the original feature branch
 - When your blog post has been reviewed, one of the competence leaders will approve and merge your pull request.
 - Congratulations! Your blog post is now visible to the whole world! :)
+- Don't forget to share your post with your colleagues and the social media (Twitter, LinkedIn, ...)!
 
 ## Style guide
 

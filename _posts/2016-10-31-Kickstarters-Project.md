@@ -3,7 +3,7 @@ layout: post
 authors: [tim_verte]
 title: 'Kickstarter project 2016'
 image: /img/kicks.png
-tags: [Spring, Angular2, Unit Test, Postman, Spring Boot, Spring REST Docs]
+tags: [Spring, Angular, Unit Test, Postman, Spring Boot, Spring REST Docs]
 category: Kickstarters
 comments: true
 ---
@@ -190,11 +190,9 @@ Because there wasn't enough time to completely finish the project, this project 
 
 ## The new JWorks colleagues
 
-<span class="image left "><img class="p-image" alt="Axel Bergmans" src="/img/kickstarters/2016/axel-bergmans.jpg" /></span>
-<span class="image left "><img class="p-image" alt="Matthias Caryn" src="/img/kickstarters/2016/matthias-caryn.jpg" /></span>
-<span class="image left "><img class="p-image" alt="Madi Dudaeva" src="/img/kickstarters/2016/madi-dudaeva.jpg" /></span>
-<span class="image left "><img class="p-image" alt="Christophe Theyssen" src="/img/kickstarters/2016/christophe-theyssen.jpg" /></span>
-<span class="image left "><img class="p-image" alt="Ines Verstappen" src="/img/kickstarters/2016/ines-vanstappen.jpg" /></span>
-<span class="image left "><img class="p-image" alt="Tim Verté" src="/img/kickstarters/2016/tim-verte.jpg" /></span>
-
-<br /><br /><br /><br /><br /><br />
+<img class="p-image" alt="Axel Bergmans" src="/img/kickstarters/2016/axel-bergmans.jpg" />
+<img class="p-image" alt="Matthias Caryn" src="/img/kickstarters/2016/matthias-caryn.jpg" />
+<img class="p-image" alt="Madi Dudaeva" src="/img/kickstarters/2016/madi-dudaeva.jpg" />
+<img class="p-image" alt="Christophe Theyssen" src="/img/kickstarters/2016/christophe-theyssen.jpg" />
+<img class="p-image" alt="Ines Verstappen" src="/img/kickstarters/2016/ines-vanstappen.jpg" />
+<img class="p-image" alt="Tim Verté" src="/img/kickstarters/2016/tim-verte.jpg" />

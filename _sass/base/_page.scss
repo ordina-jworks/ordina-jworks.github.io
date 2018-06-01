@@ -72,7 +72,6 @@ body.custom-image {
   right: 0;
   display: block;
   height: 800px;
-  filter: blur(5px);
   background-color: _palette(bg);
   z-index: -10;
 }
@@ -93,5 +92,81 @@ body.custom-image {
   a {
     margin-left: 15px;
     border: none;
+  }
+}
+
+/**
+ * The ToC
+ */
+.content .the-toc.fixed {
+    padding: 12px 20px 0;
+    left: 0 !important;
+    max-width: 300px;
+    background: #fff;
+    z-index: 9999;
+    box-shadow: 1px 1px 5px #ddd;
+
+    .the-toc__heading {
+      position: relative;
+      padding-top: 13px;
+
+      .the-toc__toggle {
+        position: absolute;
+        top: 13px;
+        right: -10px;
+        padding: 1px 10px;
+        cursor: pointer;
+        transition: transform 200ms ease;
+      }
+    }
+
+    .the-toc__list {
+      margin-bottom: 0;
+      padding-bottom: 20px;
+
+      font-size: 0.80em;
+
+      @media screen and (min-width: 1681px) {
+        font-size: 0.65em;
+      }
+    }
+
+    &.closed {
+      .the-toc__heading {
+        margin-bottom: 0;
+        padding-top: 0;
+        border: 0 none;
+
+        .the-toc__toggle {
+          top: -1px;
+          transform: rotate(45deg);
+        }
+      }
+
+      .the-toc__list {
+        display: none;
+      }
+    }
+}
+
+/**
+ * Tech Radar
+ */
+.wrapper.tech-radar-spotlight {
+  background-color: #eeeeee;
+  border-top: #eeeeee;
+  border-bottom: #eeeeee;
+
+  &:before, &:after {
+    background-image: svg-url('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="-10,100 100,0 100,100" style="fill:#eeeeee;" /></svg>') !important;
+  }
+
+  .tech-radar {
+    width: 100%;
+    height: 100px;
+
+    &.active {
+      height: 2000px; // Height based on detail view with long text
+    }
   }
 }

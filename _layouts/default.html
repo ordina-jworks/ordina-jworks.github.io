@@ -15,20 +15,20 @@
                 {% endif %}
             {% endif%}
         {% endfor %}
-
-        <!-- Twitter Card data -->
-        <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="{{ page.title }}{% if authors %}{{ authors }}{% endif %}">
-        <meta name="twitter:description" content="{{ site.title }}">
-        <meta name="twitter:image" content="http://ordina-jworks.github.io{{ page.image }}"/>
-
-        <!-- Facebook Open Graph -->
-        <meta property="og:url" content="http://ordina-jworks.github.io{{ page.url }}"/>
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="{{ page.title }}{% if authors %}{{ authors }}{% endif %}"/>
-        <meta property="og:description" content="{{ site.title }}"/>
-        <meta property="og:image" content="http://ordina-jworks.github.io{{ page.image }}"/>
     {% endif %}
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ page.title }}{% if authors %}{{ authors }}{% endif %}">
+    <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.title }}{% endif %}">
+    <meta name="twitter:image" content="{% if page.imagesocial %}http://ordina-jworks.github.io{{ page.imagesocial }}{% else %}{% if page.image %}http://ordina-jworks.github.io{{ page.image }}{% else %}http://ordina-jworks.github.io/img/jworks/jworks-400x400.png{% endif %}{% endif %}"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io{{ page.url }}"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="{{ page.title }}{% if authors %}{{ authors }}{% endif %}"/>
+    <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.title }}{% endif %}"/>
+    <meta property="og:image" content="{% if page.imagesocial %}http://ordina-jworks.github.io{{ page.imagesocial }}{% else %}{% if page.image %}http://ordina-jworks.github.io{{ page.image }}{% else %}http://ordina-jworks.github.io/img/jworks/jworks-1200x630.png{% endif %}{% endif %}"/>
 
     {% if page.layout == 'post' %}
     <title>{{ page.title }}{% if authors %}{{ authors }}{% endif %} &mdash; {{ site.title }}</title>
@@ -59,7 +59,9 @@
     </section>
 </div>
 
+{% if page.layout != 'post' %}
 <div id="over"></div>
+{% endif %}
 
 {% include footer.html %}
 {% include footer-scripts.html %}

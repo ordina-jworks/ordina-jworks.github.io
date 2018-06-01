@@ -12,12 +12,13 @@
   margin: 0 0 _size(element-margin) 0;
 
   article {
+    position: relative;
     @include padding(1.75em, 1.75em);
     //background-color: rgba(255, 255, 255, 0.5);
     background-color: _palette(grey);
     color:_palette(fg-header);
     border-radius: _size(border-radius);
-    margin: (_size(section-spacing, large) * 0.5) _size(section-spacing, large) (_size(section-spacing, large) * 0.5) 0;
+    margin: (_size(section-spacing, large) * 0.25) (_size(section-spacing, large) * 0.5) (_size(section-spacing, large) * 0.25) 0;
     width: calc(50% - #{_size(section-spacing, large) * 0.5});
 
     h3, a {
@@ -74,5 +75,57 @@
       width: 100%;
       margin: 0 0 _size(element-margin) 0 !important;
     }
+  }
+
+  &.features-jobs {
+    article {
+      position: relative;
+      padding-bottom: 3.5em;
+      width: calc(34.233333333% - #{_size(section-spacing, large) * 0.5});
+
+      &:nth-child(2n) {
+        margin-right: (_size(section-spacing, large) * 0.5);
+      }
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+
+      .special {
+        position: absolute;
+        left: 1.75em;
+        bottom: 0;
+      }
+    }
+
+    @include breakpoint(medium) {
+      article {
+        margin-right: _size(section-spacing, medium) * 0.75;
+      }
+    }
+
+    @include breakpoint(small) {
+      article {
+        margin-right: _size(section-spacing, small);
+        padding-bottom: 3.5em;
+        width: calc(50% - #{_size(section-spacing, small) * 0.5});
+  
+        &:nth-child(3n) {
+          margin-right: _size(section-spacing, small);
+        }
+        &:nth-child(2n) {
+          margin-right: 0;
+        }
+      }
+    }
+
+    @include breakpoint(xsmall) {
+      display: block;
+  
+      article {
+        width: 100%;
+        margin: 0 0 _size(element-margin) 0 !important;
+      }
+    }
+
   }
 }
