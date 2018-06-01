@@ -75,7 +75,7 @@ Rick & Morty is a television show following the misadventures of cynical mad sci
 </div>
 
 Our demo application is a Java Spring Boot application, running on an Apache Tomcat server, packaged inside a docker container.
-The docker container runs on Kubernetes managed by Google Cloud Platform (GKE).
+The docker container runs on Kubernetes managed by Google Cloud Platform (GKE).  
 The application exposes an endpoint on `http://localhost:8080` and can be run locally by executing `./mvnw spring-boot:run`, assuming you have a JRE or JDK (v8+) installed.
 
 The endpoint returns an HTML with a background of Pickle Rick.
@@ -85,11 +85,11 @@ In season three episode three, Rick turns himself into a pickle in an attempt at
 {% include image.html img="/img/spinnaker/pickle-rick.jpeg" alt="Pickle Rick" title="Pickle Rick"%}
 </div>
 </div>
-Pickle Rick will act as our *green* deployment, which we'll try to replace with a *blue* deployment.
+Pickle Rick will act as our *green* deployment, which we'll try to replace with a *blue* deployment.  
 For that deployment we'll use Mr. Meeseeks, season one episode five.
 Meeseeks are creatures who are created to serve a singular purpose for which they will go to any length to fulfill.
 After they serve their purpose, they expire and vanish into the air.
-Their motivation to help others comes from the fact that existence is painful to a Meeseeks, and the only way to be removed from existence is to complete the task they were called to perform.
+Their motivation to help others comes from the fact that existence is painful to a Meeseeks, and the only way to be removed from existence is to complete the task they were called to perform.  
 Meeseeks can however summon other Meeseeks to help, which could spiral out of control if the task at hand is unsolvable.
 <div class="row" style="margin: 0 35% 0 auto;">
 <div class="col-md-offset-3 col-md-6">
@@ -106,11 +106,15 @@ Aside from the leading character in our two versions, there are two specific dif
 
 The following commit shows moving from the green version to the blue version: [24cc45cf](https://github.com/andreasevers/spinnaker-demo/commit/24cc45cf4d8ddfe2843e4ea105b5e43bb28c4d41)
 
-First of all the background image changes, which gives a clear visual indication of which version is currently deployed.
+First of all the background image changes, which gives a clear visual indication of which version is currently deployed.  
 Since using Meeseeks could get out of hand quickly, keeping track of how many times the Meeseeks HTTP endpoint has been hit makes a lot of sense.
 Hence, the blue version prints for every request to the endpoint, an extra `Meeseeks` in the logs.
 
 Using this setup, we should be able to consider logs as a source of information for judging the canary healthiness.
+
+Note that the Github repository can constantly switch between Pickle Rick and Meeseeks.
+Before starting a build and making deployments, make sure your fork is aligned with the green version.
+If this isn't the case, switching to green is demonstrated in the following commit: [784e616a](https://github.com/andreasevers/spinnaker-demo/commit/784e616ae6de881cecf6601831383e2097149c83)
 
 ### Setup Continuous Integration
 
@@ -118,14 +122,14 @@ Making changes to our application will be the trigger for our pipelines.
 Therefore, we should have a simple continuous integration flow set up.
 We could use Jenkins or any other build server that uses webhooks, but since our entire demo is being deployed on GCP, we can use the build server from GCP instead.
 
-First of all, fork the [demo application repository](https://github.com/andreasevers/spinnaker-demo/commit/24cc45cf4d8ddfe2843e4ea105b5e43bb28c4d41).
+First of all, fork the [demo application repository](https://github.com/andreasevers/spinnaker-demo/commit/24cc45cf4d8ddfe2843e4ea105b5e43bb28c4d41). 
 
-In the GCP console, open build triggers underneath the Container Registry (GCR) tab.
+In the GCP console, open build triggers underneath the Container Registry (GCR) tab.  
 Select Github as repository hosting, and select the forked repository to create a trigger for.
 Configure the trigger to activate on any branch, using a `cloudbuild.yaml` file located in the root of the repository.
 <div class="row" style="margin: 0 35% 0 auto;">
 <div class="col-md-offset-3 col-md-6">
-{% include image.html img="/img/spinnaker/Screen Shot 2018-06-01 at 16.54.36.png" alt="Ingress" title="Ingress"%}
+{% include image.html img="/img/spinnaker/Screen Shot 2018-06-01 at 16.54.36.png" alt="CI" title="CI "%}
 </div>
 </div>
 
@@ -796,9 +800,72 @@ And finally also destroy the canary server group.
 
 # Running the demo scenario
 
+As explained in the [introduction of the demo application](#intro-demo), we have two versions of our application.
+As long as we keep deploying green versions with minor changes to other parts of the application (not impacting Meeseeks logs), the whole pipeline should pass, including the canary analysis.
+
+For a canary test to be successful, we need data.
+The more data our test can gather, the more informed the decision will be.
+In our demo scenario, we can continuously refresh the page to generate more load and more Meeseeks in the logs, but we can also use a script for that.
+In the root of the demo repository, a script called `randomload.sh` can be used to generate calls to the PROD ingress endpoint at a random interval.  
+The script uses [HTTPie](https://httpie.org/) to make calls, but you can also replace it with `curl` commands.
+Also make sure you change the IP address in your forked repository's file.
+
+### Success
+
+A successful canary release would look like this.
+<div class="row" style="margin: 0 15% 0 auto;">
+<div class="col-md-offset-3 col-md-6">
+{% include image.html img="/img/spinnaker/Screen Shot 2018-06-01 at 18.16.10.png" alt="Success" title="Success"%}
+</div>
+</div>
+Meeseeks logs should occur at a similar rate in the canary and the baseline server group.
+<div class="row" style="margin: 0 15% 0 auto;">
+<div class="col-md-offset-3 col-md-6">
+{% include image.html img="/img/spinnaker/Screen Shot 2018-06-01 at 18.53.45.png" alt="Success Meeseeks" title="Success Meeseeks"%}
+</div>
+</div>
+
+CPU and RAM metrics are also part of the comparison.
+In the example below, the canary CPU metrics deviated too much from the baseline, resulting in a failure for that metric group.
+However, the weight of those metrics were not high enough to fail the verdict, but it did cause the outcome to be labeled *marginal*.
+<div class="row" style="margin: 0 15% 0 auto;">
+<div class="col-md-offset-3 col-md-6">
+{% include image.html img="/img/spinnaker/Screen Shot 2018-06-01 at 18.37.33.png" alt="Success RAM" title="Success RAM"%}
+{% include image.html img="/img/spinnaker/Screen Shot 2018-06-01 at 18.38.06.png" alt="Success CPU" title="Success CPU"%}
+</div>
+</div>
+
+### Failure
+
+When switching to the blue Meeseeks version, the initial DEV deploy would succeed, but our canary analysis should fail after one or two intervals.
+
+A failed canary release would look like this.
+<div class="row" style="margin: 0 15% 0 auto;">
+<div class="col-md-offset-3 col-md-6">
+{% include image.html img="/img/spinnaker/Screen Shot 2018-06-01 at 19.08.12.png" alt="Failed" title="Failed"%}
+</div>
+</div>
+The canary server group generated a noticeable higher amount of Meeseeks than our baseline server group, resulting in a failed analysis.
+<div class="row" style="margin: 0 15% 0 auto;">
+<div class="col-md-offset-3 col-md-6">
+{% include image.html img="/img/spinnaker/Screen Shot 2018-06-01 at 19.09.31.png" alt="Failed Meeseeks" title="Failed Meeseeks"%}
+</div>
+</div>
+
+Even though canary CPU and RAM metrics were quite in sync with the baseline, our Meeseeks metrics were enough to fail the entire pipeline.
+<div class="row" style="margin: 0 15% 0 auto;">
+<div class="col-md-offset-3 col-md-6">
+{% include image.html img="/img/spinnaker/Screen Shot 2018-06-01 at 19.10.09.png" alt="Failed RAM" title="Failed RAM"%}
+{% include image.html img="/img/spinnaker/Screen Shot 2018-06-01 at 19.08.57.png" alt="Failed CPU" title="Failed CPU"%}
+</div>
+</div>
+
 <a name="conclusion" />
 
 # Conclusion
 
-
+Pickle Rick and Meeseeks have shown us the power of automated canary analysis using Spinnaker.
+There are still a few considerations we have to take into account, such as the importance of choosing the right metrics and filters and iterating on those after each canary release.
+Yet, having a tool like this at our disposal allows us to release more often to production, without compromising safety or quality.
+By reducing manual and ad hoc analysis only the most stable releases are deployed to production in a highly automated way.
 
