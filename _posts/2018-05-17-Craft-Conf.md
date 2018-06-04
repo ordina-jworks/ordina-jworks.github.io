@@ -265,12 +265,112 @@ Also, men who carry a guitar are found more attractive than men who carry a tenn
 FACT: We use *more* than 10% of our brain. Even when we sleep, we use more.
 
 ### What is willpower?
+It's the ability to resist short-term temptation in order to meet long-term goals.
+Each day, we make 227 choices. These are all chances to follow your long-term goals.
+This has absolutely nothing to do with your academic abilities and everything with willpower.
 
+*Willpower determines academic successes over intelligence.*
+
+#### Willpower deteriorates!
+After multiple choices that required willpower, your willpower will start deteriorating and you will start making worse decisions.
+This is actually something that supermarkets use.
+The fruit and vegetables aisles are always presented to you first whilst you pass the sugary items right before checkout, when your willpower is at its lowest.
+
+#### How to boost your and your team's willpower?
+* Establish motivation - for example, align the action items in a retrospective to the team's motivations
+* Focus on one goal at a time
+* Be authentic
+* Express your emotions - hiding your emotions deteriorates your willpower
+* Physical exercise - for example during a retrospective
+* Eat regularly - for example, foresee fruit instead of Snickers to keep up the willpower
+* Mindfulness practices
+
+### Relative estimating =/= estimating!
+Social compliance is very important during planning poker.
+See the example of the five subjects to say which lines are the same length.
+Among these five people there is one actual test subject while the other 4 are deliberately giving the wrong answer.
+
+### Seven plus/minus two
+Google! TODO
+
+The way the Product Owner formulates the story has a big impact on how it is estimated.
+Let's say for example that a car had an accident.
+The following five words that were used in the experiment gave a different result:
+* Collided - 2
+* Bumped - 3
+* Contacted - 5
+* Hit - 4
+* Smashed - 1
+
+### We are not good psychologists
+The Monty Hall problem!
+The Dunning-Kruger effect: the less intelligent a student was, the smarter they thought they actually were.
+
+#### Working in teams
+We have the tendency to overemphasize personal characteristics and ignore situational factors when judging others' behaviour.
+* When we are late, it's because we have a good excuse
+* When a team member is late, he was probably just lazy
+
+#### IKEA effect
+We have the tendency to overvalue the things we build ourselves.
+One example here is using pancake mix. These mixes didn't sell properly until people were actually required to add their own set of eggs to the mix.
+
+Tuchman model?? TODO
 
 ## Designing a high-performing team - Alison Coward
 
 <span class="image left"><img class="p-image" alt="Alison Coward" src="/img/craft-conf-2018/Alison-Coward.jpeg"></span>
 [Alison Coward](https://twitter.com/alisoncoward){:target="_blank"} is the founder of Bracket and author of “A Pocket Guide to Effective Workshops”. She is a strategist, trainer and workshop facilitator. With over 15 years of experience of working in, leading and facilitating creative teams, Alison is passionate about finding the perfect balance between creativity and productivity.
+
+Team work today is cross-functional and self-organizing.
+AirBnB for example has core teams and expand the team with the necessary expertise when necessary.
+
+A team is made up of multiple individuals which creates a new team culture when putting these teams together.
+-- TODO insert image
+The team's dynamics also tend to change on the projects.
+
+### Three principles for creating High Performance Teams
+1) Can your team learn to work together?
+With a fixed mindset you believe that talent is fixed.
+However, with a growth mindset, you believe that anyone can improve with practice and persistence. See the value of continuous learning.
+These teams were more successful and perform much better.
+They challenge each other and learn together. -> Can ??? TODO
+
+2) What new way (??) of working can be created to work together?
+Design approach. Designing a way of working that works for that team!
+
+3) How will you and your team start to work differently?
+Behaviour change and building new team habits.
+
+### Two factors for effective teams
+1) Communication
+2) Trust
+
+How you work together is more important than what you're working on and who you are working with.
+
+#### MIT Human Dynamics Lab
+The most effective teams:
+* Communicate frequently
+* Talk and listen in equal measure
+* Engage in frequent informal communication
+* The conversations are dynamic
+
+#### Google's project Aristotle
+* Impact of work
+* Meaning of work
+* Structure and clarity
+* Dependability
+* Psychological safety
+
+#### Self-awareness
+95% of us think we are self-aware, while actually only 10-15% is!
+
+Self-awareness exercise:
+* What time do you naturally wake up?
+* When are your most productive hours?
+* When do you get your best ideas?
+* What does your ideal work day look like?
+
 
 ## Estimates or NoEstimates: Let's explore the possibilities - Woody Zuill
 
