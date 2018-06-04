@@ -213,7 +213,7 @@ gcloud compute ssh $HALYARD_HOST \
     --ssh-flag="-L 8084:localhost:8084"
 ```
 
-Before you perform hal deploy apply, add the docker registry corresponding to your region. In case your project is located in Europe, add the eu.gcr.io registry as illustrated below.
+Before you perform hal deploy apply, add the Docker registry corresponding to your region. In case your project is located in Europe, add the eu.gcr.io registry as illustrated below.
 
 ```bash
 hal config provider docker-registry account add gcr-eu \
@@ -234,7 +234,7 @@ Add the following roles to the member with name `gcs-service-account`:
 
 #### Automated Canary Analysis
 
-Before you perform hal deploy apply, enable automated canary analysis.
+Before you perform `hal deploy apply`, enable automated canary analysis.
 Follow the guide further down, but first of all set some variables while still SSH’d in the Halyard VM.
 One of these variables is the Spinnaker bucket automatically created when installing Halyard.
 Look for the right bucket identifier in the GCP GKE buckets dashboard.
@@ -445,7 +445,7 @@ hal deploy connect
 
 ### Application Configuration
 
-This guide uses the Kubernetes V1 provider, but you can just as well use V2.  
+This guide uses the Kubernetes V1 provider, but you can use V2 just as well.  
 Follow the [official documentation](https://www.spinnaker.io/setup/install/providers/kubernetes-v2/#adding-an-account) to enable the V2 provider.
 
 Visit [localhost:9000](http://localhost:9000) to open the Spinnaker UI.  
