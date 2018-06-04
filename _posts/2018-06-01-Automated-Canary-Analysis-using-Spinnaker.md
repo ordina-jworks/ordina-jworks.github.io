@@ -13,13 +13,13 @@ comments: true
 Spinnaker is a multi-cloud, multi-region automated deployment tool.
 Open sourced by Netflix and heavily contributed to by Google, it supports all major cloud providers including Kubernetes.  
 
-Last month Kayenta was open sourced, a canary analysis engine. 
-Canary analysis is a technique to reduce the risk from deploying a new version of software into production. 
-A new version of the software, referred to as the canary, is deployed to a small subset of users alongside the stable running version. 
-Traffic is split between these two versions such that a portion of incoming requests is diverted to the canary. 
+Last month Kayenta was open sourced, a canary analysis engine.
+Canary analysis is a technique to reduce the risk from deploying a new version of software into production.
+A new version of the software, referred to as the canary, is deployed to a small subset of users alongside the stable running version.
+Traffic is split between these two versions such that a portion of incoming requests is diverted to the canary.
 This approach can quickly uncover any problems with the new version without impacting the majority of users.
-  
-The quality of the canary version is assessed by comparing key metrics that describe the behavior of the old and new versions. 
+
+The quality of the canary version is assessed by comparing key metrics that describe the behavior of the old and new versions.
 If there is a significant degradation in these metrics, the canary is aborted and all of the traffic is routed to the stable version in an effort to minimize the impact of unexpected behavior.
 
 # Preface
@@ -28,7 +28,7 @@ Ordina helps companies through digital transformation using three main focus are
 Embracing a DevOps culture and corresponding practices allows teams to focus on delivering value for the business, by changing the communication structures of the organization.  
 Through automation, teams are empowered and capable of delivering applications much faster to production. Having a modular decoupled architecture, our second focus area, fits well with this model.  
 Making these changes to our architecture in combination with a culture of automation, results in a lot more moving parts in our application landscape.  
-Naturally the next step is tackling the underlying infrastructure accomodate this new architecture and way of working. 
+Naturally the next step is tackling the underlying infrastructure accomodate this new architecture and way of working.
 Cloud automation is therefore our final focus area in digital transformations.
 
 
@@ -122,7 +122,7 @@ Making changes to our application will be the trigger for our pipelines.
 Therefore, we should have a simple continuous integration flow set up.
 We could use Jenkins or any other build server that uses webhooks, but since our entire demo is being deployed on GCP, we can use the build server from GCP instead.
 
-First of all, fork the [demo application repository](https://github.com/andreasevers/spinnaker-demo/commit/24cc45cf4d8ddfe2843e4ea105b5e43bb28c4d41). 
+First of all, fork the [demo application repository](https://github.com/andreasevers/spinnaker-demo/commit/24cc45cf4d8ddfe2843e4ea105b5e43bb28c4d41).
 
 In the GCP console, open build triggers underneath the Container Registry (GCR) tab.  
 Select Github as repository hosting, and select the forked repository to create a trigger for.
@@ -148,7 +148,7 @@ Follow the guide on Spinnaker’s website: [https://www.spinnaker.io/setup/quick
 
 Create a cluster like mentioned here: [https://cloud.google.com/monitoring/kubernetes-engine/installing](https://cloud.google.com/monitoring/kubernetes-engine/installing)
 
-```
+```bash
 gcloud components update
 
 gcloud auth login
@@ -160,7 +160,7 @@ Find out the latest supported cluster version with the following command:
 
 Create a cluster for your specific zone (e.g. europe-west1-d) and preferred cluster version (v1.10.2-gke.0 or later):
 
-```
+```bash
 CLUSTER_VERSION=1.10.2-gke.1
 GCP_PROJECT=$(gcloud info --format='value(config.project)')
 ZONE=europe-west1-d
@@ -192,7 +192,7 @@ Postpone running the `hal deploy apply` command until the end of this chapter.
 
 During the [Halyard on GKE guide on Spinnaker’s website](https://www.spinnaker.io/setup/quickstart/halyard-gke), remember to use the right zone when creating the Halyard VM.
 
-```
+```bash
 gcloud compute instances create $HALYARD_HOST \
     --project=$GCP_PROJECT \
     --zone=$ZONE \
@@ -205,7 +205,7 @@ gcloud compute instances create $HALYARD_HOST \
 
 When SSH’ing into the Halyard VM, also remember to use the right zone.
 
-```
+```bash
 gcloud compute ssh $HALYARD_HOST \
     --project=$GCP_PROJECT \
     --zone=$ZONE \
@@ -215,7 +215,7 @@ gcloud compute ssh $HALYARD_HOST \
 
 Before you perform hal deploy apply, add the docker registry corresponding to your region. In case your project is located in Europe, add the eu.gcr.io registry as illustrated below.
 
-```
+```bash
 hal config provider docker-registry account add gcr-eu \
     --address eu.gcr.io \
     --password-file ~/.gcp/gcp.json \
@@ -239,7 +239,7 @@ Follow the guide further down, but first of all set some variables while still S
 One of these variables is the Spinnaker bucket automatically created when installing Halyard.
 Look for the right bucket identifier in the GCP GKE buckets dashboard.
 
-```
+```bash
 PROJECT_ID=$(gcloud info --format='value(config.project)')
 JSON_PATH=~/.gcp/gcp.json
 MY_SPINNAKER_BUCKET=spin-48b89b5e-dd67-446a-ad9f-66e8783e9822
@@ -248,13 +248,14 @@ MY_SPINNAKER_BUCKET=spin-48b89b5e-dd67-446a-ad9f-66e8783e9822
 Follow the [official canary quickstart documentation](https://www.spinnaker.io/setup/canary/#quick-start).
 
 Configure the default metrics store.
-```
+
+```bash
 hal config canary edit --default-metrics-store stackdriver
 ```
 
 And finally execute the rollout.
 
-```
+```bash
 hal deploy apply
 ```
 
@@ -293,7 +294,7 @@ Turn on audit logging: https://cloud.google.com/monitoring/audit-logging & https
 These are all the commands we executed in order to get everything set up.
 Fill in the `<PLACEHOLDER>` placeholders according to your preferences.
 
-```
+```bash
 gcloud components update
 
 gcloud auth login
@@ -372,7 +373,7 @@ gcloud compute ssh $HALYARD_HOST \
 
 Inside the Halyard VM:
 
-```
+```bash
 KUBECTL_LATEST=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_LATEST/bin/linux/amd64/kubectl
 chmod +x kubectl
@@ -523,7 +524,7 @@ Go to the Config link on the top right of the page, and add a Traffic Guard.
 
 ### Staging Pipeline
 
-Now that we’ve deployed a single version of our application to DEV and PROD, it’s time to create a pipeline. 
+Now that we’ve deployed a single version of our application to DEV and PROD, it’s time to create a pipeline.
 This will enable us to continuously deploy new versions of our application without having to manually create new server groups every time.  
 Head over to the pipelines view and create a new pipeline called Deploy to DEV.  
 Under the first “Configuration” stage, configure an automated trigger.
@@ -864,8 +865,7 @@ Even though canary CPU and RAM metrics were quite in sync with the baseline, our
 
 # Conclusion
 
-Pickle Rick and Meeseeks have shown us the power of automated canary analysis using Spinnaker.
+Pickle Rick and Mr. Meeseeks have shown us the power of automated canary analysis using Spinnaker.
 There are still a few considerations we have to take into account, such as the importance of choosing the right metrics and filters and iterating on those after each canary release.
 Yet, having a tool like this at our disposal allows us to release more often to production, without compromising safety or quality.
 By reducing manual and ad hoc analysis only the most stable releases are deployed to production in a highly automated way.
-
