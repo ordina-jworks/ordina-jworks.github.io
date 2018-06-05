@@ -29,7 +29,7 @@ JWorks was present this year on 10 and 11 May and we would love to give you an o
 ## Power Games for High-performance Team Culture, Psychological Safety, and EI - Richard Kasperowski
 
 <span class="image left"><img class="p-image" alt="Richard Kasperowski" src="/img/craft-conf-2018/Richard-Kasperowski.jpeg"></span>
-[Richard Kasperowski](https://twitter.com/rkasper){:target="_blank"} is a speaker, trainer, coach, and author focused on high-performance teams. Richard is the author of The Core Protocols: A Guide to Greatness. He leads clients in building great teams that get great results using the Core Protocols, Agile, and Open Space Technology.
+[Richard Kasperowski](https://twitter.com/rkasper){:target="_blank"} is a speaker, trainer, coach and author focused on high performance teams. Richard is the author of The Core Protocols: A Guide to Greatness. He leads clients in building great teams that get great results using the Core Protocols, Agile, and Open Space Technology.
 
 During this talk, Richard provides an overview of some of the conditions that need to be met for the team to become a high performance team.
 In order for this to happen, it's very important that companies realize that they need to focus on getting the right people together instead of focusing on achievements.
@@ -181,12 +181,15 @@ Business stakeholders, developers, infrastructure, the project management office
 **They are aiming at the wrong target!**
 
 #### Wrong target: Cost accounting!
-People tend to look at costs & profits.
-Local performance targets are viewed as extremely valuable, such as keeping head count as low as possible.
+Large businesses tend to look only at costs and profits since they are too big to be able to keep an eye on everything in the organization.
+Local performance targets are viewed as extremely valuable, such as reducing head count or sticking to the budget.
 #### Right target: Throughput accounting!
-The whole business creates value. Identify and resolve bottlenecks. Check lead time and throughput. TODO!
+The whole business creates value.
+People in the organization are either directly creating value, or they are at least enabling others to do so.
+The business tries to identify and resolve bottlenecks.
+They care about lead time and throughput: How quickly from identifying a need can they meet that need and how much value can be pushed through the organization?
 
-How can we reach the right target?
+How can they reach the right target?
 
 > "Agile will save us!" - Everyone
 
@@ -196,22 +199,22 @@ The two people still waiting for Godot might help you with this one.
 Q: How do we always end up at, "Whatever we did was okay, but somehow it stopped working"?
 
 A: Some things are just inevitable:
-* Degradation
-* Dysfunction
-* Expiry
+* Degradation: things start to wear out because of time
+* Dysfunction: once things wear out, they stop working
+* Expiry: after they stop working, things start to decay and fall away
 
-However, these also stimulate positive change: Degradation stimulates maintaining, transforming TODO check
-dysfunction stimulates innovating, challenging and expiry stimulates creating, starting over.
+However, these also stimulate positive change: degradation stimulates the idea of maintaining things and transforming them.
+dysfunction drives innovation and challenging things and expiry stimulates creating and starting over.
 
-Why?
+Why does this happen?
 
-* Change drives the need to adapt
-* Interdependency drives the need to collaborate
-* Imperfection drives the need to iterate
+* Change drives the need to adapt. If we're not adapting, things are going to fail.
+* Interdependency drives the need to collaborate.
+* Imperfection drives the need to iterate.
 
-These are the drivers of Agile and Lean methods!
+Surprise, surprise: adaption, collaboration and iteration are the drivers of Agile and Lean methods!
 
-What are our options?
+#### What are our options?
 
 SWARM!
 
@@ -225,30 +228,40 @@ SWARM!
 
 The table stakes are:
 
-* Education
-* Practice
-* Time: 3-5 years to have an impact
-* Investment
+* Education: we need to learn some new tricks.
+* Practice: it's not enough to learn them, we also need to implement them (possibly with a few failures in the process and trying again and again).
+* Time: minimum 3-5 years to have an impact.
+* Investment: time costs money.
 * Influence: we need to reach up and down in the organization. *Everybody* needs to participate.
-* Communication
+* Communication: needs to be in the plan from the get-go or it will not work.
 * External help: both Amazon Prime and Netflix run on AWS. They don't block each other, they learn from each other.
-* Leadership: consistent, invested, resilient
+* Leadership: needs to be consistent, they need to be invested and resilient.
+
+If you don't have these factors in place, SWARM   won't work.
 
 These are based on simple principles:
 * People are basically good. "Everyone is trying to help". Assume this is always true.
 * Sustainable flow of value is the goal. We need to learn new metrics and techniques.
-* Theory of Constraints: one constraint at a time.
+* Theory of Constraints: only tackle one constraint at a time.
 
+Underlying principles:
 1) Visualize -> stabilize -> optimize!
-2) Start small, get data
-3) Learn from mistakes, iterate
-=> This is all of it
+You cannot change a system if you don't know what that system looks like, so visualize!
+Use event storming, value stream mapping or whatever you need.
+Stabilizing means that even if the system is horribly bad, you want it to be consistently horribly bad because only then can you observe what impact your changes actually have.
+2) Start small, get data.
+
+> "If we have data, let's look at data. If all we have are opinions, let's go with mine!" - Jim Barksdale
+
+3) Learn from mistakes, iterate.
 
 ### Summing it up
 * Don't be fooled! It's easy to believe that this time will be different.
-* You can't defeat the universe. Mastery is understanding how to work within the grain. That means adapting, iterating and combining techniques for your context and the changes around you.
-* There is no magic formula!
-* ... TODO check
+* You can't defeat the universe.
+Mastery is understanding how to work with the grain. Don't try to fight all the universal, inevitable things.
+That means adapting, iterating and combining techniques for your context and the changes around you.
+* There is no magic formula! But there definitely is hope.
+* This all takes education, time, practice and other things like investment and leadership.
 
 ## Seven (plus/minus two) ways your brain screws you up - Joseph Pelrine & Jasmine Zahno
 
@@ -494,4 +507,3 @@ This is what being agile is all about!
 The object isn't to make art ... TODO
 
 Let's learn to control our urge to control things.
-
