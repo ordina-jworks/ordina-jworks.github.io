@@ -371,8 +371,127 @@ Self-awareness exercise:
 * When do you get your best ideas?
 * What does your ideal work day look like?
 
+Project kickoff
+1) Share team expertise
+2) Clarify the roles
+3) Talk about how you will work together
+
+### Organize better meetings and workshops
+Make your meetings count!
+* What is the purpose of the meeting?
+* What is the best format of the meeting? How long do we need? Do we need to split up the meeting?
+* Set meeting rhythms
+
+See Amazon's two pizza teams:
+If a team is too large to be fed by two pizza's, then the team is just too large.
+
+Google Ventures Anxiety Parties TODO
+
+Asana's no meeting Wednesdays TODO
+
+#### Take inspiration from workshops
+Great workshops have the following in common:
+* Collaboration
+* Creativity
+* Equal contribution
+* Good content
+* Clarity (on what needs to be done)
+* Motivation
+
+Paperclip exercise:
+First question: what can you do with a paperclip?
+Second question: which idea would make a good business proposition?
+
+Ideas -> Decisions TODO afbeelding
+Divergent thinking & convergent thinking
+
+Productive conflict and avoid group thinking! Make sure everybody gets heard!
+
+Pixar's braintrust TODO
+
+Equal contributions are very important! Introverts & extroverts
+
+Don't forget about check-in rounds! Use the first five minutes of a meeting to ask a personal question.
+
+Balance individual working and collaboration!
+
+### Team habits
+How do you change behaviour?
+* Start small!
+One step at a time. For example putting on gym clothes on a regular basis.
+* "Implementation intention": make a plan!
+
+Design -> Test -> Iterate -> Repeat TODO image
+
+### Starting a new High Performance Team
+* Determine how you meet
+* Determine how you share ideas - see Etsy's sharing mistakes - culture of trust!
+* Social times - for example FIKA
+* Alone time
+
+### Summary
+* Team work is changing
+* Growth mindset, design approach and behaviour change
+* Make your meetings count
+* Build a 'workshop culture'
+* Create better team habits
 
 ## Estimates or NoEstimates: Let's explore the possibilities - Woody Zuill
 
 <span class="image left"><img class="p-image" alt="Woody Zuill" src="/img/craft-conf-2018/Woody-Zuill.png"></span>
 [Woody Zuill](https://twitter.com/woodyzuill){:target="_blank"} has been programming for 30+ years and works as an Agile Coach and Application Development Manager. He and his team are the originators of the Mob Programming approach to teamwork in software development and he is considered one of the founders of the "#NoEstimates" discussion.
+
+The first part of Woody's talk is about his own personal experiences.
+He was involved in a project that included over 200 developers.
+He concluded that the same 'lesson learned' kept popping up after each iteration: 'Our estimates need to be better!'
+It was always the same lesson learned, there was never any improvement.
+
+Woody's suggestion was very simple: how about working with no estimates?
+
+The tweet that started it all in 2012:
+TODO screenshot of tweet
+
+What is an estimate?
+Working definition: a guess of an amount of time ... TODO
+
+We use estimates to help us make decisions and spark a conversation (to ultimately make a decision).
+
+Why is it that we want control and certainty over time and cost?
+We don't need help to make decisions, we need help to make *good* decisions.
+
+Is 'on time' and 'on budget' a good measure of the results of our decision?
+
+> Fear of losing control is a great barrier for change.
+
+> "Alternative to estimates: do the most important thing until it ships or until it is no longer the most important thing." - Kent Beck
+
+> "" - Martin Fowler
+
+> "" - Michele McCarthy
+
+"Estimates presuppose a solution" PANCHAL?
+
+Most of the things that can't be measured are the most important ... ? TODO
+
+What our project really is:
+TODO Jackson Pollock image
+Edges are blurry and project is messy
+
+Rather than size and smallness, look for the following qualities:
+* Potentially valuable
+* Understandable
+* Cohesive chunk of stuff
+* Distinct
+-> These don't require estimates!
+
+The Twelve Calculations example:
+* 80% of the use of the app comes from 20% of the features
+* 80% of the use of a feature comes from 20% of the .. ? TODO
+
+Let's try to have small, inexpensive attempts at delivering value.
+This is what being agile is all about!
+
+The object isn't to make art ... TODO
+
+Let's learn to control our urge to control things.
+
