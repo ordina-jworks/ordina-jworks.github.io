@@ -457,53 +457,69 @@ Design -> Test -> Iterate -> Repeat TODO image
 The first part of Woody's talk is about his own personal experiences.
 He was involved in a project that included over 200 developers.
 He concluded that the same 'lesson learned' kept popping up after each iteration: 'Our estimates need to be better!'
-It was always the same lesson learned, there was never any improvement.
+It was always the same lesson learned, there was never any improvement. Woody calls this the 'Cycle of Continuous No-Improvement'.
 
-Woody's suggestion was very simple: how about working with no estimates?
+How does one get out of this cycle? Is it safe to question the status quo?
+
+There is a bigger idea behind these questions:
+> " The object isn't to make art, it's to be in that wonderful state which makes art inevitable." - Robert Henri
+If you set up the environment for good things, then good things will happen.
+
+Woody's suggestion was very simple:
+
+### How about working with no estimates?
 
 The tweet that started it all in 2012:
-TODO screenshot of tweet
+<img alt="#NoEstimates Tweet" src="{{ '/img/craft-conf-2018/Woody-Zuill-NoEstimates-Tweet.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
-What is an estimate?
-Working definition: a guess of an amount of time ... TODO
+#### What is an estimate?
+Working definition: An estimate is a guess of the amount of time (usually work time) to create a project, a feature or some bit of work in developing software.
 
 We use estimates to help us make decisions and spark a conversation (to ultimately make a decision).
 
-Why is it that we want control and certainty over time and cost?
+#### Afraid of change
+Why is it that we want control and certainty over time, cost and schedule?
 We don't need help to make decisions, we need help to make *good* decisions.
+Are estimates then really the only way to make them?
+Are we even able to draw the right conclusions?
+Perhaps 'on time' and 'on budget' are actually not a good measure of the results of our decision if we had to cut in our feature to be able to deliver?
 
-Is 'on time' and 'on budget' a good measure of the results of our decision?
+But why hold on to estimates?
+> "Fear of losing control is a big barrier for change." - Bjarte Bogsnes
+We tend to hold on to what we know.
 
-> Fear of losing control is a great barrier for change.
+A few quotes in favor of breaking the cycle:
+> "Alternative to estimates: do the most important thing until either it ships or it is no longer the most important thing." - Kent Beck
+> "As teams progress they first struggle with estimation, then can get quite good at it, and then reach a point where they often don't need it." - Martin Fowler
 
-> "Alternative to estimates: do the most important thing until it ships or until it is no longer the most important thing." - Kent Beck
+When starting a project, requirements are handed over to the development teams in an orderly fashion, very neatly organized and containing everything that needs to happen.
+Or so the stakeholders like to think.
+The project itself, however, usually ends up being a lot more disorganized with features being added, removed or changed with no way to tell early on what the end result will look like.
+Then why try to get estimates for the project if most of the requirements tend to change anyway?
 
-> "" - Martin Fowler
+> "It's in the doing of the work that we discover the work that we must do." - Woody Zuill
 
-> "" - Michele McCarthy
-
-"Estimates presuppose a solution" PANCHAL?
-
-Most of the things that can't be measured are the most important ... ? TODO
-
-What our project really is:
-TODO Jackson Pollock image
-Edges are blurry and project is messy
-
-Rather than size and smallness, look for the following qualities:
+Rather than size and smallness, look for the following qualities in a story:
 * Potentially valuable
 * Understandable
-* Cohesive chunk of stuff
-* Distinct
--> These don't require estimates!
+* Cohesive - does it belong together
+* Distinct - is it clearly separate from other stories
+-> These don't require estimates! When these qualities are found, we have something we can work on.
 
-The Twelve Calculations example:
+#### The Twelve Calculations example
 * 80% of the use of the app comes from 20% of the features
-* 80% of the use of a feature comes from 20% of the .. ? TODO
+* 80% of the use of a feature comes from 20% of its implementation
 
-Let's try to have small, inexpensive attempts at delivering value.
+This means that with only 4% of the implementation effort (20% of 20%), we can cover the 20% of the features being actively used.
+
+Let's try to have many, small, inexpensive attempts at value.
+Let's do, discover, validate and steer.
 This is what being agile is all about!
 
-The object isn't to make art ... TODO
+What do you think would have more payoff?
+Turning up the goods on getting our estimates better?
+Or turning up the goods on our ability to rapidly deliver potentially useful software?
 
 Let's learn to control our urge to control things.
+Let's quit worrying about whether we will get done in 3 months for now.
+Let's get good at being done everyday.
