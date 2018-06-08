@@ -13,7 +13,7 @@ comments: true
 Spinnaker is a multi-cloud, multi-region automated deployment tool.
 Open sourced by Netflix and heavily contributed to by Google, it supports all major cloud providers including Kubernetes.  
 
-Last month Kayenta was open sourced, a canary analysis engine.
+Last month, [Kayenta](https://github.com/spinnaker/kayenta) was open sourced, a canary analysis engine.
 Canary analysis is a technique to reduce the risk from deploying a new version of software into production.
 A new version of the software, referred to as the canary, is deployed to a small subset of users alongside the stable running version.
 Traffic is split between these two versions such that a portion of incoming requests is diverted to the canary.
@@ -22,17 +22,27 @@ This approach can quickly uncover any problems with the new version without impa
 The quality of the canary version is assessed by comparing key metrics that describe the behavior of the old and new versions.
 If there is a significant degradation in these metrics, the canary is aborted and all of the traffic is routed to the stable version in an effort to minimize the impact of unexpected behavior.
 
+<div class="row" style="margin: 0 auto 0 auto;">
+<div class="col-md-offset-3 col-md-6">
+{% include image.html img="/img/spinnaker/Screen Shot 2018-06-08 at 16.08.27.png" alt="Destroy canary" title="Destroy canary"%}
+</div>
+</div>
+
 # Preface
 
 Ordina helps companies through digital transformation using three main focus areas:  
-Embracing a DevOps culture and corresponding practices allows teams to focus on delivering value for the business, by changing the communication structures of the organization.  
-Through automation, teams are empowered and capable of delivering applications much faster to production. Having a modular decoupled architecture, our second focus area, fits well with this model.  
-Making these changes to our architecture in combination with a culture of automation, results in a lot more moving parts in our application landscape.  
-Naturally the next step is tackling the underlying infrastructure accomodate this new architecture and way of working.
+
+* Embracing a DevOps culture and corresponding practices allows teams to focus on delivering value for the business, by changing the communication structures of the organization.
+Through automation, teams are empowered and capable of delivering applications much faster to production.
+
+* Having a modular decoupled architecture, our second focus area, fits well with this model.
+Making these changes to our architecture in combination with a culture of automation, results in a lot more moving parts in our application landscape.
+
+* Naturally, the next step is tackling the underlying infrastructure accomodate this new architecture and way of working.
 Cloud automation is therefore our final focus area in digital transformations.
 
 
-Releasing more often doesn't only allow new features from reaching the user faster, it also fastens the feedback loops, improves reliability and availability, developer productivity and efficiency. Spinnaker plays a crucial part in all of this, as it allows more frequent and faster deployments, without sacrificing safety.
+Releasing more often doesn't only allow new features reaching the user faster, it also fastens the feedback loops, improves reliability and availability, developer productivity and efficiency. Spinnaker plays a crucial part in all of this, as it allows more frequent and faster deployments, without sacrificing safety.
 
 Automated canary analysis, demonstrated in this codelab, is a powerful tool in that sense.
 
@@ -85,8 +95,9 @@ In season three episode three, Rick turns himself into a pickle in an attempt at
 {% include image.html img="/img/spinnaker/pickle-rick.jpeg" alt="Pickle Rick" title="Pickle Rick"%}
 </div>
 </div>
-Pickle Rick will act as our *green* deployment, which we'll try to replace with a *blue* deployment.  
-For that deployment we'll use Mr. Meeseeks, season one episode five.
+Pickle Rick will act as our initial *green* deployment, running stabily on production.
+We will try to replace it with a *blue* deployment.  
+Mr. Meeseeks, featured in season one episode five, will be the protagonist of that deployment.
 Meeseeks are creatures who are created to serve a singular purpose for which they will go to any length to fulfill.
 After they serve their purpose, they expire and vanish into the air.
 Their motivation to help others comes from the fact that existence is painful to a Meeseeks, and the only way to be removed from existence is to complete the task they were called to perform.  
@@ -106,9 +117,9 @@ Aside from the leading character in our two versions, there are two specific dif
 
 The following commit shows moving from the green version to the blue version: [24cc45cf](https://github.com/andreasevers/spinnaker-demo/commit/24cc45cf4d8ddfe2843e4ea105b5e43bb28c4d41)
 
-First of all the background image changes, which gives a clear visual indication of which version is currently deployed.  
+First of all, the background image changes, which gives a clear visual indication of which version is currently deployed.  
 Since using Meeseeks could get out of hand quickly, keeping track of how many times the Meeseeks HTTP endpoint has been hit makes a lot of sense.
-Hence, the blue version prints for every request to the endpoint, an extra `Meeseeks` in the logs.
+Hence, the blue version prints an extra `Meeseeks` in the logs, for every request to the endpoint.
 
 Using this setup, we should be able to consider logs as a source of information for judging the canary healthiness.
 
@@ -141,12 +152,13 @@ This will run a maven build and docker build, and push the created docker image 
 
 > Throughout this guide we refer to the official documentation for individual parts of the installation already covered by the Spinnaker team.
 > However, as reference we also compiled an exhaustive list of commands to execute based on the commands found in those articles.
-> This means you could skip the official documentation and simply execute those commands, however we still recommend going through the docs to get more context.
+> This means you could skip the official documentation and simply execute those commands.
+> However, we still recommend going through the docs to get more context.
 > The list of commands to execute can be found [at the end of this chapter](#commands).
 
 Follow the guide on Spinnaker’s website: [https://www.spinnaker.io/setup/quickstart/halyard-gke](https://www.spinnaker.io/setup/quickstart/halyard-gke)
 
-Create a cluster like mentioned here: [https://cloud.google.com/monitoring/kubernetes-engine/installing](https://cloud.google.com/monitoring/kubernetes-engine/installing)
+Create a cluster as mentioned here: [https://cloud.google.com/monitoring/kubernetes-engine/installing](https://cloud.google.com/monitoring/kubernetes-engine/installing)
 
 ```bash
 gcloud components update
@@ -213,7 +225,7 @@ gcloud compute ssh $HALYARD_HOST \
     --ssh-flag="-L 8084:localhost:8084"
 ```
 
-Before you perform hal deploy apply, add the Docker registry corresponding to your region. In case your project is located in Europe, add the eu.gcr.io registry as illustrated below.
+Before you perform `hal deploy apply`, add the Docker registry corresponding to your region. In case your project is located in Europe, add the eu.gcr.io registry as illustrated below.
 
 ```bash
 hal config provider docker-registry account add gcr-eu \
@@ -235,7 +247,7 @@ Add the following roles to the member with name `gcs-service-account`:
 #### Automated Canary Analysis
 
 Before you perform `hal deploy apply`, enable automated canary analysis.
-Follow the guide further down, but first of all set some variables while still SSH’d in the Halyard VM.
+Follow the guide further down, but first of all, set some variables while still SSH’d in the Halyard VM.
 One of these variables is the Spinnaker bucket automatically created when installing Halyard.
 Look for the right bucket identifier in the GCP GKE buckets dashboard.
 
@@ -279,7 +291,7 @@ In this case, enable legacy authentication in the GKE UI for the cluster.
 #### Cluster Debugging
 You can monitor deployment locally on your own PC by running `kubectl get pods -w --all-namespaces`.
 For this to work, kubectl needs permissions to talk to the cluster.
-You can use gcloud to populate your kubectl config file with credentials to access the cluster.
+You can use gcloud to populate your kubeconfig file with credentials to access the cluster.
 This can help you to look into specific logs of each Spinnaker pod or follow up on deployments handled by Spinnaker.
 
 #### Audit Logging
@@ -291,19 +303,20 @@ Turn on audit logging: https://cloud.google.com/monitoring/audit-logging & https
 
 ### Comprehensive list of commands
 
-These are all the commands we executed in order to get everything set up.
+These are all the commands we have executed in order to get everything set up.
 Fill in the `<PLACEHOLDER>` placeholders according to your preferences.
 
 ```bash
+ZONE=<ZONE_NAME>
+CLUSTER_VERSION=<CLUSTER_VERSION>
+GCP_PROJECT=<PROJECT_NAME>
+
 gcloud components update
 
 gcloud auth login
-gcloud config set project <PROJECT_NAME>
+gcloud config set project $PROJECT_NAME
 
-GCP_PROJECT=$(gcloud info --format='value(config.project)')
-ZONE=<ZONE_NAME>
 gcloud container get-server-config --zone=$ZONE
-CLUSTER_VERSION=<CLUSTER_VERSION>
 
 CLOUDSDK_CONTAINER_USE_V1_API=false
 CLOUDSDK_API_CLIENT_OVERRIDES_CONTAINER=v1beta1
@@ -673,7 +686,7 @@ Therefore, when switching to Meeseeks, we also write Meeseeks in the logs to kee
 
 GCP uses Stackdriver for logging and monitoring, so if we’d like to use the logs as a source of information for canary analysis, we should make a Stackdriver metric using the Meeseeks logs.  
 In the GCP left-hand menu, under the Stackdriver section, you can find Logging and drill down to Logs-based metrics.  
-Add a new metric using the following filter, replacing the location and project_id by your own:
+Add a new metric using the following filter, replacing the location and project_id by the zone name and project id from earlier in this guide:
 `(resource.labels.cluster_name="spinnaker" AND resource.labels.location="europe-west1-d" AND resource.labels.namespace_name="default" AND resource.labels.project_id="spinnaker-demo-184310" AND textPayload:"Meeseeks”)`
 
 <div class="row" style="margin: 0 65% 0 auto;">
@@ -809,7 +822,7 @@ The more data our test can gather, the more informed the decision will be.
 In our demo scenario, we can continuously refresh the page to generate more load and more Meeseeks in the logs, but we can also use a script for that.
 In the root of the demo repository, a script called `randomload.sh` can be used to generate calls to the PROD ingress endpoint at a random interval.  
 The script uses [HTTPie](https://httpie.org/) to make calls, but you can also replace it with `curl` commands.
-Also make sure you change the IP address in your forked repository's file.
+Also, make sure you change the IP address in your forked repository's file.
 
 ### Success
 
