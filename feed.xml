@@ -1,5 +1,1152 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-06-07T09:55:44+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Lagom 1.4 and Kubernetes orchestration</title><link href="https://ordina-jworks.github.io/orchestration/2018/05/22/lagom-1-4-and-kubernetes-orchestration.html" rel="alternate" type="text/html" title="Lagom 1.4 and Kubernetes orchestration" /><published>2018-05-22T00:00:00+00:00</published><updated>2018-05-22T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/orchestration/2018/05/22/lagom-1-4-and-kubernetes-orchestration</id><content type="html" xml:base="https://ordina-jworks.github.io/orchestration/2018/05/22/lagom-1-4-and-kubernetes-orchestration.html">&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-06-08T14:42:55+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Automated Canary Analysis using Spinnaker - Codelab</title><link href="https://ordina-jworks.github.io/cloud/2018/06/01/Automated-Canary-Analysis-using-Spinnaker.html" rel="alternate" type="text/html" title="Automated Canary Analysis using Spinnaker - Codelab" /><published>2018-06-01T00:00:00+00:00</published><updated>2018-06-01T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2018/06/01/Automated-Canary-Analysis-using-Spinnaker</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2018/06/01/Automated-Canary-Analysis-using-Spinnaker.html">&lt;h1 id=&quot;intro&quot;&gt;Intro&lt;/h1&gt;
+
+&lt;p&gt;Spinnaker is a multi-cloud, multi-region automated deployment tool.
+Open sourced by Netflix and heavily contributed to by Google, it supports all major cloud providers including Kubernetes.&lt;/p&gt;
+
+&lt;p&gt;Last month, &lt;a href=&quot;https://github.com/spinnaker/kayenta&quot;&gt;Kayenta&lt;/a&gt; was open sourced, a canary analysis engine.
+Canary analysis is a technique to reduce the risk from deploying a new version of software into production.
+A new version of the software, referred to as the canary, is deployed to a small subset of users alongside the stable running version.
+Traffic is split between these two versions such that a portion of incoming requests is diverted to the canary.
+This approach can quickly uncover any problems with the new version without impacting the majority of users.&lt;/p&gt;
+
+&lt;p&gt;The quality of the canary version is assessed by comparing key metrics that describe the behavior of the old and new versions.
+If there is a significant degradation in these metrics, the canary is aborted and all of the traffic is routed to the stable version in an effort to minimize the impact of unexpected behavior.&lt;/p&gt;
+
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 auto 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Destroy canary&quot; src=&quot;/img/spinnaker/Screen Shot 2018-06-08 at 16.08.27.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;preface&quot;&gt;Preface&lt;/h1&gt;
+
+&lt;p&gt;Ordina helps companies through digital transformation using three main focus areas:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Embracing a DevOps culture and corresponding practices allows teams to focus on delivering value for the business, by changing the communication structures of the organization.
+Through automation, teams are empowered and capable of delivering applications much faster to production.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Having a modular decoupled architecture, our second focus area, fits well with this model.
+Making these changes to our architecture in combination with a culture of automation, results in a lot more moving parts in our application landscape.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Naturally, the next step is tackling the underlying infrastructure accomodate this new architecture and way of working.
+Cloud automation is therefore our final focus area in digital transformations.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Releasing more often doesn’t only allow new features reaching the user faster, it also fastens the feedback loops, improves reliability and availability, developer productivity and efficiency. Spinnaker plays a crucial part in all of this, as it allows more frequent and faster deployments, without sacrificing safety.&lt;/p&gt;
+
+&lt;p&gt;Automated canary analysis, demonstrated in this codelab, is a powerful tool in that sense.&lt;/p&gt;
+
+&lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#goal&quot;&gt;Goal&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#prerequisites&quot;&gt;Prerequisites&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#intro-demo&quot;&gt;Introducing our Rick &amp;amp; Morty demo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#installation&quot;&gt;Installation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#configuration&quot;&gt;Configuration&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#running-demo&quot;&gt;Running the demo scenario&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name=&quot;goal&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;goal&quot;&gt;Goal&lt;/h1&gt;
+
+&lt;p&gt;The purpose of this codelab is to simplify getting up-and-running with automated canary analysis using Spinnaker on Kubernetes.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;prerequisites&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h1&gt;
+
+&lt;p&gt;We’re using Google Cloud Platform for this demonstration.
+Monitoring and logging will be handled by Stackdriver, which is integrated completely with GCP.&lt;/p&gt;
+
+&lt;p&gt;The canary functionality we’re going to use in this setup requires the use of a specific cluster version with full rights:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;You must be an Owner of the project containing your cluster.&lt;/li&gt;
+  &lt;li&gt;You must use Kubernetes v1.10.2-gke.0 or later.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name=&quot;intro-demo&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;introducing-our-rick--morty-demo&quot;&gt;Introducing our Rick &amp;amp; Morty demo&lt;/h1&gt;
+
+&lt;p&gt;Rick &amp;amp; Morty is a television show following the misadventures of cynical mad scientist Rick Sanchez and his good-hearted but fretful grandson Morty Smith, who split their time between domestic life and interdimensional adventures.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 35% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Rick and Morty&quot; src=&quot;/img/spinnaker/rick-and-morty.jpg&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Our demo application is a Java Spring Boot application, running on an Apache Tomcat server, packaged inside a docker container.
+The docker container runs on Kubernetes managed by Google Cloud Platform (GKE).&lt;br /&gt;
+The application exposes an endpoint on &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:8080&lt;/code&gt; and can be run locally by executing &lt;code class=&quot;highlighter-rouge&quot;&gt;./mvnw spring-boot:run&lt;/code&gt;, assuming you have a JRE or JDK (v8+) installed.&lt;/p&gt;
+
+&lt;p&gt;The endpoint returns an HTML with a background of Pickle Rick.
+In season three episode three, Rick turns himself into a pickle in an attempt at escaping family therapy.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 35% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Pickle Rick&quot; src=&quot;/img/spinnaker/pickle-rick.jpeg&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Pickle Rick will act as our initial &lt;em&gt;green&lt;/em&gt; deployment, running stabily on production.
+We will try to replace it with a &lt;em&gt;blue&lt;/em&gt; deployment.&lt;br /&gt;
+Mr. Meeseeks, featured in season one episode five, will be the protagonist of that deployment.
+Meeseeks are creatures who are created to serve a singular purpose for which they will go to any length to fulfill.
+After they serve their purpose, they expire and vanish into the air.
+Their motivation to help others comes from the fact that existence is painful to a Meeseeks, and the only way to be removed from existence is to complete the task they were called to perform.&lt;br /&gt;
+Meeseeks can however summon other Meeseeks to help, which could spiral out of control if the task at hand is unsolvable.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 35% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Meeseeks&quot; src=&quot;/img/spinnaker/meeseeks.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Therefore, Meeseeks are quite dangerous and a good candidate for our misbehaving blue deployment.&lt;/p&gt;
+
+&lt;p&gt;Aside from the HTTP endpoint, our demo application also prints out a number of character names from the series.&lt;/p&gt;
+
+&lt;h3 id=&quot;blue-green-differences&quot;&gt;Blue Green Differences&lt;/h3&gt;
+
+&lt;p&gt;Aside from the leading character in our two versions, there are two specific differences in the code between both versions.&lt;/p&gt;
+
+&lt;p&gt;The following commit shows moving from the green version to the blue version: &lt;a href=&quot;https://github.com/andreasevers/spinnaker-demo/commit/24cc45cf4d8ddfe2843e4ea105b5e43bb28c4d41&quot;&gt;24cc45cf&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;First of all, the background image changes, which gives a clear visual indication of which version is currently deployed.&lt;br /&gt;
+Since using Meeseeks could get out of hand quickly, keeping track of how many times the Meeseeks HTTP endpoint has been hit makes a lot of sense.
+Hence, the blue version prints an extra &lt;code class=&quot;highlighter-rouge&quot;&gt;Meeseeks&lt;/code&gt; in the logs, for every request to the endpoint.&lt;/p&gt;
+
+&lt;p&gt;Using this setup, we should be able to consider logs as a source of information for judging the canary healthiness.&lt;/p&gt;
+
+&lt;p&gt;Note that the Github repository can constantly switch between Pickle Rick and Meeseeks.
+Before starting a build and making deployments, make sure your fork is aligned with the green version.
+If this isn’t the case, switching to green is demonstrated in the following commit: &lt;a href=&quot;https://github.com/andreasevers/spinnaker-demo/commit/784e616ae6de881cecf6601831383e2097149c83&quot;&gt;784e616a&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;setup-continuous-integration&quot;&gt;Setup Continuous Integration&lt;/h3&gt;
+
+&lt;p&gt;Making changes to our application will be the trigger for our pipelines.
+Therefore, we should have a simple continuous integration flow set up.
+We could use Jenkins or any other build server that uses webhooks, but since our entire demo is being deployed on GCP, we can use the build server from GCP instead.&lt;/p&gt;
+
+&lt;p&gt;First of all, fork the &lt;a href=&quot;https://github.com/andreasevers/spinnaker-demo/commit/24cc45cf4d8ddfe2843e4ea105b5e43bb28c4d41&quot;&gt;demo application repository&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In the GCP console, open build triggers underneath the Container Registry (GCR) tab.&lt;br /&gt;
+Select Github as repository hosting, and select the forked repository to create a trigger for.
+Configure the trigger to activate on any branch, using a &lt;code class=&quot;highlighter-rouge&quot;&gt;cloudbuild.yaml&lt;/code&gt; file located in the root of the repository.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 35% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;CI &quot; src=&quot;/img/spinnaker/Screen Shot 2018-06-01 at 16.54.36.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This will run a maven build and docker build, and push the created docker image into the GCR.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;installation&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;installation&quot;&gt;Installation&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Throughout this guide we refer to the official documentation for individual parts of the installation already covered by the Spinnaker team.
+However, as reference we also compiled an exhaustive list of commands to execute based on the commands found in those articles.
+This means you could skip the official documentation and simply execute those commands.
+However, we still recommend going through the docs to get more context.
+The list of commands to execute can be found &lt;a href=&quot;#commands&quot;&gt;at the end of this chapter&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Follow the guide on Spinnaker’s website: &lt;a href=&quot;https://www.spinnaker.io/setup/quickstart/halyard-gke&quot;&gt;https://www.spinnaker.io/setup/quickstart/halyard-gke&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Create a cluster as mentioned here: &lt;a href=&quot;https://cloud.google.com/monitoring/kubernetes-engine/installing&quot;&gt;https://cloud.google.com/monitoring/kubernetes-engine/installing&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gcloud components update
+
+gcloud auth login
+gcloud config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;project &amp;lt;PROJECT_NAME&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Find out the latest supported cluster version with the following command:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;gcloud container get-server-config --zone=$ZONE&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Create a cluster for your specific zone (e.g. europe-west1-d) and preferred cluster version (v1.10.2-gke.0 or later):&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;CLUSTER_VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1.10.2-gke.1
+&lt;span class=&quot;nv&quot;&gt;GCP_PROJECT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;gcloud info &lt;span class=&quot;nt&quot;&gt;--format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'value(config.project)'&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;ZONE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;europe-west1-d
+
+&lt;span class=&quot;nv&quot;&gt;CLOUDSDK_CONTAINER_USE_V1_API&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CLOUDSDK_API_CLIENT_OVERRIDES_CONTAINER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;v1beta1
+
+gcloud beta container clusters create spinnaker &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--zone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ZONE&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GCP_PROJECT&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--cluster-version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CLUSTER_VERSION&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--enable-stackdriver-kubernetes&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--enable-legacy-authorization&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Make sure &lt;code class=&quot;highlighter-rouge&quot;&gt;enable-stackdriver-kubernetes&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;--enable-legacy-authorization&lt;/code&gt; are passed.&lt;/p&gt;
+
+&lt;h3 id=&quot;enable-apis&quot;&gt;Enable APIs&lt;/h3&gt;
+
+&lt;p&gt;Navigate to the Google Cloud Console and enable the following APIs:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://console.developers.google.com/apis/api/iam.googleapis.com/overview&quot;&gt;Google Identity and Access Management (IAM) API&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://console.developers.google.com/apis/api/cloudresourcemanager.googleapis.com/overview&quot;&gt;Google Cloud Resource Manager API&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;halyard-setup&quot;&gt;Halyard setup&lt;/h3&gt;
+
+&lt;p&gt;This section complements official documentation with some recommendations and extras.
+Postpone running the &lt;code class=&quot;highlighter-rouge&quot;&gt;hal deploy apply&lt;/code&gt; command until the end of this chapter.&lt;/p&gt;
+
+&lt;h4 id=&quot;basic-spinnaker&quot;&gt;Basic Spinnaker&lt;/h4&gt;
+
+&lt;p&gt;During the &lt;a href=&quot;https://www.spinnaker.io/setup/quickstart/halyard-gke&quot;&gt;Halyard on GKE guide on Spinnaker’s website&lt;/a&gt;, remember to use the right zone when creating the Halyard VM.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gcloud compute instances create &lt;span class=&quot;nv&quot;&gt;$HALYARD_HOST&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GCP_PROJECT&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--zone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ZONE&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--scopes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;cloud-platform &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--service-account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HALYARD_SA_EMAIL&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--image-project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ubuntu-os-cloud &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--image-family&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ubuntu-1404-lts &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--machine-type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;n1-standard-4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When SSH’ing into the Halyard VM, also remember to use the right zone.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gcloud compute ssh &lt;span class=&quot;nv&quot;&gt;$HALYARD_HOST&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GCP_PROJECT&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--zone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ZONE&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--ssh-flag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-L 9000:localhost:9000&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--ssh-flag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-L 8084:localhost:8084&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Before you perform &lt;code class=&quot;highlighter-rouge&quot;&gt;hal deploy apply&lt;/code&gt;, add the Docker registry corresponding to your region. In case your project is located in Europe, add the eu.gcr.io registry as illustrated below.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hal config provider docker-registry account add gcr-eu &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--address&lt;/span&gt; eu.gcr.io &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--password-file&lt;/span&gt; ~/.gcp/gcp.json &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--username&lt;/span&gt; _json_key
+
+hal config provider kubernetes account edit my-k8s-account &lt;span class=&quot;nt&quot;&gt;--docker-registries&lt;/span&gt; my-gcr-account gcr-eu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;iam-configuration&quot;&gt;IAM Configuration&lt;/h4&gt;
+
+&lt;p&gt;Enable Stackdriver access for Spinnaker in &lt;a href=&quot;https://console.cloud.google.com/iam-admin/iam&quot;&gt;GCP’s IAM settings&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Add the following roles to the member with name &lt;code class=&quot;highlighter-rouge&quot;&gt;gcs-service-account&lt;/code&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Logging Admin&lt;/li&gt;
+  &lt;li&gt;Monitoring Admin&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;automated-canary-analysis&quot;&gt;Automated Canary Analysis&lt;/h4&gt;
+
+&lt;p&gt;Before you perform &lt;code class=&quot;highlighter-rouge&quot;&gt;hal deploy apply&lt;/code&gt;, enable automated canary analysis.
+Follow the guide further down, but first of all, set some variables while still SSH’d in the Halyard VM.
+One of these variables is the Spinnaker bucket automatically created when installing Halyard.
+Look for the right bucket identifier in the GCP GKE buckets dashboard.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;PROJECT_ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;gcloud info &lt;span class=&quot;nt&quot;&gt;--format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'value(config.project)'&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;JSON_PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;~/.gcp/gcp.json
+&lt;span class=&quot;nv&quot;&gt;MY_SPINNAKER_BUCKET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;spin-48b89b5e-dd67-446a-ad9f-66e8783e9822
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Follow the &lt;a href=&quot;https://www.spinnaker.io/setup/canary/#quick-start&quot;&gt;official canary quickstart documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Configure the default metrics store.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hal config canary edit &lt;span class=&quot;nt&quot;&gt;--default-metrics-store&lt;/span&gt; stackdriver
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And finally execute the rollout.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hal deploy apply
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;troubleshooting&quot;&gt;Troubleshooting&lt;/h3&gt;
+
+&lt;h4 id=&quot;authentication&quot;&gt;Authentication&lt;/h4&gt;
+&lt;p&gt;Sometimes an issue might occur with credentials on the Halyard VM:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;! ERROR Unable to communicate with your Kubernetes cluster: Failure
+  executing: GET at: https://35.205.113.166/api/v1/namespaces. Message: Forbidden!
+  User gke_spinnaker-demo-184310_europe-west1-d_spinnaker-alpha doesn't have
+  permission. namespaces is forbidden: User &quot;client&quot; cannot list namespaces at the
+  cluster scope: Unknown user &quot;client&quot;..
+? Unable to authenticate with your Kubernetes cluster. Try using
+  kubectl to verify your credentials.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In this case, enable legacy authentication in the GKE UI for the cluster.&lt;/p&gt;
+
+&lt;h4 id=&quot;cluster-debugging&quot;&gt;Cluster Debugging&lt;/h4&gt;
+&lt;p&gt;You can monitor deployment locally on your own PC by running &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl get pods -w --all-namespaces&lt;/code&gt;.
+For this to work, kubectl needs permissions to talk to the cluster.
+You can use gcloud to populate your kubeconfig file with credentials to access the cluster.
+This can help you to look into specific logs of each Spinnaker pod or follow up on deployments handled by Spinnaker.&lt;/p&gt;
+
+&lt;h4 id=&quot;audit-logging&quot;&gt;Audit Logging&lt;/h4&gt;
+
+&lt;p&gt;You can find out which commands are sent to GCP by enabling audit logging.
+Turn on audit logging: https://cloud.google.com/monitoring/audit-logging &amp;amp; https://cloud.google.com/logging/docs/audit/configure-data-access#example&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;commands&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;comprehensive-list-of-commands&quot;&gt;Comprehensive list of commands&lt;/h3&gt;
+
+&lt;p&gt;These are all the commands we have executed in order to get everything set up.
+Fill in the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;PLACEHOLDER&amp;gt;&lt;/code&gt; placeholders according to your preferences.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;ZONE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;ZONE_NAME&amp;gt;
+&lt;span class=&quot;nv&quot;&gt;CLUSTER_VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;CLUSTER_VERSION&amp;gt;
+&lt;span class=&quot;nv&quot;&gt;GCP_PROJECT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;PROJECT_NAME&amp;gt;
+
+gcloud components update
+
+gcloud auth login
+gcloud config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;project &lt;span class=&quot;nv&quot;&gt;$PROJECT_NAME&lt;/span&gt;
+
+gcloud container get-server-config &lt;span class=&quot;nt&quot;&gt;--zone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ZONE&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;CLOUDSDK_CONTAINER_USE_V1_API&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CLOUDSDK_API_CLIENT_OVERRIDES_CONTAINER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;v1beta1
+
+gcloud beta container clusters create spinnaker &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--zone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ZONE&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GCP_PROJECT&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--cluster-version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CLUSTER_VERSION&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--enable-stackdriver-kubernetes&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--enable-legacy-authorization&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;HALYARD_SA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;halyard-service-account
+
+gcloud iam service-accounts create &lt;span class=&quot;nv&quot;&gt;$HALYARD_SA&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GCP_PROJECT&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--display-name&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HALYARD_SA&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;HALYARD_SA_EMAIL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;gcloud iam service-accounts list &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GCP_PROJECT&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--filter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;displayName:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HALYARD_SA&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'value(email)'&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+gcloud projects add-iam-policy-binding &lt;span class=&quot;nv&quot;&gt;$GCP_PROJECT&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--role&lt;/span&gt; roles/iam.serviceAccountKeyAdmin &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--member&lt;/span&gt; serviceAccount:&lt;span class=&quot;nv&quot;&gt;$HALYARD_SA_EMAIL&lt;/span&gt;
+
+gcloud projects add-iam-policy-binding &lt;span class=&quot;nv&quot;&gt;$GCP_PROJECT&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--role&lt;/span&gt; roles/container.admin &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--member&lt;/span&gt; serviceAccount:&lt;span class=&quot;nv&quot;&gt;$HALYARD_SA_EMAIL&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;GCS_SA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;gcs-service-account
+
+gcloud iam service-accounts create &lt;span class=&quot;nv&quot;&gt;$GCS_SA&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GCP_PROJECT&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--display-name&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$GCS_SA&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;GCS_SA_EMAIL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;gcloud iam service-accounts list &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GCP_PROJECT&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--filter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;displayName:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GCS_SA&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'value(email)'&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+gcloud projects add-iam-policy-binding &lt;span class=&quot;nv&quot;&gt;$GCP_PROJECT&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--role&lt;/span&gt; roles/storage.admin &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--member&lt;/span&gt; serviceAccount:&lt;span class=&quot;nv&quot;&gt;$GCS_SA_EMAIL&lt;/span&gt;
+
+gcloud projects add-iam-policy-binding &lt;span class=&quot;nv&quot;&gt;$GCP_PROJECT&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--member&lt;/span&gt; serviceAccount:&lt;span class=&quot;nv&quot;&gt;$GCS_SA_EMAIL&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--role&lt;/span&gt; roles/browser
+
+&lt;span class=&quot;nv&quot;&gt;HALYARD_HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-halyard-&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; +%m%d&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;tr&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'_.'&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'-'&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+gcloud compute instances create &lt;span class=&quot;nv&quot;&gt;$HALYARD_HOST&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GCP_PROJECT&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--zone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ZONE&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--scopes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;cloud-platform &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--service-account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HALYARD_SA_EMAIL&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--image-project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ubuntu-os-cloud &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--image-family&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ubuntu-1404-lts &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--machine-type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;n1-standard-4
+
+gcloud compute ssh &lt;span class=&quot;nv&quot;&gt;$HALYARD_HOST&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GCP_PROJECT&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--zone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ZONE&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--ssh-flag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-L 9000:localhost:9000&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--ssh-flag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-L 8084:localhost:8084&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Inside the Halyard VM:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;KUBECTL_LATEST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; https://storage.googleapis.com/kubernetes-release/release/stable.txt&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+curl &lt;span class=&quot;nt&quot;&gt;-LO&lt;/span&gt; https://storage.googleapis.com/kubernetes-release/release/&lt;span class=&quot;nv&quot;&gt;$KUBECTL_LATEST&lt;/span&gt;/bin/linux/amd64/kubectl
+&lt;span class=&quot;nb&quot;&gt;chmod&lt;/span&gt; +x kubectl
+&lt;span class=&quot;nb&quot;&gt;sudo mv &lt;/span&gt;kubectl /usr/local/bin/kubectl
+curl &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; https://raw.githubusercontent.com/spinnaker/halyard/master/install/debian/InstallHalyard.sh
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;bash InstallHalyard.sh
+&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; ~/.bashrc
+
+&lt;span class=&quot;nv&quot;&gt;GKE_CLUSTER_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;spinnaker
+&lt;span class=&quot;nv&quot;&gt;GKE_CLUSTER_ZONE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;europe-west1-d
+&lt;span class=&quot;nv&quot;&gt;PROJECT_ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;gcloud info &lt;span class=&quot;nt&quot;&gt;--format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'value(config.project)'&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+gcloud config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;container/use_client_certificate &lt;span class=&quot;nb&quot;&gt;true
+&lt;/span&gt;gcloud container clusters get-credentials &lt;span class=&quot;nv&quot;&gt;$GKE_CLUSTER_NAME&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--zone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GKE_CLUSTER_ZONE&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;GCS_SA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;gcs-service-account
+&lt;span class=&quot;nv&quot;&gt;GCS_SA_DEST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;~/.gcp/gcp.json
+&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;dirname&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$GCS_SA_DEST&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;GCS_SA_EMAIL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;gcloud iam service-accounts list &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--filter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;displayName:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GCS_SA&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'value(email)'&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+gcloud iam service-accounts keys create &lt;span class=&quot;nv&quot;&gt;$GCS_SA_DEST&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--iam-account&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$GCS_SA_EMAIL&lt;/span&gt;
+
+hal config version edit &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;hal version latest &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+hal config storage gcs edit &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--project&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PROJECT_ID&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--json-path&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$GCS_SA_DEST&lt;/span&gt;
+hal config storage edit &lt;span class=&quot;nt&quot;&gt;--type&lt;/span&gt; gcs
+hal config provider docker-registry &lt;span class=&quot;nb&quot;&gt;enable
+&lt;/span&gt;hal config provider docker-registry account add my-gcr-account &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--address&lt;/span&gt; gcr.io &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--password-file&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$GCS_SA_DEST&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--username&lt;/span&gt; _json_key
+hal config provider kubernetes &lt;span class=&quot;nb&quot;&gt;enable
+&lt;/span&gt;hal config provider kubernetes account add my-k8s-account &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--docker-registries&lt;/span&gt; my-gcr-account &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--context&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;kubectl config current-context&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Only required in case you want to use eu.gcr.io&lt;/span&gt;
+hal config provider docker-registry account add gcr-eu &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--address&lt;/span&gt; eu.gcr.io &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--password-file&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$GCS_SA_DEST&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--username&lt;/span&gt; _json_key
+hal config provider kubernetes account edit my-k8s-account &lt;span class=&quot;nt&quot;&gt;--docker-registries&lt;/span&gt; my-gcr-account gcr-eu
+
+hal config deploy edit &lt;span class=&quot;nt&quot;&gt;--account-name&lt;/span&gt; my-k8s-account
+hal config deploy edit &lt;span class=&quot;nt&quot;&gt;--type&lt;/span&gt; distributed
+
+&lt;span class=&quot;nv&quot;&gt;MY_SPINNAKER_BUCKET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;SPINNAKER_BUCKET_ID&amp;gt;
+
+hal config canary &lt;span class=&quot;nb&quot;&gt;enable
+&lt;/span&gt;hal config canary google &lt;span class=&quot;nb&quot;&gt;enable
+&lt;/span&gt;hal config canary google account add my-google-account &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--project&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PROJECT_ID&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--json-path&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$GCS_SA_DEST&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--bucket&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$MY_SPINNAKER_BUCKET&lt;/span&gt;
+hal config canary google edit &lt;span class=&quot;nt&quot;&gt;--gcs-enabled&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--stackdriver-enabled&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true
+&lt;/span&gt;hal config canary edit &lt;span class=&quot;nt&quot;&gt;--default-metrics-store&lt;/span&gt; stackdriver
+hal deploy apply
+hal deploy connect
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a name=&quot;configuration&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;configuration&quot;&gt;Configuration&lt;/h1&gt;
+
+&lt;h3 id=&quot;application-configuration&quot;&gt;Application Configuration&lt;/h3&gt;
+
+&lt;p&gt;This guide uses the Kubernetes V1 provider, but you can use V2 just as well.&lt;br /&gt;
+Follow the &lt;a href=&quot;https://www.spinnaker.io/setup/install/providers/kubernetes-v2/#adding-an-account&quot;&gt;official documentation&lt;/a&gt; to enable the V2 provider.&lt;/p&gt;
+
+&lt;p&gt;Visit &lt;a href=&quot;http://localhost:9000&quot;&gt;localhost:9000&lt;/a&gt; to open the Spinnaker UI.&lt;br /&gt;
+In the applications page, create a new application:&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;New application&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 10.58.43.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Under Infrastructure, the Clusters view should normally be opened automatically.
+Click the Config link on the top right and enable Canary for this project.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 auto 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Features&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.02.31.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This should enable Canary Analysis for the project.
+The result should be that the Spinnaker menu for this project should be changed.
+Pipelines are now nested underneath Delivery, which also now boasts Canary Configs and Canary Reports.&lt;br /&gt;
+In case this is not visualised directly, you can refresh the cache by clicking on the Spinnaker logo on the top left of the page, and clicking the Refresh all caches link in the Actions drop down.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Top menu&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 16.08.20.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;initial-provisioning&quot;&gt;Initial Provisioning&lt;/h3&gt;
+
+&lt;p&gt;Under Infrastructure, switch to the Load Balancers view and create a load balancer.&lt;br /&gt;
+Fill in the stack, port, target port and type &lt;code class=&quot;highlighter-rouge&quot;&gt;LoadBalancer&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 auto 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Load balancer&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.12.53.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Under Infrastructure, switch to the Clusters view and create a Server Group.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Server group 1&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.06.00.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Server group 2&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.06.37.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Once the server group is created, it will show up like this:&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Chicklet&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.09.45.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;By clicking on the little load balancer icon on the right-hand side, we can now visit the Ingress IP through the load balancer view on the side of the page.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 65% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Ingress&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.14.39.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Back in the server group section, clicking on the little green chicklet will display container information on the side of the page, including logs of the application.&lt;/p&gt;
+
+&lt;p&gt;Let’s do this for PROD as well.&lt;br /&gt;
+Follow exactly the same steps as for DEV, except use &lt;code class=&quot;highlighter-rouge&quot;&gt;prod&lt;/code&gt; as Stack instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;dev&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Once the PROD load balancer and server group are deployed, we’d like to make sure we never have downtime on PROD.&lt;br /&gt;
+We can set up a Traffic Guard, responsible for making sure our production cluster always has active instances.&lt;br /&gt;
+Go to the Config link on the top right of the page, and add a Traffic Guard.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 auto 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Traffic guards&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 15.47.35.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;staging-pipeline&quot;&gt;Staging Pipeline&lt;/h3&gt;
+
+&lt;p&gt;Now that we’ve deployed a single version of our application to DEV and PROD, it’s time to create a pipeline.
+This will enable us to continuously deploy new versions of our application without having to manually create new server groups every time.&lt;br /&gt;
+Head over to the pipelines view and create a new pipeline called Deploy to DEV.&lt;br /&gt;
+Under the first “Configuration” stage, configure an automated trigger.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Trigger DEV&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.20.11.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now add a stage to deploy our application.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Template DEV&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.23.39.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We now have to add a server group as deployment configuration.
+We can reuse the existing deployment as a template.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 auto 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Deploy DEV&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.22.30.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Change the strategy to &lt;code class=&quot;highlighter-rouge&quot;&gt;Highlander&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;It’s important to change the image being deployed, otherwise, we’d always deploy the image of our existing server group.&lt;br /&gt;
+Go down to the Container section and select the Image from Trigger.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Image from trigger DEV&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.24.45.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This will automatically change the container image at the top of the dialog box under Basic Settings.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Deploy basic DEV&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.27.00.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Keep all other settings as they are.&lt;br /&gt;
+Save the server group configuration, and save the pipeline.&lt;/p&gt;
+
+&lt;p&gt;When we now select the pipelines view, we can see the newly created Deploy to DEV pipeline.&lt;br /&gt;
+We can test this by either starting a manual execution, or committing a change to our application GIT repository.&lt;/p&gt;
+
+&lt;h3 id=&quot;production-pipeline&quot;&gt;Production Pipeline&lt;/h3&gt;
+
+&lt;p&gt;Create new pipeline Deploy to PROD.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Trigger PROD&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.33.58.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Add a new Find Image from Cluster stage.
+This stage will allow us to look for the image we deployed to DEV, and pass that information on to upcoming stages.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Find Image PROD&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.35.51.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Add a new Deploy stage to deploy the new DEV version into production.&lt;br /&gt;
+Under deploy configuration, add a server group based on the one in DEV.&lt;br /&gt;
+Make sure to set the right load balancer, i.e. &lt;code class=&quot;highlighter-rouge&quot;&gt;spinnakedemo-prod&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Deploy lb PROD&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.42.31.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Scrolling down to the Container section, select the image found in DEV by the Find Image stage.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Deploy container PROD&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.40.12.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Since this is a new version we’d like to push to production, it would be a good idea to build in some safety measures to protect us from unexpected failure.
+Using a canary release strategy allows us to limit the blast radius of potential issues that might arrise.&lt;br /&gt;
+In the Basic Settings section, set the stack as &lt;code class=&quot;highlighter-rouge&quot;&gt;prod&lt;/code&gt; and the detail as &lt;code class=&quot;highlighter-rouge&quot;&gt;canary&lt;/code&gt; to indicate that this deployment is our canary deployment. Also use the &lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt; strategy, since we just want to deploy this canary server group next to the one already active in production.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Deploy basic PROD&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.41.03.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now let’s test this out.&lt;br /&gt;
+Change the application to respond with PickleRicks if that’s not already the case.
+Otherwise, make an insignificant change to the application and push the changes to GIT (master branch).&lt;br /&gt;
+This should trigger a build, which should push a docker image to the GCR.&lt;br /&gt;
+That on its turn should trigger the deployment to DEV, which - if successful - should trigger a deployment to PROD.&lt;br /&gt;
+Once that’s done, your cluster view should look like this:&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Infra view&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 15.44.18.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Notice the &lt;code class=&quot;highlighter-rouge&quot;&gt;V001&lt;/code&gt; on DEV, it has replaced the existing manual server group deployment using the highlander strategy.&lt;/p&gt;
+
+&lt;p&gt;Currently our canary is registered under the same load balancer as our production cluster. This means traffic is split between the canary and production.&lt;br /&gt;
+We could test the canary manually by going to the ingress endpoint of the load balancer as we did on DEV.
+This could be sufficient for your needs, but Spinnaker offers automated canary analysis (aka. ACA), capable of automatically investigating traffic sent to the canary.&lt;br /&gt;
+The ACA engine Kayenta will compare certain metrics between the currently running production version, and the newly deployed canary version.&lt;br /&gt;
+Since comparing a fresh deployment with an old, potentially degraded deployment, could produce unwanted results, it’s advised to deploy both a canary and a current production instance labelled baseline, next to each other.&lt;/p&gt;
+
+&lt;p&gt;In the Deploy to PROD pipeline configure screen, add a stage in parallel with Find Image from DEV by clicking on the outer-left Configuration stage, and adding a new stage from that point on.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 auto 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Find Image PROD&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 15.57.42.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;From that point forward, add another Deploy stage, with the prod server group as template.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Template PROD&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 15.58.51.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;At the bottom of the Deployment Cluster Configuration, switch the Container Image to the Find Image result for prod.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Deploy container baseline PROD&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 16.00.03.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Add &lt;code class=&quot;highlighter-rouge&quot;&gt;baseline&lt;/code&gt; as detail, and keep the strategy as &lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Deploy basic baseline PROD&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 16.01.30.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Save the pipeline.&lt;/p&gt;
+
+&lt;p&gt;We now have our basic setup of both a baseline and canary server group to perform canary analysis.&lt;/p&gt;
+
+&lt;h3 id=&quot;canary-analysis&quot;&gt;Canary Analysis&lt;/h3&gt;
+
+&lt;p&gt;Our specific demo scenario uses Meeseeks from Rick and Morty as the new version to deploy.&lt;br /&gt;
+As people who watched the series probably will know, Meeseeks can quickly become a threat to our way of living if we let nature run its course.
+Therefore, when switching to Meeseeks, we also write Meeseeks in the logs to keep track of them.&lt;/p&gt;
+
+&lt;p&gt;GCP uses Stackdriver for logging and monitoring, so if we’d like to use the logs as a source of information for canary analysis, we should make a Stackdriver metric using the Meeseeks logs.&lt;br /&gt;
+In the GCP left-hand menu, under the Stackdriver section, you can find Logging and drill down to Logs-based metrics.&lt;br /&gt;
+Add a new metric using the following filter, replacing the location and project_id by the zone name and project id from earlier in this guide:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;(resource.labels.cluster_name=&quot;spinnaker&quot; AND resource.labels.location=&quot;europe-west1-d&quot; AND resource.labels.namespace_name=&quot;default&quot; AND resource.labels.project_id=&quot;spinnaker-demo-184310&quot; AND textPayload:&quot;Meeseeks”)&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 65% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Meeseeks log metric&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 16.34.16.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 auto 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;User-defined metrics&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 16.36.00.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Back in Spinnaker, head over to the Canary Configs view under Delivery.&lt;br /&gt;
+Create a new Canary Config called Demo-config, and add a filter template.&lt;br /&gt;
+The template will filter based on the replication controller of the server group:&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;resource.labels.pod_name:&quot;${scope}&quot;&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Filter template&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 16.17.57.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now we can add actual metrics to analyse.&lt;br /&gt;
+Create a new Metrics Group called Meeseeks, with one metric underneath.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Meeseeks metric&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 16.37.01.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Since we’d also like to know whether our CPU or memory consumption has increased, let’s add some system metrics as well.
+We can investigate which filters we can construct by using the &lt;a href=&quot;https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.timeSeries/list&quot;&gt;GCP REST API&lt;/a&gt;.&lt;br /&gt;
+Add a new group called Boring System Metrics, and add the following two metrics.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;CPU metric&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 19.26.55.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;RAM metric&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 19.27.34.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The only thing left to do for this Canary Config, is to configure thresholds for the Metric Groups.&lt;br /&gt;
+The marginal is treated as a lower bound.
+If an interval analysis fails to reach the marginal limit, the entire canary release will be halted and no further intervals will be analysed.
+The pass limit is the upper bound, qualifying the analysis as a success.
+Anything in between will be recorded and next intervals will be analysed.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Thresholds&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 16.43.21.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Save the Canary Config, and go back to the Deploy to PROD pipeline configuration.&lt;/p&gt;
+
+&lt;p&gt;Join both canary and baseline deployments into the Canary Analysis stage, by using the Depends On configuration.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 auto 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;ACA stage&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 16.03.21.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Configure the canary analysis stage as follows.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Canary config 1&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 19.09.07.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Canary config 2&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 19.09.57.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;rollout-or-rollback&quot;&gt;Rollout or Rollback&lt;/h3&gt;
+
+&lt;p&gt;After the Canary Analysis has run, the new version can safely replace the existing production server group.&lt;br /&gt;
+Add a stage called Deploy to PROD, copying the production server group as template, and use the red/black (aka. blue/green) deployment strategy to avoid any downtime.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Template PROD&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 15.58.51.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;At the bottom of the Deployment Cluster Configuration, switch the Container Image to the Find Image result for DEV.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Deploy container PROD&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 11.40.12.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 25% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Deploy basic PROD&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 17.03.46.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Regardless whether this pipeline actually succeeds or not, we need to make sure to clean up afterwards.
+Add a new pipeline called Tear Down Canary, with the following trigger.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Trigger Cleanup&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 16.51.42.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Add two Destroy Server Group stages in parallel.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 auto 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Pipeline Cleanup&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 16.53.56.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Configure the first one to destroy our baseline server group.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Destroy baseline&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 16.54.22.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And finally also destroy the canary server group.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Destroy canary&quot; src=&quot;/img/spinnaker/Screen Shot 2018-05-28 at 16.54.08.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a name=&quot;running-demo&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;running-the-demo-scenario&quot;&gt;Running the demo scenario&lt;/h1&gt;
+
+&lt;p&gt;As explained in the &lt;a href=&quot;#intro-demo&quot;&gt;introduction of the demo application&lt;/a&gt;, we have two versions of our application.
+As long as we keep deploying green versions with minor changes to other parts of the application (not impacting Meeseeks logs), the whole pipeline should pass, including the canary analysis.&lt;/p&gt;
+
+&lt;p&gt;For a canary test to be successful, we need data.
+The more data our test can gather, the more informed the decision will be.
+In our demo scenario, we can continuously refresh the page to generate more load and more Meeseeks in the logs, but we can also use a script for that.
+In the root of the demo repository, a script called &lt;code class=&quot;highlighter-rouge&quot;&gt;randomload.sh&lt;/code&gt; can be used to generate calls to the PROD ingress endpoint at a random interval.&lt;br /&gt;
+The script uses &lt;a href=&quot;https://httpie.org/&quot;&gt;HTTPie&lt;/a&gt; to make calls, but you can also replace it with &lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt; commands.
+Also, make sure you change the IP address in your forked repository’s file.&lt;/p&gt;
+
+&lt;h3 id=&quot;success&quot;&gt;Success&lt;/h3&gt;
+
+&lt;p&gt;A successful canary release would look like this.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Success&quot; src=&quot;/img/spinnaker/Screen Shot 2018-06-01 at 18.16.10.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Meeseeks logs should occur at a similar rate in the canary and the baseline server group.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Success Meeseeks&quot; src=&quot;/img/spinnaker/Screen Shot 2018-06-01 at 18.53.45.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;CPU and RAM metrics are also part of the comparison.
+In the example below, the canary CPU metrics deviated too much from the baseline, resulting in a failure for that metric group.
+However, the weight of those metrics were not high enough to fail the verdict, but it did cause the outcome to be labeled &lt;em&gt;marginal&lt;/em&gt;.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Success RAM&quot; src=&quot;/img/spinnaker/Screen Shot 2018-06-01 at 18.37.33.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Success CPU&quot; src=&quot;/img/spinnaker/Screen Shot 2018-06-01 at 18.38.06.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;failure&quot;&gt;Failure&lt;/h3&gt;
+
+&lt;p&gt;When switching to the blue Meeseeks version, the initial DEV deploy would succeed, but our canary analysis should fail after one or two intervals.&lt;/p&gt;
+
+&lt;p&gt;A failed canary release would look like this.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Failed&quot; src=&quot;/img/spinnaker/Screen Shot 2018-06-01 at 19.08.12.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The canary server group generated a noticeable higher amount of Meeseeks than our baseline server group, resulting in a failed analysis.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Failed Meeseeks&quot; src=&quot;/img/spinnaker/Screen Shot 2018-06-01 at 19.09.31.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Even though canary CPU and RAM metrics were quite in sync with the baseline, our Meeseeks metrics were enough to fail the entire pipeline.&lt;/p&gt;
+&lt;div class=&quot;row&quot; style=&quot;margin: 0 15% 0 auto;&quot;&gt;
+&lt;div class=&quot;col-md-offset-3 col-md-6&quot;&gt;
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Failed RAM&quot; src=&quot;/img/spinnaker/Screen Shot 2018-06-01 at 19.10.09.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;figure&gt;
+    &lt;img class=&quot;center-block image fit&quot; alt=&quot;Failed CPU&quot; src=&quot;/img/spinnaker/Screen Shot 2018-06-01 at 19.08.57.png&quot; /&gt;
+    
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a name=&quot;conclusion&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Pickle Rick and Mr. Meeseeks have shown us the power of automated canary analysis using Spinnaker.
+There are still a few considerations we have to take into account, such as the importance of choosing the right metrics and filters and iterating on those after each canary release.
+Yet, having a tool like this at our disposal allows us to release more often to production, without compromising safety or quality.
+By reducing manual and ad hoc analysis only the most stable releases are deployed to production in a highly automated way.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Andreas&quot;, &quot;last_name&quot;=&gt;&quot;Evers&quot;, &quot;permalink&quot;=&gt;&quot;/author/andreas-evers/&quot;, &quot;avatar&quot;=&gt;&quot;andreas-evers.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;email&quot;=&gt;&quot;andreas.evers@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;andreasevers&quot;, &quot;github&quot;=&gt;&quot;andreasevers&quot;, &quot;title2&quot;=&gt;&quot;Practice Leader Backend&quot;, &quot;linkedin&quot;=&gt;&quot;eversandreas&quot;, &quot;bio&quot;=&gt;&quot;Andreas is a Principal Java consultant at Ordina, passionate about the Spring ecosystem, microservices, REST, clean code and best practices in general. An avid open source enthusiast and Spring contributor. Helps fellow developers as Competence Center leader for architecture and best practices by giving workshops, talks and courses about the newest technologies.&quot;}</name><email>andreas.evers@ordina.be</email></author><category term="Cloud" /><category term="Canary" /><category term="Continuous-Delivery" /><category term="Cloud" /><category term="Microservices" /><category term="Netflix" /><category term="Spring" /><summary type="html">Intro</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/spinnaker/spinnaker-logo.png" /></entry><entry><title type="html">Lagom 1.4 and Kubernetes orchestration</title><link href="https://ordina-jworks.github.io/orchestration/2018/05/22/lagom-1-4-and-kubernetes-orchestration.html" rel="alternate" type="text/html" title="Lagom 1.4 and Kubernetes orchestration" /><published>2018-05-22T00:00:00+00:00</published><updated>2018-05-22T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/orchestration/2018/05/22/lagom-1-4-and-kubernetes-orchestration</id><content type="html" xml:base="https://ordina-jworks.github.io/orchestration/2018/05/22/lagom-1-4-and-kubernetes-orchestration.html">&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
 
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
@@ -2363,231 +3510,4 @@ By using the MySense as our sensor we only have to mount one piece per door. An 
   &lt;li&gt;&lt;a href=&quot;https://ordina-jworks.github.io/iot/2017/10/12/Stairway-To-Health.html&quot;&gt;Blogpost Stairway to Health 1&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://nestjs.com/&quot;&gt;Nest.js&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.openshift.com/&quot;&gt;OpenShift&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michael&quot;, &quot;last_name&quot;=&gt;&quot;Vervloet&quot;, &quot;permalink&quot;=&gt;&quot;/author/michael-vervloet/&quot;, &quot;avatar&quot;=&gt;&quot;michael-vervloet.jpg&quot;, &quot;linkedin&quot;=&gt;&quot;michaelvervloet&quot;, &quot;twitter&quot;=&gt;&quot;MiVvlt&quot;, &quot;github&quot;=&gt;&quot;MiVvlt&quot;, &quot;title&quot;=&gt;&quot;SoftWare Engineer&quot;, &quot;title2&quot;=&gt;&quot;Fullstack Javascript Developer&quot;, &quot;email&quot;=&gt;&quot;michael.vervloet@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Michael is a full stack JavaScript/TypeScript developer specialising himself in backend development with NodeJs and Express and has a solid background in frontend/hybrid mobile development. As a member of Ordina's core 'Internet of Things' team he has collaborated on some challenging and innovative IoT applications.&quot;}</name><email>michael.vervloet@ordina.be</email></author><category term="IoT" /><category term="NodeJS" /><category term="nestJs" /><category term="MongoDB" /><category term="Angular" /><category term="ExpressJS" /><category term="Express" /><category term="TypeScript" /><category term="Angular-CLI" /><category term="Internet of Things" /><category term="IoT" /><category term="LoRa" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/stairwaytohealth2/banner.jpg" /></entry><entry><title type="html">HPKP is deprecated. What now?</title><link href="https://ordina-jworks.github.io/security/2018/02/12/HPKP-deprecated-what-now.html" rel="alternate" type="text/html" title="HPKP is deprecated. What now?" /><published>2018-02-12T00:00:00+00:00</published><updated>2018-02-12T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/security/2018/02/12/HPKP-deprecated-what-now</id><content type="html" xml:base="https://ordina-jworks.github.io/security/2018/02/12/HPKP-deprecated-what-now.html">&lt;h1 id=&quot;hpkp-is-deprecated-what-now&quot;&gt;HPKP is deprecated. What now?&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Recently Google announced their intent to &lt;a href=&quot;https://groups.google.com/a/chromium.org/forum/#!msg/blink-dev/he9tr7p3rZ8/eNMwKPmUBAAJ&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;deprecate support&lt;/a&gt; for Public Key Pinning (HPKP).
-Let’s have a look at the reasons for this and what technologies we can use to replace it.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;deprecated-why&quot;&gt;Deprecated? Why?&lt;/h2&gt;
-&lt;p&gt;As mentioned in the &lt;a href=&quot;/conference/2017/09/18/Browser-security-features.html&quot;&gt;previous blog post&lt;/a&gt;, HPKP carries some very strong risks.
-It only takes a small mistake to render your site completely inaccessible, but that’s only 1 of the reasons Google mentions for deprecating support for HPKP.
-The other risks they call out are that it’s hard to build a pin-set that’s guaranteed to work and the risk of hostile pinning.
-Hostile pinning hasn’t been observed &lt;em&gt;yet&lt;/em&gt;, but it’s an attack that allows someone to take your site hostage should they somehow be able to obtain a valid certificate for your domain.&lt;/p&gt;
-
-&lt;p&gt;Because of the first 2 reasons, adoption rates of HPKP have remained very low and browser vendors have been looking for a viable replacement.&lt;/p&gt;
-
-&lt;h2 id=&quot;expect-ct&quot;&gt;Expect-CT&lt;/h2&gt;
-&lt;p&gt;One of the new headers thought up to replace HPKP is &lt;code class=&quot;highlighter-rouge&quot;&gt;Expect-CT&lt;/code&gt; (Expect Certificate Transparency).
-This tells the browser to check the &lt;a href=&quot;https://www.certificate-transparency.org/&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Certificate Transparency&lt;/a&gt; (CT) logs to make sure the presented certificate is properly logged.&lt;/p&gt;
-
-&lt;h3 id=&quot;certificate-transparency&quot;&gt;Certificate Transparency&lt;/h3&gt;
-&lt;p&gt;CT is a project by Google that provides a framework for monitoring and auditing SSL certificates in (almost) real-time.
-One of the reasons for its existence is the 2011 hack of the Dutch CA Diginotar. 
-This resulted in the hackers being able to issue more than 500 fake SSL certificates (including for sites like facebook.com and google.com).
-In turn, these certificates could then be used by the attacker to perform a Man-in-the-middle (MitM) attack against these sites, without alerting the user that anything fishy was going on.&lt;/p&gt;
-
-&lt;p&gt;CT is a tool that allows you to detect when a fake certificate has been issued. 
-When a CA participates in the program, it has to log all certificates they issue in a publicly searchable log.
-These logs are monitored by applications which can report to you whenever a new certificate for one of your domains is issued.
-If the certificate was issued in error (or maliciously), you can immediately take steps to have it revoked.&lt;/p&gt;
-
-&lt;h3 id=&quot;how-does-expect-ct-help-me-out-here&quot;&gt;How does Expect-CT help me out here?&lt;/h3&gt;
-&lt;p&gt;Expect-CT tells the browser that you only want it to trust certificates signed by CAs that have Certificate Transparency enabled.
-When the server presents a certificate that’s not issued by such a CA, the browser will reject it and display a warning to the user.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2018-hpkp-deprecation/expect-ct-error.png&quot; alt=&quot;Expect CT error message&quot; class=&quot;image fit&quot; style=&quot;max-width:638px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;If you combine these 2 points, you can see how this protects your users:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;By monitoring the CT logs, you can quickly identify any fraudulent or misissued certificates for yur domains and have them revoked.&lt;/li&gt;
-  &lt;li&gt;If the certificate is issued by a CT that doesn’t pop up in these logs, it’s simply rejected by the browser.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;how-to-monitor-ct-logs&quot;&gt;How to monitor CT logs&lt;/h3&gt;
-&lt;p&gt;Of course the whole premise of this solution is that you actually monitor the CT logs for your domains.
-If you don’t do this, you’re still at risk of someone obtaining a fraudulent certificate and impersonating you.
-Fortunately, there are plenty of companies and tools out there that can help you out with this.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;SSLMate offers an open source tool called &lt;a href=&quot;https://github.com/SSLMate/certspotter&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Certspotter&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;If you don’t want to run it yourself, you can &lt;a href=&quot;https://sslmate.com/certspotter/&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;pay them&lt;/a&gt; to do it for you.&lt;/li&gt;
-  &lt;li&gt;For smaller (personal) projects, you can use &lt;a href=&quot;https://developers.facebook.com/tools/ct/&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Facebook&lt;/a&gt;’s monitor.&lt;/li&gt;
-  &lt;li&gt;Or you use one of the other APIs or services that are available.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;What’s important is that you get the reports quickly so you can immediately take action.&lt;/p&gt;
-
-&lt;h3 id=&quot;use-the-header&quot;&gt;Use the header&lt;/h3&gt;
-&lt;p&gt;Since (to my knowledge) browsers don’t have psychic powers (yet?), you still need to tell it that you expect the CA to have CT enabled.
-For that you’ll need to add the &lt;code class=&quot;highlighter-rouge&quot;&gt;Expect-CT&lt;/code&gt; header on your responses.
-Obviously it will only look for these on an HTTPS URL, since on a simple HTTP connection it can easily be added or removed by a MitM.&lt;/p&gt;
-
-&lt;p&gt;The header looks like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;http request
-Expect-CT: enforce, max-age=31536000, report-uri=&quot;https://example.com&quot;
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This tells the browser to &lt;strong&gt;enforce&lt;/strong&gt; the CT rule and to do so for the next year.
-Any infractions will be sent to the &lt;code class=&quot;highlighter-rouge&quot;&gt;report-uri&lt;/code&gt; you mentioned.
-As with all headers that contain a &lt;code class=&quot;highlighter-rouge&quot;&gt;report-uri&lt;/code&gt;, you can also use &lt;a href=&quot;https://report-uri.io&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;report-uri.io&lt;/a&gt; to aggregate these logs.&lt;/p&gt;
-
-&lt;p&gt;As with most things that stand a chance of rendering your site inaccessible, it pays to be cautious when adding this header.
-Typically you don’t want to start by adding this header as defined above.
-Instead, you want to deploy it first &lt;em&gt;without&lt;/em&gt; the &lt;code class=&quot;highlighter-rouge&quot;&gt;enforce&lt;/code&gt; directive (and preferably a very low &lt;code class=&quot;highlighter-rouge&quot;&gt;max-age&lt;/code&gt; such as 0)
-Doing so will tell the browser that you don’t want it to &lt;strong&gt;block&lt;/strong&gt; connections with a bad certificate, but just to send the error to the &lt;code class=&quot;highlighter-rouge&quot;&gt;report-uri&lt;/code&gt;.
-This setup allows you to test without impacting your users: you can now monitor this for a while to see if everything still works as expected.
-After that, enable the &lt;code class=&quot;highlighter-rouge&quot;&gt;enforce&lt;/code&gt; directive and slowly increase the &lt;code class=&quot;highlighter-rouge&quot;&gt;max-age&lt;/code&gt; to the point you want it to be.&lt;/p&gt;
-
-&lt;h3 id=&quot;risks&quot;&gt;Risks&lt;/h3&gt;
-&lt;p&gt;The risk of adding this header is quite low, if you follow the procedure above.
-You should only make sure that your CA actually uses CT.
-However, since October 2017 Chrome has made this a requirement in order for CAs to be in the trust-store.
-The main risk lies in not monitoring the CT logs properly. 
-If you don’t monitor the alerts or don’t have a procedure to deal with misissued certificates, you’re still at risk of impersonation.&lt;/p&gt;
-
-&lt;h3 id=&quot;caveats&quot;&gt;Caveats&lt;/h3&gt;
-&lt;p&gt;Unfortunately, there’s one major caveat to using this header.
-At the time of writing, only Chrome fully supports Expect-CT.
-Mozilla has also indicated that they will support it, but Microsoft so far doesn’t seem to be following suit.&lt;/p&gt;
-
-&lt;h3 id=&quot;should-you-use-it&quot;&gt;Should you use it?&lt;/h3&gt;
-&lt;p&gt;Yes. The risk is minimal, the only downside at the moment is the lack of browser support.
-At the very least, a large percentage of your users enjoys added protection against MitM attacks.&lt;/p&gt;
-
-&lt;h2 id=&quot;certificate-authority-authorization&quot;&gt;Certificate Authority Authorization&lt;/h2&gt;
-&lt;p&gt;The downside of Expect-CT compared to Public Key Pinning (HPKP) is that you need to make sure that your monitoring is handled correctly.
-If you don’t notice on time that a certificate has been issued, an attacker may be able to impersonate you for some time.
-You can make this a lot harder on the attacker by using Certificate Authority Authorization (CAA).
-CAA is a way for you to indicate exactly who is allowed to issue certificates for your domain.&lt;/p&gt;
-
-&lt;h3 id=&quot;how-to-implement&quot;&gt;How to implement?&lt;/h3&gt;
-&lt;p&gt;Since the issuance of certificates is not limited to websites, CAA is not implemented through HTTPS response headers, instead it’s a record that you need to put in your DNS settings.
-You simply add the correct record to your DNS like this:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Name&lt;/th&gt;
-      &lt;th&gt;Type&lt;/th&gt;
-      &lt;th&gt;Value&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;example.com.&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CAA&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;0 issue &quot;;&quot;&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Note: the example above prevents all CAs from issuing certificates for your site. 
-Don’t just copy-paste this.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;You can have multiple CAA records and the value of these tells the CA exactly what you want.
-Since this is a bit cryptic, lets look a bit more in detail at what’s happening here.&lt;/p&gt;
-
-&lt;p&gt;The value above consists of 3 parts:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;the flag (&lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;)&lt;/li&gt;
-  &lt;li&gt;the tag (&lt;code class=&quot;highlighter-rouge&quot;&gt;issue&lt;/code&gt;)&lt;/li&gt;
-  &lt;li&gt;the value (&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;;&quot;&lt;/code&gt;)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The combination of tag and value can be referred to as “the property”.
-The whole of CAA is governed by &lt;a href=&quot;https://tools.ietf.org/html/rfc6844&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;RFC 6844&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;flags&quot;&gt;Flags&lt;/h4&gt;
-&lt;p&gt;Currently, flags can have 2 values: &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;128&lt;/code&gt;.
-A value of &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; means the property is non-critical, while a value of &lt;code class=&quot;highlighter-rouge&quot;&gt;128&lt;/code&gt; means that is is critical.
-If a property is marked as critical, the CA must completely understand it before it proceeds.
-Generally it’s correct to use &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;, so it’s advised to always use that value.
-There is support for customized flags in the RFC, but that’s beyond the scope of this post.&lt;/p&gt;
-
-&lt;h4 id=&quot;tags&quot;&gt;Tags&lt;/h4&gt;
-&lt;p&gt;The current specification has 3 tags you can define:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;issue&lt;/code&gt; specifies which CA is authorized to issue certificates&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;issuewild&lt;/code&gt; indicates which CA is authorized to issue &lt;strong&gt;wildcard&lt;/strong&gt; certificates (e.g. for &lt;code class=&quot;highlighter-rouge&quot;&gt;*.example.com&lt;/code&gt;)&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;iodef&lt;/code&gt; similar to report-uri you can use this to get reports on invalid requests (either to an email address or to an http endpoint)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;issue&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;issue&lt;/code&gt;&lt;/h5&gt;
-&lt;p&gt;This tag specifies which CA is allowed to issue certificates for the domain and its subdomains.
-This includes the wildcard subdomain (meaning that the certificate would be valid for &lt;em&gt;all&lt;/em&gt; subdomains).
-A value of “;” indicates that no issuance is allowed.
-You’re allowed to define multiple CAs, but you’ll need to use a new DNS record for each one:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Name&lt;/th&gt;
-      &lt;th&gt;Type&lt;/th&gt;
-      &lt;th&gt;Value&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;example.com.&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CAA&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;0 issue &quot;ca1.com&quot;&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;example.com.&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CAA&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;0 issue &quot;otherca.net&quot;&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h5 id=&quot;issuewild&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;issuewild&lt;/code&gt;&lt;/h5&gt;
-&lt;p&gt;This one is used explicitly for wildcard certificates.
-If &lt;code class=&quot;highlighter-rouge&quot;&gt;issuewild&lt;/code&gt; is present, any values in &lt;code class=&quot;highlighter-rouge&quot;&gt;issue&lt;/code&gt; may not be used in the issuance of a wildcard certificate.
-You can use this in case you never want a wildcard certificate to be issued or when the list of CAs that are allowed to issue wildcard certificates differs from the original list.&lt;/p&gt;
-
-&lt;h5 id=&quot;iodef&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;iodef&lt;/code&gt;&lt;/h5&gt;
-&lt;p&gt;You can use this tag to report invalid certificate requests:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Name&lt;/th&gt;
-      &lt;th&gt;Type&lt;/th&gt;
-      &lt;th&gt;Value&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;example.com.&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CAA&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;0 iodef &quot;mailto:certificates@example.com&quot;&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;example.com.&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CAA&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;0 iodef &quot;https://certificate.example.com/endpoint&quot;&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;As you can see, you can either have these reports sent by email, of have them delivered to an HTTP endpoint.
-The report is sent in the IODEF format, which also means that your endpoint needs to be &lt;a href=&quot;https://www.ietf.org/rfc/rfc6546.txt&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;RFC 6546&lt;/a&gt; compliant.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-easy-way&quot;&gt;The easy way&lt;/h3&gt;
-&lt;p&gt;To help you in creating your CAA, SSL Mate has released a useful tool: &lt;a href=&quot;https://sslmate.com/caa/&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CAA Record Helper&lt;/a&gt;.
-It can help you create a CAA record and will tell you how to set it up in your DNS service.
-&lt;img src=&quot;/img/2018-hpkp-deprecation/sslmate.png&quot; alt=&quot;CAA Record Helper&quot; class=&quot;image fit&quot; style=&quot;max-width:881px&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;risks-1&quot;&gt;Risks&lt;/h3&gt;
-&lt;p&gt;A badly implemented CAA record can mean that your CA is not allowed to issue your certificate.
-The other risk is that it relies on DNS: DNS records can be spoofed and this might allow an attacker to trick a CA into issuing a fraudulent certificate.
-Because of this, the RFC recommends implementing DNSSEC (Domain Name Security Extensions).&lt;/p&gt;
-
-&lt;h3 id=&quot;should-i-use-it&quot;&gt;Should I use it?&lt;/h3&gt;
-&lt;p&gt;I’d suggest you do. 
-While having an incorrect policy can prevent the CA from issuing a certificate, this situation can be rectified quickly and shouldn’t put your users at risk.
-It will make it a lot harder for an attacker to obtain a certificate.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;De Grande&quot;, &quot;twitter&quot;=&gt;&quot;TimDG&quot;, &quot;linkedin&quot;=&gt;&quot;timdegrande&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-de-grande/&quot;, &quot;avatar&quot;=&gt;&quot;tim-de-grande.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Aplication Security&quot;, &quot;email&quot;=&gt;&quot;tim.degrande@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a principal Java Consultant at Ordina who is interested in security, cryptography and privacy. As Compentence Leader Application Security, he keeps his colleagues up to date on the latest security news and works to broaden their understanding by giving workshops and classes.&quot;}</name><email>tim.degrande@ordina.be</email></author><category term="Security" /><category term="Security" /><category term="Browser features" /><category term="Response headers" /><category term="HPKP" /><category term="CAA" /><category term="Expect-CT" /><summary type="html">HPKP is deprecated. What now?</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/security/padlock_code.jpg" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michael&quot;, &quot;last_name&quot;=&gt;&quot;Vervloet&quot;, &quot;permalink&quot;=&gt;&quot;/author/michael-vervloet/&quot;, &quot;avatar&quot;=&gt;&quot;michael-vervloet.jpg&quot;, &quot;linkedin&quot;=&gt;&quot;michaelvervloet&quot;, &quot;twitter&quot;=&gt;&quot;MiVvlt&quot;, &quot;github&quot;=&gt;&quot;MiVvlt&quot;, &quot;title&quot;=&gt;&quot;SoftWare Engineer&quot;, &quot;title2&quot;=&gt;&quot;Fullstack Javascript Developer&quot;, &quot;email&quot;=&gt;&quot;michael.vervloet@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Michael is a full stack JavaScript/TypeScript developer specialising himself in backend development with NodeJs and Express and has a solid background in frontend/hybrid mobile development. As a member of Ordina's core 'Internet of Things' team he has collaborated on some challenging and innovative IoT applications.&quot;}</name><email>michael.vervloet@ordina.be</email></author><category term="IoT" /><category term="NodeJS" /><category term="nestJs" /><category term="MongoDB" /><category term="Angular" /><category term="ExpressJS" /><category term="Express" /><category term="TypeScript" /><category term="Angular-CLI" /><category term="Internet of Things" /><category term="IoT" /><category term="LoRa" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/stairwaytohealth2/banner.jpg" /></entry></feed>
