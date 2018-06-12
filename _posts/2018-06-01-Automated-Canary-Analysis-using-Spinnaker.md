@@ -187,7 +187,7 @@ gcloud beta container clusters create spinnaker \
   --enable-stackdriver-kubernetes \
   --enable-legacy-authorization
 ```
-Make sure `enable-stackdriver-kubernetes` and `--enable-legacy-authorization` are passed.
+Make sure `--enable-stackdriver-kubernetes` and `--enable-legacy-authorization` are passed.
 
 ### Enable APIs
 
