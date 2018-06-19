@@ -108,42 +108,45 @@ Usually, we tend to optimize for objective time by using tools like lazy loading
 But how feasible is this?
 
 Even a 20% increase in objective speed is unnoticeable to the user. So we have to aim for an increase of 30% or even more.
-Of course this is not easy at all, especially when taking into account that when working with multiple teams (possibly over different time zones),
-all the teams have to align on this.
+Of course this is not easy at all, especially when taking into account that when working with multiple teams (possibly over different time zones), all the teams have to align on this.
 
-So how do we get the user to perceive an increase on performance?
+So how do we get the user to perceive an increase of performance?
 **We focus on the subjective time!**
 
 ### Active vs passive phase:
 
-What does a passive phase entail? Our passive phase kicks in when we are waiting for something to happen,
-say for our water to boil. Time spent in passive phases feels ~36% slower!
+What does a passive phase entail? Our passive phase kicks in when we are waiting for something to happen, say for our water to boil.
+Time spent in passive phases feels ~36% slower!
 
-There are two ways to prevent users from getting bored during a passive phase and keeping them interested
-enough to wait:
+There are two ways to prevent users from getting bored during a passive phase and keeping them interested enough to wait:
 
 * Keep users in an active state
 * Make passive states feel faster
 
 #### How do we keep users in an active state?
-We can implement an optimistic UI. 99% of requests succeed so why not take advantage of this by *first* updating
-the UI and only then doing the actual request.
+There are three ways to achieve this:
+* Don't tell users they're waiting: Use loaders wisely because they can prematurely put users in a passive state
+* Respond to users immediately, even if nothing is happening
+* Keep users in flow with more responsive event listeners
+
+To respond to the users immediately, we can implement an optimistic UI.
+99% of requests succeed so why not take advantage of this by *first* updating the UI and only then doing the actual request.
 
 We can also do our best to react as soon as the user signals intent.
-For example, why use the onclick event when the onmousedown event exists as it shows intent much earlier?
+For example, why use the onclick event when the *onmousedown* event exists as it shows intent much earlier?
 This will provide you with a nice 100-150 millisecond head start. This is also usable on touch devices.
 
-Using :active animations also buy you more time. An animation that lasts ~200 milliseconds will provide
-you with 50 milliseconds extra time keeping the user in an active state.
+Using *:active* animations also buy you more time.
+An animation that lasts ~200 milliseconds will provide you with 50 milliseconds extra time keeping the user in an active state.
 
 #### Onto topic two: how to 'unsuck' passive states.
 A wait of 1-4 seconds is long enough to lose people's interest.
 There are three ways of preventive loss of interest:
 * Use the right loading animation
 * Adapt the loading scheme to the user
-* Use shiny objects!
+* Distract with shiny objects!
 
-Uncertain waits feel longer so make sure to use progress bars and loading animations.
+Uncertain waits feel longer so make sure to use progress bars and loading animations when appropriate.
 For example bands with accelerating bars feel 12% faster!
 
 What about spinners?
@@ -154,15 +157,17 @@ What about spinners?
 
 Spinners are only useful between a 1 second and 2 second wait.
 
-Don't forget that most progress bars are fake! This is due to the connection differences between the user's
-connection and the backend.
-However, we can use adaptive loading. Measure the actual requests done! You do need baseline times to know how
-long to *expect* it to run. Of course this needs to be normalized for the resource or payload that needs to load.
-Again, adapt the loading scheme to the user that is requesting data. For example, you can check the user's
-connection to give him a personally optimized experience.
+Don't forget that most progress bars are fake!
+This is due to the connection differences between the user's connection and the backend.
+However, we can use adaptive loading.
+Measure the actual requests done!
+You do need baseline times to know how long to *expect* it to run.
+Of course this needs to be normalized for the resource or payload that needs to load.
+Again, adapt the loading scheme to the user that is requesting data.
+For example, you can check the user's connection to give him a personally optimized experience.
 
-We can also learn a lot from game developers. Remember FIFA who made you play a mini football game while loading the
-game in the background?
+We can also learn a lot from game developers.
+Remember FIFA who made you play a mini football game while loading the game in the background?
 
 ### Predictive preloading:
 What if we could predict the user's intent?
@@ -170,20 +175,21 @@ One easy to setup option is to start loading the app and data in the background 
 This quick win will give you a 4 second head start!
 
 Another option is to exploit behavioural quirks:
-1) People tend to watch hover animations: Fancy hovers buy you ±600ms extra time
+1) People tend to watch hover animations: Fancy hovers buy you ± 600 millisecond extra time
 2) People slow down when approaching the target: Load on mouse deceleration!
 
-When combining above two techniques (hover animations + futurelink) we can get a ± 1.5 second head start.
+When combining above two techniques (hover animation + futurelink) we can get a ± 1.5 second head start.
 But: **Use predictive preloading wisely!** You *will* get it wrong some of the time. Do some dry runs first and try to mitigate risk by using metrics to improve.
 
 ### A quick summary
 
-* Perceived performance is low hanging fruit. You can provide the user with immediate feedback.
-* Tailor to individual users
-* React at intent
-* Introduce predictive loading bit by bit
+* Perceived performance is low hanging fruit since you can provide the user with immediate, accurate and live feedback
+* Tailor your loading solution to individual users
+* React as soon as users signal intent
+* Introduce predictive loading bit by bit, implement it at the places in your app where it has the most impact 
 
-> At the end of the day, it matters how it *feels*.
+
+> At the end of the day, what matters is how it *feels*.
 
 Eli also covers this talk on his [website](http://assets.eli.wtf/talks/perceived-perf-talk/){:target="_blank"}.
 
