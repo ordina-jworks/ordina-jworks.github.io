@@ -268,10 +268,12 @@ These are based on simple principles:
 * Theory of Constraints: only tackle one constraint at a time.
 
 Underlying principles:
+
 1) Visualize -> stabilize -> optimize!
 You cannot change a system if you don't know what that system looks like, so visualize!
 Use event storming, value stream mapping or whatever you need.
 Stabilizing means that even if the system is horribly bad, you want it to be consistently horribly bad because only then can you observe what impact your changes actually have.
+
 2) Start small, get data.
 
 > "If we have data, let's look at data. If all we have are opinions, let's go with mine!" - Jim Barksdale
@@ -425,8 +427,7 @@ Apply a design approach and a design mindset. Design a way of working that works
 Behaviour change and building new team habits. What team habits, what rituals can we create to help our teams work better together?
 
 ### Two factors for designing effective teams
-1) Communication
-2) Trust
+Communication & trust.
 
 > How you work together is more important than what you're working on and who you are working with.
 
