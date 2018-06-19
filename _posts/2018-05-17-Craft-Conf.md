@@ -403,44 +403,51 @@ Their talk is available on the [Craft Conf website](https://craft-conf.com/){:ta
 [Alison Coward](https://twitter.com/alisoncoward){:target="_blank"} is the founder of Bracket and author of “A Pocket Guide to Effective Workshops”. She is a strategist, trainer and workshop facilitator. With over 15 years of experience of working in, leading and facilitating creative teams, Alison is passionate about finding the perfect balance between creativity and productivity.
 
 Team work today is cross-functional and self-organizing.
-AirBnB for example has core teams and expand the team with the necessary expertise when necessary.
+AirBnB for example has core teams and expand the team with the necessary expertise from within the organization when necessary.
 
 A team is made up of multiple individuals which creates a new team culture when putting these teams together.
--- TODO insert image
-The team's dynamics also tend to change on the projects.
+The team's dynamics also tend to change on different projects.
+So we cannot apply a preset way of working to a new team or a familiar team working on a new project.
 
 ### Three principles for creating High Performance Teams
-1) Can your team learn to work together?
+1) Can your team learn to work better together?
 With a fixed mindset you believe that talent is fixed.
 However, with a growth mindset, you believe that anyone can improve with practice and persistence. See the value of continuous learning.
-These teams were more successful and perform much better.
-They challenge each other and learn together. -> Can ??? TODO
+These teams were more successful in the past and tend to perform much better.
+They challenge each other and learn together.
+This can actually be developer.
+Each team has the potential to improve.
 
-2) What new way (??) of working can be created to work together?
-Design approach. Designing a way of working that works for that team!
+2) What new ways of working can you create together?
+Apply a design approach and a design mindset. Design a way of working that works for that team!
 
 3) How will you and your team start to work differently?
-Behaviour change and building new team habits.
+Behaviour change and building new team habits. What team habits, what rituals can we create to help our teams work better together?
 
-### Two factors for effective teams
+### Two factors for designing effective teams
 1) Communication
 2) Trust
 
-How you work together is more important than what you're working on and who you are working with.
+> How you work together is more important than what you're working on and who you are working with.
 
 #### MIT Human Dynamics Lab
-The most effective teams:
+The research conducted by the lab concluded the following:
+The most effective teams
 * Communicate frequently
 * Talk and listen in equal measure
 * Engage in frequent informal communication
 * The conversations are dynamic
 
 #### Google's project Aristotle
-* Impact of work
-* Meaning of work
-* Structure and clarity
-* Dependability
-* Psychological safety
+A few years ago, Google was very interested in finding out what the factors were that made up the most effective teams.
+They concluded the following:
+* The people could see the impact of the work they were doing
+* Meaning of work, they could see why they were doing the work
+* Structure and clarity, everybody knew who was doing what and what they were working on
+* Dependability, they knew they could depend on each other
+* Psychological safety, the individuals in the team were able to make mistakes and take risks in front of each other
+
+It had nothing to do with IQ and individual talents of the people in the team and everything to do with how they worked together.
 
 #### Self-awareness
 95% of us think we are self-aware, while actually only 10-15% is!
@@ -451,10 +458,12 @@ Self-awareness exercise:
 * When do you get your best ideas?
 * What does your ideal work day look like?
 
-Project kickoff
-1) Share team expertise
-2) Clarify the roles
-3) Talk about how you will work together
+We can use these answers to set up new ways of working within the team.
+
+We can do this during the project kickoff:
+1) Share team expertise, share what your role is and what you can bring to the table
+2) Clarify the roles, everyone needs to know who can do what work
+3) Talk about how you will work together, how you will meet, when you will meet, how to communicate, etc.
 
 ### Organize better meetings and workshops
 Make your meetings count!
@@ -462,12 +471,15 @@ Make your meetings count!
 * What is the best format of the meeting? How long do we need? Do we need to split up the meeting?
 * Set meeting rhythms
 
-See Amazon's two pizza teams:
+#### Amazon's two pizza teams:
 If a team is too large to be fed by two pizza's, then the team is just too large.
 
-Google Ventures Anxiety Parties TODO
-
-Asana's no meeting Wednesdays TODO
+#### Google Ventures Anxiety Parties
+Every three or four months, they would get together with a list of all the things that were bothering them about their performance and would share that with their team.
+An example of this might be that they weren't sure if they were spending too much time going to conferences or if they're working too slow.
+They would share these concerns during the anxiety party and the team members could respond whether they felt this actually was an issue or not to them.
+Someone could then find out that what they saw as an issue wasn't being considered an issue at all by the rest of the team, or perhaps even vice versa.
+These conversations build trust and better connections within the team.
 
 #### Take inspiration from workshops
 Great workshops have the following in common:
@@ -478,43 +490,46 @@ Great workshops have the following in common:
 * Clarity (on what needs to be done)
 * Motivation
 
-Paperclip exercise:
-First question: what can you do with a paperclip?
-Second question: which idea would make a good business proposition?
+The next paperclip exercise shows you how to make your meetings more effective:
+First question Alison asked us: Come up with as many ideas as possible on what you can do with a paperclip
+Second question: Which idea would make a good business proposition?
 
-Ideas -> Decisions TODO afbeelding
-Divergent thinking & convergent thinking
+Two different activities came up during this exercise:
+* Divergent thinking: Trying to come up with as many ideas as possible, the focus was on the quantity.
+* Convergent thinking: Applying criteria to your ideas and being critical.
 
-Productive conflict and avoid group thinking! Make sure everybody gets heard!
+It's very important to keep these two activities separate during your meetings.
+We also need productive conflict and avoid group thinking!
+Make sure everybody gets heard.
+Equal contributions are very important as well! Both the introverts and extroverts need to be heard.
 
-Pixar's braintrust TODO
-
-Equal contributions are very important! Introverts & extroverts
-
-Don't forget about check-in rounds! Use the first five minutes of a meeting to ask a personal question.
-
-Balance individual working and collaboration!
+Don't forget about check-in rounds! Use the first five minutes of a meeting to ask a personal question to encourage equal contributions and build trust in the team.
 
 ### Team habits
 How do you change behaviour?
 * Start small!
-One step at a time. For example putting on gym clothes on a regular basis.
-* "Implementation intention": make a plan!
+One step at a time works best instead of a big bang!
+* "Implementation intention": Make a plan!
 
-Design -> Test -> Iterate -> Repeat TODO image
+When you have these team habits in place, it still needs a constant review to keep improving.
+We need the following loop:
+> Design -> Test -> Iterate -> Repeat
 
 ### Starting a new High Performance Team
 * Determine how you meet
-* Determine how you share ideas - see Etsy's sharing mistakes - culture of trust!
-* Social times - for example FIKA
-* Alone time
+* Determine how you share ideas and how you can learn from each other
+* Social times, find ways to get to know each other
+* Alone time, don't only think about collaboration
 
 ### Summary
 * Team work is changing
-* Growth mindset, design approach and behaviour change
+* Having a growth mindset, design approach and behaviour change
 * Make your meetings count
 * Build a 'workshop culture'
 * Create better team habits
+
+More information on how to run effective workshops can be found [here](https://www.slideshare.net/Codemotion/how-to-run-effective-workshops-alison-coward-codemotion-amsterdam-2016){:target="_blank"}.
+
 
 ## Estimates or NoEstimates: Let's explore the possibilities - Woody Zuill
 
