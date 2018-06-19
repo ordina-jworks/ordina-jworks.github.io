@@ -186,7 +186,7 @@ But: **Use predictive preloading wisely!** You *will* get it wrong some of the t
 * Perceived performance is low hanging fruit since you can provide the user with immediate, accurate and live feedback
 * Tailor your loading solution to individual users
 * React as soon as users signal intent
-* Introduce predictive loading bit by bit, implement it at the places in your app where it has the most impact 
+* Introduce predictive loading bit by bit, implement it at the places in your app where it has the most impact
 
 
 > At the end of the day, what matters is how it *feels*.
@@ -293,17 +293,23 @@ That means adapting, iterating and combining techniques for your context and the
 [Joseph Pelrine](https://twitter.com/josephpelrine){:target="_blank"} is a senior certified Scrum Master Practitioner and Trainer as well as one of Europe's leading experts on eXtreme Programming.<br><br>
 [Jasmine Zahno](https://twitter.com/jasminezahno){:target="_blank"} is an agile coach who is passionate about the people side of product development. Her master’s degree in organisational psychology uniquely qualifies her to deal with the human issues that arise when the agile paradigm collides with traditional organisational structures.
 
-Men find women who were red to be more attractive. Men actually don't realize this.
+Joseph and Jasmine talk about a few subjects that they found to be powerful in understanding the complexity of ourselves and software craftmanship.
+
+The first of these subjects is that men find women who wear red to be more attractive.
+Men actually don't realize this.
 A woman in red also triggers an exceptional reaction in other women.
 These women tend to react more aggressive towards women who wear red.
 Also, men who carry a guitar are found more attractive than men who carry a tennis racket.
 
+The next part of the talk will cover some subjects about our psychology that are relevant to use in our field, but also just fun and interesting topics.
+
 FACT: We use *more* than 10% of our brain. Even when we sleep, we use more.
 
-### What is willpower?
-It's the ability to resist short-term temptation in order to meet long-term goals.
-Each day, we make 227 choices. These are all chances to follow your long-term goals.
-This has absolutely nothing to do with your academic abilities and everything with willpower.
+### Willpower?
+Willpower is the ability to resist short-term temptation in order to meet long-term goals.
+Each day, we make 227 choices.
+These are all chances to follow your long-term goals.
+This has absolutely nothing to do with your intelligence and everything with willpower.
 
 *Willpower determines academic successes over intelligence.*
 
@@ -317,30 +323,66 @@ The fruit and vegetables aisles are always presented to you first whilst you pas
 * Focus on one goal at a time
 * Be authentic
 * Express your emotions - hiding your emotions deteriorates your willpower
-* Physical exercise - for example during a retrospective
-* Eat regularly - for example, foresee fruit instead of Snickers to keep up the willpower
+* Physical exercise - it will actually increase your willpower!
+* Eat regularly - for example, foresee fruit instead of Snickers to keep up the willpower since some will try very hard to not eat that Snickers bar
 * Mindfulness practices
 
 ### Relative estimating =/= estimating!
-Social compliance is very important during planning poker.
-See the example of the five subjects to say which lines are the same length.
+Social compliance is very important to keep in mind during planning poker.
+Once the numbers are out there, it will influence the people who have not yet voted.
+See the example of the five subjects to say which drawn lines are the same length.
 Among these five people there is one actual test subject while the other 4 are deliberately giving the wrong answer.
+The test subject will actually adjust his answer to match the others' answers even though it is clearly the wrong answer.
 
-### Seven plus/minus two
-Google! TODO
+There are multiple factors that influence our estimations.
+Let's discuss a few.
 
+#### Seven plus/minus two
+There's actually a limit on our capacity to process information.
+This means that the number of objects an average human can hold in working memory is 7 ± 2.
+This is frequently referred to as Miller's law.
+It has nothing at all to do with memory.
+It has everything to do with the way we make decisions.
+
+#### Linguistic priming
 The way the Product Owner formulates the story has a big impact on how it is estimated.
-Let's say for example that a car had an accident.
+Let's say for example that two cars had an accident.
 The following five words that were used in the experiment gave a different result:
+* Collided
+* Bumped
+* Contacted
+* Hit
+* Smashed
+
+The question here is which word would give the highest estimate of speed?
+The answer is the following, where 1 represents the highest estimate and 5 the lowest:
+
 * Collided - 2
 * Bumped - 3
 * Contacted - 5
 * Hit - 4
 * Smashed - 1
 
+### We are not as good with numbers as we think we are
+* We tend to ignore the base rate:
+If, for example, the yellow taxis take up 80% of all the taxis in Budapest and the red ones take up 20%, when we see 10 yellow taxis pass by we will assume that the next one will be red even though the actual chance is still 20%.
+* The law of small numbers:
+We tend to believe small numbers more than large numbers because it's easier for us to process
+* We overlook the statistics when a story is involved because we tend to be more emotional than analytical
+
+Joseph and Jasmine also refer to the Monty Hall problem:
+
+Suppose you're on a game show, and you're given the choice of three doors:
+Behind one door is a car; behind the others, goats.
+You pick a door, say No. 1, and the host, who knows what's behind the doors, opens another door, say No. 3, which has a goat.
+He then says to you, "Do you want to pick door No. 2?"
+Is it to your advantage to switch your choice?
+
+The answer here is actually [*'Yes!'*](https://en.wikipedia.org/wiki/Monty_Hall_problem){:target="_blank"}, however counter intuitive that may be.
+
 ### We are not good psychologists
-The Monty Hall problem!
-The Dunning-Kruger effect: the less intelligent a student was, the smarter they thought they actually were.
+The Dunning-Kruger effect: The less intelligent a student was, the smarter they thought they actually were.
+Reduced intelligence leads to a reduction in the ability to self-reflect on their own intelligence.
 
 #### Working in teams
 We have the tendency to overemphasize personal characteristics and ignore situational factors when judging others' behaviour.
@@ -349,9 +391,11 @@ We have the tendency to overemphasize personal characteristics and ignore situat
 
 #### IKEA effect
 We have the tendency to overvalue the things we build ourselves.
-One example here is using pancake mix. These mixes didn't sell properly until people were actually required to add their own set of eggs to the mix.
+One example here is using pancake mix.
+These mixes didn't sell properly until people were actually required to add their own set of eggs to the mix.
 
-Tuchman model?? TODO
+To finish, Joseph and Jasmine showed us and discussed some more interesting research papers about the human psychology.
+Their talk is available on the [Craft Conf website](https://craft-conf.com/){:target="_blank"}.
 
 ## Designing a high-performing team - Alison Coward
 
