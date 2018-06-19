@@ -605,3 +605,9 @@ Or turning up the goods on our ability to rapidly deliver potentially useful sof
 Let's learn to control our urge to control things.
 Let's quit worrying about whether we will get done in 3 months for now.
 Let's get good at being done everyday.
+
+
+Thanks for reading, everyone!
+Hope you find this blog post as interesting as we found the conference!
+
+<img alt="Craft Conf" src="{{ '/img/craft-conf-2018/Craft-Conf-peeps.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
