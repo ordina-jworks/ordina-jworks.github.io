@@ -73,11 +73,11 @@ Next, we did some activities that let us experience hierarchy.
 The first one was with a partner of our choice where one of us was the 'leader' and the other was the mirror.
 Naturally, the mirror had to imitate everything the leader did.
 
-For the next exercise one of the two persons was again the leader, but now the other person had to keep his or her nose at a distance of ten centimeters from the palm of the hand of the leader at all times.
+For the next exercise one of the two persons was again the leader, but now the other person had to keep his or her nose at a distance of 10 centimeters from the palm of the hand of the leader at all times.
 
 The last exercise was with a few volunteers from the audience where one person played the CEO, a few people played the Senior Vice Presidents and some people played the Vice Presidents.
 The CEO stood in the middle of the room and directed the SVPs, the SVPs directed the VPs.
-The people who were being directed were again said to keep their noses at a distance of ten centimeters from the palm of the hand of the person that directed them.
+The people who were being directed were again said to keep their noses at a distance of 10 centimeters from the palm of the hand of the person that directed them.
 
 These were very interesting activities that shoo that having too much hierarchy and people who direct other people can lead to chaos when the leaders for example move too fast to be able to follow the directions.
 Directions are much easier to handle when there are less people involved and more trust is created.
@@ -201,7 +201,7 @@ Eli also covers this talk on his [website](http://assets.eli.wtf/talks/perceived
 
 Business stakeholders, developers, infrastructure, the project management office and change groups don't understand each other. What are they doing wrong?
 
-**They are aiming at the wrong target!**
+*They are aiming at the wrong target!*
 
 #### Wrong target: Cost accounting!
 Large businesses tend to look only at costs and profits since they are too big to be able to keep an eye on everything in the organization.
@@ -372,7 +372,7 @@ We tend to believe small numbers more than large numbers because it's easier for
 
 Joseph and Jasmine also refer to the Monty Hall problem:
 
-Suppose you're on a game show, and you're given the choice of three doors:
+> Suppose you're on a game show, and you're given the choice of three doors:
 Behind one door is a car; behind the others, goats.
 You pick a door, say No. 1, and the host, who knows what's behind the doors, opens another door, say No. 3, which has a goat.
 He then says to you, "Do you want to pick door No. 2?"
@@ -544,7 +544,7 @@ It was always the same lesson learned, there was never any improvement. Woody ca
 How does one get out of this cycle? Is it safe to question the status quo?
 
 There is a bigger idea behind these questions:
-> " The object isn't to make art, it's to be in that wonderful state which makes art inevitable." - Robert Henri
+> "The object isn't to make art, it's to be in that wonderful state which makes art inevitable." - Robert Henri
 If you set up the environment for good things, then good things will happen.
 
 Woody's suggestion was very simple:
@@ -552,6 +552,7 @@ Woody's suggestion was very simple:
 ### How about working with no estimates?
 
 The tweet that started it all in 2012:
+
 <img alt="#NoEstimates Tweet" src="{{ '/img/craft-conf-2018/Woody-Zuill-NoEstimates-Tweet.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 #### What is an estimate?
@@ -568,10 +569,12 @@ Perhaps 'on time' and 'on budget' are actually not a good measure of the results
 
 But why hold on to estimates?
 > "Fear of losing control is a big barrier for change." - Bjarte Bogsnes
-We tend to hold on to what we know.
 
+We tend to hold on to what we know.
 A few quotes in favor of breaking the cycle:
+
 > "Alternative to estimates: do the most important thing until either it ships or it is no longer the most important thing." - Kent Beck
+
 > "As teams progress they first struggle with estimation, then can get quite good at it, and then reach a point where they often don't need it." - Martin Fowler
 
 When starting a project, requirements are handed over to the development teams in an orderly fashion, very neatly organized and containing everything that needs to happen.
@@ -608,6 +611,6 @@ Let's get good at being done everyday.
 
 
 Thanks for reading, everyone!
-Hope you find this blog post as interesting as we found the conference!
+Hope you find this blog post as interesting as we did the conference!
 
 <img alt="Craft Conf" src="{{ '/img/craft-conf-2018/Craft-Conf-peeps.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
