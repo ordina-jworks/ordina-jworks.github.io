@@ -223,9 +223,32 @@ onClick={this._onClickListenerForAllEvents} />
 {% endhighlight %} 
 With the reticle (the blue circle in the middle of the view) the user can select and point to objects and call the function in the onClick property.
 It's also possible to use other events like onHover, onTouch, onSwipe, onPinch, onScroll, etc...
+These events are very useful for UI.
 
 #### There are many more fun components
-// todo: other components and custom components
+Apart from the ones we mentioned here, there are many more fun components to include video, sound and particles in your scene.
+They follow the same principles but each have their own properties.
+This being built on React Native we can also declare our own components of course!
+
+{% highlight javascript %}
+{% raw %}
+export default class CustomComponent extends Component {
+	static propTypes = {customProperty: PropTypes.number}
+
+    constructor() {super() ;}
+
+	render() {return (
+		<ViroText text={this.props.customProperty}> );}
+	}
+
+{% endraw %}
+{% endhighlight %}
+
+{% highlight javascript %}
+<CustomComponent customProperty={42}>
+{% endhighlight %}
+Just extend from Component, define your properties in propTypes and use it in your scenes.
+In our demo application we used this to create our scene but you can create small reusable components too of course!
 
 ## Demo application
 Before you can build a ViroReact application you need to [request an API key from ViroMedia](https://viromedia.com/signup).
