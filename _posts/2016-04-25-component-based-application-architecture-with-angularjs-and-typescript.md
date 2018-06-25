@@ -104,6 +104,7 @@ These components are unaware of any application state, and they only get data pa
 *A simple presentational root component.*
 
 {% highlight typescript %}
+{% raw %}
 	export class RootComponent implements IComponentOptions {
 		static NAME:string = 'app';
 
@@ -121,6 +122,7 @@ These components are unaware of any application state, and they only get data pa
                 .module('currencyConverterApp, []')
                 .component(Rootcomponent.NAME, new RootComponent());
 
+{% endraw %}
 {% endhighlight %}
 
 This component has a very simple API with one input -  `title` - and zero outputs.
@@ -131,6 +133,7 @@ Also notice how easy it was to register this component directive.
 *Let's create the same component directive but register it with the `.directive()` method.*
 
 {% highlight typescript %}
+{% raw %}
     export class RootComponent implements IDirective {
         static NAME:string = 'app';
         restrict:string = 'E',
@@ -154,6 +157,7 @@ Also notice how easy it was to register this component directive.
     .module('currencyConverterApp, []')
     .directive(Rootcomponent.NAME, RootComponent.instance());
 
+{% endraw %}
 {% endhighlight %}
 
 As you can see, this has a lot more configuration compared to using the `.component()` helper method.
