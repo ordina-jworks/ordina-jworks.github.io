@@ -9,8 +9,8 @@ comments: true
 ---
 {% comment %}
 
-resize image if needed: image looks weird on post overview
-
+TODO: resize image: image looks weird on post overview
+TODO: change date of article
 TODO: improve writing quality
 TODO: check for typos
 TODO: follow it as a tutorial from start to finish
@@ -60,7 +60,6 @@ A ViroSceneNavigator is used to navigate between these scenes.
 
 #### These scenes can be populated with all kinds of components
 For example a ViroText.
-TODO: add image of text in scene
 {% highlight javascript %}
 {% raw %}
 <ViroText
@@ -72,15 +71,12 @@ TODO: add image of text in scene
 {% endraw %}
 {% endhighlight %}
 
-Or perhaps a ViroBox, ViroQuad or ViroSphere.
-// TODO: add image of boxes, quads, spheres  
-// TODO: add code that renders above image  
+Or perhaps a ViroBox, ViroQuad or ViroSphere.  
 These components can be modified by their properties.
 One of the most important properties is the position.
-It takes an array of 3 numbers (TODO just integers or float also?) as the x, y and z coordinates. 
+It takes an array of 3 numbers as the x, y and z coordinates. 
 
 #### There are also more specialised components
-// should these be #### headers? like in scrum-vs-kanban post
 Like a Viro3DObject which lets you include custom made 3D objects in your scene.
 
 {% highlight javascript %}
@@ -100,20 +96,23 @@ A Viro360Image can be set as the background of a scene.
 A ViroPortal lets the user take a peek into a different scene.
 It basically is a window to another world.
 The Viro3DObject included in it acts like the window frame.
-//TODO should I remove the 2 lines above to keep it brief and make a more coherent story?
+//TODO code sample and gif from example project
 
 A ViroARImageMarker reacts when one of the ViroARTrackingTargets are scanned.
 It will show all the components inside the ViroARImageMarker tag.
-We have used this in our little app, more on that [below](LINK). //TODO link to below
+We have used this in our little app, more on that [below](#demo-application).
 
 {% highlight javascript %}
 {% raw %}
 <ViroARImageMarker target={"targetOne"}>
-    <ViroBox position={[0, .25, 0]} scale={[.5, .5, .5]} />
+    <ViroBox position={[0, 0.25, 0]} scale={[0.5, 0.5, 0.5]} />
 </ViroARImageMarker>
 {% endraw %}
 {% endhighlight %}
+{% comment %}
 //TODO fix highlighting
+{% endcomment %}
+
 
 {% highlight javascript %}
 ViroARTrackingTargets.createTargets({
@@ -209,19 +208,25 @@ Discussing all of these is outside the scope of this article.
 The diffuseColor and diffuseTexture are the main color and texture of the material.
 These can be placed on basic 3D objects like ViroBox, ViroQuad and ViroSphere.
 Complex Viro3DObjects can have multiple materials.
- 
- #### To control the scene we need a ViroController 
- With all of the above we can create an awesome scene but we can't interact with it yet. 
- The ViroController provides us the ability to interact with our scene. 
- {% highlight javascript %} 
- <ViroController 
- reticleVisibility={true} 
- controllerVisibility={true} 
- onClick={this._onClickListenerForAllEvents} /> 
- {% endhighlight %} 
- With the reticle (the blue circle in the middle of the view) the user can select and point to objects and call the function in the onClick property.
- It's also possible to use other events like onHover, onTouch, onSwipe, onPinch, onScroll, etc...
-   
+
+#### 
+// todo: animations
+
+#### Control the scene with a ViroController 
+With all of the above we can create an awesome scene but we can't interact with it yet. 
+The ViroController provides us the ability to interact with our scene. 
+{% highlight javascript %} 
+<ViroController 
+reticleVisibility={true} 
+controllerVisibility={true} 
+onClick={this._onClickListenerForAllEvents} /> 
+{% endhighlight %} 
+With the reticle (the blue circle in the middle of the view) the user can select and point to objects and call the function in the onClick property.
+It's also possible to use other events like onHover, onTouch, onSwipe, onPinch, onScroll, etc...
+
+#### There are many more fun components
+// todo: other components and custom components
+
 ## Demo application
 Before you can build a ViroReact application you need to [request an API key from ViroMedia](https://viromedia.com/signup).
 This should not take more than a few minutes.
