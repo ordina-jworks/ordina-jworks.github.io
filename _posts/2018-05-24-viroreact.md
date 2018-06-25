@@ -29,15 +29,14 @@ do we need table of contents? (see lagom kubernetes post)
 5. [Extra resources](#extra-resources)
 
 ## Introduction
-intro
-intro
-intro 
-
-## Intro viroreact
+Augmented Reality is a very interesting space so obviously we wanted to try something with it.
 There are many frameworks for building cross platform AR/VR applications.
-But we decided to try out ViroReact, since React is extremely popular. 
-And the premise of ViroReact is that we can rapidly build an AR/VR application for both Android and iOS,
-using a single codebase.  
+We came across ViroReact which uses React and React Native to create immersive VR and AR applications using a single codebase for Android and iOS
+so we decided to give it a try.
+In one day, with some tweaking afterwards, we were able to create a simple app to show the status of a meeting room. 
+
+
+## Basics of ViroReact
 
 ### Components
 The main building blocks of a ViroReact app are the components.
@@ -257,7 +256,7 @@ To get started, you can follow this great free beginner guide by Kent C. Dodds a
 [The beginner's guide to React](https://egghead.io/courses/the-beginner-s-guide-to-react.)
 
 
-### Step 1: Project setup
+#### Step 1: Project setup
 We began by following the Official [Quick Start guide from ViroMedia](https://docs.viromedia.com/v2.7.3/docs/quick-start).
 
 Using the [react-viro CLI](https://www.npmjs.com/package/react-viro), we generated a ViroSample project.
@@ -266,7 +265,7 @@ Using the [react-viro CLI](https://www.npmjs.com/package/react-viro), we generat
 react-viro init ARMeetingRoomViewer
 ``` 
 
-### Step 2: Create an AR scene for viewing the status of a meeting room.
+#### Step 2: Create an AR scene for viewing the status of a meeting room.
 
 To be able to scan the meeting room we needed a picture of the meeting room nameplate, 
 this will act as the marker to scan the meeting room information.
@@ -512,7 +511,7 @@ var styles = StyleSheet.create({
 module.exports = MarkerScene;
 {% endhighlight %}
 
-### Step 3: Load your marker scene on application startup
+#### Step 3: Load your marker scene on application startup
 
 Now that we have our scene, we can load it on start-up.
 In the root folder you can find the app.js file. 
