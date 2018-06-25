@@ -22,33 +22,32 @@ We came across ViroReact which uses React and React Native to create immersive V
 This persuaded us to give it a try.
 In one day, with some tweaking afterwards, we were able to create a simple app to show the status of a meeting room. 
 
-
 ## Basics of ViroReact
 
 ### Components
 The main building blocks of a ViroReact app are the components.
 
 #### The most important component is a Scene
+The [scene](https://docs.viromedia.com/docs/scenes) is the digital environment the user interacts with.
+All other components live in this scene.
 {% highlight javascript %}
 <ViroScene>
 <ViroARScene>
 {% endhighlight %}
 
-The scene is the digital environment the user interacts with.
-All other components live in this scene.
-
 Just like many other components, the Scene comes in 2 variations: ViroScene and ViroARScene.
 As the name suggests ViroARScene is used for Augmented Reality applications
 while the ViroScene is meant for Virtual Reality.
 
-A ViroSceneNavigator is used to navigate between these scenes.
+A [ViroSceneNavigator](https://docs.viromedia.com/docs/scene-navigation) is used to navigate between these scenes.
 {% highlight javascript %}
 <ViroSceneNavigator>
 <ViroARSceneNavigator>
 {% endhighlight %}
+The SceneNavigator holds a stack of scenes to enable simple transitions from one scene to the next or previous scene.
 
 #### These scenes can be populated with all kinds of components
-For example a ViroText.
+For example a [ViroText](https://docs.viromedia.com/docs/virotext2).
 {% highlight javascript %}
 {% raw %}
 <ViroText
@@ -60,13 +59,13 @@ For example a ViroText.
 {% endraw %}
 {% endhighlight %}
 
-Or perhaps a ViroBox, a ViroQuad or a ViroSphere.  
+Or perhaps a [ViroBox](https://docs.viromedia.com/docs/virobox), a [ViroQuad](https://docs.viromedia.com/docs/viroquad) or a [ViroSphere](https://docs.viromedia.com/docs/virosphere).  
 These components can be modified by setting their properties.
 One of the most important properties is the position.
 It takes an array of 3 numbers as the x, y and z coordinates. 
 
 #### There are also more specialised components
-Like a Viro3DObject which lets you include custom made 3D objects in your scene.
+Like a [Viro3DObject](https://docs.viromedia.com/docs/viro3dobject) which lets you include custom made 3D objects in your scene.
 
 {% highlight javascript %}
 <Viro3DObject
@@ -77,15 +76,17 @@ Like a Viro3DObject which lets you include custom made 3D objects in your scene.
 	rotation={[45, 0, 0]}
 	transformBehaviors={["billboard"]}/>
 {% endhighlight %}
+These 3D objects can be created in your favourite 3D modelling tools.
+ViroReact supports OBJ or VRX (converted from FBX) formats.
 The billboard transform behaviour is an interesting feature to make sure the object is always facing the user.
 
-A Viro360Image can be set as the background of a scene.
+A [Viro360Image](https://docs.viromedia.com/docs/viro360image) can be set as the background of a scene.
  
-A ViroPortal lets the user take a peek into a different scene.
+A [ViroPortal](https://docs.viromedia.com/docs/viroportal) lets the user take a peek into a different scene.
 It basically is a window to another world.
 The Viro3DObject included in it acts like the window frame.
 
-A ViroARImageMarker reacts when one of the ViroARTrackingTargets is scanned.
+A [ViroARImageMarker](https://docs.viromedia.com/docs/viroarimagemarker) reacts when one of the ViroARTrackingTargets is scanned.
 It will show all the components inside the ViroARImageMarker tag.
 We have used this in our little app, more on that [below](#demo-application).
 
@@ -108,7 +109,7 @@ ViroARTrackingTargets.createTargets({
 {% endhighlight %}
 
 #### We wouldn't see anything without eyes and light
-The Camera component is our eyes.
+The [Camera](https://docs.viromedia.com/docs/camera) component is our eyes.
 {% highlight javascript %}
 <ViroCamera position={[0, 0, 0]} rotation={[45, 0, 0]) active={true} />
 {% endhighlight %}
@@ -119,7 +120,7 @@ make sure to set its position with a negative Z value `position={[0, 0, -5]}`.
 If the object would have a positive Z value it would be placed behind you when you load up the scene.
 There is also a ViroOrbitCamera where the camera orbits around a certain position, always keeping it in view.
 
-Lights are very important components in a scene.
+[Lights](https://docs.viromedia.com/docs/3d-scene-lighting) are very important components in a scene.
 Without any light the user wouldn't see anything.
 Luckily a default light is provided when none is defined.
 We didn't need lights in our setup but if you want a more realistic or visually stunning experience, 
@@ -129,14 +130,14 @@ These are the algorithms that calculate what your objects will look like when in
 By default, elements use the Constant lighting model, which means lights will be ignored and the object will show its full color.  
 ViroReact supports 4 types of light.
 
-The ViroAmbientLight is the simplest light.
+The [ViroAmbientLight](https://docs.viromedia.com/docs/viroambientlight) is the simplest light.
 {% highlight javascript %}
 <ViroAmbientLight color="#ffffff"/>
 {% endhighlight %}
 It lights up all the objects in the scene equally from every direction.
 Only the color needs to be set.
 
-A ViroOmniLight is comparable to a light bulb.
+A [ViroOmniLight](https://docs.viromedia.com/docs/viroomnilight) is comparable to a light bulb.
 {% highlight javascript %}
 <ViroOmniLight
     color="#ffffff"
@@ -148,7 +149,7 @@ A ViroOmniLight is comparable to a light bulb.
 The light originates from a specified position and moves in all directions.
 The light slowly fades out if the distance is between 2 and 6, set in the attenuation properties.
 
-A ViroSpotLight is comparable to a flashlight.
+A [ViroSpotLight](https://docs.viromedia.com/docs/virospotlight1) is comparable to a flashlight.
 {% highlight javascript %}
 <ViroSpotLight
     color="#ffffff"
@@ -164,7 +165,7 @@ The light originates from a single point and shines in a cone.
 The direction and angle of the cone can be set as well as the attenuation start and end distances.
 Some other properties are available to create the shadows you want.
 
-The last type of light is the ViroDirectionalLight.
+The last type of light is the [ViroDirectionalLight](https://docs.viromedia.com/docs/virodirectionallight-1).
 {% highlight javascript %}
 <ViroDirectionalLight
     color="#ffffff"
@@ -175,7 +176,7 @@ The sun would be the prime example of a ViroDirectionalLight.
 It shines over the whole scene in a specific direction.
 
 #### To make these objects look good we need Materials
-Materials are used to place texture images on 3d objects.
+[Materials](http://viro.readme.io/docs/3d-scene-lighting) are used to place texture images on 3d objects.
 They can make a long box look like a brick wall or a sphere look like our planet.
 {% highlight javascript %}
 ViroMaterials.createMaterials({
@@ -192,12 +193,28 @@ The diffuseColor and diffuseTexture are the main color and texture of the materi
 These can be placed on basic 3D objects like ViroBox, ViroQuad and ViroSphere.
 Complex Viro3DObjects can have multiple materials.
 
-#### 
-// todo: animations
+#### Move them around with Animations 
+Our scenes are still lacking motion.
+That's where [animations](https://docs.viromedia.com/docs/animation) come in handy. 
+
+{% highlight javascript %}
+ViroAnimations.registerAnimations({
+	animateImage:{properties:{scaleX:1.0, scaleY:0.6},
+				  easing:"Bounce", duration: 5000}});
+{% endhighlight %}
+{% highlight javascript %}
+<ViroImage source={require('./res/myimage.jpg')}
+		   position={[0, -1, -2]}
+		   animation={{name:'animateImage', run:true}}/>
+{% endhighlight %}
+Animations change the numerical value of properties over time.
+Typically this is used for the position and scale properties but it can just as well be used for color values or other numerical values.
+There are 5 easing types: Linear, EaseIn, EaseOut, EaseInEaseOut and Bounce.
+These represent how the values change over time.
 
 #### Control the scene with a ViroController 
 With all of the above we can create an awesome scene but we can't interact with it yet. 
-The ViroController provides us the ability to interact with our scene. 
+The [ViroController](https://docs.viromedia.com/docs/virocontroller) provides us the ability to interact with our scene. 
 {% highlight javascript %} 
 <ViroController 
 reticleVisibility={true} 
@@ -209,7 +226,7 @@ It's also possible to use other events like onHover, onTouch, onSwipe, onPinch, 
 These events are very useful for UI.
 
 #### There are many more fun components
-Apart from the ones we mentioned here, there are many more fun components to include video, sound and particles in your scene.
+Apart from the ones we mentioned here, there are many more fun components to include [video](http://viro.readme.io/docs/video), [sound](http://viro.readme.io/docs/audio) and [particles](http://viro.readme.io/docs/particle-effects) in your scene.
 They follow the same principles but each have their own properties.
 This being built on React Native we can also declare our own components of course!
 
@@ -604,6 +621,7 @@ The documentation is quite expansive but it was not always up-to-date.
 But aside from that, once we were aware of which parts of the dev tools that worked and which ones that didn't work, we were able to quickly build an AR application.
 
 ## Extra resources
+- [An introduction to virtual and alternate reality](https://ordina-jworks.github.io/iot/2017/12/20/Virtual-Reality.html)
 - [Documentation](https://docs.viromedia.com/docs/viro-platform-overview){:target="_blank" rel="noopener noreferrer"}
 - [Sample applications](https://github.com/viromedia/viro)
 - [Beginner's guide to React](https://egghead.io/courses/the-beginner-s-guide-to-react)
