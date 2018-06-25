@@ -7,16 +7,6 @@ tags: [React, React Native, ViroReact, Virtual reality, VR, Augmented reality, A
 category: IoT
 comments: true
 ---
-{% comment %}
-
-TODO: resize image: image looks weird on post overview
-TODO: change date of article
-TODO: improve writing quality
-TODO: check for typos
-TODO: follow it as a tutorial from start to finish
-TODO: Components: link to the documentation of the component
-
-{% endcomment %} 
 ## Table of Contents
 
 1. [Introduction](#introduction)
