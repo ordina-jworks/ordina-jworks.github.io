@@ -9,7 +9,7 @@ comments: true
 ---
 
 > [Craft Conf](https://craft-conf.com/){:target="_blank"} is a two day conference in Budapest, aimed at talks surrounding the 'Software as a craftsmanship' idea.
-JWorks was present this year on 10 and 11 May and we would love to give you an overview of some of the talks we attended.
+JWorks was present this year on the 10th and 11th of May and we would love to give you an overview of some of the talks we attended.
 
 <div class="the-toc">
 
@@ -482,7 +482,7 @@ Make your meetings count!
 If a team is too large to be fed by two pizza's, then the team is just too large.
 
 #### Google Ventures Anxiety Parties
-Every three or four months, they would get together with a list of all the things that were bothering them about their performance and would share that with their team.
+Every three or four months they would get together with a list of all the things that were bothering them about their performance and would share that with their team.
 An example of this might be that they weren't sure if they were spending too much time going to conferences or if they're working too slow.
 They would share these concerns during the anxiety party and the team members could respond whether they felt this actually was an issue or not to them.
 Someone could then find out that what they saw as an issue wasn't being considered an issue at all by the rest of the team, or perhaps even vice versa.
@@ -498,17 +498,17 @@ Great workshops have the following in common:
 * Motivation
 
 The next paperclip exercise shows you how to make your meetings more effective:
-First question Alison asked us: Come up with as many ideas as possible on what you can do with a paperclip
-Second question: Which idea would make a good business proposition?
+The first question Alison asked us was, 'Come up with as many ideas as possible on what you can do with a paperclip.'
+This question was followed with, 'Which idea would make a good business proposition?'
 
 Two different activities came up during this exercise:
 * **Divergent thinking**: Trying to come up with as many ideas as possible, the focus was on the quantity.
 * **Convergent thinking**: Applying criteria to your ideas and being critical.
 
 It's very important to keep these two activities separate during your meetings.
-We also need productive conflict and avoid group thinking!
-Make sure everybody gets heard.
-Equal contributions are very important as well! Both the introverts and extroverts need to be heard.
+Our goal is to have productive conflict and constructive discussions.
+Watch out for group thinking by making sure everybody gets heard, introverts and extroverts alike.
+Equal contributions are very important!
 
 Don't forget about check-in rounds! Use the first five minutes of a meeting to ask a personal question to encourage equal contributions and build trust in the team.
 
