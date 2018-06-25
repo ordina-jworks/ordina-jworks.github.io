@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [ryan_de_gruyter, michael_vandendriessche]
-title: "TODO viroreact title"
+title: "ViroReact: Build cross platform AR / VR application for Android and iOS using React"
 image: /img/2018-05-24-viroreact/viroreact.jpg
 tags: [React, React Native, ViroReact, Virtual reality, VR, Augmented reality, AR, Mixed reality, MR]
 category: IoT
@@ -212,8 +212,11 @@ These can be placed on basic 3D objects like ViroBox, ViroQuad and ViroSphere.
 Complex Viro3DObjects can have multiple materials.
  
 ## Demo application
+Before you can build a ViroReact application you need to [request an API key from ViroMedia](https://viromedia.com/signup).
+This should not take more than a few minutes.
+
 For our demo application, we decided to use meeting rooms as a use case.
-Since ViroReact is advertised as a framework for rapidly building AR / VR applications, we wanted to put this statement to the test and try to create an application in 1 day with no knowledge of the framework at all.
+Since ViroReact is advertised as a framework for rapidly building AR / VR applications, we wanted to put this statement to the test and try to create an application in one day with no knowledge of the framework at all.
 
 ### Use Case: Meeting room status viewer
 
@@ -225,7 +228,7 @@ and have the ability to immediately check if the meeting room is available for t
 
 We created an application where the user can view the status of a meeting room in Augmented Reality by scanning the room name/picture.
 
-We used [Image Recognition in ViroReact](https://docs.viromedia.com/docs/ar-image-recognition) to achieves this:
+We used [Image Recognition in ViroReact](https://docs.viromedia.com/docs/ar-image-recognition) to achieve this.
 
 [video]
 
@@ -250,7 +253,7 @@ To get started, you can follow this great free beginner guide by Kent C. Dodds a
 [The beginner's guide to React](https://egghead.io/courses/the-beginner-s-guide-to-react.)
 
 
-#### Step 1: Project setup
+### Step 1: Project setup
 We began by following the Official [Quick Start guide from ViroMedia](https://docs.viromedia.com/v2.7.3/docs/quick-start).
 
 Using the [react-viro CLI](https://www.npmjs.com/package/react-viro), we generated a ViroSample project.
@@ -259,7 +262,7 @@ Using the [react-viro CLI](https://www.npmjs.com/package/react-viro), we generat
 react-viro init ARMeetingRoomViewer
 ``` 
 
-#### Step 2: Create an AR scene for viewing the status of a meeting room.
+### Step 2: Create an AR scene for viewing the status of a meeting room.
 
 To be able to scan the meeting room we needed a picture of the meeting room nameplate, 
 this will act as the marker to scan the meeting room information.
@@ -275,11 +278,11 @@ I had to configure this extension in the rn-cli.config.js file inside of the roo
   },
 {% endhighlight %}
 
-Next, I created the actual scene in a file called **markerscene.js**in the **/js/** folder.
+Next, I created the actual scene in a file called **markerscene.js** in the **/js/** folder.
 
 To be able to scan the image marker, we need 2 important API's:
 - [ViroARTrackingTargets](https://docs.viromedia.com/v2.7.3/docs/viroartrackingtargets)
-- [ViroARImageMarker](https://docs.viromedia.com/v2.7.3/docs/viroarimagemarker)
+- [ViroARImageMarker](https://docs.viromedia.com/v2.7.3/docs/viroarimagemarker) component
 
 When the scene initialises we need to setup the Tracking Target(our image marker)
 **mr7** refers to a meeting room name.
@@ -315,43 +318,43 @@ onAnchorFound get's called when the Image Marker has been detected.
 
 {% highlight javascript %}
 getInfo() {
-        fetch('https://rooms.meeting/rm7')
-            .then((response) => response.json())
-            .then((res) => {
-                const isTrueSet = (res.isAvailable === 'true');
-                this.setState({
-                    isAvailable: isTrueSet,
-                    nextMeeting: isTrueSet ? `Next meeting: ${res.nextMeeting}h` : `Free @ ${res.nextMeeting}h`,
-                    text: isTrueSet ? `Available` : 'Not Available'
-                })
+    fetch('https://rooms.meeting/rm7')
+        .then((response) => response.json())
+        .then((res) => {
+            const isTrueSet = (res.isAvailable === 'true');
+            this.setState({
+                isAvailable: isTrueSet,
+                nextMeeting: isTrueSet ? `Next meeting: ${res.nextMeeting}h` : `Free @ ${res.nextMeeting}h`,
+                text: isTrueSet ? `Available` : 'Not Available'
             })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}
 {% endhighlight %}
 
 Inside the scene we want to display the meeting room data when the Image Marker is scanned.
 We need to use the ViroReact ImageMarker component for this.
 
 {% highlight javascript %}
-                <ViroARImageMarker target={"mr7"}>
-                    <ViroFlexView style={this.state.isAvailable ? styles.containerAvail : styles.containerNotAvail}
-                                  width={3}
-                                  height={3}
-                                  position={[0, 0, 1.25]}
-                                  rotation={[-100, 0, 0]}>
-                        <ViroText text={this.state.text}
-                                  width={2}
-                                  height={2}
-                                  style={styles.text}/>
-                        <ViroText text={this.state.nextMeeting}
-                                  position={[0, -1, 0]}
-                                  width={2.5}
-                                  height={2}
-                                  style={styles.nextMeeting}/>
-                    </ViroFlexView>
-                </ViroARImageMarker>
+<ViroARImageMarker target={"mr7"}>
+    <ViroFlexView style={this.state.isAvailable ? styles.containerAvail : styles.containerNotAvail}
+                  width={3}
+                  height={3}
+                  position={[0, 0, 1.25]}
+                  rotation={[-100, 0, 0]}>
+        <ViroText text={this.state.text}
+                  width={2}
+                  height={2}
+                  style={styles.text}/>
+        <ViroText text={this.state.nextMeeting}
+                  position={[0, -1, 0]}
+                  width={2.5}
+                  height={2}
+                  style={styles.nextMeeting}/>
+    </ViroFlexView>
+</ViroARImageMarker>
 {% endhighlight %}
 
 The ***ViroARImageMarker*** component has a target "mr7" assigned.
@@ -511,19 +514,21 @@ Now that we have our scene, we can load it on start-up.
 In the root folder you can find the app.js file. 
 Here we can define which scene to load when starting up the application.
 
-Assign your API key from ViroMedia
+Assign your API key from ViroMedia.
+
 {% highlight javascript %}
 const sharedProps = {
     apiKey: "6E2805CC-xxxx-4Ex0-8xx0-02xxxxxxx",
 };
 {% endhighlight %}
 
-Import your marker scene
+Import your marker scene.
+
 {% highlight javascript %}
 const MarkerScene = require('./js/MarkerScene');
 {% endhighlight %}
 
-Render your AR Scene
+Render your AR Scene.
 
 Final result:
 
