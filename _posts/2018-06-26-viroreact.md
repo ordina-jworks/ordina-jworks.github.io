@@ -198,14 +198,18 @@ Our scenes are still lacking motion.
 That's where [animations](https://docs.viromedia.com/docs/animation) come in handy. 
 
 {% highlight javascript %}
+{% raw %}
 ViroAnimations.registerAnimations({
 	animateImage:{properties:{scaleX:1.0, scaleY:0.6},
 				  easing:"Bounce", duration: 5000}});
+{% endraw %}
 {% endhighlight %}
 {% highlight javascript %}
+{% raw %}
 <ViroImage source={require('./res/myimage.jpg')}
 		   position={[0, -1, -2]}
 		   animation={{name:'animateImage', run:true}}/>
+{% endraw %}
 {% endhighlight %}
 Animations change the numerical value of properties over time.
 Typically this is used for the position and scale properties but it can just as well be used for color values or other numerical values.
@@ -377,6 +381,7 @@ Inside the scene we want to display the meeting room data when the Image Marker 
 We need to use the ViroReact ImageMarker component for this.
 
 {% highlight javascript %}
+{% raw %}
 <ViroARImageMarker target={"mr7"}>
     <ViroFlexView style={this.state.isAvailable ? styles.containerAvail : styles.containerNotAvail}
                   width={3}
@@ -394,6 +399,7 @@ We need to use the ViroReact ImageMarker component for this.
                   style={styles.nextMeeting}/>
     </ViroFlexView>
 </ViroARImageMarker>
+{% endraw %}
 {% endhighlight %}
 
 The **ViroARImageMarker** component has a target "mr7" assigned.
@@ -436,6 +442,7 @@ var styles = StyleSheet.create({
 Our final scene
 
 {% highlight javascript %}
+{% raw %}
 'use strict';
 
 import React, {Component} from 'react';
@@ -545,6 +552,7 @@ var styles = StyleSheet.create({
 });
 
 module.exports = MarkerScene;
+{% endraw %}
 {% endhighlight %}
 
 #### Step 3: Load your marker scene on application startup
