@@ -42,24 +42,24 @@ A company needs to achieve the best possible team culture. But what does this me
 > The collective programming of the mind which distinguishes the members of one group or category of people from another. - Geert Hofstede
 
 Richard talks about 6 different culture dimensions, researched by Geert Hofstede:
-* Power distance:
+* **Power distance**:
 Expresses the degree to which the less powerful members of a society accept and expect that power is distributed unequally.
-* Individualism versus collectivism:
+* **Individualism versus collectivism**:
 Individualism can be defined as a preference for a loosely-knit social framework in which individuals are expected to take care of only themselves and their immediate families.
 Collectivism, however, represents a preference for a tightly-knit framework in society in which individuals can expect their relatives or members of a particular group to look after them in exchange for unquestioning loyalty.
-* Masculinity versus femininity:
+* **Masculinity versus femininity**:
 The masculinity side of this dimension represents a preference in society for achievement, heroism, assertiveness and material rewards for success.
 Society at large is more competitive.
 Its opposite, Femininity, stands for a preference for cooperation, modesty, caring for the weak and quality of life.
 Society at large is more consensus-oriented.
-* Uncertainty avoidance:
+* **Uncertainty avoidance**:
 This dimension expresses the degree to which the members of a society feel uncomfortable with uncertainty and ambiguity.
 The fundamental issue here is how a society deals with the fact that the future can never be known: should we try to control the future or just let it happen?
-* Long term orientation:
+* **Long term orientation**:
 Every society has to maintain some links with its own past while dealing with the challenges of the present and the future.
 Societies who score low on this dimension prefer to maintain time-honoured traditions and norms while viewing societal change with suspicion.
 Those with a culture which scores high, on the other hand, take a more pragmatic approach: they encourage thrift and efforts in modern education as a way to prepare for the future.
-* Indulgence versus restraint:
+* **Indulgence versus restraint**:
 Indulgence stands for a society that allows relatively free gratification of basic and natural human drives related to enjoying life and having fun.
 Restraint stands for a society that suppresses gratification of needs and regulates it by means of strict social norms.
 
@@ -79,19 +79,19 @@ The last exercise was with a few volunteers from the audience where one person p
 The CEO stood in the middle of the room and directed the SVPs, the SVPs directed the VPs.
 The people who were being directed were again said to keep their noses at a distance of 10 centimeters from the palm of the hand of the person that directed them.
 
-These were very interesting activities that shoo that having too much hierarchy and people who direct other people can lead to chaos when the leaders for example move too fast to be able to follow the directions.
+These were very interesting activities that showed that having too much hierarchy and people who direct other people can lead to chaos when for example the leaders moved too fast for the others to be able to follow the directions.
 Directions are much easier to handle when there are less people involved and more trust is created.
 
 #### What do we need to build a high performance team?
 At the core, there are six building blocks for high performance teams:
-* Positive bias: Non-negativity, accept a positive mindset
-* Freedom: Every team member can choose and make decisions by themselves
-* Self awareness: Listen to yourself, use check-ins to discover, articulate and achieve what you want
-* Connection: Listen to others, connect great people into a great team and support each other toward a common goal
-* Productivity: Focus on results.
-* Error handling: Ensure we are maintaining the positive bias, freedom, self-awareness, connection and productivity.
+* **Positive bias**: Non-negativity, accept a positive mindset
+* **Freedom**: Every team member can choose and make decisions by themselves
+* **Self awareness**: Listen to yourself, use check-ins to discover, articulate and achieve what you want
+* **Connection**: Listen to others, connect great people into a great team and support each other towards a common goal
+* **Productivity**: Focus on results.
+* **Error handling**: Ensure we are maintaining the positive bias, freedom, self-awareness, connection and productivity.
 
-Hierarchy and power culture erode high performance so when setting up and trying to maintain a high performance teams, these building blocks are essential.
+Hierarchy and power culture erode high performance so when setting up and trying to maintain a high performance team, these building blocks are essential.
 To achieve high performance, increase the team's emotional intelligence and psychological safety. This will decrease power distance and hierarchy.
 The Core Protocols are a way to reach this goal.
 
@@ -116,8 +116,7 @@ So how do we get the user to perceive an increase of performance?
 ### Active vs passive phase:
 
 What does a passive phase entail? Our passive phase kicks in when we are waiting for something to happen, say for our water to boil.
-Time spent in passive phases feels ~36% slower!
-
+Time spent in passive phases feels ~36% slower!<br />
 There are two ways to prevent users from getting bored during a passive phase and keeping them interested enough to wait:
 
 * Keep users in an active state
@@ -222,12 +221,12 @@ The two people still waiting for Godot might help you with this one.
 Q: How do we always end up at, "Whatever we did was okay, but somehow it stopped working"?
 
 A: Some things are just inevitable:
-* Degradation: things start to wear out because of time
-* Dysfunction: once things wear out, they stop working
-* Expiry: after they stop working, things start to decay and fall away
+* **Degradation**: things start to wear out because of time
+* **Dysfunction**: once things wear out, they stop working
+* **Expiry**: after they stop working, things start to decay and fall away
 
 However, these also stimulate positive change: degradation stimulates the idea of maintaining things and transforming them.
-dysfunction drives innovation and challenging things and expiry stimulates creating and starting over.
+Dysfunction drives innovation and challenging things and expiry stimulates creating and starting over.
 
 Why does this happen?
 
@@ -251,14 +250,14 @@ SWARM!
 
 The table stakes are:
 
-* Education: we need to learn some new tricks.
-* Practice: it's not enough to learn them, we also need to implement them (possibly with a few failures in the process and trying again and again).
-* Time: minimum 3-5 years to have an impact.
-* Investment: time costs money.
-* Influence: we need to reach up and down in the organization. *Everybody* needs to participate.
-* Communication: needs to be in the plan from the get-go or it will not work.
-* External help: both Amazon Prime and Netflix run on AWS. They don't block each other, they learn from each other.
-* Leadership: needs to be consistent, they need to be invested and resilient.
+* **Education**: we need to learn some new tricks.
+* **Practice**: it's not enough to learn them, we also need to implement them (possibly with a few failures in the process and trying again and again).
+* **Time**: minimum 3-5 years to have an impact.
+* **Investment**: time costs money.
+* **Influence**: we need to reach up and down in the organization. *Everybody* needs to participate.
+* **Communication**: needs to be in the plan from the get-go or it will not work.
+* **External help**: both Amazon Prime and Netflix run on AWS. They don't block each other, they learn from each other.
+* **Leadership**: needs to be consistent, they need to be invested and resilient.
 
 If you don't have these factors in place, SWARM   won't work.
 
@@ -412,18 +411,16 @@ The team's dynamics also tend to change on different projects.
 So we cannot apply a preset way of working to a new team or a familiar team working on a new project.
 
 ### Three principles for creating High Performance Teams
-1) Can your team learn to work better together?
+1. Can your team learn to work better together?
 With a fixed mindset you believe that talent is fixed.
 However, with a growth mindset, you believe that anyone can improve with practice and persistence. See the value of continuous learning.
 These teams were more successful in the past and tend to perform much better.
 They challenge each other and learn together.
 This can actually be developer.
-Each team has the potential to improve.
-
-2) What new ways of working can you create together?
-Apply a design approach and a design mindset. Design a way of working that works for that team!
-
-3) How will you and your team start to work differently?
+Each team has the potential to improve. <br />
+2. What new ways of working can you create together?
+Apply a design approach and a design mindset. Design a way of working that works for that team! <br />
+3. How will you and your team start to work differently?
 Behaviour change and building new team habits. What team habits, what rituals can we create to help our teams work better together?
 
 ### Two factors for designing effective teams
@@ -462,9 +459,9 @@ Self-awareness exercise:
 We can use these answers to set up new ways of working within the team.
 
 We can do this during the project kickoff:
-1) Share team expertise, share what your role is and what you can bring to the table
-2) Clarify the roles, everyone needs to know who can do what work
-3) Talk about how you will work together, how you will meet, when you will meet, how to communicate, etc.
+1. Share team expertise, share what your role is and what you can bring to the table
+2. Clarify the roles, everyone needs to know who can do what work
+3. Talk about how you will work together, how you will meet, when you will meet, how to communicate, etc.
 
 ### Organize better meetings and workshops
 Make your meetings count!
@@ -496,8 +493,8 @@ First question Alison asked us: Come up with as many ideas as possible on what y
 Second question: Which idea would make a good business proposition?
 
 Two different activities came up during this exercise:
-* Divergent thinking: Trying to come up with as many ideas as possible, the focus was on the quantity.
-* Convergent thinking: Applying criteria to your ideas and being critical.
+* **Divergent thinking**: Trying to come up with as many ideas as possible, the focus was on the quantity.
+* **Convergent thinking**: Applying criteria to your ideas and being critical.
 
 It's very important to keep these two activities separate during your meetings.
 We also need productive conflict and avoid group thinking!
