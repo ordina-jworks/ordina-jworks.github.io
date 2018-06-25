@@ -85,7 +85,7 @@ A ViroPortal lets the user take a peek into a different scene.
 It basically is a window to another world.
 The Viro3DObject included in it acts like the window frame.
 
-A ViroARImageMarker reacts when one of the ViroARTrackingTargets are scanned.
+A ViroARImageMarker reacts when one of the ViroARTrackingTargets is scanned.
 It will show all the components inside the ViroARImageMarker tag.
 We have used this in our little app, more on that [below](#demo-application).
 
@@ -115,7 +115,7 @@ The Camera component is our eyes.
 A default camera is provided at the origin `position={[0, 0, 0]}`.
 The camera always looks in the negative Z direction.
 So if you want an object to be visible as soon as the scene loads up, 
-make sure to set it's position with a negative Z value `position={[0, 0, -5]}`. 
+make sure to set its position with a negative Z value `position={[0, 0, -5]}`. 
 If the object would have a positive Z value it would be placed behind you when you load up the scene.
 There is also a ViroOrbitCamera where the camera orbits around a certain position, always keeping it in view.
 
@@ -125,7 +125,7 @@ Luckily a default light is provided when none is defined.
 We didn't need lights in our setup but if you want a more realistic or visually stunning experience, 
 I highly recommend you to look into the different lights in the [documentation](https://docs.viromedia.com/v2.6.1/docs/3d-scene-lighting).  
 There are 4 lighting models: Phong, Blinn, Lambert and Constant.  
-These are the algorithms that calculate how your objects will look like when influenced by light.
+These are the algorithms that calculate what your objects will look like when influenced by light.
 By default, elements use the Constant lighting model, which means lights will be ignored and the object will show its full color.  
 ViroReact supports 4 types of light.
 
@@ -289,10 +289,10 @@ react-viro init ARMeetingRoomViewer
 To be able to scan the meeting room we needed a picture of the meeting room nameplate, 
 this will act as the marker to scan the meeting room information.
 
-I placed the marker image inside of the **/js/res** folder.
+I placed the marker image inside of the `**/js/res**` folder.
 
 Because the file extension was in capital letters (.JPG), 
-I had to configure this extension in the rn-cli.config.js file inside of the root folder.
+I had to configure this extension in the `rn-cli.config.js` file inside of the root folder.
 
 {% highlight javascript %}
   getAssetExts() {
