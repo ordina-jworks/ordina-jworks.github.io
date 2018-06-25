@@ -245,12 +245,12 @@ For this blogpost I will only discuss how we created the ViroReact application.
 
 [screenshot/video]
 
-ViroReact is built on top of React, so a basic knowledge of React is necessary. 
+ViroReact is built on top of React, so basic knowledge of React is necessary. 
 To get started, you can follow this great free beginner guide by Kent C. Dodds at egghead.io 
 [The beginner's guide to React](https://egghead.io/courses/the-beginner-s-guide-to-react.)
 
 
-#### Step 1
+#### Step 1: Project setup
 We began by following the Official [Quick Start guide from ViroMedia](https://docs.viromedia.com/v2.7.3/docs/quick-start).
 
 Using the [react-viro CLI](https://www.npmjs.com/package/react-viro), we generated a ViroSample project.
@@ -259,8 +259,7 @@ Using the [react-viro CLI](https://www.npmjs.com/package/react-viro), we generat
 react-viro init ARMeetingRoomViewer
 ``` 
 
-#### Step 2
-Create an AR scene for viewing the status of a meeting room.
+#### Step 2: Create an AR scene for viewing the status of a meeting room.
 
 To be able to scan the meeting room we needed a picture of the meeting room nameplate, 
 this will act as the marker to scan the meeting room information.
@@ -276,15 +275,15 @@ I had to configure this extension in the rn-cli.config.js file inside of the roo
   },
 {% endhighlight %}
 
-Next to I created the actual scene inside the **/js/** folder.
-I created a file **markerscene.js**
+Next, I created the actual scene in a file called **markerscene.js**in the **/js/** folder.
 
 To be able to scan the image marker, we need 2 important API's:
 - [ViroARTrackingTargets](https://docs.viromedia.com/v2.7.3/docs/viroartrackingtargets)
 - [ViroARImageMarker](https://docs.viromedia.com/v2.7.3/docs/viroarimagemarker)
 
 When the scene initialises we need to setup the Tracking Target(our image marker)
-MR7 refers to a meeting room name.
+**mr7** refers to a meeting room name.
+
 We call this method inside of the constructor.
 
 {% highlight javascript %}
@@ -299,8 +298,7 @@ We call this method inside of the constructor.
     }
 {% endhighlight %}
 
-Next we need to define what to render. 
-
+Then we need to define what to render. 
 The root component will be an AR Scene:
 
 {% highlight javascript %}
@@ -310,8 +308,10 @@ The root component will be an AR Scene:
  </ViroARSCene>
 {% endhighlight %}
 
-We bind to 2 events, onAnchorFound and onClick. 
+We bind 2 events on the ViroARSCene component, onAnchorFound and onClick. 
 Everytime one of these events occur, we want to fetch the latest meeting room state.
+
+onAnchorFound get's called when the Image Marker has been detected.
 
 {% highlight javascript %}
 getInfo() {
@@ -330,8 +330,10 @@ getInfo() {
             });
     }
 {% endhighlight %}
+
 Inside the scene we want to display the meeting room data when the Image Marker is scanned.
 We need to use the ViroReact ImageMarker component for this.
+
 {% highlight javascript %}
                 <ViroARImageMarker target={"mr7"}>
                     <ViroFlexView style={this.state.isAvailable ? styles.containerAvail : styles.containerNotAvail}
@@ -503,9 +505,11 @@ var styles = StyleSheet.create({
 module.exports = MarkerScene;
 {% endhighlight %}
 
+### Step 3: Load your marker scene on application startup
 
 Now that we have our scene, we can load it on start-up.
-In the root folder you can find the app.js file. Here we can define which scene to load when starting up the application.
+In the root folder you can find the app.js file. 
+Here we can define which scene to load when starting up the application.
 
 Assign your API key from ViroMedia
 {% highlight javascript %}
@@ -514,7 +518,7 @@ const sharedProps = {
 };
 {% endhighlight %}
 
-Import our marker scene
+Import your marker scene
 {% highlight javascript %}
 const MarkerScene = require('./js/MarkerScene');
 {% endhighlight %}
@@ -528,7 +532,7 @@ import React, {Component} from 'react';
 import {ViroARSceneNavigator} from 'react-viro';
 
 const sharedProps = {
-    apiKey: "6E2805CC-B2A7-4E90-8A10-023DF07088A1",
+    apiKey: "6E2805CC-xxxx-4Ex0-8xx0-02xxxxxxx",
 };
 
 const MarkerScene = require('./js/MarkerScene');
