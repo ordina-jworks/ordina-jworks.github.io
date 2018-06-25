@@ -9,8 +9,6 @@ comments: true
 ---
 {% comment %}
 
-TODO: proper title
-
 resize image if needed: image looks weird on post overview
 
 TODO: improve writing quality
@@ -18,7 +16,6 @@ TODO: check for typos
 TODO: follow it as a tutorial from start to finish
 TODO: Components: link to the documentation of the component
 
-do we need table of contents? (see lagom kubernetes post)
 {% endcomment %} 
 ## Table of Contents
 
@@ -49,7 +46,6 @@ The main building blocks of a ViroReact app are the components.
 
 The scene is the digital environment the user interacts with.
 All other components live in this scene.
-{% comment %} TODO: make better {% endcomment %}
 
 Just like many other components, the Scene comes in 2 variations: ViroScene and ViroARScene.
 As the name suggests ViroARScene is used for Augmented Reality applications
@@ -214,6 +210,18 @@ The diffuseColor and diffuseTexture are the main color and texture of the materi
 These can be placed on basic 3D objects like ViroBox, ViroQuad and ViroSphere.
 Complex Viro3DObjects can have multiple materials.
  
+ #### To control the scene we need a ViroController 
+ With all of the above we can create an awesome scene but we can't interact with it yet. 
+ The ViroController provides us the ability to interact with our scene. 
+ {% highlight javascript %} 
+ <ViroController 
+ reticleVisibility={true} 
+ controllerVisibility={true} 
+ onClick={this._onClickListenerForAllEvents} /> 
+ {% endhighlight %} 
+ With the reticle (the blue circle in the middle of the view) the user can select and point to objects and call the function in the onClick property.
+ It's also possible to use other events like onHover, onTouch, onSwipe, onPinch, onScroll, etc...
+   
 ## Demo application
 Before you can build a ViroReact application you need to [request an API key from ViroMedia](https://viromedia.com/signup).
 This should not take more than a few minutes.
