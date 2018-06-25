@@ -16,10 +16,10 @@ comments: true
 5. [Extra resources](#extra-resources)
 
 ## Introduction
-Augmented Reality is a very interesting space so obviously we wanted to try something with it.
-There are many frameworks for building cross platform AR/VR applications.
-We came across ViroReact which uses React and React Native to create immersive VR and AR applications using a single codebase for Android and iOS
-so we decided to give it a try.
+Augmented Reality is a very interesting space so naturally we wanted to do something with it.
+There are many frameworks available for building cross platform AR/VR applications.
+We came across ViroReact which uses React and React Native to create immersive VR and AR applications using a single codebase for Android and iOS.
+This persuaded us to give it a try.
 In one day, with some tweaking afterwards, we were able to create a simple app to show the status of a meeting room. 
 
 
@@ -46,7 +46,6 @@ A ViroSceneNavigator is used to navigate between these scenes.
 <ViroSceneNavigator>
 <ViroARSceneNavigator>
 {% endhighlight %}
-// TODO
 
 #### These scenes can be populated with all kinds of components
 For example a ViroText.
@@ -61,8 +60,8 @@ For example a ViroText.
 {% endraw %}
 {% endhighlight %}
 
-Or perhaps a ViroBox, ViroQuad or ViroSphere.  
-These components can be modified by their properties.
+Or perhaps a ViroBox, a ViroQuad or a ViroSphere.  
+These components can be modified by setting their properties.
 One of the most important properties is the position.
 It takes an array of 3 numbers as the x, y and z coordinates. 
 
@@ -78,15 +77,13 @@ Like a Viro3DObject which lets you include custom made 3D objects in your scene.
 	rotation={[45, 0, 0]}
 	transformBehaviors={["billboard"]}/>
 {% endhighlight %}
-// todo 3d object stuff
-The billboard transform behaviour is an interesting feature to let the object always face the user.
+The billboard transform behaviour is an interesting feature to make sure the object is always facing the user.
 
 A Viro360Image can be set as the background of a scene.
  
 A ViroPortal lets the user take a peek into a different scene.
 It basically is a window to another world.
 The Viro3DObject included in it acts like the window frame.
-//TODO code sample and gif from example project
 
 A ViroARImageMarker reacts when one of the ViroARTrackingTargets are scanned.
 It will show all the components inside the ViroARImageMarker tag.
@@ -99,10 +96,6 @@ We have used this in our little app, more on that [below](#demo-application).
 </ViroARImageMarker>
 {% endraw %}
 {% endhighlight %}
-{% comment %}
-//TODO fix highlighting
-{% endcomment %}
-
 
 {% highlight javascript %}
 ViroARTrackingTargets.createTargets({
@@ -134,7 +127,7 @@ I highly recommend you to look into the different lights in the [documentation](
 There are 4 lighting models: Phong, Blinn, Lambert and Constant.  
 These are the algorithms that calculate how your objects will look like when influenced by light.
 By default, elements use the Constant lighting model, which means lights will be ignored and the object will show its full color.  
-Viroreact supports 4 types of light.
+ViroReact supports 4 types of light.
 
 The ViroAmbientLight is the simplest light.
 {% highlight javascript %}
@@ -143,7 +136,7 @@ The ViroAmbientLight is the simplest light.
 It lights up all the objects in the scene equally from every direction.
 Only the color needs to be set.
 
-A ViroOmniLight is comparable to a lightbulb.
+A ViroOmniLight is comparable to a light bulb.
 {% highlight javascript %}
 <ViroOmniLight
     color="#ffffff"
@@ -309,7 +302,7 @@ I had to configure this extension in the rn-cli.config.js file inside of the roo
 
 Next, I created the actual scene in a file called **markerscene.js** in the **/js/** folder.
 
-To be able to scan the image marker, we need 2 important API's:
+To be able to scan the image marker, we need 2 important APIs:
 - [ViroARTrackingTargets](https://docs.viromedia.com/v2.7.3/docs/viroartrackingtargets)
 - [ViroARImageMarker](https://docs.viromedia.com/v2.7.3/docs/viroarimagemarker) component
 
@@ -337,13 +330,13 @@ The root component will be an AR Scene:
  <ViroARScene onAnchorFound={this._getInfo}
               onClick={this._getInfo}>
   ...
- </ViroARSCene>
+ </ViroARScene>
 {% endhighlight %}
 
-We bind 2 events on the ViroARSCene component, onAnchorFound and onClick. 
+We bind 2 events on the ViroARScene component, onAnchorFound and onClick. 
 Everytime one of these events occur, we want to fetch the latest meeting room state.
 
-onAnchorFound get's called when the Image Marker has been detected.
+onAnchorFound gets called when the Image Marker has been detected.
 
 {% highlight javascript %}
 getInfo() {
@@ -386,13 +379,13 @@ We need to use the ViroReact ImageMarker component for this.
 </ViroARImageMarker>
 {% endhighlight %}
 
-The ***ViroARImageMarker*** component has a target "mr7" assigned.
-This refers to the ***ViroARTrackingTarget*** we defined in the **setMarker()** method above.
+The **ViroARImageMarker** component has a target "mr7" assigned.
+This refers to the **ViroARTrackingTarget** we defined in the **setMarker()** method above.
 
-When the target is succesfully scanned, all the content between the ViroARImageMarker component will be rendered.
+When the target is successfully scanned, all the content of the ViroARImageMarker component will be rendered.
 In our case 2 TextViews positioned with a FlexView.
 
-We bind the data we fetched from in our getInfo() method to the ViroText and ViroFlexView components.
+We bind the data we fetched from in our `getInfo()` method to the ViroText and ViroFlexView components.
 
 And these are the styles we defined for the ViroText and ViroFlexView.
 
@@ -605,10 +598,10 @@ Without prior knowledge it was a bit challenging for us to get our development e
 We had a lot of issues with debugging and cached builds. 
 When we had issues, it was hard to tell if the problem was with React Native or ViroReact.
 
-Debugging was a big challenge for us and the react native develop tools don't seem to work well with ViroReact.
+Debugging was a big challenge for us and the react native development tools don't seem to work well with ViroReact.
 The documentation is quite expansive but it was not always up-to-date.
 
-But aside from that, once we were aware of the dev tools that worked and didn't work, we were able to quickly build an AR application.
+But aside from that, once we were aware of which parts of the dev tools that worked and which ones that didn't work, we were able to quickly build an AR application.
 
 ## Extra resources
 - [Documentation](https://docs.viromedia.com/docs/viro-platform-overview){:target="_blank" rel="noopener noreferrer"}
