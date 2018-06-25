@@ -19,14 +19,14 @@ TODO: follow it as a tutorial from start to finish
 TODO: Components: link to the documentation of the component
 
 do we need table of contents? (see lagom kubernetes post)
+{% endcomment %} 
 ## Table of Contents
 
 1. [Introduction](#introduction)
 2. [Intro viroreact](#intro-viroreact)
 3. [Demo app](#demo-application)
-4. [Lessons learned and conclusion](#bla)
-5. [Extra resources](#bla)
-{% endcomment %} 
+4. [Lessons learned and conclusion](#lessons-learned-and-conclusion)
+5. [Extra resources](#extra-resources)
 
 ## Introduction
 intro
