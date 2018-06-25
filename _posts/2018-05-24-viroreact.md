@@ -22,8 +22,8 @@ do we need table of contents? (see lagom kubernetes post)
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Intro viroreact](#bla)
-3. [Demo app](#bla)
+2. [Intro viroreact](#intro-viroreact)
+3. [Demo app](#demo-application)
 4. [Lessons learned and conclusion](#bla)
 5. [Extra resources](#bla)
 {% endcomment %} 
@@ -210,8 +210,6 @@ Discussing all of these is outside the scope of this article.
 The diffuseColor and diffuseTexture are the main color and texture of the material.
 These can be placed on basic 3D objects like ViroBox, ViroQuad and ViroSphere.
 Complex Viro3DObjects can have multiple materials.
-
-## How we made our app
  
 ## Demo application
 For our demo application, we decided to use meeting rooms as a use case.
@@ -272,11 +270,11 @@ I placed the marker image inside of the **/js/res** folder.
 Because the file extension was in capital letters (.JPG), 
 I had to configure this extension in the rn-cli.config.js file inside of the root folder.
 
-```
+{% highlight javascript %}
   getAssetExts() {
     return ["obj", "mtl", "JPG", "vrx", "hdr"];
   },
-```
+{% endhighlight %}
 
 Next to I created the actual scene inside the **/js/** folder.
 I created a file **markerscene.js**
@@ -289,7 +287,7 @@ When the scene initialises we need to setup the Tracking Target(our image marker
 MR7 refers to a meeting room name.
 We call this method inside of the constructor.
 
-```
+{% highlight javascript %}
     setMarker() {
         ViroARTrackingTargets.createTargets({
             "mr7": {
@@ -299,23 +297,23 @@ We call this method inside of the constructor.
             },
         });
     }
-```
+{% endhighlight %}
 
 Next we need to define what to render. 
 
 The root component will be an AR Scene:
 
-```
+{% highlight javascript %}
  <ViroARScene onAnchorFound={this._getInfo}
               onClick={this._getInfo}>
   ...
  </ViroARSCene>
-```
+{% endhighlight %}
 
 We bind to 2 events, onAnchorFound and onClick. 
 Everytime one of these events occur, we want to fetch the latest meeting room state.
 
-```
+{% highlight javascript %}
 getInfo() {
         fetch('https://rooms.meeting/rm7')
             .then((response) => response.json())
@@ -331,10 +329,10 @@ getInfo() {
                 console.error(error);
             });
     }
-```
+{% endhighlight %}
 Inside the scene we want to display the meeting room data when the Image Marker is scanned.
 We need to use the ViroReact ImageMarker component for this.
-```
+{% highlight javascript %}
                 <ViroARImageMarker target={"mr7"}>
                     <ViroFlexView style={this.state.isAvailable ? styles.containerAvail : styles.containerNotAvail}
                                   width={3}
@@ -352,7 +350,8 @@ We need to use the ViroReact ImageMarker component for this.
                                   style={styles.nextMeeting}/>
                     </ViroFlexView>
                 </ViroARImageMarker>
-```
+{% endhighlight %}
+
 The ***ViroARImageMarker*** component has a target "mr7" assigned.
 This refers to the ***ViroARTrackingTarget*** we defined in the **setMarker()** method above.
 
@@ -363,7 +362,7 @@ We bind the data we fetched from in our getInfo() method to the ViroText and Vir
 
 And these are the styles we defined for the ViroText and ViroFlexView.
 
-```
+{% highlight javascript %}
 var styles = StyleSheet.create({
     text: {
         fontFamily: 'Arial',
@@ -388,11 +387,11 @@ var styles = StyleSheet.create({
         padding: .2,
     }
 });
-```
+{% endhighlight %}
 
 Our final scene
 
-```
+{% highlight javascript %}
 'use strict';
 
 import React, {Component} from 'react';
@@ -502,20 +501,75 @@ var styles = StyleSheet.create({
 });
 
 module.exports = MarkerScene;
-```
+{% endhighlight %}
 
-Now that we have our scene, we can load it on startu-up
+
+Now that we have our scene, we can load it on start-up.
+In the root folder you can find the app.js file. Here we can define which scene to load when starting up the application.
+
+Assign your API key from ViroMedia
+{% highlight javascript %}
+const sharedProps = {
+    apiKey: "6E2805CC-xxxx-4Ex0-8xx0-02xxxxxxx",
+};
+{% endhighlight %}
+
+Import our marker scene
+{% highlight javascript %}
+const MarkerScene = require('./js/MarkerScene');
+{% endhighlight %}
+
+Render your AR Scene
+
+Final result:
+
+{% highlight javascript %}
+import React, {Component} from 'react';
+import {ViroARSceneNavigator} from 'react-viro';
+
+const sharedProps = {
+    apiKey: "6E2805CC-B2A7-4E90-8A10-023DF07088A1",
+};
+
+const MarkerScene = require('./js/MarkerScene');
+
+export default class ViroSample extends Component {
+    constructor() {
+        super();
+
+        this.state = {
+            sharedProps: sharedProps
+        };
+
+        this._getARNavigator = this._getARNavigator.bind(this);
+    }
+
+    render() {
+        return this._getARNavigator();
+    }
+
+    _getARNavigator() {
+        return (
+            <ViroARSceneNavigator {...this.state.sharedProps}
+                                  initialScene={{scene: MarkerScene}}/>
+        );
+    }
+}
+
+module.exports = ViroSample;
+{% endhighlight %}
 
 
 ## Lessons learned and conclusion
-Without prior knowledge it was a bit challenging to get our development environment setup correctly.
-We had a lot of issues with debugging and cached builds. It was also hard to tell if the problem was with React Native or ViroReact.
+Without prior knowledge it was a bit challenging for us to get our development environment setup correctly.
+We had a lot of issues with debugging and cached builds. 
+When we had issues, it was hard to tell if the problem was with React Native or ViroReact.
 
-Debugging was a challenge for us and the react native develop tools don't seem to work well with ViroReact.
+Debugging was a big challenge for us and the react native develop tools don't seem to work well with ViroReact.
 
-But aside from that, we were still 
+But aside from that, once we were aware of the dev tools that worked and didn't work, we were able to quickly build an AR application.
 
 ## Extra resources
 - [Documentation](https://docs.viromedia.com/docs/viro-platform-overview){:target="_blank" rel="noopener noreferrer"}
-- code for app
-- presentation?
+- [Sample applications](https://github.com/viromedia/viro)
+- [Beginner's guide to React](https://egghead.io/courses/the-beginner-s-guide-to-react)
