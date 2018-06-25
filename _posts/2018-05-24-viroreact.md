@@ -544,6 +544,7 @@ Render your AR Scene.
 Final result:
 
 {% highlight javascript %}
+{% raw %}
 import React, {Component} from 'react';
 import {ViroARSceneNavigator} from 'react-viro';
 
@@ -577,6 +578,7 @@ export default class ViroSample extends Component {
 }
 
 module.exports = ViroSample;
+{% endraw %}
 {% endhighlight %}
 
 
