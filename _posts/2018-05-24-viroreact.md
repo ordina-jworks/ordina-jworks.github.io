@@ -34,6 +34,10 @@ intro
 intro 
 
 ## Intro viroreact
+There are many frameworks for building cross platform AR/VR applications.
+But we decided to try out ViroReact, since React is extremely popular. 
+And the premise of ViroReact is that we can rapidly build an AR/VR application for both Android and iOS,
+using a single codebase.  
 
 ### Components
 The main building blocks of a ViroReact app are the components.
