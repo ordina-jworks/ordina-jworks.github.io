@@ -23,7 +23,7 @@ do we need table of contents? (see lagom kubernetes post)
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Intro viroreact](#intro-viroreact)
+2. [Basics of ViroReact](#basics-of-viroreact)
 3. [Demo app](#demo-application)
 4. [Lessons learned and conclusion](#lessons-learned-and-conclusion)
 5. [Extra resources](#extra-resources)
@@ -578,6 +578,7 @@ We had a lot of issues with debugging and cached builds.
 When we had issues, it was hard to tell if the problem was with React Native or ViroReact.
 
 Debugging was a big challenge for us and the react native develop tools don't seem to work well with ViroReact.
+The documentation is quite expansive but it was not always up-to-date.
 
 But aside from that, once we were aware of the dev tools that worked and didn't work, we were able to quickly build an AR application.
 
