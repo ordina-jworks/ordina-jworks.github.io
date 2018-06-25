@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [derya_duru]
+authors: [derya_duru, nils_devos]
 title: 'Craft Conf 2018'
 image: /img/craft-conf-2018/Craft-Conf-2018.png
 tags: [Craft Conf, Agile, Scrum, Coaching, Core Protocols, High Performance Teams, Perceived Performance, Estimations, Scaling]
@@ -29,13 +29,16 @@ JWorks was present this year on 10 and 11 May and we would love to give you an o
 ## Power Games for High-performance Team Culture, Psychological Safety, and EI - Richard Kasperowski
 
 <span class="image left"><img class="p-image" alt="Richard Kasperowski" src="/img/craft-conf-2018/Richard-Kasperowski.jpeg"></span>
-[Richard Kasperowski](https://twitter.com/rkasper){:target="_blank"} is a speaker, trainer, coach and author focused on high performance teams. Richard is the author of The Core Protocols: A Guide to Greatness. He leads clients in building great teams that get great results using the Core Protocols, Agile, and Open Space Technology.
+[Richard Kasperowski](https://twitter.com/rkasper){:target="_blank"} is a speaker, trainer, coach and author focused on high performance teams.
+Richard is the author of The Core Protocols: A Guide to Greatness.
+He leads clients in building great teams that get great results using the Core Protocols, Agile, and Open Space Technology.
 
 During this talk, Richard provides an overview of some of the conditions that need to be met for the team to become a high performance team.
 In order for this to happen, it's very important that companies realize that they need to focus on getting the right people together instead of focusing on achievements.
 
 ### Hierarchy and power distance
-A company needs to achieve the best possible team culture. But what does this mean?
+A company needs to achieve the best possible team culture.
+But what does this mean?
 
 #### What is culture?
 
@@ -46,22 +49,22 @@ Richard talks about 6 different culture dimensions, researched by Geert Hofstede
 Expresses the degree to which the less powerful members of a society accept and expect that power is distributed unequally.
 * **Individualism versus collectivism**:
 Individualism can be defined as a preference for a loosely-knit social framework in which individuals are expected to take care of only themselves and their immediate families.
-Collectivism, however, represents a preference for a tightly-knit framework in society in which individuals can expect their relatives or members of a particular group to look after them in exchange for unquestioning loyalty.
+Collectivism, however, represents a preference for a tightly-knit social framework in which individuals can expect their relatives or members of a particular group to look after them in exchange for loyalty.
 * **Masculinity versus femininity**:
 The masculinity side of this dimension represents a preference in society for achievement, heroism, assertiveness and material rewards for success.
-Society at large is more competitive.
-Its opposite, Femininity, stands for a preference for cooperation, modesty, caring for the weak and quality of life.
-Society at large is more consensus-oriented.
+This society is more competitive.
+Its opposite, femininity, stands for a preference for cooperation, modesty, caring for the weak and quality of life.
+This society is more consensus-oriented.
 * **Uncertainty avoidance**:
 This dimension expresses the degree to which the members of a society feel uncomfortable with uncertainty and ambiguity.
-The fundamental issue here is how a society deals with the fact that the future can never be known: should we try to control the future or just let it happen?
+The big issue here is how a society deals with the fact that the future can never be known: should we try to control the future or just let it happen?
 * **Long term orientation**:
 Every society has to maintain some links with its own past while dealing with the challenges of the present and the future.
-Societies who score low on this dimension prefer to maintain time-honoured traditions and norms while viewing societal change with suspicion.
-Those with a culture which scores high, on the other hand, take a more pragmatic approach: they encourage thrift and efforts in modern education as a way to prepare for the future.
+Societies who score low on this dimension prefer to maintain time-honoured traditions while viewing change within the society with suspicion.
+Those with a culture which scores high, on the other hand, take a more pragmatic approach: they encourage efforts in modern education as a way to prepare for the future.
 * **Indulgence versus restraint**:
-Indulgence stands for a society that allows relatively free gratification of basic and natural human drives related to enjoying life and having fun.
-Restraint stands for a society that suppresses gratification of needs and regulates it by means of strict social norms.
+Indulgence stands for a society that allows enjoyment of basic and natural human drives related to enjoying life and having fun.
+Restraint stands for a society that suppresses enjoyment of needs and regulates it by means of strict social norms.
 
 The talk further focuses specifically on the power distance dimension.
 
@@ -92,7 +95,8 @@ At the core, there are six building blocks for high performance teams:
 * **Error handling**: Ensure we are maintaining the positive bias, freedom, self-awareness, connection and productivity.
 
 Hierarchy and power culture erode high performance so when setting up and trying to maintain a high performance team, these building blocks are essential.
-To achieve high performance, increase the team's emotional intelligence and psychological safety. This will decrease power distance and hierarchy.
+To achieve high performance, increase the team's emotional intelligence and psychological safety.
+This will decrease power distance and hierarchy.
 The Core Protocols are a way to reach this goal.
 
 More info on the Core Protocols can be found [here](https://www.greatnessguild.org/tcp/){:target="_blank"}.
@@ -107,7 +111,8 @@ When talking about performance, we need to account for both objective time and s
 Usually, we tend to optimize for objective time by using tools like lazy loading.
 But how feasible is this?
 
-Even a 20% increase in objective speed is unnoticeable to the user. So we have to aim for an increase of 30% or even more.
+Even a 20% increase in objective speed is unnoticeable to the user.
+So we have to aim for an increase of 30% or even more.
 Of course this is not easy at all, especially when taking into account that when working with multiple teams (possibly over different time zones), all the teams have to align on this.
 
 So how do we get the user to perceive an increase of performance?
@@ -115,7 +120,8 @@ So how do we get the user to perceive an increase of performance?
 
 ### Active vs passive phase:
 
-What does a passive phase entail? Our passive phase kicks in when we are waiting for something to happen, say for our water to boil.
+What does a passive phase entail?
+Our passive phase kicks in when we are waiting for something to happen, say for our water to boil.
 Time spent in passive phases feels ~36% slower!<br />
 There are two ways to prevent users from getting bored during a passive phase and keeping them interested enough to wait:
 
@@ -133,7 +139,8 @@ To respond to the users immediately, we can implement an optimistic UI.
 
 We can also do our best to react as soon as the user signals intent.
 For example, why use the onclick event when the *onmousedown* event exists as it shows intent much earlier?
-This will provide you with a nice 100-150 millisecond head start. This is also usable on touch devices.
+This will provide you with a nice 100-150 millisecond head start.
+This is also usable on touch devices.
 
 Using *:active* animations also buy you more time.
 An animation that lasts ~200 milliseconds will provide you with 50 milliseconds extra time keeping the user in an active state.
@@ -174,11 +181,12 @@ One easy to setup option is to start loading the app and data in the background 
 This quick win will give you a 4 second head start!
 
 Another option is to exploit behavioural quirks:
-1) People tend to watch hover animations: Fancy hovers buy you ± 600 millisecond extra time
-2) People slow down when approaching the target: Load on mouse deceleration!
+* People tend to watch hover animations: Fancy hovers buy you ± 600 millisecond extra time
+* People slow down when approaching the target: Load on mouse deceleration!
 
 When combining above two techniques (hover animation + futurelink) we can get a ± 1.5 second head start.
-But: **Use predictive preloading wisely!** You *will* get it wrong some of the time. Do some dry runs first and try to mitigate risk by using metrics to improve.
+But: **Use predictive preloading wisely!**
+You *will* get it wrong some of the time. Do some dry runs first and try to mitigate risk by using metrics to improve.
 
 ### A quick summary
 
@@ -259,7 +267,7 @@ The table stakes are:
 * **External help**: both Amazon Prime and Netflix run on AWS. They don't block each other, they learn from each other.
 * **Leadership**: needs to be consistent, they need to be invested and resilient.
 
-If you don't have these factors in place, SWARM   won't work.
+If you don't have these factors in place, SWARM won't work.
 
 These are based on simple principles:
 * People are basically good. "Everyone is trying to help". Assume this is always true.
@@ -268,16 +276,16 @@ These are based on simple principles:
 
 Underlying principles:
 
-1) Visualize -> stabilize -> optimize!
+* Visualize -> stabilize -> optimize!
 You cannot change a system if you don't know what that system looks like, so visualize!
 Use event storming, value stream mapping or whatever you need.
 Stabilizing means that even if the system is horribly bad, you want it to be consistently horribly bad because only then can you observe what impact your changes actually have.
 
-2) Start small, get data.
+* Start small, get data.
 
 > "If we have data, let's look at data. If all we have are opinions, let's go with mine!" - Jim Barksdale
 
-3) Learn from mistakes, iterate.
+* Learn from mistakes, iterate.
 
 ### Summing it up
 * Don't be fooled! It's easy to believe that this time will be different.
@@ -413,10 +421,11 @@ So we cannot apply a preset way of working to a new team or a familiar team work
 ### Three principles for creating High Performance Teams
 1. Can your team learn to work better together?
 With a fixed mindset you believe that talent is fixed.
-However, with a growth mindset, you believe that anyone can improve with practice and persistence. See the value of continuous learning.
+However, with a growth mindset, you believe that anyone can improve with practice and persistence.
+See the value of continuous learning.
 These teams were more successful in the past and tend to perform much better.
 They challenge each other and learn together.
-This can actually be developer.
+Don't forget that this can actually be developed.
 Each team has the potential to improve. <br />
 2. What new ways of working can you create together?
 Apply a design approach and a design mindset. Design a way of working that works for that team! <br />
@@ -607,6 +616,7 @@ Let's learn to control our urge to control things.
 Let's quit worrying about whether we will get done in 3 months for now.
 Let's get good at being done everyday.
 
+On [Woody's website](http://zuill.us/WoodyZuill/beyond-estimates/){:target="_blank"}, you can find more info on his take on estimates.
 
 Thanks for reading, everyone!
 Hope you find this blog post as interesting as we did the conference!
