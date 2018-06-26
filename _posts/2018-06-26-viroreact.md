@@ -30,34 +30,32 @@ The main building blocks of a ViroReact app are the components.
 #### The most important component is a Scene
 The [scene](https://docs.viromedia.com/docs/scenes) is the digital environment the user interacts with.
 All other components live in this scene.
-{% highlight javascript %}
+```xml
 <ViroScene>
 <ViroARScene>
-{% endhighlight %}
+```
 
 Just like many other components, the Scene comes in 2 variations: ViroScene and ViroARScene.
 As the name suggests ViroARScene is used for Augmented Reality applications
 while the ViroScene is meant for Virtual Reality.
 
 A [ViroSceneNavigator](https://docs.viromedia.com/docs/scene-navigation) is used to navigate between these scenes.
-{% highlight javascript %}
+```xml
 <ViroSceneNavigator>
 <ViroARSceneNavigator>
-{% endhighlight %}
+```
 The SceneNavigator holds a stack of scenes to enable simple transitions from one scene to the next or previous scene.
 
 #### These scenes can be populated with all kinds of components
 For example a [ViroText](https://docs.viromedia.com/docs/virotext2).
-{% highlight javascript %}
-{% raw %}
+```xml
 <ViroText
 	text="Hello World"
 	position={[0,0,-5]}
 	color="#ff0000"
 	width={2} height={2}
 	style={{fontFamily:"Arial", fontSize:20}}/>
-{% endraw %}
-{% endhighlight %}
+```
 
 Or perhaps a [ViroBox](https://docs.viromedia.com/docs/virobox), a [ViroQuad](https://docs.viromedia.com/docs/viroquad) or a [ViroSphere](https://docs.viromedia.com/docs/virosphere).  
 These components can be modified by setting their properties.
@@ -67,7 +65,7 @@ It takes an array of 3 numbers as the x, y and z coordinates.
 #### There are also more specialised components
 Like a [Viro3DObject](https://docs.viromedia.com/docs/viro3dobject) which lets you include custom made 3D objects in your scene.
 
-{% highlight javascript %}
+```xml
 <Viro3DObject
 	source={require("./res/spaceship.obj")} type="OBJ"
 	resources={[require('./res/spaceship.mtl'),
@@ -75,7 +73,7 @@ Like a [Viro3DObject](https://docs.viromedia.com/docs/viro3dobject) which lets y
 	position={[1, 3, -5]} scale={[2, 2, 2]}
 	rotation={[45, 0, 0]}
 	transformBehaviors={["billboard"]}/>
-{% endhighlight %}
+```
 These 3D objects can be created in your favourite 3D modelling tools.
 ViroReact supports OBJ or VRX (converted from FBX) formats.
 The billboard transform behaviour is an interesting feature to make sure the object is always facing the user.
@@ -90,15 +88,13 @@ A [ViroARImageMarker](https://docs.viromedia.com/docs/viroarimagemarker) reacts 
 It will show all the components inside the ViroARImageMarker tag.
 We have used this in our little app, more on that [below](#demo-application).
 
-{% highlight javascript %}
-{% raw %}
+```xml
 <ViroARImageMarker target={"targetOne"}>
     <ViroBox position={[0, 0.25, 0]} scale={[0.5, 0.5, 0.5]} />
 </ViroARImageMarker>
-{% endraw %}
-{% endhighlight %}
+```
 
-{% highlight javascript %}
+```javascript
 ViroARTrackingTargets.createTargets({
   "targetOne" : {
 	source : require('./res/targetOne.jpg'),
@@ -106,13 +102,13 @@ ViroARTrackingTargets.createTargets({
 	physicalWidth : 0.1 // real world width in meters
   },
 });
-{% endhighlight %}
+```
 
 #### We wouldn't see anything without eyes and light
 The [Camera](https://docs.viromedia.com/docs/camera) component is our eyes.
-{% highlight javascript %}
+```xml
 <ViroCamera position={[0, 0, 0]} rotation={[45, 0, 0]) active={true} />
-{% endhighlight %}
+```
 A default camera is provided at the origin `position={[0, 0, 0]}`.
 The camera always looks in the negative Z direction.
 So if you want an object to be visible as soon as the scene loads up, 
@@ -131,26 +127,26 @@ By default, elements use the Constant lighting model, which means lights will be
 ViroReact supports 4 types of light.
 
 The [ViroAmbientLight](https://docs.viromedia.com/docs/viroambientlight) is the simplest light.
-{% highlight javascript %}
+```xml
 <ViroAmbientLight color="#ffffff"/>
-{% endhighlight %}
+```
 It lights up all the objects in the scene equally from every direction.
 Only the color needs to be set.
 
 A [ViroOmniLight](https://docs.viromedia.com/docs/viroomnilight) is comparable to a light bulb.
-{% highlight javascript %}
+```xml
 <ViroOmniLight
     color="#ffffff"
     attenuationStartDistance={2}
     attenuationEndDistance={6}
     position={[0,-5,5]}
  />
-{% endhighlight %}
+```
 The light originates from a specified position and moves in all directions.
 The light slowly fades out if the distance is between 2 and 6, set in the attenuation properties.
 
 A [ViroSpotLight](https://docs.viromedia.com/docs/virospotlight1) is comparable to a flashlight.
-{% highlight javascript %}
+```xml
 <ViroSpotLight
     color="#ffffff"
     attenuationStartDistance={2}
@@ -160,25 +156,25 @@ A [ViroSpotLight](https://docs.viromedia.com/docs/virospotlight1) is comparable 
     innerAngle={0}
     outerAngle={45}
  />
-{% endhighlight %}
+```
 The light originates from a single point and shines in a cone.
 The direction and angle of the cone can be set as well as the attenuation start and end distances.
 Some other properties are available to create the shadows you want.
 
 The last type of light is the [ViroDirectionalLight](https://docs.viromedia.com/docs/virodirectionallight-1).
-{% highlight javascript %}
+```xml
 <ViroDirectionalLight
     color="#ffffff"
     direction={[0, -1, 0]}
  />
-{% endhighlight %}
+```
 The sun would be the prime example of a ViroDirectionalLight.
 It shines over the whole scene in a specific direction.
 
 #### To make these objects look good we need Materials
 [Materials](http://viro.readme.io/docs/3d-scene-lighting) are used to place texture images on 3d objects.
 They can make a long box look like a brick wall or a sphere look like our planet.
-{% highlight javascript %}
+```javascript
 ViroMaterials.createMaterials({
   earth: {
 	shininess: 2.0,
@@ -186,7 +182,7 @@ ViroMaterials.createMaterials({
 	diffuseTexture: require('./res/earth_texture.jpg'),
   }
 });
-{% endhighlight %}
+```
 There are many properties available for materials.
 Discussing all of these is outside the scope of this article.
 The diffuseColor and diffuseTexture are the main color and texture of the material.
@@ -197,20 +193,16 @@ Complex Viro3DObjects can have multiple materials.
 Our scenes are still lacking motion.
 That's where [animations](https://docs.viromedia.com/docs/animation) come in handy. 
 
-{% highlight javascript %}
-{% raw %}
+```javascript
 ViroAnimations.registerAnimations({
 	animateImage:{properties:{scaleX:1.0, scaleY:0.6},
 				  easing:"Bounce", duration: 5000}});
-{% endraw %}
-{% endhighlight %}
-{% highlight javascript %}
-{% raw %}
+```
+```xml
 <ViroImage source={require('./res/myimage.jpg')}
 		   position={[0, -1, -2]}
 		   animation={{name:'animateImage', run:true}}/>
-{% endraw %}
-{% endhighlight %}
+```
 Animations change the numerical value of properties over time.
 Typically this is used for the position and scale properties but it can just as well be used for color values or other numerical values.
 There are 5 easing types: Linear, EaseIn, EaseOut, EaseInEaseOut and Bounce.
@@ -219,12 +211,12 @@ These represent how the values change over time.
 #### Control the scene with a ViroController 
 With all of the above we can create an awesome scene but we can't interact with it yet. 
 The [ViroController](https://docs.viromedia.com/docs/virocontroller) provides us the ability to interact with our scene. 
-{% highlight javascript %} 
+```xml
 <ViroController 
 reticleVisibility={true} 
 controllerVisibility={true} 
 onClick={this._onClickListenerForAllEvents} /> 
-{% endhighlight %} 
+```
 With the reticle (the blue circle in the middle of the view) the user can select and point to objects and call the function in the onClick property.
 It's also possible to use other events like onHover, onTouch, onSwipe, onPinch, onScroll, etc...
 These events are very useful for UI.
@@ -234,8 +226,7 @@ Apart from the ones we mentioned here, there are many more fun components to inc
 They follow the same principles but each have their own properties.
 This being built on React Native we can also declare our own components of course!
 
-{% highlight javascript %}
-{% raw %}
+```javascript
 export default class CustomComponent extends Component {
 	static propTypes = {customProperty: PropTypes.number}
 
@@ -245,12 +236,11 @@ export default class CustomComponent extends Component {
 		<ViroText text={this.props.customProperty}> );}
 	}
 
-{% endraw %}
-{% endhighlight %}
+```
 
-{% highlight javascript %}
+```xml
 <CustomComponent customProperty={42}>
-{% endhighlight %}
+```
 Just extend from Component, define your properties in propTypes and use it in your scenes.
 In our demo application we used this to create our scene but you can create small reusable components too of course!
 
@@ -301,7 +291,7 @@ We began by following the Official [Quick Start guide from ViroMedia](https://do
 
 Using the [react-viro CLI](https://www.npmjs.com/package/react-viro), we generated a ViroSample project.
 
-```
+```bash
 react-viro init ARMeetingRoomViewer
 ``` 
 
@@ -315,11 +305,11 @@ I placed the marker image inside of the `**/js/res**` folder.
 Because the file extension was in capital letters (.JPG), 
 I had to configure this extension in the `rn-cli.config.js` file inside of the root folder.
 
-{% highlight javascript %}
+```javascript
   getAssetExts() {
     return ["obj", "mtl", "JPG", "vrx", "hdr"];
   },
-{% endhighlight %}
+```
 
 Next, I created the actual scene in a file called **markerscene.js** in the **/js/** folder.
 
@@ -332,7 +322,7 @@ When the scene initialises we need to setup the Tracking Target(our image marker
 
 We call this method inside of the constructor.
 
-{% highlight javascript %}
+```javascript
     setMarker() {
         ViroARTrackingTargets.createTargets({
             "mr7": {
@@ -342,24 +332,24 @@ We call this method inside of the constructor.
             },
         });
     }
-{% endhighlight %}
+```
 
 Then we need to define what to render. 
 The root component will be an AR Scene:
 
-{% highlight javascript %}
+```xml
  <ViroARScene onAnchorFound={this._getInfo}
               onClick={this._getInfo}>
   ...
  </ViroARScene>
-{% endhighlight %}
+```
 
 We bind 2 events on the ViroARScene component, onAnchorFound and onClick. 
 Everytime one of these events occur, we want to fetch the latest meeting room state.
 
 onAnchorFound gets called when the Image Marker has been detected.
 
-{% highlight javascript %}
+```javascript
 getInfo() {
     fetch('https://rooms.meeting/rm7')
         .then((response) => response.json())
@@ -375,13 +365,12 @@ getInfo() {
             console.error(error);
         });
 }
-{% endhighlight %}
+```
 
 Inside the scene we want to display the meeting room data when the Image Marker is scanned.
 We need to use the ViroReact ImageMarker component for this.
 
-{% highlight javascript %}
-{% raw %}
+```xml
 <ViroARImageMarker target={"mr7"}>
     <ViroFlexView style={this.state.isAvailable ? styles.containerAvail : styles.containerNotAvail}
                   width={3}
@@ -399,8 +388,7 @@ We need to use the ViroReact ImageMarker component for this.
                   style={styles.nextMeeting}/>
     </ViroFlexView>
 </ViroARImageMarker>
-{% endraw %}
-{% endhighlight %}
+```
 
 The **ViroARImageMarker** component has a target "mr7" assigned.
 This refers to the **ViroARTrackingTarget** we defined in the **setMarker()** method above.
@@ -412,7 +400,7 @@ We bind the data we fetched from in our `getInfo()` method to the ViroText and V
 
 And these are the styles we defined for the ViroText and ViroFlexView.
 
-{% highlight javascript %}
+```javascript
 var styles = StyleSheet.create({
     text: {
         fontFamily: 'Arial',
@@ -437,12 +425,11 @@ var styles = StyleSheet.create({
         padding: .2,
     }
 });
-{% endhighlight %}
+```
 
 Our final scene
 
-{% highlight javascript %}
-{% raw %}
+```javascript
 'use strict';
 
 import React, {Component} from 'react';
@@ -552,8 +539,7 @@ var styles = StyleSheet.create({
 });
 
 module.exports = MarkerScene;
-{% endraw %}
-{% endhighlight %}
+```
 
 #### Step 3: Load your marker scene on application startup
 
@@ -563,24 +549,23 @@ Here we can define which scene to load when starting up the application.
 
 Assign your API key from ViroMedia.
 
-{% highlight javascript %}
+```javascript
 const sharedProps = {
     apiKey: "6E2805CC-xxxx-4Ex0-8xx0-02xxxxxxx",
 };
-{% endhighlight %}
+```
 
 Import your marker scene.
 
-{% highlight javascript %}
+```javascript
 const MarkerScene = require('./js/MarkerScene');
-{% endhighlight %}
+```
 
 Render your AR Scene.
 
 Final result:
 
-{% highlight javascript %}
-{% raw %}
+```javascript
 import React, {Component} from 'react';
 import {ViroARSceneNavigator} from 'react-viro';
 
@@ -614,8 +599,7 @@ export default class ViroSample extends Component {
 }
 
 module.exports = ViroSample;
-{% endraw %}
-{% endhighlight %}
+```
 
 
 ## Lessons learned and conclusion
