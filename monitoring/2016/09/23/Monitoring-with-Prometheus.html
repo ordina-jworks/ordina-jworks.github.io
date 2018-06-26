@@ -655,8 +655,8 @@ IF api_http_request_latencies_second{quantile="0.5"} &gt; 1
 FOR 1m
 LABELS { severity="critical"}
 ANNOTATIONS {
-  summary = "High request latency on ",
-  description = " has a median request latency above 1s (current value: s)",
+  summary = "High request latency on {{ $labels.instance }}",
+  description = "{{ $labels.instance }} has a median request latency above 1s (current value: {{ $value }}s)",
 }
 
 ALERT CpuUsage

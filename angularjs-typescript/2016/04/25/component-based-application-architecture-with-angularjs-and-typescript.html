@@ -287,22 +287,27 @@ Instead they define a public API in which they can receive inputs (<code class="
 
 <p><em>A simple presentational root component.</em></p>
 
-<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">	<span class="k">export</span> <span class="kd">class</span> <span class="nx">RootComponent</span> <span class="kr">implements</span> <span class="nx">IComponentOptions</span> <span class="p">{</span>
-		<span class="kr">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'app'</span><span class="p">;</span>
+<p>{% highlight typescript %}
+	export class RootComponent implements IComponentOptions {
+		static NAME:string = ‘app’;</p>
 
-		<span class="nl">bindings</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
-		    <span class="na">title</span><span class="p">:</span> <span class="s1">'@'</span><span class="p">,</span>
-		<span class="p">};</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	bindings:any = {
+	    title: '@',
+	};
+</code></pre></div></div>
 
-  		<span class="nl">template</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s2">`
-	    	&lt;h1&gt;&lt;/h1&gt;
-	    	&lt;currency-converter&gt;&lt;/currency-converter&gt;
-	  	`</span><span class="p">;</span>
-	<span class="p">}</span>
+  		template:string = `
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    	&lt;h1&gt;{{$ctrl.title}}&lt;/h1&gt;
+    	&lt;currency-converter&gt;&lt;/currency-converter&gt;
+  	`;
+}
 
-        <span class="nx">angular</span>
-                <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'currencyConverterApp, []'</span><span class="p">)</span>
-                <span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="nx">Rootcomponent</span><span class="p">.</span><span class="nx">NAME</span><span class="p">,</span> <span class="k">new</span> <span class="nx">RootComponent</span><span class="p">());</span></code></pre></figure>
+    angular
+            .module('currencyConverterApp, []')
+            .component(Rootcomponent.NAME, new RootComponent());
+</code></pre></div></div>
+
+<p>{% endhighlight %}</p>
 
 <p>This component has a very simple API with one input -  <code class="highlighter-rouge">title</code> - and zero outputs.
 It doesn’t call a service or fetch any data.
@@ -311,28 +316,32 @@ Also notice how easy it was to register this component directive.</p>
 
 <p><em>Let’s create the same component directive but register it with the <code class="highlighter-rouge">.directive()</code> method.</em></p>
 
-<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">    <span class="k">export</span> <span class="kd">class</span> <span class="nx">RootComponent</span> <span class="kr">implements</span> <span class="nx">IDirective</span> <span class="p">{</span>
-        <span class="kr">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'app'</span><span class="p">;</span>
-        <span class="nl">restrict</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'E'</span><span class="p">,</span>
-        <span class="nx">bindToController</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="na">title</span><span class="p">:</span> <span class="s1">'@'</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="nx">scope</span><span class="p">:</span><span class="nx">IScope</span> <span class="o">=</span> <span class="p">{},</span>
-        <span class="nx">controller</span><span class="p">:</span><span class="nb">Function</span> <span class="o">=</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{},</span>
-        <span class="nx">controllerAs</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'$ctrl'</span><span class="p">,</span>
-        <span class="nx">template</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s2">`
-            &lt;h1&gt;&lt;/h1&gt;
-            &lt;currency-converter&gt;&lt;/currency-converter&gt;
-         `</span><span class="p">;</span>
+<p>{% highlight typescript %}
+    export class RootComponent implements IDirective {
+        static NAME:string = ‘app’;
+        restrict:string = ‘E’,
+        bindToController:any = {
+            title: ‘@’,
+        },
+        scope:IScope = {},
+        controller:Function = ()=&gt;{},
+        controllerAs:string = ‘$ctrl’,
+        template:string = `
+            &lt;h1&gt;{{$ctrl.title}}&lt;/h1&gt;
+            <currency-converter></currency-converter>
+         `;</p>
 
-        <span class="kr">static</span> <span class="nx">instance</span><span class="p">():</span><span class="nx">IDirective</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">new</span> <span class="nx">RootComponent</span><span class="p">();</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    static instance():IDirective {
+        return new RootComponent();
+    }
+}
 
-    <span class="nx">angular</span>
-    <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'currencyConverterApp, []'</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="nx">Rootcomponent</span><span class="p">.</span><span class="nx">NAME</span><span class="p">,</span> <span class="nx">RootComponent</span><span class="p">.</span><span class="nx">instance</span><span class="p">());</span></code></pre></figure>
+angular
+.module('currencyConverterApp, []')
+.directive(Rootcomponent.NAME, RootComponent.instance());
+</code></pre></div></div>
+
+<p>{% endhighlight %}</p>
 
 <p>As you can see, this has a lot more configuration compared to using the <code class="highlighter-rouge">.component()</code> helper method.
 Although it offers more power and flexibility, its more practical to have the <code class="highlighter-rouge">.component()</code> method when creating custom UI elements.</p>
