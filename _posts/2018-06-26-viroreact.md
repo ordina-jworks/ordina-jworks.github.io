@@ -253,8 +253,6 @@ Since ViroReact is advertised as a framework for rapidly building AR / VR applic
 
 ### Use Case: Meeting room status viewer
 
-[Screenshot / Video application]
-
 Sometimes people want to have a quick meeting or Skype call. 
 They might be standing or passing by a meeting room, 
 and have the ability to immediately check if the meeting room is available for the next 30 minutes. 
@@ -262,8 +260,6 @@ and have the ability to immediately check if the meeting room is available for t
 We created an application where the user can view the status of a meeting room in Augmented Reality by scanning the room name/picture.
 
 We used [Image Recognition in ViroReact](https://docs.viromedia.com/docs/ar-image-recognition) to achieve this.
-
-[video]
 
 Aside from the Image Recognition, we were also curious how ViroReact handles
 - HTTP requests
@@ -279,7 +275,7 @@ For this blogpost I will only discuss how we created the ViroReact application.
 
 ### The AR Meeting room viewer (ViroReact)
 
-[screenshot/video]
+![meeting-room-viewer-app-foto](/img/2018-06-26-viroreact/app-scan.png){:class="img-responsive"}
 
 ViroReact is built on top of React, so basic knowledge of React is necessary. 
 To get started, you can follow this great free beginner guide by Kent C. Dodds at egghead.io 
@@ -296,6 +292,8 @@ react-viro init ARMeetingRoomViewer
 ``` 
 
 #### Step 2: Create an AR scene for viewing the status of a meeting room.
+
+![meeting-room-viewer-app-foto](/img/2018-06-26-viroreact/m07-image-marker.png){:class="img-responsive"}
 
 To be able to scan the meeting room we needed a picture of the meeting room nameplate, 
 this will act as the marker to scan the meeting room information.
