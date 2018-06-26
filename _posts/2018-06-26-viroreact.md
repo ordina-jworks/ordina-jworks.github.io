@@ -260,6 +260,10 @@ Since ViroReact is advertised as a framework for rapidly building AR / VR applic
 
 ### Use Case: Meeting room status viewer
 
+<a href="{{ '/img/2018-06-26-viroreact/app-scan.png' | prepend: site.baseurl }}" data-lightbox="app-scan" data-title="meeting-room-viewer-app-foto">
+    <img alt="stack" src="{{ '/img/2018-06-26-viroreact/mr-door.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
+</a>
+
 Sometimes people want to have a quick meeting or Skype call. 
 They might be standing or passing by a meeting room, 
 and have the ability to immediately check if the meeting room is available for the next 30 minutes. 
@@ -281,8 +285,9 @@ Eventually I created three applications:
 For this blogpost I will only discuss how we created the ViroReact application.
 
 ### The AR Meeting room viewer (ViroReact)
+
 <a href="{{ '/img/2018-06-26-viroreact/app-scan.png' | prepend: site.baseurl }}" data-lightbox="app-scan" data-title="meeting-room-viewer-app-foto">
-    <img alt="stack" src="{{ '/img/2018-06-26-viroreact/app-scan.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+    <img alt="stack" src="{{ '/img/2018-06-26-viroreact/app-scan.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
 </a>
 
 ViroReact is built on top of React, so basic knowledge of React is necessary. 
@@ -300,12 +305,12 @@ react-viro init ARMeetingRoomViewer
 ``` 
 
 #### Step 2: Create an AR scene for viewing the status of a meeting room.
-<a href="{{ '/img/2018-06-26-viroreact/m07-image-marker.png' | prepend: site.baseurl }}" data-lightbox="m07" data-title="meeting-room-viewer-app-foto">
-    <img alt="stack" src="{{ '/img/2018-06-26-viroreact/m07-image-marker.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
-</a>
-
 To be able to scan the meeting room we needed a picture of the meeting room nameplate, 
 this will act as the marker to scan the meeting room information.
+
+<a href="{{ '/img/2018-06-26-viroreact/m07-image-marker.png' | prepend: site.baseurl }}" data-lightbox="m07" data-title="meeting-room-viewer-app-foto">
+    <img alt="stack" src="{{ '/img/2018-06-26-viroreact/m07-image-marker.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 300px;">
+</a>
 
 I placed the marker image inside of the `**/js/res**` folder.
 
