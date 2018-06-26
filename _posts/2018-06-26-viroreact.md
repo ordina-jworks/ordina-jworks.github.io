@@ -7,6 +7,13 @@ tags: [React, React Native, ViroReact, Virtual reality, VR, Augmented reality, A
 category: IoT
 comments: true
 ---
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js"></script>
+
 ## Table of Contents
 
 1. [Introduction](#introduction)
@@ -274,8 +281,9 @@ Eventually I created three applications:
 For this blogpost I will only discuss how we created the ViroReact application.
 
 ### The AR Meeting room viewer (ViroReact)
-
-![meeting-room-viewer-app-foto](/img/2018-06-26-viroreact/app-scan.png){:class="img-responsive"}
+<a href="{{ '/img/2018-06-26-viroreact/app-scan.png' | prepend: site.baseurl }}" data-lightbox="app-scan" data-title="meeting-room-viewer-app-foto">
+    <img alt="stack" src="{{ '/img/2018-06-26-viroreact/app-scan.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+</a>
 
 ViroReact is built on top of React, so basic knowledge of React is necessary. 
 To get started, you can follow this great free beginner guide by Kent C. Dodds at egghead.io 
@@ -292,8 +300,9 @@ react-viro init ARMeetingRoomViewer
 ``` 
 
 #### Step 2: Create an AR scene for viewing the status of a meeting room.
-
-![meeting-room-viewer-app-foto](/img/2018-06-26-viroreact/m07-image-marker.png){:class="img-responsive"}
+<a href="{{ '/img/2018-06-26-viroreact/m07-image-marker.png' | prepend: site.baseurl }}" data-lightbox="m07" data-title="meeting-room-viewer-app-foto">
+    <img alt="stack" src="{{ '/img/2018-06-26-viroreact/m07-image-marker.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+</a>
 
 To be able to scan the meeting room we needed a picture of the meeting room nameplate, 
 this will act as the marker to scan the meeting room information.
