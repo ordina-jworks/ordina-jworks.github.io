@@ -612,7 +612,19 @@ export default class ViroSample extends Component {
 
 module.exports = ViroSample;
 ```
+### Demo
 
+<div class="responsive-video">
+    <iframe src="https://www.youtube.com/embed/KJvIwv86Hv0" frameborder="0" gesture="media" allowfullscreen></iframe>
+</div>
+
+<br>
+
+<div class="responsive-video">
+    <iframe src="https://www.youtube.com/embed/3kvDbDxIqdA" frameborder="0" gesture="media" allowfullscreen></iframe>
+</div>
+
+<br>
 
 ## Lessons learned and conclusion
 Without prior knowledge it was a bit challenging for us to get our development environment setup correctly.
