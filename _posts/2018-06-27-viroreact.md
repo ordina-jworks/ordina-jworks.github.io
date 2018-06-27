@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [ryan_de_gruyter, michael_vandendriessche]
-title: "ViroReact: Build cross platform AR / VR application for Android and iOS using React"
+title: "ViroReact: Build cross-platform AR/VR applications for Android and iOS using React"
 image: /img/2018-06-26-viroreact/viroreact.jpg
 tags: [React, React Native, ViroReact, Virtual reality, VR, Augmented reality, AR, Mixed reality, MR]
 category: IoT
@@ -23,8 +23,8 @@ comments: true
 5. [Extra resources](#extra-resources)
 
 ## Introduction
-Augmented Reality is a very interesting space so naturally we wanted to do something with it.
-There are many frameworks available for building cross platform AR/VR applications.
+Augmented Reality is a very interesting space so naturally, we wanted to do something with it.
+There are many frameworks available for building cross-platform AR/VR applications.
 We came across ViroReact which uses React and React Native to create immersive VR and AR applications using a single codebase for Android and iOS.
 This persuaded us to give it a try.
 In one day, with some tweaking afterwards, we were able to create a simple app to show the status of a meeting room. 
@@ -124,7 +124,7 @@ If the object would have a positive Z value it would be placed behind you when y
 There is also a `ViroOrbitCamera` where the camera orbits around a certain position, always keeping it in view.
 
 [Lights](https://docs.viromedia.com/docs/3d-scene-lighting) are very important components in a scene.
-Without any light the user wouldn't see anything.
+Without any light, the user wouldn't see anything.
 Luckily a default light is provided when none is defined.
 We didn't need lights in our setup but if you want a more realistic or visually stunning experience, 
 I highly recommend you to look into the different lights in the [documentation](https://docs.viromedia.com/v2.6.1/docs/3d-scene-lighting).  
@@ -216,7 +216,7 @@ There are five easing types: Linear, EaseIn, EaseOut, EaseInEaseOut and Bounce.
 These represent how the values change over time.
 
 #### Control the scene with a ViroController 
-With all of the above we can create an awesome scene but we can't interact with it yet. 
+With all of the above, we can create an awesome scene but we can't interact with it yet. 
 The [ViroController](https://docs.viromedia.com/docs/virocontroller) provides us the ability to interact with our scene. 
 ```xml
 <ViroController 
@@ -249,7 +249,7 @@ export default class CustomComponent extends Component {
 <CustomComponent customProperty={42}>
 ```
 Just extend from Component, define your properties in propTypes and use it in your scenes.
-In our demo application we used this to create our scene but you can create small reusable components too of course!
+In our demo application, we used this to create our scene but you can create small reusable components too of course!
 
 ## Demo application
 Before you can build a ViroReact application you need to [request an API key from ViroMedia](https://viromedia.com/signup).
@@ -277,12 +277,12 @@ Aside from the Image Recognition, we were also curious how ViroReact handles
 - UI Updates
 - User interaction
 
-Eventually I created three applications:
+Eventually, I created three applications:
 - A backend application for holding meeting room state (NestJS)
 - A client application for changing the state of a meeting room (Ionic PWA)
 - A client application for viewing the state of a meeting room (ViroReact)
 
-For this blogpost I will only discuss how we created the ViroReact application.
+For this blogpost, I will only discuss how we created the ViroReact application.
 
 ### The AR Meeting room viewer (ViroReact)
 
@@ -357,7 +357,7 @@ The root component will be an AR Scene:
 ```
 
 We bind two events on the ViroARScene component, onAnchorFound and onClick. 
-Everytime one of these events occur, we want to fetch the latest meeting room state.
+Every time one of these events occurs, we want to fetch the latest meeting room state.
 
 `onAnchorFound` gets called when the Image Marker has been detected.
 
@@ -379,7 +379,7 @@ getInfo() {
 }
 ```
 
-Inside the scene we want to display the meeting room data when the Image Marker is scanned.
+Inside the scene, we want to display the meeting room data when the Image Marker is scanned.
 We need to use the ViroReact ImageMarker component for this.
 
 ```xml
@@ -406,7 +406,7 @@ The **ViroARImageMarker** component has a target "mr7" assigned.
 This refers to the **ViroARTrackingTarget** we defined in the **setMarker()** method above.
 
 When the target is successfully scanned, all the content of the ViroARImageMarker component will be rendered.
-In our case two TextViews positioned with a FlexView.
+In our case, two TextViews positioned with a FlexView.
 
 We bind the data we fetched from in our `getInfo()` method to the ViroText and ViroFlexView components.
 
@@ -627,7 +627,7 @@ module.exports = ViroSample;
 <br>
 
 ## Lessons learned and conclusion
-Without prior knowledge it was a bit challenging for us to get our development environment setup correctly.
+Without prior knowledge it was a bit challenging for us to get our development environment set up correctly.
 We had a lot of issues with debugging and cached builds. 
 When we had issues, it was hard to tell if the problem was with React Native or ViroReact.
 
