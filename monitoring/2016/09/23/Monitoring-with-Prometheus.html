@@ -649,7 +649,7 @@ so you can prevent getting thousands of the same alert if a many-node cluster go
 This is done in Prometheus and not in the Alert Manager.
 Here are a few simple alerting rule examples:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Alert for any instance that have a median request latency &gt;1s.
+<figure class="highlight"><pre><code class="language-plain" data-lang="plain"># Alert for any instance that have a median request latency &gt;1s.
 ALERT APIHighRequestLatency
 IF api_http_request_latencies_second{quantile="0.5"} &gt; 1
 FOR 1m
@@ -666,8 +666,7 @@ LABELS { severity="critical"}
 ANNOTATIONS {
   summary = "YOU MUST CONSTRUCT ADDITIONAL PYLONS"
   description = "CPU usage is above 95%"
-}
-</code></pre></div></div>
+}</code></pre></figure>
 
 <p>After an alert is generated and sent to the Alert Manager,
 it can be routed using <strong>routes</strong>.
