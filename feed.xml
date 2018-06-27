@@ -1,5 +1,622 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-06-26T19:24:08+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Spring IO 2018</title><link href="https://ordina-jworks.github.io/conference/2018/06/26/Spring-IO-2018.html" rel="alternate" type="text/html" title="Spring IO 2018" /><published>2018-06-26T00:00:00+00:00</published><updated>2018-06-26T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2018/06/26/Spring-IO-2018</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2018/06/26/Spring-IO-2018.html">&lt;h1 id=&quot;spring-io-is-back&quot;&gt;Spring IO is back!&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-06-27T06:11:27+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">ViroReact: Build cross platform AR / VR application for Android and iOS using React</title><link href="https://ordina-jworks.github.io/iot/2018/06/27/viroreact.html" rel="alternate" type="text/html" title="ViroReact: Build cross platform AR / VR application for Android and iOS using React" /><published>2018-06-27T00:00:00+00:00</published><updated>2018-06-27T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2018/06/27/viroreact</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2018/06/27/viroreact.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#basics-of-viroreact&quot;&gt;Basics of ViroReact&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#demo-application&quot;&gt;Demo app&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#lessons-learned-and-conclusion&quot;&gt;Lessons learned and conclusion&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#extra-resources&quot;&gt;Extra resources&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Augmented Reality is a very interesting space so naturally we wanted to do something with it.
+There are many frameworks available for building cross platform AR/VR applications.
+We came across ViroReact which uses React and React Native to create immersive VR and AR applications using a single codebase for Android and iOS.
+This persuaded us to give it a try.
+In one day, with some tweaking afterwards, we were able to create a simple app to show the status of a meeting room.&lt;/p&gt;
+
+&lt;h2 id=&quot;basics-of-viroreact&quot;&gt;Basics of ViroReact&lt;/h2&gt;
+
+&lt;h3 id=&quot;components&quot;&gt;Components&lt;/h3&gt;
+&lt;p&gt;The main building blocks of a ViroReact app are the components.&lt;/p&gt;
+
+&lt;h4 id=&quot;the-most-important-component-is-a-scene&quot;&gt;The most important component is a Scene&lt;/h4&gt;
+&lt;p&gt;The &lt;a href=&quot;https://docs.viromedia.com/docs/scenes&quot;&gt;scene&lt;/a&gt; is the digital environment the user interacts with.
+All other components live in this scene.&lt;/p&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroScene&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroARScene&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Just like many other components, the Scene comes in two variations: &lt;code class=&quot;highlighter-rouge&quot;&gt;ViroScene&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;ViroARScene&lt;/code&gt;.
+As the name suggests &lt;code class=&quot;highlighter-rouge&quot;&gt;ViroARScene&lt;/code&gt; is used for Augmented Reality applications
+while the &lt;code class=&quot;highlighter-rouge&quot;&gt;ViroScene&lt;/code&gt; is meant for Virtual Reality.&lt;/p&gt;
+
+&lt;p&gt;A &lt;a href=&quot;https://docs.viromedia.com/docs/scene-navigation&quot;&gt;ViroSceneNavigator&lt;/a&gt; is used to navigate between these scenes.&lt;/p&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroSceneNavigator&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroARSceneNavigator&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The SceneNavigator holds a stack of scenes to enable simple transitions from one scene to the next or previous scene.&lt;/p&gt;
+
+&lt;h4 id=&quot;these-scenes-can-be-populated-with-all-kinds-of-components&quot;&gt;These scenes can be populated with all kinds of components&lt;/h4&gt;
+&lt;p&gt;For example a &lt;a href=&quot;https://docs.viromedia.com/docs/virotext2&quot;&gt;ViroText&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroText&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;text=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World&quot;&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;position=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[0,0,-5]}&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;color=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#ff0000&quot;&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{2}&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{2}&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Or perhaps a &lt;a href=&quot;https://docs.viromedia.com/docs/virobox&quot;&gt;ViroBox&lt;/a&gt;, a &lt;a href=&quot;https://docs.viromedia.com/docs/viroquad&quot;&gt;ViroQuad&lt;/a&gt; or a &lt;a href=&quot;https://docs.viromedia.com/docs/virosphere&quot;&gt;ViroSphere&lt;/a&gt;.&lt;br /&gt;
+These components can be modified by setting their properties.
+One of the most important properties is the position.
+It takes an array of three numbers as the x, y and z coordinates.&lt;/p&gt;
+
+&lt;h4 id=&quot;there-are-also-more-specialised-components&quot;&gt;There are also more specialised components&lt;/h4&gt;
+&lt;p&gt;Like a &lt;a href=&quot;https://docs.viromedia.com/docs/viro3dobject&quot;&gt;Viro3DObject&lt;/a&gt; which lets you include custom made 3D objects in your scene.&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;Viro3DObject&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;source=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{require(&quot;./res/spaceship.obj&quot;)}&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;OBJ&quot;&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;resources=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[require('./res/spaceship.mtl'),&lt;/span&gt;
+		&lt;span class=&quot;err&quot;&gt;require('./res/texture1.jpg')]}&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;position=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[1,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;3,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;-5]}&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;scale=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[2,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;2,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;2]}&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;rotation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[45,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0]}&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;transformBehaviors=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[&quot;billboard&quot;]}/&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;These 3D objects can be created in your favourite 3D modelling tools.
+ViroReact supports OBJ or VRX (converted from FBX) formats.
+The billboard transform behaviour is an interesting feature to make sure the object is always facing the user.&lt;/p&gt;
+
+&lt;p&gt;A &lt;a href=&quot;https://docs.viromedia.com/docs/viro360image&quot;&gt;Viro360Image&lt;/a&gt; can be set as the background of a scene.&lt;/p&gt;
+
+&lt;p&gt;A &lt;a href=&quot;https://docs.viromedia.com/docs/viroportal&quot;&gt;ViroPortal&lt;/a&gt; lets the user take a peek into a different scene.
+It basically is a window to another world.
+The Viro3DObject included in it acts like the window frame.&lt;/p&gt;
+
+&lt;p&gt;A &lt;a href=&quot;https://docs.viromedia.com/docs/viroarimagemarker&quot;&gt;ViroARImageMarker&lt;/a&gt; reacts when one of the ViroARTrackingTargets is scanned.
+It will show all the components inside the &lt;code class=&quot;highlighter-rouge&quot;&gt;ViroARImageMarker&lt;/code&gt; tag.
+We have used this in our little app, more on that &lt;a href=&quot;#demo-application&quot;&gt;below&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroARImageMarker&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;target=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{&quot;targetOne&quot;}&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroBox&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;position=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[0,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0.25,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0]}&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;scale=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[0.5,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0.5,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0.5]}&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ViroARImageMarker&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;ViroARTrackingTargets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createTargets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;targetOne&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'./res/targetOne.jpg'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;orientation&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Up&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;physicalWidth&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// real world width in meters&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;we-wouldnt-see-anything-without-eyes-and-light&quot;&gt;We wouldn’t see anything without eyes and light&lt;/h4&gt;
+&lt;p&gt;The &lt;a href=&quot;https://docs.viromedia.com/docs/camera&quot;&gt;Camera&lt;/a&gt; component is our eyes.&lt;/p&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroCamera&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;position=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[0,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0]}&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rotation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[45,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0])&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;active=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{true}&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;A default camera is provided at the origin &lt;code class=&quot;highlighter-rouge&quot;&gt;position={[0, 0, 0]}&lt;/code&gt;.
+The camera always looks in the negative Z direction.
+So if you want an object to be visible as soon as the scene loads up, 
+make sure to set its position with a negative Z value &lt;code class=&quot;highlighter-rouge&quot;&gt;position={[0, 0, -5]}&lt;/code&gt;. 
+If the object would have a positive Z value it would be placed behind you when you load up the scene.
+There is also a &lt;code class=&quot;highlighter-rouge&quot;&gt;ViroOrbitCamera&lt;/code&gt; where the camera orbits around a certain position, always keeping it in view.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.viromedia.com/docs/3d-scene-lighting&quot;&gt;Lights&lt;/a&gt; are very important components in a scene.
+Without any light the user wouldn’t see anything.
+Luckily a default light is provided when none is defined.
+We didn’t need lights in our setup but if you want a more realistic or visually stunning experience, 
+I highly recommend you to look into the different lights in the &lt;a href=&quot;https://docs.viromedia.com/v2.6.1/docs/3d-scene-lighting&quot;&gt;documentation&lt;/a&gt;.&lt;br /&gt;
+There are four lighting models: Phong, Blinn, Lambert and Constant.&lt;br /&gt;
+These are the algorithms that calculate what your objects will look like when influenced by light.
+By default, elements use the Constant lighting model, which means lights will be ignored and the object will show its full color.&lt;br /&gt;
+ViroReact supports four types of light.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://docs.viromedia.com/docs/viroambientlight&quot;&gt;ViroAmbientLight&lt;/a&gt; is the simplest light.&lt;/p&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroAmbientLight&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;color=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#ffffff&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;It lights up all the objects in the scene equally from every direction.
+Only the color needs to be set.&lt;/p&gt;
+
+&lt;p&gt;A &lt;a href=&quot;https://docs.viromedia.com/docs/viroomnilight&quot;&gt;ViroOmniLight&lt;/a&gt; is comparable to a light bulb.&lt;/p&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroOmniLight&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;color=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#ffffff&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;attenuationStartDistance=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{2}&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;attenuationEndDistance=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{6}&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;position=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[0,-5,5]}&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The light originates from a specified position and moves in all directions.
+The light slowly fades out if the distance is between 2 and 6, set in the attenuation properties.&lt;/p&gt;
+
+&lt;p&gt;A &lt;a href=&quot;https://docs.viromedia.com/docs/virospotlight1&quot;&gt;ViroSpotLight&lt;/a&gt; is comparable to a flashlight.&lt;/p&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroSpotLight&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;color=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#ffffff&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;attenuationStartDistance=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{2}&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;attenuationEndDistance=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{6}&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;position=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[0,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;-5,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;5]}&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;direction=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[0&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;-1,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0]}&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;innerAngle=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{0}&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;outerAngle=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{45}&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The light originates from a single point and shines in a cone.
+The direction and angle of the cone can be set as well as the attenuation start and end distances.
+Some other properties are available to create the shadows you want.&lt;/p&gt;
+
+&lt;p&gt;The last type of light is the &lt;a href=&quot;https://docs.viromedia.com/docs/virodirectionallight-1&quot;&gt;ViroDirectionalLight&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroDirectionalLight&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;color=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#ffffff&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;direction=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[0,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;-1,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0]}&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The sun would be the prime example of a ViroDirectionalLight.
+It shines over the whole scene in a specific direction.&lt;/p&gt;
+
+&lt;h4 id=&quot;to-make-these-objects-look-good-we-need-materials&quot;&gt;To make these objects look good we need Materials&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;http://viro.readme.io/docs/3d-scene-lighting&quot;&gt;Materials&lt;/a&gt; are used to place texture images on 3d objects.
+They can make a long box look like a brick wall or a sphere look like our planet.&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;ViroMaterials&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createMaterials&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;earth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;shininess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;lightingModel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Lambert&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;diffuseTexture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'./res/earth_texture.jpg'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;There are many properties available for materials.
+Discussing all of these is outside the scope of this article.
+The diffuseColor and diffuseTexture are the main color and texture of the material.
+These can be placed on basic 3D objects like ViroBox, ViroQuad and ViroSphere.
+Complex Viro3DObjects can have multiple materials.&lt;/p&gt;
+
+&lt;h4 id=&quot;move-them-around-with-animations&quot;&gt;Move them around with Animations&lt;/h4&gt;
+&lt;p&gt;Our scenes are still lacking motion.
+That’s where &lt;a href=&quot;https://docs.viromedia.com/docs/animation&quot;&gt;animations&lt;/a&gt; come in handy.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;ViroAnimations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;registerAnimations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;animateImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;properties&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;scaleX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;scaleY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+				  &lt;span class=&quot;na&quot;&gt;easing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bounce&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;duration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroImage&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;source=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{require('./res/myimage.jpg')}&lt;/span&gt;
+		   &lt;span class=&quot;na&quot;&gt;position=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[0,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;-1,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;-2]}&lt;/span&gt;
+		   &lt;span class=&quot;na&quot;&gt;animation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Animations change the numerical value of properties over time.
+Typically this is used for the position and scale properties but it can just as well be used for color values or other numerical values.
+There are five easing types: Linear, EaseIn, EaseOut, EaseInEaseOut and Bounce.
+These represent how the values change over time.&lt;/p&gt;
+
+&lt;h4 id=&quot;control-the-scene-with-a-virocontroller&quot;&gt;Control the scene with a ViroController&lt;/h4&gt;
+&lt;p&gt;With all of the above we can create an awesome scene but we can’t interact with it yet. 
+The &lt;a href=&quot;https://docs.viromedia.com/docs/virocontroller&quot;&gt;ViroController&lt;/a&gt; provides us the ability to interact with our scene.&lt;/p&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroController&lt;/span&gt; 
+&lt;span class=&quot;na&quot;&gt;reticleVisibility=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{true}&lt;/span&gt; 
+&lt;span class=&quot;na&quot;&gt;controllerVisibility=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{true}&lt;/span&gt; 
+&lt;span class=&quot;na&quot;&gt;onClick=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{this._onClickListenerForAllEvents}&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;With the reticle (the blue circle in the middle of the view) the user can select and point to objects and call the function in the onClick property.
+It’s also possible to use other events like onHover, onTouch, onSwipe, onPinch, onScroll, etc…
+These events are very useful for UI.&lt;/p&gt;
+
+&lt;h4 id=&quot;there-are-many-more-fun-components&quot;&gt;There are many more fun components&lt;/h4&gt;
+&lt;p&gt;Apart from the ones we mentioned here, there are many more fun components to include &lt;a href=&quot;http://viro.readme.io/docs/video&quot;&gt;video&lt;/a&gt;, &lt;a href=&quot;http://viro.readme.io/docs/audio&quot;&gt;sound&lt;/a&gt; and &lt;a href=&quot;http://viro.readme.io/docs/particle-effects&quot;&gt;particles&lt;/a&gt; in your scene.
+They follow the same principles but each have their own properties.
+This being built on React Native we can also declare our own components of course!&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CustomComponent&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;propTypes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;customProperty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;PropTypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
+
+	&lt;span class=&quot;nx&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+		&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ViroText&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;customProperty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);}&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;CustomComponent&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;customProperty=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{42}&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Just extend from Component, define your properties in propTypes and use it in your scenes.
+In our demo application we used this to create our scene but you can create small reusable components too of course!&lt;/p&gt;
+
+&lt;h2 id=&quot;demo-application&quot;&gt;Demo application&lt;/h2&gt;
+&lt;p&gt;Before you can build a ViroReact application you need to &lt;a href=&quot;https://viromedia.com/signup&quot;&gt;request an API key from ViroMedia&lt;/a&gt;.
+This should not take more than a few minutes.&lt;/p&gt;
+
+&lt;p&gt;For our demo application, we decided to use meeting rooms as a use case.
+Since ViroReact is advertised as a framework for rapidly building AR / VR applications, we wanted to put this statement to the test and try to create an application in one day with no knowledge of the framework at all.&lt;/p&gt;
+
+&lt;h3 id=&quot;use-case-meeting-room-status-viewer&quot;&gt;Use Case: Meeting room status viewer&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;/img/2018-06-26-viroreact/app-scan.png&quot; data-lightbox=&quot;app-scan&quot; data-title=&quot;meeting-room-viewer-app-foto&quot;&gt;
+    &lt;img alt=&quot;stack&quot; src=&quot;/img/2018-06-26-viroreact/mr-door.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Sometimes people want to have a quick meeting or Skype call. 
+They might be standing or passing by a meeting room, 
+and have the ability to immediately check if the meeting room is available for the next 30 minutes.&lt;/p&gt;
+
+&lt;p&gt;We created an application where the user can view the status of a meeting room in Augmented Reality by scanning the room name/picture.&lt;/p&gt;
+
+&lt;p&gt;We used &lt;a href=&quot;https://docs.viromedia.com/docs/ar-image-recognition&quot;&gt;Image Recognition in ViroReact&lt;/a&gt; to achieve this.&lt;/p&gt;
+
+&lt;p&gt;Aside from the Image Recognition, we were also curious how ViroReact handles&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;HTTP requests&lt;/li&gt;
+  &lt;li&gt;UI Updates&lt;/li&gt;
+  &lt;li&gt;User interaction&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Eventually I created three applications:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;A backend application for holding meeting room state (NestJS)&lt;/li&gt;
+  &lt;li&gt;A client application for changing the state of a meeting room (Ionic PWA)&lt;/li&gt;
+  &lt;li&gt;A client application for viewing the state of a meeting room (ViroReact)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For this blogpost I will only discuss how we created the ViroReact application.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-ar-meeting-room-viewer-viroreact&quot;&gt;The AR Meeting room viewer (ViroReact)&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;/img/2018-06-26-viroreact/app-scan.png&quot; data-lightbox=&quot;app-scan&quot; data-title=&quot;meeting-room-viewer-app-foto&quot;&gt;
+    &lt;img alt=&quot;stack&quot; src=&quot;/img/2018-06-26-viroreact/app-scan.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;ViroReact is built on top of React, so basic knowledge of React is necessary. 
+To get started, you can follow this great free beginner guide by Kent C. Dodds at egghead.io 
+&lt;a href=&quot;https://egghead.io/courses/the-beginner-s-guide-to-react.&quot;&gt;The beginner’s guide to React&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;step-1-project-setup&quot;&gt;Step 1: Project setup&lt;/h4&gt;
+&lt;p&gt;We began by following the Official &lt;a href=&quot;https://docs.viromedia.com/v2.7.3/docs/quick-start&quot;&gt;Quick Start guide from ViroMedia&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Using the &lt;a href=&quot;https://www.npmjs.com/package/react-viro&quot;&gt;react-viro CLI&lt;/a&gt;, we generated a ViroSample project.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;react-viro init ARMeetingRoomViewer
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;step-2-create-an-ar-scene-for-viewing-the-status-of-a-meeting-room&quot;&gt;Step 2: Create an AR scene for viewing the status of a meeting room.&lt;/h4&gt;
+&lt;p&gt;To be able to scan the meeting room we needed a picture of the meeting room nameplate, 
+this will act as the marker to scan the meeting room information.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/img/2018-06-26-viroreact/m07-image-marker.png&quot; data-lightbox=&quot;m07&quot; data-title=&quot;meeting-room-viewer-app-foto&quot;&gt;
+    &lt;img alt=&quot;stack&quot; src=&quot;/img/2018-06-26-viroreact/m07-image-marker.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 300px;&quot; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I placed the marker image inside of the &lt;code class=&quot;highlighter-rouge&quot;&gt;**/js/res**&lt;/code&gt; folder.&lt;/p&gt;
+
+&lt;p&gt;Because the file extension was in capital letters (.JPG), 
+I had to configure this extension in the &lt;code class=&quot;highlighter-rouge&quot;&gt;rn-cli.config.js&lt;/code&gt; file inside of the root folder.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nx&quot;&gt;getAssetExts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;obj&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;mtl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;JPG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;vrx&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hdr&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, I created the actual scene in a file called &lt;strong&gt;markerscene.js&lt;/strong&gt; in the &lt;strong&gt;/js/&lt;/strong&gt; folder.&lt;/p&gt;
+
+&lt;p&gt;To be able to scan the image marker, we need two important APIs:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.viromedia.com/v2.7.3/docs/viroartrackingtargets&quot;&gt;ViroARTrackingTargets&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.viromedia.com/v2.7.3/docs/viroarimagemarker&quot;&gt;ViroARImageMarker&lt;/a&gt; component&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;When the scene initialises we need to setup the Tracking Target(our image marker)
+&lt;strong&gt;mr7&lt;/strong&gt; refers to a meeting room name.&lt;/p&gt;
+
+&lt;p&gt;We call this method inside of the constructor.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;setMarker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;ViroARTrackingTargets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createTargets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;mr7&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'./res/mr7.JPG'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;orientation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Up&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;physicalWidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then we need to define what to render. 
+The root component will be an AR Scene:&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroARScene&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;onAnchorFound=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{this._getInfo}&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;onClick=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{this._getInfo}&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  ...
+ &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ViroARScene&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We bind two events on the ViroARScene component, onAnchorFound and onClick. 
+Everytime one of these events occur, we want to fetch the latest meeting room state.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;onAnchorFound&lt;/code&gt; gets called when the Image Marker has been detected.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;getInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'https://rooms.meeting/rm7'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isTrueSet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isAvailable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'true'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;isAvailable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isTrueSet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;nextMeeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isTrueSet&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`Next meeting: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nextMeeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;h`&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`Free @ &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nextMeeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;h`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isTrueSet&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`Available`&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Not Available'&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Inside the scene we want to display the meeting room data when the Image Marker is scanned.
+We need to use the ViroReact ImageMarker component for this.&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroARImageMarker&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;target=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{&quot;mr7&quot;}&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroFlexView&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{this.state.isAvailable&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;styles.containerAvail&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;styles.containerNotAvail}&lt;/span&gt;
+                  &lt;span class=&quot;na&quot;&gt;width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{3}&lt;/span&gt;
+                  &lt;span class=&quot;na&quot;&gt;height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{3}&lt;/span&gt;
+                  &lt;span class=&quot;na&quot;&gt;position=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[0,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;1.25]}&lt;/span&gt;
+                  &lt;span class=&quot;na&quot;&gt;rotation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[-100,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0]}&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroText&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;text=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{this.state.text}&lt;/span&gt;
+                  &lt;span class=&quot;na&quot;&gt;width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{2}&lt;/span&gt;
+                  &lt;span class=&quot;na&quot;&gt;height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{2}&lt;/span&gt;
+                  &lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{styles.text}/&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;ViroText&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;text=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{this.state.nextMeeting}&lt;/span&gt;
+                  &lt;span class=&quot;na&quot;&gt;position=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{[0,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;-1,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0]}&lt;/span&gt;
+                  &lt;span class=&quot;na&quot;&gt;width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{2.5}&lt;/span&gt;
+                  &lt;span class=&quot;na&quot;&gt;height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{2}&lt;/span&gt;
+                  &lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{styles.nextMeeting}/&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ViroFlexView&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ViroARImageMarker&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;strong&gt;ViroARImageMarker&lt;/strong&gt; component has a target “mr7” assigned.
+This refers to the &lt;strong&gt;ViroARTrackingTarget&lt;/strong&gt; we defined in the &lt;strong&gt;setMarker()&lt;/strong&gt; method above.&lt;/p&gt;
+
+&lt;p&gt;When the target is successfully scanned, all the content of the ViroARImageMarker component will be rendered.
+In our case two TextViews positioned with a FlexView.&lt;/p&gt;
+
+&lt;p&gt;We bind the data we fetched from in our &lt;code class=&quot;highlighter-rouge&quot;&gt;getInfo()&lt;/code&gt; method to the ViroText and ViroFlexView components.&lt;/p&gt;
+
+&lt;p&gt;And these are the styles we defined for the ViroText and ViroFlexView.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;styles&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;StyleSheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;fontFamily&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Arial'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;fontSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;flex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'#FFFFFF'&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;nextMeeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;fontFamily&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Arial'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;fontSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;flex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'#FFFFFF'&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;containerAvail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;flexDirection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'column'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;backgroundColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;#E98300&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;containerNotAvail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;flexDirection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'column'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;backgroundColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;#e91530&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Our final scene&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s1&quot;&gt;'use strict'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'react'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;StyleSheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'react-native'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ViroARScene&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ViroText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ViroConstants&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ViroARTrackingTargets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ViroARImageMarker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ViroFlexView&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'react-viro'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MarkerScene&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;// Set initial state here&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Initializing AR...&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;nextMeeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;isAvailable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setMarker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_getInfo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_getInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;setMarker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;ViroARTrackingTargets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createTargets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;mr7&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'./res/mr7.JPG'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;orientation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Up&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;physicalWidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ViroARScene&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;onAnchorFound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_getInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                         &lt;span class=&quot;nx&quot;&gt;onClick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_getInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ViroARImageMarker&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mr7&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ViroFlexView&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isAvailable&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;styles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;containerAvail&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;styles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;containerNotAvail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                                  &lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                                  &lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                                  &lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]}&lt;/span&gt;
+                                  &lt;span class=&quot;nx&quot;&gt;rotation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ViroText&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                                  &lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                                  &lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                                  &lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;styles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;                        &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ViroText&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nextMeeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                                  &lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]}&lt;/span&gt;
+                                  &lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                                  &lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                                  &lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;styles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nextMeeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;                    &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/ViroFlexView&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;                &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/ViroARImageMarker&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/ViroARScene&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;_getInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'https://rooms.meeting/rm7'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isTrueSet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isAvailable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'true'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;isAvailable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isTrueSet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;nextMeeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isTrueSet&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`Next meeting: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nextMeeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;h`&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`Free @ &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nextMeeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;h`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isTrueSet&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`Available`&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Not Available'&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;styles&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;StyleSheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;fontFamily&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Arial'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;fontSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;flex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'#FFFFFF'&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;nextMeeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;fontFamily&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Arial'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;fontSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;flex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'#FFFFFF'&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;containerAvail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;flexDirection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'column'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;backgroundColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;#E98300&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;containerNotAvail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;flexDirection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'column'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;backgroundColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;#e91530&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MarkerScene&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;step-3-load-your-marker-scene-on-application-startup&quot;&gt;Step 3: Load your marker scene on application startup&lt;/h4&gt;
+
+&lt;p&gt;Now that we have our scene, we can load it on start-up.
+In the root folder you can find the &lt;code class=&quot;highlighter-rouge&quot;&gt;app.js&lt;/code&gt; file.
+Here we can define which scene to load when starting up the application.&lt;/p&gt;
+
+&lt;p&gt;Assign your API key from ViroMedia.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sharedProps&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;apiKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;6E2805CC-xxxx-4Ex0-8xx0-02xxxxxxx&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Import your marker scene.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MarkerScene&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'./js/MarkerScene'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Render your AR Scene.&lt;/p&gt;
+
+&lt;p&gt;Final result:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'react'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ViroARSceneNavigator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'react-viro'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sharedProps&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;apiKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;6E2805CC-xxxx-4Ex0-8xx0-02xxxxxxx&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MarkerScene&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'./js/MarkerScene'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ViroSample&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;sharedProps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sharedProps&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_getARNavigator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_getARNavigator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_getARNavigator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;_getARNavigator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ViroARSceneNavigator&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{...&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sharedProps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                                  &lt;span class=&quot;nx&quot;&gt;initialScene&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ViroSample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;demo&quot;&gt;Demo&lt;/h3&gt;
+
+&lt;div class=&quot;responsive-video&quot;&gt;
+    &lt;iframe src=&quot;https://www.youtube.com/embed/KJvIwv86Hv0&quot; frameborder=&quot;0&quot; gesture=&quot;media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;responsive-video&quot;&gt;
+    &lt;iframe src=&quot;https://www.youtube.com/embed/3kvDbDxIqdA&quot; frameborder=&quot;0&quot; gesture=&quot;media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;lessons-learned-and-conclusion&quot;&gt;Lessons learned and conclusion&lt;/h2&gt;
+&lt;p&gt;Without prior knowledge it was a bit challenging for us to get our development environment setup correctly.
+We had a lot of issues with debugging and cached builds. 
+When we had issues, it was hard to tell if the problem was with React Native or ViroReact.&lt;/p&gt;
+
+&lt;p&gt;Debugging was a big challenge for us and the react native development tools don’t seem to work well with ViroReact.
+The documentation is quite expansive but it was not always up-to-date.&lt;/p&gt;
+
+&lt;p&gt;But aside from that, once we were aware of which parts of the dev tools that worked and which ones that didn’t, we were able to quickly build an AR application.&lt;/p&gt;
+
+&lt;h2 id=&quot;extra-resources&quot;&gt;Extra resources&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ordina-jworks.github.io/iot/2017/12/20/Virtual-Reality.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;An introduction to virtual and alternate reality&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.viromedia.com/docs/viro-platform-overview&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/viromedia/viro&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Sample applications&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://egghead.io/courses/the-beginner-s-guide-to-react&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Beginner’s guide to React&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Ryan&quot;, &quot;last_name&quot;=&gt;&quot;de Gruyter&quot;, &quot;github&quot;=&gt;&quot;ryandegruyter&quot;, &quot;linkedin&quot;=&gt;&quot;ryandg&quot;, &quot;permalink&quot;=&gt;&quot;/author/ryan-de-gruyter/&quot;, &quot;avatar&quot;=&gt;&quot;ryan-de-gruyter.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;ryan.degruyter@ordina.be&quot;, &quot;phone&quot;=&gt;32479079468, &quot;bio&quot;=&gt;&quot;Ryan is a frontend developer and interaction designer. He enjoys writing clean code and building maintainable, user friendly web applications in Typescript and Javascript. He also has a strong interest in motion design and UI/UX. In his spare time, he practices martial arts and enjoys playing the guitar.&quot;}</name><email>ryan.degruyter@ordina.be</email></author><category term="IoT" /><category term="React" /><category term="React Native" /><category term="ViroReact" /><category term="Virtual reality" /><category term="VR" /><category term="Augmented reality" /><category term="AR" /><category term="Mixed reality" /><category term="MR" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-06-26-viroreact/viroreact.jpg" /></entry><entry><title type="html">Spring IO 2018</title><link href="https://ordina-jworks.github.io/conference/2018/06/26/Spring-IO-2018.html" rel="alternate" type="text/html" title="Spring IO 2018" /><published>2018-06-26T00:00:00+00:00</published><updated>2018-06-26T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2018/06/26/Spring-IO-2018</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2018/06/26/Spring-IO-2018.html">&lt;h1 id=&quot;spring-io-is-back&quot;&gt;Spring IO is back!&lt;/h1&gt;
 
 &lt;p&gt;Marked in red on the calendar of every JWorks consultant: the yearly edition of Spring I/O.
 This year, we weren’t going to wait for the explicit approval of our manager and we ordered 27 early bird tickets as soon as we could and booked our flights to sunny Barcelona!
@@ -4013,184 +4630,4 @@ To summarize, I really recommend this Kickstarter program to accelerate your car
 
 &lt;h1 id=&quot;about-ordinas-kickstarter-trajectories&quot;&gt;About Ordina’s kickstarter trajectories&lt;/h1&gt;
 &lt;p&gt;Interested in knowing more about Ordina’s kickstarter trajectories?&lt;br /&gt;
-More information is available on &lt;a href=&quot;https://www.ordina.be/jobs/kickstarter-2018/&quot; target=&quot;_blank&quot;&gt;Ordina’s website&lt;/a&gt;.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Johan&quot;, &quot;last_name&quot;=&gt;&quot;Silkens&quot;, &quot;permalink&quot;=&gt;&quot;/author/johan-silkens/&quot;, &quot;avatar&quot;=&gt;&quot;johan-silkens.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;johan-silkens-848bb1b2&quot;, &quot;twitter&quot;=&gt;&quot;SilkensJ&quot;, &quot;email&quot;=&gt;&quot;johan.silkens@ordina.be&quot;, &quot;github&quot;=&gt;&quot;JSilkens&quot;, &quot;bio&quot;=&gt;&quot;Johan is a Java Developer at Ordina Belgium. He is passionate about technology and science since he was as kid and is always up for a challenge.&quot;}</name><email>johan.silkens@ordina.be</email></author><category term="Kickstarters" /><category term="Spring" /><category term="Spring Boot" /><category term="Angular" /><category term="Unit Test" /><category term="Mocking" /><category term="Microservices" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="Typescript" /><category term="Kickstarter" /><category term="Security" /><summary type="html">The Ordina Kickstarter trajectory is a collection of courses tailored and designed by the senior consultants of Ordina. These courses are created to give the beginning software developer a broad knowledge base while also providing an in-depth view on several technologies and best practices.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/kicks.png" /></entry><entry><title type="html">SecAppDev 2018</title><link href="https://ordina-jworks.github.io/conference/2018/03/15/SecAppDev-2018.html" rel="alternate" type="text/html" title="SecAppDev 2018" /><published>2018-03-15T00:00:00+00:00</published><updated>2018-03-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2018/03/15/secappdev</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2018/03/15/SecAppDev-2018.html">&lt;blockquote&gt;
-  &lt;p&gt;Last February I was able to attend the 2018 edition of &lt;a href=&quot;https://www.secappdev.org/&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;SecAppDev&lt;/a&gt;.
-It’s a training/security conference in Leuven that lasts a week and which hosts top-notch speakers.
-It’s organised by Philippe De Ryck of imec-DistriNet, KU Leuven.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;SecAppDev for me was a week filled with learning, I’ll recap a few of the sessions I attended in this post.&lt;/p&gt;
-
-&lt;h1 id=&quot;security-model-of-the-web---philippe-de-ryck&quot;&gt;Security model of the web - Philippe De Ryck&lt;/h1&gt;
-&lt;p&gt;The most basic security control of the modern internet is the ‘Origin’.
-This was thought up over 20 years ago and, at the time, was adequate for its purpose.
-Nowadays however, origin is a poor security constraint: we load scripts from CDNs, we include frames from other providers, …
-Because of this, more security controls have been bolted on in the last years.
-In this talk, Philippe De Ryck explored some of these.
-We learned how to use &lt;code class=&quot;highlighter-rouge&quot;&gt;X-Frame-Options&lt;/code&gt; and Content Security Policy (CSP) settings to limit who can include our pages in a frame.
-Next up he explained how to limit the power of other sites which you might need to frame in yours using the &lt;code class=&quot;highlighter-rouge&quot;&gt;sandbox&lt;/code&gt; attribute, which was introduced in HTML5.
-Once you’ve limited what the frame can do, you can open up communications between your page and the frame through the Web Messaging API.&lt;/p&gt;
-
-&lt;p&gt;Once you’re past frames, we come to scripts.
-Nowadays, we load scripts from all over the place, often knowing nothing more than a name.
-These scripts run within the context of your page and can do everything the current user can do.
-To make sure these scripts aren’t tampered with you’d ideally investigate them first and then use subresource integrity (SRI) to make sure they aren’t modified.
-Most CDNs nowadays offer this as a service: they provide you with the correct hashes for the scripts they host.
-That does mean you need to trust your CDN to host a non-malicious file at the time you include it.&lt;/p&gt;
-
-&lt;p&gt;After a quick look at CSP, we came to the cookies.
-As we all know, cookies are not the best solution: they’re sent over both HTTP and HTTPS and they can be read and modified by (malicious) scripts.
-This allows for some interesting attacks like session hijacking and session fixation.
-An attempt was made to fix this through &lt;code class=&quot;highlighter-rouge&quot;&gt;Secure&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpOnly&lt;/code&gt; flags.
-Recently a new spec tries to restrict cookie behavior based on prefixes: &lt;code class=&quot;highlighter-rouge&quot;&gt;__Secure-&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;__Host-&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Because browsers send your cookies on all requests to your domains, this opens you up to an attack called Cross Site Request Forgery (CSRF).
-We discussed a few methods that can be used to mitigate this risk: hidden form tokens, “transparent” tokens, checking the origin header and samesite cookies.&lt;/p&gt;
-
-&lt;p&gt;The session ended with a look at JSON Web Tokens (JWT).
-Contrary to popular belief, these represent data, &lt;strong&gt;not&lt;/strong&gt; a transport mechanism.
-It’s perfectly fine to store a JWT in a cookie, rendering the whole cookie vs. tokens debate a bit useless.
-Putting your token on an &lt;code class=&quot;highlighter-rouge&quot;&gt;Authorization&lt;/code&gt; header, does protect against CSRF, but introduces some other complexities.&lt;/p&gt;
-
-&lt;h1 id=&quot;owasps-top-10-proactive-controls-jim-manico&quot;&gt;OWASP’s top 10 proactive controls (Jim Manico)&lt;/h1&gt;
-&lt;p&gt;In this session we had a quick look at version 2 of the OWASP &lt;a href=&quot;https://www.owasp.org/index.php/OWASP_Proactive_Controls&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;proactive controls&lt;/a&gt;.
-These are the things every developer should do in order to harden their code.
-The full list has 10 items, but because of some very interesting discussions, we only managed to cover the first 5.&lt;/p&gt;
-
-&lt;h2 id=&quot;1-verify-for-security-early-and-often&quot;&gt;1. Verify for security early and often&lt;/h2&gt;
-&lt;p&gt;This is not an easy thing in today’s DevOps world as code is deployed to production a lot more often.
-Etsy deploys more than 25 times per day, while Amazon manages a deploy every 11.6 &lt;em&gt;seconds&lt;/em&gt;!
-Make sure that security testing is part of the build process, doing that ensures that your security testing actually happens.
-There are several tools available that can help you out here (e.g. OWASP ZAP or Nessus) and you can combine them for increased coverage.
-Make sure you don’t end up on the “hamster wheel of pain” where you focus on the specific bugs they reveal, rather than the &lt;em&gt;class&lt;/em&gt; of bugs.&lt;/p&gt;
-
-&lt;h2 id=&quot;2-parameterize-queries&quot;&gt;2. Parameterize queries&lt;/h2&gt;
-&lt;p&gt;We should all know by now that queries should &lt;strong&gt;never&lt;/strong&gt; be built using string concatenations.
-Use parameterized queries instead to prevent SQL injections.
-Use parameters for &lt;em&gt;everything&lt;/em&gt;: not just the user-supplied input, but configurations and hard-coded values as well.
-This can give you a performance boost as well, since parameterized queries are compiled by the database only once and then reused.&lt;/p&gt;
-
-&lt;h2 id=&quot;3-encode-data-before-use-in-a-parser&quot;&gt;3. Encode data before use in a parser&lt;/h2&gt;
-&lt;p&gt;The best known vulnerability here is Cross Site Scripting (XSS).
-Allowing someone to inject HTML tags in your HTML pages gives them nearly unlimited power over your application.
-Make sure to encode all user input before feeding it to a parser (a browser is basically a very powerful HTML parser) to prevent these kinds of issues.
-For Java applications, you can use the &lt;a href=&quot;https://www.owasp.org/index.php/OWASP_Java_Encoder_Project&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;OWASP Java encoder project&lt;/a&gt; to handle your HTML encoding.
-They also have tools available for other languages (.NET, PHP, …).&lt;/p&gt;
-
-&lt;h2 id=&quot;4-validate-all-inputs&quot;&gt;4. Validate all inputs&lt;/h2&gt;
-&lt;p&gt;And don’t just do it client-side.
-Client-side validations are easily bypassed, so you need to repeat them server-side as well.
-If your users need to be able to post HTML, you need to sanitize it.
-For that you can use the &lt;a href=&quot;https://www.owasp.org/index.php/OWASP_Java_HTML_Sanitizer_Project&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;OWASP HTML Sanitizer&lt;/a&gt;.
-Keep in mind that even valid data can cause issues: &lt;code class=&quot;highlighter-rouge&quot;&gt;' OR '1'='1'; --&lt;/code&gt; is a perfectly valid password, and the Irish people will be grateful that you allow the use of &lt;code class=&quot;highlighter-rouge&quot;&gt;'&lt;/code&gt; in name fields.&lt;/p&gt;
-
-&lt;h3 id=&quot;what-about-files&quot;&gt;What about files?&lt;/h3&gt;
-&lt;p&gt;You also need to do this if your users are allowed to upload files.
-Files create even more risks: you need to make sure that the uploaded files are safe.
-First validate the file name, file type and decompressed size (preferably &lt;em&gt;before&lt;/em&gt; decompressing).
-Run it through a virus scanner on a separate machine to protect against exploits against your antivirus.
-For images, you need to enforce size limits and you’ll want to verify that you’re actually dealing with an image.
-The easiest way to do that is to rewrite the image (e.g. using ImageMagick).
-Once again, you want to do this on a separate machine to prevent malicious images to take over your application.&lt;/p&gt;
-
-&lt;h2 id=&quot;5-establish-authentication-and-identity-controls&quot;&gt;5. Establish authentication and identity controls.&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;Don’t limit the password (within reason). 
-Don’t enforce arbitrarily short passwords or limit the type of characters that can be used.
-You &lt;strong&gt;do&lt;/strong&gt; want to limit the length, if only to prevent DOS attacks, but 100+ characters shouldn’t be an issue.&lt;/li&gt;
-  &lt;li&gt;Check the chosen password against a list of the 100k most common chosen passwords&lt;/li&gt;
-  &lt;li&gt;Use a strong, unique salt.
-Each credential should have its own salt, and don’t skimp on the length.
-64 or 32 characters (depending on the hashing algorithm) should be the norm.&lt;/li&gt;
-  &lt;li&gt;Impose a difficult verification on both attacker and defender.
-Use a hashing algorithm that’s appropriate, such as PBKDF2, scrypt or bcrypt.
-Alternatively, you could use &lt;code class=&quot;highlighter-rouge&quot;&gt;HMAC-SHA-256( [private key], [salt] + [password] )&lt;/code&gt; to only make it hard on the attacker.
-However, this introduces a lot more complexity in your system.
-Other authentication best practices should also be applied, such as two factor authentication, a proper lockout policy, …&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;a-practical-introduction-to-openid-connect--oauth-20-dominick-baier&quot;&gt;A practical introduction to OpenID Connect &amp;amp; OAuth 2.0 (Dominick Baier)&lt;/h1&gt;
-&lt;p&gt;Dominick Baier gave a very interesting talk on OpenID Connect and OAuth 2.0.
-An important distinction he made at the start is the difference between a &lt;em&gt;user&lt;/em&gt; and a &lt;em&gt;client&lt;/em&gt;.
-Users are people (carbon based life forms) while the word “client” refers to applications (or silicon based life forms).
-OAuth2.0 is a protocol meant for client authentication while OpenID is the successor to SAML (and as such meant to authenticate users).
-OAuth is &lt;strong&gt;not&lt;/strong&gt; meant for user authentication, even though it’s commonly (ab)used for that through various incompatible, proprietary extensions.&lt;/p&gt;
-
-&lt;h2 id=&quot;openid-connect&quot;&gt;OpenID Connect&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://openid.net/connect&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;OpenID Connect&lt;/a&gt; piggy backs on OAuth2.0.
-&lt;img src=&quot;/img/secappdev-2018/OpenIDConnect.png&quot; alt=&quot;OpenId Connect protocol suite&quot; class=&quot;image fit&quot; style=&quot;max-width:638px&quot; /&gt;
-It adds support for logging out and key rotation.
-More importantly, it’s an &lt;em&gt;open&lt;/em&gt; standard and it publishes a list of &lt;a href=&quot;http://openid.net/certification/&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;certified implementations&lt;/a&gt;.
-Compliance with the spec is guaranteed through a set of tests.&lt;/p&gt;
-
-&lt;h2 id=&quot;endpoints&quot;&gt;Endpoints&lt;/h2&gt;
-&lt;p&gt;An OpenID Connect server (or token service) has to implement a set of endpoints:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;A discovery endpoint to discover where the other endpoints are.&lt;/li&gt;
-  &lt;li&gt;An authorize endpoint (for users)&lt;/li&gt;
-  &lt;li&gt;A token endpoint (for machine to machine processes)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;discovery-endpoint&quot;&gt;Discovery endpoint&lt;/h3&gt;
-&lt;p&gt;An example of a discovery endpoint is at &lt;a href=&quot;https://accounts.google.com/.well-known/openid-configuration&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://accounts.google.com/.well-known/openid-configuration&lt;/a&gt;.
-It returns an &lt;strong&gt;unsigned&lt;/strong&gt; JSON document: for security OpenID Connects relies entirely on HTTPS.
-The &lt;code class=&quot;highlighter-rouge&quot;&gt;issuer&lt;/code&gt; &lt;strong&gt;must&lt;/strong&gt; be the URL where the document is located.&lt;/p&gt;
-
-&lt;h3 id=&quot;authorize-endpoint&quot;&gt;Authorize endpoint&lt;/h3&gt;
-&lt;p&gt;This endpoint handles authentication for web applications and is found in the &lt;code class=&quot;highlighter-rouge&quot;&gt;authorization_endpoint&lt;/code&gt; field of the discovery endpoint
-The client (in this case the browser) makes a request to the authorize endpoint and passes along a few required parameters:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;The callback url: the token service will verify that this url is allowed and perform a callback to this url after the user is logged on.&lt;/li&gt;
-  &lt;li&gt;A nonce (&lt;strong&gt;n&lt;/strong&gt;umber used &lt;strong&gt;once&lt;/strong&gt;) which will be echoed to the client so it can verify server responses.&lt;/li&gt;
-  &lt;li&gt;And a scope which needs to include &lt;code class=&quot;highlighter-rouge&quot;&gt;openid&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The server will then authenticate the user and show a consent dialog.
-This dialog shows the logged in user, the application that requests access and the access that’s being requested.
-&lt;img src=&quot;/img/secappdev-2018/OAuth2Consent.png&quot; alt=&quot;OpenID Connect consent dialog&quot; class=&quot;image fit&quot; style=&quot;max-width:638px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;When the user allows this request, the token service sends  response to the client containing a JWT based identity token as well as a cookie.
-This means that the token service will remember the user for future logon requests to other applications.&lt;/p&gt;
-
-&lt;h5 id=&quot;identity-token-validation&quot;&gt;Identity token validation&lt;/h5&gt;
-&lt;p&gt;When you use an identity token to authenticate to an application, the application needs to validate this token.
-It does this by making sure that:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;The issuer name matches the value of the &lt;code class=&quot;highlighter-rouge&quot;&gt;iss&lt;/code&gt; claim&lt;/li&gt;
-  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;aud&lt;/code&gt; must contain the client-id that was used to register the application.&lt;/li&gt;
-  &lt;li&gt;The proper signing algorithm must be defined in &lt;code class=&quot;highlighter-rouge&quot;&gt;alg&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;The current time must be before &lt;code class=&quot;highlighter-rouge&quot;&gt;exp&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;If the token is too old (as defined in &lt;code class=&quot;highlighter-rouge&quot;&gt;iat&lt;/code&gt; or “issued at”), it can be rejected&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nonce&lt;/code&gt; must match what client sent&lt;/li&gt;
-  &lt;li&gt;And you need to validate the signature. 
-For that you check the &lt;code class=&quot;highlighter-rouge&quot;&gt;kid&lt;/code&gt; field in the header and use find that key in the document you find at the &lt;code class=&quot;highlighter-rouge&quot;&gt;jwks_uri&lt;/code&gt; field from the discovery endpoint.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;session-management&quot;&gt;Session management&lt;/h2&gt;
-&lt;p&gt;Since the token service places a cookie in the user’s browser, this means that you have one logon session active.
-When you access another application that uses the same token service, it just needs to show you the consent dialog, without asking you to log in again.
-This is called “Single Sign On” (SSO).
-OpenID Connect also supports “Single Sign Out”.
-When you log out of the token service (by calling the /end_session endpoint), it will try to sign you out from all applications.
-It support three different ways of doing this:&lt;/p&gt;
-
-&lt;h3 id=&quot;javascript-based-notification&quot;&gt;Javascript based notification&lt;/h3&gt;
-&lt;p&gt;In order to use this, your application should always contain a specific iframe.
-The source of this iframe is defined in the &lt;code class=&quot;highlighter-rouge&quot;&gt;check_session_iframe&lt;/code&gt; field of the discovery config.
-This frame is loaded in the same origin as the token service and it will do a JS call to the parent page to log out.&lt;/p&gt;
-
-&lt;h3 id=&quot;front-channel-notification&quot;&gt;Front-channel notification&lt;/h3&gt;
-&lt;p&gt;Even though the spec calls this a “best-effort approach”, it’s still the method that’s most common.
-It requires each client to implement a clean-up endpoint.
-When the user logs out, the token service will render an HTML page that containing an invisible iframe for each client.
-These iframes will call the clean-up endpoints.
-Normally, these iframes will contain the session id in the url to prevent “signout spam”.
-Otherwise it would be too easy for a malicious site to add an image to their pages signing you out of your sessions, causing a DOS.
-The reason this approach is “best-effort” is that the browser might not be able to call all endpoints before the user navigates away from the log out page.&lt;/p&gt;
-
-&lt;h3 id=&quot;back-channel-notification&quot;&gt;Back-channel notification&lt;/h3&gt;
-&lt;p&gt;This is the safest option, as it guarantees that the user will be signed off from all applications.
-Unfortunately it’s also the most complicated to implement.
-In this method, the token service will call a server-endpoint on all client applications.
-This means that the application server will need to implement the clean up endpoint.
-Besides that, you also need to be sure that a network connection is possible between the ID provider and all application servers.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;De Grande&quot;, &quot;twitter&quot;=&gt;&quot;TimDG&quot;, &quot;linkedin&quot;=&gt;&quot;timdegrande&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-de-grande/&quot;, &quot;avatar&quot;=&gt;&quot;tim-de-grande.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Aplication Security&quot;, &quot;email&quot;=&gt;&quot;tim.degrande@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a principal Java Consultant at Ordina who is interested in security, cryptography and privacy. As Compentence Leader Application Security, he keeps his colleagues up to date on the latest security news and works to broaden their understanding by giving workshops and classes.&quot;}</name><email>tim.degrande@ordina.be</email></author><category term="Security" /><category term="SecAppDev" /><category term="Security" /><category term="Development" /><category term="Conference" /><summary type="html">Last February I was able to attend the 2018 edition of SecAppDev. It’s a training/security conference in Leuven that lasts a week and which hosts top-notch speakers. It’s organised by Philippe De Ryck of imec-DistriNet, KU Leuven.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/secappdev-2018/secappdev_wide.png" /></entry></feed>
+More information is available on &lt;a href=&quot;https://www.ordina.be/jobs/kickstarter-2018/&quot; target=&quot;_blank&quot;&gt;Ordina’s website&lt;/a&gt;.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Johan&quot;, &quot;last_name&quot;=&gt;&quot;Silkens&quot;, &quot;permalink&quot;=&gt;&quot;/author/johan-silkens/&quot;, &quot;avatar&quot;=&gt;&quot;johan-silkens.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;johan-silkens-848bb1b2&quot;, &quot;twitter&quot;=&gt;&quot;SilkensJ&quot;, &quot;email&quot;=&gt;&quot;johan.silkens@ordina.be&quot;, &quot;github&quot;=&gt;&quot;JSilkens&quot;, &quot;bio&quot;=&gt;&quot;Johan is a Java Developer at Ordina Belgium. He is passionate about technology and science since he was as kid and is always up for a challenge.&quot;}</name><email>johan.silkens@ordina.be</email></author><category term="Kickstarters" /><category term="Spring" /><category term="Spring Boot" /><category term="Angular" /><category term="Unit Test" /><category term="Mocking" /><category term="Microservices" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="Typescript" /><category term="Kickstarter" /><category term="Security" /><summary type="html">The Ordina Kickstarter trajectory is a collection of courses tailored and designed by the senior consultants of Ordina. These courses are created to give the beginning software developer a broad knowledge base while also providing an in-depth view on several technologies and best practices.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/kicks.png" /></entry></feed>
