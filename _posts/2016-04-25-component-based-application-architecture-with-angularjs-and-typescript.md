@@ -103,6 +103,7 @@ These components are unaware of any application state, and they only get data pa
 
 *A simple presentational root component.*
 
+{% raw %}
 {% highlight typescript %}
 {% raw %}
 	export class RootComponent implements IComponentOptions {
@@ -124,6 +125,7 @@ These components are unaware of any application state, and they only get data pa
 
 {% endraw %}
 {% endhighlight %}
+{% endraw %}
 
 This component has a very simple API with one input -  `title` - and zero outputs.
 It doesn't call a service or fetch any data.
@@ -132,6 +134,7 @@ Also notice how easy it was to register this component directive.
 
 *Let's create the same component directive but register it with the `.directive()` method.*
 
+{% raw %}
 {% highlight typescript %}
 {% raw %}
     export class RootComponent implements IDirective {
@@ -159,6 +162,7 @@ Also notice how easy it was to register this component directive.
 
 {% endraw %}
 {% endhighlight %}
+{% endraw %}
 
 As you can see, this has a lot more configuration compared to using the `.component()` helper method.
 Although it offers more power and flexibility, its more practical to have the `.component()` method when creating custom UI elements.
