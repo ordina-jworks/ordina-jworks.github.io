@@ -44,7 +44,7 @@ But what does this mean?
 
 > The collective programming of the mind which distinguishes the members of one group or category of people from another. - Geert Hofstede
 
-Richard talks about 6 different culture dimensions, researched by Geert Hofstede:
+Richard talks about six different culture dimensions, researched by Geert Hofstede:
 * **Power distance**:
 Expresses the degree to which the less powerful members of a society accept and expect that power is distributed unequally.
 * **Individualism versus collectivism**:
@@ -91,8 +91,8 @@ At the core, there are six building blocks for high performance teams:
 * **Freedom**: Every team member can choose and make decisions by themselves
 * **Self awareness**: Listen to yourself, use check-ins to discover, articulate and achieve what you want
 * **Connection**: Listen to others, connect great people into a great team and support each other towards a common goal
-* **Productivity**: Focus on results.
-* **Error handling**: Ensure we are maintaining the positive bias, freedom, self-awareness, connection and productivity.
+* **Productivity**: Focus on results
+* **Error handling**: Ensure we are maintaining the positive bias, freedom, self-awareness, connection and productivity
 
 Hierarchy and power culture erode high performance so when setting up and trying to maintain a high performance team, these building blocks are essential.
 To achieve high performance, increase the team's emotional intelligence and psychological safety.
@@ -138,11 +138,11 @@ To respond to the users immediately, we can implement an optimistic UI.
 99% of requests succeed so why not take advantage of this by *first* updating the UI and only then doing the actual request.
 
 We can also do our best to react as soon as the user signals intent.
-For example, why use the onclick event when the *onmousedown* event exists as it shows intent much earlier?
+For example, why use the `onclick` event when the `onmousedown` event exists as it shows intent much earlier?
 This will provide you with a nice 100-150 millisecond head start.
 This is also usable on touch devices.
 
-Using *:active* animations also buy you more time.
+Using `:active` animations also buy you more time.
 An animation that lasts ~200 milliseconds will provide you with 50 milliseconds extra time keeping the user in an active state.
 
 #### Onto topic two: how to 'unsuck' passive states.
@@ -153,7 +153,7 @@ There are three ways of preventive loss of interest:
 * Distract with shiny objects!
 
 Uncertain waits feel longer so make sure to use progress bars and loading animations when appropriate.
-For example bands with accelerating bars feel 12% faster!
+For example: bands with accelerating bars feel 12% faster!
 
 What about spinners?
 > "Meh" - Eli Fitch
@@ -340,7 +340,7 @@ The fruit and vegetables aisles are always presented to you first whilst you pas
 Social compliance is very important to keep in mind during planning poker.
 Once the numbers are out there, it will influence the people who have not yet voted.
 See the example of the five subjects to say which drawn lines are the same length.
-Among these five people there is one actual test subject while the other 4 are deliberately giving the wrong answer.
+Among these five people there is one actual test subject while the other four are deliberately giving the wrong answer.
 The test subject will actually adjust his answer to match the others' answers even though it is clearly the wrong answer.
 
 There are multiple factors that influence our estimations.
@@ -613,12 +613,18 @@ Turning up the goods on getting our estimates better?
 Or turning up the goods on our ability to rapidly deliver potentially useful software?
 
 Let's learn to control our urge to control things.
-Let's quit worrying about whether we will get done in 3 months for now.
+Let's quit worrying about whether we will get done in three months for now.
 Let's get good at being done everyday.
 
 On [Woody's website](http://zuill.us/WoodyZuill/beyond-estimates/){:target="_blank"}, you can find more info on his take on estimates.
 
+## Interested in more?
+
+As we were not able to attend all the talks at CraftConf, we only covered the ones we've attended in the blogpost above! 
+Hope you find this blog post as interesting as we did the conference! 
+
+If you're interested in more details; all the talks were recorded and can be found on the [CraftConf](https://craft-conf.com/){:target="_blank"} website.
+
 Thanks for reading, everyone!
-Hope you find this blog post as interesting as we did the conference!
 
 <img alt="Craft Conf" src="{{ '/img/craft-conf-2018/Craft-Conf-peeps.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
