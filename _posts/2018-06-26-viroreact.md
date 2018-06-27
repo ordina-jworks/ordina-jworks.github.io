@@ -42,9 +42,9 @@ All other components live in this scene.
 <ViroARScene>
 ```
 
-Just like many other components, the Scene comes in 2 variations: ViroScene and ViroARScene.
-As the name suggests ViroARScene is used for Augmented Reality applications
-while the ViroScene is meant for Virtual Reality.
+Just like many other components, the Scene comes in two variations: `ViroScene` and `ViroARScene`.
+As the name suggests `ViroARScene` is used for Augmented Reality applications
+while the `ViroScene` is meant for Virtual Reality.
 
 A [ViroSceneNavigator](https://docs.viromedia.com/docs/scene-navigation) is used to navigate between these scenes.
 ```xml
@@ -67,7 +67,7 @@ For example a [ViroText](https://docs.viromedia.com/docs/virotext2).
 Or perhaps a [ViroBox](https://docs.viromedia.com/docs/virobox), a [ViroQuad](https://docs.viromedia.com/docs/viroquad) or a [ViroSphere](https://docs.viromedia.com/docs/virosphere).  
 These components can be modified by setting their properties.
 One of the most important properties is the position.
-It takes an array of 3 numbers as the x, y and z coordinates. 
+It takes an array of three numbers as the x, y and z coordinates. 
 
 #### There are also more specialised components
 Like a [Viro3DObject](https://docs.viromedia.com/docs/viro3dobject) which lets you include custom made 3D objects in your scene.
@@ -92,7 +92,7 @@ It basically is a window to another world.
 The Viro3DObject included in it acts like the window frame.
 
 A [ViroARImageMarker](https://docs.viromedia.com/docs/viroarimagemarker) reacts when one of the ViroARTrackingTargets is scanned.
-It will show all the components inside the ViroARImageMarker tag.
+It will show all the components inside the `ViroARImageMarker` tag.
 We have used this in our little app, more on that [below](#demo-application).
 
 ```xml
@@ -121,17 +121,17 @@ The camera always looks in the negative Z direction.
 So if you want an object to be visible as soon as the scene loads up, 
 make sure to set its position with a negative Z value `position={[0, 0, -5]}`. 
 If the object would have a positive Z value it would be placed behind you when you load up the scene.
-There is also a ViroOrbitCamera where the camera orbits around a certain position, always keeping it in view.
+There is also a `ViroOrbitCamera` where the camera orbits around a certain position, always keeping it in view.
 
 [Lights](https://docs.viromedia.com/docs/3d-scene-lighting) are very important components in a scene.
 Without any light the user wouldn't see anything.
 Luckily a default light is provided when none is defined.
 We didn't need lights in our setup but if you want a more realistic or visually stunning experience, 
 I highly recommend you to look into the different lights in the [documentation](https://docs.viromedia.com/v2.6.1/docs/3d-scene-lighting).  
-There are 4 lighting models: Phong, Blinn, Lambert and Constant.  
+There are four lighting models: Phong, Blinn, Lambert and Constant.  
 These are the algorithms that calculate what your objects will look like when influenced by light.
 By default, elements use the Constant lighting model, which means lights will be ignored and the object will show its full color.  
-ViroReact supports 4 types of light.
+ViroReact supports four types of light.
 
 The [ViroAmbientLight](https://docs.viromedia.com/docs/viroambientlight) is the simplest light.
 ```xml
@@ -212,7 +212,7 @@ ViroAnimations.registerAnimations({
 ```
 Animations change the numerical value of properties over time.
 Typically this is used for the position and scale properties but it can just as well be used for color values or other numerical values.
-There are 5 easing types: Linear, EaseIn, EaseOut, EaseInEaseOut and Bounce.
+There are five easing types: Linear, EaseIn, EaseOut, EaseInEaseOut and Bounce.
 These represent how the values change over time.
 
 #### Control the scene with a ViroController 
@@ -325,7 +325,7 @@ I had to configure this extension in the `rn-cli.config.js` file inside of the r
 
 Next, I created the actual scene in a file called **markerscene.js** in the **/js/** folder.
 
-To be able to scan the image marker, we need 2 important APIs:
+To be able to scan the image marker, we need two important APIs:
 - [ViroARTrackingTargets](https://docs.viromedia.com/v2.7.3/docs/viroartrackingtargets)
 - [ViroARImageMarker](https://docs.viromedia.com/v2.7.3/docs/viroarimagemarker) component
 
@@ -356,10 +356,10 @@ The root component will be an AR Scene:
  </ViroARScene>
 ```
 
-We bind 2 events on the ViroARScene component, onAnchorFound and onClick. 
+We bind two events on the ViroARScene component, onAnchorFound and onClick. 
 Everytime one of these events occur, we want to fetch the latest meeting room state.
 
-onAnchorFound gets called when the Image Marker has been detected.
+`onAnchorFound` gets called when the Image Marker has been detected.
 
 ```javascript
 getInfo() {
@@ -406,7 +406,7 @@ The **ViroARImageMarker** component has a target "mr7" assigned.
 This refers to the **ViroARTrackingTarget** we defined in the **setMarker()** method above.
 
 When the target is successfully scanned, all the content of the ViroARImageMarker component will be rendered.
-In our case 2 TextViews positioned with a FlexView.
+In our case two TextViews positioned with a FlexView.
 
 We bind the data we fetched from in our `getInfo()` method to the ViroText and ViroFlexView components.
 
@@ -556,7 +556,7 @@ module.exports = MarkerScene;
 #### Step 3: Load your marker scene on application startup
 
 Now that we have our scene, we can load it on start-up.
-In the root folder you can find the app.js file. 
+In the root folder you can find the `app.js` file.
 Here we can define which scene to load when starting up the application.
 
 Assign your API key from ViroMedia.
@@ -634,10 +634,10 @@ When we had issues, it was hard to tell if the problem was with React Native or 
 Debugging was a big challenge for us and the react native development tools don't seem to work well with ViroReact.
 The documentation is quite expansive but it was not always up-to-date.
 
-But aside from that, once we were aware of which parts of the dev tools that worked and which ones that didn't work, we were able to quickly build an AR application.
+But aside from that, once we were aware of which parts of the dev tools that worked and which ones that didn't, we were able to quickly build an AR application.
 
 ## Extra resources
-- [An introduction to virtual and alternate reality](https://ordina-jworks.github.io/iot/2017/12/20/Virtual-Reality.html)
+- [An introduction to virtual and alternate reality](https://ordina-jworks.github.io/iot/2017/12/20/Virtual-Reality.html){:target="_blank" rel="noopener noreferrer"}
 - [Documentation](https://docs.viromedia.com/docs/viro-platform-overview){:target="_blank" rel="noopener noreferrer"}
-- [Sample applications](https://github.com/viromedia/viro)
-- [Beginner's guide to React](https://egghead.io/courses/the-beginner-s-guide-to-react)
+- [Sample applications](https://github.com/viromedia/viro){:target="_blank" rel="noopener noreferrer"}
+- [Beginner's guide to React](https://egghead.io/courses/the-beginner-s-guide-to-react){:target="_blank" rel="noopener noreferrer"}
