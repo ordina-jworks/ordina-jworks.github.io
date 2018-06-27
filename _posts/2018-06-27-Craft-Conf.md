@@ -11,18 +11,14 @@ comments: true
 > [Craft Conf](https://craft-conf.com/){:target="_blank"} is a two day conference in Budapest, aimed at talks surrounding the 'Software as a craftsmanship' idea.
 JWorks was present this year on the 10th and 11th of May and we would love to give you an overview of some of the talks we attended.
 
-<div class="the-toc">
+## Table of Contents
 
-  <h1 class="the-toc__heading">Table Of Contents</h1>
-    <li><a href="#power-games-for-high-performance-team-culture-psychological-safety-and-ei---richard-kasperowski" title="Power Games for High-performance Team Culture, Psychological Safety, and EI - Richard Kasperowski">Power Games for High-performance Team Culture, Psychological Safety, and EI - Richard Kasperowski</a></li>
-    <li><a href="#perceived-performance-the-only-kind-that-really-matters---eli-fitch" title="Perceived performance: The only kind that really matters - Eli Fitch">Perceived performance: The only kind that really matters - Eli Fitch</a></li>
-    <li><a href="#swarming-scaling-without-a-religious-methodology---dan-north" title="SWARMing: Scaling Without A Religious Methodology - Dan North">SWARMing: Scaling Without A Religious Methodology - Dan North</a></li>
-    <li><a href="#seven-plusminus-two-ways-your-brain-screws-you-up---joseph-pelrine--jasmine-zahno" title="Seven (plus/minus two) ways your brain screws you up - Joseph Pelrine & Jasmine Zahno">Seven (plus/minus two) ways your brain screws you up - Joseph Pelrine & Jasmine Zahno</a></li>
-    <li><a href="#designing-a-high-performing-team---alison-coward" title="Designing a high-performing team - Alison Coward">Designing a high-performing team - Alison Coward</a></li>
-    <li><a href="#estimates-or-noestimates-lets-explore-the-possibilities---woody-zuill" title="Estimates or NoEstimates: Let's explore the possibilities - Woody Zuill">Estimates or NoEstimates: Let's explore the possibilities - Woody Zuill</a></li>
-  <ol class="the-toc__list">
-  </ol>
-</div>
+* [Power Games for High-performance Team Culture, Psychological Safety, and EI - Richard Kasperowski](#power-games-for-high-performance-team-culture-psychological-safety-and-ei---richard-kasperowski)
+* [Perceived performance: The only kind that really matters - Eli Fitch](#perceived-performance-the-only-kind-that-really-matters---eli-fitch)
+* [SWARMing: Scaling Without A Religious Methodology - Dan North](#swarming-scaling-without-a-religious-methodology---dan-north)
+* [Seven (plus/minus two) ways your brain screws you up - Joseph Pelrine & Jasmine Zahno](#seven-plusminus-two-ways-your-brain-screws-you-up---joseph-pelrine--jasmine-zahno)
+* [Designing a high-performing team - Alison Coward](#designing-a-high-performing-team---alison-coward)
+* [Estimates or NoEstimates: Let's explore the possibilities - Woody Zuill](#estimates-or-noestimates-lets-explore-the-possibilities---woody-zuill)
 
 ****
 
