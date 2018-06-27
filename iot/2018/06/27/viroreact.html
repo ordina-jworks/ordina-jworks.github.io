@@ -27,19 +27,19 @@
 
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="ViroReact: Build cross platform AR / VR application for Android and iOS using React - Ryan de Gruyter and Michael Vandendriessche">
+    <meta name="twitter:title" content="ViroReact: Build cross-platform AR/VR applications for Android and iOS using React - Ryan de Gruyter and Michael Vandendriessche">
     <meta name="twitter:description" content="Ordina JWorks Tech Blog">
     <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2018-06-26-viroreact/viroreact.jpg"/>
 
     <!-- Facebook Open Graph -->
     <meta property="og:url" content="http://ordina-jworks.github.io/iot/2018/06/27/viroreact.html"/>
     <meta property="og:type" content="article"/>
-    <meta property="og:title" content="ViroReact: Build cross platform AR / VR application for Android and iOS using React - Ryan de Gruyter and Michael Vandendriessche"/>
+    <meta property="og:title" content="ViroReact: Build cross-platform AR/VR applications for Android and iOS using React - Ryan de Gruyter and Michael Vandendriessche"/>
     <meta property="og:description" content="Ordina JWorks Tech Blog"/>
     <meta property="og:image" content="http://ordina-jworks.github.io/img/2018-06-26-viroreact/viroreact.jpg"/>
 
     
-    <title>ViroReact: Build cross platform AR / VR application for Android and iOS using React - Ryan de Gruyter and Michael Vandendriessche &mdash; Ordina JWorks Tech Blog</title>
+    <title>ViroReact: Build cross-platform AR/VR applications for Android and iOS using React - Ryan de Gruyter and Michael Vandendriessche &mdash; Ordina JWorks Tech Blog</title>
     
 
         <!-- Styles -->
@@ -127,7 +127,7 @@
             <div class="inner">
                 
 
-                <h2>ViroReact: Build cross platform AR / VR application for Android and iOS using React</h2>
+                <h2>ViroReact: Build cross-platform AR/VR applications for Android and iOS using React</h2>
                 
 
                 
@@ -209,8 +209,8 @@
 </ol>
 
 <h2 id="introduction">Introduction</h2>
-<p>Augmented Reality is a very interesting space so naturally we wanted to do something with it.
-There are many frameworks available for building cross platform AR/VR applications.
+<p>Augmented Reality is a very interesting space so naturally, we wanted to do something with it.
+There are many frameworks available for building cross-platform AR/VR applications.
 We came across ViroReact which uses React and React Native to create immersive VR and AR applications using a single codebase for Android and iOS.
 This persuaded us to give it a try.
 In one day, with some tweaking afterwards, we were able to create a simple app to show the status of a meeting room.</p>
@@ -303,7 +303,7 @@ If the object would have a positive Z value it would be placed behind you when y
 There is also a <code class="highlighter-rouge">ViroOrbitCamera</code> where the camera orbits around a certain position, always keeping it in view.</p>
 
 <p><a href="https://docs.viromedia.com/docs/3d-scene-lighting">Lights</a> are very important components in a scene.
-Without any light the user wouldn’t see anything.
+Without any light, the user wouldn’t see anything.
 Luckily a default light is provided when none is defined.
 We didn’t need lights in our setup but if you want a more realistic or visually stunning experience, 
 I highly recommend you to look into the different lights in the <a href="https://docs.viromedia.com/v2.6.1/docs/3d-scene-lighting">documentation</a>.<br />
@@ -388,7 +388,7 @@ There are five easing types: Linear, EaseIn, EaseOut, EaseInEaseOut and Bounce.
 These represent how the values change over time.</p>
 
 <h4 id="control-the-scene-with-a-virocontroller">Control the scene with a ViroController</h4>
-<p>With all of the above we can create an awesome scene but we can’t interact with it yet. 
+<p>With all of the above, we can create an awesome scene but we can’t interact with it yet. 
 The <a href="https://docs.viromedia.com/docs/virocontroller">ViroController</a> provides us the ability to interact with our scene.</p>
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ViroController</span> 
 <span class="na">reticleVisibility=</span><span class="s">{true}</span> 
@@ -418,7 +418,7 @@ This being built on React Native we can also declare our own components of cours
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;CustomComponent</span> <span class="na">customProperty=</span><span class="s">{42}</span><span class="nt">&gt;</span>
 </code></pre></div></div>
 <p>Just extend from Component, define your properties in propTypes and use it in your scenes.
-In our demo application we used this to create our scene but you can create small reusable components too of course!</p>
+In our demo application, we used this to create our scene but you can create small reusable components too of course!</p>
 
 <h2 id="demo-application">Demo application</h2>
 <p>Before you can build a ViroReact application you need to <a href="https://viromedia.com/signup">request an API key from ViroMedia</a>.
@@ -448,14 +448,14 @@ and have the ability to immediately check if the meeting room is available for t
   <li>User interaction</li>
 </ul>
 
-<p>Eventually I created three applications:</p>
+<p>Eventually, I created three applications:</p>
 <ul>
   <li>A backend application for holding meeting room state (NestJS)</li>
   <li>A client application for changing the state of a meeting room (Ionic PWA)</li>
   <li>A client application for viewing the state of a meeting room (ViroReact)</li>
 </ul>
 
-<p>For this blogpost I will only discuss how we created the ViroReact application.</p>
+<p>For this blogpost, I will only discuss how we created the ViroReact application.</p>
 
 <h3 id="the-ar-meeting-room-viewer-viroreact">The AR Meeting room viewer (ViroReact)</h3>
 
@@ -527,7 +527,7 @@ The root component will be an AR Scene:</p>
 </code></pre></div></div>
 
 <p>We bind two events on the ViroARScene component, onAnchorFound and onClick. 
-Everytime one of these events occur, we want to fetch the latest meeting room state.</p>
+Every time one of these events occurs, we want to fetch the latest meeting room state.</p>
 
 <p><code class="highlighter-rouge">onAnchorFound</code> gets called when the Image Marker has been detected.</p>
 
@@ -548,7 +548,7 @@ Everytime one of these events occur, we want to fetch the latest meeting room st
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Inside the scene we want to display the meeting room data when the Image Marker is scanned.
+<p>Inside the scene, we want to display the meeting room data when the Image Marker is scanned.
 We need to use the ViroReact ImageMarker component for this.</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ViroARImageMarker</span> <span class="na">target=</span><span class="s">{"mr7"}</span><span class="nt">&gt;</span>
@@ -574,7 +574,7 @@ We need to use the ViroReact ImageMarker component for this.</p>
 This refers to the <strong>ViroARTrackingTarget</strong> we defined in the <strong>setMarker()</strong> method above.</p>
 
 <p>When the target is successfully scanned, all the content of the ViroARImageMarker component will be rendered.
-In our case two TextViews positioned with a FlexView.</p>
+In our case, two TextViews positioned with a FlexView.</p>
 
 <p>We bind the data we fetched from in our <code class="highlighter-rouge">getInfo()</code> method to the ViroText and ViroFlexView components.</p>
 
@@ -790,7 +790,7 @@ Here we can define which scene to load when starting up the application.</p>
 <p><br /></p>
 
 <h2 id="lessons-learned-and-conclusion">Lessons learned and conclusion</h2>
-<p>Without prior knowledge it was a bit challenging for us to get our development environment setup correctly.
+<p>Without prior knowledge it was a bit challenging for us to get our development environment set up correctly.
 We had a lot of issues with debugging and cached builds. 
 When we had issues, it was hard to tell if the problem was with React Native or ViroReact.</p>
 
@@ -810,11 +810,11 @@ The documentation is quite expansive but it was not always up-to-date.</p>
         </div>
     </div>
     <div class="share-page" >
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/iot/2018/06/27/viroreact.html&title=ViroReact: Build cross platform AR / VR application for Android and iOS using React&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/iot/2018/06/27/viroreact.html&title=ViroReact: Build cross-platform AR/VR applications for Android and iOS using React&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
             <img src="/img/social-media/LinkedIn.png"
                  alt="Share on LinkedIn" />
         </a>
-        <a href="https://twitter.com/intent/tweet?text=ViroReact: Build cross platform AR / VR application for Android and iOS using React&url=https://ordina-jworks.github.io/iot/2018/06/27/viroreact.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+        <a href="https://twitter.com/intent/tweet?text=ViroReact: Build cross-platform AR/VR applications for Android and iOS using React&url=https://ordina-jworks.github.io/iot/2018/06/27/viroreact.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
             <img src="/img/social-media/Twitter.png"
                  alt="Share on Twitter" />
         </a>
@@ -964,7 +964,7 @@ The documentation is quite expansive but it was not always up-to-date.</p>
     var disqus_config = function () {
         this.page.url = "https://ordina-jworks.github.io/iot/2018/06/27/viroreact.html";
         this.page.identifier = "/iot/2018/06/27/viroreact.html";
-        this.page.title = "ViroReact: Build cross platform AR / VR application for Android and iOS using React";
+        this.page.title = "ViroReact: Build cross-platform AR/VR applications for Android and iOS using React";
     };
 </script>
 <script src="//ordina-jworks.disqus.com/embed.js" async></script>
