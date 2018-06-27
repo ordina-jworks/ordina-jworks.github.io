@@ -103,29 +103,26 @@ These components are unaware of any application state, and they only get data pa
 
 *A simple presentational root component.*
 
-{% raw %}
 {% highlight typescript %}
 {% raw %}
-	export class RootComponent implements IComponentOptions {
-		static NAME:string = 'app';
+export class RootComponent implements IComponentOptions {
+    static NAME:string = 'app';
 
-		bindings:any = {
-		    title: '@',
-		};
+    bindings:any = {
+        title: '@',
+    };
 
-  		template:string = `
-	    	<h1>{{$ctrl.title}}</h1>
-	    	<currency-converter></currency-converter>
-	  	`;
-	}
+    template:string = `
+        <h1>{{$ctrl.title}}</h1>
+        <currency-converter></currency-converter>
+    `;
+}
 
-        angular
-                .module('currencyConverterApp, []')
-                .component(Rootcomponent.NAME, new RootComponent());
-
+    angular
+            .module('currencyConverterApp, []')
+            .component(Rootcomponent.NAME, new RootComponent());
 {% endraw %}
 {% endhighlight %}
-{% endraw %}
 
 This component has a very simple API with one input -  `title` - and zero outputs.
 It doesn't call a service or fetch any data.
@@ -134,35 +131,33 @@ Also notice how easy it was to register this component directive.
 
 *Let's create the same component directive but register it with the `.directive()` method.*
 
-{% raw %}
 {% highlight typescript %}
 {% raw %}
-    export class RootComponent implements IDirective {
-        static NAME:string = 'app';
-        restrict:string = 'E',
-        bindToController:any = {
-            title: '@',
-        },
-        scope:IScope = {},
-        controller:Function = ()=>{},
-        controllerAs:string = '$ctrl',
-        template:string = `
-            <h1>{{$ctrl.title}}</h1>
-            <currency-converter></currency-converter>
-         `;
+export class RootComponent implements IDirective {
+    static NAME:string = 'app';
+    restrict:string = 'E',
+    bindToController:any = {
+        title: '@',
+    },
+    scope:IScope = {},
+    controller:Function = ()=>{},
+    controllerAs:string = '$ctrl',
+    template:string = `
+        <h1>{{$ctrl.title}}</h1>
+        <currency-converter></currency-converter>
+     `;
 
-        static instance():IDirective {
-            return new RootComponent();
-        }
+    static instance():IDirective {
+        return new RootComponent();
     }
+}
 
-    angular
-    .module('currencyConverterApp, []')
-    .directive(Rootcomponent.NAME, RootComponent.instance());
+angular
+.module('currencyConverterApp, []')
+.directive(Rootcomponent.NAME, RootComponent.instance());
 
 {% endraw %}
 {% endhighlight %}
-{% endraw %}
 
 As you can see, this has a lot more configuration compared to using the `.component()` helper method.
 Although it offers more power and flexibility, its more practical to have the `.component()` method when creating custom UI elements.
@@ -183,29 +178,28 @@ Let's look at an example of a container component, I will leave out the complete
 *First we start with our component definition:*
 
 {% highlight typescript %}
-    export class CurrencyConverter implements IComponentOptions{
-        static NAME:string = 'currencyConverter';
+export class CurrencyConverter implements IComponentOptions{
+    static NAME:string = 'currencyConverter';
 
-        template:string = `
-            ...
-            <currencies-select
-                title="From"
-                on-selected="$ctrl.fromSelected(selectedCurrency)"
-                show-values-as-rates="true"
-                currencies="$ctrl.fromCurrencies"
-            ></currencies-select>
-            <currencies-select
-                title="To"
-                on-selected="$ctrl.toSelected(selectedCurrency)"
-                show-values-as-rates="true"
-                currencies="$ctrl.toCurrencies"
-            ></currencies-select>
-            ...		
-        `;
+    template:string = `
+        ...
+        <currencies-select
+            title="From"
+            on-selected="$ctrl.fromSelected(selectedCurrency)"
+            show-values-as-rates="true"
+            currencies="$ctrl.fromCurrencies"
+        ></currencies-select>
+        <currencies-select
+            title="To"
+            on-selected="$ctrl.toSelected(selectedCurrency)"
+            show-values-as-rates="true"
+            currencies="$ctrl.toCurrencies"
+        ></currencies-select>
+        ...		
+    `;
 
-        controller:Function = CurrencyConverterComponentController;
-        }
-
+    controller:Function = CurrencyConverterComponentController;
+    }
 {% endhighlight %}
 
 The template contains two declarations of a presentational component ```<currencies-select>```.
