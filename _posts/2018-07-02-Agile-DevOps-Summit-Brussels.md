@@ -11,19 +11,13 @@ comments: true
 > [Agile & DevOps Summit Brussels](https://www.agileglobalevent.com/conference/devops/agile-devops-summit-brussels){:target="_blank"} is a one day conference on agile practices and DevOps.
 In this post, I will take you along to the various talks that were attended.
 
-<div class="the-toc">
+### Table of Contents
 
-  <h1 class="the-toc__heading">Table Of Contents</h1>
-
-  <ol class="the-toc__list">
-      <li><a href="#agile-is-not-only-for-it" title="Agile is (not) only for IT">Agile is (not) only for IT</a></li>
-      <li><a href="#agile-maturity" title="Agile Maturity">Agile Maturity</a></li>
-      <li><a href="#bring-agile-out-of-the-software-sector" title="How to bring Agile out of software sector">How to bring Agile out of software sector</a></li>
-      <li><a href="#what-we-wished-we-knew-before-signing-up-for-agile-and-devops-transformation" title="What we wished we knew before signing up for Agile and DevOps Transformation">What we wished we knew before signing up for Agile and DevOps Transformation</a></li>
-      <li><a href="#spotify-becoming-the-new-xerox" title="Is Spotify becoming the new Xerox?">Is Spotify becoming the new Xerox?</a></li>
-  </ol>
-
-</div>
+* [Agile is (not) only for IT](#agile-is-not-only-for-it)
+* [Agile Maturity](#agile-maturity)
+* [How to bring Agile out of software sector](#bring-agile-out-of-the-software-sector)
+* [What we wished we knew before signing up for Agile and DevOps Transformation](#what-we-wished-we-knew-before-signing-up-for-agile-and-devops-transformation)
+* [Is Spotify becoming the new Xerox?](#spotify-becoming-the-new-xerox)
 
 ****
 
@@ -36,7 +30,7 @@ In order to get everyone to focus, it's important to know in what situation you 
 <img alt="The different domains of the Cynefin framework" src="{{ '/img/agile-devops-brussels-2018/cynefin.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 * **Complex**: non-lineair, never complete.
-* **Complicated**: analysis is needed,  a lot of possibilities, multiple possible answers.
+* **Complicated**: analysis is needed, a lot of possibilities, multiple possible answers.
 * **Chaotic**: take action, dynamic, nothing is the same.
 * **Obvious**: predictable and repeatable, one or few answers.
 
@@ -44,12 +38,12 @@ To take a real example: 'Planning a birthday party for your child':
 * If you leave the children all alone the entire afternoon, you have no idea what happens during your absence or what the state of your house will be when you return: **Chaos**.
 * If you plan the entire afternoon, with a timetable, to ensure that everything happens as planned: **Complicated**.
 * If the children are obedient and don't do anything wrong at all (not exactly realistic): **Simple**.
-* If you set boundaries, rules, adjust continously: **Complex**.
+* If you set boundaries, rules, adjust continuously: **Complex**.
 
 When you're in a complex situation, you can apply the agile principles.
 
 The other part of the talk was about the Agile Wave and how it affects other parts of your organization other than IT. If the IT department starts working according to the agile principles, there is always an impact on the other domains of your organization.
-For instance, if you have a team that goes agile, there's an impact on items like budget, bonusses, costs, collaboration, estimation and so on. So the other domains need to adapt as well.
+For instance, if you have a team that goes agile, there's an impact on items like budget, bonuses, costs, collaboration, estimation and so on. So the other domains need to adapt as well.
 
 So agile is not only for IT because:
 * Agile values and principles are applicable in all domains.
@@ -65,7 +59,7 @@ The next talk's subject was the issue of measuring agile maturity in an organiza
 Agile maturity can be answered with 3 questions:
 * Why am I doing it?
 * What am I doing?
-* I am convinced about it's outcome.
+* I am convinced about its outcome?
 
 If you can answer those 3 questions as an organization, you're already far ahead of others in terms of agile maturity.
 
