@@ -36,7 +36,7 @@ Since a SAPUI5 app is nothing more than a collection of HTML, CSS and JS files t
 
 This is a working example of a manifest of one of my apps:
 
-``
+```yaml
 ---
 applications:
 - name: YourApp
@@ -45,7 +45,9 @@ applications:
   buildpack: nodejs_buildpack
   command: node app.js
   host: yourapp
-``
+```
+
+Of course this app can run on less memory, as little as 64mb.
 
 
 ## Configure and deploy Portal
