@@ -18,7 +18,6 @@ On the SAP Cloud Foundry environment things quickly get a bit more technical. SA
 1. [What do you need?](#what-do-you-need)
 2. [Create a manifest](#create-a-manifest)
 3. [Configure and deploy Portal](#configure-and-deploy-portal)
-4. [Build and deploy app](#build-and-deploy-app)
 
 
 ## What do you need?
@@ -88,7 +87,7 @@ Go to _services and tools > Implementation pack_ and download the `xs-app.json` 
 
 The xs-app.json contains the url regex that needs to be captured, it could look something like this:
 
-```json
+```javascript
 {"routes":[{"localDir":"themes","source":"/themes/(.*)",
     "cacheControl":"public, max-age=31536000,must-revalidate","target":"$1"},
    
@@ -193,6 +192,6 @@ If all of this is done, upload the mtad.yaml file as well. Then, hit the 'Downlo
 
 ## Check datasource url in the app
 
-A last point of attention would be the datasource in the SAPUI5 app. Make sure the datasource matched the url we configured in the destinations of the portal.
+A last point of attention would be the datasource in the SAPUI5 app. Make sure the datasource matched the url we configured in the destinations of the portal. Redeploy your SAPUI5 app if required.
 
 Also, in my experience, the Portal acts as the AppRouter would act. So when using url's pointing to location behind an AppRouter, it won't work.
