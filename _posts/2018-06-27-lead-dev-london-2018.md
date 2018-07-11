@@ -106,3 +106,12 @@ Ask them for support to build a sustainable team and show why all your team's wo
 Good communication about change is vital.
 
 > "When stressful things happen, it's easy to default back to not communicating. But that's when it's even more important to empower people during tough times." [@jenny_duckett](https://twitter.com/jenny_duckett){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
+
+
+## 'The hardest scaling challenge of all - yourself' by [Christian McCarrick](https://twitter.com/cmccarrick)
+
+<span class="image left"><img class="p-image" alt="Christian McCarrick" src="/img/2018-06-27-Lead-Dev-London-2018/christian-mccarrick.jpg"></span>
+
+> "Your job as a manager is to make your team more badass." [@cmccarrick](https://twitter.com/cmccarrick){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
+
+> "Make yourself a priority once in a while. It's not selfish it's necessary." [@cmccarrick](https://twitter.com/cmccarrick){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
