@@ -2,7 +2,7 @@
 layout: post
 authors: [xana_rasquin]
 title: 'Unit testing for ABAP 101 and why you should do it'
-image: /img/unit-testing-101/launchpad.png
+image: /img/unit-testing-101/Unit-Testing.png
 tags: [ABAP,Unit Testing,Eclipse]
 category: ABAP Unit Testing
 comments: false
@@ -96,13 +96,13 @@ there's a ribbon from which you can navigate to the editor for test classes.
 If you feel more comfortable working in the SAP GUI, 
 you can locate the button at the top right of the screen in SE24:
 
-<img alt="Ribbon unit test" src="{{ '/img/unit-testing-101/se24-test-class.png' | prepend: site.baseurl }}" class="image fit">
+<img alt="SE24 Test Class" src="{{ '/img/unit-testing-101/se24-test-class.png' | prepend: site.baseurl }}" class="image fit">
  
 We start by defining the test class, as we would for a regular class. The definition does look a bit different though.
 
 **PRO TIP**: If you're working in Eclipse, there is a handy template to generate the basic definition of a test class. Just type 'testclass' and trigger the auto-complete.
 
-<img alt="Ribbon unit test" src="{{ '/img/unit-testing-101/eclipse-test-class-auto.png' | prepend: site.baseurl }}" class="image fit">
+<img alt="Eclipse Test Auto-Complete" src="{{ '/img/unit-testing-101/eclipse-test-class-auto.png' | prepend: site.baseurl }}" class="image fit">
 
 In the public section, define the methods that will execute the tests. Also define an instance of the class you're testing. This instance will call the method that contains the logic you want to test. 
 How the definition could be written:
@@ -162,11 +162,11 @@ ENDCLASS.
 
 Now let's execute a test run. Go to the class in Eclipse and retrieve the context menu:
 
-<img alt="Ribbon unit test" src="{{ '/img/unit-testing-101/execute-test-run.png' | prepend: site.baseurl }}" class="image fit">
+<img alt="Execute Test Run" src="{{ '/img/unit-testing-101/execute-test-run.png' | prepend: site.baseurl }}" class="image fit">
 
 There's a result window that displays the number of test methods that were executed and the result of each test. In our case, all methods were successful.  
 
-<img alt="Ribbon unit test" src="{{ '/img/unit-testing-101/test-result.png' | prepend: site.baseurl }}" class="image fit">
+<img alt="Test Result" src="{{ '/img/unit-testing-101/test-result.png' | prepend: site.baseurl }}" class="image fit">
 
 If we change an expected value, the method will fail and the result will also be shown in the ABAP Unit Runner overview.
 
