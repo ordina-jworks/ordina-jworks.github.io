@@ -8,9 +8,9 @@ category: Conference
 comments: true
 ---
 
-## London, baby!
+## London!
 
-For the fourth year in a row [White October Events](https://www.whiteoctoberevents.co.uk/) and [Meri Williams](https://twitter.com/Geek_Manager) organised [The Lead Developer](https://theleaddeveloper.com/), a two day conference covering topics from leadership to recruitment and team dynamics, mixed with some technical talks. 
+For the fourth year in a row [White October Events](https://www.whiteoctoberevents.co.uk/) and [Meri Williams](https://twitter.com/Geek_Manager) organised [The Lead Developer](https://theleaddeveloper.com/), a two day conference covering topics from leadership to self improvement and team dynamics, mixed with some technical talks. 
 This year Ordina JWorks travelled to the [Barbican Centre](https://www.barbican.org.uk/) in London to attend this amazing and inspirational conference for the very first time, and returned home energized and full with ideas!
 
 > As tech lead you have to be a great developer. 
@@ -19,7 +19,7 @@ This year Ordina JWorks travelled to the [Barbican Centre](https://www.barbican.
 
 ****
 
-<img class="image fit" src="{{ '/img/2018-06-27-Lead-Dev-London-2018/lead-dev-venue.jpg' | prepend: site.baseurl }}" alt="The Lead Developer 2018" />
+<img class="image fit center" src="{{ '/img/2018-06-27-Lead-Dev-London-2018/lead-dev-venue.jpg' | prepend: site.baseurl }}" alt="The Lead Developer 2018" />
 
 ****
 
@@ -114,4 +114,53 @@ Good communication about change is vital.
 
 > "Your job as a manager is to make your team more badass." [@cmccarrick](https://twitter.com/cmccarrick){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
 
+
+**Communication**
+- Be an effective communicator, as you grow you'll get better at getting your point across to larger and larger groups.
+- Communicate up to manager, across peers and down to your team.
+- Personal branding and self-promotion are important: have confidence and show the value of your work.
+- Create a safe environment by genuinely praising other people and giving honest feedback.
+- Seek out for negative feedback and ask specific questions for better feedback.
+- The most important communication skill to learn is how to say "no" without feeling guilty.
+
+**Prioritization & Time management**
+- If you dont prioritize your life, someone else will.
+- The Eisenhower Matrix: How to make decisions on what's urgent and important.
+
+<img class="image fit center" alt="The Eisenhower Matrix" src="/img/2018-06-27-Lead-Dev-London-2018/eisenhower.png">
+
+- Multitasking is an anti-pattern so write down all the things you need to do and keep a journal.
+- Turn of email notifications. Instead schedule short blocks during the day when you quickly check emails and schedule longer blocks at the end of the day where you tidy things up.
+- Get into the zone by blocking your calendar: dedicate time to specific things.
+- Obsess with the things that matter!
+
+**Delegation**
+- Move away from "How can I get thing done?" to "How can this task/decision/goal get done?".
+- Not delegating properly is one of the biggest anti-patters, and limits the scaling your entire team because you become the bottleneck around decision making.
+- Let things go!
+
+**Personal development & mental health**
+- Leading takes energy and often gets lonely.
+- If athletes get injured, they sit on the bench. Mental fatigue and burnout are issues that affects us more than we might think.
+- Excercise, medidate (tip: [Headspace](https://www.headspace.com/))), and read every day.
+
 > "Make yourself a priority once in a while. It's not selfish it's necessary." [@cmccarrick](https://twitter.com/cmccarrick){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
+
+
+## 'Go slow to go fast: building strong foundations for leadership' by [Alicia Liu](https://twitter.com/aliciatweet)
+
+ <span class="image left"><img class="p-image" alt="Alicia Liu" src="/img/2018-06-27-Lead-Dev-London-2018/alicia-liu.jpg"></span>
+
+> "A gardener doesn't tell plants how to grow. A gardener creates the best environment for the plants to flourish. But you still need to know how to garden, and you need to know what to weed out. Leadership is about dealing with the unknowns." [@aliciatweet](https://twitter.com/aliciatweet){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
+ 
+Alicia talked about how her own experiences where a rapid increase in job responsibilities in a rapidly growing startup led to an increase in stress, difficulty sleeping, and ultimately in depression. 
+She wrote a great [blogpost](https://betterhumans.coach.me/how-depression-made-me-a-morning-person-cda4889662ff) and gave an very inspiring talk about the tools she used to recover from depression and insomnia and how she became a better leader and manager. 
+
+A lot of engineers are promoted into management because they're good engineers. 
+Some people are naturally good at both but if you're good at engineering, it might actually be harder to develop management skills. 
+Coding drains a lot of mental energy, while managing others requires lots of emotional energy.
+Being a good engineer doesn't makes you a good leader because information is not the same as knowledge. 
+You can't study to be a leader, you'll have to change and embrace discomfort to be a good leader. 
+Be humble by listening to others, being present with each person and regularly switching context is a hard thing to do.
+Focus first on form then speed.
+Mastering others is power, mastering yourself is true strenght.
