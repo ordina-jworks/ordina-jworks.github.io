@@ -17,13 +17,9 @@ This year Ordina JWorks travelled to the [Barbican Centre](https://www.barbican.
 > But you also need to be a good team leader, be commercially astute, and stay on top of all the tech developments and trends coming over the horizon. 
 > With a balance of content across team, tools and tech, The Lead Developer conference is designed with the complexities of the job in mind.
 
-****
-
 <img class="image fit center" src="{{ '/img/2018-06-27-Lead-Dev-London-2018/lead-dev-venue.jpg' | prepend: site.baseurl }}" alt="The Lead Developer 2018" />
 
-****
-
-In this blogpost we will summerize some of the talks that are mainly focused on personal development of a team lead.
+In this blogpost we will summerize some of the talks that are mainly focused on personal development of a team lead. All talks were recorded and can be found on [The Lead Developer London 2018 YouTube channel](https://www.youtube.com/playlist?list=PLBzScQzZ83I_VX8zgmLqIfma_kJs3RRmu). Highly recommended!
 
 ## 'First steps as a lead' by [Dan Persa](https://twitter.com/danpersa){:target="_blank"}
 
@@ -39,17 +35,17 @@ Communicate things over and over again.
 Repetition is key.
 
 Getting into leadership is not trivial, so ask people around you for help. How do you learn these leadership skills very fast? 
-- Shadow a mentor to ensure a smooth transition and not feeling lost
-- Don't just read books, but put them in practice as well
+- Shadow a mentor to ensure a smooth transition and not feeling lost.
+- Don't just read books, but put them in practice as well.
 - Reflect and remember good and not so good behaviour from your former leads.
 
 As a lead you need to create an open and safe environment with mutual trust.
 But how you do earn the trust and respect of your team?
-- Open yourself up to be vulnerable
-- Have regular one-to-one's
-- Be transparent in decision-making, especially around performance evaluations
-- The best solutions to problems come from the team, let them take ownership of the problem
-- Create a feedback culture: give feedback as close as possible to the moment in time where the action which generated the need to provide feedback happened, decouple development feedback from performance evaluations, and organise health checks meetings
+- Open yourself up to be vulnerable.
+- Have regular one-to-one's.
+- Be transparent in decision-making, especially around performance evaluations.
+- The best solutions to problems come from the team, let them take ownership of the problem.
+- Create a feedback culture: give feedback as close as possible to the moment in time where the action which generated the need to provide feedback happened, decouple development feedback from performance evaluations, and organise health checks meetings.
 - Celebrate successes!
 
 > "Not taking a decision is a decision: we are accountable for the decisions we take as well as for the ones we decide not to take." [@danpersa](https://twitter.com/danpersa){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
@@ -57,8 +53,6 @@ But how you do earn the trust and respect of your team?
 ## 'Building sustainable teams to handle uncertainty' by [Jenny Duckett](https://twitter.com/jenny_duckett)
 
 <span class="image left"><img class="p-image" alt="Jenny Duckett" src="/img/2018-06-27-Lead-Dev-London-2018/jenny-duckett.png"></span>
-
-> "An empowered, open team who understandt their contex can adapt to change." [@jenny_duckett](https://twitter.com/jenny_duckett){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
 
 **What can disrupt a team?**
 
@@ -73,10 +67,13 @@ Putting people through these things more than occasionally, will result in a ret
 The way changes make people feel is at least as important as the change itself.
 Emotions are critical.
 
+> "An empowered, open team who understandt their contex can adapt to change." [@jenny_duckett](https://twitter.com/jenny_duckett){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
+
 **What can you do to prepare?**
 
 First of all, work on yourself so you can sustain through these disruptive changes and be able to better support your team as a result.
-You don't need to do it all yourself, let go of details, give people your trust and assume positive intent. Set yourself up to lead sustainably.
+You don't need to do it all yourself, let go of details, give people your trust and assume positive intent.
+Set yourself up to lead sustainably.
 
 Make your team's work ownable by stopping to split efforts and starting to define a single and clear goal. 
 Communicate this goal over and over again.
@@ -112,9 +109,6 @@ Good communication about change is vital.
 
 <span class="image left"><img class="p-image" alt="Christian McCarrick" src="/img/2018-06-27-Lead-Dev-London-2018/christian-mccarrick.jpg"></span>
 
-> "Your job as a manager is to make your team more badass." [@cmccarrick](https://twitter.com/cmccarrick){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
-
-
 **Communication**
 - Be an effective communicator, as you grow you'll get better at getting your point across to larger and larger groups.
 - Communicate up to manager, across peers and down to your team.
@@ -130,37 +124,38 @@ Good communication about change is vital.
 <img class="image fit center" alt="The Eisenhower Matrix" src="/img/2018-06-27-Lead-Dev-London-2018/eisenhower.png">
 
 - Multitasking is an anti-pattern so write down all the things you need to do and keep a journal.
-- Turn of email notifications. Instead schedule short blocks during the day when you quickly check emails and schedule longer blocks at the end of the day where you tidy things up.
+- Turn off email notifications. Instead schedule short blocks during the day when you quickly check emails and schedule longer blocks at the end of the day where you tidy things up.
 - Get into the zone by blocking your calendar: dedicate time to specific things.
+- Make yourself a priority once in a while. It's not selfish, it's necessary.
 - Obsess with the things that matter!
 
 **Delegation**
-- Move away from "How can I get thing done?" to "How can this task/decision/goal get done?".
-- Not delegating properly is one of the biggest anti-patters, and limits the scaling your entire team because you become the bottleneck around decision making.
+- Move away from "How can I get things done?" to "How can this task/decision/goal get done?".
+- Not delegating properly is one of the biggest anti-patterns, and limits the scaling your entire team because you become the bottleneck around decision making.
 - Let things go!
 
 **Personal development & mental health**
 - Leading takes energy and often gets lonely.
 - If athletes get injured, they sit on the bench. Mental fatigue and burnout are issues that affects us more than we might think.
-- Excercise, medidate (tip: [Headspace](https://www.headspace.com/))), and read every day.
+- Excercise, medidate (tip: [Headspace](https://www.headspace.com/)), and read every day.
 
-> "Make yourself a priority once in a while. It's not selfish it's necessary." [@cmccarrick](https://twitter.com/cmccarrick){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
+> "Your job as a manager is to make your team more badass." [@cmccarrick](https://twitter.com/cmccarrick){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
 
 
 ## 'Go slow to go fast: building strong foundations for leadership' by [Alicia Liu](https://twitter.com/aliciatweet)
 
  <span class="image left"><img class="p-image" alt="Alicia Liu" src="/img/2018-06-27-Lead-Dev-London-2018/alicia-liu.jpg"></span>
-
-> "A gardener doesn't tell plants how to grow. A gardener creates the best environment for the plants to flourish. But you still need to know how to garden, and you need to know what to weed out. Leadership is about dealing with the unknowns." [@aliciatweet](https://twitter.com/aliciatweet){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
  
-Alicia talked about how her own experiences where a rapid increase in job responsibilities in a rapidly growing startup led to an increase in stress, difficulty sleeping, and ultimately in depression. 
+Alicia talked about how her own experiences where a rapid increase in job responsibilities in a rapidly growing startup led to an increase in stress, difficulty sleeping, and ultimately depression. 
 She wrote a great [blogpost](https://betterhumans.coach.me/how-depression-made-me-a-morning-person-cda4889662ff) and gave an very inspiring talk about the tools she used to recover from depression and insomnia and how she became a better leader and manager. 
 
 A lot of engineers are promoted into management because they're good engineers. 
 Some people are naturally good at both but if you're good at engineering, it might actually be harder to develop management skills. 
 Coding drains a lot of mental energy, while managing others requires lots of emotional energy.
-Being a good engineer doesn't makes you a good leader because information is not the same as knowledge. 
-You can't study to be a leader, you'll have to change and embrace discomfort to be a good leader. 
+Being a good engineer doesn't make you a good leader because information is not the same as knowledge. 
+You can't study to be a leader, you'll have to change and embrace discomfort to become a good leader. 
 Be humble by listening to others, being present with each person and regularly switching context is a hard thing to do.
 Focus first on form then speed.
 Mastering others is power, mastering yourself is true strenght.
+
+> "A gardener doesn't tell plants how to grow. A gardener creates the best environment for the plants to flourish. But you still need to know how to garden, and you need to know what to weed out. Leadership is about dealing with the unknowns." [@aliciatweet](https://twitter.com/aliciatweet){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
