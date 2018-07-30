@@ -11,7 +11,7 @@ comments: true
 Last week we, as the guild of agile coaches from Ordina, tried and tested the Agile Leadership Game developed by the Agile Consortium called 'How Agile Are You?'.
 In this blog post, we will provide you with some more information about the game.
 
-### Details:
+### Details
 * 2-6 players (even though more is possible)
 * Intended audience is management
 * Takes 1.5 hours (on average)
@@ -26,7 +26,7 @@ Participants are asked to very rapidly (! ten seconds per card on average :) !) 
 As a participant you are to decide how the characteristic manifests itself in your organisation at this moment.
 The game board consists of the quadrants “LET GO, IGNORE, CREATE and KEEP” as you can see in the image below.
 
-<img alt="Agile Leadership Game Tweet" src="{{ '/img/agile-leadership-game/Agile-Leadership-Game.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+<img alt="Agile Leadership Game" src="{{ '/img/agile-leadership-game/Agile-Leadership-Game.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 If the characteristic on the card is behaviour that the organisation DOES HAVE at that time but that you DON’T WANT, the card gets sorted in the quadrant “LET GO”.
 If the participant perceives the characteristic on the card as a behaviour the organisation DOES HAVE and that you DO WANT, it ends up at “KEEP” and so on.
@@ -49,13 +49,13 @@ Because there are forty two cards in the game and you won’t discuss them all, 
 
 ### Outcomes retrospective:
 
-*TIP:*
+**TIP:**
 * Participants need some time to figure out how to play the game and how to work with the quadrants on the board.
 * An ice breaker to start with and a small warm up round increases effectiveness and actionable outcome of the game.
 * Making sure the topics in the discussion round are precisely those that matter most to the organisation and the participants, adds greatly to the usefulness of the session.
 * You need a skilled facilitator.
 
-*TOP:*
+**TOP:**
 * Very nice game to play, offering lots of insight and actionable openings to start your transformation at leadership level.
 * The game doesn't take too long, can easily be played several times over time and can easily be fitted into a leadership programme, workshop, curriculum or “heidag”.
 * It’s a perfect self assessment game for management teams that are wondering how agile they actually are as a team. :)
