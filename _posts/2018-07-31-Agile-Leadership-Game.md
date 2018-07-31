@@ -22,7 +22,7 @@ This game has been designed to get discussions on agile leadership going and to 
 It is specifically intended for management teams.
 The game is focused on agile mindset and agile leadership: what do people and organisations need from management when engaged in an agile transformation?
 
-Participants are asked to very rapidly (! ten seconds per card on average :) !) divide forty two cards with 'characteristics' of organisations, over one of the quadrants on the board.
+Participants are asked to very rapidly (! ten seconds per card on average :) !) divide fourty-two cards with 'characteristics' of organisations, over one of the quadrants on the board.
 As a participant you are to decide how the characteristic manifests itself in your organisation at this moment.
 The game board consists of the quadrants “LET GO, IGNORE, CREATE and KEEP” as you can see in the image below.
 
@@ -45,7 +45,7 @@ After the discussion round it is useful to add an extra step in the game as to m
 the participants prioritise the top three of characteristics/topics they would like to let go or create.
 These are the topics they can start working with the very next day!
 This way you also prevent the session being perceived as just fun, irrelevant and/or without consequences.
-Because there are forty two cards in the game and you won’t discuss them all, the game is most suitable to be played again at a later time – it won’t lose its value.
+Because there are fourty-two cards in the game and you won’t discuss them all, the game is most suitable to be played again at a later time – it won’t lose its value.
 
 ### Outcomes retrospective:
 
@@ -58,7 +58,8 @@ Because there are forty two cards in the game and you won’t discuss them all, 
 **TOP:**
 * Very nice game to play, offering lots of insight and actionable openings to start your transformation at leadership level.
 * The game doesn't take too long, can easily be played several times over time and can easily be fitted into a leadership programme, workshop, curriculum or “heidag”.
-* It’s a perfect self assessment game for management teams that are wondering how agile they actually are as a team. :)
+* It’s a perfect self-assessment game for management teams that are wondering how agile they actually are as a team. :)
 
 
+If you would like to try this game but don't yet have an experienced facilitator available, don't hesitate to reach out to us! We'd love to help!
 More information about the game can be found [here](https://www.agileconsortium.net/leadership-game/){:target="_blank"}.
