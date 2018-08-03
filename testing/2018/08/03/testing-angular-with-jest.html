@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Testing Angular with jest - Yannick Vergeylen">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2018-08-03-testing-angular-with-jest/jest.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Testing Angular with jest - Yannick Vergeylen"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2018-08-03-testing-angular-with-jest/jest.png"/>
+
+    
+    <title>Testing Angular with jest - Yannick Vergeylen &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Testing Angular with jest</h2>
+                
+
+                
+                    Posted Aug 3, 2018
+
+
+    in <a href="/categories/testing/">Testing</a>
+
+
+
+    by
+    
+        <a href="/author/yannick-vergeylen/">Yannick Vergeylen</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/jworks/">JWorks</a>, 
+    
+        <a href="/tags/culture/">culture</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <p>Last year I learned about Jest, a testing framework. ‘Yet another one’ was my first thought.
+Later that year my colleague and I were looking to extend our test coverage. We where using Jasmine to write the tests we had and Karma to run them.
+It worked for sure and we had a lot of tests but it was like a punishment to write them every time, repeating the same code to mock things and when it finally worked and we pushed them to the CI they would sometimes fail randomly.
+So we were eager to find a better way to test.</p>
+
+<p>Pretty quickly we started looking into Jest. It differentiated itself by not using Karma as a test runner.
+We liked the idea because Karma actually has some points of failure which we encountered often.</p>
+
+<h2 id="karma-vs-jest">Karma vs Jest</h2>
+
+<h3 id="karma">Karma</h3>
+
+<p>Let me quickly give you an overview of what it is that Karma does:</p>
+
+<ol>
+  <li>it spawns a webserver to serve your source and test code;</li>
+  <li>it starts a browser from your machine and connects to the webserver;</li>
+  <li>it spawns a reporter which has a socket connection with the webserver;</li>
+  <li>it runs every test, awaits its result and sends it to the reporter.</li>
+</ol>
+
+<p>In the end we have 3 components communicating with each other. Which components exactly, dependends on the environment Karma is running on.
+Our CI was a Linux machine, I had an Ubuntu to work on, my colleague was on MacOS, and other guys in the team were on Windows.
+So we all had different Chrome versions which gave us some issues. And our CI used PhantomJS, which is outdated, so here we also had some issues.</p>
+
+<h3 id="jest">Jest</h3>
+
+<p>How are these issues fixed in Jest?
+As I mentioned before Jest does not use Karma to run the tests, it will just start a single NodeJS process which does all the work by itself:</p>
+
+<ol>
+  <li>it compiles your code;</li>
+  <li>it runs your tests with NodeJs (or JSDOM for DOM testing);</li>
+  <li>it creates a report.</li>
+</ol>
+
+<p>Just plain and simple without too many interconnected processes to break.
+Also, no real browser is needed on the machine since NodeJs and JSDOM are used.
+Therefore the only tool to keep up to date is Jest, which is managed automatically via the Yarn lockfile</p>
+
+<h2 id="set-up">Set up</h2>
+
+<p>So how can you set it up and quickly replace all your tests (if you’re coming from Jasmine)?
+To make Jest available in an Angular project, you first need to install Jest and <a href="https://www.npmjs.com/package/jest-preset-angular" target="_blank">jest-preset-angular</a>.
+Since Jest is made for React (backed by Facebook, remember) we need jest-preset-angular to fix some things for us.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ yarn add -D @types/jest jest jest-preset-angular
+</code></pre></div></div>
+
+<p>Some configuration is always needed so let’s add some lines to the package.json (or export the config in a jest.config.js).
+First we point to the preset that we will use. Next we provide a setup-jest.ts script in which we import some necessary files (we’ll create it later on).
+Then we provide information about how Jest should transpile our code under the transform property. Therefore we point to the preprocessor from jest-preset-angular for our typescript and html files.
+And for the Javascript files we’ll point to babel-jest (which ships with Jest).
+The transformIgnorePatterns point to some libraries that don’t need to be transpiled for our tests. (If you get <code class="highlighter-rouge">Unexpected token import</code> issues, you might need to add some packages here)</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"jest"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"preset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jest-preset-angular"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"setupTestFrameworkScriptFile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;rootDir&gt;/src/setup-jest.ts"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transform"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="err">'^.+\\.(ts|html)$'</span><span class="p">:</span><span class="w"> </span><span class="err">'&lt;rootDir&gt;/node_modules/jest-preset-angular/preprocessor.js'</span><span class="p">,</span><span class="w">
+     </span><span class="err">'^.+\\.js$'</span><span class="p">:</span><span class="w"> </span><span class="err">'babel-jest'</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"transformIgnorePatterns"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">'node_modules/(?!@ngrx|ng</span><span class="mi">2</span><span class="err">-translate|@ionic|lodash|ionic-angular)'</span><span class="p">],</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>As mentioned previously, we create a setup-jest.ts file in which we import some code from jest-preset-angular and a global mocks file.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="s1">'jest-preset-angular'</span><span class="p">;</span>  
+<span class="k">import</span> <span class="s1">'./jest-global-mocks'</span><span class="p">;</span>  
+</code></pre></div></div>
+
+<p>In the jest-global-mocks.ts we provide functionality that is not found in JSDOM but that we use in our code (and thus is found in our preferred browser).
+So we mock things that are globally accessible, if you use certain browser API’s you should also mock them here.
+For our example we needed the following code:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">mock</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">storage</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">getItem</span><span class="p">:</span> <span class="nx">key</span> <span class="o">=&gt;</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">storage</span> <span class="p">?</span> <span class="nx">storage</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="na">setItem</span><span class="p">:</span> <span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">storage</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span> <span class="o">||</span> <span class="s1">''</span><span class="p">,</span>
+    <span class="na">removeItem</span><span class="p">:</span> <span class="nx">key</span> <span class="o">=&gt;</span> <span class="k">delete</span> <span class="nx">storage</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span>
+    <span class="na">clear</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">storage</span> <span class="o">=</span> <span class="p">{},</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="s1">'localStorage'</span><span class="p">,</span> <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="nx">mock</span><span class="p">()});</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="s1">'sessionStorage'</span><span class="p">,</span> <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="nx">mock</span><span class="p">()});</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="s1">'getComputedStyle'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">value</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'-webkit-appearance'</span><span class="p">]</span>
+<span class="p">});</span>
+
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="s1">'__env'</span><span class="p">,</span> <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="p">{</span><span class="na">env</span><span class="p">:</span> <span class="p">{</span><span class="na">backendUrl</span><span class="p">:</span> <span class="s1">'mocked URl'</span><span class="p">}}});</span>
+</code></pre></div></div>
+
+<p>As you can see, our tests use localStorage, sessionStorage, getComputedStyle and an environment property (__env) on the window.</p>
+
+<p>With everything set up we could run our test by running the Jest command</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jest
+</code></pre></div></div>
+
+<p>Of course not much is running yet since all our tests use Jasmine, and ‘jasmine’ (as a keyword) is unknown to Jest.
+To fix this we need to replace some Jasmine specific code by Jest specific code.</p>
+
+<h2 id="jasmine-to-jest">Jasmine to jest</h2>
+
+<p>In Jasmine we would create a mock object using Jasmine’s createSpyObj-function and passing some parameters in it.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Jasmine</span>
+<span class="kd">const</span> <span class="nx">serviceMock</span> <span class="o">=</span> <span class="nx">createSpyObj</span><span class="p">(</span><span class="s1">'service'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'methods'</span><span class="p">,</span> <span class="s1">'you'</span><span class="p">,</span> <span class="s1">'want'</span><span class="p">,</span> <span class="s1">'to'</span><span class="p">,</span> <span class="s1">'mock'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>In Jest we just create an object with the expected properties, and jest.fn() creates a mock function for us.
+This is a great improvement since you get better code hints and you can easily create more advanced mocks.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Jest</span>
+<span class="kd">const</span> <span class="nx">serviceMock</span> <span class="o">=</span> <span class="p">{</span>
+ <span class="na">methods</span><span class="p">:</span> <span class="nx">jest</span><span class="p">.</span><span class="nx">fn</span><span class="p">(),</span>
+ <span class="na">you</span><span class="p">:</span> <span class="nx">jest</span><span class="p">.</span><span class="nx">fn</span><span class="p">(),</span>
+ <span class="na">want</span><span class="p">:</span> <span class="nx">jest</span><span class="p">.</span><span class="nx">fn</span><span class="p">(),</span>
+ <span class="na">to</span><span class="p">:</span> <span class="nx">jest</span><span class="p">.</span><span class="nx">fn</span><span class="p">(),</span>
+ <span class="na">mock</span><span class="p">:</span> <span class="nx">jest</span><span class="p">.</span><span class="nx">fn</span><span class="p">()</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Also to mock return values it is a bit different (for the better):</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Jasmine</span>
+<span class="nx">serviceMock</span><span class="p">.</span><span class="nx">you</span><span class="p">.</span><span class="nx">mockReturnValue</span><span class="p">(</span><span class="nx">serviceMock</span><span class="p">.</span><span class="nx">you</span> <span class="k">as</span> <span class="nx">Spy</span><span class="p">).</span><span class="nx">and</span><span class="p">.</span><span class="nx">returnValue</span><span class="p">(</span><span class="s1">'yannick vergeylen'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Jest</span>
+<span class="nx">serviceMock</span><span class="p">.</span><span class="nx">you</span><span class="p">.</span><span class="nx">mockReturnValueOnce</span><span class="p">(</span><span class="s1">'yannick vergeylen'</span><span class="p">);</span>
+
+<span class="c1">// And you can chain multiple return values if you need it</span>
+<span class="nx">serviceMock</span><span class="p">.</span><span class="nx">you</span><span class="p">.</span><span class="nx">mockReturnValueOnce</span><span class="p">(</span><span class="s1">'yannick vergeylen'</span><span class="p">)</span>
+               <span class="p">.</span><span class="nx">mockReturnValueOnce</span><span class="p">(</span><span class="s1">'bob'</span><span class="p">)</span>
+               <span class="p">.</span><span class="nx">mockReturnValue</span><span class="p">(</span><span class="s1">'everyone'</span><span class="p">);</span>
+
+<span class="c1">// Or even with a function which can execute simple logic.</span>
+<span class="c1">// But you shouldn't be implementing to much logic, since you don't want to test the tests.</span>
+<span class="nx">serviceMock</span><span class="p">.</span><span class="nx">you</span><span class="p">.</span><span class="nx">mockImplementation</span><span class="p">((</span><span class="nx">firstname</span><span class="p">,</span><span class="nx">lastname</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="s2">`</span><span class="p">${</span><span class="nx">firstname</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">lastname</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+
+<span class="c1">// Or provide it at initialisation which saves you a line of code</span>
+<span class="kd">const</span> <span class="nx">serviceMock</span> <span class="o">=</span> <span class="p">{</span>
+ <span class="na">methods</span><span class="p">:</span> <span class="nx">jest</span><span class="p">.</span><span class="nx">fn</span><span class="p">(),</span>
+ <span class="na">you</span><span class="p">:</span> <span class="nx">jest</span><span class="p">.</span><span class="nx">fn</span><span class="p">((</span><span class="nx">firstname</span><span class="p">,</span><span class="nx">lastname</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="s2">`</span><span class="p">${</span><span class="nx">firstname</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">lastname</span><span class="p">}</span><span class="s2">`</span><span class="p">),</span>
+ <span class="na">want</span><span class="p">:</span> <span class="nx">jest</span><span class="p">.</span><span class="nx">fn</span><span class="p">(),</span>
+ <span class="na">to</span><span class="p">:</span> <span class="nx">jest</span><span class="p">.</span><span class="nx">fn</span><span class="p">(),</span>
+ <span class="na">mock</span><span class="p">:</span> <span class="nx">jest</span><span class="p">.</span><span class="nx">fn</span><span class="p">()</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>For the assertions you shouldn’t have to change much, since Jest uses almost the same assertion functions as Jasmine.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">expect</span><span class="p">(</span><span class="nx">serviceMock</span><span class="p">.</span><span class="nx">methods</span><span class="p">).</span><span class="nx">toHaveBeenCalled</span><span class="p">();</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">serviceMock</span><span class="p">.</span><span class="nx">methods</span><span class="p">).</span><span class="nx">toHaveBeenCalledWith</span><span class="p">(</span><span class="s1">'value'</span><span class="p">);</span>
+
+<span class="c1">// Jasmine</span>
+<span class="p">(</span><span class="nx">serviceMock</span><span class="p">.</span><span class="nx">you</span> <span class="k">as</span> <span class="nx">Spy</span><span class="p">).</span><span class="nx">calls</span><span class="p">.</span><span class="nx">mostRecent</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1">// Jest</span>
+<span class="nx">serviceMock</span><span class="p">.</span><span class="nx">you</span><span class="p">.</span><span class="nx">mock</span><span class="p">.</span><span class="nx">calls</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1">// to get the first argument of the first call (firstname)</span>
+<span class="nx">serviceMock</span><span class="p">.</span><span class="nx">you</span><span class="p">.</span><span class="nx">mock</span><span class="p">.</span><span class="nx">calls</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="c1">// to get the second argument of the first call (lastname)</span>
+</code></pre></div></div>
+
+<p>I changed all our tests with some regexes, it is possible with some creativity, but today there are codemods which should do the hard work for you.
+<a href="https://jestjs.io/docs/en/migration-guide" target="_blank">Checkout the jest documentation</a> to find out more.</p>
+
+<p>Jest really gets interesting when you use libraries and need to mock them:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Jest</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">HttpClient</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/common/http'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">CompaniesService</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'./companies.service'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">Observable</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'rxjs/Observable'</span><span class="p">;</span>
+
+<span class="nx">jest</span><span class="p">.</span><span class="nx">mock</span><span class="p">(</span><span class="s1">'@angular/common/http'</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">httpClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HttpClient</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">companiesService</span><span class="o">=</span> <span class="k">new</span> <span class="nx">CompaniesService</span><span class="p">(</span><span class="nx">httpClient</span><span class="p">);</span>
+
+<span class="nx">test</span><span class="p">(</span><span class="s1">'the service should map the return value to an array of companies'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">httpClient</span><span class="p">.</span><span class="kd">get</span><span class="p">.</span><span class="nx">mockReturnValueOnce</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="p">({</span><span class="na">companies</span><span class="p">:[{</span><span class="na">name</span><span class="p">:</span><span class="s1">'C1'</span><span class="p">,</span><span class="na">code</span><span class="p">:</span><span class="s1">'C1'</span><span class="p">}],</span><span class="na">page</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span><span class="na">total</span><span class="p">:</span><span class="mi">51</span><span class="p">}))</span>
+  <span class="nx">companiesService</span><span class="p">.</span><span class="nx">getPage</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">subscribe</span><span class="p">((</span><span class="nx">value</span><span class="p">)</span><span class="o">=&gt;</span><span class="nx">expect</span><span class="p">(</span><span class="nx">value</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([{</span><span class="na">name</span><span class="p">:</span><span class="s1">'C1'</span><span class="p">,</span><span class="na">code</span><span class="p">:</span><span class="s1">'C1'</span><span class="p">}]));</span>
+  <span class="nx">expect</span><span class="p">(</span><span class="nx">httpClient</span><span class="p">.</span><span class="kd">get</span><span class="p">.</span><span class="nx">mock</span><span class="p">.</span><span class="nx">calls</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'backendUrl/companies?page=6'</span><span class="p">)</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Instead of mocking HttpClient we can just import it, provide the return value we know backend will give and focus on testing the output of our getPage method.
+In the above example you see I have to create a instance of httpClient to get around dependency injection in Angular, but other imports can also be mocked in the same way.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>So one year later we are still using Jest and testing is still a lot more enjoyable than it was before.
+Not painless as Jest claims it to be, but that’s just the nature of testing I guess.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest.html&title=Testing Angular with jest&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Testing Angular with jest&url=https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/yannick-vergeylen/" class="image spotlight-image">
+            <img src="/img/author/yannick-vergeylen.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Yannick is a young and driven software developer. Widely interested and with a studious attitude he keeps looking for new ways to improve the web with better software and experiences.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2018-08-03-testing-angular-with-jest/jest.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest.html";
+        this.page.identifier = "/testing/2018/08/03/testing-angular-with-jest.html";
+        this.page.title = "Testing Angular with jest";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

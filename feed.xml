@@ -1,5 +1,201 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-07-31T08:50:59+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Agile Leadership Game</title><link href="https://ordina-jworks.github.io/agile/2018/07/31/Agile-Leadership-Game.html" rel="alternate" type="text/html" title="Agile Leadership Game" /><published>2018-07-31T00:00:00+00:00</published><updated>2018-07-31T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/agile/2018/07/31/Agile-Leadership-Game</id><content type="html" xml:base="https://ordina-jworks.github.io/agile/2018/07/31/Agile-Leadership-Game.html">&lt;p&gt;Last week we, as the guild of agile coaches from Ordina, tried and tested the Agile Leadership Game developed by the Agile Consortium called ‘How Agile Are You?’.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-08-03T14:44:52+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Testing Angular with jest</title><link href="https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest.html" rel="alternate" type="text/html" title="Testing Angular with jest" /><published>2018-08-03T00:00:00+00:00</published><updated>2018-08-03T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest.html">&lt;p&gt;Last year I learned about Jest, a testing framework. ‘Yet another one’ was my first thought.
+Later that year my colleague and I were looking to extend our test coverage. We where using Jasmine to write the tests we had and Karma to run them.
+It worked for sure and we had a lot of tests but it was like a punishment to write them every time, repeating the same code to mock things and when it finally worked and we pushed them to the CI they would sometimes fail randomly.
+So we were eager to find a better way to test.&lt;/p&gt;
+
+&lt;p&gt;Pretty quickly we started looking into Jest. It differentiated itself by not using Karma as a test runner.
+We liked the idea because Karma actually has some points of failure which we encountered often.&lt;/p&gt;
+
+&lt;h2 id=&quot;karma-vs-jest&quot;&gt;Karma vs Jest&lt;/h2&gt;
+
+&lt;h3 id=&quot;karma&quot;&gt;Karma&lt;/h3&gt;
+
+&lt;p&gt;Let me quickly give you an overview of what it is that Karma does:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;it spawns a webserver to serve your source and test code;&lt;/li&gt;
+  &lt;li&gt;it starts a browser from your machine and connects to the webserver;&lt;/li&gt;
+  &lt;li&gt;it spawns a reporter which has a socket connection with the webserver;&lt;/li&gt;
+  &lt;li&gt;it runs every test, awaits its result and sends it to the reporter.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In the end we have 3 components communicating with each other. Which components exactly, dependends on the environment Karma is running on.
+Our CI was a Linux machine, I had an Ubuntu to work on, my colleague was on MacOS, and other guys in the team were on Windows.
+So we all had different Chrome versions which gave us some issues. And our CI used PhantomJS, which is outdated, so here we also had some issues.&lt;/p&gt;
+
+&lt;h3 id=&quot;jest&quot;&gt;Jest&lt;/h3&gt;
+
+&lt;p&gt;How are these issues fixed in Jest?
+As I mentioned before Jest does not use Karma to run the tests, it will just start a single NodeJS process which does all the work by itself:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;it compiles your code;&lt;/li&gt;
+  &lt;li&gt;it runs your tests with NodeJs (or JSDOM for DOM testing);&lt;/li&gt;
+  &lt;li&gt;it creates a report.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Just plain and simple without too many interconnected processes to break.
+Also, no real browser is needed on the machine since NodeJs and JSDOM are used.
+Therefore the only tool to keep up to date is Jest, which is managed automatically via the Yarn lockfile&lt;/p&gt;
+
+&lt;h2 id=&quot;set-up&quot;&gt;Set up&lt;/h2&gt;
+
+&lt;p&gt;So how can you set it up and quickly replace all your tests (if you’re coming from Jasmine)?
+To make Jest available in an Angular project, you first need to install Jest and &lt;a href=&quot;https://www.npmjs.com/package/jest-preset-angular&quot; target=&quot;_blank&quot;&gt;jest-preset-angular&lt;/a&gt;.
+Since Jest is made for React (backed by Facebook, remember) we need jest-preset-angular to fix some things for us.&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ yarn add -D @types/jest jest jest-preset-angular
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Some configuration is always needed so let’s add some lines to the package.json (or export the config in a jest.config.js).
+First we point to the preset that we will use. Next we provide a setup-jest.ts script in which we import some necessary files (we’ll create it later on).
+Then we provide information about how Jest should transpile our code under the transform property. Therefore we point to the preprocessor from jest-preset-angular for our typescript and html files.
+And for the Javascript files we’ll point to babel-jest (which ships with Jest).
+The transformIgnorePatterns point to some libraries that don’t need to be transpiled for our tests. (If you get &lt;code class=&quot;highlighter-rouge&quot;&gt;Unexpected token import&lt;/code&gt; issues, you might need to add some packages here)&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jest&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;preset&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jest-preset-angular&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;setupTestFrameworkScriptFile&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;rootDir&amp;gt;/src/setup-jest.ts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;transform&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+     &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'^.+\\.(ts|html)$'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&amp;lt;rootDir&amp;gt;/node_modules/jest-preset-angular/preprocessor.js'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+     &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'^.+\\.js$'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'babel-jest'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+   &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;transformIgnorePatterns&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'node_modules/(?!@ngrx|ng&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-translate|@ionic|lodash|ionic-angular)'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As mentioned previously, we create a setup-jest.ts file in which we import some code from jest-preset-angular and a global mocks file.&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'jest-preset-angular'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'./jest-global-mocks'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the jest-global-mocks.ts we provide functionality that is not found in JSDOM but that we use in our code (and thus is found in our preferred browser).
+So we mock things that are globally accessible, if you use certain browser API’s you should also mock them here.
+For our example we needed the following code:&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mock&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;storage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;getItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;storage&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;storage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;setItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;storage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;removeItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;storage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;clear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;storage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;defineProperty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'localStorage'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()});&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;defineProperty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'sessionStorage'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()});&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;defineProperty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'getComputedStyle'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'-webkit-appearance'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;defineProperty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'__env'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;backendUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'mocked URl'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As you can see, our tests use localStorage, sessionStorage, getComputedStyle and an environment property (__env) on the window.&lt;/p&gt;
+
+&lt;p&gt;With everything set up we could run our test by running the Jest command&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Of course not much is running yet since all our tests use Jasmine, and ‘jasmine’ (as a keyword) is unknown to Jest.
+To fix this we need to replace some Jasmine specific code by Jest specific code.&lt;/p&gt;
+
+&lt;h2 id=&quot;jasmine-to-jest&quot;&gt;Jasmine to jest&lt;/h2&gt;
+
+&lt;p&gt;In Jasmine we would create a mock object using Jasmine’s createSpyObj-function and passing some parameters in it.&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Jasmine&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;serviceMock&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;createSpyObj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'service'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'methods'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'you'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'want'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'to'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'mock'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In Jest we just create an object with the expected properties, and jest.fn() creates a mock function for us.
+This is a great improvement since you get better code hints and you can easily create more advanced mocks.&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Jest&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;serviceMock&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+ &lt;span class=&quot;na&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+ &lt;span class=&quot;na&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+ &lt;span class=&quot;na&quot;&gt;want&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+ &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+ &lt;span class=&quot;na&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Also to mock return values it is a bit different (for the better):&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Jasmine&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;serviceMock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mockReturnValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;serviceMock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;you&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Spy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;returnValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'yannick vergeylen'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Jest&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;serviceMock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mockReturnValueOnce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'yannick vergeylen'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// And you can chain multiple return values if you need it&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;serviceMock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mockReturnValueOnce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'yannick vergeylen'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+               &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mockReturnValueOnce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'bob'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+               &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mockReturnValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'everyone'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Or even with a function which can execute simple logic.&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// But you shouldn't be implementing to much logic, since you don't want to test the tests.&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;serviceMock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mockImplementation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;lastname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;lastname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Or provide it at initialisation which saves you a line of code&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;serviceMock&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+ &lt;span class=&quot;na&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+ &lt;span class=&quot;na&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;lastname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;lastname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;na&quot;&gt;want&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+ &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+ &lt;span class=&quot;na&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For the assertions you shouldn’t have to change much, since Jest uses almost the same assertion functions as Jasmine.&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;serviceMock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toHaveBeenCalled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;serviceMock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toHaveBeenCalledWith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Jasmine&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;serviceMock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;you&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Spy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;calls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mostRecent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Jest&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;serviceMock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;calls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// to get the first argument of the first call (firstname)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;serviceMock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;calls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// to get the second argument of the first call (lastname)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I changed all our tests with some regexes, it is possible with some creativity, but today there are codemods which should do the hard work for you.
+&lt;a href=&quot;https://jestjs.io/docs/en/migration-guide&quot; target=&quot;_blank&quot;&gt;Checkout the jest documentation&lt;/a&gt; to find out more.&lt;/p&gt;
+
+&lt;p&gt;Jest really gets interesting when you use libraries and need to mock them:&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Jest&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;HttpClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@angular/common/http'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CompaniesService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'./companies.service'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'rxjs/Observable'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;jest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'@angular/common/http'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;httpClient&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HttpClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;companiesService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CompaniesService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;httpClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'the service should map the return value to an array of companies'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;httpClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mockReturnValueOnce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;companies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'C1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'C1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}],&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}))&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;companiesService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getPage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'C1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'C1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}]));&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;httpClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;calls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'backendUrl/companies?page=6'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Instead of mocking HttpClient we can just import it, provide the return value we know backend will give and focus on testing the output of our getPage method.
+In the above example you see I have to create a instance of httpClient to get around dependency injection in Angular, but other imports can also be mocked in the same way.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;So one year later we are still using Jest and testing is still a lot more enjoyable than it was before.
+Not painless as Jest claims it to be, but that’s just the nature of testing I guess.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yannick&quot;, &quot;last_name&quot;=&gt;&quot;Vergeylen&quot;, &quot;github&quot;=&gt;&quot;yannickvergeylenord&quot;, &quot;linkedin&quot;=&gt;&quot;yannickvergeylen&quot;, &quot;permalink&quot;=&gt;&quot;/author/yannick-vergeylen/&quot;, &quot;avatar&quot;=&gt;&quot;yannick-vergeylen.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;yannick.vergeylen@ordina.be&quot;, &quot;phone&quot;=&gt;32476499054, &quot;bio&quot;=&gt;&quot;Yannick is a young and driven software developer. Widely interested and with a studious attitude he keeps looking for new ways to improve the web with better software and experiences.&quot;}</name><email>yannick.vergeylen@ordina.be</email></author><category term="Testing" /><category term="JWorks" /><category term="culture" /><summary type="html">Last year I learned about Jest, a testing framework. ‘Yet another one’ was my first thought. Later that year my colleague and I were looking to extend our test coverage. We where using Jasmine to write the tests we had and Karma to run them. It worked for sure and we had a lot of tests but it was like a punishment to write them every time, repeating the same code to mock things and when it finally worked and we pushed them to the CI they would sometimes fail randomly. So we were eager to find a better way to test.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-08-03-testing-angular-with-jest/jest.png" /></entry><entry><title type="html">Agile Leadership Game</title><link href="https://ordina-jworks.github.io/agile/2018/07/31/Agile-Leadership-Game.html" rel="alternate" type="text/html" title="Agile Leadership Game" /><published>2018-07-31T00:00:00+00:00</published><updated>2018-07-31T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/agile/2018/07/31/Agile-Leadership-Game</id><content type="html" xml:base="https://ordina-jworks.github.io/agile/2018/07/31/Agile-Leadership-Game.html">&lt;p&gt;Last week we, as the guild of agile coaches from Ordina, tried and tested the Agile Leadership Game developed by the Agile Consortium called ‘How Agile Are You?’.
 In this blog post, we will provide you with some more information about the game.&lt;/p&gt;
 
 &lt;h3 id=&quot;details&quot;&gt;Details&lt;/h3&gt;
@@ -4542,90 +4738,4 @@ Kanban would be way more useful for these sort of teams; high priority tickets a
 &lt;p&gt;An advantage of Scrum compared to Kanban is that the business will know what will be delivered during the next Sprint.&lt;br /&gt;
 Kanban is more dependent on the incoming requests.&lt;/p&gt;
 
-&lt;p&gt;As said before; it all depends on the situation you’re in. Analyze the situation before deciding which agile framework will work best for your team!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nils&quot;, &quot;last_name&quot;=&gt;&quot;Devos&quot;, &quot;permalink&quot;=&gt;&quot;/author/nils-devos/&quot;, &quot;avatar&quot;=&gt;&quot;nils-devos.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Software Engineer&quot;, &quot;linkedin&quot;=&gt;&quot;nils-devos-0321171b&quot;, &quot;twitter&quot;=&gt;&quot;NilsDevos&quot;, &quot;email&quot;=&gt;&quot;nils.devos@ordina.be&quot;, &quot;github&quot;=&gt;&quot;NilsD88&quot;, &quot;bio&quot;=&gt;&quot;Nils is a Senior Software Engineer at Ordina Belgium. Passionate about frontend frameworks. Scrum master-in-training.&quot;}</name><email>nils.devos@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="Scrum" /><category term="Kanban" /><summary type="html">Scrum VS Kanban</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/agile/scrum-vs-kanban/boxers.jpg" /></entry><entry><title type="html">Spring Cloud Contract, meet Pact</title><link href="https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html" rel="alternate" type="text/html" title="Spring Cloud Contract, meet Pact" /><published>2018-04-28T00:00:00+00:00</published><updated>2018-04-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact</id><content type="html" xml:base="https://ordina-jworks.github.io/spring/2018/04/28/Spring-Cloud-Contract-meet-Pact.html">&lt;h1 id=&quot;cdct-or-consumer-driven-contract-testing&quot;&gt;CDCT, or Consumer-Driven Contract Testing&lt;/h1&gt;
-
-&lt;p&gt;Consumer-driven contract tests are actually integration tests that are targetting your API, whether it’s REST-based or messaging-based.
-Imagine you’re working on an application that exposes its data using a REST API.
-Another team is using your exposed data for some functionality that they are providing.
-In order to guarantee that the functionality of the other team their application doesn’t break if we make changes to our API, we create a contract between the two teams.
-Key in this setup is that the contracts are defined by the consumer of your API instead of the developer that wrote the implementation of a certain functionality.
-With this aproach we can generate tests by using those consumer-driven contracts, and verify whether we’re going to break any of our consumers’ applications.
-You can find a couple of interesting and useful links on the bottom of this post which go further into detail.&lt;/p&gt;
-
-&lt;p&gt;Spring Cloud Contract provides us with JVM-based libraries, allowing us to generate Groovy contracts, package them as a jar, and upload them to an artifact repository like Nexus or Artifactory.
-Great, but that means we can only use these contracts between two parties that are using a JVM language.
-What if the consumer of our API is a NodeJS or .NET microservice, or even an Angular application?
-For consumers or producers written in other languages, the lack of library support might be a concern.&lt;/p&gt;
-
-&lt;p&gt;With the latest Spring Cloud release, that’s a thing of the past!&lt;/p&gt;
-
-&lt;h1 id=&quot;spring-cloud-contract-meet-pact&quot;&gt;Spring Cloud Contract, meet Pact&lt;/h1&gt;
-
-&lt;p&gt;The first release candidate of Spring Cloud Finchley, which was released on the 25th of April, also ships the first release candidate of Spring Cloud Contract.&lt;/p&gt;
-
-&lt;center&gt;&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Our first release candidate of the Spring Cloud Finchley release train has been released.  Checkout the blog post for more information and as always feedback is welcome! &lt;a href=&quot;https://t.co/8TK0tudkzr&quot;&gt;https://t.co/8TK0tudkzr&lt;/a&gt;&lt;/p&gt;&amp;mdash; Spring Cloud (@springcloud) &lt;a href=&quot;https://twitter.com/springcloud/status/989122422635925504?ref_src=twsrc%5Etfw&quot;&gt;April 25, 2018&lt;/a&gt;&lt;/blockquote&gt;&lt;/center&gt;
-&lt;script async=&quot;&quot; src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;Spring Cloud Contract has updated its support for &lt;a href=&quot;http://pact.io/&quot; target=&quot;_blank&quot;&gt;Pact&lt;/a&gt; and added the support to connect to a &lt;a href=&quot;https://github.com/pact-foundation/pact_broker&quot; target=&quot;_blank&quot;&gt;Pact broker&lt;/a&gt;.
-The Pact broker acts as a repository for sharing the Pact contracts and verification results.
-The most awesome feature in my opinion is the visualisation of the contracts between all known parties.
-In the UI you can see the last time there was a new version of a contract published, when it was verified and what status it had, and last but not least the details of the contract.&lt;/p&gt;
-
-&lt;div class=&quot;row&quot;&gt;
-  &lt;div class=&quot;12u$&quot;&gt;
-    &lt;a href=&quot;/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_index.png&quot;&gt;
-      &lt;img class=&quot;image fit&quot; alt=&quot;List of contracts between parties with the timestamps and status&quot; src=&quot;/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_index.png&quot; /&gt;
-      &lt;figcaption class=&quot;align-center&quot;&gt;List of contracts between parties with the timestamps and status&lt;/figcaption&gt;
-    &lt;/a&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;6u 12u$(medium)&quot;&gt;
-    &lt;a href=&quot;/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_contract_details.png&quot;&gt;
-      &lt;img class=&quot;image fit&quot; alt=&quot;Details of a contract between two parties&quot; src=&quot;/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_contract_details.png&quot; /&gt;
-      &lt;figcaption class=&quot;align-center&quot;&gt;Details of a contract between two parties&lt;/figcaption&gt;
-    &lt;/a&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;6u$ 12u$(medium)&quot;&gt;
-    &lt;a href=&quot;/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_dep_graph.png&quot;&gt;
-      &lt;img class=&quot;image fit&quot; alt=&quot;A graph showing the dependencies between all known consumers and producers&quot; src=&quot;/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/pact_broker_dep_graph.png&quot; /&gt;
-      &lt;figcaption class=&quot;align-center&quot;&gt;A graph showing the dependencies between all known consumers and producers&lt;/figcaption&gt;
-    &lt;/a&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;Simply add the &lt;code class=&quot;highlighter-rouge&quot;&gt;spring-cloud-contract-pact&lt;/code&gt; dependency, which will add the Pact Converter and Pact Stub Downloader, together with some configuration and you’re good to go!&lt;/p&gt;
-
-&lt;p&gt;The Pact contracts will be retrieved from the Pact broker and converted to Spring Cloud Contract contracts for you, so these in turn can be used to generate stubs and tests.
-It’s also possible to write Spring Cloud Contract contracts, convert them to Pact contracts and upload them to the Pact broker.&lt;/p&gt;
-
-&lt;p&gt;The upside to it is that these contracts are in fact language agnostic as opposed to Spring Cloud Contract, the downside to it is that it lacks some functionality regarding messaging compared to Spring Cloud Contract.
-Currently Pact contracts up until v4 are supported, which means that both request-response and messaging contracts can be used.
-Note that not all functionality is supported though, as is described in &lt;a href=&quot;https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#pact-converter&quot; target=&quot;_blank&quot;&gt;this section&lt;/a&gt; of the reference documentation.&lt;/p&gt;
-
-&lt;p&gt;A typical workflow to define such contracts could look like this:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;The consumer of the data writes a test for the feature by doing TDD.
-In this test the contract is defined which will be used as a stub.&lt;/li&gt;
-  &lt;li&gt;Next up the missing implementation is written.&lt;/li&gt;
-  &lt;li&gt;When we push our changes to Git our CI pipeline is triggered, in which we’ll upload all defined contracts to a central artifact repository, eg. a Pact broker, after all our tests have been run.&lt;/li&gt;
-  &lt;li&gt;After our code’s been pushed, we’ll clone the producer’s application.&lt;/li&gt;
-  &lt;li&gt;We create a test that uses the newly added CDC and file a pull request.&lt;/li&gt;
-  &lt;li&gt;The team that works on the producer’s application can take over the pull request and add changes where necessary.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In case you want to go the extra mile: you can also use the same approach for consumer-driven changes within the producer’s application!
-If you want a new REST endpoint or a message that will be delivered through some messaging system like Kafka or RabbitMQ, you can add an initial implementation of the missing functionality in the pull request.
-The other team then only needs to review the changes and add some adjustments if needed.
-Both teams can really benefit from such workflow: the consumer’s team doesn’t need to wait until the producer’s team has time to create the implementation, while the producer’s team can keep their focus on what’s on their product backlog.&lt;/p&gt;
-
-&lt;h1 id=&quot;useful-links&quot;&gt;Useful links&lt;/h1&gt;
-
-&lt;p&gt;The &lt;a href=&quot;https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#spring-cloud-contract-verifier-intro-three-second-tour&quot; target=&quot;_blank&quot;&gt;three-second&lt;/a&gt; or &lt;a href=&quot;https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#spring-cloud-contract-verifier-intro-three-minute-tour&quot; target=&quot;_blank&quot;&gt;three-minute&lt;/a&gt; tour give you a nice very brief walkthrough of Spring Cloud Contract.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=JEmpIDiX7LU&quot; target=&quot;_blank&quot;&gt;Consumer Driven Contracts and Your Microservice Architecture&lt;/a&gt; by Marcin Grzejszczak (&lt;a href=&quot;https://twitter.com/mgrzejszczak&quot; target=&quot;_blank&quot;&gt;@mgrzejszczak&lt;/a&gt;) and Adib Saikali (&lt;a href=&quot;https://twitter.com/asaikali&quot; target=&quot;_blank&quot;&gt;@asaikali&lt;/a&gt;).&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#_step_by_step_guide_to_consumer_driven_contracts_cdc&quot; target=&quot;_blank&quot;&gt;A step-by-step guide&lt;/a&gt; to Consumer Driven Contracts with Spring Cloud Contract.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/pact-foundation/pact-js&quot; target=&quot;_blank&quot;&gt;Implementation of the consumer driven contract library Pact for Javascript&lt;/a&gt;, from creating a test to generating the contract and uploading it to the Pact broker.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Ysewyn&quot;, &quot;avatar&quot;=&gt;&quot;tim-ysewyn.png&quot;, &quot;twitter&quot;=&gt;&quot;TYsewyn&quot;, &quot;linkedin&quot;=&gt;&quot;tysewyn&quot;, &quot;github&quot;=&gt;&quot;TYsewyn&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-ysewyn/&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader API &amp; Microservices&quot;, &quot;email&quot;=&gt;&quot;Tim.Ysewyn@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a Principal Consultant at Ordina, where he helps fellow developers discovering top-notch technologies and methodologies as a Competence Leader for API &amp; Microservices. You can also find him working on various parts of the &lt;a href=\&quot;https://www.spring.io\&quot; target=\&quot;_blank\&quot;&gt;Spring&lt;/a&gt; framework or helping out at &lt;a href=\&quot;https://ng-be.org\&quot; target=\&quot;_blank\&quot;&gt;NG-BE&lt;/a&gt;. When you can\\'t get a hold of him, he will probably be under water since he is also an underwater photographer &amp; rescue diver.&quot;}</name><email>Tim.Ysewyn@ordina.be</email></author><category term="Spring" /><category term="Spring" /><category term="Spring Cloud" /><category term="Spring Cloud Contract" /><category term="SCC" /><category term="Pact" /><category term="CDCT" /><summary type="html">CDCT, or Consumer-Driven Contract Testing</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-04-28-Spring-Cloud-Contract-meet-Pact/post-image.jpg" /></entry></feed>
+&lt;p&gt;As said before; it all depends on the situation you’re in. Analyze the situation before deciding which agile framework will work best for your team!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nils&quot;, &quot;last_name&quot;=&gt;&quot;Devos&quot;, &quot;permalink&quot;=&gt;&quot;/author/nils-devos/&quot;, &quot;avatar&quot;=&gt;&quot;nils-devos.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Software Engineer&quot;, &quot;linkedin&quot;=&gt;&quot;nils-devos-0321171b&quot;, &quot;twitter&quot;=&gt;&quot;NilsDevos&quot;, &quot;email&quot;=&gt;&quot;nils.devos@ordina.be&quot;, &quot;github&quot;=&gt;&quot;NilsD88&quot;, &quot;bio&quot;=&gt;&quot;Nils is a Senior Software Engineer at Ordina Belgium. Passionate about frontend frameworks. Scrum master-in-training.&quot;}</name><email>nils.devos@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="Scrum" /><category term="Kanban" /><summary type="html">Scrum VS Kanban</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/agile/scrum-vs-kanban/boxers.jpg" /></entry></feed>
