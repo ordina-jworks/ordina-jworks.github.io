@@ -16,6 +16,7 @@ In this blog post we will use traffic data as it is made available by the flemis
 
 Several [Spring Boot](https://spring.io/projects/spring-boot) applications will be made which will handle this data:
 * Transform the data into events with [Spring Cloud Stream](https://cloud.spring.io/spring-cloud-stream/)
+* Do some stream processing using just plain old native java.
 * Process these events with [Kafka Streams](https://kafka.apache.org/documentation/streams/) with [Spring Kafka](https://spring.io/projects/spring-kafka)
 * Do similar processing with [Apache Storm](http://storm.apache.org/)
 
@@ -110,13 +111,66 @@ Add the appropriate starter:
     </dependency>
 {% endhighlight %}
 
+Define a Spring Boot application - make sure to enable scheduling.
+{% highlight java %}
+    @SpringBootApplication
+    @EnableScheduling
+    @EnableBinding({Channels.class})
+    public class OpenDataTrafficApplication {
+
+        public static void main(String[] args) {
+            SpringApplication.run(OpenDataTrafficApplication.class, args);
+        }
+    }
+{% endhighlight %}
+
+Define some input and output topics:
+{% highlight java %}
+    public interface Channels {
+
+        @Input
+        SubscribableChannel trafficEvents();
+
+        @Output
+        MessageChannel trafficEventsOutput();
+
+        @Output
+        MessageChannel sensorDataOutput();
+    }
+{% endhighlight %}
+
+
 Create a bean to read in the events.
+{% highlight java %}
+
+{% endhighlight %}
 
 Split the xml into multiple records.
+{% highlight java %}
+
+{% endhighlight %}
+
 
 Write to a topic.
+{% highlight java %}
+
+{% endhighlight %}
+
 
 The events will be send to Kafka as JSON messages.
+{% highlight java %}
+
+{% endhighlight %}
+
+With the scheduled annotation Spring Boot will read in the events every 60 seconds.
+{% highlight java %}
+    @Scheduled(fixedRate = 60000)
+    public void run() throws Exception {
+        putAllEventsInKafka();
+    }
+{% endhighlight %}
+
+## Native Java Stream Processing
 
 ## Spring Kafka
 
