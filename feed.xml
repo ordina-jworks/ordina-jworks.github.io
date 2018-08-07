@@ -1,5 +1,707 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-08-03T14:44:52+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Testing Angular with jest</title><link href="https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest.html" rel="alternate" type="text/html" title="Testing Angular with jest" /><published>2018-08-03T00:00:00+00:00</published><updated>2018-08-03T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest.html">&lt;p&gt;Last year I learned about Jest, a testing framework. ‘Yet another one’ was my first thought.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-08-15T20:32:44+00:00</updated><id>https://ordina-jworks.github.io/</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Node-RED: Development and CI</title><link href="https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html" rel="alternate" type="text/html" title="Node-RED: Development and CI" /><published>2018-08-15T00:00:00+00:00</published><updated>2018-08-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-is-node-red&quot;&gt;What is Node-RED&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#why-we-are-using-node-red-or-an-alternative&quot;&gt;Why we are using Node-RED (or an alternative)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#node-red-to-the-rescue&quot;&gt;Node-RED to the rescue&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#configuration-components&quot;&gt;Configuration components&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#running-an-instance&quot;&gt;Running an instance&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#creating-your-first-flow&quot;&gt;Creating your first flow&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#spicing-things-up&quot;&gt;Spicing things up&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#json&quot;&gt;JSON&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#node-red-persistent-config&quot;&gt;Node-RED persistent config&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#node-red-and-docker&quot;&gt;Node-RED and Docker&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#node-red-and-ci&quot;&gt;Node-RED and CI&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;what-is-node-red&quot;&gt;What is Node-RED&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Node-RED is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways.” – from docs &lt;a target=&quot;_blank&quot; href=&quot;https://nodered.org/&quot;&gt;https://nodered.org/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;And yes, that’s all true.
+But we’re not using Node-RED for those things.
+There are two use cases for which we use Node-RED, but before we go into those, we’ll take a quick look at some other Node-RED features.&lt;/p&gt;
+
+&lt;p&gt;Some great pros:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Node-RED is built on Node.js, taking full advantage of its event-driven, non-blocking model.
+This makes it ideal to run at the edge of the network on low-cost hardware such as the Raspberry Pi as well as in the cloud. (from docs)&lt;/li&gt;
+  &lt;li&gt;Node-RED comes with a web based graphical user interface, where you can manage your API flows with drag and drop functionality.&lt;/li&gt;
+  &lt;li&gt;Because Node-RED is built on Node.js you can just run it locally on a lot of systems (Windows, Mac OSX, Linux,…), on a lot of devices and in the cloud.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The graphical user interface lets you create your endpoints and flows in an easy way.
+Just drag and drop your components in your flowchart and connect them by drawing a line between them.
+Double clicking each component will open the detail screen where you can set some variables for that component.
+When your flows are ready, there is an import and an export function available for storing and sharing your configs.&lt;/p&gt;
+
+&lt;h1 id=&quot;why-we-are-using-node-red-or-an-alternative&quot;&gt;Why we are using Node-RED (or an alternative)&lt;/h1&gt;
+
+&lt;h2 id=&quot;node-red-and-development&quot;&gt;Node-RED and Development&lt;/h2&gt;
+
+&lt;p&gt;Coming from a frontend dev background, I can confirm that nothing is more frustrating than running backends, or at least part of the backend, locally, before you can start coding and testing.
+Yes, Docker and Docker Compose are helping a lot but still…
+In some cases, backend development, for a specific feature, is planned for the same sprint as the frontend development.
+So even running a backend locally, will not help you.
+Mocking can be an option.
+You can start mocking the data inside the communication layer or mocking an external backend with test data.&lt;/p&gt;
+
+&lt;p&gt;In an ideal world, teams should do some analysis of the specifications coming from business and their analysts.
+Based on those specification, developers can start estimating tasks (or stories and epics), and think about the architecture and design.
+At this point, technical specifications could already get written down, such as model designs and API contracts.
+It’s almost impossible to do a good job in the frontend if those things are not available, or at least specified.&lt;/p&gt;
+
+&lt;p&gt;Why do you want good test data?
+If you know the characteristics, it’s easier to do some layout stuff.
+You would think that mockups and designs would be accurate, but most of the time they aren’t or they are not inline with the data.&lt;/p&gt;
+
+&lt;p&gt;So what about mocking?
+Yes, you can mock stuff yourself and maybe skip the communication layer.
+Or you can mock the communication part in the communication layer by means of interceptors for example.
+But at some point in time, you’ll need an API and test data that is close to production data when it comes to live data specs.
+When mocking inside your components, would you include everything in your code base?
+Or would you exclude it, but still make it more accessible for your colleagues?
+Some frameworks include this kind of functionality such as MockBackend from Angular (More info &lt;a target=&quot;_blank&quot; href=&quot;https://angular.io/api/http/testing/MockBackend&quot;&gt;here&lt;/a&gt;).
+That said, I really like and prefer external tools for mocking a backend.
+That way it’s separated from your app and code base, so it can easily get replaced or modified without triggering stuff in your frontend pipelines.
+You can even choose to run a tool on your local machine.
+Or on-premise and make it accessible for all your (frontend) developers.&lt;/p&gt;
+
+&lt;h2 id=&quot;node-red-and-testing-ci&quot;&gt;Node-RED and Testing (CI)&lt;/h2&gt;
+
+&lt;p&gt;Even if you have implemented your mocks inside your communication layer and it’s doing the job you expect it to do, how are you going to test your communication itself?
+You can use those mocks to run unit tests, but it’s harder to run integration tests that cover your communication layer as well.
+Using an external tool, gives you the possibility to reuse this part in your test setup.
+You can integrate this external mock backend in your setup and redirect your frontend calls to the mock instead of a real backend.
+Why you should do this, is explained in an earlier post on our tech blog.
+If you’re interested, you can read all about it &lt;a target=&quot;_blank&quot; href=&quot;https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html&quot;&gt;here&lt;a&gt;.&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;node-red-to-the-rescue&quot;&gt;Node-RED to the rescue&lt;/h1&gt;
+
+&lt;p&gt;In both cases, Node-RED can help us providing a real API that responds with test data.
+For the test data, I prefer test data getting delivered by the business or the client, but if that is not an option, you can create your &lt;code class=&quot;highlighter-rouge&quot;&gt;json&lt;/code&gt; data based on the API contracts and model designs.
+Again, I’m mentioning the API contracts and model design, because often, organisations fail at this.
+Let’s setup a real easy API.&lt;/p&gt;
+
+&lt;h1 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h1&gt;
+
+&lt;p&gt;Before starting this tutorial, you should download or install some things:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Make sure you have a Node.js (incl npm) environment&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo npm install -g --unsafe-perm node-red&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;A running Docker daemon&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker pull nodered/node-red-docker&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;NOTE: To be honest, you only need one of those 2 environments.
+For the other part, you can just read through it and then try it in the other setup.&lt;/p&gt;
+
+&lt;h1 id=&quot;configuration-components&quot;&gt;Configuration components&lt;/h1&gt;
+
+&lt;p&gt;Although we are only using Node-RED for HTTP(S) (REST) and MQTT backend mocking, Node-RED provides more options.
+Node-RED can even be used as a real backend, using external databases for example.
+So before we start our setup, let’s take a quick look at some basic features.&lt;/p&gt;
+
+&lt;h2 id=&quot;inputs&quot;&gt;Inputs&lt;/h2&gt;
+
+&lt;p&gt;HTTP, TCP, UDP are probably the most straightforward and known by all of you.
+I guess no explanation is needed.
+WebSockets are also used a lot nowadays.
+WebSockets are an advanced technology that makes it possible to open an interactive communication channel/session for pushing messages between a client(s) and a server(s).
+MQTT is one of the standards for messaging for mobile devices.
+It is a lightweight messaging protocol for small sensors and mobile devices, optimized for high-latency or unreliable networks.
+Inject, catch, status and link are internal inputs.
+Inject provides a way of injecting a message(s) into a flow.
+This can be done manually or at a regular interval.
+Catch can be used to handle an error from another node.
+The normal from of that node will get terminated, but with catch you can handle and catch the error providing an alternative route.
+The status node is just reporting messages from other nodes and link lets the user create virtual links between flows.&lt;/p&gt;
+
+&lt;h2 id=&quot;outputs&quot;&gt;Outputs&lt;/h2&gt;
+
+&lt;p&gt;Same as above for HTTPS, TCP, UDP, WebSockets, MQTT and link but now for outputs.
+Debug lets you show messages in the sidebar.
+The debug sidebar provides a structured view of the messages it has sent, making it easier to understand their structure.&lt;/p&gt;
+
+&lt;h2 id=&quot;functions&quot;&gt;Functions&lt;/h2&gt;
+
+&lt;p&gt;Node-RED comes with a lot of predefined function blocks.
+The ones we are using most are the regular &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block itself and the &lt;code class=&quot;highlighter-rouge&quot;&gt;json&lt;/code&gt;- or &lt;code class=&quot;highlighter-rouge&quot;&gt;xml&lt;/code&gt;-function to parse json and xml.
+Besides those, there are function blocks that lets you run calls to external platforms, delay, reroute or redefine messages, etc.
+If you need more information about one of them, Node-RED show an information screen when selecting one of them.&lt;/p&gt;
+
+&lt;h2 id=&quot;social&quot;&gt;Social&lt;/h2&gt;
+
+&lt;p&gt;This section provides us with functionality to intercept (input/output) email- and twitters messages.
+I’ve personally never used one of them, but I can imagine they can come in handy.&lt;/p&gt;
+
+&lt;h2 id=&quot;storage&quot;&gt;Storage&lt;/h2&gt;
+
+&lt;p&gt;File (input/output) is self explanatory.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;tail&lt;/code&gt; function, lets you add a watcher to a file.
+As the docs describe, this cannot be used on Windows systems.
+It’s based on the &lt;code class=&quot;highlighter-rouge&quot;&gt;$ tail -f fileName&lt;/code&gt; command on Unix systems and watches for changes.&lt;/p&gt;
+
+&lt;h2 id=&quot;analysis&quot;&gt;Analysis&lt;/h2&gt;
+
+&lt;p&gt;This component lets you analyse a received message based on a sentiment score.
+You can read all about it &lt;a target=&quot;_blank&quot; href=&quot;https://github.com/thisandagain/sentiment/blob/master/README.md&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;advanced&quot;&gt;Advanced&lt;/h2&gt;
+
+&lt;p&gt;Like the tail function, the &lt;code class=&quot;highlighter-rouge&quot;&gt;watch&lt;/code&gt;-block watches for directory or file changes.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;feedparse&lt;/code&gt; can be used to monitor an RSS/atom feed for new entries.
+The last one, the &lt;code class=&quot;highlighter-rouge&quot;&gt;exec&lt;/code&gt;-block lets you run a system command and returns its output.&lt;/p&gt;
+
+&lt;h1 id=&quot;running-an-instance&quot;&gt;Running an instance&lt;/h1&gt;
+
+&lt;p&gt;First things first, let’s fire up a Node-RED instance.
+(We are going to start with the npm package version)
+To start using or initiating an instance of Node-RED by using the npm repositories, just run:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ node-red&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;If installed correctly, you should see the following log:&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/log1.png&quot; width=&quot;60%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;There are four interesting lines in this log.
+The first three of them are the settings file, the user dir and the flows file.
+The last line shows us where the service is available.&lt;/p&gt;
+
+&lt;p&gt;We’ll come back to the config later, and we are going to take a look at the User Interface based on the &lt;code class=&quot;highlighter-rouge&quot;&gt;uri&lt;/code&gt; in the last line.
+As mentioned before, Node-RED offers a user interface, to configure the service.
+Open your browser and navigate to &lt;code class=&quot;highlighter-rouge&quot;&gt;http://127.0.0.1:1880&lt;/code&gt; (default setup config).&lt;/p&gt;
+
+&lt;p&gt;You’ll see all the components mentioned above on the left side of the screen.
+In the middle you have a tabbed structure for your flow chart(s), and on the right you have debug, info and detail windows.&lt;/p&gt;
+
+&lt;p&gt;On the top right of your screen, you have a settings dropdown and a menu with deploy options.&lt;/p&gt;
+
+&lt;h1 id=&quot;creating-your-first-flow&quot;&gt;Creating your first flow&lt;/h1&gt;
+
+&lt;p&gt;Let’s use the Node-RED user interface to create a simple flow.
+In this case a simple &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input connected to a function that returns its data through an &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-output.&lt;/p&gt;
+
+&lt;p&gt;Start by dragging the &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt; from the input list onto the chart.
+Then, drag and drop a &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt; block from the function list and the &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt; from the output list onto the chart.
+Connect the &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input with the function block by dragging a line starting from the input node, to the function block.
+Repeat this for the &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block to the output.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/initial-flow.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Of course this isn’t ready for being deployed just yet, cause we did not add any logic yet.
+Let’s configure our flow!&lt;/p&gt;
+
+&lt;h3 id=&quot;input&quot;&gt;Input&lt;/h3&gt;
+
+&lt;p&gt;Double click the &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input block.
+This action will open a window on the right where you can set some properties.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Method: GET&lt;/li&gt;
+  &lt;li&gt;URL: /data&lt;/li&gt;
+  &lt;li&gt;Name: Get all data&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/config-input.png&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Confirm these settings by clicking ‘Done’.&lt;/p&gt;
+
+&lt;h3 id=&quot;function-block&quot;&gt;Function block&lt;/h3&gt;
+
+&lt;p&gt;Double click the &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block.
+Again, a window will open!&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Name: Retrieve data&lt;/li&gt;
+  &lt;li&gt;Function:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;NOTE:
+The information section on the right comes in handy while configuring the &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A JavaScript function block to run against the messages being received by the node.
+The messages are passed in as a JavaScript object called msg.
+By convention it will have a msg.payload property containing the body of the message.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This explains why we are setting the &lt;code class=&quot;highlighter-rouge&quot;&gt;msg.payload&lt;/code&gt; property.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/config-function.png&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Again, confirm these settings by clicking ‘done’.&lt;/p&gt;
+
+&lt;h3 id=&quot;output&quot;&gt;Output&lt;/h3&gt;
+
+&lt;p&gt;Open the config for the &lt;code class=&quot;highlighter-rouge&quot;&gt;http-response&lt;/code&gt;-output block.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Name: return all&lt;/li&gt;
+  &lt;li&gt;Status Code: 200&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/config-output.png&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As you can see, the output lets you choose the return status code.
+This can be used later if you would like to implement failed &lt;code class=&quot;highlighter-rouge&quot;&gt;REST&lt;/code&gt;-calls for mocking purposes.
+Confirm these settings by clicking ‘Done’.&lt;/p&gt;
+
+&lt;h3 id=&quot;deploy&quot;&gt;Deploy&lt;/h3&gt;
+
+&lt;p&gt;On the top right of your screen, you have the deploy-dropdown.
+Clicking &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy&lt;/code&gt; will deploy this flow onto the running server, but you can also use the arrow to open up the menu and choose a more accurate scenario.
+Since this is our first deploy and we only have one flow, we don’t have a choice.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/deploy.png&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;test-setup&quot;&gt;Test setup&lt;/h3&gt;
+
+&lt;p&gt;To test our deployment and of course our flow, just navigate to http://localhost:1880/data in your browser or use curl to GET the data:&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/test-browser.png&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ curl -X GET http://localhost:1880/data&lt;/code&gt;&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/test-curl.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;spicing-things-up&quot;&gt;Spicing things up&lt;/h1&gt;
+
+&lt;p&gt;Let’s try and implement a &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;.
+We would first drag and drop an &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input, a &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block and an &lt;code class=&quot;highlighter-rouge&quot;&gt;http-response&lt;/code&gt;-output onto the flow chart.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/delete.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The input would look like:&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/delete-input.png&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Notice the &lt;code class=&quot;highlighter-rouge&quot;&gt;:id&lt;/code&gt;.
+This way we tell Node-RED that this is a path parameter.&lt;/p&gt;
+
+&lt;p&gt;The output would look like:&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/delete-output.png&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;But what about the &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block ? We could come up with something like:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// the id&lt;/span&gt;
+   &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+       &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So we’ve filtered out an element, but that’s it.
+Everytime we call this function block, it will start by initialising the data array.
+Since we are not persisting the data, requesting all the records, will still return all the data records.&lt;/p&gt;
+
+&lt;h2 id=&quot;persisting-data&quot;&gt;Persisting data&lt;/h2&gt;
+
+&lt;p&gt;There is a way to connect to a database, but that is outside of the scope of this post.
+First, let’s show some ways of persisting data.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Node context&lt;/li&gt;
+  &lt;li&gt;Flow context&lt;/li&gt;
+  &lt;li&gt;Global context&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The node context lets the user persist variables for that node.
+Whenever that node gets redeployed, the context is gone.
+The flow context is a context shared over all nodes in that flow chart while the Global context lets you share a context over the whole app.&lt;/p&gt;
+
+&lt;p&gt;You can set and get a context variable with the getters and setters from the api.
+For a flow context this will look like:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;flow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// do stuff&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;flow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;initialising-data&quot;&gt;Initialising data&lt;/h2&gt;
+
+&lt;p&gt;Now that we know how we can store data, we need to find a way to initialise the data.
+We could for example launch a call to trigger a function that would store data in the flow context.
+We could build this by using an &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input, a &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block and an &lt;code class=&quot;highlighter-rouge&quot;&gt;http-response&lt;/code&gt;-output.
+But this doesn’t feel right.
+Luckily, Node-RED provides us with an &lt;code class=&quot;highlighter-rouge&quot;&gt;inject&lt;/code&gt;-input.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/inject.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This input will get triggered periodically, or just one time. &lt;code class=&quot;highlighter-rouge&quot;&gt;inject&lt;/code&gt;-input is made for injecting messages of almost any type into the next component.
+This message can be a string, a number, the current timestamp, …
+We are going to use it as a trigger on startup to initialise our data into our flow.&lt;/p&gt;
+
+&lt;h3 id=&quot;inject-input&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;inject&lt;/code&gt;-input:&lt;/h3&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/inject-input.png&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;inject-function&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;inject&lt;/code&gt;-function:&lt;/h3&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/inject-function.png&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;refactoring&quot;&gt;Refactoring&lt;/h2&gt;
+
+&lt;p&gt;Now we know how we can inject and persist data in a context, let’s refactor our &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;.
+And while we are at it, add a second &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; so we can query one record by ‘id’.&lt;/p&gt;
+
+&lt;h3 id=&quot;get&quot;&gt;GET&lt;/h3&gt;
+
+&lt;p&gt;Our two &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-inputs are exactly the same except for the parameter (id).
+The function-block on the other hand, will have some build-in logic:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;flow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;itx&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;itx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;itx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We are retrieve the data from the context and storing it in a local variable.
+Based on the existence of the &lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; parameter, we are going to search for a single record, or return all records.
+Notice the &lt;code class=&quot;highlighter-rouge&quot;&gt;==&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;===&lt;/code&gt;.
+This is because the id in the data is a number, where the id from the params is a string.&lt;/p&gt;
+
+&lt;p&gt;Based on the logic, we could add a query parameter to the endpoint that let’s us filter the data on the title property for example, but that is out of scope.&lt;/p&gt;
+
+&lt;h3 id=&quot;delete&quot;&gt;DELETE&lt;/h3&gt;
+
+&lt;p&gt;As shown earlier, we are going to use a simple filter function to filter out the record with the given id.
+We start by retrieving the data from the flow context, and then filtering this data.
+Don’t forget to rewrite the new data to the flow context, so other components will get updated context data.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;flow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;flow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;all-together&quot;&gt;All together&lt;/h3&gt;
+
+&lt;p&gt;Now we should have an &lt;code class=&quot;highlighter-rouge&quot;&gt;inject&lt;/code&gt;-input and 3 &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-inputs (2 GET’s and 1 DELETE).
+Our flow should look like:&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/persistent.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Let’s deploy and test this setup.
+First click the deploy button and wait a second.
+Then navigate with your browser to &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:1880/data&lt;/code&gt;.
+This should display your data in your browser.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/all-browser.png&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now, let’s try to delete a record.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ curl -X DELETE http://localhost:1880/data/3&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;And refresh your browser:&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/all-browser-delete.png&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Seems like one big success! No?
+Not exactly.
+Try and delete records 1, 2, 4 and 5.
+Now what?
+Our data is gone and we don’t have a &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; nor a &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; implemented.&lt;/p&gt;
+
+&lt;p&gt;Implementing a &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; and a &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; is really straightforward.&lt;/p&gt;
+
+&lt;h3 id=&quot;post-and-put&quot;&gt;POST and PUT&lt;/h3&gt;
+
+&lt;p&gt;For the example, we are going to work with an &lt;code class=&quot;highlighter-rouge&quot;&gt;upsert&lt;/code&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; will trigger the same function block that will be smart enough to update (if exists) or insert.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/post-put.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The upsert &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block can look like:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;flow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// quick fix making sure it's a number&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;found&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;itx&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;itx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;itx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;found&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;found&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// or adjusted body if needed&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So now we have a GET, POST, PUT and DELETE.
+But still, we are missing something.
+Assume we are developing delete functionality in the frontend while using this setup as a backend.
+Since we only have 5 records, I should inject new data to test after my 5 deletes.
+Or assume we are testing a frontend, connected to this mock backend.
+Wouldn’t it be nice that we can refresh the data to its initial state before running a new test suite?&lt;/p&gt;
+
+&lt;p&gt;The point I’m getting to is, we should come up with a way of refreshing our data to its initial state.&lt;/p&gt;
+
+&lt;h2 id=&quot;resetting-data&quot;&gt;Resetting data&lt;/h2&gt;
+
+&lt;p&gt;When you look at your flow chart, you’ll see there is something that looks like a button on the left side of our &lt;code class=&quot;highlighter-rouge&quot;&gt;inject&lt;/code&gt;-input.
+When you click it, you’ll notice a toast message appearing on the top of your user interface:&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/refresh-toast.png&quot; width=&quot;40%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;But what if we don’t have access to the user interface, or we don’t have control over it what so ever? For example, when running automated tests against this mock backend, somewhere on a dynamic Jenkins Docker slave? To overcome this, we are using an &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input to trigger the reset of our data.
+Let’s take a look at our implementation:&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/refresh-http.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input is listening on &lt;code class=&quot;highlighter-rouge&quot;&gt;/rest&lt;/code&gt;.
+As you can see, we’ve added an &lt;code class=&quot;highlighter-rouge&quot;&gt;http-response&lt;/code&gt;-output.
+REST-calls are expecting a response! Don’t forget to deploy your new setup&lt;/p&gt;
+
+&lt;p&gt;Making sure this works:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET http://localhost:1880/data   // should respond with the initial data
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; DELETE http://localhost:1880/data/2   // should delete record with &lt;span class=&quot;nb&quot;&gt;id &lt;/span&gt;2
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;--header&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Content-Type: application/json&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--request&lt;/span&gt; POST &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--data&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{&quot;id&quot;:&quot;7&quot;,&quot;Title&quot;:&quot;Title 7&quot;}'&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  http://localhost:1880/data   // should add record with &lt;span class=&quot;nb&quot;&gt;id &lt;/span&gt;7
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET http://localhost:1880/data   // should give the expected result
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET http://localhost:1880/reset  // should reset the data
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET http://localhost:1880/data   // should show the reset is working
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/curl-result.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;json&quot;&gt;JSON&lt;/h1&gt;
+
+&lt;p&gt;The last refactoring we are going to do in this tutorial is switching from an hardcoded data json object to an external &lt;code class=&quot;highlighter-rouge&quot;&gt;json&lt;/code&gt;-file.
+As mentioned before, Node-RED provides ways of integrating storage and databases, but that is out of the scope of this post.
+Still, we don’t want to include real data in this setup.
+We should loosely couple our data provider and the backend mock implementation.
+If some analysts, for example, provide us with new test data, we don’t want to change anything in this setup.
+One way to overcome this, is to work with &lt;code class=&quot;highlighter-rouge&quot;&gt;json&lt;/code&gt;-files.&lt;/p&gt;
+
+&lt;p&gt;Assume we have a &lt;code class=&quot;highlighter-rouge&quot;&gt;json&lt;/code&gt;-file, called &lt;code class=&quot;highlighter-rouge&quot;&gt;data.json&lt;/code&gt; with content:&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Remember when I mentioned some important lines in the console at startup?
+One of those lines was referring to the User directory:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;User directory : /Path/To/Your/Home/.node-red&lt;/code&gt; (which is the default)
+Because we didn’t change anything in the &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.js&lt;/code&gt; file (or didn’t point to a custom one), Node-RED creates a context folder for the current instance.
+Copy your &lt;code class=&quot;highlighter-rouge&quot;&gt;data.json&lt;/code&gt; to this folder.
+I will explain later why we are doing this.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/node-red-user-dir.png&quot; width=&quot;50%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Let’s read data from this json file instead of hardcoding the data:&lt;/p&gt;
+
+&lt;h3 id=&quot;add-a-file-component-from-the-storage-section&quot;&gt;Add a file component from the storage section&lt;/h3&gt;
+
+&lt;p&gt;On the left of the user interface, there is a storage section with an input file option.
+Drag this onto the flow chart.
+Unlink the connections from the &lt;code class=&quot;highlighter-rouge&quot;&gt;inject&lt;/code&gt;-input and the reset &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input with the ‘store’ &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block and connect both with the &lt;code class=&quot;highlighter-rouge&quot;&gt;file&lt;/code&gt;-storage component.
+Open the details and set the properties:&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/storage-file.png&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Do read the text on the bottom about the patch to the file! And keep in mind we have selected the ‘single UTF-8 string’ option.&lt;/p&gt;
+
+&lt;h3 id=&quot;add-a-json-parse-function&quot;&gt;Add a Json parse function&lt;/h3&gt;
+
+&lt;p&gt;In the function section on the left, you have a JSON component.
+Depending on its input, it will parse or stringify a string or json object.
+Because we will be sending this component a ‘single UTF-8 string’, it will parse it to a JSON object.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/parse.png&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Integrate this component in between the &lt;code class=&quot;highlighter-rouge&quot;&gt;file&lt;/code&gt;-storage component and the store &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block.&lt;/p&gt;
+
+&lt;h3 id=&quot;refactor-the-store-function&quot;&gt;Refactor the store function&lt;/h3&gt;
+
+&lt;p&gt;We are now ready to refactor the store &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block.
+Remove the data and replace it with the content of the json-parse function.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/refactored-store.png&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;result-result&quot;&gt;Result [result]&lt;/h3&gt;
+
+&lt;p&gt;When finished, our setup should look like the following flow chart:&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/result.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When the json-file gets updated, a data reset call will reload the new data into the flow context without needing to change the setup itself!&lt;/p&gt;
+
+&lt;h1 id=&quot;node-red-persistent-config&quot;&gt;Node-RED persistent config&lt;/h1&gt;
+
+&lt;p&gt;As mentioned before, Node-RED uses a user directory, a &lt;code class=&quot;highlighter-rouge&quot;&gt;flow.json&lt;/code&gt; file and a &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.js&lt;/code&gt; file.
+If those do not exist, it will create default ones for you in the default node-red path &lt;code class=&quot;highlighter-rouge&quot;&gt;%USERPROFILE/.node-red&lt;/code&gt;.
+Going through the settings file is also out of the scope of this post.
+Advanced users can just read all about it in the docs or just open it and modify it.&lt;/p&gt;
+
+&lt;p&gt;Why I’m mentioning this directory, is because of the config persistence of Node-RED.
+Go ahead and kill your Node-RED server (&lt;code class=&quot;highlighter-rouge&quot;&gt;CTRL-C&lt;/code&gt; in terminal).
+And now just restart it:&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;red&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As you can see, Node-RED will just pick up its previous config because it’s available in the default directory.
+When more people need to work with this config, we need to share it.
+The easiest way to share this config, is to wrap it in a Git repository.
+Keep in mind that this may not be best practice to wrap the whole directory, but this way, your colleagues and continuous integration platform can just checkout the repository and run the server, including the data files.&lt;/p&gt;
+
+&lt;p&gt;When running &lt;code class=&quot;highlighter-rouge&quot;&gt;$ node-red --help&lt;/code&gt; it shows the command line params.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/man-node-red.png&quot; width=&quot;40%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Look at the &lt;code class=&quot;highlighter-rouge&quot;&gt;-s&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;-u&lt;/code&gt; option.
+Node-RED provides us with cli parameters to run custom configs.
+Let’s assume we clone our newly created Git repository in &lt;code class=&quot;highlighter-rouge&quot;&gt;~/repositories/node-red&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;node-red &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; ~/repositories/node-red/settings.js &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; ~/repositories/node-red
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;node-red-and-docker&quot;&gt;Node-RED and Docker&lt;/h1&gt;
+
+&lt;p&gt;Node-RED also provides a Docker image at &lt;a target=&quot;_blank&quot; href=&quot;https://hub.docker.com/r/nodered/node-red-docker/&quot;&gt;Docker Hub&lt;/a&gt;.
+This way you do not even need a Node.js environment preinstalled.&lt;/p&gt;
+
+&lt;p&gt;You can just run it with:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 1880:1880 &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; mynodered nodered/node-red-docker
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;What about our persistent config?&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Node-RED is started using NPM start from this /usr/src/node-red, with the –userDir
+parameter pointing to the &lt;code class=&quot;highlighter-rouge&quot;&gt;/data&lt;/code&gt; directory on the container.
+The flows configuration file is set using an environment parameter (FLOWS),
+which defaults to ‘flows.json’.
+This can be changed at runtime using the
+following command-line flag. – from docs https://hub.docker.com/r/nodered/node-red-docker/&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 1880:1880 &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;FLOWS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;my_flows.json nodered/node-red-docker
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;So we can choose only to provide the &lt;code class=&quot;highlighter-rouge&quot;&gt;flows.json&lt;/code&gt; file or we could map our user directory from our repository as a volume to the &lt;code class=&quot;highlighter-rouge&quot;&gt;/data&lt;/code&gt; in the container, providing the container our context.&lt;/p&gt;
+
+&lt;p&gt;An other option is to bake your &lt;code class=&quot;highlighter-rouge&quot;&gt;userDir&lt;/code&gt; into your image.
+This way you can provide your CI with a ready to go Docker image for this particular case.
+This is probably not the best solution, but in some cases it can be very helpful.&lt;/p&gt;
+
+&lt;h1 id=&quot;node-red-and-ci&quot;&gt;Node-RED and CI&lt;/h1&gt;
+
+&lt;p&gt;As we now know how we can configure, dockerize and run our mock backend, we could easily include it in one of our testing stages during our Continuous Delivery pipelines setup.
+For those of you whom read the article about the different stages of API testing (&lt;a href=&quot;https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html&quot;&gt;here&lt;/a&gt;), the following setup will need no further explanation.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/node-red-dev-ci/ci-setup.png&quot; width=&quot;60%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In this setup, the task at hand is running the automated tests defined in and run by our Gauge, Protractor or Nightwatch.js framework.
+To be able to do this, it would be nice to launch an environment at once.
+We can provide our Continuous Integration environment with a compose file that will launch and destroy our frontend and Node-RED mock backend in one environment.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;It’s nice to have an external tool available that can get reused for multiple purposes, in our case development and testing.
+Node-RED provides us with cool features and an easy to use User Interface to do so!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Vierbergen&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-vierbergen/&quot;, &quot;avatar&quot;=&gt;&quot;tim-vierbergen.jpg&quot;, &quot;twitter&quot;=&gt;&quot;vierbergentim&quot;, &quot;linkedin&quot;=&gt;&quot;tim-vierbergen-82557834&quot;, &quot;github&quot;=&gt;&quot;VeeTeeDev&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;title2&quot;=&gt;&quot;Principal Consultant &amp; Competence Lead CI/CD&quot;, &quot;email&quot;=&gt;&quot;tim.vierbergen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a senior developer and architect at JWorks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.&lt;br /&gt;&lt;br /&gt;Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learing how to snowboard.&quot;}</name><email>tim.vierbergen@ordina.be</email></author><category term="Testing" /><category term="Node-RED" /><category term="docker" /><category term="Jenkins" /><category term="GoCD" /><category term="ci" /><summary type="html">Table of contents What is Node-RED Why we are using Node-RED (or an alternative) Node-RED to the rescue Configuration components Running an instance Creating your first flow Spicing things up JSON Node-RED persistent config Node-RED and Docker Node-RED and CI Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/node-red-dev-ci/node-red-dev-ci-white.png" /></entry><entry><title type="html">Testing Angular with jest</title><link href="https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest.html" rel="alternate" type="text/html" title="Testing Angular with jest" /><published>2018-08-03T00:00:00+00:00</published><updated>2018-08-03T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest.html">&lt;p&gt;Last year I learned about Jest, a testing framework. ‘Yet another one’ was my first thought.
 Later that year my colleague and I were looking to extend our test coverage. We where using Jasmine to write the tests we had and Karma to run them.
 It worked for sure and we had a lot of tests but it was like a punishment to write them every time, repeating the same code to mock things and when it finally worked and we pushed them to the CI they would sometimes fail randomly.
 So we were eager to find a better way to test.&lt;/p&gt;
@@ -4619,123 +5321,4 @@ Maven users will only need to wait a little bit longer to take advantage of most
   &lt;li&gt;&lt;a href=&quot;/microservices/2017/02/01/Lagom-1-2.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lagom 1.2: What’s new?&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.lagomframework.com/documentation/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lagom Documentation&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://kubernetes.io/docs/home/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kubernetes Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yannick&quot;, &quot;last_name&quot;=&gt;&quot;De Turck&quot;, &quot;twitter&quot;=&gt;&quot;YannickDeTurck&quot;, &quot;linkedin&quot;=&gt;&quot;yannickdeturck&quot;, &quot;github&quot;=&gt;&quot;yannickdeturck&quot;, &quot;permalink&quot;=&gt;&quot;/author/yannick-de-turck/&quot;, &quot;avatar&quot;=&gt;&quot;yannick-de-turck.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Lead JVM Languages&quot;, &quot;email&quot;=&gt;&quot;Yannick.DeTurck@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yannick is a senior Java consultant and competence lead of the JVM languages competence center at Ordina Belgium. He's very much interested in everything Java and Spring related as well as reactive programming, Kotlin, Lightbend technologies, software architectures, and coaching and enabling other colleagues.&quot;}</name><email>Yannick.DeTurck@ordina.be</email></author><category term="Orchestration" /><category term="Lagom" /><category term="Java" /><category term="Scala" /><category term="Reactive" /><category term="Kubernetes" /><category term="Minikube" /><summary type="html">Table of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/lagom-kubernetes.png" /></entry><entry><title type="html">Scrum VS Kanban</title><link href="https://ordina-jworks.github.io/agile/2018/04/30/scrum-vs-kanban.html" rel="alternate" type="text/html" title="Scrum VS Kanban" /><published>2018-04-30T00:00:00+00:00</published><updated>2018-04-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/agile/2018/04/30/scrum-vs-kanban</id><content type="html" xml:base="https://ordina-jworks.github.io/agile/2018/04/30/scrum-vs-kanban.html">&lt;h1 id=&quot;scrum-vs-kanban&quot;&gt;Scrum VS Kanban&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Scrum and Kanban are both agile frameworks that are used to deliver software, or any other sort of project for that matter, in an incremental and iterative way. 
-Both terms have become incorrectly interchangeable. Although there are many similarities between the two, 
-understanding the key differences between both Scrum and Kanban will bring clarity.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;the-basics&quot;&gt;The basics&lt;/h2&gt;
-&lt;p&gt;As with all agile frameworks, we have a product owner, a development team and an intermediate person, 
-known in Scrum as the Scrum Master and in Kanban he or she is known as the Agile Coach.&lt;/p&gt;
-
-&lt;p&gt;All three work together to get the most value to a client in the shortest amount of time.  Work is divided into stories and those stories are put on a product backlog. So far, so good, both Scrum and Kanban do the same at the very basic level. The way both handle these stories is where the difference lies.&lt;/p&gt;
-
-&lt;h2 id=&quot;scrum&quot;&gt;Scrum&lt;/h2&gt;
-
-&lt;p&gt;A Scrum team works in Sprints, a Time-boxed period in which the development team delivers a new iteration of the product.
-Most commonly these Sprints last 2 weeks, although 3 or even 4 weeks Sprints aren’t a rare sight.&lt;/p&gt;
-
-&lt;p&gt;Each Sprint start with a Sprint planning meeting. 
-In this meeting the development team, Scrum Master and Product Owner decide which stories the development team will tackle during this Sprint. 
-These selected stories are known as the Sprint Backlog. This backlog should not change during the Sprint.&lt;/p&gt;
-
-&lt;p&gt;On a daily basis in the Sprint, there is a Daily Standup meeting, a 15-minute standup meeting in which every member of the development team answers three simple questions: 
-‘What have I done yesterday’, ‘What will I do today’ and ‘Are there any problems that block me in going forward with my task’.&lt;/p&gt;
-
-&lt;p&gt;After a Sprint there are two rituals; the Sprint review meeting, where all stakeholders are invited to a demonstration of new functionalities added to the product;
-and the Sprint Retrospective meeting, in which the development team discusses what went well, what went wrong and what could be improved in the next Sprint.
-The goal of the retrospective is to improve the way of working in the team in comparison to the previous Sprint.&lt;/p&gt;
-
-&lt;h3 id=&quot;some-pitfalls-of-scrum&quot;&gt;Some pitfalls of Scrum&lt;/h3&gt;
-
-&lt;p&gt;Let it be clear that Scrum isn’t as easy as it seems, Scrum has its pitfalls.
-Most of these can be avoided by making these issues clear from the start of a project.
-Some examples are:&lt;/p&gt;
-
-&lt;h4 id=&quot;the-product-owner-not-being-available-for-questions-of-the-team&quot;&gt;The Product owner not being available for questions of the team&lt;/h4&gt;
-&lt;p&gt;When a Product Owner is always in meeting, or otherwise engaged, it could happen that the development team has to wait longer for answers on their questions, and by waiting for answers blocking development.&lt;/p&gt;
-
-&lt;h4 id=&quot;extending-the-sprint-with-just-a-couple-of-days&quot;&gt;Extending the Sprint with just a couple of days&lt;/h4&gt;
-&lt;p&gt;Some teams will try to delay the end of a Sprint by a couple of days, just to make sure everything is ‘Done’. 
-Every item that is not ‘Done’ at the end of a Sprint goes back into the Product Backlog.
-No exceptions. 
-Extending it by just a couple of days would create a desync in the rhythm and possibly create a desync with another team that depends on your team.&lt;/p&gt;
-
-&lt;h4 id=&quot;changing-the-sprint-length&quot;&gt;Changing the Sprint length&lt;/h4&gt;
-&lt;p&gt;Changing the Sprint length during a project is just not done. 
-It will disrupt the team’s flow and the velocity of the team will go down. 
-Once you’ve chosen a Sprint Length, your team should stick to it.&lt;/p&gt;
-
-&lt;h4 id=&quot;not-having-the-same-sprint-rhythm-as-another-team&quot;&gt;Not having the same Sprint rhythm as another team&lt;/h4&gt;
-&lt;p&gt;In larger projects, teams will be dependent on one another. 
-Not having the same Sprint rhythm will cause issues because you’ll have to wait for the other team to be ready for you, or vice versa, which would once again block progress.&lt;/p&gt;
-
-&lt;h4 id=&quot;the-scrum-master-being-too-involved&quot;&gt;The Scrum Master being too involved&lt;/h4&gt;
-&lt;p&gt;A Scrum master is a dedicated role in the team.
-It is very hard to be a Scrum master and develop at the same time. 
-He or she should be like a firefighter, be idle at times, but be ready when an emergency occurs.&lt;/p&gt;
-
-&lt;h4 id=&quot;trying-to-solve-problems-within-a-daily-standup&quot;&gt;Trying to solve problems within a Daily Standup&lt;/h4&gt;
-&lt;p&gt;The Standup has to be a short time boxed meeting. Answering the questions and going forward. 
-If there are problems, they should be handled before or after the Standup, not during.&lt;/p&gt;
-
-&lt;h2 id=&quot;kanban&quot;&gt;Kanban&lt;/h2&gt;
-
-&lt;p&gt;Kanban is a continuous process. 
-There isn’t a Sprint backlog. Only the columns on the board and the prioritized product backlog.&lt;/p&gt;
-
-&lt;p&gt;The Kanban Board is crucial within Kanban. 
-It is usually split into three columns: To Do, Doing and Done. 
-More columns can be added to fit your needs but those three have to be there.&lt;/p&gt;
-
-&lt;p&gt;To limit the work that can be done there is a Work in Progress limit on every column on the Kanban board which is related to the team’s capacity. 
-For example, a team of four developers would be able to handle 6 to 8 stories at the time. 
-The lower the limit, the faster work will pass through the board. 
-Having it too low though will result in a bottleneck situation.&lt;/p&gt;
-
-&lt;p&gt;Kanban has a Daily Standup meeting, a 15-minute standup meeting in which every member of the development team answers three simple questions: 
-What have I done yesterday, what will I do today, are there any problems that block me in going forward with my task.&lt;/p&gt;
-
-&lt;p&gt;Demo meetings are held at regular intervals.
-During these meetings all stakeholders are invited to a demonstration of the new functionality since the last demo.&lt;/p&gt;
-
-&lt;p&gt;Kanban also has retrospective meetings, which have the goal to improve the way of working of the team and solve any issues that have risen since the last retrospective.&lt;/p&gt;
-
-&lt;p&gt;In Kanban there are multiple ways you can do retrospectives.
-One way would be to do them on a regular basis (bit Scrum like). 
-Although this doesn’t fit in the Kanban way of working,
-this provides a welcome disruption of the daily workflow and if conducted well the retrospective will result in a morale boost for the team since they have been listened to and know problems they have will be handled or have been handled during the retro.&lt;/p&gt;
-
-&lt;p&gt;Since having retrospectives on a regular basis kind of goes against the way of working in Kanban, a simpler way of holding retrospective has been popping up the ‘Stop and Solve‘. 
-This means that every time there is an issue (that the person who encountered it can’t solve on their own), 
-an immediate retrospective involving the full team is called. Everyone looks into the problem, and brainstorms for possible solutions until a solution is found.&lt;/p&gt;
-
-&lt;p&gt;There are pros and cons on both ways of working; what is chosen depends on the team.&lt;/p&gt;
-
-&lt;h3 id=&quot;some-pitfalls-of-kanban&quot;&gt;Some pitfalls of Kanban&lt;/h3&gt;
-
-&lt;p&gt;Like with every framework, Kanban has its pitfalls. 
-Some examples:&lt;/p&gt;
-
-&lt;h4 id=&quot;kanban-board-not-being-up-to-date&quot;&gt;Kanban board not being up-to-date&lt;/h4&gt;
-&lt;p&gt;One of the most important pieces of Kanban is the Kanban board, if that is not up-to-date it will result in the team not having a up-to-date view of what needs to be done.
-You would be looking at the past.&lt;/p&gt;
-
-&lt;h4 id=&quot;not-keeping-to-the-wip-limit&quot;&gt;Not keeping to the WIP limit&lt;/h4&gt;
-&lt;p&gt;Having too much tasks in one column will reduce the overview the team has, and tasks will get ‘lost’.
-A solution would be to implement physical limits to the board by drawing a line.&lt;/p&gt;
-
-&lt;h2 id=&quot;is-there-a-holy-grail&quot;&gt;Is there a Holy Grail?&lt;/h2&gt;
-&lt;p&gt;The answer to that question is quite simply: No.&lt;/p&gt;
-
-&lt;p&gt;It all depends on the situation you’re in. Scrum would not work for teams that do not have clear business requirements. 
-What we mean by that is a systems team or a helpdesk team. 
-Kanban would be way more useful for these sort of teams; high priority tickets appear on the backlog and are handled as fast as possible by the team.&lt;/p&gt;
-
-&lt;p&gt;An advantage of Scrum compared to Kanban is that the business will know what will be delivered during the next Sprint.&lt;br /&gt;
-Kanban is more dependent on the incoming requests.&lt;/p&gt;
-
-&lt;p&gt;As said before; it all depends on the situation you’re in. Analyze the situation before deciding which agile framework will work best for your team!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nils&quot;, &quot;last_name&quot;=&gt;&quot;Devos&quot;, &quot;permalink&quot;=&gt;&quot;/author/nils-devos/&quot;, &quot;avatar&quot;=&gt;&quot;nils-devos.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Software Engineer&quot;, &quot;linkedin&quot;=&gt;&quot;nils-devos-0321171b&quot;, &quot;twitter&quot;=&gt;&quot;NilsDevos&quot;, &quot;email&quot;=&gt;&quot;nils.devos@ordina.be&quot;, &quot;github&quot;=&gt;&quot;NilsD88&quot;, &quot;bio&quot;=&gt;&quot;Nils is a Senior Software Engineer at Ordina Belgium. Passionate about frontend frameworks. Scrum master-in-training.&quot;}</name><email>nils.devos@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="Scrum" /><category term="Kanban" /><summary type="html">Scrum VS Kanban</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/agile/scrum-vs-kanban/boxers.jpg" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yannick&quot;, &quot;last_name&quot;=&gt;&quot;De Turck&quot;, &quot;twitter&quot;=&gt;&quot;YannickDeTurck&quot;, &quot;linkedin&quot;=&gt;&quot;yannickdeturck&quot;, &quot;github&quot;=&gt;&quot;yannickdeturck&quot;, &quot;permalink&quot;=&gt;&quot;/author/yannick-de-turck/&quot;, &quot;avatar&quot;=&gt;&quot;yannick-de-turck.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Lead JVM Languages&quot;, &quot;email&quot;=&gt;&quot;Yannick.DeTurck@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yannick is a senior Java consultant and competence lead of the JVM languages competence center at Ordina Belgium. He's very much interested in everything Java and Spring related as well as reactive programming, Kotlin, Lightbend technologies, software architectures, and coaching and enabling other colleagues.&quot;}</name><email>Yannick.DeTurck@ordina.be</email></author><category term="Orchestration" /><category term="Lagom" /><category term="Java" /><category term="Scala" /><category term="Reactive" /><category term="Kubernetes" /><category term="Minikube" /><summary type="html">Table of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/lagom-kubernetes.png" /></entry></feed>

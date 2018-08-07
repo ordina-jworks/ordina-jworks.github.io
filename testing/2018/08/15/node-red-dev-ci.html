@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Node-RED: Development and CI - Tim Vierbergen">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/node-red-dev-ci/node-red-dev-ci-white.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Node-RED: Development and CI - Tim Vierbergen"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/node-red-dev-ci/node-red-dev-ci-white.png"/>
+
+    
+    <title>Node-RED: Development and CI - Tim Vierbergen &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Node-RED: Development and CI</h2>
+                
+
+                
+                    Posted Aug 15, 2018
+
+
+    in <a href="/categories/testing/">Testing</a>
+
+
+
+    by
+    
+        <a href="/author/tim-vierbergen/">Tim Vierbergen</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/node-red/">Node-RED</a>, 
+    
+        <a href="/tags/docker/">docker</a>, 
+    
+        <a href="/tags/jenkins/">Jenkins</a>, 
+    
+        <a href="/tags/gocd/">GoCD</a>, 
+    
+        <a href="/tags/ci/">ci</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="table-of-contents">Table of contents</h1>
+<ol>
+  <li><a href="#what-is-node-red">What is Node-RED</a></li>
+  <li><a href="#why-we-are-using-node-red-or-an-alternative">Why we are using Node-RED (or an alternative)</a></li>
+  <li><a href="#node-red-to-the-rescue">Node-RED to the rescue</a></li>
+  <li><a href="#configuration-components">Configuration components</a></li>
+  <li><a href="#running-an-instance">Running an instance</a></li>
+  <li><a href="#creating-your-first-flow">Creating your first flow</a></li>
+  <li><a href="#spicing-things-up">Spicing things up</a></li>
+  <li><a href="#json">JSON</a></li>
+  <li><a href="#node-red-persistent-config">Node-RED persistent config</a></li>
+  <li><a href="#node-red-and-docker">Node-RED and Docker</a></li>
+  <li><a href="#node-red-and-ci">Node-RED and CI</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ol>
+
+<h1 id="what-is-node-red">What is Node-RED</h1>
+
+<blockquote>
+  <p>Node-RED is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways.” – from docs <a target="_blank" href="https://nodered.org/">https://nodered.org/</a></p>
+</blockquote>
+
+<p>And yes, that’s all true.
+But we’re not using Node-RED for those things.
+There are two use cases for which we use Node-RED, but before we go into those, we’ll take a quick look at some other Node-RED features.</p>
+
+<p>Some great pros:</p>
+<ul>
+  <li>Node-RED is built on Node.js, taking full advantage of its event-driven, non-blocking model.
+This makes it ideal to run at the edge of the network on low-cost hardware such as the Raspberry Pi as well as in the cloud. (from docs)</li>
+  <li>Node-RED comes with a web based graphical user interface, where you can manage your API flows with drag and drop functionality.</li>
+  <li>Because Node-RED is built on Node.js you can just run it locally on a lot of systems (Windows, Mac OSX, Linux,…), on a lot of devices and in the cloud.</li>
+</ul>
+
+<p>The graphical user interface lets you create your endpoints and flows in an easy way.
+Just drag and drop your components in your flowchart and connect them by drawing a line between them.
+Double clicking each component will open the detail screen where you can set some variables for that component.
+When your flows are ready, there is an import and an export function available for storing and sharing your configs.</p>
+
+<h1 id="why-we-are-using-node-red-or-an-alternative">Why we are using Node-RED (or an alternative)</h1>
+
+<h2 id="node-red-and-development">Node-RED and Development</h2>
+
+<p>Coming from a frontend dev background, I can confirm that nothing is more frustrating than running backends, or at least part of the backend, locally, before you can start coding and testing.
+Yes, Docker and Docker Compose are helping a lot but still…
+In some cases, backend development, for a specific feature, is planned for the same sprint as the frontend development.
+So even running a backend locally, will not help you.
+Mocking can be an option.
+You can start mocking the data inside the communication layer or mocking an external backend with test data.</p>
+
+<p>In an ideal world, teams should do some analysis of the specifications coming from business and their analysts.
+Based on those specification, developers can start estimating tasks (or stories and epics), and think about the architecture and design.
+At this point, technical specifications could already get written down, such as model designs and API contracts.
+It’s almost impossible to do a good job in the frontend if those things are not available, or at least specified.</p>
+
+<p>Why do you want good test data?
+If you know the characteristics, it’s easier to do some layout stuff.
+You would think that mockups and designs would be accurate, but most of the time they aren’t or they are not inline with the data.</p>
+
+<p>So what about mocking?
+Yes, you can mock stuff yourself and maybe skip the communication layer.
+Or you can mock the communication part in the communication layer by means of interceptors for example.
+But at some point in time, you’ll need an API and test data that is close to production data when it comes to live data specs.
+When mocking inside your components, would you include everything in your code base?
+Or would you exclude it, but still make it more accessible for your colleagues?
+Some frameworks include this kind of functionality such as MockBackend from Angular (More info <a target="_blank" href="https://angular.io/api/http/testing/MockBackend">here</a>).
+That said, I really like and prefer external tools for mocking a backend.
+That way it’s separated from your app and code base, so it can easily get replaced or modified without triggering stuff in your frontend pipelines.
+You can even choose to run a tool on your local machine.
+Or on-premise and make it accessible for all your (frontend) developers.</p>
+
+<h2 id="node-red-and-testing-ci">Node-RED and Testing (CI)</h2>
+
+<p>Even if you have implemented your mocks inside your communication layer and it’s doing the job you expect it to do, how are you going to test your communication itself?
+You can use those mocks to run unit tests, but it’s harder to run integration tests that cover your communication layer as well.
+Using an external tool, gives you the possibility to reuse this part in your test setup.
+You can integrate this external mock backend in your setup and redirect your frontend calls to the mock instead of a real backend.
+Why you should do this, is explained in an earlier post on our tech blog.
+If you’re interested, you can read all about it <a target="_blank" href="https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html">here<a>.</a></a></p>
+
+<h1 id="node-red-to-the-rescue">Node-RED to the rescue</h1>
+
+<p>In both cases, Node-RED can help us providing a real API that responds with test data.
+For the test data, I prefer test data getting delivered by the business or the client, but if that is not an option, you can create your <code class="highlighter-rouge">json</code> data based on the API contracts and model designs.
+Again, I’m mentioning the API contracts and model design, because often, organisations fail at this.
+Let’s setup a real easy API.</p>
+
+<h1 id="prerequisites">Prerequisites</h1>
+
+<p>Before starting this tutorial, you should download or install some things:</p>
+
+<ul>
+  <li>Make sure you have a Node.js (incl npm) environment</li>
+  <li><code class="highlighter-rouge">sudo npm install -g --unsafe-perm node-red</code></li>
+  <li>A running Docker daemon</li>
+  <li><code class="highlighter-rouge">docker pull nodered/node-red-docker</code></li>
+</ul>
+
+<p>NOTE: To be honest, you only need one of those 2 environments.
+For the other part, you can just read through it and then try it in the other setup.</p>
+
+<h1 id="configuration-components">Configuration components</h1>
+
+<p>Although we are only using Node-RED for HTTP(S) (REST) and MQTT backend mocking, Node-RED provides more options.
+Node-RED can even be used as a real backend, using external databases for example.
+So before we start our setup, let’s take a quick look at some basic features.</p>
+
+<h2 id="inputs">Inputs</h2>
+
+<p>HTTP, TCP, UDP are probably the most straightforward and known by all of you.
+I guess no explanation is needed.
+WebSockets are also used a lot nowadays.
+WebSockets are an advanced technology that makes it possible to open an interactive communication channel/session for pushing messages between a client(s) and a server(s).
+MQTT is one of the standards for messaging for mobile devices.
+It is a lightweight messaging protocol for small sensors and mobile devices, optimized for high-latency or unreliable networks.
+Inject, catch, status and link are internal inputs.
+Inject provides a way of injecting a message(s) into a flow.
+This can be done manually or at a regular interval.
+Catch can be used to handle an error from another node.
+The normal from of that node will get terminated, but with catch you can handle and catch the error providing an alternative route.
+The status node is just reporting messages from other nodes and link lets the user create virtual links between flows.</p>
+
+<h2 id="outputs">Outputs</h2>
+
+<p>Same as above for HTTPS, TCP, UDP, WebSockets, MQTT and link but now for outputs.
+Debug lets you show messages in the sidebar.
+The debug sidebar provides a structured view of the messages it has sent, making it easier to understand their structure.</p>
+
+<h2 id="functions">Functions</h2>
+
+<p>Node-RED comes with a lot of predefined function blocks.
+The ones we are using most are the regular <code class="highlighter-rouge">function</code>-block itself and the <code class="highlighter-rouge">json</code>- or <code class="highlighter-rouge">xml</code>-function to parse json and xml.
+Besides those, there are function blocks that lets you run calls to external platforms, delay, reroute or redefine messages, etc.
+If you need more information about one of them, Node-RED show an information screen when selecting one of them.</p>
+
+<h2 id="social">Social</h2>
+
+<p>This section provides us with functionality to intercept (input/output) email- and twitters messages.
+I’ve personally never used one of them, but I can imagine they can come in handy.</p>
+
+<h2 id="storage">Storage</h2>
+
+<p>File (input/output) is self explanatory.
+The <code class="highlighter-rouge">tail</code> function, lets you add a watcher to a file.
+As the docs describe, this cannot be used on Windows systems.
+It’s based on the <code class="highlighter-rouge">$ tail -f fileName</code> command on Unix systems and watches for changes.</p>
+
+<h2 id="analysis">Analysis</h2>
+
+<p>This component lets you analyse a received message based on a sentiment score.
+You can read all about it <a target="_blank" href="https://github.com/thisandagain/sentiment/blob/master/README.md">here</a>.</p>
+
+<h2 id="advanced">Advanced</h2>
+
+<p>Like the tail function, the <code class="highlighter-rouge">watch</code>-block watches for directory or file changes.
+The <code class="highlighter-rouge">feedparse</code> can be used to monitor an RSS/atom feed for new entries.
+The last one, the <code class="highlighter-rouge">exec</code>-block lets you run a system command and returns its output.</p>
+
+<h1 id="running-an-instance">Running an instance</h1>
+
+<p>First things first, let’s fire up a Node-RED instance.
+(We are going to start with the npm package version)
+To start using or initiating an instance of Node-RED by using the npm repositories, just run:</p>
+
+<p><code class="highlighter-rouge">$ node-red</code></p>
+
+<p>If installed correctly, you should see the following log:</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/log1.png" width="60%" />
+</div>
+
+<p>There are four interesting lines in this log.
+The first three of them are the settings file, the user dir and the flows file.
+The last line shows us where the service is available.</p>
+
+<p>We’ll come back to the config later, and we are going to take a look at the User Interface based on the <code class="highlighter-rouge">uri</code> in the last line.
+As mentioned before, Node-RED offers a user interface, to configure the service.
+Open your browser and navigate to <code class="highlighter-rouge">http://127.0.0.1:1880</code> (default setup config).</p>
+
+<p>You’ll see all the components mentioned above on the left side of the screen.
+In the middle you have a tabbed structure for your flow chart(s), and on the right you have debug, info and detail windows.</p>
+
+<p>On the top right of your screen, you have a settings dropdown and a menu with deploy options.</p>
+
+<h1 id="creating-your-first-flow">Creating your first flow</h1>
+
+<p>Let’s use the Node-RED user interface to create a simple flow.
+In this case a simple <code class="highlighter-rouge">http</code>-input connected to a function that returns its data through an <code class="highlighter-rouge">http</code>-output.</p>
+
+<p>Start by dragging the <code class="highlighter-rouge">http</code> from the input list onto the chart.
+Then, drag and drop a <code class="highlighter-rouge">function</code> block from the function list and the <code class="highlighter-rouge">http</code> from the output list onto the chart.
+Connect the <code class="highlighter-rouge">http</code>-input with the function block by dragging a line starting from the input node, to the function block.
+Repeat this for the <code class="highlighter-rouge">function</code>-block to the output.</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/initial-flow.png" width="100%" />
+</div>
+
+<p>Of course this isn’t ready for being deployed just yet, cause we did not add any logic yet.
+Let’s configure our flow!</p>
+
+<h3 id="input">Input</h3>
+
+<p>Double click the <code class="highlighter-rouge">http</code>-input block.
+This action will open a window on the right where you can set some properties.</p>
+
+<ul>
+  <li>Method: GET</li>
+  <li>URL: /data</li>
+  <li>Name: Get all data</li>
+</ul>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/config-input.png" width="30%" />
+</div>
+
+<p>Confirm these settings by clicking ‘Done’.</p>
+
+<h3 id="function-block">Function block</h3>
+
+<p>Double click the <code class="highlighter-rouge">function</code>-block.
+Again, a window will open!</p>
+
+<ul>
+  <li>Name: Retrieve data</li>
+  <li>Function:</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s2">"Title 1"</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s2">"Title 2"</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s2">"Title 3"</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s2">"Title 4"</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s2">"Title 5"</span><span class="p">}</span>
+<span class="p">];</span>
+<span class="k">return</span> <span class="nx">msg</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>NOTE:
+The information section on the right comes in handy while configuring the <code class="highlighter-rouge">function</code>-block</p>
+
+<blockquote>
+  <p>A JavaScript function block to run against the messages being received by the node.
+The messages are passed in as a JavaScript object called msg.
+By convention it will have a msg.payload property containing the body of the message.</p>
+</blockquote>
+
+<p>This explains why we are setting the <code class="highlighter-rouge">msg.payload</code> property.</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/config-function.png" width="30%" />
+</div>
+
+<p>Again, confirm these settings by clicking ‘done’.</p>
+
+<h3 id="output">Output</h3>
+
+<p>Open the config for the <code class="highlighter-rouge">http-response</code>-output block.</p>
+
+<ul>
+  <li>Name: return all</li>
+  <li>Status Code: 200</li>
+</ul>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/config-output.png" width="30%" />
+</div>
+
+<p>As you can see, the output lets you choose the return status code.
+This can be used later if you would like to implement failed <code class="highlighter-rouge">REST</code>-calls for mocking purposes.
+Confirm these settings by clicking ‘Done’.</p>
+
+<h3 id="deploy">Deploy</h3>
+
+<p>On the top right of your screen, you have the deploy-dropdown.
+Clicking <code class="highlighter-rouge">deploy</code> will deploy this flow onto the running server, but you can also use the arrow to open up the menu and choose a more accurate scenario.
+Since this is our first deploy and we only have one flow, we don’t have a choice.</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/deploy.png" width="30%" />
+</div>
+
+<h3 id="test-setup">Test setup</h3>
+
+<p>To test our deployment and of course our flow, just navigate to http://localhost:1880/data in your browser or use curl to GET the data:</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/test-browser.png" width="30%" />
+</div>
+
+<p><code class="highlighter-rouge">$ curl -X GET http://localhost:1880/data</code></p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/test-curl.png" width="100%" />
+</div>
+
+<h1 id="spicing-things-up">Spicing things up</h1>
+
+<p>Let’s try and implement a <code class="highlighter-rouge">DELETE</code>.
+We would first drag and drop an <code class="highlighter-rouge">http</code>-input, a <code class="highlighter-rouge">function</code>-block and an <code class="highlighter-rouge">http-response</code>-output onto the flow chart.</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/delete.png" width="100%" />
+</div>
+
+<p>The input would look like:</p>
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/delete-input.png" width="30%" />
+</div>
+
+<p>Notice the <code class="highlighter-rouge">:id</code>.
+This way we tell Node-RED that this is a path parameter.</p>
+
+<p>The output would look like:</p>
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/delete-output.png" width="30%" />
+</div>
+
+<p>But what about the <code class="highlighter-rouge">function</code>-block ? We could come up with something like:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[</span>
+ <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s2">"Title 1"</span><span class="p">},</span>
+ <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s2">"Title 2"</span><span class="p">},</span>
+ <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s2">"Title 3"</span><span class="p">},</span>
+ <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s2">"Title 4"</span><span class="p">},</span>
+ <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s2">"Title 5"</span><span class="p">}</span>
+<span class="p">];</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span> <span class="o">&amp;&amp;</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// the id</span>
+   <span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="nx">item</span><span class="p">.</span><span class="nx">id</span> <span class="o">!=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+   <span class="p">})</span>
+<span class="p">}</span>
+<span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+<span class="k">return</span> <span class="nx">msg</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>So we’ve filtered out an element, but that’s it.
+Everytime we call this function block, it will start by initialising the data array.
+Since we are not persisting the data, requesting all the records, will still return all the data records.</p>
+
+<h2 id="persisting-data">Persisting data</h2>
+
+<p>There is a way to connect to a database, but that is outside of the scope of this post.
+First, let’s show some ways of persisting data.</p>
+
+<ul>
+  <li>Node context</li>
+  <li>Flow context</li>
+  <li>Global context</li>
+</ul>
+
+<p>The node context lets the user persist variables for that node.
+Whenever that node gets redeployed, the context is gone.
+The flow context is a context shared over all nodes in that flow chart while the Global context lets you share a context over the whole app.</p>
+
+<p>You can set and get a context variable with the getters and setters from the api.
+For a flow context this will look like:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">flow</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'data'</span><span class="p">);</span>
+<span class="c1">// do stuff</span>
+<span class="nx">flow</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="initialising-data">Initialising data</h2>
+
+<p>Now that we know how we can store data, we need to find a way to initialise the data.
+We could for example launch a call to trigger a function that would store data in the flow context.
+We could build this by using an <code class="highlighter-rouge">http</code>-input, a <code class="highlighter-rouge">function</code>-block and an <code class="highlighter-rouge">http-response</code>-output.
+But this doesn’t feel right.
+Luckily, Node-RED provides us with an <code class="highlighter-rouge">inject</code>-input.</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/inject.png" width="100%" />
+</div>
+
+<p>This input will get triggered periodically, or just one time. <code class="highlighter-rouge">inject</code>-input is made for injecting messages of almost any type into the next component.
+This message can be a string, a number, the current timestamp, …
+We are going to use it as a trigger on startup to initialise our data into our flow.</p>
+
+<h3 id="inject-input"><code class="highlighter-rouge">inject</code>-input:</h3>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/inject-input.png" width="30%" />
+</div>
+
+<h3 id="inject-function"><code class="highlighter-rouge">inject</code>-function:</h3>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/inject-function.png" width="30%" />
+</div>
+
+<h2 id="refactoring">Refactoring</h2>
+
+<p>Now we know how we can inject and persist data in a context, let’s refactor our <code class="highlighter-rouge">GET</code> and <code class="highlighter-rouge">DELETE</code>.
+And while we are at it, add a second <code class="highlighter-rouge">GET</code> so we can query one record by ‘id’.</p>
+
+<h3 id="get">GET</h3>
+
+<p>Our two <code class="highlighter-rouge">http</code>-inputs are exactly the same except for the parameter (id).
+The function-block on the other hand, will have some build-in logic:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">flow</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'data'</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span> <span class="o">&amp;&amp;</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">itx</span> <span class="k">in</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="nx">itx</span><span class="p">].</span><span class="nx">id</span> <span class="o">==</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">itx</span><span class="p">];</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">return</span> <span class="nx">msg</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>We are retrieve the data from the context and storing it in a local variable.
+Based on the existence of the <code class="highlighter-rouge">id</code> parameter, we are going to search for a single record, or return all records.
+Notice the <code class="highlighter-rouge">==</code> instead of <code class="highlighter-rouge">===</code>.
+This is because the id in the data is a number, where the id from the params is a string.</p>
+
+<p>Based on the logic, we could add a query parameter to the endpoint that let’s us filter the data on the title property for example, but that is out of scope.</p>
+
+<h3 id="delete">DELETE</h3>
+
+<p>As shown earlier, we are going to use a simple filter function to filter out the record with the given id.
+We start by retrieving the data from the flow context, and then filtering this data.
+Don’t forget to rewrite the new data to the flow context, so other components will get updated context data.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">flow</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'data'</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span> <span class="o">&amp;&amp;</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">item</span><span class="p">.</span><span class="nx">id</span> <span class="o">!=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+    <span class="p">});</span>
+    <span class="nx">flow</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+<span class="k">return</span> <span class="nx">msg</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="all-together">All together</h3>
+
+<p>Now we should have an <code class="highlighter-rouge">inject</code>-input and 3 <code class="highlighter-rouge">http</code>-inputs (2 GET’s and 1 DELETE).
+Our flow should look like:</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/persistent.png" width="100%" />
+</div>
+
+<p>Let’s deploy and test this setup.
+First click the deploy button and wait a second.
+Then navigate with your browser to <code class="highlighter-rouge">http://localhost:1880/data</code>.
+This should display your data in your browser.</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/all-browser.png" width="30%" />
+</div>
+
+<p>Now, let’s try to delete a record.</p>
+
+<p><code class="highlighter-rouge">$ curl -X DELETE http://localhost:1880/data/3</code></p>
+
+<p>And refresh your browser:</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/all-browser-delete.png" width="30%" />
+</div>
+
+<p>Seems like one big success! No?
+Not exactly.
+Try and delete records 1, 2, 4 and 5.
+Now what?
+Our data is gone and we don’t have a <code class="highlighter-rouge">POST</code> nor a <code class="highlighter-rouge">PUT</code> implemented.</p>
+
+<p>Implementing a <code class="highlighter-rouge">POST</code> and a <code class="highlighter-rouge">PUT</code> is really straightforward.</p>
+
+<h3 id="post-and-put">POST and PUT</h3>
+
+<p>For the example, we are going to work with an <code class="highlighter-rouge">upsert</code>. <code class="highlighter-rouge">POST</code> and <code class="highlighter-rouge">PUT</code> will trigger the same function block that will be smart enough to update (if exists) or insert.</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/post-put.png" width="100%" />
+</div>
+
+<p>The upsert <code class="highlighter-rouge">function</code>-block can look like:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">flow</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'data'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="p">;</span>
+<span class="nx">body</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">body</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span> <span class="c1">// quick fix making sure it's a number</span>
+<span class="kd">let</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span> <span class="o">&amp;&amp;</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span> <span class="o">||</span> <span class="nx">body</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">found</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">itx</span> <span class="k">in</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="nx">itx</span><span class="p">].</span><span class="nx">id</span> <span class="o">==</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">data</span><span class="p">[</span><span class="nx">itx</span><span class="p">]</span> <span class="o">=</span> <span class="nx">body</span><span class="p">;</span>
+        <span class="nx">found</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">found</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">data</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span> <span class="o">=</span> <span class="nx">body</span><span class="p">;</span> <span class="c1">// or adjusted body if needed</span>
+<span class="k">return</span> <span class="nx">msg</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>So now we have a GET, POST, PUT and DELETE.
+But still, we are missing something.
+Assume we are developing delete functionality in the frontend while using this setup as a backend.
+Since we only have 5 records, I should inject new data to test after my 5 deletes.
+Or assume we are testing a frontend, connected to this mock backend.
+Wouldn’t it be nice that we can refresh the data to its initial state before running a new test suite?</p>
+
+<p>The point I’m getting to is, we should come up with a way of refreshing our data to its initial state.</p>
+
+<h2 id="resetting-data">Resetting data</h2>
+
+<p>When you look at your flow chart, you’ll see there is something that looks like a button on the left side of our <code class="highlighter-rouge">inject</code>-input.
+When you click it, you’ll notice a toast message appearing on the top of your user interface:</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/refresh-toast.png" width="40%" />
+</div>
+
+<p>But what if we don’t have access to the user interface, or we don’t have control over it what so ever? For example, when running automated tests against this mock backend, somewhere on a dynamic Jenkins Docker slave? To overcome this, we are using an <code class="highlighter-rouge">http</code>-input to trigger the reset of our data.
+Let’s take a look at our implementation:</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/refresh-http.png" width="100%" />
+</div>
+
+<p>The <code class="highlighter-rouge">http</code>-input is listening on <code class="highlighter-rouge">/rest</code>.
+As you can see, we’ve added an <code class="highlighter-rouge">http-response</code>-output.
+REST-calls are expecting a response! Don’t forget to deploy your new setup</p>
+
+<p>Making sure this works:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-X</span> GET http://localhost:1880/data   // should respond with the initial data
+<span class="nv">$ </span>curl <span class="nt">-X</span> DELETE http://localhost:1880/data/2   // should delete record with <span class="nb">id </span>2
+<span class="nv">$ </span>curl <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">--request</span> POST <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{"id":"7","Title":"Title 7"}'</span> <span class="se">\</span>
+  http://localhost:1880/data   // should add record with <span class="nb">id </span>7
+<span class="nv">$ </span>curl <span class="nt">-X</span> GET http://localhost:1880/data   // should give the expected result
+<span class="nv">$ </span>curl <span class="nt">-X</span> GET http://localhost:1880/reset  // should reset the data
+<span class="nv">$ </span>curl <span class="nt">-X</span> GET http://localhost:1880/data   // should show the reset is working
+</code></pre></div></div>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/curl-result.png" width="100%" />
+</div>
+
+<h1 id="json">JSON</h1>
+
+<p>The last refactoring we are going to do in this tutorial is switching from an hardcoded data json object to an external <code class="highlighter-rouge">json</code>-file.
+As mentioned before, Node-RED provides ways of integrating storage and databases, but that is out of the scope of this post.
+Still, we don’t want to include real data in this setup.
+We should loosely couple our data provider and the backend mock implementation.
+If some analysts, for example, provide us with new test data, we don’t want to change anything in this setup.
+One way to overcome this, is to work with <code class="highlighter-rouge">json</code>-files.</p>
+
+<p>Assume we have a <code class="highlighter-rouge">json</code>-file, called <code class="highlighter-rouge">data.json</code> with content:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span>
+  <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Title 1"</span><span class="p">},</span>
+  <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Title 2"</span><span class="p">},</span>
+  <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Title 3"</span><span class="p">},</span>
+  <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Title 4"</span><span class="p">},</span>
+  <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Title 5"</span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>Remember when I mentioned some important lines in the console at startup?
+One of those lines was referring to the User directory:
+<code class="highlighter-rouge">User directory : /Path/To/Your/Home/.node-red</code> (which is the default)
+Because we didn’t change anything in the <code class="highlighter-rouge">settings.js</code> file (or didn’t point to a custom one), Node-RED creates a context folder for the current instance.
+Copy your <code class="highlighter-rouge">data.json</code> to this folder.
+I will explain later why we are doing this.</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/node-red-user-dir.png" width="50%" />
+</div>
+
+<p>Let’s read data from this json file instead of hardcoding the data:</p>
+
+<h3 id="add-a-file-component-from-the-storage-section">Add a file component from the storage section</h3>
+
+<p>On the left of the user interface, there is a storage section with an input file option.
+Drag this onto the flow chart.
+Unlink the connections from the <code class="highlighter-rouge">inject</code>-input and the reset <code class="highlighter-rouge">http</code>-input with the ‘store’ <code class="highlighter-rouge">function</code>-block and connect both with the <code class="highlighter-rouge">file</code>-storage component.
+Open the details and set the properties:</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/storage-file.png" width="30%" />
+</div>
+
+<p>Do read the text on the bottom about the patch to the file! And keep in mind we have selected the ‘single UTF-8 string’ option.</p>
+
+<h3 id="add-a-json-parse-function">Add a Json parse function</h3>
+
+<p>In the function section on the left, you have a JSON component.
+Depending on its input, it will parse or stringify a string or json object.
+Because we will be sending this component a ‘single UTF-8 string’, it will parse it to a JSON object.</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/parse.png" width="30%" />
+</div>
+
+<p>Integrate this component in between the <code class="highlighter-rouge">file</code>-storage component and the store <code class="highlighter-rouge">function</code>-block.</p>
+
+<h3 id="refactor-the-store-function">Refactor the store function</h3>
+
+<p>We are now ready to refactor the store <code class="highlighter-rouge">function</code>-block.
+Remove the data and replace it with the content of the json-parse function.</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/refactored-store.png" width="30%" />
+</div>
+
+<h3 id="result-result">Result [result]</h3>
+
+<p>When finished, our setup should look like the following flow chart:</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/result.png" width="100%" />
+</div>
+
+<p>When the json-file gets updated, a data reset call will reload the new data into the flow context without needing to change the setup itself!</p>
+
+<h1 id="node-red-persistent-config">Node-RED persistent config</h1>
+
+<p>As mentioned before, Node-RED uses a user directory, a <code class="highlighter-rouge">flow.json</code> file and a <code class="highlighter-rouge">settings.js</code> file.
+If those do not exist, it will create default ones for you in the default node-red path <code class="highlighter-rouge">%USERPROFILE/.node-red</code>.
+Going through the settings file is also out of the scope of this post.
+Advanced users can just read all about it in the docs or just open it and modify it.</p>
+
+<p>Why I’m mentioning this directory, is because of the config persistence of Node-RED.
+Go ahead and kill your Node-RED server (<code class="highlighter-rouge">CTRL-C</code> in terminal).
+And now just restart it:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">node</span><span class="o">-</span><span class="nx">red</span>
+</code></pre></div></div>
+
+<p>As you can see, Node-RED will just pick up its previous config because it’s available in the default directory.
+When more people need to work with this config, we need to share it.
+The easiest way to share this config, is to wrap it in a Git repository.
+Keep in mind that this may not be best practice to wrap the whole directory, but this way, your colleagues and continuous integration platform can just checkout the repository and run the server, including the data files.</p>
+
+<p>When running <code class="highlighter-rouge">$ node-red --help</code> it shows the command line params.</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/man-node-red.png" width="40%" />
+</div>
+
+<p>Look at the <code class="highlighter-rouge">-s</code> and <code class="highlighter-rouge">-u</code> option.
+Node-RED provides us with cli parameters to run custom configs.
+Let’s assume we clone our newly created Git repository in <code class="highlighter-rouge">~/repositories/node-red</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>node-red <span class="nt">-s</span> ~/repositories/node-red/settings.js <span class="nt">-u</span> ~/repositories/node-red
+</code></pre></div></div>
+
+<h1 id="node-red-and-docker">Node-RED and Docker</h1>
+
+<p>Node-RED also provides a Docker image at <a target="_blank" href="https://hub.docker.com/r/nodered/node-red-docker/">Docker Hub</a>.
+This way you do not even need a Node.js environment preinstalled.</p>
+
+<p>You can just run it with:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker run <span class="nt">-it</span> <span class="nt">-p</span> 1880:1880 <span class="nt">--name</span> mynodered nodered/node-red-docker
+</code></pre></div></div>
+
+<p>What about our persistent config?</p>
+<blockquote>
+  <p>Node-RED is started using NPM start from this /usr/src/node-red, with the –userDir
+parameter pointing to the <code class="highlighter-rouge">/data</code> directory on the container.
+The flows configuration file is set using an environment parameter (FLOWS),
+which defaults to ‘flows.json’.
+This can be changed at runtime using the
+following command-line flag. – from docs https://hub.docker.com/r/nodered/node-red-docker/</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker run <span class="nt">-it</span> <span class="nt">-p</span> 1880:1880 <span class="nt">-e</span> <span class="nv">FLOWS</span><span class="o">=</span>my_flows.json nodered/node-red-docker
+</code></pre></div></div>
+<p>So we can choose only to provide the <code class="highlighter-rouge">flows.json</code> file or we could map our user directory from our repository as a volume to the <code class="highlighter-rouge">/data</code> in the container, providing the container our context.</p>
+
+<p>An other option is to bake your <code class="highlighter-rouge">userDir</code> into your image.
+This way you can provide your CI with a ready to go Docker image for this particular case.
+This is probably not the best solution, but in some cases it can be very helpful.</p>
+
+<h1 id="node-red-and-ci">Node-RED and CI</h1>
+
+<p>As we now know how we can configure, dockerize and run our mock backend, we could easily include it in one of our testing stages during our Continuous Delivery pipelines setup.
+For those of you whom read the article about the different stages of API testing (<a href="https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html">here</a>), the following setup will need no further explanation.</p>
+
+<div style="text-align: center;">
+  <img src="/img/node-red-dev-ci/ci-setup.png" width="60%" />
+</div>
+
+<p>In this setup, the task at hand is running the automated tests defined in and run by our Gauge, Protractor or Nightwatch.js framework.
+To be able to do this, it would be nice to launch an environment at once.
+We can provide our Continuous Integration environment with a compose file that will launch and destroy our frontend and Node-RED mock backend in one environment.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>It’s nice to have an external tool available that can get reused for multiple purposes, in our case development and testing.
+Node-RED provides us with cool features and an easy to use User Interface to do so!</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html&title=Node-RED: Development and CI&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Node-RED: Development and CI&url=https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/tim-vierbergen/" class="image spotlight-image">
+            <img src="/img/author/tim-vierbergen.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Tim is a senior developer and architect at JWorks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.<br /><br />Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learing how to snowboard.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/node-red-dev-ci/node-red-dev-ci-white.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html";
+        this.page.identifier = "/testing/2018/08/15/node-red-dev-ci.html";
+        this.page.title = "Node-RED: Development and CI";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
