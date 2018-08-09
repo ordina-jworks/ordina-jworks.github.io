@@ -308,11 +308,70 @@ For both Kafka and Storm you not only need to setup a cluster of the framework i
 
 That setup does not come for free and will need to be maintained in the future.
 
+### Easy to get started
+With Spring Cloud Stream it is easy to get going with processing your stream of data.
+
+First you need to define a MessageHandler
+{% highlight java %}
+    MessageHandler messageHandler = (message -> {
+            log.info("retrieved message with header " + message.getHeaders().toString());
+            log.info("retrieved message " + message.getPayload().toString());
+
+            TrafficEvent event = (TrafficEvent) message.getPayload();
+
+            log.info(" the sensor id is " + event.getSensorId());
+
+            if (event.getTrafficIntensity() > 0) {
+                log.info("We now have {} vehicles on the road {}", event.getTrafficIntensity(), event.getSensorId());
+
+                int vehicleCountForEvent = event.getTrafficIntensity();
+
+                if (vehicleCount.get(event.getSensorId()) != null) {
+                    vehicleCountForEvent += vehicleCount.get(event.getSensorId());
+                }
+
+                log.info("We now had total: {} vehicles", vehicleCountForEvent);
+
+                vehicleCount.put(event.getSensorId(), vehicleCountForEvent);
+            }
+
+
+            if (event.getVehicleSpeedCalculated() > 0) {
+                if (lowestWithTraffic.get(event.getSensorId()) == null || lowestWithTraffic.get(event.getSensorId()).getVehicleSpeedCalculated() > event.getVehicleSpeedCalculated()) {
+                    lowestWithTraffic.put(event.getSensorId(), event);
+                }
+
+                if (highestWithTraffic.get(event.getSensorId()) == null || highestWithTraffic.get(event.getSensorId()).getVehicleSpeedCalculated() < event.getVehicleSpeedCalculated()) {
+                    highestWithTraffic.put(event.getSensorId(), event);
+                }
+
+                messages.add(event);
+            }
+
+        });
+{% endhighlight %}
+
+Then you need to link that MessageHandler to an InputChannel.
+{% highlight java %}
+    inputChannels.trafficEvents().subscribe(messageHandler);
+{% endhighlight %}
+
+Et voila, you are now processing your stream of data in native java.
+
+It does become obvious that doing something more fancy, like windowing and aggregation, will require you to write all of that logic yourself.
+
+This can get out of hand pretty quickly, so, do watch out for that.
+But for simple data processing, nothing beats some native Java.
+
 ### Takeaways Native Java
 * Can easily handle 1000 events per second.
 * Easy to get started.
 * You will lack advanced features like windowing, aggregation, ...
 
+minikube start --memory=8192 --cpus=4 --kubernetes-version=v1.10.0 \
+    --extra-config=controller-manager.cluster-signing-cert-file="/var/lib/localkube/certs/ca.crt" \
+    --extra-config=controller-manager.cluster-signing-key-file="/var/lib/localkube/certs/ca.key" \
+    --vm-driver=`your_vm_driver_choice
 
 ## Spring Kafka
 
