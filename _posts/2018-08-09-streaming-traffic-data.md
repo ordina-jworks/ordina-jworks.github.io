@@ -311,7 +311,13 @@ That setup does not come for free and will need to be maintained in the future.
 ### Easy to get started
 With Spring Cloud Stream it is easy to get going with processing your stream of data.
 
-First you need to define a MessageHandler
+First define a [SubscribableChannel](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/messaging/SubscribableChannel.html)
+{% highlight java %}
+    @Input
+    SubscribableChannel trafficEvents();
+{% endhighlight %}
+
+Then you will need to define a MessageHandler which will describe what you will do with every message you process.
 {% highlight java %}
     MessageHandler messageHandler = (message -> {
             log.info("retrieved message with header " + message.getHeaders().toString());
@@ -335,7 +341,6 @@ First you need to define a MessageHandler
                 vehicleCount.put(event.getSensorId(), vehicleCountForEvent);
             }
 
-
             if (event.getVehicleSpeedCalculated() > 0) {
                 if (lowestWithTraffic.get(event.getSensorId()) == null || lowestWithTraffic.get(event.getSensorId()).getVehicleSpeedCalculated() > event.getVehicleSpeedCalculated()) {
                     lowestWithTraffic.put(event.getSensorId(), event);
@@ -347,11 +352,10 @@ First you need to define a MessageHandler
 
                 messages.add(event);
             }
-
         });
 {% endhighlight %}
 
-Then you need to link that MessageHandler to an InputChannel.
+Finally, link that MessageHandler to an InputChannel.
 {% highlight java %}
     inputChannels.trafficEvents().subscribe(messageHandler);
 {% endhighlight %}
@@ -368,18 +372,51 @@ But for simple data processing, nothing beats some native Java.
 * Easy to get started.
 * You will lack advanced features like windowing, aggregation, ...
 
-minikube start --memory=8192 --cpus=4 --kubernetes-version=v1.10.0 \
-    --extra-config=controller-manager.cluster-signing-cert-file="/var/lib/localkube/certs/ca.crt" \
-    --extra-config=controller-manager.cluster-signing-key-file="/var/lib/localkube/certs/ca.key" \
-    --vm-driver=`your_vm_driver_choice
-
 ## Spring Kafka
+
+### Kafka
+
+
+All messages are put into topics
+
+### What "topics" does Kafka Streams use
+
+[KStream](https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KStream.html)
+
+KTable
+
+GroupedKStream
+
+GroupedKTable
+
+### Operations
+
+Aggregate
+
+Count
+
+Filter
+
+Join
+
+Process
+
+### Coding with Spring Kafka
+
+
+### Takeaways Kafka Streams and Spring Kafka
+
+
 
 ## Apache Storm
 
-## Hints & Tips
+### Twitter
 
+### Spouts & Bolts
 
+### Stream API
+
+### Takeaways Apache Storm
 
 
 ## Conclusion
