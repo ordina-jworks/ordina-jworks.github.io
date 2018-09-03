@@ -391,11 +391,20 @@ For this reason Kafka Streams will use topics for both input and output.
 
 [KStream](https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KStream.html)
 
-KTable
+A KStream records a stream of key/value pairs and can be defined from 1 or more topics.
+It does not matter if a key exists multiple times within the KStream, when you read in the data of a KStream every record will be sent to you.
 
-GroupedKStream
+[KTable](https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KTable.html)
+A KTable is a changelog stream of a primary keyed table, meaning, that whenever a key exists multiple times within the KTable you will receive only the most recent record.
 
-GroupedKTable
+[GlobalKTable](https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/GlobalKTable.html)
+Like a KTable, but it is replicated over all Kafka Streams instances, so do be carefull.
+
+[KGroupedStream](https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KGroupedStream.html)
+
+
+[KGroupedTable](https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KGroupedTable.html)
+
 
 ### Operations
 
@@ -410,6 +419,9 @@ Join
 Process
 
 ### Coding with Spring Kafka
+
+
+### Scaling and Instances
 
 
 ### Takeaways Kafka Streams and Spring Kafka
