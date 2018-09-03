@@ -360,7 +360,7 @@ Finally, link that MessageHandler to an InputChannel.
     inputChannels.trafficEvents().subscribe(messageHandler);
 {% endhighlight %}
 
-Et voila, you are now processing your stream of data in native java.
+There you go, you are now processing your stream of data in native java.
 
 It does become obvious that doing something more fancy, like windowing and aggregation, will require you to write all of that logic yourself.
 
@@ -376,8 +376,16 @@ But for simple data processing, nothing beats some native Java.
 
 ### Kafka
 
+[Spring Kafka](https://spring.io/projects/spring-kafka) allows us to easily make use of [Apache Kafka](https://kafka.apache.org/).
 
-All messages are put into topics
+Kafka is designed to handle large streams of data.
+
+Messages are published into topics and can be stored for mere minute or indefinetely, by default 7 days.
+It is highly scalable allowing topics to be distributed over multiple brokers 
+
+[Kafka Streams](https://kafka.apache.org/documentation/streams/) allows us to write steam processing applications within the Kafka cluster itself.
+
+For this reason Kafka Streams will use topics for both input and output.
 
 ### What "topics" does Kafka Streams use
 
@@ -413,6 +421,9 @@ Process
 ### Twitter
 
 ### Spouts & Bolts
+
+### Windowing
+https://storm.apache.org/releases/1.0.6/Windowing.html
 
 ### Stream API
 
