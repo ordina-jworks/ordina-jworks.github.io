@@ -401,22 +401,33 @@ A KTable is a changelog stream of a primary keyed table, meaning, that whenever 
 Like a KTable, but it is replicated over all Kafka Streams instances, so do be carefull.
 
 [KGroupedStream](https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KGroupedStream.html)
+This is an intermediate format based on a re-grouped stream of records based on a KStream, with, usually, a different key then the original primary key.
 
+It is derived from a groupBy() or a groupByKey() on a Kstream.
+Via aggregate(), count() or reduce() it can be converted to a KTable.
 
 [KGroupedTable](https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KGroupedTable.html)
+This is pretty similar to a KGroupedStream, but a KGroupedTable is derived from a KTable via groupBy().
 
+It can be reconverted to a KTable via aggregate(), count() or reduce().
 
 ### Operations
 
-Aggregate
+The following operations can be executed on data streams.
 
-Count
+#### Aggregate
 
-Filter
+#### Count
 
-Join
+#### Filter
 
-Process
+#### Join
+
+#### Process
+
+#### GroupBy
+
+#### GroupByKey
 
 ### Coding with Spring Kafka
 
