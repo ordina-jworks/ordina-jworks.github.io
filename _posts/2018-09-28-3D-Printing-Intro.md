@@ -2,7 +2,7 @@
 layout: post
 authors: [kevin_van_den_abeele]
 title: "3D Printing: An introduction"
-image: /img/2018-09-05-3D/3D-printing.jpg
+image: /img/2018-09-28-3D-Printing/banner.jpg
 tags: [3D printing, printing, building, technology, iot, internet of things]
 category: IoT
 comments: true
@@ -23,24 +23,39 @@ comments: true
 5. [The future](#future)
 
 ## Introduction
-TODO
+
+3D printing is a term that has been hyped for a long time.
+It's a technology that is in essence not that new, but now more than ever is getting better and accessible for everyone.
+Lately the 3D printing scene even was in the news (again), almost being portrayed as a dangerous and criminal network.
+Today we take a dive into the world of 3D printing and what is really has in store for us and the worlds in the coming years.
+
 
 ## Types of 3D printing
+
 TODO
+
 
 ### Different methods
+
 TODO
 
+
 ### Different materials
+
 TODO
+
 
 ## Getting started
 
+
 ## Personal experience
+
 
 ## The future
 
+
 ## Resources
+
 - TODO
 - TODO
 
