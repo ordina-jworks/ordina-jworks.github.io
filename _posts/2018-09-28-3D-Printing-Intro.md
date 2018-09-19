@@ -100,13 +100,18 @@ Some even require you to print more components for the printer with the printer 
 
 These types of printers work by using either a laser or a projected image to cure a UV-reactive resin.
 
-With SLA a powerful UV laser traces the object layer by layer, like the FDM printer does, however it does not deposit material itself, rather it cures the resin in the tank at the point where the laser is.
+With `Stereolithography` a powerful UV laser traces the object layer by layer, like the FDM printer does, however it does not deposit material itself, rather it cures the resin in the tank at the point where the laser is.
 Because SLA uses a laser that is moved by mirrors, it can have a very high resolution, the disadvantage is that it is as slow as an FDM printer since each layer needs to be traced.
 
-With DLP an UV projector is used, it projects the an entire layer at once, the results in a lower printable resolution for the object, but yields a significant speed increase since an entire layer is printed at once, there is no need to trace the entire layer.
-MSLA is a cheaper version of the DLP method where a LCD based photomask is used in front of an UV-LED array instead of an UV based projector.
+With `Digital Light Processing` an UV projector is used, it projects the an entire layer at once, the results in a lower printable resolution for the object, but yields a significant speed increase since an entire layer is printed at once, there is no need to trace the entire layer.
+`Masked SLA` is a cheaper version of the DLP method where a LCD based photomask is used in front of an UV-LED array instead of an UV based projector.
 
-The image above can show the distinct difference between these two (three) methods.
+<img alt="stack" src="{{ '/img/2018-09-28-3D-Printing/sla-dlp-2.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+
+<img alt="stack" src="{{ '/img/2018-09-28-3D-Printing/sla-vs-dlp.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+
+The images above show the distinct difference between these two (three) methods.
+The SLA method has much better quality compared to the DLP or MSLA methods.
 
 <a href="{{ '/img/2018-09-28-3D-Printing/sla-print1.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="SLA printers & prints">
     <img alt="stack" src="{{ '/img/2018-09-28-3D-Printing/sla-print1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
@@ -118,6 +123,19 @@ The image above can show the distinct difference between these two (three) metho
 
 #### DMLS & SLM: Direct Metal Laser Sintering & Selective Laser Melting
 
+<img alt="stack" src="{{ '/img/2018-09-28-3D-Printing/dmls-slm.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
+
+`Direct Metal Laser Sintering` and `Selective Laser Melting` are two more industrial types of 3D printing. They are used, as the name suggests, to 3D print object in metal.
+The main procedure for both methods is similar.
+A moving arm pushed metal particles across the printing area, after which a powerful laser will trace the current layer of the object being printed.
+This will fuse the particles together, and is also where the biggest difference between the two methods lays.
+Once the current layer is finished, the arm moves back and forth again, bringing in a new layer of metal particles.
+
+With DMLS the particles are sintered together but the metal itself has not melted completely, is hasn't flowed.
+When using SLM instead, the metal particles are actually fully molten and they fuse together much more firmly creating very though objects!
+
+Objects created with these methods are free of internal stresses and defects that are common and hard to prevent with other production methods.
+This however comes at great cost, literally, since these methods are very expensive and require state of the art equipment!
 
 ### Different materials
 
