@@ -14,120 +14,76 @@ comments: true
 
 ## Introduction
 
-Many articles related to E2E testing Cordova/Ionic applications are about applications which only run in the browser. But what if your application run's on native mobile devices?
+Many articles related to E2E testing Cordova/Ionic applications are about applications which only run in the browser. 
+But what if your application run's on native mobile devices?
 
 This article will cover how to get started with E2E testing your Ionic application on native Android and iOS devices.
 
 To follow along, I recommend having a basic understanding of Javascript, Typescript, Jasmine and automated testing in general.
 
 ## Automated testing
-When releasing an application, we need to make sure it was thoroughly tested , making sure of discovering any bugs before reaching production. These tests or test scenarios can be done manually, but this would consume a lot of time and resources. The more cost-effective solution would be to automatically run these test scenario's completely by an programmable agent.
+When releasing an application, we need to make sure it was thoroughly tested. 
+Making sure of discovering any bugs before reaching production. 
+These tests or test scenarios can be done manually, but this would consume a lot of time and resources. 
+The more cost-effective solution would be to automatically run these test scenario's completely by an programmable agent.
 
 Thanks to a few technologies, we can script a bot that can perform most user interface interactions, such as clicking on a button, performing touch gestures (f.e. swiping), etc.
 
-The most popular solution for automated E2E tests is called Selenium which is based 
+The most popular solution for automated E2E tests is called Selenium which is based on the [WebDriver protocol](https://w3c.github.io/webdriver/). 
 
-## Selenium
+While Selenium is a great solution, we will be using [Appium](http://appium.io/).
 
+## Appium
 
+Appium is a tool for automating mobile applications and writing cross-platform UI tests.
 
-Automating a browser application and writing UI tests we usually use Selenium with Protractor to run them in any browser.
+It is very similar to Selenium.
 
-But how do we automate a hybrid application on a mobile device (iOS and Android).
+The difference is that Selenium is a tool for automating browsers and web applications, whereas Appium is a tool for automating Native / Hybrid mobile applications.
 
-For this use case, we can use Appium with Protractor.
+Appium allows developers to write UI tests for mobile applications in any number of programming language (Javascript, Java, .NET, etc.), as it uses a superset of the Selenium WebDriver specification, called the MJSONWP protocol.
 
-This article will explain how to set up your Appium server and run automated UI tests in your Ionic application on Android and iOS mobile devices.
-
-
-If you are using cordova plugins then how can you include them in your e2e tests if your only testing in the browser where the cordova plugins are not available?
-
-How do you setup and write automated UI tests for Native / Hybrid mobile applications.
-
-This article will help you understand which technologies you need to know and setup to write and run automated UI tests both for Android and iOS using a single programming language: Typescript.
-
-What is e2e testing
-What is Appium
-What is Selenium
-What is Webdriver
-What is MJSONWP
-
-We will use the ionic super starter app 
-https://ionicframework.com/docs/cli/starters.html
-
-Install the ionic cli
-
-Run 
-
-```
-$ ionic start
-```
-
-And select the super template. Make sure to integrate Cordova
-
-![](https://i.imgur.com/GOwADt7.png)
-
-
-
-Install protractor
-
-npm i -D protractor
-
-
-Reference material:
-Official Appium Documentation
-
-TACO: UI Testing for Apache Cordova Apps with Appium.
-
-Saucelabs: Getting started with Appium
-
-Automated UI tests
-To automate our UI tests there needs to be an agent that programmatically drives the UI of your mobile application.
-
-For each platform there are different agents:
-
-iOS: XCUITest
-Android: UIAutomator, Selendroid, Espresso
-
-Controlling these agents requires a developer to write platform-specific code.
-
-Appium with MJSONWP (Webdriver spec) provides an abstraction layer to drive these agents programmatically in a platform agnostic way.
-
-Cross-platform UI testing
+### Cross-platform UI testing
 Because we are using Ionic with Cordova, we can write our codebase using only web technologies but still build, deploy and run on multiple platforms.
 
 Our mobile application can be packaged and deployed as a native application for both iOS and Android.
 
 We can achieve the same cost-savings strategy "Write once, run anywhere" for our UI tests using Appium.
 
-Appium
-Appium is a tool for automating mobile applications and writing cross-platform UI tests.
+To automate our UI tests there needs to be an agent that programmatically drives the UI of your mobile application.
 
-It is similar to Selenium.
+For each platform there are different agents:
 
-The difference is that Selenium is a tool for automating browsers and web applications, whereas Appium is a tool for automating Native / Hybrid mobile applications.
+**iOS**: XCUITest
+**Android**: UIAutomator, Selendroid, Espresso
 
-Appium allows developers to write UI tests for mobile applications in any number of programming language (Javascript, Java, .NET, etc.), as it uses a superset of the Selenium WebDriver specification, called the MJSONWP protocol.
+Controlling these agents requires a developer to write platform-specific code.
 
-Getting started with Appium
-1. Environment
+Appium with MJSONWP (Webdriver spec) provides an abstraction layer to drive these agents programmatically in a platform agnostic way.
+
+We will explain how to set up your Appium server and run automated UI tests in your Ionic application on Android and iOS mobile devices.
+
+## Getting started with Appium
+### Environment
 The first step is to setup your environment.
 
 Because we are targeting Android and iOS we will only describe the setup for macOS.
 
-Make sure you have followed the steps described in https://ionicframework.com/docs/developer-resources/platform-setup/mac-setup.html.
+[On the developer resources page of the official ionic documentation](https://ionicframework.com/docs/developer-resources/), you wil find guides on how to setup your machine depending on the OS you are working on.
+
+Next:
 
 - Install https://github.com/appium/appium-doctor using npm.
 - Run appium-doctor --ios and fix any issues
 - Run appium-doctor --android and fix any issues
 
-2. Appium server
+### Appium server
 There are multiple ways to start an Appium server
 - Appium Desktop
 - webdriver-manager
 - npm install -g appium && npm run appium
 
-Appium desktop
+#### Appium desktop
 Appium Desktop is a graphical frontend for running an Appium server and starting sessions to inspect your applications.
 https://github.com/appium/appium-desktop
 
@@ -140,14 +96,14 @@ Appium desktop has 2 advantages
 The drawback is inspecting and recording user actions only supports the Native context. You cannot record actions for the Webview context.
 Cordova applications always run in the webview context. https://appium.io/docs/en/writing-running-appium/web/hybrid/index.html
 
-webdriver-manager
+### webdriver-manager
 Selenium and appium server manager.
 https://github.com/angular/webdriver-manager
 
-webdriver-manager is officially supported by Angular and works well together with Protractor, the official E2E testing framework for Angular applications. Ionic is built on top of Angular.
+webdriver-manager is officially supported by Angular and works well together with Protractor, the official E2E testing framework for Angular applications. Ionic up untill version 3.x is built on top of Angular, from version 4 and on Ionic has decoupled from the Angular framework and recreated all of their components using [StencilJS](https://stenciljs.com/).
 
-Language
-First, decide which language you want to write your tests in. You need to have a client library that can send MJSONWP / JSONWP HTTP Requests to the appium server.
+## Language
+Decide in which language you want to write your tests in. You need to have a client library that can send MJSONWP / JSONWP HTTP Requests to the Appium server.
 
 For our application, we will write our tests in Typescript using Protractor since it has added support for Angular and type safety.
 
@@ -156,6 +112,37 @@ Other webdriver javascript clients:
 - https://github.com/admc/wd
 
 Client libraries for different languages https://appium.readthedocs.io/en/stable/en/writing-running-appium/other/appium-bindings/
+
+
+## Project setup
+
+We are going to use Ionic 4 and the **super** template as our application to run our tests on.
+
+First make sure your development machine has been set up correctly.
+
+[On the developer resources page of the official ionic documentation](https://ionicframework.com/docs/developer-resources/), you wil find guides on how to setup your machine depending on the OS you are working on.
+
+Once your machine is setup, install the Ionic cli.
+```
+npm i -g ionic
+```
+
+Next, generate the Ionic Cordova application using the Ionic CLI.
+
+```
+ionic start superApp super --type=ionic-angular --cordova
+ionic cordova platform add android
+```
+
+Test if you can launch and run the application by entering the following command
+
+```
+ionic cordova run android
+```
+
+If you were able to run the application, we can start E2E testing our application.
+
+### Configure E2E testing tools in your Ionic project
 
 Writing UI tests
 There are seven basic steps in creating an Appium test script.
