@@ -68,6 +68,15 @@ curl -X GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/AWS-lambda-and-DynamoDB-Architecture.png" width="100%">
 </div>
 
+The coding tip items are stored in a nosql database AWS **DynamoDB**.
+There are two **Lambda Function** in play.
+One for getting the coding tip items from the database and one to post a new coding tip item to the database.
+The user can access these Lambda Functions through an api provided by the AWS **API Gateway** service.
+This Gateway will redirect to the right Lambda Function based on the HTTP method (POST or GET).
+Both Lambda Functions are connected to **CloudWatch** where you can view the logs of your functions.
+**AWS IAM** is used to give the services the right permissions to connect to eachother.
+
+
 # Prerequisites
 To follow along you need:
 * an AWS account.
@@ -301,7 +310,7 @@ Since we just created a HTTP GET request you can use either your **browser**, **
 In a browser tab past the **Invoke URL**. 
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-GET-Invoke_Browser.png" width="100%">
+  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-GET-Invoke_Browser.png" width="60%" width="60%">
 </div>
 
 From the command line with Curl execute this command with your own **Invoke URL**:
@@ -312,7 +321,7 @@ curl -X GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
 
 Either of the above actions will return the items in CodingTips table!
 
-**Congratulations**, you just create your first serverless app!  
+**Congratulations**, you just created your first serverless app!  
 ![party](/img/2018-09-18-How-to-Build-a-Serverless-Application/Party.png)
 
 
