@@ -17,7 +17,7 @@ With the help of Feign, I will explain how we can fire off synchronous calls to 
 To understand the basics of inter-process communication, we need to look on what kind of interactions we can do.
 Feign, a declarative HTTP client by Netflix simplifies our way of interacting with other services. 
 When we decide that it is time to decompose our modulith because of numerous reasons like: "Oh I am getting more load on this part of the service and it needs to scale." 
-We will have to look for a REST client to handle our inter-process communication. 
+We will have to look for a communication client to handle our inter-process communication. 
 Feign offers a lot of support for Spring, load balancing, resilience, security and lots more. I will tell you how they work and how to use them inside your Spring application. 
 
 
