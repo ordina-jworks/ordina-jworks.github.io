@@ -18,10 +18,8 @@ So today I will talk you through the process of setting up multi host networks w
 # Table of contents
 1. [Why multihost networking?](#why-multihost-networking)
 2. [Weave](#weave)
-3. [Example](#example)
-4. [REST Backend container](#backend-container)
-5. [Frontend container](#frontend-container)
-6. [Conclusion](#conclusion)
+3. [Basic example](#basic-example)
+4. [Application example](#application-example)
 
 # Why multihost networking?
 
@@ -63,9 +61,13 @@ Service discovery allows you to do easy **loadbalancing** and provides your appl
 
 The main point that I'm trying to make here is that weave.NET takes care of a lot of low level networking stuff for you. This allows you to build a more robust and scalable environment to run your applications on without having to worry much about the lower levels in the networking stack.
  
-# Example
+# Basic example
 In this example I will be using ubuntu machines on which I have already installed docker. 
 Following picture shows the setup that we will be build in this example.
+
+<p>
+    <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/weave_basic_diagram.png" />
+</p>
 
 ### Installing weave
 To install weave on an ubuntu system you can run following command:
@@ -185,3 +187,92 @@ ping app_on_host1
 ~~~~
 As you can see from the example outputs both hosts are now connected and thanks to the weave network and dns service they are able to resolve each other by hostname.
 Another noteworthy thing is that weave has setup a class A network (10.xxx.xxx.xxx) range for us. These are all ip addresses within the weave network so you don't have to worry about any ip conflicts with your existing network. If you would have the need for a specific subnet you can force weave to use whatever subnet you like (192,168.1.XXX for example).
+
+# Application example
+For this example we will use the weave setup we created in the previous example. I will be running the application from the basic docker networking blogpost on our 2 hosts in the weave network.
+You can checkout the code for this example on **[my github account](https://github.com/basmoorkens/docker-networking-demo "weave install page")**. For this example I will be using the branch **weave-basic-example**.
+
+### Setup database
+In the first step we will setup our database container on one of the weave hosts. I will be using my desktop to run the database container.
+First we will run the **run_db.sh** script to start up a new mysql container and assign a root password to it.
+When that container is up and running we can initialise it with a database and some data. To initialise the database run the **init-db.sh** script. 
+We can run following commands to verify that our database is up and running in the weave network.
+~~~~
+docker ps
+weave ps
+~~~~
+This should give you a similar output to the screenshot below.
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/db_setup.png" />
+</p>
+As you can see the mydb container was automatically added to the weave network because of the **eval $(weave env)** command we ran earlier in this demo.
+Note that the weave ps command shows you the container id and the ip address it has allocated to that container. Now that our database is up and running let's switch over to our other machine and start the other services over there.
+
+### Setup backend application
+Let's install our backend service on our 2nd host. In the folder **backend** we will run following commands to compile our application and startup our docker container.
+Let's first start our backend container with the **test_run_backend.sh** script. This script runs the container and exposes it's webservice to the outside world through the 8080 port. 
+We can then use our browser on our host to verify that the service is running correct.
+~~~~
+mvn clean install
+docker build -t rest-backend .
+./test_run_backend.sh
+~~~~
+To verify that out application has started successfully we can run the following commands:
+~~~~
+docker ps
+weave ps
+~~~~
+This shows us that indeed the container has started ok and it has gotten an ip addresss within the weave network.
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/backend_setup.png" />
+</p>
+Now that we know our backend and our database is running within the weave network we can query our rest service and see if everything works as expected.
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/backend_verification.png" />
+</p>
+As you can see when I do a http GET to my rest backend it comes back with a greeting it got from the database container on the other host. 
+Now that we have verified that our backend runs fine we will stop it and start it up again without exposing a port to the outside world.
+~~~~
+docker stop rest-backend
+docker rm rest-backend
+./run_backend.sh
+~~~~
+As you can see from the docker ps command the backend now runs without exposing a port. This is important because our frontend application will call our rest-backend through the weave network so we don't have to expose a port to the outside world for it.
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/rest-backend-without-port-exposed.png" />
+</p>
+
+### Setup frontend application
+Our frontend application is a bit different from the one I used in my previous demo. <br />
+In the previous demo we used an angular frontend, this time I replaced it with a simple webserver I wrote in **Golang**.<br />
+The reason for this is that I want to demonstrate that applications can access each other through the internal weave network by their container name. <br />
+I could not demonstrate this last time with angular because angular code is rendered inside the browser on the client side. <br />
+Our client's browser is not inside the weave network so it has no way to resolve the webservice call from our frontend application to our rest-service in the angular scenario.<br />
+In this example our go frontend renders the html response on the server side. So the code that calls the rest-service is running inside the docker container and is thus a part of the weave network.<br />
+That is also the reason why we can access our rest backend via following url:
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/frontend-call-to-backend.png" />
+</p>
+
+The source code of the go program is on github under the **frontend** folder. Note, I also included a compiled binary so that you can still use the program even if you don't have a working Golang installation. 
+To start our frontend container run following commands inside the frontend folder.
+Only execute the first command if you wish to compile the Go program yourself.
+~~~~
+go build
+docker build -t frontend .
+./run_frontend.sh
+~~~~
+Our go frontend application should be up and running now so let's check if everything is workin as expected.
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/final-result.png" />
+</p>
+As you can see from the screenshot we can access our frontend application through port 8080 ( which we exposed to the outside world with the docker run command).
+In this example I gave the name "john" which has no entry in our database so our rest-backend returned the standard hardcoded message "hello friend".
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/final-result-2.png" />
+</p>
+In this example I gave the name "bas" as a parameter and we have a message in our database for this name so we got the message "hello master" as a result.<br />
+Since no docker ports are exposed to the outside world ( except for our frontend application so we may access it from our host) this is definitive proof that our go application is accessing our rest-backend application through the weave network. 
+Likewise, our rest-backend application is accessing our mydb container through the weave network as well.
+
+Oh, and by the way. You can run your containers on any host which is connected to our weave network. Cool, huh?
