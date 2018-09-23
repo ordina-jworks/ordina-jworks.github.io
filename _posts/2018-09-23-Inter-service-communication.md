@@ -3,7 +3,7 @@ layout: post
 authors: [kevin_van_houtte]
 title: 'Inter-service/inter-process communication with Feign: Tips & Tricks'
 image: /img/intercommunication/intercomm_header.jpg
-tags: [Microservices, Security, Spring, Cloud, Feign]
+tags: [Microservices, Security, Spring, Cloud, Feign, OpenFeign]
 category: Microservices
 comments: true
 ---
@@ -15,7 +15,6 @@ With the help of Feign, I will explain how we can fire off synchronous calls to 
 
 # Feign
 To understand the basics of inter-process communication, we need to look on what kind of interactions we can do.
-Feign helps us in this by making synchronous calls to other services. 
 Feign, a declarative HTTP client by Netflix simplifies our way of interacting with other services. 
 When we decide that it is time to decompose our modulith because of numerous reasons like: "Oh I am getting more load on this part of the service and it needs to scale." 
 We will have to look for a REST client to handle our inter-process communication. 
@@ -88,12 +87,9 @@ public interface AuthClient {
 When we need more advanced tooling inside our Feign client, there is the Feign configuration class where we can build and customize our Feign client. 
 To begin, we just create a new class annotated with `@Configuration`.
 
-
 {% highlight java %}
 @Configuration
 class SapClientFeignConfig { }
-
-
 {% endhighlight %}
 
 ## The builder
@@ -104,7 +100,6 @@ It's important to to let the builder know which client he has to target for comm
 The second parameter is most likely the base url where all the requests begin. 
 
 {% highlight java %}
-
    @Bean
    AuthClient authClient() {
         return Feign.builder()
@@ -177,7 +172,37 @@ When we want to use the retryer of Feign, we got 3 properties we can set.
 
 > MaxAttempts: How many retries may the client trigger before it fails
 
+example:
+{% highlight java %}
+
+   @Bean
+   AuthClient authClient() {
+        return Feign.builder()
+                .retryer(new Retryer.Default(period, maxPeriod, maxAttempts))
+                .target(AuthClient.class, baseServerUrl);
+    }
+{% endhighlight %}
+
 ### Encoder / Decoder
-Besides JSON encoders and decoders, you can also enable XML encoders/decoders. 
-If you ever have to integrate with SOAP third party API's, Feign supports it. 
+Besides JSON encoders and decoders, you can also enable support for XML.
+If you ever have to integrate with SOAP third party API's, Feign supports it.
+
+# Security
+Security itself is very important in the structure of your platform, that's why we have to enable what mechanisms we can apply to the Feign client. 
+Implementations are give above in the examples. 
+
+## Basic
+>When you want to send basic credentials you can just add an interceptor for the Feign client and add the username and password.
+
+## JWT
+>For only JWT communication you can just pass it down the parameters of your method call. 
+
+## OAuth2
+>This link provides a good explanation about the use of OAuth2 with Feign. 
+[OAuth 2 interceptor](https://jmnarloch.wordpress.com/2015/10/14/spring-cloud-feign-oauth2-authentication/ ){:target="_blank"}
+
+# Conclusion 
+If you choose for the Spring wrapper or OpenFeign, The client is an advanced tool for enabling inter service communication.
+
+
 
