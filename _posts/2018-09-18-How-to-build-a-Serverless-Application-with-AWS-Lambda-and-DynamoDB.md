@@ -54,7 +54,8 @@ curl -X POST \
     "category": "General"
   }'
 ```
-
+A new items was added to the CodingTips database.
+I added a few already and can retrieve them too.
 View all the Coding Tips that are currently in the database:
 ```bash
 curl -X GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
@@ -68,9 +69,9 @@ curl -X GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/AWS-lambda-and-DynamoDB-Architecture.png" width="100%">
 </div>
 
-The coding tip items are stored in a nosql database AWS **DynamoDB**.
+The coding tip items are stored in a NoSQL database AWS **DynamoDB**.
 There are two **Lambda Function** in play.
-One for getting the coding tip items from the database and one to post a new coding tip item to the database.
+One to **GET** the coding tip items from the database and one to **POST** a new coding tip item to the database.
 The user can access these Lambda Functions through an api provided by the AWS **API Gateway** service.
 This Gateway will redirect to the right Lambda Function based on the HTTP method (POST or GET).
 Both Lambda Functions are connected to **CloudWatch** where you can view the logs of your functions.
@@ -86,7 +87,7 @@ You have to provide a credit card number to create an account.
 Don't worry! 
 The **AWS-Free-Tier** provides plenty of resources that widely exceed what you will use for this tutorial.
 If you ask me, AWS is really offering a fantastic amount of stuff for free.
-You should be grateful for this, it will give you plenty of time to get to now the AWS Services.
+You should be grateful for this, it will give you plenty of time to get to know the AWS Services.
 * coding enthusiasm
 
 # DynamoDB
@@ -97,7 +98,7 @@ Create a database to store your items.
 Login to the AWS Console and under **Services** go to _**DynamoDB**_.
 Click on **Create table**.  
 Name the table **CodingTips**. 
-As primary key choose *Partition key* choose `author`, type `String`'.
+As primary key make a *Partition key*  `author`, type `String`'.
 Check the **Add sort key** checkbox and choose `date`, type `Number` as a sort key for your table.
 Leave the default settings checked and click  **Create table**. 
 
@@ -140,10 +141,14 @@ Choose **Author from Scratch** and start configuring it with the following param
 * Runtime: Node.js 8.10
 * Role: Create a custom role
 
+<div style="text-align: center;">
+  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Create_From_Scratch.png" width="100%">
+</div>  
+
 Selecting **Create a custom role** will take you to another page to create this new role.
 Configure it as shown in the image below.
 If everything went well you should only have to adapt the name of the role.
-Name it `lambda_dynamodb_codingtips`
+Name it `lambda_dynamodb_codingtips`.
 The rest will be automatically generated for you.
 <div style="text-align: center;">
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Role-Create_New_Role.png" width="100%">
@@ -154,7 +159,7 @@ Hit **Create function** to create the Lambda.
 This will open the designer view of your Lambda Function.
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Designer_View-DynamoDB-CloudWatch.png" width="100%">
+  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-Codingtips_Scan-Designer_View-Initial.png" width="100%">
 </div>
 
 One thing is missing here.
@@ -233,7 +238,7 @@ exports.handler = function(event, context, callback){
 }
 ```
 
-Save the Lambda Function to persist the changes.  
+**Save** the Lambda Function to persist the changes.  
 What happens in this Lambda Function:
 * The handler function is the function where the Lambda execution starts when the Lambda is triggered.
 * The event parameter contains the data from the event that triggered the function.
@@ -248,13 +253,12 @@ Click the dropdown and configure a new test event.
 I called mine 'Test' and added an empty test event.
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Created_Empty_Test_Event.png" width="100%">
+  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Created_Empty_Test_Event.png" width="60%" height="60%">
 </div>  
 
-Save it and you are ready to test the Lambda.  
-From the dropdown select your test event and hit the test button!
-
-This returns the items in your table:
+**Save** it and you are ready to test the Lambda.  
+From the dropdown select your test event and hit the **Test** button!
+Nice one, this returns the items in your table:
 
 <div style="text-align: center;">
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Execution_Result_Succeeded.png" width="100%">
@@ -274,7 +278,7 @@ With a few clicks in the AWS Management Console, you can create an API that acts
 Basically this is the Service you use to create all of your API's.  
 * Click **Create api** and name your api **CodingTips**
 * Add a description if you like
-* Leave the **Endpoint Type** to regional and **create**
+* Leave the **Endpoint Type** to regional and **create API**
 
 <div style="text-align: center;">
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-GET-Create_API.png" width="100%">
@@ -304,7 +308,12 @@ Only one thing left: Select the api and under **Actions** click **Deploy API**.
 You will be asked to provide a name for the **stage**. 
 Name it `default`.
 
-In the **Stages** tab click the **GET** method and copy the **Invoke URL**. 
+In the **Stages** tab click the **GET** method and copy the **Invoke URL**.
+
+<div style="text-align: center;">
+  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-GET-Invoke_URL.png" width="100%" width="100%">
+</div>
+
 This is your gateway to trigger the lambda.
 Since we just created a HTTP GET request you can use either your **browser**, **Curl** or **Postman** to do this.
 In a browser tab past the **Invoke URL**. 
@@ -319,7 +328,7 @@ From the command line with Curl execute this command with your own **Invoke URL*
 curl -X GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
 ```
 
-Either of the above actions will return the items in CodingTips table!
+Either of the above actions will return the items in the CodingTips table!
 
 **Congratulations**, you just created your first serverless app!  
 ![party](/img/2018-09-18-How-to-Build-a-Serverless-Application/Party.png)
@@ -526,11 +535,12 @@ curl -X GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
 
 # What's next?
 Some suggestions to keep you busy:
-* Querying DynamoDB instead of scanning
+* Query DynamoDB instead of scanning
 * Create GSI (Global Secondary Index) to query and sort
 * Create a frontend that uses this serverless infrastructure as backend
 * Deploy this infrastructure with **AWS Cloudformation**
 * Deploy using a Jenkins pipeline
+* Run locally with **SAM Local**
 
 # Extra resources
 * AWS Lambda: [AWS Lambda Introduction](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
