@@ -9,7 +9,7 @@ comments: true
 ---
 
 
-> In my last blogpost we talked about setting up a docker network on a single host. We talked about a very basic 3 tier application which was packaged into 3 containers.
+> In my last blogpost we talked about setting up a Docker network on a single host. We talked about a very basic 3 tier application which was packaged into 3 containers.
 An angular frontend, a spring boot backend and a mysql database container. 
 
 > No person in their right mind would ever run an application on a single host in production. ( If you are doing this please give us a call and we will gladly come help you out ;-) )
@@ -25,11 +25,11 @@ So today I will talk you through the process of setting up multi host networks w
 
 In my last blogpost we ran our 3 containers on 1 single host network. This has a few obvious disadvantages which I will address first.
 
-* If you would run all your applications as docker containers on 1 machine your environment would still be very prone to outages. If something happens to the physical machine that you use
+* If you would run all your applications as Docker containers on 1 machine your environment would still be very prone to outages. If something happens to the physical machine that you use
 then you are pretty much done for and you have an outage. Depending on how critical your applications are this could have disastrous results. 
 That's why in practice you want to spread your applications over several hosts and connect them to each other over a network.
 
-* Not every application that you package in a docker container is the same. In our example we have a web frontend, a spring boot backend and a mysql database server. 
+* Not every application that you package in a Docker container is the same. In our example we have a web frontend, a spring boot backend and a mysql database server.
 A database server has fundamental different needs than a weberver. For example you want to make sure that your database container is running on a system with large hard disks that are very fast to access.
 On the other side a webserver has litle use for large hard drives and has much more benefit of more RAM to allow lot's of concurrent connections to the system.
 
@@ -37,10 +37,10 @@ On the other side a webserver has litle use for large hard drives and has much m
 
 So in short multihost networking is pretty important to build **resilient**, **robust** applications that **scale well**. It also allows you to deploy your containers on hardware that makes most sense for your container. 
 
-Now that you are convinced that we do need multi host networks for atleast our production environments let's talk about what we can do to set this up with docker and weave.
+Now that you are convinced that we do need multi host networks for atleast our production environments let's talk about what we can do to set this up with Docker and weave.
 
 # Weave
-There are several options to do multihost networking with docker. Nowadays docker itself even supports a basic form of this but we want to use all the good stuff like DNS lookups and service discovery.
+There are several options to do multihost networking with Docker. Nowadays Docker itself even supports a basic form of this but we want to use all the good stuff like DNS lookups and service discovery.
 That's why we are going to use weave.NET.
 
 Now, what is weave.NET?
@@ -57,12 +57,12 @@ Weave.NET is software that is build by the company **[Weaveworks](https://weave.
 * The weave network comes with its own DNS server. This allows you to do **service discovery** within the weave network. This has huge benefits over addressing applications with their IP addresses. 
 Service discovery allows you to do easy **loadbalancing** and provides your applications with **high availablity**. 
 
-* Last but not least I feel obligated to point out that weave works very well with **kubernetes**. For those of you who don't know kubernetes it is basicly the tool you want to be using to run your containers. A deeper tour of kubernetes is for another time, for now I'd like to point out that the default network provider within kubernets is flanel but you can replace that with weave if you want. You then get all the benefits of weave plus the added value that you can make a virtual network that spans several kubernetes clusters and/or your regular docker applications. 
+* Last but not least I feel obligated to point out that weave works very well with **kubernetes**. For those of you who don't know kubernetes it is basicly the tool you want to be using to run your containers. A deeper tour of kubernetes is for another time, for now I'd like to point out that the default network provider within kubernets is flanel but you can replace that with weave if you want. You then get all the benefits of weave plus the added value that you can make a virtual network that spans several kubernetes clusters and/or your regular Docker applications.
 
 The main point that I'm trying to make here is that weave.NET takes care of a lot of low level networking stuff for you. This allows you to build a more robust and scalable environment to run your applications on without having to worry much about the lower levels in the networking stack.
  
 # Basic example
-In this example I will be using ubuntu machines on which I have already installed docker. 
+In this example I will be using Ubuntu machines on which I have already installed Docker.
 Following picture shows the setup that we will be build in this example.
 
 <p>
@@ -70,14 +70,14 @@ Following picture shows the setup that we will be build in this example.
 </p>
 
 ### Installing weave
-To install weave on an ubuntu system you can run following command:
+To install weave on an Ubuntu system you can run following command:
 
 ~~~~
 sudo curl -L git.io/weave -o /usr/local/bin/weave
 sudo chmod a+x /usr/local/bin/weave
 ~~~~
 
-If you want to install weave on another system take a look on the **[weave install page](https://www.weave.works/docs/net/latest/install/installing-weave/ "weave install page")**. On systems which don't support native docker you will have to setup something like docker-machine in order to get everything to work.
+If you want to install weave on another system take a look on the **[weave install page](https://www.weave.works/docs/net/latest/install/installing-weave/ "weave install page")**. On systems which don't support native Docker you will have to setup something like Docker-machine in order to get everything to work.
 
 We will need to run the weave install on both of the machines that we are going to use in this example.
 
@@ -92,32 +92,32 @@ weave launch
 eval $(weave env)
 ~~~~
 
-The first command launches weave. Weave runs as a set of docker containers on your system, you can see this when you run the launch command.
+The first command launches weave. Weave runs as a set of Docker containers on your system, you can see this when you run the launch command.
 <p>
     <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/install_weave_result.png" />
 </p>
-If you run the docker images command you can take a look at all the images that weave downloaded.
+If you run the Docker images command you can take a look at all the images that weave downloaded.
 <p>
     <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/weave_images.png" />
 </p>
 
 The 2nd command configures the weave environment so that containers that get launched will automatically attach to the weave network.
-This means that you have to provide no additional arguments to your docker run commands to use the weave network. 
-Behind the scenes weave has setup a docker network for you on your machine, you can take a look at this with the command
+This means that you have to provide no additional arguments to your Docker run commands to use the weave network.
+Behind the scenes weave has setup a Docker network for you on your machine, you can take a look at this with the command
 
 ~~~~
 docker network ls 
 ~~~~
 <p>
-    <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/docker_network.png" />
+    <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-Docker-networking-with-weave/docker_network.png" />
 </p>
-You can recognise the weave network by the name **weave** and as you can see it uses the **weavemesh** driver instead of one of the standard docker network options.
+You can recognise the weave network by the name **weave** and as you can see it uses the **weavemesh** driver instead of one of the standard Docker network options.
 When our network setup is done we will test it out with a test container. So for now let's start this container on the first host.
 
 ~~~~
 docker run -d --name app_on_host1 weaveworks/ubuntu
 ~~~~
-This is just a stripped down ubuntu docker image. We will use it later to test our network setup.
+This is just a stripped down Ubuntu Docker image. We will use it later to test our network setup.
 
 
 If you look at your machine's network stack you will see that weave has setup several different networks on your host machine in order to make it's magic work.
@@ -189,7 +189,7 @@ As you can see from the example outputs both hosts are now connected and thanks 
 Another noteworthy thing is that weave has setup a class A network (10.xxx.xxx.xxx) range for us. These are all ip addresses within the weave network so you don't have to worry about any ip conflicts with your existing network. If you would have the need for a specific subnet you can force weave to use whatever subnet you like (192,168.1.XXX for example).
 
 # Application example
-For this example we will use the weave setup we created in the previous example. I will be running the application from the basic docker networking blogpost on our 2 hosts in the weave network.
+For this example we will use the weave setup we created in the previous example. I will be running the application from the basic Docker networking blogpost on our 2 hosts in the weave network.
 You can checkout the code for this example on **[my github account](https://github.com/basmoorkens/docker-networking-demo "weave install page")**. For this example I will be using the branch **weave-basic-example**.
 
 ### Setup database
@@ -209,7 +209,7 @@ As you can see the mydb container was automatically added to the weave network b
 Note that the weave ps command shows you the container id and the ip address it has allocated to that container. Now that our database is up and running let's switch over to our other machine and start the other services over there.
 
 ### Setup backend application
-Let's install our backend service on our 2nd host. In the folder **backend** we will run following commands to compile our application and startup our docker container.
+Let's install our backend service on our 2nd host. In the folder **backend** we will run following commands to compile our application and startup our Docker container.
 Let's first start our backend container with the **test_run_backend.sh** script. This script runs the container and exposes it's webservice to the outside world through the 8080 port. 
 We can then use our browser on our host to verify that the service is running correct.
 ~~~~
@@ -237,7 +237,7 @@ docker stop rest-backend
 docker rm rest-backend
 ./run_backend.sh
 ~~~~
-As you can see from the docker ps command the backend now runs without exposing a port. This is important because our frontend application will call our rest-backend through the weave network so we don't have to expose a port to the outside world for it.
+As you can see from the Docker ps command the backend now runs without exposing a port. This is important because our frontend application will call our rest-backend through the weave network so we don't have to expose a port to the outside world for it.
 <p>
     <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/rest-backend-without-port-exposed.png" />
 </p>
@@ -248,7 +248,7 @@ In the previous demo we used an angular frontend, this time I replaced it with a
 The reason for this is that I want to demonstrate that applications can access each other through the internal weave network by their container name. <br />
 I could not demonstrate this last time with angular because angular code is rendered inside the browser on the client side. <br />
 Our client's browser is not inside the weave network so it has no way to resolve the webservice call from our frontend application to our rest-service in the angular scenario.<br />
-In this example our go frontend renders the html response on the server side. So the code that calls the rest-service is running inside the docker container and is thus a part of the weave network.<br />
+In this example our go frontend renders the html response on the server side. So the code that calls the rest-service is running inside the Docker container and is thus a part of the weave network.<br />
 That is also the reason why we can access our rest backend via following url:
 <p>
     <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/frontend-call-to-backend.png" />
@@ -266,13 +266,13 @@ Our go frontend application should be up and running now so let's check if every
 <p>
     <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/final-result.png" />
 </p>
-As you can see from the screenshot we can access our frontend application through port 8080 ( which we exposed to the outside world with the docker run command).
+As you can see from the screenshot we can access our frontend application through port 8080 ( which we exposed to the outside world with the Docker run command).
 In this example I gave the name "john" which has no entry in our database so our rest-backend returned the standard hardcoded message "hello friend".
 <p>
     <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/final-result-2.png" />
 </p>
 In this example I gave the name "bas" as a parameter and we have a message in our database for this name so we got the message "hello master" as a result.<br />
-Since no docker ports are exposed to the outside world ( except for our frontend application so we may access it from our host) this is definitive proof that our go application is accessing our rest-backend application through the weave network. 
+Since no Docker ports are exposed to the outside world ( except for our frontend application so we may access it from our host) this is definitive proof that our go application is accessing our rest-backend application through the weave network.
 Likewise, our rest-backend application is accessing our mydb container through the weave network as well.
 
 Oh, and by the way. You can run your containers on any host which is connected to our weave network. Cool, huh?
