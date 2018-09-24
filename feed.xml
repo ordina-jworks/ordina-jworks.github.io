@@ -1,5 +1,460 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-09-24T16:34:30+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Node-RED: Development and CI</title><link href="https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html" rel="alternate" type="text/html" title="Node-RED: Development and CI" /><published>2018-08-15T00:00:00+00:00</published><updated>2018-08-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-09-24T21:59:26+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Docker multihost networking with weave</title><link href="https://ordina-jworks.github.io/docker/2018/09/15/docker-networking-with-weave.html" rel="alternate" type="text/html" title="Docker multihost networking with weave" /><published>2018-09-15T00:00:00+00:00</published><updated>2018-09-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/docker/2018/09/15/docker-networking-with-weave</id><content type="html" xml:base="https://ordina-jworks.github.io/docker/2018/09/15/docker-networking-with-weave.html">&lt;blockquote&gt;
+  &lt;p&gt;In my last blogpost we talked about setting up a Docker network on a single host. We talked about a very basic 3 tier application which was packaged into 3 containers.
+An Angular frontend, a spring boot backend and a mysql database container.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;No person in their right mind would ever run an application on a single host in production. ( If you are doing this please give us a call and we will gladly come help you out ;-) )
+So today I will talk you through the process of setting up multi host networks with the help of Weave.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#why-multihost-networking&quot;&gt;Why multihost networking?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#weave&quot;&gt;Weave&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#basic-example&quot;&gt;Basic example&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#application-example&quot;&gt;Application example&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;why-multihost-networking&quot;&gt;Why multihost networking?&lt;/h1&gt;
+
+&lt;p&gt;In my last blogpost we ran our three containers on one single host network. This has a few obvious disadvantages which I will address first:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;If you would run all your applications as Docker containers on one machine, your environment would still be very prone to outages.
+If something happens to the physical machine that you use, then you are pretty much done for and you have an outage.
+Depending on how critical your applications are, this could have disastrous results.
+That’s why in practice you want to spread your applications over several hosts and connect them to each other over a network.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Not every application that you package in a Docker container is the same.
+In our example we have a web frontend, a Spring Boot backend and a MySQL database server.
+A database server has fundamental different needs than a webserver.
+For example, you want to make sure your database container is running on a system with large hard disks with much faster access times.
+On the other side, a webserver has little use for large hard drives and has much more benefit from increased memory to allow for many concurrent connections.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If you use a microservice architecture and you want to scale up a certain microservice, it is recommended to run the new instance of that microservice on a different machine than the first instance.
+This is done for resilience of the application but also to spread the application workload over several different physical machines.
+This improves the scalability of your system.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So in short: multihost networking is pretty important to build &lt;strong&gt;resilient&lt;/strong&gt;, &lt;strong&gt;robust&lt;/strong&gt; applications that &lt;strong&gt;scale well&lt;/strong&gt;.
+It also allows you to deploy your containers on hardware that makes most sense for each container.&lt;/p&gt;
+
+&lt;p&gt;Now that you are convinced that we need multi host networks, at least for our production environments, let’s talk about what we can do to set this up with Docker and Weave.&lt;/p&gt;
+
+&lt;h1 id=&quot;weave&quot;&gt;Weave&lt;/h1&gt;
+
+&lt;p&gt;There are several options to do multihost networking with Docker.
+Nowadays Docker itself even supports a basic form of this but we want to use all the good stuff like DNS lookups and service discovery.
+That’s why we are going to use Weave.NET.&lt;/p&gt;
+
+&lt;p&gt;Now, &lt;strong&gt;what is Weave.NET?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Weave.NET is software that is build by the company &lt;strong&gt;&lt;a href=&quot;https://weave.works&quot; title=&quot;Weaveworks&quot;&gt;Weaveworks&lt;/a&gt;&lt;/strong&gt;.
+It allows you to create a virtual network across multiple hosts and enables automatic discovery of hosts and containers within the network.
+The following features are the most important and useful to me:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;It’s &lt;strong&gt;easy&lt;/strong&gt; to setup. As I will show in the hands-on part of this post, the setup of Weave is done within minutes and is pretty straightforward.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It provides a &lt;strong&gt;virtual network&lt;/strong&gt; on top of your existing network.
+In big organisations, the network setup can be quite complex with multiple VLANs and firewalls.
+Using Weave, your network people only need to open one port.
+Everything that stays within the Weave virtual network can communicate over that same port.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The virtual network is very &lt;strong&gt;flexible&lt;/strong&gt;.
+You can use Weave to build one virtual network between your on-prem and cloud environment.
+Within this network, all your containers can communicate with each other as if they were living on the same machine.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;An added benefit of the virtual network is that it’s pretty easy to &lt;strong&gt;secure&lt;/strong&gt;.
+You can encrypt all the traffic on the Weave virtual network which adds a layer of security ontop of the existing security you have in place.
+This is especially useful if you wish to build a network which spans your on-prem and cloud environment.
+Since all traffic is encrypted you are not at risk when containers in the cloud communicate with containers in your on-prem environment.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The Weave network comes with its own DNS server.
+This allows you to do &lt;strong&gt;service discovery&lt;/strong&gt; within the Weave network.
+This has huge benefits over addressing applications with their IP addresses.
+Service discovery allows you to do easy &lt;strong&gt;loadbalancing&lt;/strong&gt; and provides your applications with &lt;strong&gt;high availablity&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Last but not least I feel obligated to point out that Weave works very well with &lt;strong&gt;Kubernetes&lt;/strong&gt;.
+Kubernetes is basically the orchestration tool you want to be using to run your containers.
+A deeper tour of Kubernetes is for another time, but for now I’d like to point out that the default network provider within Kubernetes is &lt;code class=&quot;highlighter-rouge&quot;&gt;flanel&lt;/code&gt; but you can replace that with Weave if you want.
+You then get all the benefits of Weave plus the added value that you can make a virtual network that spans several Kubernetes clusters and/or your regular Docker applications.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The main point I’m trying to make here, is that Weave.NET takes care of a lot of low level networking stuff for you.
+This allows you to build a more robust and scalable environment to run your applications on without having to worry much about the lower levels in the networking stack.&lt;/p&gt;
+
+&lt;h1 id=&quot;basic-example&quot;&gt;Basic example&lt;/h1&gt;
+
+&lt;p&gt;In this example, I will be using Ubuntu machines on which I have already installed Docker.
+Following picture shows the setup we will be build in this example:&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/weave_basic_diagram.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&quot;installing-weave&quot;&gt;Installing Weave&lt;/h3&gt;
+
+&lt;p&gt;To install Weave on an Ubuntu system you can run the following commands:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo curl -L git.io/weave -o /usr/local/bin/weave
+sudo chmod a+x /usr/local/bin/weave
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you want to install Weave on another system take a look on the &lt;strong&gt;&lt;a href=&quot;https://www.weave.works/docs/net/latest/install/installing-weave/&quot; title=&quot;weave install page&quot;&gt;weave install page&lt;/a&gt;&lt;/strong&gt;.
+On systems which don’t support native Docker, you will have to set up something like Docker-machine to get everything to work.&lt;/p&gt;
+
+&lt;p&gt;We will need to run the Weave install on both of the machines that we are going to use in this example.&lt;/p&gt;
+
+&lt;h3 id=&quot;launching-weave&quot;&gt;Launching Weave&lt;/h3&gt;
+
+&lt;p&gt;Now that we have installed Weave on both machines, let’s start it up.&lt;/p&gt;
+
+&lt;h4 id=&quot;setting-up-host-1&quot;&gt;Setting up host 1&lt;/h4&gt;
+
+&lt;p&gt;On the first host, type the following commands:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;weave launch
+eval $(weave env)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The first command launches Weave. Weave runs as a set of Docker containers on your system, you can see this when you run the launch command:&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/install_weave_result.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If you run the &lt;code class=&quot;highlighter-rouge&quot;&gt;docker images&lt;/code&gt; command you can take a look at all the images that Weave downloaded:&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/weave_images.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The second command configures the Weave environment so that containers that get launched will automatically attach to the Weave network.
+This means that you have to provide no additional arguments to your Docker run commands to use the Weave network.
+Behind the scenes Weave has setup a Docker network for you on your machine, you can take a look at this with the command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker network ls 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-Docker-networking-with-weave/docker_network.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;You can recognise the Weave network by the name &lt;strong&gt;Weave&lt;/strong&gt; and as you can see it uses the &lt;strong&gt;weavemesh&lt;/strong&gt; driver instead of one of the standard Docker network options.
+When our network setup is done we will test it out with a test container.
+So for now let’s start this container on the first host:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -d --name app_on_host1 weaveworks/ubuntu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is just a stripped down Ubuntu Docker image.
+We will use it later to test our network setup.&lt;/p&gt;
+
+&lt;p&gt;If you look at your machine’s network stack you will see that Weave has setup several different networks on your host machine in order to make it’s magic work.
+When I run the:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ifconfig
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;command on my machine, I can see that Weave added following network stacks to my machine:&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/weave_network_stack.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;What all these networks do is out of scope for this post as that operates on a pretty low level in the TCP/IP stack and we are not really interested in it in our usecase.
+We just want it to work, right?&lt;/p&gt;
+
+&lt;h4 id=&quot;setting-up-host-2&quot;&gt;Setting up host 2&lt;/h4&gt;
+
+&lt;p&gt;In the last screenshot of the previous section we looked at the network stack of host 1.
+This is important because we need the &lt;strong&gt;physical IP address&lt;/strong&gt; from that host to tell our second host to connect to host 1.
+Host 1 has IP address 192.168.1.18. This gives us following command to run on host 2:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;weave launch 192.168.1.18
+eval $(weave env)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The syntax of this command is pretty straightforward.
+You tell Weave to launch and to connect to every IP you supply as an argument to the launch command.
+We will also setup a test container on this host:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -d --name app_on_host2 weaveworks/ubuntu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;These are all the setup steps you need to do in order to setup a simple Weave network.
+Now let’s see how we can verify that everything is working.&lt;/p&gt;
+
+&lt;h4 id=&quot;verifying-our-setup&quot;&gt;Verifying our setup&lt;/h4&gt;
+
+&lt;p&gt;There are a few things we can do to verify that our setup is working.
+To start off let’s look at the status off our Weave service:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;weave status
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This produces following result:&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/weave_status.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;You can run this command on either host, it will provide you with basically the same results.
+All sorts of useful stuff is available in the status overview including the range of your Weave subnet, the connected peers, the connections.
+As a first step to verify that our network is working, let us examine the connections and peers in more detail with following commands:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;weave status peers
+weave status connections
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/weave_status_details.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;As you can see from the output of the commands there are now two hosts in our network and there is one connection between them.
+So far everything is looking good!
+Now let’s do the real test and see if the containers can find each other by the name we gave each container.
+SSH into the container on host 1 and ping the application on the other host:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker exec -ti app_on_host1 bash
+ping app_on_host2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image fit&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/ping_test_app_1.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;As we can see from the results, our container was able to resolve the other container over the Weave network by making use of the Weave DNS service and the Weavemesh network.
+If we reverse our test and run it on host 2 we get this result:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker exec -ti app_on_host2 bash
+ping app_on_host1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As you can see from the example outputs, both hosts are now connected, and thanks to the Weave network and DNS service, they are able to resolve each other by hostname.
+Another noteworthy thing is that Weave has setup a class A network (10.xxx.xxx.xxx) range for us.
+These are all IP addresses within the Weave network so you don’t have to worry about any IP conflicts with your existing network.
+If you would have the need for a specific subnet you can force Weave to use whatever subnet you like (192,168.1.XXX for example).&lt;/p&gt;
+
+&lt;h1 id=&quot;application-example&quot;&gt;Application example&lt;/h1&gt;
+
+&lt;p&gt;For this example we will use the Weave setup we created in the previous example.
+I will be running the application from the basic Docker networking blogpost on our two hosts in the Weave network.
+You can checkout the code for this example at &lt;strong&gt;&lt;a href=&quot;https://github.com/basmoorkens/docker-networking-demo&quot; title=&quot;weave install page&quot;&gt;my github account&lt;/a&gt;&lt;/strong&gt;.
+For this example I will be using the &lt;strong&gt;weave-basic-example&lt;/strong&gt; branch.&lt;/p&gt;
+
+&lt;h3 id=&quot;setup-database&quot;&gt;Setup database&lt;/h3&gt;
+
+&lt;p&gt;In the first step, we setup our database container on one of the Weave hosts.
+I will be using my desktop to run the database container.
+First we will run the &lt;strong&gt;run_db.sh&lt;/strong&gt; script to start up a new MySQL container and assign a root password to it.
+When that container is up and running we can initialise it with a database and some data.
+To initialise the database run the &lt;strong&gt;init-db.sh&lt;/strong&gt; script.
+We can run following commands to verify that our database is up and running in the Weave network:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker ps
+weave ps
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This should give you a similar output to the screenshot below:&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/db_setup.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;As you can see the mydb container was automatically added to the Weave network because of the &lt;strong&gt;eval $(weave env)&lt;/strong&gt; command we ran earlier in this demo.
+Note that the Weave ps command shows you the container id and the IP address it has allocated to that container.
+Now that our database is up and running, let’s switch over to our other machine and start the other services over there.&lt;/p&gt;
+
+&lt;h3 id=&quot;setup-backend-application&quot;&gt;Setup backend application&lt;/h3&gt;
+
+&lt;p&gt;Let’s install our backend service on our second host.
+In the &lt;strong&gt;backend&lt;/strong&gt; folder we will run the following commands to compile our application and start up our Docker container.
+Let’s start our backend container with the &lt;strong&gt;test_run_backend.sh&lt;/strong&gt; script.
+This script runs the container and exposes its webservice to the outside world through port 8080.
+We can then use our browser on our host to verify that the service is running correctly:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mvn clean install
+docker build -t rest-backend .
+./test_run_backend.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To verify that out application has started successfully we can run the following commands:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker ps
+weave ps
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This shows us that the container wass started correctly and it got an IP addresss within the Weave network.&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/backend_setup.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now that we know our backend and our database are running within the Weave network, we can query our REST service and see if everything is working as expected:&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/backend_verification.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;When I do an HTTP GET to my REST backend, it comes back with a greeting it got from the database container on the other host.
+Now that we have verified that our backend runs fine, we will stop it and start it up again without exposing a port to the outside world:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker stop rest-backend
+docker rm rest-backend
+./run_backend.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The Docker ps command on the backend now runs without exposing a port.
+Since our frontend application is calling our REST backend through the Weave network, we don’t have to expose a port to the outside world:&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/rest-backend-without-port-exposed.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&quot;setup-frontend-application&quot;&gt;Setup frontend application&lt;/h3&gt;
+
+&lt;p&gt;Our frontend application is a bit different from the one I used in my previous demo.&lt;/p&gt;
+
+&lt;p&gt;In the previous demo we used an Angular frontend, but I replaced it with a simple webserver I wrote in &lt;strong&gt;Golang&lt;/strong&gt;.
+I want to demonstrate that applications can access each other through the internal Weave network by their container name.
+I could not demonstrate this last time with Angular code since that’s rendered on the browser at client side.
+Our client’s browser is not inside the Weave network so it has no way to resolve the webservice call from our frontend application to our REST service.&lt;/p&gt;
+
+&lt;p&gt;In this example, our Go frontend app renders the HTML response on the server side.
+This means the code that calls the REST service is running inside the Docker container and is thus a part of the Weave network.
+We can also access our REST backend via following url:&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/frontend-call-to-backend.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The source code of the Go application is on Github in the &lt;strong&gt;frontend&lt;/strong&gt; folder.
+Please note: I also included a compiled binary so that you can use the program even if you don’t have a working Golang installation.
+To start our frontend container, run following commands inside the frontend folder.
+Only execute the first command if you wish to compile the Go program yourself:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;go build
+docker build -t frontend .
+./run_frontend.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Our Go frontend application should be up and running now so let’s check if everything is working as expected:&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/final-result.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We can access our frontend application through port 8080 (which we exposed to the outside world with the Docker run command).
+In this example I gave the name “john” which has no entry in our database so our REST backend returned the standard hardcoded message “hello friend”.&lt;/p&gt;
+
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/final-result-2.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In this example I gave “bas” as a parameter and since we have a message in our database for this name, we got the message “hello master” as a result.
+Since no Docker ports are exposed to the outside world (except for our frontend application to make it accessible from our host), this is definitive proof that our Go application can access our REST backend application through the Weave network.
+Likewise, our REST backend application accesses our mydb container through the Weave network as well.&lt;/p&gt;
+
+&lt;p&gt;Oh, and by the way: You can run your containers on any host which is connected to our Weave network. Cool, huh?
+Now, let’s take this one step further. In this next example we will extend our Weave network from our home network into the cloud.&lt;/p&gt;
+
+&lt;h1 id=&quot;onprem-cloud-application-example&quot;&gt;Onprem cloud application example&lt;/h1&gt;
+&lt;p&gt;In the final example of this blogpost I will show a setup where we have 1 Weave network that spans our onprem environment and connects to a cloud environment (AWS).
+In this example we will run each application container on a different host. It looks like this.&lt;/p&gt;
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/onprem_aws_setup.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;In the end result I will be running the &lt;strong&gt;mydb&lt;/strong&gt; container on my desktop (database server). The &lt;strong&gt;rest-backend&lt;/strong&gt; will run on my laptop (backend server) and our &lt;strong&gt;frontend&lt;/strong&gt; container will run on an EC2 instance on AWS.
+Everything will be connected through the Weave network that we will reconfigure to encrypt our data between the cloud and onprem environment.
+Let’s get started.&lt;/p&gt;
+
+&lt;h3 id=&quot;setup-ec2-server&quot;&gt;Setup EC2 server&lt;/h3&gt;
+&lt;p&gt;The first thing we have to do is create a new EC2 server on AWS that we can use for this demonstration.
+I’m not going to go into full detail here about how you can do that but it’s quite easy and there are a lot of tutorials out there.
+After our EC2 server is up and running we can login to it via ssh and install docker and weave.
+We will start up Weave on our EC2 server with encryption enabled.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;weave launch --password weavetest
+eval $(weave env)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;strong&gt;password weavetest&lt;/strong&gt; part enables the encryption for this peer. 
+If another peer wants to connect to this peer it has to provide this password before a connection can be established.
+After the connection is established all traffic over the connection will be encrypted.&lt;/p&gt;
+
+&lt;p&gt;Another thing we have to take care of is make sure that Weave on the EC2 server can connect to it’s peers.
+Remember, an EC2 is running in a VPC behind a firewall so we have to open certain ports for this to work.
+In the case of Weave we have to open the port 6783 – which is the control port.
+And we also have to open the port 6784 – which is the data port.
+You can do this by editing the launch group of your EC2 and add following inbound rules to it.&lt;/p&gt;
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/aws-inbound-rules.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;As you can see I added rules to allow TCP and UDP traffic on port 6783 from all sources. This enables the Weave control process to connect to its peers.
+Afterwards I added a rule to allow UDP traffic on port 6784 from all sources. This port is used by Weave to send it’s data.
+Note, I also opened port 8080 because our frontend uses this port to listen for web requests.&lt;/p&gt;
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/ec2.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;We will use the public ip4 address and DNS name later in this demo.&lt;/p&gt;
+
+&lt;h3 id=&quot;reconfigure-the-existing-onprem-hosts&quot;&gt;Reconfigure the existing onprem hosts&lt;/h3&gt;
+&lt;p&gt;Before you can connect Weave from your homenetwork to the cloud you have to make sure that your router ports 6783(TCP/UDP) and 6784(UDP) are opened.
+First lets reconfigure our database host.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;weave reset
+weave launch --password weavetest
+eval $(weave env)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;strong&gt;weave status&lt;/strong&gt; command on this host now shows that encryption is enabled.&lt;/p&gt;
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/db_encrypted.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;As you can see Weave is now reporting that encryption is turned on but this Weave peer is not yet connected to any others.
+Let’s take care off that now. Switch over to the backend host.
+Now let’s run the magic Weave command that will make our setup run.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;weave launch 34.247.178.145 192.168.1.99 --password weavetest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This command launches Weave on our backend host and tells it to connect to our EC2 instance in the cloud and to our database server onprem.&lt;/p&gt;
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/backend_host_encrypted.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;As you can see our backend host is now connected to both our EC2 server and our database server. 
+Let’s check our EC2 server as well.&lt;/p&gt;
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/ec2-encrypted-connected.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;As you can see our EC2 server now also has encrypted connections to both the backend server and the database server.
+Weave will automatically connect hosts on your network as long as they can be connected though 1 common peer.
+In this case our backend server has a connection to our EC2 server and a connection to our database server.
+So Weave will automatically create a connection between those 2 as well.&lt;/p&gt;
+&lt;p&gt;
+    &lt;img class=&quot;image&quot; style=&quot;max-width:633px&quot; alt=&quot;Weave install result&quot; src=&quot;/img/2018-09-15-docker-networking-with-weave/final_result_ec2.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;As you can see in the screenshot I browsed to the frontend application on the AWS server and it generated a correct response which means our setup works!&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;In this blogpost we started off with a simple onprem Weave network.
+After testing that the network works we deployed a distributed application on that network.
+After this we extended our private Weave network with a peer on AWS in the cloud.
+The end result we achieved was that our distributed application was running spread over a cloud and onprem environment.
+In our final example we also enabled encryption on the Weave network so all traffic between your onprem environment and the cloud is encrypted.&lt;/p&gt;
+
+&lt;p&gt;This can be a huge benefit for enterprises who want to move their applications into the cloud. 
+With Weave you can setup your network in a hybrid cloud/onprem model and be sure that all communication is safely encrypted.
+This allows the enterprise to do a gradual move to the cloud instead of having to do a big bang approach.&lt;/p&gt;</content><author><name></name></author><category term="docker" /><category term="Docker" /><category term="Weave" /><category term="Networking" /><category term="Kubernetes" /><summary type="html">In my last blogpost we talked about setting up a Docker network on a single host. We talked about a very basic 3 tier application which was packaged into 3 containers. An Angular frontend, a spring boot backend and a mysql database container.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/docker-basic-networking/docker-basic-networking.png" /></entry><entry><title type="html">Node-RED: Development and CI</title><link href="https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html" rel="alternate" type="text/html" title="Node-RED: Development and CI" /><published>2018-08-15T00:00:00+00:00</published><updated>2018-08-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#what-is-node-red&quot;&gt;What is Node-RED&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#why-we-are-using-node-red-or-an-alternative&quot;&gt;Why we are using Node-RED (or an alternative)&lt;/a&gt;&lt;/li&gt;
@@ -4701,624 +5156,4 @@ However, the weight of those metrics were not high enough to fail the verdict, b
 &lt;p&gt;Pickle Rick and Mr. Meeseeks have shown us the power of automated canary analysis using Spinnaker.
 There are still a few considerations we have to take into account, such as the importance of choosing the right metrics and filters and iterating on those after each canary release.
 Yet, having a tool like this at our disposal allows us to release more often to production, without compromising safety or quality.
-By reducing manual and ad hoc analysis only the most stable releases are deployed to production in a highly automated way.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Andreas&quot;, &quot;last_name&quot;=&gt;&quot;Evers&quot;, &quot;permalink&quot;=&gt;&quot;/author/andreas-evers/&quot;, &quot;avatar&quot;=&gt;&quot;andreas-evers.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;email&quot;=&gt;&quot;andreas.evers@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;andreasevers&quot;, &quot;github&quot;=&gt;&quot;andreasevers&quot;, &quot;title2&quot;=&gt;&quot;Practice Leader Backend&quot;, &quot;linkedin&quot;=&gt;&quot;eversandreas&quot;, &quot;bio&quot;=&gt;&quot;Andreas is a Principal Java consultant at Ordina, passionate about the Spring ecosystem, microservices, REST, clean code and best practices in general. An avid open source enthusiast and Spring contributor. Helps fellow developers as Competence Center leader for architecture and best practices by giving workshops, talks and courses about the newest technologies.&quot;}</name><email>andreas.evers@ordina.be</email></author><category term="Cloud" /><category term="Canary" /><category term="Continuous-Delivery" /><category term="Cloud" /><category term="Microservices" /><category term="Netflix" /><category term="Spring" /><summary type="html">Intro</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/spinnaker/spinnaker-logo.png" /></entry><entry><title type="html">Lagom 1.4 and Kubernetes orchestration</title><link href="https://ordina-jworks.github.io/orchestration/2018/05/22/lagom-1-4-and-kubernetes-orchestration.html" rel="alternate" type="text/html" title="Lagom 1.4 and Kubernetes orchestration" /><published>2018-05-22T00:00:00+00:00</published><updated>2018-05-22T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/orchestration/2018/05/22/lagom-1-4-and-kubernetes-orchestration</id><content type="html" xml:base="https://ordina-jworks.github.io/orchestration/2018/05/22/lagom-1-4-and-kubernetes-orchestration.html">&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#upgrading-to-lagom-14&quot;&gt;Upgrading to Lagom 1.4&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#lightbends-orchestration-tools&quot;&gt;Lightbend’s orchestration tools&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#adding-kubernetes-support-to-our-lagom-shop-scala-application&quot;&gt;Adding Kubernetes support to our Lagom Shop Scala application&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#building-and-publishing-docker-images&quot;&gt;Building and publishing Docker images&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#locally-deploying-to-kubernetes-using-minikube&quot;&gt;Locally deploying to Kubernetes using Minikube&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#generating-kubernetes-resources-for-production&quot;&gt;Generating Kubernetes resources for production&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#extra-resources&quot;&gt;Extra resources&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;In this blog post we will take a closer look at the &lt;a href=&quot;https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/index.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lightbend Orchestration tools&lt;/a&gt;.
-Tools helping you deploy your Lagom application to Kubernetes and DC/OS.
-It was already possible to deploy Lagom applications to Kubernetes as &lt;a href=&quot;https://developer.lightbend.com/guides/lagom-kubernetes-k8s-deploy-microservices/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;this guide&lt;/a&gt; demonstrates but it involved more manual tasks and having to write the Kubernetes resource and configuration files yourself, as it usually goes.&lt;/p&gt;
-
-&lt;p&gt;As it currently stands, the tools are only supported in combination with sbt so Maven users cannot fully take advantage of it just yet.
-Maven support will follow soon however as the &lt;a href=&quot;https://github.com/lightbend/reactive-app-maven-plugin&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Maven equivalent plugin&lt;/a&gt; is nearing its first release version.&lt;/p&gt;
-
-&lt;p&gt;If you are new to Lagom feel free to take a look at one of our earlier blog posts on Lagom:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lagom: First Impressions and Initial Comparison to Spring Cloud&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/microservices/2017/02/01/Lagom-1-2.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lagom 1.2: What’s new?&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Before getting to that though, we will upgrade our sample application &lt;a href=&quot;https://github.com/yannickdeturck/lagom-shop-scala&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lagom Shop Scala&lt;/a&gt;, which was also referred to in our previous blog posts, 
-from Lagom 1.2 to &lt;a href=&quot;https://www.lagomframework.com/blog/lagom-1-4-0.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lagom 1.4&lt;/a&gt; to demonstrate the upgrading process.
-The application consists of two Lagom microservices combined with a frontend written in Play Framework.
-Afterwards we will take a closer look at how easy it is to integrate the Lightbend Orchestration tools into our project and how we can get our project up and running on Kubernetes.
-Note that this blog post is not an in-depth guide on the tools themselves but more a general overview and for us to share our impressions.&lt;/p&gt;
-
-&lt;h2 id=&quot;upgrading-to-lagom-14&quot;&gt;Upgrading to Lagom 1.4&lt;/h2&gt;
-&lt;p&gt;In this section we will upgrade our sample application &lt;a href=&quot;https://github.com/yannickdeturck/lagom-shop-scala&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lagom Shop Scala&lt;/a&gt;, from version 1.3.4 to 1.4.x.
-Lagom 1.4 uses Play Framework’s latest version, 2.6 for which we will also need to change a few things in our project.&lt;/p&gt;
-
-&lt;p&gt;Lightbend provides a migration guide for each new version they release, so in this case we followed the &lt;a href=&quot;https://www.lagomframework.com/documentation/1.4.x/scala/Migration14.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lagom 1.4 Migration Guide&lt;/a&gt; and the &lt;a href=&quot;https://www.playframework.com/documentation/2.6.x/Migration26&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Play 2.6 Migration Guide&lt;/a&gt;.
-When upgrading multiple minor versions, it is advised to upgrade one minor version at a time to smoothen the process.
-In our case we are only limited to upgrading a single minor version so we can just use the latest migration guide right away.&lt;/p&gt;
-
-&lt;p&gt;Upgrade the Lagom version in &lt;code class=&quot;highlighter-rouge&quot;&gt;project/plugins.sbt&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;addSbtPlugin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;com.lightbend.lagom&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;lagom-sbt-plugin&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;1.4.5&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Upgrade the sbt version in &lt;code class=&quot;highlighter-rouge&quot;&gt;project/build.properties&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;sbt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.13&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Upgrade the Scala version to &lt;code class=&quot;highlighter-rouge&quot;&gt;2.12.4&lt;/code&gt; in &lt;code class=&quot;highlighter-rouge&quot;&gt;build.sbt&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;scalaVersion&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ThisBuild&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;2.12.4&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Upgrade Play JSON Derived Codecs to 4.0.0 which adds Play 2.6 support:&lt;/p&gt;
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;playJsonDerivedCodecs&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;org.julienrf&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;play-json-derived-codecs&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;4.0.0&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Replace &lt;code class=&quot;highlighter-rouge&quot;&gt;play.api.data.validation.ValidationError&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;play.api.libs.json.JsonValidationError&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Mix in &lt;code class=&quot;highlighter-rouge&quot;&gt;LagomConfigComponent&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpFiltersComponents&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;AssetsComponents&lt;/code&gt; and remove &lt;code class=&quot;highlighter-rouge&quot;&gt;lazy val assets: Assets = wire[Assets]&lt;/code&gt; in the application loader class extending &lt;code class=&quot;highlighter-rouge&quot;&gt;BuiltInComponentsFromContext&lt;/code&gt; in the Play frontend project.&lt;/p&gt;
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Frontend&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BuiltInComponentsFromContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;I18nComponents&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AhcWSComponents&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LagomKafkaClientComponents&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LagomServiceClientComponents&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LagomConfigComponent&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HttpFiltersComponents&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AssetsComponents&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Change &lt;code class=&quot;highlighter-rouge&quot;&gt;override def describeServices&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;override def describeService&lt;/code&gt; in each Lagom project’s class extending &lt;code class=&quot;highlighter-rouge&quot;&gt;LagomServerComponents&lt;/code&gt; as the other one has become deprecated.&lt;/p&gt;
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;describeService&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readDescriptor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;ItemService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Implement CSRF security in the frontend project by utilising CSRF form fields (&lt;code class=&quot;highlighter-rouge&quot;&gt;@CSRF.formField&lt;/code&gt;) or &lt;a href=&quot;https://www.playframework.com/documentation/2.6.x/ScalaCsrf#Protecting-against-Cross-Site-Request-Forgery&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;one of the other approaches&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Note that Lagom’s development mode service locator now listens on port 9008 instead of 8000 although this can still be changed by &lt;a href=&quot;https://www.lagomframework.com/documentation/1.4.x/scala/ServiceLocator.html#Default-port&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;overriding the default port&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;To see a complete list of changes we did, refer to commit &lt;a href=&quot;https://github.com/yannickdeturck/lagom-shop-scala/commit/bdf5ecff50df606c2f4ed15200ce76b9d14c8f0a&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;bdf5ecff&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;lightbends-orchestration-tools&quot;&gt;Lightbend’s orchestration tools&lt;/h2&gt;
-&lt;p&gt;As we mentioned in the introduction, Lightbend offers a developer-centric suite of tools helping you deploy your Play/Akka/Lagom applications to Kubernetes and DC/OS.
-The tools help you create a Docker image of all your applications, 
-help with generating Kubernetes and DC/OS resource and configuration files based on the Docker images, 
-and they allow you to deploy your whole Lagom project to Kubernetes using a simple command which can be pretty convenient for development. 
-The generated JSON and YAML files could be put under version control after which they can be submitted to a CI/CD integrated central repository.&lt;/p&gt;
-
-&lt;p&gt;The suite consists of three different tools:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/lightbend/sbt-reactive-app&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;sbt-reactive-app&lt;/a&gt;, an sbt plugin that inspects your projects and builds annotated Docker images.
-The &lt;a href=&quot;https://github.com/lightbend/reactive-app-maven-plugin&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Maven equivalent plugin&lt;/a&gt; is still being worked on and is nearing its first release version.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/lightbend/reactive-cli&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;reactive-cli&lt;/a&gt;, a command-line tool with which you generate the Kubernetes and DC/OS resource and configuration files.
-You need to install this on the device or environment from which you will deploy to Kubernetes.
-Install guidelines are available in the &lt;a href=&quot;https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/cli-installation.html#install-the-cli&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;documentation&lt;/a&gt;.
-For Mac for example this is easily accomplished with Homebrew:
-    &lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;brew tap lightbend/tools &amp;amp;&amp;amp; brew install lightbend/tools/reactive-cli
-&lt;/code&gt;&lt;/pre&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/lightbend/reactive-lib/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;reactive-lib&lt;/a&gt;, a library for your application that is automatically included in your application’s build by the sbt-reactive-app sbt plugin.
-It allows your application to perform service discovery, access secrets, define health and readiness checks, and more as it understands the conventions of the resources generated by the command-line tool.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;adding-kubernetes-support-to-our-lagom-shop-scala-application&quot;&gt;Adding Kubernetes support to our Lagom Shop Scala application&lt;/h2&gt;
-&lt;p&gt;We start off with adding the &lt;code class=&quot;highlighter-rouge&quot;&gt;sbt-reactive-app&lt;/code&gt; sbt plugin in the &lt;code class=&quot;highlighter-rouge&quot;&gt;project/plugins.sbt&lt;/code&gt; file:&lt;/p&gt;
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;addSbtPlugin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;com.lightbend.rp&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;sbt-reactive-app&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;1.1.0&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now enable the plugin for each module in the &lt;code class=&quot;highlighter-rouge&quot;&gt;build.sbt&lt;/code&gt; file:&lt;/p&gt;
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;lazy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemImpl&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;item-impl&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dependsOn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;itemApi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commonSettings&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enablePlugins&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;LagomScala&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SbtReactiveAppPlugin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  
-&lt;span class=&quot;k&quot;&gt;lazy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;orderImpl&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;order-impl&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dependsOn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;orderApi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemApi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commonSettings&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enablePlugins&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;LagomScala&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SbtReactiveAppPlugin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;libraryDependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;lagomScaladslPersistenceCassandra&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;lagomScaladslTestKit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;lagomScaladslKafkaBroker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;cassandraDriverExtras&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;macwire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;scalaTest&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lagomForkedTestSettings&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  
-&lt;span class=&quot;k&quot;&gt;lazy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;frontend&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;frontend&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dependsOn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;itemApi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;orderApi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commonSettings&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enablePlugins&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;PlayScala&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LagomPlay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SbtReactiveAppPlugin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;1.0-SNAPSHOT&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;libraryDependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;lagomScaladslServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;lagomScaladslKafkaClient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;macwire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;scalaTest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;&quot;org.webjars&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;foundation&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;6.2.3&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;&quot;org.webjars&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;foundation-icon-fonts&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;d596a3cfb3&quot;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;EclipseKeys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;preTasks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Compile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;httpIngressPaths&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If you also have a frontend module it is important to define the &lt;code class=&quot;highlighter-rouge&quot;&gt;httpIngressPaths&lt;/code&gt;, as you might have seen in the code sample above, in order to have your frontend be accessible from outside the cluster.&lt;/p&gt;
-
-&lt;p&gt;Mix in the &lt;code class=&quot;highlighter-rouge&quot;&gt;LagomServiceLocatorComponents&lt;/code&gt; trait in each module’s application loader:&lt;/p&gt;
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.lightbend.rp.servicediscovery.lagom.scaladsl.LagomServiceLocatorComponents&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ItemApplicationLoader&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LagomApplicationLoader&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;LagomApplicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;LagomApplication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ItemApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LagomServiceLocatorComponents&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;lazy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;circuitBreakerMetricsProvider&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CircuitBreakerMetricsProviderImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;actorSystem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;building-and-publishing-docker-images&quot;&gt;Building and publishing Docker images&lt;/h2&gt;
-&lt;p&gt;The tool suite comes with an easy way to deploy all your services to Minikube for development so you will want to set that up first.
-For installation instructions, consult the &lt;a href=&quot;https://kubernetes.io/docs/getting-started-guides/minikube/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Minikube documentation&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Start up Minikube with a sufficient amount of memory:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;$ minikube start --memory 8192
-Starting local Kubernetes v1.10.0 cluster...
-Starting VM...
-Getting VM IP address...
-Moving files into cluster...
-Setting up certs...
-Connecting to cluster...
-Setting up kubeconfig...
-Starting cluster components...
-Kubectl is now configured to use the cluster.
-Loading cached images from config file.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You kind of need a decent device with a decent amount of RAM.
-I have tested all of this on a MacBook Pro with 8GB RAM and I simply was not able to assign a sufficient amount of memory to comfortably run everything locally.&lt;/p&gt;
-
-&lt;p&gt;Execute the following command to have our Docker environment variables point to Minikube:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;eval $(minikube docker-env)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We can check if Minikube is up and running with the following command:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;$ kubectl get nodes
-NAME       STATUS    ROLES     AGE       VERSION
-minikube   Ready     &amp;lt;none&amp;gt;    1m        v1.8.0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;To figure out your Minikube IP you can utilise the following command:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;$ echo &quot;http://$(minikube ip)&quot;
-http://192.168.99.100
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;It is also important to enable the Ingress addon:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;minikube addons enable ingress
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We need to launch sbt:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;$ sbt
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After which we can publish the images locally (you might want to grab a coffee after executing this):&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;docker:publishLocal
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Underneath, &lt;a href=&quot;https://github.com/sbt/sbt-native-packager&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;SBT Native Packager&lt;/a&gt; is being used.
-Check out its &lt;a href=&quot;http://www.scala-sbt.org/sbt-native-packager/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;documentation&lt;/a&gt; for Docker related configurations.&lt;/p&gt;
-
-&lt;p&gt;Publishing to a Docker Registry is also possible by defining the &lt;code class=&quot;highlighter-rouge&quot;&gt;dockerRepository&lt;/code&gt; sbt setting in the project and after authenticating to the registry, see &lt;a href=&quot;https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/building.html#publishing-to-a-docker-registry&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Publishing to a Docker Registry&lt;/a&gt;.
-After doing so you can execute the publish command:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;docker:publish
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Our Docker images should then be available:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;$ docker images
-REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE
-orderimpl              1.0-SNAPSHOT        e9be41c50eb2        32 seconds ago      159MB
-itemimpl               1.0-SNAPSHOT        357a9d546593        9 minutes ago       159MB
-frontend               1.0-SNAPSHOT        7251c13a5373        6 days ago          141MB
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;As for the &lt;a href=&quot;https://github.com/lightbend/reactive-app-maven-plugin&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Maven equivalent plugin&lt;/a&gt;, the Docker images can be build by executing:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ mvn install
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;locally-deploying-to-kubernetes-using-minikube&quot;&gt;Locally deploying to Kubernetes using Minikube&lt;/h2&gt;
-&lt;p&gt;For development we can make use of an sbt task for deploying everything to Kubernetes using Minikube.
-But before that, we need to do a couple of things.
-We first need to set up Lightbend’s &lt;a href=&quot;https://github.com/lightbend/reactive-sandbox&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Reactive Sandbox&lt;/a&gt; which is a Docker image that contains the usual components used when developing reactive applications using the Lightbend frameworks:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Cassandra&lt;/li&gt;
-  &lt;li&gt;Elasticsearch&lt;/li&gt;
-  &lt;li&gt;Kafka&lt;/li&gt;
-  &lt;li&gt;ZooKeeper&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;We will use &lt;a href=&quot;https://www.helm.sh&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Helm&lt;/a&gt;, a package manager for Kubernetes, to set it up.
-Install instructions of Helm are available on the &lt;a href=&quot;https://github.com/kubernetes/helm&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GitHub repository&lt;/a&gt;.
-For Mac for example you can install it using brew:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;$ brew install kubernetes-helm
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;With Helm we can then install the Reactive Sandbox:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;helm init
-helm repo add lightbend-helm-charts https://lightbend.github.io/helm-charts
-helm update
-helm install lightbend-helm-charts/reactive-sandbox --name reactive-sandbox
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;All set up, we can now utilise an sbt command to deploy all our services to Minikube!&lt;/p&gt;
-
-&lt;p&gt;Start sbt in the root of your project:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;$ sbt
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And deploy everything to Minikube using a sbt task that comes with the sbt-reactive-app plugin.
-The task however is not yet supported on Windows unfortunately.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;deploy minikube
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;During the setup we encountered a connection initialisation error of Helm:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;Cannot initialize Kubernetes connection: Get http://localhost:8080/api: dial tcp 127.0.0.1:8080: getsockopt: connection refused
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We found a solution for this in the following Helm GitHub issue: &lt;a href=&quot;https://github.com/kubernetes/helm/issues/2464#issuecomment-381101015&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Tiller pods can’t connect to k8s apiserver #2464&lt;/a&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;$ kubectl --namespace=kube-system create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If all went well your application should be accessible at &lt;code class=&quot;highlighter-rouge&quot;&gt;https://192.168.99.100&lt;/code&gt;.
-You can use the Minikube dashboard to inspect everything at &lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.99.100:30000&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;
-  &lt;img class=&quot;image&quot; style=&quot;width: 100%; max-width: 550px&quot; src=&quot;/img/lagom-kubernetes/frontend.png&quot; alt=&quot;Frontend&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Note that you can also deploy a single module instead of all of them.
-For example if we only want to deploy the frontend, you simply switch to the specific project before running the command:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;$ sbt
-[info] Loading global plugins from /Users/yannickdeturck/.sbt/0.13/plugins
-[info] Loading project definition from /Users/yannickdeturck/Documents/Git-projects/lagom-shop-scala/project
-[info] Set current project to lagom-shop-scala (in build file:/Users/yannickdeturck/Documents/Git-projects/lagom-shop-scala/)
-&amp;gt; projects
-[info] In file:/Users/yannickdeturck/Documents/Git-projects/lagom-shop-scala/
-[info] 	   common
-[info] 	   frontend
-[info] 	   itemApi
-[info] 	   itemImpl
-[info] 	   lagom-internal-meta-project-cassandra
-[info] 	   lagom-internal-meta-project-kafka
-[info] 	   lagom-internal-meta-project-service-locator
-[info] 	 * lagom-shop-scala
-[info] 	   orderApi
-[info] 	   orderImpl
-&amp;gt; project frontend
-[info] Set current project to frontend (in build file:/Users/yannickdeturck/Documents/Git-projects/lagom-shop-scala/)
-[frontend] $ deploy minikube
-[info] Wrote /Users/yannickdeturck/Documents/Git-projects/lagom-shop-scala/frontend/target/scala-2.12/frontend_2.12-1.0-SNAPSHOT.pom
-[info] Packaging /Users/yannickdeturck/Documents/Git-projects/lagom-shop-scala/frontend/target/scala-2.12/frontend_2.12-1.0-SNAPSHOT-sources.jar ...
-[info] Done packaging.
-[info] Packaging /Users/yannickdeturck/Documents/Git-projects/lagom-shop-scala/frontend/target/scala-2.12/frontend_2.12-1.0-SNAPSHOT.jar ...
-[info] Done packaging.
-[info] Wrote /Users/yannickdeturck/Documents/Git-projects/lagom-shop-scala/common/target/scala-2.12/common_2.12-1.0-SNAPSHOT.pom
-[info] Wrote /Users/yannickdeturck/Documents/Git-projects/lagom-shop-scala/item-api/target/scala-2.12/itemapi_2.12-1.0-SNAPSHOT.pom
-[info] Wrote /Users/yannickdeturck/Documents/Git-projects/lagom-shop-scala/order-api/target/scala-2.12/orderapi_2.12-1.0-SNAPSHOT.pom
-13:23:14.079 [pool-7-thread-1] DEBUG com.lightbend.lagom.internal.api.tools.ServiceDetector - Loading service discovery class: FrontendLoader
-[info] Sending build context to Docker daemon  54.52MB
-[info] Step 1/9 : FROM openjdk:8-jre-alpine
-[info]  ---&amp;gt; b1bd879ca9b3
-[info] Step 2/9 : RUN /sbin/apk add --no-cache bash
-[info]  ---&amp;gt; Using cache
-[info]  ---&amp;gt; 193af79a4475
-[info] Step 3/9 : WORKDIR /opt/docker
-[info]  ---&amp;gt; Using cache
-[info]  ---&amp;gt; 741d2377c4e8
-[info] Step 4/9 : ADD --chown=daemon:daemon opt /opt
-[info]  ---&amp;gt; Using cache
-[info]  ---&amp;gt; d7884eead001
-[info] Step 5/9 : USER daemon
-[info]  ---&amp;gt; Using cache
-[info]  ---&amp;gt; cdedfe6fc10c
-[info] Step 6/9 : ENTRYPOINT []
-[info]  ---&amp;gt; Using cache
-[info]  ---&amp;gt; 2db1227ffe9e
-[info] Step 7/9 : CMD []
-[info]  ---&amp;gt; Using cache
-[info]  ---&amp;gt; bd147ead79fd
-[info] Step 8/9 : COPY rp-start /rp-start
-[info]  ---&amp;gt; Using cache
-[info]  ---&amp;gt; 340110c7c251
-[info] Step 9/9 : LABEL com.lightbend.rp.app-name=&quot;frontend&quot; com.lightbend.rp.applications.0.name=&quot;default&quot; com.lightbend.rp.applications.0.arguments.0=&quot;/rp-start&quot; com.lightbend.rp.applications.0.arguments.1=&quot;bin/frontend&quot; com.lightbend.rp.app-version=&quot;1.0-SNAPSHOT&quot; com.lightbend.rp.app-type=&quot;lagom&quot; com.lightbend.rp.config-resource=&quot;rp-application.conf&quot; com.lightbend.rp.modules.akka-cluster-bootstrapping.enabled=&quot;false&quot; com.lightbend.rp.modules.akka-management.enabled=&quot;false&quot; com.lightbend.rp.modules.common.enabled=&quot;true&quot; com.lightbend.rp.modules.play-http-binding.enabled=&quot;true&quot; com.lightbend.rp.modules.secrets.enabled=&quot;false&quot; com.lightbend.rp.modules.service-discovery.enabled=&quot;true&quot; com.lightbend.rp.modules.status.enabled=&quot;false&quot; com.lightbend.rp.endpoints.0.name=&quot;http&quot; com.lightbend.rp.endpoints.0.protocol=&quot;http&quot; com.lightbend.rp.endpoints.0.ingress.0.type=&quot;http&quot; com.lightbend.rp.endpoints.0.ingress.0.ingress-ports.0=&quot;80&quot; com.lightbend.rp.endpoints.0.ingress.0.ingress-ports.1=&quot;443&quot; com.lightbend.rp.endpoints.0.ingress.0.paths.0=&quot;/&quot; com.lightbend.rp.sbt-reactive-app-version=&quot;1.1.0&quot;
-[info]  ---&amp;gt; Using cache
-[info]  ---&amp;gt; 7251c13a5373
-[info] Successfully built 7251c13a5373
-[info] Successfully tagged frontend:1.0-SNAPSHOT
-[info] Built image frontend:1.0-SNAPSHOT
-[info] deployment.apps &quot;frontend-v1-0-snapshot&quot; deleted
-[info] service &quot;frontend&quot; deleted
-[info] ingress.extensions &quot;frontend&quot; deleted
-[info] deployment.apps &quot;frontend-v1-0-snapshot&quot; created
-[info] service &quot;frontend&quot; created
-[info] ingress.extensions &quot;frontend&quot; created
-[success] Total time: 19 s, completed May 11, 2018 1:23:31 PM
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We can inspect everything with &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;$ kubectl get pods
-NAME                                     READY     STATUS    RESTARTS   AGE
-frontend-v1-0-snapshot-cbdbdb68b-rbrrx   1/1       Running   2          6d
-reactive-sandbox-74fd955ddd-cjpw8        1/1       Running   7          6d
-
-$ kubectl get services
-NAME                             TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                         AGE
-frontend                         ClusterIP   10.103.128.78    &amp;lt;none&amp;gt;        10000/TCP                       6d
-item                             ClusterIP   10.109.117.169   &amp;lt;none&amp;gt;        10000/TCP,10001/TCP,10002/TCP   6d
-kubernetes                       ClusterIP   10.96.0.1        &amp;lt;none&amp;gt;        443/TCP                         6d
-reactive-sandbox-cassandra       ClusterIP   None             &amp;lt;none&amp;gt;        9042/TCP                        6d
-reactive-sandbox-elasticsearch   ClusterIP   None             &amp;lt;none&amp;gt;        9200/TCP                        6d
-reactive-sandbox-kafka           ClusterIP   None             &amp;lt;none&amp;gt;        9092/TCP                        6d
-reactive-sandbox-zookeeper       ClusterIP   None             &amp;lt;none&amp;gt;        2181/TCP                        6d
-
-$ kubectl get ing
-NAME       HOSTS     ADDRESS   PORTS     AGE
-frontend   *                   80        6d
-item       *                   80        6d
-
-$ kubectl get deploy
-NAME                     DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-frontend-v1-0-snapshot   1         1         1            1           6d
-reactive-sandbox         1         1         1            1           6d
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There is currently no equivalent for Maven to deploy everything to Minikube in one simple command.
-In the next section however, we will look at how we can utilise the reactive-cli tool for generating resource and configuration files, and deploying everything to Kubernetes which is also the way to go for development in this case.&lt;/p&gt;
-
-&lt;h2 id=&quot;generating-kubernetes-resources-for-production&quot;&gt;Generating Kubernetes resources for production&lt;/h2&gt;
-&lt;p&gt;The following workflow could also be used for development but it is more suited for deploying to your production environment as the &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy minikube&lt;/code&gt; workflow in the previous section simplifies a lot of things for you.&lt;/p&gt;
-
-&lt;p&gt;We will make use of the &lt;a href=&quot;https://github.com/lightbend/reactive-cli&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;reactive-cli&lt;/a&gt; command-line tool to have it generate the Kubernetes resource and configuration files.
-Installing is easy, as described in the &lt;a href=&quot;https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/cli-installation.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;documentation&lt;/a&gt;.
-For Mac for example we can do this using Homebrew:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;brew tap lightbend/tools &amp;amp;&amp;amp; brew install lightbend/tools/reactive-cli
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Verifying if it was installed correctly can be done by checking the version:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;$ rp version
-rp (Reactive CLI) 1.1.1
-jq support: Unavailable
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we can utilise it to generate Kubernetes resources.
-In the previous section we deployed our frontend and item service but we also have our order service to deploy.
-Let us generate the Kubernetes resources and deploy it to Minikube.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;$ rp generate-kubernetes-resources &quot;orderimpl:1.0-SNAPSHOT&quot; --generate-services --generate-pod-controllers --pod-controller-replicas 2 --env JAVA_OPTS=&quot;-Dplay.http.secret.key=simple&quot;
----
-apiVersion: &quot;apps/v1beta2&quot;
-kind: Deployment
-metadata:
-  name: &quot;order-v1-0-snapshot&quot;
-  labels:
-    appName: order
-    appNameVersion: &quot;order-v1-0-snapshot&quot;
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      appNameVersion: &quot;order-v1-0-snapshot&quot;
-  template:
-    metadata:
-      labels:
-        appName: order
-        appNameVersion: &quot;order-v1-0-snapshot&quot;
-    spec:
-      restartPolicy: Always
-      containers:
-        - name: order
-          image: &quot;orderimpl:1.0-SNAPSHOT&quot;
-          imagePullPolicy: IfNotPresent
-          env:
-            - name: &quot;JAVA_OPTS&quot;
-              value: &quot;-Dplay.http.secret.key=simple&quot;
-            - name: &quot;RP_APP_NAME&quot;
-              value: order
-            - name: &quot;RP_APP_TYPE&quot;
-              value: lagom
-            - name: &quot;RP_APP_VERSION&quot;
-              value: &quot;1.0-SNAPSHOT&quot;
-            - name: &quot;RP_DYN_JAVA_OPTS&quot;
-              value: &quot;-Dakka.discovery.kubernetes-api.pod-namespace=$RP_NAMESPACE&quot;
-            - name: &quot;RP_ENDPOINTS&quot;
-              value: &quot;HTTP,AKKA_REMOTE,AKKA_MGMT_HTTP&quot;
-            - name: &quot;RP_ENDPOINTS_COUNT&quot;
-              value: &quot;3&quot;
-            - name: &quot;RP_ENDPOINT_0_BIND_HOST&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;status.podIP&quot;
-            - name: &quot;RP_ENDPOINT_0_BIND_PORT&quot;
-              value: &quot;10000&quot;
-            - name: &quot;RP_ENDPOINT_0_HOST&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;status.podIP&quot;
-            - name: &quot;RP_ENDPOINT_0_PORT&quot;
-              value: &quot;10000&quot;
-            - name: &quot;RP_ENDPOINT_1_BIND_HOST&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;status.podIP&quot;
-            - name: &quot;RP_ENDPOINT_1_BIND_PORT&quot;
-              value: &quot;10001&quot;
-            - name: &quot;RP_ENDPOINT_1_HOST&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;status.podIP&quot;
-            - name: &quot;RP_ENDPOINT_1_PORT&quot;
-              value: &quot;10001&quot;
-            - name: &quot;RP_ENDPOINT_2_BIND_HOST&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;status.podIP&quot;
-            - name: &quot;RP_ENDPOINT_2_BIND_PORT&quot;
-              value: &quot;10002&quot;
-            - name: &quot;RP_ENDPOINT_2_HOST&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;status.podIP&quot;
-            - name: &quot;RP_ENDPOINT_2_PORT&quot;
-              value: &quot;10002&quot;
-            - name: &quot;RP_ENDPOINT_AKKA_MGMT_HTTP_BIND_HOST&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;status.podIP&quot;
-            - name: &quot;RP_ENDPOINT_AKKA_MGMT_HTTP_BIND_PORT&quot;
-              value: &quot;10002&quot;
-            - name: &quot;RP_ENDPOINT_AKKA_MGMT_HTTP_HOST&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;status.podIP&quot;
-            - name: &quot;RP_ENDPOINT_AKKA_MGMT_HTTP_PORT&quot;
-              value: &quot;10002&quot;
-            - name: &quot;RP_ENDPOINT_AKKA_REMOTE_BIND_HOST&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;status.podIP&quot;
-            - name: &quot;RP_ENDPOINT_AKKA_REMOTE_BIND_PORT&quot;
-              value: &quot;10001&quot;
-            - name: &quot;RP_ENDPOINT_AKKA_REMOTE_HOST&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;status.podIP&quot;
-            - name: &quot;RP_ENDPOINT_AKKA_REMOTE_PORT&quot;
-              value: &quot;10001&quot;
-            - name: &quot;RP_ENDPOINT_HTTP_BIND_HOST&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;status.podIP&quot;
-            - name: &quot;RP_ENDPOINT_HTTP_BIND_PORT&quot;
-              value: &quot;10000&quot;
-            - name: &quot;RP_ENDPOINT_HTTP_HOST&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;status.podIP&quot;
-            - name: &quot;RP_ENDPOINT_HTTP_PORT&quot;
-              value: &quot;10000&quot;
-            - name: &quot;RP_JAVA_OPTS&quot;
-              value: &quot;-Dconfig.resource=rp-application.conf -Dakka.discovery.method=kubernetes-api -Dakka.management.cluster.bootstrap.contact-point-discovery.effective-name=order -Dakka.management.cluster.bootstrap.contact-point-discovery.required-contact-point-nr=2 -Dakka.discovery.kubernetes-api.pod-label-selector=appName=%s&quot;
-            - name: &quot;RP_KUBERNETES_POD_IP&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;status.podIP&quot;
-            - name: &quot;RP_KUBERNETES_POD_NAME&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;metadata.name&quot;
-            - name: &quot;RP_MODULES&quot;
-              value: &quot;akka-cluster-bootstrapping,akka-management,common,play-http-binding,service-discovery,status&quot;
-            - name: &quot;RP_NAMESPACE&quot;
-              valueFrom:
-                fieldRef:
-                  fieldPath: &quot;metadata.namespace&quot;
-            - name: &quot;RP_PLATFORM&quot;
-              value: kubernetes
-          ports:
-            - containerPort: 10000
-              name: http
-            - containerPort: 10001
-              name: &quot;akka-remote&quot;
-            - containerPort: 10002
-              name: &quot;akka-mgmt-http&quot;
-          volumeMounts: []
-          command:
-            - &quot;/rp-start&quot;
-          args:
-            - &quot;bin/orderimpl&quot;
-          readinessProbe:
-            httpGet:
-              path: &quot;/platform-tooling/ready&quot;
-              port: &quot;akka-mgmt-http&quot;
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: &quot;/platform-tooling/healthy&quot;
-              port: &quot;akka-mgmt-http&quot;
-            periodSeconds: 10
-            initialDelaySeconds: 60
-      volumes: []
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    appName: order
-  name: order
-spec:
-  ports:
-    - name: http
-      port: 10000
-      protocol: TCP
-      targetPort: 10000
-    - name: &quot;akka-remote&quot;
-      port: 10001
-      protocol: TCP
-      targetPort: 10001
-    - name: &quot;akka-mgmt-http&quot;
-      port: 10002
-      protocol: TCP
-      targetPort: 10002
-  selector:
-    appName: order
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You could store the generated resources and tune it, but it is also possible to just generate everything that is necessary and just deploy it right away by chaining &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl apply&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;$ rp generate-kubernetes-resources &quot;orderimpl:1.0-SNAPSHOT&quot; --generate-services --generate-pod-controllers --pod-controller-replicas 2 --env JAVA_OPTS=&quot;-Dplay.http.secret.key=simple&quot; | kubectl apply -f -
-deployment.apps &quot;order-v1-0-snapshot&quot; created
-service &quot;order&quot; created
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We can verify whether it is up and running:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-sbtshell&quot;&gt;$ kubectl get deployments
-NAME                     DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-frontend-v1-0-snapshot   1         1         1            1           6d
-order-v1-0-snapshot      2         2         2            2           6m
-reactive-sandbox         1         1         1            1           6d
-
-$ kubectl get pods
-NAME                                     READY     STATUS    RESTARTS   AGE
-frontend-v1-0-snapshot-cbdbdb68b-mwfqq   1/1       Running   1          50m
-order-v1-0-snapshot-5884754595-65wxd     1/1       Running   0          4m
-order-v1-0-snapshot-5884754595-wdbng     1/1       Running   0          4m
-reactive-sandbox-74fd955ddd-cjpw8        1/1       Running   7          6d
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;Upgrading to Lagom 1.4.x and Play 2.6 went pretty smooth as the migration guides of Lightbend cover mostly everything in detail as usual.&lt;/p&gt;
-
-&lt;p&gt;The orchestration tools make it pretty easy to test your Lagom application running in Kubernetes locally while still having the possibility to fine-tune the generated resource and configuration files.
-Integrating the tool suite into our project went smoothly.
-Kubernetes has gained a lot of popularity lately and with this, Lagom shows that it wants to embrace Kubernetes to deploy your applications onto next to ConductR.&lt;/p&gt;
-
-&lt;p&gt;The single &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy minikube&lt;/code&gt; command is not yet supported on Windows but we imagine that it will be in the near future.
-Windows users can still utilise the &lt;code class=&quot;highlighter-rouge&quot;&gt;reactive-cli&lt;/code&gt; command-line tool to generate the resource and configuration files and deploy it themselves via &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; on their Minikube.
-Maven users will only need to wait a little bit longer to take advantage of most things the tool suite has to offer as the plugin is nearing its first release version.&lt;/p&gt;
-
-&lt;h2 id=&quot;extra-resources&quot;&gt;Extra resources&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/yannickdeturck/lagom-shop-scala&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Our Lagom Shop Scala application GitHub repository&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/index.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lightbend Orchestration Documentation&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/lagom/online-auction-scala/blob/master/KUBERNETES.md&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kubernetes instructions for the Lagom online-auction-scala application&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/fsat/hello-reactive-tooling&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Hello-World for Lightbend Orchestration for Kubernetes for a sample Play application&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/microservices/2016/04/22/Lagom-First-Impressions-and-Initial-Comparison-to-Spring-Cloud.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lagom: First Impressions and Initial Comparison to Spring Cloud&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/microservices/2017/02/01/Lagom-1-2.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lagom 1.2: What’s new?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.lagomframework.com/documentation/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lagom Documentation&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://kubernetes.io/docs/home/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kubernetes Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yannick&quot;, &quot;last_name&quot;=&gt;&quot;De Turck&quot;, &quot;twitter&quot;=&gt;&quot;YannickDeTurck&quot;, &quot;linkedin&quot;=&gt;&quot;yannickdeturck&quot;, &quot;github&quot;=&gt;&quot;yannickdeturck&quot;, &quot;permalink&quot;=&gt;&quot;/author/yannick-de-turck/&quot;, &quot;avatar&quot;=&gt;&quot;yannick-de-turck.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Lead JVM Languages&quot;, &quot;email&quot;=&gt;&quot;Yannick.DeTurck@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yannick is a senior Java consultant and competence lead of the JVM languages competence center at Ordina Belgium. He's very much interested in everything Java and Spring related as well as reactive programming, Kotlin, Lightbend technologies, software architectures, and coaching and enabling other colleagues.&quot;}</name><email>Yannick.DeTurck@ordina.be</email></author><category term="Orchestration" /><category term="Lagom" /><category term="Java" /><category term="Scala" /><category term="Reactive" /><category term="Kubernetes" /><category term="Minikube" /><summary type="html">Table of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/lagom-kubernetes.png" /></entry></feed>
+By reducing manual and ad hoc analysis only the most stable releases are deployed to production in a highly automated way.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Andreas&quot;, &quot;last_name&quot;=&gt;&quot;Evers&quot;, &quot;permalink&quot;=&gt;&quot;/author/andreas-evers/&quot;, &quot;avatar&quot;=&gt;&quot;andreas-evers.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;email&quot;=&gt;&quot;andreas.evers@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;andreasevers&quot;, &quot;github&quot;=&gt;&quot;andreasevers&quot;, &quot;title2&quot;=&gt;&quot;Practice Leader Backend&quot;, &quot;linkedin&quot;=&gt;&quot;eversandreas&quot;, &quot;bio&quot;=&gt;&quot;Andreas is a Principal Java consultant at Ordina, passionate about the Spring ecosystem, microservices, REST, clean code and best practices in general. An avid open source enthusiast and Spring contributor. Helps fellow developers as Competence Center leader for architecture and best practices by giving workshops, talks and courses about the newest technologies.&quot;}</name><email>andreas.evers@ordina.be</email></author><category term="Cloud" /><category term="Canary" /><category term="Continuous-Delivery" /><category term="Cloud" /><category term="Microservices" /><category term="Netflix" /><category term="Spring" /><summary type="html">Intro</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/spinnaker/spinnaker-logo.png" /></entry></feed>
