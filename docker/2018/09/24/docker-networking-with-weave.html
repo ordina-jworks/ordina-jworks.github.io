@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Docker multihost networking with weave - Bas Moorkens">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/docker-basic-networking/docker-basic-networking.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/docker/2018/09/24/docker-networking-with-weave.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Docker multihost networking with weave - Bas Moorkens"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/docker-basic-networking/docker-basic-networking.png"/>
+
+    
+    <title>Docker multihost networking with weave - Bas Moorkens &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Docker multihost networking with weave</h2>
+                
+
+                
+                    Posted Sep 24, 2018
+
+
+    in <a href="/categories/docker/">docker</a>
+
+
+
+    by
+    
+        <a href="/author/bas-moorkens/">Bas Moorkens</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/docker/">Docker</a>, 
+    
+        <a href="/tags/weave/">Weave</a>, 
+    
+        <a href="/tags/networking/">Networking</a>, 
+    
+        <a href="/tags/kubernetes/">Kubernetes</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>In my last blogpost we talked about setting up a Docker network on a single host. We talked about a very basic 3 tier application which was packaged into 3 containers.
+An Angular frontend, a spring boot backend and a mysql database container.</p>
+</blockquote>
+
+<blockquote>
+  <p>No person in their right mind would ever run an application on a single host in production. ( If you are doing this please give us a call and we will gladly come help you out ;-) )
+So today I will talk you through the process of setting up multi host networks with the help of Weave.</p>
+</blockquote>
+
+<h1 id="table-of-contents">Table of contents</h1>
+<ol>
+  <li><a href="#why-multihost-networking">Why multihost networking?</a></li>
+  <li><a href="#weave">Weave</a></li>
+  <li><a href="#basic-example">Basic example</a></li>
+  <li><a href="#application-example">Application example</a></li>
+</ol>
+
+<h1 id="why-multihost-networking">Why multihost networking?</h1>
+
+<p>In my <a href="/docker/2017/12/15/Docker-basic-networking.html" target="blank" rel="noopener noreferrer">last blogpost</a> we ran our three containers on one single host network. This has a few obvious disadvantages which I will address first:</p>
+
+<ul>
+  <li>
+    <p>If you would run all your applications as Docker containers on one machine, your environment would still be very prone to outages.
+If something happens to the physical machine that you use, then you are pretty much done for and you have an outage.
+Depending on how critical your applications are, this could have disastrous results.
+That’s why in practice you want to spread your applications over several hosts and connect them to each other over a network.</p>
+  </li>
+  <li>
+    <p>Not every application that you package in a Docker container is the same.
+In our example we have a web frontend, a Spring Boot backend and a MySQL database server.
+A database server has fundamental different needs than a webserver.
+For example, you want to make sure your database container is running on a system with large hard disks with much faster access times.
+On the other side, a webserver has little use for large hard drives and has much more benefit from increased memory to allow for many concurrent connections.</p>
+  </li>
+  <li>
+    <p>If you use a microservice architecture and you want to scale up a certain microservice, it is recommended to run the new instance of that microservice on a different machine than the first instance.
+This is done for resilience of the application but also to spread the application workload over several different physical machines.
+This improves the scalability of your system.</p>
+  </li>
+</ul>
+
+<p>So in short: multihost networking is pretty important to build <strong>resilient</strong>, <strong>robust</strong> applications that <strong>scale well</strong>.
+It also allows you to deploy your containers on hardware that makes most sense for each container.</p>
+
+<p>Now that you are convinced that we need multi host networks, at least for our production environments, let’s talk about what we can do to set this up with Docker and Weave.</p>
+
+<h1 id="weave">Weave</h1>
+
+<p>There are several options to do multihost networking with Docker.
+Nowadays Docker itself even supports a basic form of this but we want to use all the good stuff like DNS lookups and service discovery.
+That’s why we are going to use Weave.NET.</p>
+
+<p>Now, <strong>what is Weave.NET?</strong></p>
+
+<p>Weave.NET is software that is build by the company <strong><a href="https://weave.works" title="Weaveworks">Weaveworks</a></strong>.
+It allows you to create a virtual network across multiple hosts and enables automatic discovery of hosts and containers within the network.
+The following features are the most important and useful to me:</p>
+
+<ul>
+  <li>
+    <p>It’s <strong>easy</strong> to setup. As I will show in the hands-on part of this post, the setup of Weave is done within minutes and is pretty straightforward.</p>
+  </li>
+  <li>
+    <p>It provides a <strong>virtual network</strong> on top of your existing network.
+In big organisations, the network setup can be quite complex with multiple VLANs and firewalls.
+Using Weave, your network people only need to open one port.
+Everything that stays within the Weave virtual network can communicate over that same port.</p>
+  </li>
+  <li>
+    <p>The virtual network is very <strong>flexible</strong>.
+You can use Weave to build one virtual network between your on-prem and cloud environment.
+Within this network, all your containers can communicate with each other as if they were living on the same machine.</p>
+  </li>
+  <li>
+    <p>An added benefit of the virtual network is that it’s pretty easy to <strong>secure</strong>.
+You can encrypt all the traffic on the Weave virtual network which adds a layer of security ontop of the existing security you have in place.
+This is especially useful if you wish to build a network which spans your on-prem and cloud environment.
+Since all traffic is encrypted you are not at risk when containers in the cloud communicate with containers in your on-prem environment.</p>
+  </li>
+  <li>
+    <p>The Weave network comes with its own DNS server.
+This allows you to do <strong>service discovery</strong> within the Weave network.
+This has huge benefits over addressing applications with their IP addresses.
+Service discovery allows you to do easy <strong>loadbalancing</strong> and provides your applications with <strong>high availablity</strong>.</p>
+  </li>
+  <li>
+    <p>Last but not least I feel obligated to point out that Weave works very well with <strong>Kubernetes</strong>.
+Kubernetes is basically the orchestration tool you want to be using to run your containers.
+A deeper tour of Kubernetes is for another time, but for now I’d like to point out that the default network provider within Kubernetes is <code class="highlighter-rouge">flanel</code> but you can replace that with Weave if you want.
+You then get all the benefits of Weave plus the added value that you can make a virtual network that spans several Kubernetes clusters and/or your regular Docker applications.</p>
+  </li>
+</ul>
+
+<p>The main point I’m trying to make here, is that Weave.NET takes care of a lot of low level networking stuff for you.
+This allows you to build a more robust and scalable environment to run your applications on without having to worry much about the lower levels in the networking stack.</p>
+
+<h1 id="basic-example">Basic example</h1>
+
+<p>In this example, I will be using Ubuntu machines on which I have already installed Docker.
+Following picture shows the setup we will be build in this example:</p>
+
+<p>
+    <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/weave_basic_diagram.png" />
+</p>
+
+<h3 id="installing-weave">Installing Weave</h3>
+
+<p>To install Weave on an Ubuntu system you can run the following commands:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo curl -L git.io/weave -o /usr/local/bin/weave
+sudo chmod a+x /usr/local/bin/weave
+</code></pre></div></div>
+
+<p>If you want to install Weave on another system take a look on the <strong><a href="https://www.weave.works/docs/net/latest/install/installing-weave/" title="weave install page">weave install page</a></strong>.
+On systems which don’t support native Docker, you will have to set up something like Docker-machine to get everything to work.</p>
+
+<p>We will need to run the Weave install on both of the machines that we are going to use in this example.</p>
+
+<h3 id="launching-weave">Launching Weave</h3>
+
+<p>Now that we have installed Weave on both machines, let’s start it up.</p>
+
+<h4 id="setting-up-host-1">Setting up host 1</h4>
+
+<p>On the first host, type the following commands:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave launch
+eval $(weave env)
+</code></pre></div></div>
+
+<p>The first command launches Weave. Weave runs as a set of Docker containers on your system, you can see this when you run the launch command:</p>
+
+<p>
+    <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/install_weave_result.png" />
+</p>
+
+<p>If you run the <code class="highlighter-rouge">docker images</code> command you can take a look at all the images that Weave downloaded:</p>
+
+<p>
+    <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/weave_images.png" />
+</p>
+
+<p>The second command configures the Weave environment so that containers that get launched will automatically attach to the Weave network.
+This means that you have to provide no additional arguments to your Docker run commands to use the Weave network.
+Behind the scenes Weave has setup a Docker network for you on your machine, you can take a look at this with the command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker network ls 
+</code></pre></div></div>
+<p>
+    <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-Docker-networking-with-weave/docker_network.png" />
+</p>
+
+<p>You can recognise the Weave network by the name <strong>Weave</strong> and as you can see it uses the <strong>weavemesh</strong> driver instead of one of the standard Docker network options.
+When our network setup is done we will test it out with a test container.
+So for now let’s start this container on the first host:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d --name app_on_host1 weaveworks/ubuntu
+</code></pre></div></div>
+
+<p>This is just a stripped down Ubuntu Docker image.
+We will use it later to test our network setup.</p>
+
+<p>If you look at your machine’s network stack you will see that Weave has setup several different networks on your host machine in order to make it’s magic work.
+When I run the:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ifconfig
+</code></pre></div></div>
+
+<p>command on my machine, I can see that Weave added following network stacks to my machine:</p>
+
+<p>
+    <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/weave_network_stack.png" />
+</p>
+
+<p>What all these networks do is out of scope for this post as that operates on a pretty low level in the TCP/IP stack and we are not really interested in it in our usecase.
+We just want it to work, right?</p>
+
+<h4 id="setting-up-host-2">Setting up host 2</h4>
+
+<p>In the last screenshot of the previous section we looked at the network stack of host 1.
+This is important because we need the <strong>physical IP address</strong> from that host to tell our second host to connect to host 1.
+Host 1 has IP address 192.168.1.18. This gives us following command to run on host 2:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave launch 192.168.1.18
+eval $(weave env)
+</code></pre></div></div>
+
+<p>The syntax of this command is pretty straightforward.
+You tell Weave to launch and to connect to every IP you supply as an argument to the launch command.
+We will also setup a test container on this host:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d --name app_on_host2 weaveworks/ubuntu
+</code></pre></div></div>
+
+<p>These are all the setup steps you need to do in order to setup a simple Weave network.
+Now let’s see how we can verify that everything is working.</p>
+
+<h4 id="verifying-our-setup">Verifying our setup</h4>
+
+<p>There are a few things we can do to verify that our setup is working.
+To start off let’s look at the status off our Weave service:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave status
+</code></pre></div></div>
+
+<p>This produces following result:</p>
+
+<p>
+    <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/weave_status.png" />
+</p>
+
+<p>You can run this command on either host, it will provide you with basically the same results.
+All sorts of useful stuff is available in the status overview including the range of your Weave subnet, the connected peers, the connections.
+As a first step to verify that our network is working, let us examine the connections and peers in more detail with following commands:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave status peers
+weave status connections
+</code></pre></div></div>
+
+<p>
+    <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/weave_status_details.png" />
+</p>
+
+<p>As you can see from the output of the commands there are now two hosts in our network and there is one connection between them.
+So far everything is looking good!
+Now let’s do the real test and see if the containers can find each other by the name we gave each container.
+SSH into the container on host 1 and ping the application on the other host:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -ti app_on_host1 bash
+ping app_on_host2
+</code></pre></div></div>
+
+<p>
+    <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/ping_test_app_1.png" />
+</p>
+
+<p>As we can see from the results, our container was able to resolve the other container over the Weave network by making use of the Weave DNS service and the Weavemesh network.
+If we reverse our test and run it on host 2 we get this result:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -ti app_on_host2 bash
+ping app_on_host1
+</code></pre></div></div>
+
+<p>As you can see from the example outputs, both hosts are now connected, and thanks to the Weave network and DNS service, they are able to resolve each other by hostname.
+Another noteworthy thing is that Weave has setup a class A network (10.xxx.xxx.xxx) range for us.
+These are all IP addresses within the Weave network so you don’t have to worry about any IP conflicts with your existing network.
+If you would have the need for a specific subnet you can force Weave to use whatever subnet you like (192,168.1.XXX for example).</p>
+
+<h1 id="application-example">Application example</h1>
+
+<p>For this example we will use the Weave setup we created in the previous example.
+I will be running the application from the basic Docker networking blogpost on our two hosts in the Weave network.
+You can checkout the code for this example at <strong><a href="https://github.com/basmoorkens/docker-networking-demo" title="weave install page">my github account</a></strong>.
+For this example I will be using the <strong>weave-basic-example</strong> branch.</p>
+
+<h3 id="setup-database">Setup database</h3>
+
+<p>In the first step, we setup our database container on one of the Weave hosts.
+I will be using my desktop to run the database container.
+First we will run the <strong>run_db.sh</strong> script to start up a new MySQL container and assign a root password to it.
+When that container is up and running we can initialise it with a database and some data.
+To initialise the database run the <strong>init-db.sh</strong> script.
+We can run following commands to verify that our database is up and running in the Weave network:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps
+weave ps
+</code></pre></div></div>
+
+<p>This should give you a similar output to the screenshot below:</p>
+
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/db_setup.png" />
+</p>
+
+<p>As you can see the mydb container was automatically added to the Weave network because of the <strong>eval $(weave env)</strong> command we ran earlier in this demo.
+Note that the Weave ps command shows you the container id and the IP address it has allocated to that container.
+Now that our database is up and running, let’s switch over to our other machine and start the other services over there.</p>
+
+<h3 id="setup-backend-application">Setup backend application</h3>
+
+<p>Let’s install our backend service on our second host.
+In the <strong>backend</strong> folder we will run the following commands to compile our application and start up our Docker container.
+Let’s start our backend container with the <strong>test_run_backend.sh</strong> script.
+This script runs the container and exposes its webservice to the outside world through port 8080.
+We can then use our browser on our host to verify that the service is running correctly:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean install
+docker build -t rest-backend .
+./test_run_backend.sh
+</code></pre></div></div>
+
+<p>To verify that out application has started successfully we can run the following commands:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps
+weave ps
+</code></pre></div></div>
+
+<p>This shows us that the container wass started correctly and it got an IP addresss within the Weave network.</p>
+
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/backend_setup.png" />
+</p>
+
+<p>Now that we know our backend and our database are running within the Weave network, we can query our REST service and see if everything is working as expected:</p>
+
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/backend_verification.png" />
+</p>
+
+<p>When I do an HTTP GET to my REST backend, it comes back with a greeting it got from the database container on the other host.
+Now that we have verified that our backend runs fine, we will stop it and start it up again without exposing a port to the outside world:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker stop rest-backend
+docker rm rest-backend
+./run_backend.sh
+</code></pre></div></div>
+
+<p>The Docker ps command on the backend now runs without exposing a port.
+Since our frontend application is calling our REST backend through the Weave network, we don’t have to expose a port to the outside world:</p>
+
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/rest-backend-without-port-exposed.png" />
+</p>
+
+<h3 id="setup-frontend-application">Setup frontend application</h3>
+
+<p>Our frontend application is a bit different from the one I used in my previous demo.</p>
+
+<p>In the previous demo we used an Angular frontend, but I replaced it with a simple webserver I wrote in <strong>Golang</strong>.
+I want to demonstrate that applications can access each other through the internal Weave network by their container name.
+I could not demonstrate this last time with Angular code since that’s rendered on the browser at client side.
+Our client’s browser is not inside the Weave network so it has no way to resolve the webservice call from our frontend application to our REST service.</p>
+
+<p>In this example, our Go frontend app renders the HTML response on the server side.
+This means the code that calls the REST service is running inside the Docker container and is thus a part of the Weave network.
+We can also access our REST backend via following url:</p>
+
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/frontend-call-to-backend.png" />
+</p>
+
+<p>The source code of the Go application is on Github in the <strong>frontend</strong> folder.
+Please note: I also included a compiled binary so that you can use the program even if you don’t have a working Golang installation.
+To start our frontend container, run following commands inside the frontend folder.
+Only execute the first command if you wish to compile the Go program yourself:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go build
+docker build -t frontend .
+./run_frontend.sh
+</code></pre></div></div>
+
+<p>Our Go frontend application should be up and running now so let’s check if everything is working as expected:</p>
+
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/final-result.png" />
+</p>
+
+<p>We can access our frontend application through port 8080 (which we exposed to the outside world with the Docker run command).
+In this example I gave the name “john” which has no entry in our database so our REST backend returned the standard hardcoded message “hello friend”.</p>
+
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/final-result-2.png" />
+</p>
+
+<p>In this example I gave “bas” as a parameter and since we have a message in our database for this name, we got the message “hello master” as a result.
+Since no Docker ports are exposed to the outside world (except for our frontend application to make it accessible from our host), this is definitive proof that our Go application can access our REST backend application through the Weave network.
+Likewise, our REST backend application accesses our mydb container through the Weave network as well.</p>
+
+<p>Oh, and by the way: You can run your containers on any host which is connected to our Weave network. Cool, huh?
+Now, let’s take this one step further. In this next example we will extend our Weave network from our home network into the cloud.</p>
+
+<h1 id="onprem-cloud-application-example">Onprem cloud application example</h1>
+<p>In the final example of this blogpost I will show a setup where we have 1 Weave network that spans our onprem environment and connects to a cloud environment (AWS).
+In this example we will run each application container on a different host. It looks like this.</p>
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/onprem_aws_setup.png" />
+</p>
+<p>In the end result I will be running the <strong>mydb</strong> container on my desktop (database server). The <strong>rest-backend</strong> will run on my laptop (backend server) and our <strong>frontend</strong> container will run on an EC2 instance on AWS.
+Everything will be connected through the Weave network that we will reconfigure to encrypt our data between the cloud and onprem environment.
+Let’s get started.</p>
+
+<h3 id="setup-ec2-server">Setup EC2 server</h3>
+<p>The first thing we have to do is create a new EC2 server on AWS that we can use for this demonstration.
+I’m not going to go into full detail here about how you can do that but it’s quite easy and there are a lot of tutorials out there.
+After our EC2 server is up and running we can login to it via ssh and install docker and weave.
+We will start up Weave on our EC2 server with encryption enabled.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave launch --password weavetest
+eval $(weave env)
+</code></pre></div></div>
+
+<p>The <strong>password weavetest</strong> part enables the encryption for this peer. 
+If another peer wants to connect to this peer it has to provide this password before a connection can be established.
+After the connection is established all traffic over the connection will be encrypted.</p>
+
+<p>Another thing we have to take care of is make sure that Weave on the EC2 server can connect to it’s peers.
+Remember, an EC2 is running in a VPC behind a firewall so we have to open certain ports for this to work.
+In the case of Weave we have to open the port 6783 – which is the control port.
+And we also have to open the port 6784 – which is the data port.
+You can do this by editing the launch group of your EC2 and add following inbound rules to it.</p>
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/aws-inbound-rules.png" />
+</p>
+<p>As you can see I added rules to allow TCP and UDP traffic on port 6783 from all sources. This enables the Weave control process to connect to its peers.
+Afterwards I added a rule to allow UDP traffic on port 6784 from all sources. This port is used by Weave to send it’s data.
+Note, I also opened port 8080 because our frontend uses this port to listen for web requests.</p>
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/ec2.png" />
+</p>
+<p>We will use the public ip4 address and DNS name later in this demo.</p>
+
+<h3 id="reconfigure-the-existing-onprem-hosts">Reconfigure the existing onprem hosts</h3>
+<p>Before you can connect Weave from your homenetwork to the cloud you have to make sure that your router ports 6783(TCP/UDP) and 6784(UDP) are opened.
+First lets reconfigure our database host.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave reset
+weave launch --password weavetest
+eval $(weave env)
+</code></pre></div></div>
+<p>The <strong>weave status</strong> command on this host now shows that encryption is enabled.</p>
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/db_encrypted.png" />
+</p>
+<p>As you can see Weave is now reporting that encryption is turned on but this Weave peer is not yet connected to any others.
+Let’s take care off that now. Switch over to the backend host.
+Now let’s run the magic Weave command that will make our setup run.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave launch 34.247.178.145 192.168.1.99 --password weavetest
+</code></pre></div></div>
+<p>This command launches Weave on our backend host and tells it to connect to our EC2 instance in the cloud and to our database server onprem.</p>
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/backend_host_encrypted.png" />
+</p>
+<p>As you can see our backend host is now connected to both our EC2 server and our database server. 
+Let’s check our EC2 server as well.</p>
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/ec2-encrypted-connected.png" />
+</p>
+<p>As you can see our EC2 server now also has encrypted connections to both the backend server and the database server.
+Weave will automatically connect hosts on your network as long as they can be connected though 1 common peer.
+In this case our backend server has a connection to our EC2 server and a connection to our database server.
+So Weave will automatically create a connection between those 2 as well.</p>
+<p>
+    <img class="image" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/final_result_ec2.png" />
+</p>
+<p>As you can see in the screenshot I browsed to the frontend application on the AWS server and it generated a correct response which means our setup works!</p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>In this blogpost we started off with a simple onprem Weave network.
+After testing that the network works we deployed a distributed application on that network.
+After this we extended our private Weave network with a peer on AWS in the cloud.
+The end result we achieved was that our distributed application was running spread over a cloud and onprem environment.
+In our final example we also enabled encryption on the Weave network so all traffic between your onprem environment and the cloud is encrypted.</p>
+
+<p>This can be a huge benefit for enterprises who want to move their applications into the cloud. 
+With Weave you can setup your network in a hybrid cloud/onprem model and be sure that all communication is safely encrypted.
+This allows the enterprise to do a gradual move to the cloud instead of having to do a big bang approach.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/docker/2018/09/24/docker-networking-with-weave.html&title=Docker multihost networking with weave&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Docker multihost networking with weave&url=https://ordina-jworks.github.io/docker/2018/09/24/docker-networking-with-weave.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/docker/2018/09/24/docker-networking-with-weave.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/bas-moorkens/" class="image spotlight-image">
+            <img src="/img/author/bas-moorkens.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Bas is a Senior Java Developer at Ordina Belgium who discovered he is fascinated by cloud, containers and pipeline automation. He started off as a Java full stack developer but got more and more into the DevOps world where he currently spends most of his time.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/docker-basic-networking/docker-basic-networking.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/docker/2018/09/24/docker-networking-with-weave.html";
+        this.page.identifier = "/docker/2018/09/24/docker-networking-with-weave.html";
+        this.page.title = "Docker multihost networking with weave";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
