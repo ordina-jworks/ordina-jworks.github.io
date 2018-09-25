@@ -6,6 +6,8 @@ image: /img/docker-basic-networking/docker-basic-networking.png
 tags: [Docker, Weave, Networking, Kubernetes]
 category: docker
 comments: true
+redirect_from:
+  - /docker/2018/09/15/docker-networking-with-weave.html
 ---
 
 
