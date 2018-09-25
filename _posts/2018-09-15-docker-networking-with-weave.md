@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [bas-moorkens]
+authors: [bas_moorkens]
 title: 'Docker multihost networking with weave'
 image: /img/docker-basic-networking/docker-basic-networking.png
 tags: [Docker, Weave, Networking, Kubernetes]
@@ -23,7 +23,7 @@ So today I will talk you through the process of setting up multi host networks w
 
 # Why multihost networking?
 
-In my last blogpost we ran our three containers on one single host network. This has a few obvious disadvantages which I will address first:
+In my [last blogpost](/docker/2017/12/15/Docker-basic-networking.html){: target="blank" rel="noopener noreferrer" } we ran our three containers on one single host network. This has a few obvious disadvantages which I will address first:
 
 * If you would run all your applications as Docker containers on one machine, your environment would still be very prone to outages.
 If something happens to the physical machine that you use, then you are pretty much done for and you have an outage.
