@@ -58,7 +58,7 @@ each time a person opens the door the key is the unique id of the device, and th
 ```java
  List<String> devices = new ArrayList<>();
 devices.add(UUID.randomUUID().toString());
-devices.add(UUID.randomUUID().toString());
+devices.add(UUID.randomUUID().toString());  
 devices.add(UUID.randomUUID().toString());
 
 KafkaProducer producer = new KafkaProducer(props);
