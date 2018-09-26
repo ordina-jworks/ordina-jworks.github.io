@@ -29,7 +29,7 @@ To use Feign we need to add it to our classpath
     </dependency>
 {% endhighlight %}
 
-When we inspect in to the dependency module, we see that there is a lot coming out-of-the-box with the Spring Cloud Starter.
+When we inspect to the dependency module, we see that there is a lot coming out-of-the-box with the Spring Cloud Starter.
 If you are providing your own resilience or load balancing library you can just add the necessary dependencies you need.
 Be aware that the syntax is different between using the Spring wrapper or OpenFeign itself.
 To let your Spring context know that it has to search for Feign clients, we just add `@EnableFeignClients` on top of the main configuration class. 
@@ -37,7 +37,7 @@ To let your Spring context know that it has to search for Feign clients, we just
 # Feign Clients 
 After we've enabled Feign on our classpath, we can start adding Feign clients. 
 When defining our clients, we have two solutions you can choose from. 
-The OpenFeign library, which provides us with the basic but very customizable Feign clients and the Spring library, that adds a few extra libraries to it for cloud tooling.
+The OpenFeign library, which provides us with the basic but very customizable Feign clients, and the Spring library, that adds a few extra libraries to it for cloud tooling.
 
 ## Spring
 
