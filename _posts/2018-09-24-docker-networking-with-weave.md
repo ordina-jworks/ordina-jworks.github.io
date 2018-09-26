@@ -146,7 +146,7 @@ Behind the scenes Weave has setup a Docker network for you on your machine, you 
 docker network ls 
 ~~~~
 <p>
-    <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-Docker-networking-with-weave/docker_network.png" />
+    <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/docker_network.png" />
 </p>
 
 You can recognise the Weave network by the name **Weave** and as you can see it uses the **weavemesh** driver instead of one of the standard Docker network options.
