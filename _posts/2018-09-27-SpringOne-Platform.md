@@ -45,7 +45,7 @@ Watch the talk <a href="https://www.youtube.com/watch?v=1ezNJvajUU0&feature=yout
 > It's really, really easy to get misaligned.
 > And when you get misaligned, it's really easy to ship the wrong thing.
 
-That's why Pivotal has build a tool to help teams articulate and align around business outcomes to give organizations the high-level view so they can assure that everyone is aligned and delivering value.
+That's why Pivotal has built a tool to help teams articulate and align around business outcomes to give organizations the high-level view so they can assure that everyone is aligned and delivering value.
 
 Watch the talk <a href="https://www.youtube.com/watch?v=1ezNJvajUU0&feature=youtu.be&t=11m43s" target="_blank">here</a>.
 
@@ -148,4 +148,4 @@ It's a new set of IDE agnostic tools that can be installed in your favorite IDEs
 Currently they support Eclipse, Visual Studio Code and Atom IDE.
 With this release also comes the end of Spring Tools 3, but not until mid 2019!
 STS 3.9.x will still receive updates and will be shipped as a full distribution, and the distribution will be updated to the upcoming Eclipse releases (2018-09, 2018-12, and beyond).
-After mid 2019, it will not receive any maintenance updates anymore.
+After mid 2019, it will no longer receive any maintenance updates.
