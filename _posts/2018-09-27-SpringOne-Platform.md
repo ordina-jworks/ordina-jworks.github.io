@@ -53,8 +53,8 @@ Watch the talk <a href="https://www.youtube.com/watch?v=1ezNJvajUU0&feature=yout
 
 > "Pivotal Act is a program that partners with humanitarian organizations and charities to identify, design, and develop practical solutions to pressing challenges around the world."
 
-Together with developers, designers, and engineers from Pivotal Labs, Pivotal is going to apply the same methodology like they use in other engagements with clients but tailored to the needs of the humanitarian and social impact sectors instead of just donating technology or funds.
-This way charitable and nonprofit organisations can use the present-day technologies and put them directly to use through the partnership with Pivotal, while building up the organisation's technology capabilities so they can continue their work after the engagement end.
+Together with developers, designers, and engineers from Pivotal Labs, Pivotal is going to apply the same methodology they use in other engagements with clients but tailored to the needs of the humanitarian and social impact sectors instead of just donating technology or funds.
+This way charitable and nonprofit organisations can use the present-day technologies and put them directly to use through the partnership with Pivotal, while building up the organisation's technology capabilities so they can continue their work after the engagement ends.
 
 If you want to find out more, just visit <a href="https://pivotal.io/act" target="_blank">https://pivotal.io/act</a>.
 
@@ -70,7 +70,7 @@ It also has an adapter to support the OpenJDK incubator project "ADBA", a non-bl
 ### RSocket
 
 On stage Stéphane Maldini announced the RSocket project.
-RSocket is a binary application protocol that provides reactive streams semantics which is built by Facebook, Netifi and Pivotal.
+RSocket, built by Facebook, Netifi and Pivotal, is a binary application protocol that provides reactive streams semantics.
 This protocol is payload, transport AND language agnostic making it easy to send eg. JSON or protobuf payloads over TCP, UDP, WebSockets or HTTP/2 using Java, Kotlin, C++, JavaScript,...
 Using this protocol we can eg. easily resume our stream of events where we left off in case the connection got interrupted.
 
@@ -104,7 +104,7 @@ Check out <a href="https://spring.io/blog/2018/09/21/spring-framework-5-1-goes-g
 
 The fourth milestone of Spring Boot 2.1 got released to incorporate the 5.1 release of the Spring framework and closes over 40 issues and pull requests.
 
-Madhura Bhave wrote <a href="https://spring.io/blog/2018/09/25/spring-boot-2-1-m4-available-now" target="_blank">this post</a> announcing the milestone release and added some usefull links to the release notes and updated reference documentation.
+Madhura Bhave wrote <a href="https://spring.io/blog/2018/09/25/spring-boot-2-1-m4-available-now" target="_blank">this post</a> announcing the milestone release and added some useful links to the release notes and updated reference documentation.
 Make sure to check them out!
 
 ### Spring Batch 4.1.0.RC1
