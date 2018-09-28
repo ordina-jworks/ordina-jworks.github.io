@@ -26,7 +26,7 @@ comments: true
 
 3D printing is a term that has been hyped for a long time.
 It's a technology that is in essence not that new, but now more than ever is getting better and accessible to everyone.
-Today we take a dive into the world of 3D printing and what is really has in store for us and the worlds in the coming years.
+Today we take a dive into the world of 3D printing and what it really has in store for us and the world in the coming years.
 
 <img alt="stack" src="{{ '/img/2018-09-28-3D-Printing/sla-glow.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
 
@@ -36,13 +36,13 @@ Today we take a dive into the world of 3D printing and what is really has in sto
 Basically 3D printing can be described as: Producing 3D modeled objects by printing them with a 3D printer.
 It offers a new way to do fast prototyping without the need to create very expensive molds or stencils.
 
-It has long been hyped to be the next big thing:
+It has long been hyped to be the next big thing for:
 
-- Everyday use, recreating objects, replacing broken parts
-- Medical use, create patient specific casts or prostheses that fit better
-- Weapons (in the news), 3D print a gun, can pass through metal detector
+- Everyday use: recreating objects, replacing broken parts
+- Medical use: create patient specific casts or prostheses that fit better
+- Weapons: [In the news](https://www.bbc.com/news/technology-45018513), 3D print a gun which can pass through metal detector, and is not registered with the authorities.
 
-Although 3D printing has changed how prototyping works a lot of misconceptions exist:
+Although 3D printing has changed how prototyping works, a lot of misconceptions exist:
 
 - 3D printing is slow, very slow
   - Thus not usable to create batches of the same object
@@ -52,12 +52,12 @@ Although 3D printing has changed how prototyping works a lot of misconceptions e
 
 ## Types of 3D printing
 
-3D printing is not one technology, there are many different methods a 3D print can be created.
+3D printing is not one technology, there are many different methods how a 3D print can be created.
 Wherein the method the print is created varies depending on the technology used.
 
-Different technologies use different method and materials, each with their distinct advantages and disadvantages.
+Different technologies use different methods and materials, each with their distinct advantages and disadvantages.
 
-Some of these methods include (bot are not limited to):
+Some of these methods include (but are not limited to):
 
 - Fused deposition modeling (FDM)
 - Stereolithography (SLA)
@@ -80,14 +80,14 @@ Below we will go into detail for some of the more used types:
 
 <img alt="stack" src="{{ '/img/2018-09-28-3D-Printing/fdm.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
 
-With `Fused Deposition Modeling` the printed model is created by melting a compound, this being mostly PLA/ABS/PETG, and tracing the model layer by layer, each layer thickening the model as the printer deposits more material on the model.
+With `Fused Deposition Modeling` the printed model is created by melting a compound (this being mostly PLA/ABS/PETG) and tracing the model layer by layer, each layer thickening the model as the printer deposits more material on the model.
 
 In the image above all the main pieces for an FDM printer are visible. 
 The nozzle is moved on the Z-axis, and the build plate is moved on the X/Y-axes by stepper motors which control the movement up to one tenth or even one twentieth of a millimeter.
 A spool of material is fed into the nozzle which melts it and deposits it onto the model by use of extrusion wheels/stepper motors.
 
 FDM printers are widely available both ready to use and as kits that require assembly, these are also the most affordable type of printers on the market.
-Some even require you to print more components for the printer with the printer itself.
+You can always extends your printer and even print replacements for broken components.
 
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2018-09-28-3D-Printing/fdm-print1.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Test 'benchy' stress test prints">
@@ -108,7 +108,7 @@ These types of printers work by using either a laser or a projected image to cur
 With `Stereolithography` a powerful UV laser traces the object layer by layer, like the FDM printer does, however it does not deposit material itself, rather it cures the resin in the tank at the point where the laser is.
 Because SLA uses a laser that is moved by mirrors, it can have a very high resolution, the disadvantage is that it is as slow as an FDM printer since each layer needs to be traced.
 
-With `Digital Light Processing` an UV projector is used, it projects the an entire layer at once, the results in a lower printable resolution for the object, but yields a significant speed increase since an entire layer is printed at once, there is no need to trace the entire layer.
+With `Digital Light Processing` an UV projector is used, it projects an entire layer at once, this results in a lower printable resolution for the object, but yields a significant speed increase since an entire layer is printed at once, there is no need to trace the entire layer.
 `Masked SLA` is a cheaper version of the DLP method where a LCD based photomask is used in front of an UV-LED array instead of an UV based projector.
 
 <img alt="stack" src="{{ '/img/2018-09-28-3D-Printing/sla-dlp-2.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
@@ -132,10 +132,10 @@ The SLA method has much better quality compared to the DLP or MSLA methods.
 
 <img alt="stack" src="{{ '/img/2018-09-28-3D-Printing/dmls-slm.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
 
-`Direct Metal Laser Sintering` and `Selective Laser Melting` are two more industrial types of 3D printing. They are used, as the name suggests, to 3D print object in metal.
+`Direct Metal Laser Sintering` and `Selective Laser Melting` are two of the more industrial methods of 3D printing. They are used, as the name suggests, to 3D print object in metal.
 The main procedure for both methods is similar.
-A moving arm pushed metal particles across the printing area, after which a powerful laser will trace the current layer of the object being printed.
-This will fuse the particles together, and is also where the biggest difference between the two methods lays.
+A moving arm pushes metal particles across the printing area, after which a powerful laser will trace the current layer of the object being printed.
+This will fuse the particles together and is also where the biggest difference between the two methods exists.
 Once the current layer is finished, the arm moves back and forth again, bringing in a new layer of metal particles.
 
 With DMLS the particles are sintered together but the metal itself has not melted completely, is hasn't flowed.
@@ -150,12 +150,12 @@ Because of this high cost they are used in industries where the fault tolerance 
 ### Different printing materials
 
 As you might have noticed in the previous section different printing methods require different printing materials.
-In the section below we'll go into more detail about these materials.
+In the section below we'll go more into detail about these materials.
 
 #### Polymers/plastics
 
 FDM and DLP printers require polymer based materials.
-These are plastic or plastic like materials that are easy to print.
+These are plastics or plastic like materials that are easy to print.
 
 *PLA (PolyLactic Acid):*
 
@@ -191,7 +191,7 @@ ABS is stronger but not biodegradable and produces toxic fumes when printing, it
 PETG is the best of both worlds, it is stronger than PLA and does not produce toxic fumes.
 There are a lot more materials available, oftentimes with very specific properties to make it act more like rubber, be more flexible, glow in the dark,...
 All these different materials require different print settings and some can be quite hard to get right, experimentation is key!
-Some materials also exist that can be used in a medical context, these are however not printed with the average FDM printer since they need to match very high standards for medical use (both internal and external body usage).
+Some materials also exist that can be used in a medical context, these are however not printed with the average FDM printer since they need to match very high standards for medical use for both internal and external use.
 
 *DLP materials:*
 
@@ -227,8 +227,8 @@ The medical industry can also print patient specific prostheses in titanium allo
 
 #### Concrete/construction
 
-In more recent years concrete printing has caught some attention and it is being experimented with.
-It has some nice advantages
+In more recent years concrete printing has caught some attention and people are experimenting with it.
+It has some nice advantages:
 
 - Allow cheaper construction of small buildings
 - Faster construction
@@ -259,7 +259,7 @@ This will no doubt be developed further as time progresses.
 
 <img alt="stack" src="{{ '/img/2018-09-28-3D-Printing/3D-print-fail.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
-Getting started with 3D printing yourself is not easy, it can be very daunting.
+Getting started with 3D printing is not easy, it can be very daunting.
 There are a lot of things you need to take into account
 
 Since it is still relatively expensive, you want to ask yourself these questions:
@@ -276,11 +276,11 @@ Getting things right is hard:
 
 ⇒ 3D printing remains an intensive trial and error process!
 Only begin if you are willing to invest the necessary time into it.
-If at first you don't succeed, try again, and again, and again, and again!
+If at first you don't succeed, try again and again and again and again!
 
 Thankfully the online hobby community is very large and generally very helpful.
-You will need to model your object, or download it from a maker website.
-You will need to slice your model with setting for your specific printer, and adjust these settings based on the quality and speed you want.
+You will need to model your object or download it from a 'makers' website.
+You will need to slice your model with settings for your specific printer, and adjust these settings based on the quality and speed you want.
 
 *Online resources:*
 
@@ -292,8 +292,8 @@ You will need to slice your model with setting for your specific printer, and ad
   - [3D Hubs](https://www.3dhubs.com/)
   - [Reddit 3D printing](https://www.reddit.com/r/3Dprinting/)
 
-  These YouTube channels and forums are an invaluable resource when getting into 3D printing, they contains loads of information, do's and don'ts.
-  By watching and reading videos and articles you can prevent mistakes and gain insights faster in how 3D printing works and what is possible.
+  These YouTube channels and forums are an invaluable resource when getting into 3D printing, they contain loads of information, do's and don'ts.
+  By watching videos and reading articles you can prevent mistakes gaining insights faster in how 3D printing works and what is possible.
 
 *Maker websites:*
 
@@ -303,6 +303,7 @@ You will need to slice your model with setting for your specific printer, and ad
 
 These websites provide vast libraries of models and some even offer an online modeling tool.
 Before diving deep into your modeling software check if someone else had the same idea and created the object you want.
+⇒ good artists copy, great artists steal - Picasso
 
 *Modeling software:*
 
@@ -310,13 +311,13 @@ Before diving deep into your modeling software check if someone else had the sam
   - [3DS Max](https://www.autodesk.be/nl/products/3ds-max/overview)
   - [Maya](https://www.autodesk.be/nl/products/maya/overview)
   - [Blender](https://www.blender.org/)
-- Card software:
+- CAD software:
   - [Fusion 360](https://www.autodesk.com/products/fusion-360/overview)
   - [Autocad](https://www.autodesk.be/nl/products/autocad/overview)
   - [Inventor](https://www.autodesk.be/nl/products/inventor/overview)
 
 These software suites let you create and export models.
-These programs are commonly easy to pickup (except for the CAD softwares) but are extremely hard to master!
+All of these programs are easy to pickup (except for the CAD software) but are extremely hard to master!
 There are also many alternatives available, but these are the most common ones.
 
 *Slicing software:*
@@ -327,7 +328,7 @@ There are also many alternatives available, but these are the most common ones.
 
 These software suites let you convert your 3D models into `GCODE`.
 `GCODE` is the 'language' that 3D printers use to print an object.
-It is a set of instructions for stepper motors, extruders, fans and other peripherals that make up a 3D printer.
+It contains a set of instructions for stepper motors, extruders, fans and other peripherals that make up a 3D printer.
 This code is generated from the 3D model and is layer based hence the name 'slicer', since it slices the model into layers and translates this to the `GCODE` required to print.
 The slicer software also takes into account overhangs and infill.
 
