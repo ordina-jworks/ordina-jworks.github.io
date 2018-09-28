@@ -119,10 +119,10 @@ The images above show the distinct difference between these two (three) methods.
 The SLA method has much better quality compared to the DLP or MSLA methods.
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2018-09-28-3D-Printing/sla-print1.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Multiple eiffel towers printed at once with DLP/MSLA">
+    <a href="{{ '/img/2018-09-28-3D-Printing/sla-print1.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Multiple eiffel towers printed at once with DLP/MSLA">
         <img alt="stack" src="{{ '/img/2018-09-28-3D-Printing/sla-print1.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 35%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2018-09-28-3D-Printing/sla-print2.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Vase print with SLA">
+    <a href="{{ '/img/2018-09-28-3D-Printing/sla-print2.gif' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Vase print with SLA">
         <img alt="stack" src="{{ '/img/2018-09-28-3D-Printing/sla-print2.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 42%; display: inline-block;">
     </a>
 </div>
