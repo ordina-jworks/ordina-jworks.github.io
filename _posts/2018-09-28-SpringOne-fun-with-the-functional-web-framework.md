@@ -225,4 +225,3 @@ The advantages mentioned definitely make it worth trying it out for yourself!
 #References
 * [Code from the talk](https://github.com/poutsma/fun-with-functional){:target="_blank"}
 * [Documentation](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html){:target="_blank"}
-* [Documentation](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html){:target="_blank"}
