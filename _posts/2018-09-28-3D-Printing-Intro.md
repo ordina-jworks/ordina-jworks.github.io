@@ -96,7 +96,7 @@ You can always extends your printer and even print replacements for broken compo
     <a href="{{ '/img/2018-09-28-3D-Printing/fdm-print2.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Owl test print, smoothed and non-smoothed">
         <img alt="stack" src="{{ '/img/2018-09-28-3D-Printing/fdm-print2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 40%; display: inline-block;">
     </a>
-</div>
+</div> 
 <br/>
 
 #### SLA & DLP: Stereolithography & Digital Light Processing
