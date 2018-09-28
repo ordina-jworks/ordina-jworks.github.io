@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="3D Printing: An introduction - Kevin Van den Abeele">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2018-09-28-3D-Printing/banner.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/iot/2018/09/28/3D-Printing-Intro.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="3D Printing: An introduction - Kevin Van den Abeele"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2018-09-28-3D-Printing/banner.jpg"/>
+
+    
+    <title>3D Printing: An introduction - Kevin Van den Abeele &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>3D Printing: An introduction</h2>
+                
+
+                
+                    Posted Sep 28, 2018
+
+
+    in <a href="/categories/iot/">IoT</a>
+
+
+
+    by
+    
+        <a href="/author/kevin-van-den-abeele/">Kevin Van den Abeele</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/3d-printing/">3D printing</a>, 
+    
+        <a href="/tags/printing/">printing</a>, 
+    
+        <a href="/tags/building/">building</a>, 
+    
+        <a href="/tags/technology/">technology</a>, 
+    
+        <a href="/tags/iot/">iot</a>, 
+    
+        <a href="/tags/internet-of-things/">internet of things</a>, 
+    
+        <a href="/tags/sla/">SLA</a>, 
+    
+        <a href="/tags/dlp/">DLP</a>, 
+    
+        <a href="/tags/fdm/">FDM</a>, 
+    
+        <a href="/tags/sls/">SLS</a>, 
+    
+        <a href="/tags/pla/">PLA</a>, 
+    
+        <a href="/tags/abs/">ABS</a>, 
+    
+        <a href="/tags/petg/">PETG</a>, 
+    
+        <a href="/tags/printer/">printer</a>, 
+    
+        <a href="/tags/sintering/">sintering</a>, 
+    
+        <a href="/tags/melting/">melting</a>, 
+    
+        <a href="/tags/construction/">construction</a>, 
+    
+        <a href="/tags/tinkering/">tinkering</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js"></script>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ol>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#what-is-3d-printing">What is 3D printing</a></li>
+  <li><a href="#types-of-3d-printing">Types of 3D printing</a></li>
+  <li><a href="#getting-started-with-3d-printing">Getting started with 3D printing</a></li>
+  <li><a href="#the-future">The future</a></li>
+</ol>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>3D printing is a term that has been hyped for a long time.
+It’s a technology that is in essence not that new, but now more than ever is getting better and accessible to everyone.
+Today we take a dive into the world of 3D printing and what it really has in store for us and the world in the coming years.</p>
+
+<p><img alt="stack" src="/img/2018-09-28-3D-Printing/sla-glow.jpg" class="image fit" style="margin:0px auto; max-width: 500px;" /></p>
+
+<h2 id="what-is-3d-printing">What is 3D printing</h2>
+
+<p>Basically 3D printing can be described as: Producing 3D modeled objects by printing them with a 3D printer.
+It offers a new way to do fast prototyping without the need to create very expensive molds or stencils.</p>
+
+<p>It has long been hyped to be the next big thing for:</p>
+
+<ul>
+  <li>Everyday use: recreating objects, replacing broken parts</li>
+  <li>Medical use: create patient specific casts or prostheses that fit better</li>
+  <li>Weapons: <a href="https://www.bbc.com/news/technology-45018513">In the news</a>, 3D print a gun which can pass through metal detector, and is not registered with the authorities.</li>
+</ul>
+
+<p>Although 3D printing has changed how prototyping works, a lot of misconceptions exist:</p>
+
+<ul>
+  <li>3D printing is slow, very slow
+    <ul>
+      <li>Thus not usable to create batches of the same object</li>
+    </ul>
+  </li>
+  <li>Limited available materials (for hobby use)</li>
+  <li>3D printed parts are strong but not as strong as molded or cast parts (mainly for plastics)</li>
+</ul>
+
+<h2 id="types-of-3d-printing">Types of 3D printing</h2>
+
+<p>3D printing is not one technology, there are many different methods how a 3D print can be created.
+Wherein the method the print is created varies depending on the technology used.</p>
+
+<p>Different technologies use different methods and materials, each with their distinct advantages and disadvantages.</p>
+
+<p>Some of these methods include (but are not limited to):</p>
+
+<ul>
+  <li>Fused deposition modeling (FDM)</li>
+  <li>Stereolithography (SLA)</li>
+  <li>Digital Light Processing (DLP)</li>
+  <li>Masked Stereolithography (MSLA)</li>
+  <li>Direct Metal Laser Sintering (DMLS)</li>
+  <li>Selective laser melting (SLM)</li>
+  <li>Electronic Beam Melting (EBM)</li>
+</ul>
+
+<p>Below we will go into detail for some of the more used types:</p>
+
+<ul>
+  <li>FDM</li>
+  <li>SLA, DLP &amp; MSLA</li>
+  <li>SLS &amp; SLM</li>
+</ul>
+
+<h3 id="different-printing-methods">Different printing methods</h3>
+
+<h4 id="fdm-fused-deposition-modeling">FDM: Fused Deposition Modeling</h4>
+
+<p><img alt="stack" src="/img/2018-09-28-3D-Printing/fdm.png" class="image fit" style="margin:0px auto; max-width: 500px;" /></p>
+
+<p>With <code class="highlighter-rouge">Fused Deposition Modeling</code> the printed model is created by melting a compound (this being mostly PLA/ABS/PETG) and tracing the model layer by layer, each layer thickening the model as the printer deposits more material on the model.</p>
+
+<p>In the image above all the main pieces for an FDM printer are visible. 
+The nozzle is moved on the Z-axis, and the build plate is moved on the X/Y-axes by stepper motors which control the movement up to one tenth or even one twentieth of a millimeter.
+A spool of material is fed into the nozzle which melts it and deposits it onto the model by use of extrusion wheels/stepper motors.</p>
+
+<p>FDM printers are widely available both ready to use and as kits that require assembly, these are also the most affordable type of printers on the market.
+You can always extends your printer and even print replacements for broken components.</p>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2018-09-28-3D-Printing/fdm-print1.jpg" data-lightbox="fdm" data-title="Test 'benchy' stress test prints">
+        <img alt="stack" src="/img/2018-09-28-3D-Printing/fdm-print1.jpg" class="image fit" style="margin:0px auto; width: 35%; display: inline-block;" />
+    </a>
+    <a href="/img/2018-09-28-3D-Printing/fdm-print2.jpg" data-lightbox="fdm" data-title="Owl test print, smoothed and non-smoothed">
+        <img alt="stack" src="/img/2018-09-28-3D-Printing/fdm-print2.jpg" class="image fit" style="margin:0px auto; width: 40%; display: inline-block;" />
+    </a>
+</div>
+<p><br /></p>
+
+<h4 id="sla--dlp-stereolithography--digital-light-processing">SLA &amp; DLP: Stereolithography &amp; Digital Light Processing</h4>
+
+<p><img alt="stack" src="/img/2018-09-28-3D-Printing/sla-dlp.jpeg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>These types of printers work by using either a laser or a projected image to cure a UV-reactive resin.</p>
+
+<p>With <code class="highlighter-rouge">Stereolithography</code> a powerful UV laser traces the object layer by layer, like the FDM printer does, however it does not deposit material itself, rather it cures the resin in the tank at the point where the laser is.
+Because SLA uses a laser that is moved by mirrors, it can have a very high resolution, the disadvantage is that it is as slow as an FDM printer since each layer needs to be traced.</p>
+
+<p>With <code class="highlighter-rouge">Digital Light Processing</code> an UV projector is used, it projects an entire layer at once, this results in a lower printable resolution for the object, but yields a significant speed increase since an entire layer is printed at once, there is no need to trace the entire layer.
+<code class="highlighter-rouge">Masked SLA</code> is a cheaper version of the DLP method where a LCD based photomask is used in front of an UV-LED array instead of an UV based projector.</p>
+
+<p><img alt="stack" src="/img/2018-09-28-3D-Printing/sla-dlp-2.jpeg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p><img alt="stack" src="/img/2018-09-28-3D-Printing/sla-vs-dlp.jpg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>The images above show the distinct difference between these two (three) methods.
+The SLA method has much better quality compared to the DLP or MSLA methods.</p>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2018-09-28-3D-Printing/sla-print1.jpg" data-lightbox="fdm" data-title="Multiple eiffel towers printed at once with DLP/MSLA">
+        <img alt="stack" src="/img/2018-09-28-3D-Printing/sla-print1.jpeg" class="image fit" style="margin:0px auto; width: 35%; display: inline-block;" />
+    </a>
+    <a href="/img/2018-09-28-3D-Printing/sla-print2.jpg" data-lightbox="fdm" data-title="Vase print with SLA">
+        <img alt="stack" src="/img/2018-09-28-3D-Printing/sla-print2.gif" class="image fit" style="margin:0px auto; width: 42%; display: inline-block;" />
+    </a>
+</div>
+<p><br /></p>
+
+<h4 id="dmls--slm-direct-metal-laser-sintering--selective-laser-melting">DMLS &amp; SLM: Direct Metal Laser Sintering &amp; Selective Laser Melting</h4>
+
+<p><img alt="stack" src="/img/2018-09-28-3D-Printing/dmls-slm.png" class="image fit" style="margin:0px auto; max-width: 500px;" /></p>
+
+<p><code class="highlighter-rouge">Direct Metal Laser Sintering</code> and <code class="highlighter-rouge">Selective Laser Melting</code> are two of the more industrial methods of 3D printing. They are used, as the name suggests, to 3D print object in metal.
+The main procedure for both methods is similar.
+A moving arm pushes metal particles across the printing area, after which a powerful laser will trace the current layer of the object being printed.
+This will fuse the particles together and is also where the biggest difference between the two methods exists.
+Once the current layer is finished, the arm moves back and forth again, bringing in a new layer of metal particles.</p>
+
+<p>With DMLS the particles are sintered together but the metal itself has not melted completely, is hasn’t flowed.
+When using SLM instead, the metal particles are actually fully molten and they fuse together much more firmly creating extremely though objects!</p>
+
+<p>Objects created with these methods are free of internal stresses and defects that are common and hard to prevent with other production methods.
+The parts can also be printed as a whole rather than needing assembly of different parts, which further reduces the possibility for failures or errors during assembly.
+This however comes at great cost, literally, since these methods are very expensive and require state of the art equipment!
+Because of this high cost they are used in industries where the fault tolerance is very low, such as aerospace.</p>
+
+<h3 id="different-printing-materials">Different printing materials</h3>
+
+<p>As you might have noticed in the previous section different printing methods require different printing materials.
+In the section below we’ll go more into detail about these materials.</p>
+
+<h4 id="polymersplastics">Polymers/plastics</h4>
+
+<p>FDM and DLP printers require polymer based materials.
+These are plastics or plastic like materials that are easy to print.</p>
+
+<p><em>PLA (PolyLactic Acid):</em></p>
+
+<ul>
+  <li>Biologically degradable</li>
+  <li>Melting (printing) temperature: 170 ⇔ 230 °C</li>
+  <li>Can be used to print medical supplies</li>
+  <li>Many colors available + glow in the dark</li>
+  <li>Not UV stable</li>
+  <li>Cannot withstand high temperatures, do not leave it in the sun inside a car!</li>
+</ul>
+
+<p><em>ABS (Acrylonitrile Butadiene Styrene):</em></p>
+
+<ul>
+  <li>Not biologically degradable</li>
+  <li>Melting (printing) temperature: 220 ⇔ 260 °C</li>
+  <li>Many colors available + translucent</li>
+  <li>UV semi stable</li>
+  <li>Can withstand higher temperatures than PLA!</li>
+  <li>Harder to print than PLA and requires venting since the fumes are toxic!</li>
+</ul>
+
+<p><em>PETG (PolyEthylene Terephthalate Glycol):</em></p>
+
+<ul>
+  <li>Not biologically degradable</li>
+  <li>Combines best of PLA and ABS</li>
+  <li>Melting (printing) temperature: 220 ⇔ 250 °C</li>
+  <li>Many colors available + translucent</li>
+  <li>UV semi stable</li>
+  <li>Can withstand higher temperatures than PLA!</li>
+  <li>No toxic fumes, odorless</li>
+</ul>
+
+<p>These three materials are commonly used in FDM printers. 
+The most and safest to use is PLA, which is fully bio degradable (over a long long time), it also is the easiest material to print with.
+ABS is stronger but not biodegradable and produces toxic fumes when printing, it also requires very precise cooling during printing or the print will warp and the layer will detach, ruining the print.
+PETG is the best of both worlds, it is stronger than PLA and does not produce toxic fumes.
+There are a lot more materials available, oftentimes with very specific properties to make it act more like rubber, be more flexible, glow in the dark,…
+All these different materials require different print settings and some can be quite hard to get right, experimentation is key!
+Some materials also exist that can be used in a medical context, these are however not printed with the average FDM printer since they need to match very high standards for medical use for both internal and external use.</p>
+
+<p><em>DLP materials:</em></p>
+
+<ul>
+  <li>Liquid polymer that undergoes photopolymerization, meaning it is cured/hardened by exposure to UV light.</li>
+  <li>Many different types of resin are available
+    <ul>
+      <li>Biodegradable ⇔ Non biodegradable</li>
+      <li>Flexible ⇔ Sturdy</li>
+      <li>Polymer ⇔ Ceramic</li>
+      <li>Low temp ⇔ High temp</li>
+    </ul>
+  </li>
+  <li>There are also resins available that cure with regular “daylight” and do not require special UV lights to cure the printed object</li>
+</ul>
+
+<h4 id="metal">Metal</h4>
+
+<p><img alt="stack" src="/img/2018-09-28-3D-Printing/3D-print-metal.jpg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>For the moment metal printing is not for the mere mortal, however larger companies/industries are already using 3D printers capable of printing metal.
+Not all methods can print all metal materials, some like SLM are limited in the metals it can ‘print’.</p>
+
+<p>Most printed metals:</p>
+
+<ul>
+  <li>Titanium</li>
+  <li>Aluminium</li>
+  <li>Cobalt chrome</li>
+  <li>Gold</li>
+  <li>Silver</li>
+  <li>Copper</li>
+  <li>Bras (alloy)</li>
+</ul>
+
+<p>Aerospace industries nowadays print both external and internal parts of rockets and their engines, these objects are stronger and have less internal defects and stresses.
+The medical industry can also print patient specific prostheses in titanium allowing for better patient recovery after injuries.</p>
+
+<h4 id="concreteconstruction">Concrete/construction</h4>
+
+<p>In more recent years concrete printing has caught some attention and people are experimenting with it.
+It has some nice advantages:</p>
+
+<ul>
+  <li>Allow cheaper construction of small buildings</li>
+  <li>Faster construction</li>
+  <li>Small area mini homes for the developing world -or- after natural disasters</li>
+</ul>
+
+<p>The video below shows a working concept of a small 3D printed ‘home’, it is constructed in place and can be finished in very little time.</p>
+
+<div class="responsive-video">
+    <iframe width="1164" height="655" src="https://www.youtube.com/embed/GUdnrtnjT5Q" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+</div>
+
+<p><br /></p>
+
+<h4 id="food">FOOD</h4>
+
+<p><img alt="stack" src="/img/2018-09-28-3D-Printing/3D-print-food.jpg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>Food printing has been a hype for a long time.
+Culinary experts have been experimenting with the concept, but also companies like NASA for astronauts.</p>
+
+<p>Simple items like chocolate and dough can already be 3D printed, based on the FDM method, the edible object is printed layer by layer.
+There are ‘robots’ that can print more complex items, but these are not actual 3D printers and more automated assembly machines, the boundary between 3D printing and assembly can become a bit blurry.
+At this point in time it is not yet possible to print entire meals from raw base ingredients.
+This will no doubt be developed further as time progresses.</p>
+
+<h2 id="getting-started-with-3d-printing">Getting started with 3D printing</h2>
+
+<p><img alt="stack" src="/img/2018-09-28-3D-Printing/3D-print-fail.jpg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>Getting started with 3D printing is not easy, it can be very daunting.
+There are a lot of things you need to take into account</p>
+
+<p>Since it is still relatively expensive, you want to ask yourself these questions:</p>
+
+<ul>
+  <li>What type of 3D printing do I want?</li>
+  <li>What is the best (price/quality) printer available?</li>
+  <li>Will I use it enough to justify the purchase?</li>
+  <li>You could also just order a printed model online!</li>
+</ul>
+
+<p>Getting things right is hard:</p>
+
+<ul>
+  <li>Printer calibration</li>
+  <li>Model slicing &amp; print settings</li>
+</ul>
+
+<p>⇒ 3D printing remains an intensive trial and error process!
+Only begin if you are willing to invest the necessary time into it.
+If at first you don’t succeed, try again and again and again and again!</p>
+
+<p>Thankfully the online hobby community is very large and generally very helpful.
+You will need to model your object or download it from a ‘makers’ website.
+You will need to slice your model with settings for your specific printer, and adjust these settings based on the quality and speed you want.</p>
+
+<p><em>Online resources:</em></p>
+
+<ul>
+  <li>Youtube channels:
+    <ul>
+      <li><a href="https://www.youtube.com/user/TheMakersMuse">Maker’s Muse</a></li>
+      <li><a href="https://www.youtube.com/channel/UC_7aK9PpYTqt08ERh1MewlQ">3D Printing Nerd</a></li>
+      <li><a href="https://www.youtube.com/channel/UCVc6AHfGw9b2zOE_ZGfmsnw">Make Anything</a></li>
+    </ul>
+  </li>
+  <li>Forums:
+    <ul>
+      <li><a href="https://www.3dhubs.com/">3D Hubs</a></li>
+      <li><a href="https://www.reddit.com/r/3Dprinting/">Reddit 3D printing</a></li>
+    </ul>
+
+    <p>These YouTube channels and forums are an invaluable resource when getting into 3D printing, they contain loads of information, do’s and don’ts.
+By watching videos and reading articles you can prevent mistakes gaining insights faster in how 3D printing works and what is possible.</p>
+  </li>
+</ul>
+
+<p><em>Maker websites:</em></p>
+
+<ul>
+  <li><a href="https://www.thingiverse.com/">Thingiverse</a></li>
+  <li><a href="https://www.tinkercad.com/#/">Tinkercad</a></li>
+  <li><a href="https://www.myminifactory.com/">MyMiniFactory</a></li>
+</ul>
+
+<p>These websites provide vast libraries of models and some even offer an online modeling tool.
+Before diving deep into your modeling software check if someone else had the same idea and created the object you want.
+⇒ good artists copy, great artists steal - Picasso</p>
+
+<p><em>Modeling software:</em></p>
+
+<ul>
+  <li>Modeling software:
+    <ul>
+      <li><a href="https://www.autodesk.be/nl/products/3ds-max/overview">3DS Max</a></li>
+      <li><a href="https://www.autodesk.be/nl/products/maya/overview">Maya</a></li>
+      <li><a href="https://www.blender.org/">Blender</a></li>
+    </ul>
+  </li>
+  <li>CAD software:
+    <ul>
+      <li><a href="https://www.autodesk.com/products/fusion-360/overview">Fusion 360</a></li>
+      <li><a href="https://www.autodesk.be/nl/products/autocad/overview">Autocad</a></li>
+      <li><a href="https://www.autodesk.be/nl/products/inventor/overview">Inventor</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>These software suites let you create and export models.
+All of these programs are easy to pickup (except for the CAD software) but are extremely hard to master!
+There are also many alternatives available, but these are the most common ones.</p>
+
+<p><em>Slicing software:</em></p>
+
+<ul>
+  <li><a href="https://ultimaker.com/en/products/ultimaker-cura-software">Ultimaker Cura</a></li>
+  <li><a href="http://slic3r.org/">Slic3r</a></li>
+  <li><a href="https://www.simplify3d.com/">Simplify 3D</a></li>
+</ul>
+
+<p>These software suites let you convert your 3D models into <code class="highlighter-rouge">GCODE</code>.
+<code class="highlighter-rouge">GCODE</code> is the ‘language’ that 3D printers use to print an object.
+It contains a set of instructions for stepper motors, extruders, fans and other peripherals that make up a 3D printer.
+This code is generated from the 3D model and is layer based hence the name ‘slicer’, since it slices the model into layers and translates this to the <code class="highlighter-rouge">GCODE</code> required to print.
+The slicer software also takes into account overhangs and infill.</p>
+
+<p><em>Overhangs</em> are parts of the object that have no support beneath them, they float, but since material cannot just float in midair supports are generated that are removed (by the user) when the print is finished.</p>
+
+<p><em>Infill</em> is a way to speed up printing, the inside of and object would normally be 100% filled with material, this is slow and uses a lot of print material.
+By setting the infill percentage a structure is generated inside sealed of parts of the model that contains a lot less material while maintaining most of its strength.
+By playing with this setting a lot of time can be saved!</p>
+
+<p><img alt="stack" src="/img/2018-09-28-3D-Printing/jworks-sliced.jpg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<h2 id="the-future">The future</h2>
+
+<p>The future is now!</p>
+
+<p>3D printers are advancing at an extremely rapid pace, new printer models arrive on the market almost weekly.
+Chinese firms are producing very high quality printers and production quality is going up.</p>
+
+<p>The future will bring a lot more:</p>
+
+<ul>
+  <li>Better printers</li>
+  <li>Finer resolution</li>
+  <li>Lower cost</li>
+  <li>Lower maintenance</li>
+  <li>More and more versatile materials</li>
+  <li>A 3D printer in every home?</li>
+  <li>Repair stuff yourself ⇔ Throw away stuff that is broken, built to break…</li>
+</ul>
+
+<h2 id="resources">Resources</h2>
+
+<p>Getting into 3D printing requires a lot of research, A LOT!
+Since the technology is advancing so fast I have not listed any specific printers, they are reviewed on youtube and forums where experienced members of the community test them and give their verdict on them.</p>
+
+<p>Printing methods &amp; materials:</p>
+
+<ul>
+  <li><a href="https://theorthocosmos.com/laser-sla-vs-dlp-vs-masked-sla-3d-printing-technology-compared/">SLA vs DLP vs MSLA</a></li>
+  <li><a href="https://www.element.com/nucleus/2016/06/29/dmls-vs-slm-3d-printing-for-metal-manufacturing">DMLS vs SLM</a></li>
+  <li><a href="https://i.materialise.com/en/3d-printing-materials/plastics">Types of FDM polymers/plastics</a></li>
+  <li><a href="https://i.materialise.com/blog/en/3d-printed-resin-overview/">Types of DLP resins</a></li>
+</ul>
+
+<p>Online resources:</p>
+
+<ul>
+  <li><a href="https://www.youtube.com/user/TheMakersMuse">Maker’s Muse</a></li>
+  <li><a href="https://www.youtube.com/channel/UC_7aK9PpYTqt08ERh1MewlQ">3D Printing Nerd</a></li>
+  <li><a href="https://www.youtube.com/channel/UCVc6AHfGw9b2zOE_ZGfmsnw">Make Anything</a></li>
+  <li><a href="https://www.3dhubs.com/">3D Hubs</a></li>
+  <li><a href="https://www.reddit.com/r/3Dprinting/">Reddit 3D printing</a></li>
+</ul>
+
+<p>Maker hubs:</p>
+
+<ul>
+  <li><a href="https://www.thingiverse.com/">Thingiverse</a></li>
+  <li><a href="https://www.tinkercad.com/#/">Tinkercad</a></li>
+  <li><a href="https://www.myminifactory.com/">MyMiniFactory</a></li>
+</ul>
+
+<p>Modeling software:</p>
+
+<ul>
+  <li><a href="https://www.autodesk.be/nl/products/3ds-max/overview">3DS Max</a></li>
+  <li><a href="https://www.autodesk.be/nl/products/maya/overview">Maya</a></li>
+  <li><a href="https://www.blender.org/">Blender</a></li>
+  <li><a href="https://www.autodesk.com/products/fusion-360/overview">Fusion 360</a></li>
+  <li><a href="https://www.autodesk.be/nl/products/autocad/overview">Autocad</a></li>
+  <li><a href="https://www.autodesk.be/nl/products/inventor/overview">Inventor</a></li>
+</ul>
+
+<p>Slicers:</p>
+
+<ul>
+  <li><a href="https://ultimaker.com/en/products/ultimaker-cura-software">Ultimaker Cura</a></li>
+  <li><a href="http://slic3r.org/">Slic3r</a></li>
+  <li><a href="https://www.simplify3d.com/">Simplify 3D</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/iot/2018/09/28/3D-Printing-Intro.html&title=3D Printing: An introduction&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=3D Printing: An introduction&url=https://ordina-jworks.github.io/iot/2018/09/28/3D-Printing-Intro.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/iot/2018/09/28/3D-Printing-Intro.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/kevin-van-den-abeele/" class="image spotlight-image">
+            <img src="/img/author/kevin-van-den-abeele.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Kevin is a Principal Java consultant at Ordina, passionate about all Java and JavaScript related technologies. In his roll as Competence Leader Internet of Things he uses his knowledge of building custom software to build innovative solutions using new technologies. Currently focussing on the internet of things and sensor networks using LoRa. Loves to tinker with gadgets.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2018-09-28-3D-Printing/banner.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/iot/2018/09/28/3D-Printing-Intro.html";
+        this.page.identifier = "/iot/2018/09/28/3D-Printing-Intro.html";
+        this.page.title = "3D Printing: An introduction";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
