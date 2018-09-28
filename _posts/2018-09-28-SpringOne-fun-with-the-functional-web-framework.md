@@ -13,7 +13,7 @@ comments: true
 ### by [Arjen Poutsma](https://twitter.com/poutsma){:target="_blank"}
 
 This talk is a follow-up of a talk that Arjen Poutsma has been giving a few years now, called 'New in Spring 5: Functional Web Framework'. 
-In the talk he goes more in depth in some of the features that are offered by the framework.
+In his new talk he goes more in depth in some of the features that are offered by the framework.
 
 # What is it?
 
