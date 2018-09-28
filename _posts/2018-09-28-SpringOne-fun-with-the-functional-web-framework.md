@@ -12,22 +12,22 @@ comments: true
 
 ### by [Arjen Poutsma](https://twitter.com/poutsma){:target="_blank"}
 
-This talk is a follow up of a talk that Arjen Poutsma has been giving a few years now, called 'New in Spring 5: Functional Web Framework'. 
+This talk is a follow-up of a talk that Arjen Poutsma has been giving a few years now, called 'New in Spring 5: Functional Web Framework'. 
 In the talk he goes more in depth in some of the features that are offered by the framework.
 
 # What is it?
 
 The Spring functional web framework (called WebFlux.fn) is an alternative to the annotational style web framework, Web MVC.
-It was introduced in Spring 5.0 and for spring 5.1 they did some refinements in the api after feedback from developers.
+It was introduced in Spring 5.0 and for spring 5.1 they did some refinements in the API after feedback from developers.
 
 # Design goals
 
 The WebFlux.fn framework had three main goals.
 
 The first one was to create a web framework with a functional style.
-By this they mean that they wanted to leverage the new functional concepts introduced in Java 8, like Function and Stream.
+By this they mean that they wanted to leverage the new functional concepts introduced in Java 8, like `Function` and `Stream`.
 
-The second goal was to make the framework fully reactive by using the functionality from Reactor.
+The second goal was to make the framework fully reactive by using the functionality from [Reactor](https://projectreactor.io){:target="_blank"}.
 
 The third goal was to act more like a library and less like a framework.
 The reason for this is that many people don't like the "automagic" things the Web MVC (annotational style) framework does.
@@ -41,14 +41,14 @@ This is also useful for when you want to use GraalVM.
 
 ## How does it work
 There are three main concepts in the WebFlux.fn framework:
-* The HandlerFunction
-* The RouterFunction
-* The HandlerFilterFunction
+* The `HandlerFunction`
+* The `RouterFunction`
+* The `HandlerFilterFunction`
 
 We'll discuss these in the following sections.
 
 ### The HandlerFunction
-Is a function that maps a ServerRequest to a Mono<ServerResponse>.
+Is a function that maps a `ServerRequest` to a `Mono<ServerResponse>`.
 
 ``` java
 public Mono<ServerResponse> showPet(ServerRequest request) {
@@ -67,11 +67,11 @@ So if we want a path variable, body or anything else from the HTTP request, we h
 Spring does not inject this information as method parameters in WebFlux.fn.
 
 The second difference is that the object we return has to be a `Mono<ServerResponse>`.
-In Web MVC the return type could be a lot of different things like any type of Object, a ResponseEntity, etc.
+In Web MVC the return type could be a lot of different things like any type of `Object`, a `ResponseEntity`, etc.
 
 
 ### The RouterFunction
-Is a function that takes a ServerRequest and returns a HandlerFunction using a RequestPredicate.
+Is a function that takes a `ServerRequest` and returns a `HandlerFunction` using a `RequestPredicate`.
 
 ``` java 
 @Bean
@@ -94,9 +94,9 @@ The order in which you define these router functions matters.
 The first router function's  handler that matches your HTTP request will be the one that is executed.
 This makes it a lot clearer when you read the router functions to know which one will be executed, it's the first one that you define and matches.
 
-An advantage of the RouterFunction over the annotational style is that you can map multiple endpoints to the same HandlerFunction.
-This is not possible in Web MVC becuase you can only put one @RequestMapping on a controller method.
-In the WebFlux.fn framework however, you can refer to one HandlerFunction in as many RouterFunction matchers as you want.
+An advantage of the `RouterFunction` over the annotational style is that you can map multiple endpoints to the same `HandlerFunction`.
+This is not possible in Web MVC because you can only put one @RequestMapping on a controller method.
+In the WebFlux.fn framework however, you can refer to one `HandlerFunction` in as many `RouterFunction` matchers as you want.
 
 #### Improvements in the RouterFunction spring framework 5.1:
 
@@ -108,20 +108,18 @@ In the WebFlux.fn framework however, you can refer to one HandlerFunction in as 
     route()
       .GET("/people"), personHandler::getPeople)
     ```
-2. And a new pattern matcher to resolve which HandlerFunction to call, which is a lot faster than the previous one.
+2. And a new pattern matcher to resolve which `HandlerFunction` to call, which is a lot faster than the previous one.
 
 #### RequestPredicates
-Is a function that maps a ServerRequest to a boolean.
+Is a function that maps a `ServerRequest` to a `boolean`.
 
-This is used to match your HandlerFunction to a HTTP request.
-
+This is used to match your `HandlerFunction` to a HTTP request.
 Spring provides a lot of default predicates for paths, accept headers, etc.
 But you can also create your own very easily, with lambdas, methods, or classes.
 
 ``` java
 // lambda
 route().GET("/people", serverRequest -> serverRequest.path().endsWith(".json"), personHandler::getPeople)
-
 
 // method
 route().GET("/people", this::pathEndsWithJson, personHandler::getPeople)
@@ -140,12 +138,11 @@ public class PathEndsWithJsonPredicate implements RequestPredicate {
 ```
 
 #### nested RouterFunction
-which is similar to the class level @RequestMapping , but a lot more powerful.
+Similar to the class level `@RequestMapping`, but a lot more powerful.
 
 ``` java
 @Bean
 public RouterFunction<ServerResponse> petsRouter(PetJsonHandler petJsonHandler, PetHtmlHandler petHtmlHandler) {
-
     RouterFunction<ServerResponse> html = route()
             .nest(accept(TEXT_HTML), builder -> { builder
                 .GET("/{id}", petHtmlHandler::renderPet)
@@ -184,12 +181,11 @@ public class PetHtmlController {
 ```
 
 ### The HandlerFilterFunction
-Is a function that takes a ServerRequest and a HandlerFunction and returns a ServerResponse.
+Is a function that takes a `ServerRequest` and a `HandlerFunction` and returns a `ServerResponse`.
 
 ``` java
 @Bean
 RouterFunction<ServerResponse> mainRouter(PetHandler petHandler, OwnerHandler ownerHandler) {
-
     RouterFunction<ServerResponse> petsRouter = petsRouter(petHandler);
     RouterFunction<ServerResponse> ownerRouter = ownerRouter(ownerHandler);
 
@@ -206,14 +202,14 @@ public Mono<ServerResponse> performanceLogging(ServerRequest request, HandlerFun
 }
 ```
 
-The HandlerFilterFunction is more flexible than Servlet filters because you can put a HandlerFilterFunction on a RouterFunction.
+The `HandlerFilterFunction` is more flexible than Servlet filters because you can put a `HandlerFilterFunction` on a `RouterFunction`.
 This means that you can apply this filter to a subset of your routes instead of on all routes.
 
 It can be used for example for security, logging, timing, etc.
 
 ### Future evolutions
 
-Currently the functional web framework does not work with Servlets but only with Spring's self made ServerRequest and ServerResponse.
+Currently the functional web framework does not work with Servlets but only with Spring's self made `ServerRequest` and `ServerResponse`.
 They are however looking at creating a functional web framework that works with Servlets and without Reactor.
 
 ## Conclusion
@@ -221,7 +217,12 @@ The functional web framework is a lot better
 * in what properties of the HTTP request you can match on to choose a controller function.
 * in reducing duplication of your matching logic
 * in providing a clean way to separate controller logic and routing logic
-* in explicitness of routing so you can easily see how your http request will be bound to a controller method
+* in explicitness of routing so you can easily see how your HTTP request will be bound to a controller method
 
 It is a very good alternative to the more common annotational style web framework Web MVC. 
 The advantages mentioned definitely make it worth trying it out for yourself!
+
+#References
+* [Code from the talk](https://github.com/poutsma/fun-with-functional){:target="_blank"}
+* [Documentation](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html){:target="_blank"}
+* [Documentation](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html){:target="_blank"}
