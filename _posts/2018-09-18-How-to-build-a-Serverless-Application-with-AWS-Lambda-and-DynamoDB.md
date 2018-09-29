@@ -9,39 +9,46 @@ comments: true
 ---
 
 # Table of content
-1. [Serverless: What & Why](#serverless:-what-&-why)
+1. [Introduction](#introduction)
+2. [Serverless: What & Why](#serverless:-what-&-why)
 3. [What we will build](#what-we-will-build)
 4. [Prerequisites](#prerequisites)
-5. [DynamoDB](#dynamodb)
-5. [Lambda: scan DynamoDB](#lambda:-scan-dynamodb)
-5. [API Gateway: Access the scan Lambda](#api-gateway:-access-the-scan-lambda)
-5. [Lambda: Write to DynamoDB](#lambda:-write-to-dynamodb)
-5. [API Gateway: Access the write Lambda](#api-gateway:-access-the-write-lambda)
-5. [What's next?](#what's-next?)
-5. [Extra resources](#extra-resources)
+6. [DynamoDB](#dynamodb)
+7. [Lambda: scan DynamoDB](#lambda:-scan-dynamodb)
+8. [API Gateway: Access the scan Lambda](#api-gateway:-access-the-scan-lambda)
+9. [Lambda: Write to DynamoDB](#lambda:-write-to-dynamodb)
+10. [API Gateway: Access the write Lambda](#api-gateway:-access-the-write-lambda)
+11. [What's next?](#what's-next?)
+12. [Extra resources](#extra-resources)
 
+# Introduction
+Ready to create a serverless application?  
+New to AWS and curious to learn more?  
+Read on and learn more about the AWS services by building a serverless app!
+
+<div style="text-align: center;">
+  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Introduction-Components.png" width="100%" height="100%">
+</div>
 
 # Serverless: What & Why
 > A serverless architecture is a way to build and run your applications without having to think about infrastructure.
-You no longer have to maintain servers to run your applications, databases, and storage systems.  
+You no longer have to maintain servers to run your applications, databases and storage systems.  
 
-And most of all:  
-**It is so easy!**  
-![boom-sparkles](/img/2018-09-18-How-to-Build-a-Serverless-Application/Boom-Sparkles.png)
+And most of all, **it is so easy!**  ![boom-sparkles](/img/2018-09-18-How-to-Build-a-Serverless-Application/Boom-Sparkles.png)
 
 Yes, once you get the hang of it, it really is mind-blowingly easy.
 However, first you need to know the basic infrastructure to set up a serverless application.
 Let's do this!
 
 # What we will build
-Join me in building a Serverless application in which users can give great coding tips to eachother. 
+Join me in building a serverless application in which users can give great coding tips to eachother. 
 To keep it as simple as possible we will build everything through the **AWS Console** and focus on the infrastructure.
 No need to deploy any code from your computer to AWS.
 
 ## Demo
-I could show you a frontend that uses our Serverless backend to give and get coding tips.
+I could show you a frontend that uses our serverless backend to give and get coding tips.
 But that would be an extra layer between you and the our serverless application.
-Here I am triggering the app with **Curl**.
+Here, I am triggering the app with **Curl**.
 
 Post a new Coding Tip to the database:
 ```bash
@@ -54,7 +61,7 @@ curl -X POST \
     "category": "General"
   }'
 ```
-A new items was added to the CodingTips database.
+A new item was added to the CodingTips database.
 I added a few already and can retrieve them too.
 View all the Coding Tips that are currently in the database:
 ```bash
@@ -63,6 +70,8 @@ curl -X GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
 <div style="text-align: center;">
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Check_Item_Is_Added_To_Table.png" width="60%" height="60%">
 </div>
+
+You could easily put a frontend over it, but that's not the point here.
 
 ## Architecture
 <div style="text-align: center;">
@@ -75,7 +84,7 @@ One to **GET** the coding tip items from the database and one to **POST** a new 
 The user can access these Lambda Functions through an api provided by the AWS **API Gateway** service.
 This Gateway will redirect to the right Lambda Function based on the HTTP method (POST or GET).
 Both Lambda Functions are connected to **CloudWatch** where you can view the logs of your functions.
-**AWS IAM** is used to give the services the right permissions to connect to eachother.
+**AWS IAM** is used to give the services the right permissions to connect to each other.
 
 
 # Prerequisites
@@ -114,7 +123,7 @@ Awesome!
 ## Add elements to CodingTips table
 Manually add some elements to the CodingTips table.
 Go to the CodingTips table, open the **Items** tab and click **Create item**.
-Add a couple random items to the table as shown in the image below.
+Add a couple of random items to the table as shown in the image below.
 Notice that **date** is in **milliseconds**.
 These are the milliseconds that have past since the Unix Epoch 1970-01-01.
 
@@ -163,7 +172,8 @@ This will open the designer view of your Lambda Function.
 </div>
 
 One thing is missing here.
-The Lambda Function has the authority to send its logs to CloudWatch, cause this is given by the role we just gave it.
+The Lambda Function has the authority to send its logs to CloudWatch.
+This authority is given by the role we just gave it.
 However, it is mentioned nowhere that it has the right to access the CodingTips table.
 We should arrange this too.
 
@@ -195,8 +205,8 @@ You can find this in the **Overview** tab of your table which we showed above.
 
 Click **Review policy** and name it Lambda-DynamoDB-CodingTips-Access.
 Hit **Create policy**.
-You now attached a new policy the existing **lambda_dynamodb_codingtips** role.
-The role summary looks like:
+You now attached a new policy to the existing **lambda_dynamodb_codingtips** role.
+The role summary looks like this:
 
 <div style="text-align: center;">
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Role-lambda_dynamodb_codingtips_access.png" width="100%">
@@ -239,7 +249,7 @@ exports.handler = function(event, context, callback){
 ```
 
 **Save** the Lambda Function to persist the changes.  
-What happens in this Lambda Function:
+
 * The handler function is the function where the Lambda execution starts when the Lambda is triggered.
 * The event parameter contains the data from the event that triggered the function.
 * The `scanningParameters` are used to configure the scan of the table.
@@ -247,7 +257,7 @@ What happens in this Lambda Function:
 * `docClient.scan(scanningParameters, function(err,data)` executes the scan and returns either the result or the error that occurred.
 
 ## Test write-Lambda
-Allright! Let's test this thing out..
+All right! Let's test this thing..
 On the Lambda Function configuration page you see a dropdown and test button in the upper right corner.
 Click the dropdown and configure a new test event.
 I called mine 'Test' and added an empty test event.
@@ -304,7 +314,7 @@ In this case that is Codingtips_Scan.
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-GET-Configuration.png" width="100%">
 </div>
 
-Only one thing left: Select the api and under **Actions** click **Deploy API**. 
+Only one thing left: select the api and under **Actions** click **Deploy API**. 
 You will be asked to provide a name for the **stage**. 
 Name it `default`.
 
@@ -423,9 +433,9 @@ Save the Lambda Function to persist the changes.
 What happens in this Lambda Function:
 * The `event` parameter of the `handler` function contains the data from the event that triggered the function.
 * The `params` are used to configure the scan of the table.
-* The `Item` object contains the data that has to be put in the table.
-* The `Item` not only contains the **Date** and **Author**. 
-You can also pass other attributes like the `Tip` itself and `Category`.
+* The `Item` object contains the data that has to be put into the table.
+* The `Item` not only contains the **Date** and **Author**, but also other attributes like the `Tip` itself and `Category`..
+That's allowed because it is a NoSQL database. 
 The `MonthAtrribute`, `YearAttribute` and `YearMonthAttribute` are added automatically.
 * `docClient.put(params, function(err,data)` executes the write and returns either the result or the error that occurred.
 
@@ -440,10 +450,10 @@ Configure a new test event called **test** and add the following JSON attributes
     }
 ```
 
-Save it test the lambda by hitting the test button.
+Save it and test the lambda by hitting the test button.
 
 **Execution result: succeeded**? 
-Go to the CodingTips table and you will see a new item that was added in your table.
+Go to the CodingTips table and you will see a new item that was added into your table.
 
 <div style="text-align: center;">
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Input_Item_Via_Write_Lambda.png" width="100%">
@@ -467,7 +477,7 @@ The name of that Lambda function is **CodingTips_Write**, which we just created.
 
 We want to pass a JSON object to this API.
 The API in turn has to pass on the JSON to the Lambda.
-To enable this click on **Integration Request** and under Mapping Templates check **When there are no templates defined (recommended)**
+To enable this, click on **Integration Request** and under Mapping Templates check **When there are no templates defined (recommended)**
 
 <div style="text-align: center;">
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-POST-Method_Execution.png" width="100%">
@@ -523,7 +533,7 @@ curl -X GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
 
 ## Common errors
 * **Missing Authentication Token**:
-    * Check if the **Mapping Template** under the Integration Request of your API Gateway is correct
+    * Check whether the **Mapping Template** under the Integration Request of your API Gateway is correct
     * Check the URL you are trying to invoke.
     * Made changes to the API Gateway? Make sure to redeploy the API.
 * **Lambda Exceptions**:
