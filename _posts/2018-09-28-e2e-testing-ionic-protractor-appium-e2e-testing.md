@@ -8,6 +8,8 @@ category: Ionic
 comments: true
 ---
 
+Sample application: https://github.com/ryandegruyter/ordina-ionic-appium-protractor
+
 # Introduction
 
 Many articles related to E2E testing Cordova/Ionic applications are about applications which only run in the browser. 
@@ -481,3 +483,5 @@ Setting up a local Appium server also takes a lot of setup and configuration, bu
 But still, I believe Appium offers a lot of value because we can write UI tests both for Android and iOS using a single programming language, And It would definitely help with Regression testing.
 
 If I had the time and budget to integrate it I would add it to our tech stack.
+
+https://github.com/ryandegruyter/ordina-ionic-appium-protractor
