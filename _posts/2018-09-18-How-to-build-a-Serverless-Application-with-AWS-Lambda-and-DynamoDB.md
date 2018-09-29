@@ -314,7 +314,7 @@ In this case that is Codingtips_Scan.
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-GET-Configuration.png" width="100%">
 </div>
 
-Only one thing left: select the api and under **Actions** click **Deploy API**. 
+Only one thing left: select the API and under **Actions** click **Deploy API**. 
 You will be asked to provide a name for the **stage**. 
 Name it `default`.
 
