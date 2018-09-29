@@ -10,15 +10,15 @@ comments: true
 
 # Table of content
 1. [Introduction](#introduction)
-2. [Serverless: What & Why](#serverless:-what-&-why)
+2. [Serverless: What & Why](#serverless-what--why)
 3. [What we will build](#what-we-will-build)
 4. [Prerequisites](#prerequisites)
 6. [DynamoDB](#dynamodb)
-7. [Lambda: scan DynamoDB](#lambda:-scan-dynamodb)
-8. [API Gateway: Access the scan Lambda](#api-gateway:-access-the-scan-lambda)
-9. [Lambda: Write to DynamoDB](#lambda:-write-to-dynamodb)
-10. [API Gateway: Access the write Lambda](#api-gateway:-access-the-write-lambda)
-11. [What's next?](#what's-next?)
+7. [Lambda: scan DynamoDB](#lambda-scan-dynamodb)
+8. [API Gateway: Access the scan Lambda](#api-gateway-access-the-scan-lambda)
+9. [Lambda: Write to DynamoDB](#lambda-write-to-dynamodb)
+10. [API Gateway: Access the write Lambda](#api-gateway-access-the-write-lambda)
+11. [What is next?](#what-is-next)
 12. [Extra resources](#extra-resources)
 
 # Introduction
@@ -286,9 +286,9 @@ Under **Services** navigate to **API Gateway**.
 With a few clicks in the AWS Management Console, you can create an API that acts as a “front door” for applications -- from AWS docs: <a target="_blank" href="https://aws.amazon.com/api-gateway/">https://aws.amazon.com/api-gateway</a>
 
 Basically this is the Service you use to create all of your API's.  
-* Click **Create api** and name your api **CodingTips**
+* Click **Create API** and name your api **CodingTips**
 * Add a description if you like
-* Leave the **Endpoint Type** to regional and **create API**
+* Leave the **Endpoint Type** to regional and **Create API**
 
 <div style="text-align: center;">
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-GET-Create_API.png" width="100%">
@@ -361,7 +361,7 @@ Did you know:
     Under **Services** go to **CloudWatch**.
     In the **Logs** tab access the **Log Group** `/aws/lambda/CodingTips_Scan` to view the logs of the Lambda.
 * Trouble with **API Gateway**:
-    * [Enable API Gateway logging](https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html)
+    * [Enable API Gateway logging](https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html){:target="_blank" rel="noopener noreferrer"}
 
 # Lambda: Write to DynamoDB
 Users should be able to **POST** new items to the table.
@@ -541,9 +541,9 @@ curl -X GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
     Under **Services** go to **CloudWatch**.
     In the **Logs** tab access the **Log Group** `/aws/lambda/CodingTips_Write` to view the logs of the Lambda.
 * Trouble with **API Gateway**:
-    * [Enable API Gateway logging](https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html)
+    * [Enable API Gateway logging](https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html){:target="_blank" rel="noopener noreferrer"}
 
-# What's next?
+# What is next
 Some suggestions to keep you busy:
 * Query DynamoDB instead of scanning
 * Create GSI (Global Secondary Index) to query and sort
@@ -553,11 +553,11 @@ Some suggestions to keep you busy:
 * Run locally with **SAM Local**
 
 # Extra resources
-* AWS Lambda: [AWS Lambda Introduction](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
-* AWS DynamoDB: [AWS DynamoDB Introduction](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
-* AWS API Gateway: [AWS API Gateway](https://aws.amazon.com/api-gateway/">https://aws.amazon.com/api-gateway)
-* AWS IAM: [AWS IAM Introduction](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
-* AWS CloudWatch: [Getting started with AWS CloudWatch](https://aws.amazon.com/cloudwatch/getting-started/)
-* Using the DynamoDB docClient: [AWS DocClient Example](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-document-client.html)
+* AWS Lambda: [AWS Lambda Introduction](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html){:target="_blank" rel="noopener noreferrer"}
+* AWS DynamoDB: [AWS DynamoDB Introduction](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html){:target="_blank" rel="noopener noreferrer"}
+* AWS API Gateway: [AWS API Gateway](https://aws.amazon.com/api-gateway){:target="_blank" rel="noopener noreferrer"}
+* AWS IAM: [AWS IAM Introduction](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html){:target="_blank" rel="noopener noreferrer"}
+* AWS CloudWatch: [Getting started with AWS CloudWatch](https://aws.amazon.com/cloudwatch/getting-started/){:target="_blank" rel="noopener noreferrer"}
+* Using the DynamoDB docClient: [AWS DocClient Example](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-document-client.html){:target="_blank" rel="noopener noreferrer"}
 
 
