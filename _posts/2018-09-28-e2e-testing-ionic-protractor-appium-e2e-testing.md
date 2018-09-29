@@ -28,8 +28,7 @@ Thanks to a few technologies, we can script a bot that can perform most user int
 
 The most popular solution for automated E2E tests is called Selenium which is based on the [WebDriver protocol](https://w3c.github.io/webdriver/).
 
-While Selenium is a great solution, we will be using [Appium](http://appium.io/).
-
+While Selenium is a great solution for browsers, there is a better solution for native mobile apps called [Appium](http://appium.io/).
 # Appium
 
 Appium is a tool for automating mobile applications and writing cross-platform UI tests. It is very similar to Selenium. The difference is that Selenium is a tool for automating browsers and web applications, whereas Appium is a tool for automating Native / Hybrid mobile applications.
@@ -99,6 +98,10 @@ https://github.com/angular/webdriver-manager
 
 webdriver-manager is officially supported by Angular and works well together with Protractor, the official E2E testing framework for Angular applications. Ionic up untill version 3.x is built on top of Angular, from version 4 and on Ionic has decoupled from the Angular framework and recreated all of their components using [StencilJS](https://stenciljs.com/).
 
+### NPM 
+
+We will be using this package to start up our appium server.
+
 # Language
 
 Decide in which language you want to write your tests in. You need to have a client library that can send MJSONWP / JSONWP HTTP Requests to the Appium server.
@@ -131,19 +134,224 @@ Next, generate the Ionic Cordova application using the Ionic CLI.
 ```shell
 ionic start superApp super --type=ionic-angular --cordova
 ionic cordova platform add android
+ionic cordova platform add ios
 ```
 
-Test if you can launch and run the application by entering the following command
+Test if you can build the application by entering the following commands
+
+### Android
+
+``` shell
+ionic cordova build android
+```
+
+### iOS
+
+Note: You will have to open your ios project in xcode first 
+to configure your code signing identity and provision profile. 
+
+``` shell
+ionic cordova build ios
+```
+
+If you were able to successfully run these commands, we can start E2E testing our application on both iOS and Android.
+
+Before continuing, Make a folder **/e2e** in the root of your project. 
+
+## Configure the E2E testing tools in your Ionic project
+
+### Appium
+
+1. Install Appium as a local dependency
+2. Add the correct chrome driver
+3. Create an NPM task in your package.json
+4. Boot up the appium service
+
+#### 1. Install Appium as a local dependency
+
+Simply run the following command to add Appium as a local dependency, 
+this will allow us to work with Appium using NPM scripts.
 
 ```shell
-ionic cordova run android
+npm i -D appium
 ```
 
-If you were able to run the application, we can start E2E testing our application.
+#### 2. Add the correct chrome driver
 
-## Configure E2E testing tools in your Ionic project
+To be able and run your tests on Android devices, 
+you need to match the correct chrome driver with the Chrome version running on the Android test devices.
 
-Writing UI tests
+[Here is an overview of all the chrome drivers and their respective Chrome versions](https://appium.readthedocs.io/en/stable/en/writing-running-appium/web/chromedriver/).
+
+To download a chrome driver, go to the [Chrome Driver Downloads page](http://chromedriver.chromium.org/downloads).
+
+Once you have selected your chrome driver, download it and put in the 
+
+**/e2e** folder.
+
+#### 3. Create an NPM task in your package.json
+
+Before running Appium, you can provide the downloaded chrome driver as a cli argument:
+
+```shell
+"appium": "appium --chromedriver-executable e2e/chromedriver",
+```
+
+#### 4. Start your Appium server
+
+Now you should have everything configured correctly to start your Appium server.
+Simply run:
+
+```shell
+npm run appium
+```
+
+### Protractor
+
+Protractor will be our test runner and testing framework. 
+[Visit their website](https://www.protractortest.org/#/) for more information on Protractor.
+
+1. Install protractor as a local NPM dependency
+2. Configure typescript configs
+2. Create your protractor config
+3. Create NPM script for running your e2e tests
+
+#### 1. Install Protractor as a local NPM dependency
+
+Install the test runner with the following command:
+
+```shell
+npm install -D protractor
+```
+
+#### 1. Configure Typescript
+
+We require a few extra tools to be able run and write our tests in Typescript. 
+
+```shell
+npm install -D ts-node @types/jasmine @types/node
+```
+
+Next, in your **/e2e** folder, Create a **tsconfig.json** file with the following configuration:
+
+```json
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es2016",
+      "esnext.asynciterable"
+    ],
+    "outDir": ".",
+    "module": "commonjs",
+    "target": "es5",
+    "types": [
+      "jasmine",
+      "node"
+    ]
+  }
+}
+```
+
+This will be our tsconfig for our e2e test scripts.
+
+It's also a good idea to write your configuration files in Typescript.
+For our protractor configuration we will use a different typescript configuration file.
+
+In your **/e2e** folder, create a file called
+
+**/e2e/protractor.tsconfig.json**
+
+This configuration file will extend the one we create earlier, 
+we just want to change the include and exclude parameters.
+
+```json
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "**/*.config.ts"
+  ],
+  "exclude": [
+    "./test"
+  ]
+}
+```
+#### 3. Configure protractor
+
+Create a file called **/e2e/protractor.config.ts** with the following contents:
+
+```typescript
+import {Config} from 'protractor';
+import * as tsNode from 'ts-node';
+
+const serverAddress = 'http://localhost:4723/wd/hub';
+const testFilePAtterns: Array<string> = [
+  '**/*/*.e2e-spec.ts'
+];
+const iPhoneXCapability = {
+  browserName: '',
+  autoWebview: true,
+  autoWebviewTimeout: 20000,
+  app: '/Users/${user}/ordina/e2e/superApp/platforms/ios/build/emulator/superApp.app',
+  version: '11.4',
+  platform: 'iOS',
+  deviceName: 'iPhone X',
+  platformName: 'iOS',
+  name: 'My First Mobile Test',
+  automationName: 'XCUITest'
+};
+const androidPixel2XLCapability = {
+  browserName: '',
+  autoWebview: true,
+  autoWebviewTimeout: 20000,
+  platformName: 'Android',
+  deviceName: 'pixel2xl',
+  app: '/Users/${user}/ordina/e2e/superApp/platforms/android/build/outputs/apk/android-debug.apk',
+  'app-package': 'be.kbc.appyourservice',
+  'app-activity': 'MainActivity',
+  nativeWebTap: 'true',
+  autoAcceptAlerts: 'true',
+  autoGrantPermissions: 'true',
+  newCommandTimeout: 300000
+};
+
+export let config: Config = {
+  allScriptsTimeout: 11000,
+  specs: testFilePAtterns,
+  baseUrl: '',
+  multiCapabilities: [
+    androidPixel2XLCapability,
+    iPhoneXCapability
+  ],
+  framework: 'jasmine',
+  jasmineNodeOpts: {
+    showColors: true,
+    defaultTimeoutInterval: 30000
+  },
+  seleniumAddress: serverAddress,
+  onPrepare: () => {
+    tsNode.register({
+      project: 'e2e/tsconfig.json'
+    });
+  }
+};
+```
+
+Make sure to point to the .app file and not the .ipa if you are using simulators.
+
+#### 4. Create an NPM script for running e2e tests.
+
+In your package.json, add the following task:
+
+```shell
+"e2e": "tsc --p e2e/pro.tsconfig.json && protractor e2e/protractor.config.js --verbose"
+```
+
+## Writing UI tests
 There are seven basic steps in creating an Appium test script.
 
 1. Set the location of the application to test in the desired capabilities of the test script.
@@ -226,78 +434,6 @@ For example there are no DOM elements in the Native Context. To locate a native 
 
 TouchEvents
 TouchEvents like Tap / Swipe / Drag 'n Drop are only supported in the Native context. You can not use them in the Webview Context.
-
-Protractor configuration
-
-**Android**
-
-```json
-{
-    capabilities: {
-        browserName: '',
-        autoWebview: true,
-        autoWebviewTimeout: 20000,
-        platformName: 'Android',
-        platformVersion: '7.0',
-        deviceName: 'nex6',
-        app: '/Users/.../ays/mobileapp/platforms/android/build/outputs/apk/android-debug.apk',
-        'app-package': 'be.kbc.appyourservice',
-        'app-activity': 'MainActivity',
-        nativeWebTap: true,
-        autoAcceptAlerts: true,
-        autoGrantPermissions: true,
-        newCommandTimeout: 300000
-    },
-    baseUrl: 'http://localhost:8100/',
-    framework: 'jasmine',
-    jasmineNodeOpts: {
-        showColors: true,
-        defaultTimeoutInterval: 30000
-    },
-    useAllAngular2AppRoots: true,
-    seleniumAddress: 'http://0.0.0.0:4723/wd/hub',
-    onPrepare: function () {
-        require('ts-node').register({
-            project: './tsconfig.protractor.json'
-        });
-    }
-};
-```
-
-**iOS**
-
-Make sure to point to the .app file and not the .ipa if you are using simulators.
-
-```json
-{
-    capabilities: {
-        browserName: '',
-        baseUrl: 'http://localhost:8100/',
-        automationName: 'XCUITest',
-        platformName: 'iOS',
-        platformVersion: '11.2',
-        autoWebview: true,
-        deviceName: 'iPhone 5s',
-        app: "/Users/.../mobileapp/platforms/ios/build/emulator/AppYourService.app",
-        autoWebviewTimeout: 20000,
-        nativeWebTap: true,
-        autoGrantPermissions: true,
-        autoAcceptAlerts: true
-    },
-    framework: 'jasmine',
-    jasmineNodeOpts: {
-        showColors: true,
-        defaultTimeoutInterval: 30000
-    },
-    useAllAngular2AppRoots: true,
-    seleniumAddress: 'http://0.0.0.0:4723/wd/hub',
-    onPrepare: function () {
-        require('ts-node').register({
-            project: './tsconfig.protractor.json'
-        });
-    }
-};
-```
 
 **Investigation**
 
