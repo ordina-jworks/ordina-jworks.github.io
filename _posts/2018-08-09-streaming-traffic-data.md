@@ -411,28 +411,12 @@ This is pretty similar to a KGroupedStream, but a KGroupedTable is derived from 
 
 It can be reconverted to a KTable via aggregate(), count() or reduce().
 
-### Operations
-
-The following operations can be executed on data streams.
-
-#### Aggregate
-
-#### Count
-
-#### Filter
-
-#### Join
-
-#### Process
-
-#### GroupBy
-
-#### GroupByKey
 
 ### Coding with Spring Kafka
 
 
-### Scaling and Instances
+### Windowing
+
 
 
 ### Takeaways Kafka Streams and Spring Kafka
@@ -452,7 +436,5 @@ https://storm.apache.org/releases/1.0.6/Windowing.html
 
 ### Takeaways Apache Storm
 
-
-## Conclusion
 
 
