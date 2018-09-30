@@ -401,7 +401,7 @@ A KTable is a changelog stream of a primary keyed table, meaning, that whenever 
 Like a KTable, but it is replicated over all Kafka Streams instances, so do be carefull.
 
 [KGroupedStream](https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KGroupedStream.html)
-This is an intermediate format based on a re-grouped stream of records based on a KStream, with, usually, a different key then the original primary key.
+This is an intermediate format based on a re-grouped stream of records based on a KStream, with usually, a different key then the original primary key.
 
 It is derived from a groupBy() or a groupByKey() on a Kstream.
 Via aggregate(), count() or reduce() it can be converted to a KTable.
@@ -414,9 +414,91 @@ It can be reconverted to a KTable via aggregate(), count() or reduce().
 
 ### Coding with Spring Kafka
 
+We still have the Sprint Cloud Stream topics to which we send in some data, let's use these but now with Kafka.
+
+First we are going to take in the static data of the sensors into a KTable.
+
+{% highlight java %}
+    KStream<String, SensorData> sensorDescriptionsStream =
+        streamsBuilder.stream("sensorDataOutput", Consumed.with(Serdes.String(), new SensorDataSerde()));
+
+    KStream<String, SensorData> sensorDescriptionsWithKey =
+        sensorDescriptionsStream.selectKey((key, value) -> value.getUniekeId());
+    sensorDescriptionsWithKey.to("dummy-topic");
+
+    KTable<String, SensorData> sensorDataKTable =
+        streamsBuilder.table("dummy-topic", Consumed.with(Serdes.String(), new SensorDataSerde()));
+{% endhighlight %}
+
+The main reason we are using a KTable is it makes it easy to be sure to only get the most recent state of that sensor, as a KTable will only return 1 result per key.
+Dummy-topic is just the name I chose, for my example it is not that important.
+But do realize that Kafka Streams will persist the state of a Ktable within Kafka topics.
+
+Subsequently we are going to enrich the traffic event with the sensor data.
+
+{% highlight java %}
+    KStream<String, TrafficEvent> stream =
+            streamsBuilder.stream("trafficEventsOutput", Consumed.with(Serdes.String()
+                    , new TrafficEventSerde()));
+    stream.selectKey((key,value) -> value.getSensorId())
+            .join(sensorDataKTable,((TrafficEvent trafficEvent, SensorData sensorData) -> {
+                trafficEvent.setSensorData(sensorData);
+                return trafficEvent;
+            }), Joined.with(Serdes.String(), new TrafficEventSerde(), null))
+            .to("enriched-trafficEventsOutput");
+{% endhighlight %}
+
+Resulting in a new KStream with enriched TrafficEvents.
+
+
+We do not care for all traffic events, so lets filter out some.
+
+{% highlight java %}
+    KStream<String, TrafficEvent> streamToProcessData = 
+        streamsBuilder.stream("enriched-trafficEventsOutput", Consumed.with(Serdes.String(), new TrafficEventSerde()));
+
+    streamToProcessData.selectKey((key,value) -> value.getSensorId())
+        .filter((key, value) -> canProcessSensor(key));
+{% endhighlight %}
+
+We just only process events for sensor we provide in a pre-set list:
+{% highlight java %}
+    private boolean canProcessSensor(String key) {
+        return this.sensorIdsToProcess.contains(key);
+    }
+{% endhighlight %}
+
+You would also be able to use a KTable with the current "state" of every sensor, like:
+{% highlight java %}
+    //TODO
+}
+{% endhighlight %}
+
+For every record we will now do some simple processing:
+{% highlight java %}
+    streamToProcessData
+        .selectKey((key,value) -> value.getSensorId())
+        .filter((key, value) -> canProcessSensor(key))
+        .foreach((key, value) -> updateStats(value));
+{% endhighlight %}
+
+The updateStats() method just updates some basic counters to track how much traffic has been processed since we started with the data intake.
+So that we know how many vehicles have passed, which was the highest speed detected, ... 
+
 
 ### Windowing
 
+{% highlight java %}
+    streamToProcessData.filter((key, value) -> canProcessSensor(key))
+                .selectKey((key,value) -> value.getSensorData().getName().replaceAll("\\s","").replaceAll("-", ""))
+        .to("traffic-per-lane");
+
+        KStream<String, TrafficEvent> streamPerHighwayLaneToProcess = 
+                streamsBuilder.stream("traffic-per-lane", Consumed.with(Serdes.String(), new TrafficEventSerde()));
+        //streamPerHighwayLaneToProcess.print();
+
+        this.createWindowStreamForAverageSpeedPerHighwaySection(streamPerHighwayLaneToProcess);
+{% endhighlight %}
 
 
 ### Takeaways Kafka Streams and Spring Kafka
