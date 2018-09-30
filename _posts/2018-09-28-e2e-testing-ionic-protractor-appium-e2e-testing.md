@@ -59,9 +59,11 @@ We will explain how to set up your Appium server and run automated UI tests in y
 ## Environment
 
 The first step is to setup your environment.
-Because we are targeting Android and iOS we will only describe the setup for **macOS**.
+Because we are targeting Android and iOS we will only describe the setup for **macOS**, 
+but it shouldn't be too different compared to other platforms once you have followed the 
+official ionic resources guide below, they have guides for all platforms.
 
-[On the developer resources page of the official ionic documentation](https://ionicframework.com/docs/developer-resources/), you wil find guides on how to setup your machine depending on the OS you are working on.
+[Again: On the developer resources page of the official ionic documentation](https://ionicframework.com/docs/developer-resources/), you wil find guides on how to setup your machine depending on the OS you are working on.
 
 Next:
 
@@ -269,7 +271,8 @@ In your **/e2e** folder, create a file called
 **/e2e/protractor.tsconfig.json**
 
 This configuration file will extend the one we create earlier, 
-we just want to change the include and exclude parameters.
+we just want to overwrite the include and exclude parameters to make sure it only matches
+and transpiles the ***protractor.config.ts*** file.
 
 ```json
 {
@@ -284,7 +287,10 @@ we just want to change the include and exclude parameters.
 ```
 #### 3. Configure protractor
 
+Now one of the more interesting parts, configuring Protractor!
 Create a file called **/e2e/protractor.config.ts** with the following contents:
+To get an idea of all the configuration parameters and their description, visit
+[The official Protractor Github repo](https://github.com/angular/protractor/blob/master/lib/config.ts)
 
 ```typescript
 import {Config} from 'protractor';
@@ -304,7 +310,8 @@ const iPhoneXCapability = {
   deviceName: 'iPhone X',
   platformName: 'iOS',
   name: 'My First Mobile Test',
-  automationName: 'XCUITest'
+  automationName: 'XCUITest',
+  nativeWebTap: 'true'
 };
 const androidPixel2XLCapability = {
   browserName: '',
@@ -313,9 +320,8 @@ const androidPixel2XLCapability = {
   platformName: 'Android',
   deviceName: 'pixel2xl',
   app: '/Users/${user}/ordina/e2e/superApp/platforms/android/build/outputs/apk/android-debug.apk',
-  'app-package': 'be.kbc.appyourservice',
+  'app-package': 'be.ryan.superApp',
   'app-activity': 'MainActivity',
-  nativeWebTap: 'true',
   autoAcceptAlerts: 'true',
   autoGrantPermissions: 'true',
   newCommandTimeout: 300000
@@ -343,7 +349,67 @@ export let config: Config = {
 };
 ```
 
-Make sure to point to the .app file and not the .ipa if you are using simulators.
+I will go over the points that took me the most effort to configure correctly.
+
+#### Capabilities
+
+Refers to the capabilities of a single E2E session, 
+it describes which features a particular session should have, for example:
+
+- Platform (Android / iOS / ...)
+- Device Name
+- Automation framework
+- Location of the Application build (.apk, .ipa)
+- etc.
+
+If you want to spin up multiple E2E testing settings, 
+you need to configure the **multiCapabilities** property 
+
+##### Android Capability
+
+- Run ***ionic cordova build android*** and configure the output path in the **app** property
+- **app-package** should match the package name in your config.xml
+- **app-activity** is always MainActivity by default, unless you have changed this in your config.xml
+
+```typescript
+const androidPixel2XLCapability = {
+  browserName: '',
+  autoWebview: true,
+  autoWebviewTimeout: 20000,
+  platformName: 'Android',
+  deviceName: 'pixel2xl',
+  app: '/Users/${user}/ordina/e2e/superApp/platforms/android/build/outputs/apk/android-debug.apk',
+  'app-package': 'be.ryan.superApp',
+  'app-activity': 'MainActivity',
+  autoAcceptAlerts: 'true',
+  autoGrantPermissions: 'true',
+  newCommandTimeout: 300000
+};
+```
+
+##### iOS Capability
+
+- Run ***ionic cordova build ios*** and configure the output path in the **app** property
+- Point to the .app file and not the .ipa if you are using simulators.
+- Set automationName to **XCUITest** instead of the deprecated **UIAutomator**
+- browserName is a mandatory parameter, but since we're targeting Native apps, we can leave
+this as an empty string
+
+```typescript
+const iPhoneXCapability = {
+  browserName: '',
+  autoWebview: true,
+  autoWebviewTimeout: 20000,
+  app: '/Users/${user}/ordina/e2e/superApp/platforms/ios/build/emulator/superApp.app',
+  version: '11.4',
+  platform: 'iOS',
+  deviceName: 'iPhone X',
+  platformName: 'iOS',
+  name: 'My First Mobile Test',
+  automationName: 'XCUITest',
+  nativeWebTap: 'true'
+};
+```
 
 #### 4. Create an NPM script for running e2e tests.
 
@@ -353,7 +419,55 @@ In your package.json, add the following task:
 "e2e": "tsc --p e2e/pro.tsconfig.json && protractor e2e/protractor.config.js --verbose"
 ```
 
-## Writing UI tests
+## Running and Writing UI tests
+
+For Protractor to know which tests to run, you need to configure the 
+**specs** property, in our case all the files that end with .e2e-spec.ts
+
+```typescript
+const testFilePAtterns: Array<string> = [
+  '**/*/*.e2e-spec.ts'
+];
+export let config: Config = {
+  ...
+  specs: testFilePAtterns
+  ... 
+};
+```
+
+If you followed along, you should be able to run your tests by entering the following command:
+
+```shell
+npm run e2e
+```
+
+Writing protractor tests is out of scope in this post, 
+but here is an example test script that you should be able to run on both iOS and Android.
+
+```typescript
+import {browser, by, element, ElementFinder, protractor} from 'protractor';
+
+describe('App', () => {
+  describe('Tutorial Screen', () => {
+    it('should skip to the welcome screen and have the correct button labels', async () => {
+      const skipButton: ElementFinder = element(by.id('skip'));
+      await browser.wait(protractor.ExpectedConditions.elementToBeClickable(skipButton));
+      const skipButtonLabel: string = await skipButton.getText();
+      expect(skipButtonLabel).toEqual('SKIP');
+
+      skipButton.click();
+
+      const loginBtn: ElementFinder = await element(by.id('btn-login'));
+      await browser.wait(protractor.ExpectedConditions.elementToBeClickable(loginBtn));
+      const loginBtnLabel: string = await loginBtn.getText();
+      expect(loginBtnLabel).toEqual('SIGN IN');
+
+      loginBtn.click();
+    });
+  });
+});
+```
+
 There are seven basic steps in creating an Appium test script.
 
 1. Set the location of the application to test in the desired capabilities of the test script.
@@ -364,15 +478,28 @@ There are seven basic steps in creating an Appium test script.
 6. Run tests and record test results using a test framework.
 7. Conclude the test.
 
-Behaviour-driven development with Cucumber
-Cucumber is a tool for BDD. We can easily integrate Cucumber with Appium using Protractor.
+### Webview And Native context
+Our example application is a hybrid application. Meaning it will be packaged and deployed as native app so we can access Native API's. But it will accually run inside a webview. By using Cordova our webview can communicate with Native API's (f.e. Camera).
+
+When the Camera is launched, we enter a Native Context, if we exit the Camera and go back to our Hybrid application we return to the Webview Context.
+
+Appium helps us to easily switch between these contexts since locating and interacting with UI elements are very different in both contexts.
+
+For example there are no DOM elements in the Native Context. To locate a native UI element you need to use an Accessibility ID. At the same time, AccessibilityID's are not available in a Webview context.
+
+TouchEvents
+TouchEvents like Tap / Swipe / Drag 'n Drop are only supported in the Native context. You can not use them in the Webview Context.
+
+### Behaviour-driven development with Cucumber
+Cucumber is a tool for BDD. 
+You can easily integrate Cucumber with Appium using [Protractor cucumber framework](https://www.npmjs.com/package/protractor-cucumber-framework) on NPM.
 
 A typical workflow looks like this:
 
 ```text
 Describe an app feature and corresponding scenarios in a .feature file. The contents are written in Gherkin
 
-Feature: As a KBC employee I want to access the application
+Feature: As an employee I want to access the application
 
 @Authentication
 Scenario: Authenticate with AzureAD
@@ -425,63 +552,39 @@ This offers:
 - Feature files can act as contracts for acceptance criteria
 - Better reporting and readability of the UI tests
 
-Webview And Native context
-The AYS Mobile application is a hybrid application. Meaning it will be packaged and deployed as native app so we can access Native API's. But it will accually run inside a webview. By using Cordova our webview can communicate with Native API's (f.e. Camera).
-
-When the Camera is launched, we enter a Native Context, if we exit the Camera and go back to our Hybrid application we return to the Webview Context.
-
-Appium helps us to easily switch between these contexts since locating and interacting with UI elements are very different in both contexts.
-
-For example there are no DOM elements in the Native Context. To locate a native UI element you need to use an Accessibility ID. At the same time, AccessibilityID's are not available in a Webview context.
-
-TouchEvents
-TouchEvents like Tap / Swipe / Drag 'n Drop are only supported in the Native context. You can not use them in the Webview Context.
-
-**Investigation**
-
-While investigating and hands-on experiencing Appium for the first time, we noticed the following:
-
-- Native context is better supported than the Webview context
-- Flaky tests
-- Documentation can be outdated and is scattered around the web
-- Setting up an environment for iOS and Android took a lot of time initially
-- UI tests can differ for each platform
-- Sending key events can be very slow, which make test run very slow
-- You need good knowledge of Webdriver API's to write good tests
-- Debugging is hard, we mostly rely on console.log statements. There are remote debugging options with Visual Code, but I did not invest time configuring this.
-- Testing on Android needs to happen with Chrome Browser version 54+.
-
 **Cloud testing providers**
 
-The following providers offer the best support for Appium tests in the cloud:
+The following providers offer great support for Appium tests in the cloud:
 
 - Saucelabs (Only simulators and emulators)
 - TestObject (Only real devices, has been purchased by Saucelabs)
 - Kobiton (Only real devices, allows you to connect your local mobile device farm)
 
-We only tested one cloud provider: Saucelabs. Configuration was fairly simple.
-
-**To consider:**
-
-- Simulator startup on iOS is slow
-- Tests run slow
-- Simulators and emulators always start fresh (you cannot save any phone state, f.e. preferred browser)
-- Tests can be flaky (Simply rerunning a failing test can make it succeed)
-- FET & ACC environments will not be accesible
-- Pricing (Kobiton is the cheapest)
-
 # Conclusion
+
+While investigating and hands-on experiencing Appium for the first time, 
+I noticed the following trade-offs:
+
+- Tests can be flaky (Simply rerunning a failing test can make it succeed)
+- Tests on iOS take awhile to run
+- Appium is slower than for example running tests directly with Espresso or XCUITest 
+- Documentation can be outdated and is scattered around the web
+- Setting up an environment for iOS and Android takes a lot of time initially
+- UI tests can differ for each platform
+- Sending key events can be very slow, which make test run very slow
+- You need good knowledge of WebDriver API's to write good tests
+- Debugging is hard, I mostly relied on console.log statements.
+- Testing on Android needs to happen with Chrome Browser version 54+.
 
 For Android we are limited to recent Android API's and devices with Chrome browser version 54+, this means we can not test older devices, or devices with older Android versions.
 
-Device farms are less valuable because of this.
-
-Since we lack the experience writing Selenium / Appium tests, getting to know the Webdriver API's and writing tests will take extra time and effort.
-
 Setting up a local Appium server also takes a lot of setup and configuration, but this can be circumvented if you decide to go for a cloud testing provider like Saucelabs.
 
-But still, I believe Appium offers a lot of value because we can write UI tests both for Android and iOS using a single programming language, And It would definitely help with Regression testing.
+Still, I believe Appium offers a lot of value because 
+- We can write UI tests both for Android and iOS using a single programming language
+- You can automate manual testing for multiple platforms
+- There are quality cloud testing providers out there to help you with all your testing needs
 
-If I had the time and budget to integrate it I would add it to our tech stack.
+And once you have everything set up, it works quit good. 
 
 https://github.com/ryandegruyter/ordina-ionic-appium-protractor
