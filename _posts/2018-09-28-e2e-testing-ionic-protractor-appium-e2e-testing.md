@@ -8,7 +8,9 @@ category: Ionic
 comments: true
 ---
 
-Sample application: https://github.com/ryandegruyter/ordina-ionic-appium-protractor
+**Example repository**
+
+https://github.com/ryandegruyter/ordina-ionic-appium-protractor
 
 # Introduction
 
@@ -24,7 +26,7 @@ To follow along, I recommend having a basic understanding of Javascript, Typescr
 When releasing an application, we need to make sure it was thoroughly tested.
 Making sure of discovering any bugs before reaching production.
 These tests or test scenarios can be done manually, but this would consume a lot of time and resources.
-The more cost-effective solution would be to automatically run these test scenario's completely by an programmable agent.
+The more cost-effective solution would be to automatically run these test scenario's entirely by a programmable agent.
 
 Thanks to a few technologies, we can script a bot that can perform most user interface interactions, such as clicking on a button, performing touch gestures (f.e. swiping), etc.
 
@@ -42,7 +44,7 @@ Appium allows developers to write UI tests for mobile applications in any number
 Because we are using Ionic with Cordova, we can write our codebase using only web technologies but still build, deploy and run on multiple platforms.
 Our mobile application can be packaged and deployed as a native application for both iOS and Android.
 We can achieve the same cost-savings strategy "Write once, run anywhere" for our UI tests using Appium.
-To automate our UI tests there needs to be an agent that programmatically drives the UI of your mobile application.
+To automate our UI tests, there needs to be an agent that programmatically drives the UI of your mobile application.
 
 For each platform there are different agents:
 
@@ -83,9 +85,9 @@ There are multiple ways to start an Appium server:
 
 [Appium Desktop](https://github.com/appium/appium-desktop) is a graphical frontend for running an Appium server and starting sessions to inspect your applications.
 
-Note: For macOS make sure to drop the downloaded package in the /Applications folder, otherwise you will encounter write permission issues.
+Note: For macOS make sure to drop the downloaded package in the /Applications folder. Otherwise you will encounter write permission issues.
 
-Appium desktop has 2 advantages:
+Appium desktop has two advantages:
 
 - It comes with an inspector to show and inspect all elements of your application
 - Record user actions
@@ -100,7 +102,9 @@ Cordova applications always run in the webview context.
 Selenium and appium server manager.
 https://github.com/angular/webdriver-manager
 
-webdriver-manager is officially supported by Angular and works well together with Protractor, the official E2E testing framework for Angular applications. Ionic up untill version 3.x is built on top of Angular, from version 4 and on Ionic has decoupled from the Angular framework and recreated all of their components using [StencilJS](https://stenciljs.com/).
+webdriver-manager is officially supported by Angular and works well together with Protractor, 
+the official E2E testing framework for Angular applications. 
+Ionic up until version 3.x is built on top of Angular, from version 4 and on Ionic has decoupled from the Angular framework and recreated all of their components using [StencilJS](https://stenciljs.com/).
 
 ### NPM 
 
@@ -121,13 +125,14 @@ Client libraries for different languages https://appium.readthedocs.io/en/stable
 
 # Project setup
 
-We are going to use Ionic 4 and the **super** template as our application to run our tests on.
+We are going to use Ionic 4 and the **super** template as our application to run our tests against.
 
-First make sure your development machine has been set up correctly.
+First, make sure your development machine has been set up correctly.
 
-[On the developer resources page of the official ionic documentation](https://ionicframework.com/docs/developer-resources/), you wil find guides on how to setup your machine depending on the OS you are working on.
+[On the developer resources page of the official ionic documentation](https://ionicframework.com/docs/developer-resources/), 
+you will find guides on how to set up your machine depending on the OS you are working on.
 
-Once your machine is setup, install the Ionic cli.
+Once your machine is set up, install the Ionic CLI.
 
 ```shell
 npm i -g ionic
@@ -158,7 +163,7 @@ to configure your code signing identity and provision profile.
 ionic cordova build ios
 ```
 
-If you were able to successfully run these commands, we can start E2E testing our application on both iOS and Android.
+If you were able to run these commands successfully, we can start E2E testing our application on both iOS and Android.
 
 Before continuing, Make a folder **/e2e** in the root of your project. 
 
@@ -173,7 +178,7 @@ Before continuing, Make a folder **/e2e** in the root of your project.
 
 #### 1. Install Appium as a local dependency
 
-Simply run the following command to add Appium as a local dependency, 
+Just run the following command to add Appium as a local dependency, 
 this will allow us to work with Appium using NPM scripts.
 
 ```shell
@@ -182,7 +187,7 @@ npm i -D appium
 
 #### 2. Add the correct chrome driver
 
-To be able and run your tests on Android devices, 
+To be able to run your tests on Android devices, 
 you need to match the correct chrome driver with the Chrome version running on the Android test devices.
 
 [Here is an overview of all the chrome drivers and their respective Chrome versions](https://appium.readthedocs.io/en/stable/en/writing-running-appium/web/chromedriver/).
@@ -264,14 +269,14 @@ Next, in your **/e2e** folder, Create a **tsconfig.json** file with the followin
 This will be our tsconfig for our e2e test scripts.
 
 It's also a good idea to write your configuration files in Typescript.
-For our protractor configuration we will use a different typescript configuration file.
+For our protractor configuration, we will use a different typescript configuration file.
 
 In your **/e2e** folder, create a file called
 
 **/e2e/protractor.tsconfig.json**
 
-This configuration file will extend the one we create earlier, 
-we just want to overwrite the include and exclude parameters to make sure it only matches
+This configuration file will extend the one we created earlier, 
+we want to overwrite the include and exclude parameters to make sure it only matches
 and transpiles the ***protractor.config.ts*** file.
 
 ```json
@@ -287,7 +292,7 @@ and transpiles the ***protractor.config.ts*** file.
 ```
 #### 3. Configure protractor
 
-Now one of the more interesting parts, configuring Protractor!
+Now one of the more exciting parts, configuring Protractor!
 Create a file called **/e2e/protractor.config.ts** with the following contents:
 To get an idea of all the configuration parameters and their description, visit
 [The official Protractor Github repo](https://github.com/angular/protractor/blob/master/lib/config.ts)
@@ -363,13 +368,13 @@ it describes which features a particular session should have, for example:
 - etc.
 
 If you want to spin up multiple E2E testing settings, 
-you need to configure the **multiCapabilities** property 
+you need to configure the **multiCapabilities** property.
 
 ##### Android Capability
 
 - Run ***ionic cordova build android*** and configure the output path in the **app** property
 - **app-package** should match the package name in your config.xml
-- **app-activity** is always MainActivity by default, unless you have changed this in your config.xml
+- **app-activity** is always MainActivity by default unless you have changed this in your config.xml
 
 ```typescript
 const androidPixel2XLCapability = {
@@ -479,13 +484,13 @@ There are seven basic steps in creating an Appium test script.
 7. Conclude the test.
 
 ### Webview And Native context
-Our example application is a hybrid application. Meaning it will be packaged and deployed as native app so we can access Native API's. But it will accually run inside a webview. By using Cordova our webview can communicate with Native API's (f.e. Camera).
+Our example application is a hybrid application. Meaning it will be packaged and deployed as native app so we can access Native API's. But it will acually run inside a webview. By using Cordova our webview can communicate with Native API's (f.e. Camera).
 
 When the Camera is launched, we enter a Native Context, if we exit the Camera and go back to our Hybrid application we return to the Webview Context.
 
 Appium helps us to easily switch between these contexts since locating and interacting with UI elements are very different in both contexts.
 
-For example there are no DOM elements in the Native Context. To locate a native UI element you need to use an Accessibility ID. At the same time, AccessibilityID's are not available in a Webview context.
+For example, there are no DOM elements in the Native Context. To locate a native UI element you need to use an Accessibility ID. At the same time, AccessibilityID's are not available in a Webview context.
 
 TouchEvents
 TouchEvents like Tap / Swipe / Drag 'n Drop are only supported in the Native context. You can not use them in the Webview Context.
@@ -499,7 +504,7 @@ A typical workflow looks like this:
 ```text
 Describe an app feature and corresponding scenarios in a .feature file. The contents are written in Gherkin
 
-Feature: As an employee I want to access the application
+Feature: As an employee, I want to access the application
 
 @Authentication
 Scenario: Authenticate with AzureAD
@@ -544,7 +549,7 @@ Then(/^I should see the Dashboard page$/, () => {
 
 Let protractor and Appium run the step definitions in an Automated way.
 
-The advantage of using cucumber is that non-developers can easily write their own .feature files in plain english (Gherkin).
+The advantage of using cucumber is that non-developers can easily write their own .feature files in plain English (Gherkin).
 
 This offers:
 
@@ -566,17 +571,17 @@ While investigating and hands-on experiencing Appium for the first time,
 I noticed the following trade-offs:
 
 - Tests can be flaky (Simply rerunning a failing test can make it succeed)
-- Tests on iOS take awhile to run
+- Tests on iOS take a while to run
 - Appium is slower than for example running tests directly with Espresso or XCUITest 
 - Documentation can be outdated and is scattered around the web
 - Setting up an environment for iOS and Android takes a lot of time initially
 - UI tests can differ for each platform
-- Sending key events can be very slow, which make test run very slow
-- You need good knowledge of WebDriver API's to write good tests
+- Sending key events can be very slow, which make the tests run very slow
+- You need a good knowledge of WebDriver API's to write good tests
 - Debugging is hard, I mostly relied on console.log statements.
 - Testing on Android needs to happen with Chrome Browser version 54+.
 
-For Android we are limited to recent Android API's and devices with Chrome browser version 54+, this means we can not test older devices, or devices with older Android versions.
+For Android we are limited to recent Android API's and devices with Chrome browser version 54+, this means we can not test older devices or devices with older Android versions.
 
 Setting up a local Appium server also takes a lot of setup and configuration, but this can be circumvented if you decide to go for a cloud testing provider like Saucelabs.
 
@@ -585,6 +590,6 @@ Still, I believe Appium offers a lot of value because
 - You can automate manual testing for multiple platforms
 - There are quality cloud testing providers out there to help you with all your testing needs
 
-And once you have everything set up, it works quit good. 
+And once you have everything set up, it works quite well. 
 
 https://github.com/ryandegruyter/ordina-ionic-appium-protractor
