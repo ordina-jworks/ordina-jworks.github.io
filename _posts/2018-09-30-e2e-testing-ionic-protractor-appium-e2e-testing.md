@@ -10,7 +10,7 @@ comments: true
 
 **Example repository**
 
-https://github.com/ryandegruyter/ordina-ionic-appium-protractor
+[https://github.com/ryandegruyter/ordina-ionic-appium-protractor](https://github.com/ryandegruyter/ordina-ionic-appium-protractor)
 
 # Introduction
 
@@ -592,4 +592,4 @@ Still, I believe Appium offers a lot of value because
 
 And once you have everything set up, it works quite well. 
 
-https://github.com/ryandegruyter/ordina-ionic-appium-protractor
+[https://github.com/ryandegruyter/ordina-ionic-appium-protractor](https://github.com/ryandegruyter/ordina-ionic-appium-protractor)
