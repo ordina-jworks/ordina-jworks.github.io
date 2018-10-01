@@ -2,7 +2,7 @@
 layout: post
 authors: [nick_van_hoof]
 title: 'Create a Serverless Application with AWS Lambda and DynamoDB'
-image: /img/2018-09-18-How-to-Build-a-Serverless-Application/AWS-Lambda-and-DynamoDB.png
+image: /img/2018-10-01-How-to-Build-a-Serverless-Application/AWS-Lambda-and-DynamoDB.png
 tags: [AWS,Lambda,DynamoDB,API GateWay,Serverless]
 category: Cloud
 comments: true
@@ -27,14 +27,14 @@ New to AWS and curious to learn more?
 Read on and learn more about the AWS services by building a serverless app!
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Introduction-Components.png" width="100%" height="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Introduction-Components.png" width="100%" height="100%">
 </div>
 
 # Serverless: What & Why
 > A serverless architecture is a way to build and run your applications without having to think about infrastructure.
 You no longer have to maintain servers to run your applications, databases and storage systems.  
 
-And most of all, **it is so easy!**  ![boom-sparkles](/img/2018-09-18-How-to-Build-a-Serverless-Application/Boom-Sparkles.png)
+And most of all, **it is so easy!**  ![boom-sparkles](/img/2018-10-01-How-to-Build-a-Serverless-Application/Boom-Sparkles.png)
 
 Yes, once you get the hang of it, it really is mind-blowingly easy.
 However, first you need to know the basic infrastructure to set up a serverless application.
@@ -68,13 +68,13 @@ View all the Coding Tips that are currently in the database:
 curl -X GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
 ```
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Check_Item_Is_Added_To_Table.png" width="60%" height="60%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Check_Item_Is_Added_To_Table.png" width="60%" height="60%">
 </div>
 
 
 ## Architecture
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/AWS-lambda-and-DynamoDB-Architecture.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/AWS-lambda-and-DynamoDB-Architecture.png" width="100%">
 </div>
 
 The coding tip items are stored in a NoSQL database AWS **DynamoDB**.
@@ -111,7 +111,7 @@ Check the **Add sort key** checkbox and choose `date`, type `Number` as a sort k
 Leave the default settings checked and hit **Create**. 
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Created-Empty-Full.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Created-Empty-Full.png" width="100%">
 </div>
 
 Notice the **Amazon Resource Name ARN** property.
@@ -129,13 +129,13 @@ For example, `1538368878527` equals Mon 1 October 2018 06:41:18.
 Hit **Save** to store the item in the database.
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Add_Item.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Add_Item.png" width="100%">
 </div>
 
 I added a couple of items as you see in the image below.
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Random_Items_Added.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Random_Items_Added.png" width="100%">
 </div>  
 
 Notice that I did not add a coding tip yet.
@@ -155,7 +155,7 @@ Choose **Author from Scratch** and start configuring it with the following param
 * Role: Create a custom role
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Create_From_Scratch.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Create_From_Scratch.png" width="100%">
 </div>  
 
 Selecting **Create a custom role** will take you to another page to create this new role.
@@ -165,7 +165,7 @@ If everything went well you should only have to adapt the name of the role.
 Name it `lambda_dynamodb_codingtips`.
 The rest will be automatically generated for you.
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Role-Create_New_Role.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Role-Create_New_Role.png" width="100%">
 </div>
 Click **Allow**.
 
@@ -173,7 +173,7 @@ Hit **Create function** to create the Lambda.
 This will open the designer view of your Lambda Function.
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Designer_View-Initial.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Designer_View-Initial.png" width="100%">
 </div>
 
 One thing is missing here.
@@ -214,14 +214,14 @@ You now attached a new policy to the existing **lambda_dynamodb_codingtips** rol
 The role summary looks like this:
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Role-lambda_dynamodb_codingtips_access.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Role-lambda_dynamodb_codingtips_access.png" width="100%">
 </div>
 
 Go back to the designer view of the CodingTips_Scan Lambda.
 Now you see that the Lambda Function has the right to connect to the DynamoDB table.
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Designer_View-DynamoDB-CloudWatch.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Designer_View-DynamoDB-CloudWatch.png" width="100%">
 </div>    
 
 ## Function Code
@@ -268,7 +268,7 @@ Click the dropdown and configure a new test event.
 I called mine `Test` and added an empty test event `{}`.
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Created_Empty_Test_Event.png" width="60%" height="60%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Created_Empty_Test_Event.png" width="60%" height="60%">
 </div>  
 
 **Save** it and you are ready to test the Lambda.  
@@ -276,7 +276,7 @@ From the dropdown select your test event and hit the **Test** button!
 Nice one, this returns the items in your table:
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Execution_Result_Succeeded.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Execution_Result_Succeeded.png" width="100%">
 </div>
 
 # API Gateway: Access the scan Lambda
@@ -296,7 +296,7 @@ Basically this is the Service you use to create all of your API's.
 * Leave the **Endpoint Type** to regional and **Create API**
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-GET-Create_API.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-GET-Create_API.png" width="100%">
 </div>
  
 The API has been created.
@@ -316,7 +316,7 @@ In this case that is Codingtips_Scan.
 * Save the configuration.
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-GET-Configuration.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-GET-Configuration.png" width="100%">
 </div>
 
 Only one thing left: select the API and under **Actions** click **Deploy API**. 
@@ -326,7 +326,7 @@ Name it `default`.
 In the **Stages** tab click the **GET** method and copy the **Invoke URL**.
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-GET-Invoke_URL.png" width="100%" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-GET-Invoke_URL.png" width="100%" width="100%">
 </div>
 
 This is your gateway to trigger the lambda.
@@ -334,7 +334,7 @@ Since we just created a HTTP GET request you can use either your **browser**, **
 In a browser tab past the **Invoke URL**. 
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-GET-Invoke_Browser.png" width="60%" width="60%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-GET-Invoke_Browser.png" width="60%" width="60%">
 </div>
 
 From the command line with Curl execute this command with your own **Invoke URL**:
@@ -346,7 +346,7 @@ curl -X GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
 Either of the above actions will return the items in the CodingTips table!
 
 **Congratulations**, you just created your first serverless app!  
-![party](/img/2018-09-18-How-to-Build-a-Serverless-Application/Party.png)
+![party](/img/2018-10-01-How-to-Build-a-Serverless-Application/Party.png)
 
 
 Did you know:
@@ -388,7 +388,7 @@ This is because we gave it the existing **lambda_dynamodb_codingtips** role that
 The designer view of the Lambda Function now looks like this:
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Write-Designer_View-Connected_With_DynamoDB.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Write-Designer_View-Connected_With_DynamoDB.png" width="100%">
 </div>
 
 ## Function Code
@@ -461,7 +461,7 @@ Save it and test the lambda by hitting the test button.
 Go to the CodingTips table and you will see a new item that was added into your table.
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Input_Item_Via_Write_Lambda.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Input_Item_Via_Write_Lambda.png" width="100%">
 </div>
 
 # API Gateway: Access the write Lambda
@@ -474,7 +474,7 @@ The **Integration Type** is Lambda Function.
 The name of that Lambda function is **CodingTips_Write**, which we just created.
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-POST-configuration.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-POST-configuration.png" width="100%">
 </div>
 
 * Hit **Save** to create the new method.
@@ -485,7 +485,7 @@ The API in turn has to pass on the JSON to the Lambda.
 To enable this, click on **Integration Request** and under Mapping Templates check **When there are no templates defined (recommended)**
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-POST-Method_Execution.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-POST-Method_Execution.png" width="100%">
 </div>
 
 **Add mapping template** with Content-Type **application/json**.
@@ -499,7 +499,7 @@ Add this template and **save**:
 ```
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-POST-Mapping_Template.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-POST-Mapping_Template.png" width="100%">
 </div>
 
 Under **Actions** click **Deploy API**. 
@@ -508,7 +508,7 @@ Select the `default` stage and **Deploy**.
 In the **Stages** tab there is an **Invoke URL**.
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/API_Gateway-POST-deployed.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-POST-deployed.png" width="100%">
 </div>
 
 This is your gateway to trigger the lambda.
@@ -533,7 +533,7 @@ Use your browser or curl to check the items in the table.
 curl -X GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
 ```
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Check_Item_Is_Added_To_Table.png" width="60%" height="60%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Check_Item_Is_Added_To_Table.png" width="60%" height="60%">
 </div>
 
 ## Common errors
