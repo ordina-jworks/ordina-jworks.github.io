@@ -74,7 +74,7 @@ curl -X GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
 
 ## Architecture
 <div style="text-align: center;">
-  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/AWS-lambda-and-DynamoDB-Architecture.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/AWS-Lambda-and-DynamoDB-Architecture.png" width="100%">
 </div>
 
 The coding tip items are stored in a NoSQL database AWS **DynamoDB**.
@@ -508,7 +508,7 @@ Select the `default` stage and **Deploy**.
 In the **Stages** tab there is an **Invoke URL**.
 
 <div style="text-align: center;">
-  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-POST-deployed.png" width="100%">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-POST-Deployed.png" width="100%">
 </div>
 
 This is your gateway to trigger the lambda.
