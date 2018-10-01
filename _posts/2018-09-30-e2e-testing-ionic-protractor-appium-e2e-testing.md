@@ -28,20 +28,25 @@ Making sure of discovering any bugs before reaching production.
 These tests or test scenarios can be done manually, but this would consume a lot of time and resources.
 The more cost-effective solution would be to automatically run these test scenario's entirely by a programmable agent.
 
-Thanks to a few technologies, we can script a bot that can perform most user interface interactions, such as clicking on a button, performing touch gestures (f.e. swiping), etc.
+Thanks to a few technologies, we can script a bot that can perform most user interface interactions, 
+such as clicking on a button, performing touch gestures (f.e. swiping), etc.
 
 The most popular solution for automated E2E tests is called Selenium which is based on the [WebDriver protocol](https://w3c.github.io/webdriver/).
 
-While Selenium is a great solution for browsers, there is a better solution for native mobile apps called [Appium](http://appium.io/).
+While Selenium is a great solution for browsers, 
+there is a better solution for native mobile apps called [Appium](http://appium.io/).
 # Appium
 
-Appium is a tool for automating mobile applications and writing cross-platform UI tests. It is very similar to Selenium. The difference is that Selenium is a tool for automating browsers and web applications, whereas Appium is a tool for automating Native / Hybrid mobile applications.
+Appium is a tool for automating mobile applications and writing cross-platform UI tests. 
+It is very similar to Selenium. The difference is that Selenium is a tool for automating browsers and web applications, 
+whereas Appium is a tool for automating Native / Hybrid mobile applications.
 
 Appium allows developers to write UI tests for mobile applications in any number of programming language (Javascript, Java, .NET, etc.), as it uses a superset of the Selenium WebDriver specification, called the MJSONWP protocol.
 
 ## Cross-platform UI testing
 
-Because we are using Ionic with Cordova, we can write our codebase using only web technologies but still build, deploy and run on multiple platforms.
+Because we are using Ionic with Cordova, we can write our codebase using only web technologies but still build, 
+deploy and run on multiple platforms.
 Our mobile application can be packaged and deployed as a native application for both iOS and Android.
 We can achieve the same cost-savings strategy "Write once, run anywhere" for our UI tests using Appium.
 To automate our UI tests, there needs to be an agent that programmatically drives the UI of your mobile application.
@@ -85,14 +90,16 @@ There are multiple ways to start an Appium server:
 
 [Appium Desktop](https://github.com/appium/appium-desktop) is a graphical frontend for running an Appium server and starting sessions to inspect your applications.
 
-Note: For macOS make sure to drop the downloaded package in the /Applications folder. Otherwise you will encounter write permission issues.
+Note: For macOS make sure to drop the downloaded package in the /Applications folder. 
+Otherwise you will encounter write permission issues.
 
 Appium desktop has two advantages:
 
 - It comes with an inspector to show and inspect all elements of your application
 - Record user actions
 
-The drawback is inspecting and recording user actions only supports the Native context. You cannot record actions for the Webview context.
+The drawback is inspecting and recording user actions only supports the Native context. 
+You cannot record actions for the Webview context.
 Cordova applications always run in the webview context.
 
 [https://appium.io/docs/en/writing-running-appium/web/hybrid/index.html](https://appium.io/docs/en/writing-running-appium/web/hybrid/index.html)
@@ -104,7 +111,8 @@ https://github.com/angular/webdriver-manager
 
 webdriver-manager is officially supported by Angular and works well together with Protractor, 
 the official E2E testing framework for Angular applications. 
-Ionic up until version 3.x is built on top of Angular, from version 4 and on Ionic has decoupled from the Angular framework and recreated all of their components using [StencilJS](https://stenciljs.com/).
+Ionic up until version 3.x is built on top of Angular, 
+from version 4 and on Ionic has decoupled from the Angular framework and recreated all of their components using [StencilJS](https://stenciljs.com/).
 
 ### NPM 
 
@@ -112,7 +120,8 @@ We will be using this package to start up our appium server.
 
 # Language
 
-Decide in which language you want to write your tests in. You need to have a client library that can send MJSONWP / JSONWP HTTP Requests to the Appium server.
+Decide in which language you want to write your tests in. 
+You need to have a client library that can send MJSONWP / JSONWP HTTP Requests to the Appium server.
 
 For our application, we will write our tests in Typescript using Protractor since it has added support for Angular and type safety.
 
@@ -163,7 +172,8 @@ to configure your code signing identity and provision profile.
 ionic cordova build ios
 ```
 
-If you were able to run these commands successfully, we can start E2E testing our application on both iOS and Android.
+If you were able to run these commands successfully, 
+we can start E2E testing our application on both iOS and Android.
 
 Before continuing, Make a folder **/e2e** in the root of your project. 
 
@@ -484,16 +494,20 @@ There are seven basic steps in creating an Appium test script.
 7. Conclude the test.
 
 ### Webview And Native context
-Our example application is a hybrid application. Meaning it will be packaged and deployed as native app so we can access Native API's. But it will acually run inside a webview. By using Cordova our webview can communicate with Native API's (f.e. Camera).
+Our example application is a hybrid application. 
+Meaning it will be packaged and deployed as native app so we can access Native API's. 
+But it will acually run inside a webview. By using Cordova our webview can communicate with Native API's (f.e. Camera).
 
-When the Camera is launched, we enter a Native Context, if we exit the Camera and go back to our Hybrid application we return to the Webview Context.
+When the Camera is launched, we enter a Native Context, 
+if we exit the Camera and go back to our Hybrid application we return to the Webview Context.
 
 Appium helps us to easily switch between these contexts since locating and interacting with UI elements are very different in both contexts.
 
-For example, there are no DOM elements in the Native Context. To locate a native UI element you need to use an Accessibility ID. At the same time, AccessibilityID's are not available in a Webview context.
+For example, there are no DOM elements in the Native Context. 
+To locate a native UI element you need to use an Accessibility ID. At the same time, AccessibilityID's are not available in a Webview context.
 
-TouchEvents
-TouchEvents like Tap / Swipe / Drag 'n Drop are only supported in the Native context. You can not use them in the Webview Context.
+TouchEvents like Tap / Swipe / Drag 'n Drop are only supported in the Native context.
+ You can not use them in the Webview Context.
 
 ### Behaviour-driven development with Cucumber
 Cucumber is a tool for BDD. 
@@ -567,7 +581,7 @@ The following providers offer great support for Appium tests in the cloud:
 
 # Conclusion
 
-While investigating and hands-on experiencing Appium for the first time, 
+While investigating and hands-on experiencing Appium, 
 I noticed the following trade-offs:
 
 - Tests can be flaky (Simply rerunning a failing test can make it succeed)
@@ -581,9 +595,11 @@ I noticed the following trade-offs:
 - Debugging is hard, I mostly relied on console.log statements.
 - Testing on Android needs to happen with Chrome Browser version 54+.
 
-For Android we are limited to recent Android API's and devices with Chrome browser version 54+, this means we can not test older devices or devices with older Android versions.
+For Android we are limited to recent Android API's and devices with Chrome browser version 54+, 
+this means we can not test older devices or devices with older Android versions.
 
-Setting up a local Appium server also takes a lot of setup and configuration, but this can be circumvented if you decide to go for a cloud testing provider like Saucelabs.
+Setting up a local Appium server also takes a lot of setup and configuration, 
+but this can be circumvented if you decide to go for a cloud testing provider like Saucelabs.
 
 Still, I believe Appium offers a lot of value because 
 - We can write UI tests both for Android and iOS using a single programming language
