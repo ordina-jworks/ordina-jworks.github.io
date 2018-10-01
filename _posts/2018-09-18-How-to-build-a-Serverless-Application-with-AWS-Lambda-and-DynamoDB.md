@@ -41,13 +41,13 @@ However, first you need to know the basic infrastructure to set up a serverless 
 Let's do this!
 
 # What we will build
-Join me in building a serverless application in which users can give great coding tips to eachother. 
+Join me in building a serverless application in which users can give great coding tips to each other. 
 To keep it as simple as possible we will build everything through the **AWS Console** and focus on the infrastructure.
 No need to deploy any code from your computer to AWS.
 
 ## Demo
 I could show you a frontend that uses our serverless backend to give and get coding tips.
-But that would be an extra layer between you and the our serverless application.
+But that would be an extra layer between you and our serverless application.
 Here, I am triggering the app with **Curl**.
 
 Post a new Coding Tip to the database:
@@ -71,7 +71,6 @@ curl -X GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Check_Item_Is_Added_To_Table.png" width="60%" height="60%">
 </div>
 
-You could easily put a frontend over it, but that's not the point here.
 
 ## Architecture
 <div style="text-align: center;">
@@ -81,7 +80,7 @@ You could easily put a frontend over it, but that's not the point here.
 The coding tip items are stored in a NoSQL database AWS **DynamoDB**.
 There are two **Lambda Function** in play.
 One to **GET** the coding tip items from the database and one to **POST** a new coding tip item to the database.
-The user can access these Lambda Functions through an api provided by the AWS **API Gateway** service.
+The user can access these Lambda Functions through an API provided by the AWS **API Gateway** service.
 This Gateway will redirect to the right Lambda Function based on the HTTP method (POST or GET).
 Both Lambda Functions are connected to **CloudWatch** where you can view the logs of your functions.
 **AWS IAM** is used to give the services the right permissions to connect to each other.
@@ -109,7 +108,7 @@ Click on **Create table**.
 Name the table **CodingTips**. 
 As primary key make a *Partition key*  `author`, type `String`'.
 Check the **Add sort key** checkbox and choose `date`, type `Number` as a sort key for your table.
-Leave the default settings checked and click  **Create table**. 
+Leave the default settings checked and hit **Create**. 
 
 <div style="text-align: center;">
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Created-Empty-Full.png" width="100%">
@@ -126,16 +125,21 @@ Go to the CodingTips table, open the **Items** tab and click **Create item**.
 Add a couple of random items to the table as shown in the image below.
 Notice that **date** is in **milliseconds**.
 These are the milliseconds that have past since the Unix Epoch 1970-01-01.
+For example, `1538368878527` equals Mon 1 October 2018 06:41:18.
+Hit **Save** to store the item in the database.
 
 <div style="text-align: center;">
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Add_Item.png" width="100%">
 </div>
 
-I added a couple of items as you see in this image:
+I added a couple of items as you see in the image below.
 
 <div style="text-align: center;">
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Random_Items_Added.png" width="100%">
 </div>  
+
+Notice that I did not add a coding tip yet.
+We will do this later by using a Lambda Function!
 
 # Lambda: Scan DynamoDB
 > AWS Lambda is a compute service that lets you run code without provisioning or managing servers. 
@@ -155,7 +159,8 @@ Choose **Author from Scratch** and start configuring it with the following param
 </div>  
 
 Selecting **Create a custom role** will take you to another page to create this new role.
-Configure it as shown in the image below.
+The role is used to give the Lambda Function the right permissions.
+Configure the role as shown in the image below.
 If everything went well you should only have to adapt the name of the role.
 Name it `lambda_dynamodb_codingtips`.
 The rest will be automatically generated for you.
@@ -168,7 +173,7 @@ Hit **Create function** to create the Lambda.
 This will open the designer view of your Lambda Function.
 
 <div style="text-align: center;">
-  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-Codingtips_Scan-Designer_View-Initial.png" width="100%">
+  <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Designer_View-Initial.png" width="100%">
 </div>
 
 One thing is missing here.
@@ -203,7 +208,7 @@ You can find this in the **Overview** tab of your table which we showed above.
 }
 ```
 
-Click **Review policy** and name it Lambda-DynamoDB-CodingTips-Access.
+Click **Review policy** and name it `Lambda-DynamoDB-CodingTips-Access`.
 Hit **Create policy**.
 You now attached a new policy to the existing **lambda_dynamodb_codingtips** role.
 The role summary looks like this:
@@ -250,8 +255,8 @@ exports.handler = function(event, context, callback){
 
 **Save** the Lambda Function to persist the changes.  
 
-* The handler function is the function where the Lambda execution starts when the Lambda is triggered.
-* The event parameter contains the data from the event that triggered the function.
+* The `handler` function is the function where the Lambda execution starts when the Lambda is triggered.
+* The `event` parameter contains the data from the event that triggered the function.
 * The `scanningParameters` are used to configure the scan of the table.
 * This function scans the DynamoDB table for the first 100 items it finds.
 * `docClient.scan(scanningParameters, function(err,data)` executes the scan and returns either the result or the error that occurred.
@@ -260,7 +265,7 @@ exports.handler = function(event, context, callback){
 All right! Let's test this thing..
 On the Lambda Function configuration page you see a dropdown and test button in the upper right corner.
 Click the dropdown and configure a new test event.
-I called mine 'Test' and added an empty test event.
+I called mine `Test` and added an empty test event `{}`.
 
 <div style="text-align: center;">
   <img src="/img/2018-09-18-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Created_Empty_Test_Event.png" width="60%" height="60%">
@@ -304,9 +309,9 @@ Configure it by adding a resource.
 Time to configure the HTTP GET request.
 
 * Select the **/tips** endpoint
-* Under **Actions** create the **GET** method
+* Under **Actions** select **Create Method** and select **GET**.
 * Integration type is **Lambda Function**
-* As Lambda Function provide the name of the lambda.
+* As **Lambda Function** provide the name of the lambda.
 In this case that is Codingtips_Scan.
 * Save the configuration.
 
