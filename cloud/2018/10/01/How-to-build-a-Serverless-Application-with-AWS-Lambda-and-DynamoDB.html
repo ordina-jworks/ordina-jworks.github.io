@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Create a Serverless Application with AWS Lambda and DynamoDB - Nick Van Hoof">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2018-10-01-How-to-Build-a-Serverless-Application/AWS-Lambda-and-DynamoDB.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/cloud/2018/10/01/How-to-build-a-Serverless-Application-with-AWS-Lambda-and-DynamoDB.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Create a Serverless Application with AWS Lambda and DynamoDB - Nick Van Hoof"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2018-10-01-How-to-Build-a-Serverless-Application/AWS-Lambda-and-DynamoDB.png"/>
+
+    
+    <title>Create a Serverless Application with AWS Lambda and DynamoDB - Nick Van Hoof &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Create a Serverless Application with AWS Lambda and DynamoDB</h2>
+                
+
+                
+                    Posted Oct 1, 2018
+
+
+    in <a href="/categories/cloud/">Cloud</a>
+
+
+
+    by
+    
+        <a href="/author/nick-van-hoof">Nick Van Hoof</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/aws/">AWS</a>, 
+    
+        <a href="/tags/lambda/">Lambda</a>, 
+    
+        <a href="/tags/dynamodb/">DynamoDB</a>, 
+    
+        <a href="/tags/api-gateway/">API GateWay</a>, 
+    
+        <a href="/tags/serverless/">Serverless</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="table-of-content">Table of content</h1>
+<ol>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#serverless-what--why">Serverless: What &amp; Why</a></li>
+  <li><a href="#what-we-will-build">What we will build</a></li>
+  <li><a href="#prerequisites">Prerequisites</a></li>
+  <li><a href="#dynamodb">DynamoDB</a></li>
+  <li><a href="#lambda-scan-dynamodb">Lambda: scan DynamoDB</a></li>
+  <li><a href="#api-gateway-access-the-scan-lambda">API Gateway: Access the scan Lambda</a></li>
+  <li><a href="#lambda-write-to-dynamodb">Lambda: Write to DynamoDB</a></li>
+  <li><a href="#api-gateway-access-the-write-lambda">API Gateway: Access the write Lambda</a></li>
+  <li><a href="#what-is-next">What is next?</a></li>
+  <li><a href="#extra-resources">Extra resources</a></li>
+</ol>
+
+<h1 id="introduction">Introduction</h1>
+<p>Ready to create a serverless application?<br />
+New to AWS and curious to learn more?<br />
+Read on and learn more about the AWS services by building a serverless app!</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Introduction-Components.png" width="100%" height="100%" />
+</div>
+
+<h1 id="serverless-what--why">Serverless: What &amp; Why</h1>
+<blockquote>
+  <p>A serverless architecture is a way to build and run your applications without having to think about infrastructure.
+You no longer have to maintain servers to run your applications, databases and storage systems.</p>
+</blockquote>
+
+<p>And most of all, <strong>it is so easy!</strong>  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Boom-Sparkles.png" alt="boom-sparkles" /></p>
+
+<p>Yes, once you get the hang of it, it really is mind-blowingly easy.
+However, first you need to know the basic infrastructure to set up a serverless application.
+Let’s do this!</p>
+
+<h1 id="what-we-will-build">What we will build</h1>
+<p>Join me in building a serverless application in which users can give great coding tips to each other. 
+To keep it as simple as possible we will build everything through the <strong>AWS Console</strong> and focus on the infrastructure.
+No need to deploy any code from your computer to AWS.</p>
+
+<h2 id="demo">Demo</h2>
+<p>I could show you a frontend that uses our serverless backend to give and get coding tips.
+But that would be an extra layer between you and our serverless application.
+Here, I am triggering the app with <strong>Curl</strong>.</p>
+
+<p>Post a new Coding Tip to the database:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
+    https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips <span class="se">\</span>
+    <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+    <span class="nt">-d</span> <span class="s1">'{
+    "author": "Nick",
+    "tip": "Learn by doing",
+    "category": "General"
+  }'</span>
+</code></pre></div></div>
+<p>A new item was added to the CodingTips database.
+I added a few already and can retrieve them too.
+View all the Coding Tips that are currently in the database:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
+</code></pre></div></div>
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Check_Item_Is_Added_To_Table.png" width="60%" height="60%" />
+</div>
+
+<h2 id="architecture">Architecture</h2>
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/AWS-lambda-and-DynamoDB-Architecture.png" width="100%" />
+</div>
+
+<p>The coding tip items are stored in a NoSQL database AWS <strong>DynamoDB</strong>.
+There are two <strong>Lambda Function</strong> in play.
+One to <strong>GET</strong> the coding tip items from the database and one to <strong>POST</strong> a new coding tip item to the database.
+The user can access these Lambda Functions through an API provided by the AWS <strong>API Gateway</strong> service.
+This Gateway will redirect to the right Lambda Function based on the HTTP method (POST or GET).
+Both Lambda Functions are connected to <strong>CloudWatch</strong> where you can view the logs of your functions.
+<strong>AWS IAM</strong> is used to give the services the right permissions to connect to each other.</p>
+
+<h1 id="prerequisites">Prerequisites</h1>
+<p>To follow along you need:</p>
+<ul>
+  <li>an AWS account.
+If you do not have one already, you can create one by following these steps from the official guidelines:
+<a href="https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account" target="_blank" rel="noopener noreferrer">Create an AWS account</a>.<br />
+You have to provide a credit card number to create an account.
+Don’t worry! 
+The <strong>AWS-Free-Tier</strong> provides plenty of resources that widely exceed what you will use for this tutorial.
+If you ask me, AWS is really offering a fantastic amount of stuff for free.
+You should be grateful for this, it will give you plenty of time to get to know the AWS Services.</li>
+  <li>coding enthusiasm</li>
+</ul>
+
+<h1 id="dynamodb">DynamoDB</h1>
+<blockquote>
+  <p>Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.
+– from AWS docs: <a target="_blank" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html">https://docs.aws.amazon.com/amazondynamodb</a></p>
+</blockquote>
+
+<p>Create a database to store your items.
+Login to the AWS Console and under <strong>Services</strong> go to <em><strong>DynamoDB</strong></em>.
+Click on <strong>Create table</strong>.<br />
+Name the table <strong>CodingTips</strong>. 
+As primary key make a <em>Partition key</em>  <code class="highlighter-rouge">author</code>, type <code class="highlighter-rouge">String</code>’.
+Check the <strong>Add sort key</strong> checkbox and choose <code class="highlighter-rouge">date</code>, type <code class="highlighter-rouge">Number</code> as a sort key for your table.
+Leave the default settings checked and hit <strong>Create</strong>.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Created-Empty-Full.png" width="100%" />
+</div>
+
+<p>Notice the <strong>Amazon Resource Name ARN</strong> property.
+We will use this later to point to this DynamoDB table.<br />
+You just created the DynamoDB table that the application will use.
+Awesome!</p>
+
+<h2 id="add-elements-to-codingtips-table">Add elements to CodingTips table</h2>
+<p>Manually add some elements to the CodingTips table.
+Go to the CodingTips table, open the <strong>Items</strong> tab and click <strong>Create item</strong>.
+Add a couple of random items to the table as shown in the image below.
+Notice that <strong>date</strong> is in <strong>milliseconds</strong>.
+These are the milliseconds that have past since the Unix Epoch 1970-01-01.
+For example, <code class="highlighter-rouge">1538368878527</code> equals Mon 1 October 2018 06:41:18.
+Hit <strong>Save</strong> to store the item in the database.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Add_Item.png" width="100%" />
+</div>
+
+<p>I added a couple of items as you see in the image below.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Random_Items_Added.png" width="100%" />
+</div>
+
+<p>Notice that I did not add a coding tip yet.
+We will do this later by using a Lambda Function!</p>
+
+<h1 id="lambda-scan-dynamodb">Lambda: Scan DynamoDB</h1>
+<blockquote>
+  <p>AWS Lambda is a compute service that lets you run code without provisioning or managing servers. 
+AWS Lambda executes your code only when needed and scales automatically, from a few requests per day to thousands per second.
+– from AWS docs: <a target="_blank" href="https://docs.aws.amazon.com/lambda/latest/dg/welcome.html">https://docs.aws.amazon.com/lambda</a></p>
+</blockquote>
+
+<p>Let’s build a Lambda that scans the DynamoDB table for our items.
+In the AWS Console under <strong>Services</strong> navigate to <strong>Lambda</strong>.
+Click the <strong>Create Function</strong> button to start creating a Lambda.
+Choose <strong>Author from Scratch</strong> and start configuring it with the following parameters:</p>
+<ul>
+  <li>Name: CodingTips_Scan</li>
+  <li>Runtime: Node.js 8.10</li>
+  <li>Role: Create a custom role</li>
+</ul>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Create_From_Scratch.png" width="100%" />
+</div>
+
+<p>Selecting <strong>Create a custom role</strong> will take you to another page to create this new role.
+The role is used to give the Lambda Function the right permissions.
+Configure the role as shown in the image below.
+If everything went well you should only have to adapt the name of the role.
+Name it <code class="highlighter-rouge">lambda_dynamodb_codingtips</code>.
+The rest will be automatically generated for you.</p>
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Role-Create_New_Role.png" width="100%" />
+</div>
+<p>Click <strong>Allow</strong>.</p>
+
+<p>Hit <strong>Create function</strong> to create the Lambda.
+This will open the designer view of your Lambda Function.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Designer_View-Initial.png" width="100%" />
+</div>
+
+<p>One thing is missing here.
+The Lambda Function has the authority to send its logs to CloudWatch.
+This authority is given by the role we just gave it.
+However, it is mentioned nowhere that it has the right to access the CodingTips table.
+We should arrange this too.</p>
+
+<h2 id="configuring-the-role-for-the-lambda-function">Configuring the Role for the Lambda Function</h2>
+<blockquote>
+  <p>AWS Identity and Access Management (IAM) is a web service that helps you securely control access to AWS resources. 
+You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources.
+– from AWS docs: <a target="_blank" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html">https://docs.aws.amazon.com/IAM</a></p>
+</blockquote>
+
+<p>Under AWS Services navigate to <strong>IAM</strong> (Identity and Access Management).
+Under roles find the <strong>lambda_dynamodb_codingtips</strong> role and click it.
+It has one policy (for the CloudWatch logs) attached to it already.
+Click <strong>Add inline policy</strong> and go to the <strong>JSON</strong> tab. 
+In the JSON tab add the following JSON to configure this new policy.
+Add the <strong>arn</strong> that points to your own CodingTips table!
+You can find this in the <strong>Overview</strong> tab of your table which we showed above.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="s2">"Version"</span><span class="p">:</span> <span class="s2">"2012-10-17"</span><span class="p">,</span>
+    <span class="s2">"Statement"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Effect"</span><span class="p">:</span> <span class="s2">"Allow"</span><span class="p">,</span>
+            <span class="s2">"Action"</span><span class="p">:</span> <span class="s2">"dynamodb:*"</span><span class="p">,</span>
+            <span class="s2">"Resource"</span><span class="p">:</span> <span class="s2">"arn:aws:dynamodb:eu-west-1:389795768041:table/CodingTips"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Click <strong>Review policy</strong> and name it <code class="highlighter-rouge">Lambda-DynamoDB-CodingTips-Access</code>.
+Hit <strong>Create policy</strong>.
+You now attached a new policy to the existing <strong>lambda_dynamodb_codingtips</strong> role.
+The role summary looks like this:</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Role-lambda_dynamodb_codingtips_access.png" width="100%" />
+</div>
+
+<p>Go back to the designer view of the CodingTips_Scan Lambda.
+Now you see that the Lambda Function has the right to connect to the DynamoDB table.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Designer_View-DynamoDB-CloudWatch.png" width="100%" />
+</div>
+
+<h2 id="function-code">Function Code</h2>
+<p>Yeah, finally it is time for some code!<br />
+In the configuration window of the lambda add the code in the <strong>Function code</strong> block.
+‘<code class="highlighter-rouge">index.js</code> has to contain the following code:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'function starts'</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">AWS</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'aws-sdk'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">docClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AWS</span><span class="p">.</span><span class="nx">DynamoDB</span><span class="p">.</span><span class="nx">DocumentClient</span><span class="p">({</span><span class="na">region</span><span class="p">:</span> <span class="s1">'eu-west-1'</span><span class="p">});</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">handler</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">callback</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'processing event: %j'</span><span class="p">,</span> <span class="nx">event</span><span class="p">);</span>
+
+    <span class="kd">let</span> <span class="nx">scanningParameters</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">TableName</span><span class="p">:</span> <span class="s1">'CodingTips'</span><span class="p">,</span>
+        <span class="na">Limit</span><span class="p">:</span> <span class="mi">100</span> <span class="c1">//maximum result of 100 items</span>
+    <span class="p">};</span>
+
+    <span class="c1">//In dynamoDB scan looks through your entire table and fetches all data</span>
+    <span class="nx">docClient</span><span class="p">.</span><span class="nx">scan</span><span class="p">(</span><span class="nx">scanningParameters</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+            <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="nx">data</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Save</strong> the Lambda Function to persist the changes.</p>
+
+<ul>
+  <li>The <code class="highlighter-rouge">handler</code> function is the function where the Lambda execution starts when the Lambda is triggered.</li>
+  <li>The <code class="highlighter-rouge">event</code> parameter contains the data from the event that triggered the function.</li>
+  <li>The <code class="highlighter-rouge">scanningParameters</code> are used to configure the scan of the table.</li>
+  <li>This function scans the DynamoDB table for the first 100 items it finds.</li>
+  <li><code class="highlighter-rouge">docClient.scan(scanningParameters, function(err,data)</code> executes the scan and returns either the result or the error that occurred.</li>
+</ul>
+
+<h2 id="test-write-lambda">Test write-Lambda</h2>
+<p>All right! Let’s test this thing..
+On the Lambda Function configuration page you see a dropdown and test button in the upper right corner.
+Click the dropdown and configure a new test event.
+I called mine <code class="highlighter-rouge">Test</code> and added an empty test event <code class="highlighter-rouge">{}</code>.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Created_Empty_Test_Event.png" width="60%" height="60%" />
+</div>
+
+<p><strong>Save</strong> it and you are ready to test the Lambda.<br />
+From the dropdown select your test event and hit the <strong>Test</strong> button!
+Nice one, this returns the items in your table:</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Execution_Result_Succeeded.png" width="100%" />
+</div>
+
+<h1 id="api-gateway-access-the-scan-lambda">API Gateway: Access the scan Lambda</h1>
+<p>Mmmh, fine.. We can trigger the Lambda Function with a test event.
+But we want to be able to trigger it from anywhere using a URL.
+In the designer view of the lambda you can still see <strong>add triggers from the left</strong>.
+Well, let’s add that trigger!
+To expose a Lambda Function AWS provides the <strong>API Gateway</strong>.</p>
+
+<p>Under <strong>Services</strong> navigate to <strong>API Gateway</strong>.</p>
+<blockquote>
+  <p>Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale. 
+With a few clicks in the AWS Management Console, you can create an API that acts as a “front door” for applications – from AWS docs: <a target="_blank" href="https://aws.amazon.com/api-gateway/">https://aws.amazon.com/api-gateway</a></p>
+</blockquote>
+
+<p>Basically this is the Service you use to create all of your API’s.</p>
+<ul>
+  <li>Click <strong>Create API</strong> and name your api <strong>CodingTips</strong></li>
+  <li>Add a description if you like</li>
+  <li>Leave the <strong>Endpoint Type</strong> to regional and <strong>Create API</strong></li>
+</ul>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-GET-Create_API.png" width="100%" />
+</div>
+
+<p>The API has been created.
+Configure it by adding a resource.</p>
+
+<ul>
+  <li>Under <strong>Actions</strong> click <strong>Create Resource</strong> and name it <strong>tips</strong> with <strong>/tips</strong> as <strong>Resource Path</strong></li>
+  <li>Check <strong>Enable CORS</strong> to make your API accessible from anywhere</li>
+  <li>Hit <strong>Create Resource</strong></li>
+</ul>
+
+<p>Time to configure the HTTP GET request.</p>
+
+<ul>
+  <li>Select the <strong>/tips</strong> endpoint</li>
+  <li>Under <strong>Actions</strong> select <strong>Create Method</strong> and select <strong>GET</strong>.</li>
+  <li>Integration type is <strong>Lambda Function</strong></li>
+  <li>As <strong>Lambda Function</strong> provide the name of the lambda.
+In this case that is Codingtips_Scan.</li>
+  <li>Save the configuration.</li>
+</ul>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-GET-Configuration.png" width="100%" />
+</div>
+
+<p>Only one thing left: select the API and under <strong>Actions</strong> click <strong>Deploy API</strong>. 
+You will be asked to provide a name for the <strong>stage</strong>. 
+Name it <code class="highlighter-rouge">default</code>.</p>
+
+<p>In the <strong>Stages</strong> tab click the <strong>GET</strong> method and copy the <strong>Invoke URL</strong>.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-GET-Invoke_URL.png" width="100%" />
+</div>
+
+<p>This is your gateway to trigger the lambda.
+Since we just created a HTTP GET request you can use either your <strong>browser</strong>, <strong>Curl</strong> or <strong>Postman</strong> to do this.
+In a browser tab past the <strong>Invoke URL</strong>.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-GET-Invoke_Browser.png" width="60%" />
+</div>
+
+<p>From the command line with Curl execute this command with your own <strong>Invoke URL</strong>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
+</code></pre></div></div>
+
+<p>Either of the above actions will return the items in the CodingTips table!</p>
+
+<p><strong>Congratulations</strong>, you just created your first serverless app!<br />
+<img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Party.png" alt="party" /></p>
+
+<p>Did you know:</p>
+<ul>
+  <li>performing a scan on a DynamoDB table will return the items in a random order</li>
+  <li>you just joined the club of serverless application developers</li>
+  <li>you should be proud of yourself</li>
+</ul>
+
+<h2 id="common-errors">Common errors</h2>
+<ul>
+  <li><strong>Missing Authentication Token</strong>:
+    <ul>
+      <li>Check the URL you are trying to invoke.
+  Does it have the format ‘https://{domain}/{stage}/{method}’.
+  <strong>Stage</strong> and <strong>method</strong> were set when creating the API Gateway.</li>
+      <li><strong>Enable CORS</strong> for your API Gateway</li>
+      <li>Made changes to the API Gateway? Make sure to redeploy the API.</li>
+    </ul>
+  </li>
+  <li><strong>Lambda Exceptions</strong>:
+    <ul>
+      <li>Check CloudWatch for logs.
+  Under <strong>Services</strong> go to <strong>CloudWatch</strong>.
+  In the <strong>Logs</strong> tab access the <strong>Log Group</strong> <code class="highlighter-rouge">/aws/lambda/CodingTips_Scan</code> to view the logs of the Lambda.</li>
+    </ul>
+  </li>
+  <li>Trouble with <strong>API Gateway</strong>:
+    <ul>
+      <li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html" target="_blank" rel="noopener noreferrer">Enable API Gateway logging</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="lambda-write-to-dynamodb">Lambda: Write to DynamoDB</h1>
+<p>Users should be able to <strong>POST</strong> new items to the table.
+This is possible when we create a <strong>Lambda Function</strong> to <strong>write</strong> to the database.</p>
+
+<h2 id="create-write-lambda">Create write-Lambda</h2>
+<p>In the AWS Console under <strong>Services</strong> navigate to <strong>Lambda</strong>.
+Click the <strong>Create Function</strong> button to start creating a Lambda.
+Choose <strong>Author from Scratch</strong> and start configuring it with the following parameters:</p>
+<ul>
+  <li>Name: CodingTips_Write</li>
+  <li>Runtime: Node.js 8.10</li>
+  <li>Role: Choose an existing role</li>
+  <li>Existing role: lambda_dynamodb_codingtips</li>
+</ul>
+
+<p><strong>Create</strong> the function.
+The <strong>CodingTips_Write</strong> Lambda Function already has access to <strong>CloudWatch</strong> and <strong>DynamoDB</strong>.
+This is because we gave it the existing <strong>lambda_dynamodb_codingtips</strong> role that has policies which allow these access.
+The designer view of the Lambda Function now looks like this:</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Write-Designer_View-Connected_With_DynamoDB.png" width="100%" />
+</div>
+
+<h2 id="function-code-1">Function Code</h2>
+<p>Let’s add the code of this function!<br />
+In the configuration window of the lambda add the code in the <strong>Function code</strong> block.
+Enter the following code in the <code class="highlighter-rouge">index.js</code> file:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'function starts'</span><span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">AWS</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'aws-sdk'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">docClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AWS</span><span class="p">.</span><span class="nx">DynamoDB</span><span class="p">.</span><span class="nx">DocumentClient</span><span class="p">({</span><span class="na">region</span><span class="p">:</span> <span class="s1">'eu-west-1'</span><span class="p">})</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">handler</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">callback</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'processing event: '</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+    <span class="kd">let</span> <span class="nx">currentMonth</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getMonth</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span> 
+    <span class="kd">let</span> <span class="nx">currentYear</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getFullYear</span><span class="p">()</span>
+
+    <span class="kd">let</span> <span class="nx">params</span> <span class="o">=</span>  <span class="p">{</span>
+        <span class="na">Item</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">Date</span><span class="p">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">(),</span>
+            <span class="na">Author</span><span class="p">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">author</span> <span class="p">?</span> <span class="nx">event</span><span class="p">.</span><span class="nx">author</span> <span class="p">:</span> <span class="s2">"Anonymous"</span><span class="p">,</span>
+            <span class="na">Tip</span><span class="p">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">tip</span><span class="p">,</span>
+            <span class="na">Category</span><span class="p">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">category</span><span class="p">,</span>
+            <span class="na">MonthAttribute</span><span class="p">:</span> <span class="nx">currentMonth</span><span class="p">,</span>
+            <span class="na">YearAttribute</span><span class="p">:</span> <span class="nx">currentYear</span><span class="p">,</span>
+            <span class="na">YearMonthAttribute</span><span class="p">:</span> <span class="nx">currentYear</span> <span class="o">+</span> <span class="s2">"-"</span> <span class="o">+</span> <span class="nx">currentMonth</span>
+        <span class="p">},</span>
+
+        <span class="na">TableName</span><span class="p">:</span> <span class="s1">'CodingTips'</span>
+    <span class="p">};</span>
+
+    <span class="nx">docClient</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="kc">null</span><span class="p">)</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Save the Lambda Function to persist the changes.</p>
+
+<p>What happens in this Lambda Function:</p>
+<ul>
+  <li>The <code class="highlighter-rouge">event</code> parameter of the <code class="highlighter-rouge">handler</code> function contains the data from the event that triggered the function.</li>
+  <li>The <code class="highlighter-rouge">params</code> are used to configure the scan of the table.</li>
+  <li>The <code class="highlighter-rouge">Item</code> object contains the data that has to be put into the table.</li>
+  <li>The <code class="highlighter-rouge">Item</code> not only contains the <strong>Date</strong> and <strong>Author</strong>, but also other attributes like the <code class="highlighter-rouge">Tip</code> itself and <code class="highlighter-rouge">Category</code>..
+That’s allowed because it is a NoSQL database. 
+The <code class="highlighter-rouge">MonthAtrribute</code>, <code class="highlighter-rouge">YearAttribute</code> and <code class="highlighter-rouge">YearMonthAttribute</code> are added automatically.</li>
+  <li><code class="highlighter-rouge">docClient.put(params, function(err,data)</code> executes the write and returns either the result or the error that occurred.</li>
+</ul>
+
+<h2 id="test-write-lambda-1">Test write-Lambda</h2>
+<p>Configure a new test event called <strong>test</strong> and add the following JSON attributes:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">{</span>
+      <span class="s2">"author"</span><span class="p">:</span> <span class="s2">"Nick"</span><span class="p">,</span>
+      <span class="s2">"tip"</span><span class="p">:</span> <span class="s2">"Don't hesitate to ask for help when you need it"</span><span class="p">,</span>
+      <span class="s2">"category"</span><span class="p">:</span> <span class="s2">"General"</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Save it and test the lambda by hitting the test button.</p>
+
+<p><strong>Execution result: succeeded</strong>? 
+Go to the CodingTips table and you will see a new item that was added into your table.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/DynamoDB-CodingTips-Input_Item_Via_Write_Lambda.png" width="100%" />
+</div>
+
+<h1 id="api-gateway-access-the-write-lambda">API Gateway: Access the write Lambda</h1>
+<p>Again we need to expose our Lambda Function via an <strong>API Gateway</strong> so that users can post messages to it.</p>
+<ul>
+  <li>Under <strong>Services</strong> navigate to <strong>API Gateway</strong>.</li>
+  <li>Click the <strong>CodingTips</strong> API that we created already for the GET Request.</li>
+  <li>You need to add a <strong>HTTP POST Method</strong> to this API.
+Under <strong>Resources</strong> click <code class="highlighter-rouge">/tips</code>, <strong>Actions</strong>, <strong>Create Method</strong> and select <strong>POST</strong>.
+The <strong>Integration Type</strong> is Lambda Function.
+The name of that Lambda function is <strong>CodingTips_Write</strong>, which we just created.</li>
+</ul>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-POST-configuration.png" width="100%" />
+</div>
+
+<ul>
+  <li>Hit <strong>Save</strong> to create the new method.</li>
+  <li>When AWS asks you, add the permission to the Lambda Function</li>
+</ul>
+
+<p>We want to pass a JSON object to this API.
+The API in turn has to pass on the JSON to the Lambda.
+To enable this, click on <strong>Integration Request</strong> and under Mapping Templates check <strong>When there are no templates defined (recommended)</strong></p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-POST-Method_Execution.png" width="100%" />
+</div>
+
+<p><strong>Add mapping template</strong> with Content-Type <strong>application/json</strong>.
+Add this template and <strong>save</strong>:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="s2">"author"</span><span class="p">:</span> <span class="nx">$input</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="s1">'$.author'</span><span class="p">),</span>
+  <span class="s2">"tip"</span><span class="p">:</span> <span class="nx">$input</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="s1">'$.tip'</span><span class="p">),</span>
+  <span class="s2">"category"</span><span class="p">:</span> <span class="nx">$input</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="s1">'$.category'</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-POST-Mapping_Template.png" width="100%" />
+</div>
+
+<p>Under <strong>Actions</strong> click <strong>Deploy API</strong>. 
+You will be asked to provide a name for the <strong>stage</strong>. 
+Select the <code class="highlighter-rouge">default</code> stage and <strong>Deploy</strong>.
+In the <strong>Stages</strong> tab there is an <strong>Invoke URL</strong>.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/API_Gateway-POST-deployed.png" width="100%" />
+</div>
+
+<p>This is your gateway to trigger the lambda.
+Since we just created a HTTP POST request you can use either <strong>Curl</strong> or <strong>Postman</strong> to do this.
+From the command line with Curl execute this command with your own <strong>Invoke URL</strong>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
+    https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips <span class="se">\</span>
+    <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+    <span class="nt">-d</span> <span class="s1">'{
+    "author": "Nick",
+    "tip": "Learn by doing",
+    "category": "General"
+  }'</span>
+</code></pre></div></div>
+
+<p>You just added a tip to the CodingTips table!
+This can be checked by invoking the GET method of the API Gateway we designed in the beginning of this article.
+Use your browser or curl to check the items in the table.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET https://k5p4u1y2we.execute-api.eu-west-1.amazonaws.com/default/tips
+</code></pre></div></div>
+<div style="text-align: center;">
+  <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Check_Item_Is_Added_To_Table.png" width="60%" height="60%" />
+</div>
+
+<h2 id="common-errors-1">Common errors</h2>
+<ul>
+  <li><strong>Missing Authentication Token</strong>:
+    <ul>
+      <li>Check whether the <strong>Mapping Template</strong> under the Integration Request of your API Gateway is correct</li>
+      <li>Check the URL you are trying to invoke.</li>
+      <li>Made changes to the API Gateway? Make sure to redeploy the API.</li>
+    </ul>
+  </li>
+  <li><strong>Lambda Exceptions</strong>:
+    <ul>
+      <li>Check CloudWatch for logs.
+  Under <strong>Services</strong> go to <strong>CloudWatch</strong>.
+  In the <strong>Logs</strong> tab access the <strong>Log Group</strong> <code class="highlighter-rouge">/aws/lambda/CodingTips_Write</code> to view the logs of the Lambda.</li>
+    </ul>
+  </li>
+  <li>Trouble with <strong>API Gateway</strong>:
+    <ul>
+      <li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html" target="_blank" rel="noopener noreferrer">Enable API Gateway logging</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="what-is-next">What is next</h1>
+<p>Some suggestions to keep you busy:</p>
+<ul>
+  <li>Query DynamoDB instead of scanning</li>
+  <li>Create GSI (Global Secondary Index) to query and sort</li>
+  <li>Create a frontend that uses this serverless infrastructure as backend</li>
+  <li>Deploy this infrastructure with <strong>AWS Cloudformation</strong></li>
+  <li>Deploy using a Jenkins pipeline</li>
+  <li>Run locally with <strong>SAM Local</strong></li>
+</ul>
+
+<h1 id="extra-resources">Extra resources</h1>
+<ul>
+  <li>AWS Lambda: <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html" target="_blank" rel="noopener noreferrer">AWS Lambda Introduction</a></li>
+  <li>AWS DynamoDB: <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html" target="_blank" rel="noopener noreferrer">AWS DynamoDB Introduction</a></li>
+  <li>AWS API Gateway: <a href="https://aws.amazon.com/api-gateway" target="_blank" rel="noopener noreferrer">AWS API Gateway</a></li>
+  <li>AWS IAM: <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html" target="_blank" rel="noopener noreferrer">AWS IAM Introduction</a></li>
+  <li>AWS CloudWatch: <a href="https://aws.amazon.com/cloudwatch/getting-started/" target="_blank" rel="noopener noreferrer">Getting started with AWS CloudWatch</a></li>
+  <li>Using the DynamoDB docClient: <a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-document-client.html" target="_blank" rel="noopener noreferrer">AWS DocClient Example</a></li>
+</ul>
+
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/cloud/2018/10/01/How-to-build-a-Serverless-Application-with-AWS-Lambda-and-DynamoDB.html&title=Create a Serverless Application with AWS Lambda and DynamoDB&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Create a Serverless Application with AWS Lambda and DynamoDB&url=https://ordina-jworks.github.io/cloud/2018/10/01/How-to-build-a-Serverless-Application-with-AWS-Lambda-and-DynamoDB.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/cloud/2018/10/01/How-to-build-a-Serverless-Application-with-AWS-Lambda-and-DynamoDB.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/nick-van-hoof" class="image spotlight-image">
+            <img src="/img/author/nick-van-hoof.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Nick is a Java developer with a lot of hunger for knowledge. He is continuously looking for ways to improve. He wants to build this expertise by contributing to valuable projects. Spring, microservices and IoT fascinate him the most.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2018-10-01-How-to-Build-a-Serverless-Application/AWS-Lambda-and-DynamoDB.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/cloud/2018/10/01/How-to-build-a-Serverless-Application-with-AWS-Lambda-and-DynamoDB.html";
+        this.page.identifier = "/cloud/2018/10/01/How-to-build-a-Serverless-Application-with-AWS-Lambda-and-DynamoDB.html";
+        this.page.title = "Create a Serverless Application with AWS Lambda and DynamoDB";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
