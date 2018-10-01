@@ -8,13 +8,18 @@ category: Ionic
 comments: true
 ---
 
-**Example repository**
+# Table of Contents
 
-[https://github.com/ryandegruyter/ordina-ionic-appium-protractor](https://github.com/ryandegruyter/ordina-ionic-appium-protractor)
+1. [Introduction](#introduction)
+2. [Automated testing](#automated-testing)
+3. [Appium](#appium)
+4. [Getting started with Appium](#getting-started-with-appium)
+5. [Conclusion](#conclusion)
+6. [Example repository](#example-repository)
 
 # Introduction
 
-Many articles related to E2E testing Cordova/Ionic applications are about applications which only run in the browser. 
+Many articles related to E2E testing Cordova/Ionic applications are about applications which only run in the browser.
 But what if your application run's on native mobile devices?
 
 This article will cover how to get started with E2E testing your Ionic application on native Android and iOS devices.
@@ -35,6 +40,7 @@ The most popular solution for automated E2E tests is called Selenium which is ba
 
 While Selenium is a great solution for browsers, 
 there is a better solution for native mobile apps called [Appium](http://appium.io/).
+
 # Appium
 
 Appium is a tool for automating mobile applications and writing cross-platform UI tests. 
@@ -90,7 +96,7 @@ There are multiple ways to start an Appium server:
 
 [Appium Desktop](https://github.com/appium/appium-desktop) is a graphical frontend for running an Appium server and starting sessions to inspect your applications.
 
-Note: For macOS make sure to drop the downloaded package in the /Applications folder. 
+Note: For macOS make sure to drop the downloaded package in the `/Applications` folder.
 Otherwise you will encounter write permission issues.
 
 Appium desktop has two advantages:
@@ -98,7 +104,7 @@ Appium desktop has two advantages:
 - It comes with an inspector to show and inspect all elements of your application
 - Record user actions
 
-The drawback is inspecting and recording user actions only supports the Native context. 
+The drawback is inspecting and recording user actions only supports the Native context.
 You cannot record actions for the Webview context.
 Cordova applications always run in the webview context.
 
@@ -106,21 +112,20 @@ Cordova applications always run in the webview context.
 
 ### webdriver-manager
 
-Selenium and appium server manager.
-https://github.com/angular/webdriver-manager
+[Selenium and appium server manager](https://github.com/angular/webdriver-manager)
 
-webdriver-manager is officially supported by Angular and works well together with Protractor, 
-the official E2E testing framework for Angular applications. 
-Ionic up until version 3.x is built on top of Angular, 
+Webdriver-manager is officially supported by Angular and works well together with Protractor,
+the official E2E testing framework for Angular applications.
+Ionic up until version 3.x is built on top of Angular,
 from version 4 and on Ionic has decoupled from the Angular framework and recreated all of their components using [StencilJS](https://stenciljs.com/).
 
-### NPM 
+### NPM
 
 We will be using this package to start up our appium server.
 
-# Language
+## Language
 
-Decide in which language you want to write your tests in. 
+Decide in which language you want to write your tests in.
 You need to have a client library that can send MJSONWP / JSONWP HTTP Requests to the Appium server.
 
 For our application, we will write our tests in Typescript using Protractor since it has added support for Angular and type safety.
@@ -130,15 +135,15 @@ Other webdriver javascript clients:
 - http://webdriver.io/guide/getstarted/modes.html
 - https://github.com/admc/wd
 
-Client libraries for different languages https://appium.readthedocs.io/en/stable/en/writing-running-appium/other/appium-bindings/
+[Client libraries for different languages](https://appium.readthedocs.io/en/stable/en/writing-running-appium/other/appium-bindings/)
 
-# Project setup
+## Project setup
 
 We are going to use Ionic 4 and the **super** template as our application to run our tests against.
 
 First, make sure your development machine has been set up correctly.
 
-[On the developer resources page of the official ionic documentation](https://ionicframework.com/docs/developer-resources/), 
+[On the developer resources page of the official ionic documentation](https://ionicframework.com/docs/developer-resources/),
 you will find guides on how to set up your machine depending on the OS you are working on.
 
 Once your machine is set up, install the Ionic CLI.
@@ -159,7 +164,7 @@ Test if you can build the application by entering the following commands
 
 ### Android
 
-``` shell
+```shell
 ionic cordova build android
 ```
 
@@ -168,14 +173,14 @@ ionic cordova build android
 Note: You will have to open your ios project in xcode first 
 to configure your code signing identity and provision profile. 
 
-``` shell
+```shell
 ionic cordova build ios
 ```
 
 If you were able to run these commands successfully, 
 we can start E2E testing our application on both iOS and Android.
 
-Before continuing, Make a folder **/e2e** in the root of your project. 
+Before continuing, Make a folder `/e2e` in the root of your project.
 
 ## Configure the E2E testing tools in your Ionic project
 
@@ -204,9 +209,7 @@ you need to match the correct chrome driver with the Chrome version running on t
 
 To download a chrome driver, go to the [Chrome Driver Downloads page](http://chromedriver.chromium.org/downloads).
 
-Once you have selected your chrome driver, download it and put in the 
-
-**/e2e** folder.
+Once you have selected your chrome driver, download it and put in the `/e2e` folder.
 
 #### 3. Create an NPM task in your package.json
 
@@ -227,13 +230,13 @@ npm run appium
 
 ### Protractor
 
-Protractor will be our test runner and testing framework. 
+Protractor will be our test runner and testing framework.
 [Visit their website](https://www.protractortest.org/#/) for more information on Protractor.
 
 1. Install protractor as a local NPM dependency
 2. Configure typescript configs
-2. Create your protractor config
-3. Create NPM script for running your e2e tests
+3. Create your protractor config
+4. Create NPM script for running your e2e tests
 
 #### 1. Install Protractor as a local NPM dependency
 
@@ -245,13 +248,13 @@ npm install -D protractor
 
 #### 1. Configure Typescript
 
-We require a few extra tools to be able run and write our tests in Typescript. 
+We require a few extra tools to be able run and write our tests in Typescript.
 
 ```shell
 npm install -D ts-node @types/jasmine @types/node
 ```
 
-Next, in your **/e2e** folder, Create a **tsconfig.json** file with the following configuration:
+Next, in your `/e2e` folder, Create a **tsconfig.json** file with the following configuration:
 
 ```json
 {
@@ -281,9 +284,7 @@ This will be our tsconfig for our e2e test scripts.
 It's also a good idea to write your configuration files in Typescript.
 For our protractor configuration, we will use a different typescript configuration file.
 
-In your **/e2e** folder, create a file called
-
-**/e2e/protractor.tsconfig.json**
+In your `/e2e` folder, create a file called `/e2e/protractor.tsconfig.json`
 
 This configuration file will extend the one we created earlier, 
 we want to overwrite the include and exclude parameters to make sure it only matches
@@ -300,12 +301,11 @@ and transpiles the ***protractor.config.ts*** file.
   ]
 }
 ```
+
 #### 3. Configure protractor
 
 Now one of the more exciting parts, configuring Protractor!
 Create a file called **/e2e/protractor.config.ts** with the following contents:
-To get an idea of all the configuration parameters and their description, visit
-[The official Protractor Github repo](https://github.com/angular/protractor/blob/master/lib/config.ts)
 
 ```typescript
 import {Config} from 'protractor';
@@ -364,6 +364,9 @@ export let config: Config = {
 };
 ```
 
+To get an idea of all the configuration parameters and their description, visit
+[The official Protractor Github repo](https://github.com/angular/protractor/blob/master/lib/config.ts)
+
 I will go over the points that took me the most effort to configure correctly.
 
 #### Capabilities
@@ -407,8 +410,7 @@ const androidPixel2XLCapability = {
 - Run ***ionic cordova build ios*** and configure the output path in the **app** property
 - Point to the .app file and not the .ipa if you are using simulators.
 - Set automationName to **XCUITest** instead of the deprecated **UIAutomator**
-- browserName is a mandatory parameter, but since we're targeting Native apps, we can leave
-this as an empty string
+- browserName is a mandatory parameter, but since we're targeting Native apps, we can leave this as an empty string
 
 ```typescript
 const iPhoneXCapability = {
@@ -426,7 +428,7 @@ const iPhoneXCapability = {
 };
 ```
 
-#### 4. Create an NPM script for running e2e tests.
+#### 4. Create an NPM script for running e2e tests
 
 In your package.json, add the following task:
 
@@ -446,7 +448,7 @@ const testFilePAtterns: Array<string> = [
 export let config: Config = {
   ...
   specs: testFilePAtterns
-  ... 
+  ...
 };
 ```
 
@@ -494,8 +496,9 @@ There are seven basic steps in creating an Appium test script.
 7. Conclude the test.
 
 ### Webview And Native context
-Our example application is a hybrid application. 
-Meaning it will be packaged and deployed as native app so we can access Native API's. 
+
+Our example application is a hybrid application.
+Meaning it will be packaged and deployed as native app so we can access Native API's.
 But it will acually run inside a webview. By using Cordova our webview can communicate with Native API's (f.e. Camera).
 
 When the Camera is launched, we enter a Native Context, 
@@ -503,14 +506,15 @@ if we exit the Camera and go back to our Hybrid application we return to the Web
 
 Appium helps us to easily switch between these contexts since locating and interacting with UI elements are very different in both contexts.
 
-For example, there are no DOM elements in the Native Context. 
+For example, there are no DOM elements in the Native Context.
 To locate a native UI element you need to use an Accessibility ID. At the same time, AccessibilityID's are not available in a Webview context.
 
 TouchEvents like Tap / Swipe / Drag 'n Drop are only supported in the Native context.
- You can not use them in the Webview Context.
+You can not use them in the Webview Context.
 
 ### Behaviour-driven development with Cucumber
-Cucumber is a tool for BDD. 
+
+Cucumber is a tool for BDD.
 You can easily integrate Cucumber with Appium using [Protractor cucumber framework](https://www.npmjs.com/package/protractor-cucumber-framework) on NPM.
 
 A typical workflow looks like this:
@@ -571,7 +575,7 @@ This offers:
 - Feature files can act as contracts for acceptance criteria
 - Better reporting and readability of the UI tests
 
-**Cloud testing providers**
+### Cloud testing providers
 
 The following providers offer great support for Appium tests in the cloud:
 
@@ -586,7 +590,7 @@ I noticed the following trade-offs:
 
 - Tests can be flaky (Simply rerunning a failing test can make it succeed)
 - Tests on iOS take a while to run
-- Appium is slower than for example running tests directly with Espresso or XCUITest 
+- Appium is slower than for example running tests directly with Espresso or XCUITest
 - Documentation can be outdated and is scattered around the web
 - Setting up an environment for iOS and Android takes a lot of time initially
 - UI tests can differ for each platform
@@ -601,11 +605,14 @@ this means we can not test older devices or devices with older Android versions.
 Setting up a local Appium server also takes a lot of setup and configuration, 
 but this can be circumvented if you decide to go for a cloud testing provider like Saucelabs.
 
-Still, I believe Appium offers a lot of value because 
+Still, I believe Appium offers a lot of value because
+
 - We can write UI tests both for Android and iOS using a single programming language
 - You can automate manual testing for multiple platforms
 - There are quality cloud testing providers out there to help you with all your testing needs
 
-And once you have everything set up, it works quite well. 
+And once you have everything set up, it works quite well.
+
+# Example repository
 
 [https://github.com/ryandegruyter/ordina-ionic-appium-protractor](https://github.com/ryandegruyter/ordina-ionic-appium-protractor)
