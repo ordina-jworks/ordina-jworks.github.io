@@ -15,7 +15,7 @@ If the application must be reactive, it's best to use [ReactiveX](http://reactiv
 The next question is how this could work performant and reliable.
 
 The current trend is to use a [Redux](https://redux.js.org/)-based storage solution, which consists of a Store, Selectors to get data from the store in the form of Observables and Actions to modify the store.
-This allows for a single source of truth, a read-only state and the flow of date going in one direction.
+This allows for a single source of truth, a read-only state and the flow of data going in one direction.
 There are a couple of different solutions for Angular.
 NGRX is by far the most popular, leaving the new kids in town, NGXS and Akita, far behind in popularity.
 
@@ -44,10 +44,10 @@ It needs a state management solution from one of the other branches.
 To make the comparison easier, the base application is written in such a way that each solution only adds files to a *statemanagement* folder and loads a service and zero or more modules into the **AppModule**.
 No other files (except *package.json*, *package-lock.json* and *logo.png*) are to be changed.
 From an end-user perspective, the application would appear and behave the exact same, no matter which state management solution is used.
-The logo is added to be able to differntiate which solution is running.
+The logo is added to be able to differentiate which solution is running.
 
 A To Do-application is perfect to demonstrate CRUD.
-A **FakeBackendService** is provided to simulate a RESTful api backend.
+A **FakeBackendService** is provided to simulate a RESTful API backend.
 The idea is to only load the list only once in the application's lifetime and then update the state, without needing to fetch everything from the backend again.
 As such, the **FakeBackendService** logs its calls to the console for monitoring.
 
@@ -92,7 +92,7 @@ Since this post is aimed at developers, it might be best to first evaluate the t
 A [Redux Devtools](http://extension.remotedev.io/) plugin exists for Chrome and Firefox, or it can be run as a standalone application.
 It allows developers to see the impact of a Redux action and time travel between these actions.
 Another useful feature available to Angular developers is [Angular Schematics](https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2), which allow to create pieces of code through Angular CLI.
-None of the solutions have these tools in their default packages and need to be installed separately.
+None of the solutions have these tools in their default packages and they need to be installed separately.
 
 ### Redux DevTools
 
@@ -186,7 +186,7 @@ ng g @ngrx/schematics:action statemanagement/Filter
 Only one action was created called **LoadFilters**, with the type `[Filter] Load Filters`.
 It would've been easier if one could specify the name of the action some more.
 
-I ended up extended the generated Entity store with the filter and sorting properties for which I had to add extra reducers and selectors manually.
+I ended up extending the generated Entity store with the filter and sorting properties for which I had to add extra reducers and selectors manually.
 These properties could have been part of a separate state, but I opted to keep the store as simple as possible.
 
 #### Schematics in NGXS
@@ -246,7 +246,7 @@ But, nevertheless, let's cover the most useful features and their solutions.
 What is meant with asynchronous actions, is that an action is dispatched to the store and the store is updated in an asynchronous way.
 An example of this is the use of a **FetchItems** action, which performs a request to the backend and dispatches one or multiple different actions when that request completes.
 This is especially useful when using a realtime database or Google Cloud Firestore, which open a socket and can emit multiple events.
-In the example application I've implemented this for a one-time fetch of items where possible.
+In the example application, I've implemented this for a one-time fetch of items where possible.
 
 NGRX can handle this with [*@ngrx/effects*](https://github.com/ngrx/platform/blob/master/docs/effects/README.md), a separate to install package.
 Effects can be added to the root module or to a feature module for lazy loading.
@@ -259,7 +259,7 @@ These actions can dispatch different actions, but can also modify the state dire
 An Observable or Promise must be returned to notify the dispatcher that the action has been completed.
 
 Akita does not have support for asynchronous actions.
-The subscription to asynchronous stream of data must be handled by yourself.
+The subscription to an asynchronous stream of data must be handled by yourself.
 
 While RxJS is effectively the reason asynchronous actions can exist in Angular, it is quite difficult for novices to update the store from a stream.
 
@@ -379,7 +379,7 @@ Akita|3rd|3rd|3rd|2nd
 
 ## 5. Dependencies and size
 
-State management does not come out-of-the-box with Angular. There is need to install extra dependencies.
+State management does not come out-of-the-box with Angular. There is a need to install extra dependencies.
 Luckily all these dependencies are available through npm.
 To make the different implementations as feature-equal as possible, I've decided to create entity stores where possible and include dev-tools if available.
 
@@ -416,7 +416,7 @@ Akita|15.4|778
 # Final score
 
 It's not easy to just say which solution is the all-time champion.
-Each of the competitors has it advantages and disadvantages.
+Each of the competitors has its advantages and disadvantages.
 These are the podium places for each round:
 
 Round | NGRX | NGXS | Akita | Plain RxJS
