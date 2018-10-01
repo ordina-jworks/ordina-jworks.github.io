@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Automated E2E (End-to-End) testing on Android and iOS with Ionic, Protractor and Appium. - Ryan de Gruyter">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/ionic-protractor-appium.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/ionic/2018/09/30/e2e-testing-ionic-protractor-appium-e2e-testing.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Automated E2E (End-to-End) testing on Android and iOS with Ionic, Protractor and Appium. - Ryan de Gruyter"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/ionic-protractor-appium.jpg"/>
+
+    
+    <title>Automated E2E (End-to-End) testing on Android and iOS with Ionic, Protractor and Appium. - Ryan de Gruyter &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Automated E2E (End-to-End) testing on Android and iOS with Ionic, Protractor and Appium.</h2>
+                
+
+                
+                    Posted Sep 30, 2018
+
+
+    in <a href="/categories/ionic/">Ionic</a>
+
+
+
+    by
+    
+        <a href="/author/ryan-de-gruyter/">Ryan de Gruyter</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/ionic/">ionic</a>, 
+    
+        <a href="/tags/protractor/">protractor</a>, 
+    
+        <a href="/tags/appium/">appium</a>, 
+    
+        <a href="/tags/angular/">angular</a>, 
+    
+        <a href="/tags/typescript/">typescript</a>, 
+    
+        <a href="/tags/javascript/">javascript</a>, 
+    
+        <a href="/tags/jasmine/">jasmine</a>, 
+    
+        <a href="/tags/testing/">testing</a>, 
+    
+        <a href="/tags/e2e/">E2E</a>, 
+    
+        <a href="/tags/end-to-end/">end-to-end</a>, 
+    
+        <a href="/tags/android/">android</a>, 
+    
+        <a href="/tags/ios/">ios</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="table-of-contents">Table of Contents</h1>
+
+<ol>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#automated-testing">Automated testing</a></li>
+  <li><a href="#appium">Appium</a></li>
+  <li><a href="#getting-started-with-appium">Getting started with Appium</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#example-repository">Example repository</a></li>
+</ol>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Many articles related to E2E testing Cordova/Ionic applications are about applications which only run in the browser.
+But what if your application run’s on native mobile devices?</p>
+
+<p>This article will cover how to get started with E2E testing your Ionic application on native Android and iOS devices.</p>
+
+<p>To follow along, I recommend having a basic understanding of Javascript, Typescript, Jasmine and automated testing in general.</p>
+
+<h1 id="automated-testing">Automated testing</h1>
+
+<p>When releasing an application, we need to make sure it was thoroughly tested.
+Making sure of discovering any bugs before reaching production.
+These tests or test scenarios can be done manually, but this would consume a lot of time and resources.
+The more cost-effective solution would be to automatically run these test scenario’s entirely by a programmable agent.</p>
+
+<p>Thanks to a few technologies, we can script a bot that can perform most user interface interactions, 
+such as clicking on a button, performing touch gestures (f.e. swiping), etc.</p>
+
+<p>The most popular solution for automated E2E tests is called Selenium which is based on the <a href="https://w3c.github.io/webdriver/">WebDriver protocol</a>.</p>
+
+<p>While Selenium is a great solution for browsers, 
+there is a better solution for native mobile apps called <a href="http://appium.io/">Appium</a>.</p>
+
+<h1 id="appium">Appium</h1>
+
+<p>Appium is a tool for automating mobile applications and writing cross-platform UI tests. 
+It is very similar to Selenium. The difference is that Selenium is a tool for automating browsers and web applications, 
+whereas Appium is a tool for automating Native / Hybrid mobile applications.</p>
+
+<p>Appium allows developers to write UI tests for mobile applications in any number of programming language (Javascript, Java, .NET, etc.), as it uses a superset of the Selenium WebDriver specification, called the MJSONWP protocol.</p>
+
+<h2 id="cross-platform-ui-testing">Cross-platform UI testing</h2>
+
+<p>Because we are using Ionic with Cordova, we can write our codebase using only web technologies but still build, 
+deploy and run on multiple platforms.
+Our mobile application can be packaged and deployed as a native application for both iOS and Android.
+We can achieve the same cost-savings strategy “Write once, run anywhere” for our UI tests using Appium.
+To automate our UI tests, there needs to be an agent that programmatically drives the UI of your mobile application.</p>
+
+<p>For each platform there are different agents:</p>
+
+<ul>
+  <li><strong>iOS</strong>: XCUITest</li>
+  <li><strong>Android</strong>: UIAutomator, Selendroid, Espresso</li>
+</ul>
+
+<p>Controlling these agents requires a developer to write platform-specific code.
+Appium with MJSONWP (Webdriver spec) provides an abstraction layer to drive these agents programmatically in a platform agnostic way.</p>
+
+<p>We will explain how to set up your Appium server and run automated UI tests in your Ionic application on Android and iOS mobile devices.</p>
+
+<h1 id="getting-started-with-appium">Getting started with Appium</h1>
+
+<h2 id="environment">Environment</h2>
+
+<p>The first step is to setup your environment.
+Because we are targeting Android and iOS we will only describe the setup for <strong>macOS</strong>, 
+but it shouldn’t be too different compared to other platforms once you have followed the 
+official ionic resources guide below, they have guides for all platforms.</p>
+
+<p><a href="https://ionicframework.com/docs/developer-resources/">Again: On the developer resources page of the official ionic documentation</a>, you wil find guides on how to setup your machine depending on the OS you are working on.</p>
+
+<p>Next:</p>
+
+<ul>
+  <li>Install <a href="https://github.com/appium/appium-doctor">appium-doctor</a> using npm.</li>
+  <li>Run appium-doctor –ios and fix any issues</li>
+  <li>Run appium-doctor –android and fix any issues</li>
+</ul>
+
+<h2 id="appium-server">Appium server</h2>
+
+<p>There are multiple ways to start an Appium server:</p>
+
+<ul>
+  <li>Appium Desktop</li>
+  <li>webdriver-manager</li>
+  <li>npm install -g appium &amp;&amp; npm run appium</li>
+</ul>
+
+<h3 id="appium-desktop">Appium desktop</h3>
+
+<p><a href="https://github.com/appium/appium-desktop">Appium Desktop</a> is a graphical frontend for running an Appium server and starting sessions to inspect your applications.</p>
+
+<p>Note: For macOS make sure to drop the downloaded package in the <code class="highlighter-rouge">/Applications</code> folder.
+Otherwise you will encounter write permission issues.</p>
+
+<p>Appium desktop has two advantages:</p>
+
+<ul>
+  <li>It comes with an inspector to show and inspect all elements of your application</li>
+  <li>Record user actions</li>
+</ul>
+
+<p>The drawback is inspecting and recording user actions only supports the Native context.
+You cannot record actions for the Webview context.
+Cordova applications always run in the webview context.</p>
+
+<p><a href="https://appium.io/docs/en/writing-running-appium/web/hybrid/index.html">https://appium.io/docs/en/writing-running-appium/web/hybrid/index.html</a></p>
+
+<h3 id="webdriver-manager">webdriver-manager</h3>
+
+<p><a href="https://github.com/angular/webdriver-manager">Selenium and appium server manager</a></p>
+
+<p>Webdriver-manager is officially supported by Angular and works well together with Protractor,
+the official E2E testing framework for Angular applications.
+Ionic up until version 3.x is built on top of Angular,
+from version 4 and on Ionic has decoupled from the Angular framework and recreated all of their components using <a href="https://stenciljs.com/">StencilJS</a>.</p>
+
+<h3 id="npm">NPM</h3>
+
+<p>We will be using this package to start up our appium server.</p>
+
+<h2 id="language">Language</h2>
+
+<p>Decide in which language you want to write your tests in.
+You need to have a client library that can send MJSONWP / JSONWP HTTP Requests to the Appium server.</p>
+
+<p>For our application, we will write our tests in Typescript using Protractor since it has added support for Angular and type safety.</p>
+
+<p>Other webdriver javascript clients:</p>
+
+<ul>
+  <li>http://webdriver.io/guide/getstarted/modes.html</li>
+  <li>https://github.com/admc/wd</li>
+</ul>
+
+<p><a href="https://appium.readthedocs.io/en/stable/en/writing-running-appium/other/appium-bindings/">Client libraries for different languages</a></p>
+
+<h2 id="project-setup">Project setup</h2>
+
+<p>We are going to use Ionic 4 and the <strong>super</strong> template as our application to run our tests against.</p>
+
+<p>First, make sure your development machine has been set up correctly.</p>
+
+<p><a href="https://ionicframework.com/docs/developer-resources/">On the developer resources page of the official ionic documentation</a>,
+you will find guides on how to set up your machine depending on the OS you are working on.</p>
+
+<p>Once your machine is set up, install the Ionic CLI.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i <span class="nt">-g</span> ionic
+</code></pre></div></div>
+
+<p>Next, generate the Ionic Cordova application using the Ionic CLI.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ionic start superApp super <span class="nt">--type</span><span class="o">=</span>ionic-angular <span class="nt">--cordova</span>
+ionic cordova platform add android
+ionic cordova platform add ios
+</code></pre></div></div>
+
+<p>Test if you can build the application by entering the following commands</p>
+
+<h3 id="android">Android</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ionic cordova build android
+</code></pre></div></div>
+
+<h3 id="ios">iOS</h3>
+
+<p>Note: You will have to open your ios project in xcode first 
+to configure your code signing identity and provision profile.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ionic cordova build ios
+</code></pre></div></div>
+
+<p>If you were able to run these commands successfully, 
+we can start E2E testing our application on both iOS and Android.</p>
+
+<p>Before continuing, Make a folder <code class="highlighter-rouge">/e2e</code> in the root of your project.</p>
+
+<h2 id="configure-the-e2e-testing-tools-in-your-ionic-project">Configure the E2E testing tools in your Ionic project</h2>
+
+<h3 id="appium-1">Appium</h3>
+
+<ol>
+  <li>Install Appium as a local dependency</li>
+  <li>Add the correct chrome driver</li>
+  <li>Create an NPM task in your package.json</li>
+  <li>Boot up the appium service</li>
+</ol>
+
+<h4 id="1-install-appium-as-a-local-dependency">1. Install Appium as a local dependency</h4>
+
+<p>Just run the following command to add Appium as a local dependency, 
+this will allow us to work with Appium using NPM scripts.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i <span class="nt">-D</span> appium
+</code></pre></div></div>
+
+<h4 id="2-add-the-correct-chrome-driver">2. Add the correct chrome driver</h4>
+
+<p>To be able to run your tests on Android devices, 
+you need to match the correct chrome driver with the Chrome version running on the Android test devices.</p>
+
+<p><a href="https://appium.readthedocs.io/en/stable/en/writing-running-appium/web/chromedriver/">Here is an overview of all the chrome drivers and their respective Chrome versions</a>.</p>
+
+<p>To download a chrome driver, go to the <a href="http://chromedriver.chromium.org/downloads">Chrome Driver Downloads page</a>.</p>
+
+<p>Once you have selected your chrome driver, download it and put in the <code class="highlighter-rouge">/e2e</code> folder.</p>
+
+<h4 id="3-create-an-npm-task-in-your-packagejson">3. Create an NPM task in your package.json</h4>
+
+<p>Before running Appium, you can provide the downloaded chrome driver as a cli argument:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"appium"</span>: <span class="s2">"appium --chromedriver-executable e2e/chromedriver"</span>,
+</code></pre></div></div>
+
+<h4 id="4-start-your-appium-server">4. Start your Appium server</h4>
+
+<p>Now you should have everything configured correctly to start your Appium server.
+Simply run:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm run appium
+</code></pre></div></div>
+
+<h3 id="protractor">Protractor</h3>
+
+<p>Protractor will be our test runner and testing framework.
+<a href="https://www.protractortest.org/#/">Visit their website</a> for more information on Protractor.</p>
+
+<ol>
+  <li>Install protractor as a local NPM dependency</li>
+  <li>Configure typescript configs</li>
+  <li>Create your protractor config</li>
+  <li>Create NPM script for running your e2e tests</li>
+</ol>
+
+<h4 id="1-install-protractor-as-a-local-npm-dependency">1. Install Protractor as a local NPM dependency</h4>
+
+<p>Install the test runner with the following command:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-D</span> protractor
+</code></pre></div></div>
+
+<h4 id="1-configure-typescript">1. Configure Typescript</h4>
+
+<p>We require a few extra tools to be able run and write our tests in Typescript.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-D</span> ts-node @types/jasmine @types/node
+</code></pre></div></div>
+
+<p>Next, in your <code class="highlighter-rouge">/e2e</code> folder, Create a <strong>tsconfig.json</strong> file with the following configuration:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"compilerOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"sourceMap"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"declaration"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"moduleResolution"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"emitDecoratorMetadata"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"experimentalDecorators"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lib"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"es2016"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"esnext.asynciterable"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"outDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"module"</span><span class="p">:</span><span class="w"> </span><span class="s2">"commonjs"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"es5"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"jasmine"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"node"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>This will be our tsconfig for our e2e test scripts.</p>
+
+<p>It’s also a good idea to write your configuration files in Typescript.
+For our protractor configuration, we will use a different typescript configuration file.</p>
+
+<p>In your <code class="highlighter-rouge">/e2e</code> folder, create a file called <code class="highlighter-rouge">/e2e/protractor.tsconfig.json</code></p>
+
+<p>This configuration file will extend the one we created earlier, 
+we want to overwrite the include and exclude parameters to make sure it only matches
+and transpiles the <strong><em>protractor.config.ts</em></strong> file.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"extends"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./tsconfig.json"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"include"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"**/*.config.ts"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"exclude"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"./test"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="3-configure-protractor">3. Configure protractor</h4>
+
+<p>Now one of the more exciting parts, configuring Protractor!
+Create a file called <strong>/e2e/protractor.config.ts</strong> with the following contents:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">Config</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'protractor'</span><span class="p">;</span>
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">tsNode</span> <span class="k">from</span> <span class="s1">'ts-node'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">serverAddress</span> <span class="o">=</span> <span class="s1">'http://localhost:4723/wd/hub'</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">testFilePAtterns</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s1">'**/*/*.e2e-spec.ts'</span>
+<span class="p">];</span>
+<span class="kd">const</span> <span class="nx">iPhoneXCapability</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">browserName</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="na">autoWebview</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">autoWebviewTimeout</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
+  <span class="na">app</span><span class="p">:</span> <span class="s1">'/Users/${user}/ordina/e2e/superApp/platforms/ios/build/emulator/superApp.app'</span><span class="p">,</span>
+  <span class="na">version</span><span class="p">:</span> <span class="s1">'11.4'</span><span class="p">,</span>
+  <span class="na">platform</span><span class="p">:</span> <span class="s1">'iOS'</span><span class="p">,</span>
+  <span class="na">deviceName</span><span class="p">:</span> <span class="s1">'iPhone X'</span><span class="p">,</span>
+  <span class="na">platformName</span><span class="p">:</span> <span class="s1">'iOS'</span><span class="p">,</span>
+  <span class="na">name</span><span class="p">:</span> <span class="s1">'My First Mobile Test'</span><span class="p">,</span>
+  <span class="na">automationName</span><span class="p">:</span> <span class="s1">'XCUITest'</span><span class="p">,</span>
+  <span class="na">nativeWebTap</span><span class="p">:</span> <span class="s1">'true'</span>
+<span class="p">};</span>
+<span class="kd">const</span> <span class="nx">androidPixel2XLCapability</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">browserName</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="na">autoWebview</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">autoWebviewTimeout</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
+  <span class="na">platformName</span><span class="p">:</span> <span class="s1">'Android'</span><span class="p">,</span>
+  <span class="na">deviceName</span><span class="p">:</span> <span class="s1">'pixel2xl'</span><span class="p">,</span>
+  <span class="na">app</span><span class="p">:</span> <span class="s1">'/Users/${user}/ordina/e2e/superApp/platforms/android/build/outputs/apk/android-debug.apk'</span><span class="p">,</span>
+  <span class="s1">'app-package'</span><span class="p">:</span> <span class="s1">'be.ryan.superApp'</span><span class="p">,</span>
+  <span class="s1">'app-activity'</span><span class="p">:</span> <span class="s1">'MainActivity'</span><span class="p">,</span>
+  <span class="na">autoAcceptAlerts</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+  <span class="na">autoGrantPermissions</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+  <span class="na">newCommandTimeout</span><span class="p">:</span> <span class="mi">300000</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="kd">let</span> <span class="nx">config</span><span class="p">:</span> <span class="nx">Config</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">allScriptsTimeout</span><span class="p">:</span> <span class="mi">11000</span><span class="p">,</span>
+  <span class="na">specs</span><span class="p">:</span> <span class="nx">testFilePAtterns</span><span class="p">,</span>
+  <span class="na">baseUrl</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="na">multiCapabilities</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">androidPixel2XLCapability</span><span class="p">,</span>
+    <span class="nx">iPhoneXCapability</span>
+  <span class="p">],</span>
+  <span class="na">framework</span><span class="p">:</span> <span class="s1">'jasmine'</span><span class="p">,</span>
+  <span class="na">jasmineNodeOpts</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">showColors</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">defaultTimeoutInterval</span><span class="p">:</span> <span class="mi">30000</span>
+  <span class="p">},</span>
+  <span class="na">seleniumAddress</span><span class="p">:</span> <span class="nx">serverAddress</span><span class="p">,</span>
+  <span class="na">onPrepare</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">tsNode</span><span class="p">.</span><span class="nx">register</span><span class="p">({</span>
+      <span class="na">project</span><span class="p">:</span> <span class="s1">'e2e/tsconfig.json'</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>To get an idea of all the configuration parameters and their description, visit
+<a href="https://github.com/angular/protractor/blob/master/lib/config.ts">The official Protractor Github repo</a></p>
+
+<p>I will go over the points that took me the most effort to configure correctly.</p>
+
+<h4 id="capabilities">Capabilities</h4>
+
+<p>Refers to the capabilities of a single E2E session, 
+it describes which features a particular session should have, for example:</p>
+
+<ul>
+  <li>Platform (Android / iOS / …)</li>
+  <li>Device Name</li>
+  <li>Automation framework</li>
+  <li>Location of the Application build (.apk, .ipa)</li>
+  <li>etc.</li>
+</ul>
+
+<p>If you want to spin up multiple E2E testing settings, 
+you need to configure the <strong>multiCapabilities</strong> property.</p>
+
+<h5 id="android-capability">Android Capability</h5>
+
+<ul>
+  <li>Run <strong><em>ionic cordova build android</em></strong> and configure the output path in the <strong>app</strong> property</li>
+  <li><strong>app-package</strong> should match the package name in your config.xml</li>
+  <li><strong>app-activity</strong> is always MainActivity by default unless you have changed this in your config.xml</li>
+</ul>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">androidPixel2XLCapability</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">browserName</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="na">autoWebview</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">autoWebviewTimeout</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
+  <span class="na">platformName</span><span class="p">:</span> <span class="s1">'Android'</span><span class="p">,</span>
+  <span class="na">deviceName</span><span class="p">:</span> <span class="s1">'pixel2xl'</span><span class="p">,</span>
+  <span class="na">app</span><span class="p">:</span> <span class="s1">'/Users/${user}/ordina/e2e/superApp/platforms/android/build/outputs/apk/android-debug.apk'</span><span class="p">,</span>
+  <span class="s1">'app-package'</span><span class="p">:</span> <span class="s1">'be.ryan.superApp'</span><span class="p">,</span>
+  <span class="s1">'app-activity'</span><span class="p">:</span> <span class="s1">'MainActivity'</span><span class="p">,</span>
+  <span class="na">autoAcceptAlerts</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+  <span class="na">autoGrantPermissions</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+  <span class="na">newCommandTimeout</span><span class="p">:</span> <span class="mi">300000</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h5 id="ios-capability">iOS Capability</h5>
+
+<ul>
+  <li>Run <strong><em>ionic cordova build ios</em></strong> and configure the output path in the <strong>app</strong> property</li>
+  <li>Point to the .app file and not the .ipa if you are using simulators.</li>
+  <li>Set automationName to <strong>XCUITest</strong> instead of the deprecated <strong>UIAutomator</strong></li>
+  <li>browserName is a mandatory parameter, but since we’re targeting Native apps, we can leave this as an empty string</li>
+</ul>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">iPhoneXCapability</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">browserName</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="na">autoWebview</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">autoWebviewTimeout</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
+  <span class="na">app</span><span class="p">:</span> <span class="s1">'/Users/${user}/ordina/e2e/superApp/platforms/ios/build/emulator/superApp.app'</span><span class="p">,</span>
+  <span class="na">version</span><span class="p">:</span> <span class="s1">'11.4'</span><span class="p">,</span>
+  <span class="na">platform</span><span class="p">:</span> <span class="s1">'iOS'</span><span class="p">,</span>
+  <span class="na">deviceName</span><span class="p">:</span> <span class="s1">'iPhone X'</span><span class="p">,</span>
+  <span class="na">platformName</span><span class="p">:</span> <span class="s1">'iOS'</span><span class="p">,</span>
+  <span class="na">name</span><span class="p">:</span> <span class="s1">'My First Mobile Test'</span><span class="p">,</span>
+  <span class="na">automationName</span><span class="p">:</span> <span class="s1">'XCUITest'</span><span class="p">,</span>
+  <span class="na">nativeWebTap</span><span class="p">:</span> <span class="s1">'true'</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h4 id="4-create-an-npm-script-for-running-e2e-tests">4. Create an NPM script for running e2e tests</h4>
+
+<p>In your package.json, add the following task:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"e2e"</span>: <span class="s2">"tsc --p e2e/pro.tsconfig.json &amp;&amp; protractor e2e/protractor.config.js --verbose"</span>
+</code></pre></div></div>
+
+<h2 id="running-and-writing-ui-tests">Running and Writing UI tests</h2>
+
+<p>For Protractor to know which tests to run, you need to configure the 
+<strong>specs</strong> property, in our case all the files that end with .e2e-spec.ts</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">testFilePAtterns</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s1">'**/*/*.e2e-spec.ts'</span>
+<span class="p">];</span>
+<span class="k">export</span> <span class="kd">let</span> <span class="nx">config</span><span class="p">:</span> <span class="nx">Config</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="p">...</span>
+  <span class="na">specs</span><span class="p">:</span> <span class="nx">testFilePAtterns</span>
+  <span class="p">...</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>If you followed along, you should be able to run your tests by entering the following command:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm run e2e
+</code></pre></div></div>
+
+<p>Writing protractor tests is out of scope in this post, 
+but here is an example test script that you should be able to run on both iOS and Android.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">browser</span><span class="p">,</span> <span class="nx">by</span><span class="p">,</span> <span class="nx">element</span><span class="p">,</span> <span class="nx">ElementFinder</span><span class="p">,</span> <span class="nx">protractor</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'protractor'</span><span class="p">;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s1">'App'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">describe</span><span class="p">(</span><span class="s1">'Tutorial Screen'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s1">'should skip to the welcome screen and have the correct button labels'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="na">skipButton</span><span class="p">:</span> <span class="nx">ElementFinder</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'skip'</span><span class="p">));</span>
+      <span class="kr">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span><span class="nx">protractor</span><span class="p">.</span><span class="nx">ExpectedConditions</span><span class="p">.</span><span class="nx">elementToBeClickable</span><span class="p">(</span><span class="nx">skipButton</span><span class="p">));</span>
+      <span class="kd">const</span> <span class="na">skipButtonLabel</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">skipButton</span><span class="p">.</span><span class="nx">getText</span><span class="p">();</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">skipButtonLabel</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'SKIP'</span><span class="p">);</span>
+
+      <span class="nx">skipButton</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+
+      <span class="kd">const</span> <span class="na">loginBtn</span><span class="p">:</span> <span class="nx">ElementFinder</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'btn-login'</span><span class="p">));</span>
+      <span class="kr">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span><span class="nx">protractor</span><span class="p">.</span><span class="nx">ExpectedConditions</span><span class="p">.</span><span class="nx">elementToBeClickable</span><span class="p">(</span><span class="nx">loginBtn</span><span class="p">));</span>
+      <span class="kd">const</span> <span class="na">loginBtnLabel</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">loginBtn</span><span class="p">.</span><span class="nx">getText</span><span class="p">();</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">loginBtnLabel</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'SIGN IN'</span><span class="p">);</span>
+
+      <span class="nx">loginBtn</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>There are seven basic steps in creating an Appium test script.</p>
+
+<ol>
+  <li>Set the location of the application to test in the desired capabilities of the test script.</li>
+  <li>Create an Appium driver instance which points to a running Appium server</li>
+  <li>Locate an element within the mobile application.</li>
+  <li>Perform an action on the element.</li>
+  <li>Anticipate the application response to the action.</li>
+  <li>Run tests and record test results using a test framework.</li>
+  <li>Conclude the test.</li>
+</ol>
+
+<h3 id="webview-and-native-context">Webview And Native context</h3>
+
+<p>Our example application is a hybrid application.
+Meaning it will be packaged and deployed as native app so we can access Native API’s.
+But it will acually run inside a webview. By using Cordova our webview can communicate with Native API’s (f.e. Camera).</p>
+
+<p>When the Camera is launched, we enter a Native Context, 
+if we exit the Camera and go back to our Hybrid application we return to the Webview Context.</p>
+
+<p>Appium helps us to easily switch between these contexts since locating and interacting with UI elements are very different in both contexts.</p>
+
+<p>For example, there are no DOM elements in the Native Context.
+To locate a native UI element you need to use an Accessibility ID. At the same time, AccessibilityID’s are not available in a Webview context.</p>
+
+<p>TouchEvents like Tap / Swipe / Drag ‘n Drop are only supported in the Native context.
+You can not use them in the Webview Context.</p>
+
+<h3 id="behaviour-driven-development-with-cucumber">Behaviour-driven development with Cucumber</h3>
+
+<p>Cucumber is a tool for BDD.
+You can easily integrate Cucumber with Appium using <a href="https://www.npmjs.com/package/protractor-cucumber-framework">Protractor cucumber framework</a> on NPM.</p>
+
+<p>A typical workflow looks like this:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Describe an app feature and corresponding scenarios in a .feature file. The contents are written in Gherkin
+
+Feature: As an employee, I want to access the application
+
+@Authentication
+Scenario: Authenticate with AzureAD
+Given I am on the Login page
+When I click on "Login"
+When I provide my credentials
+When I click on the "Submit" button
+Then I should see the Dashboard page
+
+@Authentication Failed
+Scenario: Authenticate with AzureAD fails
+Given I am on the Login page
+When I click on "Login"
+When I provide incorrect credentials
+When I click on the "Submit" button
+Then I should see the Login failed page
+</code></pre></div></div>
+
+<p>Developers write an implementation for the feature in a step definitions file:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Given</span><span class="p">(</span><span class="sr">/^I am on the Login page$/</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="s1">'Login'</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">When</span><span class="p">(</span><span class="sr">/^I click on "Login", </span><span class="se">()</span><span class="sr"> =&gt; </span><span class="err">{
+</span>    <span class="nx">LoginPage</span><span class="p">.</span><span class="nx">loginButton</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="nx">When</span><span class="p">(</span><span class="sr">/^I provide my credentials$/</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">WindowsAuthPage</span><span class="p">.</span><span class="nx">enterCredentials</span><span class="p">(</span><span class="nx">usr</span><span class="p">,</span><span class="nx">pass</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">When</span><span class="p">(</span><span class="sr">/^I click on the "Submit" button$/</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">WindowsAuthPage</span><span class="p">.</span><span class="nx">submitButton</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="nx">Then</span><span class="p">(</span><span class="sr">/^I should see the Dashboard page$/</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="s1">'Dashboard'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Let protractor and Appium run the step definitions in an Automated way.</p>
+
+<p>The advantage of using cucumber is that non-developers can easily write their own .feature files in plain English (Gherkin).</p>
+
+<p>This offers:</p>
+
+<ul>
+  <li>Better collaboration between Business &amp; Developers</li>
+  <li>Feature files can act as contracts for acceptance criteria</li>
+  <li>Better reporting and readability of the UI tests</li>
+</ul>
+
+<h3 id="cloud-testing-providers">Cloud testing providers</h3>
+
+<p>The following providers offer great support for Appium tests in the cloud:</p>
+
+<ul>
+  <li>Saucelabs (Only simulators and emulators)</li>
+  <li>TestObject (Only real devices, has been purchased by Saucelabs)</li>
+  <li>Kobiton (Only real devices, allows you to connect your local mobile device farm)</li>
+</ul>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>While investigating and hands-on experiencing Appium, 
+I noticed the following trade-offs:</p>
+
+<ul>
+  <li>Tests can be flaky (Simply rerunning a failing test can make it succeed)</li>
+  <li>Tests on iOS take a while to run</li>
+  <li>Appium is slower than for example running tests directly with Espresso or XCUITest</li>
+  <li>Documentation can be outdated and is scattered around the web</li>
+  <li>Setting up an environment for iOS and Android takes a lot of time initially</li>
+  <li>UI tests can differ for each platform</li>
+  <li>Sending key events can be very slow, which make the tests run very slow</li>
+  <li>You need a good knowledge of WebDriver API’s to write good tests</li>
+  <li>Debugging is hard, I mostly relied on console.log statements.</li>
+  <li>Testing on Android needs to happen with Chrome Browser version 54+.</li>
+</ul>
+
+<p>For Android we are limited to recent Android API’s and devices with Chrome browser version 54+, 
+this means we can not test older devices or devices with older Android versions.</p>
+
+<p>Setting up a local Appium server also takes a lot of setup and configuration, 
+but this can be circumvented if you decide to go for a cloud testing provider like Saucelabs.</p>
+
+<p>Still, I believe Appium offers a lot of value because</p>
+
+<ul>
+  <li>We can write UI tests both for Android and iOS using a single programming language</li>
+  <li>You can automate manual testing for multiple platforms</li>
+  <li>There are quality cloud testing providers out there to help you with all your testing needs</li>
+</ul>
+
+<p>And once you have everything set up, it works quite well.</p>
+
+<h1 id="example-repository">Example repository</h1>
+
+<p><a href="https://github.com/ryandegruyter/ordina-ionic-appium-protractor">https://github.com/ryandegruyter/ordina-ionic-appium-protractor</a></p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/ionic/2018/09/30/e2e-testing-ionic-protractor-appium-e2e-testing.html&title=Automated E2E (End-to-End) testing on Android and iOS with Ionic, Protractor and Appium.&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Automated E2E (End-to-End) testing on Android and iOS with Ionic, Protractor and Appium.&url=https://ordina-jworks.github.io/ionic/2018/09/30/e2e-testing-ionic-protractor-appium-e2e-testing.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/ionic/2018/09/30/e2e-testing-ionic-protractor-appium-e2e-testing.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/ryan-de-gruyter/" class="image spotlight-image">
+            <img src="/img/author/ryan-de-gruyter.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Ryan is a frontend developer and interaction designer. He enjoys writing clean code and building maintainable, user friendly web applications in Typescript and Javascript. He also has a strong interest in motion design and UI/UX. In his spare time, he practices martial arts and enjoys playing the guitar.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/ionic-protractor-appium.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/ionic/2018/09/30/e2e-testing-ionic-protractor-appium-e2e-testing.html";
+        this.page.identifier = "/ionic/2018/09/30/e2e-testing-ionic-protractor-appium-e2e-testing.html";
+        this.page.title = "Automated E2E (End-to-End) testing on Android and iOS with Ionic, Protractor and Appium.";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
