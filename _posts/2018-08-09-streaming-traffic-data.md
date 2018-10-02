@@ -486,7 +486,29 @@ The updateStats() method just updates some basic counters to track how much traf
 So that we know how many vehicles have passed, which was the highest speed detected, ... 
 
 
+
+
 ### Windowing
+
+Windowing is 
+
+{% highlight java %}
+    private void createWindowStreamForAverageSpeedPerSensor(KStream<String, TrafficEvent> streamToProcessData) {
+        Initializer initializer = () -> new SensorCount();
+
+
+    streamToProcessData
+        .groupByKey()
+        .windowedBy(TimeWindows.of(300000).advanceBy(60000))
+        .aggregate(initializer, (key, value, aggregate) -> aggregate.addValue(value.getVehicleSpeedCalculated()),
+                Materialized.with(Serdes.String(), new JsonSerde<>(SensorCount.class)))
+                .mapValues(SensorCount::average, Materialized.with(new WindowedSerde<>(Serdes.String()), Serdes.Double()))
+                .toStream()
+                .map(((key, average) -> new KeyValue<>(key.key(), average)))
+                .through("average-speed-per-sensor", Produced.with(Serdes.String(), Serdes.Double()))
+                .foreach((key, average) -> log.info((String.format(" =======> average speed for the sensor %s is now %s", key, average))));
+    }
+{% endhighlight %}
 
 {% highlight java %}
     streamToProcessData.filter((key, value) -> canProcessSensor(key))
@@ -495,11 +517,9 @@ So that we know how many vehicles have passed, which was the highest speed detec
 
         KStream<String, TrafficEvent> streamPerHighwayLaneToProcess = 
                 streamsBuilder.stream("traffic-per-lane", Consumed.with(Serdes.String(), new TrafficEventSerde()));
-        //streamPerHighwayLaneToProcess.print();
 
         this.createWindowStreamForAverageSpeedPerHighwaySection(streamPerHighwayLaneToProcess);
 {% endhighlight %}
-
 
 ### Takeaways Kafka Streams and Spring Kafka
 
