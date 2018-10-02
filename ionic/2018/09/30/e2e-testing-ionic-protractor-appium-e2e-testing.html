@@ -194,6 +194,8 @@
   <li><a href="#automated-testing">Automated testing</a></li>
   <li><a href="#appium">Appium</a></li>
   <li><a href="#getting-started-with-appium">Getting started with Appium</a></li>
+  <li><a href="#configure-the-e2e-testing-tools-in-your-ionic-project">Configuring Protractor and the Ionic project</a></li>
+  <li><a href="#running-and-writing-ui-tests">Running Tests</a></li>
   <li><a href="#conclusion">Conclusion</a></li>
   <li><a href="#example-repository">Example repository</a></li>
 </ol>
@@ -281,7 +283,7 @@ official ionic resources guide below, they have guides for all platforms.</p>
 
 <h3 id="appium-desktop">Appium desktop</h3>
 
-<p><a href="https://github.com/appium/appium-desktop">Appium Desktop</a> is a graphical frontend for running an Appium server and starting sessions to inspect your applications.</p>
+<p><a href="https://github.com/appium/appium-desktop">Appium Desktop</a> is a graphical user interface for running an Appium server and starting sessions to inspect your applications.</p>
 
 <p>Note: For macOS make sure to drop the downloaded package in the <code class="highlighter-rouge">/Applications</code> folder.
 Otherwise you will encounter write permission issues.</p>
@@ -310,7 +312,7 @@ from version 4 and on Ionic has decoupled from the Angular framework and recreat
 
 <h3 id="npm">NPM</h3>
 
-<p>We will be using this package to start up our appium server.</p>
+<p>We will be using this package to start up our Appium server.</p>
 
 <h2 id="language">Language</h2>
 
@@ -367,11 +369,11 @@ to configure your code signing identity and provision profile.</p>
 <p>If you were able to run these commands successfully, 
 we can start E2E testing our application on both iOS and Android.</p>
 
-<p>Before continuing, Make a folder <code class="highlighter-rouge">/e2e</code> in the root of your project.</p>
+<p>Before continuing, make a folder <code class="highlighter-rouge">/e2e</code> in the root of your project.</p>
 
-<h2 id="configure-the-e2e-testing-tools-in-your-ionic-project">Configure the E2E testing tools in your Ionic project</h2>
+<h1 id="configure-the-e2e-testing-tools-in-your-ionic-project">Configure the E2E testing tools in your Ionic project</h1>
 
-<h3 id="appium-1">Appium</h3>
+<h2 id="appium-1">Appium</h2>
 
 <ol>
   <li>Install Appium as a local dependency</li>
@@ -380,7 +382,7 @@ we can start E2E testing our application on both iOS and Android.</p>
   <li>Boot up the appium service</li>
 </ol>
 
-<h4 id="1-install-appium-as-a-local-dependency">1. Install Appium as a local dependency</h4>
+<h3 id="1-install-appium-as-a-local-dependency">1. Install Appium as a local dependency</h3>
 
 <p>Just run the following command to add Appium as a local dependency, 
 this will allow us to work with Appium using NPM scripts.</p>
@@ -388,7 +390,7 @@ this will allow us to work with Appium using NPM scripts.</p>
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i <span class="nt">-D</span> appium
 </code></pre></div></div>
 
-<h4 id="2-add-the-correct-chrome-driver">2. Add the correct chrome driver</h4>
+<h3 id="2-add-the-correct-chrome-driver">2. Add the correct chrome driver</h3>
 
 <p>To be able to run your tests on Android devices, 
 you need to match the correct chrome driver with the Chrome version running on the Android test devices.</p>
@@ -399,14 +401,14 @@ you need to match the correct chrome driver with the Chrome version running on t
 
 <p>Once you have selected your chrome driver, download it and put in the <code class="highlighter-rouge">/e2e</code> folder.</p>
 
-<h4 id="3-create-an-npm-task-in-your-packagejson">3. Create an NPM task in your package.json</h4>
+<h3 id="3-create-an-npm-task-in-your-packagejson">3. Create an NPM task in your package.json</h3>
 
 <p>Before running Appium, you can provide the downloaded chrome driver as a cli argument:</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"appium"</span>: <span class="s2">"appium --chromedriver-executable e2e/chromedriver"</span>,
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"appium"</span>: <span class="s2">"appium --chromedriver-executable e2e/chromedriver"</span>
 </code></pre></div></div>
 
-<h4 id="4-start-your-appium-server">4. Start your Appium server</h4>
+<h3 id="4-start-your-appium-server">4. Start your Appium server</h3>
 
 <p>Now you should have everything configured correctly to start your Appium server.
 Simply run:</p>
@@ -414,7 +416,7 @@ Simply run:</p>
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm run appium
 </code></pre></div></div>
 
-<h3 id="protractor">Protractor</h3>
+<h2 id="protractor">Protractor</h2>
 
 <p>Protractor will be our test runner and testing framework.
 <a href="https://www.protractortest.org/#/">Visit their website</a> for more information on Protractor.</p>
@@ -426,21 +428,21 @@ Simply run:</p>
   <li>Create NPM script for running your e2e tests</li>
 </ol>
 
-<h4 id="1-install-protractor-as-a-local-npm-dependency">1. Install Protractor as a local NPM dependency</h4>
+<h3 id="1-install-protractor-as-a-local-npm-dependency">1. Install Protractor as a local NPM dependency</h3>
 
 <p>Install the test runner with the following command:</p>
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-D</span> protractor
 </code></pre></div></div>
 
-<h4 id="1-configure-typescript">1. Configure Typescript</h4>
+<h3 id="1-configure-typescript">1. Configure Typescript</h3>
 
 <p>We require a few extra tools to be able run and write our tests in Typescript.</p>
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-D</span> ts-node @types/jasmine @types/node
 </code></pre></div></div>
 
-<p>Next, in your <code class="highlighter-rouge">/e2e</code> folder, Create a <strong>tsconfig.json</strong> file with the following configuration:</p>
+<p>Next, in your <code class="highlighter-rouge">/e2e</code> folder, create a <strong>tsconfig.json</strong> file with the following configuration:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"compilerOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -486,7 +488,7 @@ and transpiles the <strong><em>protractor.config.ts</em></strong> file.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<h4 id="3-configure-protractor">3. Configure protractor</h4>
+<h3 id="3-configure-protractor">3. Configure protractor</h3>
 
 <p>Now one of the more exciting parts, configuring Protractor!
 Create a file called <strong>/e2e/protractor.config.ts</strong> with the following contents:</p>
@@ -552,7 +554,7 @@ Create a file called <strong>/e2e/protractor.config.ts</strong> with the followi
 
 <p>I will go over the points that took me the most effort to configure correctly.</p>
 
-<h4 id="capabilities">Capabilities</h4>
+<h3 id="capabilities">Capabilities</h3>
 
 <p>Refers to the capabilities of a single E2E session, 
 it describes which features a particular session should have, for example:</p>
@@ -568,7 +570,7 @@ it describes which features a particular session should have, for example:</p>
 <p>If you want to spin up multiple E2E testing settings, 
 you need to configure the <strong>multiCapabilities</strong> property.</p>
 
-<h5 id="android-capability">Android Capability</h5>
+<h4 id="android-capability">Android Capability</h4>
 
 <ul>
   <li>Run <strong><em>ionic cordova build android</em></strong> and configure the output path in the <strong>app</strong> property</li>
@@ -591,7 +593,7 @@ you need to configure the <strong>multiCapabilities</strong> property.</p>
 <span class="p">};</span>
 </code></pre></div></div>
 
-<h5 id="ios-capability">iOS Capability</h5>
+<h4 id="ios-capability">iOS Capability</h4>
 
 <ul>
   <li>Run <strong><em>ionic cordova build ios</em></strong> and configure the output path in the <strong>app</strong> property</li>
@@ -615,14 +617,14 @@ you need to configure the <strong>multiCapabilities</strong> property.</p>
 <span class="p">};</span>
 </code></pre></div></div>
 
-<h4 id="4-create-an-npm-script-for-running-e2e-tests">4. Create an NPM script for running e2e tests</h4>
+<h3 id="4-create-an-npm-script-for-running-e2e-tests">4. Create an NPM script for running e2e tests</h3>
 
 <p>In your package.json, add the following task:</p>
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"e2e"</span>: <span class="s2">"tsc --p e2e/pro.tsconfig.json &amp;&amp; protractor e2e/protractor.config.js --verbose"</span>
 </code></pre></div></div>
 
-<h2 id="running-and-writing-ui-tests">Running and Writing UI tests</h2>
+<h1 id="running-and-writing-ui-tests">Running and Writing UI tests</h1>
 
 <p>For Protractor to know which tests to run, you need to configure the 
 <strong>specs</strong> property, in our case all the files that end with .e2e-spec.ts</p>
@@ -680,7 +682,7 @@ but here is an example test script that you should be able to run on both iOS an
   <li>Conclude the test.</li>
 </ol>
 
-<h3 id="webview-and-native-context">Webview And Native context</h3>
+<h2 id="webview-and-native-context">Webview And Native context</h2>
 
 <p>Our example application is a hybrid application.
 Meaning it will be packaged and deployed as native app so we can access Native API’s.
@@ -697,7 +699,7 @@ To locate a native UI element you need to use an Accessibility ID. At the same t
 <p>TouchEvents like Tap / Swipe / Drag ‘n Drop are only supported in the Native context.
 You can not use them in the Webview Context.</p>
 
-<h3 id="behaviour-driven-development-with-cucumber">Behaviour-driven development with Cucumber</h3>
+<h2 id="behaviour-driven-development-with-cucumber">Behaviour-driven development with Cucumber</h2>
 
 <p>Cucumber is a tool for BDD.
 You can easily integrate Cucumber with Appium using <a href="https://www.npmjs.com/package/protractor-cucumber-framework">Protractor cucumber framework</a> on NPM.</p>
@@ -760,14 +762,15 @@ Then I should see the Login failed page
   <li>Better reporting and readability of the UI tests</li>
 </ul>
 
-<h3 id="cloud-testing-providers">Cloud testing providers</h3>
+<h2 id="cloud-testing-providers">Cloud testing providers</h2>
 
 <p>The following providers offer great support for Appium tests in the cloud:</p>
 
 <ul>
-  <li>Saucelabs (Only simulators and emulators)</li>
-  <li>TestObject (Only real devices, has been purchased by Saucelabs)</li>
-  <li>Kobiton (Only real devices, allows you to connect your local mobile device farm)</li>
+  <li><a href="https://saucelabs.com/">Saucelabs</a></li>
+  <li><a href="https://app.testobject.com/">TestObject</a>, only real devices, has been purchased by Saucelabs.</li>
+  <li><a href="https://kobiton.com/">Kobiton</a>, only real devices, allows you to connect your local mobile device farm.</li>
+  <li><a href="https://experitest.com/">Experitest</a></li>
 </ul>
 
 <h1 id="conclusion">Conclusion</h1>
@@ -837,7 +840,7 @@ but this can be circumvented if you decide to go for a cloud testing provider li
 
         <div class="content">
             
-            <p><p>Ryan is a frontend developer and interaction designer. He enjoys writing clean code and building maintainable, user friendly web applications in Typescript and Javascript. He also has a strong interest in motion design and UI/UX. In his spare time, he practices martial arts and enjoys playing the guitar.</p>
+            <p><p>Ryan is a Software Engineer at Ordina Belgium. He is dedicated to writing clean code and building maintainable, user friendly web applications in Typescript. Ryan is also an Angular expert who enjoys giving beginner and advanced Angular courses. In his spare time, he practices martial arts and enjoys playing the guitar.</p>
 </p>
             
         </div>

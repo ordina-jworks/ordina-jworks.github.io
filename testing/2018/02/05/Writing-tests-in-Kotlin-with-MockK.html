@@ -227,10 +227,10 @@ It was a no-brainer for me to immediately add these testing libraries to my Kotl
 <p>And wrote a first simple test in which I wanted to test a <code class="highlighter-rouge">Service</code> class that uses a <code class="highlighter-rouge">Generator</code> to generate a record and a <code class="highlighter-rouge">Dao</code> for persisting it.</p>
 
 <div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ServiceTest</span> <span class="p">{</span>
-    <span class="kd">class</span> <span class="nc">Generator</span> <span class="p">{</span> <span class="k">fun</span> <span class="n">generate</span><span class="p">():</span> <span class="n">String</span> <span class="p">=</span> <span class="s">"Random String that's not random"</span> <span class="p">}</span>
-    <span class="kd">class</span> <span class="nc">Dao</span> <span class="p">{</span> <span class="k">fun</span> <span class="n">insert</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="s">"""Inserting "$record"""") }
+    <span class="kd">class</span> <span class="nc">Generator</span> <span class="p">{</span> <span class="k">fun</span> <span class="nf">generate</span><span class="p">():</span> <span class="nc">String</span> <span class="p">=</span> <span class="s">"Random String that's not random"</span> <span class="p">}</span>
+    <span class="kd">class</span> <span class="nc">Dao</span> <span class="p">{</span> <span class="k">fun</span> <span class="nf">insert</span><span class="p">(</span><span class="nv">record</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="s">"""Inserting "$record"""") }
 </span>    <span class="kd">class</span> <span class="nc">Service</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">generator</span><span class="p">:</span> <span class="n">Generator</span><span class="p">,</span> <span class="k">private</span> <span class="kd">val</span> <span class="py">dao</span><span class="p">:</span> <span class="n">Dao</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">fun</span> <span class="n">calculate</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">fun</span> <span class="nf">calculate</span><span class="p">()</span> <span class="p">{</span>
             <span class="kd">val</span> <span class="py">record</span> <span class="p">=</span> <span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">()</span>
             <span class="n">dao</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
         <span class="p">}</span>
@@ -241,8 +241,8 @@ It was a no-brainer for me to immediately add these testing libraries to my Kotl
 
     <span class="kd">val</span> <span class="py">service</span> <span class="p">=</span> <span class="n">Service</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">dao</span><span class="p">)</span>
 
-    <span class="n">@Test</span>
-    <span class="k">fun</span> <span class="n">myTest</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">@Test</span>
+    <span class="k">fun</span> <span class="nf">myTest</span><span class="p">()</span> <span class="p">{</span>
         <span class="kd">val</span> <span class="py">mockedRecord</span> <span class="p">=</span> <span class="s">"mocked String"</span>
         <span class="n">Mockito</span><span class="p">.</span><span class="n">`when`</span><span class="p">(</span><span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">()).</span><span class="n">thenReturn</span><span class="p">(</span><span class="n">mockedRecord</span><span class="p">)</span>
 
@@ -284,10 +284,10 @@ I decided to try that one out and replaced my Mockito dependency with it:</p>
 Note how both defining and using the mocks is a bit more elegant:</p>
 
 <div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ServiceTest</span> <span class="p">{</span>
-    <span class="kd">class</span> <span class="nc">Generator</span> <span class="p">{</span> <span class="k">fun</span> <span class="n">generate</span><span class="p">():</span> <span class="n">String</span> <span class="p">=</span> <span class="s">"Random String that's not random"</span> <span class="p">}</span>
-    <span class="kd">class</span> <span class="nc">Dao</span> <span class="p">{</span> <span class="k">fun</span> <span class="n">insert</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="s">"""Inserting "$record"""") }
+    <span class="kd">class</span> <span class="nc">Generator</span> <span class="p">{</span> <span class="k">fun</span> <span class="nf">generate</span><span class="p">():</span> <span class="nc">String</span> <span class="p">=</span> <span class="s">"Random String that's not random"</span> <span class="p">}</span>
+    <span class="kd">class</span> <span class="nc">Dao</span> <span class="p">{</span> <span class="k">fun</span> <span class="nf">insert</span><span class="p">(</span><span class="nv">record</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="s">"""Inserting "$record"""") }
 </span>    <span class="kd">class</span> <span class="nc">Service</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">generator</span><span class="p">:</span> <span class="n">Generator</span><span class="p">,</span> <span class="k">private</span> <span class="kd">val</span> <span class="py">dao</span><span class="p">:</span> <span class="n">Dao</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">fun</span> <span class="n">calculate</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">fun</span> <span class="nf">calculate</span><span class="p">()</span> <span class="p">{</span>
             <span class="kd">val</span> <span class="py">record</span> <span class="p">=</span> <span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">()</span>
             <span class="n">dao</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
         <span class="p">}</span>
@@ -298,8 +298,8 @@ Note how both defining and using the mocks is a bit more elegant:</p>
 
     <span class="kd">val</span> <span class="py">service</span> <span class="p">=</span> <span class="n">Service</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">dao</span><span class="p">)</span>
 
-    <span class="n">@Test</span>
-    <span class="k">fun</span> <span class="n">myTest</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">@Test</span>
+    <span class="k">fun</span> <span class="nf">myTest</span><span class="p">()</span> <span class="p">{</span>
         <span class="kd">val</span> <span class="py">mockedRecord</span> <span class="p">=</span> <span class="s">"mocked String"</span>
         <span class="n">whenever</span><span class="p">(</span><span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">()).</span><span class="n">thenReturn</span><span class="p">(</span><span class="n">mockedRecord</span><span class="p">)</span>
 
@@ -389,10 +389,10 @@ You have the same three parts in which your tests are divided:</p>
 <p>The test from above is written as follows:</p>
 
 <div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ServiceTest</span> <span class="p">{</span>
-    <span class="kd">class</span> <span class="nc">Generator</span> <span class="p">{</span> <span class="k">fun</span> <span class="n">generate</span><span class="p">():</span> <span class="n">String</span> <span class="p">=</span> <span class="s">"Random String that's not random"</span> <span class="p">}</span>
-    <span class="kd">class</span> <span class="nc">Dao</span> <span class="p">{</span> <span class="k">fun</span> <span class="n">insert</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="s">"""Inserting "$record"""") }
+    <span class="kd">class</span> <span class="nc">Generator</span> <span class="p">{</span> <span class="k">fun</span> <span class="nf">generate</span><span class="p">():</span> <span class="nc">String</span> <span class="p">=</span> <span class="s">"Random String that's not random"</span> <span class="p">}</span>
+    <span class="kd">class</span> <span class="nc">Dao</span> <span class="p">{</span> <span class="k">fun</span> <span class="nf">insert</span><span class="p">(</span><span class="nv">record</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="s">"""Inserting "$record"""") }
 </span>    <span class="kd">class</span> <span class="nc">Service</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">generator</span><span class="p">:</span> <span class="n">Generator</span><span class="p">,</span> <span class="k">private</span> <span class="kd">val</span> <span class="py">dao</span><span class="p">:</span> <span class="n">Dao</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">fun</span> <span class="n">calculate</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">fun</span> <span class="nf">calculate</span><span class="p">()</span> <span class="p">{</span>
             <span class="kd">val</span> <span class="py">record</span> <span class="p">=</span> <span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">()</span>
             <span class="n">dao</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
         <span class="p">}</span>
@@ -402,8 +402,8 @@ You have the same three parts in which your tests are divided:</p>
     <span class="kd">val</span> <span class="py">dao</span> <span class="p">=</span> <span class="n">mockk</span><span class="p">&lt;</span><span class="n">Dao</span><span class="p">&gt;()</span>
     <span class="kd">val</span> <span class="py">service</span> <span class="p">=</span> <span class="n">Service</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">dao</span><span class="p">)</span>
 
-    <span class="n">@Test</span>
-    <span class="k">fun</span> <span class="n">myTest</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">@Test</span>
+    <span class="k">fun</span> <span class="nf">myTest</span><span class="p">()</span> <span class="p">{</span>
         <span class="kd">val</span> <span class="py">mockedRecord</span> <span class="p">=</span> <span class="s">"mocked String"</span>
         <span class="n">every</span> <span class="p">{</span> <span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">()</span> <span class="p">}</span> <span class="n">returns</span> <span class="n">mockedRecord</span>
         <span class="n">every</span> <span class="p">{</span> <span class="n">dao</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">mockedRecord</span><span class="p">)</span> <span class="p">}</span> <span class="n">just</span> <span class="n">Runs</span>
