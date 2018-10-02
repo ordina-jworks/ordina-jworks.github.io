@@ -245,7 +245,7 @@ But, nevertheless, let's cover the most useful features and their solutions.
 
 What is meant with asynchronous actions, is that an action is dispatched to the store and the store is updated in an asynchronous way.
 An example of this is the use of a **FetchItems** action, which performs a request to the backend and dispatches one or multiple different actions when that request completes.
-This is especially useful when using a realtime database or Google Cloud Firestore, which open a socket and can emit multiple events.
+This is especially useful when using a realtime database or Google Cloud Firestore, which opens a socket and can emit multiple events.
 In the example application, I've implemented this for a one-time fetch of items where possible.
 
 NGRX can handle this with [*@ngrx/effects*](https://github.com/ngrx/platform/blob/master/docs/effects/README.md), a separate to install package.
