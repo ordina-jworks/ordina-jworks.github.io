@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'jekyll'
 gem 'jekyll-paginate'
+gem 'jekyll-redirect-from'
 gem 'rake'
 gem 'rake-jekyll'
 gem 'jekyll-feed'
