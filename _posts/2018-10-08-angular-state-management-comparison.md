@@ -2,7 +2,7 @@
 layout: post
 authors: [orjan_de_smet]
 title: 'NGRX vs. NGXS vs. Akita vs. RxJS: Fight!'
-image: /img/2018-10-01-battle-of-the-state-managers/battle-of-the-state-managers.jpg
+image: /img/2018-10-08-battle-of-the-state-managers/battle-of-the-state-managers.jpg
 tags: [Angular,State Management,NGRX,NGXS,Akita,RxJS]
 category: Angular
 comments: true
@@ -48,7 +48,7 @@ The logo is added to be able to differentiate which solution is running.
 
 A To Do-application is perfect to demonstrate CRUD.
 A **FakeBackendService** is provided to simulate a RESTful API backend.
-The idea is to only load the list only once in the application's lifetime and then update the state, without needing to fetch everything from the backend again.
+The idea is to load the list only once in the application's lifetime and then update the state, without needing to fetch everything from the backend again.
 As such, the **FakeBackendService** logs its calls to the console for monitoring.
 
 # The competitors
@@ -81,7 +81,7 @@ As such, the **FakeBackendService** logs its calls to the console for monitoring
 
 One of the aims of a (progressive) web application is to minimize loading time by reducing the package size.
 In that light, some developers opt to not use a framework, but instead use plain RxJS.
-To simulate a store as much as possible, I've used **BehaviorSubject**s to hold the state and **lettable operators** to modify the state.
+To simulate a store as much as possible, I've used **BehaviorSubject**s to hold the state and **pipeable operators** to modify the state.
 
 # Fight
 
@@ -248,7 +248,7 @@ An example of this is the use of a **FetchItems** action, which performs a reque
 This is especially useful when using a realtime database or Google Cloud Firestore, which opens a socket and can emit multiple events.
 In the example application, I've implemented this for a one-time fetch of items where possible.
 
-NGRX can handle this with [*@ngrx/effects*](https://github.com/ngrx/platform/blob/master/docs/effects/README.md), a separate to install package.
+NGRX can handle this with [*@ngrx/effects*](https://github.com/ngrx/platform/blob/master/docs/effects/README.md), a separate package to be installed.
 Effects can be added to the root module or to a feature module for lazy loading.
 They can react on any Observable (not only emitted actions) and must emit a new action.
 If multiple actions should be emitted, these must be *flatMap*ped.
