@@ -12,11 +12,11 @@ comments: true
 
 ##  The Goal
 
-The aim of this article is to give an introduction to Streaming API, and more specificaly to the kafka streaming API.
+The aim of this article is to give an introduction to Streaming API, and more specificaly to the Kafka streaming API.
 
 Since I'm not really into writing huge loads of theory, I'm going to try and keep the theory to the minimum to understand the basics and dive directly into the code by using an example.
 That left the task to find a usefull example, for which I got inspired by the work of some collegues. 
-They created an IOT system that measure the usage of the staircase in big buildings with Lora IOT sensors ([Stairway To Health](https://ordina-jworks.github.io/iot/2018/03/14/Stairway-To-Health-2.html)).
+They created an IOT system that measures the usage of the staircase in big buildings with Lora IOT sensors ([Stairway To Health](https://ordina-jworks.github.io/iot/2018/03/14/Stairway-To-Health-2.html)).
 
 So I thought that this is indeed streaming data, the people that open the doors of the staircase are considered as being the stream. 
 
@@ -27,11 +27,11 @@ With that done let's go to the theory ...
 
 ## The Practical Part
 ### Disclaimer
-this project is intended as a first step into the world of streaming, so some shortcuts were taken, and not all design decisions are production ready. 
-A good example is the use of strings as the content of the messages, this should be done in a more structured way (with Avro for example).
+This project is intended as a first step into the world of streaming, so some shortcuts were taken, and not all design decisions are production ready. 
+A good example is the use of strings as the content of the messages, this should be done in a more structured way (with [Avro](https://avro.apache.org/) for example).
 
 ### Setup of the project
-This is the really easy part, to use the streaming api from kafka only 1 dependency must be added. 
+This is the really easy part, to use the streaming api from Kafka only 1 dependency must be added. 
 Here is the example to do it in Maven. 
 ```xml
     <dependencies>
@@ -47,7 +47,7 @@ And that is it. Sometimes live can be simple :)
 ### Creation of the input
 In the real world this would be done by the IOT devices that send there data through the network to the central system. 
 But since it is not easy for demo purposes to have a sensor and a door nearby, and even less handy to open and close it a couple of hundred times to test it out,
-I created a simulator that just sends data to the kafka cluster.
+I created a simulator that just sends data to the Kafka cluster.
 
 This simulator creates 2 kinds of messages:
 * `key = 0E7E346406100585, value = T_7`
@@ -120,7 +120,7 @@ public class DumpData {
     }
 }
 ```
-This will subscribe to all the topics that start with 'stream_' on the kafka. 
+This will subscribe to all the topics that start with 'stream_' on the Kafka. 
 
 ### The main part
 
@@ -128,7 +128,7 @@ So we finally arrived at the part where it all happens.
 
 Just as a recap, the goal of this stream is to transform both input streams into a stream that gives how many people took the stairs at each floor. 
 
-As a start we must create a new StreamBuilder from the kafka library
+As a start we must create a new StreamBuilder from the Kafka library
 ```java
 final StreamsBuilder builder = new StreamsBuilder();
 ```
