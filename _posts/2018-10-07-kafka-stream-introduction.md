@@ -56,32 +56,32 @@ configuration information about on which floor a certain device is located.
 each time a person opens the door the key is the unique id of the device, and then a pulse and the time at which it occurred
 
 ```java
- List<String> devices = new ArrayList<>();
-devices.add(UUID.randomUUID().toString());
-devices.add(UUID.randomUUID().toString());  
-devices.add(UUID.randomUUID().toString());
+     List<String> devices = new ArrayList<>();
+    devices.add(UUID.randomUUID().toString());
+    devices.add(UUID.randomUUID().toString());  
+    devices.add(UUID.randomUUID().toString());
 
-KafkaProducer producer = new KafkaProducer(props);
+    KafkaProducer producer = new KafkaProducer(props);
 
-//send the device information
-for (int i = 0; i < devices.size(); i++) {
-    String val = String.format("%s@%s@%s", "T", "" + (i + 1), System.currentTimeMillis());
-    producer.send(new ProducerRecord("stream_in_dev", devices.get(i), val));
-}
+    //send the device information
+    for (int i = 0; i < devices.size(); i++) {
+        String val = String.format("%s@%s@%s", "T", "" + (i + 1), System.currentTimeMillis());
+        producer.send(new ProducerRecord("stream_in_dev", devices.get(i), val));
+    }
 
-try {
-    Thread.sleep(1000);
-} catch (InterruptedException e) {
-}
-
-new Random().ints(10, 0, devices.size()).forEach(i -> {
-    producer.send(new ProducerRecord("stream_in", devices.get(i), "pulse@" + System.currentTimeMillis()));
     try {
-        Thread.sleep(250);
-    } catch (InterruptedException e) {}
-});
+        Thread.sleep(1000);
+    } catch (InterruptedException e) {
+    }
 
-producer.close();
+    new Random().ints(10, 0, devices.size()).forEach(i -> {
+        producer.send(new ProducerRecord("stream_in", devices.get(i), "pulse@" + System.currentTimeMillis()));
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {}
+    });
+
+    producer.close();
 ```
 
 This wil create 3 floors with a random device id, and afterwards send 10 times an event for a random door that it is opened.
@@ -130,21 +130,21 @@ Just as a recap, the goal of this stream is to transform both input streams into
 
 As a start we must create a new StreamBuilder from the Kafka library
 ```java
-final StreamsBuilder builder = new StreamsBuilder();
+    final StreamsBuilder builder = new StreamsBuilder();
 ```
 
 We need to get the data somewhere, here we get it from the same topics our data simulater writes to.
 ```java
-KStream<String, String> sourceDev = builder.stream("stream_in_dev"); // which device is where
-KStream<String, String> stream_in = builder.stream("stream_in"); // the pulse messages
+    KStream<String, String> sourceDev = builder.stream("stream_in_dev"); // which device is where
+    KStream<String, String> stream_in = builder.stream("stream_in"); // the pulse messages
 ```
 
 The first stream (stream_in_dev) will be converted into a lookup table that is used when handling the second stream. 
 This lookup table will contain which device is installed in on what floor.
 ```java
-        KTable<String, String> streamKtableDev = sourceDev
-                .groupByKey()
-                .reduce((val1, val2) -> val1, Materialized.as("stream_ktable_dev"));
+    KTable<String, String> streamKtableDev = sourceDev
+        .groupByKey()
+        .reduce((val1, val2) -> val1, Materialized.as("stream_ktable_dev"));
 ```
 Since one of the shortcuts we took is creating all the topics with only one partition we don't have any problems with streams not having the data it needs.
 If using multiple partitions, then we should have used or the KGlobalTable 
@@ -163,15 +163,15 @@ The second stream contains the pulses. Each time a person takes the stair, a mes
                 .mapValues(v -> "" + v)
                 .to("stream_out");
 ```
-This seams to do a lot of things and this is indeed the case. But the API makes a clean chain that is not hard to follow. 
-1) We only want the inputs that start with a pulse, the real IOT devices also send battery information and so on, on the same topic.
+This seems to do a lot of things and this is indeed the case. But the API makes a clean chain that is not hard to follow. 
+1) `.filter()` We only want the inputs that start with a pulse, the real IOT devices also send battery information and so on, on the same topic.
 This could also be solved by sending them to different topics but it shows that filtering is possible
-2) we join with the devices lookup table created with the previous KTable statement. This allows us to translate the device id into the location.
+2) `.leftJoin() ` we join with the devices lookup table created with the previous KTable statement. This allows us to translate the device id into the location.
 pulse@1496309915 -> 
-3) we map the message into something more usefull. in stead of the TODO format we now get TODO
-4) we want to group these by key
-5) but not everything together but by minute
-6) and count the number of items. 
-This means that the last 3 lines together change the stream into a stream that gives the number of message per minute for a certain floor
-7) map the result of this into a new stream that gives the amount per minute
-8) send it to the output stream
+3) `.map()` we map the message into something more usefull. in stead of the TODO format we now get TODO
+4) `.groupByKey()` we want to group these by key
+5) `.windowedBy()` but not everything together but by minute
+6) `.count()` and count the number of items. 
+`toStream()` This means that the last 3 lines together change the stream into a stream that gives the number of message per minute for a certain floor
+7) `mapValues()` map the result of this into a new stream that gives the amount per minute
+8) `to()` send it to the output stream
