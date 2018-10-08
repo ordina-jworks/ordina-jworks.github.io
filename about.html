@@ -8,6 +8,7 @@ permalink: /about/
         <section class="team">
             {% for authorEntry in site.data.authors %}
             {% assign author = authorEntry[1] %}
+            {% if author.inactive != true %}
             <div class="team-member">
                 {% include team-member-image.html author=author %}
                 <h1 class="team-member-name"><a href="{{ author.permalink | prepend: site.baseurl }}">{{ author.first_name }} {{ author.last_name }}</a></h1>
@@ -17,6 +18,7 @@ permalink: /about/
                 {% endif %}
                 {% include team-member-links.html author=author %}
             </div>
+            {% endif %}
             {% endfor %}
         </section>
     </div>
