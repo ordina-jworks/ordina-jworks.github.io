@@ -14,8 +14,10 @@ comments: true
 2. [Automated testing](#automated-testing)
 3. [Appium](#appium)
 4. [Getting started with Appium](#getting-started-with-appium)
-5. [Conclusion](#conclusion)
-6. [Example repository](#example-repository)
+5. [Configuring Protractor and the Ionic project](#configure-the-e2e-testing-tools-in-your-ionic-project)
+6. [Running Tests](#running-and-writing-ui-tests)
+7. [Conclusion](#conclusion)
+8. [Example repository](#example-repository)
 
 # Introduction
 
@@ -94,7 +96,7 @@ There are multiple ways to start an Appium server:
 
 ### Appium desktop
 
-[Appium Desktop](https://github.com/appium/appium-desktop) is a graphical frontend for running an Appium server and starting sessions to inspect your applications.
+[Appium Desktop](https://github.com/appium/appium-desktop) is a graphical user interface for running an Appium server and starting sessions to inspect your applications.
 
 Note: For macOS make sure to drop the downloaded package in the `/Applications` folder.
 Otherwise you will encounter write permission issues.
@@ -121,7 +123,7 @@ from version 4 and on Ionic has decoupled from the Angular framework and recreat
 
 ### NPM
 
-We will be using this package to start up our appium server.
+We will be using this package to start up our Appium server.
 
 ## Language
 
@@ -180,18 +182,18 @@ ionic cordova build ios
 If you were able to run these commands successfully, 
 we can start E2E testing our application on both iOS and Android.
 
-Before continuing, Make a folder `/e2e` in the root of your project.
+Before continuing, make a folder `/e2e` in the root of your project.
 
-## Configure the E2E testing tools in your Ionic project
+# Configure the E2E testing tools in your Ionic project
 
-### Appium
+## Appium
 
 1. Install Appium as a local dependency
 2. Add the correct chrome driver
 3. Create an NPM task in your package.json
 4. Boot up the appium service
 
-#### 1. Install Appium as a local dependency
+### 1. Install Appium as a local dependency
 
 Just run the following command to add Appium as a local dependency, 
 this will allow us to work with Appium using NPM scripts.
@@ -200,7 +202,7 @@ this will allow us to work with Appium using NPM scripts.
 npm i -D appium
 ```
 
-#### 2. Add the correct chrome driver
+### 2. Add the correct chrome driver
 
 To be able to run your tests on Android devices, 
 you need to match the correct chrome driver with the Chrome version running on the Android test devices.
@@ -211,15 +213,15 @@ To download a chrome driver, go to the [Chrome Driver Downloads page](http://chr
 
 Once you have selected your chrome driver, download it and put in the `/e2e` folder.
 
-#### 3. Create an NPM task in your package.json
+### 3. Create an NPM task in your package.json
 
 Before running Appium, you can provide the downloaded chrome driver as a cli argument:
 
 ```shell
-"appium": "appium --chromedriver-executable e2e/chromedriver",
+"appium": "appium --chromedriver-executable e2e/chromedriver"
 ```
 
-#### 4. Start your Appium server
+### 4. Start your Appium server
 
 Now you should have everything configured correctly to start your Appium server.
 Simply run:
@@ -228,7 +230,7 @@ Simply run:
 npm run appium
 ```
 
-### Protractor
+## Protractor
 
 Protractor will be our test runner and testing framework.
 [Visit their website](https://www.protractortest.org/#/) for more information on Protractor.
@@ -238,7 +240,7 @@ Protractor will be our test runner and testing framework.
 3. Create your protractor config
 4. Create NPM script for running your e2e tests
 
-#### 1. Install Protractor as a local NPM dependency
+### 1. Install Protractor as a local NPM dependency
 
 Install the test runner with the following command:
 
@@ -246,7 +248,7 @@ Install the test runner with the following command:
 npm install -D protractor
 ```
 
-#### 1. Configure Typescript
+### 1. Configure Typescript
 
 We require a few extra tools to be able run and write our tests in Typescript.
 
@@ -254,7 +256,7 @@ We require a few extra tools to be able run and write our tests in Typescript.
 npm install -D ts-node @types/jasmine @types/node
 ```
 
-Next, in your `/e2e` folder, Create a **tsconfig.json** file with the following configuration:
+Next, in your `/e2e` folder, create a **tsconfig.json** file with the following configuration:
 
 ```json
 {
@@ -302,7 +304,7 @@ and transpiles the ***protractor.config.ts*** file.
 }
 ```
 
-#### 3. Configure protractor
+### 3. Configure protractor
 
 Now one of the more exciting parts, configuring Protractor!
 Create a file called **/e2e/protractor.config.ts** with the following contents:
@@ -369,7 +371,7 @@ To get an idea of all the configuration parameters and their description, visit
 
 I will go over the points that took me the most effort to configure correctly.
 
-#### Capabilities
+### Capabilities
 
 Refers to the capabilities of a single E2E session, 
 it describes which features a particular session should have, for example:
@@ -383,7 +385,7 @@ it describes which features a particular session should have, for example:
 If you want to spin up multiple E2E testing settings, 
 you need to configure the **multiCapabilities** property.
 
-##### Android Capability
+#### Android Capability
 
 - Run ***ionic cordova build android*** and configure the output path in the **app** property
 - **app-package** should match the package name in your config.xml
@@ -405,7 +407,7 @@ const androidPixel2XLCapability = {
 };
 ```
 
-##### iOS Capability
+#### iOS Capability
 
 - Run ***ionic cordova build ios*** and configure the output path in the **app** property
 - Point to the .app file and not the .ipa if you are using simulators.
@@ -428,7 +430,7 @@ const iPhoneXCapability = {
 };
 ```
 
-#### 4. Create an NPM script for running e2e tests
+### 4. Create an NPM script for running e2e tests
 
 In your package.json, add the following task:
 
@@ -436,7 +438,7 @@ In your package.json, add the following task:
 "e2e": "tsc --p e2e/pro.tsconfig.json && protractor e2e/protractor.config.js --verbose"
 ```
 
-## Running and Writing UI tests
+# Running and Writing UI tests
 
 For Protractor to know which tests to run, you need to configure the 
 **specs** property, in our case all the files that end with .e2e-spec.ts
@@ -495,7 +497,7 @@ There are seven basic steps in creating an Appium test script.
 6. Run tests and record test results using a test framework.
 7. Conclude the test.
 
-### Webview And Native context
+## Webview And Native context
 
 Our example application is a hybrid application.
 Meaning it will be packaged and deployed as native app so we can access Native API's.
@@ -512,7 +514,7 @@ To locate a native UI element you need to use an Accessibility ID. At the same t
 TouchEvents like Tap / Swipe / Drag 'n Drop are only supported in the Native context.
 You can not use them in the Webview Context.
 
-### Behaviour-driven development with Cucumber
+## Behaviour-driven development with Cucumber
 
 Cucumber is a tool for BDD.
 You can easily integrate Cucumber with Appium using [Protractor cucumber framework](https://www.npmjs.com/package/protractor-cucumber-framework) on NPM.
@@ -575,13 +577,14 @@ This offers:
 - Feature files can act as contracts for acceptance criteria
 - Better reporting and readability of the UI tests
 
-### Cloud testing providers
+## Cloud testing providers
 
 The following providers offer great support for Appium tests in the cloud:
 
-- Saucelabs (Only simulators and emulators)
-- TestObject (Only real devices, has been purchased by Saucelabs)
-- Kobiton (Only real devices, allows you to connect your local mobile device farm)
+- [Saucelabs](https://saucelabs.com/)
+- [TestObject](https://app.testobject.com/), only real devices, has been purchased by Saucelabs.
+- [Kobiton](https://kobiton.com/), only real devices, allows you to connect your local mobile device farm.
+- [Experitest](https://experitest.com/)
 
 # Conclusion
 
