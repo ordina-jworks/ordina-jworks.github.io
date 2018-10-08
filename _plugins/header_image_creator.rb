@@ -7,7 +7,7 @@ module HeaderImageCreator
     image.combine_options do |c|
       c.blur "5x5"
       c.fill "#464646"
-      c.colorize "90%"
+      c.colorize "80%"
     end
 
     image
