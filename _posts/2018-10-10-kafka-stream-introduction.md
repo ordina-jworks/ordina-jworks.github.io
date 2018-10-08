@@ -24,6 +24,23 @@ With that done let's go to the theory ...
 
 ## The theory
 
+### Ease of Use
+
+### Guarantees
+
+### DSL
+
+### Topology
+
+### Windowing
+
+#### Tumbling Time Window
+#### Hopping Time Window
+#### Sliding Time Window
+#### Session Time Window
+
+### Local State
+
 
 ## The Practical Part
 ### Disclaimer
