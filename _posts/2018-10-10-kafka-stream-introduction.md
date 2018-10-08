@@ -2,9 +2,9 @@
 layout: post
 authors: [hans_vanbellingen]
 title: 'Kafka Stream introduction'
-image: /img/spring-boot-2/051-thumb.jpg
+image: /img/kafka/kafka-logo-thumb.png
 tags: [Kafka, Stream]
-category: Spring
+category: Kafka
 comments: true
 ---
 
@@ -50,9 +50,9 @@ But since it is not easy for demo purposes to have a sensor and a door nearby, a
 I created a simulator that just sends data to the Kafka cluster.
 
 This simulator creates 2 kinds of messages:
-* `key = 0E7E346406100585, value = T_7`
+`key = 0E7E346406100585, value = T_7`
 configuration information about on which floor a certain device is located.
-* `key = 0E7E346406100585, value = pulse@1496309915`
+`key = 0E7E346406100585, value = pulse@1496309915`
 each time a person opens the door the key is the unique id of the device, and then a pulse and the time at which it occurred
 
 ```java
@@ -164,14 +164,14 @@ The second stream contains the pulses. Each time a person takes the stair, a mes
                 .to("stream_out");
 ```
 This seems to do a lot of things and this is indeed the case. But the API makes a clean chain that is not hard to follow. 
-1) `.filter()` We only want the inputs that start with a pulse, the real IOT devices also send battery information and so on, on the same topic.
+- `.filter()` We only want the inputs that start with a pulse, the real IOT devices also send battery information and so on, on the same topic.
 This could also be solved by sending them to different topics but it shows that filtering is possible
-2) `.leftJoin() ` we join with the devices lookup table created with the previous KTable statement. This allows us to translate the device id into the location.
+-  `.leftJoin() ` we join with the devices lookup table created with the previous KTable statement. This allows us to translate the device id into the location.
 pulse@1496309915 -> 
-3) `.map()` we map the message into something more usefull. in stead of the TODO format we now get TODO
-4) `.groupByKey()` we want to group these by key
-5) `.windowedBy()` but not everything together but by minute
-6) `.count()` and count the number of items. 
+-  `.map()` we map the message into something more usefull. in stead of the TODO format we now get TODO
+-  `.groupByKey()` we want to group these by key
+-  `.windowedBy()` but not everything together but by minute
+-  `.count()` and count the number of items. 
 `toStream()` This means that the last 3 lines together change the stream into a stream that gives the number of message per minute for a certain floor
-7) `mapValues()` map the result of this into a new stream that gives the amount per minute
-8) `to()` send it to the output stream
+-  `mapValues()` map the result of this into a new stream that gives the amount per minute
+-  `to()` send it to the output stream
