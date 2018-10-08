@@ -2,7 +2,7 @@
 layout: post
 authors: [hans_vanbellingen]
 title: 'Kafka Stream introduction'
-image: /img/kafka/kafka-logo-thumb.png
+image: /img/kafka/apache-kafka.png
 tags: [Kafka, Stream]
 category: Kafka
 comments: true
@@ -26,20 +26,66 @@ With that done let's go to the theory ...
 
 ### Ease of Use
 
+Simple client library
+
+Only depends on Kafka
+
 ### Guarantees
 
+Fault tolerant local state
+One record at a time
+Exactly once
+
 ### DSL
+KStream
+KTable
+GlobalKTable
 
 ### Topology
 
+[<img class="image fit" style="margin:0px auto; max-width: 500px;" alt="Kafka Streams Topology" src="/img/kafka/streams-architecture-topology.jpg">](https://kafka.apache.org/11/documentation/streams/core-concepts#streams_topology)
+
+Source Processor
+
+Stream Processor
+
+Sink Processor
+
+Stream
+
 ### Windowing
 
-#### Tumbling Time Window
-#### Hopping Time Window
-#### Sliding Time Window
-#### Session Time Window
+Time is pretty important when dealing with streams, we distinguish the following notions of time within streams:
+* Event time: when the event occured.
+* Processing time: the time when the event was processed by the steam processing application.
+* Ingestion time: the time when the event was stored within a topic by Kafka.
+
+Windows will allow you to group your records with the same record key towards that time. 
+
+We have the following types of windows:
+*   Tumbling time windows feature fixed-size, non-overlapping, gap-less windows.
+    Since the windows do not overlap, a data record will belong to only one window.
+
+<img class="image fit" style="margin:0px auto; max-width: 500px;" alt="Tumbling Window" src="/img/kafka/streams-time-windows-tumbling.png">
+
+*   Hopping time windows feature a fixed size, but the advance interval (aka "hop") can be different to that fixed size.
+    These windows can also overlap, so that a data record may belong to more then one window.
+
+<img class="image fit" style="margin:0px auto; max-width: 500px;" alt="Hopping Window" src="/img/kafka/streams-time-windows-hopping.png">
+
+*   A session window is a period of activity separated by a defined gap of inactivity.
+    All events within that gap will be merged with an existing session.
+    If the gap is too large a new session window will be created.
+    The size of the window itself will thus vary.
+<img class="image fit" style="margin:0px auto; max-width: 500px;" alt="Session Window" src="/img/kafka/streams-session-windows-02.png">
+
 
 ### Local State
+
+Every stream task in a Kafka Streams topology can use one or more local state stores.
+
+These state stores can be a [RocksDB](https://rocksdb.org/) database or an in-memory hash map.
+When data is persisted to a local state store Kafka Streams provides automatic recovery in the case of some failure allowing the processing to continue.
 
 
 ## The Practical Part
