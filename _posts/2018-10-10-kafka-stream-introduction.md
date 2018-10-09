@@ -2,7 +2,7 @@
 layout: post
 authors: [hans_vanbellingen]
 title: 'Kafka Stream introduction'
-image: /img/kafka/apache-kafka.png
+image: /img/kafka/kafka-logo-thumb.png
 tags: [Kafka, Stream]
 category: Kafka
 comments: true
