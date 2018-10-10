@@ -72,7 +72,8 @@ transparent_header: true
             <ul class="list-6 categories">
                 {% assign shown_categories = '' %}
                 {% for cat in site.categories %} {% assign cat_ = cat[0] | downcase | replace:' ','-' %}
-                {% unless shown_categories contains cat_ %}
+                {% assign shown_cats_array = shown_categories | split: ', ' %}
+                {% unless shown_cats_array contains cat_ %}
                 <li><a href="/categories/{{cat_ }}">{{cat[0]}}</a></li>
                 {% assign shown_categories = shown_categories | append: ', ' | append: cat_ %}
                 {% endunless %}
