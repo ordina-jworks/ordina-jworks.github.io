@@ -63,7 +63,7 @@ Gradle will now recognize both child directories as a subproject.
 
 ## Angular
 
-For the Angular part we want create a jar with a `static` directory that contains the result of our Angular build. 
+For the Angular part we want to create a jar with a `static` directory that contains the result of our Angular build. 
 By doing this we can include the jar in our backend module. And because Spring Boot will automatically add static web 
 resources located within `static`, the Angular application will be visible when we launch the application.
 
