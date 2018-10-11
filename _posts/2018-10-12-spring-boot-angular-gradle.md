@@ -11,7 +11,7 @@ comments: true
 I often found myself struggling when I had to integrate Angular into a Spring Boot project. This is something that should
 not take a lot of your valuable development time. That's why I want to share how I did it with Gradle in a very fast and easy way.
 
-I setup an example repo which you can find [on GitHub](https://github.com/gurtjun/angular-spring-boot-gradle){:target="_blank"}.
+I set up an example repo which you can find [on GitHub](https://github.com/gurtjun/angular-spring-boot-gradle){:target="_blank" rel="noopener noreferrer"}.
 
 ## Application structure
 
@@ -19,10 +19,10 @@ This guide assumes you have a root directory that contains two child directories
 One with the Angular code, and another one with the Spring Boot code. By keeping these apart from each other
 it will be easier to develop within the application. 
 
-We'll make use of [Gradle's multi-project builds](https://docs.gradle.org/current/userguide/intro_multi_project_builds.html){:target="_blank"}
+We'll make use of [Gradle's multi-project builds](https://docs.gradle.org/current/userguide/intro_multi_project_builds.html){:target="_blank" rel="noopener noreferrer"}
 to split the application into multiple modules. 
 
-Because I generated my Spring Boot project with [Spring Initializr](https://start.spring.io){:target="_blank"} 
+Because I generated my Spring Boot project with [Spring Initializr](https://start.spring.io){:target="_blank" rel="noopener noreferrer"}
 I already have a Gradle Wrapper, `gradlew` file, `gradle.bat` file and `settings.gradle` file available. 
 We want to move those to our root directory. 
 Keep the `build.gradle` file within the Spring Boot directory.
@@ -67,7 +67,7 @@ For the Angular part we want create a jar with a `static` directory that contain
 By doing this we can include the jar in our backend module. And because Spring Boot will automatically add static web 
 resources located within `static`, the Angular application will be visible when we launch the application.
 
-This can be done by using the [com.moowork.node](https://plugins.gradle.org/plugin/com.moowork.node){:target="_blank"} plugin.
+This can be done by using the [com.moowork.node](https://plugins.gradle.org/plugin/com.moowork.node){:target="_blank" rel="noopener noreferrer"} plugin.
 
 Let's take a look at the `build.gradle` file in our `todo-ui` project. 
 ```groovy
@@ -116,7 +116,7 @@ dependencies {
 }
 ```
 
-Build the project, execute the generated Spring Boot jar and go to [localhost:8080](http://localhost:8080){:target="_blank"},
+Build the project, execute the generated Spring Boot jar and go to [localhost:8080](http://localhost:8080){:target="_blank" rel="noopener noreferrer"}, 
 you should see your Angular web application. That's all folks!
 
 ## Note
@@ -128,6 +128,6 @@ a lot easier to find your way in both modules.
 Now go and apply this on your own projects! Don't hesitate to contact me if you have any questions.
 
 <sub><sup>
-<sup>1</sup> by default, `npm run build` will execute `ng build` (specified in `package.json`).<br/>
+<sup>1</sup> by default, `npm run build` will execute `ng build` (specified in `package.json`)<br/>
 <sup>2</sup> by default, Angular will output the build result in `dist/{project-name}` (specified in `angular.json`)
 </sup></sub>
