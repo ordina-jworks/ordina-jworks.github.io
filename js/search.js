@@ -3,9 +3,19 @@ some_variable: "jeckyll wont update js without frontmatter.."
 ---
 
 (function() {
+
+  showSpinner()
+
+  function showSpinner() {
+    document.getElementById("search-spinner").style.display = "inherit";
+  }
+
+  function hideSpinner() {
+    document.getElementById("search-spinner").style.display = "none";
+  }
+
   function displaySearchResults(results, store) {
     var searchResults = document.getElementById('search-results');
-
     if (results.length) { // Are there any results?
       var appendString = '';
 
@@ -18,9 +28,6 @@ some_variable: "jeckyll wont update js without frontmatter.."
         appendString += '<a href="' + item.url + '" class="special">Read more</a>';
         appendString += '</article>';
 
-        //appendString += '<li class="box box--border-hover"><a href="' + item.url + '"><h3>' + item.title + '</h3></a>';
-        //appendString += '<p>' + item.content.substring(0, 250) + '...</p></li>';
-        // appendString += '<p>' + item.abstract + '</p></li>';
       }
 
       searchResults.innerHTML = appendString;
@@ -41,6 +48,7 @@ some_variable: "jeckyll wont update js without frontmatter.."
       }
     }
   }
+
 
   var searchTerm = getQueryVariable('query');
 
@@ -64,9 +72,9 @@ some_variable: "jeckyll wont update js without frontmatter.."
         'category': window.store[key].category,
         'content': window.store[key].content
       });
-
       var results = idx.search(searchTerm); // Get lunr to perform a search
       displaySearchResults(results, window.store); // We'll write this in the next section
     }
+    hideSpinner()
   }
 })();
