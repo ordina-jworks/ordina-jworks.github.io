@@ -246,11 +246,12 @@ This seems to do a lot of things and this is indeed the case. But the API makes 
 - `.filter()` We only want the inputs that start with a pulse, the real IOT devices also send battery information and so on, on the same topic.
 This could also be solved by sending them to different topics but it shows that filtering is possible
 -  `.leftJoin() ` we join with the devices lookup table created with the previous KTable statement. This allows us to translate the device id into the location.
-pulse@1496309915 -> 
--  `.map()` we map the message into something more usefull. in stead of the TODO format we now get TODO
--  `.groupByKey()` we want to group these by key
--  `.windowedBy()` but not everything together but by minute
--  `.count()` and count the number of items. 
-`toStream()` This means that the last 3 lines together change the stream into a stream that gives the number of message per minute for a certain floor
--  `mapValues()` map the result of this into a new stream that gives the amount per minute
+key is '0E7E346406100585' and value is 'pulse@1496309915' will be translated to the same key but with value 'T_7@1496309915' 
+-  `.map()` we map the message into something more usefull. 
+in stead of the key '0E7E346406100585' and value 'T_7@1496309915' format we now get a key of 'T_7' and a value of '1496309915'.
+-  `.groupByKey()` we want to group these by key (Which is now the floor number and not the device id like it was in the beginning)
+-  `.windowedBy()` and create a tumbling window for each minute
+-  `.count()` and within the window count the number of items 
+-  `toStream()` This means that the last 3 lines together change the stream into a stream that gives the number of message per minute for a certain floor
+-  `mapValues()` map the result of this into a new stream that gives the amount per minute where the key is the floor (T_7) and the value is a combination of the amount and the when (5 - Thu Oct 10 16:28:04 CEST 2018)
 -  `to()` send it to the output stream
