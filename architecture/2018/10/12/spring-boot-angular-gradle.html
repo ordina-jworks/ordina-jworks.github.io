@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Integrate Angular in Spring Boot using Gradle - Gert-jan Theunissen">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2018-10-12-spring-boot-angular-gradle/angular-spring-boot-gradle.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/architecture/2018/10/12/spring-boot-angular-gradle.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Integrate Angular in Spring Boot using Gradle - Gert-jan Theunissen"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2018-10-12-spring-boot-angular-gradle/angular-spring-boot-gradle.jpg"/>
+
+    
+    <title>Integrate Angular in Spring Boot using Gradle - Gert-jan Theunissen &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Integrate Angular in Spring Boot using Gradle</h2>
+                
+
+                
+                    Posted Oct 12, 2018
+
+
+    in <a href="/categories/architecture/">Architecture</a>
+
+
+
+    by
+    
+        <a href="/author/gert-jan-theunissen/">Gert-jan Theunissen</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/angular/">Angular</a>, 
+    
+        <a href="/tags/spring-boot/">Spring Boot</a>, 
+    
+        <a href="/tags/gradle/">Gradle</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <p>I often found myself struggling when I had to integrate Angular into a Spring Boot project. This is something that should
+not take a lot of your valuable development time. That’s why I want to share how I did it with Gradle in a very fast and easy way.</p>
+
+<p>I set up an example repo which you can find <a href="https://github.com/gurtjun/angular-spring-boot-gradle" target="_blank" rel="noopener noreferrer">on GitHub</a>.</p>
+
+<h2 id="application-structure">Application structure</h2>
+
+<p>This guide assumes you have a root directory that contains two child directories. 
+One with the Angular code, and another one with the Spring Boot code. By keeping these apart from each other
+it will be easier to develop within the application.</p>
+
+<p>We’ll make use of <a href="https://docs.gradle.org/current/userguide/intro_multi_project_builds.html" target="_blank" rel="noopener noreferrer">Gradle’s multi-project builds</a>
+to split the application into multiple modules.</p>
+
+<p>Because I generated my Spring Boot project with <a href="https://start.spring.io" target="_blank" rel="noopener noreferrer">Spring Initializr</a>
+I already have a Gradle Wrapper, <code class="highlighter-rouge">gradlew</code> file, <code class="highlighter-rouge">gradle.bat</code> file and <code class="highlighter-rouge">settings.gradle</code> file available. 
+We want to move those to our root directory. 
+Keep the <code class="highlighter-rouge">build.gradle</code> file within the Spring Boot directory.</p>
+
+<p>We should also add a new <code class="highlighter-rouge">build.gradle</code> file to the root directory and another one to the child directory with our Angular code.</p>
+
+<p>Your application structure should look like this:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+├── build.gradle
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradle.bat
+├── todo-api
+│   └── build.gradle
+├── todo-ui
+│   └── build.gradle
+└── settings.gradle
+</code></pre></div></div>
+
+<p>You should have three <code class="highlighter-rouge">build.gradle</code> files, we’ll check their content within a minute. 
+But we first have to tell Gradle the name of our project and make sure it will recognize the two modules. 
+This can be done in <code class="highlighter-rouge">settings.gradle</code>.</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rootProject</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s1">'todo'</span>
+
+<span class="n">include</span> <span class="s1">'todo-api'</span><span class="o">,</span> <span class="s1">'todo-ui'</span>
+</code></pre></div></div>
+
+<p>We’ll use <code class="highlighter-rouge">todo</code> as the project name and include both the backend and frontend module by specifying their directory name.
+It’s important that this name matches the path of the directory, otherwise Gradle cannot find these modules.</p>
+
+<p>Gradle will now recognize both child directories as a subproject.</p>
+
+<h2 id="angular">Angular</h2>
+
+<p>For the Angular part we want to create a jar with a <code class="highlighter-rouge">static</code> directory that contains the result of our Angular build. 
+By doing this we can include the jar in our backend module. And because Spring Boot will automatically add static web 
+resources located within <code class="highlighter-rouge">static</code>, the Angular application will be visible when we launch the application.</p>
+
+<p>This can be done by using the <a href="https://plugins.gradle.org/plugin/com.moowork.node" target="_blank" rel="noopener noreferrer">com.moowork.node</a> plugin.</p>
+
+<p>Let’s take a look at the <code class="highlighter-rouge">build.gradle</code> file in our <code class="highlighter-rouge">todo-ui</code> project.</p>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 1</span>
+<span class="n">plugins</span> <span class="o">{</span>
+  <span class="n">id</span> <span class="s1">'java'</span>
+  <span class="n">id</span> <span class="s2">"com.moowork.node"</span> <span class="n">version</span> <span class="s2">"1.2.0"</span>
+<span class="o">}</span>
+
+<span class="c1">// 2</span>
+<span class="n">node</span> <span class="o">{</span>
+  <span class="n">version</span> <span class="o">=</span> <span class="s1">'9.2.0'</span>
+  <span class="n">npmVersion</span> <span class="o">=</span> <span class="s1">'6.4.1'</span>
+  <span class="n">download</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="o">}</span>
+
+<span class="c1">// 3</span>
+<span class="n">jar</span><span class="o">.</span><span class="na">dependsOn</span> <span class="s1">'npm_run_build'</span>
+
+<span class="c1">// 4</span>
+<span class="n">jar</span> <span class="o">{</span>
+  <span class="n">from</span> <span class="s1">'dist/todo-ui'</span> <span class="n">into</span> <span class="s1">'static'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Let me explain step-by-step what we’re doing here:</p>
+<ol>
+  <li>We need the <code class="highlighter-rouge">java</code> plugin to have the <code class="highlighter-rouge">jar</code> task available and the <code class="highlighter-rouge">com.moowork.node</code> plugin to execute node scripts like <code class="highlighter-rouge">npm_run_build</code>.</li>
+  <li>We have to specify which node and NPM version we want to use.</li>
+  <li>Before creating the jar with the <code class="highlighter-rouge">jar</code> task we want to build our Angular project, otherwise we don’t have any static files to serve. 
+This can be done by using the <code class="highlighter-rouge">npm_run_build</code> task.<sup>1</sup></li>
+  <li>When we build the Angular project our static files will become available in <code class="highlighter-rouge">dist/todo-ui</code>. We want those files into <code class="highlighter-rouge">static</code>. 
+The <code class="highlighter-rouge">from 'dist/todo-ui' into 'static'</code> command in the <code class="highlighter-rouge">jar</code> task will simply copy everything from <code class="highlighter-rouge">dist/todo-ui</code> into <code class="highlighter-rouge">static</code>.<sup>2</sup></li>
+</ol>
+
+<p>When we build the subproject it will run <code class="highlighter-rouge">npm run build</code> and create a new jar with the build result in the <code class="highlighter-rouge">static</code> directory.</p>
+
+<p>We can now setup Spring Boot to include the jar.</p>
+
+<h2 id="spring-boot">Spring Boot</h2>
+
+<p>Our Spring Boot project already has a <code class="highlighter-rouge">build.gradle</code> file generated. 
+We just have to add one line within our dependencies to include the todo-ui module.</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">{</span>
+	<span class="n">implementation</span><span class="o">(</span><span class="n">project</span><span class="o">(</span><span class="s1">':todo-ui'</span><span class="o">))</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Build the project, execute the generated Spring Boot jar and go to <a href="http://localhost:8080" target="_blank" rel="noopener noreferrer">localhost:8080</a>, 
+you should see your Angular web application. That’s all folks!</p>
+
+<h2 id="note">Note</h2>
+
+<p>There are several ways to integrate Angular in Spring Boot using Gradle (or Maven). 
+To me, this is the easiest and fastest way to do it. Because we’ve separated the backend from the frontend it will be 
+a lot easier to find your way in both modules.</p>
+
+<p>Now go and apply this on your own projects! Don’t hesitate to contact me if you have any questions.</p>
+
+<p><sub><sup>
+<sup>1</sup> by default, <code class="highlighter-rouge">npm run build</code> will execute <code class="highlighter-rouge">ng build</code> (specified in <code class="highlighter-rouge">package.json</code>)<br />
+<sup>2</sup> by default, Angular will output the build result in <code class="highlighter-rouge">dist/{project-name}</code> (specified in <code class="highlighter-rouge">angular.json</code>)
+</sup></sub></p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/architecture/2018/10/12/spring-boot-angular-gradle.html&title=Integrate Angular in Spring Boot using Gradle&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Integrate Angular in Spring Boot using Gradle&url=https://ordina-jworks.github.io/architecture/2018/10/12/spring-boot-angular-gradle.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/architecture/2018/10/12/spring-boot-angular-gradle.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/gert-jan-theunissen/" class="image spotlight-image">
+            <img src="/img/author/gert-jan-theunissen.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Gert-jan is a Software Developer at Ordina Belgium. He is passionate about front end stuff, but you can easily throw him in the back end jungle and he will survive. In his spare time he’s practising some knee dragging on his motorcycle.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2018-10-12-spring-boot-angular-gradle/angular-spring-boot-gradle.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/architecture/2018/10/12/spring-boot-angular-gradle.html";
+        this.page.identifier = "/architecture/2018/10/12/spring-boot-angular-gradle.html";
+        this.page.title = "Integrate Angular in Spring Boot using Gradle";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

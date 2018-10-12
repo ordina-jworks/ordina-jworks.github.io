@@ -1,5 +1,125 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-10-10T22:03:24+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">NGRX vs. NGXS vs. Akita vs. RxJS: Fight!</title><link href="https://ordina-jworks.github.io/angular/2018/10/08/angular-state-management-comparison.html" rel="alternate" type="text/html" title="NGRX vs. NGXS vs. Akita vs. RxJS: Fight!" /><published>2018-10-08T00:00:00+00:00</published><updated>2018-10-08T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/angular/2018/10/08/angular-state-management-comparison</id><content type="html" xml:base="https://ordina-jworks.github.io/angular/2018/10/08/angular-state-management-comparison.html">&lt;h1 id=&quot;reason-for-comparing&quot;&gt;Reason for comparing&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-10-12T08:15:08+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Integrate Angular in Spring Boot using Gradle</title><link href="https://ordina-jworks.github.io/architecture/2018/10/12/spring-boot-angular-gradle.html" rel="alternate" type="text/html" title="Integrate Angular in Spring Boot using Gradle" /><published>2018-10-12T00:00:00+00:00</published><updated>2018-10-12T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2018/10/12/spring-boot-angular-gradle</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2018/10/12/spring-boot-angular-gradle.html">&lt;p&gt;I often found myself struggling when I had to integrate Angular into a Spring Boot project. This is something that should
+not take a lot of your valuable development time. That’s why I want to share how I did it with Gradle in a very fast and easy way.&lt;/p&gt;
+
+&lt;p&gt;I set up an example repo which you can find &lt;a href=&quot;https://github.com/gurtjun/angular-spring-boot-gradle&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;on GitHub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;application-structure&quot;&gt;Application structure&lt;/h2&gt;
+
+&lt;p&gt;This guide assumes you have a root directory that contains two child directories. 
+One with the Angular code, and another one with the Spring Boot code. By keeping these apart from each other
+it will be easier to develop within the application.&lt;/p&gt;
+
+&lt;p&gt;We’ll make use of &lt;a href=&quot;https://docs.gradle.org/current/userguide/intro_multi_project_builds.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Gradle’s multi-project builds&lt;/a&gt;
+to split the application into multiple modules.&lt;/p&gt;
+
+&lt;p&gt;Because I generated my Spring Boot project with &lt;a href=&quot;https://start.spring.io&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Spring Initializr&lt;/a&gt;
+I already have a Gradle Wrapper, &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew&lt;/code&gt; file, &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle.bat&lt;/code&gt; file and &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.gradle&lt;/code&gt; file available. 
+We want to move those to our root directory. 
+Keep the &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; file within the Spring Boot directory.&lt;/p&gt;
+
+&lt;p&gt;We should also add a new &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; file to the root directory and another one to the child directory with our Angular code.&lt;/p&gt;
+
+&lt;p&gt;Your application structure should look like this:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.
+├── build.gradle
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradle.bat
+├── todo-api
+│   └── build.gradle
+├── todo-ui
+│   └── build.gradle
+└── settings.gradle
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You should have three &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; files, we’ll check their content within a minute. 
+But we first have to tell Gradle the name of our project and make sure it will recognize the two modules. 
+This can be done in &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.gradle&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;rootProject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'todo'&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'todo-api'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'todo-ui'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We’ll use &lt;code class=&quot;highlighter-rouge&quot;&gt;todo&lt;/code&gt; as the project name and include both the backend and frontend module by specifying their directory name.
+It’s important that this name matches the path of the directory, otherwise Gradle cannot find these modules.&lt;/p&gt;
+
+&lt;p&gt;Gradle will now recognize both child directories as a subproject.&lt;/p&gt;
+
+&lt;h2 id=&quot;angular&quot;&gt;Angular&lt;/h2&gt;
+
+&lt;p&gt;For the Angular part we want to create a jar with a &lt;code class=&quot;highlighter-rouge&quot;&gt;static&lt;/code&gt; directory that contains the result of our Angular build. 
+By doing this we can include the jar in our backend module. And because Spring Boot will automatically add static web 
+resources located within &lt;code class=&quot;highlighter-rouge&quot;&gt;static&lt;/code&gt;, the Angular application will be visible when we launch the application.&lt;/p&gt;
+
+&lt;p&gt;This can be done by using the &lt;a href=&quot;https://plugins.gradle.org/plugin/com.moowork.node&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;com.moowork.node&lt;/a&gt; plugin.&lt;/p&gt;
+
+&lt;p&gt;Let’s take a look at the &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; file in our &lt;code class=&quot;highlighter-rouge&quot;&gt;todo-ui&lt;/code&gt; project.&lt;/p&gt;
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 1&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plugins&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'java'&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;com.moowork.node&quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.2.0&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 2&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'9.2.0'&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;npmVersion&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'6.4.1'&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;download&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 3&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;jar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;dependsOn&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'npm_run_build'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 4&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;jar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'dist/todo-ui'&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'static'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let me explain step-by-step what we’re doing here:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;We need the &lt;code class=&quot;highlighter-rouge&quot;&gt;java&lt;/code&gt; plugin to have the &lt;code class=&quot;highlighter-rouge&quot;&gt;jar&lt;/code&gt; task available and the &lt;code class=&quot;highlighter-rouge&quot;&gt;com.moowork.node&lt;/code&gt; plugin to execute node scripts like &lt;code class=&quot;highlighter-rouge&quot;&gt;npm_run_build&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;We have to specify which node and NPM version we want to use.&lt;/li&gt;
+  &lt;li&gt;Before creating the jar with the &lt;code class=&quot;highlighter-rouge&quot;&gt;jar&lt;/code&gt; task we want to build our Angular project, otherwise we don’t have any static files to serve. 
+This can be done by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;npm_run_build&lt;/code&gt; task.&lt;sup&gt;1&lt;/sup&gt;&lt;/li&gt;
+  &lt;li&gt;When we build the Angular project our static files will become available in &lt;code class=&quot;highlighter-rouge&quot;&gt;dist/todo-ui&lt;/code&gt;. We want those files into &lt;code class=&quot;highlighter-rouge&quot;&gt;static&lt;/code&gt;. 
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;from 'dist/todo-ui' into 'static'&lt;/code&gt; command in the &lt;code class=&quot;highlighter-rouge&quot;&gt;jar&lt;/code&gt; task will simply copy everything from &lt;code class=&quot;highlighter-rouge&quot;&gt;dist/todo-ui&lt;/code&gt; into &lt;code class=&quot;highlighter-rouge&quot;&gt;static&lt;/code&gt;.&lt;sup&gt;2&lt;/sup&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;When we build the subproject it will run &lt;code class=&quot;highlighter-rouge&quot;&gt;npm run build&lt;/code&gt; and create a new jar with the build result in the &lt;code class=&quot;highlighter-rouge&quot;&gt;static&lt;/code&gt; directory.&lt;/p&gt;
+
+&lt;p&gt;We can now setup Spring Boot to include the jar.&lt;/p&gt;
+
+&lt;h2 id=&quot;spring-boot&quot;&gt;Spring Boot&lt;/h2&gt;
+
+&lt;p&gt;Our Spring Boot project already has a &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; file generated. 
+We just have to add one line within our dependencies to include the todo-ui module.&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;implementation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;':todo-ui'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Build the project, execute the generated Spring Boot jar and go to &lt;a href=&quot;http://localhost:8080&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;localhost:8080&lt;/a&gt;, 
+you should see your Angular web application. That’s all folks!&lt;/p&gt;
+
+&lt;h2 id=&quot;note&quot;&gt;Note&lt;/h2&gt;
+
+&lt;p&gt;There are several ways to integrate Angular in Spring Boot using Gradle (or Maven). 
+To me, this is the easiest and fastest way to do it. Because we’ve separated the backend from the frontend it will be 
+a lot easier to find your way in both modules.&lt;/p&gt;
+
+&lt;p&gt;Now go and apply this on your own projects! Don’t hesitate to contact me if you have any questions.&lt;/p&gt;
+
+&lt;p&gt;&lt;sub&gt;&lt;sup&gt;
+&lt;sup&gt;1&lt;/sup&gt; by default, &lt;code class=&quot;highlighter-rouge&quot;&gt;npm run build&lt;/code&gt; will execute &lt;code class=&quot;highlighter-rouge&quot;&gt;ng build&lt;/code&gt; (specified in &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;)&lt;br /&gt;
+&lt;sup&gt;2&lt;/sup&gt; by default, Angular will output the build result in &lt;code class=&quot;highlighter-rouge&quot;&gt;dist/{project-name}&lt;/code&gt; (specified in &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt;)
+&lt;/sup&gt;&lt;/sub&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Gert-jan&quot;, &quot;last_name&quot;=&gt;&quot;Theunissen&quot;, &quot;permalink&quot;=&gt;&quot;/author/gert-jan-theunissen/&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;email&quot;=&gt;&quot;gert-jan.theunissen@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;gertjantheunissen&quot;, &quot;avatar&quot;=&gt;&quot;gert-jan-theunissen.jpg&quot;, &quot;github&quot;=&gt;&quot;gurtjun&quot;, &quot;bio&quot;=&gt;&quot;Gert-jan is a Software Developer at Ordina Belgium. He is passionate about front end stuff, but you can easily throw him in the back end jungle and he will survive. In his spare time he's practising some knee dragging on his motorcycle.&quot;}</name><email>gert-jan.theunissen@ordina.be</email></author><category term="Architecture" /><category term="Angular" /><category term="Spring Boot" /><category term="Gradle" /><summary type="html">I often found myself struggling when I had to integrate Angular into a Spring Boot project. This is something that should not take a lot of your valuable development time. That’s why I want to share how I did it with Gradle in a very fast and easy way.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-10-12-spring-boot-angular-gradle/angular-spring-boot-gradle.jpg" /></entry><entry><title type="html">NGRX vs. NGXS vs. Akita vs. RxJS: Fight!</title><link href="https://ordina-jworks.github.io/angular/2018/10/08/angular-state-management-comparison.html" rel="alternate" type="text/html" title="NGRX vs. NGXS vs. Akita vs. RxJS: Fight!" /><published>2018-10-08T00:00:00+00:00</published><updated>2018-10-08T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/angular/2018/10/08/angular-state-management-comparison</id><content type="html" xml:base="https://ordina-jworks.github.io/angular/2018/10/08/angular-state-management-comparison.html">&lt;h1 id=&quot;reason-for-comparing&quot;&gt;Reason for comparing&lt;/h1&gt;
 
 &lt;p&gt;When creating a web application, one of the questions to ask is how data should be managed.
 If the application must be reactive, it’s best to use &lt;a href=&quot;http://reactivex.io&quot;&gt;ReactiveX&lt;/a&gt; (or Rx for short) to create streams of data.
@@ -4068,64 +4188,4 @@ In the above example you see I have to create a instance of httpClient to get ar
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;So one year later we are still using Jest and testing is still a lot more enjoyable than it was before.
-Not painless as Jest claims it to be, but that’s just the nature of testing I guess.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yannick&quot;, &quot;last_name&quot;=&gt;&quot;Vergeylen&quot;, &quot;github&quot;=&gt;&quot;yannickvergeylenord&quot;, &quot;linkedin&quot;=&gt;&quot;yannickvergeylen&quot;, &quot;permalink&quot;=&gt;&quot;/author/yannick-vergeylen/&quot;, &quot;avatar&quot;=&gt;&quot;yannick-vergeylen.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;yannick.vergeylen@ordina.be&quot;, &quot;phone&quot;=&gt;32476499054, &quot;bio&quot;=&gt;&quot;Yannick is a young and driven software developer. Widely interested and with a studious attitude he keeps looking for new ways to improve the web with better software and experiences.&quot;}</name><email>yannick.vergeylen@ordina.be</email></author><category term="Testing" /><category term="JWorks" /><category term="culture" /><summary type="html">Last year I learned about Jest, a testing framework. ‘Yet another one’ was my first thought. Later that year my colleague and I were looking to extend our test coverage. We where using Jasmine to write the tests we had and Karma to run them. It worked for sure and we had a lot of tests but it was like a punishment to write them every time, repeating the same code to mock things and when it finally worked and we pushed them to the CI they would sometimes fail randomly. So we were eager to find a better way to test.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-08-03-testing-angular-with-jest/jest.png" /></entry><entry><title type="html">Agile Leadership Game</title><link href="https://ordina-jworks.github.io/agile/2018/07/31/Agile-Leadership-Game.html" rel="alternate" type="text/html" title="Agile Leadership Game" /><published>2018-07-31T00:00:00+00:00</published><updated>2018-07-31T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/agile/2018/07/31/Agile-Leadership-Game</id><content type="html" xml:base="https://ordina-jworks.github.io/agile/2018/07/31/Agile-Leadership-Game.html">&lt;p&gt;Last week we, as the guild of agile coaches from Ordina, tried and tested the Agile Leadership Game developed by the Agile Consortium called ‘How Agile Are You?’.
-In this blog post, we will provide you with some more information about the game.&lt;/p&gt;
-
-&lt;h3 id=&quot;details&quot;&gt;Details&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;2-6 players (even though more is possible)&lt;/li&gt;
-  &lt;li&gt;Intended audience is management&lt;/li&gt;
-  &lt;li&gt;Takes 1.5 hours (on average)&lt;/li&gt;
-  &lt;li&gt;Needs a skilled facilitator&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;game-play&quot;&gt;Game Play&lt;/h3&gt;
-&lt;p&gt;This game has been designed to get discussions on agile leadership going and to ensure that people start observing behaviour that belongs (or does not belong) to an agile organisation.
-It is specifically intended for management teams.
-The game is focused on agile mindset and agile leadership: what do people and organisations need from management when engaged in an agile transformation?&lt;/p&gt;
-
-&lt;p&gt;Participants are asked to very rapidly (! ten seconds per card on average :) !) divide fourty-two cards with ‘characteristics’ of organisations, over one of the quadrants on the board.
-As a participant you are to decide how the characteristic manifests itself in your organisation at this moment.
-The game board consists of the quadrants “LET GO, IGNORE, CREATE and KEEP” as you can see in the image below.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Agile Leadership Game&quot; src=&quot;/img/agile-leadership-game/Agile-Leadership-Game.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;If the characteristic on the card is behaviour that the organisation DOES HAVE at that time but that you DON’T WANT, the card gets sorted in the quadrant “LET GO”.
-If the participant perceives the characteristic on the card as a behaviour the organisation DOES HAVE and that you DO WANT, it ends up at “KEEP” and so on.
-An example of a characteristic is “management spends a lot of time putting out fires”.&lt;/p&gt;
-
-&lt;p&gt;There is no right or wrong: the game provides insight in the current state of affairs.
-The characteristics are labelled in types of behaviour belonging to types of organisations.
-So you could end up with lots of characteristics belonging to agile organisations in the “CREATE” quadrant. :)&lt;/p&gt;
-
-&lt;p&gt;After the time box for sorting the cards ends, the participants will discuss the characteristics that seem most relevant to them and their organisation.
-Each participant gets the chance to enter at least one card/characteristic into the discussion.
-This needs to be (well) facilitated by an experienced coach/agile master.
-You can take as long as you like for the discussion and could do several discussion rounds, but we would recommend not to have it last for too long (1.5 hours max).&lt;/p&gt;
-
-&lt;p&gt;After the discussion round it is useful to add an extra step in the game as to make the outcome more actionable:
-the participants prioritise the top three of characteristics/topics they would like to let go or create.
-These are the topics they can start working with the very next day!
-This way you also prevent the session being perceived as just fun, irrelevant and/or without consequences.
-Because there are fourty-two cards in the game and you won’t discuss them all, the game is most suitable to be played again at a later time – it won’t lose its value.&lt;/p&gt;
-
-&lt;h3 id=&quot;outcomes-retrospective&quot;&gt;Outcomes retrospective:&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;TIP:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Participants need some time to figure out how to play the game and how to work with the quadrants on the board.&lt;/li&gt;
-  &lt;li&gt;An ice breaker to start with and a small warm up round increases effectiveness and actionable outcome of the game.&lt;/li&gt;
-  &lt;li&gt;Making sure the topics in the discussion round are precisely those that matter most to the organisation and the participants, adds greatly to the usefulness of the session.&lt;/li&gt;
-  &lt;li&gt;You need a skilled facilitator.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;TOP:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Very nice game to play, offering lots of insight and actionable openings to start your transformation at leadership level.&lt;/li&gt;
-  &lt;li&gt;The game doesn’t take too long, can easily be played several times over time and can easily be fitted into a leadership programme, workshop, curriculum or “heidag”.&lt;/li&gt;
-  &lt;li&gt;It’s a perfect self-assessment game for management teams that are wondering how agile they actually are as a team. :)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;If you would like to try this game but don’t yet have an experienced facilitator available, don’t hesitate to reach out to us! We’d love to help!&lt;/p&gt;
-
-&lt;p&gt;More information about the game can be found &lt;a href=&quot;https://www.agileconsortium.net/leadership-game/&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Maryse&quot;, &quot;last_name&quot;=&gt;&quot;Meinen&quot;, &quot;permalink&quot;=&gt;&quot;/author/maryse-meinen/&quot;, &quot;avatar&quot;=&gt;&quot;maryse-meinen.jpg&quot;, &quot;title&quot;=&gt;&quot;Agile Coach&quot;, &quot;linkedin&quot;=&gt;&quot;mmeinen&quot;, &quot;email&quot;=&gt;&quot;maryse.meinen@ordina.nl&quot;, &quot;bio&quot;=&gt;&quot;Maryse is a Lean/Agile solution architect who has been working in IT since 2008. Inspiring more women to consider a career in tech is one of her ambitions. To Maryse, Lean and Agile philosophy is a way of life – and she’s convinced that a focus on Agile might bring about more women in IT.&quot;}</name><email>maryse.meinen@ordina.nl</email></author><category term="Agile" /><category term="Agile" /><category term="Agile Leadership Game" /><category term="Agile Consortium" /><summary type="html">Last week we, as the guild of agile coaches from Ordina, tried and tested the Agile Leadership Game developed by the Agile Consortium called ‘How Agile Are You?’. In this blog post, we will provide you with some more information about the game.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/agile-leadership-game/How-Agile-Are-You.jpg" /></entry></feed>
+Not painless as Jest claims it to be, but that’s just the nature of testing I guess.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yannick&quot;, &quot;last_name&quot;=&gt;&quot;Vergeylen&quot;, &quot;github&quot;=&gt;&quot;yannickvergeylenord&quot;, &quot;linkedin&quot;=&gt;&quot;yannickvergeylen&quot;, &quot;permalink&quot;=&gt;&quot;/author/yannick-vergeylen/&quot;, &quot;avatar&quot;=&gt;&quot;yannick-vergeylen.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;yannick.vergeylen@ordina.be&quot;, &quot;phone&quot;=&gt;32476499054, &quot;bio&quot;=&gt;&quot;Yannick is a young and driven software developer. Widely interested and with a studious attitude he keeps looking for new ways to improve the web with better software and experiences.&quot;}</name><email>yannick.vergeylen@ordina.be</email></author><category term="Testing" /><category term="JWorks" /><category term="culture" /><summary type="html">Last year I learned about Jest, a testing framework. ‘Yet another one’ was my first thought. Later that year my colleague and I were looking to extend our test coverage. We where using Jasmine to write the tests we had and Karma to run them. It worked for sure and we had a lot of tests but it was like a punishment to write them every time, repeating the same code to mock things and when it finally worked and we pushed them to the CI they would sometimes fail randomly. So we were eager to find a better way to test.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-08-03-testing-angular-with-jest/jest.png" /></entry></feed>
