@@ -41,7 +41,7 @@ Since 0.11.0, Kafka is able to process deliver messages exactly once, the same l
 Just set `processing.guarantee` to `exactly_once`with the default being `at_least_once`.
 
 ### DSL
-Kafka Streams provides a [Domain Specific Language](https://kafka.apache.org/20/documentation/streams/developer-guide/dsl-api.html) which is recommended for most users, especially beginners.
+Kafka Streams provides a [Domain Specific Language](https://kafka.apache.org/20/documentation/streams/developer-guide/dsl-api.html){:target="_blank" rel="noopener noreferrer"} which is recommended for most users, especially beginners.
 
 - KStream: a KStream is created from a specified Kafka input topic and interprets the data as a record stream. 
     It will only receive records of a subset of the topic partitions.
