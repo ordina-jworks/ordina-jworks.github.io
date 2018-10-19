@@ -16,7 +16,7 @@ The aim of this article is to give an introduction to Streaming API, and more sp
 
 Since I'm not really into writing huge loads of theory, I'm going to try and keep the theory to the minimum to understand the basics and dive directly into the code by using an example.
 That left the task to find a useful example, for which I got inspired by the work of some collegues. 
-They created an IOT system that measures the usage of the staircase in big buildings with Lora IOT sensors ([Stairway To Health](https://ordina-jworks.github.io/iot/2018/03/14/Stairway-To-Health-2.html)).
+They created an IOT system that measures the usage of the staircase in big buildings with Lora IOT sensors ([Stairway To Health](https://ordina-jworks.github.io/iot/2018/03/14/Stairway-To-Health-2.html){:target="_blank" rel="noopener noreferrer"}).
 
 So I thought that this is indeed streaming data, the people that open the doors of the staircase are considered as being the stream. 
 
