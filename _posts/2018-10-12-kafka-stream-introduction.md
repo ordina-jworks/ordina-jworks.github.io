@@ -218,7 +218,7 @@ We need to get the data somewhere, here we get it from the same topics our data 
     KStream<String, String> stream_in = builder.stream("stream_in"); // the pulse messages
 ```
 
-The first stream (stream_in_dev) will be converted into a lookup table that is used when handling the second stream. 
+The first stream (`stream_in_dev`) will be converted into a lookup table that is used when handling the second stream. 
 This lookup table will contain which device is installed in on what floor.
 ```java
     KTable<String, String> streamKtableDev = sourceDev
