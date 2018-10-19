@@ -207,7 +207,7 @@ So we finally arrived at the part where it all happens.
 
 Just as a recap, the goal of this stream is to transform both input streams into a stream that gives how many people took the stairs at each floor. 
 
-As a start we must create a new StreamBuilder from the Kafka library
+As a start we must create a new `StreamBuilder` from the Kafka library
 ```java
     final StreamsBuilder builder = new StreamsBuilder();
 ```
