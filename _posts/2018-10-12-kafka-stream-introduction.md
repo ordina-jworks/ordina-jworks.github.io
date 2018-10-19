@@ -75,7 +75,7 @@ Like a Kafka topic it will consist of one or more stream partitions.
 
 Every stream task in a Kafka Streams topology can use one or more local state stores.
 
-These state stores can be a [RocksDB](https://rocksdb.org/) database or an in-memory hash map.
+These state stores can be a [RocksDB](https://rocksdb.org/){:target="_blank" rel="noopener noreferrer"} database or an in-memory hash map.
 When data is persisted to a local state store Kafka Streams provides automatic recovery in the case of some failure allowing the processing to continue.
 
 ### Windowing
