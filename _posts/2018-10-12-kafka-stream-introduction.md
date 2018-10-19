@@ -43,7 +43,7 @@ Just set `processing.guarantee` to `exactly_once`with the default being `at_leas
 ### DSL
 Kafka Streams provides a [Domain Specific Language](https://kafka.apache.org/20/documentation/streams/developer-guide/dsl-api.html){:target="_blank" rel="noopener noreferrer"} which is recommended for most users, especially beginners.
 
-- KStream: a KStream is created from a specified Kafka input topic and interprets the data as a record stream. 
+- KStream: a `KStream` is created from a specified Kafka input topic and interprets the data as a record stream. 
     It will only receive records of a subset of the topic partitions.
     Do not worry, over all of the Kafka Steams instances all of the topics partitions will be processed.
 - KTable: a KTable is also based on a Kafka topic, but is interpreted as a changelog stream. 
