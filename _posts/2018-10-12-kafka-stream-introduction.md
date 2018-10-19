@@ -109,7 +109,7 @@ If the gap is too large a new session window will be created, the size of the wi
 ## The Practical Part
 ### Disclaimer
 This project is intended as a first step into the world of streaming, so some shortcuts were taken, and not all design decisions are production ready. 
-A good example is the use of strings as the content of the messages, this should be done in a more structured way (with [Avro](https://avro.apache.org/) for example).
+A good example is the use of strings as the content of the messages, this should be done in a more structured way (with [Avro](https://avro.apache.org/) for example){:target="_blank" rel="noopener noreferrer"}.
 
 ### Setup of the project
 This is the really easy part, to use the streaming api from Kafka only 1 dependency must be added. 
