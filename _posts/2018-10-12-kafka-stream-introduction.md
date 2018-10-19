@@ -12,7 +12,7 @@ comments: true
 
 ##  The Goal
 
-The aim of this article is to give an introduction to Streaming API, and more specificaly to the Kafka streaming API.
+The aim of this article is to give an introduction to Streaming API, and more specifically to the Kafka streaming API.
 
 Since I'm not really into writing huge loads of theory, I'm going to try and keep the theory to the minimum to understand the basics and dive directly into the code by using an example.
 That left the task to find a useful example, for which I got inspired by the work of some collegues. 
