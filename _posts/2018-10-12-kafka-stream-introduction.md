@@ -169,7 +169,7 @@ This wil create three floors with a random device id, and afterwards it will sen
 
 ### Reading of the output
 
-For checking what happens in the system a data dumper was created that outputs all the messages on all the topics of interest (as well the input, as the output as the intermediate queues).
+For checking what happens in the system a data dumper was created that outputs all the messages on all the topics of interest (the input, the output and the intermediate queues included).
 
 ```java
 public class DumpData {
