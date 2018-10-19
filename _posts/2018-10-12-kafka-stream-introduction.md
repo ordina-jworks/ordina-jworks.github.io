@@ -134,7 +134,7 @@ This simulator creates two kinds of messages:
 `key = 0E7E346406100585, value = T_7`
 configuration information about on which floor a certain device is located.
 `key = 0E7E346406100585, value = pulse@1496309915`
-each time a person opens the door the key is the unique id of the device, and then a pulse and the time at which it occurred
+each time a person opens the door, the key is the unique id of the device, and then a pulse and the time at which it occurred
 
 ```java
      List<String> devices = new ArrayList<>();
