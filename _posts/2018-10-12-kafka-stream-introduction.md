@@ -82,7 +82,7 @@ When data is persisted to a local state store Kafka Streams provides automatic r
 
 Time is pretty important when dealing with streams, we distinguish the following notions of time within streams:
 * Event time: when the event occured.
-* Processing time: the time when the event was processed by the steam processing application.
+* Processing time: the time when the event was processed by the stream processing application.
 * Ingestion time: the time when the event was stored within a topic by Kafka.
 
 Windows will allow you to group your records with the same record key towards that time. 
