@@ -103,7 +103,7 @@ These windows can also overlap, so that a data record may belong to more then on
 ### Session windows
 These represent a period of activity separated by a defined gap of inactivity.
 All events within that gap will be merged with an existing session.
-If the gap is too large a new session window will be created, the size of the window itself will thus vary.
+If the gap is too large, a new session window will be created, the size of the window itself will thus vary.
 <img class="image fit" style="margin:0px auto; max-width: 500px;" alt="Session Window" src="/img/kafka/streams-session-windows-02.png">
 
 ## The Practical Part
