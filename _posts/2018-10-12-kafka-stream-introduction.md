@@ -165,7 +165,7 @@ each time a person opens the door, the key is the unique id of the device, and t
     producer.close();
 ```
 
-This wil create 3 floors with a random device id, and afterwards send 10 times an event for a random door that it is opened.
+This wil create three floors with a random device id, and afterwards it will send an event for a random door being opened 10 times.
 
 ### Reading of the output
 
