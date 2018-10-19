@@ -37,7 +37,7 @@ The (intermediate) state of the stream processors is stored within replicated ch
 A Kafka Streams stream processor will receive one input record at a time.
 It will apply its operation to it, like: `map`, `filter`, `join` and send out one or more output records to the downstream processors.
 
-Since 0.11.0 Kafka is able to process deliver messages exactly once, the same logic can be used within Kafka Streams so a record will only be processed exactly once.
+Since 0.11.0, Kafka is able to process deliver messages exactly once, the same logic can be used within Kafka Streams so a record will only be processed exactly once.
 Just set `processing.guarantee` to `exactly_once`with the default being `at_least_once`.
 
 ### DSL
