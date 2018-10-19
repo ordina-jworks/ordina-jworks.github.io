@@ -50,7 +50,7 @@ Kafka Streams provides a [Domain Specific Language](https://kafka.apache.org/20/
     So that for every record key only the most recent value will be returned, it will also handle a subset of partitions.
 - GlobalKTable: a special type of `KTable`, as its data will be populated with records from all the partitions of the input topic.
 
-After you have created your KStream or KTable you can start with a variety of transformations on your record stream, like: `filter`, `map`, `flatMap`, `groupBy`, ...
+After you have created your `KStream` or `KTable` you can start with a variety of transformations on your record stream, like: `filter`, `map`, `flatMap`, `groupBy`, ...
 
 As you will see later in the example we provide it is all quite easy to grasp.
 
