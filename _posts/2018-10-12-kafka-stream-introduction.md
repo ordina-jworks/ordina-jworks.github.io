@@ -130,7 +130,7 @@ In the real world this would be done by the IOT devices that send their data thr
 But since it is not easy for demo purposes to have a sensor and a door nearby, and even less handy to open and close it a couple of hundred times to test it out,
 I created a simulator that just sends data to the Kafka cluster.
 
-This simulator creates 2 kinds of messages:
+This simulator creates two kinds of messages:
 `key = 0E7E346406100585, value = T_7`
 configuration information about on which floor a certain device is located.
 `key = 0E7E346406100585, value = pulse@1496309915`
