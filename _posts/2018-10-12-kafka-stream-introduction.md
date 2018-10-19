@@ -123,7 +123,7 @@ Here is the example to do it in Maven.
         </dependency>
     </dependencies>
 ```
-And that is it. Sometimes live can be simple :)
+And that is it. Sometimes life can be simple. :)
 
 ### Creation of the input
 In the real world this would be done by the IOT devices that send there data through the network to the central system. 
