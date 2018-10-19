@@ -247,7 +247,7 @@ This seems to do a lot of things and this is indeed the case. But the API makes 
 This could also be solved by sending them to different topics but it shows that filtering is possible
 -  `.leftJoin() ` we join with the devices lookup table created with the previous KTable statement. This allows us to translate the device id into the location.
 key is '0E7E346406100585' and value is 'pulse@1496309915' will be translated to the same key but with value 'T_7@1496309915' 
--  `.map()` we map the message into something more usefull. 
+-  `.map()` we map the message into something more useful. 
 in stead of the key '0E7E346406100585' and value 'T_7@1496309915' format we now get a key of 'T_7' and a value of '1496309915'.
 -  `.groupByKey()` we want to group these by key (Which is now the floor number and not the device id like it was in the beginning)
 -  `.windowedBy()` and create a tumbling window for each minute
