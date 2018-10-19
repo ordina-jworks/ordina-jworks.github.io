@@ -219,7 +219,7 @@ We need to get the data somewhere, here we get it from the same topics our data 
 ```
 
 The first stream (`stream_in_dev`) will be converted into a lookup table that is used when handling the second stream. 
-This lookup table will contain which device is installed in on what floor.
+This lookup table will contain which device is installed on which floor.
 ```java
     KTable<String, String> streamKtableDev = sourceDev
         .groupByKey()
