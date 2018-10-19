@@ -252,6 +252,6 @@ in stead of the key '0E7E346406100585' and value 'T_7@1496309915' format we now 
 -  `.groupByKey()` we want to group these by key (which is now the floor number and not the device id like it was in the beginning)
 -  `.windowedBy()` and create a tumbling window for each minute
 -  `.count()` and within the window count the number of items 
--  `toStream()` This means that the last 3 lines together change the stream into a stream that gives the number of message per minute for a certain floor
+-  `toStream()` This means that the last three lines together change the stream into a stream that gives the number of messages per minute for a certain floor
 -  `mapValues()` map the result of this into a new stream that gives the amount per minute where the key is the floor (T_7) and the value is a combination of the amount and the when (5 - Thu Oct 10 16:28:04 CEST 2018)
 -  `to()` send it to the output stream
