@@ -56,7 +56,7 @@ As you will see later in the example we provide it is all quite easy to grasp.
 
 ### Topology
 
-[<img class="image fit" style="margin:0px auto; max-width: 300px;" alt="Kafka Streams Topology" src="/img/kafka/streams-architecture-topology.jpg">](https://kafka.apache.org/11/documentation/streams/core-concepts#streams_topology)
+[<img class="image fit" style="margin:0px auto; max-width: 300px;" alt="Kafka Streams Topology" src="/img/kafka/streams-architecture-topology.jpg">](https://kafka.apache.org/11/documentation/streams/core-concepts#streams_topology){:target="_blank" rel="noopener noreferrer"}
 
 #### Source Processor
 A Source Processor does not have any upstream processors and it will produce an input stream from one or more Kafka topics.
