@@ -229,7 +229,7 @@ Since one of the shortcuts we took is creating all the topics with only one part
 If using multiple partitions, then we should have used or the KGlobalTable 
 or we should have made sure that the partitioning is done in such a way that we get the corresponding data from both partitions on this node.
 
-The second stream contains the pulses. Each time a person takes the stair, a message is sent, and this must be added to the counter of the people taking the stairs at that minute.
+The second stream contains the pulses. Each time a person takes the stair, a message is sent, and this must be added to the counter of the people taking the stairs at that specific minute.
 ```java
         stream_in
                 .filter((key, value) -> value.startsWith("pulse"))
