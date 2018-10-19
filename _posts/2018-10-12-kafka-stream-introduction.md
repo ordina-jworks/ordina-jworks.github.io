@@ -137,7 +137,7 @@ configuration information about on which floor a certain device is located.
 each time a person opens the door, the key is the unique id of the device, and then a pulse and the time at which it occurred
 
 ```java
-     List<String> devices = new ArrayList<>();
+    List<String> devices = new ArrayList<>();
     devices.add(UUID.randomUUID().toString());
     devices.add(UUID.randomUUID().toString());  
     devices.add(UUID.randomUUID().toString());
