@@ -36,4 +36,23 @@ Read the Manifesto carefully – and you will see that the psychological safety 
 From there, all the rest is due to follow.
 Burning up story points should never be accompanied by burning up energy.
 What is burning down at one side should be building up at the other.
-Once this ensured, progress comes at a steady pace.
+Once this is ensured, progress comes at a steady pace.
+
+## Details about the exercise
+
+Are you interested to know how I helped the team detect these common denominators?
+For that I used the liberating structure 1-2-4-All, which goes like this:
+* Everybody gets a card and a thin marker.
+* In a time box of two minutes, everyone by themselves writes down what comes after "I hate it when people..."
+(Somehow it's easier for people to find examples of unwanted behaviour, than asking them for what they appreciate.)
+* Next five minutes they pair up and share their examples, thinking the value and good behaviour that could counterbalance the negative one.
+This value should be written on the other side of each card.
+* Team up to make a group of four and share your good behaviours and values during a time box of five minutes.
+Start clustering them when doubles or connections start to emerge.
+* For ten to fifteen minutes (depending on how big the group is), everybody explains to the group their preferred behaviour and the related value.
+Try to cluster them into groups and define a common denominator for each cluster, to make it more manageable.
+Make sure that everyone understands them and that nobody perceives any contradictory combinations.
+* Ask for commitment of the group to try and stick to these behaviours and values.
+Anyone who doesn't respect them, can be made accountable and should be addressed by the others.
+
+Don't hesitate to reach out if you have any questions regarding this topic!
