@@ -48,7 +48,7 @@ Kafka Streams provides a [Domain Specific Language](https://kafka.apache.org/20/
     Do not worry, over all of the Kafka Steams instances all of the topics partitions will be processed.
 - KTable: a `KTable` is also based on a Kafka topic, but is interpreted as a changelog stream. 
     So that for every record key only the most recent value will be returned, it will also handle a subset of partitions.
-- GlobalKTable: a special type of KTable, as its data will be populated with records from all the partitions of the input topic.
+- GlobalKTable: a special type of `KTable`, as its data will be populated with records from all the partitions of the input topic.
 
 After you have created your KStream or KTable you can start with a variety of transformations on your record stream, like: `filter`, `map`, `flatMap`, `groupBy`, ...
 
