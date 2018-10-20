@@ -70,7 +70,7 @@ hello-cli say hello
 ```
 To do this we can leverage the generator again to add a new command for us.
 ```bash
-cobra add say
+$ cobra add say
 ```
 It will generate a file inside the cmd package called `say.go`.
 In this file you can again specify the way you want the command to be used and describe its function.
