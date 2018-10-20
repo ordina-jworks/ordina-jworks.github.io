@@ -128,7 +128,7 @@ go install
 ```
 Followed by
 ```bash
-hello-cli say hello
+$ hello-cli say hello
 ```
 If everything worked correctly, your CLI should output “Hello World!”.
 
