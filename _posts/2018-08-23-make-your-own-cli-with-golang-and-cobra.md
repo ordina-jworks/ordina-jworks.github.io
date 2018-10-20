@@ -138,7 +138,7 @@ you can choose between local and persistent ones.
 Local flags are available only for that command, whereas persistent flags are also available for the subcommands of that command.
 For this example we want to greet a person by name.
 We’re going to do this by making a --name flag.
-Navigate to the init function of the sayhello.go file, and add a flag.
+Navigate to the `init` function of the `sayhello.go` file, and add a flag.
 ```go
 func init() {
     rootCmd.AddCommand(sayCmd)
