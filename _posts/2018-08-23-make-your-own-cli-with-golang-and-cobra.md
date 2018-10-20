@@ -39,7 +39,7 @@ It should generated a main.go file and a cmd package.
 
 Sidenote: by default cobra will add an Apache License.
 If you don’t want this, you can add the flag “-l none” to all the generator commands.
-It will however add a copyright claim at the top of every file (// Copyright © 2018 NAME HERE <EMAIL ADDRESS>).
+It will however add a copyright claim at the top of every file (`// Copyright © 2018 NAME HERE <EMAIL ADDRESS>`).
 If you pass the flag `-a YOUR NAME` the claim will contain your name. These flags are optional though.
 
 When you look inside the `main.go` file, there’s not much going on. It just calls the `execute` function of the cmd package.
