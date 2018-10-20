@@ -213,7 +213,7 @@ Run: func(cmd *cobra.Command, args []string) {
     fmt.Println(greeting + " " + name)
 },
 ```
-Again use viper in the same way as you did before with the environment variables.
+Again use Viper in the same way as you did before with the environment variables.
 Try it out by doing another install and typing this command.
 ```bash
 $ hello-cli say hallo --config config.yml
