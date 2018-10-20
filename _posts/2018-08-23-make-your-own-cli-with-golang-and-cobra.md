@@ -34,7 +34,7 @@ This creates an executable which you can run from anywhere, because it is locate
 
 You can go ahead and create a new folder for your go code.
 The name of the folder will be used as the name of your CLI.
-Navigate inside this folder with your terminal and call “cobra init” to start a new project.
+Navigate inside this folder with your terminal and execute `$ cobra init` to start a new project.
 It should generated a main.go file and a cmd package.
 
 Sidenote: by default Cobra will add an Apache License.
