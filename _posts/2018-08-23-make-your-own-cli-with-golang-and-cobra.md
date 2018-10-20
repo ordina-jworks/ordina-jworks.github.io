@@ -87,7 +87,7 @@ RunE: func(cmd *cobra.Command, args []string) error {
 The RunE function also shows the help output if there’s an error.
 This is to show the user how to properly use your command.
 
-At the bottom of the file you’ll see a function called init.
+At the bottom of the file you’ll see a function called `init`.
 ```go
 func init() {
    rootCmd.AddCommand(sayCmd)
