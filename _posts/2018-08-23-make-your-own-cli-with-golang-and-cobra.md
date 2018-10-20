@@ -28,7 +28,7 @@ The framework Cobra provides a generator that adds some boilerplate code for you
 This is handy because now you can focus more on the logic of your CLI instead of figuring out how to parse a flags.
 Assuming you have golang correctly installed, you can get the generator by doing the following.
 ```bash
-go get github.com/spf13/cobra/cobra
+$ go get github.com/spf13/cobra/cobra
 ```
 This creates an executable which you can run from anywhere, because it is located in the `$GOPATH/bin` directory, which is in turn added to your `PATH` variable if you installed Go correctly.
 
