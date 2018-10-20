@@ -26,7 +26,7 @@ I’m also going to show you ways to provide parameters like environment variabl
 # Getting started
 The framework Cobra provides a generator that adds some boilerplate code for you.
 This is handy because now you can focus more on the logic of your CLI instead of figuring out how to parse a flags.
-Assuming you have golang correctly installed, you can get the generator by doing the following.
+Assuming you have Golang correctly installed, you can get the generator by doing the following.
 ```bash
 $ go get github.com/spf13/cobra/cobra
 ```
