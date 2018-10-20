@@ -107,7 +107,7 @@ Here you can add subcommands and flags.
 By default, the say command is added to the root command, which is exactly what we want.
 Let's add a sub command to say hello.
 ```bash
-cobra add sayhello
+$ cobra add sayhello
 ```
 Like the `say` command, `sayhello` is added to the root command.
 In this case we want it to be added to the `say` command instead.
