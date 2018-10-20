@@ -20,7 +20,7 @@ comments: true
 There’s even a big chance that you’re using one of them.
 Docker or Kubernetes for example, have a CLI written in go.
 These were written using a framework called cobra.
-And that's exactly what I'm going to use to show you how to write your own simple CLI with golang.
+And that's exactly what I'm going to use to show you how to write your own simple CLI with Golang.
 I'm also going to show you ways to provide parameters like environment variables and config files to your CLI, so you can do more than just the basics.
 
 # Getting started
