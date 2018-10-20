@@ -145,7 +145,7 @@ func init() {
     sayhelloCmd.Flags().StringP("name","n", "", "Set your name")
 }
 ```
-The first string is the full name of the flag, and can be executed with two dashes like “--name”.
+The first string is the full name of the flag, and can be executed with two dashes like `--name`.
 The second string is the short notation, which can be executed with one dash.
 The third one is the default value, and the fourth is a description. 
 
