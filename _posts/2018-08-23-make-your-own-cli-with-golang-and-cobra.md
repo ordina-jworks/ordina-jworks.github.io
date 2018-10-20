@@ -177,7 +177,7 @@ If you remember, the default value is set in the init() function.
 ```go
 func init() {
     sayCmd.AddCommand(sayhelloCmd)
-    sayhelloCmd.Flags().StringP("name", "n",viper.GetString("ENVNAME"), "Set your name")
+    sayhelloCmd.Flags().StringP("name", "n", viper.GetString("ENVNAME"), "Set your name")
 }
 ```
 That's all you need to do to parse environment variables.
