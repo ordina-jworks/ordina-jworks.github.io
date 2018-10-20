@@ -164,7 +164,7 @@ do a quick go install, and check if it works.
 ```bash
 hello-cli say hello -n Nick
 ```
-The output should be “Hello Nick”. 
+The output should be "Hello Nick". 
 
 # Using environment variables instead of flags
 If you don't want to pollute your command line, or if you're working with sensitive data which you don't want to show up in the history, it's a good idea to work with environment variables.
