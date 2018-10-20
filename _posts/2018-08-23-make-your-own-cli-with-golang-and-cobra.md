@@ -173,7 +173,7 @@ Cobra already uses viper in the generated code, so why not use it as well.
 You can however achieve the same result by using the os package from the go standard library.
 
 We want to make the environment variable the default value.
-If you remember, the default value is set in the init() function. 
+If you remember, the default value is set in the `init()` function. 
 ```go
 func init() {
     sayCmd.AddCommand(sayhelloCmd)
