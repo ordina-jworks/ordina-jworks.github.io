@@ -124,7 +124,7 @@ Run: func(cmd *cobra.Command, args []string) {
 ```
 Now execute the following inside your projectfolder.
 ```bash
-go install
+$ go install
 ```
 Followed by
 ```bash
