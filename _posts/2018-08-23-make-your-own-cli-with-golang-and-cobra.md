@@ -30,7 +30,7 @@ Assuming you have golang correctly installed, you can get the generator by doing
 ```bash
 go get github.com/spf13/cobra/cobra
 ```
-This creates an executable which you can run from anywhere, because it is located in the $GOPATH/bin directory, which is in turn added to your PATH variable if you installed go correctly.
+This creates an executable which you can run from anywhere, because it is located in the `$GOPATH/bin` directory, which is in turn added to your `PATH` variable if you installed Go correctly.
 
 You can go ahead and create a new folder for your Go code.
 The name of the folder will be used as the name of your CLI.
