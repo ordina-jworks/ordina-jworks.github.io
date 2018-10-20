@@ -191,7 +191,7 @@ name: "Billy"
 greeting: "Howdy"
 ```
 If you used the generator, There will already be a flag configured that expects the path to an initial config file.
-You can find this flag in the root.go file under the initConfig() function.
+You can find this flag in the `root.go` file under the `initConfig()` function.
 As you can see, it uses Viper again to do this.
 
 Good news! We don't have to do it ourselves!
