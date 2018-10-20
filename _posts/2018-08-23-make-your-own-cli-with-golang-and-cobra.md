@@ -110,7 +110,7 @@ Let's add a sub command to say hello.
 cobra add sayhello
 ```
 Like the say command, sayhello is added to the root command.
-In this case we want it to be added to the say command instead.
+In this case we want it to be added to the `say` command instead.
 ```go
 func init() {
     sayCmd.AddCommand(sayhelloCmd)
