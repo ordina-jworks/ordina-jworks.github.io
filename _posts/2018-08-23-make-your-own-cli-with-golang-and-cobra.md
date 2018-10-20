@@ -216,7 +216,7 @@ Run: func(cmd *cobra.Command, args []string) {
 Again use viper in the same way as you did before with the environment variables.
 Try it out by doing another install and typing this command.
 ```bash
-hello-cli say hallo --config config.yml
+$ hello-cli say hallo --config config.yml
 ```
 # That’s it!
 >You have successfully written a CLI in Golang that can parse about any variable around the block! 
