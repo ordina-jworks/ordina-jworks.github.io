@@ -42,7 +42,7 @@ If you don’t want this, you can add the flag “-l none” to all the generato
 It will however add a copyright claim at the top of every file (// Copyright © 2018 NAME HERE <EMAIL ADDRESS>).
 If you pass the flag “-a YOUR NAME” the claim will contain your name. These flags are optional though.
 
-When you look inside the main.go file, there’s not much going on. It just calls the execute function of the cmd package.
+When you look inside the `main.go` file, there’s not much going on. It just calls the `execute` function of the cmd package.
 This function resides in the `root.go` file, which is doing a lot more. For now, just focus on this part.
 ```go
 // rootCmd represents the base command when called without any subcommands
