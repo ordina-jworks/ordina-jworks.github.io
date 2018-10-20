@@ -134,7 +134,7 @@ If everything worked correctly, your CLI should output “Hello World!”.
 
 # Adding flags
 To make your CLI a bit more interesting, we are going to add some flags.
-you can choose between local and persistent ones.
+You can choose between local and persistent ones.
 Local flags are available only for that command, whereas persistent flags are also available for the subcommands of that command.
 For this example we want to greet a person by name.
 We're going to do this by making a `--name` flag.
