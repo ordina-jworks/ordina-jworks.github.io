@@ -75,7 +75,7 @@ cobra add say
 It will generate a file inside the cmd package called “say.go”.
 In this file you can again specify the way you want the command to be used and describe its function.
 You’ll also see the execute function which gets executed every time you call “hello-cli say”.
-You’re probably never going to use it like that, except with a --help flag. If a user calls it like that, we want the user to know he needs to provide additional items to the say command.
+You're probably never going to use it like that, except with a `--help` flag. If a user calls it like that, we want the user to know he needs to provide additional items to the `say` command.
 So we’re going to return an error if that happens.
 The `Run` function of the cobra command doesn’t return anything by default.
 You can however change `Run` to `RunE`, which expects the function to return an error if there is any.
