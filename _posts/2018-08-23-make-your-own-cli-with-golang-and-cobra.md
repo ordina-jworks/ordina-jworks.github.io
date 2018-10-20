@@ -168,7 +168,7 @@ The output should be “Hello Nick”.
 
 # Using environment variables instead of flags
 If you don’t want to pollute your command line, or if you’re working with sensitive data which you don’t want to show up in the history, it’s a good idea to work with environment variables.
-To do this, you can use viper. Viper is another dependency from spf13.
+To do this, you can use [Viper](https://github.com/spf13/viper){:target="_blank" rel="noopener noreferrer"}. Viper is another dependency from [spf13](https://github.com/spf13){:target="_blank" rel="noopener noreferrer"}.
 Cobra already uses Viper in the generated code, so why not use it as well.
 You can however achieve the same result by using the os package from the Go standard library.
 
