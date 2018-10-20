@@ -180,7 +180,7 @@ func init() {
     sayhelloCmd.Flags().StringP("name", "n",viper.GetString("ENVNAME"), "Set your name")
 }
 ```
-That’s all you need to do to parse environment variables.
+That's all you need to do to parse environment variables.
 
 # Taking a file as input
 For this next part,  we want to provide multiple parameters to our CLI.
