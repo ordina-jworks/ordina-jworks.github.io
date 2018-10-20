@@ -78,7 +78,7 @@ You’ll also see the execute function which gets executed every time you call �
 You’re probably never going to use it like that, except with a --help flag. If a user calls it like that, we want the user to know he needs to provide additional items to the say command.
 So we’re going to return an error if that happens.
 The Run function of the cobra command doesn’t return anything by default.
-You can however change “Run” to “RunE”, which expects the function to return an error if there is any.
+You can however change `Run` to `RunE`, which expects the function to return an error if there is any.
 ```go
 RunE: func(cmd *cobra.Command, args []string) error {
     return errors.New("Provide item to the say command")
