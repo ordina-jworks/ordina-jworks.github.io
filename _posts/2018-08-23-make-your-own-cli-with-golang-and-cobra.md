@@ -32,7 +32,7 @@ go get github.com/spf13/cobra/cobra
 ```
 This creates an executable which you can run from anywhere, because it is located in the $GOPATH/bin directory, which is in turn added to your PATH variable if you installed go correctly.
 
-You can go ahead and create a new folder for your go code.
+You can go ahead and create a new folder for your Go code.
 The name of the folder will be used as the name of your CLI.
 Navigate inside this folder with your terminal and execute `$ cobra init` to start a new project.
 It should generated a main.go file and a cmd package.
