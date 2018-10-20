@@ -64,7 +64,7 @@ Here you can define how to use the CLI, together with a short and a long descrip
 
 # Adding functionality
 In the next step we need to think about which actions we want the CLI to perform.
-A good practice is to work with verbs like get, post, describe,… For our example we want the CLI to say hello, so I’m going to construct it as follows.
+A good practice is to work with verbs like get, post, describe,... For our example we want the CLI to say hello, so I’m going to construct it as follows.
 ```bash
 $ hello-cli say hello
 ```
