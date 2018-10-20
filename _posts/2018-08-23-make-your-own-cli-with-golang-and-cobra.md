@@ -149,7 +149,7 @@ The first string is the full name of the flag, and can be executed with two dash
 The second string is the short notation, which can be executed with one dash.
 The third one is the default value, and the fourth is a description. 
 
-To make the flag do something we need to add some logic to the Run function.
+To make the flag do something we need to add some logic to the `Run` function.
 ```go
 Run: func(cmd *cobra.Command, args []string) {
     name, _:= cmd.Flags().GetString("name")
