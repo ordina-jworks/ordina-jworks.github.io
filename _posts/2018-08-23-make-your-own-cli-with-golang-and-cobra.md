@@ -169,7 +169,7 @@ The output should be “Hello Nick”.
 # Using environment variables instead of flags
 If you don’t want to pollute your command line, or if you’re working with sensitive data which you don’t want to show up in the history, it’s a good idea to work with environment variables.
 To do this, you can use viper. Viper is another dependency from spf13.
-Cobra already uses viper in the generated code, so why not use it as well.
+Cobra already uses Viper in the generated code, so why not use it as well.
 You can however achieve the same result by using the os package from the Go standard library.
 
 We want to make the environment variable the default value.
