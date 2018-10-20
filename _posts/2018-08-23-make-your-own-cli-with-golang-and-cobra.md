@@ -142,7 +142,7 @@ Navigate to the init function of the sayhello.go file, and add a flag.
 ```go
 func init() {
     rootCmd.AddCommand(sayCmd)
-    sayhelloCmd.Flags().StringP("name","n", "", "Set your name")
+    sayhelloCmd.Flags().StringP("name", "n", "", "Set your name")
 }
 ```
 The first string is the full name of the flag, and can be executed with two dashes like `--name`.
