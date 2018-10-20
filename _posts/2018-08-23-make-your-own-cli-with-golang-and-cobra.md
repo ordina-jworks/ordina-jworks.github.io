@@ -194,7 +194,7 @@ If you used the generator, There will already be a flag configured that expects 
 You can find this flag in the root.go file under the initConfig() function.
 As you can see, it uses viper again to do this.
 
-Good news! We don’t have to do it ourselves!
+Good news! We don't have to do it ourselves!
 The only thing we need to do is to extract the variables from the file.
 
 ```go
