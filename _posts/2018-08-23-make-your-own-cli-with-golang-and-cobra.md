@@ -116,7 +116,7 @@ func init() {
     sayCmd.AddCommand(sayhelloCmd)
 }
 ```
-To make the sayhello print “Hello World”, edit the Run function.
+To make the `sayhello` print “Hello World”, edit the `Run` function.
 ```go
 Run: func(cmd *cobra.Command, args []string) {
     fmt.Println("Hello World!")
