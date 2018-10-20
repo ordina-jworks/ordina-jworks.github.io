@@ -104,7 +104,7 @@ func init() {
 }
 ```
 Here you can add subcommands and flags.
-By default, the say command is added to the root command, which is exactly what we want.
+By default, the `say` command is added to the root command, which is exactly what we want.
 Let's add a sub command to say hello.
 ```bash
 $ cobra add sayhello
