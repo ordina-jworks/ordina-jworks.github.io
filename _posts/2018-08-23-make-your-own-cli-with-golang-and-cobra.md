@@ -72,7 +72,7 @@ To do this we can leverage the generator again to add a new command for us.
 ```bash
 cobra add say
 ```
-It will generate a file inside the cmd package called “say.go”.
+It will generate a file inside the cmd package called `say.go`.
 In this file you can again specify the way you want the command to be used and describe its function.
 You'll also see the execute function which gets executed every time you call `hello-cli say`.
 You're probably never going to use it like that, except with a `--help` flag. If a user calls it like that, we want the user to know he needs to provide additional items to the `say` command.
