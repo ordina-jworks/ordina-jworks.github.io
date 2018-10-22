@@ -70,8 +70,13 @@ transparent_header: true
             <h2 class="major">Categories</h2>
 
             <ul class="list-6 categories">
-                {% for cat in site.categories %}
-                <li><a href="/categories/{{cat[0] | downcase | replace:' ','-' }}">{{cat[0]}}</a></li>
+                {% assign shown_categories = '' %}
+                {% for cat in site.categories %} {% assign cat_ = cat[0] | downcase | replace:' ','-' %}
+                {% assign shown_cats_array = shown_categories | split: ', ' %}
+                {% unless shown_cats_array contains cat_ %}
+                <li><a href="/categories/{{cat_ }}">{{cat[0]}}</a></li>
+                {% assign shown_categories = shown_categories | append: ', ' | append: cat_ %}
+                {% endunless %}
                 {% endfor %}
             </ul>
         </div>
