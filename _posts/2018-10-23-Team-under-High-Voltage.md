@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [michaela_broeckx]
-title: "Teams under High Voltage"
+title: "Team under High Voltage"
 image: /img/teams-under-high-voltage/main-image.png
 tags: [Agile, Coaching, Demotivation, Definition of Success, Team Dynamics, Psychological Safety]
 category: Agile
