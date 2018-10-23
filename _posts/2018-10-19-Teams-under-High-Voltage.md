@@ -40,7 +40,7 @@ Once this is ensured, progress comes at a steady pace.
 
 ## Details about the exercise
 
-Are you interested to know how I helped the team detect these common denominators?
+Are you interested in knowing how I helped the team detect these common denominators?
 For that I used the liberating structure 1-2-4-All, which goes like this:
 * Everybody gets a card and a thin marker.
 * In a time box of two minutes, everyone by themselves writes down what comes after "I hate it when people..."
