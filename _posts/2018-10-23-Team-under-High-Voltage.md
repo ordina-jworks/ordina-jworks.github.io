@@ -32,7 +32,7 @@ This exercise makes it possible to disconnect the team members' degree of happin
 This makes success somehow achievable again, albeit a more personal sort of success, focused on growth and team dynamics.
 I know this sounds like a long shot, but at least it could possibly lead to a solution with a long-term outcome.
 In working together the Agile way, we must always remember that people and interactions come first.
-Read the Manifesto carefully – and you will see that the psychological safety of a team is key to the whole lot – enabling flow away from the items on the right and making room for the items on the left.
+Read the [Manifesto](http://agilemanifesto.org/){:target="_blank" rel="noopener noreferrer"} carefully – and you will see that the psychological safety of a team is key to the whole lot – enabling flow away from the items on the right and making room for the items on the left.
 From there, all the rest is due to follow.
 Burning up story points should never be accompanied by burning up energy.
 What is burning down at one side should be building up at the other.
