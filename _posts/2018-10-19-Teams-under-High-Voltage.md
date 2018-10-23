@@ -13,7 +13,7 @@ Although the final deadline for delivery was nearing rapidly, team members start
 Need it be said that this didn't exactly promote work joy and team spirit – or, for that matter, diminish the already unrealistic workload.
 How had matters come to these dire straits?
 It surely wasn't the case that a dedicated multi-skilled dev team was lacking.
-Only, apart from this, the project seemed to be tainted with all the stains one can think of to make being Agile and rolling on Scrum difficult or impossible.
+Only, apart from this, the project seemed to be tainted with all the stains one can think of to make being Agile and rolling out Scrum difficult or impossible.
 When teams are immersed in a waterfall culture and stuck in the iron triangle of project management, there is little chance for Agility to be a success.
 Making matters worse, a belated start of the project (due to a delayed go) had gradually created a growing requirement/necessity to work quickly rather than focusing on quality.
 
