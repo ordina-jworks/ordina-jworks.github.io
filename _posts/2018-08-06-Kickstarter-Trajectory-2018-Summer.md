@@ -11,6 +11,11 @@ comments: true
 ## Table of Contents
 
 ## Introduction
+54 young professionals started the Ordina Kickstarter trajectory, on the 1st of august, this summer. 
+JWorks counted 5 kickstarters: Sander, Steven, Ken, Wout en Michael. All looking for a challenge and a fresh start. 
+Some just graduated from school, others already had multiple years of experience, IT related or not. 
+The goal was to broaden every kickstarter’s knowledge of the fast evolving IT world. 
+We got taught the basics of every hot topic which will definitely give us enough credits for our first project.
 
 ## The Kickstarter Trajectory
 The kickstarter trajectory consisted of 2 parts: 
