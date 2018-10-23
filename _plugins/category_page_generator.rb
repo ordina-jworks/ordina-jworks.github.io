@@ -27,7 +27,7 @@ module Jekyll
             
             self.data['posts'] = Array.new
             site.posts.docs.each{ |post|
-                if post.data['category'] == category
+                if post.data['category'].downcase == category.downcase
                     self.data['posts'].push(post)
                 end
             }
