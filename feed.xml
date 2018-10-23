@@ -1,5 +1,250 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-10-20T14:40:28+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Make your own CLI with golang and cobra</title><link href="https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html" rel="alternate" type="text/html" title="Make your own CLI with golang and cobra" /><published>2018-10-20T00:00:00+00:00</published><updated>2018-10-20T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-10-23T06:47:19+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Kafka Streams introduction</title><link href="https://ordina-jworks.github.io/kafka/2018/10/23/kafka-stream-introduction.html" rel="alternate" type="text/html" title="Kafka Streams introduction" /><published>2018-10-23T00:00:00+00:00</published><updated>2018-10-23T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/kafka/2018/10/23/kafka-stream-introduction</id><content type="html" xml:base="https://ordina-jworks.github.io/kafka/2018/10/23/kafka-stream-introduction.html">&lt;h1 id=&quot;kafka-stream---a-practical-introduction&quot;&gt;Kafka Stream - A practical introduction&lt;/h1&gt;
+
+&lt;h2 id=&quot;the-goal&quot;&gt;The Goal&lt;/h2&gt;
+
+&lt;p&gt;The aim of this article is to give an introduction to Streaming API, and more specifically to the Kafka streaming API.&lt;/p&gt;
+
+&lt;p&gt;Since I’m not really into writing huge loads of theory, I’m going to try and keep the theory to the minimum to understand the basics and dive directly into the code by using an example.
+That left the task to find a useful example, for which I got inspired by the work of some collegues. 
+They created an IOT system that measures the usage of the staircase in big buildings with Lora IOT sensors (&lt;a href=&quot;https://ordina-jworks.github.io/iot/2018/03/14/Stairway-To-Health-2.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Stairway To Health&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;So I thought that this is indeed streaming data, the people that open the doors of the staircase are considered as being the stream.&lt;/p&gt;
+
+&lt;p&gt;With that done let’s go to the theory …&lt;/p&gt;
+
+&lt;h2 id=&quot;the-theory&quot;&gt;The theory&lt;/h2&gt;
+
+&lt;h3 id=&quot;ease-of-use&quot;&gt;Ease of Use&lt;/h3&gt;
+
+&lt;p&gt;Kafka Streams is a simple client library which only depends on Kafka.
+So if you have Kafka, there is nothing else you will need to do in order to be able to work with Kafka Streams.&lt;/p&gt;
+
+&lt;h3 id=&quot;guarantees&quot;&gt;Guarantees&lt;/h3&gt;
+&lt;p&gt;Kafka Streams provides you with guarantees making it safer for you to process records.&lt;/p&gt;
+
+&lt;p&gt;The (intermediate) state of the stream processors is stored within replicated changelog topics allowing Kafka Streams to recover from failures and resume processing after replaying the changelog topics.&lt;/p&gt;
+
+&lt;p&gt;A Kafka Streams stream processor will receive one input record at a time.
+It will apply its operation to it, like: &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;filter&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;join&lt;/code&gt; and send out one or more output records to the downstream processors.&lt;/p&gt;
+
+&lt;p&gt;Since 0.11.0, Kafka is able to process deliver messages exactly once, the same logic can be used within Kafka Streams so a record will only be processed exactly once.
+Just set &lt;code class=&quot;highlighter-rouge&quot;&gt;processing.guarantee&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;exactly_once&lt;/code&gt;with the default being &lt;code class=&quot;highlighter-rouge&quot;&gt;at_least_once&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;dsl&quot;&gt;DSL&lt;/h3&gt;
+&lt;p&gt;Kafka Streams provides a &lt;a href=&quot;https://kafka.apache.org/20/documentation/streams/developer-guide/dsl-api.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Domain Specific Language&lt;/a&gt; which is recommended for most users, especially beginners.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;KStream: a &lt;code class=&quot;highlighter-rouge&quot;&gt;KStream&lt;/code&gt; is created from a specified Kafka input topic and interprets the data as a record stream. 
+  It will only receive records of a subset of the topic partitions.
+  All of the topics’ available partitions will be processed by Kafka Streams instances.&lt;/li&gt;
+  &lt;li&gt;KTable: a &lt;code class=&quot;highlighter-rouge&quot;&gt;KTable&lt;/code&gt; is also based on a Kafka topic, but is interpreted as a changelog stream. 
+  So that for every record key only the most recent value will be returned, it will also handle a subset of partitions.&lt;/li&gt;
+  &lt;li&gt;GlobalKTable: a special type of &lt;code class=&quot;highlighter-rouge&quot;&gt;KTable&lt;/code&gt;, as its data will be populated with records from all the partitions of the input topic.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After you have created your &lt;code class=&quot;highlighter-rouge&quot;&gt;KStream&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;KTable&lt;/code&gt; you can start with a variety of transformations on your record stream, like: &lt;code class=&quot;highlighter-rouge&quot;&gt;filter&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;flatMap&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;groupBy&lt;/code&gt;, …&lt;/p&gt;
+
+&lt;p&gt;As you will see later in the example we provide, it is all quite easy to grasp.&lt;/p&gt;
+
+&lt;h3 id=&quot;topology&quot;&gt;Topology&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://kafka.apache.org/11/documentation/streams/core-concepts#streams_topology&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 300px;&quot; alt=&quot;Kafka Streams Topology&quot; src=&quot;/img/kafka/streams-architecture-topology.jpg&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;source-processor&quot;&gt;Source Processor&lt;/h4&gt;
+&lt;p&gt;A Source Processor does not have any upstream processors and it will produce an input stream from one or more Kafka topics.&lt;/p&gt;
+
+&lt;h4 id=&quot;stream-processor&quot;&gt;Stream Processor&lt;/h4&gt;
+&lt;p&gt;A node within the processor topology representing a single processing step, it is used to transform data.&lt;/p&gt;
+
+&lt;h4 id=&quot;sink-processor&quot;&gt;Sink Processor&lt;/h4&gt;
+&lt;p&gt;A Sink Processor will act like a sink, it will send any of the received records to a specific Kafka topic without any further processing.&lt;/p&gt;
+
+&lt;h4 id=&quot;stream&quot;&gt;Stream&lt;/h4&gt;
+&lt;p&gt;This corresponds to an unbounded, continuously updating data set. 
+Like a Kafka topic it will consist of one or more stream partitions.&lt;/p&gt;
+
+&lt;h3 id=&quot;local-state&quot;&gt;Local State&lt;/h3&gt;
+
+&lt;p&gt;Every stream task in a Kafka Streams topology can use one or more local state stores.&lt;/p&gt;
+
+&lt;p&gt;These state stores can be a &lt;a href=&quot;https://rocksdb.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;RocksDB&lt;/a&gt; database or an in-memory hash map.
+When data is persisted to a local state store Kafka Streams provides automatic recovery in the case of some failure allowing the processing to continue.&lt;/p&gt;
+
+&lt;h3 id=&quot;windowing&quot;&gt;Windowing&lt;/h3&gt;
+
+&lt;p&gt;Time is pretty important when dealing with streams, we distinguish the following notions of time within streams:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Event time: when the event occured.&lt;/li&gt;
+  &lt;li&gt;Processing time: the time when the event was processed by the stream processing application.&lt;/li&gt;
+  &lt;li&gt;Ingestion time: the time when the event was stored within a topic by Kafka.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Windows will allow you to group your records with the same record key towards that time.&lt;/p&gt;
+
+&lt;p&gt;We have the following types of windows:&lt;/p&gt;
+&lt;h4 id=&quot;tumbling-time-windows&quot;&gt;Tumbling time windows&lt;/h4&gt;
+&lt;p&gt;These feature fixed-size, non-overlapping, gap-less windows.
+Since the windows do not overlap, a data record will belong to only one window.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; alt=&quot;Tumbling Window&quot; src=&quot;/img/kafka/streams-time-windows-tumbling.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;hopping-time-windows&quot;&gt;Hopping time windows&lt;/h3&gt;
+&lt;p&gt;Hopping time windows feature a fixed size, but the advance interval (aka “hop”) can be different to that fixed size.
+These windows can also overlap, so that a data record may belong to more then one window.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; alt=&quot;Hopping Window&quot; src=&quot;/img/kafka/streams-time-windows-hopping.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;session-windows&quot;&gt;Session windows&lt;/h3&gt;
+&lt;p&gt;These represent a period of activity separated by a defined gap of inactivity.
+All events within that gap will be merged with an existing session.
+If the gap is too large, a new session window will be created, the size of the window itself will thus vary.
+&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; alt=&quot;Session Window&quot; src=&quot;/img/kafka/streams-session-windows-02.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-practical-part&quot;&gt;The Practical Part&lt;/h2&gt;
+&lt;h3 id=&quot;disclaimer&quot;&gt;Disclaimer&lt;/h3&gt;
+&lt;p&gt;This project is intended as a first step into the world of streaming, so some shortcuts were taken, and not all design decisions are production ready. 
+A good example is the use of strings as the content of the messages, this should be done in a more structured way (with &lt;a href=&quot;https://avro.apache.org/&quot;&gt;Avro&lt;/a&gt; for example){:target=”_blank” rel=”noopener noreferrer”}.&lt;/p&gt;
+
+&lt;h3 id=&quot;setup-of-the-project&quot;&gt;Setup of the project&lt;/h3&gt;
+&lt;p&gt;This is the really easy part, to use the streaming api from Kafka only 1 dependency must be added. 
+Here is the example to do it in Maven.&lt;/p&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.kafka&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;kafka-streams&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.1.0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;And that is it. Sometimes life can be simple. :)&lt;/p&gt;
+
+&lt;h3 id=&quot;creation-of-the-input&quot;&gt;Creation of the input&lt;/h3&gt;
+&lt;p&gt;In the real world this would be done by the IOT devices that send their data through the network to the central system. 
+But since it is not easy for demo purposes to have a sensor and a door nearby, and even less handy to open and close it a couple of hundred times to test it out,
+I created a simulator that just sends data to the Kafka cluster.&lt;/p&gt;
+
+&lt;p&gt;This simulator creates two kinds of messages:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;key = 0E7E346406100585, value = T_7&lt;/code&gt;
+configuration information about on which floor a certain device is located.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;key = 0E7E346406100585, value = pulse@1496309915&lt;/code&gt;
+each time a person opens the door, the key is the unique id of the device, and then a pulse and the time at which it occurred&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;randomUUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;randomUUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;  
+    &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;randomUUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;KafkaProducer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;producer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KafkaProducer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;//send the device information&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s@%s@%s&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;T&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;currentTimeMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;producer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ProducerRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stream_in_dev&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ints&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;producer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ProducerRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stream_in&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;pulse@&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;currentTimeMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()));&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;250&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;producer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This wil create three floors with a random device id, and afterwards it will send an event for a random door being opened 10 times.&lt;/p&gt;
+
+&lt;h3 id=&quot;reading-of-the-output&quot;&gt;Reading of the output&lt;/h3&gt;
+
+&lt;p&gt;For checking what happens in the system a data dumper was created that outputs all the messages on all the topics of interest (the input, the output and the intermediate queues included).&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DumpData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Logger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LoggerFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getLogger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DumpData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ExecutorService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;executorService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Executors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newFixedThreadPool&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;executorService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;submit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;KafkaConsumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;consumer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KafkaConsumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;defaultProperties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;your_client_id&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;topics&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;consumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;listTopics&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;keySet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;streamName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;streamName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;startsWith&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stream_&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;peek&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;log:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Collectors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;consumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;topics&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;ConsumerRecords&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;records&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;consumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;poll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;records&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;topic = {}, partition = {}, offset = {}, key = {}, value = {}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                                    &lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;topic&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;partition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;offset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This will subscribe to all the topics that start with ‘stream_’ on the Kafka.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-main-part&quot;&gt;The main part&lt;/h3&gt;
+
+&lt;p&gt;So we finally arrived at the part where it all happens.&lt;/p&gt;
+
+&lt;p&gt;Just as a recap, the goal of this stream is to transform both input streams into a stream that gives how many people took the stairs at each floor.&lt;/p&gt;
+
+&lt;p&gt;As a start we must create a new &lt;code class=&quot;highlighter-rouge&quot;&gt;StreamBuilder&lt;/code&gt; from the Kafka library&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StreamsBuilder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StreamsBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We need to get the data somewhere, here we get it from the same topics our data simulater writes to.&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;KStream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sourceDev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stream_in_dev&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// which device is where&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;KStream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stream_in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stream_in&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// the pulse messages&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The first stream (&lt;code class=&quot;highlighter-rouge&quot;&gt;stream_in_dev&lt;/code&gt;) will be converted into a lookup table that is used when handling the second stream. 
+This lookup table will contain which device is installed on which floor.&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;KTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;streamKtableDev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sourceDev&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;groupByKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Materialized&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;as&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stream_ktable_dev&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Since one of the shortcuts we took is creating all the topics with only one partition, we don’t have any problems with streams not having the data it needs.
+If using multiple partitions, then we should have used either the &lt;code class=&quot;highlighter-rouge&quot;&gt;KGlobalTable&lt;/code&gt; 
+or we should have made sure that the partitioning is done in such a way that we get the corresponding data from both partitions on this node.&lt;/p&gt;
+
+&lt;p&gt;The second stream contains the pulses. Each time a person takes the stair, a message is sent, and this must be added to the counter of the people taking the stairs at that specific minute.&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;n&quot;&gt;stream_in&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;startsWith&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;pulse&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;leftJoin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;streamKtableDev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pulse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;device&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;device&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;substring&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;device&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lastIndexOf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;'@'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;'@'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'_'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pulse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;substring&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pulse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;indexOf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;'@'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KeyValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;substring&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;indexOf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;'@'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;substring&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;indexOf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;'@'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;groupByKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;windowedBy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TimeWindows&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TimeUnit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;MINUTES&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toStream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s - %s&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Instant&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ofEpochMilli&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()))))&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mapValues&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stream_out&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This seems to do a lot of things and this is indeed the case. But the API makes a clean chain that is not hard to follow.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.filter()&lt;/code&gt; We only want the inputs that start with a pulse, the real IOT devices also send battery information and so on, on the same topic.
+This could also be solved by sending them to different topics but it shows that filtering is possible&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.leftJoin() &lt;/code&gt; we join with the devices lookup table created with the previous KTable statement. This allows us to translate the device id into the location.
+key is ‘0E7E346406100585’ and value is ‘pulse@1496309915’ will be translated to the same key but with value ‘T_7@1496309915’&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.map()&lt;/code&gt; we map the message into something more useful. 
+in stead of the key ‘0E7E346406100585’ and value ‘T_7@1496309915’ format we now get a key of ‘T_7’ and a value of ‘1496309915’.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.groupByKey()&lt;/code&gt; we want to group these by key (which is now the floor number and not the device id like it was in the beginning)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.windowedBy()&lt;/code&gt; and create a tumbling window for each minute&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.count()&lt;/code&gt; and within the window count the number of items&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;toStream()&lt;/code&gt; This means that the last three lines together change the stream into a stream that gives the number of messages per minute for a certain floor&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mapValues()&lt;/code&gt; map the result of this into a new stream that gives the amount per minute where the key is the floor (T_7) and the value is a combination of the amount and the when (5 - Thu Oct 10 16:28:04 CEST 2018)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;to()&lt;/code&gt; send it to the output stream&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Hans&quot;, &quot;last_name&quot;=&gt;&quot;Vanbellingen&quot;, &quot;permalink&quot;=&gt;&quot;/author/hans-vanbellingen/&quot;, &quot;avatar&quot;=&gt;&quot;hans-vanbellingen.png&quot;, &quot;linkedin&quot;=&gt;&quot;hans-vanbellingen-62009a5&quot;, &quot;github&quot;=&gt;&quot;pluimpje&quot;, &quot;title&quot;=&gt;&quot;Java Architect&quot;, &quot;email&quot;=&gt;&quot;hans.vanbellingen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Hans is a Java architect at Ordina Belgium. He is passionate about Stream Processing.&quot;}</name><email>hans.vanbellingen@ordina.be</email></author><category term="Kafka" /><category term="Kafka" /><category term="Stream" /><summary type="html">Kafka Stream - A practical introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/kafka/kafka-logo-thumb.png" /></entry><entry><title type="html">Make your own CLI with golang and cobra</title><link href="https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html" rel="alternate" type="text/html" title="Make your own CLI with golang and cobra" /><published>2018-10-20T00:00:00+00:00</published><updated>2018-10-20T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#getting-started&quot;&gt;Getting started&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#adding-functionality&quot;&gt;Adding functionality&lt;/a&gt;&lt;/li&gt;
@@ -2887,7 +3132,7 @@ The advantages mentioned definitely make it worth trying it out for yourself!&lt
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/poutsma/fun-with-functional&quot; target=&quot;_blank&quot;&gt;Code from the talk&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html&quot; target=&quot;_blank&quot;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Van Hees&quot;, &quot;github&quot;=&gt;&quot;pvanhees&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-van-hees-73671133&quot;, &quot;permalink&quot;=&gt;&quot;/author/wout-meskens/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-van-hees.jpg&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vanhees@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Van Hees is a Java Software Engineer at Ordina Belgium. He is passionate about Domain Driven Design and producing clean software that works.&quot;}</name><email>pieter.vanhees@ordina.be</email></author><category term="Spring" /><category term="Spring One" /><category term="Pivotal" /><category term="Functional Programming" /><category term="Functional Web Framework" /><category term="Spring" /><category term="WebFlux.fn" /><category term="Web MVC" /><summary type="html">Fun with the Functional Web Framework</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-09-27-SpringOne-Platform/post-image.jpg" /></entry><entry><title type="html">SpringOne Platform - A birds-eye view</title><link href="https://ordina-jworks.github.io/spring/2018/09/27/SpringOne-Platform.html" rel="alternate" type="text/html" title="SpringOne Platform - A birds-eye view" /><published>2018-09-27T00:00:00+00:00</published><updated>2018-09-27T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/spring/2018/09/27/SpringOne-Platform</id><content type="html" xml:base="https://ordina-jworks.github.io/spring/2018/09/27/SpringOne-Platform.html">&lt;p&gt;This year we went again to SpringOne Platform to check out the latest changes and what’s to come.
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Van Hees&quot;, &quot;github&quot;=&gt;&quot;pvanhees&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-van-hees-73671133&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter-van-hees/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-van-hees.jpg&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vanhees@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Van Hees is a Java Software Engineer at Ordina Belgium. He is passionate about Domain Driven Design and producing clean software that works.&quot;}</name><email>pieter.vanhees@ordina.be</email></author><category term="Spring" /><category term="Spring One" /><category term="Pivotal" /><category term="Functional Programming" /><category term="Functional Web Framework" /><category term="Spring" /><category term="WebFlux.fn" /><category term="Web MVC" /><summary type="html">Fun with the Functional Web Framework</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-09-27-SpringOne-Platform/post-image.jpg" /></entry><entry><title type="html">SpringOne Platform - A birds-eye view</title><link href="https://ordina-jworks.github.io/spring/2018/09/27/SpringOne-Platform.html" rel="alternate" type="text/html" title="SpringOne Platform - A birds-eye view" /><published>2018-09-27T00:00:00+00:00</published><updated>2018-09-27T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/spring/2018/09/27/SpringOne-Platform</id><content type="html" xml:base="https://ordina-jworks.github.io/spring/2018/09/27/SpringOne-Platform.html">&lt;p&gt;This year we went again to SpringOne Platform to check out the latest changes and what’s to come.
 In this post I’ll try to give an overview of everything that’s just been released or coming in the future.
 Because there were A LOT of sessions, I wasn’t able to gather or note down everything.
 All sessions except for the workshops were recorded and I’ll update this post to get you directed straight to the videos on YouTube when they come online!&lt;/p&gt;
@@ -3490,706 +3735,4 @@ In our final example we also enabled encryption on the Weave network so all traf
 
 &lt;p&gt;This can be a huge benefit for enterprises who want to move their applications into the cloud. 
 With Weave you can setup your network in a hybrid cloud/onprem model and be sure that all communication is safely encrypted.
-This allows the enterprise to do a gradual move to the cloud instead of having to do a big bang approach.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bas&quot;, &quot;last_name&quot;=&gt;&quot;Moorkens&quot;, &quot;permalink&quot;=&gt;&quot;/author/bas-moorkens/&quot;, &quot;title&quot;=&gt;&quot;Senior Java Developer&quot;, &quot;title2&quot;=&gt;&quot;DevOps Engineer&quot;, &quot;email&quot;=&gt;&quot;bas.moorkens@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;basmoorkens&quot;, &quot;avatar&quot;=&gt;&quot;bas-moorkens.jpg&quot;, &quot;github&quot;=&gt;&quot;basmoorkens&quot;, &quot;bio&quot;=&gt;&quot;Bas is a Senior Java Developer at Ordina Belgium who discovered he is fascinated by cloud, containers and pipeline automation. He started off as a Java full stack developer but got more and more into the DevOps world where he currently spends most of his time.&quot;}</name><email>bas.moorkens@ordina.be</email></author><category term="docker" /><category term="Docker" /><category term="Weave" /><category term="Networking" /><category term="Kubernetes" /><summary type="html">In my last blogpost we talked about setting up a Docker network on a single host. We talked about a very basic 3 tier application which was packaged into 3 containers. An Angular frontend, a spring boot backend and a mysql database container.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/docker-basic-networking/docker-basic-networking.png" /></entry><entry><title type="html">Node-RED: Development and CI</title><link href="https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html" rel="alternate" type="text/html" title="Node-RED: Development and CI" /><published>2018-08-15T00:00:00+00:00</published><updated>2018-08-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#what-is-node-red&quot;&gt;What is Node-RED&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#why-we-are-using-node-red-or-an-alternative&quot;&gt;Why we are using Node-RED (or an alternative)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#node-red-to-the-rescue&quot;&gt;Node-RED to the rescue&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#configuration-components&quot;&gt;Configuration components&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#running-an-instance&quot;&gt;Running an instance&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#creating-your-first-flow&quot;&gt;Creating your first flow&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#spicing-things-up&quot;&gt;Spicing things up&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#json&quot;&gt;JSON&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#node-red-persistent-config&quot;&gt;Node-RED persistent config&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#node-red-and-docker&quot;&gt;Node-RED and Docker&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#node-red-and-ci&quot;&gt;Node-RED and CI&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;what-is-node-red&quot;&gt;What is Node-RED&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Node-RED is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways.” – from docs &lt;a target=&quot;_blank&quot; href=&quot;https://nodered.org/&quot;&gt;https://nodered.org/&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;And yes, that’s all true.
-But we’re not using Node-RED for those things.
-There are two use cases for which we use Node-RED, but before we go into those, we’ll take a quick look at some other Node-RED features.&lt;/p&gt;
-
-&lt;p&gt;Some great pros:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Node-RED is built on Node.js, taking full advantage of its event-driven, non-blocking model.
-This makes it ideal to run at the edge of the network on low-cost hardware such as the Raspberry Pi as well as in the cloud. (from docs)&lt;/li&gt;
-  &lt;li&gt;Node-RED comes with a web based graphical user interface, where you can manage your API flows with drag and drop functionality.&lt;/li&gt;
-  &lt;li&gt;Because Node-RED is built on Node.js you can just run it locally on a lot of systems (Windows, Mac OSX, Linux,…), on a lot of devices and in the cloud.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The graphical user interface lets you create your endpoints and flows in an easy way.
-Just drag and drop your components in your flowchart and connect them by drawing a line between them.
-Double clicking each component will open the detail screen where you can set some variables for that component.
-When your flows are ready, there is an import and an export function available for storing and sharing your configs.&lt;/p&gt;
-
-&lt;h1 id=&quot;why-we-are-using-node-red-or-an-alternative&quot;&gt;Why we are using Node-RED (or an alternative)&lt;/h1&gt;
-
-&lt;h2 id=&quot;node-red-and-development&quot;&gt;Node-RED and Development&lt;/h2&gt;
-
-&lt;p&gt;Coming from a frontend dev background, I can confirm that nothing is more frustrating than running backends, or at least part of the backend, locally, before you can start coding and testing.
-Yes, Docker and Docker Compose are helping a lot but still…
-In some cases, backend development, for a specific feature, is planned for the same sprint as the frontend development.
-So even running a backend locally, will not help you.
-Mocking can be an option.
-You can start mocking the data inside the communication layer or mocking an external backend with test data.&lt;/p&gt;
-
-&lt;p&gt;In an ideal world, teams should do some analysis of the specifications coming from business and their analysts.
-Based on those specification, developers can start estimating tasks (or stories and epics), and think about the architecture and design.
-At this point, technical specifications could already get written down, such as model designs and API contracts.
-It’s almost impossible to do a good job in the frontend if those things are not available, or at least specified.&lt;/p&gt;
-
-&lt;p&gt;Why do you want good test data?
-If you know the characteristics, it’s easier to do some layout stuff.
-You would think that mockups and designs would be accurate, but most of the time they aren’t or they are not inline with the data.&lt;/p&gt;
-
-&lt;p&gt;So what about mocking?
-Yes, you can mock stuff yourself and maybe skip the communication layer.
-Or you can mock the communication part in the communication layer by means of interceptors for example.
-But at some point in time, you’ll need an API and test data that is close to production data when it comes to live data specs.
-When mocking inside your components, would you include everything in your code base?
-Or would you exclude it, but still make it more accessible for your colleagues?
-Some frameworks include this kind of functionality such as MockBackend from Angular (More info &lt;a target=&quot;_blank&quot; href=&quot;https://angular.io/api/http/testing/MockBackend&quot;&gt;here&lt;/a&gt;).
-That said, I really like and prefer external tools for mocking a backend.
-That way it’s separated from your app and code base, so it can easily get replaced or modified without triggering stuff in your frontend pipelines.
-You can even choose to run a tool on your local machine.
-Or on-premise and make it accessible for all your (frontend) developers.&lt;/p&gt;
-
-&lt;h2 id=&quot;node-red-and-testing-ci&quot;&gt;Node-RED and Testing (CI)&lt;/h2&gt;
-
-&lt;p&gt;Even if you have implemented your mocks inside your communication layer and it’s doing the job you expect it to do, how are you going to test your communication itself?
-You can use those mocks to run unit tests, but it’s harder to run integration tests that cover your communication layer as well.
-Using an external tool, gives you the possibility to reuse this part in your test setup.
-You can integrate this external mock backend in your setup and redirect your frontend calls to the mock instead of a real backend.
-Why you should do this, is explained in an earlier post on our tech blog.
-If you’re interested, you can read all about it &lt;a target=&quot;_blank&quot; href=&quot;https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html&quot;&gt;here&lt;a&gt;.&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;node-red-to-the-rescue&quot;&gt;Node-RED to the rescue&lt;/h1&gt;
-
-&lt;p&gt;In both cases, Node-RED can help us providing a real API that responds with test data.
-For the test data, I prefer test data getting delivered by the business or the client, but if that is not an option, you can create your &lt;code class=&quot;highlighter-rouge&quot;&gt;json&lt;/code&gt; data based on the API contracts and model designs.
-Again, I’m mentioning the API contracts and model design, because often, organisations fail at this.
-Let’s setup a real easy API.&lt;/p&gt;
-
-&lt;h1 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h1&gt;
-
-&lt;p&gt;Before starting this tutorial, you should download or install some things:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Make sure you have a Node.js (incl npm) environment&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo npm install -g --unsafe-perm node-red&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;A running Docker daemon&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker pull nodered/node-red-docker&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;NOTE: To be honest, you only need one of those 2 environments.
-For the other part, you can just read through it and then try it in the other setup.&lt;/p&gt;
-
-&lt;h1 id=&quot;configuration-components&quot;&gt;Configuration components&lt;/h1&gt;
-
-&lt;p&gt;Although we are only using Node-RED for HTTP(S) (REST) and MQTT backend mocking, Node-RED provides more options.
-Node-RED can even be used as a real backend, using external databases for example.
-So before we start our setup, let’s take a quick look at some basic features.&lt;/p&gt;
-
-&lt;h2 id=&quot;inputs&quot;&gt;Inputs&lt;/h2&gt;
-
-&lt;p&gt;HTTP, TCP, UDP are probably the most straightforward and known by all of you.
-I guess no explanation is needed.
-WebSockets are also used a lot nowadays.
-WebSockets are an advanced technology that makes it possible to open an interactive communication channel/session for pushing messages between a client(s) and a server(s).
-MQTT is one of the standards for messaging for mobile devices.
-It is a lightweight messaging protocol for small sensors and mobile devices, optimized for high-latency or unreliable networks.
-Inject, catch, status and link are internal inputs.
-Inject provides a way of injecting a message(s) into a flow.
-This can be done manually or at a regular interval.
-Catch can be used to handle an error from another node.
-The normal from of that node will get terminated, but with catch you can handle and catch the error providing an alternative route.
-The status node is just reporting messages from other nodes and link lets the user create virtual links between flows.&lt;/p&gt;
-
-&lt;h2 id=&quot;outputs&quot;&gt;Outputs&lt;/h2&gt;
-
-&lt;p&gt;Same as above for HTTPS, TCP, UDP, WebSockets, MQTT and link but now for outputs.
-Debug lets you show messages in the sidebar.
-The debug sidebar provides a structured view of the messages it has sent, making it easier to understand their structure.&lt;/p&gt;
-
-&lt;h2 id=&quot;functions&quot;&gt;Functions&lt;/h2&gt;
-
-&lt;p&gt;Node-RED comes with a lot of predefined function blocks.
-The ones we are using most are the regular &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block itself and the &lt;code class=&quot;highlighter-rouge&quot;&gt;json&lt;/code&gt;- or &lt;code class=&quot;highlighter-rouge&quot;&gt;xml&lt;/code&gt;-function to parse json and xml.
-Besides those, there are function blocks that lets you run calls to external platforms, delay, reroute or redefine messages, etc.
-If you need more information about one of them, Node-RED show an information screen when selecting one of them.&lt;/p&gt;
-
-&lt;h2 id=&quot;social&quot;&gt;Social&lt;/h2&gt;
-
-&lt;p&gt;This section provides us with functionality to intercept (input/output) email- and twitters messages.
-I’ve personally never used one of them, but I can imagine they can come in handy.&lt;/p&gt;
-
-&lt;h2 id=&quot;storage&quot;&gt;Storage&lt;/h2&gt;
-
-&lt;p&gt;File (input/output) is self explanatory.
-The &lt;code class=&quot;highlighter-rouge&quot;&gt;tail&lt;/code&gt; function, lets you add a watcher to a file.
-As the docs describe, this cannot be used on Windows systems.
-It’s based on the &lt;code class=&quot;highlighter-rouge&quot;&gt;$ tail -f fileName&lt;/code&gt; command on Unix systems and watches for changes.&lt;/p&gt;
-
-&lt;h2 id=&quot;analysis&quot;&gt;Analysis&lt;/h2&gt;
-
-&lt;p&gt;This component lets you analyse a received message based on a sentiment score.
-You can read all about it &lt;a target=&quot;_blank&quot; href=&quot;https://github.com/thisandagain/sentiment/blob/master/README.md&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;advanced&quot;&gt;Advanced&lt;/h2&gt;
-
-&lt;p&gt;Like the tail function, the &lt;code class=&quot;highlighter-rouge&quot;&gt;watch&lt;/code&gt;-block watches for directory or file changes.
-The &lt;code class=&quot;highlighter-rouge&quot;&gt;feedparse&lt;/code&gt; can be used to monitor an RSS/atom feed for new entries.
-The last one, the &lt;code class=&quot;highlighter-rouge&quot;&gt;exec&lt;/code&gt;-block lets you run a system command and returns its output.&lt;/p&gt;
-
-&lt;h1 id=&quot;running-an-instance&quot;&gt;Running an instance&lt;/h1&gt;
-
-&lt;p&gt;First things first, let’s fire up a Node-RED instance.
-(We are going to start with the npm package version)
-To start using or initiating an instance of Node-RED by using the npm repositories, just run:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ node-red&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;If installed correctly, you should see the following log:&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/log1.png&quot; width=&quot;60%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;There are four interesting lines in this log.
-The first three of them are the settings file, the user dir and the flows file.
-The last line shows us where the service is available.&lt;/p&gt;
-
-&lt;p&gt;We’ll come back to the config later, and we are going to take a look at the User Interface based on the &lt;code class=&quot;highlighter-rouge&quot;&gt;uri&lt;/code&gt; in the last line.
-As mentioned before, Node-RED offers a user interface, to configure the service.
-Open your browser and navigate to &lt;code class=&quot;highlighter-rouge&quot;&gt;http://127.0.0.1:1880&lt;/code&gt; (default setup config).&lt;/p&gt;
-
-&lt;p&gt;You’ll see all the components mentioned above on the left side of the screen.
-In the middle you have a tabbed structure for your flow chart(s), and on the right you have debug, info and detail windows.&lt;/p&gt;
-
-&lt;p&gt;On the top right of your screen, you have a settings dropdown and a menu with deploy options.&lt;/p&gt;
-
-&lt;h1 id=&quot;creating-your-first-flow&quot;&gt;Creating your first flow&lt;/h1&gt;
-
-&lt;p&gt;Let’s use the Node-RED user interface to create a simple flow.
-In this case a simple &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input connected to a function that returns its data through an &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-output.&lt;/p&gt;
-
-&lt;p&gt;Start by dragging the &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt; from the input list onto the chart.
-Then, drag and drop a &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt; block from the function list and the &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt; from the output list onto the chart.
-Connect the &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input with the function block by dragging a line starting from the input node, to the function block.
-Repeat this for the &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block to the output.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/initial-flow.png&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Of course this isn’t ready for being deployed just yet, cause we did not add any logic yet.
-Let’s configure our flow!&lt;/p&gt;
-
-&lt;h3 id=&quot;input&quot;&gt;Input&lt;/h3&gt;
-
-&lt;p&gt;Double click the &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input block.
-This action will open a window on the right where you can set some properties.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Method: GET&lt;/li&gt;
-  &lt;li&gt;URL: /data&lt;/li&gt;
-  &lt;li&gt;Name: Get all data&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/config-input.png&quot; width=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Confirm these settings by clicking ‘Done’.&lt;/p&gt;
-
-&lt;h3 id=&quot;function-block&quot;&gt;Function block&lt;/h3&gt;
-
-&lt;p&gt;Double click the &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block.
-Again, a window will open!&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Name: Retrieve data&lt;/li&gt;
-  &lt;li&gt;Function:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;NOTE:
-The information section on the right comes in handy while configuring the &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;A JavaScript function block to run against the messages being received by the node.
-The messages are passed in as a JavaScript object called msg.
-By convention it will have a msg.payload property containing the body of the message.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;This explains why we are setting the &lt;code class=&quot;highlighter-rouge&quot;&gt;msg.payload&lt;/code&gt; property.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/config-function.png&quot; width=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Again, confirm these settings by clicking ‘done’.&lt;/p&gt;
-
-&lt;h3 id=&quot;output&quot;&gt;Output&lt;/h3&gt;
-
-&lt;p&gt;Open the config for the &lt;code class=&quot;highlighter-rouge&quot;&gt;http-response&lt;/code&gt;-output block.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Name: return all&lt;/li&gt;
-  &lt;li&gt;Status Code: 200&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/config-output.png&quot; width=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;As you can see, the output lets you choose the return status code.
-This can be used later if you would like to implement failed &lt;code class=&quot;highlighter-rouge&quot;&gt;REST&lt;/code&gt;-calls for mocking purposes.
-Confirm these settings by clicking ‘Done’.&lt;/p&gt;
-
-&lt;h3 id=&quot;deploy&quot;&gt;Deploy&lt;/h3&gt;
-
-&lt;p&gt;On the top right of your screen, you have the deploy-dropdown.
-Clicking &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy&lt;/code&gt; will deploy this flow onto the running server, but you can also use the arrow to open up the menu and choose a more accurate scenario.
-Since this is our first deploy and we only have one flow, we don’t have a choice.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/deploy.png&quot; width=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;test-setup&quot;&gt;Test setup&lt;/h3&gt;
-
-&lt;p&gt;To test our deployment and of course our flow, just navigate to http://localhost:1880/data in your browser or use curl to GET the data:&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/test-browser.png&quot; width=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ curl -X GET http://localhost:1880/data&lt;/code&gt;&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/test-curl.png&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;spicing-things-up&quot;&gt;Spicing things up&lt;/h1&gt;
-
-&lt;p&gt;Let’s try and implement a &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;.
-We would first drag and drop an &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input, a &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block and an &lt;code class=&quot;highlighter-rouge&quot;&gt;http-response&lt;/code&gt;-output onto the flow chart.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/delete.png&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The input would look like:&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/delete-input.png&quot; width=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Notice the &lt;code class=&quot;highlighter-rouge&quot;&gt;:id&lt;/code&gt;.
-This way we tell Node-RED that this is a path parameter.&lt;/p&gt;
-
-&lt;p&gt;The output would look like:&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/delete-output.png&quot; width=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;But what about the &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block ? We could come up with something like:&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
- &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
- &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
- &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
- &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
- &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// the id&lt;/span&gt;
-   &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-       &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-   &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;So we’ve filtered out an element, but that’s it.
-Everytime we call this function block, it will start by initialising the data array.
-Since we are not persisting the data, requesting all the records, will still return all the data records.&lt;/p&gt;
-
-&lt;h2 id=&quot;persisting-data&quot;&gt;Persisting data&lt;/h2&gt;
-
-&lt;p&gt;There is a way to connect to a database, but that is outside of the scope of this post.
-First, let’s show some ways of persisting data.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Node context&lt;/li&gt;
-  &lt;li&gt;Flow context&lt;/li&gt;
-  &lt;li&gt;Global context&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The node context lets the user persist variables for that node.
-Whenever that node gets redeployed, the context is gone.
-The flow context is a context shared over all nodes in that flow chart while the Global context lets you share a context over the whole app.&lt;/p&gt;
-
-&lt;p&gt;You can set and get a context variable with the getters and setters from the api.
-For a flow context this will look like:&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;flow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// do stuff&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;flow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;initialising-data&quot;&gt;Initialising data&lt;/h2&gt;
-
-&lt;p&gt;Now that we know how we can store data, we need to find a way to initialise the data.
-We could for example launch a call to trigger a function that would store data in the flow context.
-We could build this by using an &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input, a &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block and an &lt;code class=&quot;highlighter-rouge&quot;&gt;http-response&lt;/code&gt;-output.
-But this doesn’t feel right.
-Luckily, Node-RED provides us with an &lt;code class=&quot;highlighter-rouge&quot;&gt;inject&lt;/code&gt;-input.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/inject.png&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;This input will get triggered periodically, or just one time. &lt;code class=&quot;highlighter-rouge&quot;&gt;inject&lt;/code&gt;-input is made for injecting messages of almost any type into the next component.
-This message can be a string, a number, the current timestamp, …
-We are going to use it as a trigger on startup to initialise our data into our flow.&lt;/p&gt;
-
-&lt;h3 id=&quot;inject-input&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;inject&lt;/code&gt;-input:&lt;/h3&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/inject-input.png&quot; width=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;inject-function&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;inject&lt;/code&gt;-function:&lt;/h3&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/inject-function.png&quot; width=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;refactoring&quot;&gt;Refactoring&lt;/h2&gt;
-
-&lt;p&gt;Now we know how we can inject and persist data in a context, let’s refactor our &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;.
-And while we are at it, add a second &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; so we can query one record by ‘id’.&lt;/p&gt;
-
-&lt;h3 id=&quot;get&quot;&gt;GET&lt;/h3&gt;
-
-&lt;p&gt;Our two &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-inputs are exactly the same except for the parameter (id).
-The function-block on the other hand, will have some build-in logic:&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;flow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;itx&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;itx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;itx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We are retrieve the data from the context and storing it in a local variable.
-Based on the existence of the &lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; parameter, we are going to search for a single record, or return all records.
-Notice the &lt;code class=&quot;highlighter-rouge&quot;&gt;==&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;===&lt;/code&gt;.
-This is because the id in the data is a number, where the id from the params is a string.&lt;/p&gt;
-
-&lt;p&gt;Based on the logic, we could add a query parameter to the endpoint that let’s us filter the data on the title property for example, but that is out of scope.&lt;/p&gt;
-
-&lt;h3 id=&quot;delete&quot;&gt;DELETE&lt;/h3&gt;
-
-&lt;p&gt;As shown earlier, we are going to use a simple filter function to filter out the record with the given id.
-We start by retrieving the data from the flow context, and then filtering this data.
-Don’t forget to rewrite the new data to the flow context, so other components will get updated context data.&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;flow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;flow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;all-together&quot;&gt;All together&lt;/h3&gt;
-
-&lt;p&gt;Now we should have an &lt;code class=&quot;highlighter-rouge&quot;&gt;inject&lt;/code&gt;-input and 3 &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-inputs (2 GET’s and 1 DELETE).
-Our flow should look like:&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/persistent.png&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Let’s deploy and test this setup.
-First click the deploy button and wait a second.
-Then navigate with your browser to &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:1880/data&lt;/code&gt;.
-This should display your data in your browser.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/all-browser.png&quot; width=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Now, let’s try to delete a record.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ curl -X DELETE http://localhost:1880/data/3&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;And refresh your browser:&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/all-browser-delete.png&quot; width=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Seems like one big success! No?
-Not exactly.
-Try and delete records 1, 2, 4 and 5.
-Now what?
-Our data is gone and we don’t have a &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; nor a &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; implemented.&lt;/p&gt;
-
-&lt;p&gt;Implementing a &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; and a &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; is really straightforward.&lt;/p&gt;
-
-&lt;h3 id=&quot;post-and-put&quot;&gt;POST and PUT&lt;/h3&gt;
-
-&lt;p&gt;For the example, we are going to work with an &lt;code class=&quot;highlighter-rouge&quot;&gt;upsert&lt;/code&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;PUT&lt;/code&gt; will trigger the same function block that will be smart enough to update (if exists) or insert.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/post-put.png&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The upsert &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block can look like:&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;flow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'data'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// quick fix making sure it's a number&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;found&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;itx&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;itx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;itx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;found&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;found&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// or adjusted body if needed&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;So now we have a GET, POST, PUT and DELETE.
-But still, we are missing something.
-Assume we are developing delete functionality in the frontend while using this setup as a backend.
-Since we only have 5 records, I should inject new data to test after my 5 deletes.
-Or assume we are testing a frontend, connected to this mock backend.
-Wouldn’t it be nice that we can refresh the data to its initial state before running a new test suite?&lt;/p&gt;
-
-&lt;p&gt;The point I’m getting to is, we should come up with a way of refreshing our data to its initial state.&lt;/p&gt;
-
-&lt;h2 id=&quot;resetting-data&quot;&gt;Resetting data&lt;/h2&gt;
-
-&lt;p&gt;When you look at your flow chart, you’ll see there is something that looks like a button on the left side of our &lt;code class=&quot;highlighter-rouge&quot;&gt;inject&lt;/code&gt;-input.
-When you click it, you’ll notice a toast message appearing on the top of your user interface:&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/refresh-toast.png&quot; width=&quot;40%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;But what if we don’t have access to the user interface, or we don’t have control over it what so ever? For example, when running automated tests against this mock backend, somewhere on a dynamic Jenkins Docker slave? To overcome this, we are using an &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input to trigger the reset of our data.
-Let’s take a look at our implementation:&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/refresh-http.png&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input is listening on &lt;code class=&quot;highlighter-rouge&quot;&gt;/rest&lt;/code&gt;.
-As you can see, we’ve added an &lt;code class=&quot;highlighter-rouge&quot;&gt;http-response&lt;/code&gt;-output.
-REST-calls are expecting a response! Don’t forget to deploy your new setup&lt;/p&gt;
-
-&lt;p&gt;Making sure this works:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET http://localhost:1880/data   // should respond with the initial data
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; DELETE http://localhost:1880/data/2   // should delete record with &lt;span class=&quot;nb&quot;&gt;id &lt;/span&gt;2
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;--header&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Content-Type: application/json&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--request&lt;/span&gt; POST &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--data&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{&quot;id&quot;:&quot;7&quot;,&quot;Title&quot;:&quot;Title 7&quot;}'&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  http://localhost:1880/data   // should add record with &lt;span class=&quot;nb&quot;&gt;id &lt;/span&gt;7
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET http://localhost:1880/data   // should give the expected result
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET http://localhost:1880/reset  // should reset the data
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET http://localhost:1880/data   // should show the reset is working
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/curl-result.png&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;json&quot;&gt;JSON&lt;/h1&gt;
-
-&lt;p&gt;The last refactoring we are going to do in this tutorial is switching from an hardcoded data json object to an external &lt;code class=&quot;highlighter-rouge&quot;&gt;json&lt;/code&gt;-file.
-As mentioned before, Node-RED provides ways of integrating storage and databases, but that is out of the scope of this post.
-Still, we don’t want to include real data in this setup.
-We should loosely couple our data provider and the backend mock implementation.
-If some analysts, for example, provide us with new test data, we don’t want to change anything in this setup.
-One way to overcome this, is to work with &lt;code class=&quot;highlighter-rouge&quot;&gt;json&lt;/code&gt;-files.&lt;/p&gt;
-
-&lt;p&gt;Assume we have a &lt;code class=&quot;highlighter-rouge&quot;&gt;json&lt;/code&gt;-file, called &lt;code class=&quot;highlighter-rouge&quot;&gt;data.json&lt;/code&gt; with content:&lt;/p&gt;
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Title 5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Remember when I mentioned some important lines in the console at startup?
-One of those lines was referring to the User directory:
-&lt;code class=&quot;highlighter-rouge&quot;&gt;User directory : /Path/To/Your/Home/.node-red&lt;/code&gt; (which is the default)
-Because we didn’t change anything in the &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.js&lt;/code&gt; file (or didn’t point to a custom one), Node-RED creates a context folder for the current instance.
-Copy your &lt;code class=&quot;highlighter-rouge&quot;&gt;data.json&lt;/code&gt; to this folder.
-I will explain later why we are doing this.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/node-red-user-dir.png&quot; width=&quot;50%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Let’s read data from this json file instead of hardcoding the data:&lt;/p&gt;
-
-&lt;h3 id=&quot;add-a-file-component-from-the-storage-section&quot;&gt;Add a file component from the storage section&lt;/h3&gt;
-
-&lt;p&gt;On the left of the user interface, there is a storage section with an input file option.
-Drag this onto the flow chart.
-Unlink the connections from the &lt;code class=&quot;highlighter-rouge&quot;&gt;inject&lt;/code&gt;-input and the reset &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;-input with the ‘store’ &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block and connect both with the &lt;code class=&quot;highlighter-rouge&quot;&gt;file&lt;/code&gt;-storage component.
-Open the details and set the properties:&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/storage-file.png&quot; width=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Do read the text on the bottom about the patch to the file! And keep in mind we have selected the ‘single UTF-8 string’ option.&lt;/p&gt;
-
-&lt;h3 id=&quot;add-a-json-parse-function&quot;&gt;Add a Json parse function&lt;/h3&gt;
-
-&lt;p&gt;In the function section on the left, you have a JSON component.
-Depending on its input, it will parse or stringify a string or json object.
-Because we will be sending this component a ‘single UTF-8 string’, it will parse it to a JSON object.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/parse.png&quot; width=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Integrate this component in between the &lt;code class=&quot;highlighter-rouge&quot;&gt;file&lt;/code&gt;-storage component and the store &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block.&lt;/p&gt;
-
-&lt;h3 id=&quot;refactor-the-store-function&quot;&gt;Refactor the store function&lt;/h3&gt;
-
-&lt;p&gt;We are now ready to refactor the store &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;-block.
-Remove the data and replace it with the content of the json-parse function.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/refactored-store.png&quot; width=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;result-result&quot;&gt;Result [result]&lt;/h3&gt;
-
-&lt;p&gt;When finished, our setup should look like the following flow chart:&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/result.png&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;When the json-file gets updated, a data reset call will reload the new data into the flow context without needing to change the setup itself!&lt;/p&gt;
-
-&lt;h1 id=&quot;node-red-persistent-config&quot;&gt;Node-RED persistent config&lt;/h1&gt;
-
-&lt;p&gt;As mentioned before, Node-RED uses a user directory, a &lt;code class=&quot;highlighter-rouge&quot;&gt;flow.json&lt;/code&gt; file and a &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.js&lt;/code&gt; file.
-If those do not exist, it will create default ones for you in the default node-red path &lt;code class=&quot;highlighter-rouge&quot;&gt;%USERPROFILE/.node-red&lt;/code&gt;.
-Going through the settings file is also out of the scope of this post.
-Advanced users can just read all about it in the docs or just open it and modify it.&lt;/p&gt;
-
-&lt;p&gt;Why I’m mentioning this directory, is because of the config persistence of Node-RED.
-Go ahead and kill your Node-RED server (&lt;code class=&quot;highlighter-rouge&quot;&gt;CTRL-C&lt;/code&gt; in terminal).
-And now just restart it:&lt;/p&gt;
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;red&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;As you can see, Node-RED will just pick up its previous config because it’s available in the default directory.
-When more people need to work with this config, we need to share it.
-The easiest way to share this config, is to wrap it in a Git repository.
-Keep in mind that this may not be best practice to wrap the whole directory, but this way, your colleagues and continuous integration platform can just checkout the repository and run the server, including the data files.&lt;/p&gt;
-
-&lt;p&gt;When running &lt;code class=&quot;highlighter-rouge&quot;&gt;$ node-red --help&lt;/code&gt; it shows the command line params.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/man-node-red.png&quot; width=&quot;40%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Look at the &lt;code class=&quot;highlighter-rouge&quot;&gt;-s&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;-u&lt;/code&gt; option.
-Node-RED provides us with cli parameters to run custom configs.
-Let’s assume we clone our newly created Git repository in &lt;code class=&quot;highlighter-rouge&quot;&gt;~/repositories/node-red&lt;/code&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;node-red &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; ~/repositories/node-red/settings.js &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; ~/repositories/node-red
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;node-red-and-docker&quot;&gt;Node-RED and Docker&lt;/h1&gt;
-
-&lt;p&gt;Node-RED also provides a Docker image at &lt;a target=&quot;_blank&quot; href=&quot;https://hub.docker.com/r/nodered/node-red-docker/&quot;&gt;Docker Hub&lt;/a&gt;.
-This way you do not even need a Node.js environment preinstalled.&lt;/p&gt;
-
-&lt;p&gt;You can just run it with:&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 1880:1880 &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; mynodered nodered/node-red-docker
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;What about our persistent config?&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Node-RED is started using NPM start from this /usr/src/node-red, with the –userDir
-parameter pointing to the &lt;code class=&quot;highlighter-rouge&quot;&gt;/data&lt;/code&gt; directory on the container.
-The flows configuration file is set using an environment parameter (FLOWS),
-which defaults to ‘flows.json’.
-This can be changed at runtime using the
-following command-line flag. – from docs https://hub.docker.com/r/nodered/node-red-docker/&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 1880:1880 &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;FLOWS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;my_flows.json nodered/node-red-docker
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;So we can choose only to provide the &lt;code class=&quot;highlighter-rouge&quot;&gt;flows.json&lt;/code&gt; file or we could map our user directory from our repository as a volume to the &lt;code class=&quot;highlighter-rouge&quot;&gt;/data&lt;/code&gt; in the container, providing the container our context.&lt;/p&gt;
-
-&lt;p&gt;An other option is to bake your &lt;code class=&quot;highlighter-rouge&quot;&gt;userDir&lt;/code&gt; into your image.
-This way you can provide your CI with a ready to go Docker image for this particular case.
-This is probably not the best solution, but in some cases it can be very helpful.&lt;/p&gt;
-
-&lt;h1 id=&quot;node-red-and-ci&quot;&gt;Node-RED and CI&lt;/h1&gt;
-
-&lt;p&gt;As we now know how we can configure, dockerize and run our mock backend, we could easily include it in one of our testing stages during our Continuous Delivery pipelines setup.
-For those of you whom read the article about the different stages of API testing (&lt;a href=&quot;https://ordina-jworks.github.io/testing/2018/01/04/3-stages-api-testing.html&quot;&gt;here&lt;/a&gt;), the following setup will need no further explanation.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/node-red-dev-ci/ci-setup.png&quot; width=&quot;60%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;In this setup, the task at hand is running the automated tests defined in and run by our Gauge, Protractor or Nightwatch.js framework.
-To be able to do this, it would be nice to launch an environment at once.
-We can provide our Continuous Integration environment with a compose file that will launch and destroy our frontend and Node-RED mock backend in one environment.&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;It’s nice to have an external tool available that can get reused for multiple purposes, in our case development and testing.
-Node-RED provides us with cool features and an easy to use User Interface to do so!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Vierbergen&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-vierbergen/&quot;, &quot;avatar&quot;=&gt;&quot;tim-vierbergen.jpg&quot;, &quot;twitter&quot;=&gt;&quot;vierbergentim&quot;, &quot;linkedin&quot;=&gt;&quot;tim-vierbergen-82557834&quot;, &quot;github&quot;=&gt;&quot;VeeTeeDev&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;title2&quot;=&gt;&quot;Principal Consultant &amp; Competence Lead CI/CD&quot;, &quot;email&quot;=&gt;&quot;tim.vierbergen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a senior developer and architect at JWorks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.&lt;br /&gt;&lt;br /&gt;Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learing how to snowboard.&quot;}</name><email>tim.vierbergen@ordina.be</email></author><category term="Testing" /><category term="Node-RED" /><category term="docker" /><category term="Jenkins" /><category term="GoCD" /><category term="ci" /><summary type="html">Table of contents What is Node-RED Why we are using Node-RED (or an alternative) Node-RED to the rescue Configuration components Running an instance Creating your first flow Spicing things up JSON Node-RED persistent config Node-RED and Docker Node-RED and CI Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/node-red-dev-ci/node-red-dev-ci-white.png" /></entry></feed>
+This allows the enterprise to do a gradual move to the cloud instead of having to do a big bang approach.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bas&quot;, &quot;last_name&quot;=&gt;&quot;Moorkens&quot;, &quot;permalink&quot;=&gt;&quot;/author/bas-moorkens/&quot;, &quot;title&quot;=&gt;&quot;Senior Java Developer&quot;, &quot;title2&quot;=&gt;&quot;DevOps Engineer&quot;, &quot;email&quot;=&gt;&quot;bas.moorkens@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;basmoorkens&quot;, &quot;avatar&quot;=&gt;&quot;bas-moorkens.jpg&quot;, &quot;github&quot;=&gt;&quot;basmoorkens&quot;, &quot;bio&quot;=&gt;&quot;Bas is a Senior Java Developer at Ordina Belgium who discovered he is fascinated by cloud, containers and pipeline automation. He started off as a Java full stack developer but got more and more into the DevOps world where he currently spends most of his time.&quot;}</name><email>bas.moorkens@ordina.be</email></author><category term="docker" /><category term="Docker" /><category term="Weave" /><category term="Networking" /><category term="Kubernetes" /><summary type="html">In my last blogpost we talked about setting up a Docker network on a single host. We talked about a very basic 3 tier application which was packaged into 3 containers. An Angular frontend, a spring boot backend and a mysql database container.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/docker-basic-networking/docker-basic-networking.png" /></entry></feed>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Kafka Streams introduction - Hans Vanbellingen and Tom Van den Bulck">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/kafka/kafka-logo-thumb.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/kafka/2018/10/23/kafka-stream-introduction.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Kafka Streams introduction - Hans Vanbellingen and Tom Van den Bulck"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/kafka/kafka-logo-thumb.png"/>
+
+    
+    <title>Kafka Streams introduction - Hans Vanbellingen and Tom Van den Bulck &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Kafka Streams introduction</h2>
+                
+
+                
+                    Posted Oct 23, 2018
+
+
+    in <a href="/categories/kafka/">Kafka</a>
+
+
+
+    by
+    
+        <a href="/author/hans-vanbellingen/">Hans Vanbellingen</a>
+        
+            
+                 and 
+        
+        
+    
+        <a href="/author/tom-van-den-bulck">Tom Van den Bulck</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/kafka/">Kafka</a>, 
+    
+        <a href="/tags/stream/">Stream</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="kafka-stream---a-practical-introduction">Kafka Stream - A practical introduction</h1>
+
+<h2 id="the-goal">The Goal</h2>
+
+<p>The aim of this article is to give an introduction to Streaming API, and more specifically to the Kafka streaming API.</p>
+
+<p>Since I’m not really into writing huge loads of theory, I’m going to try and keep the theory to the minimum to understand the basics and dive directly into the code by using an example.
+That left the task to find a useful example, for which I got inspired by the work of some collegues. 
+They created an IOT system that measures the usage of the staircase in big buildings with Lora IOT sensors (<a href="https://ordina-jworks.github.io/iot/2018/03/14/Stairway-To-Health-2.html" target="_blank" rel="noopener noreferrer">Stairway To Health</a>).</p>
+
+<p>So I thought that this is indeed streaming data, the people that open the doors of the staircase are considered as being the stream.</p>
+
+<p>With that done let’s go to the theory …</p>
+
+<h2 id="the-theory">The theory</h2>
+
+<h3 id="ease-of-use">Ease of Use</h3>
+
+<p>Kafka Streams is a simple client library which only depends on Kafka.
+So if you have Kafka, there is nothing else you will need to do in order to be able to work with Kafka Streams.</p>
+
+<h3 id="guarantees">Guarantees</h3>
+<p>Kafka Streams provides you with guarantees making it safer for you to process records.</p>
+
+<p>The (intermediate) state of the stream processors is stored within replicated changelog topics allowing Kafka Streams to recover from failures and resume processing after replaying the changelog topics.</p>
+
+<p>A Kafka Streams stream processor will receive one input record at a time.
+It will apply its operation to it, like: <code class="highlighter-rouge">map</code>, <code class="highlighter-rouge">filter</code>, <code class="highlighter-rouge">join</code> and send out one or more output records to the downstream processors.</p>
+
+<p>Since 0.11.0, Kafka is able to process deliver messages exactly once, the same logic can be used within Kafka Streams so a record will only be processed exactly once.
+Just set <code class="highlighter-rouge">processing.guarantee</code> to <code class="highlighter-rouge">exactly_once</code>with the default being <code class="highlighter-rouge">at_least_once</code>.</p>
+
+<h3 id="dsl">DSL</h3>
+<p>Kafka Streams provides a <a href="https://kafka.apache.org/20/documentation/streams/developer-guide/dsl-api.html" target="_blank" rel="noopener noreferrer">Domain Specific Language</a> which is recommended for most users, especially beginners.</p>
+
+<ul>
+  <li>KStream: a <code class="highlighter-rouge">KStream</code> is created from a specified Kafka input topic and interprets the data as a record stream. 
+  It will only receive records of a subset of the topic partitions.
+  All of the topics’ available partitions will be processed by Kafka Streams instances.</li>
+  <li>KTable: a <code class="highlighter-rouge">KTable</code> is also based on a Kafka topic, but is interpreted as a changelog stream. 
+  So that for every record key only the most recent value will be returned, it will also handle a subset of partitions.</li>
+  <li>GlobalKTable: a special type of <code class="highlighter-rouge">KTable</code>, as its data will be populated with records from all the partitions of the input topic.</li>
+</ul>
+
+<p>After you have created your <code class="highlighter-rouge">KStream</code> or <code class="highlighter-rouge">KTable</code> you can start with a variety of transformations on your record stream, like: <code class="highlighter-rouge">filter</code>, <code class="highlighter-rouge">map</code>, <code class="highlighter-rouge">flatMap</code>, <code class="highlighter-rouge">groupBy</code>, …</p>
+
+<p>As you will see later in the example we provide, it is all quite easy to grasp.</p>
+
+<h3 id="topology">Topology</h3>
+
+<p><a href="https://kafka.apache.org/11/documentation/streams/core-concepts#streams_topology" target="_blank" rel="noopener noreferrer"><img class="image fit" style="margin:0px auto; max-width: 300px;" alt="Kafka Streams Topology" src="/img/kafka/streams-architecture-topology.jpg" /></a></p>
+
+<h4 id="source-processor">Source Processor</h4>
+<p>A Source Processor does not have any upstream processors and it will produce an input stream from one or more Kafka topics.</p>
+
+<h4 id="stream-processor">Stream Processor</h4>
+<p>A node within the processor topology representing a single processing step, it is used to transform data.</p>
+
+<h4 id="sink-processor">Sink Processor</h4>
+<p>A Sink Processor will act like a sink, it will send any of the received records to a specific Kafka topic without any further processing.</p>
+
+<h4 id="stream">Stream</h4>
+<p>This corresponds to an unbounded, continuously updating data set. 
+Like a Kafka topic it will consist of one or more stream partitions.</p>
+
+<h3 id="local-state">Local State</h3>
+
+<p>Every stream task in a Kafka Streams topology can use one or more local state stores.</p>
+
+<p>These state stores can be a <a href="https://rocksdb.org/" target="_blank" rel="noopener noreferrer">RocksDB</a> database or an in-memory hash map.
+When data is persisted to a local state store Kafka Streams provides automatic recovery in the case of some failure allowing the processing to continue.</p>
+
+<h3 id="windowing">Windowing</h3>
+
+<p>Time is pretty important when dealing with streams, we distinguish the following notions of time within streams:</p>
+<ul>
+  <li>Event time: when the event occured.</li>
+  <li>Processing time: the time when the event was processed by the stream processing application.</li>
+  <li>Ingestion time: the time when the event was stored within a topic by Kafka.</li>
+</ul>
+
+<p>Windows will allow you to group your records with the same record key towards that time.</p>
+
+<p>We have the following types of windows:</p>
+<h4 id="tumbling-time-windows">Tumbling time windows</h4>
+<p>These feature fixed-size, non-overlapping, gap-less windows.
+Since the windows do not overlap, a data record will belong to only one window.</p>
+
+<p><img class="image fit" style="margin:0px auto; max-width: 500px;" alt="Tumbling Window" src="/img/kafka/streams-time-windows-tumbling.png" /></p>
+
+<h3 id="hopping-time-windows">Hopping time windows</h3>
+<p>Hopping time windows feature a fixed size, but the advance interval (aka “hop”) can be different to that fixed size.
+These windows can also overlap, so that a data record may belong to more then one window.</p>
+
+<p><img class="image fit" style="margin:0px auto; max-width: 500px;" alt="Hopping Window" src="/img/kafka/streams-time-windows-hopping.png" /></p>
+
+<h3 id="session-windows">Session windows</h3>
+<p>These represent a period of activity separated by a defined gap of inactivity.
+All events within that gap will be merged with an existing session.
+If the gap is too large, a new session window will be created, the size of the window itself will thus vary.
+<img class="image fit" style="margin:0px auto; max-width: 500px;" alt="Session Window" src="/img/kafka/streams-session-windows-02.png" /></p>
+
+<h2 id="the-practical-part">The Practical Part</h2>
+<h3 id="disclaimer">Disclaimer</h3>
+<p>This project is intended as a first step into the world of streaming, so some shortcuts were taken, and not all design decisions are production ready. 
+A good example is the use of strings as the content of the messages, this should be done in a more structured way (with <a href="https://avro.apache.org/">Avro</a> for example){:target=”_blank” rel=”noopener noreferrer”}.</p>
+
+<h3 id="setup-of-the-project">Setup of the project</h3>
+<p>This is the really easy part, to use the streaming api from Kafka only 1 dependency must be added. 
+Here is the example to do it in Maven.</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.apache.kafka<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>kafka-streams<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>1.1.0<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></div></div>
+<p>And that is it. Sometimes life can be simple. :)</p>
+
+<h3 id="creation-of-the-input">Creation of the input</h3>
+<p>In the real world this would be done by the IOT devices that send their data through the network to the central system. 
+But since it is not easy for demo purposes to have a sensor and a door nearby, and even less handy to open and close it a couple of hundred times to test it out,
+I created a simulator that just sends data to the Kafka cluster.</p>
+
+<p>This simulator creates two kinds of messages:
+<code class="highlighter-rouge">key = 0E7E346406100585, value = T_7</code>
+configuration information about on which floor a certain device is located.
+<code class="highlighter-rouge">key = 0E7E346406100585, value = pulse@1496309915</code>
+each time a person opens the door, the key is the unique id of the device, and then a pulse and the time at which it occurred</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">devices</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="n">devices</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+    <span class="n">devices</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>  
+    <span class="n">devices</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+
+    <span class="n">KafkaProducer</span> <span class="n">producer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">KafkaProducer</span><span class="o">(</span><span class="n">props</span><span class="o">);</span>
+
+    <span class="c1">//send the device information</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">devices</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">val</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%s@%s@%s"</span><span class="o">,</span> <span class="s">"T"</span><span class="o">,</span> <span class="s">""</span> <span class="o">+</span> <span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">),</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">());</span>
+        <span class="n">producer</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="k">new</span> <span class="n">ProducerRecord</span><span class="o">(</span><span class="s">"stream_in_dev"</span><span class="o">,</span> <span class="n">devices</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">),</span> <span class="n">val</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="k">new</span> <span class="nf">Random</span><span class="o">().</span><span class="na">ints</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">devices</span><span class="o">.</span><span class="na">size</span><span class="o">()).</span><span class="na">forEach</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="n">producer</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="k">new</span> <span class="n">ProducerRecord</span><span class="o">(</span><span class="s">"stream_in"</span><span class="o">,</span> <span class="n">devices</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">),</span> <span class="s">"pulse@"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()));</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">250</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+    <span class="o">});</span>
+
+    <span class="n">producer</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>This wil create three floors with a random device id, and afterwards it will send an event for a random door being opened 10 times.</p>
+
+<h3 id="reading-of-the-output">Reading of the output</h3>
+
+<p>For checking what happens in the system a data dumper was created that outputs all the messages on all the topics of interest (the input, the output and the intermediate queues included).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DumpData</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Logger</span> <span class="n">log</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">DumpData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ExecutorService</span> <span class="n">executorService</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="n">executorService</span><span class="o">.</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="n">KafkaConsumer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">KafkaConsumer</span><span class="o">&lt;&gt;(</span><span class="n">defaultProperties</span><span class="o">(</span><span class="s">"your_client_id"</span><span class="o">));</span>
+
+            <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">topics</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">listTopics</span><span class="o">().</span><span class="na">keySet</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">streamName</span> <span class="o">-&gt;</span> <span class="n">streamName</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">"stream_"</span><span class="o">))</span>
+                    <span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="nl">log:</span><span class="o">:</span><span class="n">info</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+
+            <span class="n">consumer</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">topics</span><span class="o">);</span>
+
+            <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">ConsumerRecords</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">records</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">poll</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+                <span class="n">records</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">record</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                            <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"topic = {}, partition = {}, offset = {}, key = {}, value = {}"</span><span class="o">,</span>
+                                    <span class="n">record</span><span class="o">.</span><span class="na">topic</span><span class="o">(),</span> <span class="n">record</span><span class="o">.</span><span class="na">partition</span><span class="o">(),</span> <span class="n">record</span><span class="o">.</span><span class="na">offset</span><span class="o">(),</span> <span class="n">record</span><span class="o">.</span><span class="na">key</span><span class="o">(),</span> <span class="n">record</span><span class="o">.</span><span class="na">value</span><span class="o">());</span>
+                        <span class="o">}</span>
+                <span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>This will subscribe to all the topics that start with ‘stream_’ on the Kafka.</p>
+
+<h3 id="the-main-part">The main part</h3>
+
+<p>So we finally arrived at the part where it all happens.</p>
+
+<p>Just as a recap, the goal of this stream is to transform both input streams into a stream that gives how many people took the stairs at each floor.</p>
+
+<p>As a start we must create a new <code class="highlighter-rouge">StreamBuilder</code> from the Kafka library</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">final</span> <span class="n">StreamsBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StreamsBuilder</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>We need to get the data somewhere, here we get it from the same topics our data simulater writes to.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">KStream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">sourceDev</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="s">"stream_in_dev"</span><span class="o">);</span> <span class="c1">// which device is where</span>
+    <span class="n">KStream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">stream_in</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="s">"stream_in"</span><span class="o">);</span> <span class="c1">// the pulse messages</span>
+</code></pre></div></div>
+
+<p>The first stream (<code class="highlighter-rouge">stream_in_dev</code>) will be converted into a lookup table that is used when handling the second stream. 
+This lookup table will contain which device is installed on which floor.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">KTable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">streamKtableDev</span> <span class="o">=</span> <span class="n">sourceDev</span>
+        <span class="o">.</span><span class="na">groupByKey</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">reduce</span><span class="o">((</span><span class="n">val1</span><span class="o">,</span> <span class="n">val2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">val1</span><span class="o">,</span> <span class="n">Materialized</span><span class="o">.</span><span class="na">as</span><span class="o">(</span><span class="s">"stream_ktable_dev"</span><span class="o">));</span>
+</code></pre></div></div>
+<p>Since one of the shortcuts we took is creating all the topics with only one partition, we don’t have any problems with streams not having the data it needs.
+If using multiple partitions, then we should have used either the <code class="highlighter-rouge">KGlobalTable</code> 
+or we should have made sure that the partitioning is done in such a way that we get the corresponding data from both partitions on this node.</p>
+
+<p>The second stream contains the pulses. Each time a person takes the stair, a message is sent, and this must be added to the counter of the people taking the stairs at that specific minute.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="n">stream_in</span>
+                <span class="o">.</span><span class="na">filter</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">value</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">"pulse"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">leftJoin</span><span class="o">(</span><span class="n">streamKtableDev</span><span class="o">,</span> <span class="o">(</span><span class="n">pulse</span><span class="o">,</span> <span class="n">device</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">device</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">device</span><span class="o">.</span><span class="na">lastIndexOf</span><span class="o">(</span><span class="sc">'@'</span><span class="o">)).</span><span class="na">replace</span><span class="o">(</span><span class="sc">'@'</span><span class="o">,</span> <span class="sc">'_'</span><span class="o">)</span> <span class="o">+</span> <span class="n">pulse</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">pulse</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="sc">'@'</span><span class="o">)))</span>
+                <span class="o">.</span><span class="na">map</span><span class="o">((</span><span class="n">k</span><span class="o">,</span> <span class="n">v</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">KeyValue</span><span class="o">&lt;&gt;(</span><span class="n">v</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">v</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="sc">'@'</span><span class="o">)),</span> <span class="n">v</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">v</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="sc">'@'</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)))</span>
+                <span class="o">.</span><span class="na">groupByKey</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">windowedBy</span><span class="o">(</span><span class="n">TimeWindows</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">.</span><span class="na">toMillis</span><span class="o">(</span><span class="mi">1</span><span class="o">)))</span>
+                <span class="o">.</span><span class="na">count</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">toStream</span><span class="o">((</span><span class="n">k</span><span class="o">,</span> <span class="n">v</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%s - %s"</span><span class="o">,</span> <span class="n">k</span><span class="o">.</span><span class="na">key</span><span class="o">(),</span> <span class="n">Date</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">Instant</span><span class="o">.</span><span class="na">ofEpochMilli</span><span class="o">(</span><span class="n">k</span><span class="o">.</span><span class="na">window</span><span class="o">().</span><span class="na">start</span><span class="o">()))))</span>
+                <span class="o">.</span><span class="na">mapValues</span><span class="o">(</span><span class="n">v</span> <span class="o">-&gt;</span> <span class="s">""</span> <span class="o">+</span> <span class="n">v</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="s">"stream_out"</span><span class="o">);</span>
+</code></pre></div></div>
+<p>This seems to do a lot of things and this is indeed the case. But the API makes a clean chain that is not hard to follow.</p>
+<ul>
+  <li><code class="highlighter-rouge">.filter()</code> We only want the inputs that start with a pulse, the real IOT devices also send battery information and so on, on the same topic.
+This could also be solved by sending them to different topics but it shows that filtering is possible</li>
+  <li><code class="highlighter-rouge">.leftJoin() </code> we join with the devices lookup table created with the previous KTable statement. This allows us to translate the device id into the location.
+key is ‘0E7E346406100585’ and value is ‘pulse@1496309915’ will be translated to the same key but with value ‘T_7@1496309915’</li>
+  <li><code class="highlighter-rouge">.map()</code> we map the message into something more useful. 
+in stead of the key ‘0E7E346406100585’ and value ‘T_7@1496309915’ format we now get a key of ‘T_7’ and a value of ‘1496309915’.</li>
+  <li><code class="highlighter-rouge">.groupByKey()</code> we want to group these by key (which is now the floor number and not the device id like it was in the beginning)</li>
+  <li><code class="highlighter-rouge">.windowedBy()</code> and create a tumbling window for each minute</li>
+  <li><code class="highlighter-rouge">.count()</code> and within the window count the number of items</li>
+  <li><code class="highlighter-rouge">toStream()</code> This means that the last three lines together change the stream into a stream that gives the number of messages per minute for a certain floor</li>
+  <li><code class="highlighter-rouge">mapValues()</code> map the result of this into a new stream that gives the amount per minute where the key is the floor (T_7) and the value is a combination of the amount and the when (5 - Thu Oct 10 16:28:04 CEST 2018)</li>
+  <li><code class="highlighter-rouge">to()</code> send it to the output stream</li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/kafka/2018/10/23/kafka-stream-introduction.html&title=Kafka Streams introduction&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Kafka Streams introduction&url=https://ordina-jworks.github.io/kafka/2018/10/23/kafka-stream-introduction.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/kafka/2018/10/23/kafka-stream-introduction.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/hans-vanbellingen/" class="image spotlight-image">
+            <img src="/img/author/hans-vanbellingen.png"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Hans is a Java architect at Ordina Belgium. He is passionate about Stream Processing.</p>
+</p>
+            
+        </div>
+    </div>
+    
+    <div class="inner">
+        <a href="/author/tom-van-den-bulck" class="image spotlight-image">
+            <img src="/img/author/tom-van-den-bulck.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Tom is a Senior Developer at Ordina Belgium, passionate about all software related to data. As competence leader Big &amp; Fast Data he guides his fellow developers through dark data swamps by giving workshops and presentations. Tom is passionate about learning new technologies and frameworks.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/kafka/kafka-logo-thumb.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/kafka/2018/10/23/kafka-stream-introduction.html";
+        this.page.identifier = "/kafka/2018/10/23/kafka-stream-introduction.html";
+        this.page.title = "Kafka Streams introduction";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
