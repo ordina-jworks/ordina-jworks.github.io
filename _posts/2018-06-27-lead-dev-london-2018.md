@@ -10,8 +10,8 @@ comments: true
 
 ## London!
 
-For the fourth year in a row [White October Events](https://www.whiteoctoberevents.co.uk/) and [Meri Williams](https://twitter.com/Geek_Manager) organised [The Lead Developer](https://theleaddeveloper.com/): a two-day conference covering topics from leadership to self improvement and team dynamics, mixed with some technical talks. 
-This year Ordina JWorks travelled to the [Barbican Centre](https://www.barbican.org.uk/) in London to attend this amazing and inspiring conference for the very first time and returned home energized and full of ideas!
+For the fourth year in a row [White October Events](https://www.whiteoctoberevents.co.uk/){:target="_blank"} and [Meri Williams](https://twitter.com/Geek_Manager){:target="_blank"} organised [The Lead Developer](https://theleaddeveloper.com/){:target="_blank"}: a two-day conference covering topics from leadership to self improvement and team dynamics, mixed with some technical talks. 
+This year Ordina JWorks travelled to the Barbican Centre in London to attend this amazing and inspiring conference for the very first time and returned home energized and full of ideas!
 
 > As tech lead you have to be a great developer. 
 > But you also need to be a good team leader, be commercially astute, and stay on top of all the tech developments and trends coming over the horizon. 
@@ -19,7 +19,7 @@ This year Ordina JWorks travelled to the [Barbican Centre](https://www.barbican.
 
 <img class="image fit center" src="{{ '/img/2018-06-27-Lead-Dev-London-2018/lead-dev-venue.jpg' | prepend: site.baseurl }}" alt="The Lead Developer 2018" />
 
-In this blogpost we will summarize some of the talks that are mainly focused on personal development of a team lead. All talks were recorded and can be found on [The Lead Developer London 2018 YouTube channel](https://www.youtube.com/playlist?list=PLBzScQzZ83I_VX8zgmLqIfma_kJs3RRmu). Highly recommended!
+In this blogpost we will summarize some of the talks that are mainly focused on personal development of a team lead. All talks were recorded and can be found on [The Lead Developer London 2018 YouTube channel](https://www.youtube.com/playlist?list=PLBzScQzZ83I_VX8zgmLqIfma_kJs3RRmu){:target="_blank"}. Highly recommended!
 
 ## 'First steps as a lead' by [Dan Persa](https://twitter.com/danpersa){:target="_blank"}
 
@@ -45,18 +45,18 @@ But how you do earn the trust and respect of your team?
 - Have regular one-to-one's.
 - Be transparent in decision-making, especially around performance evaluations.
 - The best solutions to problems come from the team, let them take ownership of the problem.
-- Create a feedback culture: give feedback as close as possible to the moment in time where the action which generated the need to provide feedback happened, decouple development feedback from performance evaluations, and organise health checks meetings.
+- Create a feedback culture: give feedback as soon as possible after the action in need of feedback happened, decouple development feedback from performance evaluations, and organise health checks meetings.
 - Celebrate successes!
 
 > "Not taking a decision is a decision: we are accountable for the decisions we take as well as for the ones we decide not to take." [@danpersa](https://twitter.com/danpersa){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
 
-## 'Building sustainable teams to handle uncertainty' by [Jenny Duckett](https://twitter.com/jenny_duckett)
+## 'Building sustainable teams to handle uncertainty' by [Jenny Duckett](https://twitter.com/jenny_duckett){:target="_blank"}
 
 <span class="image left"><img class="p-image" alt="Jenny Duckett" src="/img/2018-06-27-Lead-Dev-London-2018/jenny-duckett.png"></span>
 
 **What can disrupt a team?**
 
-Change is often a good thing because we frequently make deliberate changes about how we're working in our team but there's often uncertainty involved. 
+Because we frequently make deliberate changes about how we're working in our team, change is often a good thing. However, there's uncertainty involved. 
 - People can leave or join the team; team members can feel un(der)valued. The dynamics of personalities and opinions change whenever people change.
 - It can be hard for teams to make decisions and handle roadmaps while senior leaders move. Revisiting decisions that you thought you'd settled and making progress can be hard.
 - Shifting wider priorities can make a team feel frustrated and disempowered. 
@@ -105,7 +105,7 @@ Good communication about change is vital.
 > "When stressful things happen, it's easy to default back to not communicating. But that's when it's even more important to empower people during tough times." [@jenny_duckett](https://twitter.com/jenny_duckett){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
 
 
-## 'The hardest scaling challenge of all - yourself' by [Christian McCarrick](https://twitter.com/cmccarrick)
+## 'The hardest scaling challenge of all - yourself' by [Christian McCarrick](https://twitter.com/cmccarrick){:target="_blank"}
 
 <span class="image left"><img class="p-image" alt="Christian McCarrick" src="/img/2018-06-27-Lead-Dev-London-2018/christian-mccarrick.jpg"></span>
 
@@ -137,17 +137,17 @@ Good communication about change is vital.
 **Personal development & mental health**
 - Leading takes energy and often gets lonely.
 - If athletes get injured, they sit on the bench. Mental fatigue and burnout are issues that affects us more than we might think.
-- Excercise, medidate (tip: [Headspace](https://www.headspace.com/)), and read every day.
+- Excercise, medidate (tip: [Headspace](https://www.headspace.com/){:target="_blank"}), and read every day.
 
 > "Your job as a manager is to make your team more badass." [@cmccarrick](https://twitter.com/cmccarrick){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
 
 
-## 'Go slow to go fast: building strong foundations for leadership' by [Alicia Liu](https://twitter.com/aliciatweet)
+## 'Go slow to go fast: building strong foundations for leadership' by [Alicia Liu](https://twitter.com/aliciatweet){:target="_blank"}
 
  <span class="image left"><img class="p-image" alt="Alicia Liu" src="/img/2018-06-27-Lead-Dev-London-2018/alicia-liu.jpg"></span>
  
 Alicia talked about how her rapid increase in job responsibilities in a rapidly growing startup led to an increase in stress, difficulty sleeping, and ultimately depression. 
-She wrote a great [blogpost](https://betterhumans.coach.me/how-depression-made-me-a-morning-person-cda4889662ff) and gave an very inspiring talk about the tools she used to recover from depression and insomnia and how she became a better leader and manager. 
+She wrote a great [blogpost](https://betterhumans.coach.me/how-depression-made-me-a-morning-person-cda4889662ff){:target="_blank"} and gave an very inspiring talk about the tools she used to recover from depression and insomnia and how she became a better leader and manager. 
 
 A lot of engineers are promoted into management because they're good engineers, regardless of their management skills.
 Some people are naturally good at both, but if you're good at engineering, it might actually be harder to develop leadership skills. 
