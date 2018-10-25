@@ -37,6 +37,58 @@ The trajectory also included some courses about the devops culture. We got some 
 
 ### Backend
 
+#### Java
+In this lecture given by [Yannick De Turck](/author/yannick-de-turck/){:target="_blank"}, we got introduced to all new features of Java 7 and 8 aswell as Java 9.
+
+We started off with Java 7 where we learned:
+* Switch-statement with String values
+* Automatic Resource Management
+* Diamond Syntax
+* Better exception handling with multi-catch
+* Literal Enhancements
+* The new IO API
+* Fork Join Framework
+* JVM Enhancements
+
+Java 8 also introduced some useful new features:
+* Lambda Expressions
+* Extension Methods
+* Functional Interfaces
+* Method and Constructor References
+* Streams and Bulk Data Operations for Collections
+* Removal of PermGen
+* New Date & Time API
+* New Default API for Base64 Encoding
+* Improvements for Annotations
+* Performance Improvements
+
+Last but not least we had an introduction of Java 9:
+* Project Jigsaw: Modules
+* Project Kulla: JShell
+* Factory Methods for collections
+* Diamond operator for anonymous inner classes
+* Try-with-resources enhancement
+* CompletableFuture API improvements
+* Underscore ('_') character is a keyword
+* Private methods in interfaces
+* HTTP 2.0 Client
+* Process API Improvements
+* Reactive Streams
+* Optional improvements
+* Collectors Improvements
+* Stream improvements
+
+In the afternoon we made some excercises on these new features and improvements which gave us a brighter view on the possibilities within present development.
+
+#### Spring and Spring Boot
+The lectures of Spring and Spring Boot were given by [Ken Coenen](/author/ken-coenen){:target="_blank"}. These were spread over two days where the first day was an overal introduction to Spring fundamentals, followed by a second day where we have put everything into practice.
+
+##### Day 1:
+The first day we got an introduction to Spring and Spring Boot about the core fundamentals and concepts of JPA, Beans and Application contexts. After that we went further into the features of the framework where we got introduced to Spring Web Services and Spring Security.
+
+##### Day 2:
+On the second day we made a small project where we created a backend application to fetch all information of different digital coins (Cryptocurrencies). We learned how to read data from an API using DTO's and store them into a database. At the end of the day we had a fully working backend application which fetched all information automatically and exposed it to different endpoints.
+
 ### Frontend
 
 ### Soft Skills
