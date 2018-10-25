@@ -90,6 +90,15 @@ The first day we got an introduction to Spring and Spring Boot about the core fu
 On the second day we made a small project where we created a backend application to fetch all information of different digital coins (Cryptocurrencies). We learned how to read data from an API using DTO's and store them into a database. At the end of the day we had a fully working backend application which fetched all information automatically and exposed it to different endpoints.
 
 ### Frontend
+Front-end courses included html/css/javascript, buildtools, typescript and Angular. 
+##### Build tools: 
+In this course, we started off with Node.js and its features like asynchronous and event emitters. NPM and other package managers were 
+
+##### Typescript: 
+In the typescript course, we build further on Node.js and NPM. We did an exercise about School management where we used OO-programming and CRUD in typescript. This was pretty challenging but with each other help, we managed to get the final assessment done. 
+
+##### Angular: 
+Angular was the last Frontend Course. This helped us to quickly create a frontend that is connected to a backend project. Here, we went more in-depth on the SPA framework and how different components interact with each other.
 
 ### Soft Skills
 Besides sharpening our technical skills we worked on our soft skills as well.
