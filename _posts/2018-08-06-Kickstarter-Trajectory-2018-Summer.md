@@ -11,7 +11,7 @@ comments: true
 ## Table of Contents
 
 ## Introduction
-54 young professionals started the Ordina Kickstarter trajectory, on the 1st of august, this summer. 
+54 young professionals started the Ordina Kickstarter trajectory, on the 1st of August, this summer. 
 JWorks counted 5 kickstarters: Sander, Steven, Ken, Wout en Michael. All looking for a challenge and a fresh start. 
 Some just graduated from school, others already had multiple years of experience, IT related or not. 
 The goal was to broaden every kickstarter’s knowledge of the fast evolving IT world. 
@@ -39,5 +39,17 @@ The trajectory also included some courses about the devops culture. We got some 
 
 ### Frontend
 
+### Soft Skills
+Besides sharpening our technical skills we worked on our soft skills as well.
+In the 2 day session 'Essentials Of Communication' we learned how to present ourselves by means of role playing games and cases that reflect real world scenarios.
+After an additional 'Brand Yourself' session we were ready to prove and present ourselves as worthy consultants against the management of Ordina.
+All these techniques are also useful in the Agile & Scrum methodologies where we learned the importance of being prepared for change.
 
+
+### DevCase
+In the second month of the kickstarter traject we were assigned to develop an event planner.
+The purpose was to have more of an overview and control of the upcoming JWorks events.
+In short, JWorks employees can create and approve events depending on their rights.
+In addition, a weekly digest of the events is sent to the Telegram JWorks group and a bot is made available with some defined commands.
+A more technical blogpost of the DevCase with an explanation of the used technologies and architecture will follow!
 
