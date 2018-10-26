@@ -17,7 +17,7 @@ We learned the basics of every hot topic which will definitely give us enough cr
 
 The kickstarter trajectory consisted of two parts: 
 * One month covering all kinds of trainings: technical, non-technical, backend, frontend, DevOps...  
-* After our minds were filled with all this information, there was a devcase where we could put everything we learned into practice.
+* After our minds were filled with all this information, there was a dev case where we could put everything we learned into practice.
 
 ## First Day
 On the first day of the kickstarter trajectory we were welcomed into the company and got an introduction about the structure of the company. 
