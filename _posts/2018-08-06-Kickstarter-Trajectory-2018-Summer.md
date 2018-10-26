@@ -33,7 +33,7 @@ We also followed a more technical security course which explained some of the mo
 ## Backend
 
 ### Java
-In this lecture given by [Yannick De Turck](/author/yannick-de-turck/){:target="_blank"}, we were introduced to all new features of Java 7 and 8 aswell as Java 9.
+In this lecture given by [Yannick De Turck](/author/yannick-de-turck/){:target="_blank"}, we were introduced to all new features of Java 7, 8 and 9 aswell as Java 10.
 
 We started off with Java 7 where we learned:
 * Switch-statement with String values
@@ -57,7 +57,7 @@ Java 8 also introduced some useful new features:
 * Improvements for Annotations
 * Performance Improvements
 
-Last but not least we had an introduction of Java 9:
+Java 9 introduces:
 * Project Jigsaw: Modules
 * Project Kulla: JShell
 * Factory Methods for collections
@@ -69,9 +69,17 @@ Last but not least we had an introduction of Java 9:
 * HTTP 2.0 Client
 * Process API Improvements
 * Reactive Streams
-* Optional improvements
+* Optional Improvements
 * Collectors Improvements
-* Stream improvements
+* Stream Improvements
+
+Last but not least we had an introduction of Java 10 which delivers:
+* Local Variable Type Inference
+* Unmodifiable Collections
+* new OptionalXXX.orElseThrow() method
+* Performance Improvements
+* Container awareness
+* Root CA Certificates included
 
 In the afternoon we made a few exercises on these new features and improvements which gave us a brighter view on the possibilities within present Java development.
 
