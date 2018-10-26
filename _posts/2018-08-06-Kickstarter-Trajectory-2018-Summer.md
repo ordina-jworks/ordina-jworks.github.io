@@ -106,7 +106,8 @@ This improves the readability and performance of our applications which is of gr
 Frontend courses included HTML/CSS/JavaScript, build tools, TypeScript and Angular. 
 
 #### Build tools: 
-In this course, we started off with Node.js and its features like asynchronous and event emitters. NPM and other package managers were 
+In this course, we started off with Node.js and its features like asynchronous programming and event emitters.
+NPM and other package managers were 
 
 #### Typescript: 
 In the typescript course, we build further on Node.js and NPM. We did an exercise about School management where we used OO-programming and CRUD in typescript. This was pretty challenging but with each other help, we managed to get the final assessment done. 
