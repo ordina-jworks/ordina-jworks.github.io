@@ -200,7 +200,7 @@ Putting this information into practice during the DevCase gave me more understan
 
 #### [Michael De Wree](/author/michael-de-wree){:target="_blank"}
 >The Kickstarter Trajectory was not easy, but achievable. 
-This made me so much the more excited. 
+This made me so much more excited. 
 Especially the dev case is a good way to gain technical experience. 
 Besides the possibility to learn and grow, Ordina makes me feel at home. 
 I look forward to the next couple of years!
