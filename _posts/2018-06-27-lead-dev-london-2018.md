@@ -10,7 +10,7 @@ comments: true
 
 ## London!
 
-For the fourth year in a row [White October Events](https://www.whiteoctoberevents.co.uk/){:target="_blank"} and [Meri Williams](https://twitter.com/Geek_Manager){:target="_blank"} organised [The Lead Developer](https://theleaddeveloper.com/){:target="_blank"}: a two-day conference covering topics from leadership to self improvement and team dynamics, mixed with some technical talks. 
+For the fourth year in a row [White October Events](https://www.whiteoctoberevents.co.uk/){:target="_blank"} and [Meri Williams](https://twitter.com/Geek_Manager){:target="_blank"} organised [The Lead Developer](https://theleaddeveloper.com/){:target="_blank"}: a two-day conference covering topics from leadership to self-improvement and team dynamics, mixed with some technical talks. 
 This year Ordina JWorks travelled to the Barbican Centre in London to attend this amazing and inspiring conference for the very first time and returned home energized and full of ideas!
 
 > As tech lead you have to be a great developer. 
