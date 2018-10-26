@@ -128,7 +128,7 @@ During this hands-on session we learned how to work with containers and images.
 We learned how to use, create and delete them. 
 There was also an explanation of the theory behind containerization and what the advantages are of using this, especially when compared to using virtual machines.
 
-To orchestrate the containers, we received a course on Kubernetes. There we learned about the concepts of pods, secrets, ... 
+To orchestrate the containers, we received a course on Kubernetes. There we learned about the concepts of pods, secrets, and more.
 We practiced this in a small exercise where we needed to configure a Minikube and run a simple application.
 
 ### Cloud
