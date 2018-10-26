@@ -196,5 +196,9 @@ For more technical details of the used tools and technologies of the DevCase, a 
 #### [Steven Deleye](/author/steven-deleye){:target="_blank"}
 
 #### [Michael De Wree](/author/michael-de-wree){:target="_blank"}
->The Kickstarter Trajectory was not easy, but achievable. This made me so much the more excited. Especially the dev case is a good way to gain technical experience. Besides the possibility to learn and grow, Ordina makes me feel at home. I look forward to the next couple of years!
+>The Kickstarter Trajectory was not easy, but achievable. 
+This made me so much the more excited. 
+Especially the dev case is a good way to gain technical experience. 
+Besides the possibility to learn and grow, Ordina makes me feel at home. 
+I look forward to the next couple of years!
 
