@@ -137,15 +137,16 @@ All these techniques are also useful in the Agile & Scrum methodologies where we
 In the second month of the kickstarter trajectory we were assigned to develop an event planner.
 The purpose was to have more of an overview and control of the upcoming JWorks events.
 In short, JWorks employees can create and approve events depending on their rights.
-In addition, a weekly digest of the events is sent to the Telegram JWorks group and a bot is made available with some defined commands.
+In addition, a weekly digest of the events is sent to the Telegram JWorks chat group and a bot is made available with some defined commands.
 
 #### Technology & Methodologies
-Together with our coaches Orjan De Smet, Haroun Pacquee and Axel Bergmans we started off with an introduction to the project where the user stories on the scrum board were presented.
-After defining the sprint goal for the coming two weeks we divided ourselves into a frontend and a backend group to start to develop. 
+Together with our coaches [Orjan De Smet](/author/orjan-de-smet){:target="_blank"}, [Axel Bergmans](/author/axel-bergmans){:target="_blank"} and Haroun Pacquée we started off with an introduction to the project where the user stories on the scrum board were presented.
+After defining the sprint goal for the coming two weeks we divided ourselves into a frontend and a backend group. 
 Using scrum methodology we held our daily stand up meetings and as soon as new functionality was developed a pull request was made and reviewed by our coaches.
 Every two weeks at the end of the sprint a demo was shown to our coaches followed by a retrospective and a sprint planning.
 By making use of continuous integration code changes in Github were automatically deployed in Openshift where a Jenskins pipeline checked the different stages from testing the code and the code quality to the build of the docker image.
-Frontend tools that were used in the project contained:
+
+Frontend tools that were used in the project:
  * Angular
  * Angular-CLI
  * Angular Material
@@ -156,8 +157,9 @@ In the backend we made use of the following technologies:
  * Spring Boot
  * Mockito and JUnit
  * Telegram API
+ * Keycloak Security
  
-For more technical details of the used tools and technologies the DevCase a seperate blog post will follow!
+For more technical details of the used tools and technologies of the DevCase a separate blog post will follow!
 
 <img alt="Devcase" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/fe-preview2.png' | prepend: site.baseurl }}" class="image fit">
 
