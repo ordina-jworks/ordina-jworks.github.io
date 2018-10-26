@@ -101,6 +101,7 @@ After that we went further into the features of the framework where we were intr
 #### Day 2:
 On the second day we made a small project where we created a backend application to fetch all information of different digital coins (Cryptocurrencies). 
 We learned how to read data from an API using DTO's and store them into a database. At the end of the day we had a fully working backend application which fetched all information automatically and exposed it to different endpoints.
+
 <img alt="SpringBoot" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/be-course.png' | prepend: site.baseurl }}" class="image fit">
 
 ### Microservices
