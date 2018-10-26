@@ -119,7 +119,7 @@ Angular was the last frontend course. This helped us to quickly create a fronten
 
 ## Devops
 The trajectory also included courses about the DevOps culture. 
-We got some introductions to docker, kubernetes and CI/CD.
+We got some introductions to Docker, Kubernetes and CI/CD.
 
 ### Docker & Kubernetes
 These courses were given by [Tom Verelst](/author/tom-verelst). 
