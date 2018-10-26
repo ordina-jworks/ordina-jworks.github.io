@@ -94,7 +94,7 @@ At the end of the day we had a fully working backend application which fetched a
 This course gave a brief overview of the microservices architecture. 
 We learned when this is best applicable. 
 This can be applied when there is a monolith that is responsible for multiple different tasks. 
-It could be better in that case to split of these different tasks into multiple microservices. 
+It could be better in that case to split off these different tasks into multiple microservices. 
 The advantages of doing that are the possibility to deploy the different microservices separately and the possibility to upscale the resources of some microservices that receive the biggest loads.
 
 
