@@ -26,7 +26,7 @@ It was nice to notice that everyone we met was very friendly and helpful, this m
 On the first day we also received the keys of our car and a laptop so we were equipped to begin our journey at Ordina.
 
 ## Security
-In the beginning of the trajectory we got an introduction of the most important security principles also including information security like GDPR. 
+In the beginning of the trajectory we got an introduction by [Tim De Grande](/author/time-de-grande) of the most important security principles also including information security like GDPR. 
 This is very important to Ordina because all its consultants need to always have this information in the back of their minds when working at a customer.
 We also followed a more technical security course which explained some of the most common attacks and how to avoid them.
 
@@ -91,7 +91,7 @@ At the end of the day we had a fully working backend application which fetched a
 <img alt="SpringBoot" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/be-course.png' | prepend: site.baseurl }}" class="image fit">
 
 ### Microservices
-This course gave a brief overview of the microservices architecture. 
+[Tim Ysewyn](/author/tim-ysewyn) and [Kevin Van Houtte](/author/kevin-van-houtte) gave a brief overview of the microservices architecture. 
 We learned when this is best applicable. 
 This can be applied when there is a monolith that is responsible for multiple different tasks. 
 It could be better in that case to split off these different tasks into multiple microservices. 
@@ -99,27 +99,28 @@ One of the advantages of doing that is the possibility to deploy the different m
 
 
 ### Clean Code
-During this course of clean code we learned the best practices of how to write clean code. 
+During this course of clean code [Pieter Van Hees](/author/pieter-van-hees) teached us the best practices of how to write clean code. 
 This improves the readability and performance of our applications which is of great importance to Ordina.
 
 ## Frontend
-Frontend courses included HTML/CSS/JavaScript, build tools, TypeScript and Angular. 
+Frontend courses included HTML/CSS/JavaScript, build tools, TypeScript and Angular given by [Yannick Vergeylen](/author/yannick-vergeylen). 
 
 #### Build tools: 
-In this course, we started off with Node.js and its features like asynchronous programming and event emitters.
-NPM and other package managers were 
+In this course given by [Michael Vervloet](/author/michael-vervloet), we started off with Node.js and its features like asynchronous programming and event emitters.
+Later, we learned about NPM and other package managers and how to use it inside a project like an Angular app. 
+At the end, Angular-CLI was covered, the start of one of the most important frameworks we use at JWorks.
 
 #### Typescript: 
-In the TypeScript course, we built further on Node.js and NPM. 
+In the TypeScript course given by [Kevin Van Houtte](/author/kevin-van-houtte), we built further on Node.js and NPM. 
 We did an exercise about school management where we used OO-programming and CRUD in TypeScript. 
 This was pretty challenging but with each other's help, we managed to get the final assessment done. 
 
 #### Angular: 
-Angular was the last frontend course. This helped us to quickly create a frontend that is connected to a backend project. Here, we went more in-depth on the SPA framework and how different components interact with each other.
+Angular was the last frontend course given by [Ryan De Gruyter](/author/ryan-de-gruyter). This helped us to quickly create a frontend that is connected to a backend project. Here, we went more in-depth on the SPA framework and how different components interact with each other.
 
 ## Devops
 The trajectory also included courses about the DevOps culture. 
-We got some introductions to Docker, Kubernetes and CI/CD.
+We got some introductions to Docker, Kubernetes and CI/CD given by [Tim Vierbergen](/author/tim-vierbergen).
 
 ### Docker & Kubernetes
 These courses were given by [Tom Verelst](/author/tom-verelst). 
