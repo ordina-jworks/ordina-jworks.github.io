@@ -136,7 +136,7 @@ At the end we focussed on Openshift Origin as this is one of the preferred conta
 ## Soft Skills
 Besides sharpening our technical skills we worked on our soft skills as well.
 In the 2 day session 'Essentials of Communication' we learned how to present ourselves by means of role playing games and cases that reflect real world scenarios.
-After an additional 'Brand Yourself' session we were ready to prove and present ourselves as worthy consultants against the management of Ordina.
+After an additional 'Brand Yourself' session we were ready to prove and present ourselves as worthy consultants to the management of Ordina.
 All these techniques are also useful in the Agile & Scrum methodologies where we learned the importance of being prepared for change.
 
 
@@ -144,7 +144,7 @@ All these techniques are also useful in the Agile & Scrum methodologies where we
 <img alt="Devcase" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/fe-preview1.png' | prepend: site.baseurl }}" class="image fit">
 
 ####  Introduction
-In the second month of the kickstarter trajectory we were assigned to develop an event planner.
+During the second month of the kickstarter trajectory we were assigned to develop an event planner.
 The purpose was to have more of an overview and control of the upcoming JWorks events.
 In short, JWorks employees can create and approve events depending on their rights.
 In addition, a weekly digest of the events is sent to the Telegram JWorks chat group and a bot is made available with some defined commands.
