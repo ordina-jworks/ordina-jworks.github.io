@@ -88,7 +88,7 @@ Last but not least we had an introduction of Java 9:
 * Collectors Improvements
 * Stream improvements
 
-In the afternoon we made a few excercises on these new features and improvements which gave us a brighter view on the possibilities within present development.
+In the afternoon we made a few exercises on these new features and improvements which gave us a brighter view on the possibilities within present java development.
 
 ### Spring and Spring Boot
 The lectures of Spring and Spring Boot were given by [Ken Coenen](/author/ken-coenen){:target="_blank"}. 
@@ -105,9 +105,10 @@ We learned how to read data from an API using DTO's and store them into a databa
 
 ### Microservices
 
+
 ### Clean Code
 During this course of clean code we learned the best practices of how to write clean code. 
-This improves the readability and performance of our applications which is of great importance for Ordina.
+This improves the readability and performance of our applications which is of great importance to Ordina.
 
 ## Frontend
 Front-end courses included html/css/javascript, buildtools, typescript and Angular. 
