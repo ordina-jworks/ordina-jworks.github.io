@@ -22,7 +22,8 @@ The kickstarter trajectory consisted of 2 parts:
 
 ### First Day
 On the first day of the kickstarter trajectory we were welcomed into the company and got an introduction about the structure of the company. 
-After that we took a tour around the building. Everyone we met was very friendly and helpful. This made us feel directly at ease. 
+After that we took a tour around the building where we were told what the different workspaces are and where the different teams work. 
+It was nice to notice that everyone we met was very friendly and helpful, this made us feel directly at ease.
 On the first day we also received the keys of our car and a laptop so we were equipped to begin our journey at Ordina.
 
 ### Security
@@ -31,7 +32,19 @@ This is very important to Ordina because all its consultants need to always have
 We also followed a more technical security course which explained some of the most common attacks and how to avoid them.
 
 ### Devops
-The trajectory also included courses about the devops culture. We got introductions to docker, kubernetes, openshift.
+The trajectory also included courses about the devops culture. 
+We got some introductions to docker, kubernetes and CI/CD.
+
+#### Docker
+This course was given by  [Tom Verelst](/author/tom-verelst). 
+He explained us the basics of containerization, more specifically how this is done by Docker.
+During this hands-on session we learned how to work with containers and images. 
+We learned how to use, create and delete them. 
+There was also an explaination of  theory behind containerization and what the advantages are of using this, especially when compared to using virtual machines.
+
+#### Kubernetes & Cloud
+There were multiple sessions about how these containers are managed.
+
 
 ### Backend
 
