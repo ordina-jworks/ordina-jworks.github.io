@@ -137,7 +137,7 @@ Good communication about change is vital.
 **Personal development & mental health**
 - Leading takes energy and often gets lonely.
 - If athletes get injured, they sit on the bench. Mental fatigue and burnout are issues that affects us more than we might think.
-- Excercise, medidate (tip: [Headspace](https://www.headspace.com/){:target="_blank"}), and read every day.
+- Excercise, meditate (tip: [Headspace](https://www.headspace.com/){:target="_blank"}), and read every day.
 
 > "Your job as a manager is to make your team more badass." [@cmccarrick](https://twitter.com/cmccarrick){:target="_blank"} [#LeadDevLondon](https://twitter.com/hashtag/LeadDevLondon?src=hash){:target="_blank"}
 
