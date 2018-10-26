@@ -139,7 +139,7 @@ At the end we focussed on OpenShift Origin as this is one of the preferred conta
 
 ## Soft Skills
 Besides sharpening our technical skills we worked on our soft skills as well.
-In the 2 day session 'Essentials of Communication' we learned how to present ourselves by means of role playing games and cases that reflect real world scenarios.
+In the 2-day session 'Essentials of Communication' we learned how to present ourselves by means of role playing games and cases that reflect real world scenarios.
 After an additional 'Brand Yourself' session we were ready to prove and present ourselves as worthy consultants to the management of Ordina.
 All these techniques are also useful in the Agile & Scrum methodologies where we learned the importance of being prepared for change.
 
