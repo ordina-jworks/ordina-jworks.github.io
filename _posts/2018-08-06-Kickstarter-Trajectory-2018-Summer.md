@@ -194,6 +194,9 @@ For more technical details of the used tools and technologies of the DevCase, a 
 #### [Wout Meskens](/author/wout-meskens){:target="_blank"}
 
 #### [Steven Deleye](/author/steven-deleye){:target="_blank"}
+>The Kickstarter traject was the chance for me to learn a lot about new technologies in a short amount of time.
+Putting this information into practice during the DevCase gave me more understanding in how and when we use these technologies.
+
 
 #### [Michael De Wree](/author/michael-de-wree){:target="_blank"}
 >The Kickstarter Trajectory was not easy, but achievable. 
