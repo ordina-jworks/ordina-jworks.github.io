@@ -73,7 +73,7 @@ Last but not least we had an introduction of Java 9:
 * Collectors Improvements
 * Stream improvements
 
-In the afternoon we made a few exercises on these new features and improvements which gave us a brighter view on the possibilities within present java development.
+In the afternoon we made a few exercises on these new features and improvements which gave us a brighter view on the possibilities within present Java development.
 
 ### Spring and Spring Boot
 The lectures of Spring and Spring Boot were given by [Ken Coenen](/author/ken-coenen){:target="_blank"}. 
