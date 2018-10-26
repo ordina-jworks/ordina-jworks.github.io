@@ -26,8 +26,8 @@ It was nice to notice that everyone we met was very friendly and helpful, this m
 On the first day we also received the keys of our car and a laptop so we were equipped to begin our journey at Ordina.
 
 ## Security
-In the beginning of the trajectory we got an introduction by [Tim De Grande](/author/time-de-grande) of the most important security principles also including information security like GDPR. 
-This is very important to Ordina because all its consultants need to always have this information in the back of their minds when working at a customer.
+In the beginning of the trajectory we got an introduction by [Tim De Grande](/author/time-de-grande) of the most important security principles like GDPR. 
+This is very important to Ordina because all its consultants need to keep this information in the back of their minds when working at a customer.
 We also followed a more technical security course which explained some of the most common attacks and how to avoid them.
 
 ## Backend
