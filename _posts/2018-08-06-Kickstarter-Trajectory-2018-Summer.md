@@ -34,16 +34,21 @@ We also followed a more technical security course which explained some of the mo
 The trajectory also included courses about the devops culture. 
 We got some introductions to docker, kubernetes and CI/CD.
 
-### Docker
-This course was given by  [Tom Verelst](/author/tom-verelst). 
+### Docker & Kubernetes
+These courses were given by [Tom Verelst](/author/tom-verelst). 
 He explained us the basics of containerization, more specifically how this is done by Docker.
 During this hands-on session we learned how to work with containers and images. 
 We learned how to use, create and delete them. 
-There was also an explaination of  theory behind containerization and what the advantages are of using this, especially when compared to using virtual machines.
+There was also an explanation of the theory behind containerization and what the advantages are of using this, especially when compared to using virtual machines.
 
-### Kubernetes & Cloud
-There were multiple sessions about how these containers are managed.
+To orchestrate the containers, we received a course on Kubernetes. There we learned about the concepts of pods, secrets, ... 
+We practiced this in a small exercise where we needed to configure a Minikube and run a simple application.
 
+### Cloud
+The last technical session we followed was about all things cloud. This was given by [Dieter Hubeau](/author/dieter-hubau/) and [Bas Moorkens](/author/bas-moorkens/).
+We learned about the advantages of running applications in the cloud and what the differences are between the different operation models.
+To make this more tangible, we went into multiple cloud platform to see what the possibilities were of these platforms. 
+At the end we focussed on Openshift Origins as this is one of the preferred container management packages inside JWorks.
 
 ## Backend
 
@@ -105,6 +110,11 @@ We learned how to read data from an API using DTO's and store them into a databa
 <img alt="SpringBoot" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/be-course.png' | prepend: site.baseurl }}" class="image fit">
 
 ### Microservices
+This course gave a brief overview of the microservices architecture. 
+We learned when this is best applicable. 
+This can be applied when there is a monolith that is responsible for multiple different tasks. 
+It could be better in that case to split of these different tasks into multiple microservices. 
+The advantages of doing that are the possibility to deploy the different microservices separately and the possibility to upscale the resources of some microservices that receive the biggest loads.
 
 
 ### Clean Code
