@@ -103,7 +103,7 @@ During this course of clean code we learned the best practices of how to write c
 This improves the readability and performance of our applications which is of great importance to Ordina.
 
 ## Frontend
-Front-end courses included html/css/javascript, buildtools, typescript and Angular. 
+Frontend courses included HTML/CSS/JavaScript, build tools, TypeScript and Angular. 
 
 #### Build tools: 
 In this course, we started off with Node.js and its features like asynchronous and event emitters. NPM and other package managers were 
