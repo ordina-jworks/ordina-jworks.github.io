@@ -118,7 +118,7 @@ This was pretty challenging but with each other's help, we managed to get the fi
 Angular was the last frontend course. This helped us to quickly create a frontend that is connected to a backend project. Here, we went more in-depth on the SPA framework and how different components interact with each other.
 
 ## Devops
-The trajectory also included courses about the devops culture. 
+The trajectory also included courses about the DevOps culture. 
 We got some introductions to docker, kubernetes and CI/CD.
 
 ### Docker & Kubernetes
