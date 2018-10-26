@@ -30,26 +30,6 @@ In the beginning of the trajectory we got an introduction of the most important 
 This is very important to Ordina because all its consultants need to always have this information in the back of their minds when working at a customer.
 We also followed a more technical security course which explained some of the most common attacks and how to avoid them.
 
-## Devops
-The trajectory also included courses about the devops culture. 
-We got some introductions to docker, kubernetes and CI/CD.
-
-### Docker & Kubernetes
-These courses were given by [Tom Verelst](/author/tom-verelst). 
-He explained us the basics of containerization, more specifically how this is done by Docker.
-During this hands-on session we learned how to work with containers and images. 
-We learned how to use, create and delete them. 
-There was also an explanation of the theory behind containerization and what the advantages are of using this, especially when compared to using virtual machines.
-
-To orchestrate the containers, we received a course on Kubernetes. There we learned about the concepts of pods, secrets, ... 
-We practiced this in a small exercise where we needed to configure a Minikube and run a simple application.
-
-### Cloud
-The last technical session we followed was about all things cloud. This was given by [Dieter Hubeau](/author/dieter-hubau/) and [Bas Moorkens](/author/bas-moorkens/).
-We learned about the advantages of running applications in the cloud and what the differences are between the different operation models.
-To make this more tangible, we went into multiple cloud platform to see what the possibilities were of these platforms. 
-At the end we focussed on Openshift Origins as this is one of the preferred container management packages inside JWorks.
-
 ## Backend
 
 ### Java
@@ -132,6 +112,26 @@ In the typescript course, we build further on Node.js and NPM. We did an exercis
 
 #### Angular: 
 Angular was the last frontend course. This helped us to quickly create a frontend that is connected to a backend project. Here, we went more in-depth on the SPA framework and how different components interact with each other.
+
+## Devops
+The trajectory also included courses about the devops culture. 
+We got some introductions to docker, kubernetes and CI/CD.
+
+### Docker & Kubernetes
+These courses were given by [Tom Verelst](/author/tom-verelst). 
+He explained us the basics of containerization, more specifically how this is done by Docker.
+During this hands-on session we learned how to work with containers and images. 
+We learned how to use, create and delete them. 
+There was also an explanation of the theory behind containerization and what the advantages are of using this, especially when compared to using virtual machines.
+
+To orchestrate the containers, we received a course on Kubernetes. There we learned about the concepts of pods, secrets, ... 
+We practiced this in a small exercise where we needed to configure a Minikube and run a simple application.
+
+### Cloud
+The last technical session we followed was about different cloud technologies. This was given by [Dieter Hubeau](/author/dieter-hubau/) and [Bas Moorkens](/author/bas-moorkens/).
+We learned about the advantages of running applications in the cloud and what the differences are between the different operation models.
+To make this more tangible, we went into multiple cloud platforms to see what the possibilities were. 
+At the end we focussed on Openshift Origin as this is one of the preferred container management packages inside JWorks.
 
 ## Soft Skills
 Besides sharpening our technical skills we worked on our soft skills as well.
