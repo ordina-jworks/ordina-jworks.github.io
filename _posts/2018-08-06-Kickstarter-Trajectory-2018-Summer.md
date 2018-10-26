@@ -110,7 +110,9 @@ In this course, we started off with Node.js and its features like asynchronous p
 NPM and other package managers were 
 
 #### Typescript: 
-In the typescript course, we build further on Node.js and NPM. We did an exercise about School management where we used OO-programming and CRUD in typescript. This was pretty challenging but with each other help, we managed to get the final assessment done. 
+In the TypeScript course, we built further on Node.js and NPM. 
+We did an exercise about school management where we used OO-programming and CRUD in TypeScript. 
+This was pretty challenging but with each other's help, we managed to get the final assessment done. 
 
 #### Angular: 
 Angular was the last frontend course. This helped us to quickly create a frontend that is connected to a backend project. Here, we went more in-depth on the SPA framework and how different components interact with each other.
