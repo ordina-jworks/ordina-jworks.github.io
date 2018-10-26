@@ -186,3 +186,15 @@ For more technical details of the used tools and technologies of the DevCase, a 
 
 <img alt="Devcase" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/fe-preview2.png' | prepend: site.baseurl }}" class="image fit">
 
+### Personal Experiences
+#### [Ken Keymolen](/author/ken-keymolen){:target="_blank"}
+
+#### [Sander Smets](/author/sander-smets){:target="_blank"}
+
+#### [Wout Meskens](/author/wout-meskens){:target="_blank"}
+
+#### [Steven Deleye](/author/steven-deleye){:target="_blank"}
+
+#### [Michael De Wree](/author/michael-de-wree){:target="_blank"}
+>The Kickstarter Trajectory was not easy, but achievable. This made me so much the more excited. Especially the dev case is a good way to gain technical experience. Besides the possibility to learn and grow, Ordina makes me feel at home. I look forward to the next couple of years!
+
