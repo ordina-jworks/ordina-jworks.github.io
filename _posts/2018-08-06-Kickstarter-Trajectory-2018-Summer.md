@@ -15,12 +15,12 @@ Some just graduated from school, others already had multiple years of experience
 The goal was to broaden every kickstarter’s knowledge of the fast evolving IT world. 
 We learned the basics of every hot topic which will definitely give us enough credits for our first project.
 
-The kickstarter trajectory consisted of two parts: 
+The Kickstarter trajectory consisted of two parts: 
 * One month covering all kinds of trainings: technical, non-technical, backend, frontend, DevOps...  
 * After our minds were filled with all this information, there was a dev case where we could put everything we learned into practice.
 
 ## First Day
-On the first day of the kickstarter trajectory we were welcomed into the company and got an introduction about the structure of the company. 
+On the first day of the Kickstarter trajectory we were welcomed into the company and got an introduction about the structure of the company. 
 After that we took a tour around the building where we were told what the different workspaces are and where the different teams work. 
 It was nice to notice that everyone we met was very friendly and helpful, this made us feel directly at ease.
 On the first day we also received the keys of our car and a laptop so we were equipped to begin our journey at Ordina.
@@ -154,10 +154,10 @@ All these techniques are also useful in the Agile & Scrum methodologies where we
 
 
 ## DevCase
-<img alt="Devcase" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/fe-preview1.png' | prepend: site.baseurl }}" class="image fit">
+<img alt="DevCase" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/fe-preview1.png' | prepend: site.baseurl }}" class="image fit">
 
 ####  Introduction
-During the second month of the kickstarter trajectory we were assigned to develop an event planner.
+During the second month of the Kickstarter trajectory we were assigned to develop an event planner.
 The purpose was to have more of an overview and control of the upcoming JWorks events.
 In short, JWorks employees can create and approve events depending on their rights.
 In addition, a weekly digest of the events is sent to the Telegram JWorks chat group and a bot is made available with some defined commands.
@@ -184,7 +184,7 @@ In the backend we made use of the following technologies:
  
 For more technical details of the used tools and technologies of the DevCase, a separate blog post will follow!
 
-<img alt="Devcase" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/fe-preview2.png' | prepend: site.baseurl }}" class="image fit">
+<img alt="DevCase" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/fe-preview2.png' | prepend: site.baseurl }}" class="image fit">
 
 ### Personal Experiences
 #### [Ken Keymolen](/author/ken-keymolen){:target="_blank"}
@@ -194,6 +194,9 @@ For more technical details of the used tools and technologies of the DevCase, a 
 #### [Wout Meskens](/author/wout-meskens){:target="_blank"}
 
 #### [Steven Deleye](/author/steven-deleye){:target="_blank"}
+>The Kickstarter traject was the chance for me to learn a lot about new technologies in a short amount of time.
+Putting this information into practice during the DevCase gave me more understanding in how and when we use these technologies.
+
 
 #### [Michael De Wree](/author/michael-de-wree){:target="_blank"}
 >The Kickstarter Trajectory was not easy, but achievable. 
