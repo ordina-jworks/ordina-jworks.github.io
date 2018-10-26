@@ -12,33 +12,33 @@ comments: true
 
 ## Introduction
 54 young professionals started the Ordina Kickstarter trajectory, on the 1st of August, this summer. 
-JWorks counted 5 kickstarters: Sander, Steven, Ken, Wout en Michael. All looking for a challenge and a fresh start. 
+JWorks counted 5 kickstarters: Sander, Steven, Ken, Wout en Michaël. All looking for a challenge and a fresh start. 
 Some just graduated from school, others already had multiple years of experience, IT related or not. 
 The goal was to broaden every kickstarter’s knowledge of the fast evolving IT world. 
 We got taught the basics of every hot topic which will definitely give us enough credits for our first project.
 
 ## The Kickstarter Trajectory
 The kickstarter trajectory consisted of 2 parts: 
-* a month filled with all kinds of trainings: technical, non-technical, backend, frontend, devops...  
+* 1 month covered with all kinds of trainings: technical, non-technical, backend, frontend, devops...  
 * After our minds were filled with all this information, there was a devcase where we could put everything we learned into practice.
 
 ### First Day
-On the first day of the kickstarter trajectory we were welcomed into the company and got some introduction about the structure of the company. 
-After that we got a tour around the building. Everyone we met was very friendly and helpful. This made us feel directly at ease. 
-On the first day we also got the keys to our car and a laptop so we were equipped to begin our journey at Ordina.
+On the first day of the kickstarter trajectory we were welcomed into the company and got an introduction about the structure of the company. 
+After that we took a tour around the building. Everyone we met was very friendly and helpful. This made us feel directly at ease. 
+On the first day we also received the keys of our car and a laptop so we were equipped to begin our journey at Ordina.
 
 ### Security
 In the beginning of the trajectory we got an introduction of the most important security principles also including information security like GDPR. 
-This is very important to Ordina because all its consultants need to always have this information in the back of their heads when working at a customer.
+This is very important to Ordina because all its consultants need to always have this information in the back of their minds when working at a customer.
 We also followed a more technical security course which explained some of the most common attacks and how to avoid them.
 
 ### Devops
-The trajectory also included some courses about the devops culture. We got some introductions to docker, kubernetes, openshift.
+The trajectory also included courses about the devops culture. We got introductions to docker, kubernetes, openshift.
 
 ### Backend
 
 #### Java
-In this lecture given by [Yannick De Turck](/author/yannick-de-turck/){:target="_blank"}, we got introduced to all new features of Java 7 and 8 aswell as Java 9.
+In this lecture given by [Yannick De Turck](/author/yannick-de-turck/){:target="_blank"}, we were introduced to all new features of Java 7 and 8 aswell as Java 9.
 
 We started off with Java 7 where we learned:
 * Switch-statement with String values
@@ -78,19 +78,20 @@ Last but not least we had an introduction of Java 9:
 * Collectors Improvements
 * Stream improvements
 
-In the afternoon we made some excercises on these new features and improvements which gave us a brighter view on the possibilities within present development.
+In the afternoon we made a few excercises on these new features and improvements which gave us a brighter view on the possibilities within present development.
 
 #### Spring and Spring Boot
 The lectures of Spring and Spring Boot were given by [Ken Coenen](/author/ken-coenen){:target="_blank"}. These were spread over two days where the first day was an overal introduction to Spring fundamentals, followed by a second day where we have put everything into practice.
 
 ##### Day 1:
-The first day we got an introduction to Spring and Spring Boot about the core fundamentals and concepts of JPA, Beans and Application contexts. After that we went further into the features of the framework where we got introduced to Spring Web Services and Spring Security.
+The first day we got an introduction to Spring and Spring Boot about the core fundamentals and concepts of JPA, Beans and Application contexts. After that we went further into the features of the framework where we were introduced to Spring Web Services and Spring Security.
 
 ##### Day 2:
 On the second day we made a small project where we created a backend application to fetch all information of different digital coins (Cryptocurrencies). We learned how to read data from an API using DTO's and store them into a database. At the end of the day we had a fully working backend application which fetched all information automatically and exposed it to different endpoints.
 
 ### Frontend
 Front-end courses included html/css/javascript, buildtools, typescript and Angular. 
+
 ##### Build tools: 
 In this course, we started off with Node.js and its features like asynchronous and event emitters. NPM and other package managers were 
 
@@ -98,17 +99,18 @@ In this course, we started off with Node.js and its features like asynchronous a
 In the typescript course, we build further on Node.js and NPM. We did an exercise about School management where we used OO-programming and CRUD in typescript. This was pretty challenging but with each other help, we managed to get the final assessment done. 
 
 ##### Angular: 
-Angular was the last Frontend Course. This helped us to quickly create a frontend that is connected to a backend project. Here, we went more in-depth on the SPA framework and how different components interact with each other.
+Angular was the last frontend course. This helped us to quickly create a frontend that is connected to a backend project. Here, we went more in-depth on the SPA framework and how different components interact with each other.
 
 ### Soft Skills
 Besides sharpening our technical skills we worked on our soft skills as well.
-In the 2 day session 'Essentials Of Communication' we learned how to present ourselves by means of role playing games and cases that reflect real world scenarios.
+In the 2 day session 'Essentials of Communication' we learned how to present ourselves by means of role playing games and cases that reflect real world scenarios.
+
 After an additional 'Brand Yourself' session we were ready to prove and present ourselves as worthy consultants against the management of Ordina.
 All these techniques are also useful in the Agile & Scrum methodologies where we learned the importance of being prepared for change.
 
 
 ### DevCase
-In the second month of the kickstarter traject we were assigned to develop an event planner.
+In the second month of the kickstarter trajectory we were assigned to develop an event planner.
 The purpose was to have more of an overview and control of the upcoming JWorks events.
 In short, JWorks employees can create and approve events depending on their rights.
 In addition, a weekly digest of the events is sent to the Telegram JWorks group and a bot is made available with some defined commands.
