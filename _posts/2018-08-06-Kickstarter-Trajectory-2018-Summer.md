@@ -158,7 +158,7 @@ Together with our coaches [Orjan De Smet](/author/orjan-de-smet){:target="_blank
 After defining the sprint goal for the coming two weeks we divided ourselves into a frontend and a backend group. 
 Using Scrum methodology we held our daily stand-up meetings and as soon as a new functionality was developed a pull request was made and reviewed by our coaches.
 Every two weeks, at the end of the sprint, a demo was shown to our coaches followed by a retrospective and a sprint planning.
-By making use of continuous integration code changes in Github were automatically deployed in Openshift where a Jenskins pipeline checked the different stages from testing the code and the code quality to the build of the docker image.
+By making use of Continuous Integration, code changes in Github were automatically deployed to OpenShift where a Jenkins pipeline went through different stages ranging from testing the code and code quality, to building the Docker image.
 
 Frontend tools that were used in the project:
  * Angular
