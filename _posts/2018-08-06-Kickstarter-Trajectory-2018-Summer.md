@@ -7,7 +7,7 @@ tags: [Spring, Spring Boot, Angular, Unit Test, Mocking, Microservices, Git, Dev
 category: Kickstarters
 comments: true
 ---
-
+# The Kickstarter Trajectory
 ## Introduction
 >54 young professionals started the Ordina Kickstarter trajectory, on the 1st of August, this summer. 
 JWorks counted 5 kickstarters: Sander, Steven, Ken, Wout en Michaël. All looking for a challenge and a fresh start. 
@@ -15,7 +15,6 @@ Some just graduated from school, others already had multiple years of experience
 The goal was to broaden every kickstarter’s knowledge of the fast evolving IT world. 
 We got taught the basics of every hot topic which will definitely give us enough credits for our first project.
 
-## The Kickstarter Trajectory
 The kickstarter trajectory consisted of 2 parts: 
 * 1 month covered with all kinds of trainings: technical, non-technical, backend, frontend, devops...  
 * After our minds were filled with all this information, there was a devcase where we could put everything we learned into practice.
