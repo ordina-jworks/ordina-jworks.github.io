@@ -135,7 +135,7 @@ We practiced this in a small exercise where we needed to configure a Minikube an
 The last technical session we followed was about different cloud technologies. This was given by [Dieter Hubeau](/author/dieter-hubau/) and [Bas Moorkens](/author/bas-moorkens/).
 We learned about the advantages of running applications in the cloud and what the differences are between the different operation models.
 To make this more tangible, we went into multiple cloud platforms to see what the possibilities were. 
-At the end we focussed on Openshift Origin as this is one of the preferred container management packages inside JWorks.
+At the end we focussed on OpenShift Origin as this is one of the preferred container management packages inside JWorks.
 
 ## Soft Skills
 Besides sharpening our technical skills we worked on our soft skills as well.
