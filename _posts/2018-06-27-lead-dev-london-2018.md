@@ -147,7 +147,7 @@ Good communication about change is vital.
  <span class="image left"><img class="p-image" alt="Alicia Liu" src="/img/2018-06-27-Lead-Dev-London-2018/alicia-liu.jpg"></span>
  
 Alicia talked about how her rapid increase in job responsibilities in a rapidly growing startup led to an increase in stress, difficulty sleeping, and ultimately depression. 
-She wrote a great [blogpost](https://betterhumans.coach.me/how-depression-made-me-a-morning-person-cda4889662ff){:target="_blank"} and gave an very inspiring talk about the tools she used to recover from depression and insomnia and how she became a better leader and manager. 
+She wrote a great [blogpost](https://betterhumans.coach.me/how-depression-made-me-a-morning-person-cda4889662ff){:target="_blank"} and gave a very inspiring talk about the tools she used to recover from depression and insomnia, and how she became a better leader and manager. 
 
 A lot of engineers are promoted into management because they're good engineers, regardless of their management skills.
 Some people are naturally good at both, but if you're good at engineering, it might actually be harder to develop leadership skills. 
