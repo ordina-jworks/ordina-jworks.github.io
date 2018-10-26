@@ -2,7 +2,7 @@
 layout: post
 authors: [martin_kwee,jeroen_meys]
 title: 'The Lead Developer London 2018'
-image: /img/2018-06-27-Lead-Dev-London-2018/lead-dev.png
+image: /img/2018-10-26-Lead-Dev-London-2018/lead-dev.png
 tags: [The Lead Developer,Conference]
 category: Conference
 comments: true
@@ -17,13 +17,13 @@ This year Ordina JWorks travelled to the Barbican Centre in London to attend thi
 > But you also need to be a good team leader, be commercially astute, and stay on top of all the tech developments and trends coming over the horizon. 
 > With a balance of content across team, tools and tech, The Lead Developer conference is designed with the complexities of the job in mind.
 
-<img class="image fit center" src="{{ '/img/2018-06-27-Lead-Dev-London-2018/lead-dev-venue.jpg' | prepend: site.baseurl }}" alt="The Lead Developer 2018" />
+<img class="image fit center" src="{{ '/img/2018-10-26-Lead-Dev-London-2018/lead-dev-venue.jpg' | prepend: site.baseurl }}" alt="The Lead Developer 2018" />
 
 In this blogpost we will summarize some of the talks that are mainly focused on personal development of a team lead. All talks were recorded and can be found on [The Lead Developer London 2018 YouTube channel](https://www.youtube.com/playlist?list=PLBzScQzZ83I_VX8zgmLqIfma_kJs3RRmu){:target="_blank"}. Highly recommended!
 
 ## 'First steps as a lead' by [Dan Persa](https://twitter.com/danpersa){:target="_blank"}
 
-<span class="image left"><img class="p-image" alt="Dan Persa" src="/img/2018-06-27-Lead-Dev-London-2018/dan-persa.jpg"></span>
+<span class="image left"><img class="p-image" alt="Dan Persa" src="/img/2018-10-26-Lead-Dev-London-2018/dan-persa.jpg"></span>
 
 Why become a lead in the first place?
 According to Dan Persa, dealing with people problems is much more interesting than dealing with computers, but each company interprets this in a slightly different way. 
@@ -52,7 +52,7 @@ But how you do earn the trust and respect of your team?
 
 ## 'Building sustainable teams to handle uncertainty' by [Jenny Duckett](https://twitter.com/jenny_duckett){:target="_blank"}
 
-<span class="image left"><img class="p-image" alt="Jenny Duckett" src="/img/2018-06-27-Lead-Dev-London-2018/jenny-duckett.png"></span>
+<span class="image left"><img class="p-image" alt="Jenny Duckett" src="/img/2018-10-26-Lead-Dev-London-2018/jenny-duckett.png"></span>
 
 **What can disrupt a team?**
 
@@ -107,7 +107,7 @@ Good communication about change is vital.
 
 ## 'The hardest scaling challenge of all - yourself' by [Christian McCarrick](https://twitter.com/cmccarrick){:target="_blank"}
 
-<span class="image left"><img class="p-image" alt="Christian McCarrick" src="/img/2018-06-27-Lead-Dev-London-2018/christian-mccarrick.jpg"></span>
+<span class="image left"><img class="p-image" alt="Christian McCarrick" src="/img/2018-10-26-Lead-Dev-London-2018/christian-mccarrick.jpg"></span>
 
 **Communication**
 - Be an effective communicator: as you grow, you'll get better at getting your point across to larger and larger groups.
@@ -121,7 +121,7 @@ Good communication about change is vital.
 - If you don't prioritize your life, someone else will.
 - The Eisenhower Matrix: How to make decisions on what's urgent and important.
 
-<img class="image fit center" alt="The Eisenhower Matrix" src="/img/2018-06-27-Lead-Dev-London-2018/eisenhower.png">
+<img class="image fit center" alt="The Eisenhower Matrix" src="/img/2018-10-26-Lead-Dev-London-2018/eisenhower.png">
 
 - Multitasking is an anti-pattern, so write down all the things you need to do and keep a journal.
 - Turn off email notifications. Instead, schedule short blocks during the day when you quickly check emails and schedule longer blocks at the end of the day where you tidy things up.
@@ -144,7 +144,7 @@ Good communication about change is vital.
 
 ## 'Go slow to go fast: building strong foundations for leadership' by [Alicia Liu](https://twitter.com/aliciatweet){:target="_blank"}
 
- <span class="image left"><img class="p-image" alt="Alicia Liu" src="/img/2018-06-27-Lead-Dev-London-2018/alicia-liu.jpg"></span>
+<span class="image left"><img class="p-image" alt="Alicia Liu" src="/img/2018-10-26-Lead-Dev-London-2018/alicia-liu.jpg"></span>
  
 Alicia talked about how her rapid increase in job responsibilities in a rapidly growing startup led to an increase in stress, difficulty sleeping, and ultimately depression. 
 She wrote a great [blogpost](https://betterhumans.coach.me/how-depression-made-me-a-morning-person-cda4889662ff){:target="_blank"} and gave a very inspiring talk about the tools she used to recover from depression and insomnia, and how she became a better leader and manager. 
