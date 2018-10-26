@@ -7,7 +7,7 @@ tags: [Spring, Spring Boot, Angular, Unit Test, Mocking, Microservices, Git, Dev
 category: Kickstarters
 comments: true
 ---
-# The Kickstarter Trajectory
+
 ## Introduction
 >54 young professionals started the Ordina Kickstarter trajectory, on the 1st of August, this summer. 
 JWorks counted 5 kickstarters: Sander, Steven, Ken, Wout en Michaël. All looking for a challenge and a fresh start. 
@@ -19,35 +19,35 @@ The kickstarter trajectory consisted of 2 parts:
 * 1 month covered with all kinds of trainings: technical, non-technical, backend, frontend, devops...  
 * After our minds were filled with all this information, there was a devcase where we could put everything we learned into practice.
 
-### First Day
+## First Day
 On the first day of the kickstarter trajectory we were welcomed into the company and got an introduction about the structure of the company. 
 After that we took a tour around the building where we were told what the different workspaces are and where the different teams work. 
 It was nice to notice that everyone we met was very friendly and helpful, this made us feel directly at ease.
 On the first day we also received the keys of our car and a laptop so we were equipped to begin our journey at Ordina.
 
-### Security
+## Security
 In the beginning of the trajectory we got an introduction of the most important security principles also including information security like GDPR. 
 This is very important to Ordina because all its consultants need to always have this information in the back of their minds when working at a customer.
 We also followed a more technical security course which explained some of the most common attacks and how to avoid them.
 
-### Devops
+## Devops
 The trajectory also included courses about the devops culture. 
 We got some introductions to docker, kubernetes and CI/CD.
 
-#### Docker
+### Docker
 This course was given by  [Tom Verelst](/author/tom-verelst). 
 He explained us the basics of containerization, more specifically how this is done by Docker.
 During this hands-on session we learned how to work with containers and images. 
 We learned how to use, create and delete them. 
 There was also an explaination of  theory behind containerization and what the advantages are of using this, especially when compared to using virtual machines.
 
-#### Kubernetes & Cloud
+### Kubernetes & Cloud
 There were multiple sessions about how these containers are managed.
 
 
-### Backend
+## Backend
 
-#### Java
+### Java
 In this lecture given by [Yannick De Turck](/author/yannick-de-turck/){:target="_blank"}, we were introduced to all new features of Java 7 and 8 aswell as Java 9.
 
 We started off with Java 7 where we learned:
@@ -90,31 +90,38 @@ Last but not least we had an introduction of Java 9:
 
 In the afternoon we made a few excercises on these new features and improvements which gave us a brighter view on the possibilities within present development.
 
-#### Spring and Spring Boot
+### Spring and Spring Boot
 The lectures of Spring and Spring Boot were given by [Ken Coenen](/author/ken-coenen){:target="_blank"}. 
 These were spread over two days where the first day was an overal introduction to Spring fundamentals, followed by a second day where we have put everything into practice.
 
-##### Day 1:
+#### Day 1:
 The first day we got an introduction to Spring and Spring Boot about the core fundamentals and concepts of JPA, Beans and Application contexts. 
 After that we went further into the features of the framework where we were introduced to Spring Web Services and Spring Security.
 
-##### Day 2:
+#### Day 2:
 On the second day we made a small project where we created a backend application to fetch all information of different digital coins (Cryptocurrencies). 
 We learned how to read data from an API using DTO's and store them into a database. At the end of the day we had a fully working backend application which fetched all information automatically and exposed it to different endpoints.
 <img alt="SpringBoot" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/be-course.png' | prepend: site.baseurl }}" class="image fit">
-### Frontend
+
+### Microservices
+
+### Clean Code
+During this course of clean code we learned the best practices of how to write clean code. 
+This improves the readability and performance of our applications which is of great importance for Ordina.
+
+## Frontend
 Front-end courses included html/css/javascript, buildtools, typescript and Angular. 
 
-##### Build tools: 
+#### Build tools: 
 In this course, we started off with Node.js and its features like asynchronous and event emitters. NPM and other package managers were 
 
-##### Typescript: 
+#### Typescript: 
 In the typescript course, we build further on Node.js and NPM. We did an exercise about School management where we used OO-programming and CRUD in typescript. This was pretty challenging but with each other help, we managed to get the final assessment done. 
 
-##### Angular: 
+#### Angular: 
 Angular was the last frontend course. This helped us to quickly create a frontend that is connected to a backend project. Here, we went more in-depth on the SPA framework and how different components interact with each other.
 
-### Soft Skills
+## Soft Skills
 Besides sharpening our technical skills we worked on our soft skills as well.
 In the 2 day session 'Essentials of Communication' we learned how to present ourselves by means of role playing games and cases that reflect real world scenarios.
 
@@ -122,7 +129,7 @@ After an additional 'Brand Yourself' session we were ready to prove and present 
 All these techniques are also useful in the Agile & Scrum methodologies where we learned the importance of being prepared for change.
 
 
-### DevCase
+## DevCase
 <img alt="Devcase" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/fe-preview1.png' | prepend: site.baseurl }}" class="image fit">
 
 In the second month of the kickstarter trajectory we were assigned to develop an event planner.
