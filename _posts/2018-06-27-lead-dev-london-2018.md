@@ -42,7 +42,7 @@ Getting into leadership is not trivial, so ask people around you for help. How d
 As a lead you need to create an open and safe environment with mutual trust.
 But how you do earn the trust and respect of your team?
 - Open yourself up to be vulnerable.
-- Have regular one-to-one's.
+- Have regular one-to-ones.
 - Be transparent in decision-making, especially around performance evaluations.
 - The best solutions to problems come from the team, let them take ownership of the problem.
 - Create a feedback culture: give feedback as soon as possible after the action in need of feedback happened, decouple development feedback from performance evaluations, and organise health checks meetings.
