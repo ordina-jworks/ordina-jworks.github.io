@@ -111,7 +111,7 @@ Good communication about change is vital.
 
 **Communication**
 - Be an effective communicator: as you grow, you'll get better at getting your point across to larger and larger groups.
-- Communicate up to manager, across peers and down to your team.
+- Communicate up to the manager, across peers and down to your team.
 - Personal branding and self-promotion are important: have confidence and show the value of your work.
 - Create a safe environment by genuinely praising other people and giving honest feedback.
 - Seek out for negative feedback and ask specific questions for better feedback.
