@@ -173,7 +173,7 @@ In the backend we made use of the following technologies:
  * Telegram API
  * Keycloak Security
  
-For more technical details of the used tools and technologies of the DevCase a separate blog post will follow!
+For more technical details of the used tools and technologies of the DevCase, a separate blog post will follow!
 
 <img alt="Devcase" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/fe-preview2.png' | prepend: site.baseurl }}" class="image fit">
 
