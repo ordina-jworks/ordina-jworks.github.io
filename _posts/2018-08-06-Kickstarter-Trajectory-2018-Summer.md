@@ -154,7 +154,7 @@ In short, JWorks employees can create and approve events depending on their righ
 In addition, a weekly digest of the events is sent to the Telegram JWorks chat group and a bot is made available with some defined commands.
 
 #### Technology & Methodologies
-Together with our coaches [Orjan De Smet](/author/orjan-de-smet){:target="_blank"}, [Axel Bergmans](/author/axel-bergmans){:target="_blank"} and Haroun Pacquée we started off with an introduction to the project where the user stories on the scrum board were presented.
+Together with our coaches [Orjan De Smet](/author/orjan-de-smet){:target="_blank"}, [Axel Bergmans](/author/axel-bergmans){:target="_blank"} and Haroun Pacquée we started off with an introduction to the project where the user stories on the Scrum board were presented.
 After defining the sprint goal for the coming two weeks we divided ourselves into a frontend and a backend group. 
 Using Scrum methodology we held our daily stand-up meetings and as soon as a new functionality was developed a pull request was made and reviewed by our coaches.
 Every two weeks at the end of the sprint a demo was shown to our coaches followed by a retrospective and a sprint planning.
