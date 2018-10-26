@@ -15,7 +15,7 @@ Some just graduated from school, others already had multiple years of experience
 The goal was to broaden every kickstarter’s knowledge of the fast evolving IT world. 
 We learned the basics of every hot topic which will definitely give us enough credits for our first project.
 
-The kickstarter trajectory consisted of 2 parts: 
+The kickstarter trajectory consisted of two parts: 
 * 1 month covered with all kinds of trainings: technical, non-technical, backend, frontend, devops...  
 * After our minds were filled with all this information, there was a devcase where we could put everything we learned into practice.
 
