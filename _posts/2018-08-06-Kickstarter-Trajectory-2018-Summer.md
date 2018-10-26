@@ -8,10 +8,8 @@ category: Kickstarters
 comments: true
 ---
 
-## Table of Contents
-
 ## Introduction
-54 young professionals started the Ordina Kickstarter trajectory, on the 1st of August, this summer. 
+>54 young professionals started the Ordina Kickstarter trajectory, on the 1st of August, this summer. 
 JWorks counted 5 kickstarters: Sander, Steven, Ken, Wout en Michaël. All looking for a challenge and a fresh start. 
 Some just graduated from school, others already had multiple years of experience, IT related or not. 
 The goal was to broaden every kickstarter’s knowledge of the fast evolving IT world. 
@@ -81,14 +79,17 @@ Last but not least we had an introduction of Java 9:
 In the afternoon we made a few excercises on these new features and improvements which gave us a brighter view on the possibilities within present development.
 
 #### Spring and Spring Boot
-The lectures of Spring and Spring Boot were given by [Ken Coenen](/author/ken-coenen){:target="_blank"}. These were spread over two days where the first day was an overal introduction to Spring fundamentals, followed by a second day where we have put everything into practice.
+The lectures of Spring and Spring Boot were given by [Ken Coenen](/author/ken-coenen){:target="_blank"}. 
+These were spread over two days where the first day was an overal introduction to Spring fundamentals, followed by a second day where we have put everything into practice.
 
 ##### Day 1:
-The first day we got an introduction to Spring and Spring Boot about the core fundamentals and concepts of JPA, Beans and Application contexts. After that we went further into the features of the framework where we were introduced to Spring Web Services and Spring Security.
+The first day we got an introduction to Spring and Spring Boot about the core fundamentals and concepts of JPA, Beans and Application contexts. 
+After that we went further into the features of the framework where we were introduced to Spring Web Services and Spring Security.
 
 ##### Day 2:
-On the second day we made a small project where we created a backend application to fetch all information of different digital coins (Cryptocurrencies). We learned how to read data from an API using DTO's and store them into a database. At the end of the day we had a fully working backend application which fetched all information automatically and exposed it to different endpoints.
-
+On the second day we made a small project where we created a backend application to fetch all information of different digital coins (Cryptocurrencies). 
+We learned how to read data from an API using DTO's and store them into a database. At the end of the day we had a fully working backend application which fetched all information automatically and exposed it to different endpoints.
+<img alt="SpringBoot" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/be-course.png' | prepend: site.baseurl }}" class="image fit">
 ### Frontend
 Front-end courses included html/css/javascript, buildtools, typescript and Angular. 
 
@@ -110,9 +111,13 @@ All these techniques are also useful in the Agile & Scrum methodologies where we
 
 
 ### DevCase
+<img alt="Devcase" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/fe-preview1.png' | prepend: site.baseurl }}" class="image fit">
+
 In the second month of the kickstarter trajectory we were assigned to develop an event planner.
 The purpose was to have more of an overview and control of the upcoming JWorks events.
 In short, JWorks employees can create and approve events depending on their rights.
 In addition, a weekly digest of the events is sent to the Telegram JWorks group and a bot is made available with some defined commands.
 A more technical blogpost of the DevCase with an explanation of the used technologies and architecture will follow!
+
+<img alt="Devcase" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/fe-preview2.png' | prepend: site.baseurl }}" class="image fit">
 
