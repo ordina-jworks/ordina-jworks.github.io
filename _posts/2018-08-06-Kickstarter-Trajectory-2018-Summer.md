@@ -199,6 +199,12 @@ Our DevCase and trainings made sure that all of us have a complete understanding
 Now I feel like a more complete developer and ready to tackle day-to-day problems at customers.
 
 #### [Wout Meskens](/author/wout-meskens){:target="_blank"}
+>I am very happy that I have been given the opportunity to follow the kickstarter trajectory. 
+The first month updated my knowledge about a lot of interesting topics. 
+It was especially interesting to learn about the devops technologies. 
+The Devcase was very helpful to put all this new knowledge into practice. 
+It was fun to see that we could make with all these technologies an exciting application. 
+This kickstarter trajectory made me excited to use this technologies to help customers.
 
 #### [Steven Deleye](/author/steven-deleye){:target="_blank"}
 >The Kickstarter traject was the chance for me to learn a lot about new technologies in a short amount of time.
