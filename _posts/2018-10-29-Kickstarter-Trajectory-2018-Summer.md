@@ -27,7 +27,7 @@ This made us feel directly at ease.
 On the first day we also received the keys of our car and a laptop, so we were equipped to begin our journey at Ordina.
 
 ## Security
-In the beginning of the trajectory we got an introduction by [Tim De Grande](/author/time-de-grande) of the most important security principles like GDPR. 
+In the beginning of the trajectory we got an introduction by [Tim De Grande](/author/time-de-grande){:target="_blank"} of the most important security principles like GDPR. 
 This is very important to Ordina because all its consultants need to keep this information in the back of their minds when working at a customer.
 We also followed a more technical security course which explained some of the most common attacks and how to avoid them.
 
@@ -99,7 +99,7 @@ At the end of the day we had a fully working backend application which fetched a
 <img alt="SpringBoot" src="{{ '/img/2018-08-06-Kickstarter-Trajectory-2018-Summer/be-course.png' | prepend: site.baseurl }}" class="image fit">
 
 ### Microservices
-[Tim Ysewyn](/author/tim-ysewyn) and [Kevin Van Houtte](/author/kevin-van-houtte) gave a brief overview of the microservices architecture. 
+[Tim Ysewyn](/author/tim-ysewyn){:target="_blank"} and [Kevin Van Houtte](/author/kevin-van-houtte){:target="_blank"} gave a brief overview of the microservices architecture. 
 We learned when this is best applicable. 
 This can be applied when there is a monolith that is responsible for multiple different tasks. 
 It could be better in that case to split off these different tasks into multiple microservices. 
@@ -107,31 +107,31 @@ One of the advantages of doing that is the possibility to deploy the different m
 
 
 ### Clean Code
-During this course of clean code, [Pieter Van Hees](/author/pieter-van-hees) taught us the best practices of how to write clean code. 
+During this course of clean code, [Pieter Van Hees](/author/pieter-van-hees){:target="_blank"} taught us the best practices of how to write clean code. 
 This improves the readability and performance of our applications which is of great importance to Ordina.
 
 ## Frontend
-The frontend courses started off with HTML/CSS/JavaScript given by [Yannick Vergeylen](/author/yannick-vergeylen) after which we went more in-depth of other topics. 
+The frontend courses started off with HTML/CSS/JavaScript given by [Yannick Vergeylen](/author/yannick-vergeylen){:target="_blank"} after which we went more in-depth of other topics. 
 
 #### Build tools: 
-In this course given by [Michael Vervloet](/author/michael-vervloet), we started off with Node.js and its features like asynchronous programming and event emitters.
+In this course given by [Michael Vervloet](/author/michael-vervloet){:target="_blank"}, we started off with Node.js and its features like asynchronous programming and event emitters.
 Later, we learned about NPM and other package managers and how to use them inside a project like an Angular app. 
 At the end, Angular-CLI was covered, the start of one of the most important frameworks we use at JWorks.
 
 #### Typescript: 
-In the TypeScript course given by [Kevin Van Houtte](/author/kevin-van-houtte), we built further on Node.js and NPM. 
+In the TypeScript course given by [Kevin Van Houtte](/author/kevin-van-houtte){:target="_blank"}, we built further on Node.js and NPM. 
 We did an exercise about school management where we used OO-programming and CRUD in TypeScript. 
 This was pretty challenging but with each other's help, we managed to get the final assessment done. 
 
 #### Angular: 
-Angular was the last frontend course given by [Ryan De Gruyter](/author/ryan-de-gruyter). This helped us to quickly create a frontend that is connected to a backend project. Here, we went more in-depth on the SPA framework and how different components interact with each other.
+Angular was the last frontend course given by [Ryan De Gruyter](/author/ryan-de-gruyter){:target="_blank"}. This helped us to quickly create a frontend that is connected to a backend project. Here, we went more in-depth on the SPA framework and how different components interact with each other.
 
 ## Devops
 The trajectory also included courses about the DevOps culture. 
-We got some introductions to Docker, Kubernetes and CI/CD given by [Tim Vierbergen](/author/tim-vierbergen).
+We got some introductions to Docker, Kubernetes and CI/CD given by [Tim Vierbergen](/author/tim-vierbergen){:target="_blank"}.
 
 ### Docker & Kubernetes
-These courses were given by [Tom Verelst](/author/tom-verelst). 
+These courses were given by [Tom Verelst](/author/tom-verelst){:target="_blank"}. 
 He explained us the basics of containerization, more specifically how this is done by Docker.
 During this hands-on session we learned how to work with containers and images. 
 We learned how to use, create and delete them. 
@@ -141,7 +141,7 @@ To orchestrate the containers, we received a course on Kubernetes. There we lear
 We practiced this in a small exercise where we needed to configure a Minikube and run a simple application.
 
 ### Cloud
-The last technical session we followed was about different cloud technologies. This was given by [Dieter Hubeau](/author/dieter-hubau/) and [Bas Moorkens](/author/bas-moorkens/).
+The last technical session we followed was about different cloud technologies. This was given by [Dieter Hubeau](/author/dieter-hubau/){:target="_blank"} and [Bas Moorkens](/author/bas-moorkens/){:target="_blank"}.
 We learned about the advantages of running applications in the cloud and what the differences are between the different operation models.
 To make this more tangible, we went into multiple cloud platforms to see what the possibilities were. 
 At the end we focussed on OpenShift Origin as this is one of the preferred container management packages inside JWorks.
