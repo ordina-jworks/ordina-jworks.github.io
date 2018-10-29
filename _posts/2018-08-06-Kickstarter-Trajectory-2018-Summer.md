@@ -190,6 +190,9 @@ For more technical details of the used tools and technologies of the DevCase, a 
 #### [Ken Keymolen](/author/ken-keymolen){:target="_blank"}
 
 #### [Sander Smets](/author/sander-smets){:target="_blank"}
+>Before the kickstarter trajectory, I did not really have an in-dept view on deployment and cloud automation. 
+Our DevCase and trainings made sure that all of us have a complete understanding of front-end and back-end technologies, cloud automation and new architecture strategies like DDD and Micro-services. 
+Now I feel like a more complete developer and ready to tackle day-to-day problems at customers.
 
 #### [Wout Meskens](/author/wout-meskens){:target="_blank"}
 
