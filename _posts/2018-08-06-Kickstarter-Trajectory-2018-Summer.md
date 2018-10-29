@@ -188,9 +188,9 @@ For more technical details of the used tools and technologies of the DevCase, a 
 
 ### Personal Experiences
 #### [Ken Keymolen](/author/ken-keymolen){:target="_blank"}
->The kickstarter traject provides the means to learn new evolutions & new technologies within the IT world.
-Through the DevCase it gave us a good understanding how to incorporate the new technologies within an IT project. 
-Kickstarter provides a solid base to continue to build our skills & expertise in the different areas IT has to offer,
+>The kickstarter traject provides the means to learn new evolutions & technologies within the IT world.
+The Dev Case gave us a good understanding on how to incorporate new technologies within an IT project. 
+These trainings provide a solid base to continue to build our skills & expertise in the different areas IT has to offer,
 making sure we are positioned to provide the best solutions for our customers.     
  
 #### [Sander Smets](/author/sander-smets){:target="_blank"}
