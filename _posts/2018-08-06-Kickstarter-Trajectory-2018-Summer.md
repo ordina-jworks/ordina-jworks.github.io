@@ -194,6 +194,9 @@ Kickstarter provides a solid base to continue to build our skills & expertise in
 making sure we are positioned to provide the best solutions for our customers.     
  
 #### [Sander Smets](/author/sander-smets){:target="_blank"}
+>Before the kickstarter trajectory, I did not really have an in-dept view on deployment and cloud automation. 
+Our DevCase and trainings made sure that all of us have a complete understanding of front-end and back-end technologies, cloud automation and new architecture strategies like DDD and Micro-services. 
+Now I feel like a more complete developer and ready to tackle day-to-day problems at customers.
 
 #### [Wout Meskens](/author/wout-meskens){:target="_blank"}
 
