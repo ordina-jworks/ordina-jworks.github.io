@@ -141,7 +141,7 @@ To orchestrate the containers, we received a course on Kubernetes. There we lear
 We practiced this in a small exercise where we needed to configure a Minikube and run a simple application.
 
 ### Cloud
-The last technical session we followed was about different cloud technologies. This was given by [Dieter Hubeau](/author/dieter-hubau/){:target="_blank"} and [Bas Moorkens](/author/bas-moorkens/){:target="_blank"}.
+The last technical session we followed was about different cloud technologies. This was given by [Dieter Hubau](/author/dieter-hubau/){:target="_blank"} and [Bas Moorkens](/author/bas-moorkens/){:target="_blank"}.
 We learned about the advantages of running applications in the cloud and what the differences are between the different operation models.
 To make this more tangible, we went into multiple cloud platforms to see what the possibilities were. 
 At the end we focussed on OpenShift Origin as this is one of the preferred container management packages inside JWorks.
