@@ -17,7 +17,7 @@ We learned the basics of every hot topic which will definitely give us enough cr
 
 The Kickstarter trajectory consisted of two parts: 
 * One month covering all kinds of trainings: technical, non-technical, backend, frontend, DevOps...  
-* After our minds were filled with all this information, there was a dev case where we could put everything we learned into practice.
+* After our minds were filled with all this information, there was a DevCase where we could put everything we learned into practice.
 
 ## First Day
 On the first day of the Kickstarter trajectory we were welcomed into the company and got an introduction about the structure of the company. 
@@ -189,7 +189,7 @@ For more technical details of the used tools and technologies of the DevCase, a 
 ### Personal Experiences
 #### [Ken Keymolen](/author/ken-keymolen){:target="_blank"}
 >The kickstarter traject provides the means to learn new evolutions & new technologies within the IT world.
-Through the Dev Case it gave us a good understanding how to incorporate the new technologies within an IT project. 
+Through the DevCase it gave us a good understanding how to incorporate the new technologies within an IT project. 
 Kickstarter provides a solid base to continue to build our skills & expertise in the different areas IT has to offer,
 making sure we are positioned to provide the best solutions for our customers.     
  
@@ -202,7 +202,7 @@ Now I feel like a more complete developer and ready to tackle day-to-day problem
 >I am very happy that I have been given the opportunity to follow the kickstarter trajectory. 
 The first month updated my knowledge about a lot of interesting topics. 
 It was especially interesting to learn about the devops technologies. 
-The Devcase was very helpful to put all this new knowledge into practice. 
+The DevCase was very helpful to put all this new knowledge into practice. 
 It was fun to see that we could make with all these technologies an exciting application. 
 This kickstarter trajectory made me excited to use this technologies to help customers.
 
@@ -214,7 +214,7 @@ Putting this information into practice during the DevCase gave me more understan
 #### [Michael De Wree](/author/michael-de-wree){:target="_blank"}
 >The Kickstarter Trajectory was not easy, but achievable. 
 This made me so much more excited. 
-Especially the dev case is a good way to gain technical experience. 
+Especially the DevCase is a good way to gain technical experience. 
 Besides the possibility to learn and grow, Ordina makes me feel at home. 
 I look forward to the next couple of years!
 
