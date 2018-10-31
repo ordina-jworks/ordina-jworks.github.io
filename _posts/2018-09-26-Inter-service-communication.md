@@ -47,7 +47,7 @@ Be aware that the syntax is different between using the Spring wrapper or OpenFe
 To let your Spring context know that it has to search for OpenFeign clients, we just add `@EnableFeignClients`. 
 You can add this annotation to any class annotated with `@Configuration`, `@SpringBootApplication` or `@SpringCloudApplication`
 After we've enabled OpenFeign on our classpath, we can start adding OpenFeign clients. 
-When defining our clients, we have two solutions you can choose from. 
+When defining these clients, we have two solutions you can choose from. 
 The OpenFeign library, which provides us with the basics but very customizable OpenFeign clients, and the Spring library, that adds a few extra libraries to it for cloud tooling.
 
 ## Spring
@@ -80,7 +80,7 @@ Explanation properties:
 * `@RequestMapping`: Spring Cloud adds support for Spring MVC annotations and for using the same HttpMessageConverters used by default in Spring Web.
 
 ## OpenFeign
-To create an OpenFeign client we need an interface and a feign builder that tells the interface it is an OpenFeign client.
+To create an OpenFeign client we need an interface and a Feign builder that tells the interface it is an OpenFeign client.
 
 {% highlight java %}
 
