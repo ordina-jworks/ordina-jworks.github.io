@@ -16,7 +16,7 @@ With the help of OpenFeign, I will explain how we can fire off synchronous calls
 # Table of contents
 1. [Setup](#setup)
 2. [Different kind of HTTP Clients](#different-kind-of-clients) 
-3. [Enabling Mutual SSL in transit](#mutual-ssl)
+3. [Enabling Mutual SSL](#building-a-mutual-ssl-client-with-apache)
 4. [Intercepting requests](#intercepting-requests)
 5. [Give it a (re)try](#give-it-a-retry) 
 6. [Securing your API](#securing-your-api)
@@ -63,7 +63,8 @@ The OpenFeign library, which provides us with the basics but very customizable O
 Explanation properties:
 
 * `@FeignClient`: is the annotation for Spring to recognize OpenFeign clients, OpenFeign clients have to be interfaces as it is self declarative.
-* `value/name`: is the name of the feign client that will be used to create a Ribbon load balancer which can then be linked to the target application using service discovery or a fixed list of servers. You could also use the url attribute to point your client to the target application when you're not using Ribbon.
+* `value/name`: is the name of the feign client that will be used to create a Ribbon load balancer which can then be linked to the target application using service discovery or a fixed list of servers. 
+You could also use the url attribute to point your client to the target application when you're not using Ribbon.
 * `fallback`: A class where a fallback method is being implemented for resiliency. 
 
 {% highlight java %}
@@ -77,7 +78,7 @@ Explanation properties:
 {% endhighlight %}
 
 * `configuration`: is for extra configuration like logging, interceptors, etc... more on that below.
-* `@RequestMapping`: Spring Cloud adds support for Spring MVC annotations and for using the same HttpMessageConverters used by default in Spring Web.
+* `@RequestMapping`: Spring Cloud adds support for Spring MVC annotations and for using the same `HttpMessageConverters` used by default in Spring Web.
 
 ## OpenFeign
 To create an OpenFeign client we need an interface and a Feign builder that tells the interface it is an OpenFeign client.
@@ -97,7 +98,7 @@ public interface AuthClient {
 OpenFeign provides us with a builder like pattern for our clients.
 When we want to customize, we just add our own customization to the builder. 
 To see the builder at work, let's create a bean of our client and return a Feign builder.
-It's important to let the builder know which client he has to target for communication. 
+It's important to let the builder know which interface he has to target for communication. 
 The second parameter is most likely the base url where all the requests begin. 
 Get your urls from the yml or properties file with the help of `@Value`.
 
@@ -137,12 +138,10 @@ OkHttp is an HTTP client that’s efficient by default:
 ## ApacheHttpClient
 The advantage of using `ApacheHttpClient` over the default client is that `ApacheHttpClient` sends more headers with the request, eg. `Content-Length`, which some servers expect.
 
-## Mutual SSL
-Mutual SSL is supported in all of these clients, here we can safely store our key and trust-store into transit.
-
 ### Building a Mutual SSL client with Apache
-To achieve this, we have to create a HttpClient that builds the SSL context.
-When the SSL context is valid, we wrap this inside a ApacheHttpClient for being complaint with OpenFeign. 
+Mutual SSL is supported in all of these clients.
+To achieve this in an `ApacheHttpClient`, we have to create an HttpClient that builds the SSL context.
+When the SSL context is valid, we wrap this inside an `ApacheHttpClient` for being compliant with OpenFeign. 
 
 {% highlight java %}
 
@@ -166,11 +165,11 @@ Add it to the builder.
     }
 {% endhighlight %}
 
-> Aside from these clients, there are a few more to research if you want : [OpenFeign clients](#https://github.com/OpenFeign/feign#ribbon)
+> Aside from these clients, there are a few more to research if you want : [OpenFeign clients](https://github.com/OpenFeign/feign#ribbon){:target="_blank"}
 
 # Give it a (re)try
 When we want to build some resilience in our communication, we can setup a retry mechanism in our OpenFeign client. 
-If the other service is unreachable, we will try again until it is healthy or until our configuration has been set. 
+If the other service is unreachable, we will try again until it is healthy or until the max attempts you have set in your configuration has been reached. 
 When we want to use the retryer of OpenFeign, we got three properties we can set.
 
 * Period: How long it takes before the retry is triggered
@@ -222,7 +221,7 @@ When we want to add the security layer between our services, there are a couple 
 Here are a few that can be handled by OpenFeign. 
 
 ## Basic
-When you want to send basic credentials you can just add an [interceptor](#interceptor) for the OpenFeign client and add the username and password.
+When you want to send basic credentials you can just add an [interceptor](#intercepting-requests) for the OpenFeign client and add the username and password.
 
 ## Bearer
 For only Bearer token communication, you can just pass it down in the request header of your method call. 
@@ -265,8 +264,9 @@ An OpenFeign ErrorDecoder must be added to the configuration of the client objec
 {% endhighlight %}
 
 Rather than throwing an exception in the decode method of the ErrorDecoder, you return an exception to Feign and Feign will throw it for you.
-The default error decoder ErrorDecoder.Default always throws a FeignException.
-The problem with ending up with a FeignException is that it does not contain a lot of structure. It is a plain RuntimeException which only contains a message with a stringified response body. No way of interpreting that exception to rethrow a more functional exception eg. UserNotFoundException.
+The default error decoder `ErrorDecoder.Default` always throws a FeignException.
+The problem with ending up with a FeignException is that it does not contain a lot of structure. It is a plain `RuntimeException` which only contains a message with a stringified response body. 
+No way of interpreting that exception to rethrow a more functional exception eg. `UserNotFoundException`.
 
 ## Error decoder
 To handle the errors, we have to look at the structure of these errors. 
@@ -304,18 +304,20 @@ public class CustomErrorDecoder implements ErrorDecoder {
         ex.setTitle(read(body, "$.title"));
         return ex;
     }
+}
 {% endhighlight %}
 
 <div markdown="span" class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i> <b>Warning:</b> 
 Working with checked exceptions and Feign is a bit tricky for several reasons.
-Returning a checked exception is possible in the ErrorDecoder, but to avoid Java's UndeclaredThrowableException, you'll have to add it to the method signature in the Feign interface. That causes Sonar to complain because there's no actual code which throws that exception.
+Returning a checked exception is possible in the `ErrorDecoder`, but to avoid Java's `UndeclaredThrowableException`, you'll have to add it to the method signature in the Feign interface. 
+That causes Sonar to complain because there's no actual code which throws that exception.
 </div>
 
 
 # Conclusion 
 These were my experiences with OpenFeign and I like the simplicity of it. 
-If you choose for the Spring wrapper or OpenFeign, the client is an advanced tool for enabling inter service communication.
-As of now, they just released a new version that is complaint with Java 11.
+If you choose for the Spring wrapper or OpenFeign, the client is an advanced tool for enabling inter-service communication.
+As of now, they just released a new version that is compliant with Java 11.
 So go experiment and learn on the way! 
 
 
