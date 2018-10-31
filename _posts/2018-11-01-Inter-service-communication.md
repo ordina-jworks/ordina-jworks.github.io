@@ -65,7 +65,7 @@ Explanation properties:
 * `@FeignClient`: is the annotation for Spring to recognize OpenFeign clients, OpenFeign clients have to be interfaces as it is self declarative.
 * `value/name`: is the name of the feign client that will be used to create a Ribbon load balancer which can then be linked to the target application using service discovery or a fixed list of servers. 
 You could also use the url attribute to point your client to the target application when you're not using Ribbon.
-* `fallback`: A class where a fallback method is being implemented for resiliency. 
+* `fallback`: If Hystrix is enabled, you can implement a fallback method.  
 
 {% highlight java %}
     @Component
