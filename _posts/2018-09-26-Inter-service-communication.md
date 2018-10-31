@@ -15,13 +15,14 @@ With the help of OpenFeign, I will explain how we can fire off synchronous calls
 
 # Table of contents
 1. [Setup](#setup)
-2. [Intercepting requests](#interceptor)
-3. [Clients](#clients)
-4. [Enabling Mutual SSL in transit](#mutual-ssl)
-5. [Give it a (re)try](#retry-mechanism)
+2. [Different kind of HTTP Clients](#different-kind-of-clients) 
+3. [Enabling Mutual SSL in transit](#mutual-ssl)
+4. [Intercepting requests](#intercepting-requests)
+5. [Give it a (re)try](#give-it-a-retry) 
 6. [Securing your API](#securing-your-api)
-7. [Creating SOAP clients](#encoder--decoder)
-8. [Handling errors with the error decoder](#conclusion)
+7. [Creating SOAP clients](#creating-a-soap-client)
+8. [Handling errors with the error decoder](#handling-errors-with-the-error-decoder)
+9. [Conclusion](#conclusion)
 
 
 
@@ -62,7 +63,7 @@ The OpenFeign library, which provides us with the basics but very customizable O
 Explanation properties:
 
 * `@FeignClient`: is the annotation for Spring to recognize OpenFeign clients, OpenFeign clients have to be interfaces as it is self declarative.
-* `value/name`: is the name of the feign client, that will be used to create a Ribbon load balancer which can then be linked to the target application using service discovery or a fixed list of servers. You could also use the url attribute to point your client to the target application when you're not using Ribbon.
+* `value/name`: is the name of the feign client that will be used to create a Ribbon load balancer which can then be linked to the target application using service discovery or a fixed list of servers. You could also use the url attribute to point your client to the target application when you're not using Ribbon.
 * `fallback`: A class where a fallback method is being implemented for resiliency. 
 
 {% highlight java %}
@@ -93,9 +94,9 @@ public interface AuthClient {
 * `@Headers`: is defining the request headers that come with the request.
 
 # The builder
-OpenFeign provides us with a builder like pattern to build up our clients.
-When we want to customize, we just add our own custom classes to the builder. 
-First off, let's create a bean of our client and return a OpenFeign builder.
+OpenFeign provides us with a builder like pattern for our clients.
+When we want to customize, we just add our own customization to the builder. 
+To see the builder at work, let's create a bean of our client and return a Feign builder.
 It's important to let the builder know which client he has to target for communication. 
 The second parameter is most likely the base url where all the requests begin. 
 Get your urls from the yml or properties file with the help of `@Value`.
@@ -112,34 +113,7 @@ Get your urls from the yml or properties file with the help of `@Value`.
     }
 {% endhighlight %}
 
-# Interceptor
-If you need some basic authorization, custom headers or some extra information in every request of the client, we can use interceptors. 
-This becomes very useful in situations where every request needs this extra information.
-To add an interceptor, we just add an extra method that returns the OpenFeign interceptor. 
-
-{% highlight java %}
- private RequestInterceptor requestInterceptor() {
-        return requestTemplate -> {
-            requestTemplate.header("user", username);
-            requestTemplate.header("password", password);
-            requestTemplate.header("Accept", ContentType.APPLICATION_JSON.getMimeType());
-        };
-    }
-{% endhighlight %}
-
-To enable the customization, we add the interceptor to the builder. 
-
-{% highlight java %}
-
-   @Bean
-   AuthClient authClient() {
-        return Feign.builder()
-                .requestInterceptor(requestInterceptor())
-                .target(AuthClient.class, baseServerUrl);
-    }
-{% endhighlight %}
-
-# Clients
+# Different kind of clients
 The default HTTP client of OpenFeign uses `HttpUrlConnection` to execute its HTTP requests.
 You can configure another client (`ApacheHttpClient`, `OkHttpClient`, ...) as follows:
 {% highlight java %}
@@ -192,8 +166,9 @@ Add it to the builder.
     }
 {% endhighlight %}
 
+> Aside from these clients, there are a few more to research if you want : [OpenFeign clients](#https://github.com/OpenFeign/feign#ribbon)
 
-# Retry mechanism
+# Give it a (re)try
 When we want to build some resilience in our communication, we can setup a retry mechanism in our OpenFeign client. 
 If the other service is unreachable, we will try again until it is healthy or until our configuration has been set. 
 When we want to use the retryer of OpenFeign, we got three properties we can set.
@@ -215,24 +190,64 @@ Example:
     }
 {% endhighlight %}
 
-# Encoder / Decoder
-Besides JSON encoders and decoders, you can also enable support for XML.
-If you ever have to integrate with SOAP third party APIs, OpenFeign supports it.
-There is a very detailed explanation on how to use it in the [documentation](https://github.com/OpenFeign/feign/tree/master/jaxb){:target="_blank"} of OpenFeign.
+# Intercepting requests
+If you need some basic authorization, custom headers or some extra information in every request of the client, we can use interceptors. 
+This becomes very useful in situations where every request needs this extra information.
+To add an interceptor, we just add an extra method that returns the OpenFeign interceptor. 
+
+{% highlight java %}
+ private RequestInterceptor requestInterceptor() {
+        return requestTemplate -> {
+            requestTemplate.header("user", username);
+            requestTemplate.header("password", password);
+            requestTemplate.header("Accept", ContentType.APPLICATION_JSON.getMimeType());
+        };
+    }
+{% endhighlight %}
+
+To enable the customization, we add the interceptor to the builder. 
+
+{% highlight java %}
+
+   @Bean
+   AuthClient authClient() {
+        return Feign.builder()
+                .requestInterceptor(requestInterceptor())
+                .target(AuthClient.class, baseServerUrl);
+    }
+{% endhighlight %}
 
 # Securing your API
 When we want to add the security layer between our services, there are a couple solutions to look at. 
 Here are a few that can be handled by OpenFeign. 
 
 ## Basic
->When you want to send basic credentials you can just add an [interceptor](#interceptor) for the OpenFeign client and add the username and password.
+When you want to send basic credentials you can just add an [interceptor](#interceptor) for the OpenFeign client and add the username and password.
 
 ## Bearer
->For only Bearer token communication you can just pass it down the parameters of your method call. 
+For only Bearer token communication, you can just pass it down in the request header of your method call. 
+
+{% highlight java %}
+//Spring
+    @Override
+    public boolean isTokenValid(@RequestHeader("Authorization") String token);
+
+//OpenFeign
+    @RequestLine("GET /auth")
+    @Headers({"Authorization: {token}", "Accept: application/hal+json"})
+    boolean isValid(@Param("token") String token);
+{% endhighlight %}
+
 
 ## OAuth2
->This link provides a good explanation about the use of OAuth2 with OpenFeign. 
+This link provides a good explanation about the use of OAuth2 with OpenFeign. 
 [OAuth 2 interceptor](https://jmnarloch.wordpress.com/2015/10/14/spring-cloud-feign-oauth2-authentication/ ){:target="_blank"}
+
+# Creating a SOAP client
+Besides JSON encoders and decoders, you can also enable support for XML.
+If you ever have to integrate with SOAP third party APIs, OpenFeign supports it.
+There is a very detailed explanation on how to use it in the [documentation](https://github.com/OpenFeign/feign#jaxb){:target="_blank"} of OpenFeign.
+
 
 # Handling errors with the error decoder
 The OpenFeign API provides an ErrorDecoder to handle erroneous responses from servers.
@@ -298,7 +313,10 @@ Returning a checked exception is possible in the ErrorDecoder, but to avoid Java
 
 
 # Conclusion 
+These were my experiences with OpenFeign and I like the simplicity of it. 
 If you choose for the Spring wrapper or OpenFeign, the client is an advanced tool for enabling inter service communication.
+As of now, they just released a new version that is complaint with Java 11.
+So go experiment and learn on the way! 
 
 
 # Sources
