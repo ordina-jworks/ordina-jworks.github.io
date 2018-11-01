@@ -43,11 +43,11 @@ Once this is ensured, progress comes at a steady pace.
 Are you interested in knowing how I helped the team detect these common denominators?
 For that I used the liberating structure 1-2-4-All, which goes like this:
 * Everybody gets a card and a thin marker.
-* In a time box of two minutes, everyone by themselves writes down what comes after "I hate it when people..."
+* In a time box of one minute, everyone by themselves writes down what comes after "I hate it when people..."
 (Somehow it's easier for people to find examples of unwanted behaviour, than asking them for what they appreciate.)
-* Next five minutes they pair up and share their examples, thinking the value and good behaviour that could counterbalance the negative one.
+* Next two minutes they pair up and share their examples, thinking the value and good behaviour that could counterbalance the negative one.
 This value should be written on the other side of each card.
-* Team up to make a group of four and share your good behaviours and values during a time box of five minutes.
+* Team up to make a group of four and share your good behaviours and values during a time box of four minutes.
 Start clustering them when doubles or connections start to emerge.
 * For ten to fifteen minutes (depending on how big the group is), everybody explains to the group their preferred behaviour and the related value.
 Try to cluster them into groups and define a common denominator for each cluster, to make it more manageable.
