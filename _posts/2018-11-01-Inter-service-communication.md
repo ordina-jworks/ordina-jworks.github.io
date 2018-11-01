@@ -234,8 +234,8 @@ For only Bearer token communication, you can just pass it down in the request he
 
 {% highlight java %}
    //Spring
-   @Override
-   public boolean isTokenValid(@RequestHeader("Authorization") String token);
+   @RequestMapping(method = RequestMethod.GET, value = "checkToken")
+   boolean isTokenValid(@RequestHeader("Authorization") String token);
 
    //OpenFeign
    @RequestLine("GET /auth")
