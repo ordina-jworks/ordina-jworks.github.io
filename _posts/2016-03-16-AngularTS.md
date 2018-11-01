@@ -4,8 +4,9 @@ authors: [kevin_van_houtte]
 title: 'AngularTS: A new look @ Angular'
 image: /img/angularts.jpg
 tags: [TypeScript,AngularJS]
-category: AngularJS-TypeScript
+category: Angular
 comments: true
+redirect_from: /angularjs-typescript/2016/03/16/AngularTS.html
 ---
 
 ## Combining the best of two worlds.
