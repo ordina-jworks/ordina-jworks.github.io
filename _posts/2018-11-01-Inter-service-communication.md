@@ -35,10 +35,10 @@ When we decide that it is time to decompose our modulith because of numerous rea
 To use OpenFeign we need to add it to our classpath
 
 {% highlight xml %}
-    <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-openfeign</artifactId>
-    </dependency>
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>
 {% endhighlight %}
 
 When we inspect the dependency module, we see that there is a lot coming out-of-the-box with the Spring Cloud Starter.
@@ -53,11 +53,11 @@ The OpenFeign library, which provides us with the basics but very customizable O
 ## Spring
 
 {% highlight java %}
-    @FeignClient(value = "auth", fallback = FallbackAuthClient.class, configuration = FeignConfig.class)
-    public interface AuthClient { 
-        @RequestMapping(method = RequestMethod.GET, value = "checkToken")
-        boolean isTokenValid(@RequestHeader("Authorization") String token);
-    }
+@FeignClient(value = "auth", fallback = FallbackAuthClient.class, configuration = FeignConfig.class)
+public interface AuthClient { 
+    @RequestMapping(method = RequestMethod.GET, value = "checkToken")
+    boolean isTokenValid(@RequestHeader("Authorization") String token);
+}
 {% endhighlight %}
 
 * `@FeignClient`: is the annotation for Spring to recognize OpenFeign clients, OpenFeign clients have to be interfaces as it is self-declarative.
@@ -66,13 +66,13 @@ You could also use the url attribute to point your client to the target applicat
 * `fallback`: if [Hystrix](https://github.com/Netflix/Hystrix){:target="_blank"} is enabled, you can implement a fallback method.  
 
 {% highlight java %}
-    @Component
-    public class FallbackAuthClient implements AuthClient {
-        @Override
-        public boolean isTokenValid(@RequestHeader("Authorization") String token) {
-            return false;
-        }
+@Component
+public class FallbackAuthClient implements AuthClient {
+    @Override
+    public boolean isTokenValid(@RequestHeader("Authorization") String token) {
+        return false;
     }
+}
 {% endhighlight %}
 
 * `configuration`: is for extra configuration like logging, interceptors, etc... more on that below.
@@ -101,28 +101,26 @@ The second parameter is most likely the base url where all the requests begin.
 Get your URLs from the yml or properties file with the help of `@Value`.
 
 {% highlight java %}
+@Value("${base.url}")
+private String baseServerUrl;
 
-   @Value("${base.url}")
-   private String baseServerUrl;
-    
-   @Bean
-   AuthClient authClient() {
-        return Feign.builder()
-                .target(AuthClient.class, baseServerUrl);
-    }
+@Bean
+AuthClient authClient() {
+    return Feign.builder()
+            .target(AuthClient.class, baseServerUrl);
+}
 {% endhighlight %}
 
 # Different kinds of HTTP clients
 The default HTTP client of OpenFeign uses `HttpUrlConnection` to execute its HTTP requests.
 You can configure another client (`ApacheHttpClient`, `OkHttpClient`, ...) as follows:
 {% highlight java %}
-
-   @Bean
-   AuthClient authClient() {
-        return Feign.builder()
-                .client(new ApacheHttpClient())
-                .target(AuthClient.class, baseServerUrl);
-    }
+@Bean
+AuthClient authClient() {
+    return Feign.builder()
+            .client(new ApacheHttpClient())
+            .target(AuthClient.class, baseServerUrl);
+}
 {% endhighlight %}
 
 ## OkHttpClient
@@ -144,25 +142,23 @@ To achieve this in an `ApacheHttpClient`, we have to create an `HttpClient` that
 When the SSL context is valid, we wrap this inside an `ApacheHttpClient` for being compliant with OpenFeign. 
 
 {% highlight java %}
-
 public ApacheHttpClient createHttpClient() throws SSLException {
-        HttpClient httpClient = HttpClients.custom()
-                .setSSLSocketFactory(createSSLContext())
-                .build();
-        return new ApacheHttpClient(httpClient);
-    }
+    HttpClient httpClient = HttpClients.custom()
+            .setSSLSocketFactory(createSSLContext())
+            .build();
+    return new ApacheHttpClient(httpClient);
+}
 {% endhighlight %}
 
 Add it to the builder. 
 
 {% highlight java %}
-
-   @Bean
-   AuthClient authClient() {
-        return Feign.builder()
-                .client(createHttpClient())
-                .target(AuthClient.class, baseServerUrl);
-    }
+@Bean
+AuthClient authClient() {
+    return Feign.builder()
+            .client(createHttpClient())
+            .target(AuthClient.class, baseServerUrl);
+}
 {% endhighlight %}
 
 # Give it a (re)try
@@ -178,21 +174,21 @@ When we want to use the retryer of OpenFeign, we got three properties we can set
 
 Example:
 {% highlight java %}
-   @Value("${retry.period:3000}")
-   private int period;
+@Value("${retry.period:3000}")
+private int period;
 
-   @Value("${retry.maxPeriod:30000}")
-   private int maxPeriod;
+@Value("${retry.maxPeriod:30000}")
+private int maxPeriod;
 
-   @Value("${retry.maxAttempts:5}")
-   private int maxAttempts;
-    
-   @Bean
-   AuthClient authClient() {
-        return Feign.builder()
-                .retryer(new Retryer.Default(period, maxPeriod, maxAttempts))
-                .target(AuthClient.class, baseServerUrl);
-    }
+@Value("${retry.maxAttempts:5}")
+private int maxAttempts;
+
+@Bean
+AuthClient authClient() {
+    return Feign.builder()
+            .retryer(new Retryer.Default(period, maxPeriod, maxAttempts))
+            .target(AuthClient.class, baseServerUrl);
+}
 {% endhighlight %}
 
 # Intercepting requests
@@ -201,25 +197,24 @@ This becomes very useful in situations where every request needs this extra info
 To add an interceptor, we just add an extra method that returns the OpenFeign interceptor. 
 
 {% highlight java %}
- private RequestInterceptor requestInterceptor() {
-        return requestTemplate -> {
-            requestTemplate.header("user", username);
-            requestTemplate.header("password", password);
-            requestTemplate.header("Accept", ContentType.APPLICATION_JSON.getMimeType());
-        };
-    }
+private RequestInterceptor requestInterceptor() {
+    return requestTemplate -> {
+        requestTemplate.header("user", username);
+        requestTemplate.header("password", password);
+        requestTemplate.header("Accept", ContentType.APPLICATION_JSON.getMimeType());
+    };
+}
 {% endhighlight %}
 
 To enable the customization, we add the interceptor to the builder. 
 
 {% highlight java %}
-
-   @Bean
-   AuthClient authClient() {
-        return Feign.builder()
-                .requestInterceptor(requestInterceptor())
-                .target(AuthClient.class, baseServerUrl);
-    }
+@Bean
+AuthClient authClient() {
+    return Feign.builder()
+            .requestInterceptor(requestInterceptor())
+            .target(AuthClient.class, baseServerUrl);
+}
 {% endhighlight %}
 
 # Securing your API
@@ -233,14 +228,14 @@ When you want to send basic credentials you can just add an [interceptor](#inter
 For only Bearer token communication, you can just pass it down in the request header of your method call. 
 
 {% highlight java %}
-   //Spring
-   @RequestMapping(method = RequestMethod.GET, value = "checkToken")
-   boolean isTokenValid(@RequestHeader("Authorization") String token);
+//Spring
+@RequestMapping(method = RequestMethod.GET, value = "checkToken")
+boolean isTokenValid(@RequestHeader("Authorization") String token);
 
-   //OpenFeign
-   @RequestLine("GET /auth")
-   @Headers({"Authorization: {token}", "Accept: application/hal+json"})
-   boolean isValid(@Param("token") String token);
+//OpenFeign
+@RequestLine("GET /auth")
+@Headers({"Authorization: {token}", "Accept: application/hal+json"})
+boolean isValid(@Param("token") String token);
 {% endhighlight %}
 
 
@@ -260,13 +255,12 @@ Since there are many kind of errors we can get, we want a place where we can han
 An OpenFeign `ErrorDecoder` must be added to the configuration of the client object as you can see in the code below.
 
 {% highlight java %}
-
-   @Bean
-   MyClient myClient() {
-       return Feign.builder()
-               .errorDecoder(errorDecoder())
-               .target(MyClient.class, <url>);
-   }
+@Bean
+MyClient myClient() {
+   return Feign.builder()
+           .errorDecoder(errorDecoder())
+           .target(MyClient.class, <url>);
+}
 {% endhighlight %}
 
 Rather than throwing an exception in the `decode` method of the `ErrorDecoder`, you return an exception to Feign and Feign will throw it for you.
@@ -295,14 +289,17 @@ public class CustomErrorDecoder implements ErrorDecoder {
         ex = ex != null ? ex : new CustomException("Failed to decode CustomException", errorStatus(methodKey, response).getMessage());
         return ex;
     }
+    
     private CustomExceptionException createException(Response response) throws IOException {
         String body = Util.toString(response.body().asReader());
         List<ErrorResource> errorMessages = createMessage(body);
         return createCustomException(body, errorMessages);
     }
+    
     private List<ErrorResource> createMessage(String body) {
         return read(body, "$.errors");
     }
+    
     private CustomException createCustomException(String body, List<ErrorResource> errors) {
         CustomException ex = new CustomException();
         ex.setErrors(errors);
