@@ -1,6 +1,9 @@
 {% if include.author %}
 <div class="team-member-image-holder">
     <a href="{{ include.author.permalink | prepend: site.baseurl }}">
+        {% if include.author.inactive %}
+        <span class="alumnus-badge" title="{{ ' is no longer working at JWorks' | prepend: include.author.first_name}}">Alumnus</span>
+        {% endif %}
         <img class="p-image team-member-image" src="{{ '/img/author/' | append: include.author.avatar | prepend: site.baseurl }}" alt="{{ include.author.first_name }}" />
     </a>
 </div>
