@@ -56,6 +56,10 @@ Crowdin allows you to easily hire professional translators!
 To start using Crowdin, you of course need an account at [Crowdin.com](https://crowdin.com){:target="_blank" rel="noopener noreferrer"}. 
 There's a limited free trial. 
 After that you can choose from a variety of payment plans depending on the number of source strings and projects you'll have.
+> The number of projects you need on Crowdin depends on your setup.
+> However, it's recommended to create a project for each Git repository.
+> So if your front- and backend application live in the same repository, you can configure multiple source files within one project.
+> If not, you'll need to create two separate projects on Crowdin.
 
 Once logged in, you can create a new project. 
 You can choose the source language and the languages you wish to translate to. 
@@ -73,23 +77,27 @@ For Windows an [installer](https://support.crowdin.com/cli-tool/){:target="_blan
 Once installed, open a terminal and go to the root of your project and run `crowdin generate`.
 This will generate a `crowdin.yml` file that is used to configure Crowdin in your project.
 In that file four things need to be changed:
-* `project_identifier`: the one you find under API on the Crowdin site
-* `api_key`: also under API
+* `project_identifier`: the one you find under `API` on the Crowdin site
+* `api_key`: also under `API`
 * `source`: this should point to the source translation file (e.g. in an Angular app `/src/assets/i18n/en.json`)
 * `translation`: the translated files will end up here (e.g. `/src/assets/i18n/%two_letters_code%.json`)
+
+> I don't recommend selecting the source language as a target language, because it will then be overwritten when downloading the translations.
+> You could put the source language file in a separate directory if you prefer the source language being editable on Crowdin as well.
+> However, you would have to update the source file manually when there are changes.
 
 > There are [more options](https://support.crowdin.com/configuration-file/){:target="_blank" rel="noopener noreferrer"} and regexes available, but these are the only ones required to set up Crowdin in an Angular app for example.
 
 ### Upload and download translations
-There are two options here, either you integrate Crowdin with your Git repository or you up and download the translations manually (or automate it using CLI commands).
+There are two options here: either you integrate Crowdin with your Git repository or you up and download the translations manually (or automate it using CLI commands).
 I personally prefer integrating it with Git so we'll get to that first.
-> It's also not possible to use both at the same time because you'll end up with multiple source files on Crowdin.com.
+> It's not possible to use both at the same time because you'll end up with multiple source files on Crowdin.com.
 
 #### Git integration
 On the Crowdin website, go to the project's settings again, then to `Integration`.
 Choose the source control system you're using and click on `Set Up Integration` (or choose `Enterprise` if you're on a self-hosted version).
-For GitHub.com and GitLab.com you'll be redirected to their website to authorize Crowdin to use your account.
-If you chose `Enterprise` you'll need to generate a token yourself and paste it into the correct field together with the URL to you self-hosted source control system.
+For GitHub and GitLab you'll be redirected to their website to authorize Crowdin to use your account.
+If you chose `Enterprise` you'll need to generate a token yourself and paste it into the correct field together with the URL to your self-hosted source control system.
 Next you can choose which branches you want to watch for changes to the source language file and choose a name of the branch to where translations should be pushed.
 > Which source branch you wish to use depends on your workflow. 
 > In my case, we work with short-lived feature branches and once they are done, we merge them to the `master` branch.
