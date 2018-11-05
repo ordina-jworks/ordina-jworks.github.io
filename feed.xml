@@ -1,5 +1,165 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-11-02T15:53:07+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Communication in a distributed system with OpenFeign: Tips &amp;amp; Tricks</title><link href="https://ordina-jworks.github.io/microservices/2018/11/02/Inter-service-communication.html" rel="alternate" type="text/html" title="Communication in a distributed system with OpenFeign: Tips &amp; Tricks" /><published>2018-11-02T00:00:00+00:00</published><updated>2018-11-02T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/microservices/2018/11/02/Inter-service-communication</id><content type="html" xml:base="https://ordina-jworks.github.io/microservices/2018/11/02/Inter-service-communication.html">&lt;p&gt;In contrast to monolithic applications, services in a distributed system are running on multiple machines. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-11-05T13:05:24+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Managing translations with Crowdin</title><link href="https://ordina-jworks.github.io/development/2018/11/05/managing-translations-with-crowdin.html" rel="alternate" type="text/html" title="Managing translations with Crowdin" /><published>2018-11-05T00:00:00+00:00</published><updated>2018-11-05T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2018/11/05/managing-translations-with-crowdin</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2018/11/05/managing-translations-with-crowdin.html">&lt;blockquote&gt;
+  &lt;p&gt;As your application continues to grow, you may want to support more and more languages.
+Managing all that in the source code will become very hard and prone to errors.
+Luckily there’s an easy solution to that and it’s called Crowdin!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-is-crowdin&quot;&gt;What is Crowdin&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#key-features&quot;&gt;Key features&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#getting-started&quot;&gt;Getting started&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#in-app-translations&quot;&gt;In app translations&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;what-is-crowdin&quot;&gt;What is Crowdin&lt;/h2&gt;
+&lt;p&gt;Crowdin is an online platform that allows you to do translations through a visual interface.
+You can appoint people as translators for any natural language.
+Either an integration with your Git repository or a CLI tool can be used to get the source strings into Crowdin.
+After uploading the source strings, the translators can get to work.
+They’ll be notified whenever there’s something new to translate.
+When they’re done, approvers can start proof-reading with the help of some thorough quality assurance functionalities.
+You’ll never miss a translation again because it will clearly be marked as not being translated.
+Strings that are removed from the source file will also be removed from all translations.
+The translated files can be downloaded at any moment and will be in the exact same format as the source file.
+In other words, clean and up-to-date translation files!&lt;/p&gt;
+
+&lt;p&gt;Translator view:
+&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 1422px;&quot; alt=&quot;Crowdin translator view&quot; src=&quot;/img/2018-11-05-managing-translations-with-crowdin/translator_mode.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Approver view:
+&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 1439px;&quot; alt=&quot;Crowdin approver view&quot; src=&quot;/img/2018-11-05-managing-translations-with-crowdin/approver_mode.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;key-features&quot;&gt;Key features&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;A large number of file formats are supported, ranging from &lt;code class=&quot;highlighter-rouge&quot;&gt;json&lt;/code&gt; files to &lt;code class=&quot;highlighter-rouge&quot;&gt;csv&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;properties&lt;/code&gt; files.
+It can thus be used for Angular, React, Vue … applications as well as a Spring Boot service and so on.&lt;/li&gt;
+  &lt;li&gt;Crowdin has a very clever parser and detects thing such as HTML tags and variables.
+It will warn you if they are translated and no longer match the original tags/names.&lt;/li&gt;
+  &lt;li&gt;Quality assurance checks will help the approver in verifying the translations.&lt;/li&gt;
+  &lt;li&gt;Extra context can be provided for each source string to help translators understand what exactly they need to translate.&lt;/li&gt;
+  &lt;li&gt;Integration with source control systems is very easy and will make sure that the source strings are up-to-date with your Git repository. 
+Translations will automatically be pushed to your Git repository.&lt;/li&gt;
+  &lt;li&gt;There’s even the possibility to integrate it with your website and have people do the translations on your website directly.
+That way the translators get a lot of context of what to translate.&lt;/li&gt;
+  &lt;li&gt;If you’re unable to do the translation for a certain language, 
+Crowdin allows you to easily hire professional translators!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;getting-started&quot;&gt;Getting started&lt;/h2&gt;
+&lt;h3 id=&quot;account&quot;&gt;Account&lt;/h3&gt;
+&lt;p&gt;To start using Crowdin, you of course need an account at &lt;a href=&quot;https://crowdin.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Crowdin.com&lt;/a&gt;. 
+There’s a limited free trial. 
+After that you can choose from a variety of payment plans depending on the number of source strings and projects you’ll have.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;The number of projects you need on Crowdin depends on your setup.
+However, it’s recommended to create a project for each Git repository.
+So if your front- and backend application live in the same repository, you can configure multiple source files within one project.
+If not, you’ll need to create two separate projects on Crowdin.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Once logged in, you can create a new project. 
+You can choose the source language and the languages you wish to translate to. 
+Then go to the project’s settings and then to &lt;code class=&quot;highlighter-rouge&quot;&gt;API&lt;/code&gt;.
+There you’ll find a project identifier and a API key. 
+We’ll need those later when setting up Crowdin in our project.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 744px;&quot; alt=&quot;Crowdin project settings&quot; src=&quot;/img/2018-11-05-managing-translations-with-crowdin/languages.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;setup-in-your-project&quot;&gt;Setup in your project&lt;/h3&gt;
+&lt;p&gt;First we need to install the Crowdin CLI. 
+For Mac you can run &lt;code class=&quot;highlighter-rouge&quot;&gt;brew install crowdin&lt;/code&gt;. 
+For Windows an &lt;a href=&quot;https://support.crowdin.com/cli-tool/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;installer&lt;/a&gt; is available.&lt;/p&gt;
+
+&lt;p&gt;Once installed, open a terminal and go to the root of your project and run &lt;code class=&quot;highlighter-rouge&quot;&gt;crowdin generate&lt;/code&gt;.
+This will generate a &lt;code class=&quot;highlighter-rouge&quot;&gt;crowdin.yml&lt;/code&gt; file that is used to configure Crowdin in your project.
+In that file four things need to be changed:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;project_identifier&lt;/code&gt;: the one you find under &lt;code class=&quot;highlighter-rouge&quot;&gt;API&lt;/code&gt; on the Crowdin site&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;api_key&lt;/code&gt;: also under &lt;code class=&quot;highlighter-rouge&quot;&gt;API&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;source&lt;/code&gt;: this should point to the source translation file (e.g. in an Angular app &lt;code class=&quot;highlighter-rouge&quot;&gt;/src/assets/i18n/en.json&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;translation&lt;/code&gt;: the translated files will end up here (e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;/src/assets/i18n/%two_letters_code%.json&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;I don’t recommend selecting the source language as a target language, because it will then be overwritten when downloading the translations.
+You could put the source language file in a separate directory if you prefer the source language being editable on Crowdin as well.
+However, you would have to update the source file manually when there are changes.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;There are &lt;a href=&quot;https://support.crowdin.com/configuration-file/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;more options&lt;/a&gt; and regexes available, but these are the only ones required to set up Crowdin in an Angular app for example.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;upload-and-download-translations&quot;&gt;Upload and download translations&lt;/h3&gt;
+&lt;p&gt;There are two options here: either you integrate Crowdin with your Git repository or you up and download the translations manually (or automate it using CLI commands).
+I personally prefer integrating it with Git so we’ll get to that first.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;It’s not possible to use both at the same time because you’ll end up with multiple source files on Crowdin.com.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;git-integration&quot;&gt;Git integration&lt;/h4&gt;
+&lt;p&gt;On the Crowdin website, go to the project’s settings again, then to &lt;code class=&quot;highlighter-rouge&quot;&gt;Integration&lt;/code&gt;.
+Choose the source control system you’re using and click on &lt;code class=&quot;highlighter-rouge&quot;&gt;Set Up Integration&lt;/code&gt; (or choose &lt;code class=&quot;highlighter-rouge&quot;&gt;Enterprise&lt;/code&gt; if you’re on a self-hosted version).
+For GitHub and GitLab you’ll be redirected to their website to authorize Crowdin to use your account.
+If you chose &lt;code class=&quot;highlighter-rouge&quot;&gt;Enterprise&lt;/code&gt; you’ll need to generate a token yourself and paste it into the correct field together with the URL to your self-hosted source control system.
+Next you can choose which branches you want to watch for changes to the source language file and choose a name of the branch to where translations should be pushed.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Which source branch you wish to use depends on your workflow. 
+In my case, we work with short-lived feature branches and once they are done, we merge them to the &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; branch.
+So, the &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; branch is the one being watched by Crowdin, since it will have all the correct source strings.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 903px;&quot; alt=&quot;Crowdin Git integration&quot; src=&quot;/img/2018-11-05-managing-translations-with-crowdin/git_integration.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With this setup, each change to the source language file will be reflected on the Crowdin site.
+When a source string is translated and approved, Crowdin will push the translation to the target branch (e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;i18n_master&lt;/code&gt;) and even open up a merge request for your review!&lt;/p&gt;
+
+&lt;p&gt;A great benefit of this is that your stories don’t have to wait for all translations to be done.
+Translations are now the responsibility of the people that you appointed to do the translations.
+When they do, you’ll be notified with a merge request!&lt;/p&gt;
+
+&lt;h4 id=&quot;manual-up--and-download&quot;&gt;Manual up- and download&lt;/h4&gt;
+&lt;p&gt;If you don’t want to integrate with your Git repo, you can use the Crowdin CLI.
+There are two simple commands that let you upload the source files and download the translations.&lt;/p&gt;
+
+&lt;p&gt;Upload:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;crowdin upload sources
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Download:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;crowdin download
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;in-app-translations&quot;&gt;In app translations&lt;/h2&gt;
+&lt;p&gt;Another nifty feature is that you can do translations directly in you webapp.
+All you need to do is add a JavaScript snippet to your &lt;code class=&quot;highlighter-rouge&quot;&gt;index.html&lt;/code&gt; and select a pseudo language called &lt;code class=&quot;highlighter-rouge&quot;&gt;Acholi&lt;/code&gt;.
+Crowdin will give unique identifiers to all of your source strings and use those as translations.
+Because of the snippet, these IDs will be located and replaced with translated strings for the language you’re translating to.
+You will also be able to edit the translations inline in your application and they will immediately be reflected on Crowdin.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 960px;&quot; alt=&quot;In context localization&quot; src=&quot;/img/2018-11-05-managing-translations-with-crowdin/in_context_animation.gif&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, this isn’t something you want to do in your production environment.
+Ideally you’d only have a specific environment setup that loads the JavaScript snippet.
+If the snippet is loaded you’ll always see the Crowdin tools in your webapp,
+so it’s up to you whether you want to use it and where.&lt;/p&gt;
+
+&lt;p&gt;More info &lt;a href=&quot;https://support.crowdin.com/in-context-localization/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Crowdin has really helped me and my team in the way we manage our translations.
+At first we were sending out emails for every label to get it translated.
+Of course we missed quite some translations in various languages.
+The variables in the translated string would sometimes be translated as well which meant that they wouldn’t work.&lt;/p&gt;
+
+&lt;p&gt;With Crowdin we now have a clear overview of what is translated and what isn’t.
+Instead of sending emails, translators get notified and can do the translations through a nice UI.
+Because of the thorough quality assurance tools, less mistakes are made and those translated variables can be fixed before approving the translation and bringing it to production.&lt;/p&gt;
+
+&lt;p&gt;In short, it’s a must-have tool when you need to manage translations, especially for languages you do not speak yourself!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Martijn&quot;, &quot;last_name&quot;=&gt;&quot;Willekens&quot;, &quot;linkedin&quot;=&gt;&quot;mwillekens&quot;, &quot;twitter&quot;=&gt;&quot;MaWi_137&quot;, &quot;github&quot;=&gt;&quot;Mawi137&quot;, &quot;permalink&quot;=&gt;&quot;/author/martijn-willekens/&quot;, &quot;avatar&quot;=&gt;&quot;martijn-willekens.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend developer&quot;, &quot;email&quot;=&gt;&quot;martijn.willekens@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Martijn is a frontend developer at Ordina Belgium. He primarily devotes himself to building Angular and Ionic apps written in TypeScript. ReactiveX is his favorite set of tools to work with.&quot;}</name><email>martijn.willekens@ordina.be</email></author><category term="Development" /><category term="Development" /><category term="Translations" /><category term="Angular" /><category term="i18n" /><category term="Crowdin" /><summary type="html">As your application continues to grow, you may want to support more and more languages. Managing all that in the source code will become very hard and prone to errors. Luckily there’s an easy solution to that and it’s called Crowdin!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-11-05-managing-translations-with-crowdin/main-image.png" /></entry><entry><title type="html">Communication in a distributed system with OpenFeign: Tips &amp;amp; Tricks</title><link href="https://ordina-jworks.github.io/microservices/2018/11/02/Inter-service-communication.html" rel="alternate" type="text/html" title="Communication in a distributed system with OpenFeign: Tips &amp; Tricks" /><published>2018-11-02T00:00:00+00:00</published><updated>2018-11-02T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/microservices/2018/11/02/Inter-service-communication</id><content type="html" xml:base="https://ordina-jworks.github.io/microservices/2018/11/02/Inter-service-communication.html">&lt;p&gt;In contrast to monolithic applications, services in a distributed system are running on multiple machines. 
 To let these services interact with each other, we need some kind of inter-process communication mechanism.
 With the help of OpenFeign, I will explain how we can fire off synchronous calls to another service.&lt;/p&gt;
 
@@ -2611,626 +2771,4 @@ Use your browser or curl to check the items in the table.&lt;/p&gt;
   &lt;li&gt;AWS IAM: &lt;a href=&quot;https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS IAM Introduction&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;AWS CloudWatch: &lt;a href=&quot;https://aws.amazon.com/cloudwatch/getting-started/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Getting started with AWS CloudWatch&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Using the DynamoDB docClient: &lt;a href=&quot;https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-document-client.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS DocClient Example&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nick&quot;, &quot;last_name&quot;=&gt;&quot;Van Hoof&quot;, &quot;permalink&quot;=&gt;&quot;/author/nick-van-hoof&quot;, &quot;avatar&quot;=&gt;&quot;nick-van-hoof.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;nick-van-hoof-45337914b&quot;, &quot;email&quot;=&gt;&quot;nick.vanhoof@ordina.be&quot;, &quot;github&quot;=&gt;&quot;Nxtra&quot;, &quot;bio&quot;=&gt;&quot;Nick is a Java developer with a lot of hunger for knowledge. He is continuously looking for ways to improve. He wants to build this expertise by contributing to valuable projects. Spring, microservices and IoT fascinate him the most.&quot;}</name><email>nick.vanhoof@ordina.be</email></author><category term="Cloud" /><category term="AWS" /><category term="Lambda" /><category term="DynamoDB" /><category term="API GateWay" /><category term="Serverless" /><summary type="html">Table of content Introduction Serverless: What &amp;amp; Why What we will build Prerequisites DynamoDB Lambda: scan DynamoDB API Gateway: Access the scan Lambda Lambda: Write to DynamoDB API Gateway: Access the write Lambda What is next? Extra resources</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-10-01-How-to-Build-a-Serverless-Application/AWS-Lambda-and-DynamoDB.png" /></entry><entry><title type="html">Automated E2E (End-to-End) testing on Android and iOS with Ionic, Protractor and Appium.</title><link href="https://ordina-jworks.github.io/ionic/2018/09/30/e2e-testing-ionic-protractor-appium-e2e-testing.html" rel="alternate" type="text/html" title="Automated E2E (End-to-End) testing on Android and iOS with Ionic, Protractor and Appium." /><published>2018-09-30T00:00:00+00:00</published><updated>2018-09-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/ionic/2018/09/30/e2e-testing-ionic-protractor-appium-e2e-testing</id><content type="html" xml:base="https://ordina-jworks.github.io/ionic/2018/09/30/e2e-testing-ionic-protractor-appium-e2e-testing.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#automated-testing&quot;&gt;Automated testing&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#appium&quot;&gt;Appium&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#getting-started-with-appium&quot;&gt;Getting started with Appium&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#configure-the-e2e-testing-tools-in-your-ionic-project&quot;&gt;Configuring Protractor and the Ionic project&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#running-and-writing-ui-tests&quot;&gt;Running Tests&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#example-repository&quot;&gt;Example repository&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-
-&lt;p&gt;Many articles related to E2E testing Cordova/Ionic applications are about applications which only run in the browser.
-But what if your application run’s on native mobile devices?&lt;/p&gt;
-
-&lt;p&gt;This article will cover how to get started with E2E testing your Ionic application on native Android and iOS devices.&lt;/p&gt;
-
-&lt;p&gt;To follow along, I recommend having a basic understanding of Javascript, Typescript, Jasmine and automated testing in general.&lt;/p&gt;
-
-&lt;h1 id=&quot;automated-testing&quot;&gt;Automated testing&lt;/h1&gt;
-
-&lt;p&gt;When releasing an application, we need to make sure it was thoroughly tested.
-Making sure of discovering any bugs before reaching production.
-These tests or test scenarios can be done manually, but this would consume a lot of time and resources.
-The more cost-effective solution would be to automatically run these test scenario’s entirely by a programmable agent.&lt;/p&gt;
-
-&lt;p&gt;Thanks to a few technologies, we can script a bot that can perform most user interface interactions, 
-such as clicking on a button, performing touch gestures (f.e. swiping), etc.&lt;/p&gt;
-
-&lt;p&gt;The most popular solution for automated E2E tests is called Selenium which is based on the &lt;a href=&quot;https://w3c.github.io/webdriver/&quot;&gt;WebDriver protocol&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;While Selenium is a great solution for browsers, 
-there is a better solution for native mobile apps called &lt;a href=&quot;http://appium.io/&quot;&gt;Appium&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h1 id=&quot;appium&quot;&gt;Appium&lt;/h1&gt;
-
-&lt;p&gt;Appium is a tool for automating mobile applications and writing cross-platform UI tests. 
-It is very similar to Selenium. The difference is that Selenium is a tool for automating browsers and web applications, 
-whereas Appium is a tool for automating Native / Hybrid mobile applications.&lt;/p&gt;
-
-&lt;p&gt;Appium allows developers to write UI tests for mobile applications in any number of programming language (Javascript, Java, .NET, etc.), as it uses a superset of the Selenium WebDriver specification, called the MJSONWP protocol.&lt;/p&gt;
-
-&lt;h2 id=&quot;cross-platform-ui-testing&quot;&gt;Cross-platform UI testing&lt;/h2&gt;
-
-&lt;p&gt;Because we are using Ionic with Cordova, we can write our codebase using only web technologies but still build, 
-deploy and run on multiple platforms.
-Our mobile application can be packaged and deployed as a native application for both iOS and Android.
-We can achieve the same cost-savings strategy “Write once, run anywhere” for our UI tests using Appium.
-To automate our UI tests, there needs to be an agent that programmatically drives the UI of your mobile application.&lt;/p&gt;
-
-&lt;p&gt;For each platform there are different agents:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;iOS&lt;/strong&gt;: XCUITest&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Android&lt;/strong&gt;: UIAutomator, Selendroid, Espresso&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Controlling these agents requires a developer to write platform-specific code.
-Appium with MJSONWP (Webdriver spec) provides an abstraction layer to drive these agents programmatically in a platform agnostic way.&lt;/p&gt;
-
-&lt;p&gt;We will explain how to set up your Appium server and run automated UI tests in your Ionic application on Android and iOS mobile devices.&lt;/p&gt;
-
-&lt;h1 id=&quot;getting-started-with-appium&quot;&gt;Getting started with Appium&lt;/h1&gt;
-
-&lt;h2 id=&quot;environment&quot;&gt;Environment&lt;/h2&gt;
-
-&lt;p&gt;The first step is to setup your environment.
-Because we are targeting Android and iOS we will only describe the setup for &lt;strong&gt;macOS&lt;/strong&gt;, 
-but it shouldn’t be too different compared to other platforms once you have followed the 
-official ionic resources guide below, they have guides for all platforms.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://ionicframework.com/docs/developer-resources/&quot;&gt;Again: On the developer resources page of the official ionic documentation&lt;/a&gt;, you wil find guides on how to setup your machine depending on the OS you are working on.&lt;/p&gt;
-
-&lt;p&gt;Next:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Install &lt;a href=&quot;https://github.com/appium/appium-doctor&quot;&gt;appium-doctor&lt;/a&gt; using npm.&lt;/li&gt;
-  &lt;li&gt;Run appium-doctor –ios and fix any issues&lt;/li&gt;
-  &lt;li&gt;Run appium-doctor –android and fix any issues&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;appium-server&quot;&gt;Appium server&lt;/h2&gt;
-
-&lt;p&gt;There are multiple ways to start an Appium server:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Appium Desktop&lt;/li&gt;
-  &lt;li&gt;webdriver-manager&lt;/li&gt;
-  &lt;li&gt;npm install -g appium &amp;amp;&amp;amp; npm run appium&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;appium-desktop&quot;&gt;Appium desktop&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/appium/appium-desktop&quot;&gt;Appium Desktop&lt;/a&gt; is a graphical user interface for running an Appium server and starting sessions to inspect your applications.&lt;/p&gt;
-
-&lt;p&gt;Note: For macOS make sure to drop the downloaded package in the &lt;code class=&quot;highlighter-rouge&quot;&gt;/Applications&lt;/code&gt; folder.
-Otherwise you will encounter write permission issues.&lt;/p&gt;
-
-&lt;p&gt;Appium desktop has two advantages:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;It comes with an inspector to show and inspect all elements of your application&lt;/li&gt;
-  &lt;li&gt;Record user actions&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The drawback is inspecting and recording user actions only supports the Native context.
-You cannot record actions for the Webview context.
-Cordova applications always run in the webview context.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://appium.io/docs/en/writing-running-appium/web/hybrid/index.html&quot;&gt;https://appium.io/docs/en/writing-running-appium/web/hybrid/index.html&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;webdriver-manager&quot;&gt;webdriver-manager&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/angular/webdriver-manager&quot;&gt;Selenium and appium server manager&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Webdriver-manager is officially supported by Angular and works well together with Protractor,
-the official E2E testing framework for Angular applications.
-Ionic up until version 3.x is built on top of Angular,
-from version 4 and on Ionic has decoupled from the Angular framework and recreated all of their components using &lt;a href=&quot;https://stenciljs.com/&quot;&gt;StencilJS&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;npm&quot;&gt;NPM&lt;/h3&gt;
-
-&lt;p&gt;We will be using this package to start up our Appium server.&lt;/p&gt;
-
-&lt;h2 id=&quot;language&quot;&gt;Language&lt;/h2&gt;
-
-&lt;p&gt;Decide in which language you want to write your tests in.
-You need to have a client library that can send MJSONWP / JSONWP HTTP Requests to the Appium server.&lt;/p&gt;
-
-&lt;p&gt;For our application, we will write our tests in Typescript using Protractor since it has added support for Angular and type safety.&lt;/p&gt;
-
-&lt;p&gt;Other webdriver javascript clients:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;http://webdriver.io/guide/getstarted/modes.html&lt;/li&gt;
-  &lt;li&gt;https://github.com/admc/wd&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://appium.readthedocs.io/en/stable/en/writing-running-appium/other/appium-bindings/&quot;&gt;Client libraries for different languages&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;project-setup&quot;&gt;Project setup&lt;/h2&gt;
-
-&lt;p&gt;We are going to use Ionic 4 and the &lt;strong&gt;super&lt;/strong&gt; template as our application to run our tests against.&lt;/p&gt;
-
-&lt;p&gt;First, make sure your development machine has been set up correctly.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://ionicframework.com/docs/developer-resources/&quot;&gt;On the developer resources page of the official ionic documentation&lt;/a&gt;,
-you will find guides on how to set up your machine depending on the OS you are working on.&lt;/p&gt;
-
-&lt;p&gt;Once your machine is set up, install the Ionic CLI.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm i &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; ionic
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Next, generate the Ionic Cordova application using the Ionic CLI.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ionic start superApp super &lt;span class=&quot;nt&quot;&gt;--type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ionic-angular &lt;span class=&quot;nt&quot;&gt;--cordova&lt;/span&gt;
-ionic cordova platform add android
-ionic cordova platform add ios
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Test if you can build the application by entering the following commands&lt;/p&gt;
-
-&lt;h3 id=&quot;android&quot;&gt;Android&lt;/h3&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ionic cordova build android
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;ios&quot;&gt;iOS&lt;/h3&gt;
-
-&lt;p&gt;Note: You will have to open your ios project in xcode first 
-to configure your code signing identity and provision profile.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ionic cordova build ios
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If you were able to run these commands successfully, 
-we can start E2E testing our application on both iOS and Android.&lt;/p&gt;
-
-&lt;p&gt;Before continuing, make a folder &lt;code class=&quot;highlighter-rouge&quot;&gt;/e2e&lt;/code&gt; in the root of your project.&lt;/p&gt;
-
-&lt;h1 id=&quot;configure-the-e2e-testing-tools-in-your-ionic-project&quot;&gt;Configure the E2E testing tools in your Ionic project&lt;/h1&gt;
-
-&lt;h2 id=&quot;appium-1&quot;&gt;Appium&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Install Appium as a local dependency&lt;/li&gt;
-  &lt;li&gt;Add the correct chrome driver&lt;/li&gt;
-  &lt;li&gt;Create an NPM task in your package.json&lt;/li&gt;
-  &lt;li&gt;Boot up the appium service&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;1-install-appium-as-a-local-dependency&quot;&gt;1. Install Appium as a local dependency&lt;/h3&gt;
-
-&lt;p&gt;Just run the following command to add Appium as a local dependency, 
-this will allow us to work with Appium using NPM scripts.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm i &lt;span class=&quot;nt&quot;&gt;-D&lt;/span&gt; appium
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;2-add-the-correct-chrome-driver&quot;&gt;2. Add the correct chrome driver&lt;/h3&gt;
-
-&lt;p&gt;To be able to run your tests on Android devices, 
-you need to match the correct chrome driver with the Chrome version running on the Android test devices.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://appium.readthedocs.io/en/stable/en/writing-running-appium/web/chromedriver/&quot;&gt;Here is an overview of all the chrome drivers and their respective Chrome versions&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;To download a chrome driver, go to the &lt;a href=&quot;http://chromedriver.chromium.org/downloads&quot;&gt;Chrome Driver Downloads page&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Once you have selected your chrome driver, download it and put in the &lt;code class=&quot;highlighter-rouge&quot;&gt;/e2e&lt;/code&gt; folder.&lt;/p&gt;
-
-&lt;h3 id=&quot;3-create-an-npm-task-in-your-packagejson&quot;&gt;3. Create an NPM task in your package.json&lt;/h3&gt;
-
-&lt;p&gt;Before running Appium, you can provide the downloaded chrome driver as a cli argument:&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;appium&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;appium --chromedriver-executable e2e/chromedriver&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;4-start-your-appium-server&quot;&gt;4. Start your Appium server&lt;/h3&gt;
-
-&lt;p&gt;Now you should have everything configured correctly to start your Appium server.
-Simply run:&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm run appium
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;protractor&quot;&gt;Protractor&lt;/h2&gt;
-
-&lt;p&gt;Protractor will be our test runner and testing framework.
-&lt;a href=&quot;https://www.protractortest.org/#/&quot;&gt;Visit their website&lt;/a&gt; for more information on Protractor.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Install protractor as a local NPM dependency&lt;/li&gt;
-  &lt;li&gt;Configure typescript configs&lt;/li&gt;
-  &lt;li&gt;Create your protractor config&lt;/li&gt;
-  &lt;li&gt;Create NPM script for running your e2e tests&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;1-install-protractor-as-a-local-npm-dependency&quot;&gt;1. Install Protractor as a local NPM dependency&lt;/h3&gt;
-
-&lt;p&gt;Install the test runner with the following command:&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-D&lt;/span&gt; protractor
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;1-configure-typescript&quot;&gt;1. Configure Typescript&lt;/h3&gt;
-
-&lt;p&gt;We require a few extra tools to be able run and write our tests in Typescript.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-D&lt;/span&gt; ts-node @types/jasmine @types/node
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Next, in your &lt;code class=&quot;highlighter-rouge&quot;&gt;/e2e&lt;/code&gt; folder, create a &lt;strong&gt;tsconfig.json&lt;/strong&gt; file with the following configuration:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;compilerOptions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sourceMap&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;declaration&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;moduleResolution&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;emitDecoratorMetadata&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;experimentalDecorators&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lib&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;es2016&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;esnext.asynciterable&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;outDir&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;module&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;commonjs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;target&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;es5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;types&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jasmine&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This will be our tsconfig for our e2e test scripts.&lt;/p&gt;
-
-&lt;p&gt;It’s also a good idea to write your configuration files in Typescript.
-For our protractor configuration, we will use a different typescript configuration file.&lt;/p&gt;
-
-&lt;p&gt;In your &lt;code class=&quot;highlighter-rouge&quot;&gt;/e2e&lt;/code&gt; folder, create a file called &lt;code class=&quot;highlighter-rouge&quot;&gt;/e2e/protractor.tsconfig.json&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This configuration file will extend the one we created earlier, 
-we want to overwrite the include and exclude parameters to make sure it only matches
-and transpiles the &lt;strong&gt;&lt;em&gt;protractor.config.ts&lt;/em&gt;&lt;/strong&gt; file.&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;extends&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./tsconfig.json&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;include&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*.config.ts&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;exclude&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./test&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;3-configure-protractor&quot;&gt;3. Configure protractor&lt;/h3&gt;
-
-&lt;p&gt;Now one of the more exciting parts, configuring Protractor!
-Create a file called &lt;strong&gt;/e2e/protractor.config.ts&lt;/strong&gt; with the following contents:&lt;/p&gt;
-
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'protractor'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tsNode&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'ts-node'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;serverAddress&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'http://localhost:4723/wd/hub'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;testFilePAtterns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-  &lt;span class=&quot;s1&quot;&gt;'**/*/*.e2e-spec.ts'&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;iPhoneXCapability&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;browserName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;autoWebview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;autoWebviewTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/Users/${user}/ordina/e2e/superApp/platforms/ios/build/emulator/superApp.app'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'11.4'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'iOS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;deviceName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'iPhone X'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;platformName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'iOS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'My First Mobile Test'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;automationName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'XCUITest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;nativeWebTap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'true'&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;androidPixel2XLCapability&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;browserName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;autoWebview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;autoWebviewTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;platformName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Android'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;deviceName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'pixel2xl'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/Users/${user}/ordina/e2e/superApp/platforms/android/build/outputs/apk/android-debug.apk'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s1&quot;&gt;'app-package'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'be.ryan.superApp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s1&quot;&gt;'app-activity'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'MainActivity'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;autoAcceptAlerts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'true'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;autoGrantPermissions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'true'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;newCommandTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;300000&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Config&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;allScriptsTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;specs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;testFilePAtterns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;baseUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;multiCapabilities&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;androidPixel2XLCapability&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;iPhoneXCapability&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;framework&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'jasmine'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;jasmineNodeOpts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;showColors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;defaultTimeoutInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30000&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;seleniumAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;serverAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;onPrepare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;tsNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'e2e/tsconfig.json'&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;To get an idea of all the configuration parameters and their description, visit
-&lt;a href=&quot;https://github.com/angular/protractor/blob/master/lib/config.ts&quot;&gt;The official Protractor Github repo&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;I will go over the points that took me the most effort to configure correctly.&lt;/p&gt;
-
-&lt;h3 id=&quot;capabilities&quot;&gt;Capabilities&lt;/h3&gt;
-
-&lt;p&gt;Refers to the capabilities of a single E2E session, 
-it describes which features a particular session should have, for example:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Platform (Android / iOS / …)&lt;/li&gt;
-  &lt;li&gt;Device Name&lt;/li&gt;
-  &lt;li&gt;Automation framework&lt;/li&gt;
-  &lt;li&gt;Location of the Application build (.apk, .ipa)&lt;/li&gt;
-  &lt;li&gt;etc.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;If you want to spin up multiple E2E testing settings, 
-you need to configure the &lt;strong&gt;multiCapabilities&lt;/strong&gt; property.&lt;/p&gt;
-
-&lt;h4 id=&quot;android-capability&quot;&gt;Android Capability&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Run &lt;strong&gt;&lt;em&gt;ionic cordova build android&lt;/em&gt;&lt;/strong&gt; and configure the output path in the &lt;strong&gt;app&lt;/strong&gt; property&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;app-package&lt;/strong&gt; should match the package name in your config.xml&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;app-activity&lt;/strong&gt; is always MainActivity by default unless you have changed this in your config.xml&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;androidPixel2XLCapability&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;browserName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;autoWebview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;autoWebviewTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;platformName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Android'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;deviceName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'pixel2xl'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/Users/${user}/ordina/e2e/superApp/platforms/android/build/outputs/apk/android-debug.apk'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s1&quot;&gt;'app-package'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'be.ryan.superApp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s1&quot;&gt;'app-activity'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'MainActivity'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;autoAcceptAlerts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'true'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;autoGrantPermissions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'true'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;newCommandTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;300000&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;ios-capability&quot;&gt;iOS Capability&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Run &lt;strong&gt;&lt;em&gt;ionic cordova build ios&lt;/em&gt;&lt;/strong&gt; and configure the output path in the &lt;strong&gt;app&lt;/strong&gt; property&lt;/li&gt;
-  &lt;li&gt;Point to the .app file and not the .ipa if you are using simulators.&lt;/li&gt;
-  &lt;li&gt;Set automationName to &lt;strong&gt;XCUITest&lt;/strong&gt; instead of the deprecated &lt;strong&gt;UIAutomator&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;browserName is a mandatory parameter, but since we’re targeting Native apps, we can leave this as an empty string&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;iPhoneXCapability&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;browserName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;autoWebview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;autoWebviewTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/Users/${user}/ordina/e2e/superApp/platforms/ios/build/emulator/superApp.app'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'11.4'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'iOS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;deviceName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'iPhone X'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;platformName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'iOS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'My First Mobile Test'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;automationName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'XCUITest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;nativeWebTap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'true'&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;4-create-an-npm-script-for-running-e2e-tests&quot;&gt;4. Create an NPM script for running e2e tests&lt;/h3&gt;
-
-&lt;p&gt;In your package.json, add the following task:&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;e2e&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;tsc --p e2e/pro.tsconfig.json &amp;amp;&amp;amp; protractor e2e/protractor.config.js --verbose&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;running-and-writing-ui-tests&quot;&gt;Running and Writing UI tests&lt;/h1&gt;
-
-&lt;p&gt;For Protractor to know which tests to run, you need to configure the 
-&lt;strong&gt;specs&lt;/strong&gt; property, in our case all the files that end with .e2e-spec.ts&lt;/p&gt;
-
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;testFilePAtterns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-  &lt;span class=&quot;s1&quot;&gt;'**/*/*.e2e-spec.ts'&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Config&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;specs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;testFilePAtterns&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If you followed along, you should be able to run your tests by entering the following command:&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm run e2e
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Writing protractor tests is out of scope in this post, 
-but here is an example test script that you should be able to run on both iOS and Android.&lt;/p&gt;
-
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;browser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ElementFinder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;protractor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'protractor'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'App'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tutorial Screen'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'should skip to the welcome screen and have the correct button labels'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;skipButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ElementFinder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'skip'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-      &lt;span class=&quot;kr&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;browser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wait&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;protractor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ExpectedConditions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;elementToBeClickable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;skipButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-      &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;skipButtonLabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;skipButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;skipButtonLabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'SKIP'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-      &lt;span class=&quot;nx&quot;&gt;skipButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-
-      &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;loginBtn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ElementFinder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'btn-login'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-      &lt;span class=&quot;kr&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;browser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wait&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;protractor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ExpectedConditions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;elementToBeClickable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;loginBtn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-      &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;loginBtnLabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;loginBtn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;loginBtnLabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toEqual&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'SIGN IN'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-      &lt;span class=&quot;nx&quot;&gt;loginBtn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;There are seven basic steps in creating an Appium test script.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Set the location of the application to test in the desired capabilities of the test script.&lt;/li&gt;
-  &lt;li&gt;Create an Appium driver instance which points to a running Appium server&lt;/li&gt;
-  &lt;li&gt;Locate an element within the mobile application.&lt;/li&gt;
-  &lt;li&gt;Perform an action on the element.&lt;/li&gt;
-  &lt;li&gt;Anticipate the application response to the action.&lt;/li&gt;
-  &lt;li&gt;Run tests and record test results using a test framework.&lt;/li&gt;
-  &lt;li&gt;Conclude the test.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;webview-and-native-context&quot;&gt;Webview And Native context&lt;/h2&gt;
-
-&lt;p&gt;Our example application is a hybrid application.
-Meaning it will be packaged and deployed as native app so we can access Native API’s.
-But it will acually run inside a webview. By using Cordova our webview can communicate with Native API’s (f.e. Camera).&lt;/p&gt;
-
-&lt;p&gt;When the Camera is launched, we enter a Native Context, 
-if we exit the Camera and go back to our Hybrid application we return to the Webview Context.&lt;/p&gt;
-
-&lt;p&gt;Appium helps us to easily switch between these contexts since locating and interacting with UI elements are very different in both contexts.&lt;/p&gt;
-
-&lt;p&gt;For example, there are no DOM elements in the Native Context.
-To locate a native UI element you need to use an Accessibility ID. At the same time, AccessibilityID’s are not available in a Webview context.&lt;/p&gt;
-
-&lt;p&gt;TouchEvents like Tap / Swipe / Drag ‘n Drop are only supported in the Native context.
-You can not use them in the Webview Context.&lt;/p&gt;
-
-&lt;h2 id=&quot;behaviour-driven-development-with-cucumber&quot;&gt;Behaviour-driven development with Cucumber&lt;/h2&gt;
-
-&lt;p&gt;Cucumber is a tool for BDD.
-You can easily integrate Cucumber with Appium using &lt;a href=&quot;https://www.npmjs.com/package/protractor-cucumber-framework&quot;&gt;Protractor cucumber framework&lt;/a&gt; on NPM.&lt;/p&gt;
-
-&lt;p&gt;A typical workflow looks like this:&lt;/p&gt;
-
-&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Describe an app feature and corresponding scenarios in a .feature file. The contents are written in Gherkin
-
-Feature: As an employee, I want to access the application
-
-@Authentication
-Scenario: Authenticate with AzureAD
-Given I am on the Login page
-When I click on &quot;Login&quot;
-When I provide my credentials
-When I click on the &quot;Submit&quot; button
-Then I should see the Dashboard page
-
-@Authentication Failed
-Scenario: Authenticate with AzureAD fails
-Given I am on the Login page
-When I click on &quot;Login&quot;
-When I provide incorrect credentials
-When I click on the &quot;Submit&quot; button
-Then I should see the Login failed page
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Developers write an implementation for the feature in a step definitions file:&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;Given&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/^I am on the Login page$/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;equal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Login'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;When&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/^I click on &quot;Login&quot;, &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt; =&amp;gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{
-&lt;/span&gt;    &lt;span class=&quot;nx&quot;&gt;LoginPage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;loginButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;When&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/^I provide my credentials$/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;WindowsAuthPage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;enterCredentials&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;usr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;When&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/^I click on the &quot;Submit&quot; button$/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;WindowsAuthPage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;submitButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;Then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/^I should see the Dashboard page$/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;equal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Dashboard'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Let protractor and Appium run the step definitions in an Automated way.&lt;/p&gt;
-
-&lt;p&gt;The advantage of using cucumber is that non-developers can easily write their own .feature files in plain English (Gherkin).&lt;/p&gt;
-
-&lt;p&gt;This offers:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Better collaboration between Business &amp;amp; Developers&lt;/li&gt;
-  &lt;li&gt;Feature files can act as contracts for acceptance criteria&lt;/li&gt;
-  &lt;li&gt;Better reporting and readability of the UI tests&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;cloud-testing-providers&quot;&gt;Cloud testing providers&lt;/h2&gt;
-
-&lt;p&gt;The following providers offer great support for Appium tests in the cloud:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://saucelabs.com/&quot;&gt;Saucelabs&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://app.testobject.com/&quot;&gt;TestObject&lt;/a&gt;, only real devices, has been purchased by Saucelabs.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://kobiton.com/&quot;&gt;Kobiton&lt;/a&gt;, only real devices, allows you to connect your local mobile device farm.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://experitest.com/&quot;&gt;Experitest&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;While investigating and hands-on experiencing Appium, 
-I noticed the following trade-offs:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Tests can be flaky (Simply rerunning a failing test can make it succeed)&lt;/li&gt;
-  &lt;li&gt;Tests on iOS take a while to run&lt;/li&gt;
-  &lt;li&gt;Appium is slower than for example running tests directly with Espresso or XCUITest&lt;/li&gt;
-  &lt;li&gt;Documentation can be outdated and is scattered around the web&lt;/li&gt;
-  &lt;li&gt;Setting up an environment for iOS and Android takes a lot of time initially&lt;/li&gt;
-  &lt;li&gt;UI tests can differ for each platform&lt;/li&gt;
-  &lt;li&gt;Sending key events can be very slow, which make the tests run very slow&lt;/li&gt;
-  &lt;li&gt;You need a good knowledge of WebDriver API’s to write good tests&lt;/li&gt;
-  &lt;li&gt;Debugging is hard, I mostly relied on console.log statements.&lt;/li&gt;
-  &lt;li&gt;Testing on Android needs to happen with Chrome Browser version 54+.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For Android we are limited to recent Android API’s and devices with Chrome browser version 54+, 
-this means we can not test older devices or devices with older Android versions.&lt;/p&gt;
-
-&lt;p&gt;Setting up a local Appium server also takes a lot of setup and configuration, 
-but this can be circumvented if you decide to go for a cloud testing provider like Saucelabs.&lt;/p&gt;
-
-&lt;p&gt;Still, I believe Appium offers a lot of value because&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;We can write UI tests both for Android and iOS using a single programming language&lt;/li&gt;
-  &lt;li&gt;You can automate manual testing for multiple platforms&lt;/li&gt;
-  &lt;li&gt;There are quality cloud testing providers out there to help you with all your testing needs&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;And once you have everything set up, it works quite well.&lt;/p&gt;
-
-&lt;h1 id=&quot;example-repository&quot;&gt;Example repository&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/ryandegruyter/ordina-ionic-appium-protractor&quot;&gt;https://github.com/ryandegruyter/ordina-ionic-appium-protractor&lt;/a&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Ryan&quot;, &quot;last_name&quot;=&gt;&quot;de Gruyter&quot;, &quot;github&quot;=&gt;&quot;ryandegruyter&quot;, &quot;linkedin&quot;=&gt;&quot;ryandg&quot;, &quot;permalink&quot;=&gt;&quot;/author/ryan-de-gruyter/&quot;, &quot;avatar&quot;=&gt;&quot;ryan-de-gruyter.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;ryan.degruyter@ordina.be&quot;, &quot;phone&quot;=&gt;32479079468, &quot;bio&quot;=&gt;&quot;Ryan is a Software Engineer at Ordina Belgium. He is dedicated to writing clean code and building maintainable, user friendly web applications in Typescript. Ryan is also an Angular expert who enjoys giving beginner and advanced Angular courses. In his spare time, he practices martial arts and enjoys playing the guitar.&quot;}</name><email>ryan.degruyter@ordina.be</email></author><category term="Ionic" /><category term="ionic" /><category term="protractor" /><category term="appium" /><category term="angular" /><category term="typescript" /><category term="javascript" /><category term="jasmine" /><category term="testing" /><category term="E2E" /><category term="end-to-end" /><category term="android" /><category term="ios" /><summary type="html">Table of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/ionic-protractor-appium.jpg" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nick&quot;, &quot;last_name&quot;=&gt;&quot;Van Hoof&quot;, &quot;permalink&quot;=&gt;&quot;/author/nick-van-hoof&quot;, &quot;avatar&quot;=&gt;&quot;nick-van-hoof.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;nick-van-hoof-45337914b&quot;, &quot;email&quot;=&gt;&quot;nick.vanhoof@ordina.be&quot;, &quot;github&quot;=&gt;&quot;Nxtra&quot;, &quot;bio&quot;=&gt;&quot;Nick is a Java developer with a lot of hunger for knowledge. He is continuously looking for ways to improve. He wants to build this expertise by contributing to valuable projects. Spring, microservices and IoT fascinate him the most.&quot;}</name><email>nick.vanhoof@ordina.be</email></author><category term="Cloud" /><category term="AWS" /><category term="Lambda" /><category term="DynamoDB" /><category term="API GateWay" /><category term="Serverless" /><summary type="html">Table of content Introduction Serverless: What &amp;amp; Why What we will build Prerequisites DynamoDB Lambda: scan DynamoDB API Gateway: Access the scan Lambda Lambda: Write to DynamoDB API Gateway: Access the write Lambda What is next? Extra resources</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-10-01-How-to-Build-a-Serverless-Application/AWS-Lambda-and-DynamoDB.png" /></entry></feed>

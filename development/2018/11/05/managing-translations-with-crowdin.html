@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Managing translations with Crowdin - Martijn Willekens">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2018-11-05-managing-translations-with-crowdin/main-image.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/development/2018/11/05/managing-translations-with-crowdin.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Managing translations with Crowdin - Martijn Willekens"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2018-11-05-managing-translations-with-crowdin/main-image.png"/>
+
+    
+    <title>Managing translations with Crowdin - Martijn Willekens &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Managing translations with Crowdin</h2>
+                
+
+                
+                    Posted Nov 5, 2018
+
+
+    in <a href="/categories/development/">Development</a>
+
+
+
+    by
+    
+        <a href="/author/martijn-willekens/">Martijn Willekens</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/development/">Development</a>, 
+    
+        <a href="/tags/translations/">Translations</a>, 
+    
+        <a href="/tags/angular/">Angular</a>, 
+    
+        <a href="/tags/i18n/">i18n</a>, 
+    
+        <a href="/tags/crowdin/">Crowdin</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>As your application continues to grow, you may want to support more and more languages.
+Managing all that in the source code will become very hard and prone to errors.
+Luckily there’s an easy solution to that and it’s called Crowdin!</p>
+</blockquote>
+
+<h1 id="table-of-contents">Table of contents</h1>
+<ol>
+  <li><a href="#what-is-crowdin">What is Crowdin</a></li>
+  <li><a href="#key-features">Key features</a></li>
+  <li><a href="#getting-started">Getting started</a></li>
+  <li><a href="#in-app-translations">In app translations</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ol>
+
+<h2 id="what-is-crowdin">What is Crowdin</h2>
+<p>Crowdin is an online platform that allows you to do translations through a visual interface.
+You can appoint people as translators for any natural language.
+Either an integration with your Git repository or a CLI tool can be used to get the source strings into Crowdin.
+After uploading the source strings, the translators can get to work.
+They’ll be notified whenever there’s something new to translate.
+When they’re done, approvers can start proof-reading with the help of some thorough quality assurance functionalities.
+You’ll never miss a translation again because it will clearly be marked as not being translated.
+Strings that are removed from the source file will also be removed from all translations.
+The translated files can be downloaded at any moment and will be in the exact same format as the source file.
+In other words, clean and up-to-date translation files!</p>
+
+<p>Translator view:
+<img class="image fit" style="margin:0px auto; max-width: 1422px;" alt="Crowdin translator view" src="/img/2018-11-05-managing-translations-with-crowdin/translator_mode.png" /></p>
+
+<p>Approver view:
+<img class="image fit" style="margin:0px auto; max-width: 1439px;" alt="Crowdin approver view" src="/img/2018-11-05-managing-translations-with-crowdin/approver_mode.png" /></p>
+
+<h2 id="key-features">Key features</h2>
+<ul>
+  <li>A large number of file formats are supported, ranging from <code class="highlighter-rouge">json</code> files to <code class="highlighter-rouge">csv</code> and <code class="highlighter-rouge">properties</code> files.
+It can thus be used for Angular, React, Vue … applications as well as a Spring Boot service and so on.</li>
+  <li>Crowdin has a very clever parser and detects thing such as HTML tags and variables.
+It will warn you if they are translated and no longer match the original tags/names.</li>
+  <li>Quality assurance checks will help the approver in verifying the translations.</li>
+  <li>Extra context can be provided for each source string to help translators understand what exactly they need to translate.</li>
+  <li>Integration with source control systems is very easy and will make sure that the source strings are up-to-date with your Git repository. 
+Translations will automatically be pushed to your Git repository.</li>
+  <li>There’s even the possibility to integrate it with your website and have people do the translations on your website directly.
+That way the translators get a lot of context of what to translate.</li>
+  <li>If you’re unable to do the translation for a certain language, 
+Crowdin allows you to easily hire professional translators!</li>
+</ul>
+
+<h2 id="getting-started">Getting started</h2>
+<h3 id="account">Account</h3>
+<p>To start using Crowdin, you of course need an account at <a href="https://crowdin.com" target="_blank" rel="noopener noreferrer">Crowdin.com</a>. 
+There’s a limited free trial. 
+After that you can choose from a variety of payment plans depending on the number of source strings and projects you’ll have.</p>
+<blockquote>
+  <p>The number of projects you need on Crowdin depends on your setup.
+However, it’s recommended to create a project for each Git repository.
+So if your front- and backend application live in the same repository, you can configure multiple source files within one project.
+If not, you’ll need to create two separate projects on Crowdin.</p>
+</blockquote>
+
+<p>Once logged in, you can create a new project. 
+You can choose the source language and the languages you wish to translate to. 
+Then go to the project’s settings and then to <code class="highlighter-rouge">API</code>.
+There you’ll find a project identifier and a API key. 
+We’ll need those later when setting up Crowdin in our project.</p>
+
+<p><img class="image fit" style="margin:0px auto; max-width: 744px;" alt="Crowdin project settings" src="/img/2018-11-05-managing-translations-with-crowdin/languages.png" /></p>
+
+<h3 id="setup-in-your-project">Setup in your project</h3>
+<p>First we need to install the Crowdin CLI. 
+For Mac you can run <code class="highlighter-rouge">brew install crowdin</code>. 
+For Windows an <a href="https://support.crowdin.com/cli-tool/" target="_blank" rel="noopener noreferrer">installer</a> is available.</p>
+
+<p>Once installed, open a terminal and go to the root of your project and run <code class="highlighter-rouge">crowdin generate</code>.
+This will generate a <code class="highlighter-rouge">crowdin.yml</code> file that is used to configure Crowdin in your project.
+In that file four things need to be changed:</p>
+<ul>
+  <li><code class="highlighter-rouge">project_identifier</code>: the one you find under <code class="highlighter-rouge">API</code> on the Crowdin site</li>
+  <li><code class="highlighter-rouge">api_key</code>: also under <code class="highlighter-rouge">API</code></li>
+  <li><code class="highlighter-rouge">source</code>: this should point to the source translation file (e.g. in an Angular app <code class="highlighter-rouge">/src/assets/i18n/en.json</code>)</li>
+  <li><code class="highlighter-rouge">translation</code>: the translated files will end up here (e.g. <code class="highlighter-rouge">/src/assets/i18n/%two_letters_code%.json</code>)</li>
+</ul>
+
+<blockquote>
+  <p>I don’t recommend selecting the source language as a target language, because it will then be overwritten when downloading the translations.
+You could put the source language file in a separate directory if you prefer the source language being editable on Crowdin as well.
+However, you would have to update the source file manually when there are changes.</p>
+</blockquote>
+
+<blockquote>
+  <p>There are <a href="https://support.crowdin.com/configuration-file/" target="_blank" rel="noopener noreferrer">more options</a> and regexes available, but these are the only ones required to set up Crowdin in an Angular app for example.</p>
+</blockquote>
+
+<h3 id="upload-and-download-translations">Upload and download translations</h3>
+<p>There are two options here: either you integrate Crowdin with your Git repository or you up and download the translations manually (or automate it using CLI commands).
+I personally prefer integrating it with Git so we’ll get to that first.</p>
+<blockquote>
+  <p>It’s not possible to use both at the same time because you’ll end up with multiple source files on Crowdin.com.</p>
+</blockquote>
+
+<h4 id="git-integration">Git integration</h4>
+<p>On the Crowdin website, go to the project’s settings again, then to <code class="highlighter-rouge">Integration</code>.
+Choose the source control system you’re using and click on <code class="highlighter-rouge">Set Up Integration</code> (or choose <code class="highlighter-rouge">Enterprise</code> if you’re on a self-hosted version).
+For GitHub and GitLab you’ll be redirected to their website to authorize Crowdin to use your account.
+If you chose <code class="highlighter-rouge">Enterprise</code> you’ll need to generate a token yourself and paste it into the correct field together with the URL to your self-hosted source control system.
+Next you can choose which branches you want to watch for changes to the source language file and choose a name of the branch to where translations should be pushed.</p>
+<blockquote>
+  <p>Which source branch you wish to use depends on your workflow. 
+In my case, we work with short-lived feature branches and once they are done, we merge them to the <code class="highlighter-rouge">master</code> branch.
+So, the <code class="highlighter-rouge">master</code> branch is the one being watched by Crowdin, since it will have all the correct source strings.</p>
+</blockquote>
+
+<p><img class="image fit" style="margin:0px auto; max-width: 903px;" alt="Crowdin Git integration" src="/img/2018-11-05-managing-translations-with-crowdin/git_integration.png" /></p>
+
+<p>With this setup, each change to the source language file will be reflected on the Crowdin site.
+When a source string is translated and approved, Crowdin will push the translation to the target branch (e.g. <code class="highlighter-rouge">i18n_master</code>) and even open up a merge request for your review!</p>
+
+<p>A great benefit of this is that your stories don’t have to wait for all translations to be done.
+Translations are now the responsibility of the people that you appointed to do the translations.
+When they do, you’ll be notified with a merge request!</p>
+
+<h4 id="manual-up--and-download">Manual up- and download</h4>
+<p>If you don’t want to integrate with your Git repo, you can use the Crowdin CLI.
+There are two simple commands that let you upload the source files and download the translations.</p>
+
+<p>Upload:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crowdin upload sources
+</code></pre></div></div>
+
+<p>Download:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crowdin download
+</code></pre></div></div>
+
+<h2 id="in-app-translations">In app translations</h2>
+<p>Another nifty feature is that you can do translations directly in you webapp.
+All you need to do is add a JavaScript snippet to your <code class="highlighter-rouge">index.html</code> and select a pseudo language called <code class="highlighter-rouge">Acholi</code>.
+Crowdin will give unique identifiers to all of your source strings and use those as translations.
+Because of the snippet, these IDs will be located and replaced with translated strings for the language you’re translating to.
+You will also be able to edit the translations inline in your application and they will immediately be reflected on Crowdin.</p>
+
+<p><img class="image fit" style="margin:0px auto; max-width: 960px;" alt="In context localization" src="/img/2018-11-05-managing-translations-with-crowdin/in_context_animation.gif" /></p>
+
+<p>Now, this isn’t something you want to do in your production environment.
+Ideally you’d only have a specific environment setup that loads the JavaScript snippet.
+If the snippet is loaded you’ll always see the Crowdin tools in your webapp,
+so it’s up to you whether you want to use it and where.</p>
+
+<p>More info <a href="https://support.crowdin.com/in-context-localization/" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>Crowdin has really helped me and my team in the way we manage our translations.
+At first we were sending out emails for every label to get it translated.
+Of course we missed quite some translations in various languages.
+The variables in the translated string would sometimes be translated as well which meant that they wouldn’t work.</p>
+
+<p>With Crowdin we now have a clear overview of what is translated and what isn’t.
+Instead of sending emails, translators get notified and can do the translations through a nice UI.
+Because of the thorough quality assurance tools, less mistakes are made and those translated variables can be fixed before approving the translation and bringing it to production.</p>
+
+<p>In short, it’s a must-have tool when you need to manage translations, especially for languages you do not speak yourself!</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/development/2018/11/05/managing-translations-with-crowdin.html&title=Managing translations with Crowdin&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Managing translations with Crowdin&url=https://ordina-jworks.github.io/development/2018/11/05/managing-translations-with-crowdin.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/development/2018/11/05/managing-translations-with-crowdin.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/martijn-willekens/" class="image spotlight-image">
+            <img src="/img/author/martijn-willekens.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Martijn is a frontend developer at Ordina Belgium. He primarily devotes himself to building Angular and Ionic apps written in TypeScript. ReactiveX is his favorite set of tools to work with.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+
+
+<section id="three" class="wrapper spotlight style3">
+    <div class="inner">
+        <div class="content">
+            <div id="disqus_thread"></div>
+
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2018-11-05-managing-translations-with-crowdin/main-image.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Disqus -->
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://ordina-jworks.github.io/development/2018/11/05/managing-translations-with-crowdin.html";
+        this.page.identifier = "/development/2018/11/05/managing-translations-with-crowdin.html";
+        this.page.title = "Managing translations with Crowdin";
+    };
+</script>
+<script src="//ordina-jworks.disqus.com/embed.js" async></script>
+
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
