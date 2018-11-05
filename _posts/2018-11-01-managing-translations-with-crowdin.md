@@ -2,7 +2,7 @@
 layout: post
 authors: [martijn_willekens]
 title: "Managing translations with Crowdin"
-image: /img/2018-11-02-managing-translations-with-crowdin/main-image.png
+image: /img/2018-11-05-managing-translations-with-crowdin/main-image.png
 tags: [Development,Translations,Angular,i18n,Crowdin]
 category: Development
 comments: true
@@ -32,10 +32,10 @@ The translated files can be downloaded at any moment and will be in the exact sa
 In other words, clean and up-to-date translation files!
 
 Translator view:
-<img class="image fit" style="margin:0px auto; max-width: 1422px;" alt="Crowdin translator view" src="/img/2018-11-02-managing-translations-with-crowdin/translator_mode.png">
+<img class="image fit" style="margin:0px auto; max-width: 1422px;" alt="Crowdin translator view" src="/img/2018-11-05-managing-translations-with-crowdin/translator_mode.png">
 
 Approver view:
-<img class="image fit" style="margin:0px auto; max-width: 1439px;" alt="Crowdin approver view" src="/img/2018-11-02-managing-translations-with-crowdin/approver_mode.png">
+<img class="image fit" style="margin:0px auto; max-width: 1439px;" alt="Crowdin approver view" src="/img/2018-11-05-managing-translations-with-crowdin/approver_mode.png">
 
 ## Key features
 * A large number of file formats are supported, ranging from `json` files to `csv` and `properties` files.
@@ -67,7 +67,7 @@ Then go to the project's settings and then to `API`.
 There you'll find a project identifier and a API key. 
 We'll need those later when setting up Crowdin in our project.
 
-<img class="image fit" style="margin:0px auto; max-width: 744px;" alt="Crowdin project settings" src="/img/2018-11-02-managing-translations-with-crowdin/languages.png">
+<img class="image fit" style="margin:0px auto; max-width: 744px;" alt="Crowdin project settings" src="/img/2018-11-05-managing-translations-with-crowdin/languages.png">
 
 ### Setup in your project
 First we need to install the Crowdin CLI. 
@@ -103,7 +103,7 @@ Next you can choose which branches you want to watch for changes to the source l
 > In my case, we work with short-lived feature branches and once they are done, we merge them to the `master` branch.
 > So, the `master` branch is the one being watched by Crowdin, since it will have all the correct source strings.
 
-<img class="image fit" style="margin:0px auto; max-width: 903px;" alt="Crowdin Git integration" src="/img/2018-11-02-managing-translations-with-crowdin/git_integration.png">
+<img class="image fit" style="margin:0px auto; max-width: 903px;" alt="Crowdin Git integration" src="/img/2018-11-05-managing-translations-with-crowdin/git_integration.png">
 
 With this setup, each change to the source language file will be reflected on the Crowdin site.
 When a source string is translated and approved, Crowdin will push the translation to the target branch (e.g. `i18n_master`) and even open up a merge request for your review!
@@ -133,7 +133,7 @@ Crowdin will give unique identifiers to all of your source strings and use those
 Because of the snippet, these IDs will be located and replaced with translated strings for the language you're translating to.
 You will also be able to edit the translations inline in your application and they will immediately be reflected on Crowdin.
 
-<img class="image fit" style="margin:0px auto; max-width: 960px;" alt="In context localization" src="/img/2018-11-02-managing-translations-with-crowdin/in_context_animation.gif">
+<img class="image fit" style="margin:0px auto; max-width: 960px;" alt="In context localization" src="/img/2018-11-05-managing-translations-with-crowdin/in_context_animation.gif">
 
 Now, this isn't something you want to do in your production environment.
 Ideally you'd only have a specific environment setup that loads the JavaScript snippet.
