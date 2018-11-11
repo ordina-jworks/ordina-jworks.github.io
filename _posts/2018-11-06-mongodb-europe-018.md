@@ -16,6 +16,7 @@ comments: true
 1. [Atlas](#atlas)
 2. [MongoDB University](#mongodb-university)
 3. [Aggregation Pipeline Builder](#compass-aggregation-pipeline-builder)
+3. [Meet the experts](#meet-the-experts)
 5. [Conclusion](#conclusion)
 
 # Atlas
@@ -168,6 +169,15 @@ You can write JavaScript functions in the Stitch serverless platform.
 You can then couple these functions with a trigger upon which the function needs to be executed.
 E.g. when a customer orders something that is out of stock. 
 You can send him an automatic email when the stock get update in your database.
+
+# Meet the experts
+At the conference you had the chance to book a 20 minute session with a MongoDB experts.
+This was of great help in getting to know the new MongoDB Aggregation Pipeline builder.
+The expert also gave some more tips in "thinking noSQL".
+
+> When data is shown together it is stored together -- MongoDB expert 
+
+> Data should be stored in the same way it is used -- MongoDB expert
 
 
 # Conclusion
