@@ -3,7 +3,7 @@ layout: post
 authors: [chris_de_bruyne, nick_van_hoof, dock]
 title: "MongoDB Europe 2018"
 image: /img/2018-11-08-mongodb-europe-2018/main-image-mdbe.png
-tags: [Development,MongoDB,DBA,Data]
+tags: [Development,MongoDB,DBA,Data,Kubernetes,Conference]
 category: Development
 comments: true
 ---
@@ -17,7 +17,9 @@ comments: true
 2. [MongoDB University](#mongodb-university)
 3. [Aggregation Pipeline Builder](#compass-aggregation-pipeline-builder)
 3. [Meet the experts](#meet-the-experts)
-5. [Conclusion](#conclusion)
+4. [Streaming data pipelines with MongoDB and Kafka at AO](#streaming-data-pipelines-with-mongodb-and-kafka-at-ao)
+5. [MongoDB Enterprise Operator for Kubernetes at Amadeus](#mongodb-enterprise-operator-for-kubernetes-at-amadeus)
+6. [Conclusion](#conclusion)
 
 # Atlas
 (MongoDB Atlas for your Enterprise, Vladislava Stevanovic & Veronica Tudor)
@@ -178,6 +180,90 @@ The expert also gave some more tips in "thinking noSQL".
 > When data is shown together it is stored together -- MongoDB expert 
 
 > Data should be stored in the same way it is used -- MongoDB expert
+
+# Streaming data pipelines with MongoDB and Kafka at AO
+[A.O.](https://ao.com/){:target="_blank" rel="noopener noreferrer"}
+
+
+AO wanted to solve the issue of having data locked in different places so they wanted a [Single Customer View](https://en.wikipedia.org/wiki/Single_customer_view/){:target="_blank" rel="noopener noreferrer"}.
+The idea was to get data from all places like legacy databases and queues about customer data and phone calls with customer care till the parcels moving through the warehouse and up until the doorstep.
+They wanted to get the data while it's hot, not in hourly or daily (or worse...) batches.
+They decided to use MongoDB for the materialised view of all different data streams and Atlas to be able to focus on the application and not the db administration.
+
+The vast majority of the data resides in MsSql databases.
+Extraction happens with Kafka Connect SQL CDC to generate a stream of all create, update and delete operations into a stream and push it to Kafka.
+All with a simple piece of configuration like this : 
+
+```json
+{
+  "name" : "msSqlSourceConnector1",
+  "config" : {
+    "connector.class" : "io.confluent.connect.cdc.mssql.MsSqlSourceConnector",
+    "tasks.max" : "1",
+    "initial.database" : "testing",
+    "username" : "cdc",
+    "password" : "secret",
+    "server.name" : "db-01.example.com",
+    "server.port" : "1433"
+  }
+}
+```
+
+They use Avro for the schema definition in combination with a schema-registry.
+Interested clients can then read the data of the topics and do there single-view-thing on the data and save it to MongoDB.
+The view is being build up, message per message.
+The view in MongoDB is then pushed back to Kafka as another stream to provide this data to interested parties.
+This avoids locking the data in one place.
+
+To finish it of they shared some lessons learned :
+* Watch out for frameworks generating queries.  
+   They can create bad performing aggregations or queries.  
+   For them it was better to write some queries explicitly.  
+* Use custom _id for unique determination of your model, it saves an index and RAM
+* Watch out for unbounded document growth.
+
+
+# MongoDB Enterprise Operator for Kubernetes at Amadeus
+
+Amadeus is the worlds, largest technology company dedicated to the travel industry.
+They have developed an impressive MongoDB farm - a large environment with 100 clusters, some of which run more than 100 shards, some of which run 100TB MongoDB databases.
+Amadeus processes more than 1 trillion availability requests per day. 
+For each single search you do on a website they receive 500.000 availability requests.
+So search responsibly ;-)
+The number of requests per day grows by 50% each year.
+Worst day is january 2th due to new years resolutions!
+If this day is in the weekend, all systems are pushed to there limits.
+The fair database for one of their big clients, Kayak, is 100 Tb in size and changes daily.
+That's some pretty big numbers there.
+No wonder that Amadeus is a happy user of the MongoDB Enterprise Operator for Kubernetes.
+
+Starting with the MongoDB Ops Manager v4.0, MongoDB officially supports the management and deployment of MongoDB in Kubernetes with Backup, Automation, Alerting and, Monitoring.
+An operator has app-specific awareness about stateful applications, so it knows how to deploy them.
+This operator helps automating scripted tasks and enables MongoDB as a service for developers.
+This operator talks to Ops Manager and delegates the creation of clusters, shards, backups and automation to Ops Manager.
+The underlying necessary Kubernetes infrastructure is orchestrated by the operator itself and so they work in conjunction.
+This provides for clusters to be setup, scaled up/down/out/in, with a single simple yaml file.
+And kubernetes provides the self healing capabilities, how nice is that.
+
+The following yaml file is all you need to spin up a 3 node replica set :
+
+```yaml
+apiVersion: mongodb.com/v1
+kind: MongoDbReplicaSet
+metadata:
+  name: myReplicaSet
+  namespace: mongodb
+spec:
+  members: 3
+  version: 4.0.1
+
+  project: projectName
+  credentials: myUberSecretCredentials
+```
+
+I kid you not, that's it.
+
+Scale out or back in with a simple change in the config yaml and cubectl apply -f file.yaml
 
 
 # Conclusion
