@@ -58,7 +58,7 @@ To ensure maximum uptime the procedure to recover from instance failures is comp
 When a primary node goes down, a new primary is chosen immediately by the system of voting.
 All nodes vote on who should become the new primary. 
 The node with the majority of the votes becomes the new primary.
-A general guideline is to have a replica set that consists of one primary node and at least two secondary notes.
+A general guideline is to have a replica set that consists of one primary node and at least two secondary nodes.
 
 
 # MongoDB University
@@ -85,7 +85,7 @@ Let's see an example.
 Suppose I have a collection which contains documents that represent a person.
 Here are two examples of elements in the collections:
 
-```javascript
+```json
 {
 	"_id" : ObjectId("5be40f6e7047ead15753d073"),
 	"firstName" : "Didi",
@@ -120,7 +120,7 @@ As you can see from the images above, Compass will show all the intermediary res
 With one push of a button you can generate a command line query or the translation to a programming language.
 Compass tells me the full aggregate will look like : 
 
-``` 
+```json
 db.people.aggregate([{$match: {
                       lastName : "Van Hoof"
                     }}, {$group: {
