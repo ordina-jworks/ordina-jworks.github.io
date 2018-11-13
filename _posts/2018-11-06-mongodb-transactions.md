@@ -19,9 +19,9 @@ comments: true
 ## Introduction
 The sessions I was looking forward to the most at MongoDB Europe 2018 were the ones about multi-document transactions, the most talked about feature of the MongoDB 4.0 release.
 
-As a longtime Oracle DBA, I always found it odd that a database would lack what I always considered a "key" database feature during my Oracle days, so I was curious about MongoDB's implementation and how it would compare to a typical relational database.
+As a longtime Oracle DBA, I always found it odd that a database would lack what I had always considered a crucial database feature during my Oracle days, so I was curious to know more about MongoDB's implementation and how it would compare to a typical relational database.
 
-In this post we will explore how multi-document transactions are imlemented in MongoDB, how the implementation is similar to an RDBMS and where they differ.
+In this post we will explore how multi-document transactions are implemented in MongoDB, how the implementation is similar to a relational database system and where they differ.
 
 ## Relational vs. document database
 As I learned through working with MongoDB the past two years, there is less need for multi-document transactions in MongoDB, and by extension, in document databases in general.
