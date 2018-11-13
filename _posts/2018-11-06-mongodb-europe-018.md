@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [chris_de_bruyne, nick_van_hoof, dock]
+authors: [chris_de_bruyne, nick_van_hoof, jan_van_der_veken, dock]
 title: "MongoDB Europe 2018"
 image: /img/2018-11-08-mongodb-europe-2018/main-image-mdbe.png
 tags: [Development,MongoDB,DBA,Data,Kubernetes,Conference]
@@ -152,15 +152,47 @@ Which would have been a lot harder to write without the pipeline builder.
 # Common query mistakes
 (Tips And Tricks for Avoiding Common Query Pitfalls, Christian Kurze)
 
-Key takeaways from this session:
-* Create an index on an element you are interested in instead of scanning the whole table
-* When you query on a combination of fields create one index for these fields and not separate indeces on each fields.
-* Lay indeces in the background instead of making it a blocking operation
-* Lookout for the usage of `$or`
-* Do not index all fields. Investigate what you really need
-* Use Ops Manager or Atlas and leverage the Performance Advisor
-* Train you people
-* Work smarter, not harder! 
+## Key takeaways from this session
+
+Generally speaking, there are three major causes of query slowness:
+- Blocking operations
+- Using the `$or` operator
+- Case insensitive searches
+
+It's not uncommon that a properly tuned queries delivers a factor 1000 speed-up, so it's definitely worth investigating.
+
+### Problem 1: blocking operations
+This happens when you use an operator that needs all the data before producing results, so results can't be streamed.
+This is most common with aggregation operators such as `$sort`, `$group`, `$bucket`, `$count` and `$facet`.
+
+Possible solutions:
+- Create a compound index to support your query, and make sure that the sort order in the index is the same as in your query.
+- Offload the query to a secondary member.
+- Work around the issue by using a precalculated count.
+
+### Problem 2: `$and` is fast, `$or` is slow
+Sometimes a query is fast when you use the `$and` operator but slow when you use the `$or` operator.
+
+Solution:
+- Use a compound index to support `$and` queries.
+- Use separate single field indexes to support `$or` queries.
+
+### Problem 3: case insensitive searches are slow!
+It is much harder for MongoDB to perform case insensitive searches because it has to match all possible permutations of the search string. For example, if you do a case insensitive search for the string "ace", it has to match "ace","Ace","aCe","ACe", and so on...
+
+Solution:
+- (3.4 and higher) Support the query with a case insensitive index.
+- Alternatively, store a toLower() copy of the string in another field and index and query that field instead.
+
+## General tips and tricks
+* Create an index on an element you are interested in instead of scanning the whole table.
+* When you query on a combination of fields create a compound index for these fields and not separate indices on each field.
+* ...but be careful with the usage of `$or`!
+* Build indices in the background instead of making it a blocking operation.
+* Do not index all fields as this will negatively impact write performance. Investigate what you really need!
+* Ops Manager and Atlas have a Performance Advisor to help you identify problematic queries.
+* Train your people.
+* Work smarter, not harder!
 
 # Stitch
 (Ch-Ch-Ch-Ch-Changes: Taking Your MongoDB Stitch Application to the Next Level With Triggers, Andrew Morgan)
