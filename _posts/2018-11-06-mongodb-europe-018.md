@@ -190,6 +190,7 @@ Solution:
 * ...but be careful with the usage of `$or`!
 * Build indices in the background instead of making it a blocking operation.
 * Do not index all fields as this will negatively impact write performance. Investigate what you really need!
+* Use .explain() to analyze queries.
 * Ops Manager and Atlas have a Performance Advisor to help you identify problematic queries.
 * Train your people.
 * Work smarter, not harder!
