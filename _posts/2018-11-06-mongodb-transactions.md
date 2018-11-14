@@ -7,6 +7,7 @@ tags: [Development,MongoDB,DBA,Data,Transactions,ACID,Conference]
 category: Development
 comments: true
 ---
+
 # Table of Contents
 1. [Introduction](#introduction)
 2. [Relational vs. document database](#Relational-vs.-document-database)
@@ -17,13 +18,18 @@ comments: true
 5. [Conclusion](#conclusion)
 
 ## Introduction
+- [How and When to Use Multi-Document Distributed Transactions, Aly Cabral](https://mongodbeurope2018.sched.com/event/FmAR/how-and-when-to-use-multi-document-distributed-transactions)
+- [MongoDB: Building a New Transactional Model, Keith Bostic](https://mongodbeurope2018.sched.com/event/FmAW/mongodb-building-a-new-transactional-model)
+
 The sessions I was looking forward to the most at MongoDB Europe 2018 were the two sessions about multi-document transactions, the most talked about feature of the MongoDB 4.0 release.
-In the morning I attended a session by Aly Cabral (How and When to Use Multi-Document Distributed Transactions) which was very practically oriented.
-In the afternoon there was a more esoteric yet very interesting session by Keith Bostic (MongoDB: Building a New Transactional Model) which provided some insight into the inner workings of the WiredTiger storage engine and the difficulties the MongoDB team had to overcome to implement the new transaction model.
+In the morning I attended a session by Aly Cabral which was very practically oriented.
+In the afternoon there was a more esoteric yet very interesting session by Keith Bostic which provided some insight into the inner workings of the WiredTiger storage engine and the difficulties the MongoDB team had to overcome to implement the new transaction model.
 
 To give some background, as a longtime Oracle DBA, I always found it odd that a database would lack what I had always considered a crucial database feature during my Oracle days, so I was naturally curious to know more about MongoDB's implementation and how it would compare to a typical relational database.
 
 In this post we will explore how multi-document transactions are implemented in MongoDB, how the implementation is similar to a relational database system and where they differ.
+
+
 
 ## Relational vs. document database
 As I learned through working with MongoDB the past two years, there is less need for multi-document transactions in MongoDB, and by extension, in document databases in general.
