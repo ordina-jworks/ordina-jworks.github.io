@@ -22,7 +22,7 @@ comments: true
 6. [Meet the experts](#meet-the-experts)
 7. [Streaming data pipelines with MongoDB and Kafka at AO](#streaming-data-pipelines-with-mongodb-and-kafka-at-ao)
 8. [MongoDB Enterprise Operator for Kubernetes at Amadeus](#mongodb-enterprise-operator-for-kubernetes-at-amadeus)
-9. [Conclusion](#conclusion)
+9. [Closing](#closing)
 
 # Atlas
 ([MongoDB Atlas for your Enterprise](https://sched.co/FmAF){:target="_blank" rel="noopener noreferrer"}, Vladislava Stevanovic & Veronica Tudor)
@@ -305,4 +305,9 @@ Scale out or back in with a simple change in the config yaml and
 ```bash
 cubectl apply -f file.yaml
 ```
+
+# Closing
+A great day being submerged in Mongo-knowledge. 
+This conference gave us plenty of opportunity to talk to other experts and learn about the new and upcoming features.
+Exciting, we'll keep mongo-ing for quite a while!
 
