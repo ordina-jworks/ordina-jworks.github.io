@@ -159,7 +159,7 @@ Generally speaking, there are three major causes of query slowness:
 - Using the `$or` operator
 - Case insensitive searches
 
-It's not uncommon that a properly tuned queries delivers a factor 1000 speed-up, so it's definitely worth investigating.
+It's not uncommon that a properly tuned query delivers a factor 1000 speed-up, so it's definitely worth investigating.
 
 ### Problem 1: blocking operations
 This happens when you use an operator that needs all the data before producing results, so results can't be streamed.
@@ -178,7 +178,8 @@ Solution:
 - Use separate single field indexes to support `$or` queries.
 
 ### Problem 3: case insensitive searches are slow!
-It is much harder for MongoDB to perform case insensitive searches because it has to match all possible permutations of the search string. For example, if you do a case insensitive search for the string "ace", it has to match "ace","Ace","aCe","ACe", and so on...
+It is much harder for MongoDB to perform case insensitive searches because it has to match all possible permutations of the search string. 
+For example, if you do a case insensitive search for the string "ace", it has to match "ace","Ace","aCe","ACe", and so on...
 
 Solution:
 - (3.4 and higher) Support the query with a case insensitive index.
@@ -202,8 +203,9 @@ Solution:
 ## Stitch Functions and Triggers
 You can write JavaScript functions in the Stitch serverless platform. 
 You can then couple these functions with a trigger upon which the function needs to be executed.
-E.g. when a customer orders something that is out of stock. 
-You can send him an automatic email when the stock get update in your database.
+E.g. when a customer orders something that is out of stock, you can send him an automatic email when the stock get update in your database.
+
+Stitch provides a very easy way to implement new functionality without having to write lots of code in a separated application
 
 # Meet the experts
 At the conference you had the chance to book a 20 minute session with a MongoDB experts.
