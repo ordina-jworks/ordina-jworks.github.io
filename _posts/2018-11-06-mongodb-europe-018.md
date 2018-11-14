@@ -9,27 +9,30 @@ comments: true
 ---
 
 > MongoDB Europe is a yearly conference where MongoDB shows of their latest features and new products.
-> This year the venue took place in Old Billingsgate Walk, London
+> This year the venue took place in Old Billingsgate Walk, London.
+> This blog post summarizes several of the given sessions.
 
 
 # Table of contents
 1. [Atlas](#atlas)
 2. [MongoDB University](#mongodb-university)
-3. [Aggregation Pipeline Builder](#compass-aggregation-pipeline-builder)
-3. [Meet the experts](#meet-the-experts)
-4. [Streaming data pipelines with MongoDB and Kafka at AO](#streaming-data-pipelines-with-mongodb-and-kafka-at-ao)
-5. [MongoDB Enterprise Operator for Kubernetes at Amadeus](#mongodb-enterprise-operator-for-kubernetes-at-amadeus)
-6. [Conclusion](#conclusion)
+3. [Compass Aggregation Pipeline Builder](#compass-aggregation-pipeline-builder)
+4. [Common query mistakes](#common-query-mistakes)
+5. [Stitch](#stitch)
+6. [Meet the experts](#meet-the-experts)
+7. [Streaming data pipelines with MongoDB and Kafka at AO](#streaming-data-pipelines-with-mongodb-and-kafka-at-ao)
+8. [MongoDB Enterprise Operator for Kubernetes at Amadeus](#mongodb-enterprise-operator-for-kubernetes-at-amadeus)
+9. [Conclusion](#conclusion)
 
 # Atlas
-(MongoDB Atlas for your Enterprise, Vladislava Stevanovic & Veronica Tudor)
+([MongoDB Atlas for your Enterprise](https://sched.co/FmAF){:target="_blank" rel="noopener noreferrer"}, Vladislava Stevanovic & Veronica Tudor)
 
 With Atlas MongoDB brings us DBaaS (Database As A Service).
 You can run your database in the cloud with the cloud provider of your choice.
 Multiple options to secure your database are build in by default.
 Backups are taken automatically.
 
-## Getting started
+### Getting started
 It is very easy to get started since a free tier is provided for everyone and you can deploy with the cloud provider of your choice (Azure , GCP, AWS).
 A cluster can be started for free in just a few clicks.
 
@@ -39,12 +42,12 @@ A cluster can be started for free in just a few clicks.
 
 Start your own cluster: [https://cloud.mongodb.com](https://cloud.mongodb.com){:target="_blank" rel="noopener noreferrer"}
 
-## Cloud
+### Cloud
 MongoDB Atlas is a cross-platform database. 
 You can run it on Amazon Web Services, Google Cloud or Microsoft Azure. 
 It provides you an availability map that shows you which users are served from where an what latency should be expected.
 
-## Scalability
+### Scalability
 When your database grows it is easy to scale up or out.
 You can scale up by increasing the size of the instance on which your database runs.
 Scaling out is done by the process of sharding.
@@ -53,7 +56,7 @@ This way you do not run into the limitations of a single server.
 
 To ensure that MongoDB stores data equally across shards you need the right strategy of choosing a partition key.
 
-## High availability 
+### High availability 
 To ensure maximum uptime the procedure to recover from instance failures is completely automated.
 When a primary node goes down, a new primary is chosen immediately by the system of voting.
 All nodes vote on who should become the new primary. 
@@ -64,7 +67,7 @@ A general guideline is to have a replica set that consists of one primary node a
 # MongoDB University
 (General Session Keynote)
 
-With MongoDB Universtity Mongo has its own platform for online courses.
+With [MongoDB University](https://university.mongodb.com/){:target="_blank" rel="noopener noreferrer"}, Mongo has its own platform for online courses.
 A lot of them are available for free.
 You can pick out courses according to your needs or profession.
 There are training tracks for Developers, DBA's and everyone else...
@@ -78,7 +81,7 @@ Find all available resources here: [https://university.mongodb.com/](https://uni
 # Compass Aggregation Pipeline Builder
 (General Session Keynote)
 
-Recently the aggregation pipeline builder was introduced in MongoDB Compass.
+Recently the aggregation pipeline builder was introduced in [MongoDB Compass](https://www.mongodb.com/products/compass){:target="_blank" rel="noopener noreferrer"}.
 This allows you to create an aggregation pipeline step by step.
 And that makes it easy to debug the pipeline along the way.
 Let's see an example.  
@@ -91,7 +94,7 @@ Here are two examples of elements in the collections:
 	"firstName" : "Didi",
 	"lastName" : "Verhoft",
 	"birthYear" : 1996
-}
+},
 {
 	"_id" : ObjectId("5be40f6e7047ead15753d074"),
 	"firstName" : "Jonas",
@@ -120,7 +123,7 @@ As you can see from the images above, Compass will show all the intermediary res
 With one push of a button you can generate a command line query or the translation to a programming language.
 Compass tells me the full aggregate will look like : 
 
-```json
+```javascript
 db.people.aggregate([{$match: {
                       lastName : "Van Hoof"
                     }}, {$group: {
@@ -150,9 +153,9 @@ db.people.aggregate([{$match: {
 Which would have been a lot harder to write without the pipeline builder.
 
 # Common query mistakes
-(Tips And Tricks for Avoiding Common Query Pitfalls, Christian Kurze)
+([Tips And Tricks for Avoiding Common Query Pitfalls, Christian Kurze](https://sched.co/FmAd){:target="_blank" rel="noopener noreferrer"})
 
-## Key takeaways from this session
+### Key takeaways from this session
 
 Generally speaking, there are three major causes of query slowness:
 - Blocking operations
@@ -185,7 +188,7 @@ Solution:
 - (3.4 and higher) Support the query with a case insensitive index.
 - Alternatively, store a toLower() copy of the string in another field and index and query that field instead.
 
-## General tips and tricks
+### General tips and tricks
 * Create an index on an element you are interested in instead of scanning the whole table.
 * When you query on a combination of fields create a compound index for these fields and not separate indices on each field.
 * ...but be careful with the usage of `$or`!
@@ -197,10 +200,10 @@ Solution:
 * Work smarter, not harder!
 
 # Stitch
-(Ch-Ch-Ch-Ch-Changes: Taking Your MongoDB Stitch Application to the Next Level With Triggers, Andrew Morgan)
+([Ch-Ch-Ch-Ch-Changes: Taking Your MongoDB Stitch Application to the Next Level With Triggers, Andrew Morgan](https://sched.co/FmAJ){:target="_blank" rel="noopener noreferrer"})
 > Write less code and build apps faster! 
 
-## Stitch Functions and Triggers
+### Stitch Functions and Triggers
 You can write JavaScript functions in the Stitch serverless platform. 
 You can then couple these functions with a trigger upon which the function needs to be executed.
 E.g. when a customer orders something that is out of stock, you can send him an automatic email when the stock get update in your database.
@@ -216,7 +219,7 @@ The expert also gave some more tips in "thinking noSQL".
 
 > Data should be stored in the same way it is used -- MongoDB expert
 
-# Streaming data pipelines with MongoDB and Kafka at AO
+# [Streaming data pipelines with MongoDB and Kafka at AO](https://sched.co/FmAp){:target="_blank" rel="noopener noreferrer"}
 [A.O.](https://ao.com/){:target="_blank" rel="noopener noreferrer"}
 
 
@@ -258,7 +261,7 @@ To finish it of they shared some lessons learned :
 * Watch out for unbounded document growth.
 
 
-# MongoDB Enterprise Operator for Kubernetes at Amadeus
+# [MongoDB Enterprise Operator for Kubernetes at Amadeus](https://sched.co/FmAc){:target="_blank" rel="noopener noreferrer"}
 
 Amadeus is the worlds, largest technology company dedicated to the travel industry.
 They have developed an impressive MongoDB farm - a large environment with 100 clusters, some of which run more than 100 shards, some of which run 100TB MongoDB databases.
@@ -298,7 +301,8 @@ spec:
 
 I kid you not, that's it.
 
-Scale out or back in with a simple change in the config yaml and cubectl apply -f file.yaml
+Scale out or back in with a simple change in the config yaml and 
+```bash
+cubectl apply -f file.yaml
+```
 
-
-# Conclusion
