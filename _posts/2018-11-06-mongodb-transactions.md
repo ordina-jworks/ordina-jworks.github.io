@@ -17,9 +17,11 @@ comments: true
 5. [Conclusion](#conclusion)
 
 ## Introduction
-The sessions I was looking forward to the most at MongoDB Europe 2018 were the ones about multi-document transactions, the most talked about feature of the MongoDB 4.0 release.
+The sessions I was looking forward to the most at MongoDB Europe 2018 were the two sessions about multi-document transactions, the most talked about feature of the MongoDB 4.0 release.
+In the morning I attended a session by Aly Cabral (How and When to Use Multi-Document Distributed Transactions) which was very practically oriented.
+In the afternoon there was a more esoteric yet very interesting session by Keith Bostic (MongoDB: Building a New Transactional Model) which provided some insight into the inner workings of the WiredTiger storage engine and the difficulties the MongoDB team had to overcome to implement the new transaction model.
 
-As a longtime Oracle DBA, I always found it odd that a database would lack what I had always considered a crucial database feature during my Oracle days, so I was curious to know more about MongoDB's implementation and how it would compare to a typical relational database.
+To give some background, as a longtime Oracle DBA, I always found it odd that a database would lack what I had always considered a crucial database feature during my Oracle days, so I was naturally curious to know more about MongoDB's implementation and how it would compare to a typical relational database.
 
 In this post we will explore how multi-document transactions are implemented in MongoDB, how the implementation is similar to a relational database system and where they differ.
 
@@ -41,7 +43,6 @@ Nevertheless, there are some scenarios where you may want to use multi-document 
 ## When to use transactions?
 
 ### Relationships
-
 In the case that your datamodel does have relationships between separate entitites, you may want to use transactions to update both of them at the same time.
 
 An example of this could be a "customer" and a "car" that he owns.
@@ -51,8 +52,10 @@ If you update the ownership information on the "customer" document, you probably
 The only way to do this with guaranteed consistency is through a multi-document transaction.
 
 ### Event processing
+Another use case of transactions is event processing.
+When a certain event occurs, it may need to atomically create, update, delete several entities at the same time.
 
-todo, find good example
+The example that was given in Aly's presentation was the creation or invalidation of a customer's account, which would require an update to all of the customer's entities.
 
 ### Event logging or auditing
 Consider the case where, for logging or auditing purposes, you want to create an event trail of all changes that happen to a certain document or collection and you want to store this event trail in another collection.
@@ -104,9 +107,6 @@ If the document is already locked, the operation it will back off and retry unti
 Note that reads never block writes.
 MongoDB is also smart enough to recognize a so called no-op write: if the document you are trying to update was not changed by the update, it will not attempt to acquire a write lock.
 
-### Retryable writes
-todo
-
 ### Limitations
 Currently you can only use multi-document transactions with replica sets.
 Sharded clusters are not supported yet, though this feature is planned for a future release (4.1 perhaps?).
@@ -146,7 +146,7 @@ If they are, you're doing it wrong.
 - Implement retry logic.
 MongoDB returns errorcodes that tell you if a transaction has failed and if it failed with a retryable error or not.
 - To reduce WiredTiger cache pressure, keep transactions short and don't leave them open, even read only transactions.
-- Take into account that long running DDL operations (e.g. createIndex() ) block transactions and vice versa.
+- Take into account that long running DDL operations (e.g. `createIndex()` ) block transactions and vice versa.
 
 ## Conclusion
 Multi-document transactions are a useful and easy to use addition to MongoDB and make it a stronger competitor for applications where you would traditionally have to choose a relational database.
