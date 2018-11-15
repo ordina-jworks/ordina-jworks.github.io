@@ -23,13 +23,11 @@ comments: true
 
 The sessions I was looking forward to the most at MongoDB Europe 2018 were the two sessions about multi-document transactions, the most talked about feature of the MongoDB 4.0 release.
 In the morning I attended a session by Aly Cabral which was very practically oriented.
-In the afternoon there was a more esoteric yet very interesting session by Keith Bostic which provided some insight into the inner workings of the WiredTiger storage engine and the difficulties the MongoDB team had to overcome to implement the new transaction model.
+In the afternoon there was a more esoteric yet very interesting session by Keith Bostic who provided some insight into the inner workings of the WiredTiger storage engine and the difficulties the MongoDB team had to overcome to implement the new transaction model.
 
 To give some background, as a longtime Oracle DBA, I always found it odd that a database would lack what I had always considered a crucial database feature during my Oracle days, so I was naturally curious to know more about MongoDB's implementation and how it would compare to a typical relational database.
 
 In this post we will explore how multi-document transactions are implemented in MongoDB, how the implementation is similar to a relational database system and where they differ.
-
-
 
 ## Relational vs. document database
 As I learned through working with MongoDB the past two years, there is less need for multi-document transactions in MongoDB, and by extension, in document databases in general.
@@ -155,4 +153,4 @@ MongoDB returns errorcodes that tell you if a transaction has failed and if it f
 - Take into account that long running DDL operations (e.g. `createIndex()` ) block transactions and vice versa.
 
 ## Conclusion
-Multi-document transactions are a useful and easy to use addition to MongoDB and make it a stronger competitor for applications where you would traditionally have to choose a relational database.
+Multi-document transactions are a useful and easy to use addition to MongoDB. They make MongoDB a better general purpose database and a stronger alternative for applications where you would traditionally have to choose a relational database.
