@@ -29,12 +29,16 @@ layout: default
         <div class="inner">
             <div class="content">
                 <h2 class="major">Other categories</h2>
-
-                <ul class="list-6 categories">
-                    {% for category in page.other_categories %}
-                        <li><a href="{{ category.permalink }}">{{ category.title }}</a></li>
+                <div class="category-list left">
+                    {% assign shown_categories = '' %}
+                    {% for cat in site.categories %} {% assign cat_ = cat[0] | downcase | replace:' ','-' %}
+                    {% assign shown_cats_array = shown_categories | split: ', ' %}
+                    {% unless shown_cats_array contains cat_ %}
+                    <a href="/categories/{{cat_ }}"><i class="fa fa-folder-o fa-fw"></i>{{cat[0]}}</a>
+                    {% assign shown_categories = shown_categories | append: ', ' | append: cat_ %}
+                    {% endunless %}
                     {% endfor %}
-                </ul>
+                </div>
             </div>
         </div>
     </section>
