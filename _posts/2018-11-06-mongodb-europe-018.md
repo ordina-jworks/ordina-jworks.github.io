@@ -203,12 +203,79 @@ Solution:
 ([Ch-Ch-Ch-Ch-Changes: Taking Your MongoDB Stitch Application to the Next Level With Triggers, Andrew Morgan](https://sched.co/FmAJ){:target="_blank" rel="noopener noreferrer"})
 > Write less code and build apps faster! 
 
-### Stitch Functions and Triggers
-You can write JavaScript functions in the Stitch serverless platform. 
-You can then couple these functions with a trigger upon which the function needs to be executed.
-E.g. when a customer orders something that is out of stock, you can send him an automatic email when the stock gets updated in your database.
+Stitch is the 'Serverless platform from MongoDB', and it comes with a free tier to play around!
+Stitch provides a very easy way to implement new functionality without having to write lots of code in a separate backend application.
+The functionalities of Stitch are provided through an SDK.
+Currently there are SDK's for JavaScript, React Native, IOS and Android.
+There is even an Electric Imp Library for IoT devices.
 
-Stitch provides a very easy way to implement new functionality without having to write lots of code in a separated application
+Stitch has four main services :
+* Stitch QueryAnywhere
+* Stitch Functions
+* Stitch Triggers
+* Stitch Mobile Sync 
+
+### Stitch QueryAnywhere
+QueryAnywhere enables you to query the database directly instead of going through a REST api.
+The benefit here is that as a client application you are not restricted to what a REST api would expose but you can use all the power of the MongoDB Query Language directly.
+An example :
+```javascript
+const employees = mongodb.db("HR").collection("employees");
+  
+  return employees.find({}, {
+    limit: 3,
+    sort: { "salary": -1 }
+  })
+    .asArray();
+``` 
+
+Of course, all of this is secured with authentication and fine grained authorization based on the logged in user or the contents of the documents.
+
+### Stitch Functions
+You can write JavaScript functions in the Stitch serverless platform and combine database calls with cloud services.
+For example, send a message with Twilio to all users:
+```javascript
+exports = function (message) {
+ var mongodb = context.services.get('mongodb-atlas');
+ var twilio = context.services.get('twilio');
+ var coll = mongodb.db('db').collection('users');
+ return coll.find().toArray().then(users => {
+  users.forEach(function (user) {
+   twilio.send({
+    to: user.phone,
+    from: context.values.get('twilioNumber'),
+    body: message
+   });
+  });
+ });
+};
+​
+// Then call callFunction from the client side
+stitchClient.callFunction('sendMessage', ['Hello from Stitch!']);
+```
+
+### Stitch Triggers
+MongoDB does not provide triggers as known in the RDBMS world.
+With MongoDB change streams, you can build your own triggers in your application.
+This comes with the cost of handling the complexity of change streams yourself, for example : how to resume the change stream after a network issue?
+So that's why there is Stitch Triggers to make this easier.
+
+Stitch triggers combines change streams with Stitch Functions.
+So when the inventory of an article goes up, Stitch Trigger calls a function that uses Twilio to send a text message to your client.
+
+### Stitch Mobile Sync 
+Since 4.0, MongoDB provides a [Mobile](https://www.mongodb.com/products/mobile){:target="_blank" rel="noopener noreferrer"} version for IOS and Android.
+With Stitch, you can sync your data in your mobile application with your database.
+So now you can use the full MongoDB Query Language, including aggregations, on your mobile device and sync it with your database.
+
+### Build in external Integrations
+The fun with Stitch really starts when you combine all the goodness of Stitch with the integration with cloud services like Twilio, AWS, Google, etc...
+You can authenticate with Google, store files on S3 or spin up a cluster on Redshift after you send a text message with Twilio.
+All of this can be hidden behind a simple function call for your application, or a trigger on your Atlas cluster.
+
+### Limited to Stitch UI?
+Luckily MongoDB builds its products with developers in mind.
+So you can import and export your Stitch applications and put them in a source control of your choice.
 
 # Meet the experts
 At the conference you had the chance to book a 20 minute session with a MongoDB experts.
