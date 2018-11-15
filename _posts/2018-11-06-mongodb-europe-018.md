@@ -374,6 +374,25 @@ Scale out or back in with a simple change in the config yaml and
 cubectl apply -f file.yaml
 ```
 
+# [Bringing Data to Life with MongoDB Charts](https://sched.co/FtWP){:target="_blank" rel="noopener noreferrer"}
+Currently, if you want to visualize data in a MongoDB database, you either have to code it yourself or rely on a 3rd party tool and migrate your data to a different platform (for example: Kibana with Elasticsearch is a popular tool).
+Needless to say that this can be quite cumbersome.
+MongoDB Charts intends to solve this.
+
+So what is it? MongoDB Charts is a visualization tool that runs as a standalone webserver, you access it via a web browser.
+
+In Charts, you define data sources by pointing to a collection or view on a MongoDB instance.
+Then you can create all kinds of visualizations based on the data source, using various aggregation and filter functions.
+Finally, you can combine charts into dashboards with a customized layout, and you can share them with other users.
+
+A picture is worth a thousand words, so to give you a better idea of what it is all about, let's look at an animation of Charts in action:
+
+<div style="text-align: center;">
+  <img src="/img/2018-11-08-mongodb-europe-2018/mongodb-charts-01.gif" width="100%">
+</div>
+
+Charts is still in beta, but you can already try it out. MongoDB provides a docker image that you can [download](https://www.mongodb.com/download-center/charts) via the MongoDB download center.
+
 # Closing
 A great day being submerged in Mongo-knowledge. 
 This conference gave us plenty of opportunity to talk to other experts and learn about the new and upcoming features.  
