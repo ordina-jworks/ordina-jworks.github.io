@@ -22,7 +22,8 @@ comments: true
 6. [Meet the experts](#meet-the-experts)
 7. [Streaming data pipelines with MongoDB and Kafka at AO](#streaming-data-pipelines-with-mongodb-and-kafka-at-ao)
 8. [MongoDB Enterprise Operator for Kubernetes at Amadeus](#mongodb-enterprise-operator-for-kubernetes-at-amadeus)
-9. [Closing](#closing)
+9. [MongoDB Charts](#mongodb-charts)
+10. [Closing](#closing)
 
 # Atlas
 ([MongoDB Atlas for your Enterprise](https://sched.co/FmAF){:target="_blank" rel="noopener noreferrer"}, Vladislava Stevanovic & Veronica Tudor)
@@ -374,7 +375,9 @@ Scale out or back in with a simple change in the config yaml and
 cubectl apply -f file.yaml
 ```
 
-# [Bringing Data to Life with MongoDB Charts](https://sched.co/FtWP){:target="_blank" rel="noopener noreferrer"}
+# MongoDB Charts
+- [Bringing Data to Life with MongoDB Charts](https://sched.co/FtWP), Guillaume Meister.
+
 Currently, if you want to visualize data in a MongoDB database, you either have to code it yourself or rely on a 3rd party tool and migrate your data to a different platform (for example: Kibana with Elasticsearch is a popular tool).
 Needless to say that this can be quite cumbersome.
 MongoDB Charts intends to solve this.
