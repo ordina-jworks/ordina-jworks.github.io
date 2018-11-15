@@ -28,7 +28,7 @@ comments: true
 ([MongoDB Atlas for your Enterprise](https://sched.co/FmAF){:target="_blank" rel="noopener noreferrer"}, Vladislava Stevanovic & Veronica Tudor)
 
 With Atlas MongoDB brings us DBaaS (Database As A Service).
-You can run your database in the cloud with the cloud provider off your choice.
+You can run your database in the cloud with the cloud provider of your choice.
 Multiple options to secure your database are built in by default.
 Backups are taken automatically.
 
@@ -224,11 +224,10 @@ The expert also gave some more tips in "thinking noSQL".
 
 
 AO wanted to solve the issue of having data locked in different places so they wanted a [Single Customer View](https://en.wikipedia.org/wiki/Single_customer_view/){:target="_blank" rel="noopener noreferrer"}.
-The idea was to get data from all places in process.
-Like data from legacy databases and queues with customer phone call info.
-And data from the parcels moving through the warehouse up onto the doorstep.
+The idea was to get the data from different places, like data stored in legacy databases or messages going through queues, and consolidate this in MongoDB.
+The data could be the usual customer data and phone calls with customer care, till the parcels moving through the warehouse and up until the doorstep.
 They wanted to get the data while it's hot, not in hourly or daily (or worse...) batches.
-They decided to use MongoDB for the materialised view of all different data streams and Atlas to be able to focus on the application and not the db administration.
+They decided to use MongoDB to build up this materialised view of all different data streams, and Atlas to be able to focus on the application and not the database administration.
 
 The vast majority of the data resides in MsSql databases.
 Extraction happens with Kafka Connect SQL CDC to generate a stream of all create, update and delete operations into a stream and push it to Kafka.
@@ -249,10 +248,10 @@ All with a simple piece of configuration like this :
 }
 ```
 
-They use Avro for the scheme definition in combination with a scheme-registry.
+They use Avro for the schema definition in combination with a schema-registry.
 Interested clients can then read the data of the topics and do their single-view-thing on the data and save it to MongoDB.
 The view is being build up, message per message.
-This MongoDB view is then pushed back to Kafka as another stream to provide this data to interested parties.
+The view in  MongoDB is then pushed back to Kafka as another stream to provide this data to interested parties.
 This avoids locking the data in one place.
 
 To finish it of they shared some lessons learned :
@@ -279,7 +278,7 @@ No wonder that Amadeus is a happy user of the MongoDB Enterprise Operator for Ku
 
 Starting with the MongoDB Ops Manager v4.0, MongoDB officially supports the management and deployment of MongoDB in Kubernetes with Backup, Automation, Alerting and Monitoring.
 An operator has app-specific awareness about stateful applications, so it knows how to deploy them.
-This operator helps automating scripted tasks and enables MongoDB to function as a service for developers.
+This operator helps automating scripted tasks and enables MongoDB-as-a-service for developers.
 This operator talks to Ops Manager and delegates the creation of clusters, shards, backups and automation to Ops Manager.
 The underlying necessary Kubernetes infrastructure is orchestrated by the operator itself and so they work in conjunction.
 This provides for clusters to be setup, scaled up/down/out/in, with a single simple yaml file.
