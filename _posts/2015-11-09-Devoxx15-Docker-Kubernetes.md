@@ -4,8 +4,9 @@ authors: [dieter_hubau]
 title: '#Devoxx Arun Gupta talks Docker'
 image: /img/docker.png
 tags: [Docker, Devoxx]
-category: Devoxx
+category: Conference
 comments: true
+redirect_from: /devoxx/2015/11/09/Devoxx15-Docker-Kubernetes.html
 ---
 ## Docker
 Docker is a tool used for container creation for software applications. We have all been aware of the existence of containers for some time, but Docker creates a standard for describing these packages.
