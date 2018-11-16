@@ -47,6 +47,9 @@ Start your own cluster: [https://cloud.mongodb.com](https://cloud.mongodb.com){:
 MongoDB Atlas is a cross-platform database. 
 You can run it on Amazon Web Services, Google Cloud or Microsoft Azure. 
 It provides you an availability map that shows you which users are served from where an what latency should be expected.
+<div style="text-align: center;">
+  <img src="/img/2018-11-08-mongodb-europe-2018/global-clusters.png" width="100%">
+</div>
 
 ### Scalability
 When your database grows it is easy to scale up or out.
