@@ -10,7 +10,7 @@ comments: true
 
 > MongoDB Europe is a yearly conference where MongoDB shows off their latest features and new products.
 > This year the venue took place in Old Billingsgate Walk, London.
-> This blog post summarizes several of the given sessions.
+> Jan, Nick and Chris wrote this blog post to summarize several of the given sessions.
 
 
 # Table of contents
