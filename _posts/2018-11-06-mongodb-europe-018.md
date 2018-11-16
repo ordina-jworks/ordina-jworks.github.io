@@ -61,11 +61,11 @@ This way you do not run into the limitations of a single server.
 To ensure that MongoDB stores data equally across shards you need the right strategy of choosing a partition key.
 
 ### High availability 
-To ensure maximum uptime the procedure to recover from instance failures is completely automated.
 When a primary node goes down, a new primary is chosen immediately by the system of voting.
 All nodes vote on who should become the new primary. 
 The node with the majority of the votes becomes the new primary.
 A general guideline is to have a replica set that consists of one primary node and at least two secondary nodes.
+To ensure maximum uptime the procedure to recover from instance failures is completely automated.
 
 
 # MongoDB University
@@ -88,7 +88,7 @@ Find all available resources here: [https://university.mongodb.com/](https://uni
 Recently the aggregation pipeline builder was introduced in [MongoDB Compass](https://www.mongodb.com/products/compass){:target="_blank" rel="noopener noreferrer"}.
 This allows you to create an aggregation pipeline step by step.
 And that makes it easy to debug the pipeline along the way.
-Let's see an example.  
+Let's see an example:   
 Suppose I have a collection which contains documents that represent a person.
 Here are two examples of elements in the collections:
 
@@ -110,8 +110,8 @@ A person has the fields lastName, firstName and birthYear (and of course for som
 I want to build a pipeline with the following functionality:
 * I want to filter out all people that share my lastname "Van Hoof"
 * Then I want to count how many times these people also share the same firstname and birthyear
-* Next I want to group them by birthYear so that I can for example see how many people were named "Nick van Hoof " (my fullname) in 1992.
-* At last I want them sorted on year in ascending order
+* Next I want to group them by birthYear so that I can see how many people were named "Nick van Hoof " (my fullname) in 1992.
+* Finally, I want them sorted on year in ascending order
 
 Filter all with last name  "Van Hoof" and group by lastName, firstName and year:
 <div style="text-align: center;">
@@ -296,13 +296,14 @@ The expert also gave some more tips in "thinking noSQL".
 
 AO wanted to solve the issue of having data locked in different places so they wanted a [Single Customer View](https://en.wikipedia.org/wiki/Single_customer_view/){:target="_blank" rel="noopener noreferrer"}.
 The idea was to get the data from different places, like data stored in legacy databases or messages going through queues, and consolidate this in MongoDB.
-The data could be the usual customer data and phone calls with customer care, till the parcels moving through the warehouse and up until the doorstep.
+The data could be the usual customer data and phone calls with customer care.
+But also about parcels moving through the warehouse and delivery tracking.
 They wanted to get the data while it's hot, not in hourly or daily (or worse...) batches.
-They decided to use MongoDB to build up this materialised view of all different data streams, and Atlas to be able to focus on the application and not the database administration.
+It was decided to use MongoDB to build up this materialised view of all different data streams, and Atlas to be able to focus on the application and not the database administration.
 
 The vast majority of the data resides in MsSql databases.
-Extraction happens with Kafka Connect SQL CDC to generate a stream of all create, update and delete operations into a stream and push it to Kafka.
-All with a simple piece of configuration like this : 
+Extraction happens with [Kafka Connect SQL CDC](https://www.confluent.io/connector/kafka-connect-cdc-microsoft-sql/) to generate a stream of all create, update and delete operations into a stream, and push it to Kafka.  
+All with a simple piece of configuration like: 
 
 ```json
 {
@@ -320,7 +321,7 @@ All with a simple piece of configuration like this :
 ```
 
 They use Avro for the schema definition in combination with a schema-registry.
-Interested clients can then read the data of the topics and do their single-view-thing on the data and save it to MongoDB.
+Interested clients can then read the data off the topics and do their single-view-thing on the data and save it to MongoDB.
 The view is being build up, message per message.
 Afterwards this view in  MongoDB is then pushed back to Kafka as another stream to provide this data to interested parties.
 This avoids locking the data in one place.
