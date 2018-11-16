@@ -2,7 +2,7 @@
 layout: post
 authors: [gert-jan_schokkaert]
 title: "VisionWorks meets JWorks: StairwayToHealth"
-image: /img/2018-11-05-managing-translations-with-crowdin/main-image.png
+image: /img/2018-11-16-stairway-to-health/stairway-to-health.png
 tags: [Development,Translations,Angular,i18n,Crowdin]
 category: Development
 comments: true
