@@ -55,7 +55,7 @@ It provides you an availability map that shows you which users are served from w
 When your database grows it is easy to scale up or out.
 You can scale up by increasing the size of the instance on which your database runs.
 Scaling out is done by the process of sharding.
-Here we are storing data of the same collection across multiple Replica Sets to decrease the size of the partition and increase read-write performance.
+Here we are storing data of the same collection across multiple smaller partitions so we can distribute these partitions over multiple machines and increase read-write performance.
 This way you do not run into the limitations of a single server.
 
 To ensure that MongoDB stores data equally across shards you need the right strategy of choosing a partition key.
