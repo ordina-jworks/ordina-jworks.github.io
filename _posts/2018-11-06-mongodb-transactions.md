@@ -25,14 +25,15 @@ The sessions I was looking forward to the most at MongoDB Europe 2018 were the t
 In the morning I attended a session by Aly Cabral which was very practically oriented.
 In the afternoon there was a more esoteric yet very interesting session by Keith Bostic who provided some insight into the inner workings of the WiredTiger storage engine and the difficulties the MongoDB team had to overcome to implement the new transaction model.
 
-To give some background, as a longtime Oracle DBA, I always found it odd that a database would lack what I had always considered a crucial database feature during my Oracle days, so I was naturally curious to know more about MongoDB's implementation and how it would compare to a typical relational database.
+To give some background, as a longtime Oracle DBA, I always found it odd that a database would lack what I had always considered a crucial database feature during my Oracle days.
+So I was naturally curious to know more about MongoDB's implementation and how it would compare to a typical relational database.
 
 In this post we will explore how multi-document transactions are implemented in MongoDB, how the implementation is similar to a relational database system and where they differ.
 
 ## Relational vs. document database
 As I learned through working with MongoDB the past two years, there is less need for multi-document transactions in MongoDB, and by extension, in document databases in general.
 For the majority of use cases single document transactions suffice.
-This is because the data model you use with a document database, is quite different from what you would use with an RDBMS.
+This is because the data model you use with a document database is quite different from what you would use with an RDBMS.
 
 In a relational database system you typically normalize data in order to avoid duplication.
 A single "entity" more often than not has data spanning multiple tables, so when you perform updates to a single entity you have to update multiple rows in multiple tables concurrently, which necessitates transactions.
@@ -77,15 +78,15 @@ In MongoDB transactions are atomic, which means that execution of multiple chang
 
 ### Snapshot isolation
 When you start a transaction, MongoDB creates a snapshot of the current state of the database.
-During your transaction, you will not see any updates made by other sessions.
+During your transaction you will not see any updates made by other sessions.
 You are *isolated* from them.
-This guarantees that throughout the transaction, your session will see one consistent version of the data.
+This guarantees that throughout the transaction your session will see one consistent version of the data.
 
 Internally MongoDB uses an update structure inside the WiredTiger cache to maintain this consistent view on the database.
 This structure grows as writes occur to the database and is only cleaned out of the database once the transaction is committed or aborted.
 The implication of this is that long running transactions or a high write volume can put pressure on the cache, so it's recommended to keep the duration of any transaction as low as possible.
 
-To minimize cache pressure, you can use the server parameter transactionLifeTimeLimitSeconds to set a sensible maximum transaction time.
+To minimize cache pressure, you can use the server parameter 'transactionLifeTimeLimitSeconds' to set a sensible maximum transaction time.
 If a transaction runs for a longer time than this value, it will be aborted.
 The default value is 60 seconds.
 
@@ -103,10 +104,10 @@ In MongoDB this conflict is handled by write locks.
 There are basically two conflict scenarios:
 
 - Before a *transaction* updates a document, it will try to acquire a write lock.
-If the document is already locked, the transaction will fail.
+If the document is already locked the transaction will fail.
 
 - Before a *non-transactional operation* tries to update a document, it will try to acquire a write lock.
-If the document is already locked, the operation it will back off and retry until [MaxTimeMS](https://docs.mongodb.com/manual/reference/method/cursor.maxTimeMS/#cursor.maxTimeMS) is reached.
+If the document is already locked, the operation will back off and retry until [MaxTimeMS](https://docs.mongodb.com/manual/reference/method/cursor.maxTimeMS/#cursor.maxTimeMS) is reached.
 
 Note that reads never block writes.
 MongoDB is also smart enough to recognize a so called no-op write: if the document you are trying to update was not changed by the update, it will not attempt to acquire a write lock.
@@ -137,7 +138,7 @@ mySession.getDatabase("mydb").coll2.insert({"hello" : "world"});
 mySession.commitTransaction();
 ```
 
-One important thing to note here is that once we open the session on the first line, every subsequent action must use the session variable ("mySession" in this case), otherwise they will be simple update operations, not belonging to the transaction.
+One important thing to note here is that once we open the session on the first line, every subsequent action must use the session variable ("mySession" in this case), otherwise they will be simple update operations not belonging to the transaction.
 
 ## Best practices
 Finally, here are some best practices we learned in the session:
