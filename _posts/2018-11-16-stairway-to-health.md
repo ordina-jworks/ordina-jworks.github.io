@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [gert-jan_schokkaert]
-title: "VisionWorks meets JWorks: StairwayToHealth"
+title: "Visualising IoT data with tableau"
 image: /img/2018-11-16-stairway-to-health/stairway-to-health.png
 tags: [Development,Translations,Angular,i18n,Crowdin]
 category: Development
