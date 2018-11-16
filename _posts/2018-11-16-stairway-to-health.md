@@ -27,13 +27,13 @@ To allow the user to find an answer to this questions as easy as possible, the d
 
 Part one, the title, is the first thing the user sees and so gives an answer to the first and main question. By using the colours in the title the dashboard shows the user in a subtle way what the colours in the next visuals represent. There is also an option to select another day as illustrated below.
 
-![PartOne](../img/2018-11-16-stairway-to-health/PartOne.gif)
+![PartOne](/img/2018-11-16-stairway-to-health/PartOne.gif)
 
 ## Part two: the horizontal bar comparison
 
 In part two the user can find an answer to questions two and three. The visual uses the day the user selects to show the division between people taking the stair/elevator on a daily/weekly/monthly and yearly basis. If the user hovers over the chart he or she can also see the evolution of people taking the stair/elevator within that day/week/month/year he or she is hovering over. Next to the chart the total absolute number of all the observations measured is reported per period.
 
-![PartTwo](../img/2018-11-16-stairway-to-health/PartTwo.gif)
+![PartTwo](/img/2018-11-16-stairway-to-health/PartTwo.gif)
 
 ## Part three: the more detailed area chart
 
@@ -41,15 +41,15 @@ The third part visualizes how the division stair/elevator is evolving over time 
 
 In the title the user has the option to change the appearance of the data (absolute or shares). He has also the option to change how many periods are visualised starting from the most recent period.
 
-![PartThreeOne](../img/2018-11-16-stairway-to-health/PartThreeOne.gif)
+![PartThreeOne](/img/2018-11-16-stairway-to-health/PartThreeOne.gif)
 
 When the user hovers over the chart he can see the same horizontal bar comparison as in part two allowing he or she to compare the selected period above with the period he or she is hovering over in the chart.
 
-![PartThreeTwo](../img/2018-11-16-stairway-to-health/PartThreeTwo.gif)
+![PartThreeTwo](/img/2018-11-16-stairway-to-health/PartThreeTwo.gif)
 
 Last feature to discuss here is how the user can change which period base the chart is showing. This can be done by clicking on the chart above. If you click on the day bar on the top chart the bottom chart is expressed on a day level. This applies also to the other period bases in the chart.
 
-![PartThreeThree](../img/2018-11-16-stairway-to-health/PartThreeThree.gif)
+![PartThreeThree](/img/2018-11-16-stairway-to-health/PartThreeThree.gif)
 
 # What can we do next?
 
