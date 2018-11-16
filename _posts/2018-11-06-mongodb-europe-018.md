@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [chris_de_bruyne, nick_van_hoof, jan_van_der_veken, dock]
+authors: [chris_de_bruyne, nick_van_hoof, jan_van_der_veken]
 title: "MongoDB Europe 2018"
 image: /img/2018-11-08-mongodb-europe-2018/main-image-mdbe.png
 tags: [Development,MongoDB,DBA,Data,Kubernetes,Conference]
@@ -8,7 +8,7 @@ category: Development
 comments: true
 ---
 
-> MongoDB Europe is a yearly conference where MongoDB shows of their latest features and new products.
+> MongoDB Europe is a yearly conference where MongoDB shows off their latest features and new products.
 > This year the venue took place in Old Billingsgate Walk, London.
 > This blog post summarizes several of the given sessions.
 
@@ -28,7 +28,7 @@ comments: true
 # Atlas
 ([MongoDB Atlas for your Enterprise](https://sched.co/FmAF){:target="_blank" rel="noopener noreferrer"}, Vladislava Stevanovic & Veronica Tudor)
 
-With Atlas MongoDB brings us DBaaS (Database As A Service).
+With Atlas, MongoDB brings us DBaaS (Database As A Service).
 You can run your database in the cloud with the cloud provider of your choice.
 Multiple options to secure your database are built in by default.
 Backups are taken automatically.
@@ -319,7 +319,7 @@ All with a simple piece of configuration like this :
 They use Avro for the schema definition in combination with a schema-registry.
 Interested clients can then read the data of the topics and do their single-view-thing on the data and save it to MongoDB.
 The view is being build up, message per message.
-The view in  MongoDB is then pushed back to Kafka as another stream to provide this data to interested parties.
+Afterwards this view in  MongoDB is then pushed back to Kafka as another stream to provide this data to interested parties.
 This avoids locking the data in one place.
 
 To finish it of they shared some lessons learned :
@@ -386,7 +386,7 @@ So what is it? MongoDB Charts is a visualization tool that runs as a standalone 
 
 In Charts, you define data sources by pointing to a collection or view on a MongoDB instance.
 Then you can create all kinds of visualizations based on the data source, using various aggregation and filter functions.
-Finally, you can combine charts into dashboards with a customized layout, and you can share them with other users.
+Finally, you can combine charts into dashboards with a customized layout and you can share them with other users.
 
 A picture is worth a thousand words, so to give you a better idea of what it is all about, let's look at an animation of Charts in action:
 
@@ -394,7 +394,8 @@ A picture is worth a thousand words, so to give you a better idea of what it is 
   <img src="/img/2018-11-08-mongodb-europe-2018/mongodb-charts-01.gif" width="100%">
 </div>
 
-Charts is still in beta, but you can already try it out. MongoDB provides a docker image that you can [download](https://www.mongodb.com/download-center/charts) via the MongoDB download center.
+Charts is still in beta but you can already try it out. 
+MongoDB provides a docker image that you can [download](https://www.mongodb.com/download-center/charts) via the MongoDB download center.
 
 # Closing
 A great day being submerged in Mongo-knowledge. 
