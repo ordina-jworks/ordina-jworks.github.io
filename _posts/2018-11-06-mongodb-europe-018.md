@@ -77,7 +77,7 @@ You can pick out courses according to your needs or profession.
 There are training tracks for Developers, DBA's and everyone else...
 The courses are ideal to get you started or to deepen your knowledge when you want to be more advanced.
 If you want you can even get certified!
-I speak from my own experience when I say that the University platform is great to work with and the courses are well taught.
+I speak from my own experience when I say that the University platform is great to work with, and the courses are very well taught.
 Find all available resources here: [https://university.mongodb.com/](https://university.mongodb.com/){:target="_blank" rel="noopener noreferrer"}.
 
 
