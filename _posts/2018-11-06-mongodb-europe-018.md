@@ -154,7 +154,7 @@ db.people.aggregate([{$match: {
                     }}])
 ```
 
-Which would have been a lot harder to write without the pipeline builder.
+It would have been a lot harder to write this query manually, without the pipeline builder.
 
 # Common query mistakes
 ([Tips And Tricks for Avoiding Common Query Pitfalls, Christian Kurze](https://sched.co/FmAd){:target="_blank" rel="noopener noreferrer"})
@@ -166,14 +166,15 @@ Generally speaking, there are three major causes of query slowness:
 - Using the `$or` operator
 - Case insensitive searches
 
-It's not uncommon that a properly tuned query delivers a factor 1000 speed-up, so it's definitely worth investigating.
+It's not uncommon that a properly tuned query delivers a factor 1000 speed-up.
+So it's definitely worth investigating.
 
 ### Problem 1: blocking operations
 This happens when you use an operator that needs all the data before producing results, so results can't be streamed.
 This is most common with aggregation operators such as `$sort`, `$group`, `$bucket`, `$count` and `$facet`.
 
 Possible solutions:
-- Create a compound index to support your query, and make sure that the sort order in the index is the same as in your query.
+- Create a compound index to support your query and make sure that the sort order in the index is the same as in your query.
 - Offload the query to a secondary member.
 - Work around the issue by using a precalculated count.
 
@@ -197,9 +198,10 @@ Solution:
 * When you query on a combination of fields create a compound index for these fields and not separate indices on each field.
 * ...but be careful with the usage of `$or`!
 * Build indices in the background instead of making it a blocking operation.
-* Do not index all fields as this will negatively impact write performance. Investigate what you really need!
-* Use .explain() to analyze queries.
-* Ops Manager and Atlas have a Performance Advisor to help you identify problematic queries.
+* Do not index all fields as this will negatively impact write performance. 
+Investigate what you really need!
+* Use `.explain()` to analyze queries.
+* Ops Manager and Atlas have a [Performance Advisor](https://docs.atlas.mongodb.com/performance-advisor/) to help you identify problematic queries.
 * Train your people.
 * Work smarter, not harder!
 
@@ -221,8 +223,7 @@ Stitch has four main services :
 
 ### Stitch QueryAnywhere
 QueryAnywhere enables you to query the database directly instead of going through a REST api.
-The benefit here is that as a client application you are not restricted to what a REST api would expose but you can use all the power of the MongoDB Query Language directly.
-An example :
+The benefit here is that as a client application you are not restricted to what a REST api would expose but you can use all the power of the MongoDB Query Language directly:
 ```javascript
 const employees = mongodb.db("HR").collection("employees");
   
@@ -259,9 +260,10 @@ stitchClient.callFunction('sendMessage', ['Hello from Stitch!']);
 ```
 
 ### Stitch Triggers
-MongoDB does not provide triggers as known in the RDBMS world.
-With MongoDB change streams, you can build your own triggers in your application.
-This comes with the cost of handling the complexity of change streams yourself, for example : how to resume the change stream after a network issue?
+MongoDB does not provide triggers, as known in the RDBMS world.
+With MongoDB change streams you can build your own triggers in your application.
+This comes with the cost of handling the complexity of change streams yourself. 
+For example: how to resume the change stream after a network issue?
 So that's why there is Stitch Triggers to make this easier.
 
 Stitch triggers combines change streams with Stitch Functions.
@@ -273,7 +275,7 @@ With Stitch, you can sync your data in your mobile application with your databas
 So now you can use the full MongoDB Query Language, including aggregations, on your mobile device and sync it with your database.
 
 ### Build in external Integrations
-The fun with Stitch really starts when you combine all the goodness of Stitch with the integration with cloud services like Twilio, AWS, Google, etc...
+The fun with Stitch really starts when you combine all the goodness of Stitch with its integrations with cloud services like Twilio, AWS, Google, etc...
 You can authenticate with Google, store files on S3 or spin up a cluster on Redshift after you send a text message with Twilio.
 All of this can be hidden behind a simple function call for your application, or a trigger on your Atlas cluster.
 
@@ -282,7 +284,7 @@ Luckily MongoDB builds its products with developers in mind.
 So you can import and export your Stitch applications and put them in a source control of your choice.
 
 # Meet the experts
-At the conference you had the chance to book a 20 minute session with a MongoDB experts.
+At the conference you had the chance to book a 20 minute session with a MongoDB expert.
 This was of great help in getting to know the new MongoDB Aggregation Pipeline builder.
 The expert also gave some more tips in "thinking noSQL".
 
@@ -291,11 +293,9 @@ The expert also gave some more tips in "thinking noSQL".
 > Data should be stored in the same way it is used -- MongoDB expert
 
 # [Streaming data pipelines with MongoDB and Kafka at AO](https://sched.co/FmAp){:target="_blank" rel="noopener noreferrer"}
-[A.O.](https://ao.com/){:target="_blank" rel="noopener noreferrer"}
-
-
-AO wanted to solve the issue of having data locked in different places so they wanted a [Single Customer View](https://en.wikipedia.org/wiki/Single_customer_view/){:target="_blank" rel="noopener noreferrer"}.
-The idea was to get the data from different places, like data stored in legacy databases or messages going through queues, and consolidate this in MongoDB.
+[AO](https://ao.com/){:target="_blank" rel="noopener noreferrer"} wanted to solve the issue of having data locked in different places so they wanted a [Single Customer View](https://en.wikipedia.org/wiki/Single_customer_view/){:target="_blank" rel="noopener noreferrer"}.
+The idea was to get the data from all the different places and consolidate this in MongoDB.
+We are talking here about data stored in legacy databases or messages going through queues.
 The data could be the usual customer data and phone calls with customer care.
 But also about parcels moving through the warehouse and delivery tracking.
 They wanted to get the data while it's hot, not in hourly or daily (or worse...) batches.
@@ -336,22 +336,23 @@ To finish it of they shared some lessons learned :
 
 # [MongoDB Enterprise Operator for Kubernetes at Amadeus](https://sched.co/FmAc){:target="_blank" rel="noopener noreferrer"}
 
-Amadeus is the world's largest technology company dedicated to the travel industry.
-They have developed an impressive MongoDB farm - a large environment with 100 clusters, some of which run more than 100 shards, some of which run 100TB MongoDB databases.
+[Amadeus](https://amadeus.com/en) is the world's largest technology company dedicated to the travel industry.
+They have developed an impressive MongoDB farm, a large environment with 100 clusters.
+Some of these clusters run more than 100 shards, while others have 100TB MongoDB databases.
 Amadeus processes more than 1 trillion availability requests per day. 
 For each single search you do on a website they receive 500.000 availability requests.
 So search responsibly ;-)
 The number of requests per day grows by 50% each year.
-Worst day is january 2th due to new years resolutions!
-If this day is in the weekend, all systems are pushed to their limits.
-The fair database for one of their big clients, Kayak, is 100 Tb in size and changes daily.
+The second of January has by far the most requests, due to new years resolutions!
+If this day is in the weekend all systems are pushed to their limits.
+The fair database for one of their big clients, Kayak, is 100TB in size and changes daily.
 That's some pretty big numbers there.
 No wonder that Amadeus is a happy user of the MongoDB Enterprise Operator for Kubernetes.
 
 Starting with the MongoDB Ops Manager v4.0, MongoDB officially supports the management and deployment of MongoDB in Kubernetes with Backup, Automation, Alerting and Monitoring.
-An operator has app-specific awareness about stateful applications, so it knows how to deploy them.
+A [MongoDB Enterprise Kubernetes Operator](https://github.com/mongodb/mongodb-enterprise-kubernetes) has app-specific awareness about stateful applications, so it knows how to deploy them.
 This operator helps automating scripted tasks and enables MongoDB-as-a-service for developers.
-This operator talks to Ops Manager and delegates the creation of clusters, shards, backups and automation to Ops Manager.
+It talks to Ops Manager and delegates the creation of clusters, shards, backups and automation to Ops Manager.
 The underlying necessary Kubernetes infrastructure is orchestrated by the operator itself and so they work in conjunction.
 This provides for clusters to be setup, scaled up/down/out/in, with a single simple yaml file.
 And kubernetes provides the self-healing capabilities, how nice is that!?
@@ -382,15 +383,16 @@ cubectl apply -f file.yaml
 # MongoDB Charts
 - [Bringing Data to Life with MongoDB Charts](https://sched.co/FtWP), Guillaume Meister.
 
-Currently, if you want to visualize data in a MongoDB database, you either have to code it yourself or rely on a 3rd party tool and migrate your data to a different platform (for example: Kibana with Elasticsearch is a popular tool).
+Currently, if you want to visualize data in a MongoDB database you either have to code it yourself, or rely on a 3rd party tool and migrate your data to a different platform (for example: Kibana with Elasticsearch is a popular tool).
 Needless to say that this can be quite cumbersome.
-MongoDB Charts intends to solve this.
+[MongoDB Charts](https://www.mongodb.com/products/charts) intends to solve this.
 
-So what is it? MongoDB Charts is a visualization tool that runs as a standalone webserver, you access it via a web browser.
+So what is it? 
+MongoDB Charts is a visualization tool that runs as a standalone webserver, you access it via a web browser.
 
-In Charts, you define data sources by pointing to a collection or view on a MongoDB instance.
+In Charts you define data sources by pointing to a collection or view on a MongoDB instance.
 Then you can create all kinds of visualizations based on the data source, using various aggregation and filter functions.
-Finally, you can combine charts into dashboards with a customized layout and you can share them with other users.
+Finally, you can combine charts into dashboards with a customized layout and you can share these with other users.
 
 A picture is worth a thousand words, so to give you a better idea of what it is all about, let's look at an animation of Charts in action:
 
