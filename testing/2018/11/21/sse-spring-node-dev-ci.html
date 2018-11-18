@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Mocking server sent events: Development and CI - Tim Vierbergen">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2018-11-21-sse-spring-node-dev-ci/sse-ci-setup.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/testing/2018/11/21/sse-spring-node-dev-ci.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Mocking server sent events: Development and CI - Tim Vierbergen"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2018-11-21-sse-spring-node-dev-ci/sse-ci-setup.png"/>
+
+    
+    <title>Mocking server sent events: Development and CI - Tim Vierbergen &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Mocking server sent events: Development and CI</h2>
+                
+
+                
+                    Posted Nov 21, 2018
+
+
+    in <a href="/categories/testing/">Testing</a>
+
+
+
+    by
+    
+        <a href="/author/tim-vierbergen/">Tim Vierbergen</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/sse/">sse</a>, 
+    
+        <a href="/tags/spring/">Spring</a>, 
+    
+        <a href="/tags/nodejs/">Nodejs</a>, 
+    
+        <a href="/tags/angular/">Angular</a>, 
+    
+        <a href="/tags/node-red/">Node-RED</a>, 
+    
+        <a href="/tags/ci/">ci</a>, 
+    
+        <a href="/tags/mock/">mock</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="table-of-contents">Table of contents</h1>
+<ol>
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#what-are-server-sent-events">What are Server-Sent Events</a></li>
+  <li><a href="#java">Java</a></li>
+  <li><a href="#nodejs">Nodejs</a></li>
+  <li><a href="#angular">Angular</a></li>
+  <li><a href="#continuous-integration">Continuous Integration</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ol>
+
+<h1 id="intro">Intro</h1>
+
+<p>I came across this topic during some consultancy a few months ago, and again a few weeks ago.
+As I stated in my previous blogpost about mocking a backend (<a target="_blank" href="https://github.com/thisandagain/sentiment/blob/master/README.md">Node-RED: Development and CI</a>), we don’t live in an ideal world.
+Backends are not always finished before frontend development starts and personally I hate it when I have to include mock data into my frontend code.
+And again, even if that backend feature is finished and deployed somewhere so we don’t need to run it locally, sometimes you have less control over messages sent from the backend that need to trigger events in the frontend.</p>
+
+<p>For both of those projects, a use case arose where the system was in need of messages sent from the backend to the frontend, based on purely frontend and backend events.
+On older technologies and systems, these problems were solved with a polling mechanism.
+Every few seconds, the frontend is querying the backend for updates.
+The first technology that comes to mind when reading the specifications are <code class="highlighter-rouge">Websockets</code>.
+A websocket is a bidirectional TCP connection opened between 2 <code class="highlighter-rouge">entities</code>, in our case a frontend and our backend.
+Messages can get sent by a client to the backend, or the other way around.
+For more information about websockets a simple Google search will overload you with information and frameworks for Java, Javascript and others.
+For Javascript, take a look at  <a target="_blank" href="https://socket.io/">Socket.io</a>.</p>
+
+<p>In our use case, we were only in need of unidirectional streaming, <code class="highlighter-rouge">Server-Sent Events</code> or in short <code class="highlighter-rouge">SSE</code>.
+Again, the goal was not to implement the backend, but to come up with an easy to implement mock that can be used during development by our frontend developers, and could get reused in testing the frontend against this mock backend.
+Ideally, this demo code could get reused by our backend developers as an example.
+Although Node-RED has add-ons for SSE, I decided to start writing one myself.</p>
+
+<p>Note: In real systems, multiple clients can connect to the backend and open a channel.</p>
+
+<h1 id="what-are-server-sent-events">What are Server-Sent Events</h1>
+
+<blockquote>
+  <p>Server-Sent Events is a technology for enabling unidirectional messaging over HTTP. The EventSource API is standardized and part of HTML5.</p>
+</blockquote>
+
+<p>In our use case, the backend should be able to send messages to its clients at any time.
+These messages can get triggered by client-side events (over REST) or even triggers from external resources and queues or database changes.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-11-21-sse-spring-node-dev-ci/sse-setup.png" width="60%" />
+</div>
+
+<p>To make SSE work, we need to keep some things in mind.
+The logical flow behind it is pretty straight forward.
+A client requests a channel by <code class="highlighter-rouge">GET</code>-ting a resource over REST.
+In Javascript you can make use of the <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource"><code class="highlighter-rouge">EventSource API</code></a>.
+A backend should respond with some specific headers:</p>
+
+<ul>
+  <li>Content-Type -&gt; ‘text/event-stream’</li>
+  <li>Cache-Control -&gt; ‘no-cache’</li>
+  <li>Connection -&gt; ‘keep-alive’</li>
+</ul>
+
+<p>This way, the connection between the client and backend is kept open.
+At any time, the backend can send a message (event) through this tunnel to the client.
+We will go a bit deeper into each section later.</p>
+
+<p>You can read more about the specs on <a target="_blank" href="https://www.w3schools.com/html/html5_serversentevents.asp">W3schools</a> and <a target="_blank" href="https://www.w3.org/TR/2009/WD-eventsource-20090421/#processing-model">W3</a>.</p>
+
+<h1 id="java">Java</h1>
+
+<p>Around a year ago, <a href="https://ordina-jworks.github.io/author/dieter-hubau/" target="_blank">Dieter Hubau</a> wrote a <a target="_blank" href="https://ordina-jworks.github.io/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html">blogpost</a> about Spring Cloud Stream and ‘a’ microverse of Rick and Morty. He implemented <code class="highlighter-rouge">SSE</code> using <code class="highlighter-rouge">org.springframework.web.servlet.mvc.method.annotation.SseEmitter</code>.
+I figured, that’s a place to start.</p>
+
+<h2 id="spring">Spring</h2>
+
+<p>Start by generating a Spring Boot application with some dependencies.
+Navigate to <a href="https://start.spring.io/" target="_blank">Spring initializr</a>.
+Add data-repository, flyway and h2.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-devtools<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-test<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.flywaydb<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>flyway-core<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.h2database<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>h2<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-jpa<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p>I’ve added the Flyway and H2 dependencies because I’ve generated test data online (sql).
+I’ve created an easy model which represents a message (notification), and maps to a database table, which can be sent to the frontend.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"notification"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Notification</span> <span class="o">{</span>
+
+	<span class="nd">@Id</span>
+	<span class="nd">@GeneratedValue</span>
+	<span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"id"</span><span class="o">)</span>
+	<span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+	<span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"title"</span><span class="o">)</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
+	<span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"message"</span><span class="o">)</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="n">Long</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span><span class="k">return</span> <span class="n">id</span><span class="o">;}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="n">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span><span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;}</span>
+
+	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getTitle</span><span class="o">()</span> <span class="o">{</span><span class="k">return</span> <span class="n">title</span><span class="o">;}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTitle</span><span class="o">(</span><span class="n">String</span> <span class="n">title</span><span class="o">)</span> <span class="o">{</span><span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;}</span>
+
+	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getMessage</span><span class="o">()</span> <span class="o">{</span><span class="k">return</span> <span class="n">message</span><span class="o">;}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span><span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">;}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>I’ve created a custom <code class="highlighter-rouge">CrudRepository&lt;Notification, Long&gt;</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">NotificationRepository</span> <span class="kd">extends</span> <span class="n">CrudRepository</span><span class="o">&lt;</span><span class="n">Notification</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Notification</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">();</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Notification</span><span class="o">&gt;</span> <span class="nf">findById</span><span class="o">(</span><span class="n">Long</span> <span class="n">id</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And a basic service:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NotificationService</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">NotificationRepository</span> <span class="n">notificationRepository</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Notification</span><span class="o">&gt;</span> <span class="nf">getAll</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">notificationRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Notification</span> <span class="nf">get</span><span class="o">(</span><span class="n">Long</span> <span class="n">id</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">EntityNotFoundException</span> <span class="o">{</span>
+        <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Notification</span><span class="o">&gt;</span> <span class="n">notification</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">notificationRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">notification</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">notification</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">EntityNotFoundException</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Most logic is implemented in the Controller:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/notification"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NotificationController</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">SseEmitter</span><span class="o">&gt;</span> <span class="n">emitters</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">NotificationService</span> <span class="n">notificationService</span><span class="o">;</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="n">produces</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">TEXT_EVENT_STREAM_VALUE</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">SseEmitter</span> <span class="nf">events</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">SseEmitter</span> <span class="n">emitter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SseEmitter</span><span class="o">();</span>
+        <span class="n">emitters</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">emitter</span><span class="o">);</span>
+        <span class="n">emitter</span><span class="o">.</span><span class="na">onCompletion</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="n">emitters</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">emitter</span><span class="o">);</span>
+        <span class="o">});</span>
+        <span class="n">emitter</span><span class="o">.</span><span class="na">onError</span><span class="o">(</span><span class="n">throwable</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="n">emitters</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">emitter</span><span class="o">);</span>
+        <span class="o">});</span>
+        <span class="n">emitter</span><span class="o">.</span><span class="na">onTimeout</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="n">emitters</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">emitter</span><span class="o">);</span>
+        <span class="o">});</span>
+        <span class="k">return</span> <span class="n">emitter</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">handleNotification</span><span class="o">(</span><span class="n">Notification</span> <span class="n">notification</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">emitters</span><span class="o">.</span><span class="na">parallelStream</span><span class="o">().</span><span class="na">forEach</span><span class="o">(</span><span class="n">emitter</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">emitter</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">notification</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">emitter</span><span class="o">.</span><span class="na">complete</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Scheduled</span><span class="o">(</span><span class="n">fixedDelay</span> <span class="o">=</span> <span class="mi">2000</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">receiveNotification</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">handleNotification</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">notificationService</span><span class="o">.</span><span class="na">get</span><span class="o">((</span><span class="kt">long</span><span class="o">)</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">random</span><span class="o">()</span> <span class="o">*</span> <span class="o">(</span><span class="mi">100</span> <span class="o">-</span> <span class="mi">1</span><span class="o">))</span> <span class="o">+</span> <span class="mi">1</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The logic behind the code is again pretty straightforward.
+Querying this resource will respond with the correct headers (Content-Type -&gt; MediaType.TEXT_EVENT_STREAM_VALUE == ‘text/event-stream’) en open an <code class="highlighter-rouge">event stream</code>.
+This resource will create an <code class="highlighter-rouge">SseEmitter</code> for each request and add that <code class="highlighter-rouge">emitter</code> to a list.
+When an event needs to be sent out to the <code class="highlighter-rouge">clients</code>, you can then just loop over that list of emitters and send that event.
+If you loop at the example code, you can see that the emitter itself has some callbacks (completion, error, timeout, …).
+You can use those function for implementing a specific error strategy, monitoring and logging.</p>
+
+<p>For development purposes, I’ve added a <code class="highlighter-rouge">@Scheduled</code>-function that will fire every two seconds and send a random notification from the database through each emitter.</p>
+
+<p>For one of my clients, it wasn’t possible to work with Spring.
+A Google search resulted in a lot of other solutions for Java implementations of <code class="highlighter-rouge">sse</code>.</p>
+
+<ul>
+  <li><a href="https://docs.jboss.org/resteasy/docs/3.5.1.Final/userguide/html/JAX-RS_2.1_additions.html" target="_blank"><code class="highlighter-rouge">SseEventSink, SseEventSource</code></a></li>
+  <li><a href="https://docs.huihoo.com/jersey/2.13/sse.html" target="_blank"><code class="highlighter-rouge">SseFeature</code></a></li>
+  <li><a href="http://www.eclipse.org/jetty/javadoc/9.4.8.v20171121/org/eclipse/jetty/servlets/EventSourceServlet.html" target="_blank"><code class="highlighter-rouge">EventSourceServlet</code></a></li>
+  <li>…</li>
+</ul>
+
+<h1 id="nodejs">Nodejs</h1>
+
+<p>Although the Java implementation wasn’t finished yet, another problem arose.
+Not all of our frontend developers where happy with this approach.
+They still needed to run a simple Java backend, even if it was a simple Docker container.
+So I switched to a <code class="highlighter-rouge">Nodejs</code> implementation using <a href="https://expressjs.com/" target="_blank"><code class="highlighter-rouge">Express</code></a> as a <code class="highlighter-rouge">webserver</code>.
+Express doesn’t come with an <code class="highlighter-rouge">SSE</code>-feature out of the box, but there are <code class="highlighter-rouge">plugins</code> you can use:</p>
+
+<ul>
+  <li><a href="https://www.npmjs.com/package/sse-express" target="_blank"><code class="highlighter-rouge">sse-express</code></a></li>
+  <li><a href="https://www.npmjs.com/package/express-sse" target="_blank"><code class="highlighter-rouge">express-sse</code></a></li>
+  <li>…</li>
+</ul>
+
+<p>But instead of using a library, I’ve implemented my own <code class="highlighter-rouge">middleware</code>.
+Writing custom middleware is very easy and well documented in the <a href="https://expressjs.com/en/guide/writing-middleware.html" target="_blank">docs</a>.</p>
+
+<p>sse-middleware.js:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">sse_middleware</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">sseSetup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">setNoDelay</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">setKeepAlive</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Content-Type'</span><span class="p">,</span> <span class="s1">'text/event-stream'</span><span class="p">);</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Cache-Control'</span><span class="p">,</span> <span class="s1">'no-cache'</span><span class="p">);</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Connection'</span><span class="p">,</span> <span class="s1">'keep-alive'</span><span class="p">);</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>   
+    <span class="p">}</span>
+
+    <span class="nx">res</span><span class="p">.</span><span class="nx">sseSend</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="nx">res</span><span class="p">.</span><span class="nx">sseOnClose</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"onClose"</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">next</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">sse_middleware</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>As mentioned before, to make SSE work, you need to set the right <code class="highlighter-rouge">headers</code> (cfr. MediaType.TEXT_EVENT_STREAM_VALUE).
+I’ve implemented this in the setup of the custom middleware.
+Besides this initialization, I’ve also implemented an <code class="highlighter-rouge">sseSend</code>-function, for sending messages over the channel, and an <code class="highlighter-rouge">onClose</code>-callback that will fire whenever the connection closes.</p>
+
+<p>Instead of using an in-memory database, like I did in the Java part of this post, I decided to go with a basic Javascript file that I can switch later to a simple <code class="highlighter-rouge">json</code>-file with test data.</p>
+
+<p>database.js:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">database</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">notifications</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="na">type</span><span class="p">:</span> <span class="s1">'test'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s2">"TEST"</span><span class="p">,</span> <span class="na">message</span><span class="p">:</span> <span class="s2">"testmessage"</span><span class="p">},</span>
+        <span class="p">...,</span>
+        <span class="p">{</span><span class="na">type</span><span class="p">:</span> <span class="s1">'test'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s2">"TEST2"</span><span class="p">,</span> <span class="na">message</span><span class="p">:</span> <span class="s2">"testmessag2"</span><span class="p">}</span>
+
+    <span class="p">],</span>
+    <span class="na">updates</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>  
+            <span class="na">entity</span><span class="p">:</span> <span class="s1">'contact'</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">id</span><span class="p">:</span><span class="s1">'123456'</span>
+                <span class="na">email</span><span class="p">:</span><span class="s1">'contact123456@gmail.com'</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="p">...,</span>
+         <span class="p">{</span>  
+             <span class="na">entity</span><span class="p">:</span> <span class="s1">'company'</span><span class="p">,</span>
+             <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                 <span class="na">id</span><span class="p">:</span><span class="s1">'123456'</span>
+                 <span class="na">tel1</span><span class="p">:</span><span class="s1">'+3234457645'</span>
+             <span class="p">}</span>
+         <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">database</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This time, I added different kinds of data lists to my mock data.
+Depending on specific parameters, you can then choose to send back a different type of event.</p>
+
+<p>Now, let us take a look at the server implementation.</p>
+
+<p>server.js:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'express'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">sse_middleware</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./sse-middleware'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">database</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./database'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">DATA_LENGTH</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">sse_middleware</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">channels</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">interval</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">start</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">interval</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">createMockEvent</span><span class="p">();</span> <span class="c1">// to implement yourself</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">channels</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">channels</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">channels</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">sseSend</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span> <span class="c1">// console.log('Emitting to ' + key);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/stream'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"New subscriber request"</span><span class="p">);</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">sseSetup</span><span class="p">();</span>
+  <span class="nx">channels</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">sseSend</span><span class="p">(</span><span class="s2">"Connection open"</span><span class="p">);</span> <span class="c1">// if you want to send feedback for opening connection</span>
+  <span class="c1">// res.sendStatus(200);</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">sseOnClose</span><span class="p">(()</span><span class="o">=&gt;</span> <span class="p">{</span>
+     <span class="c1">// implement your own strategy for removing a channel</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Listening on port 8080...'</span><span class="p">);</span>
+  <span class="nx">start</span><span class="p">();</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>In the first lines, I just import my mock database and the middleware.
+I then initialize the <code class="highlighter-rouge">express</code>-app and tell it to use the middleware, <code class="highlighter-rouge">app.use(sse_middleware);</code>.
+When the server is started, the app also starts a simple <code class="highlighter-rouge">interval</code> that will produce a random (or fixed order for testing purposes) event each two seconds.</p>
+
+<p>To start this service:</p>
+
+<p><code class="highlighter-rouge">$ node server.js</code></p>
+
+<p>To test it, you can just open your browser and navigate to <code class="highlighter-rouge">http://localhost:8080/stream</code>.
+You should be able to see events appearing now.
+However, there is a catch, and it took me some time to figure out what was going wrong.
+In your browser you can see the content of the events, but if you run <code class="highlighter-rouge">$ curl -X GET http://localhost:8080/stream</code> you won’t see anything.
+However, if you would start the Java app, you’ll see the events appearing in your browser, and during your <code class="highlighter-rouge">curl</code>-session.
+The reason for this, lays in the specs of Server-Sent Events.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-11-21-sse-spring-node-dev-ci/event-spec.png" width="100%" />
+</div>
+
+<p>As you can see, a message expects a data field.
+Adjusting the <code class="highlighter-rouge">send</code>-method in the middleware will fix this problem:
+<code class="highlighter-rouge">res.write('data:' + JSON.stringify(data) + "\n\n"));</code>
+You can also add the other fields, just separate them with <code class="highlighter-rouge">\n\n</code>;</p>
+
+<p>For development purposes, it isn’t a bad idea to add a start en stop action for managing the interval.
+Just add the following to your server:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/start'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Starting stream"</span><span class="p">);</span>
+  <span class="nx">start</span><span class="p">();</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">sendStatus</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/stop'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Stopping stream"</span><span class="p">);</span>
+  <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">interval</span><span class="p">);</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">sendStatus</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>So you can start and stop the stream by triggering a <code class="highlighter-rouge">REST-endpoint</code>.</p>
+
+<p><code class="highlighter-rouge">$ curl -X GET http://localhost:8080/start</code> to start the stream of events.`</p>
+
+<p><code class="highlighter-rouge">$ curl -X GET http://localhost:8080/stop</code> to stop the stream of events.`</p>
+
+<h1 id="angular">Angular</h1>
+
+<h2 id="frontend-sse">Frontend SSE</h2>
+
+<p>The frontend is an Angular 7 app, created with the angular-cli.
+Because of reusability the server-sent event receiver feature is bundled in a separate module that can get moved to a shared library later.
+In the most simple implementation, you only need a service to handle the connection and forward events to other components.
+In this service, you can make use of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource" target="_blank">EventSource API</a> of plain javascript.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2018-11-21-sse-spring-node-dev-ci/event-source.png" width="100%" />
+</div>
+
+<p>The API comes with an easy constructor and 3 callbacks:</p>
+
+<ul>
+  <li>EventSource.onerror</li>
+  <li>EventSource.onmessage</li>
+  <li>EventSource.onopen</li>
+</ul>
+
+<p>sse.service.ts:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">...</span>
+
+<span class="p">@</span><span class="nd">Injectable</span><span class="p">({</span>
+  <span class="na">providedIn</span><span class="p">:</span> <span class="s1">'root'</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">SseService</span> <span class="p">{</span>
+
+  <span class="nx">readonly</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">'api/stream'</span><span class="p">;</span>
+
+  <span class="kr">private</span> <span class="nx">_eventSource</span><span class="p">:</span> <span class="nx">EventSource</span><span class="p">;</span>
+  <span class="kr">private</span> <span class="nx">_open</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+
+  <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">_http</span><span class="p">:</span> <span class="nx">HttpClient</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="kr">public</span> <span class="nx">init</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_eventSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventSource</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_eventSource</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onMessage</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_eventSource</span><span class="p">.</span><span class="nx">onerror</span>   <span class="o">=</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onError</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_eventSource</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onOpen</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kr">private</span> <span class="nx">_onMessage</span><span class="p">(</span><span class="na">message</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_handleEvent</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">}</span>
+
+  <span class="kr">private</span> <span class="nx">_onError</span><span class="p">(</span><span class="na">evt</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Error:"</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
+    <span class="c1">// implement your own strategy for reconnection</span>
+  <span class="p">}</span>
+
+  <span class="kr">private</span> <span class="nx">_onOpen</span><span class="p">(</span><span class="na">evt</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Open:"</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kr">private</span> <span class="nx">_handleEvent</span><span class="p">(</span><span class="na">event</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+      <span class="c1">// e.g. dispatch to ngrx store</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>You’ll notice that the <code class="highlighter-rouge">url</code> used is not mapping on the mock backend.
+For local development and testing, this doesn’t matter.
+Even if both paths would match, the <code class="highlighter-rouge">user interface</code> and backend can’t run both on the same port (http://localhost:8080 vs http://localhost:4200 (standard cli port for <code class="highlighter-rouge">$ ng serve</code>)).
+Requesting resource cross domain will result in <code class="highlighter-rouge">CORS</code> issues. A proxy to the rescue!</p>
+
+<h2 id="proxy">Proxy</h2>
+
+<p>To overcome the <code class="highlighter-rouge">CORS</code> problems, angular-cli, the <code class="highlighter-rouge">serve</code>-command to be more precise, comes with an optional parameter to add a proxy configuration.
+In our production ready setup, all calls to <code class="highlighter-rouge">/api</code> to the same (sub)domain as where the <code class="highlighter-rouge">user interface</code> is getting served, get routed to the REST-API.
+Because we don’t want to add dev or test specific code in the app itself, we proxy the <code class="highlighter-rouge">/api</code> to our mock backend.</p>
+
+<p>Example given:</p>
+
+<p>proxy.config.json</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+
+    <span class="s2">"/api/*"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"target"</span><span class="p">:</span> <span class="s2">"http://localhost:8080/"</span><span class="p">,</span>
+        <span class="s2">"secure"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"logLevel"</span><span class="p">:</span> <span class="s2">"debug"</span><span class="p">,</span>
+        <span class="s2">"changeOrigin"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">"pathRewrite"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"^/api"</span><span class="p">:</span> <span class="s2">""</span><span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>To use this proxy, serve the app with:</p>
+
+<p><code class="highlighter-rouge">$ ng serve --proxy-config proxy.config.json</code></p>
+
+<p>If you take a look at the logs, you can see the system is logging the routes in the console.</p>
+
+<h2 id="frontend--backend">Frontend + Backend</h2>
+
+<p>If you want to run the mock backend (Nodejs) along with the frontend, you need to be able to run concurrent tasks.
+You can do this in a node environment using the <code class="highlighter-rouge">concurrently</code>-package.
+Just install it by running <code class="highlighter-rouge">$ npm i --save-dev concurrently</code>.
+Add an entry in the <code class="highlighter-rouge">package.json</code> scripts section:</p>
+
+<p><code class="highlighter-rouge">"start:proxy": "concurrently \"ng serve --proxy-config proxy.config.json\" \"node path/to/your/server.js \""</code></p>
+
+<p>Because they are both starting at the same time, it might happen your backend is not ready while your frontend starts connecting to the stream.
+A good <code class="highlighter-rouge">retry</code> strategy will help you overcome this problem, that can also happen in real life systems as well.</p>
+
+<h1 id="continuous-integration">Continuous Integration</h1>
+
+<p>As mentioned before, this whole approach should result in a mock that can be used for testing as well.
+In one of our systems, we have a lot of different event types.
+Some only need to show a notification on screen, while others need to refresh data in a cached object, or even change permissions of the logged in user.
+To mock this behavior, you can just put all these events in an array and just loop over it.
+You can even define different delays for each event if that is what you need.</p>
+
+<p>If you are using <a href="https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html" target="_blank">my Node-RED setup</a> from one of my previous posts you should give one of the add-ons a try, however, you can also run both mocks next to each other.
+In most approaches, you don’t run the application itself thought the dev environment (<code class="highlighter-rouge">$ ng serve --proxy-config proxy.config.json</code>).
+You should run your packaged app like you would do in production.
+In our case, we are running everything <code class="highlighter-rouge">Dockerized</code>.
+This means, we build our frontend application and wrap it into a <code class="highlighter-rouge">Docker</code> image (tag it, and push it to our registry).
+In a next stage, we run (deploy) an environment where we can run our tests against.
+In this case we are also not going to use the proxy from our development setup.</p>
+
+<p>An easy setup would be using a docker-compose (e.g.):</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3"</span>
+
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">nginx</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">nginx:mainline-alpine"</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">proxy</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./nginx/nginx.conf:/etc/nginx/nginx.conf:ro</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">80:80</span>
+    <span class="na">links</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">your-web-app</span>
+      <span class="pi">-</span> <span class="s">node-red</span>
+
+  <span class="na">node-red</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">nodered/node-red-docker"</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">node-red</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${userDirPath}/node-red:/data</span>
+      <span class="pi">-</span> <span class="s">${userDirPath}/data:/usr/src/node-red/data</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">1880:1880</span>
+
+  <span class="na">your-web-app</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">registry.your-domain.com/your-web-app:${TAG}"</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">your-web-app</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">links</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">node-red</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">9080:80</span>
+      <span class="pi">-</span> <span class="s">9081:8080</span>
+
+  <span class="na">selenium</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">selenium-grid</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">selenium/standalone-chrome-debug</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">4444:4444</span>
+      <span class="pi">-</span> <span class="s">5900:5900</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">/dev/shm:/dev/shm</span>
+    <span class="na">network_mode</span><span class="pi">:</span> <span class="s">host</span>
+</code></pre></div></div>
+
+<p>We now need to include our own ss-mock backend into this compose.
+You can do this by easily adding a plain Nodejs service, map your folder to your <code class="highlighter-rouge">server.js</code> and overwrite the <code class="highlighter-rouge">CMD</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">sse-service</span><span class="pi">:</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">node"</span>
+  <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+  <span class="na">container_name</span><span class="pi">:</span> <span class="s">sse-mock</span>
+  <span class="na">volumes</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">${pathToYourServer}:/sse-mock</span>
+  <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">8080:8080</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="s">node /sse-mock/service.js</span>
+</code></pre></div></div>
+<p>Don’t forget to add the service to the links section of your nginx and to add the proxy rules in the <code class="highlighter-rouge">nginx.conf</code>.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>location /api/stream {
+    proxy_pass http://sse-mock:8080/api/stream ;
+}
+</code></pre></div></div>
+
+<div style="text-align: center;">
+  <img src="/img/2018-11-21-sse-spring-node-dev-ci/sse-ci-setup.png" width="100%" />
+</div>
+
+<p>As mentioned before, you could/should use the <code class="highlighter-rouge">/start</code> and <code class="highlighter-rouge">/stop</code> for the sse-mock.
+In this setup, this means adding extra rules in your nginx config.
+You want all your api calls to go to the other mock (Node-RED in this case) while proxying <code class="highlighter-rouge">/stream</code>, <code class="highlighter-rouge">/start</code> and <code class="highlighter-rouge">/stop</code> to your sse-mock.</p>
+
+<p>The advantage of implementing the start/stop functionality, is that you can tell your test framework to start the sse-mock events stream and then start watching the response in the UI.</p>
+
+<p>e.g. (protractor, jasmine):</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">beforeAll</span><span class="p">(</span><span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">await</span> <span class="nx">browser</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/api/start'</span><span class="p">);</span> <span class="c1">// depending on the host/address</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>If you’ve build your test data/setup in a specific order, you know what to expect and test for in the <code class="highlighter-rouge">user interface</code>.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Setting up Server-Sent Events is very easy.
+It is a powerful tool for unidirectional streams to you clients.
+The hardest part is defining a strategy for your connections and event type differentiation.
+Setting up the <code class="highlighter-rouge">CI</code> part is easy as well.
+Although you can test a lot in your unit tests, implementing End 2 End testing, mock and real, is recommended.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/testing/2018/11/21/sse-spring-node-dev-ci.html&title=Mocking server sent events: Development and CI&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Mocking server sent events: Development and CI&url=https://ordina-jworks.github.io/testing/2018/11/21/sse-spring-node-dev-ci.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/testing/2018/11/21/sse-spring-node-dev-ci.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/tim-vierbergen/" class="image spotlight-image">
+            <img src="/img/author/tim-vierbergen.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Tim is a senior developer and architect at JWorks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.<br /><br />Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learing how to snowboard.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2018-11-21-sse-spring-node-dev-ci/sse-ci-setup.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
