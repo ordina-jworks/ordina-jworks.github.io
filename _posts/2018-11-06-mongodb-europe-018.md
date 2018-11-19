@@ -339,7 +339,7 @@ To finish it of they shared some lessons learned :
 [Amadeus](https://amadeus.com/en) is the world's largest technology company dedicated to the travel industry.
 They have developed an impressive MongoDB farm, a large environment with 100 clusters.
 Some of these clusters run more than 100 shards, while others have 100TB MongoDB databases.
-Amadeus processes more than 1 trillion availability requests per day. 
+Amadeus processes more than 1 trillion flight availability requests per day. 
 For each single search you do on a website they receive 500.000 availability requests.
 So search responsibly ;-)
 The number of requests per day grows by 50% each year.
