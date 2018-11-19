@@ -53,7 +53,7 @@ Last feature to discuss here is how the user can change which period base the ch
 
 # What can we do next?
 
-While this dashboard already gives an answer to the most important questions and also gives the user the possibility to explore the data over time there are still some extra things that we can develop.
+While this dashboard already gives an answer to the most important questions and also gives the user the possibility to explore the data over time, there are still some extra things that we can develop.
 
 The dashboard is now built within a tableau workbook which is using the data of the [MongoDb][] database JWorks setup as an extract. This means no live connection as JWorks does have in their online application. This brings us to the first thing we can still further explore: **deployment**. In order to put the dashboard in the website they developed we could publish the dashboard on the [Tableau server][] of Ordina which is running on an [Microsoft Azure][]. Running this instance is not free so when taking a decision in this we also should take the user relevance in consideration: does the user really need to have a live connection to the data or does an update overnight also accomplish his needs?
 
