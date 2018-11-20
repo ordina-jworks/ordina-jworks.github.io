@@ -1,0 +1,36 @@
+
+$animation-speed: 1s;
+
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  padding: 1rem;
+
+  &.left {
+    justify-content: flex-start;
+  }
+
+  &.right {
+    justify-content: flex-end;
+  }
+
+  a {
+    $border-padding: 10px;
+
+    color: #1f2831;
+    background-color: #eab285;
+    margin: 2px;
+    padding: 0 $border-padding;
+    border-radius: $border-padding;
+    border-bottom: none;
+
+    -webkit-transition: background-color $animation-speed, color $animation-speed; /* Safari */
+    transition: background-color $animation-speed, color $animation-speed;
+
+    &:hover {
+      color: white !important;
+      background: _palette(bg-header);
+    }
+  }
+}
