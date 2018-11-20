@@ -171,7 +171,7 @@ So it's definitely worth investigating.
 
 ### Problem 1: blocking operations
 This happens when you use an operator that needs all the data before producing results, so results can't be streamed.
-This is most common with aggregation operators such as `$sort`, `$group`, `$bucket`, `$count` and `$facet`.
+The most common culprits are the aggregation operators such as `$sort`, `$group`, `$bucket`, `$count` and `$facet`.
 
 Possible solutions:
 - Create a compound index to support your query and make sure that the sort order in the index is the same as in your query.
