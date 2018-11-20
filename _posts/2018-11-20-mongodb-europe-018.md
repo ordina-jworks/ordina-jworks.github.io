@@ -28,10 +28,8 @@ comments: true
 # Atlas
 ([MongoDB Atlas for your Enterprise](https://sched.co/FmAF){:target="_blank" rel="noopener noreferrer"}, Vladislava Stevanovic & Veronica Tudor)
 
-With Atlas, MongoDB brings us DBaaS (Database As A Service).
-You can run your database in the cloud with the cloud provider of your choice.
-Multiple options to secure your database are built in by default.
-Backups are taken automatically.
+Atlas is the database as a service offering (DBaaS) by MongoDB itself.
+You can run your MongoDB in the cloud with the cloud provider of your choice, secured by default and automatically backed up.
 
 ### Getting started
 It is very easy to get started since a free tier is provided for everyone and you can deploy with the cloud provider of your choice (Azure , GCP, AWS).
@@ -44,9 +42,8 @@ A cluster can be started for free in just a few clicks.
 Start your own cluster: [https://cloud.mongodb.com](https://cloud.mongodb.com){:target="_blank" rel="noopener noreferrer"}
 
 ### Cloud
-MongoDB Atlas is a cross-platform database. 
-You can run it on Amazon Web Services, Google Cloud or Microsoft Azure. 
-It provides you an availability map that shows you which users are served from where an what latency should be expected.
+MongoDB Atlas is a cross-platform database which you can run on Amazon Web Services, Google Cloud or Microsoft Azure. 
+It provides you an availability map that shows you which users are served from where and what the expected latency is.
 <div style="text-align: center;">
   <img src="/img/2018-11-08-mongodb-europe-2018/global-clusters.png" width="100%">
 </div>
@@ -61,15 +58,14 @@ This way you do not run into the limitations of a single server.
 To ensure that MongoDB stores data equally across shards you need the right strategy of choosing a partition key.
 
 ### High availability 
-When a primary node goes down, a new primary is chosen immediately by the system of voting.
+When a primary node goes down, a new primary is chosen immediately by a system of voting.
 All nodes vote on who should become the new primary. 
-The node with the majority of the votes becomes the new primary.
+The node with the majority of votes becomes the new primary.
 A general guideline is to have a replica set that consists of one primary node and at least two secondary nodes.
 To ensure maximum uptime the procedure to recover from instance failures is completely automated.
 
 
 # MongoDB University
-(General Session Keynote)
 
 With [MongoDB University](https://university.mongodb.com/){:target="_blank" rel="noopener noreferrer"}, Mongo has its own platform for online courses.
 A lot of them are available for free.
@@ -83,13 +79,12 @@ Find all available resources here: [https://university.mongodb.com/](https://uni
 
 
 # Compass Aggregation Pipeline Builder
-(General Session Keynote)
+
 
 Recently the aggregation pipeline builder was introduced in [MongoDB Compass](https://www.mongodb.com/products/compass){:target="_blank" rel="noopener noreferrer"}.
-This allows you to create an aggregation pipeline step by step.
-And that makes it easy to debug the pipeline along the way.
+This allows you to create an aggregation pipeline step by step and that makes it easy to debug the pipeline along the way.
 Let's see an example:   
-Suppose I have a collection which contains documents that represent a person.
+Suppose I have a collection which contains documents that represent a person, like this :
 Here are two examples of elements in the collections:
 
 ```json
@@ -210,7 +205,7 @@ Investigate what you really need!
 > Write less code and build apps faster! 
 
 Stitch is the 'Serverless platform from MongoDB', and it comes with a free tier to play around!
-Stitch provides a very easy way to implement new functionality without having to write lots of code in a separate backend application.
+It provides a very easy way to create an application without having to write lots of code in a separate backend.
 The functionalities of Stitch are provided through an SDK.
 Currently there are SDK's for JavaScript, React Native, IOS and Android.
 There is even an Electric Imp Library for IoT devices.
@@ -293,7 +288,8 @@ The expert also gave some more tips in "thinking noSQL".
 > Data should be stored in the same way it is used -- MongoDB expert
 
 # [Streaming data pipelines with MongoDB and Kafka at AO](https://sched.co/FmAp){:target="_blank" rel="noopener noreferrer"}
-[AO](https://ao.com/){:target="_blank" rel="noopener noreferrer"} wanted to solve the issue of having data locked in different places so they wanted a [Single Customer View](https://en.wikipedia.org/wiki/Single_customer_view/){:target="_blank" rel="noopener noreferrer"}.
+Appliances Online, [AO](https://ao.com/){:target="_blank" rel="noopener noreferrer"}, is an international online appliances retailer.
+They wanted to solve the issue of having data locked in different places so they wanted a [Single Customer View](https://en.wikipedia.org/wiki/Single_customer_view/){:target="_blank" rel="noopener noreferrer"}.
 The idea was to get the data from all the different places and consolidate this in MongoDB.
 We are talking here about data stored in legacy databases or messages going through queues.
 The data could be the usual customer data and phone calls with customer care.
@@ -345,7 +341,7 @@ So search responsibly ;-)
 The number of requests per day grows by 50% each year.
 The second of January has by far the most requests, due to new years resolutions!
 If this day is in the weekend all systems are pushed to their limits.
-The fair database for one of their big clients, Kayak, is 100TB in size and changes daily.
+The airline fare database for one of their big clients, Kayak, is 100TB in size and changes daily.
 That's some pretty big numbers there.
 No wonder that Amadeus is a happy user of the MongoDB Enterprise Operator for Kubernetes.
 
@@ -388,7 +384,7 @@ Needless to say that this can be quite cumbersome.
 [MongoDB Charts](https://www.mongodb.com/products/charts) intends to solve this.
 
 So what is it? 
-MongoDB Charts is a visualization tool that runs as a standalone webserver, you access it via a web browser.
+MongoDB Charts is a visualization tool that runs as a standalone webserver so you can access it via a web browser.
 
 In Charts you define data sources by pointing to a collection or view on a MongoDB instance.
 Then you can create all kinds of visualizations based on the data source, using various aggregation and filter functions.
@@ -404,8 +400,8 @@ Charts is still in beta but you can already try it out.
 MongoDB provides a docker image that you can [download](https://www.mongodb.com/download-center/charts) via the MongoDB download center.
 
 # Closing
-A great day being submerged in Mongo-knowledge. 
+It was a great day being submerged in MongoDB-knowledge. 
 This conference gave us plenty of opportunity to talk to other experts and learn about the new and upcoming features.  
 
-Exciting, we'll keep mongo-ing for quite a while!
+Keep an eye on this space for more MongoDB goodness.
 
