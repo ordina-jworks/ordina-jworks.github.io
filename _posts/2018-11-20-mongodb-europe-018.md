@@ -110,7 +110,7 @@ A person has the fields lastName, firstName and birthYear (and of course for som
 I want to build a pipeline with the following functionality:
 * I want to filter out all people that share my lastname "Van Hoof"
 * Then I want to count how many times these people also share the same firstname and birthyear
-* Next I want to group them by birthYear so that I can see how many people were named "Nick van Hoof " (my fullname) in 1992.
+* Next I want to group them by birthYear so that I can see how many people were named "Nick Van Hoof " (my fullname) in 1992.
 * Finally, I want them sorted on year in ascending order
 
 Filter all with last name  "Van Hoof" and group by lastName, firstName and year:
@@ -274,7 +274,7 @@ Since 4.0, MongoDB provides a [Mobile](https://www.mongodb.com/products/mobile){
 With Stitch, you can sync your data in your mobile application with your database.
 So now you can use the full MongoDB Query Language, including aggregations, on your mobile device and sync it with your database.
 
-### Build in external Integrations
+### Built-in external Integrations
 The fun with Stitch really starts when you combine all the goodness of Stitch with its integrations with cloud services like Twilio, AWS, Google, etc...
 You can authenticate with Google, store files on S3 or spin up a cluster on Redshift after you send a text message with Twilio.
 All of this can be hidden behind a simple function call for your application, or a trigger on your Atlas cluster.
@@ -322,7 +322,7 @@ All with a simple piece of configuration like:
 
 They use Avro for the schema definition in combination with a schema-registry.
 Interested clients can then read the data off the topics and do their single-view-thing on the data and save it to MongoDB.
-The view is being build up, message per message.
+The view is being built up, message per message.
 Afterwards this view in  MongoDB is then pushed back to Kafka as another stream to provide this data to interested parties.
 This avoids locking the data in one place.
 
@@ -383,7 +383,7 @@ cubectl apply -f file.yaml
 # MongoDB Charts
 - [Bringing Data to Life with MongoDB Charts](https://sched.co/FtWP), Guillaume Meister.
 
-Currently, if you want to visualize data in a MongoDB database you either have to code it yourself, or rely on a 3rd party tool and migrate your data to a different platform (for example: Kibana with Elasticsearch is a popular tool).
+Currently, if you want to visualize data in a MongoDB database you either have to code it yourself, or rely on a 3rd party tool and migrate your data to a different platform (for example: Kibana with Elasticsearch is very popular).
 Needless to say that this can be quite cumbersome.
 [MongoDB Charts](https://www.mongodb.com/products/charts) intends to solve this.
 
