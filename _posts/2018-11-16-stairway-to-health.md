@@ -46,15 +46,16 @@ Next to the chart, the total absolute number of all the observations measured is
 
 ## Part three: the more detailed area chart
 
-The third part visualises how the division stair / elevator is evolving over time expressed in day / week / month or year basis.
+The third part visualises how the division stair / elevator is evolving over time expressed in daily, weekly, monthly or yearly basis.
 This gives the user the possibility to look at trends and to see how the situation of today compares itself to past situations.
 
 In the title the user has the option to change the appearance of the data (absolute or shares).
-He has also the option to change how many periods are visualised starting from the most recent period.
+The amount of periods shown (starting from the most recent period) can also be changed.
 
 ![PartThreeOne](/img/2018-11-16-stairway-to-health/PartThreeOne.gif)
 
-When the user hovers over the chart he can see the same horizontal bar comparison allowing him to compare the selected period above with the period he is hovering over in the chart.
+When the user hovers over the chart the same horizontal bar comparison can be seen. 
+Comparisons can be made with the period selected above.
 
 ![PartThreeTwo](/img/2018-11-16-stairway-to-health/PartThreeTwo.gif)
 
