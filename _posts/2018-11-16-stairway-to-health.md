@@ -74,7 +74,7 @@ The dashboard is currently built within a Tableau workbook which is using the da
 This means we don't have a live connection to the actual database JWorks has in their app.
 This brings us to the first thing we can still explore: **deployment**.
 In order to integrate the dashboard in the original application, we could publish the dashboard on the [Tableau server][] of Ordina which is running on [Microsoft Azure][].
-Running this instance is not free so when taking a decision we should also take the user relevance in consideration: does the user really need to have a live connection to the data or does a nightly update accomplish his needs?
+Running this instance is not free so when taking a decision we should also take the user relevance in consideration: does the user really need to have a live connection to the data or does a nightly update cover the load?
 
 Secondly we can still do a lot on the **analysis part**. What are the reasons why some patterns in the data exist? Do people take the stairs less when it is hot outside?
 JWorks recently tracked on which floor the observation is measured, allowing us to look into difference by floor. Do people take the elevator more when they need to go from floor 1 to floor 3?
