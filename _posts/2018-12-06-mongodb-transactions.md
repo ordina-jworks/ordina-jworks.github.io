@@ -2,7 +2,7 @@
 layout: post
 authors: [jan_van_der_veken]
 title: "Transactions in MongoDB 4.0"
-image: /img/2018-11-08-mongodb-europe-2018/mongodb-acid-logo.png
+image: /img/2018-11-08-mongodb-europe-2018/mongodb-acid-logo-thumb.png
 tags: [Development,MongoDB,DBA,Data,Transactions,ACID,Conference]
 category: Development
 comments: true
