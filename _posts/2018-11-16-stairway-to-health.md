@@ -74,7 +74,7 @@ While this dashboard already gives an answer to the most important questions and
 The dashboard is currently built within a Tableau workbook which is using the data of the [MongoDb][] database JWorks set up as an extract.
 This means we don't have a live connection to the actual database JWorks has in their app.
 This brings us to the first thing we can still explore: **deployment**.
-In order to integrate the dashboard in the original application, we could publish the dashboard on the [Tableau server][] of Ordina which is running on [Microsoft Azure][].
+In order to integrate the dashboard in the original application, we could publish the dashboard on the [Tableau server][]{:target="_blank" rel="noopener noreferrer"} of Ordina which is running on [Microsoft Azure][]{:target="_blank" rel="noopener noreferrer"}.
 Running this instance is not free so when taking a decision we should also take the user relevance in consideration: does the user really need to have a live connection to the data or does a nightly update cover the load?
 
 Secondly we can still do a lot on the **analysis part**. What are the reasons why some patterns in the data exist? Do people take the stairs less when it is hot outside?
