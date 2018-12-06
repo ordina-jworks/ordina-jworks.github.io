@@ -93,4 +93,4 @@ VisionWorks
 [VisionWorks]: https://www.ordina.be/vakgebieden/bi-analytics/
 [JWorks]: https://ordina-jworks.github.io/
 [here]: https://ordina-jworks.github.io/iot/2018/03/14/Stairway-To-Health-2.html
-[MongoDb]: https://www.mongodb.com/
+[MongoDB]: https://www.mongodb.com/
