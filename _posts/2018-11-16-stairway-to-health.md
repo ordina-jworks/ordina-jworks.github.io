@@ -82,7 +82,6 @@ JWorks recently tracked on which floor the observation is measured, allowing us 
 
 We will keep you posted on further progress related to Stairway to Health. Thank you for reading and don't forget: always take the stairs!
 
-Data Visualisation Consultant   
 VisionWorks
 
 [Tableau]: https://www.tableau.com/
