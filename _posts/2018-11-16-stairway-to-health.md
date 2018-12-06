@@ -58,7 +58,7 @@ The amount of periods shown (starting from the most recent period) can also be c
 When the user hovers over the chart the same horizontal bar comparison can be seen. 
 Comparisons can be made with the period selected above.
 
-![PartThreeTwo](/img/2018-11-16-stairway-to-health/PartThreeTwo.gif)
+![PartThreeTwo](/img/2018-11-16-stairway-to-health/PartThreeTwo.gif){:.image .fit}
 
 Last feature to discuss here is how the user can change which period the chart is showing.
 This can be done by clicking the chart above.
