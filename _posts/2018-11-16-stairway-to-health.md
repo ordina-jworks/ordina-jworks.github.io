@@ -71,7 +71,7 @@ This also applies to the other period bases in the chart.
 
 While this dashboard already gives an answer to the most important questions and gives the user the possibility to explore the data over time, there are still some extra things that can be developed.
 
-The dashboard is currently built within a Tableau workbook which is using the data of the [MongoDb][] database JWorks set up as an extract.
+The dashboard is currently built within a Tableau workbook which is using the data of the [MongoDB][]{:target="_blank" rel="noopener noreferrer"} database JWorks set up as an extract.
 This means we don't have a live connection to the actual database JWorks has in their app.
 This brings us to the first thing we can still explore: **deployment**.
 In order to integrate the dashboard in the original application, we could publish the dashboard on the [Tableau server][]{:target="_blank" rel="noopener noreferrer"} of Ordina which is running on [Microsoft Azure][]{:target="_blank" rel="noopener noreferrer"}.
