@@ -14,7 +14,7 @@ We decided to use [Tableau][]{:target="_blank" rel="noopener noreferrer"}, a pop
 We developed the dashboard working around some key questions while keeping the appearance of the dashboard in line with the dashboard JWorks developed.
 
 In the following section we will explain how the dashboard is currently set up and how to use it properly.
-Next we will go over the features we can add in future releases to allow the user to go even deeper in their analysis.
+Next, we will go over the features we can add in future releases to allow the user to go even deeper in their analysis.
 
 # Dashboard overview
 
