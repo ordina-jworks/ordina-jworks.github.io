@@ -34,7 +34,7 @@ The title is what the user sees first and answers the first question.
 By using the colors in the title, the dashboard shows the user - in a subtle way - what the colors in the next visuals represent.
 There is also an option to select another day as illustrated below.
 
-![PartOne](/img/2018-11-16-stairway-to-health/PartOne.gif)
+![PartOne](/img/2018-11-16-stairway-to-health/PartOne.gif){:.image .fit}
 
 ## Part two: the horizontal bar comparison
 
