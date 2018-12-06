@@ -9,7 +9,8 @@ comments: true
 ---
 
 # VisionWorks meets JWorks: StairwayToHealth
-We from [VisionWorks][] were asked to rebuild the visualisation dashboard [JWorks][] used in the [application][] they built as a result of the internal StairwayToHealth project (you can find more information about that project [here][]). We decided to use [Tableau][], a popular BI Visualisation tool we largely use at our clients.
+We, from [VisionWorks][], were asked to rebuild the visualisation dashboard [JWorks][]{:target="_blank" rel="noopener noreferrer"} used in the [application][]{:target="_blank" rel="noopener noreferrer"} they built as a result of the internal Stairway to Health project (you can find more information about that project [here][]{:target="_blank" rel="noopener noreferrer"}). 
+We decided to use [Tableau][]{:target="_blank" rel="noopener noreferrer"}, a popular BI Visualisation tool we largely use at our clients.
 We developed the dashboard working around some key questions while keeping the appearance of the dashboard in line with the dashboard JWorks developed.
 
 In the following section we will explain how the dashboard is currently set up and how to use it properly.
