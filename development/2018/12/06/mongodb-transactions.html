@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Transactions in MongoDB 4.0 - Jan Van der Veken">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2018-11-08-mongodb-europe-2018/mongodb-acid-logo-thumb.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/development/2018/12/06/mongodb-transactions.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Transactions in MongoDB 4.0 - Jan Van der Veken"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2018-11-08-mongodb-europe-2018/mongodb-acid-logo-thumb.png"/>
+
+    
+    <title>Transactions in MongoDB 4.0 - Jan Van der Veken &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Transactions in MongoDB 4.0</h2>
+                
+
+                
+                    Posted Dec 6, 2018
+
+
+    in <a href="/categories/development/">Development</a>
+
+
+
+    by
+    
+        <a href="/author/jan-van-der-veken/">Jan Van der Veken</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/development/">Development</a>, 
+    
+        <a href="/tags/mongodb/">MongoDB</a>, 
+    
+        <a href="/tags/dba/">DBA</a>, 
+    
+        <a href="/tags/data/">Data</a>, 
+    
+        <a href="/tags/transactions/">Transactions</a>, 
+    
+        <a href="/tags/acid/">ACID</a>, 
+    
+        <a href="/tags/conference/">Conference</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#Relational-vs.-document-database">Relational vs. document database</a></li>
+  <li><a href="#when-to-use-transactions">When to use transactions?</a></li>
+  <li><a href="#technical-details">Technical details</a></li>
+  <li><a href="#practical">Practical</a></li>
+  <li><a href="#best-practices">Best Practices</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ol>
+
+<h2 id="introduction">Introduction</h2>
+<ul>
+  <li><a href="https://mongodbeurope2018.sched.com/event/FmAR/how-and-when-to-use-multi-document-distributed-transactions">How and When to Use Multi-Document Distributed Transactions, Aly Cabral</a></li>
+  <li><a href="https://mongodbeurope2018.sched.com/event/FmAW/mongodb-building-a-new-transactional-model">MongoDB: Building a New Transactional Model, Keith Bostic</a></li>
+</ul>
+
+<p>The sessions I was looking forward to the most at MongoDB Europe 2018 were the two sessions about multi-document transactions, the most talked about feature of the MongoDB 4.0 release.
+In the morning I attended a session by Aly Cabral which was very practically oriented.
+In the afternoon there was a more esoteric yet very interesting session by Keith Bostic who provided some insight into the inner workings of the WiredTiger storage engine and the difficulties the MongoDB team had to overcome to implement the new transaction model.</p>
+
+<p>To give some background, as a longtime Oracle DBA, I always found it odd that a database would lack what I had always considered a crucial database feature, so I was naturally curious to know more about MongoDB’s implementation and how it would compare to a typical relational database.</p>
+
+<p>In this post we will explore how multi-document transactions are implemented in MongoDB, how the implementation is similar to a relational database system and where they differ.</p>
+
+<h2 id="relational-vs-document-database">Relational vs. document database</h2>
+<p>As I learned through working with MongoDB the past two years, there is less need for multi-document transactions in document databases.
+For the majority of use cases single document transactions suffice.
+This is because the data model you use with a document database is quite different from what you would use with an RDBMS.</p>
+
+<p>In a relational database system you typically normalize data in order to avoid duplication.
+A single <code class="highlighter-rouge">entity</code> more often than not has data spanning multiple tables, so when you perform updates to a single entity you have to update multiple rows in multiple tables concurrently, which necessitates transactions.</p>
+
+<p>In a document database like MongoDB though, you typically embed all data that represents one entity within a single document, in which case updates to that entity are also limited to a single document.
+You can see that there’s less need for transactions.</p>
+
+<p>In essence, the RDBMS approach prioritizes disk space efficiency above everything else whereas the MongoDB approach prioritizes ease of development and simplicity.</p>
+
+<p>Nevertheless, there are some scenarios where you may want to use multi-document transactions in a document database.
+Let’s see what some of those scenarios might be…</p>
+
+<h2 id="when-to-use-transactions">When to use transactions?</h2>
+
+<h3 id="relationships">Relationships</h3>
+<p>In the case that your datamodel does have relationships between separate entitites, you may want to use transactions to update both of them at the same time.</p>
+
+<p>An example of this could be a <code class="highlighter-rouge">customer</code> and a <code class="highlighter-rouge">car</code> that the customer owns.
+They are distinct entities, but there is a relationship between them in the form of ownership information.
+If you update the ownership information on the <code class="highlighter-rouge">customer</code> document, you probably need to update it on the <code class="highlighter-rouge">car</code> document (or documents) as well.</p>
+
+<p>The only way to do this with guaranteed consistency is through a multi-document transaction.</p>
+
+<h3 id="event-processing">Event processing</h3>
+<p>Another use case of transactions is event processing.
+When a certain event occurs, it may need to atomically create, update or delete several entities at the same time.</p>
+
+<p>The example that was given in Aly’s presentation was the creation or invalidation of a customer’s account, which would require an update to all of the customer’s entities.</p>
+
+<h3 id="event-logging-or-auditing">Event logging or auditing</h3>
+<p>Consider the case where, for logging or auditing purposes, you want to create an event trail of all changes that happen to a certain document or collection and you want to store this event trail in another collection.</p>
+
+<p>The event trail should be representative of what really occurred, so events that never occurred should not be logged nor should events that actually happened be lost.</p>
+
+<p>The only way to achieve this is to put the update and the logging of the update inside the same transaction.</p>
+
+<h2 id="technical-details">Technical details</h2>
+<p>Now let’s explore some of the more technical features of multi-document transactions.</p>
+
+<h3 id="atomicity">Atomicity</h3>
+<p>This is pretty straightforward.
+In MongoDB transactions are atomic, which means that execution of multiple changes inside a transaction is an all-or-nothing deal: either all updates get committed, or none.</p>
+
+<h3 id="snapshot-isolation">Snapshot isolation</h3>
+<p>When you start a transaction, MongoDB creates a snapshot of the current state of the database.
+During your transaction you will not see any updates made by other sessions.
+You are <em>isolated</em> from them.
+This guarantees that throughout the transaction your session will see one consistent version of the data.</p>
+
+<p>Internally MongoDB uses an update structure inside the WiredTiger cache to maintain this consistent view on the database.
+This structure grows as writes occur to the database and is only evicted from the database once the transaction is committed or aborted.
+The implication of this is that long running transactions or a high write volume can put pressure on the cache.
+It’s therefore recommended to keep the duration of any transaction as low as possible.</p>
+
+<p>To minimize cache pressure, you can use the server parameter <code class="highlighter-rouge">transactionLifeTimeLimitSeconds</code> to set a sensible maximum transaction time.
+If a transaction runs for a longer time than this value, it will be aborted.
+The default value of <code class="highlighter-rouge">transactionLifeTimeLimitSeconds</code> is 60 seconds.</p>
+
+<p>A sidenote for those DBAs or developers who are already familiar with Oracle: the update structure in the WiredTiger cache is similar to how rollback segments and undo tablespaces work in Oracle.
+The differences are that the snapshot information is kept entirely in memory instead of on disk, and that you don’t have to actively manage it by allocating a tablespace for it.</p>
+
+<h3 id="read-your-own-writes">Read your own writes</h3>
+<p>MongoDB guarantees that you can read any writes you make inside your transaction, even before they are committed.
+It also guarantees that no other session can read your writes before they are committed.</p>
+
+<p>Again, these writes are handled by the snapshot structure inside the WiredTiger cache.</p>
+
+<h3 id="write-locks">Write locks</h3>
+<p>When two sessions are trying to update the same document at the same time, you get a write conflict.
+In MongoDB this conflict is handled by write locks.
+There are basically two conflict scenarios:</p>
+
+<ul>
+  <li>
+    <p>Before a <em>transaction</em> updates a document, it will try to acquire a write lock.
+If the document is already locked the transaction will fail.</p>
+  </li>
+  <li>
+    <p>Before a <em>non-transactional operation</em> tries to update a document, it will try to acquire a write lock.
+If the document is already locked, the operation will back off and retry until <a href="https://docs.mongodb.com/manual/reference/method/cursor.maxTimeMS/#cursor.maxTimeMS">MaxTimeMS</a> is reached.</p>
+  </li>
+</ul>
+
+<p>Note that reads never block writes.
+MongoDB is also smart enough to recognize a so called no-op write: if the document you are trying to update was not changed by the update, it will not attempt to acquire a write lock.</p>
+
+<h3 id="limitations">Limitations</h3>
+<p>Currently you can only use multi-document transactions with replica sets.
+Sharded clusters are not supported yet, though this feature is planned for a future release (4.1 perhaps?).</p>
+
+<p>Due to the WiredTiger cache pressure, long running transactions can be problematic. 
+The MongoDB developers are working on improving this for future releases and plan to support transactions running for several hours or even days.</p>
+
+<h2 id="practical">Practical</h2>
+<p>As for semantics, the MongoDB developers thankfully chose not to reinvent the wheel.
+Using transactions is similar to what most developers are used to on relational database systems.
+The precise syntax varies per programming language, so you will have to do some RTFM to learn it, but it always comes down to the following steps:</p>
+
+<ol>
+  <li>Open session</li>
+  <li>Start transaction</li>
+  <li>Update multiple documents</li>
+  <li>Commit or abort transaction</li>
+</ol>
+
+<p>For example, in Mongo Shell syntax a transaction typically looks like this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">mySession</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">getMongo</span><span class="p">().</span><span class="nx">startSession</span><span class="p">();</span>
+<span class="nx">mySession</span><span class="p">.</span><span class="nx">startTransaction</span><span class="p">();</span>
+<span class="nx">mySession</span><span class="p">.</span><span class="nx">getDatabase</span><span class="p">(</span><span class="s2">"mydb"</span><span class="p">).</span><span class="nx">coll1</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span><span class="s2">"foo"</span> <span class="p">:</span> <span class="s2">"bar"</span><span class="p">});</span>
+<span class="nx">mySession</span><span class="p">.</span><span class="nx">getDatabase</span><span class="p">(</span><span class="s2">"mydb"</span><span class="p">).</span><span class="nx">coll2</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span><span class="s2">"hello"</span> <span class="p">:</span> <span class="s2">"world"</span><span class="p">});</span>
+<span class="nx">mySession</span><span class="p">.</span><span class="nx">commitTransaction</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>One important thing to note here is that once we open the session on the first line, every subsequent action must use the session variable (“mySession” in this case), otherwise they will be simple update operations not belonging to the transaction.</p>
+
+<h2 id="best-practices">Best practices</h2>
+<p>Finally, here are some best practices we learned in the session:</p>
+
+<ul>
+  <li>Don’t change your data modeling rules because of transactions.
+For example: don’t start normalizing data</li>
+  <li>Transactions shouldn’t be the most common operation.
+If they are, you’re doing it wrong.</li>
+  <li>Pass session information to all statements inside your transaction.</li>
+  <li>Implement retry logic.
+MongoDB returns errorcodes that tell you if a transaction has failed and if it failed with a retryable error or not.</li>
+  <li>To reduce WiredTiger cache pressure, keep transactions short and don’t leave them open, even read only transactions.</li>
+  <li>Take into account that long running DDL operations (e.g. <code class="highlighter-rouge">createIndex()</code> ) block transactions and vice versa.</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>Multi-document transactions are a useful and easy to use addition to MongoDB.
+They make MongoDB a better general purpose database and a stronger alternative for applications where you would traditionally have to choose a relational database.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/development/2018/12/06/mongodb-transactions.html&title=Transactions in MongoDB 4.0&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Transactions in MongoDB 4.0&url=https://ordina-jworks.github.io/development/2018/12/06/mongodb-transactions.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/development/2018/12/06/mongodb-transactions.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/jan-van-der-veken/" class="image spotlight-image">
+            <img src="/img/author/no-image.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Jan is a database specialist with many years of experience as system engineer and Oracle DBA, and who is now focusing on cloud and nosql technologies such as MongoDB and the Elastic stack.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2018 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2018-11-08-mongodb-europe-2018/mongodb-acid-logo-thumb.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

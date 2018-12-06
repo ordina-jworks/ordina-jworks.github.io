@@ -1,5 +1,167 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-11-25T16:48:42+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Mocking server sent events: Development and CI</title><link href="https://ordina-jworks.github.io/testing/2018/11/21/sse-spring-node-dev-ci.html" rel="alternate" type="text/html" title="Mocking server sent events: Development and CI" /><published>2018-11-21T00:00:00+00:00</published><updated>2018-11-21T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/11/21/sse-spring-node-dev-ci</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/11/21/sse-spring-node-dev-ci.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2018-12-06T12:27:59+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Transactions in MongoDB 4.0</title><link href="https://ordina-jworks.github.io/development/2018/12/06/mongodb-transactions.html" rel="alternate" type="text/html" title="Transactions in MongoDB 4.0" /><published>2018-12-06T00:00:00+00:00</published><updated>2018-12-06T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2018/12/06/mongodb-transactions</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2018/12/06/mongodb-transactions.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#Relational-vs.-document-database&quot;&gt;Relational vs. document database&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#when-to-use-transactions&quot;&gt;When to use transactions?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#technical-details&quot;&gt;Technical details&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#practical&quot;&gt;Practical&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#best-practices&quot;&gt;Best Practices&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mongodbeurope2018.sched.com/event/FmAR/how-and-when-to-use-multi-document-distributed-transactions&quot;&gt;How and When to Use Multi-Document Distributed Transactions, Aly Cabral&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mongodbeurope2018.sched.com/event/FmAW/mongodb-building-a-new-transactional-model&quot;&gt;MongoDB: Building a New Transactional Model, Keith Bostic&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The sessions I was looking forward to the most at MongoDB Europe 2018 were the two sessions about multi-document transactions, the most talked about feature of the MongoDB 4.0 release.
+In the morning I attended a session by Aly Cabral which was very practically oriented.
+In the afternoon there was a more esoteric yet very interesting session by Keith Bostic who provided some insight into the inner workings of the WiredTiger storage engine and the difficulties the MongoDB team had to overcome to implement the new transaction model.&lt;/p&gt;
+
+&lt;p&gt;To give some background, as a longtime Oracle DBA, I always found it odd that a database would lack what I had always considered a crucial database feature, so I was naturally curious to know more about MongoDB’s implementation and how it would compare to a typical relational database.&lt;/p&gt;
+
+&lt;p&gt;In this post we will explore how multi-document transactions are implemented in MongoDB, how the implementation is similar to a relational database system and where they differ.&lt;/p&gt;
+
+&lt;h2 id=&quot;relational-vs-document-database&quot;&gt;Relational vs. document database&lt;/h2&gt;
+&lt;p&gt;As I learned through working with MongoDB the past two years, there is less need for multi-document transactions in document databases.
+For the majority of use cases single document transactions suffice.
+This is because the data model you use with a document database is quite different from what you would use with an RDBMS.&lt;/p&gt;
+
+&lt;p&gt;In a relational database system you typically normalize data in order to avoid duplication.
+A single &lt;code class=&quot;highlighter-rouge&quot;&gt;entity&lt;/code&gt; more often than not has data spanning multiple tables, so when you perform updates to a single entity you have to update multiple rows in multiple tables concurrently, which necessitates transactions.&lt;/p&gt;
+
+&lt;p&gt;In a document database like MongoDB though, you typically embed all data that represents one entity within a single document, in which case updates to that entity are also limited to a single document.
+You can see that there’s less need for transactions.&lt;/p&gt;
+
+&lt;p&gt;In essence, the RDBMS approach prioritizes disk space efficiency above everything else whereas the MongoDB approach prioritizes ease of development and simplicity.&lt;/p&gt;
+
+&lt;p&gt;Nevertheless, there are some scenarios where you may want to use multi-document transactions in a document database.
+Let’s see what some of those scenarios might be…&lt;/p&gt;
+
+&lt;h2 id=&quot;when-to-use-transactions&quot;&gt;When to use transactions?&lt;/h2&gt;
+
+&lt;h3 id=&quot;relationships&quot;&gt;Relationships&lt;/h3&gt;
+&lt;p&gt;In the case that your datamodel does have relationships between separate entitites, you may want to use transactions to update both of them at the same time.&lt;/p&gt;
+
+&lt;p&gt;An example of this could be a &lt;code class=&quot;highlighter-rouge&quot;&gt;customer&lt;/code&gt; and a &lt;code class=&quot;highlighter-rouge&quot;&gt;car&lt;/code&gt; that the customer owns.
+They are distinct entities, but there is a relationship between them in the form of ownership information.
+If you update the ownership information on the &lt;code class=&quot;highlighter-rouge&quot;&gt;customer&lt;/code&gt; document, you probably need to update it on the &lt;code class=&quot;highlighter-rouge&quot;&gt;car&lt;/code&gt; document (or documents) as well.&lt;/p&gt;
+
+&lt;p&gt;The only way to do this with guaranteed consistency is through a multi-document transaction.&lt;/p&gt;
+
+&lt;h3 id=&quot;event-processing&quot;&gt;Event processing&lt;/h3&gt;
+&lt;p&gt;Another use case of transactions is event processing.
+When a certain event occurs, it may need to atomically create, update or delete several entities at the same time.&lt;/p&gt;
+
+&lt;p&gt;The example that was given in Aly’s presentation was the creation or invalidation of a customer’s account, which would require an update to all of the customer’s entities.&lt;/p&gt;
+
+&lt;h3 id=&quot;event-logging-or-auditing&quot;&gt;Event logging or auditing&lt;/h3&gt;
+&lt;p&gt;Consider the case where, for logging or auditing purposes, you want to create an event trail of all changes that happen to a certain document or collection and you want to store this event trail in another collection.&lt;/p&gt;
+
+&lt;p&gt;The event trail should be representative of what really occurred, so events that never occurred should not be logged nor should events that actually happened be lost.&lt;/p&gt;
+
+&lt;p&gt;The only way to achieve this is to put the update and the logging of the update inside the same transaction.&lt;/p&gt;
+
+&lt;h2 id=&quot;technical-details&quot;&gt;Technical details&lt;/h2&gt;
+&lt;p&gt;Now let’s explore some of the more technical features of multi-document transactions.&lt;/p&gt;
+
+&lt;h3 id=&quot;atomicity&quot;&gt;Atomicity&lt;/h3&gt;
+&lt;p&gt;This is pretty straightforward.
+In MongoDB transactions are atomic, which means that execution of multiple changes inside a transaction is an all-or-nothing deal: either all updates get committed, or none.&lt;/p&gt;
+
+&lt;h3 id=&quot;snapshot-isolation&quot;&gt;Snapshot isolation&lt;/h3&gt;
+&lt;p&gt;When you start a transaction, MongoDB creates a snapshot of the current state of the database.
+During your transaction you will not see any updates made by other sessions.
+You are &lt;em&gt;isolated&lt;/em&gt; from them.
+This guarantees that throughout the transaction your session will see one consistent version of the data.&lt;/p&gt;
+
+&lt;p&gt;Internally MongoDB uses an update structure inside the WiredTiger cache to maintain this consistent view on the database.
+This structure grows as writes occur to the database and is only evicted from the database once the transaction is committed or aborted.
+The implication of this is that long running transactions or a high write volume can put pressure on the cache.
+It’s therefore recommended to keep the duration of any transaction as low as possible.&lt;/p&gt;
+
+&lt;p&gt;To minimize cache pressure, you can use the server parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;transactionLifeTimeLimitSeconds&lt;/code&gt; to set a sensible maximum transaction time.
+If a transaction runs for a longer time than this value, it will be aborted.
+The default value of &lt;code class=&quot;highlighter-rouge&quot;&gt;transactionLifeTimeLimitSeconds&lt;/code&gt; is 60 seconds.&lt;/p&gt;
+
+&lt;p&gt;A sidenote for those DBAs or developers who are already familiar with Oracle: the update structure in the WiredTiger cache is similar to how rollback segments and undo tablespaces work in Oracle.
+The differences are that the snapshot information is kept entirely in memory instead of on disk, and that you don’t have to actively manage it by allocating a tablespace for it.&lt;/p&gt;
+
+&lt;h3 id=&quot;read-your-own-writes&quot;&gt;Read your own writes&lt;/h3&gt;
+&lt;p&gt;MongoDB guarantees that you can read any writes you make inside your transaction, even before they are committed.
+It also guarantees that no other session can read your writes before they are committed.&lt;/p&gt;
+
+&lt;p&gt;Again, these writes are handled by the snapshot structure inside the WiredTiger cache.&lt;/p&gt;
+
+&lt;h3 id=&quot;write-locks&quot;&gt;Write locks&lt;/h3&gt;
+&lt;p&gt;When two sessions are trying to update the same document at the same time, you get a write conflict.
+In MongoDB this conflict is handled by write locks.
+There are basically two conflict scenarios:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Before a &lt;em&gt;transaction&lt;/em&gt; updates a document, it will try to acquire a write lock.
+If the document is already locked the transaction will fail.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Before a &lt;em&gt;non-transactional operation&lt;/em&gt; tries to update a document, it will try to acquire a write lock.
+If the document is already locked, the operation will back off and retry until &lt;a href=&quot;https://docs.mongodb.com/manual/reference/method/cursor.maxTimeMS/#cursor.maxTimeMS&quot;&gt;MaxTimeMS&lt;/a&gt; is reached.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Note that reads never block writes.
+MongoDB is also smart enough to recognize a so called no-op write: if the document you are trying to update was not changed by the update, it will not attempt to acquire a write lock.&lt;/p&gt;
+
+&lt;h3 id=&quot;limitations&quot;&gt;Limitations&lt;/h3&gt;
+&lt;p&gt;Currently you can only use multi-document transactions with replica sets.
+Sharded clusters are not supported yet, though this feature is planned for a future release (4.1 perhaps?).&lt;/p&gt;
+
+&lt;p&gt;Due to the WiredTiger cache pressure, long running transactions can be problematic. 
+The MongoDB developers are working on improving this for future releases and plan to support transactions running for several hours or even days.&lt;/p&gt;
+
+&lt;h2 id=&quot;practical&quot;&gt;Practical&lt;/h2&gt;
+&lt;p&gt;As for semantics, the MongoDB developers thankfully chose not to reinvent the wheel.
+Using transactions is similar to what most developers are used to on relational database systems.
+The precise syntax varies per programming language, so you will have to do some RTFM to learn it, but it always comes down to the following steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Open session&lt;/li&gt;
+  &lt;li&gt;Start transaction&lt;/li&gt;
+  &lt;li&gt;Update multiple documents&lt;/li&gt;
+  &lt;li&gt;Commit or abort transaction&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;For example, in Mongo Shell syntax a transaction typically looks like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;mySession&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getMongo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;startSession&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;mySession&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;startTransaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;mySession&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getDatabase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mydb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;coll1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;foo&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;bar&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;mySession&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getDatabase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mydb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;coll2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;world&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;mySession&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;commitTransaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;One important thing to note here is that once we open the session on the first line, every subsequent action must use the session variable (“mySession” in this case), otherwise they will be simple update operations not belonging to the transaction.&lt;/p&gt;
+
+&lt;h2 id=&quot;best-practices&quot;&gt;Best practices&lt;/h2&gt;
+&lt;p&gt;Finally, here are some best practices we learned in the session:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Don’t change your data modeling rules because of transactions.
+For example: don’t start normalizing data&lt;/li&gt;
+  &lt;li&gt;Transactions shouldn’t be the most common operation.
+If they are, you’re doing it wrong.&lt;/li&gt;
+  &lt;li&gt;Pass session information to all statements inside your transaction.&lt;/li&gt;
+  &lt;li&gt;Implement retry logic.
+MongoDB returns errorcodes that tell you if a transaction has failed and if it failed with a retryable error or not.&lt;/li&gt;
+  &lt;li&gt;To reduce WiredTiger cache pressure, keep transactions short and don’t leave them open, even read only transactions.&lt;/li&gt;
+  &lt;li&gt;Take into account that long running DDL operations (e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;createIndex()&lt;/code&gt; ) block transactions and vice versa.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Multi-document transactions are a useful and easy to use addition to MongoDB.
+They make MongoDB a better general purpose database and a stronger alternative for applications where you would traditionally have to choose a relational database.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Jan&quot;, &quot;last_name&quot;=&gt;&quot;Van der Veken&quot;, &quot;github&quot;=&gt;&quot;jvanderveken-ordina&quot;, &quot;permalink&quot;=&gt;&quot;/author/jan-van-der-veken/&quot;, &quot;avatar&quot;=&gt;&quot;no-image.jpg&quot;, &quot;title&quot;=&gt;&quot;Database Consultant&quot;, &quot;email&quot;=&gt;&quot;jan.vanderveken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Jan is a database specialist with many years of experience as system engineer and Oracle DBA, and who is now focusing on cloud and nosql technologies such as MongoDB and the Elastic stack.&quot;}</name><email>jan.vanderveken@ordina.be</email></author><category term="Development" /><category term="Development" /><category term="MongoDB" /><category term="DBA" /><category term="Data" /><category term="Transactions" /><category term="ACID" /><category term="Conference" /><summary type="html">Table of Contents Introduction Relational vs. document database When to use transactions? Technical details Practical Best Practices Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-11-08-mongodb-europe-2018/mongodb-acid-logo-thumb.png" /></entry><entry><title type="html">Mocking server sent events: Development and CI</title><link href="https://ordina-jworks.github.io/testing/2018/11/21/sse-spring-node-dev-ci.html" rel="alternate" type="text/html" title="Mocking server sent events: Development and CI" /><published>2018-11-21T00:00:00+00:00</published><updated>2018-11-21T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2018/11/21/sse-spring-node-dev-ci</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2018/11/21/sse-spring-node-dev-ci.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#intro&quot;&gt;Intro&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#what-are-server-sent-events&quot;&gt;What are Server-Sent Events&lt;/a&gt;&lt;/li&gt;
@@ -2764,204 +2926,4 @@ in stead of the key ‘0E7E346406100585’ and value ‘T_7@1496309915’ format
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;toStream()&lt;/code&gt; This means that the last three lines together change the stream into a stream that gives the number of messages per minute for a certain floor&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mapValues()&lt;/code&gt; map the result of this into a new stream that gives the amount per minute where the key is the floor (T_7) and the value is a combination of the amount and the when (5 - Thu Oct 10 16:28:04 CEST 2018)&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;to()&lt;/code&gt; send it to the output stream&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Hans&quot;, &quot;last_name&quot;=&gt;&quot;Vanbellingen&quot;, &quot;permalink&quot;=&gt;&quot;/author/hans-vanbellingen/&quot;, &quot;avatar&quot;=&gt;&quot;hans-vanbellingen.png&quot;, &quot;linkedin&quot;=&gt;&quot;hans-vanbellingen-62009a5&quot;, &quot;github&quot;=&gt;&quot;pluimpje&quot;, &quot;title&quot;=&gt;&quot;Java Architect&quot;, &quot;email&quot;=&gt;&quot;hans.vanbellingen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Hans is a Java architect at Ordina Belgium. He is passionate about Stream Processing.&quot;}</name><email>hans.vanbellingen@ordina.be</email></author><category term="Kafka" /><category term="Kafka" /><category term="Stream" /><summary type="html">Kafka Stream - A practical introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/kafka/kafka-logo-thumb.png" /></entry><entry><title type="html">Make your own CLI with golang and cobra</title><link href="https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html" rel="alternate" type="text/html" title="Make your own CLI with golang and cobra" /><published>2018-10-20T00:00:00+00:00</published><updated>2018-10-20T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#getting-started&quot;&gt;Getting started&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#adding-functionality&quot;&gt;Adding functionality&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#adding-flags&quot;&gt;Adding flags&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#using-environment-variables-instead-of-flags&quot;&gt;Using environment variables instead of flags&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#taking-a-file-as-input&quot;&gt;Taking a file as input&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#thats-it&quot;&gt;That’s it!&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;There are lots of command line interfaces (CLIs) available these days, some of which are written in Golang.
-There’s even a big chance that you’re using one of them.
-Docker or Kubernetes for example, have a CLI written in Go.
-These were written using a framework called Cobra.
-And that’s exactly what I’m going to use to show you how to write your own simple CLI with Golang.
-I’m also going to show you ways to provide parameters like environment variables and config files to your CLI, so you can do more than just the basics.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;getting-started&quot;&gt;Getting started&lt;/h1&gt;
-&lt;p&gt;The framework &lt;a href=&quot;https://github.com/spf13/cobra&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Cobra&lt;/a&gt; provides a generator that adds some boilerplate code for you.
-This is handy because now you can focus more on the logic of your CLI instead of figuring out how to parse flags.
-Assuming you have Golang correctly installed, you can get the generator by doing the following:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;go get github.com/spf13/cobra/cobra
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;This creates an executable which you can run from anywhere, because it is located in the &lt;code class=&quot;highlighter-rouge&quot;&gt;$GOPATH/bin&lt;/code&gt; directory, which is in turn added to your &lt;code class=&quot;highlighter-rouge&quot;&gt;PATH&lt;/code&gt; variable if you installed Go correctly.&lt;/p&gt;
-
-&lt;p&gt;You can go ahead and create a new folder for your Go code.
-The name of the folder will be used as the name of your CLI.
-Navigate inside this folder with your terminal and execute &lt;code class=&quot;highlighter-rouge&quot;&gt;$ cobra init&lt;/code&gt; to start a new project.
-It should generate a &lt;code class=&quot;highlighter-rouge&quot;&gt;main.go&lt;/code&gt; file and a cmd package.&lt;/p&gt;
-
-&lt;p&gt;Sidenote: by default Cobra will add an Apache License.
-If you don’t want this, you can add the flag &lt;code class=&quot;highlighter-rouge&quot;&gt;-l none&lt;/code&gt; to all the generator commands.
-It will however add a copyright claim at the top of every file (&lt;code class=&quot;highlighter-rouge&quot;&gt;// Copyright © 2018 NAME HERE &amp;lt;EMAIL ADDRESS&amp;gt;&lt;/code&gt;).
-If you pass the flag &lt;code class=&quot;highlighter-rouge&quot;&gt;-a YOUR NAME&lt;/code&gt; the claim will contain your name. These flags are optional though.&lt;/p&gt;
-
-&lt;p&gt;When you look inside the &lt;code class=&quot;highlighter-rouge&quot;&gt;main.go&lt;/code&gt; file, there’s not much going on. It just calls the &lt;code class=&quot;highlighter-rouge&quot;&gt;execute&lt;/code&gt; function of the cmd package.
-This function resides in the &lt;code class=&quot;highlighter-rouge&quot;&gt;root.go&lt;/code&gt; file, which is doing a lot more. For now, just focus on this part:&lt;/p&gt;
-&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;// rootCmd represents the base command when called without any subcommands&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rootCmd&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cobra&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Use&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello-cobra&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Short&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;A brief description of your application&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// Uncomment the following line if your bare application&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// has an action associated with it:&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//  Run: func(cmd *cobra.Command, args []string) { },&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Here you can define how to use the CLI, together with a short and a long description.&lt;/p&gt;
-
-&lt;h1 id=&quot;adding-functionality&quot;&gt;Adding functionality&lt;/h1&gt;
-&lt;p&gt;In the next step we need to think about which actions we want the CLI to perform.
-A good practice is to work with verbs like get, post, describe,… For our example we want the CLI to say hello, so I’m going to construct it as follows:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;hello-cli say hello
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;To do this we can leverage the generator again to add a new command for us:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cobra add say
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;It will generate a file inside the cmd package called &lt;code class=&quot;highlighter-rouge&quot;&gt;say.go&lt;/code&gt;.
-In this file you can again specify the way you want the command to be used and describe its function.
-You’ll also see the execute function which gets executed every time you call &lt;code class=&quot;highlighter-rouge&quot;&gt;hello-cli say&lt;/code&gt;.
-You’re probably never going to use it like that, except with a &lt;code class=&quot;highlighter-rouge&quot;&gt;--help&lt;/code&gt; flag. If a user calls it like that, we want the user to know he needs to provide additional items to the &lt;code class=&quot;highlighter-rouge&quot;&gt;say&lt;/code&gt; command.
-So we’re going to return an error if that happens.
-The &lt;code class=&quot;highlighter-rouge&quot;&gt;Run&lt;/code&gt; function of the cobra command doesn’t return anything by default.
-You can however change &lt;code class=&quot;highlighter-rouge&quot;&gt;Run&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;RunE&lt;/code&gt;, which expects the function to return an error if there is any:&lt;/p&gt;
-&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;RunE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cobra&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Provide item to the say command&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;RunE&lt;/code&gt; function also shows the help output if there’s an error.
-This is to show the user how to properly use your command.&lt;/p&gt;
-
-&lt;p&gt;At the bottom of the file you’ll see a function called &lt;code class=&quot;highlighter-rouge&quot;&gt;init&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rootCmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AddCommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sayCmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-
-   &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// Here you will define your flags and configuration settings.&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-
-   &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// Cobra supports Persistent Flags which will work for this command&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// and all subcommands, e.g.:&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// sayCmd.PersistentFlags().String(&quot;foo&quot;, &quot;&quot;, &quot;A help for foo&quot;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-
-   &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// Cobra supports local flags which will only run when this command&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// is called directly, e.g.:&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-   &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// sayCmd.Flags().BoolP(&quot;toggle&quot;, &quot;t&quot;, false, &quot;Help message for toggle&quot;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Here you can add subcommands and flags.
-By default, the &lt;code class=&quot;highlighter-rouge&quot;&gt;say&lt;/code&gt; command is added to the root command, which is exactly what we want.
-Let’s add a sub command to say hello:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cobra add sayhello
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Like the &lt;code class=&quot;highlighter-rouge&quot;&gt;say&lt;/code&gt; command, &lt;code class=&quot;highlighter-rouge&quot;&gt;sayhello&lt;/code&gt; is added to the root command.
-In this case we want it to be added to the &lt;code class=&quot;highlighter-rouge&quot;&gt;say&lt;/code&gt; command instead:&lt;/p&gt;
-&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sayCmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AddCommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sayhelloCmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;To make the &lt;code class=&quot;highlighter-rouge&quot;&gt;sayhello&lt;/code&gt; print “Hello World”, edit the &lt;code class=&quot;highlighter-rouge&quot;&gt;Run&lt;/code&gt; function:&lt;/p&gt;
-&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cobra&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Now execute the following inside your projectfolder:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;go &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Followed by:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;hello-cli say hello
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;If everything worked correctly, your CLI should output “Hello World!”.&lt;/p&gt;
-
-&lt;h1 id=&quot;adding-flags&quot;&gt;Adding flags&lt;/h1&gt;
-&lt;p&gt;To make your CLI a bit more interesting, we are going to add some flags.
-You can choose between local and persistent ones.
-Local flags are available only for that command, whereas persistent flags are also available for the subcommands of that command.
-For this example we want to greet a person by name.
-We’re going to do this by making a &lt;code class=&quot;highlighter-rouge&quot;&gt;--name&lt;/code&gt; flag.
-Navigate to the &lt;code class=&quot;highlighter-rouge&quot;&gt;init&lt;/code&gt; function of the &lt;code class=&quot;highlighter-rouge&quot;&gt;sayhello.go&lt;/code&gt; file, and add a flag:&lt;/p&gt;
-&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rootCmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AddCommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sayCmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sayhelloCmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Flags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;StringP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Set your name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;The first string is the full name of the flag, and can be executed with two dashes like &lt;code class=&quot;highlighter-rouge&quot;&gt;--name&lt;/code&gt;.
-The second string is the short notation, which can be executed with one dash.
-The third one is the default value, and the fourth is a description.&lt;/p&gt;
-
-&lt;p&gt;To make the flag do something we need to add some logic to the &lt;code class=&quot;highlighter-rouge&quot;&gt;Run&lt;/code&gt; function:&lt;/p&gt;
-&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cobra&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Flags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-   	&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-       		&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;World&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-   	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-  	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hallo &quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Do a quick go install, and check if it works:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hello-cli say hello &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; Nick
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;The output should be “Hello Nick”.&lt;/p&gt;
-
-&lt;h1 id=&quot;using-environment-variables-instead-of-flags&quot;&gt;Using environment variables instead of flags&lt;/h1&gt;
-&lt;p&gt;If you don’t want to pollute your command line, or if you’re working with sensitive data which you don’t want to show up in the history, it’s a good idea to work with environment variables.
-To do this, you can use &lt;a href=&quot;https://github.com/spf13/viper&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Viper&lt;/a&gt;. Viper is another dependency from &lt;a href=&quot;https://github.com/spf13&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Steve Francia&lt;/a&gt;.
-Cobra already uses Viper in the generated code, so why not use it as well.
-You can however achieve the same result by using the os package from the Go standard library.&lt;/p&gt;
-
-&lt;p&gt;We want to make the environment variable the default value.
-If you remember, the default value is set in the &lt;code class=&quot;highlighter-rouge&quot;&gt;init()&lt;/code&gt; function.:&lt;/p&gt;
-&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sayCmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AddCommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sayhelloCmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sayhelloCmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Flags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;StringP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;viper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ENVNAME&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Set your name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;That’s all you need to do to parse environment variables.&lt;/p&gt;
-
-&lt;h1 id=&quot;taking-a-file-as-input&quot;&gt;Taking a file as input&lt;/h1&gt;
-&lt;p&gt;For this next part,  we want to provide multiple parameters to our CLI.
-You can provide flags for every single one of them, but when you have a lot of parameters, a config file can be a better option.
-So create a new file with a &lt;code class=&quot;highlighter-rouge&quot;&gt;.yaml&lt;/code&gt; extension, and add the following contents:&lt;/p&gt;
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Billy&quot;&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;greeting&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Howdy&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;If you used the generator, There will already be a flag configured that expects the path to an initial config file.
-You can find this flag in the &lt;code class=&quot;highlighter-rouge&quot;&gt;root.go&lt;/code&gt; file under the &lt;code class=&quot;highlighter-rouge&quot;&gt;initConfig()&lt;/code&gt; function.
-As you can see, it uses Viper again to do this.&lt;/p&gt;
-
-&lt;p&gt;Good news! We don’t have to do it ourselves!
-The only thing we need to do is to extract the variables from the file:&lt;/p&gt;
-
-&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cobra&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Flags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;World&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;viper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;viper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;viper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;greeting&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;viper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;greeting&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Again use Viper in the same way as you did before with the environment variables.
-Try it out by doing another install and entering the following command:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;hello-cli say hello &lt;span class=&quot;nt&quot;&gt;--config&lt;/span&gt; config.yml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h1 id=&quot;thats-it&quot;&gt;That’s it!&lt;/h1&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;You have successfully written a CLI in Golang that can parse about any variable around the block! 
-All sample code can be found on &lt;a href=&quot;https://github.com/nickgeudens/hello-cli&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nick&quot;, &quot;last_name&quot;=&gt;&quot;Geudens&quot;, &quot;permalink&quot;=&gt;&quot;/author/nick-geudens/&quot;, &quot;avatar&quot;=&gt;&quot;nick-geudens.jpg&quot;, &quot;linkedin&quot;=&gt;&quot;nickgeudens&quot;, &quot;github&quot;=&gt;&quot;nickgeudens&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;email&quot;=&gt;&quot;nick.geudens@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Nick is a Java developer with a focus on backend development. This is certainly not an exclusion. Outside the Java world, you can also see him messing around with Angular, Go and Kubernetes and lots of other technologies.&quot;}</name><email>nick.geudens@ordina.be</email></author><category term="Development" /><category term="Golang" /><category term="Cobra" /><category term="CLI" /><category term="Go" /><summary type="html">Table of contents Getting started Adding functionality Adding flags Using environment variables instead of flags Taking a file as input That’s it!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/make-your-own-cli-with-golang-and-cobra/banner.jpg" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Hans&quot;, &quot;last_name&quot;=&gt;&quot;Vanbellingen&quot;, &quot;permalink&quot;=&gt;&quot;/author/hans-vanbellingen/&quot;, &quot;avatar&quot;=&gt;&quot;hans-vanbellingen.png&quot;, &quot;linkedin&quot;=&gt;&quot;hans-vanbellingen-62009a5&quot;, &quot;github&quot;=&gt;&quot;pluimpje&quot;, &quot;title&quot;=&gt;&quot;Java Architect&quot;, &quot;email&quot;=&gt;&quot;hans.vanbellingen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Hans is a Java architect at Ordina Belgium. He is passionate about Stream Processing.&quot;}</name><email>hans.vanbellingen@ordina.be</email></author><category term="Kafka" /><category term="Kafka" /><category term="Stream" /><summary type="html">Kafka Stream - A practical introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/kafka/kafka-logo-thumb.png" /></entry></feed>
