@@ -43,7 +43,7 @@ The visual uses the selected day to show the division between people taking the 
 When the user hovers over the chart he can also see the evolution of people taking the stair / elevator within that day / week / month / year.
 Next to the chart, the total absolute number of all the observations measured is reported per period.
 
-![PartTwo](/img/2018-11-16-stairway-to-health/PartTwo.gif)
+![PartTwo](/img/2018-11-16-stairway-to-health/PartTwo.gif){:.image .fit}
 
 ## Part three: the more detailed area chart
 
