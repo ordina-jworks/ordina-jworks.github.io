@@ -65,7 +65,7 @@ This can be done by clicking the chart above.
 When you click on the day bar on the top chart the bottom chart is expressed on a day level.
 This also applies to the other period bases in the chart.
 
-![PartThreeThree](/img/2018-11-16-stairway-to-health/PartThreeThree.gif)
+![PartThreeThree](/img/2018-11-16-stairway-to-health/PartThreeThree.gif){:.image .fit}
 
 # What can we do next?
 
