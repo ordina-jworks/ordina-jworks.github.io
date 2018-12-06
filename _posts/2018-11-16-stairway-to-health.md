@@ -20,7 +20,7 @@ Next, we will go over the features we can add in future releases to allow the us
 
 The dashboard is built to answer **the following questions**:
 
-1. What is the percentage of people taking the stair/elevator at Ordina **today**?
+1. What is the percentage of people taking the stairs or elevator at Ordina **today**?
 2. How is the same metric on weekly, monthly or yearly basis? What is it in absolute numbers?
 3. How does it evolve over time based on each day, week, month or year?
 4. Are people taking the stairs more this week compared to last week?
