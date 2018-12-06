@@ -53,7 +53,7 @@ This gives the user the possibility to look at trends and to see how the situati
 In the title the user has the option to change the appearance of the data (absolute or shares).
 The amount of periods shown (starting from the most recent period) can also be changed.
 
-![PartThreeOne](/img/2018-11-16-stairway-to-health/PartThreeOne.gif)
+![PartThreeOne](/img/2018-11-16-stairway-to-health/PartThreeOne.gif){:.image .fit}
 
 When the user hovers over the chart the same horizontal bar comparison can be seen. 
 Comparisons can be made with the period selected above.
