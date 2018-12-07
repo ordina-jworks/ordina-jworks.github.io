@@ -39,15 +39,15 @@ There is also an option to select another day as illustrated below.
 ## Part two: the horizontal bar comparison
 
 In part two the user can find an answer to questions two and three.
-The visual uses the selected day to show the division between people taking the stair / elevator on a daily / weekly / monthly and yearly basis.
-When the user hovers over the chart he can also see the evolution of people taking the stair / elevator within that day / week / month / year.
+The visual uses the selected day to show the division between people taking the stairs / elevator on a daily / weekly / monthly and yearly basis.
+When the user hovers over the chart he can also see the evolution of people taking the stairs / elevator within that day / week / month / year.
 Next to the chart, the total absolute number of all the observations measured is reported per period.
 
 ![PartTwo](/img/2018-11-16-stairway-to-health/PartTwo.gif){:.image .fit}
 
 ## Part three: the more detailed area chart
 
-The third part visualises how the division stair / elevator is evolving over time expressed in daily, weekly, monthly or yearly basis.
+The third part visualises how the division stairs / elevator is evolving over time expressed in daily, weekly, monthly or yearly basis.
 This gives the user the possibility to look at trends and to see how the situation of today compares itself to past situations.
 
 In the title the user has the option to change the appearance of the data (absolute or shares).
