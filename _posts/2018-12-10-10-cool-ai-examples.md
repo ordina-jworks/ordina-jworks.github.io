@@ -2,7 +2,7 @@
 layout: post
 authors: [kevin_van_den_abeele]
 title: "10 Cool AI/ML Examples"
-image: /img/2018-12-20-AI10EX/banner.jpg
+image: /img/2018-12-10-AI10EX/banner.jpg
 tags: [AI, ML, DL, Example, neural networks, deep learning, machine learning, artificial intelligence, two minute papers, 2 minute papers, intelligence, robotics, self driving cars, automation]
 category: IoT, Machine learning
 comments: true
@@ -51,7 +51,7 @@ While progress in the artificial intelligence world proceeds at a staggering pac
 This however does not mean precautions do not need to be taken to prevent this from happening in the long run.
 Some people, like Elon Musk, are very vocal about this and question if we should even pursue the goal to create a 'super' AI.
 
-<img alt="stack" src="{{ '/img/2018-12-20-AI10EX/intro.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
+<img alt="stack" src="{{ '/img/2018-12-10-AI10EX/intro.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
 
 
 ## 10 Cool examples
