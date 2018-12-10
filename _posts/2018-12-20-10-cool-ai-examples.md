@@ -23,7 +23,7 @@ comments: true
 ## Introduction
 
 To end the year on lighter more inspirational note we'll go into 10 cool examples achieved with artificial intelligence.
-These are all short videos with some more written information, most of these already have or soon will haven an impact on our lives one way or another.
+These are all short videos with some more written information, most of these already have or soon will have an impact on our lives one way or another.
 
 The 10 examples can be divided in to X categories:
 
@@ -61,87 +61,122 @@ In the resources section underneath all of them you can find more useful resourc
 
 ### Example 1 - How neural networks see the world
 
-TODO
-
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/1zvohULpe_0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+Understanding a neural network is difficult, we don't actually know what is happening inside of it.
+We need ways of visualizing and understanding what happens inside to help debug and improve the networks.
+For convolutional neural networks this helps us see what the network sees and how it identifies and uses parts of the input to get to the desired output.
+
 
 ### Example 2 - Attack on human vision system
-
-TODO
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/AbxPbfODGcs" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+Not only artificial neural networks are vulnerable to attack vector to fool them.
+Our very own brain, you know also a neural network, is also able to be tricked by some of these techniques.
+This video shows how such an attack works.
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/SA4YEAWVpbk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+This video shows how neural networks can be fooled by changes to the input as small as a single pixel!
+It shows that caution needs to be taken in neural network based image recognition because a sufficiently witty/crafty attacker could fool the system by employing such an attack.
+
 
 ### Example 3 - Style transfer for videos
-
-TODO
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/Uxax5EKg0zA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+Style transfer is when the style of a given input image is transferred to a secondary input image while maintaining the content of that image but with the style of the first input.
+This gives you the option to for example apply the style of certain great works of art to regular images or even works with a totally different style.
+In this video the technique is applied to video content, but is not just as simple as running the earlier technique on each frame of the video since it does not provide a result that is temporally coherent.
+The video is styled based on a given input and produces quite amazing results.
+
 
 ### Example 4 - Amazing night time photographs
-
-TODO
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/bcZFQ3f26pA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+Very noisy night time images might soon be a thing of the past.
+The technique in this video can turn unusably noisy photos into perfectly viewable photos.
+Something like this has been [implemented in the google pixel phones](https://www.theverge.com/2018/10/25/18021944/google-night-sight-pixel-3-camera-samples) recently.
+In a few years all cameras will have a mode like this implemented making unusable night shots a thing of the past!
+
 
 ### Example 5 - Nvidia AI based image restoration
-
-TODO
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/P0fMwA3X5KI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+Like the example above this is about denoising but is similar yet different.
+This AI has been trained without ever been shown what noise is, so no before vs after comparison.
+It can remove noise from images, restore images that are almost only visible noise and even remove lots of text from a given image.
+This technique will make cleaning up images much easier and allow us to preserve and restore imagery that might otherwise be lost or unusable!
+
 
 ### Example 6 - Noise reduction for path traced GI
-
-TODO
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/HSmm_vEVs10" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+This video shows that denoising techniques can have other great benefits in the visual/gaming industry.
+Path traced global illumination (casting light in a 3D scene to determine lighting from a global source like the sun) is a very resource intensive task.
+Current solutions use all sorts of tricks to mimic this but they are not the real deal.
+This technique allows for path traced GI with a very low sample count and denoises the output whilst being temporally stable.
+Something like the [new cards from Nvidia](https://www.youtube.com/watch?v=Ms7d-3Dprio) are now capable of!
+
 
 ### Example 7 - Isolate speech signals
-
-TODO
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/zL6ltnSKf9k" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+Having an audio or video file with multiple people speaking at once or when there is a lot of background noise can be annoying for various reasons.
+It makes it harder to understand any of the speaking parties.
+This technique allows each speaker's audio to be isolated an listened to without hearing the other sources of interference.
+It is helpful to clean up conversations or remove background noise.
+
 
 ### Example 8 - Impersonate anyone
-
-TODO
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/EQX1wsL2TSs" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+Soon you will not be able to tell that what you see is actually what happened.
+This advanced technique improves on older versions, and allows you to transfer your facial and torso movements onto a target.
+Techniques like this make it clear that fake news and fake sources of media will become an even bigger problem in the future as this technology becomes even better.
+It might not be such a bad idea to invest in that blockchain backed media repository after all so the validity of media file can be tracked...
+
 
 ### Example 9 - Deepmind becomes superhuman in quake 3
-
-TODO
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/MvFABFWPBrw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+In games you normally play against the AI.
+These AI's are mostly cheaters though, they know more because they are fed insider information from the game itself.
+These are actual player AI's that only get the video output of the game and learn to play accordingly.
+This in the long run will allow games to have decent real AI in-game.
+Other sectors can also benefit from this as it can be applied to different fields where complex behavior with tactics and long term planning is required.
+
 
 ### Example 10 - Using games for deep learning research
-
-TODO
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/QkqNzrsaxYc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+Self driving cars are all the rage these days.
+Getting cars to drive themselves is an immensely complex task, requiring truly vast amounts of classified data in a dataset.
+Classifying this data is a very time consuming process.
+This technique can use games like GTAV to create a dataset with imagery from the game.
+The game already knows what all the types of objects are in the scene, so classification can be simplified and automated.
+It also provides an easy way to simulate hard to recreate situations on real life.
+Time of day and scene composition can be easily changed which results in a vastly more extensive dataset.
+
 
 ## Resources
 
