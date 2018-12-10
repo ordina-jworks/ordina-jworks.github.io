@@ -3,7 +3,7 @@ layout: post
 authors: [kevin_van_den_abeele]
 title: "10 Cool AI/ML Examples"
 image: /img/2018-12-10-AI10EX/banner.jpg
-tags: [AI, ML, DL, Example, neural networks, deep learning, machine learning, artificial intelligence, two minute papers, 2 minute papers, intelligence, robotics, self driving cars, automation]
+tags: [internet of things, iot, AI, ML, DL, Example, neural networks, deep learning, machine learning, artificial intelligence, two minute papers, 2 minute papers, intelligence, robotics, self driving cars, automation]
 category: IoT, Machine learning
 comments: true
 ---
