@@ -20,6 +20,19 @@ comments: true
 2. [10 Cool examples](#10-cool-examples)
 3. [Resources](#resources)
 
+1. Nvidia ai restoration: https://www.youtube.com/watch?v=P0fMwA3X5KI
+2. See in the dark: https://www.youtube.com/watch?v=bcZFQ3f26pA
+3. Imporsonate anyone: https://www.youtube.com/watch?v=EQX1wsL2TSs
+4. Attack on human vision system: https://www.youtube.com/watch?v=AbxPbfODGcs&t=1s (addition: https://www.youtube.com/watch?v=SA4YEAWVpbk)
+5. How neural networks see the world: https://www.youtube.com/watch?v=1zvohULpe_0
+6. Isolate speech signals: https://www.youtube.com/watch?v=zL6ltnSKf9k
+7. Deepmind superhuman in quake 3: https://www.youtube.com/watch?v=MvFABFWPBrw
+8. Using games for deep learning research: https://www.youtube.com/watch?v=QkqNzrsaxYc
+9. Style transfer for videos: https://www.youtube.com/watch?v=Uxax5EKg0zA
+10. Noise reduction for path traced GI: https://www.youtube.com/watch?v=HSmm_vEVs10
+
+https://www.youtube.com/user/keeroyz/videos
+
 ## Introduction
 
 TODO
