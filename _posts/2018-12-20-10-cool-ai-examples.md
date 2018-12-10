@@ -22,12 +22,12 @@ comments: true
 
 ## Introduction
 
-To end the year on lighter more inspirational note we'll go into 10 cool examples achieved with artificial intelligence.
-These are all short videos with some more written information, most of these already have or will soon have an impact on our lives one way or another.
+To end the year on a lighter more inspirational note we'll go into 10 cool examples achieved with artificial intelligence.
+These are all short videos with some additional information, most of these already have or will soon have an impact on our lives one way or another.
 
-The 10 examples can be divided in to 3 categories:
+The 10 examples can be divided in to three categories:
 
-### How the models works and perceive the world
+### How the models work and perceive the world
 
 1. [How neural networks see the world](#Example_1_-_How_neural_networks_see_the_world)
 2. [Attack on human vision system](#Example_2_-_Attack_on_human_vision_system)
@@ -47,7 +47,7 @@ The 10 examples can be divided in to 3 categories:
 2. [Using games for deep learning research](#Example_10_-_Using_games_for_deep_learning_research)
 
 For now there is still no need to fear Skynet becoming a reality.
-While progress is the artificial intelligence world proceeds at a staggering pace, we are no where near having a general 'super' AI.
+While progress in the artificial intelligence world proceeds at a staggering pace, we are no where near having a general 'super' AI.
 This however does not mean precautions do not need to be taken to prevent this from happening in the long run.
 Some people like Elon Musk are very vocal about this and question if we should even pursue the goal to create a 'super' AI.
 
