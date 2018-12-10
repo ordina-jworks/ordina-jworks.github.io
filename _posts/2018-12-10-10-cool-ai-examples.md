@@ -137,7 +137,7 @@ Something like the [new cards from Nvidia](https://www.youtube.com/watch?v=Ms7d-
 </div>
 Having an audio or video file with multiple people speaking at once or when there is a lot of background noise can be annoying for various reasons.
 It makes it harder to understand any of the speaking parties.
-This technique allows each speaker's audio to be isolated an listened to without hearing the other sources of interference.
+This technique allows each speaker's audio to be isolated and listened to without hearing the other sources of interference.
 It is helpful to clean up conversations or remove background noise.
 
 
