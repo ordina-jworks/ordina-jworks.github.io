@@ -46,7 +46,7 @@ The 10 examples can be divided in to three categories:
 1. [Deepmind becomes superhuman in quake 3](#Example_9_-_Deepmind_becomes_superhuman_in_quake_3)
 2. [Using games for deep learning research](#Example_10_-_Using_games_for_deep_learning_research)
 
-For now there is still no need to fear Skynet becoming a reality.
+For now, there is still no need to fear Skynet becoming a reality.
 While progress in the artificial intelligence world proceeds at a staggering pace, we are no where near having a general 'super' AI.
 This however does not mean precautions do not need to be taken to prevent this from happening in the long run.
 Some people, like Elon Musk, are very vocal about this and question if we should even pursue the goal to create a 'super' AI.
@@ -75,7 +75,7 @@ For convolutional neural networks this helps us see what the network sees and ho
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/AbxPbfODGcs" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
 Not only artificial neural networks are vulnerable to attacks to fool them.
-Our very own brain, you know also a neural network, is also able to be tricked by some of these techniques.
+Our very own brain, a neural network as well, is also able to be tricked by some of these techniques.
 This video shows how such an attack works.
 
 <div class="responsive-video">
