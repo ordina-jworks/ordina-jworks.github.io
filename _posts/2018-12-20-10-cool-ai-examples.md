@@ -65,7 +65,7 @@ In the resources section underneath all of them you can find more useful resourc
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/1zvohULpe_0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
 Understanding a neural network is difficult, we don't actually know what is happening inside of it.
-We need ways of visualizing and understanding what happens inside to help debug and improve the networks.
+We need ways of visualizing and understanding what happens inside to help debug and improve these networks.
 For convolutional neural networks this helps us see what the network sees and how it identifies and uses parts of the input to get to the desired output.
 
 
@@ -74,7 +74,7 @@ For convolutional neural networks this helps us see what the network sees and ho
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/AbxPbfODGcs" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
-Not only artificial neural networks are vulnerable to attack vector to fool them.
+Not only artificial neural networks are vulnerable to attacks to fool them.
 Our very own brain, you know also a neural network, is also able to be tricked by some of these techniques.
 This video shows how such an attack works.
 
@@ -91,8 +91,8 @@ It shows that caution needs to be taken in neural network based image recognitio
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/Uxax5EKg0zA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
 Style transfer is when the style of a given input image is transferred to a secondary input image while maintaining the content of that image but with the style of the first input.
-This gives you the option to for example apply the style of certain great works of art to regular images or even works with a totally different style.
-In this video the technique is applied to video content, but is not just as simple as running the earlier technique on each frame of the video since it does not provide a result that is temporally coherent.
+This gives you the option to apply the style of certain great works of art to regular images or even works with a totally different style.
+In this video the technique is applied to video content, but it is not just as simple as running the earlier technique on each frame of the video since it does not provide a result that is temporally coherent.
 The video is styled based on a given input and produces quite amazing results.
 
 
@@ -112,8 +112,8 @@ In a few years all cameras will have a mode like this implemented making unusabl
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/P0fMwA3X5KI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
-Like the example above this is about denoising but is similar yet different.
-This AI has been trained without ever been shown what noise is, so no before vs after comparison.
+Like the example above this is about denoising and is similar yet different.
+This AI has been trained without ever having been shown what noise is, so no before vs after comparison.
 It can remove noise from images, restore images that are almost only visible noise and even remove lots of text from a given image.
 This technique will make cleaning up images much easier and allow us to preserve and restore imagery that might otherwise be lost or unusable!
 
@@ -149,7 +149,7 @@ It is helpful to clean up conversations or remove background noise.
 Soon you will not be able to tell that what you see is actually what happened.
 This advanced technique improves on older versions, and allows you to transfer your facial and torso movements onto a target.
 Techniques like this make it clear that fake news and fake sources of media will become an even bigger problem in the future as this technology becomes even better.
-It might not be such a bad idea to invest in that blockchain backed media repository after all so the validity of media file can be tracked...
+It might not be such a bad idea to invest in that blockchain backed media repository after all so the validity of media files can be tracked...
 
 
 ### Example 9 - Deepmind becomes superhuman in quake 3
@@ -170,23 +170,23 @@ Other sectors can also benefit from this as it can be applied to different field
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/QkqNzrsaxYc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
 Self driving cars are all the rage these days.
-Getting cars to drive themselves is an immensely complex task, requiring truly vast amounts of classified data in a dataset.
+Getting cars to drive themselves is an immensely complex task, requiring truly vast amounts of correctly classified data in a dataset.
 Classifying this data is a very time consuming process.
 This technique can use games like GTAV to create a dataset with imagery from the game.
 The game already knows what all the types of objects are in the scene, so classification can be simplified and automated.
-It also provides an easy way to simulate hard to recreate situations on real life.
+It also provides an easy way to simulate hard to recreate situations in real life.
 Time of day and scene composition can be easily changed which results in a vastly more extensive dataset.
 
 
 ## Resources
 
 A very good video to watch is `How machines learn` by CGP Gray.
-It explains how (generally) machine learning works and what some of the implied dangers are.
+It explains (generally) how machine learning works and what some of the implied dangers are.
 
 All the videos used in this blogpost are from the the `Two minute papers` YouTube channel.
-This channel has short videos that showcase some scientific research in a visual and compelling way whilst not going to technical but still providing all the technical resources for those who want it.
+This channel has short videos that showcase some scientific research in a visual and compelling way whilst not going too technical but still providing all the technical resources for those who want it.
 
-Lastly is the playlist about neural networks by `3blue1brown`.
+Lastly is the playlist about neural networks by `3Blue1Brown`.
 It goes into how neural networks work and is very visual which helps greatly with understanding the subject matter.
 
 - [How machines learn - CGP Gray](https://www.youtube.com/watch?v=R9OHn5ZF4Uo)
