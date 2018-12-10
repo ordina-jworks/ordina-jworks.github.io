@@ -181,7 +181,7 @@ Time of day and scene composition can be easily changed which results in a vastl
 ## Resources
 
 A very good video to watch is [How machines learn](https://www.youtube.com/watch?v=R9OHn5ZF4Uo) by CGP Gray.
-It explains (generally) how machine learning works and what some of the implied dangers are.
+It generally explains how machine learning works and what some of the implied dangers are.
 
 All the videos used in this blogpost are from the the [Two minute papers](https://www.youtube.com/user/keeroyz/videos) YouTube channel.
 This channel has short videos that showcase some scientific research in a visual and compelling way whilst not going too technical but still providing all the technical resources for those who want it.
