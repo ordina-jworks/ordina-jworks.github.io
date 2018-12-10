@@ -44,7 +44,7 @@ The 10 examples can be divided in to X categories:
 ### Models used for and helped by gaming
 
 1. [Deepmind becomes superhuman in quake 3](#Example_9_-_Deepmind_becomes_superhuman_in_quake_3)
-2. [Using games for deep learning research] (#Example_10_-_Using_games_for_deep_learning_research)
+2. [Using games for deep learning research](#Example_10_-_Using_games_for_deep_learning_research)
 
 For now there is still no need to fear Skynet becoming a reality. 
 While progress is the artificial intelligence world proceeds at a staggering pace, we are no where near having a general 'super' AI.
