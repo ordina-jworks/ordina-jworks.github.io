@@ -22,7 +22,7 @@ comments: true
 
 1. Nvidia ai restoration: https://www.youtube.com/watch?v=P0fMwA3X5KI
 2. See in the dark: https://www.youtube.com/watch?v=bcZFQ3f26pA
-3. Imporsonate anyone: https://www.youtube.com/watch?v=EQX1wsL2TSs
+3. Impersonate anyone: https://www.youtube.com/watch?v=EQX1wsL2TSs
 4. Attack on human vision system: https://www.youtube.com/watch?v=AbxPbfODGcs&t=1s (addition: https://www.youtube.com/watch?v=SA4YEAWVpbk)
 5. How neural networks see the world: https://www.youtube.com/watch?v=1zvohULpe_0
 6. Isolate speech signals: https://www.youtube.com/watch?v=zL6ltnSKf9k
@@ -37,7 +37,7 @@ https://www.youtube.com/user/keeroyz/videos
 
 TODO
 
-<img alt="stack" src="{{ '/img/2018-12-20-AI10EX/sla-glow.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
+<img alt="stack" src="{{ '/img/2018-12-20-AI10EX/intro.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
 
 
 ## 10 Cool examples
