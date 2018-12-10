@@ -49,7 +49,7 @@ The 10 examples can be divided in to three categories:
 For now there is still no need to fear Skynet becoming a reality.
 While progress in the artificial intelligence world proceeds at a staggering pace, we are no where near having a general 'super' AI.
 This however does not mean precautions do not need to be taken to prevent this from happening in the long run.
-Some people like Elon Musk are very vocal about this and question if we should even pursue the goal to create a 'super' AI.
+Some people, like Elon Musk, are very vocal about this and question if we should even pursue the goal to create a 'super' AI.
 
 <img alt="stack" src="{{ '/img/2018-12-20-AI10EX/intro.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
 
@@ -159,7 +159,7 @@ It might not be such a bad idea to invest in that blockchain backed media reposi
 </div>
 In games you normally play against the AI.
 These AI's are mostly cheaters though, they know more because they are fed insider information from the game itself.
-These are actual player AI's that only get the video output of the game and learn to play accordingly.
+The AI's in this video are actual players that only get the video output of the game and learn to play accordingly.
 This in the long run will allow games to have decent real AI in-game.
 Other sectors can also benefit from this as it can be applied to different fields where complex behavior with tactics and long term planning is required.
 
@@ -180,13 +180,13 @@ Time of day and scene composition can be easily changed which results in a vastl
 
 ## Resources
 
-A very good video to watch is `How machines learn` by CGP Gray.
+A very good video to watch is [How machines learn](https://www.youtube.com/watch?v=R9OHn5ZF4Uo) by CGP Gray.
 It explains (generally) how machine learning works and what some of the implied dangers are.
 
-All the videos used in this blogpost are from the the `Two minute papers` YouTube channel.
+All the videos used in this blogpost are from the the [Two minute papers](https://www.youtube.com/user/keeroyz/videos) YouTube channel.
 This channel has short videos that showcase some scientific research in a visual and compelling way whilst not going too technical but still providing all the technical resources for those who want it.
 
-Lastly is the playlist about neural networks by `3Blue1Brown`.
+Lastly is the [playlist about neural networks](https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi) by 3Blue1Brown.
 It goes into how neural networks work and is very visual which helps greatly with understanding the subject matter.
 
 - [How machines learn - CGP Gray](https://www.youtube.com/watch?v=R9OHn5ZF4Uo)
