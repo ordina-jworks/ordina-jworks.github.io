@@ -3,7 +3,7 @@ layout: post
 authors: [kevin_van_den_abeele]
 title: "10 Cool AI/ML Examples"
 image: /img/2018-12-10-AI10EX/banner.jpg
-tags: [AI, ML, DL, Example, neural networks, deep learning, machine learning, artificial intelligence, two minute papers, 2 minute papers, intelligence, robotics, self driving cars, automation]
+tags: [internet of things, iot, AI, ML, DL, Example, neural networks, deep learning, machine learning, artificial intelligence, two minute papers, 2 minute papers, intelligence, robotics, self driving cars, automation]
 category: IoT, Machine learning
 comments: true
 ---
@@ -29,22 +29,22 @@ The 10 examples can be divided in to three categories:
 
 ### How the models work and perceive the world
 
-1. [How neural networks see the world](#Example_1_-_How_neural_networks_see_the_world)
-2. [Attack on human vision system](#Example_2_-_Attack_on_human_vision_system)
+1. [How neural networks see the world](#example-1---how-neural-networks-see-the-world)
+2. [Attack on human vision system](#example-2---attack-on-human-vision-system)
 
 ### Audiovisual models for rendering, photography and impersonation
 
-1. [Style transfer for videos](#Example_3_-_Style_transfer_for_videos)
-2. [Amazing night time photographs](#Example_4_-_Amazing_night_time_photographs)
-3. [Nvidia AI based image restoration](#Example_5_-_Nvidia_AI_based_image_restoration)
-4. [Noise reduction for path traced GI](#Example_6_-_Noise_reduction_for_path_traced_GI)
-5. [Isolate speech signals](#Example_7_-_Isolate_speech_signals)
-6. [Impersonate anyone](#Example_8_-_Impersonate_anyone)
+1. [Style transfer for videos](#example-3---style-transfer-for-videos)
+2. [Amazing night time photographs](#example-4---amazing-night-time-photographs)
+3. [Nvidia AI based image restoration](#example-5---nvidia-AI-based-image-restoration)
+4. [Noise reduction for path traced GI](#example-6---noise-reduction-for-path-traced-GI)
+5. [Isolate speech signals](#example-7---isolate-speech-signals)
+6. [Impersonate anyone](#example-8---impersonate-anyone)
 
 ### Models used for and helped by gaming
 
-1. [Deepmind becomes superhuman in quake 3](#Example_9_-_Deepmind_becomes_superhuman_in_quake_3)
-2. [Using games for deep learning research](#Example_10_-_Using_games_for_deep_learning_research)
+1. [Deepmind becomes superhuman in quake 3](#example-9---deepmind-becomes-superhuman-in-quake-3)
+2. [Using games for deep learning research](#example-10---using-games-for-deep-learning-research)
 
 For now, there is still no need to fear Skynet becoming a reality.
 While progress in the artificial intelligence world proceeds at a staggering pace, we are no where near having a general 'super' AI.
@@ -137,7 +137,7 @@ Something like the [new cards from Nvidia](https://www.youtube.com/watch?v=Ms7d-
 </div>
 Having an audio or video file with multiple people speaking at once or when there is a lot of background noise can be annoying for various reasons.
 It makes it harder to understand any of the speaking parties.
-This technique allows each speaker's audio to be isolated an listened to without hearing the other sources of interference.
+This technique allows each speaker's audio to be isolated and listened to without hearing the other sources of interference.
 It is helpful to clean up conversations or remove background noise.
 
 
