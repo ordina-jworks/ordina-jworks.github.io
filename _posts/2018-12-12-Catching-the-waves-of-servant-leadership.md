@@ -9,10 +9,10 @@ comments: true
 ---
 
 As human beings, we’ve always had a complicated relationship with change.
-On the one hand we see it all around us and try to cope with the complexity of it, attempting to avoid or even sabotage it in order to hang on for dear life, 
+On the one hand, we see it all around us and try to cope with the complexity of it, attempting to avoid or even sabotage it in order to hang on for dear life, 
 to what we have always known to be normal, and therefore believe it to be what’s best.
 On the other hand, it’s what allows us to hope and strive, what drives us towards a dream for a better future – and so we look for ways to form it, 
-to mould it, even manipulate it at times, thinking that, whatever comes out of the change will be better and lasting.
+to mould it, even manipulate it at times, thinking that whatever comes out of the change will be better and lasting.
 
 But does change have an outcome? 
 Or is it endlessly moving forward? 
@@ -26,7 +26,7 @@ But the personal aspect is still the crucial driver (and the key to unlock it), 
 
 Tapping into that current, though, is the key to unlocking the potential of an engaged community of professionals, and so helping the organisational culture grow organically. 
 And doing that needs a 'feel' for what our present corporate culture is about. 
-But more so it requires an understanding of what the employees building our brand, and the people creating the customer value – really strive for, 
+But more so it requires an understanding of what the employees building our brand - and the people creating the customer value – really strive for, 
 personally and professionally.
 
 <img alt="Surfer" src="{{ '/img/catching-the-waves-of-servant-leadership/surfing.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
@@ -41,15 +41,15 @@ is the most successful way forward in our age of agile.
 
 This is of course not a one (wo)man show. 
 Complexity is not something we can tackle with a single mind solution. 
-Agile transformation, like cultural transformation, can only be set in motion by natural leaders, and by this I don’t necessarily mean ‘managers’. 
+Agile transformation, like cultural transformation, can only be set in motion by natural leaders, and by this I don’t necessarily mean 'managers'. 
 They can be emergent leaders from any level in the organisation. 
 People who spread vibes, generate positive energy, think beyond the borders of their own roles and put their brains to work to reimagine how value is created. 
-What defines them is that they ‘service’ their community, and that service is exactly one of their personal goals.
+What defines them is that they 'service' their community, and that service is exactly one of their personal goals.
 
 <img alt="Surfing" src="{{ '/img/catching-the-waves-of-servant-leadership/surfing2.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
-As a manager, make sure these emergent leaders experience the room to move. 
-Each one comes with a natural community, call it a ‘tribe’. 
+As a manager, make sure these emergent leaders experience the freedom to act. 
+Each one comes with a natural community, call it a 'tribe'. 
 Explore every nook and cranny of the company to trace them. 
 Then help them to understand the agile strategy, and support them to instigate an agile mindset and a zest for growth, 
 by taking small but consistent steps, clear and aligned.
@@ -59,11 +59,9 @@ And with the help of these servant leaders throughout the company, you’ll be a
 
 > "Not one thing ever does it, it’s a series of consistent things that makes people say, 'Aha, it’s time for change'" - Oprah Winfrey
 
+
 #### Recommended reading
 * Stephen Denning - [The Age of Agile](https://www.amazon.com/dp/B072J5XPTP/){:target="_blank" rel="noopener noreferrer"}: How smart companies are transforming the way work gets done
-
 * Sunil Mundra - [Enterprise agility: Being agile in a changing world](https://www.amazon.com/gp/product/B0788T1PSN/){:target="_blank" rel="noopener noreferrer"}
-
 * Seth Godin - [Tribes](https://www.amazon.com/gp/product/1591842336/){:target="_blank" rel="noopener noreferrer"}
-
 * Em Campbell-Pretty - [Tribal Unity](https://www.amazon.com/gp/product/B01LZ0O4RC/){:target="_blank" rel="noopener noreferrer"}: Getting from teams to tribes by creating a one team culture
