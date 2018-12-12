@@ -197,13 +197,15 @@ Although I am a huge fan of Mockito for mocking in Java, using Mockito in Kotlin
 MockK's main philosophy is offering first-class support for Kotlin features and being able to write idiomatic Kotlin code when using it.
 Adding MockK is as simple as ever as you only have to add the dependency to your project and you are set to go.
 
+<img alt="MockK version" src="https://img.shields.io/maven-central/v/io.mockk/mockk.svg?label=release" />
+
 Maven:
 
 ```
 <dependency>
     <groupId>io.mockk</groupId>
     <artifactId>mockk</artifactId>
-    <version>1.7.1</version>
+    <version>${mockk.version}</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -211,7 +213,7 @@ Maven:
 Gradle:
 
 ```
-testCompile "io.mockk:mockk:1.7.1"
+testCompile "io.mockk:mockk:${mockkVersion}"
 ```
 
 The available [MockK documentation](http://mockk.io){:target="_blank"} provides a really nice overview of all the different features with a lot of examples, making it very easy to get started.
