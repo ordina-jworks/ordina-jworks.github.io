@@ -21,7 +21,7 @@ Every day we strive, all of us, in this global community, to find a moment of pe
 And sometimes, when the odds are right, in a cursory moment of clear thoughts, we discover that precious balance, and see the bigger picture. 
 That’s when we embrace change and sense the opportunity...
 
-Projecting this mechanism from the personal into the organisational area, the same elements are at play. 
+When projecting this mechanism from the personal into the organisational area, the same elements are at play. 
 But the personal aspect is still the crucial driver (and the key to unlock it), that can push corporate change forward or go against it like a stubborn forceful undercurrent.
 
 Tapping into that current, though, is the key to unlocking the potential of an engaged community of professionals, and so helping the organisational culture grow organically. 
