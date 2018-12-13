@@ -9,10 +9,10 @@ comments: true
 ---
 
 As human beings, we’ve always had a complicated relationship with change.
-On the one hand, we see it all around us and try to cope with the complexity of it, attempting to avoid or even sabotage it in order to hang on for dear life, 
-to what we have always known to be normal, and therefore believe it to be what’s best.
-On the other hand, it’s what allows us to hope and strive, what drives us towards a dream for a better future – and so we look for ways to form it, 
-to mould it, even manipulate it at times, thinking that whatever comes out of the change will be better and lasting.
+On the one hand, we see it all around us and try to cope with the complexity of it.
+Attempting to avoid or even sabotage it in order to hang on for dear life, to what we have always known to be normal, and therefore believe it to be what’s best.
+On the other hand, it’s what allows us to hope and strive, what drives us towards a dream for a better future.
+And so we look for ways to form it, to mould it, even manipulate it at times, thinking that whatever comes out of the change will be better and lasting.
 
 But does change have an outcome? 
 Or is it endlessly moving forward? 
