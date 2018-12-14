@@ -52,6 +52,7 @@ In order to set 2.4.0 as the default Ruby version you can use the following comm
 - Add following [**FrontMatter**](http://jekyllrb.com/docs/frontmatter/) tags on the top of your post (you can also copy-paste this from another post)
     - layout: post
     - authors: {author(s)}
+    - outbound: {outbound(s)} - optional, see `outbound.yml` file. It is possible to point to external pages or related internal pages. Never point to (external) pages that are likely to be non-existent in the future, since this is bad for our SEO. Images must be placed in the `img/outbound/` folder and must be 480 x 360. When pointing to *Ordina* pages don't forget to add the following query param for statistics: `&utm_source=ordina_jworks_tech_blog`.
     - title: {title}
     - image: {image_path}
     - tags: {tags}
