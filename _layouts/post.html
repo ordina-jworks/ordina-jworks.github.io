@@ -22,13 +22,37 @@ layout: default
                  alt="Share on Facebook" />
         </a>
     </div>
+    {% if page.outbound.size > 0 %}
+    <div class="outbound">
+        <div class="outbound__inner">
+            <h3 class="outbound__inner-title">Explore some more</h3>
+            {% for outbound_link in page.outbound %}
+            <figure class="effect-bubba">
+                <img src="{{ '/img/outbound/' | append: outbound_link.img | prepend: site.baseurl }}" alt="{{ outbound_link.title }}"/>
+                <figcaption>
+                    <h2>{{ outbound_link.title }}</h2>
+                    {% if outbound_link.subtitle %}
+                    <p>{{ outbound_link.subtitle }}</p>
+                    {% endif %}
+                    {% assign external_link = outbound_link.href %}
+                    {% if external_link contains "http" %}
+                    <a href="{{ outbound_link.href }}" title="{{ outbound_link.title }}" target="_blank">View more</a>
+                    {% else if %}
+                    <a href="{{ outbound_link.href | prepend: site.baseurl }}" title="{{ outbound_link.title }}">View more</a>
+                    {% endif %}
+                </figcaption>			
+            </figure>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}    
 </section>
 
 {% if page.authors != empty %}
 <section id="two" class="wrapper alt spotlight style2">
     {% for author in page.authors %}
     <div class="inner">
-        <a href="{{ author.permalink | prepend: site.baseurl }}" class="image spotlight-image">
+        <a href="{{ author.permalink | prepend: site.baseurl }}" class="image spotlight-image" title="{{ author.name }}">
             <img src="{{ '/img/author/' | append: author.avatar | prepend: site.baseurl }}"
                  alt="{{ author.name }}" class="p-image"/>
         </a>
@@ -40,18 +64,5 @@ layout: default
         </div>
     </div>
     {% endfor %}
-</section>
-{% endif %}
-
-{% if page.comments %}
-<section id="three" class="wrapper spotlight style3">
-    <div class="inner">
-        <div class="content">
-            <div id="disqus_thread"></div>
-
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
-                powered by Disqus.</a></noscript>
-        </div>
-    </div>
 </section>
 {% endif %}
