@@ -3,9 +3,14 @@ some_variable: "jeckyll wont update js without frontmatter.."
 ---
 
 (function() {
+
+
+  function hideSpinner() {
+    document.getElementById("search-spinner").style.display = "none";
+  }
+
   function displaySearchResults(results, store) {
     var searchResults = document.getElementById('search-results');
-
     if (results.length) { // Are there any results?
       var appendString = '';
 
@@ -18,15 +23,13 @@ some_variable: "jeckyll wont update js without frontmatter.."
         appendString += '<a href="' + item.url + '" class="special">Read more</a>';
         appendString += '</article>';
 
-        //appendString += '<li class="box box--border-hover"><a href="' + item.url + '"><h3>' + item.title + '</h3></a>';
-        //appendString += '<p>' + item.content.substring(0, 250) + '...</p></li>';
-        // appendString += '<p>' + item.abstract + '</p></li>';
       }
 
       searchResults.innerHTML = appendString;
     } else {
       searchResults.innerHTML = '<p>No results found</p>';
     }
+    hideSpinner()
   }
 
   function getQueryVariable(variable) {
@@ -41,6 +44,25 @@ some_variable: "jeckyll wont update js without frontmatter.."
       }
     }
   }
+
+  function buildIndexAndSearch(idx, documents) {
+      if (documents.length > 0) {
+          var document = documents.pop()
+          idx.add({
+              'id': Object.keys(window.store)[documents.length],
+              'title': document.title,
+              'category': document.category,
+              'content': document.content,
+          })
+          window.setTimeout(() => {
+              buildIndexAndSearch(idx, documents)
+          }, 0)
+      } else {
+          var results = idx.search(searchTerm) // Get lunr to perform a search
+          displaySearchResults(results, window.store)
+      }
+  }
+
 
   var searchTerm = getQueryVariable('query');
 
@@ -57,16 +79,8 @@ some_variable: "jeckyll wont update js without frontmatter.."
       this.field('content');
     });
 
-    for (var key in window.store) { // Add the data to lunr
-      idx.add({
-        'id': key,
-        'title': window.store[key].title,
-        'category': window.store[key].category,
-        'content': window.store[key].content
-      });
+    var storeArray = Object.values(window.store)
+    buildIndexAndSearch(idx, storeArray)
 
-      var results = idx.search(searchTerm); // Get lunr to perform a search
-      displaySearchResults(results, window.store); // We'll write this in the next section
-    }
   }
 })();
