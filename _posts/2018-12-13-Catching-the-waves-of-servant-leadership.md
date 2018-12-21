@@ -1,6 +1,7 @@
 ---
 layout: post
 authors: [michaela_broeckx]
+outbound: [tech_blog_team_under_high_voltage]
 title: "Catching the waves of servant leadership"
 image: /img/catching-the-waves-of-servant-leadership/main-image.png
 tags: [Agile, AgileWorks, Leadership, Tribe, Servant Leadership, Enterprise Agility, Change, Agile Coaching]

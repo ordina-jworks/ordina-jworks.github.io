@@ -1,6 +1,7 @@
 ---
 layout: post
 authors: [michaela_broeckx]
+outbound: [tech_blog_catching_the_waves_of_servant_leadership]
 title: "Team under High Voltage"
 image: /img/teams-under-high-voltage/main-image.png
 tags: [Agile, Coaching, Demotivation, Definition of Success, Team Dynamics, Psychological Safety]
