@@ -4,6 +4,8 @@
 /// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 ///
 
+@import '../layout/_wrapper.scss';
+
 /* Basic */
 
 // MSIE: Required for IEMobile.
@@ -365,4 +367,44 @@ body.custom-image {
   }
 
 
+}
+
+/**
+ * Dark mode - only for post-body (https://paulmillr.com/posts/using-dark-mode-in-css/)
+ */
+@media (prefers-color-scheme: dark) {
+  .wrapper.spotlight.post-body {
+    color: #ddd;
+    background-color: #222;
+    border-top: solid #222;
+    border-bottom: solid #222;
+
+    @include wrapper-edges-color(#222);
+
+    a {
+      color: #e98300;
+
+      &:hover {
+        color: darken(#e98300, 10%) !important;
+      }
+    }
+
+    blockquote {
+      border-left: solid 4px rgba(255,159,28,0.75)
+    }
+
+    .wrapper.style1 h1,
+    .wrapper.style1 h2,
+    .wrapper.style2 h1,
+    .wrapper.style2 h2,
+    .wrapper.style3 h1,
+    .wrapper.style3 h2 {
+      border-bottom: solid 2px rgba(255,159,28,0.75);
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    .wrapper.spotlight.post-body h1, .wrapper.spotlight.post-body h2 {
+      color: #e98300;
+    }
+  }
 }
