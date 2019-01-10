@@ -10,7 +10,7 @@ comments: true
 
 # Table of content
 1. [Infrastructure as Code](#infrastructure-as-code)
-2. [Introduction](#introduction)
+2. [Introduction and demo](#introduction-and-demo)
 3. [Creating the application](#creating-the-application)
 4. [Prerequisites](#prerequisites)
 6. [Terraform: the basics](#terraform-the-basics)
@@ -31,7 +31,7 @@ And you just defined all of that infrastructure using IaC.
 
 > IaC is a key practice of DEVOPS teams and integrates as part of the CI/CD pipeline.
 
-# Introduction
+# Introduction and demo
 I will demonstrate IaC by working out an example. 
 We are going to set up an application on AWS.
 A user can enter a coding tip and see all the coding tips that other users have entered.
@@ -63,6 +63,7 @@ I will now go over the steps to setup the application you see in the demo above.
 IaC is the main focus.
 I will show the code and AWS cli commands that are necessary but I will not explain them in detail since that is not the purpose of this blog.
 I'll focus on the Terraform definitions instead.
+You are welcome to follow along by cloning the repository that I linked to this blogpost.
 
 # Prerequisites
 * install Terraform
@@ -434,7 +435,7 @@ We'll see this in a minute.
 
 As I already mentioned using Swagger to define your API Gateway has some advantages:
 * It keeps your terraform more concise
-* You can use this swagger to get a nice representation of you API
+* You can use this swagger to get a nice representation of your API
 
 ```hcl-terraform
 resource "aws_api_gateway_rest_api" "codingtips-api-gateway" {
@@ -471,8 +472,8 @@ It does what is says and provides an API Gateway REST API.
     * This is done by the `aws_api_gateway_deployment` resource
     * It references the REST API
     * It needs a stage which is like a 'version' or 'snapshot' of your API.
-The stage name will be in the url to invoke this API.
-* At last the url on which the API can be invoked is outputted to the terminal.
+The stage name will be in the URL to invoke this API.
+* At last the URL on which the API can be invoked is outputted to the terminal.
 `/api` is appended to have the correct resource path
 
 # Endgame
@@ -487,6 +488,11 @@ Here I am running `terraform apply` within the repository linked to this blog.
 Nice, it worked.
 And I only told Terraform about the infrastructure I wanted.
 The whole setup process goes automatically!
+
+When you need to couple the API endpoints to a frontend of your own design, you need to set the CORS headers correctly.
+If you want this challenge, there is an other branch in the repository (cors-enabled) where I worked this out.
+
+Happy coding folks, Code that Infrastructure!
 
 # Resources and further reading
 * Terraform website: [Terraform.io](https://www.terraform.io/){:target="_blank" rel="noopener noreferrer"}
