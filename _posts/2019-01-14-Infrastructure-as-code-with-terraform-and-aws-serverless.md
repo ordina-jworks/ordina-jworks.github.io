@@ -2,7 +2,7 @@
 layout: post
 authors: [nick_van_hoof]
 title: 'Infrastructure as code: Terraform and AWS Serverless'
-image: /img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/AWS-Serverless-Architecture.png
+image: /img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/featured-image.png
 tags: [AWS,Lambda,DynamoDB,API GateWay,Serverless, IaC]
 category: Cloud
 comments: true
