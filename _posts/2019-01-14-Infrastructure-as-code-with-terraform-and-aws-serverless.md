@@ -36,7 +36,7 @@ I will demonstrate IaC by working out an example.
 We are going to set up an application on aws.
 A user can enter a coding tip and see all the coding tips that other users have entered.
 The tips are stored in a NoSQL database which is aws DynamoDB.
-Storing and retrieving these tips is done by the Lambda Functions which fetch or put the tips from and to the database.
+Storing and retrieving these tips is done by AWS Lambda functions which fetch or put the tips from and to the database.
 For the application to be useful users have to be able call these Lambda Functions.
 So we expose the Lambda Functions through aws ApiGateway. 
 Here is an architectural overview of the application:
