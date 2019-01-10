@@ -3,7 +3,7 @@ layout: post
 authors: [ryan_de_gruyter]
 title: "Automated E2E (End-to-End) testing on Android and iOS with Ionic, Protractor and Appium."
 image: /img/ionic-protractor-appium.jpg
-tags: [ionic,protractor,appium,angular,typescript,javascript,jasmine,testing,E2E,end-to-end,android,ios]
+tags: [ionic,protractor,appium,angular,typescript,javascript,jasmine,testing,E2E,end-to-end,Android,iOS]
 category: Ionic
 comments: true
 ---
