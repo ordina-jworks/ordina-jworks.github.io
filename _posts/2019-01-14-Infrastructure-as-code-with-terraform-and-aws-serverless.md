@@ -31,9 +31,19 @@ And you just defined all of that infrastructure using IaC.
 
 > IaC is a key practice of DEVOPS teams and integrates as part of the CI/CD pipeline.
 
+A great Infrastructure as Code tool is Terraform by HashiCorp.
+([https://www.terraform.io/](https://www.terraform.io/){:target="_blank" rel="noopener noreferrer"})  
+Personally I use it to provide and maintain infrastructure on AWS.
+And I've had a great experience doing that.
+
+<div style="text-align: center;">
+  <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/overview.png" width="100%" height="100%">
+</div>
+
 # Introduction and demo
 I will demonstrate IaC by working out an example. 
 We are going to set up an application on AWS.
+I provisioned the **code on GitLab**: [https://gitlab.com/nxtra/codingtips-blog](https://gitlab.com/nxtra/codingtips-blog){:target="_blank" rel="noopener noreferrer"}  
 A user can enter a coding tip and see all the coding tips that other users have entered.
 The tips are stored in a NoSQL database which is AWS DynamoDB.
 Storing and retrieving these tips is done by the Lambda Functions which fetch or put the tips from and to the database.
@@ -224,26 +234,6 @@ resource "aws_iam_role_policy" "dynamodb-lambda-policy"{
 }
 EOF
 }
-
-resource "aws_iam_role_policy" "cloudwatch-lambda-policy"{
-  name = "cloudwatch-lambda-policy"
-  role = "${aws_iam_role.lambda-iam-role.id}"
-  policy = "${data.aws_iam_policy_document.api_gateway_logs_policy_document.json}"
-}
-
-data "aws_iam_policy_document" "api_gateway_logs_policy_document" {
-  statement {
-    actions = [
-      "logs:CreateLogStream",
-      "logs:CreateLogGroup",
-      "logs:PutLogEvents"
-    ],
-    resources = [
-      "arn:aws:logs:*:*:*"
-    ]
-  }
-}
-
 ```
 
 In the example above the first resource that is defined is an `aws_iam_role`.
@@ -258,8 +248,8 @@ A couple of things to notice:
 * In the `statement` attribute of the `aws_iam_role_policy` we grant (Effect attr.) permission to do some actions (Action attr.) on a certain Resource (Resource attr.)
 * A resource is referenced by its *arn* or *Amazon Resource Name* which uniquely identifies this resource on aws
 * There are two ways to specify an `aws_iam_role_policy`: 
-    * using the *until EOF* syntax
-    * using a separate Terraform `data` element
+    * using the *until EOF* syntax (like I did here)
+    * using a separate Terraform `aws_iam_policy_document` element that is coupled to the `aws_iam_role_policy`
 * The dynamodb-lambda-policy allows all actions on the specified DynamoDB resource because under the action attribute it states `dynamodb:*`
 You could make this more restricted and mention actions like 
 
@@ -416,13 +406,13 @@ definitions:
       - tip
 ```
 
-If you do not know swagger yet copy the above an paste it in the online swagger editor.  
-[Swagger Editor](https://editor.swagger.io/){:target="_blank" rel="noopener noreferrer"} 
+If you do not know Swagger yet copy the above and paste it in the online swagger editor.
+([Swagger Editor](https://editor.swagger.io/){:target="_blank" rel="noopener noreferrer"}) 
 
 This will grant you a nice visual overview of the api definition.
 
 <div style="text-align: center;">
-  <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/swagger.png" width="70%" height="70%">
+  <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/swagger.png" width="60%" height="60%">
 </div>
 
 There is only one AWS specific thing in the swagger specification above and that is `x-amazon-apigateway-integration`.
@@ -488,6 +478,15 @@ Here I am running `terraform apply` within the repository linked to this blog.
 Nice, it worked.
 And I only told Terraform about the infrastructure I wanted.
 The whole setup process goes automatically!
+You can now use the outputted URL to GET and POST coding tips.
+The body of the POST should look like:
+```json
+{
+  "author": "Nick",
+  "tip": "Short sessions with frequent brakes",
+  "category": "Empowerment"
+}
+```
 
 When you need to couple the API endpoints to a frontend of your own design, you need to set the CORS headers correctly.
 If you want this challenge, there is an other branch in the repository (cors-enabled) where I worked this out.
@@ -496,7 +495,7 @@ Happy coding folks, Code that Infrastructure!
 
 # Resources and further reading
 * Terraform website: [Terraform.io](https://www.terraform.io/){:target="_blank" rel="noopener noreferrer"}
-* Terraform-Lambda-APIGateway: [lean.hashicorp.com](https://learn.hashicorp.com/terraform/aws/lambda-api-gateway){:target="_blank" rel="noopener noreferrer"}
+* Terraform-Lambda-APIGateway: [learn.hashicorp.com](https://learn.hashicorp.com/terraform/aws/lambda-api-gateway){:target="_blank" rel="noopener noreferrer"}
 * Swagger editor: [editor.swagger.io](https://editor.swagger.io/){:target="_blank" rel="noopener noreferrer"}
 * Swagger official website: [swagger.io](https://swagger.io/){:target="_blank" rel="noopener noreferrer"}
 
