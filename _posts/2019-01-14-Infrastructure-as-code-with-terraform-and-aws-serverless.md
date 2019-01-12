@@ -18,7 +18,7 @@ comments: true
 8. [Database: DynamoDB](#database-dynamodb)
 9. [IAM](#iam)
 10. [Lambda Functions](#lambda-functions)
-11. [Api Gateway](#api-gateway)
+11. [API Gateway](#api-gateway)
 12. [Endgame](#endgame)
 12. [Resources and further reading](#resources-and-further-reading)
 
@@ -43,11 +43,11 @@ And I've had a great experience doing that.
 # Introduction and demo
 I will demonstrate IaC by working out an example. 
 We are going to set up an application on AWS.
-I provisioned the **code on GitLab**: [https://gitlab.com/nxtra/codingtips-blog](https://gitlab.com/nxtra/codingtips-blog){:target="_blank" rel="noopener noreferrer"}  
+I provisioned the **code on GitLab**: [https://gitlab.com/nxtra/codingtips-blog](https://gitlab.com/nxtra/codingtips-blog){:target="_blank" rel="noopener noreferrer"}.
 A user can enter a coding tip and see all the coding tips that other users have entered.
 The tips are stored in a NoSQL database which is AWS DynamoDB.
 Storing and retrieving these tips is done by the Lambda Functions which fetch or put the tips from and to the database.
-For the application to be useful users have to be able call these Lambda Functions.
+For the application to be useful, users have to be able to call these Lambda Functions.
 So we expose the Lambda Functions through AWS API Gateway. 
 Here is an architectural overview of the application:
 
@@ -69,29 +69,29 @@ Let's dive in!
   <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-terraform.png" width="15%" height="15%">
 </div>
 
-I will now go over the steps to setup the application you see in the demo above.
+I will now go over the steps to set up the application you see in the demo above.
 IaC is the main focus.
-I will show the code and AWS cli commands that are necessary but I will not explain them in detail since that is not the purpose of this blog.
+I will show the code and AWS CLI commands that are necessary but I will not explain them in detail since that is not the purpose of this blog.
 I'll focus on the Terraform definitions instead.
-You are welcome to follow along by cloning the repository that I linked to this blogpost.
+You are welcome to follow along by cloning the repository that I linked to in this blog post.
 
 # Prerequisites
-* install Terraform
-* install AWS cli 
-* checkout the repository: Gitlab repository: [https://gitlab.com/nxtra/codingtips-blog](https://gitlab.com/nxtra/codingtips-blog){:target="_blank" rel="noopener noreferrer"}
-* be ready to get your mind blown by IaC
+* Install Terraform
+* Install AWS CLI
+* Checkout the repository on GitLab: [https://gitlab.com/nxtra/codingtips-blog](https://gitlab.com/nxtra/codingtips-blog){:target="_blank" rel="noopener noreferrer"}
+* Be ready to get your mind blown by IaC
 
 # Terraform: the basics
 The main things you'll be configuring with Terraform are resources.
 Resources are the components of your application infrastructure.
-E.g: a Lambda Function, an Api Gateway Deployment, a DynamoDB database..
-A resource is defined by using the keyword `resource` followed by the `type` and the name.
+E.g: a Lambda Function, an API Gateway Deployment, a DynamoDB database, ...
+A resource is defined by using the keyword `resource` followed by the `type` and the `name`.
 The name can be arbitrarily chosen.
 The type is fixed.
 For example:
 `resource "aws_dynamodb_table" "codingtips-dynamodb-table"`
 
-To follow along with this blogpost you have to know 2 basic Terraform commands.
+To follow along with this blog post you have to know two basic Terraform commands.
 
 > terraform apply
 
@@ -125,13 +125,13 @@ variable "s3_bucket"          { default = "codingtips-node-bucket"}
 
 The `provider` block specifies that we are deploying on AWS.
 You also have the possibility to mention credentials that will be used for deploying here.
-If you have correctly setup the AWS cli on your machine there will be default credentials in your .aws folder.
-If no credentials are specified Terraform will use these default credentials.
+If you have correctly set up the AWS CLI on your machine there will be default credentials in your `.aws` folder.
+If no credentials are specified, Terraform will use these default credentials.
 
 Variables have a name which we can reference from anywhere in our Terraform configuration. 
-For example we could reference the s3_bucket variable with `${var.s3_bucket)`.
+For example we could reference the `s3_bucket` variable with `${var.s3_bucket)`.
 This is handy when you are using the same variable in multiple places.
-I will not use too many variables throughout this blogpost since that will add more references to your Terraform configuration and I want it to be as clear as possible.
+I will not use too many variables throughout this blog post since that will add more references to your Terraform configuration and I want it to be as clear as possible.
 
 # Database: DynamoDB
 
@@ -142,7 +142,7 @@ I will not use too many variables throughout this blogpost since that will add m
 Let's start with the basis.
 Where will all our coding tips be stored? 
 That's right, in the database.
-This database is part of our infrastructure and will be defined in a file I named `dynamo.tf`
+This database is part of our infrastructure and will be defined in a file I named `dynamo.tf`.
 
 ```hcl-terraform
 resource "aws_dynamodb_table" "codingtips-dynamodb-table" {
@@ -164,18 +164,18 @@ resource "aws_dynamodb_table" "codingtips-dynamodb-table" {
 }
 ```
 
-Since Dynamo is a NoSql database we don't have to specify all attributes upfront.
+Since Dynamo is a NoSQL database, we don't have to specify all attributes upfront.
 The only thing we have to provide are the elements that AWS will use to build the partition key with.
-When you provide a hash key as well as a sort key AWS will combine these to make a unique partition key.
+When you provide a hash key as well as a sort key, AWS will combine these to make a unique partition key.
 Mind the word UNIQUE.
 Make sure this combination is unique.
 
 > DynamoDB uses the partition key value as input to an internal hash function. 
 The output from the hash function determines the partition (physical storage internal to DynamoDB) in which the item will be stored. 
 All items with the same partition key value are stored together, in sorted order by sort key value.
--- from AWS docs: <a target="_blank" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html">https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html</a>
+-- from AWS docs: <a target="_blank" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html">DynamoDB Core Components</a>
 
-From the attribute definitions in `dynamo.tf` it is clear that Author (S) is a string and Date (N) should be a number.
+From the attribute definitions in `dynamo.tf` it is clear that `Author` (`S`) is a string and `Date` (`N`) should be a number.
 
 # IAM
 <div style="text-align: center;">
@@ -184,7 +184,7 @@ From the attribute definitions in `dynamo.tf` it is clear that Author (S) is a s
 
 Before specifying the Lambda Functions we have to create permissions for our functions to use.
 This makes sure that our functions have permissions to access other resources (like DynamoDB).
-Without going to deep into it, the AWS permission model works as follows:
+Without going too deep into it, the AWS permission model works as follows:
 * Provide a resource with a role
 * Add permissions to this role
 * These allow the role to access other resources:
@@ -236,7 +236,7 @@ EOF
 }
 ```
 
-In the example above the first resource that is defined is an `aws_iam_role`.
+In the example above, the first resource that is defined is an `aws_iam_role`.
 This is the role that we will later give to our Lambda Functions.
 
 We then create the `aws_iam_role_policy` resource which we link to the `aws_iam_role`.
@@ -244,13 +244,13 @@ The first `aws_iam_role_policy` is giving this role permission to invoke any act
 The second `role_policy` allows a resource with this role to send logs to CloudWatch.
 
 A couple of things to notice:
-* The `aws_iam_role` and the `aws_iam_role_policy` are connected by the `role` argument of the role_policy resource
-* In the `statement` attribute of the `aws_iam_role_policy` we grant (Effect attr.) permission to do some actions (Action attr.) on a certain Resource (Resource attr.)
-* A resource is referenced by its *arn* or *Amazon Resource Name* which uniquely identifies this resource on aws
+* The `aws_iam_role` and the `aws_iam_role_policy` are connected by the `role` argument of the `role_policy` resource
+* In the `statement` attribute of the `aws_iam_role_policy` we grant (`Effect` attr.) permission to do some actions (`Action` attr.) on a certain resource (`Resource` attr.)
+* A resource is referenced by its *ARN* or *Amazon Resource Name* which uniquely identifies this resource on AWS
 * There are two ways to specify an `aws_iam_role_policy`: 
     * using the *until EOF* syntax (like I did here)
     * using a separate Terraform `aws_iam_policy_document` element that is coupled to the `aws_iam_role_policy`
-* The dynamodb-lambda-policy allows all actions on the specified DynamoDB resource because under the action attribute it states `dynamodb:*`
+* The `dynamodb-lambda-policy` allows all actions on the specified DynamoDB resource because under the `Action` attribute it states `dynamodb:*`
 You could make this more restricted and mention actions like 
 
 ```
@@ -269,18 +269,18 @@ The second Lambda is used to post or send the coding tips to the database furthe
 
 I am not going to copy paste the code of the Lambda Functions in here.
 You can check it out in the repository linked to this blog 
-(Gitlab repository: [https://gitlab.com/nxtra/codingtips-blog](https://gitlab.com/nxtra/codingtips-blog){:target="_blank" rel="noopener noreferrer"}).
+(GitLab repository: [https://gitlab.com/nxtra/codingtips-blog](https://gitlab.com/nxtra/codingtips-blog){:target="_blank" rel="noopener noreferrer"}).
 
-Here I will demonstrate the example of the `getLambda` function
-The postLambda is deployed in the same way and you can find the Terraform definitions in the git repository.
+Here I will demonstrate the example of the `getLambda` function.
+The `postLambda` is deployed in the same way and you can find the Terraform definitions in the Git repository.
 A Lambda Function is a little different from the other infrastructure we defined here.
 Not only do we need a Lambda Function as infrastructure.
 We also need to specify the code that runs in this Lambda Function.
-But where will AWS find that specific code when deploying the Lambda Function.
+But where will AWS find that specific code when deploying the Lambda Function?
 They don't have access to your local machine, have they?
-That is why you first need to ship your code to a `S3 Bucket` on AWS where it can be found when your Function is being deployed.
+That is why you first need to ship your code to a S3 Bucket on AWS where it can be found when your Function is being deployed.
 
-That also means creating an S3 Bucket, which you can do with this command when you want it in region eu-west-1 (Ireland):
+That also means creating an S3 Bucket, which you can do with this command when you want it in region `eu-west-1` (Ireland):
 ```bash
 aws s3api create-bucket --bucket codingtips-node-bucket --region eu-west-1 --create-bucket-configuration LocationConstraint=eu-west-1
 ```
@@ -295,7 +295,7 @@ And upload that file to s3:
 aws s3 cp getLambda.zip s3://codingtips-node-bucket/v1.0.0/getLambda.zip
 ```
 
-Mind that I am sending it to a bucket named *codingtips-node-bucket* in a folder *v1.0.0* with filename *getLambda.zip*
+Mind that I am sending it to a bucket named `codingtips-node-bucket` in a folder `v1.0.0` with filename `getLambda.zip`.
 
 Okay, the code is where it needs to be.
 Now let's see how we specify these functions using Terraform.
@@ -330,12 +330,12 @@ resource "aws_lambda_permission" "api-gateway-invoke-get-lambda" {
 }
 ```
 
-* Notice that we tell Terraform the S3 Bucket and directory to look for the code.
-* We specify the runtime and memory for this Lambda Function.
-* `index.handler` points to the file and function where to enter the code.
+* Notice that we tell Terraform the S3 Bucket and directory to look for the code
+* We specify the runtime and memory for this Lambda Function
+* `index.handler` points to the file and function where to enter the code
 * The `aws_lambda_permission` resource is the permission that states that this Lambda Function may be invoked by the API Gateway that we created
 
-# Api Gateway
+# API Gateway
  
 <div style="text-align: center;">
   <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-apigateway.png" width="15%" height="15%">
@@ -346,7 +346,7 @@ On the other hand, it is also the most interesting.
 I hand Terraform a *Swagger* definition of my api.
 You can also do this without Swagger, but then you will have to specify a lot more resources.
 
-The swagger api definition looks as follows:
+The swagger API definition looks as follows:
 ```
 swagger: '2.0'
 info:
@@ -406,26 +406,25 @@ definitions:
       - tip
 ```
 
-If you do not know Swagger yet copy the above and paste it in the online swagger editor.
-([Swagger Editor](https://editor.swagger.io/){:target="_blank" rel="noopener noreferrer"}) 
+If you do not know Swagger yet, copy the above and paste it in the online ([Swagger Editor](https://editor.swagger.io/){:target="_blank" rel="noopener noreferrer"}).
 
-This will grant you a nice visual overview of the api definition.
+This will grant you a nice visual overview of the API definition.
 
 <div style="text-align: center;">
   <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/swagger.png" width="60%" height="60%">
 </div>
 
-There is only one AWS specific thing in the swagger specification above and that is `x-amazon-apigateway-integration`.
-This is specifying the details of how the api is integrating with the backend. 
-* Remark that this is always a `POST` even if the http method of the resource path is a `GET`
+There is only one AWS specific thing in the Swagger specification above and that is `x-amazon-apigateway-integration`.
+This is specifying the details of how the API is integrating with the backend. 
+* Remark that this is always a `POST` even if the HTTP method of the resource path is a `GET`
 * `aws_proxy` means that the request is passed to the Lambda Function without manipulation
-* `when_no_match` passes the request body to the backend without tranforming it when no `requestTemplate` is specified for the Content-Type 
-* `uri` is referencing a variable eg. `${get_lambda_arn}` that terraform passes to the swagger definition.
+* `when_no_match` passes the request body to the backend without tranforming it when no `requestTemplate` is specified for the `Content-Type` 
+* `uri` is referencing a variable eg. `${get_lambda_arn}` that Terraform passes to the Swagger definition
 We'll see this in a minute.
 
-As I already mentioned using Swagger to define your API Gateway has some advantages:
-* It keeps your terraform more concise
-* You can use this swagger to get a nice representation of your API
+As I already mentioned, using Swagger to define your API Gateway has some advantages:
+* It keeps your Terraform more concise
+* You can use this Swagger to get a nice representation of your API
 
 ```hcl-terraform
 resource "aws_api_gateway_rest_api" "codingtips-api-gateway" {
@@ -453,17 +452,17 @@ output "url" {
 }
 ```
 
-* We start by mentioning the `aws_api_gateway_rest_api` resource.
-It does what is says and provides an API Gateway REST API.
+* We start by mentioning the `aws_api_gateway_rest_api` resource
+It does what is says and provides an API Gateway REST API
     * body references the swagger file
-* The `template_file` datasource allows Terraform to use information that is not defined in Terraform (here Swagger)
-    * Variables are passed to this template_file to fill the file.
-* For a given `rest-api` to be usable, it has to be deployed.
+* The `template_file` datasource allows Terraform to use information that is not defined in Terraform (Swagger in our case)
+    * Variables are passed to this `template_file` to fill the file
+* For a given `rest-api` to be usable, it has to be deployed
     * This is done by the `aws_api_gateway_deployment` resource
     * It references the REST API
-    * It needs a stage which is like a 'version' or 'snapshot' of your API.
+    * It needs a stage which is like a 'version' or 'snapshot' of your API
 The stage name will be in the URL to invoke this API.
-* At last the URL on which the API can be invoked is outputted to the terminal.
+* At last the URL on which the API can be invoked is outputted to the terminal
 `/api` is appended to have the correct resource path
 
 # Endgame
@@ -489,7 +488,7 @@ The body of the POST should look like:
 ```
 
 When you need to couple the API endpoints to a frontend of your own design, you need to set the CORS headers correctly.
-If you want this challenge, there is an other branch in the repository (cors-enabled) where I worked this out.
+If you want this challenge, there is another branch in the repository (`cors-enabled`) where I worked this out.
 
 Happy coding folks, Code that Infrastructure!
 
