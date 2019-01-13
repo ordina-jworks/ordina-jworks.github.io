@@ -343,7 +343,7 @@ resource "aws_lambda_permission" "api-gateway-invoke-get-lambda" {
 
 I kept the most difficult one for last.
 On the other hand, it is also the most interesting.
-I hand Terraform a *Swagger* definition of my api.
+I hand Terraform a *Swagger* definition of my API.
 You can also do this without Swagger, but then you will have to specify a lot more resources.
 
 The swagger API definition looks as follows:
