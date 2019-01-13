@@ -43,7 +43,7 @@ And I've had a great experience doing that.
 # Introduction and demo
 I will demonstrate IaC by working out an example. 
 We are going to set up an application on AWS.
-I provisioned the **code on GitLab**: [https://gitlab.com/nxtra/codingtips-blog](https://gitlab.com/nxtra/codingtips-blog){:target="_blank" rel="noopener noreferrer"}.
+I provisioned the code on GitLab: [https://gitlab.com/nxtra/codingtips-blog](https://gitlab.com/nxtra/codingtips-blog){:target="_blank" rel="noopener noreferrer"}.
 A user can enter a coding tip and see all the coding tips that other users have entered.
 The tips are stored in a NoSQL database which is AWS DynamoDB.
 Storing and retrieving these tips is done by the Lambda Functions which fetch or put the tips from and to the database.
