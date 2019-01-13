@@ -419,7 +419,7 @@ This is specifying the details of how the API is integrating with the backend.
 * Remark that this is always a `POST` even if the HTTP method of the resource path is a `GET`
 * `aws_proxy` means that the request is passed to the Lambda Function without manipulation
 * `when_no_match` passes the request body to the backend without tranforming it when no `requestTemplate` is specified for the `Content-Type` 
-* `uri` is referencing a variable eg. `${get_lambda_arn}` that Terraform passes to the Swagger definition
+* `uri` is referencing a variable eg. `${get_lambda_arn}` that Terraform passes to the Swagger definition.
 We'll see this in a minute.
 
 As I already mentioned, using Swagger to define your API Gateway has some advantages:
@@ -452,8 +452,8 @@ output "url" {
 }
 ```
 
-* We start by mentioning the `aws_api_gateway_rest_api` resource
-It does what is says and provides an API Gateway REST API
+* We start by mentioning the `aws_api_gateway_rest_api` resource.
+It does what is says and provides an API Gateway REST API.
     * body references the Swagger file
 * The `template_file` datasource allows Terraform to use information that is not defined in Terraform (Swagger in our case)
     * Variables are passed to this `template_file` to fill the file
