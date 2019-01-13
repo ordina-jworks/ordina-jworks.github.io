@@ -346,7 +346,7 @@ On the other hand, it is also the most interesting.
 I hand Terraform a *Swagger* definition of my API.
 You can also do this without Swagger, but then you will have to specify a lot more resources.
 
-The swagger API definition looks as follows:
+The Swagger API definition looks as follows:
 ```
 swagger: '2.0'
 info:
@@ -454,7 +454,7 @@ output "url" {
 
 * We start by mentioning the `aws_api_gateway_rest_api` resource
 It does what is says and provides an API Gateway REST API
-    * body references the swagger file
+    * body references the Swagger file
 * The `template_file` datasource allows Terraform to use information that is not defined in Terraform (Swagger in our case)
     * Variables are passed to this `template_file` to fill the file
 * For a given `rest-api` to be usable, it has to be deployed
