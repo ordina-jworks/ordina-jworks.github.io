@@ -32,6 +32,12 @@ Note that setting the Ruby version via `rvm use 2.4.0` is only active for the cu
 In order to set 2.4.0 as the default Ruby version you can use the following command:
 
     $ rvm --default use 2.4.0
+    
+If you are unable to run `rvm install 2.4.0` execute the following:
+
+    $ /bin/bash --login 
+    $ source ~/.rvm/scripts/rvm; 
+    $ rvm use 2.4.0
 
 ## Running Jekyll on your Mac or Linux
 - Run `jekyll serve` in the root directory of the tech blog
