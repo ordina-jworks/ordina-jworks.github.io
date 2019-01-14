@@ -1,6 +1,7 @@
 ---
 layout: post
 authors: [nick_van_hoof]
+outbound: [tech_blog_infrastructure_as_code_with_terraform_and_aws_serverless]
 title: 'Create a Serverless Application with AWS Lambda and DynamoDB'
 image: /img/2018-10-01-How-to-Build-a-Serverless-Application/AWS-Lambda-and-DynamoDB.png
 tags: [AWS,Lambda,DynamoDB,API GateWay,Serverless]
