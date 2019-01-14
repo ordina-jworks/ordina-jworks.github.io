@@ -1,6 +1,7 @@
 ---
 layout: post
 authors: [nick_van_hoof]
+outbound: [tech_blog_how-to-build-a-serverless-application-with-aws-lambda-and-dynamodb]
 title: 'Infrastructure as code: Terraform and AWS Serverless'
 image: /img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/featured-image.png
 tags: [AWS,Lambda,DynamoDB,API GateWay,Serverless, IaC]
