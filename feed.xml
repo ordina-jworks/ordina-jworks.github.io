@@ -1,5 +1,523 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-01-10T18:50:44+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Flutter: Hybrid apps for mobile &amp;amp; beyond.</title><link href="https://ordina-jworks.github.io/development/2019/01/10/Flutter.html" rel="alternate" type="text/html" title="Flutter: Hybrid apps for mobile &amp; beyond." /><published>2019-01-10T00:00:00+00:00</published><updated>2019-01-10T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2019/01/10/Flutter</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2019/01/10/Flutter.html">&lt;h2 id=&quot;intro&quot;&gt;Intro&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-01-14T10:29:00+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Infrastructure as code: Terraform and AWS Serverless</title><link href="https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless.html" rel="alternate" type="text/html" title="Infrastructure as code: Terraform and AWS Serverless" /><published>2019-01-14T00:00:00+00:00</published><updated>2019-01-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless.html">&lt;h1 id=&quot;table-of-content&quot;&gt;Table of content&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#infrastructure-as-code&quot;&gt;Infrastructure as Code&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction-and-demo&quot;&gt;Introduction and demo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#creating-the-application&quot;&gt;Creating the application&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#prerequisites&quot;&gt;Prerequisites&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#terraform-the-basics&quot;&gt;Terraform: the basics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#general&quot;&gt;General&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#database-dynamodb&quot;&gt;Database: DynamoDB&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#iam&quot;&gt;IAM&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#lambda-functions&quot;&gt;Lambda Functions&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#api-gateway&quot;&gt;API Gateway&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#endgame&quot;&gt;Endgame&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#resources-and-further-reading&quot;&gt;Resources and further reading&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;infrastructure-as-code&quot;&gt;Infrastructure as Code&lt;/h1&gt;
+&lt;p&gt;Infrastructure as Code (IaC) is a way of managing your devices and servers through machine-readable definition files. 
+Basically, you write down how you want your infrastructure to look like and what code should be run on that infrastructure. 
+Then, with the push of a button you say “Deploy my infrastructure”. 
+BAM, there is your application, running on a server, against a database, available through an API, ready to be used!
+And you just defined all of that infrastructure using IaC.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;IaC is a key practice of DEVOPS teams and integrates as part of the CI/CD pipeline.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;A great Infrastructure as Code tool is Terraform by HashiCorp.
+(&lt;a href=&quot;https://www.terraform.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://www.terraform.io/&lt;/a&gt;)&lt;br /&gt;
+Personally I use it to provide and maintain infrastructure on AWS.
+And I’ve had a great experience doing that.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/overview.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;introduction-and-demo&quot;&gt;Introduction and demo&lt;/h1&gt;
+&lt;p&gt;I will demonstrate IaC by working out an example. 
+We are going to set up an application on AWS.
+I provisioned the code on GitLab: &lt;a href=&quot;https://gitlab.com/nxtra/codingtips-blog&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://gitlab.com/nxtra/codingtips-blog&lt;/a&gt;.
+A user can enter a coding tip and see all the coding tips that other users have entered.
+The tips are stored in a NoSQL database which is AWS DynamoDB.
+Storing and retrieving these tips is done by the Lambda Functions which fetch or put the tips from and to the database.
+For the application to be useful, users have to be able to call these Lambda Functions.
+So we expose the Lambda Functions through AWS API Gateway. 
+Here is an architectural overview of the application:&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/AWS-Serverless-Architecture.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You could couple these functions to a web page where users can enter tips and see all tips that have been given.
+Below you see the final result:&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/demo.gif&quot; width=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Let’s dive in!&lt;/p&gt;
+
+&lt;h1 id=&quot;creating-the-application&quot;&gt;Creating the application&lt;/h1&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-terraform.png&quot; width=&quot;15%&quot; height=&quot;15%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I will now go over the steps to set up the application you see in the demo above.
+IaC is the main focus.
+I will show the code and AWS CLI commands that are necessary but I will not explain them in detail since that is not the purpose of this blog.
+I’ll focus on the Terraform definitions instead.
+You are welcome to follow along by cloning the repository that I linked to in this blog post.&lt;/p&gt;
+
+&lt;h1 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;Install Terraform&lt;/li&gt;
+  &lt;li&gt;Install AWS CLI&lt;/li&gt;
+  &lt;li&gt;Checkout the repository on GitLab: &lt;a href=&quot;https://gitlab.com/nxtra/codingtips-blog&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://gitlab.com/nxtra/codingtips-blog&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Be ready to get your mind blown by IaC&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;terraform-the-basics&quot;&gt;Terraform: the basics&lt;/h1&gt;
+&lt;p&gt;The main things you’ll be configuring with Terraform are resources.
+Resources are the components of your application infrastructure.
+E.g: a Lambda Function, an API Gateway Deployment, a DynamoDB database, …
+A resource is defined by using the keyword &lt;code class=&quot;highlighter-rouge&quot;&gt;resource&lt;/code&gt; followed by the &lt;code class=&quot;highlighter-rouge&quot;&gt;type&lt;/code&gt; and the &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt;.
+The name can be arbitrarily chosen.
+The type is fixed.
+For example:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;resource &quot;aws_dynamodb_table&quot; &quot;codingtips-dynamodb-table&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;To follow along with this blog post you have to know two basic Terraform commands.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;terraform apply&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Terraform apply will start provisioning all the infrastructure you defined.
+Your databases will be created.
+Your Lambda Functions will be set up.
+The API Gateway will be set in place.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;terraform destroy&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Terraform destroy will remove all the infrastructure that you have set up in the cloud.
+If you are using Terraform correctly you should not have to use this command.
+However should you want to start over, you can remove all the existing infrastructure with this command.
+No worries, you will still have all the infrastructure neatly described on your machine because you are using Infrastructure as Code.&lt;/p&gt;
+
+&lt;p&gt;We’ll put all infrastructure that is defined using Terraform in the same folder.
+The files need to have a &lt;code class=&quot;highlighter-rouge&quot;&gt;.tf&lt;/code&gt; extension.&lt;/p&gt;
+
+&lt;h1 id=&quot;general&quot;&gt;General&lt;/h1&gt;
+&lt;p&gt;Let’s start out by creating a file &lt;code class=&quot;highlighter-rouge&quot;&gt;general.tf&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-hcl-terraform&quot;&gt;provider &quot;aws&quot; {
+  region = &quot;eu-west-1&quot;
+}
+
+# variables
+variable &quot;lambda_version&quot;     { default = &quot;1.0.0&quot;}
+variable &quot;s3_bucket&quot;          { default = &quot;codingtips-node-bucket&quot;}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;provider&lt;/code&gt; block specifies that we are deploying on AWS.
+You also have the possibility to mention credentials that will be used for deploying here.
+If you have correctly set up the AWS CLI on your machine there will be default credentials in your &lt;code class=&quot;highlighter-rouge&quot;&gt;.aws&lt;/code&gt; folder.
+If no credentials are specified, Terraform will use these default credentials.&lt;/p&gt;
+
+&lt;p&gt;Variables have a name which we can reference from anywhere in our Terraform configuration. 
+For example we could reference the &lt;code class=&quot;highlighter-rouge&quot;&gt;s3_bucket&lt;/code&gt; variable with &lt;code class=&quot;highlighter-rouge&quot;&gt;${var.s3_bucket)&lt;/code&gt;.
+This is handy when you are using the same variable in multiple places.
+I will not use too many variables throughout this blog post since that will add more references to your Terraform configuration and I want it to be as clear as possible.&lt;/p&gt;
+
+&lt;h1 id=&quot;database-dynamodb&quot;&gt;Database: DynamoDB&lt;/h1&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-DynamoDB.png&quot; width=&quot;15%&quot; height=&quot;15%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Let’s start with the basis.
+Where will all our coding tips be stored? 
+That’s right, in the database.
+This database is part of our infrastructure and will be defined in a file I named &lt;code class=&quot;highlighter-rouge&quot;&gt;dynamo.tf&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-hcl-terraform&quot;&gt;resource &quot;aws_dynamodb_table&quot; &quot;codingtips-dynamodb-table&quot; {
+  name = &quot;CodingTips&quot;
+  read_capacity = 5
+  write_capacity = 5
+  hash_key = &quot;Author&quot;
+  range_key = &quot;Date&quot;
+
+  attribute = [
+    {
+      name = &quot;Author&quot;
+      type = &quot;S&quot;
+    },
+    {
+      name = &quot;Date&quot;
+      type = &quot;N&quot;
+    }]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Since Dynamo is a NoSQL database, we don’t have to specify all attributes upfront.
+The only thing we have to provide are the elements that AWS will use to build the partition key with.
+When you provide a hash key as well as a sort key, AWS will combine these to make a unique partition key.
+Mind the word UNIQUE.
+Make sure this combination is unique.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;DynamoDB uses the partition key value as input to an internal hash function. 
+The output from the hash function determines the partition (physical storage internal to DynamoDB) in which the item will be stored. 
+All items with the same partition key value are stored together, in sorted order by sort key value.
+– from AWS docs: &lt;a target=&quot;_blank&quot; href=&quot;https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html&quot;&gt;DynamoDB Core Components&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;From the attribute definitions in &lt;code class=&quot;highlighter-rouge&quot;&gt;dynamo.tf&lt;/code&gt; it is clear that &lt;code class=&quot;highlighter-rouge&quot;&gt;Author&lt;/code&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;S&lt;/code&gt;) is a string and &lt;code class=&quot;highlighter-rouge&quot;&gt;Date&lt;/code&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt;) should be a number.&lt;/p&gt;
+
+&lt;h1 id=&quot;iam&quot;&gt;IAM&lt;/h1&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-IAM.png&quot; width=&quot;15%&quot; height=&quot;15%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Before specifying the Lambda Functions we have to create permissions for our functions to use.
+This makes sure that our functions have permissions to access other resources (like DynamoDB).
+Without going too deep into it, the AWS permission model works as follows:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Provide a resource with a role&lt;/li&gt;
+  &lt;li&gt;Add permissions to this role&lt;/li&gt;
+  &lt;li&gt;These allow the role to access other resources:
+    &lt;ul&gt;
+      &lt;li&gt;permissions for triggering another resource (eg. Lambda Function forwards logs to CloudWatch)&lt;/li&gt;
+      &lt;li&gt;permissions for being triggered by another resource (eg. Lambda Function may be triggered by API Gateway)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-hcl-terraform&quot;&gt;# ROLES
+# IAM role which dictates what other AWS services the Lambda function
+# may access.
+resource &quot;aws_iam_role&quot; &quot;lambda-iam-role&quot; {
+  name = &quot;codingtips_lambda_role&quot;
+
+  assume_role_policy = &amp;lt;&amp;lt;EOF
+{
+  &quot;Version&quot;: &quot;2012-10-17&quot;,
+  &quot;Statement&quot;: [
+    {
+      &quot;Action&quot;: &quot;sts:AssumeRole&quot;,
+      &quot;Principal&quot;: {
+        &quot;Service&quot;: &quot;lambda.amazonaws.com&quot;
+      },
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Sid&quot;: &quot;&quot;
+    }
+  ]
+}
+EOF
+}
+
+# POLICIES
+resource &quot;aws_iam_role_policy&quot; &quot;dynamodb-lambda-policy&quot;{
+  name = &quot;dynamodb_lambda_policy&quot;
+  role = &quot;${aws_iam_role.lambda-iam-role.id}&quot;
+  policy = &amp;lt;&amp;lt;EOF
+{
+  &quot;Version&quot;: &quot;2012-10-17&quot;,
+  &quot;Statement&quot;: [
+    {
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Action&quot;: [
+        &quot;dynamodb:*&quot;
+      ],
+      &quot;Resource&quot;: &quot;${aws_dynamodb_table.codingtips-dynamodb-table.arn}&quot;
+    }
+  ]
+}
+EOF
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the example above, the first resource that is defined is an &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role&lt;/code&gt;.
+This is the role that we will later give to our Lambda Functions.&lt;/p&gt;
+
+&lt;p&gt;We then create the &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role_policy&lt;/code&gt; resource which we link to the &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role&lt;/code&gt;.
+The first &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role_policy&lt;/code&gt; is giving this role permission to invoke any action on the specified DynamoDB resource.
+The second &lt;code class=&quot;highlighter-rouge&quot;&gt;role_policy&lt;/code&gt; allows a resource with this role to send logs to CloudWatch.&lt;/p&gt;
+
+&lt;p&gt;A couple of things to notice:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role&lt;/code&gt; and the &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role_policy&lt;/code&gt; are connected by the &lt;code class=&quot;highlighter-rouge&quot;&gt;role&lt;/code&gt; argument of the &lt;code class=&quot;highlighter-rouge&quot;&gt;role_policy&lt;/code&gt; resource&lt;/li&gt;
+  &lt;li&gt;In the &lt;code class=&quot;highlighter-rouge&quot;&gt;statement&lt;/code&gt; attribute of the &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role_policy&lt;/code&gt; we grant (&lt;code class=&quot;highlighter-rouge&quot;&gt;Effect&lt;/code&gt; attr.) permission to do some actions (&lt;code class=&quot;highlighter-rouge&quot;&gt;Action&lt;/code&gt; attr.) on a certain resource (&lt;code class=&quot;highlighter-rouge&quot;&gt;Resource&lt;/code&gt; attr.)&lt;/li&gt;
+  &lt;li&gt;A resource is referenced by its &lt;em&gt;ARN&lt;/em&gt; or &lt;em&gt;Amazon Resource Name&lt;/em&gt; which uniquely identifies this resource on AWS&lt;/li&gt;
+  &lt;li&gt;There are two ways to specify an &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role_policy&lt;/code&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;using the &lt;em&gt;until EOF&lt;/em&gt; syntax (like I did here)&lt;/li&gt;
+      &lt;li&gt;using a separate Terraform &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_policy_document&lt;/code&gt; element that is coupled to the &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role_policy&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;dynamodb-lambda-policy&lt;/code&gt; allows all actions on the specified DynamoDB resource because under the &lt;code class=&quot;highlighter-rouge&quot;&gt;Action&lt;/code&gt; attribute it states &lt;code class=&quot;highlighter-rouge&quot;&gt;dynamodb:*&lt;/code&gt;
+You could make this more restricted and mention actions like&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;dynamodb:Scan&quot;, &quot;dynamodb:BatchWriteItem&quot;,&quot;dynamodb:PutItem&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;lambda-functions&quot;&gt;Lambda Functions&lt;/h1&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-Lambda.png&quot; width=&quot;30%&quot; height=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;There are two Lambda Functions that are part of this application.
+The first Lambda is used to get or retrieve the coding tips from the database further referenced as the &lt;code class=&quot;highlighter-rouge&quot;&gt;getLambda&lt;/code&gt;.
+The second Lambda is used to post or send the coding tips to the database further referenced as the &lt;code class=&quot;highlighter-rouge&quot;&gt;postlambda&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;I am not going to copy paste the code of the Lambda Functions in here.
+You can check it out in the repository linked to this blog 
+(GitLab repository: &lt;a href=&quot;https://gitlab.com/nxtra/codingtips-blog&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://gitlab.com/nxtra/codingtips-blog&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;Here I will demonstrate the example of the &lt;code class=&quot;highlighter-rouge&quot;&gt;getLambda&lt;/code&gt; function.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;postLambda&lt;/code&gt; is deployed in the same way and you can find the Terraform definitions in the Git repository.
+A Lambda Function is a little different from the other infrastructure we defined here.
+Not only do we need a Lambda Function as infrastructure.
+We also need to specify the code that runs in this Lambda Function.
+But where will AWS find that specific code when deploying the Lambda Function?
+They don’t have access to your local machine, have they?
+That is why you first need to ship your code to a S3 Bucket on AWS where it can be found when your Function is being deployed.&lt;/p&gt;
+
+&lt;p&gt;That also means creating an S3 Bucket, which you can do with this command when you want it in region &lt;code class=&quot;highlighter-rouge&quot;&gt;eu-west-1&lt;/code&gt; (Ireland):&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;aws s3api create-bucket &lt;span class=&quot;nt&quot;&gt;--bucket&lt;/span&gt; codingtips-node-bucket &lt;span class=&quot;nt&quot;&gt;--region&lt;/span&gt; eu-west-1 &lt;span class=&quot;nt&quot;&gt;--create-bucket-configuration&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;LocationConstraint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;eu-west-1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now you have to zip the code of your Lambda Functions:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;zip &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; getLambda.zip index.js
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And upload that file to s3:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;aws s3 &lt;span class=&quot;nb&quot;&gt;cp &lt;/span&gt;getLambda.zip s3://codingtips-node-bucket/v1.0.0/getLambda.zip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Mind that I am sending it to a bucket named &lt;code class=&quot;highlighter-rouge&quot;&gt;codingtips-node-bucket&lt;/code&gt; in a folder &lt;code class=&quot;highlighter-rouge&quot;&gt;v1.0.0&lt;/code&gt; with filename &lt;code class=&quot;highlighter-rouge&quot;&gt;getLambda.zip&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Okay, the code is where it needs to be.
+Now let’s see how we specify these functions using Terraform.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-hcl-terraform&quot;&gt;resource &quot;aws_lambda_function&quot; &quot;get-tips-lambda&quot; {
+  function_name = &quot;codingTips-get&quot;
+
+  # The bucket name as created earlier with &quot;aws s3api create-bucket&quot;
+  s3_bucket = &quot;${var.s3_bucket}&quot;
+  s3_key = &quot;v${var.lambda_version}/getLambda.zip&quot;
+
+  # &quot;main&quot; is the filename within the zip file (index.js) and &quot;handler&quot;
+  # is the name of the property under which the handler function was
+  # exported in that file.
+  handler = &quot;index.handler&quot;
+  runtime = &quot;nodejs8.10&quot;
+  memory_size = 128
+
+  role = &quot;${aws_iam_role.lambda-iam-role.arn}&quot;
+}
+
+resource &quot;aws_lambda_permission&quot; &quot;api-gateway-invoke-get-lambda&quot; {
+  statement_id  = &quot;AllowAPIGatewayInvoke&quot;
+  action        = &quot;lambda:InvokeFunction&quot;
+  function_name = &quot;${aws_lambda_function.get-tips-lambda.arn}&quot;
+  principal     = &quot;apigateway.amazonaws.com&quot;
+
+  # The /*/* portion grants access from any method on any resource
+  # within the specified API Gateway.
+  source_arn = &quot;${aws_api_gateway_deployment.codingtips-api-gateway-deployment.execution_arn}/*/*&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Notice that we tell Terraform the S3 Bucket and directory to look for the code&lt;/li&gt;
+  &lt;li&gt;We specify the runtime and memory for this Lambda Function&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;index.handler&lt;/code&gt; points to the file and function where to enter the code&lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_lambda_permission&lt;/code&gt; resource is the permission that states that this Lambda Function may be invoked by the API Gateway that we created&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;api-gateway&quot;&gt;API Gateway&lt;/h1&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-apigateway.png&quot; width=&quot;15%&quot; height=&quot;15%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I kept the most difficult one for last.
+On the other hand, it is also the most interesting.
+I hand Terraform a &lt;em&gt;Swagger&lt;/em&gt; definition of my API.
+You can also do this without Swagger, but then you will have to specify a lot more resources.&lt;/p&gt;
+
+&lt;p&gt;The Swagger API definition looks as follows:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;swagger: '2.0'
+info:
+  version: '1.0'
+  title: &quot;CodingTips&quot;
+schemes:
+  - https
+paths:
+  &quot;/api&quot;:
+    get:
+      description: &quot;Get coding tips&quot;
+      produces:
+        - application/json
+      responses:
+        200:
+          description: &quot;The codingtips request successful.&quot;
+          schema:
+            type: array
+            items:
+              $ref: &quot;#/definitions/CodingTip&quot;
+      x-amazon-apigateway-integration:
+        uri: ${get_lambda_arn}
+        passthroughBehavior: &quot;when_no_match&quot;
+        httpMethod: &quot;POST&quot;
+        type: &quot;aws_proxy&quot;
+    post:
+      description: &quot;post a coding tip&quot;
+      consumes:
+        - application/json
+      responses:
+        200:
+          description: &quot;The codingtip was added successfully&quot;
+      x-amazon-apigateway-integration:
+        uri: ${post_lambda_arn}
+        passthroughBehavior: &quot;when_no_match&quot;
+        httpMethod: &quot;POST&quot;
+        type: &quot;aws_proxy&quot;
+
+definitions:
+  CodingTip:
+    type: object
+    description: &quot;A coding tip&quot;
+    properties:
+      tip:
+        type: string
+        description: &quot;The coding tip&quot;
+      date:
+        type: number
+        description: &quot;date in millis when tip was entered&quot;
+      author:
+        type: string
+        description: &quot;Author of the coding tip&quot;
+      category:
+        type: string
+        description: &quot;category of the coding tip&quot;
+    required:
+      - tip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you do not know Swagger yet, copy the above and paste it in the online (&lt;a href=&quot;https://editor.swagger.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Swagger Editor&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;This will grant you a nice visual overview of the API definition.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/swagger.png&quot; width=&quot;60%&quot; height=&quot;60%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;There is only one AWS specific thing in the Swagger specification above and that is &lt;code class=&quot;highlighter-rouge&quot;&gt;x-amazon-apigateway-integration&lt;/code&gt;.
+This is specifying the details of how the API is integrating with the backend.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Remark that this is always a &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; even if the HTTP method of the resource path is a &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;aws_proxy&lt;/code&gt; means that the request is passed to the Lambda Function without manipulation&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;when_no_match&lt;/code&gt; passes the request body to the backend without tranforming it when no &lt;code class=&quot;highlighter-rouge&quot;&gt;requestTemplate&lt;/code&gt; is specified for the &lt;code class=&quot;highlighter-rouge&quot;&gt;Content-Type&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;uri&lt;/code&gt; is referencing a variable eg. &lt;code class=&quot;highlighter-rouge&quot;&gt;${get_lambda_arn}&lt;/code&gt; that Terraform passes to the Swagger definition.
+We’ll see this in a minute.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As I already mentioned, using Swagger to define your API Gateway has some advantages:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;It keeps your Terraform more concise&lt;/li&gt;
+  &lt;li&gt;You can use this Swagger to get a nice representation of your API&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-hcl-terraform&quot;&gt;resource &quot;aws_api_gateway_rest_api&quot; &quot;codingtips-api-gateway&quot; {
+  name        = &quot;CodingTipsAPI&quot;
+  description = &quot;API to access codingtips application&quot;
+  body        = &quot;${data.template_file.codingtips_api_swagger.rendered}&quot;
+}
+
+data &quot;template_file&quot; codingtips_api_swagger{
+  template = &quot;${file(&quot;swagger.yaml&quot;)}&quot;
+
+  vars {
+    get_lambda_arn = &quot;${aws_lambda_function.get-tips-lambda.invoke_arn}&quot;
+    post_lambda_arn = &quot;${aws_lambda_function.post-tips-lambda.invoke_arn}&quot;
+  }
+}
+
+resource &quot;aws_api_gateway_deployment&quot; &quot;codingtips-api-gateway-deployment&quot; {
+  rest_api_id = &quot;${aws_api_gateway_rest_api.codingtips-api-gateway.id}&quot;
+  stage_name  = &quot;default&quot;
+}
+
+output &quot;url&quot; {
+  value = &quot;${aws_api_gateway_deployment.codingtips-api-gateway-deployment.invoke_url}/api&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We start by mentioning the &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_api_gateway_rest_api&lt;/code&gt; resource.
+It does what is says and provides an API Gateway REST API.
+    &lt;ul&gt;
+      &lt;li&gt;body references the Swagger file&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;template_file&lt;/code&gt; datasource allows Terraform to use information that is not defined in Terraform (Swagger in our case)
+    &lt;ul&gt;
+      &lt;li&gt;Variables are passed to this &lt;code class=&quot;highlighter-rouge&quot;&gt;template_file&lt;/code&gt; to fill the file&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;For a given &lt;code class=&quot;highlighter-rouge&quot;&gt;rest-api&lt;/code&gt; to be usable, it has to be deployed
+    &lt;ul&gt;
+      &lt;li&gt;This is done by the &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_api_gateway_deployment&lt;/code&gt; resource&lt;/li&gt;
+      &lt;li&gt;It references the REST API&lt;/li&gt;
+      &lt;li&gt;It needs a stage which is like a ‘version’ or ‘snapshot’ of your API
+The stage name will be in the URL to invoke this API.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;At last the URL on which the API can be invoked is outputted to the terminal
+&lt;code class=&quot;highlighter-rouge&quot;&gt;/api&lt;/code&gt; is appended to have the correct resource path&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;endgame&quot;&gt;Endgame&lt;/h1&gt;
+&lt;p&gt;All right, let’s see it now.
+Does this actually work?
+Here I am running &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform apply&lt;/code&gt; within the repository linked to this blog.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/apply.gif&quot; width=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Nice, it worked.
+And I only told Terraform about the infrastructure I wanted.
+The whole setup process goes automatically!
+You can now use the outputted URL to GET and POST coding tips.
+The body of the POST should look like:&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Nick&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tip&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Short sessions with frequent brakes&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;category&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Empowerment&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When you need to couple the API endpoints to a frontend of your own design, you need to set the CORS headers correctly.
+If you want this challenge, there is another branch in the repository (&lt;code class=&quot;highlighter-rouge&quot;&gt;cors-enabled&lt;/code&gt;) where I worked this out.&lt;/p&gt;
+
+&lt;p&gt;Happy coding folks, Code that Infrastructure!&lt;/p&gt;
+
+&lt;h1 id=&quot;resources-and-further-reading&quot;&gt;Resources and further reading&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;Terraform website: &lt;a href=&quot;https://www.terraform.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Terraform.io&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Terraform-Lambda-APIGateway: &lt;a href=&quot;https://learn.hashicorp.com/terraform/aws/lambda-api-gateway&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;learn.hashicorp.com&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Swagger editor: &lt;a href=&quot;https://editor.swagger.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;editor.swagger.io&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Swagger official website: &lt;a href=&quot;https://swagger.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;swagger.io&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nick&quot;, &quot;last_name&quot;=&gt;&quot;Van Hoof&quot;, &quot;permalink&quot;=&gt;&quot;/author/nick-van-hoof&quot;, &quot;avatar&quot;=&gt;&quot;nick-van-hoof.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;nick-van-hoof-45337914b&quot;, &quot;email&quot;=&gt;&quot;nick.vanhoof@ordina.be&quot;, &quot;github&quot;=&gt;&quot;Nxtra&quot;, &quot;bio&quot;=&gt;&quot;Nick is a Java &amp; JavaScript developer with a lot of hunger for knowledge. He is continuously looking for ways to improve. He wants to build his expertise by contributing to valuable projects. Serverless, microservices and IoT fascinate him the most.&quot;}</name><email>nick.vanhoof@ordina.be</email></author><category term="Cloud" /><category term="AWS" /><category term="Lambda" /><category term="DynamoDB" /><category term="API GateWay" /><category term="Serverless" /><category term="IaC" /><summary type="html">Table of content Infrastructure as Code Introduction and demo Creating the application Prerequisites Terraform: the basics General Database: DynamoDB IAM Lambda Functions API Gateway Endgame Resources and further reading</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/featured-image.png" /></entry><entry><title type="html">Flutter: Hybrid apps for mobile &amp;amp; beyond.</title><link href="https://ordina-jworks.github.io/development/2019/01/10/Flutter.html" rel="alternate" type="text/html" title="Flutter: Hybrid apps for mobile &amp; beyond." /><published>2019-01-10T00:00:00+00:00</published><updated>2019-01-10T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2019/01/10/Flutter</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2019/01/10/Flutter.html">&lt;h2 id=&quot;intro&quot;&gt;Intro&lt;/h2&gt;
 
 &lt;p&gt;Mobile development has always intrigued me.
 Bringing data to life by visualizing it with different components and being able to carry your app along inside your pocket is something special.
@@ -2266,569 +2784,4 @@ MongoDB provides a docker image that you can &lt;a href=&quot;https://www.mongod
 &lt;p&gt;It was a great day being submerged in MongoDB-knowledge. 
 This conference gave us plenty of opportunity to talk to other experts and learn about the new and upcoming features.&lt;/p&gt;
 
-&lt;p&gt;Keep an eye on this space for more MongoDB goodness.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Chris&quot;, &quot;last_name&quot;=&gt;&quot;De Bruyne&quot;, &quot;permalink&quot;=&gt;&quot;/author/chris-de-bruyne&quot;, &quot;avatar&quot;=&gt;&quot;chris-de-bruyne.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Java Developer&quot;, &quot;title2&quot;=&gt;&quot;Principal MongoDB Consultant&quot;, &quot;email&quot;=&gt;&quot;chris.debruyne@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;ceedeebee2901&quot;, &quot;bio&quot;=&gt;&quot;Chris is a Senior Java Developer at Ordina Belgium, passionate about Java and MongoDB. Chris is passionate to help colleagues and clients to get the most out of MongoDB and the Java eco system.&quot;}</name><email>chris.debruyne@ordina.be</email></author><category term="Development" /><category term="Development" /><category term="MongoDB" /><category term="DBA" /><category term="Data" /><category term="Kubernetes" /><category term="Conference" /><summary type="html">MongoDB Europe is a yearly conference where MongoDB shows off their latest features and new products. This year the venue took place in Old Billingsgate Walk, London. Jan, Nick and Chris wrote this blog post to summarize several of the given sessions.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-11-08-mongodb-europe-2018/main-image-mdbe.png" /></entry><entry><title type="html">JOIN 2018</title><link href="https://ordina-jworks.github.io/conference/2018/11/16/JOIN-2018.html" rel="alternate" type="text/html" title="JOIN 2018" /><published>2018-11-16T00:00:00+00:00</published><updated>2018-11-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2018/11/16/JOIN-2018</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2018/11/16/JOIN-2018.html">&lt;h1 id=&quot;join-is-back&quot;&gt;JOIN is back!&lt;/h1&gt;
-
-&lt;p&gt;As has become tradition, Ordina JWorks organised the annual JOIN conference on Oct 4th.
-This edition was the 6th and once again it was bigger and better than the previous editions.&lt;/p&gt;
-
-&lt;p&gt;JOIN is a free conference hosted every year by Ordina JWorks, by and for our own employees.
-External colleagues, and basically anyone interested in Ordina JWorks, is also invited to come over and indulge themselves in the JWorks atmosphere.
-To learn about new technologies, trends and best practices in our domain.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/join-2018/join-food.jpg&quot; alt=&quot;Join 2018 Food&quot; width=&quot;60%&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/join-2018/join-crowd.jpg&quot; alt=&quot;Join 2018 crowd&quot; width=&quot;60%&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;talks--workshops&quot;&gt;Talks &amp;amp; Workshops&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#unbeatable-at-connect-4-with-wearables-and-computer-vision-by-frederick-bousson&quot;&gt;Frederick Bousson: Unbeatable at Connect 4 with Wearables and Computer Vision&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#testimonial-tvh-myassetplanner-by-tom-verelst&quot;&gt;Tom Verelst: Testimonial TVH MyAssetPlanner&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#visualizing-mandelbrot-fractals-using-riff-and-spring-cloud-function-by-dieter-hubau&quot;&gt;Dieter Hubau: Visualizing Mandelbrot fractals using Riff and Spring Cloud Function&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#testimonial-hziv-by-pieter-van-hees&quot;&gt;Pieter Van Hees: Testimonial HZIV&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#the-10-worst-mistakes-your-product-owner-can-make-by-julia-müller&quot;&gt;Julia Müller: The 10 worst mistakes your product owner can make&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#deep-learning-in-practice-by-remco-runge&quot;&gt;Remco Runge: Deep learning in practice&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#innovation-without-asking-permission-by-bart-blommaerts&quot;&gt;Bart Blommaerts: Innovation without asking permission&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;unbeatable-at-connect-4-with-wearables-and-computer-vision-by-frederick-bousson&quot;&gt;Unbeatable at Connect 4 with Wearables and Computer Vision by &lt;a href=&quot;https://twitter.com/fbousson&quot; target=&quot;_blank&quot;&gt;Frederick Bousson&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Frederick Bousson&quot; src=&quot;/img/join-2018/speaker-bousson.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Frederick Bousson kicked off the technology track with his talk about wearables.&lt;/p&gt;
-
-&lt;p&gt;Wearables are becoming more mainstream every day as proven by the prevalence of fitness trackers and smart watches.
-Smart glasses on the other hand are still very rare.
-Mainly because they still look awful.
-But improvement is on its way here as well: better looking sets are starting to appear like the &lt;a href=&quot;https://www.vuzix.com/products/blade-smart-glasses&quot; target=&quot;_blank&quot;&gt;Vuzix Blade&lt;/a&gt;.
-This is important as humans are very vision-oriented: 90% of the information on the internet is processed via the eyes.&lt;/p&gt;
-
-&lt;h3 id=&quot;connect-4&quot;&gt;Connect 4&lt;/h3&gt;
-&lt;p&gt;To really demonstrate the power of smart glasses, Frederick was looking for an interesting case he could use as a demonstration.
-The result of this quest was a way to help you become unbeatable at Connect 4.&lt;/p&gt;
-
-&lt;p&gt;Connect 4 is a “solved game”, which means that there’s an algorithm that can’t be defeated (provided you get to go first).
-Frederick went hunting in the Open Source community and discovered a program written by &lt;a href=&quot;http://www.brian-borowski.com/&quot; target=&quot;_blank&quot;&gt;Brian Borowski&lt;/a&gt; which contained this algorithm.&lt;/p&gt;
-
-&lt;p&gt;4 years ago, &lt;a href=&quot;https://github.com/ScottBouloutian/OpenCV-Connect-Four-AI&quot; target=&quot;_blank&quot;&gt;Scott Bouloutian&lt;/a&gt; added visual processing code on top of that and yet another person ported the result to Google Glass.
-Nice to see how, with open source, you have people who build upon each others’ work.&lt;/p&gt;
-
-&lt;h3 id=&quot;image-processing&quot;&gt;Image processing&lt;/h3&gt;
-&lt;p&gt;If you want to have your smart glasses solve your game of Connect 4, you’ll need to do some image processing.
-And since the game revolves around colour which means your program doesn’t just need to see, it has to reason about these colours as well.&lt;/p&gt;
-
-&lt;p&gt;Reasoning in colour is a pain in the ass though.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://opencv.org/&quot; target=&quot;_blank&quot;&gt;OpenCV&lt;/a&gt;, Open Computer Vision, is a great library for image processing and it’s available for a lot of programming languages.
-Unfortunately it doesn’t use RGB (Red-Green-Blue) as a color space, it uses &lt;a href=&quot;https://www.learnopencv.com/why-does-opencv-use-bgr-color-format/&quot; target=&quot;_blank&quot;&gt;BGR&lt;/a&gt; (Blue-Green-Red) instead.
-If your brain is conditioned to think in RGB, switching to BGR is not an easy task.&lt;/p&gt;
-
-&lt;p&gt;Before you can start solving the game you need to know the position of the pieces that were already played.
-And before you can find those pieces you need to know where the board is.
-In order to find the board you’ll need to look for a large, blue rectangle.
-Then you draw lines around it and find the corners.
-Now your application “sees” the board.&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/join-2018/draw-boxes.jpg&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The next step is to look at the location of the played pieces.
-For this you need to look inside the board for concentrations of the right color.
-If you’re using a board that has a tray for the game pieces this tray is also part of the board and you’ll need to cut off a bit from the bottom.&lt;/p&gt;
-
-&lt;p&gt;Of course if you’re using a different light source, colours are perceived differently by the camera (e.g. the same colour in fluorescent lighting is green while it will be matched to yellow when using a light bulb). 
-This means that the colours found by openCV might no longer match the ones you programmed in so you’ll also have to take the white balance into account.&lt;/p&gt;
-
-&lt;p&gt;The resulting data is then mapped into a 2-dimensional array which then can be fed to an &lt;a href=&quot;https://en.wikipedia.org/wiki/Minimax&quot; target=&quot;_blank&quot;&gt;Minimax AI&lt;/a&gt; solver.
-This solver will use a decision tree and you can define the amount of positions it needs to think ahead.&lt;/p&gt;
-
-&lt;p&gt;This process also takes advantage of alpha-beta pinning. 
-It uses a binary tree to decide which option is the best, but as soon as it sees that one branch scores too low it will no long check that part of the tree.&lt;/p&gt;
-
-&lt;p&gt;All in all it’s a pretty performant bit of code: OpenCV can take the image, process it and spit out the results in about 50ms.&lt;/p&gt;
-
-&lt;h3 id=&quot;everything-is-possible&quot;&gt;Everything is possible&lt;/h3&gt;
-&lt;p&gt;AR/VR can do anything, but that makes you wonder why it is not everywhere yet.&lt;/p&gt;
-
-&lt;p&gt;There are quite a few reasons for this: first of all you need a business case.
-Companies won’t invest a lot of money into something that doesn’t have a return on investment.
-And even if there’s money to be made in it you still need customers.
-People actually have to want your product.&lt;/p&gt;
-
-&lt;h3 id=&quot;takeaway&quot;&gt;Takeaway&lt;/h3&gt;
-&lt;p&gt;The key takeaways of Frederick around image processing are:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Everything is possible&lt;/li&gt;
-  &lt;li&gt;Think before you act&lt;/li&gt;
-  &lt;li&gt;Just do it&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;You can rewatch his &lt;a href=&quot;https://www.youtube.com/watch?v=ADk3GFbTks4&quot; target=&quot;_blank&quot;&gt;talk&lt;/a&gt; on our &lt;a href=&quot;https://www.youtube.com/channel/UCsebfWdqV7LqNNDMDvCESIA&quot; target=&quot;_blank&quot;&gt;channel&lt;/a&gt; on Youtube.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;testimonial-tvh-myassetplanner-by-tom-verelst&quot;&gt;Testimonial TVH MyAssetPlanner by &lt;a href=&quot;https://twitter.com/tomverelst&quot; target=&quot;_blank&quot;&gt;Tom Verelst&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Tom Verelst&quot; src=&quot;/img/join-2018/tomverelst-speaker-zoom.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Tom spoke about the application MyAssetPlanner he has been working on at &lt;a href=&quot;https://www.tvh.com/&quot; target=&quot;_blank&quot;&gt;TVH&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;TVH is a company which rents out equipment and can provide you with spare parts for a lot of tools and vehicles.&lt;/p&gt;
-
-&lt;h3 id=&quot;myassetplanner&quot;&gt;MyAssetPlanner&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.tomorrowland.com/&quot; target=&quot;_blank&quot;&gt;Tomorrowland&lt;/a&gt; is quite a big event and for setting up and tearing down they rent up to 160 machines (or “assets”).
-For every asset a contractor will need to schedule it to be available at a certain time, resulting in more than 300 phone calls which need to be handled by the asset planner.&lt;/p&gt;
-
-&lt;p&gt;TVH wanted to improve the customer experience and decided they were going to develop a new application to help with the planning of these assets: MyAssetPlanner was born.&lt;/p&gt;
-
-&lt;p&gt;First there was a design sprint by &lt;a href=&quot;https://clockwork.ordina.be/&quot; target=&quot;_blank&quot;&gt;Clockwork&lt;/a&gt; in order to come up with a prototype and the most important business needs which needed to be implemented. 
-This part took about two weeks.&lt;/p&gt;
-
-&lt;p&gt;After this prototype, TVH started with the implementation of the first version which was put into production two months later.
-This first version has currently been in use for four months including for the last iteration of Tomorrowland.&lt;/p&gt;
-
-&lt;p&gt;For development, the &lt;a href=&quot;https://labs.spotify.com/2014/03/27/spotify-engineering-culture-part-1/&quot; target=&quot;_blank&quot;&gt;Spotify model&lt;/a&gt; was used which is focussed around:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;autonomous squads&lt;/li&gt;
-  &lt;li&gt;do it yourself&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The architecture is driven by events and uses &lt;a href=&quot;https://kafka.apache.org/&quot; target=&quot;_blank&quot;&gt;Kafka&lt;/a&gt; as a backbone allowing you to just consume what you need, the events in which you are interested.&lt;/p&gt;
-
-&lt;p&gt;The entire CI/CD pipeline is fully automated thanks to &lt;a href=&quot;https://www.spinnaker.io/&quot; target=&quot;_blank&quot;&gt;Spinnaker&lt;/a&gt;.
-This allows a developer to commit a feature which gets automatically deployed to an acceptance environment.
-As soon as the product owner approves the feature it will be rolled out to production.&lt;/p&gt;
-
-&lt;p&gt;The teams work with Scrum Agile, it was interesting to hear about how they handle the sprint review.
-After every sprint, different business stakeholders receive a scenario and one person of the team is present for assistance.
-All the stakeholders must go through the scenario themselves.
-This &lt;code class=&quot;highlighter-rouge&quot;&gt;forces&lt;/code&gt; your stakeholders to work with the application instead of just watching a demo, resuling in a ton of valuable feedback.&lt;/p&gt;
-
-&lt;h3 id=&quot;what-is-next&quot;&gt;What is next&lt;/h3&gt;
-&lt;p&gt;For the moment there are a 17 customers using the tool. 
-Very soon this will scale up to 5% of all TVH customers which amounts to 3.000.
-After that there will be a gradual ramp up towards 20.000 customers.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;You can rewatch his &lt;a href=&quot;https://www.youtube.com/watch?v=K396nSVtfrE&quot; target=&quot;_blank&quot;&gt;talk&lt;/a&gt; on our &lt;a href=&quot;https://www.youtube.com/channel/UCsebfWdqV7LqNNDMDvCESIA&quot; target=&quot;_blank&quot;&gt;YouTube channel&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;visualizing-mandelbrot-fractals-using-riff-and-spring-cloud-function-by-dieter-hubau&quot;&gt;Visualizing Mandelbrot fractals using Riff and Spring Cloud Function by &lt;a href=&quot;https://twitter.com/dhubau&quot; target=&quot;_blank&quot;&gt;Dieter Hubau&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Dieter Hubau&quot; src=&quot;/img/join-2018/speaker-hubau.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;function-as-a-service&quot;&gt;Function as a Service&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&quot;https://pivotal.io/platform/pivotal-function-service&quot; target=&quot;_blank&quot;&gt;Pivotal Function Service&lt;/a&gt; (PFS) is a pretty new addition to the Pivotal landscape.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://projectriff.io/&quot; target=&quot;_blank&quot;&gt;Riff&lt;/a&gt;, an open source project, is the base of PFS.
-The idea behind Riff is to easily create functions and move these to the cloud.
-Its name is derived from the guitar world as you can see &lt;a href=&quot;https://en.wikipedia.org/wiki/Ostinato#Riff&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;, the project lead is &lt;a href=&quot;https://www.twitter.com/m_f_&quot; target=&quot;_blank&quot;&gt;Mark Fisher&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Initially Zookeeper and Kafka were used to send messages between functions but this did mean a lot of extra overhead to set up.&lt;/p&gt;
-
-&lt;p&gt;Google found out about Riff and came to Pivotal with &lt;a href=&quot;https://cloud.google.com/knative/&quot; target=&quot;_blank&quot;&gt;Knative&lt;/a&gt; which runs on &lt;a href=&quot;https://kubernetes.io/&quot; target=&quot;_blank&quot;&gt;Kubernetes&lt;/a&gt;.
-You can find its repository on &lt;a href=&quot;https://github.com/knative/&quot; target=&quot;_blank&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Knative allowed Pivotal to remove a lot of the boilerplate needed to run with Kafka and Zookeeper.&lt;/p&gt;
-
-&lt;p&gt;Knative has four components:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/knative/serving&quot; target=&quot;_blank&quot;&gt;Knative Serving&lt;/a&gt;: request/reply messages.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/knative/build&quot; target=&quot;_blank&quot;&gt;Knative Build&lt;/a&gt;: auto-detect your code and create the required containers and sidecars.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/knative/eventing&quot; target=&quot;_blank&quot;&gt;Knative Eventing&lt;/a&gt;: replaces Kafka and Zookeeper providing channels and subscriptions.&lt;/li&gt;
-  &lt;li&gt;Fourth Knative block: makes it run really well on Google Cloud.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;riff&quot;&gt;Riff&lt;/h4&gt;
-&lt;p&gt;A new version was released a couple of weeks ago.
-Since this is a very fresh and new project, this did mean a lot of late nighters to migrate the code of the demo.
-Experimental projects like this do tend to make frequent API changes during their initial development phase as backwards compatibility is currently not (yet) a requirement.&lt;/p&gt;
-
-&lt;h3 id=&quot;mandelbrot&quot;&gt;Mandelbrot&lt;/h3&gt;
-&lt;p&gt;One of the simplest mathematical functions which creates the most complex objects is the &lt;a href=&quot;https://en.wikipedia.org/wiki/Mandelbrot_set&quot; target=&quot;_blank&quot;&gt;Mandelbrot&lt;/a&gt; set.&lt;/p&gt;
-
-&lt;p&gt;You can keep zooming in, resulting in more calculations the deeper you go.
-It also tends to create pretty graphics which is nice for a demo.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-code&quot;&gt;The code&lt;/h3&gt;
-&lt;p&gt;For a 400 x 400 image we will send a request to the backend to calculate the result for every pixel.&lt;/p&gt;
-
-&lt;p&gt;This means that around 160.000 calls will be sent to do the calculation.
-It is not the most efficient way to do the calculation but this demo is about using functions and not about calculating a Mandelbrot really fast.&lt;/p&gt;
-
-&lt;p&gt;Riff uses containers to package your business logic.
-There are two kinds:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;UserContainer: actual container contains the actual function&lt;/li&gt;
-  &lt;li&gt;InitContainer: they run before your container.
-You can use these to instantiate a database.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For one function you need about 200MB of memory as it spins up a slimmed down Spring Boot in the backend.
-All in all it is still pretty performant.
-Dieter mentioned a talk of Dave Syer about performance in Spring which is very interesting to watch: &lt;a href=&quot;https://www.youtube.com/watch?v=97UTDmonq7w&quot; target=&quot;_blank&quot;&gt;link&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;It was a nice talk showing what you can do with Riff but also a warning that it still is under development and using it might have you encounter bugs.
-If that does happen do not hesitate to reach out to the Riff team.
-When working on his talk, Dieter also raised several issues.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;You can rewatch his &lt;a href=&quot;https://www.youtube.com/watch?v=812V9pAOxPw&quot; target=&quot;_blank&quot;&gt;talk&lt;/a&gt; on our &lt;a href=&quot;https://www.youtube.com/channel/UCsebfWdqV7LqNNDMDvCESIA&quot; target=&quot;_blank&quot;&gt;channel&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;testimonial-hziv-by-pieter-van-hees&quot;&gt;Testimonial: HZIV by &lt;a href=&quot;https://twitter.com/pvanhees91&quot; target=&quot;_blank&quot;&gt;Pieter Van Hees&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Pieter Van Hees&quot; src=&quot;/img/join-2018/speaker-pieter.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Pieter is currently on a project at &lt;a href=&quot;https://www.caami-hziv.fgov.be/en&quot; target=&quot;_blank&quot;&gt;HZIV&lt;/a&gt;, a government health agency which offers its members legal health and disability insurance.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-old-situation&quot;&gt;The old situation&lt;/h3&gt;
-&lt;p&gt;A lot of old applications still run with the almighty &lt;a href=&quot;https://en.wikipedia.org/wiki/COBOL&quot; target=&quot;_blank&quot;&gt;Cobol&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;10 years ago, HZIV wanted to rewrite these using Java 5 and Swing but that rewrite didn’t go so well.
-So they are still using these old beasts.&lt;/p&gt;
-
-&lt;h3 id=&quot;a-new-start&quot;&gt;A new start&lt;/h3&gt;
-&lt;p&gt;With more time comes more insight and it was decided to do a new rewrite and also to give the teams more freedom in how to set up their development environment and choosing the technologies that are best suited.&lt;/p&gt;
-
-&lt;p&gt;Chosen technologies are, most notably:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Java 8 &amp;amp; 10&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.mongodb.com/&quot; target=&quot;_blank&quot;&gt;MongoDB&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.elastic.co/elk-stack&quot; target=&quot;_blank&quot;&gt;ELK&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Currently the teams are working in an agile way, delivering fancy new features.&lt;/p&gt;
-
-&lt;h3 id=&quot;working--hziv&quot;&gt;Working @ HZIV&lt;/h3&gt;
-&lt;h4 id=&quot;what-is-great&quot;&gt;What is great?&lt;/h4&gt;
-&lt;p&gt;You have great freedom to choose and test out new stuff. 
-At the same time the atmosphere is relaxed, allowing you to explore without pressure.&lt;/p&gt;
-
-&lt;h4 id=&quot;what-is-bad&quot;&gt;What is bad?&lt;/h4&gt;
-&lt;p&gt;There is the risk of Developer Anarchy, where developers just introduce fancy new stuff without properly ironing out the edges.&lt;/p&gt;
-
-&lt;p&gt;Some managers like to micro-manage.
-The same managers also tend to introduce frequent scope changes which does not combine well.&lt;/p&gt;
-
-&lt;h4 id=&quot;why-should-you-want-to-work-here&quot;&gt;Why should you want to work here?&lt;/h4&gt;
-&lt;p&gt;Appearantly working at HZIV feels like being in a spy HQ.
-The combination of some old furniture and modern technology create a very particular atmosphere.&lt;/p&gt;
-
-&lt;p&gt;Very interesting to hear about an organization who has embraced a new way of working and is currently in the process of finding their way around it.
-To see what goes well and what does not.&lt;/p&gt;
-
-&lt;p&gt;It is also surprising that this can happen in a government agency as most of them in Belgium are not known to be very innovative.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;You can rewatch his &lt;a href=&quot;https://www.youtube.com/watch?v=R-4nHw77yMY&quot; target=&quot;_blank&quot;&gt;talk&lt;/a&gt; on our &lt;a href=&quot;https://www.youtube.com/channel/UCsebfWdqV7LqNNDMDvCESIA&quot; target=&quot;_blank&quot;&gt;channel&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;the-10-worst-mistakes-your-product-owner-can-make-by-julia-müller&quot;&gt;The 10 worst mistakes your Product Owner can make by &lt;a href=&quot;https://twitter.com/JM_AgileAnalyst&quot; target=&quot;_blank&quot;&gt;Julia Müller&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Julia Müller&quot; src=&quot;/img/join-2018/speaker-julia1.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;a-product-owner&quot;&gt;A product owner&lt;/h3&gt;
-&lt;p&gt;Is responsible for maximizing the value of the product and the work of the development team.&lt;/p&gt;
-
-&lt;h3 id=&quot;1-po-doesnt-know-hisher-product&quot;&gt;1. PO doesn’t know his/her product&lt;/h3&gt;
-&lt;p&gt;Having no knowledge of your product is fatal, because you are responsible and accountable for the success of your product.&lt;/p&gt;
-
-&lt;p&gt;A good tip is that as a product owner you should be able to explain your product in 3 minutes.&lt;/p&gt;
-
-&lt;p&gt;Use a &lt;a href=&quot;https://medium.com/qdivision/the-product-canvas-edf8df531&quot; target=&quot;_blank&quot;&gt;product canvas&lt;/a&gt; to help you understand your product.&lt;/p&gt;
-
-&lt;h3 id=&quot;2-team-doesnt-have-a-product&quot;&gt;2. Team doesn’t have a product&lt;/h3&gt;
-&lt;p&gt;If a team does a lot of little tasks, it will miss context and will have to endure frequent scope changes.&lt;/p&gt;
-
-&lt;p&gt;This means that the team will have very little focus which is not very effective.&lt;/p&gt;
-
-&lt;h3 id=&quot;3-there-is-no-vision-for-the-product&quot;&gt;3. There is no vision for the product&lt;/h3&gt;
-&lt;p&gt;It is bad when user stories describe solutions like: &lt;code class=&quot;highlighter-rouge&quot;&gt;The user needs a button to be able to ... &lt;/code&gt;
-This causes the team to stop thinking about what would be the best possible solution.
-Do not forget that a team of people has more knowledge than one individual.&lt;/p&gt;
-
-&lt;p&gt;Scrum is developing towards a goal and is about autonomous teams.
-The vision which you as production owner provide must provide direction and guidance for the team.&lt;/p&gt;
-
-&lt;p&gt;A helpful tool is a &lt;a href=&quot;https://www.linkedin.com/pulse/postcards-from-future-agile-technique-ryan-thomas-hewitt&quot; target=&quot;_blank&quot;&gt;“postcard from the future”&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;4-the-non-economic-dreamer&quot;&gt;4. The non-economic dreamer&lt;/h3&gt;
-&lt;p&gt;Every feature adds complexity, increases the chance of failure, and makes future changes more expensive.&lt;/p&gt;
-
-&lt;p&gt;A product owner must be able to reason economically as every feature should add a clear benefit.&lt;/p&gt;
-
-&lt;p&gt;A product owner should also not hide behind ‘something’ the tech team does.
-As those ‘things’ also determine the cost and business value of your product.&lt;/p&gt;
-
-&lt;h3 id=&quot;5-tech-debt-not-my-problem&quot;&gt;5. Tech Debt not my Problem.&lt;/h3&gt;
-&lt;p&gt;A good technical design is important for the success of your product. 
-&lt;a href=&quot;https://martinfowler.com/bliki/DesignStaminaHypothesis.html&quot; target=&quot;_blank&quot;&gt;&lt;img class=&quot;image fit center&quot; alt=&quot;XX&quot; src=&quot;/img/join-2018/designStaminaGraph.gif&quot; width=&quot;60%&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;For example: 
-Investing in delivery speed might not add a direct business feature but will reduce development cost and allow you to provide new features faster in the future.
-Customer value is different to business value.
-An investment can also lead to business value.&lt;/p&gt;
-
-&lt;h3 id=&quot;6-the-yes-sayer&quot;&gt;6. The YES-sayer&lt;/h3&gt;
-&lt;p&gt;If you always say ‘yes’ to every feature request then your product may become a Frankenstein monster.&lt;/p&gt;
-
-&lt;p&gt;It is better to discuss more upfront instead of implementing features you might need to remove later.&lt;/p&gt;
-
-&lt;h4 id=&quot;wishful-thinking&quot;&gt;Wishful thinking&lt;/h4&gt;
-&lt;p&gt;Don’t fall in the trap of wishful thinking.
-Do not just assume that your product will be a success.&lt;/p&gt;
-
-&lt;p&gt;Know how to validate your assumptions and make sure that you have a good feedback loop so that you know that the features you provided fulfil the business requirements.&lt;/p&gt;
-
-&lt;h4 id=&quot;ignoring-the-facts&quot;&gt;Ignoring the facts&lt;/h4&gt;
-&lt;p&gt;Ignoring the obvious signs that you are not going to meet your goal.&lt;/p&gt;
-
-&lt;p&gt;So many demos are made with Powerpoint, a real sprint review should be the user starting the application and using it themselves.
-If they get stuck you need to ask them why, as these situations will give you great feedback.&lt;/p&gt;
-
-&lt;h3 id=&quot;7-obsessing-over-details&quot;&gt;7. Obsessing over details&lt;/h3&gt;
-&lt;p&gt;The product owner who used to be an analyst.&lt;/p&gt;
-
-&lt;p&gt;A huge backlog is not good, a good exercise is to take the top 50 and delete the rest.&lt;/p&gt;
-
-&lt;p&gt;In a huge backlog there is a lot ‘relevant’ information in the stories, however this information tends to become stale.
-Later on it will also become increasingly difficult to implement these stories as there is no certainty that the information they contain is still correct.&lt;/p&gt;
-
-&lt;p&gt;Another big no-no is having a ‘definition of done’ being more than one page long for a user story.&lt;/p&gt;
-
-&lt;p&gt;A nice concept is the three C’s:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Card (post it - fat pen): a story is just a single card. This is a reminder that we need to talk about this.&lt;/li&gt;
-  &lt;li&gt;Criteria: Only Acceptance Criteria on the story.&lt;/li&gt;
-  &lt;li&gt;Conversation: During refinement there will be a conversation with the team and then you will expand the story.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Also be careful not to be a perfectionist.
-No first release is going to be perfect.
-Being fast in the market beats having a complete product.&lt;/p&gt;
-
-&lt;h3 id=&quot;8-no-presence-no-communication&quot;&gt;8. No presence, no communication&lt;/h3&gt;
-&lt;p&gt;Communication is one of the most important factors of failure in an organization.
-A product owner must be with the team and not communicate from the sidelines.&lt;/p&gt;
-
-&lt;h3 id=&quot;9-crossing-competences&quot;&gt;9. Crossing competences&lt;/h3&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;This is not a 13, but it is much smaller&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;If your team says it is a 13, it is a 13.
-They have the knowledge to estimate and implement a story.&lt;/p&gt;
-
-&lt;h3 id=&quot;10-product-owner-is-the-only-one-filling-the-backlog&quot;&gt;10. Product owner is the only one filling the backlog&lt;/h3&gt;
-&lt;p&gt;Let the team bring their own ideas to the backlog.
-This will help them focus and deliver a better solution.&lt;/p&gt;
-
-&lt;p&gt;Focus on what truly matters for your product.&lt;/p&gt;
-
-&lt;h3 id=&quot;questions&quot;&gt;Questions&lt;/h3&gt;
-&lt;h4 id=&quot;the-product-owner-has-a-lot-of-hats-how-can-he-manage-all-this&quot;&gt;The product owner has a lot of hats, how can he manage all this?&lt;/h4&gt;
-&lt;p&gt;The product owner is indeed responsible for a lot of stuff.&lt;/p&gt;
-
-&lt;p&gt;But being responsible does not mean that you need to deliver everything yourself. 
-Learn to delegate.&lt;/p&gt;
-
-&lt;p&gt;The product owner should also not be the only one who meets the stakeholders and not everybody should have to be a stakeholder.
-Learn to remove stakeholders who do not contribute to the business value.
-Remember the Frankenstein monster.&lt;/p&gt;
-
-&lt;h4 id=&quot;can-a-product-owner-ignore-stakeholders-wishes&quot;&gt;Can a product owner ignore stakeholders wishes?&lt;/h4&gt;
-&lt;p&gt;A Product Owner should be able to take his own decisions and decide to run some tests on customers and collect the resulting data.&lt;/p&gt;
-
-&lt;p&gt;It is sometimes better to ask for forgiveness later.&lt;/p&gt;
-
-&lt;p&gt;If the product owner has no trust of the organization making him/her unable to take decisions, then that person should not be the product owner.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;You can rewatch her &lt;a href=&quot;https://www.youtube.com/watch?v=edI6wDzIo8k&quot; target=&quot;_blank&quot;&gt;talk&lt;/a&gt; on our &lt;a href=&quot;https://www.youtube.com/channel/UCsebfWdqV7LqNNDMDvCESIA&quot; target=&quot;_blank&quot;&gt;channel&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;deep-learning-in-practice-by-remco-runge&quot;&gt;Deep learning in practice by Remco Runge&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Remco Runge&quot; src=&quot;/img/join-2018/remco-speaker-zoom.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Machine learning: you try to get the good algorithm to find the stuff you want to find.&lt;/p&gt;
-
-&lt;p&gt;Deep Learning is based on biology, about how people thought the brain functioned. 
-The assumption was proven wrong but the basic principles still work.&lt;/p&gt;
-
-&lt;p&gt;Tensorflow has a nice &lt;a href=&quot;https://playground.tensorflow.org/&quot; target=&quot;_blank&quot;&gt;playground&lt;/a&gt; where you can see these effects live in action.&lt;/p&gt;
-
-&lt;p&gt;Deep learning has two flows:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Forward propagation: feed data through it.&lt;/li&gt;
-  &lt;li&gt;Backward propagation: update weights so the next iteration will be better.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;You can define weights on input in order to make certain inputs more important.&lt;/p&gt;
-
-&lt;p&gt;Deep learning requires a very large network with a large amount of nodes and a lot of hidden layers.&lt;/p&gt;
-
-&lt;p&gt;The early layers allow your network to distinguish basic structures within your data.
-Further down in the layers the network will learn more detailed features like; eyes, ears, …&lt;/p&gt;
-
-&lt;p&gt;It is cool that the network learns these features about how to recoginize a person just by providing it with pictures of faces. 
-We did not provide it with the concept &lt;code class=&quot;highlighter-rouge&quot;&gt;eyes&lt;/code&gt; but eventually, in one of the iterations the network started to take eyes into consideration.&lt;/p&gt;
-
-&lt;h3 id=&quot;deep-learning-at-ordina&quot;&gt;Deep Learning at Ordina&lt;/h3&gt;
-
-&lt;h4 id=&quot;workshop-hack-a-drone&quot;&gt;Workshop: hack a drone.&lt;/h4&gt;
-&lt;p&gt;A small drone was equiped with deep learning to detect and identify objects by using the &lt;a href=&quot;https://deeplearning4j.org/&quot; target=&quot;_blank&quot;&gt;Deep Learning for Java&lt;/a&gt;.
-In a short demo we saw it could identify a notebook.&lt;/p&gt;
-
-&lt;h4 id=&quot;tic-tac-toe&quot;&gt;Tic Tac Toe&lt;/h4&gt;
-&lt;p&gt;In contrary to &lt;a href=&quot;https://en.wikipedia.org/wiki/Go_(game)&quot; target=&quot;_blank&quot;&gt;Go&lt;/a&gt;, Tic Tac Toe just has 360.000 possible moves making it easier to use for a demo.&lt;/p&gt;
-
-&lt;p&gt;The network for this demo learned by playing against some random opponents without any real strategy, this made it quite dumb. 
-You could improve this by letting it play against itself.&lt;/p&gt;
-
-&lt;h4 id=&quot;digital-railway-survey&quot;&gt;Digital Railway Survey&lt;/h4&gt;
-&lt;p&gt;The idea is to recognize signs next to the railway and verify if these have been installed at the correct place.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Object_detection&quot; target=&quot;_blank&quot;&gt;You Only Look Once&lt;/a&gt; is a very cool algorithm which gives you very nice bounded boxes around the objects on the images making it easier for your network to know where it needs to look and thus preventing you from processing unrelevant pictures.&lt;/p&gt;
-
-&lt;p&gt;It was also nice to see that with deep learning the system can distinguish signs from a passing train even when we would be unable to see these signs, let alone see what has been written on it.&lt;/p&gt;
-
-&lt;h3 id=&quot;questions-1&quot;&gt;Questions&lt;/h3&gt;
-&lt;h4 id=&quot;how-long-does-it-take-to-get-started&quot;&gt;How long does it take to get started?&lt;/h4&gt;
-&lt;p&gt;If you work with existing data sets and known algorithms, 15 lines of code is enough.&lt;/p&gt;
-
-&lt;p&gt;Remco mentioned that for a brand new project it can easily take up to 55 days just to show that deep learning is possible for a specific business case.
-It takes a long time to gather the required data.
-You need to label it and make sure it is diverse enough so your model is not too focussed on one specific subset of input.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;You can rewatch his &lt;a href=&quot;https://www.youtube.com/watch?v=NcT7Hif19hk&quot; target=&quot;_blank&quot;&gt;talk&lt;/a&gt; on our &lt;a href=&quot;https://www.youtube.com/channel/UCsebfWdqV7LqNNDMDvCESIA&quot; target=&quot;_blank&quot;&gt;channel&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;innovation-without-asking-permission-by-bart-blommaerts&quot;&gt;Innovation without asking permission by &lt;a href=&quot;https://twitter.com/DaggieBe&quot; target=&quot;_blank&quot;&gt;Bart Blommaerts&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Bart Blommaerts&quot; src=&quot;/img/join-2018/speaker-bart.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;service-decomposition&quot;&gt;Service decomposition&lt;/h3&gt;
-&lt;p&gt;When you want to split up a monolith into smaller applications there are three patterns you can follow.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Split: define vertical functional boundaries.
-This does not happen to be possible in all old applications.&lt;/li&gt;
-  &lt;li&gt;Strangle: extract and re-implement logic in new components.&lt;/li&gt;
-  &lt;li&gt;Extend: new functionality in new microservices. Do pay attention to not create a distributed micro-&lt;strong&gt;**&lt;/strong&gt;** fest, also known as a distributed monolith.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Generally you will not just use one pattern but all three.&lt;/p&gt;
-
-&lt;h3 id=&quot;anti-corruption-layer&quot;&gt;Anti-corruption layer&lt;/h3&gt;
-&lt;p&gt;The anti-corruption layer translates to and from different models.
-It allows you to enforce loose coupling between contexts.&lt;/p&gt;
-
-&lt;p&gt;You can use different patterns for it:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Shared repository: just share the same repository between various services.&lt;/li&gt;
-  &lt;li&gt;Data-synchronized repository: each microservice has one database asynchronously synchronize the data.&lt;/li&gt;
-  &lt;li&gt;Event-driven synchronised repository: the main idea behind events, do not wait for data to be asked but just publish it.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;An event happened in the past and it contains three types of data:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Data it owns: this is data tied owned by the publisher in the event&lt;/li&gt;
-  &lt;li&gt;Data it needs: this is data which can originate from other services but which is necessary to handle the event&lt;/li&gt;
-  &lt;li&gt;Referenced Data: data which might be relevant for the event. 
-For example when booking a holiday, the reference temperatures of the location to where you want to travel to.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The event should contain enough information so that consumers do not need to query for additional data.
-Otherwise you will not think properly about your bounded contexts and you will not be able to build a loosely coupled system.&lt;/p&gt;
-
-&lt;p&gt;In an ideal world you can talk with your business stakeholders about how these events should look like.&lt;/p&gt;
-
-&lt;h3 id=&quot;bounded-contexts&quot;&gt;Bounded contexts&lt;/h3&gt;
-&lt;p&gt;Bart indicated that it is very interesting to look at the &lt;a href=&quot;https://skillsmatter.com/skillscasts/1431-greg-young-ddd-projects&quot; target=&quot;_blank&quot;&gt;DDD lite movie&lt;/a&gt; from &lt;a href=&quot;https://twitter.com/gregyoung&quot; target=&quot;_blank&quot;&gt;Greg Young&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;It may look complex and after watching it the first time you might decide that you don’t ever want to do Domain-Driven Design, but make sure to watch it a second time and things will definitely become more clear. ;-)&lt;/p&gt;
-
-&lt;h4 id=&quot;identify-the-domain&quot;&gt;Identify the domain&lt;/h4&gt;
-&lt;h5 id=&quot;where-does-your-microservice-start&quot;&gt;Where does your microservice start?&lt;/h5&gt;
-&lt;p&gt;Identify domains and subdomains.
-These subdomains tend to correspond with your bounded contexts.&lt;/p&gt;
-
-&lt;h5 id=&quot;how&quot;&gt;How?&lt;/h5&gt;
-&lt;p&gt;Look at the data model:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Talk to business stakeholders.
-Make the list of subdomains explicit.&lt;/li&gt;
-  &lt;li&gt;Look at the data.&lt;/li&gt;
-  &lt;li&gt;Look at the code, both existing and historically.
-If two files always get committed together, they most likely belong to the same bounded context.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;integration-patterns&quot;&gt;Integration patterns&lt;/h4&gt;
-&lt;p&gt;Between bounded contexts there can be lots of integration patterns. A great source of information about these patterns can be found on the site of Gregor Hohpe: &lt;a href=&quot;https://www.enterpriseintegrationpatterns.com/gregor.html&quot; target=&quot;_blank&quot;&gt;Enterprise Integration Patterns&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;demo&quot;&gt;Demo&lt;/h3&gt;
-&lt;p&gt;The previous concepts were then shown in a short live demo providing a real implementation.&lt;/p&gt;
-
-&lt;p&gt;What was interesting to see was that &lt;a href=&quot;https://avro.apache.org/docs/1.8.1/spec.html&quot; target=&quot;_blank&quot;&gt;Apache Avro&lt;/a&gt; was used as a schema for the events.
-This shared schema repository is then the only coupling between your services.
-Using a schema allows your consumer services to see if they can process an event or not.&lt;/p&gt;
-
-&lt;h3 id=&quot;apis&quot;&gt;APIs&lt;/h3&gt;
-&lt;p&gt;There exist a lot of API guidelines which you can use as baseline for your own, for example: &lt;a href=&quot;https://developer.paypal.com/docs/api/&quot; target=&quot;_blank&quot;&gt;Paypal&lt;/a&gt;, &lt;a href=&quot;https://zalando.github.io/restful-api-guidelines/&quot; target=&quot;_blank&quot;&gt;Zalando&lt;/a&gt;, …&lt;/p&gt;
-
-&lt;p&gt;This talk is not about API design but when you design an API please keep Postel’s law in the back of your head.
-Postel’s Law: &lt;code class=&quot;highlighter-rouge&quot;&gt;Be conservative in what you do, be liberal in what you accept from others&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Do make sure that you have documented your API using: Swagger, Avro, HAL, RAML.&lt;/p&gt;
-
-&lt;h3 id=&quot;without-asking-permission&quot;&gt;Without asking permission?&lt;/h3&gt;
-&lt;p&gt;Continuous experimentation is the first thing to introduce.
-You should really try to introduce that culture.
-Microservices are small and thus can be easily thrown away.&lt;/p&gt;
-
-&lt;p&gt;Use feature toggles and monitor your users in order to gather user feedback about which business features are the most interesting for your stakeholders.
-With traffic routing you can make sure that only certain users get access to certain features allowing you to experiment with a very low risk.&lt;/p&gt;
-
-&lt;p&gt;Use this data, these metrics you gathered, to convince your business stakeholders.&lt;/p&gt;
-
-&lt;h3 id=&quot;distributed-systems&quot;&gt;Distributed systems&lt;/h3&gt;
-&lt;p&gt;Are hard, see the &lt;a href=&quot;https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing&quot; target=&quot;_blank&quot;&gt;eight fallacies of distributed computing&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;monitoring&quot;&gt;Monitoring&lt;/h3&gt;
-&lt;p&gt;See the hard nature of distributed systems as a way to introduce monitoring and logging (&lt;a href=&quot;https://grafana.com/&quot; target=&quot;_blank&quot;&gt;Grafana&lt;/a&gt;, &lt;a href=&quot;https://prometheus.io/&quot; target=&quot;_blank&quot;&gt;Prometheus&lt;/a&gt;)&lt;/p&gt;
-
-&lt;p&gt;You can also provide this monitoring data to your users to give them more insights in the application, giving them direct feedback of their actions.&lt;/p&gt;
-
-&lt;p&gt;Which can give you new opportunities.
-For example: They will see failures and they will want this to be resolved.&lt;/p&gt;
-
-&lt;h3 id=&quot;maintenance&quot;&gt;Maintenance&lt;/h3&gt;
-&lt;p&gt;Do not forget to take maintenance into consideration before adopting some new technology.
-Because you should not forget that you will still need to maintain it.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;You can rewatch his &lt;a href=&quot;https://www.youtube.com/watch?v=OWwciV6Z6jA&quot; target=&quot;_blank&quot;&gt;talk&lt;/a&gt; on our &lt;a href=&quot;https://www.youtube.com/channel/UCsebfWdqV7LqNNDMDvCESIA&quot; target=&quot;_blank&quot;&gt;channel&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;You can find the &lt;a href=&quot;https://www.slideshare.net/BartBlommaerts/innovation-without-asking-permission-102804954&quot; target=&quot;_blank&quot;&gt;slides&lt;/a&gt; of his talk on Slideshare.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;thanks-kevin&quot;&gt;Thanks Kevin&lt;/h1&gt;
-&lt;p&gt;&lt;span class=&quot;image left small&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Kevin Van den Abeele&quot; src=&quot;/img/join-2018/join-kevin.jpg&quot; /&gt;&lt;/span&gt;
-Many thanks to our colleague Kevin for organizing the JOIN event.
-Without all of his work it would not have been as great as it was.&lt;/p&gt;
-
-&lt;h1 id=&quot;there-is-much-more&quot;&gt;There is much more&lt;/h1&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;This was just summary of some of the talks we had on JOIN, there were many more as you can see on &lt;a href=&quot;https://www.youtube.com/watch?v=bnWMnSAdAi8&amp;amp;list=PLgWyY-g33NlUUIkxhIyI6A-6DveDVI4D1&quot; target=&quot;_blank&quot;&gt;YouTube&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;next-year&quot;&gt;Next Year&lt;/h2&gt;
-&lt;p&gt;Hope to see you around next year. Keep an eye out for future updates on our &lt;a href=&quot;https://ordina-jworks.github.io/join/&quot; target=&quot;_blank&quot;&gt;JOIN site&lt;/a&gt;.&lt;/p&gt;
-
-&lt;hr /&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tom&quot;, &quot;last_name&quot;=&gt;&quot;Van den Bulck&quot;, &quot;permalink&quot;=&gt;&quot;/author/tom-van-den-bulck&quot;, &quot;avatar&quot;=&gt;&quot;tom-van-den-bulck.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Practice Lead Big &amp; Fast Data&quot;, &quot;email&quot;=&gt;&quot;tom.vandenbulck@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;tomvdbulck&quot;, &quot;github&quot;=&gt;&quot;tomvdbulck&quot;, &quot;bio&quot;=&gt;&quot;Tom is a Senior Developer at Ordina Belgium, passionate about all software related to data. As competence leader Big &amp; Fast Data he guides his fellow developers through dark data swamps by giving workshops and presentations. Tom is passionate about learning new technologies and frameworks.&quot;}</name><email>tom.vandenbulck@ordina.be</email></author><category term="Conference" /><category term="Join" /><category term="Java" /><category term="Agile" /><category term="Conference" /><summary type="html">JOIN is back!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/join-2018/join-2018.png" /></entry></feed>
+&lt;p&gt;Keep an eye on this space for more MongoDB goodness.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Chris&quot;, &quot;last_name&quot;=&gt;&quot;De Bruyne&quot;, &quot;permalink&quot;=&gt;&quot;/author/chris-de-bruyne&quot;, &quot;avatar&quot;=&gt;&quot;chris-de-bruyne.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Java Developer&quot;, &quot;title2&quot;=&gt;&quot;Principal MongoDB Consultant&quot;, &quot;email&quot;=&gt;&quot;chris.debruyne@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;ceedeebee2901&quot;, &quot;bio&quot;=&gt;&quot;Chris is a Senior Java Developer at Ordina Belgium, passionate about Java and MongoDB. Chris is passionate to help colleagues and clients to get the most out of MongoDB and the Java eco system.&quot;}</name><email>chris.debruyne@ordina.be</email></author><category term="Development" /><category term="Development" /><category term="MongoDB" /><category term="DBA" /><category term="Data" /><category term="Kubernetes" /><category term="Conference" /><summary type="html">MongoDB Europe is a yearly conference where MongoDB shows off their latest features and new products. This year the venue took place in Old Billingsgate Walk, London. Jan, Nick and Chris wrote this blog post to summarize several of the given sessions.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-11-08-mongodb-europe-2018/main-image-mdbe.png" /></entry></feed>

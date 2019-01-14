@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Infrastructure as code: Terraform and AWS Serverless - Nick Van Hoof">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/featured-image.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Infrastructure as code: Terraform and AWS Serverless - Nick Van Hoof"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/featured-image.png"/>
+
+    
+    <title>Infrastructure as code: Terraform and AWS Serverless - Nick Van Hoof &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Infrastructure as code: Terraform and AWS Serverless</h2>
+                
+
+                
+                    Posted Jan 14, 2019
+
+
+    in <a href="/categories/cloud/">Cloud</a>
+
+
+
+    by
+    
+        <a href="/author/nick-van-hoof">Nick Van Hoof</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/aws/">AWS</a>, 
+    
+        <a href="/tags/lambda/">Lambda</a>, 
+    
+        <a href="/tags/dynamodb/">DynamoDB</a>, 
+    
+        <a href="/tags/api-gateway/">API GateWay</a>, 
+    
+        <a href="/tags/serverless/">Serverless</a>, 
+    
+        <a href="/tags/iac/">IaC</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="table-of-content">Table of content</h1>
+<ol>
+  <li><a href="#infrastructure-as-code">Infrastructure as Code</a></li>
+  <li><a href="#introduction-and-demo">Introduction and demo</a></li>
+  <li><a href="#creating-the-application">Creating the application</a></li>
+  <li><a href="#prerequisites">Prerequisites</a></li>
+  <li><a href="#terraform-the-basics">Terraform: the basics</a></li>
+  <li><a href="#general">General</a></li>
+  <li><a href="#database-dynamodb">Database: DynamoDB</a></li>
+  <li><a href="#iam">IAM</a></li>
+  <li><a href="#lambda-functions">Lambda Functions</a></li>
+  <li><a href="#api-gateway">API Gateway</a></li>
+  <li><a href="#endgame">Endgame</a></li>
+  <li><a href="#resources-and-further-reading">Resources and further reading</a></li>
+</ol>
+
+<h1 id="infrastructure-as-code">Infrastructure as Code</h1>
+<p>Infrastructure as Code (IaC) is a way of managing your devices and servers through machine-readable definition files. 
+Basically, you write down how you want your infrastructure to look like and what code should be run on that infrastructure. 
+Then, with the push of a button you say “Deploy my infrastructure”. 
+BAM, there is your application, running on a server, against a database, available through an API, ready to be used!
+And you just defined all of that infrastructure using IaC.</p>
+
+<blockquote>
+  <p>IaC is a key practice of DEVOPS teams and integrates as part of the CI/CD pipeline.</p>
+</blockquote>
+
+<p>A great Infrastructure as Code tool is Terraform by HashiCorp.
+(<a href="https://www.terraform.io/" target="_blank" rel="noopener noreferrer">https://www.terraform.io/</a>)<br />
+Personally I use it to provide and maintain infrastructure on AWS.
+And I’ve had a great experience doing that.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/overview.png" width="100%" height="100%" />
+</div>
+
+<h1 id="introduction-and-demo">Introduction and demo</h1>
+<p>I will demonstrate IaC by working out an example. 
+We are going to set up an application on AWS.
+I provisioned the code on GitLab: <a href="https://gitlab.com/nxtra/codingtips-blog" target="_blank" rel="noopener noreferrer">https://gitlab.com/nxtra/codingtips-blog</a>.
+A user can enter a coding tip and see all the coding tips that other users have entered.
+The tips are stored in a NoSQL database which is AWS DynamoDB.
+Storing and retrieving these tips is done by the Lambda Functions which fetch or put the tips from and to the database.
+For the application to be useful, users have to be able to call these Lambda Functions.
+So we expose the Lambda Functions through AWS API Gateway. 
+Here is an architectural overview of the application:</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/AWS-Serverless-Architecture.png" width="100%" height="100%" />
+</div>
+
+<p>You could couple these functions to a web page where users can enter tips and see all tips that have been given.
+Below you see the final result:</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/demo.gif" width="80%" />
+</div>
+
+<p>Let’s dive in!</p>
+
+<h1 id="creating-the-application">Creating the application</h1>
+<div style="text-align: center;">
+  <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-terraform.png" width="15%" height="15%" />
+</div>
+
+<p>I will now go over the steps to set up the application you see in the demo above.
+IaC is the main focus.
+I will show the code and AWS CLI commands that are necessary but I will not explain them in detail since that is not the purpose of this blog.
+I’ll focus on the Terraform definitions instead.
+You are welcome to follow along by cloning the repository that I linked to in this blog post.</p>
+
+<h1 id="prerequisites">Prerequisites</h1>
+<ul>
+  <li>Install Terraform</li>
+  <li>Install AWS CLI</li>
+  <li>Checkout the repository on GitLab: <a href="https://gitlab.com/nxtra/codingtips-blog" target="_blank" rel="noopener noreferrer">https://gitlab.com/nxtra/codingtips-blog</a></li>
+  <li>Be ready to get your mind blown by IaC</li>
+</ul>
+
+<h1 id="terraform-the-basics">Terraform: the basics</h1>
+<p>The main things you’ll be configuring with Terraform are resources.
+Resources are the components of your application infrastructure.
+E.g: a Lambda Function, an API Gateway Deployment, a DynamoDB database, …
+A resource is defined by using the keyword <code class="highlighter-rouge">resource</code> followed by the <code class="highlighter-rouge">type</code> and the <code class="highlighter-rouge">name</code>.
+The name can be arbitrarily chosen.
+The type is fixed.
+For example:
+<code class="highlighter-rouge">resource "aws_dynamodb_table" "codingtips-dynamodb-table"</code></p>
+
+<p>To follow along with this blog post you have to know two basic Terraform commands.</p>
+
+<blockquote>
+  <p>terraform apply</p>
+</blockquote>
+
+<p>Terraform apply will start provisioning all the infrastructure you defined.
+Your databases will be created.
+Your Lambda Functions will be set up.
+The API Gateway will be set in place.</p>
+
+<blockquote>
+  <p>terraform destroy</p>
+</blockquote>
+
+<p>Terraform destroy will remove all the infrastructure that you have set up in the cloud.
+If you are using Terraform correctly you should not have to use this command.
+However should you want to start over, you can remove all the existing infrastructure with this command.
+No worries, you will still have all the infrastructure neatly described on your machine because you are using Infrastructure as Code.</p>
+
+<p>We’ll put all infrastructure that is defined using Terraform in the same folder.
+The files need to have a <code class="highlighter-rouge">.tf</code> extension.</p>
+
+<h1 id="general">General</h1>
+<p>Let’s start out by creating a file <code class="highlighter-rouge">general.tf</code>.</p>
+
+<pre><code class="language-hcl-terraform">provider "aws" {
+  region = "eu-west-1"
+}
+
+# variables
+variable "lambda_version"     { default = "1.0.0"}
+variable "s3_bucket"          { default = "codingtips-node-bucket"}
+</code></pre>
+
+<p>The <code class="highlighter-rouge">provider</code> block specifies that we are deploying on AWS.
+You also have the possibility to mention credentials that will be used for deploying here.
+If you have correctly set up the AWS CLI on your machine there will be default credentials in your <code class="highlighter-rouge">.aws</code> folder.
+If no credentials are specified, Terraform will use these default credentials.</p>
+
+<p>Variables have a name which we can reference from anywhere in our Terraform configuration. 
+For example we could reference the <code class="highlighter-rouge">s3_bucket</code> variable with <code class="highlighter-rouge">${var.s3_bucket)</code>.
+This is handy when you are using the same variable in multiple places.
+I will not use too many variables throughout this blog post since that will add more references to your Terraform configuration and I want it to be as clear as possible.</p>
+
+<h1 id="database-dynamodb">Database: DynamoDB</h1>
+
+<div style="text-align: center;">
+  <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-DynamoDB.png" width="15%" height="15%" />
+</div>
+
+<p>Let’s start with the basis.
+Where will all our coding tips be stored? 
+That’s right, in the database.
+This database is part of our infrastructure and will be defined in a file I named <code class="highlighter-rouge">dynamo.tf</code>.</p>
+
+<pre><code class="language-hcl-terraform">resource "aws_dynamodb_table" "codingtips-dynamodb-table" {
+  name = "CodingTips"
+  read_capacity = 5
+  write_capacity = 5
+  hash_key = "Author"
+  range_key = "Date"
+
+  attribute = [
+    {
+      name = "Author"
+      type = "S"
+    },
+    {
+      name = "Date"
+      type = "N"
+    }]
+}
+</code></pre>
+
+<p>Since Dynamo is a NoSQL database, we don’t have to specify all attributes upfront.
+The only thing we have to provide are the elements that AWS will use to build the partition key with.
+When you provide a hash key as well as a sort key, AWS will combine these to make a unique partition key.
+Mind the word UNIQUE.
+Make sure this combination is unique.</p>
+
+<blockquote>
+  <p>DynamoDB uses the partition key value as input to an internal hash function. 
+The output from the hash function determines the partition (physical storage internal to DynamoDB) in which the item will be stored. 
+All items with the same partition key value are stored together, in sorted order by sort key value.
+– from AWS docs: <a target="_blank" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html">DynamoDB Core Components</a></p>
+</blockquote>
+
+<p>From the attribute definitions in <code class="highlighter-rouge">dynamo.tf</code> it is clear that <code class="highlighter-rouge">Author</code> (<code class="highlighter-rouge">S</code>) is a string and <code class="highlighter-rouge">Date</code> (<code class="highlighter-rouge">N</code>) should be a number.</p>
+
+<h1 id="iam">IAM</h1>
+<div style="text-align: center;">
+  <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-IAM.png" width="15%" height="15%" />
+</div>
+
+<p>Before specifying the Lambda Functions we have to create permissions for our functions to use.
+This makes sure that our functions have permissions to access other resources (like DynamoDB).
+Without going too deep into it, the AWS permission model works as follows:</p>
+<ul>
+  <li>Provide a resource with a role</li>
+  <li>Add permissions to this role</li>
+  <li>These allow the role to access other resources:
+    <ul>
+      <li>permissions for triggering another resource (eg. Lambda Function forwards logs to CloudWatch)</li>
+      <li>permissions for being triggered by another resource (eg. Lambda Function may be triggered by API Gateway)</li>
+    </ul>
+  </li>
+</ul>
+
+<pre><code class="language-hcl-terraform"># ROLES
+# IAM role which dictates what other AWS services the Lambda function
+# may access.
+resource "aws_iam_role" "lambda-iam-role" {
+  name = "codingtips_lambda_role"
+
+  assume_role_policy = &lt;&lt;EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+# POLICIES
+resource "aws_iam_role_policy" "dynamodb-lambda-policy"{
+  name = "dynamodb_lambda_policy"
+  role = "${aws_iam_role.lambda-iam-role.id}"
+  policy = &lt;&lt;EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:*"
+      ],
+      "Resource": "${aws_dynamodb_table.codingtips-dynamodb-table.arn}"
+    }
+  ]
+}
+EOF
+}
+</code></pre>
+
+<p>In the example above, the first resource that is defined is an <code class="highlighter-rouge">aws_iam_role</code>.
+This is the role that we will later give to our Lambda Functions.</p>
+
+<p>We then create the <code class="highlighter-rouge">aws_iam_role_policy</code> resource which we link to the <code class="highlighter-rouge">aws_iam_role</code>.
+The first <code class="highlighter-rouge">aws_iam_role_policy</code> is giving this role permission to invoke any action on the specified DynamoDB resource.
+The second <code class="highlighter-rouge">role_policy</code> allows a resource with this role to send logs to CloudWatch.</p>
+
+<p>A couple of things to notice:</p>
+<ul>
+  <li>The <code class="highlighter-rouge">aws_iam_role</code> and the <code class="highlighter-rouge">aws_iam_role_policy</code> are connected by the <code class="highlighter-rouge">role</code> argument of the <code class="highlighter-rouge">role_policy</code> resource</li>
+  <li>In the <code class="highlighter-rouge">statement</code> attribute of the <code class="highlighter-rouge">aws_iam_role_policy</code> we grant (<code class="highlighter-rouge">Effect</code> attr.) permission to do some actions (<code class="highlighter-rouge">Action</code> attr.) on a certain resource (<code class="highlighter-rouge">Resource</code> attr.)</li>
+  <li>A resource is referenced by its <em>ARN</em> or <em>Amazon Resource Name</em> which uniquely identifies this resource on AWS</li>
+  <li>There are two ways to specify an <code class="highlighter-rouge">aws_iam_role_policy</code>:
+    <ul>
+      <li>using the <em>until EOF</em> syntax (like I did here)</li>
+      <li>using a separate Terraform <code class="highlighter-rouge">aws_iam_policy_document</code> element that is coupled to the <code class="highlighter-rouge">aws_iam_role_policy</code></li>
+    </ul>
+  </li>
+  <li>The <code class="highlighter-rouge">dynamodb-lambda-policy</code> allows all actions on the specified DynamoDB resource because under the <code class="highlighter-rouge">Action</code> attribute it states <code class="highlighter-rouge">dynamodb:*</code>
+You could make this more restricted and mention actions like</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"dynamodb:Scan", "dynamodb:BatchWriteItem","dynamodb:PutItem"
+</code></pre></div></div>
+
+<h1 id="lambda-functions">Lambda Functions</h1>
+
+<div style="text-align: center;">
+  <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-Lambda.png" width="30%" height="30%" />
+</div>
+
+<p>There are two Lambda Functions that are part of this application.
+The first Lambda is used to get or retrieve the coding tips from the database further referenced as the <code class="highlighter-rouge">getLambda</code>.
+The second Lambda is used to post or send the coding tips to the database further referenced as the <code class="highlighter-rouge">postlambda</code>.</p>
+
+<p>I am not going to copy paste the code of the Lambda Functions in here.
+You can check it out in the repository linked to this blog 
+(GitLab repository: <a href="https://gitlab.com/nxtra/codingtips-blog" target="_blank" rel="noopener noreferrer">https://gitlab.com/nxtra/codingtips-blog</a>).</p>
+
+<p>Here I will demonstrate the example of the <code class="highlighter-rouge">getLambda</code> function.
+The <code class="highlighter-rouge">postLambda</code> is deployed in the same way and you can find the Terraform definitions in the Git repository.
+A Lambda Function is a little different from the other infrastructure we defined here.
+Not only do we need a Lambda Function as infrastructure.
+We also need to specify the code that runs in this Lambda Function.
+But where will AWS find that specific code when deploying the Lambda Function?
+They don’t have access to your local machine, have they?
+That is why you first need to ship your code to a S3 Bucket on AWS where it can be found when your Function is being deployed.</p>
+
+<p>That also means creating an S3 Bucket, which you can do with this command when you want it in region <code class="highlighter-rouge">eu-west-1</code> (Ireland):</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3api create-bucket <span class="nt">--bucket</span> codingtips-node-bucket <span class="nt">--region</span> eu-west-1 <span class="nt">--create-bucket-configuration</span> <span class="nv">LocationConstraint</span><span class="o">=</span>eu-west-1
+</code></pre></div></div>
+
+<p>Now you have to zip the code of your Lambda Functions:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zip <span class="nt">-r</span> getLambda.zip index.js
+</code></pre></div></div>
+
+<p>And upload that file to s3:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3 <span class="nb">cp </span>getLambda.zip s3://codingtips-node-bucket/v1.0.0/getLambda.zip
+</code></pre></div></div>
+
+<p>Mind that I am sending it to a bucket named <code class="highlighter-rouge">codingtips-node-bucket</code> in a folder <code class="highlighter-rouge">v1.0.0</code> with filename <code class="highlighter-rouge">getLambda.zip</code>.</p>
+
+<p>Okay, the code is where it needs to be.
+Now let’s see how we specify these functions using Terraform.</p>
+
+<pre><code class="language-hcl-terraform">resource "aws_lambda_function" "get-tips-lambda" {
+  function_name = "codingTips-get"
+
+  # The bucket name as created earlier with "aws s3api create-bucket"
+  s3_bucket = "${var.s3_bucket}"
+  s3_key = "v${var.lambda_version}/getLambda.zip"
+
+  # "main" is the filename within the zip file (index.js) and "handler"
+  # is the name of the property under which the handler function was
+  # exported in that file.
+  handler = "index.handler"
+  runtime = "nodejs8.10"
+  memory_size = 128
+
+  role = "${aws_iam_role.lambda-iam-role.arn}"
+}
+
+resource "aws_lambda_permission" "api-gateway-invoke-get-lambda" {
+  statement_id  = "AllowAPIGatewayInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = "${aws_lambda_function.get-tips-lambda.arn}"
+  principal     = "apigateway.amazonaws.com"
+
+  # The /*/* portion grants access from any method on any resource
+  # within the specified API Gateway.
+  source_arn = "${aws_api_gateway_deployment.codingtips-api-gateway-deployment.execution_arn}/*/*"
+}
+</code></pre>
+
+<ul>
+  <li>Notice that we tell Terraform the S3 Bucket and directory to look for the code</li>
+  <li>We specify the runtime and memory for this Lambda Function</li>
+  <li><code class="highlighter-rouge">index.handler</code> points to the file and function where to enter the code</li>
+  <li>The <code class="highlighter-rouge">aws_lambda_permission</code> resource is the permission that states that this Lambda Function may be invoked by the API Gateway that we created</li>
+</ul>
+
+<h1 id="api-gateway">API Gateway</h1>
+
+<div style="text-align: center;">
+  <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-apigateway.png" width="15%" height="15%" />
+</div>
+
+<p>I kept the most difficult one for last.
+On the other hand, it is also the most interesting.
+I hand Terraform a <em>Swagger</em> definition of my API.
+You can also do this without Swagger, but then you will have to specify a lot more resources.</p>
+
+<p>The Swagger API definition looks as follows:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>swagger: '2.0'
+info:
+  version: '1.0'
+  title: "CodingTips"
+schemes:
+  - https
+paths:
+  "/api":
+    get:
+      description: "Get coding tips"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "The codingtips request successful."
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/CodingTip"
+      x-amazon-apigateway-integration:
+        uri: ${get_lambda_arn}
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws_proxy"
+    post:
+      description: "post a coding tip"
+      consumes:
+        - application/json
+      responses:
+        200:
+          description: "The codingtip was added successfully"
+      x-amazon-apigateway-integration:
+        uri: ${post_lambda_arn}
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws_proxy"
+
+definitions:
+  CodingTip:
+    type: object
+    description: "A coding tip"
+    properties:
+      tip:
+        type: string
+        description: "The coding tip"
+      date:
+        type: number
+        description: "date in millis when tip was entered"
+      author:
+        type: string
+        description: "Author of the coding tip"
+      category:
+        type: string
+        description: "category of the coding tip"
+    required:
+      - tip
+</code></pre></div></div>
+
+<p>If you do not know Swagger yet, copy the above and paste it in the online (<a href="https://editor.swagger.io/" target="_blank" rel="noopener noreferrer">Swagger Editor</a>).</p>
+
+<p>This will grant you a nice visual overview of the API definition.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/swagger.png" width="60%" height="60%" />
+</div>
+
+<p>There is only one AWS specific thing in the Swagger specification above and that is <code class="highlighter-rouge">x-amazon-apigateway-integration</code>.
+This is specifying the details of how the API is integrating with the backend.</p>
+<ul>
+  <li>Remark that this is always a <code class="highlighter-rouge">POST</code> even if the HTTP method of the resource path is a <code class="highlighter-rouge">GET</code></li>
+  <li><code class="highlighter-rouge">aws_proxy</code> means that the request is passed to the Lambda Function without manipulation</li>
+  <li><code class="highlighter-rouge">when_no_match</code> passes the request body to the backend without tranforming it when no <code class="highlighter-rouge">requestTemplate</code> is specified for the <code class="highlighter-rouge">Content-Type</code></li>
+  <li><code class="highlighter-rouge">uri</code> is referencing a variable eg. <code class="highlighter-rouge">${get_lambda_arn}</code> that Terraform passes to the Swagger definition.
+We’ll see this in a minute.</li>
+</ul>
+
+<p>As I already mentioned, using Swagger to define your API Gateway has some advantages:</p>
+<ul>
+  <li>It keeps your Terraform more concise</li>
+  <li>You can use this Swagger to get a nice representation of your API</li>
+</ul>
+
+<pre><code class="language-hcl-terraform">resource "aws_api_gateway_rest_api" "codingtips-api-gateway" {
+  name        = "CodingTipsAPI"
+  description = "API to access codingtips application"
+  body        = "${data.template_file.codingtips_api_swagger.rendered}"
+}
+
+data "template_file" codingtips_api_swagger{
+  template = "${file("swagger.yaml")}"
+
+  vars {
+    get_lambda_arn = "${aws_lambda_function.get-tips-lambda.invoke_arn}"
+    post_lambda_arn = "${aws_lambda_function.post-tips-lambda.invoke_arn}"
+  }
+}
+
+resource "aws_api_gateway_deployment" "codingtips-api-gateway-deployment" {
+  rest_api_id = "${aws_api_gateway_rest_api.codingtips-api-gateway.id}"
+  stage_name  = "default"
+}
+
+output "url" {
+  value = "${aws_api_gateway_deployment.codingtips-api-gateway-deployment.invoke_url}/api"
+}
+</code></pre>
+
+<ul>
+  <li>We start by mentioning the <code class="highlighter-rouge">aws_api_gateway_rest_api</code> resource.
+It does what is says and provides an API Gateway REST API.
+    <ul>
+      <li>body references the Swagger file</li>
+    </ul>
+  </li>
+  <li>The <code class="highlighter-rouge">template_file</code> datasource allows Terraform to use information that is not defined in Terraform (Swagger in our case)
+    <ul>
+      <li>Variables are passed to this <code class="highlighter-rouge">template_file</code> to fill the file</li>
+    </ul>
+  </li>
+  <li>For a given <code class="highlighter-rouge">rest-api</code> to be usable, it has to be deployed
+    <ul>
+      <li>This is done by the <code class="highlighter-rouge">aws_api_gateway_deployment</code> resource</li>
+      <li>It references the REST API</li>
+      <li>It needs a stage which is like a ‘version’ or ‘snapshot’ of your API
+The stage name will be in the URL to invoke this API.</li>
+    </ul>
+  </li>
+  <li>At last the URL on which the API can be invoked is outputted to the terminal
+<code class="highlighter-rouge">/api</code> is appended to have the correct resource path</li>
+</ul>
+
+<h1 id="endgame">Endgame</h1>
+<p>All right, let’s see it now.
+Does this actually work?
+Here I am running <code class="highlighter-rouge">terraform apply</code> within the repository linked to this blog.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/apply.gif" width="100%" />
+</div>
+
+<p>Nice, it worked.
+And I only told Terraform about the infrastructure I wanted.
+The whole setup process goes automatically!
+You can now use the outputted URL to GET and POST coding tips.
+The body of the POST should look like:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nick"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Short sessions with frequent brakes"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Empowerment"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>When you need to couple the API endpoints to a frontend of your own design, you need to set the CORS headers correctly.
+If you want this challenge, there is another branch in the repository (<code class="highlighter-rouge">cors-enabled</code>) where I worked this out.</p>
+
+<p>Happy coding folks, Code that Infrastructure!</p>
+
+<h1 id="resources-and-further-reading">Resources and further reading</h1>
+<ul>
+  <li>Terraform website: <a href="https://www.terraform.io/" target="_blank" rel="noopener noreferrer">Terraform.io</a></li>
+  <li>Terraform-Lambda-APIGateway: <a href="https://learn.hashicorp.com/terraform/aws/lambda-api-gateway" target="_blank" rel="noopener noreferrer">learn.hashicorp.com</a></li>
+  <li>Swagger editor: <a href="https://editor.swagger.io/" target="_blank" rel="noopener noreferrer">editor.swagger.io</a></li>
+  <li>Swagger official website: <a href="https://swagger.io/" target="_blank" rel="noopener noreferrer">swagger.io</a></li>
+</ul>
+
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless.html&title=Infrastructure as code: Terraform and AWS Serverless&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Infrastructure as code: Terraform and AWS Serverless&url=https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/nick-van-hoof" class="image spotlight-image" title="">
+            <img src="/img/author/nick-van-hoof.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Nick is a Java &amp; JavaScript developer with a lot of hunger for knowledge. He is continuously looking for ways to improve. He wants to build his expertise by contributing to valuable projects. Serverless, microservices and IoT fascinate him the most.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/featured-image.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
