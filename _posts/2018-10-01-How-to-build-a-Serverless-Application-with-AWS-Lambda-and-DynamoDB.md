@@ -559,7 +559,7 @@ Some suggestions to keep you busy:
 * Run locally with **SAM Local**
 
 # Extra resources
-* AWS Lambda: [AWS Lambda Introduction](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html){:target="_blank" rel="noopener noreferrer"}
+* AWS Lambda: [AWS Lambda Introduction](https://aws.amazon.com/lambda/getting-started/){:target="_blank" rel="noopener noreferrer"}
 * AWS DynamoDB: [AWS DynamoDB Introduction](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html){:target="_blank" rel="noopener noreferrer"}
 * AWS API Gateway: [AWS API Gateway](https://aws.amazon.com/api-gateway){:target="_blank" rel="noopener noreferrer"}
 * AWS IAM: [AWS IAM Introduction](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html){:target="_blank" rel="noopener noreferrer"}
