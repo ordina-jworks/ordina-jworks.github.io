@@ -141,60 +141,9 @@ There are even a lot more options to this setup like:
 
 # Example #
 
-Link to github
+<a target="_blank" href="https://gitlab.com/VeeTeeDev/observables-demo">Link to gitlab</a>
 
+To run front and backend
+`$ npm run start`
 
-
-// to remove
-
-
-```javascript
-
-private _data$: Subject<Page> = new BehaviorSubject<>({});
-private _data: Page = new Page();
-
-private _filter: Filter = new Filter();
-private _filterChanged: boolean = false;
-
-...
-
-public data(): Observable<Page> {
-	return this._data$ as Observable<Page>;
-}
-
-...
-
-public reload(): void {
-	if(this._filterChanged) {
-		this._http.get('urlToData' + this.parseFilterToString(this._filter)).pipe(
-			tap((data) => this.logService.log(data)),
-			map((response) => {
-				this.page.data = response.body;
-				this.page.number = response.headers.get('x-count'); // page is stored localy as cach
-			}).subscribe((page: Page) => {
-				this._filterChanged = false;
-				this._data$.next(page);
-			})		
-		); // and maybe unsubscribe or throw it way or make a Promise out of it
-	} else {
-		this._data$.next(this._page);
-	}
-}
-
-public setFilter(filter: Filter): void {
-	this._filter = filter;
-	this._filterChange = true;
-	this.reload(); // if this is a use case
-}
-
-public reset(): void {
-	this._filter = defaultFilter; // if exists;
-	this._filterChanged = true;
-	this.reload();
-}
-
-public clear(): void {
-	this._page = new Page();
-	this._data$.next(page);
-}
-```
+Don't mind the backend server, it's a quick and dirty nodejs express server.
