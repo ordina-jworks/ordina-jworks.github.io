@@ -28,7 +28,7 @@ So next to the component (html/template for view, and a javascript(typescript) c
 This service's purpose is to provide data to the component's controller by calling the HttpClients functions (POST, GET, DELETE, PATCH, ...) and returning that `Observable` to the component.
 Sometimes they are remapping the `Observable<HttpReponse>`to a more defined type, for example `Observable<MyData>`, by using one of the `rxjs` operators such as `flatmap`, `map`, ... .
 All of this works pretty well, as long as only one component is in need of that data, and its changes.
-By changes, I refer to refreshing the data, or requerying it with another filter.
+By changes, I refer to refreshing the data, or requerying it with another filter, or paging, or ... .
 
 <div style="text-align: center;" >
   <img src="/img/observables-the-right-way/first-step.png" width="60%">
@@ -38,9 +38,10 @@ Every time the query parameters change, the component is just executing the same
 Again an (new) `Observable` is returned.
 Again the result can get remapped before throttling it back.
 The subscriber, the component controller in this case (or the html if you are using Angular's async pipe), is then receiving this remapped data.
+
 What happens when we have another component that is in need of this data (or maybe a part of it).
 Lets say we have a header and a datatable.
-And we are NOT using push events, but simple rest calls.
+And we are NOT using push events, but simple rest calls. (for the sake of this explanation)
 The datatable is the component we were talking about earlier.
 It needs to display messages in a simple datatable.
 The header is the second component that needs this data.
@@ -83,12 +84,12 @@ In some use cases this might be the desired outcome, but in most cases you want 
 
 In our new setup, we want both, header and datatable, to subscribe to the same Observable, so a call for new data will result in an update in the datatable and the header.
 To make this happen, we will use some kind of layer in between.
-The layer will provide our components with one and only one and the same `Observable`.
-Both components will subscribe to this component, so they both get updated by the same result.
+This new layer will provide our components with one and only one and the same `Observable` and will mask the the communication layer from the view's controller.
+Both components will subscribe to this service, so they both get updated by the same result.
 We can do this by creating a simple `Subject` in our service and return that Subject as an Observable to our components.
 We can then implement other calls for this service that will trigger an update of the data, and send it through this subject to both components.
 Because we are not providing a filter when we call the getter for the `Observable` (Subject) we should also find a way of providing the filter to the service, before requerying the data.
-This means we can/are going to use one shared filter, for both components, which makes sense in this case.
+This means we can/are going to use one shared filter, for both components, which makes sense in this case, but not in all use cases.
 
 <div style="text-align: center;" >
   <img src="/img/observables-the-right-way/second-step.png" width="60%">
@@ -130,20 +131,38 @@ public reload(): void {
 ```
 
 This way every component or service, that is subscribing on this subject, is getting data when some other component or service triggers the `reload`.
-There are even a lot more options to this setup like:
-* clearing
-* resetting a default filter
-* refreshing current filter
-* caching data.
-* manipulating data through other services or components
+There are even a lot more options to this setup:
+* Clearing data
+* Resetting a default filter
+* Refreshing current filter
+* Caching data.
+* Manipulating data through other services or components
+* Adding an event consumer that also updates the datatable
 * ...
 
 
 # Example #
 
-<a target="_blank" href="https://gitlab.com/VeeTeeDev/observables-demo">Link to gitlab</a>
+I've build a simple example to demonstrate this behaviour.
+A header that is displaying an alert icon when there are unread messages that are also critical.
+A sidebar that is displaying the amount of unread messages next to it's navigation link, and an overview of the messages, with a basic paging implementation.
 
-To run front and backend
+A simple backend that is written in nodejs with express will provide a few endpoint:
+* api/message // with paging and filter, although the filter isn't implemented in the frontend example.
+* api/message/:id // not used
+* api/stream
+* api/refresh
+
+The service is not reloading data as long as the `page` or the `filter` is changed.
+While a the service is still loading the data, a new reload will not fetch again the data.
+You can find the code <a target="_blank" href="https://gitlab.com/VeeTeeDev/observables-demo">here</a>
+
+Server-Sent Events are added to update the `read` status of a message when the envelope gets clicked.
+This will also trigger the observable.
+
+To run front and backend together
 `$ npm run start`
+The way, a proxy is added to the `serve` command to overcome `CORS` blocking going from localhost:4200 to localhost:3000
 
-Don't mind the backend server, it's a quick and dirty nodejs express server.
+
+Don't mind the backend server, it's a quick and dirty solution and is not implemented as it should.
