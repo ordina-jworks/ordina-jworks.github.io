@@ -2,7 +2,7 @@
 layout: post
 authors: [tim_vierbergen]
 title: 'Observables: The right way'
-image: /img/2018-11-21-sse-spring-node-dev-ci/sse-front.png
+image: /img/observables-the-right-way/cover.png
 tags: [Angular,rxjs,Observables,Nodejs]
 category: Frontend
 comments: true
@@ -11,16 +11,16 @@ comments: true
 # Table of contents
 1. [Intro](#intro)
 2. [Setup](#setup)
-3. [Refactorin](#refactoring)
+3. [Refactoring](#refactoring)
 4. [Example](#example)
 
 # Intro #
 
 During my consultancy projects, I often come across the same implementations and problems when colleagues are trying to implement an observable strategy.
 A lot of frameworks are offering observables out of the box for their communication layer.
-Almost all `Promises` are replace by `Observables` nowadays.
-Angular 2+ HttpModule, for example, is using the `rxjs` library.
-Each \_http.get() is returning an `Observable<HttpResponse>`.
+Almost all `Promises` are replaced by `Observables` nowadays.
+Angular 2+ `HttpModule`, for example, is using the `rxjs` library.
+Each `http.get()` is returning an `Observable<HttpResponse>`.
 
 Almost always the setup is the same.
 A (visual) component needs to render some data.
@@ -125,7 +125,7 @@ public reload(): void {
 		}).subscribe((page: Page) => {
 			this._data$.next(page);
 		})
-	); // and maybe unsubscribe or throw it way or make a Promise out of it
+	);
 }
 
 ```
@@ -147,6 +147,10 @@ I've build a simple example to demonstrate this behaviour.
 A header that is displaying an alert icon when there are unread messages that are also critical.
 A sidebar that is displaying the amount of unread messages next to it's navigation link, and an overview of the messages, with a basic paging implementation.
 
+<div style="text-align: center;" >
+  <img src="/img/observables-the-right-way/example.png" width="100%">
+</div>
+
 A simple backend that is written in nodejs with express will provide a few endpoint:
 * api/message // with paging and filter, although the filter isn't implemented in the frontend example.
 * api/message/:id // not used
@@ -155,14 +159,19 @@ A simple backend that is written in nodejs with express will provide a few endpo
 
 The service is not reloading data as long as the `page` or the `filter` is changed.
 While a the service is still loading the data, a new reload will not fetch again the data.
-You can find the code <a target="_blank" href="https://gitlab.com/VeeTeeDev/observables-demo">here</a>
+You can find the code on<a target="_blank" href="https://gitlab.com/VeeTeeDev/observables-demo">gitlab</a>
+
+<div style="text-align: center;" >
+  <img src="/img/observables-the-right-way/example-setup.png" width="100%">
+</div>
+
 
 Server-Sent Events are added to update the `read` status of a message when the envelope gets clicked.
 This will also trigger the observable.
 
-To run front and backend together
+To run front- and backend together, execute the following command in the root of the project:
 `$ npm run start`
-The way, a proxy is added to the `serve` command to overcome `CORS` blocking going from localhost:4200 to localhost:3000
+This way, a proxy is added to the `serve` command to overcome `CORS` blocking going from localhost:4200 to localhost:3000
 
 
 Don't mind the backend server, it's a quick and dirty solution and is not implemented as it should.
