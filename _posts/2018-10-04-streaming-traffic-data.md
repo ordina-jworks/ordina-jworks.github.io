@@ -734,7 +734,78 @@ Finally we will send out the Tuples to a `TrafficCountBolt` which will gather so
 
 
 ### Windowing
-https://storm.apache.org/releases/1.0.6/Windowing.html
+https://storm.apache.org/releases/1.2.2/Windowing.html
+
+``` java
+    public class CountPerSensorIdBolt extends BaseWindowedBolt {
+    
+        private OutputCollector collector;
+
+        private final HashMap<String, Integer> countPerSensors = new HashMap<>();
+
+        @Override
+        public void execute(TupleWindow tupleWindow) {
+
+            for (Tuple input : tupleWindow.get()) {
+                Integer count = countPerSensors.get((String)input.getValueByField("sensorId"));
+                if (count == null) {
+                    count = 0;
+                }
+                count = count+ (Integer) input.getValueByField("trafficIntensity");
+                countPerSensors.put(input.getString(0), count);
+
+                collector.emit(new Values(input.getString(0), count));
+
+                collector.ack(input);
+            }
+        }
+    }
+
+```
+
+Subsequently you can define it within a topology, at which moment you will also define how the window should be seen:
+
+In this example we are just using windows with a fixed duration of five seconds.
+
+``` java
+    private StormTopology getTopologyKafkaSpout(KafkaSpoutConfig<String, String> spoutConfig) {
+        final TopologyBuilder tp = new TopologyBuilder();
+        tp.setSpout("kafka_spout", new KafkaSpout<>(spoutConfig), 1).setDebug(false);
+        tp.setBolt("trafficEvent_Bolt", new TrafficEventBolt(sensorIdsToProcess)).setDebug(false)
+                .globalGrouping("kafka_spout");
+        tp.setBolt("updateTrafficEventStats_bolt", new TrafficCountBolt()).setDebug(true)
+                .fieldsGrouping("trafficEvent_Bolt", new Fields("sensorId"));
+        tp.setBolt("windowedProcessBolt", new CountPerSensorIdBolt().withWindow(BaseWindowedBolt.Duration.seconds(5)))
+                .setDebug(true)
+                .globalGrouping("trafficEvent_Bolt");
+        return tp.createTopology();
+    }
+```
+
+You can also pass in extra ab parameter slidingInterval to define a sliding window.
+
+``` java
+    withWindow(Duration windowLength, Duration slidingInterval)
+```
+
+Both the windowLength and the slidingInterval can also be represented by a Count, which is based on the tuples being processed.
+Either determining the length of the window by the tuples, or when to slide.
+``` java
+    withWindow(Count windowLength, Duration slidingInterval)
+
+    withWindow(Duration windowLength, Count slidingInterval)
+```
+
+
+Even tumbling windows are possible: 
+
+``` java
+    withTumblingWindow(BaseWindowedBolt.Count count)
+
+    withTumblingWindow(BaseWindowedBolt.Duration duration)
+```
+
+Please note that a tuple belongs to only one of the tumbling windows, while with a sliding window it is very much possible that a single tuple is processed within multiple windows.
 
 ### Stream API
 The [Storm Streams API](http://storm.apache.org/releases/2.0.0-SNAPSHOT/Stream-API.html#streambuilder) is pretty new.
