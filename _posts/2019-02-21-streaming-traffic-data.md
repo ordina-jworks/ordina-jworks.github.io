@@ -8,8 +8,8 @@ category: Streaming
 comments: true
 ---
 
-Earlier this year I did a workshop at Ordina in order to introduce my collegues to the wonderfull world of stream processing.
-
+Earlier I did a workshop at Ordina in order to introduce my collegues to the wonderfull world of stream processing, for that workshop I used traffic data.
+Since, especially in Belgium, traffic data is something everybody can easily relate to as we all have to endure it every workday.
 
 ## Introduction
 In this blog post we will use traffic data as it is made available by the flemish governement.
@@ -490,11 +490,6 @@ In our case the Predicate just verifies if a key appears within a `List`:
     }
 ```
 
-You would also be able to use a KTable with the current "state" of every sensor, like:
-``` java
-    //TODO
-}
-```
 
 For every record we will now do some simple processing:
 ``` java
@@ -506,7 +501,6 @@ For every record we will now do some simple processing:
 
 The `updateStats()` method just updates some basic counters to track how much traffic has been processed since we started with the data intake.
 So that we know how many vehicles have passed, which was the highest speed detected, ... 
-
 
 
 
@@ -731,10 +725,8 @@ Finally we will send out the Tuples to a `TrafficCountBolt` which will gather so
     }
 ```
 
-
-
 ### Windowing
-https://storm.apache.org/releases/1.2.2/Windowing.html
+Storm also knows about the concept of [windowing](https://storm.apache.org/releases/1.2.2/Windowing.html). 
 
 ``` java
     public class CountPerSensorIdBolt extends BaseWindowedBolt {
@@ -763,7 +755,7 @@ https://storm.apache.org/releases/1.2.2/Windowing.html
 
 ```
 
-Subsequently you can define it within a topology, at which moment you will also define how the window should be seen:
+Subsequently you can define this bolt within a topology, at which moment you will also define the size or duration of the window:
 
 In this example we are just using windows with a fixed duration of five seconds.
 
