@@ -4,6 +4,8 @@
 /// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 ///
 
+@import '../layout/_wrapper.scss';
+
 /* Basic */
 
 // MSIE: Required for IEMobile.
@@ -72,7 +74,7 @@ body.custom-image {
   right: 0;
   display: block;
   height: 800px;
-  background-color: _palette(bg);
+  background-color: _palette(bg-header);
   z-index: -10;
 }
 
@@ -167,6 +169,242 @@ body.custom-image {
 
     &.active {
       height: 2000px; // Height based on detail view with long text
+    }
+  }
+}
+
+/**
+ * Outbound
+ */
+ .wrapper.spotlight.post-body .outbound {
+   margin-top: 50px;
+   padding-bottom: 50px;
+   border-top: 1px solid #eee;
+
+  .outbound__inner {
+    padding: 3em 0 1em 0;
+    margin: 0 auto;
+    overflow: hidden;
+
+    @media screen and (min-width: 880px) {
+      width: 55em;
+    }
+  }
+
+  .outbound__inner-title {
+    text-align: center;
+  }
+
+  /* Common style */
+  figure {
+    position: relative;
+    float: left;
+    overflow: hidden;
+    margin: 10px 1%;
+    min-width: 98%;
+    max-width: 480px;
+    max-height: 360px;
+    width: 48%;
+    background: #3085a3;
+    text-align: center;
+    cursor: pointer;
+
+    @media screen and (min-width: 667px) {
+      min-width: 320px;
+    }
+  }
+
+  figure img {
+    position: relative;
+    display: block;
+    width: 100%;
+    opacity: 0.8;
+
+    @media screen and (min-width: 667px) {
+      width: auto;
+      min-height: 100%;
+      max-width: 100%;
+    }    
+  }
+
+  figure figcaption {
+    padding: 2em;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1.25em;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  figure figcaption h2 {
+    color: #fff;
+    border: 0 none;
+  }
+
+  figure figcaption::before,
+  figure figcaption::after {
+    pointer-events: none;
+  }
+
+  figure figcaption,
+  figure figcaption > a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Anchor will cover the whole item by default */
+  /* For some effects it will show as a button */
+  figure figcaption > a {
+    z-index: 1000;
+    text-indent: 200%;
+    white-space: nowrap;
+    font-size: 0;
+    opacity: 0;
+  }
+
+  figure h2 {
+    word-spacing: -0.15em;
+    font-weight: 300;
+  }
+
+  figure h2 span {
+    font-weight: 800;
+  }
+
+  figure h2,
+  figure p {
+    margin: 0;
+  }
+
+  figure p {
+    letter-spacing: 1px;
+    font-size: 68.5%;
+  }
+
+  /*---------------*/
+  /***** Bubba *****/
+  /*---------------*/
+
+  figure.effect-bubba {
+    background: #9e5406;
+  }
+
+  figure.effect-bubba img {
+    opacity: 0.7;
+    -webkit-transition: opacity 0.35s;
+    transition: opacity 0.35s;
+  }
+
+  figure.effect-bubba:hover img {
+    opacity: 0.4;
+  }
+
+  figure.effect-bubba figcaption::before,
+  figure.effect-bubba figcaption::after {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    bottom: 30px;
+    left: 30px;
+    content: '';
+    opacity: 0;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+  }
+
+  figure.effect-bubba figcaption::before {
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    -webkit-transform: scale(0,1);
+    transform: scale(0,1);
+  }
+
+  figure.effect-bubba figcaption::after {
+    border-right: 1px solid #fff;
+    border-left: 1px solid #fff;
+    -webkit-transform: scale(1,0);
+    transform: scale(1,0);
+  }
+
+  figure.effect-bubba h2 {
+    margin: 0;
+    padding: 0;
+    padding-top: 30%;
+    -webkit-transition: -webkit-transform 0.35s;
+    transition: transform 0.35s;
+    -webkit-transform: translate3d(0,-20px,0);
+    transform: translate3d(0,-20px,0);
+
+    @media screen and (min-width: 667px) and (max-width: 880px) {
+      padding-top: 10%;
+    }
+  }
+
+  figure.effect-bubba p {
+    padding: 20px 2.5em;
+    opacity: 0;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: translate3d(0,20px,0);
+    transform: translate3d(0,20px,0);
+  }
+
+  figure.effect-bubba:hover figcaption::before,
+  figure.effect-bubba:hover figcaption::after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  figure.effect-bubba:hover h2,
+  figure.effect-bubba:hover p {
+    opacity: 1;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+  }
+
+
+}
+
+/**
+ * Dark mode - only for post-body (https://paulmillr.com/posts/using-dark-mode-in-css/)
+ */
+@media (prefers-color-scheme: dark) {
+  body .wrapper.spotlight.post-body {
+    color: #ddd;
+    background-color: #222;
+    border-top: solid #222;
+    border-bottom: solid #222;
+
+    @include wrapper-edges-color(#222);
+
+    a {
+      color: #e98300;
+
+      &:hover {
+        color: darken(#e98300, 10%) !important;
+      }
+    }
+
+    blockquote {
+      border-left: solid 4px rgba(255,159,28,0.75)
+    }
+
+    .wrapper.style1 h1,
+    .wrapper.style1 h2,
+    .wrapper.style2 h1,
+    .wrapper.style2 h2,
+    .wrapper.style3 h1,
+    .wrapper.style3 h2 {
+      border-bottom: solid 2px rgba(255,159,28,0.75);
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    .wrapper.spotlight.post-body h1, .wrapper.spotlight.post-body h2 {
+      color: #e98300;
     }
   }
 }
