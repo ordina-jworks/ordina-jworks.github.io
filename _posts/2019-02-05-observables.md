@@ -19,7 +19,7 @@ comments: true
 During my consultancy projects, I often come across the same implementations and problems when colleagues are trying to implement an observable strategy.
 A lot of frameworks are offering observables out of the box for their communication layer.
 Almost all `Promises` are replaced by `Observables` nowadays.
-Angular 2+ `HttpModule`, for example, is using the `rxjs` library.
+Angular 2+ `HttpModule` for example, is using the `rxjs` library.
 Each `http.get()` is returning an `Observable<HttpResponse>`.
 
 The setup is almost always the same.
@@ -28,7 +28,7 @@ So next to the component (HTML/template for view, and a JavaScript(TypeScript) c
 This service's purpose is to provide data to the component's controller by calling the `HttpClient`'s functions (POST, GET, DELETE, PATCH, ...) and returning the `Observable` to the component.
 Sometimes they are remapping the `Observable<HttpReponse>`to a more defined type, for example `Observable<MyData>`, by using one of the `rxjs` operators such as `flatmap`, `map`, ... .
 All of this works pretty well, as long as only one component is in need of the data and its changes.
-With changes, I refer to refreshing the data, or requerying it with another filter, paging, or ... .
+With changes, I refer to refreshing the data, or requerying it with another filter, paging, or ...
 
 <div style="text-align: center;" >
   <img src="/img/observables-the-right-way/first-step.png" width="75%">
@@ -41,7 +41,7 @@ The subscriber, the component controller in this case (or the HTML if you are us
 
 What happens when we have another component that is in need of this data (or maybe just a part of it)?
 Let's say we have a header and a datatable.
-And we are NOT using push events, but simple REST calls. (for the sake of this explanation)
+And we are NOT using push events, but simple REST calls (for the sake of this explanation).
 The datatable is the component we were talking about earlier.
 It needs to display messages in a simple datatable.
 The header is the second component that needs this data.
@@ -89,7 +89,7 @@ This new layer will provide our components with one and only one and the same `O
 Both components will subscribe to this service, so they both get updated with the same result.
 We can do this by creating a simple `Subject` in our service and returning it as an `Observable` to our components.
 We can then implement other calls for this service that will trigger an update of the data, and send it through the subject to both components.
-Because we are not providing a filter when we call the getter for the `Observable` (Subject) we should also find a way of providing the filter to the service, before requerying the data.
+Because we are not providing a filter when we call the getter for the `Observable` (`Subject`) we should also find a way of providing the filter to the service, before requerying the data.
 This means we are going to use one shared filter, for both components, which makes sense in this case, but not in all use cases.
 
 <div style="text-align: center;" >
@@ -104,7 +104,7 @@ They will still subscribe to an `Observable` of the service, and react on the in
 The service however will get refactored.
 Start by defining the `Subject` as a local property, and because we are going to implement a getter, we can make it private.
 
-data.service.ts
+`data.service.ts`
 ```javascript
 
 private _data$: Subject<Page> = new BehaviorSubject<>({});
@@ -145,14 +145,14 @@ There are even a lot more options to this setup:
 # Example
 
 I've build a simple example to demonstrate this behaviour.
-A header that is displaying an alert icon when there are unread messages that are also critical.
+A header that is displaying an alert icon when there are unread, critical messages.
 A sidebar that is displaying the amount of unread messages next to its navigation link, and an overview of the messages, with a basic paging implementation.
 
 <div style="text-align: center;" >
   <img src="/img/observables-the-right-way/example.png" width="100%">
 </div>
 
-A simple backend that is written in Node.js with Express will provide a few endpoint:
+A simple backend that is written in Node.js with Express provides a few endpoints:
 * `api/message` (with paging and filter, although the filter isn't implemented in the frontend example.)
 * `api/message/:id` (not used in the example)
 * `api/stream`
@@ -160,7 +160,7 @@ A simple backend that is written in Node.js with Express will provide a few endp
 
 The service is not reloading data as long as the `page` or the `filter` hasn't changed.
 While the service is still loading the data, a new reload will not fetch again the data.
-You can find the code on <a target="_blank" href="https://gitlab.com/VeeTeeDev/observables-demo">gitlab</a>
+You can find the code on <a target="_blank" href="https://gitlab.com/VeeTeeDev/observables-demo">GitLab</a>.
 
 <div style="text-align: center;" >
   <img src="/img/observables-the-right-way/example-setup.png" width="75%">
