@@ -4,12 +4,12 @@ authors: [elke_heymans]
 outbound: [tech_blog_vue-with-typescript]
 title: 'Vue with TypeScript'
 image: /img/vue-with-typescript/vue-plus-typescript.png
-tags: [Vue,TypeScript,JavaScript,VueJS,]
+tags: [Vue,TypeScript,JavaScript,VueJS,VueCLI]
 category: Vue
 comments: true
 ---
 
-# Table of content
+# Table of contents
 1. [Vue with TypeScript, an introduction](#introduction)
 2. [Creating a Vue project with TypeScript](#creating-a-vue-project-with-typescript)
 3. [A look into the files created by the Vue CLI](#a-look-into-the-files-created-by-the-vue-cli)
@@ -19,10 +19,10 @@ comments: true
 7. [Conclusion](#conclusion)
 8. [Resources and further reading](#resources-and-further-reading)
 
-# Introduction
+# Vue with TypeScript, an introduction
 With the release of the Vue CLI 3 in August 2018, Vue now officially supports development in TypeScript.
 In September 2018, Evan You even announced that [the next version of Vue will be rewritten in TypeScript](https://medium.com/the-vue-point/plans-for-the-next-iteration-of-vue-js-777ffea6fabf){:target="_blank" rel="noopener noreferrer"}.
-This does not yet mean that you're forced to use TypeScript, it will still be optional.
+This does not yet mean that you are forced to use TypeScript, it will still be optional.
 TypeScript has numerous advantages such as static typing, transpiling of the latest ECMAScript features to older versions to support older browsers and much more.
 Especially the static typing is a very interesting feature for projects in a professional environment as it helps define more strict interfaces and provides documentation on how to use other developers their code.
 
@@ -31,13 +31,12 @@ Our little project will be called *wordvue*.
 At the same time we will explain some tips and tricks and background information about Vue with TypeScript so that you fully understand what the purpose is of everything.
 
 <div style="text-align: center;">
-  <img src="/img/vue-with-typescript/vue-plus-typescript.png" width="100%" height="100%">
+  <img src="/img/vue-with-typescript/vue-plus-typescript-small.png" class="image">
 </div>
 
 # Creating a Vue project with TypeScript
 
 ## Using the Vue CLI
-
 Thanks to the Vue CLI, it is very easy to create a new Vue project.
 First make sure you have the lastest version of the CLI installed with NPM:
 
@@ -58,7 +57,6 @@ The CLI knows some presets but we will go through the manual mode to be sure we 
 </div>
 
 ### Babel + TypeScript
-
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-cli-2-selected-features.png" class="image right fit">
 </div>
@@ -69,7 +67,6 @@ Just make sure you at least have Babel selected as well.
 Babel will automatically add multiple polyfills and will help with having backwards compatibility of newer ECMAScript features. 
 
 ### Class-style component syntax
-
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-cli-3-class-style-component-syntax.png" class="image fit">
 </div>
@@ -78,7 +75,7 @@ In the next screen we will get the question if we want class-style component syn
 With this, we actually install the decorators that can be found in the Vue Class Component package.
 If you do not use the class-style component syntax, your components will look just like in JavaScript Vue but with the addition of types:
 
-```vue
+```typescript
 import Vue, { VNode } from 'vue'
 
 export const HelloComponent = Vue.extend({
@@ -106,7 +103,7 @@ export const HelloComponent = Vue.extend({
 As you can see, you'll still have the data function, the methods and computed properties and the render function that you can use in regular Vue.
 With the class-style component syntax, we would write the same component like this:
 
-```vue
+```typescript
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
@@ -127,7 +124,6 @@ export default class HelloComponent extends Vue {
 When you compare it to the previous version, the data property message is now a regular property in our component class. Methods are present as class methods. And the computed properties can be defined as a getter.
 
 ### The other setttings
-
 After you've replied Yes to the "Use class-style component syntax?" question, you can continue with the default options that are self explanatory.
 
 <div style="text-align: center;">
@@ -155,7 +151,6 @@ Vue will then be creating the project so you will see some logging going on in y
 The Vue CLI will create a Git repository, perform an NPM install and generate a README alongside a bunch of files and folders.
 
 ## Launching your first Vue project
-
 After the Vue CLI has created your Vue project, you can launch it with:
 
 ```text
@@ -174,11 +169,9 @@ By default it runs on http://localhost:8080 but if there's already something run
 </div>
 
 # A look into the files created by the Vue CLI
-
 The main folders in which you will work are public and src. We will look at these more in detail so you fully understand what their purpose is.
 
 ## Public
-
 Public is meant for static stuff like images, favicons and more.
 It also contains your index.html which is very basic:
 
@@ -212,7 +205,6 @@ This should always be present in your index.html as this is the tag on which Vue
 ## Src
 
 ### main.ts
-
 ```typescript
 import Vue from 'vue';
 import App from './App.vue';
@@ -288,7 +280,6 @@ Vue does officially support specific NPM packages for these core functionalities
 Other packages will follow the same naming conventions as the official supported libraries for convenience sake.
 
 ### App.vue
-
 ```vue
 <template>
 	<div id="app">
@@ -366,12 +357,10 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 After this we can access the font-awesome-icon tag from everywhere.
 
 # How to write your first component
-
 We will keep the project as simple as possible for now.
 Firstly I will explain the basics of a Vue Component so that you'll fully understand what happens when we write our first real component.
 
 ## The structure of a .vue file
-
 ```vue
 <template>
 	<div id="app">
@@ -403,7 +392,6 @@ In a .vue file, we define 3 optional tags: template, script and style.
 According to the Vue documentation, you should always [order the tags consistently](https://vuejs.org/v2/style-guide/#Single-file-component-top-level-element-order-recommended){:target="_blank" rel="noopener noreferrer"} with style being the last one.
 
 ### \<template>...\</template>
-
 This is the visual part of your component, in here you define the HTML that will be used to display your component.
 Note that your custom HTML should *always* be surrounded by a div tag.
 The reason for this is that it allows Vue to encapsulate your custom CSS and other stuff into that without unknowingly affecting the styling of your whole site.
@@ -411,7 +399,6 @@ You can use this to add a custom id or class to the tag to help you identify the
 Note that a .vue file can contain at most one template tag.
 
 ### \<script lang="ts">...\</script>
-
 In the script tag, you can add your custom TypeScript code.
 The lang attribute is not required but if you do not add it, the default language will be JavaScript.
 In order for TypeScript to be available, we should add *lang="ts"*.
@@ -419,7 +406,6 @@ All of our TypeScript code should be present in this script tag, even the import
 Note that a .vue file can contain at most one template tag.
 
 ### \<style>...\</style>
-
 In here we can define our own CSS specific for this component.
 By default, all the styles you define are global.
 By adding the scoped attribute, our custom CSS will be specific for that component.
@@ -452,7 +438,6 @@ A .vue file can contain more than one style tag.
 ```
 
 ### Should you put everything in a .vue file?
-
 For small components, a .vue file will be very interesting as you have all the elements that make up your component into one specific file.
 But what if you have for example lots of lines in the template tag?
 Or what if you just want to split up the file?
@@ -475,7 +460,6 @@ The Vue CLI will generate the same compiled code.
 ## How to organise your files
 
 ### The basic structure
-
 The basic project structure in Vue is very simple:
 
 ```text
@@ -492,7 +476,6 @@ For example a global stylesheet or an icon library that you want to treeshake fi
 In the public folder we put all things static: the logo, the favicons, images, ...
 
 ### A more advanced structure
-
 The basic structure is enough for a simple single page application.
 But once you start to have complex pages, things will quickly need to be changed to accommodate the amounts of files that you will create.
 A more advanced project structure could be this:
@@ -518,13 +501,11 @@ This is what you would put in a SharedModule in Angular for example.
 Same goes for the /store that contains my implementation of a store.
 
 ### Modules
-
 Vue is designed to be as lightweight as possible and this can be seen in how the basic project is structured: no modules are present.
 Vue does support modules but those are not like we know them from other frameworks like Angular.
 Vue modules are simply ES6 modules.
 
 ## BlogPost component
-
 Our first component we will write is a BlogPost component.
 In a first stage of our little project we will just hardcode a blogpost.
 The BlogPost component is super simple:
@@ -587,7 +568,6 @@ We can pass along a type attribute in the Props decorator but even that is not t
 We end the component with our styling in which we make use of SASS to nest all our styling.
 
 ## Using the BlogPost component
-
 So we have created the BlogPost component but how are we going to actually use it?
 We adapt App.vue to this:
 
@@ -677,7 +657,6 @@ We see in our browser:
 Great, you've written your first working component!
 
 # Using your first plugin
-
 Vue comes without any libraries, it is a super clean and lean framework where even functionality for HTTP calls is not present.
 However, every component is a Vue object and can be extended with a \$http member that you can utilise in your code to perform HTTP calls.
 But to provide this \$http member, we have to add the correct plugin to our code.
@@ -685,7 +664,6 @@ In the awesome-vue project on GitHub, we can find an [extensive list of HTTP plu
 We will use [axios](https://github.com/axios/axios){:target="_blank" rel="noopener noreferrer"} as our HTTP library but we will use [vue-axios](https://github.com/imcvampire/vue-axios){:target="_blank" rel="noopener noreferrer"} for the bindings with Vue in TypeScript as axios does not provide the necessary typings for axios in Vue.
 
 ## Installing a plugin
-
 We follow the installation instructions for vue-axios which are pretty straightforward:
 
 ```text
@@ -716,7 +694,6 @@ new Vue({
 The important part is that we put the Vue.use(...) statement before we actually bootstrap the application with new Vue(...).
 
 ## The effect of adding a plugin
-
 So we have added a plugin, but what does that actually mean?
 What is the effect on our Vue code?
 The main effect is that we now have \$http accessible in every Vue object and component.
@@ -728,7 +705,6 @@ This is more by community standards as it is not obliged by Vue to provide the s
 But it makes sense for library creators to comply to the standard set by the HTTP library of preference as chosen by Vue, in this case axios.
 
 ## Using the axios plugin for performing HTTP calls
-
 A Vue component has multiple lifecycle hooks with the most interesting ones for what we want to do: mounted and created.
 Created is called by Vue when the object is created: reactive data is set up, event callbacks are ready and so on.
 The Vue object will thus be ready to go but it will not yet be visible to the user.
@@ -774,7 +750,6 @@ As you can see we have added a private created method since this should not be p
 We simply call an API and map the response into our Post array.
 
 ## How we have set up a local API
-
 To simulate a real API call, we set up [json-server](https://github.com/typicode/json-server){:target="_blank" rel="noopener noreferrer"}, a small tool that launches a web server with a REST API that serves a json file present in our assets folder:
 
 ```json
@@ -811,7 +786,6 @@ $ json-server src/assets/db.json
 # Your first deployment
 
 ## Development versus production mode
-
 Just like in other frontend frameworks, Vue has its development mode and production mode. The first one is available with:
 
 ```text
@@ -860,7 +834,6 @@ module.exports = {
 More configurations can be found at [cli.vuejs.org](https://cli.vuejs.org/config/){:target="_blank" rel="noopener noreferrer"} but most of the configuration is already done for a maximum optimised production build.
 
 ## Building for production
-
 When running the npm run build command, you'll get the following output:
 
 <div style="text-align: center;">
@@ -874,7 +847,6 @@ If you were to have any assets, it will also copypaste those into the dist folde
 The result is a dist folder which contents you can directly deploy onto your favourite server.
 
 # Conclusion
-
 Congratulations, you have built your very first Vue application with TypeScript!
 You now know how to write a basic component with the use of decorators, create a component structure and fill it with data coming from an API.
 After that you can also deploy it onto a server.
@@ -883,6 +855,11 @@ Vue is a lightweight framework that primarily focuses on visualisation.
 If you want to add more functionality, you will have to resort to plugins which either support Vue integration directly or you can use a plugin like vue-axios that will facilitate the integration of another library like axios.
 
 # Resources and further reading
-* Vue CLI website: [cli.vuejs.org](https://cli.vuejs.org/){:target="_blank" rel="noopener noreferrer"}
+* Vue CLI: [cli.vuejs.org](https://cli.vuejs.org/){:target="_blank" rel="noopener noreferrer"}
+* Awesome-vue, overview of Vue plugins: [github.com/vuejs/awesome-vue](https://github.com/vuejs/awesome-vue){:target="_blank" rel="noopener noreferrer"}
+* Axios, HTTP library: [github.com/axios/axios](https://github.com/axios/axios-vue){:target="_blank" rel="noopener noreferrer"}
+* Vue-axios, typings for using Axios in Vue: [github.com/imcvampire/vue-axios](https://github.com/imcvampire/vue-axios){:target="_blank" rel="noopener noreferrer"}
+* Vue styleguide: [vuejs.org/v2/style-guide](https://vuejs.org/v2/style-guide/){:target="_blank" rel="noopener noreferrer"}
+* Vue-class-component: [github.com/vuejs/vue-class-component](https://github.com/vuejs/vue-class-component){:target="_blank" rel="noopener noreferrer"} 
+* JSON server: [github.com/typicode/json-server](https://github.com/typicode/json-server){:target="_blank" rel="noopener noreferrer"} 
 
- 
