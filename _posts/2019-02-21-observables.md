@@ -13,6 +13,7 @@ comments: true
 2. [Setup](#setup)
 3. [Refactoring](#refactoring)
 4. [Example](#example)
+4. [Conclusion](#conclusion)
 
 # Intro
 
@@ -177,3 +178,12 @@ This way, a proxy is added to the `serve` command to overcome `CORS` blocking go
 
 
 Don't mind the backend server, it's a quick and dirty solution and is not implemented as it should.
+
+# conclusion
+
+Although `observables` are a great feature, and are easy to use, it's always better to have your own layer of control.
+Especially when it comes to using `Observables` from frameworks.
+I can accept, for simple applications, that you don't want to 'over-architect'.
+But in most cases, you want to control the distribution yourself.
+For those of you that know `Redux` (Rxjs), you can compare this implementation with effects and `store`-subscriptions.
+If you trigger an effect, you will only see the result when you have subscribed on the 'key' that is responsible for providing you with the data, and not the 'key' that is responsible for triggering the effect.
