@@ -1,5 +1,182 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-01-31T11:20:39+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Infrastructure as code: Terraform and AWS Serverless</title><link href="https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless.html" rel="alternate" type="text/html" title="Infrastructure as code: Terraform and AWS Serverless" /><published>2019-01-14T00:00:00+00:00</published><updated>2019-01-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless.html">&lt;h1 id=&quot;table-of-content&quot;&gt;Table of content&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-02-21T08:47:18+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Observables: The right way</title><link href="https://ordina-jworks.github.io/frontend/2019/02/21/observables.html" rel="alternate" type="text/html" title="Observables: The right way" /><published>2019-02-21T00:00:00+00:00</published><updated>2019-02-21T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/frontend/2019/02/21/observables</id><content type="html" xml:base="https://ordina-jworks.github.io/frontend/2019/02/21/observables.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#intro&quot;&gt;Intro&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setup&quot;&gt;Setup&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#refactoring&quot;&gt;Refactoring&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#example&quot;&gt;Example&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;intro&quot;&gt;Intro&lt;/h1&gt;
+
+&lt;p&gt;During my consultancy projects, I often come across the same implementations and problems when colleagues are trying to implement an observable strategy.
+A lot of frameworks are offering observables out of the box for their communication layer.
+Almost all &lt;code class=&quot;highlighter-rouge&quot;&gt;Promises&lt;/code&gt; are replaced by &lt;code class=&quot;highlighter-rouge&quot;&gt;Observables&lt;/code&gt; nowadays.
+Angular 2+ &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpModule&lt;/code&gt; for example, is using the &lt;code class=&quot;highlighter-rouge&quot;&gt;rxjs&lt;/code&gt; library.
+Each &lt;code class=&quot;highlighter-rouge&quot;&gt;http.get()&lt;/code&gt; is returning an &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&amp;lt;HttpResponse&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The setup is almost always the same.
+A (visual) component needs to render some data.
+So next to the component (HTML/template for view, and a JavaScript(TypeScript) component as the controller), a service gets created.
+This service’s purpose is to provide data to the component’s controller by calling the &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpClient&lt;/code&gt;’s functions (POST, GET, DELETE, PATCH, …) and returning the &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&lt;/code&gt; to the component.
+Sometimes they are remapping the &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&amp;lt;HttpReponse&amp;gt;&lt;/code&gt;to a more defined type, for example &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&amp;lt;MyData&amp;gt;&lt;/code&gt;, by using one of the &lt;code class=&quot;highlighter-rouge&quot;&gt;rxjs&lt;/code&gt; operators such as &lt;code class=&quot;highlighter-rouge&quot;&gt;flatmap&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;, … .
+All of this works pretty well, as long as only one component is in need of the data and its changes.
+With changes, I refer to refreshing the data, or requerying it with another filter, paging, or …&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/observables-the-right-way/first-step.png&quot; width=&quot;75%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Every time the query parameters change, the component is just executing the same call in the service, which in turn is calling the right &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpClient&lt;/code&gt;-function.
+Again an (new) &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&lt;/code&gt; is returned.
+Again the result can get remapped before throttling it back.
+The subscriber, the component controller in this case (or the HTML if you are using Angular’s async pipe), receives the remapped data.&lt;/p&gt;
+
+&lt;p&gt;What happens when we have another component that is in need of this data (or maybe just a part of it)?
+Let’s say we have a header and a datatable.
+And we are NOT using push events, but simple REST calls (for the sake of this explanation).
+The datatable is the component we were talking about earlier.
+It needs to display messages in a simple datatable.
+The header is the second component that needs this data.
+It needs to display the number of unread or critical messages.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;datatable.component.ts&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_dataService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;header.component.ts&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_dataService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;data.service.ts&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Page&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'urlToData'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parseFilterToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pipe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+		&lt;span class=&quot;nx&quot;&gt;tap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;logService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
+		&lt;span class=&quot;nx&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+			&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Page&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+			&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+			&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'x-count'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the setup we have so far, both components will use the same service for requesting the data.
+They will both subscribe to an &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&lt;/code&gt;, however, it will be a different one.
+When you refresh the data in the datatable, the header will not receive a new value in its subscription and therefore will still show the old number of messages.&lt;/p&gt;
+
+&lt;p&gt;In some use cases this might be the desired outcome, but in most cases you want more components to be able to subscribe to the same &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;setup&quot;&gt;Setup&lt;/h1&gt;
+
+&lt;p&gt;In our new setup, we want both, header and datatable, to subscribe to the same Observable, so a call for new data will result in an update in the datatable and the header.
+To make this happen, we will use some kind of layer in between them.
+This new layer will provide our components with one and only one and the same &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&lt;/code&gt; and will mask the communication layer from the view’s controller.
+Both components will subscribe to this service, so they both get updated with the same result.
+We can do this by creating a simple &lt;code class=&quot;highlighter-rouge&quot;&gt;Subject&lt;/code&gt; in our service and returning it as an &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&lt;/code&gt; to our components.
+We can then implement other calls for this service that will trigger an update of the data, and send it through the subject to both components.
+Because we are not providing a filter when we call the getter for the &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&lt;/code&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;Subject&lt;/code&gt;) we should also find a way of providing the filter to the service, before requerying the data.
+This means we are going to use one shared filter, for both components, which makes sense in this case, but not in all use cases.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/observables-the-right-way/second-step.png&quot; width=&quot;75%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;refactoring&quot;&gt;Refactoring&lt;/h1&gt;
+
+&lt;p&gt;We actually don’t need to refactor any of our components.
+They will still subscribe to an &lt;code class=&quot;highlighter-rouge&quot;&gt;Observable&lt;/code&gt; of the service, and react on the incoming data.
+The service however will get refactored.
+Start by defining the &lt;code class=&quot;highlighter-rouge&quot;&gt;Subject&lt;/code&gt; as a local property, and because we are going to implement a getter, we can make it private.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;data.service.ts&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_data$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Page&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BehaviorSubject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+
+&lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Page&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_data$&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Observable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Page&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+
+&lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'urlToData'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parseFilterToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pipe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+		&lt;span class=&quot;nx&quot;&gt;tap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;logService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
+		&lt;span class=&quot;nx&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+			&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Page&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+			&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+			&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'x-count'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;}).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_data$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This way, every component or service that is subscribing on this subject, is getting data when some other component or service triggers the &lt;code class=&quot;highlighter-rouge&quot;&gt;reload&lt;/code&gt;.
+There are even a lot more options to this setup:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Clearing data&lt;/li&gt;
+  &lt;li&gt;Resetting to default filter&lt;/li&gt;
+  &lt;li&gt;Refreshing the current filter&lt;/li&gt;
+  &lt;li&gt;Caching data&lt;/li&gt;
+  &lt;li&gt;Manipulating data through other services or components&lt;/li&gt;
+  &lt;li&gt;Adding an event consumer that also updates the datatable&lt;/li&gt;
+  &lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;example&quot;&gt;Example&lt;/h1&gt;
+
+&lt;p&gt;I’ve build a simple example to demonstrate this behaviour.
+A header that is displaying an alert icon when there are unread, critical messages.
+A sidebar that is displaying the amount of unread messages next to its navigation link, and an overview of the messages, with a basic paging implementation.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/observables-the-right-way/example.png&quot; width=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A simple backend that is written in Node.js with Express provides a few endpoints:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;api/message&lt;/code&gt; (with paging and filter, although the filter isn’t implemented in the frontend example.)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;api/message/:id&lt;/code&gt; (not used in the example)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;api/stream&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;api/refresh&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The service is not reloading data as long as the &lt;code class=&quot;highlighter-rouge&quot;&gt;page&lt;/code&gt; or the &lt;code class=&quot;highlighter-rouge&quot;&gt;filter&lt;/code&gt; hasn’t changed.
+While the service is still loading the data, a new reload will not fetch again the data.
+You can find the code on &lt;a target=&quot;_blank&quot; href=&quot;https://gitlab.com/VeeTeeDev/observables-demo&quot;&gt;GitLab&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/observables-the-right-way/example-setup.png&quot; width=&quot;75%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Server-Sent Events are added to update the &lt;code class=&quot;highlighter-rouge&quot;&gt;read&lt;/code&gt; status of a message when the envelope gets clicked.
+This will also trigger the observable.&lt;/p&gt;
+
+&lt;p&gt;To run front- and backend together, execute the following command in the root of the project:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ npm run start&lt;/code&gt;
+This way, a proxy is added to the &lt;code class=&quot;highlighter-rouge&quot;&gt;serve&lt;/code&gt; command to overcome &lt;code class=&quot;highlighter-rouge&quot;&gt;CORS&lt;/code&gt; blocking going from localhost:4200 to localhost:3000&lt;/p&gt;
+
+&lt;p&gt;Don’t mind the backend server, it’s a quick and dirty solution and is not implemented as it should.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Although observables are a great feature, and are easy to use, it’s always better to have your own layer of control.
+Especially when it comes to using observables from frameworks.
+I can accept, for simple applications, that you don’t want to ‘over-architect’.
+But in most cases, you want to control the distribution yourself.
+For those of you that know &lt;code class=&quot;highlighter-rouge&quot;&gt;Redux&lt;/code&gt; (RxJS), you can compare this implementation with effects and &lt;code class=&quot;highlighter-rouge&quot;&gt;store&lt;/code&gt;-subscriptions.
+If you trigger an effect, you will only see the result when you have subscribed to the ‘key’ that is responsible for providing you with the data,
+and not to the ‘key’ that is responsible for triggering the effect.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Vierbergen&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-vierbergen/&quot;, &quot;avatar&quot;=&gt;&quot;tim-vierbergen.jpg&quot;, &quot;twitter&quot;=&gt;&quot;vierbergentim&quot;, &quot;linkedin&quot;=&gt;&quot;tim-vierbergen-82557834&quot;, &quot;github&quot;=&gt;&quot;VeeTeeDev&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;title2&quot;=&gt;&quot;Principal Consultant &amp; Competence Lead CI/CD&quot;, &quot;email&quot;=&gt;&quot;tim.vierbergen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a senior developer and architect at JWorks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.&lt;br /&gt;&lt;br /&gt;Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learing how to snowboard.&quot;}</name><email>tim.vierbergen@ordina.be</email></author><category term="Frontend" /><category term="Angular" /><category term="rxjs" /><category term="Observables" /><category term="Nodejs" /><summary type="html">Table of contents Intro Setup Refactoring Example Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/observables-the-right-way/cover.png" /></entry><entry><title type="html">Infrastructure as code: Terraform and AWS Serverless</title><link href="https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless.html" rel="alternate" type="text/html" title="Infrastructure as code: Terraform and AWS Serverless" /><published>2019-01-14T00:00:00+00:00</published><updated>2019-01-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless.html">&lt;h1 id=&quot;table-of-content&quot;&gt;Table of content&lt;/h1&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#infrastructure-as-code&quot;&gt;Infrastructure as Code&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#introduction-and-demo&quot;&gt;Introduction and demo&lt;/a&gt;&lt;/li&gt;
@@ -2374,414 +2551,4 @@ You want all your api calls to go to the other mock (Node-RED in this case) whil
 It is a powerful tool for unidirectional streams to you clients.
 The hardest part is defining a strategy for your connections and event type differentiation.
 Setting up the &lt;code class=&quot;highlighter-rouge&quot;&gt;CI&lt;/code&gt; part is easy as well.
-Although you can test a lot in your unit tests, implementing End 2 End testing, mock and real, is recommended.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Vierbergen&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-vierbergen/&quot;, &quot;avatar&quot;=&gt;&quot;tim-vierbergen.jpg&quot;, &quot;twitter&quot;=&gt;&quot;vierbergentim&quot;, &quot;linkedin&quot;=&gt;&quot;tim-vierbergen-82557834&quot;, &quot;github&quot;=&gt;&quot;VeeTeeDev&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;title2&quot;=&gt;&quot;Principal Consultant &amp; Competence Lead CI/CD&quot;, &quot;email&quot;=&gt;&quot;tim.vierbergen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a senior developer and architect at JWorks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.&lt;br /&gt;&lt;br /&gt;Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learing how to snowboard.&quot;}</name><email>tim.vierbergen@ordina.be</email></author><category term="Testing" /><category term="sse" /><category term="Spring" /><category term="Nodejs" /><category term="Angular" /><category term="Node-RED" /><category term="ci" /><category term="mock" /><summary type="html">Table of contents Intro What are Server-Sent Events Java Nodejs Angular Continuous Integration Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-11-21-sse-spring-node-dev-ci/sse-front.png" /></entry><entry><title type="html">MongoDB Europe 2018</title><link href="https://ordina-jworks.github.io/development/2018/11/20/mongodb-europe-018.html" rel="alternate" type="text/html" title="MongoDB Europe 2018" /><published>2018-11-20T00:00:00+00:00</published><updated>2018-11-20T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2018/11/20/mongodb-europe-018</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2018/11/20/mongodb-europe-018.html">&lt;blockquote&gt;
-  &lt;p&gt;MongoDB Europe is a yearly conference where MongoDB shows off their latest features and new products.
-This year the venue took place in Old Billingsgate Walk, London.
-Jan, Nick and Chris wrote this blog post to summarize several of the given sessions.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#atlas&quot;&gt;Atlas&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#mongodb-university&quot;&gt;MongoDB University&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#compass-aggregation-pipeline-builder&quot;&gt;Compass Aggregation Pipeline Builder&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#common-query-mistakes&quot;&gt;Common query mistakes&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#stitch&quot;&gt;Stitch&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#meet-the-experts&quot;&gt;Meet the experts&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#streaming-data-pipelines-with-mongodb-and-kafka-at-ao&quot;&gt;Streaming data pipelines with MongoDB and Kafka at AO&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#mongodb-enterprise-operator-for-kubernetes-at-amadeus&quot;&gt;MongoDB Enterprise Operator for Kubernetes at Amadeus&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#mongodb-charts&quot;&gt;MongoDB Charts&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#closing&quot;&gt;Closing&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;atlas&quot;&gt;Atlas&lt;/h1&gt;
-&lt;p&gt;(&lt;a href=&quot;https://sched.co/FmAF&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MongoDB Atlas for your Enterprise&lt;/a&gt;, Vladislava Stevanovic &amp;amp; Veronica Tudor)&lt;/p&gt;
-
-&lt;p&gt;Atlas is the database as a service offering (DBaaS) by MongoDB itself.
-You can run your MongoDB in the cloud with the cloud provider of your choice, secured by default and automatically backed up.&lt;/p&gt;
-
-&lt;h3 id=&quot;getting-started&quot;&gt;Getting started&lt;/h3&gt;
-&lt;p&gt;It is very easy to get started since a free tier is provided for everyone and you can deploy with the cloud provider of your choice (Azure , GCP, AWS).
-A cluster can be started for free in just a few clicks.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2018-11-08-mongodb-europe-2018/create-mongodb-atlas-cluster.png&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Start your own cluster: &lt;a href=&quot;https://cloud.mongodb.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://cloud.mongodb.com&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;cloud&quot;&gt;Cloud&lt;/h3&gt;
-&lt;p&gt;MongoDB Atlas is a cross-platform database which you can run on Amazon Web Services, Google Cloud or Microsoft Azure. 
-It provides you an availability map that shows you which users are served from where and what the expected latency is.&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2018-11-08-mongodb-europe-2018/global-clusters.png&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;scalability&quot;&gt;Scalability&lt;/h3&gt;
-&lt;p&gt;When your database grows it is easy to scale up or out.
-You can scale up by increasing the size of the instance on which your database runs.
-Scaling out is done by the process of sharding.
-Here we are storing data of the same collection across multiple smaller partitions so we can distribute these partitions over multiple machines and increase read-write performance.
-This way you do not run into the limitations of a single server.&lt;/p&gt;
-
-&lt;p&gt;To ensure that MongoDB stores data equally across shards you need the right strategy of choosing a partition key.&lt;/p&gt;
-
-&lt;h3 id=&quot;high-availability&quot;&gt;High availability&lt;/h3&gt;
-&lt;p&gt;When a primary node goes down, a new primary is chosen immediately by a system of voting.
-All nodes vote on who should become the new primary. 
-The node with the majority of votes becomes the new primary.
-A general guideline is to have a replica set that consists of one primary node and at least two secondary nodes.
-To ensure maximum uptime the procedure to recover from instance failures is completely automated.&lt;/p&gt;
-
-&lt;h1 id=&quot;mongodb-university&quot;&gt;MongoDB University&lt;/h1&gt;
-
-&lt;p&gt;With &lt;a href=&quot;https://university.mongodb.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MongoDB University&lt;/a&gt;, Mongo has its own platform for online courses.
-A lot of them are available for free.
-You can pick out courses according to your needs or profession.
-There are training tracks for Developers, DBA’s and everyone else…
-The courses are ideal to get you started or to deepen your knowledge when you want to be more advanced.
-If you want you can even get certified!
-I speak from my own experience when I say that the University platform is great to work with, and the courses are very well taught.
-Find all available resources here: &lt;a href=&quot;https://university.mongodb.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://university.mongodb.com/&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h1 id=&quot;compass-aggregation-pipeline-builder&quot;&gt;Compass Aggregation Pipeline Builder&lt;/h1&gt;
-
-&lt;p&gt;Recently the aggregation pipeline builder was introduced in &lt;a href=&quot;https://www.mongodb.com/products/compass&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MongoDB Compass&lt;/a&gt;.
-This allows you to create an aggregation pipeline step by step and that makes it easy to debug the pipeline along the way.
-Let’s see an example: &lt;br /&gt;
-Suppose I have a collection which contains documents that represent a person, like this :
-Here are two examples of elements in the collections:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-	&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_id&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;ObjectId(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;5be40f6e7047ead15753d073&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-	&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;firstName&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Didi&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-	&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lastName&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Verhoft&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-	&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;birthYear&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1996&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-	&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_id&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;ObjectId(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;5be40f6e7047ead15753d074&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-	&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;firstName&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Nick&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-	&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lastName&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Van Hoof&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-	&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;birthYear&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1992&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;A person has the fields lastName, firstName and birthYear (and of course for some people more info could be stored).
-I want to build a pipeline with the following functionality:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;I want to filter out all people that share my lastname “Van Hoof”&lt;/li&gt;
-  &lt;li&gt;Then I want to count how many times these people also share the same firstname and birthyear&lt;/li&gt;
-  &lt;li&gt;Next I want to group them by birthYear so that I can see how many people were named “Nick Van Hoof “ (my fullname) in 1992.&lt;/li&gt;
-  &lt;li&gt;Finally, I want them sorted on year in ascending order&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Filter all with last name  “Van Hoof” and group by lastName, firstName and year:&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2018-11-08-mongodb-europe-2018/aggregation-pipeline-builder-compose-1.png&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Group by year and sort in ascending order:&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2018-11-08-mongodb-europe-2018/aggregation-pipeline-builder-compose-2.png&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;As you can see from the images above, Compass will show all the intermediary results. 
-With one push of a button you can generate a command line query or the translation to a programming language.
-Compass tells me the full aggregate will look like :&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;people&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;aggregate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;$match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                      &lt;span class=&quot;na&quot;&gt;lastName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Van Hoof&quot;&lt;/span&gt;
-                    &lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;$group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                      &lt;span class=&quot;na&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; 
-                        &lt;span class=&quot;s2&quot;&gt;&quot;lastName&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;$lastName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                        &lt;span class=&quot;s2&quot;&gt;&quot;firstName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;$firstName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                        &lt;span class=&quot;s2&quot;&gt;&quot;year&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;$birthYear&quot;&lt;/span&gt;
-                      &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-                      &lt;span class=&quot;na&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                         &lt;span class=&quot;na&quot;&gt;$sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; 
-                      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-                    &lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;$group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                            &lt;span class=&quot;s2&quot;&gt;&quot;_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                                &lt;span class=&quot;s2&quot;&gt;&quot;year&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;$_id.year&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-                            &lt;span class=&quot;s2&quot;&gt;&quot;occurences&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                              &lt;span class=&quot;s2&quot;&gt;&quot;$push&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                                  &lt;span class=&quot;s2&quot;&gt;&quot;identity&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;$_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                                  &lt;span class=&quot;s2&quot;&gt;&quot;count&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;$count&quot;&lt;/span&gt;
-                              &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-                            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-                    &lt;span class=&quot;p&quot;&gt;}},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;$sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                      &lt;span class=&quot;s2&quot;&gt;&quot;_id.year&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-                    &lt;span class=&quot;p&quot;&gt;}}])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;It would have been a lot harder to write this query manually, without the pipeline builder.&lt;/p&gt;
-
-&lt;h1 id=&quot;common-query-mistakes&quot;&gt;Common query mistakes&lt;/h1&gt;
-&lt;p&gt;(&lt;a href=&quot;https://sched.co/FmAd&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Tips And Tricks for Avoiding Common Query Pitfalls, Christian Kurze&lt;/a&gt;)&lt;/p&gt;
-
-&lt;h3 id=&quot;key-takeaways-from-this-session&quot;&gt;Key takeaways from this session&lt;/h3&gt;
-
-&lt;p&gt;Generally speaking, there are three major causes of query slowness:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Blocking operations&lt;/li&gt;
-  &lt;li&gt;Using the &lt;code class=&quot;highlighter-rouge&quot;&gt;$or&lt;/code&gt; operator&lt;/li&gt;
-  &lt;li&gt;Case insensitive searches&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;It’s not uncommon that a properly tuned query delivers a factor 1000 speed-up.
-So it’s definitely worth investigating.&lt;/p&gt;
-
-&lt;h3 id=&quot;problem-1-blocking-operations&quot;&gt;Problem 1: blocking operations&lt;/h3&gt;
-&lt;p&gt;This happens when you use an operator that needs all the data before producing results, so results can’t be streamed.
-The most common culprits are the aggregation operators such as &lt;code class=&quot;highlighter-rouge&quot;&gt;$sort&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;$group&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;$bucket&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;$count&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;$facet&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Possible solutions:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Create a compound index to support your query and make sure that the sort order in the index is the same as in your query.&lt;/li&gt;
-  &lt;li&gt;Offload the query to a secondary member.&lt;/li&gt;
-  &lt;li&gt;Work around the issue by using a precalculated count.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;problem-2-and-is-fast-or-is-slow&quot;&gt;Problem 2: &lt;code class=&quot;highlighter-rouge&quot;&gt;$and&lt;/code&gt; is fast, &lt;code class=&quot;highlighter-rouge&quot;&gt;$or&lt;/code&gt; is slow&lt;/h3&gt;
-&lt;p&gt;Sometimes a query is fast when you use the &lt;code class=&quot;highlighter-rouge&quot;&gt;$and&lt;/code&gt; operator but slow when you use the &lt;code class=&quot;highlighter-rouge&quot;&gt;$or&lt;/code&gt; operator.&lt;/p&gt;
-
-&lt;p&gt;Solution:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Use a compound index to support &lt;code class=&quot;highlighter-rouge&quot;&gt;$and&lt;/code&gt; queries.&lt;/li&gt;
-  &lt;li&gt;Use separate single field indexes to support &lt;code class=&quot;highlighter-rouge&quot;&gt;$or&lt;/code&gt; queries.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;problem-3-case-insensitive-searches-are-slow&quot;&gt;Problem 3: case insensitive searches are slow!&lt;/h3&gt;
-&lt;p&gt;It is much harder for MongoDB to perform case insensitive searches because it has to match all possible permutations of the search string. 
-For example, if you do a case insensitive search for the string “ace”, it has to match “ace”,”Ace”,”aCe”,”ACe”, and so on…&lt;/p&gt;
-
-&lt;p&gt;Solution:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;(3.4 and higher) Support the query with a case insensitive index.&lt;/li&gt;
-  &lt;li&gt;Alternatively, store a toLower() copy of the string in another field and index and query that field instead.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;general-tips-and-tricks&quot;&gt;General tips and tricks&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Create an index on an element you are interested in instead of scanning the whole table.&lt;/li&gt;
-  &lt;li&gt;When you query on a combination of fields create a compound index for these fields and not separate indices on each field.&lt;/li&gt;
-  &lt;li&gt;…but be careful with the usage of &lt;code class=&quot;highlighter-rouge&quot;&gt;$or&lt;/code&gt;!&lt;/li&gt;
-  &lt;li&gt;Build indices in the background instead of making it a blocking operation.&lt;/li&gt;
-  &lt;li&gt;Do not index all fields as this will negatively impact write performance. 
-Investigate what you really need!&lt;/li&gt;
-  &lt;li&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;.explain()&lt;/code&gt; to analyze queries.&lt;/li&gt;
-  &lt;li&gt;Ops Manager and Atlas have a &lt;a href=&quot;https://docs.atlas.mongodb.com/performance-advisor/&quot;&gt;Performance Advisor&lt;/a&gt; to help you identify problematic queries.&lt;/li&gt;
-  &lt;li&gt;Train your people.&lt;/li&gt;
-  &lt;li&gt;Work smarter, not harder!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;stitch&quot;&gt;Stitch&lt;/h1&gt;
-&lt;p&gt;(&lt;a href=&quot;https://sched.co/FmAJ&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Ch-Ch-Ch-Ch-Changes: Taking Your MongoDB Stitch Application to the Next Level With Triggers, Andrew Morgan&lt;/a&gt;)&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Write less code and build apps faster!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Stitch is the ‘Serverless platform from MongoDB’, and it comes with a free tier to play around!
-It provides a very easy way to create an application without having to write lots of code in a separate backend.
-The functionalities of Stitch are provided through an SDK.
-Currently there are SDK’s for JavaScript, React Native, IOS and Android.
-There is even an Electric Imp Library for IoT devices.&lt;/p&gt;
-
-&lt;p&gt;Stitch has four main services :&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Stitch QueryAnywhere&lt;/li&gt;
-  &lt;li&gt;Stitch Functions&lt;/li&gt;
-  &lt;li&gt;Stitch Triggers&lt;/li&gt;
-  &lt;li&gt;Stitch Mobile Sync&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;stitch-queryanywhere&quot;&gt;Stitch QueryAnywhere&lt;/h3&gt;
-&lt;p&gt;QueryAnywhere enables you to query the database directly instead of going through a REST api.
-The benefit here is that as a client application you are not restricted to what a REST api would expose but you can use all the power of the MongoDB Query Language directly:&lt;/p&gt;
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;employees&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mongodb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;HR&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;employees&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;employees&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;limit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;salary&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;asArray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Of course, all of this is secured with authentication and fine grained authorization based on the logged in user or the contents of the documents.&lt;/p&gt;
-
-&lt;h3 id=&quot;stitch-functions&quot;&gt;Stitch Functions&lt;/h3&gt;
-&lt;p&gt;You can write JavaScript functions in the Stitch serverless platform and combine database calls with cloud services.
-For example, send a message with Twilio to all users:&lt;/p&gt;
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
- &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mongodb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'mongodb-atlas'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
- &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;twilio&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'twilio'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
- &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;coll&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mongodb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'db'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'users'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;coll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toArray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;users&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-   &lt;span class=&quot;nx&quot;&gt;twilio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;phone&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'twilioNumber'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;
-   &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
- &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;​&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// Then call callFunction from the client side&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;stitchClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;callFunction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'sendMessage'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Hello from Stitch!'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;stitch-triggers&quot;&gt;Stitch Triggers&lt;/h3&gt;
-&lt;p&gt;MongoDB does not provide triggers, as known in the RDBMS world.
-With MongoDB change streams you can build your own triggers in your application.
-This comes with the cost of handling the complexity of change streams yourself. 
-For example: how to resume the change stream after a network issue?
-So that’s why there is Stitch Triggers to make this easier.&lt;/p&gt;
-
-&lt;p&gt;Stitch triggers combines change streams with Stitch Functions.
-So when the inventory of an article goes up, Stitch Trigger calls a function that uses Twilio to send a text message to your client.&lt;/p&gt;
-
-&lt;h3 id=&quot;stitch-mobile-sync&quot;&gt;Stitch Mobile Sync&lt;/h3&gt;
-&lt;p&gt;Since 4.0, MongoDB provides a &lt;a href=&quot;https://www.mongodb.com/products/mobile&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Mobile&lt;/a&gt; version for IOS and Android.
-With Stitch, you can sync your data in your mobile application with your database.
-So now you can use the full MongoDB Query Language, including aggregations, on your mobile device and sync it with your database.&lt;/p&gt;
-
-&lt;h3 id=&quot;built-in-external-integrations&quot;&gt;Built-in external Integrations&lt;/h3&gt;
-&lt;p&gt;The fun with Stitch really starts when you combine all the goodness of Stitch with its integrations with cloud services like Twilio, AWS, Google, etc…
-You can authenticate with Google, store files on S3 or spin up a cluster on Redshift after you send a text message with Twilio.
-All of this can be hidden behind a simple function call for your application, or a trigger on your Atlas cluster.&lt;/p&gt;
-
-&lt;h3 id=&quot;limited-to-stitch-ui&quot;&gt;Limited to Stitch UI?&lt;/h3&gt;
-&lt;p&gt;Luckily MongoDB builds its products with developers in mind.
-So you can import and export your Stitch applications and put them in a source control of your choice.&lt;/p&gt;
-
-&lt;h1 id=&quot;meet-the-experts&quot;&gt;Meet the experts&lt;/h1&gt;
-&lt;p&gt;At the conference you had the chance to book a 20 minute session with a MongoDB expert.
-This was of great help in getting to know the new MongoDB Aggregation Pipeline builder.
-The expert also gave some more tips in “thinking noSQL”.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;When data is shown together it is stored together – MongoDB expert&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Data should be stored in the same way it is used – MongoDB expert&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;streaming-data-pipelines-with-mongodb-and-kafka-at-ao&quot;&gt;&lt;a href=&quot;https://sched.co/FmAp&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Streaming data pipelines with MongoDB and Kafka at AO&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;Appliances Online, &lt;a href=&quot;https://ao.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AO&lt;/a&gt;, is an international online appliances retailer.
-They wanted to solve the issue of having data locked in different places so they wanted a &lt;a href=&quot;https://en.wikipedia.org/wiki/Single_customer_view/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Single Customer View&lt;/a&gt;.
-The idea was to get the data from all the different places and consolidate this in MongoDB.
-We are talking here about data stored in legacy databases or messages going through queues.
-The data could be the usual customer data and phone calls with customer care.
-But also about parcels moving through the warehouse and delivery tracking.
-They wanted to get the data while it’s hot, not in hourly or daily (or worse…) batches.
-It was decided to use MongoDB to build up this materialised view of all different data streams, and Atlas to be able to focus on the application and not the database administration.&lt;/p&gt;
-
-&lt;p&gt;The vast majority of the data resides in MsSql databases.
-Extraction happens with &lt;a href=&quot;https://www.confluent.io/connector/kafka-connect-cdc-microsoft-sql/&quot;&gt;Kafka Connect SQL CDC&lt;/a&gt; to generate a stream of all create, update and delete operations into a stream, and push it to Kafka.&lt;br /&gt;
-All with a simple piece of configuration like:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;msSqlSourceConnector1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;config&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;connector.class&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;io.confluent.connect.cdc.mssql.MsSqlSourceConnector&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tasks.max&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;initial.database&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;testing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cdc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;secret&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;server.name&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;db-01.example.com&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;server.port&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1433&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;They use Avro for the schema definition in combination with a schema-registry.
-Interested clients can then read the data off the topics and do their single-view-thing on the data and save it to MongoDB.
-The view is being built up, message per message.
-Afterwards this view in  MongoDB is then pushed back to Kafka as another stream to provide this data to interested parties.
-This avoids locking the data in one place.&lt;/p&gt;
-
-&lt;p&gt;To finish it of they shared some lessons learned :&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Watch out for frameworks generating queries.&lt;br /&gt;
- They can create bad performing aggregations or queries.&lt;br /&gt;
- For them it was better to write some queries explicitly.&lt;/li&gt;
-  &lt;li&gt;Use custom _id for unique determination of your model, it saves an index and RAM&lt;/li&gt;
-  &lt;li&gt;Watch out for unbounded document growth.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;mongodb-enterprise-operator-for-kubernetes-at-amadeus&quot;&gt;&lt;a href=&quot;https://sched.co/FmAc&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MongoDB Enterprise Operator for Kubernetes at Amadeus&lt;/a&gt;&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://amadeus.com/en&quot;&gt;Amadeus&lt;/a&gt; is the world’s largest technology company dedicated to the travel industry.
-They have developed an impressive MongoDB farm, a large environment with 100 clusters.
-Some of these clusters run more than 100 shards, while others have 100TB MongoDB databases.
-Amadeus processes more than 1 trillion flight availability requests per day. 
-For each single search you do on a website they receive 500.000 availability requests.
-So search responsibly ;-)
-The number of requests per day grows by 50% each year.
-The second of January has by far the most requests, due to new years resolutions!
-If this day is in the weekend all systems are pushed to their limits.
-The airline fare database for one of their big clients, Kayak, is 100TB in size and changes daily.
-That’s some pretty big numbers there.
-No wonder that Amadeus is a happy user of the MongoDB Enterprise Operator for Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;Starting with the MongoDB Ops Manager v4.0, MongoDB officially supports the management and deployment of MongoDB in Kubernetes with Backup, Automation, Alerting and Monitoring.
-A &lt;a href=&quot;https://github.com/mongodb/mongodb-enterprise-kubernetes&quot;&gt;MongoDB Enterprise Kubernetes Operator&lt;/a&gt; has app-specific awareness about stateful applications, so it knows how to deploy them.
-This operator helps automating scripted tasks and enables MongoDB-as-a-service for developers.
-It talks to Ops Manager and delegates the creation of clusters, shards, backups and automation to Ops Manager.
-The underlying necessary Kubernetes infrastructure is orchestrated by the operator itself and so they work in conjunction.
-This provides for clusters to be setup, scaled up/down/out/in, with a single simple yaml file.
-And kubernetes provides the self-healing capabilities, how nice is that!?&lt;/p&gt;
-
-&lt;p&gt;The following yaml file is all you need to spin up a 3 node replica set :&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;mongodb.com/v1&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;MongoDbReplicaSet&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;myReplicaSet&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;mongodb&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;members&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;3&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;4.0.1&lt;/span&gt;
-
-  &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;projectName&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;credentials&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;myUberSecretCredentials&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;I kid you not, that’s it.&lt;/p&gt;
-
-&lt;p&gt;Scale out or back in with a simple change in the config yaml and&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cubectl apply &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; file.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;mongodb-charts&quot;&gt;MongoDB Charts&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://sched.co/FtWP&quot;&gt;Bringing Data to Life with MongoDB Charts&lt;/a&gt;, Guillaume Meister.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Currently, if you want to visualize data in a MongoDB database you either have to code it yourself, or rely on a 3rd party tool and migrate your data to a different platform (for example: Kibana with Elasticsearch is very popular).
-Needless to say that this can be quite cumbersome.
-&lt;a href=&quot;https://www.mongodb.com/products/charts&quot;&gt;MongoDB Charts&lt;/a&gt; intends to solve this.&lt;/p&gt;
-
-&lt;p&gt;So what is it? 
-MongoDB Charts is a visualization tool that runs as a standalone webserver so you can access it via a web browser.&lt;/p&gt;
-
-&lt;p&gt;In Charts you define data sources by pointing to a collection or view on a MongoDB instance.
-Then you can create all kinds of visualizations based on the data source, using various aggregation and filter functions.
-Finally, you can combine charts into dashboards with a customized layout and you can share these with other users.&lt;/p&gt;
-
-&lt;p&gt;A picture is worth a thousand words, so to give you a better idea of what it is all about, let’s look at an animation of Charts in action:&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2018-11-08-mongodb-europe-2018/mongodb-charts-01.gif&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Charts is still in beta but you can already try it out. 
-MongoDB provides a docker image that you can &lt;a href=&quot;https://www.mongodb.com/download-center/charts&quot;&gt;download&lt;/a&gt; via the MongoDB download center.&lt;/p&gt;
-
-&lt;h1 id=&quot;closing&quot;&gt;Closing&lt;/h1&gt;
-&lt;p&gt;It was a great day being submerged in MongoDB-knowledge. 
-This conference gave us plenty of opportunity to talk to other experts and learn about the new and upcoming features.&lt;/p&gt;
-
-&lt;p&gt;Keep an eye on this space for more MongoDB goodness.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Chris&quot;, &quot;last_name&quot;=&gt;&quot;De Bruyne&quot;, &quot;permalink&quot;=&gt;&quot;/author/chris-de-bruyne&quot;, &quot;avatar&quot;=&gt;&quot;chris-de-bruyne.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Java Developer&quot;, &quot;title2&quot;=&gt;&quot;Principal MongoDB Consultant&quot;, &quot;email&quot;=&gt;&quot;chris.debruyne@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;ceedeebee2901&quot;, &quot;bio&quot;=&gt;&quot;Chris is a Senior Java Developer at Ordina Belgium, passionate about Java and MongoDB. Chris is passionate to help colleagues and clients to get the most out of MongoDB and the Java eco system.&quot;}</name><email>chris.debruyne@ordina.be</email></author><category term="Development" /><category term="Development" /><category term="MongoDB" /><category term="DBA" /><category term="Data" /><category term="Kubernetes" /><category term="Conference" /><summary type="html">MongoDB Europe is a yearly conference where MongoDB shows off their latest features and new products. This year the venue took place in Old Billingsgate Walk, London. Jan, Nick and Chris wrote this blog post to summarize several of the given sessions.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-11-08-mongodb-europe-2018/main-image-mdbe.png" /></entry></feed>
+Although you can test a lot in your unit tests, implementing End 2 End testing, mock and real, is recommended.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Vierbergen&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-vierbergen/&quot;, &quot;avatar&quot;=&gt;&quot;tim-vierbergen.jpg&quot;, &quot;twitter&quot;=&gt;&quot;vierbergentim&quot;, &quot;linkedin&quot;=&gt;&quot;tim-vierbergen-82557834&quot;, &quot;github&quot;=&gt;&quot;VeeTeeDev&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;title2&quot;=&gt;&quot;Principal Consultant &amp; Competence Lead CI/CD&quot;, &quot;email&quot;=&gt;&quot;tim.vierbergen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a senior developer and architect at JWorks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.&lt;br /&gt;&lt;br /&gt;Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learing how to snowboard.&quot;}</name><email>tim.vierbergen@ordina.be</email></author><category term="Testing" /><category term="sse" /><category term="Spring" /><category term="Nodejs" /><category term="Angular" /><category term="Node-RED" /><category term="ci" /><category term="mock" /><summary type="html">Table of contents Intro What are Server-Sent Events Java Nodejs Angular Continuous Integration Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-11-21-sse-spring-node-dev-ci/sse-front.png" /></entry></feed>

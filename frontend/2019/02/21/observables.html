@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Observables: The right way - Tim Vierbergen">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/observables-the-right-way/cover.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/frontend/2019/02/21/observables.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Observables: The right way - Tim Vierbergen"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/observables-the-right-way/cover.png"/>
+
+    
+    <title>Observables: The right way - Tim Vierbergen &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Observables: The right way</h2>
+                
+
+                
+                    Posted Feb 21, 2019
+
+
+    in <a href="/categories/frontend/">Frontend</a>
+
+
+
+    by
+    
+        <a href="/author/tim-vierbergen/">Tim Vierbergen</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/angular/">Angular</a>, 
+    
+        <a href="/tags/rxjs/">rxjs</a>, 
+    
+        <a href="/tags/observables/">Observables</a>, 
+    
+        <a href="/tags/nodejs/">Nodejs</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="table-of-contents">Table of contents</h1>
+<ol>
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#setup">Setup</a></li>
+  <li><a href="#refactoring">Refactoring</a></li>
+  <li><a href="#example">Example</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ol>
+
+<h1 id="intro">Intro</h1>
+
+<p>During my consultancy projects, I often come across the same implementations and problems when colleagues are trying to implement an observable strategy.
+A lot of frameworks are offering observables out of the box for their communication layer.
+Almost all <code class="highlighter-rouge">Promises</code> are replaced by <code class="highlighter-rouge">Observables</code> nowadays.
+Angular 2+ <code class="highlighter-rouge">HttpModule</code> for example, is using the <code class="highlighter-rouge">rxjs</code> library.
+Each <code class="highlighter-rouge">http.get()</code> is returning an <code class="highlighter-rouge">Observable&lt;HttpResponse&gt;</code>.</p>
+
+<p>The setup is almost always the same.
+A (visual) component needs to render some data.
+So next to the component (HTML/template for view, and a JavaScript(TypeScript) component as the controller), a service gets created.
+This service’s purpose is to provide data to the component’s controller by calling the <code class="highlighter-rouge">HttpClient</code>’s functions (POST, GET, DELETE, PATCH, …) and returning the <code class="highlighter-rouge">Observable</code> to the component.
+Sometimes they are remapping the <code class="highlighter-rouge">Observable&lt;HttpReponse&gt;</code>to a more defined type, for example <code class="highlighter-rouge">Observable&lt;MyData&gt;</code>, by using one of the <code class="highlighter-rouge">rxjs</code> operators such as <code class="highlighter-rouge">flatmap</code>, <code class="highlighter-rouge">map</code>, … .
+All of this works pretty well, as long as only one component is in need of the data and its changes.
+With changes, I refer to refreshing the data, or requerying it with another filter, paging, or …</p>
+
+<div style="text-align: center;">
+  <img src="/img/observables-the-right-way/first-step.png" width="75%" />
+</div>
+
+<p>Every time the query parameters change, the component is just executing the same call in the service, which in turn is calling the right <code class="highlighter-rouge">HttpClient</code>-function.
+Again an (new) <code class="highlighter-rouge">Observable</code> is returned.
+Again the result can get remapped before throttling it back.
+The subscriber, the component controller in this case (or the HTML if you are using Angular’s async pipe), receives the remapped data.</p>
+
+<p>What happens when we have another component that is in need of this data (or maybe just a part of it)?
+Let’s say we have a header and a datatable.
+And we are NOT using push events, but simple REST calls (for the sake of this explanation).
+The datatable is the component we were talking about earlier.
+It needs to display messages in a simple datatable.
+The header is the second component that needs this data.
+It needs to display the number of unread or critical messages.</p>
+
+<p><code class="highlighter-rouge">datatable.component.ts</code></p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">_dataService</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">filter</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">((</span><span class="nx">page</span><span class="p">:</span><span class="nx">Page</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">header.component.ts</code></p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">_dataService</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">filter</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">((</span><span class="nx">page</span><span class="p">:</span><span class="nx">Page</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nx">number</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">data.service.ts</code></p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">public</span> <span class="kd">get</span><span class="p">(</span><span class="nx">filter</span><span class="p">?:</span> <span class="nx">Filter</span><span class="p">):</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">Page</span><span class="o">&gt;</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_http</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'urlToData'</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">parseFilterToString</span><span class="p">(</span><span class="nx">filter</span><span class="p">)).</span><span class="nx">pipe</span><span class="p">(</span>
+		<span class="nx">tap</span><span class="p">((</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">logService</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)),</span>
+		<span class="nx">map</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+			<span class="kd">let</span> <span class="na">page</span><span class="p">:</span> <span class="nx">Page</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Page</span><span class="p">();</span>
+			<span class="nx">page</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+			<span class="nx">page</span><span class="p">.</span><span class="nx">number</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'x-count'</span><span class="p">);</span>
+		<span class="p">})</span>
+	<span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In the setup we have so far, both components will use the same service for requesting the data.
+They will both subscribe to an <code class="highlighter-rouge">Observable</code>, however, it will be a different one.
+When you refresh the data in the datatable, the header will not receive a new value in its subscription and therefore will still show the old number of messages.</p>
+
+<p>In some use cases this might be the desired outcome, but in most cases you want more components to be able to subscribe to the same <code class="highlighter-rouge">Observable</code>.</p>
+
+<h1 id="setup">Setup</h1>
+
+<p>In our new setup, we want both, header and datatable, to subscribe to the same Observable, so a call for new data will result in an update in the datatable and the header.
+To make this happen, we will use some kind of layer in between them.
+This new layer will provide our components with one and only one and the same <code class="highlighter-rouge">Observable</code> and will mask the communication layer from the view’s controller.
+Both components will subscribe to this service, so they both get updated with the same result.
+We can do this by creating a simple <code class="highlighter-rouge">Subject</code> in our service and returning it as an <code class="highlighter-rouge">Observable</code> to our components.
+We can then implement other calls for this service that will trigger an update of the data, and send it through the subject to both components.
+Because we are not providing a filter when we call the getter for the <code class="highlighter-rouge">Observable</code> (<code class="highlighter-rouge">Subject</code>) we should also find a way of providing the filter to the service, before requerying the data.
+This means we are going to use one shared filter, for both components, which makes sense in this case, but not in all use cases.</p>
+
+<div style="text-align: center;">
+  <img src="/img/observables-the-right-way/second-step.png" width="75%" />
+</div>
+
+<h1 id="refactoring">Refactoring</h1>
+
+<p>We actually don’t need to refactor any of our components.
+They will still subscribe to an <code class="highlighter-rouge">Observable</code> of the service, and react on the incoming data.
+The service however will get refactored.
+Start by defining the <code class="highlighter-rouge">Subject</code> as a local property, and because we are going to implement a getter, we can make it private.</p>
+
+<p><code class="highlighter-rouge">data.service.ts</code></p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kr">private</span> <span class="nx">_data$</span><span class="p">:</span> <span class="nx">Subject</span><span class="o">&lt;</span><span class="nx">Page</span><span class="o">&gt;</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BehaviorSubject</span><span class="o">&lt;&gt;</span><span class="p">({});</span>
+<span class="p">...</span>
+
+<span class="kr">public</span> <span class="nx">data</span><span class="p">():</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">Page</span><span class="o">&gt;</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_data$</span> <span class="k">as</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">Page</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">...</span>
+
+<span class="kr">public</span> <span class="nx">reload</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">_http</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'urlToData'</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">parseFilterToString</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_filter</span><span class="p">)).</span><span class="nx">pipe</span><span class="p">(</span>
+		<span class="nx">tap</span><span class="p">((</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">logService</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)),</span>
+		<span class="nx">map</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+			<span class="kd">let</span> <span class="na">page</span><span class="p">:</span> <span class="nx">Page</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Page</span><span class="p">();</span>
+			<span class="nx">page</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+			<span class="nx">page</span><span class="p">.</span><span class="nx">number</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'x-count'</span><span class="p">);</span>
+		<span class="p">}).</span><span class="nx">subscribe</span><span class="p">((</span><span class="na">page</span><span class="p">:</span> <span class="nx">Page</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">_data$</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">page</span><span class="p">);</span>
+		<span class="p">})</span>
+	<span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>This way, every component or service that is subscribing on this subject, is getting data when some other component or service triggers the <code class="highlighter-rouge">reload</code>.
+There are even a lot more options to this setup:</p>
+<ul>
+  <li>Clearing data</li>
+  <li>Resetting to default filter</li>
+  <li>Refreshing the current filter</li>
+  <li>Caching data</li>
+  <li>Manipulating data through other services or components</li>
+  <li>Adding an event consumer that also updates the datatable</li>
+  <li>…</li>
+</ul>
+
+<h1 id="example">Example</h1>
+
+<p>I’ve build a simple example to demonstrate this behaviour.
+A header that is displaying an alert icon when there are unread, critical messages.
+A sidebar that is displaying the amount of unread messages next to its navigation link, and an overview of the messages, with a basic paging implementation.</p>
+
+<div style="text-align: center;">
+  <img src="/img/observables-the-right-way/example.png" width="100%" />
+</div>
+
+<p>A simple backend that is written in Node.js with Express provides a few endpoints:</p>
+<ul>
+  <li><code class="highlighter-rouge">api/message</code> (with paging and filter, although the filter isn’t implemented in the frontend example.)</li>
+  <li><code class="highlighter-rouge">api/message/:id</code> (not used in the example)</li>
+  <li><code class="highlighter-rouge">api/stream</code></li>
+  <li><code class="highlighter-rouge">api/refresh</code></li>
+</ul>
+
+<p>The service is not reloading data as long as the <code class="highlighter-rouge">page</code> or the <code class="highlighter-rouge">filter</code> hasn’t changed.
+While the service is still loading the data, a new reload will not fetch again the data.
+You can find the code on <a target="_blank" href="https://gitlab.com/VeeTeeDev/observables-demo">GitLab</a>.</p>
+
+<div style="text-align: center;">
+  <img src="/img/observables-the-right-way/example-setup.png" width="75%" />
+</div>
+
+<p>Server-Sent Events are added to update the <code class="highlighter-rouge">read</code> status of a message when the envelope gets clicked.
+This will also trigger the observable.</p>
+
+<p>To run front- and backend together, execute the following command in the root of the project:</p>
+
+<p><code class="highlighter-rouge">$ npm run start</code>
+This way, a proxy is added to the <code class="highlighter-rouge">serve</code> command to overcome <code class="highlighter-rouge">CORS</code> blocking going from localhost:4200 to localhost:3000</p>
+
+<p>Don’t mind the backend server, it’s a quick and dirty solution and is not implemented as it should.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Although observables are a great feature, and are easy to use, it’s always better to have your own layer of control.
+Especially when it comes to using observables from frameworks.
+I can accept, for simple applications, that you don’t want to ‘over-architect’.
+But in most cases, you want to control the distribution yourself.
+For those of you that know <code class="highlighter-rouge">Redux</code> (RxJS), you can compare this implementation with effects and <code class="highlighter-rouge">store</code>-subscriptions.
+If you trigger an effect, you will only see the result when you have subscribed to the ‘key’ that is responsible for providing you with the data,
+and not to the ‘key’ that is responsible for triggering the effect.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/frontend/2019/02/21/observables.html&title=Observables: The right way&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Observables: The right way&url=https://ordina-jworks.github.io/frontend/2019/02/21/observables.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/frontend/2019/02/21/observables.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/tim-vierbergen/" class="image spotlight-image" title="">
+            <img src="/img/author/tim-vierbergen.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Tim is a senior developer and architect at JWorks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.<br /><br />Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learing how to snowboard.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/observables-the-right-way/cover.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
