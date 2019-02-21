@@ -8,20 +8,29 @@ category: Streaming
 comments: true
 ---
 
-Earlier I did a workshop at Ordina in order to introduce my collegues to the wonderfull world of stream processing, for that workshop I used traffic data.
-Since, especially in Belgium, traffic data is something everybody can easily relate to as we all have to endure it every workday.
+Earlier I did a workshop at Ordina in order to introduce my collegues to the wonderfull world of stream processing.
+For that workshop I used traffic data, since especially in Belgium, traffic data is something everybody can easily relate to as we all have to endure it every workday.
+
+# Table of content
+1. [Introduction](#introduction)
+2. [The Data](#the-data)
+3. [Native Java Processing](#native-java-stream-processing)
+4. [Kafka Streams with Spring Kafka](#spring-kafka)
+5. [Apache Storm](#apache-storm)
+
 
 ## Introduction
-In this blog post we will use traffic data as it is made available by the flemish governement.
+In this blog post we will use traffic data which is made available by the flemish governement.
 
-Several [Spring Boot](https://spring.io/projects/spring-boot) applications will be made which will handle this data:
+Several examples will be provided about how this data can be processed in various ways:
 * Transform the data into events with [Spring Cloud Stream](https://cloud.spring.io/spring-cloud-stream/)
-* Do some stream processing using just plain old native java.
-* Process these events with [Kafka Streams](https://kafka.apache.org/documentation/streams/) with [Spring Kafka](https://spring.io/projects/spring-kafka)
+* Do some stream processing using some plain old java, the native way.
+* Process these events with [Kafka Streams](https://kafka.apache.org/documentation/streams/) via [Spring Kafka](https://spring.io/projects/spring-kafka)
 * Do similar processing with [Apache Storm](http://storm.apache.org/)
 
-## The Data
+# The Data
 The traffic data is registered on fixed sensors installed in the road itself.
+
 <img alt="Sensor " src="/img/2018-08-08-streaming-traffic-data/detectielussen%20A12.JPG" class="image fit">
 
 General information about the sensors can be retrieved from [http://miv.opendata.belfla.be/miv/configuratie/xml](http://miv.opendata.belfla.be/miv/configuratie/xml).
@@ -43,9 +52,9 @@ General information about the sensors can be retrieved from [http://miv.opendata
 
 It is pretty static as these sensors do not tend to move themselves. 
 
-Every minute latest sensor output is published on [http://miv.opendata.belfla.be/miv/verkeersdata](http://miv.opendata.belfla.be/miv/verkeersdata)
+Every minute the latest sensor output is published on [http://miv.opendata.belfla.be/miv/verkeersdata](http://miv.opendata.belfla.be/miv/verkeersdata)
 
-This is one big xml file containing all the aggregated data of every sensor for the last minute.
+This is one big xml file containing all the aggregated data of every sensor of the last minute.
 ``` java
     <meetpunt beschrijvende_id="H211L10" unieke_id="1152">
         <lve_nr>177</lve_nr>
@@ -87,20 +96,20 @@ This is one big xml file containing all the aggregated data of every sensor for 
         </rekendata>
 ```
 
-For more information about this dataset (in Dutch) can be found at [https://data.gov.be/nl/dataset/7a4c24dc-d3db-460a-b73b-cf748ecb25dc](https://data.gov.be/nl/dataset/7a4c24dc-d3db-460a-b73b-cf748ecb25dc).
+For more information (in dutch) about this dataset you can go to [https://data.gov.be/nl/dataset/7a4c24dc-d3db-460a-b73b-cf748ecb25dc](https://data.gov.be/nl/dataset/7a4c24dc-d3db-460a-b73b-cf748ecb25dc).
 Over there you can also find the xsd files describing the xml structure.
 
 ## Transform to Events
-Since we are using Spring Boot, just go to [https://start.spring.io/](https://start.spring.io/) and get started.
+Since I am using Spring Boot to kickstart the application, you can go to [https://start.spring.io/](https://start.spring.io/) and get started.
 Some handly baseline dependencies to get started are: Web, Actuator and Devtools.
 
 Because the data is provided to us in a single xml file, we will transform it into separate events per sensor.
-This brings it also inline with how true sensory events would arrive within our system.
+This brings it also inline with how true sensory events would arrive within our system if we would not be dealing with a big xml file.
 
 A small Spring Cloud Stream application will be built to read in the xml, transform it to events and push these events in a Kafka topic.
 
 You might wonder, why would we use Spring Cloud Stream for this?
-As it is just very easy to read/write messages to Kafka with it.
+It makes it very easy to read/write messages to Kafka with it.
 
 Add the appropriate starter:
 ``` java
@@ -182,7 +191,7 @@ For every sensorpoint per vehicle we will extract 1 TrafficEvent.
         private Date lastUpdated;
 
         /*
-        actueel_publicatie: 1 = data is minder dan 3 minuten oud.
+        actueel_publicatie: 1 = data is less then 3 minutes old.
          */
         private Boolean recentData;
 
@@ -256,7 +265,7 @@ We will also retrieve the detailed sensor information from the xml containing th
 ```
 
 
-Write to a topic.
+Write these events to a topic.
 ``` java
     public void sendMessage(TrafficEvent trafficEvent) {
         outputChannels.trafficEvents().send(MessageBuilder.withPayload(trafficEvent).build());
@@ -273,7 +282,7 @@ Write to a topic.
 
 The events will be send to Kafka as JSON messages.
 
-With the scheduled annotation Spring Boot will read in the events every 60 seconds.
+With the `@Scheduled` annotation Spring Boot will read in the events every 60 seconds.
 ``` java
     @Scheduled(fixedRate = 60000)
     public void run() throws Exception {
@@ -281,40 +290,41 @@ With the scheduled annotation Spring Boot will read in the events every 60 secon
     }
 ```
 
-When you are taking your data in, it is important to decide what to send in.
+When you are taking your data in it is important to decide what you want to send in.
+
 You do not want to remove too much information, but also you don't want that your events become too bloated.
-Meaning, that they contain too much information and you need to spend a lot of time extracting data when analysing your data.
+Meaning, that they contain too much information and you need to spend a lot of time extracting information when analysing your data.
 Keep them as close to the actual event as possible, only adding in data if this is required.
 
-In our current example the sensor data does not need to be part of the traffic events, as it is pretty static.
-If in your situation, you have another data entry which changes every few events, it might be worthwhile to already add it to your event when taking it in.
-So that later you on you do not have to spend time merging data together.
+In our current example the sensor location does not need to be part of the traffic events as it is pretty static.
+If in your situation, you have another data entry where your sensor specifc data changes every few events, it might be worthwhile to add it to your event when taking it in.
+So that later on you do not have to spend time joining that data together.
 
-Sometimes your intake data is also too large, it is not wrong to ignore certain properties when taking in data in you stream.
+Sometimes your intake data is also too large, it is not wrong to ignore certain properties when taking in data in your stream.
 
-In our case we ignore a lot of the properties withing the xml, as they do not serve our excample.
-But getting the X_coord_EPSG_31370 property of a sensor out of a xml file which was available yesterday is going to be pretty hard, this blog is not about time travel.
-
+In our case we ignore a lot of the properties within the xml, as they do not serve our example.
 Having less properties to analyze can make your life easier, but if that raw data is no longer available you have lost that information for good.
+
+Be wise with what you remove as time travel is not something we can code in, ignored data is lost forever.
 
 ### Takeaways
 * Think in events
 * Keep the data structure as flat as possible
 * Do not optimize your data too soon
 
-## Native Java Stream Processing
+# Native Java Stream Processing
 
 ### Do not forget
 Do not forget that you can also process your events in native Java.
-You will not have a lot of fancy features available, but it might get the job done.
+You will not have a lot of fancy features available but it might get the job done.
 
-Especially when you take into consideration the extra cost involved in introduction a streaming framework.
+Especially when you take into consideration the extra cost involved in introducting a streaming framework.
 For both Kafka and Storm you not only need to setup a cluster of the framework itself, but also of Zookeeper.
 
 That setup does not come for free and will need to be maintained in the future.
 
 ### Easy to get started
-With Spring Cloud Stream it is easy to get going with processing your stream of data.
+With Spring Cloud Stream it is easy to start processing your stream of data in native java.
 
 First define a [SubscribableChannel](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/messaging/SubscribableChannel.html)
 ``` java
@@ -322,7 +332,7 @@ First define a [SubscribableChannel](https://docs.spring.io/spring/docs/current/
     SubscribableChannel trafficEvents();
 ```
 
-Then you will need to define a MessageHandler which will describe what you will do with every message you process.
+Then you will need to define a `MessageHandler` which will describe what you will do with every message you process.
 ``` java
     MessageHandler messageHandler = (message -> {
             log.info("retrieved message with header " + message.getHeaders().toString());
@@ -360,7 +370,7 @@ Then you will need to define a MessageHandler which will describe what you will 
         });
 ```
 
-Finally, link that MessageHandler to an InputChannel.
+Finally, link that MessageHandler to an `InputChannel`.
 ``` java
     inputChannels.trafficEvents().subscribe(messageHandler);
 ```
@@ -368,8 +378,8 @@ Finally, link that MessageHandler to an InputChannel.
 There you go, you are now processing your stream of data in native java.
 
 It does become obvious that doing something more fancy, like windowing and aggregation, will require you to write all of that logic yourself.
+This can get out of hand pretty quickly, so do watch out for that.
 
-This can get out of hand pretty quickly, so, do watch out for that.
 But for simple data processing, nothing beats some native Java.
 
 ### Takeaways Native Java
@@ -377,49 +387,44 @@ But for simple data processing, nothing beats some native Java.
 * Easy to get started.
 * You will lack advanced features like windowing, aggregation, ...
 
-## Spring Kafka
+# Spring Kafka
 
 ### Kafka
 
 [Spring Kafka](https://spring.io/projects/spring-kafka) allows us to easily make use of [Apache Kafka](https://kafka.apache.org/).
 
 Kafka is designed to handle large streams of data.
-
-Messages are published into topics and can be stored for mere minute or indefinetely, by default 7 days.
-It is highly scalable allowing topics to be distributed over multiple brokers 
+Messages are published into topics and can be stored for mere minute or indefinetely.
+It is highly scalable allowing topics to be distributed over multiple brokers. 
 
 [Kafka Streams](https://kafka.apache.org/documentation/streams/) allows us to write steam processing applications within the Kafka cluster itself.
 
-For this reason Kafka Streams will use topics for both input and output.
+For this reason, Kafka Streams will use topics for both input and output allowing it to store intermediate results within Kafka itself.
 
 ### What "topics" does Kafka Streams use
 
 [KStream](https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KStream.html)
-
 A KStream records a stream of key/value pairs and can be defined from 1 or more topics.
 It does not matter if a key exists multiple times within the KStream, when you read in the data of a KStream every record will be sent to you.
 
 [KTable](https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KTable.html)
-A KTable is a changelog stream of a primary keyed table, meaning, that whenever a key exists multiple times within the KTable you will receive only the most recent record.
+A KTable is a changelog stream of a primary keyed table, meaning that whenever a key exists multiple times within the KTable you will receive only the most recent record.
 
 [GlobalKTable](https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/GlobalKTable.html)
 Like a KTable, but it is replicated over all Kafka Streams instances, so do be carefull.
 
 [KGroupedStream](https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KGroupedStream.html)
 This is an intermediate format based on a re-grouped stream of records based on a KStream, with usually, a different key then the original primary key.
-
-It is derived from a groupBy() or a groupByKey() on a Kstream.
-Via aggregate(), count() or reduce() it can be converted to a KTable.
+It is derived from a `groupBy()` or a `groupByKey()` on a Kstream.
+Via `aggregate()`, `count()` or `reduce()` it can be converted to a KTable.
 
 [KGroupedTable](https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KGroupedTable.html)
-This is pretty similar to a KGroupedStream, but a KGroupedTable is derived from a KTable via groupBy().
-
-It can be reconverted to a KTable via aggregate(), count() or reduce().
+This is pretty similar to a KGroupedStream, but a KGroupedTable is derived from a KTable via `groupBy()`.
+It can be reconverted to a KTable via `aggregate()`, `count()` or `reduce().
 
 
 ### Coding with Spring Kafka
-
-We still have the Sprint Cloud Stream topics to which we send in some data, let's use these but now with Kafka.
+We still have the Spring Cloud Stream topics to which we send in some data, let's use these but now with Kafka.
 
 First we are going to take in the static data of the sensors into a KTable.
 
@@ -436,7 +441,7 @@ First we are going to take in the static data of the sensors into a KTable.
 ```
 
 The main reason we are using a `KTable` is it makes it easy to be sure to only get the most recent state of that sensor, as a KTable will only return 1 result per key.
-Dummy-topic is just the name I chose, for my example it is not that important.
+Dummy-topic is just the name I chose, for my example it is not that important to have a well defined topic name.
 But do realize that Kafka Streams will persist the state of a Ktable within Kafka topics.
 
 Subsequently we are going to enrich the traffic event with the sensor data.
@@ -456,18 +461,22 @@ Resulting in a new `KStream` with enriched TrafficEvents.
 
 The `.stream(String topic, Consumed<K,V> consumed)` will consume all entries from a topic and transform these into a stream. 
 Mapping these to topic records with a Key and a Value.
-In our case the key is just a String, while the body of the topic will be a json message which gets converted into a `TrafficEvent`.
+In our case the key is just a String, while the body of the topic will be a JSON message which gets converted into a `TrafficEvent`.
 
-With `join()`, full definition `<VT, VR> KStream<K, VR> join(final KTable<K, VT> table,
-                                 final ValueJoiner<? super V, ? super VT, ? extends VR> joiner,
-                                 final Joined<K, V, VT> joined);`
-we join our `KTable` with our `TrafficEvent` records using the `ValueJoiner` we pass along which will result in a new `Joined` result.
+With `join()`, full definition:
+
+``` java
+    <VT, VR> KStream<K, VR> join(final KTable<K, VT> table,
+         final ValueJoiner<? super V, ? super VT, ? extends VR> joiner,
+         final Joined<K, V, VT> joined);
+```
+
+We join our `KTable` with our `TrafficEvent` records using the `ValueJoiner` we pass along which will result in a new `Joined` result.
 The ValueJoiner is just a function in which we indicate what needs to be done with both records the function receives. 
 In our case a `TrafficEvent` and a `SensorData`.
 The `Joined` describes the new record structure we will write towards Kafka using `.to(String topic)` sending the newly generated records to that Kafka topic.
 
-Once this stream has started, it will continue processing these events whenever a new record is inserted on the intake topic.
-
+Once this stream has started it will continue processing these events whenever a new record is inserted into the intake topic.
 
 For some of our further processing we do not care for all traffic events, so lets filter out some.
 
@@ -481,17 +490,16 @@ For some of our further processing we do not care for all traffic events, so let
 
 Filtering happens on the key of the records, so first we will use `selectKey()` passing along a `KeyMapper` to map to the new key.
 The `KeyMapper` is a function to which you pass along the field which you want to become the new key.
-
-Then we will use `filter()` to filter out the keys we want to retain which match the given `Predicate`.
-In our case the Predicate just verifies if a key appears within a `List`:
 ``` java
     private boolean canProcessSensor(String key) {
         return this.sensorIdsToProcess.contains(key);
     }
 ```
 
+Then we will use `filter()` to filter out the keys we want to retain which match the given `Predicate`.
+In our case the Predicate just verifies if a key appears within a `List`:
 
-For every record we will now do some simple processing:
+For every record we will now do some simple processing with `updateStats()`:
 ``` java
     streamToProcessData
         .selectKey((key,value) -> value.getSensorId())
@@ -499,13 +507,11 @@ For every record we will now do some simple processing:
         .foreach((key, value) -> updateStats(value));
 ```
 
-The `updateStats()` method just updates some basic counters to track how much traffic has been processed since we started with the data intake.
+The `updateStats()` method just updates some basic counters to track how much traffic has been processed since we started with the data intake to a hashtable.
 So that we know how many vehicles have passed, which was the highest speed detected, ... 
 
 
-
 ### Windowing
-
 In an ideal world all events arrive in a perfect and timely fashion within our Kafka system.
 
 In an ideal world we can also process all the events we want to process.
@@ -513,13 +519,16 @@ In an ideal world we can also process all the events we want to process.
 In the real world however, this does not compute.
 Events tend to arrive out of order and too late.
 
-If you want to get a count of all the vehicles which ran over your road network from 21:00h to 21:05h but one of your sensors sent its events too late the count you have generated will not be correct.
+If you want to get a count of all the vehicles which ran over your road network from 21:00h to 21:05h but one of your sensors sents its events too late, the count you have generated will not be correct.
 
 Windowing allows you to mitigate these risk by 
 * Limiting the scope of your stream processing
 * Allowing you to catch some "late" events within a window.
 
+For adding windows you use `.windowedBy`, in this example we define a window of 5 minutes which gets every 10 minutes.
+Then you will need to aggregate the results per window with `.aggregate`.
 
+Do not forget to provide the correct `Materialized` parameters so Kafka knows what type of key and value is used as input by the aggregation.
 
 ``` java
     private void createWindowStreamForAverageSpeedPerSensor(KStream<String, TrafficEvent> streamToProcessData) {
@@ -557,12 +566,11 @@ Windowing allows you to mitigate these risk by
 * Using the [Kafka Streams DSL](https://docs.confluent.io/current/streams/developer-guide/dsl-api.html) feels quite natural.
 
 
-## Apache Storm
+# Apache Storm
 
 ### Twitter
 
 It was first created at [Twitter](https://twitter.com/) who open sourced it as an Apache [Project](http://storm.apache.org/).
-
 One of the first streaming frameworks which got widely adopted.
 
 ### Spouts & Bolts
@@ -583,7 +591,7 @@ Spouts can also emmit to more then 1 stream.
 
 Spouts will generate `Tuples`, a `Tuple` is the main data structure within Storm.
 A Tuple is a named list of values, where a value can be of any type.
-It is however important that Storm can serialize all the values within a Tuple, so for a more exotic type you will need to implement a serializer yourselves.
+It is however important that Storm will serialize all the values within a Tuple, so for a more exotic type you will need to implement a serializer yourselves.
 
 `Bolts` do all the processing of your streams.
 A `Bolt` can send out to more then 1 stream.
@@ -603,6 +611,21 @@ You have the following Stream Groupings:
 
 Now lets get started with some code.
 
+First take in some necessary dependencies: 
+``` java
+    <dependency>
+        <groupId>org.apache.storm</groupId>
+        <artifactId>storm-core</artifactId>
+        <version>1.2.2</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.storm</groupId>
+        <artifactId>storm-kafka-client</artifactId>
+        <version>1.2.2</version>
+    </dependency>
+```
+
 The idea is to get to a Storm topology with 1 Spout and 2 Bolts.
 ``` java
     final TopologyBuilder tp = new TopologyBuilder();
@@ -615,8 +638,6 @@ The idea is to get to a Storm topology with 1 Spout and 2 Bolts.
 ``` 
 
 First we will define a KafkaSpout which will take in the data of a Kafka topic.
-
-
 ``` java
     protected KafkaSpoutConfig<String, String> getKafkaSpoutConfig(String bootstrapServers) {
         ByTopicRecordTranslator<String, String> trans = new ByTopicRecordTranslator<>(
@@ -670,7 +691,6 @@ Then we will emmit that data to a TrafficEventBolt which will filter out the eve
             input.getValues();
 
             TrafficEvent trafficEvent = new Gson().fromJson((String)input.getValueByField("value"), TrafficEvent.class);
-            //TrafficEvent trafficEvent = (TrafficEvent) input.getValueByField("value");
 
             if (sensorIds.contains(trafficEvent.getSensorId())) {
                 collector.emit(input, new Values(trafficEvent.getSensorId(), trafficEvent.getVehicleSpeedCalculated(), trafficEvent.getTrafficIntensity()));
@@ -755,7 +775,7 @@ Storm also knows about the concept of [windowing](https://storm.apache.org/relea
 
 ```
 
-Subsequently you can define this bolt within a topology, at which moment you will also define the size or duration of the window:
+Subsequently you can define this bolt within a topology at which moment you will also define the size or duration of the window:
 
 In this example we are just using windows with a fixed duration of five seconds.
 
@@ -774,20 +794,19 @@ In this example we are just using windows with a fixed duration of five seconds.
     }
 ```
 
-You can also pass in extra ab parameter slidingInterval to define a sliding window.
+You can also pass in an extra parameter `slidingInterval` to define a sliding window.
 
 ``` java
     withWindow(Duration windowLength, Duration slidingInterval)
 ```
 
-Both the windowLength and the slidingInterval can also be represented by a Count, which is based on the tuples being processed.
+Both the windowLength and the slidingInterval can also be represented by a `Count`, which will based the window duration on the amount of tuples being processed.
 Either determining the length of the window by the tuples, or when to slide.
 ``` java
     withWindow(Count windowLength, Duration slidingInterval)
 
     withWindow(Duration windowLength, Count slidingInterval)
 ```
-
 
 Even tumbling windows are possible: 
 
