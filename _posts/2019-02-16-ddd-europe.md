@@ -94,4 +94,38 @@ When the users will start to use the new system, they will feel like beginners a
 They will be less productive than with the old application, at least for a little while.
 
 
+## Make your tests tell the story of your domain by Anne Landro and Mads Opheim
 
+Anne and Mads tell us how they drastically reformed the testing approach for the Norwegian Court Case Management system from constant repetitive manual verification to automated testing.
+
+They explain that Value Chain tests have helped their team document the domain:
+``` java
+PersonIsRegisteredAsDeadAfterStartOfACaseOfDeath {
+   createACaseOfDeath()
+   registerTheDiseased()
+   registerTheHeirs()
+   notifyTheNationalRegistrtyOfTheDeath()
+
+   assertThatThePersionIsRegisteredAsDead()
+}
+```
+Each of these tests runs through a workflow of the domain and verifies the state at the end of it. 
+They are high level tests that can be understood by all stakeholders, so that anyone - including domain experts and users - can look at a test and verify whether the result is what they expect.
+
+From a  quick glance at this code you can learn a lot about how the domain works. 
+Their team also uses this technique to document special cases that they discover in the domain, so that bugs caused by these quirks don’t happen again.
+
+
+## Collaborative Modelling hands-on session by Marijn Huizendveld
+ 
+We are divided in groups of five with one team leader. The goal: to model an application for the maintenance team of a Car rental company in Amsterdam. The application must determine when a car is due and available for maintenance.
+   
+New requirements are provided step by step on “requirement” cards, so that we have to adapt and reshape our model each time we discover a bit more about the domain. 
+We learn the importance of visualising the solution (model) and talking about the problem based on what we have visualized in front of us. 
+Putting notes on the board with the different concepts that we identify, sparks interesting discussions that make use think further about the problem:  Is the given name correct and clear?  Do we mean the same thing when we talk about …?  Do 2 words on the board actually mean the same thing?
+   
+After each requirement card follows a card for the team leader to consider making changes to the way we work.
+One card tells the leader to look for someone who has been a bit quiet or outside of the discussion and move the group around so that he is next to the board.  This immediately make this person more involved in the discussion and we also start paying attention to his view.  
+Another card suggests to let someone go through the entire process that is modelled on the board and explain it step by step. We immediately find out that some definitions on the board are hard to explain and not as clear as we thought they were.
+
+Overall this workshop was an excellent demonstration of how you can work together as a team to quickly come up with a great domain model that is understood by everyone involved.
