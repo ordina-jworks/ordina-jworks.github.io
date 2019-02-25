@@ -115,6 +115,56 @@ From a  quick glance at this code you can learn a lot about how the domain works
 Their team also uses this technique to document special cases that they discover in the domain, so that bugs caused by these quirks don’t happen again.
 
 
+## Domain modelling towards First Principles by Cyrille Martaire
+
+In this great talk Cyrille explains us why he thinks that the Domain Driven mind set of most teams is _"too gentile"_ and we aim to _“raise the waterline”_.  
+
+With DDD we learned to immerse ourselves in the domain, use our domain driven skills to understand the domain and conceptualise the domain into conceptual models. 
+But we should go further by defining theories for our models and spot the First Principles that the theory consists of. 
+Then we can challenge them, so that we can suggest changes to the business instead of reproducing the domain as it is. 
+This way we get more involved and get to the next step, which is:  **Innovation!**
+
+He points out a number of common problems that many teams have and suggest how we can improve them:
+
+### The Human Compiler effect
+One thing we often see is that we are given requirements piece by piece: the first sprint we get 1 case, then the next sprint another case and so on...  
+But most of the time it turns out that all of these cases are actually special cases of some general case that we haven't been told about.
+The reason for this is what Cyrill calls the Human Compiler effect:  someone behaving like a compiler, by taking the general problem and splitting it up and dumbing it down in separate simple solutions for every single consequence, so that a developer can implement them.
+
+<img alt="tech-depth" src="{{ '/img/2019-02-16-ddd-europe/business_rules_for_dummies.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+
+This is obviously a bad approach, because by dumbing down the domain for the developers, we keep them "dumb" and unaware of how the domain actually works. This leads to a dumb - and often wrong - implementation of the domain.
+We should instead first describe the problem to the entire team. Then the team should build a theory upon it and challenge it by asking critical questions (Why? Why? Why? ...).  
+This leads to a better understanding of the domain and thus to building better solutions.
+
+### Technical complexity
+On the other hand, sometimes we are given an explanation about a problem and some developers turn it in something even more laborious.  
+
+<img alt="tech-depth" src="{{ '/img/2019-02-16-ddd-europe/tech-depth.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+
+This increases technical depth and make the code unmaintainable.
+
+The solution for this: refactoring and using TDD.
+
+### Theory vs Residual Mess
+When we start creating theories about the regular world of our domain, often someone from the teams asks: "But what about ALL the other business rules?". 
+We have an obsession for the "big bag of business rules". As if every business is a bunch of data with a bunch of if-statements on top.
+We should realize that there is always some order in this mess and that a lot of things are more regular that irregular. 
+We have to find out these regularities, find out the theories behind them and then we can create our domain model.
+
+Of course any business also has irregularities that do not fit into our theories and we can not just ignore these. We call this the _Residual Mess_.
+However we should not allow this mess to affect our beautiful theories. Instead we should - as Eric Evans explained before - define a _Spill Zone_ in the application where we can put all the messy parts of the application.
+
+### Conclusion
+Cyrill advices us to:
+- Raise the waterline
+- Expect untold regularities
+- Practice TDD
+- Practice DDD
+- Build theories not just lists of business rules
+- Learn to think based on First Principles. Disrupt and become innovative!
+
+
 ## Collaborative Modelling hands-on session by Marijn Huizendveld
  
 We are divided in groups of five with one team leader. The goal: to model an application for the maintenance team of a Car rental company in Amsterdam. The application must determine when a car is due and available for maintenance.
@@ -127,7 +177,8 @@ After each requirement card follows a card for the team leader to consider makin
 One card tells the leader to look for someone who has been a bit quiet or outside of the discussion and move the group around so that he is next to the board.  This immediately make this person more involved in the discussion and we also start paying attention to his view.  
 Another card suggests to let someone go through the entire process that is modelled on the board and explain it step by step. We immediately find out that some definitions on the board are hard to explain and not as clear as we thought they were.
 
-Overall this workshop was an excellent demonstration of how you can work together as a team to quickly come up with a great domain model that is understood by everyone involved.
+With this excellent workshop Marijn shows us how easy it can be to come up with a great domain model that is understood and agreed upon by everyone involved.
+
 
 ## Lost in transaction? Strategies to manage consistency across boundaries by Bernd Ruecker
 
@@ -201,7 +252,7 @@ You could for example define your business process and all compensating activiti
 
 Some libraries even provide quite nice DSL's where you can make your business process quite explicit.
 And the good thing is that this Business process or saga is even part of your domain logic.
-   
+
 ## Estimates or No Estimates, Let's explore the possibilities by Woody Zuill
 
 Woody starts by pointing out that his workshop does not give answers, but does ask critical questions.
