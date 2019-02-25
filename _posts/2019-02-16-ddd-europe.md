@@ -30,7 +30,6 @@ As a consequence they either cannot give relevant feedback because they don't un
 
 A better way to communicate the model between users and developers is to use e.g. a schema with icons and descriptive names for actions.
 
-//TODO insert image of model
  ### Trap 2: Only look at the future without taking into account the present
  
 Look at how they are working today instead of only looking what you want to achieve in the future.
@@ -129,3 +128,145 @@ One card tells the leader to look for someone who has been a bit quiet or outsid
 Another card suggests to let someone go through the entire process that is modelled on the board and explain it step by step. We immediately find out that some definitions on the board are hard to explain and not as clear as we thought they were.
 
 Overall this workshop was an excellent demonstration of how you can work together as a team to quickly come up with a great domain model that is understood by everyone involved.
+
+## Lost in transaction? Strategies to manage consistency across boundaries by Bernd Ruecker
+
+In this talk Bernd explains the challenges we face when using transactions in big applications and distributed systems.
+
+He starts by reminding us that our Aggregates in DDD are usually our transactional/consistency boundaries. 
+Meaning that within an Aggregate, you have an ACID transaction.
+
+If you were to have a transaction over multiple Aggregates, you would have a stronger coupling between them.
+For example you can't split them easily into multiple separate microservices.
+
+What you could do is use 2 phase commits to have you transaction over multiple Aggregates in separate services.
+But the problem is that 2 phase commits don't scale.
+
+> Grown ups don't use distributed transactions
+
+An alternative solution is the alternative to ACID: BASE
+* Basically
+* Available
+* Soft-state
+* Eventual consistency
+
+By applying Eventual Consistency you update one aggregate in one transaction and the other in a different transaction.
+This means that the system will be in an incosistent state for a short time, but eventually it will be consistent.
+
+After that, Bernd explains different strategies how to implement this eventual consistency with an example.
+
+Let's say that we have an Credit card payment aggregate that charges a credit card aggregate, and that this communication happens through an asynchronous message. 
+This communication can go wrong in multiple ways: the message might never arrive at the credit card service, it might arrive but the payment service doesn't receive the feedback, etc. 
+
+### Strategy 1: Cleanup
+
+If the payment service can't send the message, or if it doesn't receive feedback that the message was received, he can send a payment failed event.
+The problem with this strategy is that this 'payment failed' event also might not arrive at the credit card service. 
+Which means that he won't be able to do his cleanup.
+
+### Strategy 2: Keep state
+
+#### Stateful retry
+
+By using a stateful retry the payment service would keep the state of whether or not the message was delivered to the credit card service.
+As long as the credit card service does not acknowledge that he processed the message, the payment service will keep sending the message.
+
+#### Stateful retry and cleanup
+
+With this strategy the payment service keeps retrying to send the message until a timeout has passed or after X retries.
+After that he will send a payment failed event for which the retry policy might also apply.
+
+### Strategy 3: Compensation/Sagas
+
+#### Choreography
+
+Compensation means that if something in the asynchronous process fails, a compensating process will be triggered.
+A classic example is a system where you book a hotel in one service which will trigger a car booking.
+If the car booking fails, he will emit an event that will be picked up by the hotel service which will cancel the hotel room related to the car booking.
+
+This system of services responding on events from each other is called orchestration. 
+We don't define in one place how the whole process works, but services know themselves on what to react on.
+
+However, this compensation saga implemented with choreography might become complex because it could be a trainwreck of cascading cancellations.
+E.g. a hotel booking triggers a car booking, which triggers a flight booking.
+If you have complex processes with a lot of services involved, this might become chaotic.
+
+#### Orchestration
+
+By using an orchestration approach there would be one service responsible for managing the whole process.
+In the hotel/car/flight example a Trip service could be this orchestrating service that calls the other services and tells them to book or cancel.
+
+Bernd then argues that if you choose an orchestration strategy that BPMN tools and libraries can help a lot in defining these processes.
+You could for example define your business process and all compensating activities.
+
+Some libraries even provide quite nice DSL's where you can make your business process quite explicit.
+And the good thing is that this Business process or saga is even part of your domain logic.
+   
+## Estimates or No Estimates, Let's explore the possibilities by Woody Zuill
+
+Woody starts by pointing out that his workshop does not give answers, but does ask critical questions.
+His goal is to share some experience he had, and he realizes that what works in some companies, does not work in others.
+
+
+After this disclaimer he talks about a big project he worked on where they experienced sprint after sprint that their estimates were always plain wrong.
+Every retrospective this frustration was mentioned and every time the solution management came up with was that they just had to get better at making estimations.
+
+> "Trying the same thing over and over again expecting different results is the definition of insanity" - Einstein
+
+In fact, Woody said, a constant in his 35 year career was that estimations were always off, and people were always trying to solve this by "getting better at estimates".
+
+Wrong estimates are often not the problem itself, but a symptom of something else.
+It could be that they are off because the requirements were unclear, or that requirements keep changing.
+
+
+### #No estimates
+
+\#No estimates was originally used to refer to reference a blog post Woody had written on a project where they did not use or make estimates.
+But actually 'No estimates' is a placeholder for a larger conversation.
+
+Woody mentions that for some things in life we want estimates, but we never do because we know it's impossible 
+E.g.how long will this clinical trial take?
+How long till we find a cure for cancer?
+How long till you finish this work of art?
+In fact if we have enough data to definitively say how long something will take to develop, we already built it and we don't need to do it again.
+
+
+Next he asked the audience to explain in a single word what an estimate means. 
+Quite some different answers were given, but in general it came down to this list:
+* guess
+* expectation
+* lies
+* misunderstanding
+* approximation
+
+From these answers the following working definition could be extracted:
+> An estimate is a guess of the amount of work time to create a project, a feature or some bit of work in developing software
+
+### Why do we estimate?
+
+Some reasons why we make estimates:
+* planning / budget
+* which approach do we choose / in what order do we do things
+* dependencies on other teams
+
+In software development estimates are often used to attempt to predict the future.
+when will it be done?
+how much will it cost?
+what can we get done this sprint?
+what can we get done for this money?
+
+Basically we use estimates to help us make decisions.
+
+If we have to choose between making project A or project B, we would make an estimation of how long it would take to do either of them.
+But do we really want to choose between project A or B based on a guess?
+Wouldn't it be better to do an MVP of both and see which is working best?
+
+Is on time or on budget a good measure of the results of our decision?
+No, because you cut feature, make it unmaintainable, etc.
+Isn't it better to measure customer satisfaction as a metric for success?
+
+### Conclusion
+After this workshop the audience was left with even more questions.
+But what we did realize is that often people make estimations without any good reason. 
+And sometimes it would be better to reflect on why we do estimations, and see if it really provides us value, and if there is no alternative solution for the problem we're actually trying to solve with estimations.
+
