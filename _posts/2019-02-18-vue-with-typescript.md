@@ -22,13 +22,14 @@ comments: true
 # Vue with TypeScript, an introduction
 With the release of the Vue CLI 3 in August 2018, Vue now officially supports development in TypeScript.
 In September 2018, Evan You even announced that [the next version of Vue will be rewritten in TypeScript](https://medium.com/the-vue-point/plans-for-the-next-iteration-of-vue-js-777ffea6fabf){:target="_blank" rel="noopener noreferrer"}.
-This does not yet mean that you are forced to use TypeScript, it will still be optional.
-TypeScript has numerous advantages such as static typing, transpiling of the latest ECMAScript features to older versions to support older browsers and much more.
-Especially the static typing is a very interesting feature for projects in a professional environment as it helps define more strict interfaces and provides documentation on how to use other developers their code.
+This does not mean that you are forced to use TypeScript, it will still be an option.
+TypeScript has numerous advantages such as static typing and transpiling of the latest ECMAScript features for full compatibility with older browsers.
+Especially the static typing is a very interesting feature for projects in a professional environment as it helps define more strict interfaces.
+With the use of types, you inherently provide documentation to other developers on how to use your code as it offers guidance on how to use your functions, components and so on.
 
-In this tutorial we will make a really simple blog system to showcase how you create a component, do calls via HTTP and so on.
-Our little project will be called *wordvue*.
-At the same time we will explain some tips and tricks and background information about Vue with TypeScript so that you fully understand what the purpose is of everything.
+In this tutorial we will make a really simple blog system to showcase how you create a project, create a component, install a plugin and do calls via HTTP.
+Our little project will be called `wordvue`.
+At the same time we will explain some tips and tricks and background information about Vue with TypeScript so that you fully understand what the purpose is of each line of code.
 
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-plus-typescript-small.png" class="image">
@@ -37,8 +38,8 @@ At the same time we will explain some tips and tricks and background information
 # Creating a Vue project with TypeScript
 
 ## Using the Vue CLI
-Thanks to the Vue CLI, it is very easy to create a new Vue project.
-First make sure you have the lastest version of the CLI installed with NPM:
+Thanks to the Vue CLI, it is the easiest way to create a new Vue project.
+First make sure you have the latest version of the CLI installed with NPM:
 
 ```text
 $ npm i -g @vue/cli
@@ -50,7 +51,7 @@ After that we create our project:
 $ vue create wordvue
 ```
 
-The CLI knows some presets but we will go through the manual mode to be sure we select the TypeScript version because Vue is currently using JavaScript as a default language:
+The CLI knows some presets but we will go through the manual mode to be sure we select the TypeScript version, at the time of writing the current default language for Vue is JavaScript.
 
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-cli-1-manually-select.png" class="image">
@@ -61,19 +62,21 @@ The CLI knows some presets but we will go through the manual mode to be sure we 
   <img src="/img/vue-with-typescript/vue-cli-2-selected-features.png" class="image right fit">
 </div>
 
-We check the TypeScript option, for the purpose of this article we will not look in detail at the other options and leave on the defaults.
-I also checked CSS Pre-processors just because I like SASS.
-Just make sure you at least have Babel selected as well.
-Babel will automatically add multiple polyfills and will help with having backwards compatibility of newer ECMAScript features. 
+We check the TypeScript option, for the purpose of this article we will not look in detail at the other features of this screen and leave on the defaults.
+I also checked CSS Pre-processors just because I like SCSS.
+Make sure you have Babel selected, Babel will automatically add multiple pollyfills.
+The pollyfills will help with having backwards compatibility of ECMAScript features.
 
 ### Class-style component syntax
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-cli-3-class-style-component-syntax.png" class="image fit">
 </div>
 
-In the next screen we will get the question if we want class-style component syntax, for which the default option is yes.
+In the next screen we will get the question if we want class-style component syntax, for which we answer yes.
 With this, we actually install the decorators that can be found in the Vue Class Component package.
-If you do not use the class-style component syntax, your components will look just like in JavaScript Vue but with the addition of types:
+You will find an example below the next paragraph and code block.
+
+If you do not use the class-style component syntax, your components will look exactly as if you have rendered them with Vue with JavaScript, but with the addition of types:
 
 ```typescript
 import Vue, { VNode } from 'vue'
@@ -100,7 +103,7 @@ export const HelloComponent = Vue.extend({
 });
 ```
 
-As you can see, you'll still have the data function, the methods and computed properties and the render function that you can use in regular Vue.
+As you can see, you'll still have the data function, the methods, computed properties and the render function that you can use in regular Vue.
 With the class-style component syntax, we would write the same component like this:
 
 ```typescript
@@ -124,34 +127,40 @@ export default class HelloComponent extends Vue {
 When you compare it to the previous version, the data property message is now a regular property in our component class. Methods are present as class methods. And the computed properties can be defined as a getter.
 
 ### The other setttings
-After you've replied Yes to the "Use class-style component syntax?" question, you can continue with the default options that are self explanatory.
+After you've replied Yes to the "Use class-style component syntax?" question, you can continue with the default options.
+
+For the CSS pre-processor, you either choose between Stylus, Less and SCSS. We choose the default `Sass/SCSS (with node-sass)`.
 
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-cli-4-css-preprocessor.png" class="image fit">
 </div>
 
+As for the linter, you can either choose between TSLint or ESLint with a bunch of configurations. We opt for the default `TSLint` option as the support for TypeScript in ESLint is (at the time of writing) fairly recent.
+
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-cli-5-linter.png" class="image fit">
 </div>
+
+We can choose for the `Lint on save`option as we want to see immediately the effects of our linter.
 
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-cli-6-lint-on-save.png" class="image fit">
 </div>
 
+Finally we have to choose if we want the configurations in dedicated files or all bundled together in our package.json. We opt for `In dedicated config files` as we prefer to not clutter the package.json with a lot of configurations.
+
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-cli-7-dedicated-config.png" class="image fit">
 </div>
 
-Vue will then be creating the project so you will see some logging going on in your terminal:
+The Vue CLI will now create the project with a Git repository, perform an NPM install and generate a README.
 
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-cli-8-project-generated.png" class="image fit">
 </div>
 
-The Vue CLI will create a Git repository, perform an NPM install and generate a README alongside a bunch of files and folders.
-
 ## Launching your first Vue project
-After the Vue CLI has created your Vue project, you can launch it with:
+After the Vue CLI has created your Vue project, you can go with the terminal to the root folder of the project and launch it with:
 
 ```text
 $ npm run serve
@@ -161,18 +170,21 @@ $ npm run serve
   <img src="/img/vue-with-typescript/vue-default-page.png" class="image fit">
 </div>
 
-As you will see, the CLI starts the development server and then starts the type checking and linting service.
-By default it runs on http://localhost:8080 but if there's already something running on port 8080, he will pick port 8081 or the next one available.
+As you will see, the CLI starts the development server, starts the type checking and linting service.
+By default the project runs on http://localhost:8080 but if there's already something running on port 8080, he will pick port 8081 or the next one available.
+This way you don't need to specify a free port.
+
+A default Vue project looks like this:
 
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-cli-serve.png" class="image fit">
 </div>
 
 # A look into the files created by the Vue CLI
-The main folders in which you will work are public and src. We will look at these more in detail so you fully understand what their purpose is.
+The main folders in which you will work are public and src. We will look at these more in detail later so you fully understand what their purpose is.
 
 ## Public
-Public is meant for static stuff like images, favicons and more.
+Public is meant for static assets like images, favicons and more.
 It also contains your index.html which is very basic:
 
 ```html
@@ -196,7 +208,7 @@ It also contains your index.html which is very basic:
 ```
 
 It is only in rare cases that you should adapt the index.html.
-One example situation would be to add Google Analytics, add more meta tags, adapt the title tag and so on.
+One example situation would be to add Google Analytics, add more meta tags or adapt the title tag.
 Vue will automatically inject the necessary generated JavaScript files right before the closing body tag.
 This will include the transpiled version of your own code as well as vendor code.
 The most important thing is the div tag with id app.
@@ -216,13 +228,13 @@ new Vue({
 }).$mount('#app');
 ```
 
-When we look in the src folder, we find a main.ts file.
+When you look in the src folder, you will find a main.ts file.
 This is the one that Vue will execute first.
 As you can see this creates a new instance of Vue in which we only define a render function.
-Vue will pass along h which is of type CreateElement, the same one as we have in VueJS.
-It takes one parameter: App.
-App is our main component that was generated by the Vue CLI and we will dive into that later.
-main.ts should only be adapted to hook up new core functionalities of your application.
+Vue will pass along h which is of type `CreateElement`.
+It takes one parameter: `App`.
+App is our main component that was generated by the Vue CLI and we will dive into that after this section.
+main.ts should only be adapted to plug in new core functionalities of your application.
 For example, a main.ts of one of my own projects is this:
 
 ```typescript
@@ -243,7 +255,7 @@ new Vue({
 }).$mount('#app');
 ```
 
-As you can see, I've added 3 core functionalities: a router, a store and an i18n library.
+As you can see, I have added 3 core functionalities: a router, a store and an i18n library.
 In each component that you make, these functionalities will be available.
 The reason why these will be available is because the Vue type gets extended by each of these libraries.
 For example in the typings of VueI18n (the i18n library that I use), we find:
@@ -261,7 +273,7 @@ declare module 'vue/types/vue' {
 }
 ```
 
-This means that we'll have a \$i18n property available and 5 different functions.
+This means that we will have a \$i18n property available and 5 different functions.
 If you would use a different i18n library, you will have most of these things also readily available.
 For example vue-i18next defines \$i18n as: 
 
@@ -278,6 +290,8 @@ Vue itself does not provide an i18n implementation nor a store nor a router nor 
 Vue is designed to be as light as possible so that developers can keep a project as lightweight as possible.
 Vue does officially support specific NPM packages for these core functionalities.
 Other packages will follow the same naming conventions as the official supported libraries for convenience sake.
+Like said before we will only focus on the basic Vue functionalities and HTTP calls.
+The other topics will be for a future article.
 
 ### App.vue
 ```vue
@@ -310,11 +324,11 @@ export default class App extends Vue {}
 	margin-top: 60px;
 }
 </style>
-````
+```
 
-The App.vue file is our first component that Vue bootstraps via our main.ts file.
+The App.vue file is our first component that Vue bootstraps through our main.ts file.
 It is considered to be the root component.
-Each page and part of a page that you will create, is a component that is a child of the root component.
+Each page and part of a page that you will create, is a component that a child is of the root component.
 Together, your whole application should have a component structure which should look like a tree:
 
 ```text
@@ -330,8 +344,8 @@ App
 IMAGE
 
 Each node of the tree is a component.
-With the use of the Component decorator, we define which components can be child components of the component that we're defining.
-For example in our App component, we want the HelloWorld component (via the HelloWorld tag), thus we add the components option with HelloWorld in there.
+With the use of the `@Component(...)` decorator, we define which components can be child components of the component that we're defining.
+For example in our App component, we want the HelloWorld component (through the HelloWorld tag), thus we add the components option with HelloWorld in there.
 These components are local components.
 If you would want to write a component that is global, you have to register it like this:
 
@@ -341,9 +355,9 @@ Vue.component('my-component-name', {
 })
 ```
 
-A global component can be accessed everywhere.
+A global component can be accessed anywhere.
 Try to avoid this as much as possible as it fills up the global namespace.
-One good use case would be for example for an icon library like Font Awesome:
+An example of a use case that is justified would be an icon library like Font Awesome:
 
 ```typescript
 library.add(
@@ -356,9 +370,13 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 After this we can access the font-awesome-icon tag from everywhere.
 
+```html
+<font-awesome-icon icon="arrow-down" />
+```
+
 # How to write your first component
 We will keep the project as simple as possible for now.
-Firstly I will explain the basics of a Vue Component so that you'll fully understand what happens when we write our first real component.
+Firstly I will explain the basics of a Vue Component so that you will fully understand what happens when we write our first real component.
 
 ## The structure of a .vue file
 ```vue
@@ -388,45 +406,47 @@ export default class App extends Vue {}
 ```
 
 The standard way to write a Vue component is by using the .vue file extension.
-In a .vue file, we define 3 optional tags: template, script and style.
+In a .vue file, we define 3 optional tags: `template`, `script` and `style`.
 According to the Vue documentation, you should always [order the tags consistently](https://vuejs.org/v2/style-guide/#Single-file-component-top-level-element-order-recommended){:target="_blank" rel="noopener noreferrer"} with style being the last one.
 
 ### \<template>...\</template>
 This is the visual part of your component, in here you define the HTML that will be used to display your component.
-Note that your custom HTML should *always* be surrounded by a div tag.
-The reason for this is that it allows Vue to encapsulate your custom CSS and other stuff into that without unknowingly affecting the styling of your whole site.
+Note that your custom HTML should always be surrounded by a div tag.
+The reason for this is that it allows Vue to encapsulate your custom CSS without unknowingly affecting the styling of your whole site.
 You can use this to add a custom id or class to the tag to help you identify the component in for example your e2e tests.
 Note that a .vue file can contain at most one template tag.
 
 ### \<script lang="ts">...\</script>
 In the script tag, you can add your custom TypeScript code.
 The lang attribute is not required but if you do not add it, the default language will be JavaScript.
-In order for TypeScript to be available, we should add *lang="ts"*.
+In order for TypeScript to be available, you need to add `lang="ts"`.
 All of our TypeScript code should be present in this script tag, even the import statements.
-Note that a .vue file can contain at most one template tag.
+Note that a .vue file can contain at most one script tag.
 
 ### \<style>...\</style>
-In here we can define our own CSS specific for this component.
-By default, all the styles you define are global.
-By adding the scoped attribute, our custom CSS will be specific for that component.
-For example if we add the stylings of a p tag, without the scoped attribute this will affect the styling of all the p tags in the application.
-But by adding the scoped attribute, we only affect the p tag that are directly in this component.
-Not even p tags in the child component will be affected.
-Be careful though as the scoped attribute leads to a certain performance hit.
-Simply by adding the same class or id that we used in the template, we avoid this hit and still can have some scoped CSS.
-Note that this will also style the child components.
-A .vue file can contain more than one style tag.
+In the style tag we can define our own SCSS specific for this component.
+By default, all the styles you define in a style tag are global.
+By adding the scoped attribute to our style tag, our custom SCSS will be specific for that component.
 
 ```vue
 <template>
 	<div id="app">
 		<p>Blabla</p>
+		<ChildComponent></ChildComponent>
 	</div>
 </template>
 
 <script lang="ts">
 ...
 </script>
+
+<style scoped>
+#app {
+	p {
+		text-style: italic;
+	}
+}
+</style>
 
 <style>
 #app {
@@ -436,6 +456,17 @@ A .vue file can contain more than one style tag.
 }
 </style>
 ```
+
+In the example above, the `style` tag with the scoped attribute will only affect the p tag in our component and not the one in our child component.
+The `color: red` styling however will affect also the styling of p tags in `ChildComponent`.
+So it is best to be aware of the implications as it can have unwanted side effects.
+
+Be careful though as the scoped attribute leads to a certain performance hit.
+Simply by adding the same class or id that we used in the template, we avoid this performance hit and still can have some scoped SCSS.
+Note that this will also style the child components.
+A .vue file can contain more than one style tag.
+
+If you want to use global styles, you can either put them in App.vue or create your own CSS file that you import either directly in index.html or in App.vue.
 
 ### Should you put everything in a .vue file?
 For small components, a .vue file will be very interesting as you have all the elements that make up your component into one specific file.
@@ -450,11 +481,11 @@ One tactic you can use is the src attribute on the template, script and/or style
 ...
 </script>
 
-<style src="./mycomponent.css"></style>
+<style src="./mycomponent.scss"></style>
 ```
 
 Personally I avoid using the src attribute as I like to force myself to keep my .vue files as small as possible.
-There's also no performance difference between putting the HTML/CSS separately or in the same .vue file.
+There's also no performance difference between putting the HTML/SCSS separately or in the same .vue file.
 The Vue CLI will generate the same compiled code.
 
 ## How to organise your files
@@ -472,13 +503,13 @@ The basic project structure in Vue is very simple:
 ```
 
 The idea behind this is that you add all your custom components into /components and any assets that also need to be transpiled/compiled into /assets.
-For example a global stylesheet or an icon library that you want to treeshake fits perfectly into /assets.
-In the public folder we put all things static: the logo, the favicons, images, ...
+For example a global stylesheet or an icon library that you want to [treeshake](https://webpack.js.org/guides/tree-shaking/) fits perfectly into /assets.
+In the public folder we put all things static that don't need to be parsed and treeshaked: the logo, the favicons, images, ...
 
 ### A more advanced structure
 The basic structure is enough for a simple single page application.
 But once you start to have complex pages, things will quickly need to be changed to accommodate the amounts of files that you will create.
-A more advanced project structure could be this:
+In a more advanced project (like a personal project of mine), the structure could be like this:
 
 ```text
 /public
@@ -497,18 +528,18 @@ In this structure, both /public and /assets provide the same purpose.
 I use /assets for some local .json files that contain some of my data that is needed in the application.
 In /components I keep all my generic components that can be used by pages and other components.
 This is what you would put in a SharedModule in Angular for example.
-/i18n contains all my translations of my website as well as the initialisation of the i18n library.
+/i18n contains all my translations of my website as well as the initialisation of an i18n library.
 Same goes for the /store that contains my implementation of a store.
 
 ### Modules
 Vue is designed to be as lightweight as possible and this can be seen in how the basic project is structured: no modules are present.
-Vue does support modules but those are not like we know them from other frameworks like Angular.
+Vue does support modules but not in the way like we know them from other frameworks like Angular.
 Vue modules are simply ES6 modules.
 
 ## BlogPost component
 Our first component we will write is a BlogPost component.
 In a first stage of our little project we will just hardcode a blogpost.
-The BlogPost component is super simple:
+The BlogPost component is small:
 
 ```vue
 <template>
@@ -553,23 +584,34 @@ div.blogpost {
 
 As you can see the template is rather small.
 We've grouped all the elements in a div with class blogpost.
-Vue expects us to wrap the contents in one tag and by convention, they advise to use a div tag.
+Vue expects us to wrap the content in one tag and by convention, they advise to use a div tag.
 
 After that we have the TypeScript code.
-You'll notice that we have created a small Post interface to wrap our data in.
-On the component itself, we have a member that is decorated with @Prop().
-With this, we allow the use of the BlogPost component with the attribute post that should have type Post.
-After that we simply have a date member which is actually a computed property.
+You'll notice that we have created a small Post interface to wrap our data.
+On the component itself, we have a member that is decorated with `@Prop()`.
+With the decorator, we allow the use of the BlogPost component with the attribute post that should have type Post.
+
+```html
+<BlogPost :post="blogPost" />
+```
+
+Where `blogPost` is an instance of `Post` in our component.
+
+After that we have a date member which is a computed property.
 
 Sadly there is no full type checking going on at the moment.
 If we were to use the BlogPost component, we can always pass along another object into the post attribute.
 We can pass along a type attribute in the Props decorator but even that is not that stable.
 
-We end the component with our styling in which we make use of SASS to nest all our styling.
+```typescript
+@Prop({type: Object as () => Post})
+```
+
+We end the component with our styling in which we make use of SCSS to nest all our styling.
 
 ## Using the BlogPost component
 So we have created the BlogPost component but how are we going to actually use it?
-We adapt App.vue to this:
+We adapt app.vue to this:
 
 ```vue
 <template>
@@ -627,21 +669,21 @@ export default class App extends Vue {
 As you can see we define a property on the App component that contains our blog posts, we add the components property to the Component decorator and add the BlogPost tag in the template.
 We simply loop over the blog posts with the v-for directive.
 We pass each blog post to the BlogPost component by binding it to the correct data attribute.
-This can be done via v-bind:post="blogPost" but we use the shorthand method of :post="blogPost".
-Vue transforms :name to v-bind:name behind the screens.
+This can be done through `v-bind:post="blogPost"` but we use the shorthand method of `:post="blogPost"`.
+Vue transforms `:post` to `v-bind:post` behind the screens.
 
-Note that we also pass :key which we bind to the title of our blog post.
-The reason for this is that it allows Vue to keep track of the state of the list by only looking at the :key attribute instead of having to deep compare objects.
+Note that we also pass `:key` which we bind to the title of our blog post.
+The reason for this is that it allows Vue to keep track of the state of the list by only looking at the `:key` attribute instead of having to deep compare objects.
 Try to have an unique key.
 A blog post title is a good start but when ordering, updating or other modifying operations you might not have the wanted result if we have blog posts with the same title.
 It's best to use something of type number or string as the key.
-Vue will tell you this in the console of your browser if you would take for example the datePosted as your key:
+Vue will tell you this in the console of your browser if you would take for example the `datePosted` as your key:
 
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-key-typing-error.png" class="image fit">
 </div>
 
-This all has to do with Vue being able to rely on the built-in sort and find functionalities of JavaScript.
+The reason behind this is that Vue relies on the built-in sort and find functionalities of JavaScript.
 For objects, Vue can not do this natively.
 
 When we serve our app with 
@@ -658,9 +700,10 @@ Great, you've written your first working component!
 
 # Using your first plugin
 Vue comes without any libraries, it is a super clean and lean framework where even functionality for HTTP calls is not present.
-However, every component is a Vue object and can be extended with a \$http member that you can utilise in your code to perform HTTP calls.
-But to provide this \$http member, we have to add the correct plugin to our code.
-In the awesome-vue project on GitHub, we can find an [extensive list of HTTP plugins](https://github.com/vuejs/awesome-vue#http-requests){:target="_blank" rel="noopener noreferrer"}.
+However, every component is a Vue object and can be extended with a `$http` member that you can use in your code to perform HTTP calls.
+
+To provide this `$http` member, we have to add the correct plugin to our code.
+In the [awesome-vue project on GitHub](https://github.com/vuejs/awesome-vue), we can find an [extensive list of HTTP plugins](https://github.com/vuejs/awesome-vue#http-requests){:target="_blank" rel="noopener noreferrer"}.
 We will use [axios](https://github.com/axios/axios){:target="_blank" rel="noopener noreferrer"} as our HTTP library but we will use [vue-axios](https://github.com/imcvampire/vue-axios){:target="_blank" rel="noopener noreferrer"} for the bindings with Vue in TypeScript as axios does not provide the necessary typings for axios in Vue.
 
 ## Installing a plugin
@@ -670,11 +713,11 @@ We follow the installation instructions for vue-axios which are pretty straightf
 $ npm i axios vue-axios
 ```
 
-As you can see we also install axios.
+As you noticed we also installed axios.
 This is because vue-axios only focuses on the TypeScript bindings for Vue and does not include the actual axios library.
 Vue-axios basically turns the axios library into a plugin compatible for Vue.
 After that, we have to signal to Vue that we want to use this plugin.
-We add a Vue.use(...) statement in our main.ts so it looks like this:
+We add a `Vue.use(plugin, options)` statement in our main.ts so it looks like this:
 
 ```typescript
 import axios from 'axios';
@@ -691,28 +734,58 @@ new Vue({
 }).$mount('#app');
 ```
 
-The important part is that we put the Vue.use(...) statement before we actually bootstrap the application with new Vue(...).
+The important part is that we put the `Vue.use(...)` statement before we actually bootstrap the application with `new Vue(...)`.
 
 ## The effect of adding a plugin
 So we have added a plugin, but what does that actually mean?
 What is the effect on our Vue code?
-The main effect is that we now have \$http accessible in every Vue object and component.
-This means that we can now have this.\$http in our classes in which an unique instance of the axios library will be plugged.
-When we check the documentation from axios, we find that we now have methods like get(...), post(...) and many more available in our code via the \$http member in which an instance of axios is present.
+The main effect is that we now have `$http` accessible in every Vue component.
+This means that we can now have this.`$http` in our classes in which a unique instance of the axios library for the whole application will be plugged.
+When we check the [typings](https://github.com/axios/axios/blob/master/index.d.ts) from axios, we find that we now have methods like `get(...)`, `post(...)` and many more default REST methods available in our code through the \$http member in which an instance of axios is present.
 
-Methods like get(...), post(...) and so on will also exist on other HTTP libraries that we can plug into Vue.
-This is more by community standards as it is not obliged by Vue to provide the same functionalities in an HTTP library.
+Methods like `get(...)` and `post(...)` will also exist on other HTTP libraries that we can add to Vue.
+It is not obliged by Vue to provide these same functionalities in another HTTP library.
 But it makes sense for library creators to comply to the standard set by the HTTP library of preference as chosen by Vue, in this case axios.
+Otherwise it would not be easy to change certain libraries for another one.
 
 ## Using the axios plugin for performing HTTP calls
-A Vue component has multiple lifecycle hooks with the most interesting ones for what we want to do: mounted and created.
-Created is called by Vue when the object is created: reactive data is set up, event callbacks are ready and so on.
+A Vue component has multiple lifecycle hooks with the most interesting ones for what we want to do: `created()` and `mounted()`.
+Created is called by Vue when the object is created: reactive data is set up, event callbacks are ready and the object is not yet mounted on the DOM.
 The Vue object will thus be ready to go but it will not yet be visible to the user.
-The mounted hook is used for when the element is mounted into the HTML DOM, i.e. the rendering is performed by the browser.
+The mounted hook is used for when the element is mounted into the HTML DOM, which means the rendering is performed by the browser.
+
+```vue
+<template>
+	<div id="app">
+		...
+	</div>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+
+@Component({})
+export default class App extends Vue {
+	private created() {
+		console.log('The app is created!');
+	}
+
+	private mounted() {
+		console.log('The app is mounted!');
+	}
+}
+</script>
+
+<style lang="scss">
+#app {
+  ...
+}
+</style>
+```
 
 There are 2 reasons why we want to start our HTTP calls in the created method.
-The first one being that it is earlier than the mounted hook so we hopefully can limit the amount of time the user has to wait before he sees anything on the screen.
-The second one is that the mounted hook is not called when we would utilise serverside rendering.
+The first reason is that we can limit the amount of time the user has to wait for data to be loaded and shown on the screen.
+The second one is that the mounted hook is not called when we would use serverside rendering.
 To ensure that our code is compatible with all use cases, we place the HTTP calls in the created method of our App.vue which results in this component:
 
 ```vue
@@ -747,7 +820,7 @@ export default class App extends Vue {
 ```
 
 As you can see we have added a private created method since this should not be publicly available to other components.
-We simply call an API and map the response into our Post array.
+We call an API and map the response into our Post array.
 
 ## How we have set up a local API
 To simulate a real API call, we set up [json-server](https://github.com/typicode/json-server){:target="_blank" rel="noopener noreferrer"}, a small tool that launches a web server with a REST API that serves a json file present in our assets folder:
@@ -777,22 +850,23 @@ To simulate a real API call, we set up [json-server](https://github.com/typicode
 }
 ```
 
-We simple had to install json-server via NPM and then we could launch it with:
+We install json-server with NPM and then we launch it with:
 
 ```text
+$ npm i json-server
 $ json-server src/assets/db.json
 ```
 
 # Your first deployment
 
-## Development versus production mode
-Just like in other frontend frameworks, Vue has its development mode and production mode. The first one is available with:
+## Development mode versus production mode
+Just like in other frontend frameworks, Vue has its development mode and production mode. The development mode is available with:
 
 ```text
 $ npm run serve
 ```
 
-While the latter one is available with:
+While production mode is available with:
 
 ```text
 $ npm run build
@@ -802,7 +876,7 @@ Now what is the difference between both modes?
 
 | Development mode                                                          | Production mode                                                         |
 |---------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| CSS & HTML bundled into JS                                                | CSS separately                                                          |
+| CSS & HTML bundled into JS                                                | CSS separately, HTML bundled into JS                                    |
 | Warnings in console                                                       | No warnings in console                                                  |
 | Additional checks to identify warnings                                    | No additional checks, ignores any situation that would trigger warnings |
 | Everything in one app.js                                                  | Separate app.js and vendor.js                                           |
@@ -810,20 +884,26 @@ Now what is the difference between both modes?
 | Basic bundling of all code, use of minified libraries only when available | Bundling & maximum minification                                         |
 | No minification of index.html                                             | Minification of index.html                                              |
 
-All the minification, avoiding the use of eval(), removing of warning checks and so on result in a much smaller size of the code. 
+> *vendor.js*: Contains all the node_modules code that your project uses
+>
+> *eval()*: JavaScript function that executes strings as if it's a line of code
+
+All the minification, avoiding the use of `eval()`, removing of warning checks and so on results in a much smaller size of the code.
+
+If we do a `npm run serve` and check our Developer Tools in Chrome, we see the size of our application:
 
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/wordvue-size-serve.png" class="image fit">
 </div>
 
-In development mode, our application is more than 2MB large.
-While when we build with the production mode, we get an application that is in total less than 125KB: 
+In development mode, our application is more than 2MB large. We see the index.html alongside a generated app.js that contains all our own code and all the node_modules that we are using.
+While when we build with the production mode via `npm run build`, we get an application that is in total less than 125KB: 
 
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/wordvue-size-build.png" class="image fit">
 </div>
 
-The only thing we changed to get a dist folder that is so small, was add a vue.config.js file in the root of our folder with this content:
+The only thing we changed to get a dist folder that is so small, was add a vue.config.js file in the root of our folder which exports an object with the settings we want:
 
 ```typescript
 module.exports = {
@@ -831,18 +911,20 @@ module.exports = {
 };
 ```
 
+We only had to add the `productionSourceMap` set to false to disable the creation of source maps.
+
 More configurations can be found at [cli.vuejs.org](https://cli.vuejs.org/config/){:target="_blank" rel="noopener noreferrer"} but most of the configuration is already done for a maximum optimised production build.
 
 ## Building for production
-When running the npm run build command, you'll get the following output:
+When running the `npm run build` command, you'll get the following output:
 
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-cli-build.png" class="image fit">
 </div>
 
-So what the Vue CLI does is take all the CSS out of the components minifies it, compiles all the components into an app.js file and treeshakes all used libraries into a chunk-vendors.js file.
+So what the Vue CLI does is take all the SCSS out of the components minifies it, compiles all the components into an app.js file and [treeshakes](https://webpack.js.org/guides/tree-shaking/) all used libraries into a chunk-vendors.js file.
 After that, it Gzips all those files to ensure that everything is as light as possible.
-If you were to have any assets, it will also copypaste those into the dist folder.
+If you have any assets, it will also clone those into the dist folder.
 
 The result is a dist folder which contents you can directly deploy onto your favourite server.
 
@@ -850,9 +932,9 @@ The result is a dist folder which contents you can directly deploy onto your fav
 Congratulations, you have built your very first Vue application with TypeScript!
 You now know how to write a basic component with the use of decorators, create a component structure and fill it with data coming from an API.
 After that you can also deploy it onto a server.
-A next step would be to add routing, add a store, whatever you might need.
+A next step would be to add routing, add a store or an i18n library.
 Vue is a lightweight framework that primarily focuses on visualisation.
-If you want to add more functionality, you will have to resort to plugins which either support Vue integration directly or you can use a plugin like vue-axios that will facilitate the integration of another library like axios.
+If you want to add more functionality, you will have to rely on plugins who either support Vue integration directly or you can use a plugin like vue-axios that will facilitate the integration of another library like axios.
 
 # Resources and further reading
 * Vue CLI: [cli.vuejs.org](https://cli.vuejs.org/){:target="_blank" rel="noopener noreferrer"}
@@ -862,4 +944,3 @@ If you want to add more functionality, you will have to resort to plugins which 
 * Vue styleguide: [vuejs.org/v2/style-guide](https://vuejs.org/v2/style-guide/){:target="_blank" rel="noopener noreferrer"}
 * Vue-class-component: [github.com/vuejs/vue-class-component](https://github.com/vuejs/vue-class-component){:target="_blank" rel="noopener noreferrer"} 
 * JSON server: [github.com/typicode/json-server](https://github.com/typicode/json-server){:target="_blank" rel="noopener noreferrer"} 
-
