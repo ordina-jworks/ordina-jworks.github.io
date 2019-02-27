@@ -181,6 +181,16 @@ A default Vue project looks like this:
 </div>
 
 # A look into the files created by the Vue CLI
+
+<div style="text-align: center;">
+  <img src="/img/vue-with-typescript/vue-cli-generated-files.png" class="image right">
+</div>
+
+The files that the Vue CLI generated are mainly all the configuration files that we wanted separately.
+So we have a configuration file for Babel with babel.config.js, PostCSS (which contains the configuration for SCSS) with postcss.config.js, TypeScript with tsconfig.json and TSLint with tslint.json.
+You will also find a node_modules folder for all your NPM packages with a package.json in which we define all the NPM packages that we need in our project.
+If we would have opted for the `In package.json` option, we would have had a large package.json file.
+
 The main folders in which you will work are public and src. We will look at these more in detail later so you fully understand what their purpose is.
 
 ## Public
@@ -295,6 +305,7 @@ The other topics will be for a future article.
 
 ### App.vue
 ```vue
+{% raw %}
 <template>
 	<div id="app">
 		<img alt="Vue logo" src="./assets/logo.png">
@@ -324,6 +335,7 @@ export default class App extends Vue {}
 	margin-top: 60px;
 }
 </style>
+{% endraw %}
 ```
 
 The App.vue file is our first component that Vue bootstraps through our main.ts file.
@@ -340,8 +352,6 @@ App
 			- Reaction
 	- ContactPage
 ```
-
-IMAGE
 
 Each node of the tree is a component.
 With the use of the `@Component(...)` decorator, we define which components can be child components of the component that we're defining.
@@ -380,6 +390,7 @@ Firstly I will explain the basics of a Vue Component so that you will fully unde
 
 ## The structure of a .vue file
 ```vue
+{% raw %}
 <template>
 	<div id="app">
 		...
@@ -403,6 +414,7 @@ export default class App extends Vue {}
 	...
 }
 </style>
+{% endraw %}
 ```
 
 The standard way to write a Vue component is by using the .vue file extension.
@@ -429,6 +441,7 @@ By default, all the styles you define in a style tag are global.
 By adding the scoped attribute to our style tag, our custom SCSS will be specific for that component.
 
 ```vue
+{% raw %}
 <template>
 	<div id="app">
 		<p>Blabla</p>
@@ -455,6 +468,7 @@ By adding the scoped attribute to our style tag, our custom SCSS will be specifi
 	}
 }
 </style>
+{% endraw %}
 ```
 
 In the example above, the `style` tag with the scoped attribute will only affect the p tag in our component and not the one in our child component.
@@ -537,11 +551,14 @@ Vue does support modules but not in the way like we know them from other framewo
 Vue modules are simply ES6 modules.
 
 ## BlogPost component
-Our first component we will write is a BlogPost component.
+
+### The basic file
+Our first component we will write is a BlogPost component in `components/BlogPost.vue`.
 In a first stage of our little project we will just hardcode a blogpost.
 The BlogPost component is small:
 
 ```vue
+{% raw %}
 <template>
 	<div class="blogpost">
 		<h2>{{ post.title }}</h2>
@@ -565,7 +582,7 @@ export default class BlogPost extends Vue {
 	@Prop() private post!: Post;
 
 	get date() {
-		return `${this.post.datePosted.getDate()}/${this.post.datePosted.getMonth()}/{this.post.datePosted.getFullYear()}`;
+		return `${this.post.datePosted.getDate()}/${this.post.datePosted.getMonth()}/${this.post.datePosted.getFullYear()}`;
 	}
 }
 </script>
@@ -580,6 +597,7 @@ div.blogpost {
 	}
 }
 </style>
+{% endraw %}
 ```
 
 As you can see the template is rather small.
@@ -614,6 +632,7 @@ So we have created the BlogPost component but how are we going to actually use i
 We adapt app.vue to this:
 
 ```vue
+{% raw %}
 <template>
 	<div id="app">
 		<h1>Elke's fantastic blog</h1>
@@ -664,6 +683,7 @@ export default class App extends Vue {
 	margin-top: 60px;
 }
 </style>
+{% endraw %}
 ```
 
 As you can see we define a property on the App component that contains our blog posts, we add the components property to the Component decorator and add the BlogPost tag in the template.
@@ -693,10 +713,334 @@ $ npm run serve
 We see in our browser: 
 
 <div style="text-align: center;">
-  <img src="/img/vue-with-typescript/wordvue-first-impression.png" class="image fit">
+  <img src="/img/vue-with-typescript/wordvue-first-impression.png" class="image">
 </div>
 
 Great, you've written your first working component!
+Now it is time to extend it with some functionalities.
+
+## Adding conditional elements to the component
+An important part of a component is to have some dynamic behaviour.
+For example what if we want to show a highlighted blog post? 
+We could create a new component called `HighlightedBlogPost` but we could also extend our existing component.
+
+We can add a new paragraph with a `v-if` statement:
+
+```html
+<p v-if="post.highlighted">This post is highlighted!</p>
+```
+
+The contents of the `v-if` is a TypeScript statement that should return `true` or `false`.
+We extend our `Post` interface to accomodate this:
+
+```typescript
+export interface Post {
+	title: string;
+	body: string;
+	author: string;
+	datePosted: Date;
+	highlighted: boolean;
+}
+```
+
+After that we add `highlighted: true,` to the second blog post in `App.vue`.
+
+In our browser it looks like this:
+
+<div style="text-align: center;">
+  <img src="/img/vue-with-typescript/wordvue-conditional-elements.png" class="image">
+</div>
+
+We end up with this as our BlogPost component:
+
+```vue
+{% raw %}
+<template>
+	<div class="blogpost">
+		<h2>{{ post.title }}</h2>
+		<p v-if="post.highlighted">This post is highlighted!</p>
+		<p>{{ post.body }}</p>
+		<p class="meta">Written by {{ post.author }} on {{ date }}</p>
+	</div>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+
+export interface Post {
+	title: string;
+	body: string;
+	author: string;
+	datePosted: Date;
+	highlighted?: boolean;
+}
+
+@Component
+export default class BlogPost extends Vue {
+	@Prop() private post!: Post;
+
+	get date() {
+		return `${this.post.datePosted.getDate()}/${this.post.datePosted.getMonth()}/${this.post.datePosted.getFullYear()}`;
+	}
+}
+</script>
+
+<style lang="scss">
+div.blogpost {
+	h2 {
+		text-decoration: underline;
+	}
+	p.meta {
+		font-style: italic;
+	}
+}
+</style>
+{% endraw %}
+```
+
+## Adding conditional CSS to our component
+We now know how to add a conditional element to our component, but we can also have conditional CSS.
+We will use this conditional CSS so our highlighted blog post is also visually highlighted.
+
+We can add in our div with class blogpost an extra `v-bind` directive:
+
+```html
+<div class="blogpost" v-bind:class="{ highlighted: post.highlighted }">...</div>
+```
+
+With `v-bind` we define to which attribute we want to bind after the colon.
+So in our case, `v-bind:class` results in a binding with the `class` attribute in our HTML.
+`v-bind:class` accepts an object as parameter in which each key should be mapped to a boolean.
+For each key that is mapped to a truthy value, that key is added as a class to the HTML tag on which the `v-bind` is located.
+You will notice that we use `v-bind` to bind to the `class` attribute but that this attribute already exists on our HTML element.
+This is no problem as Vue will simply concatenate all the values.
+In the case that `post.highlighted` is truthy, we will thus end up with:
+
+```html
+<div class="blogpost highlighted">...</div>
+```
+
+And when it is falsy, we end up with:
+
+```html
+<div class="blogpost">...</div>
+```
+
+We extend our `.blogpost` to give the blog posts a width, center them and add a border with a background:
+
+```css
+div.blogpost {
+	width: 400px;
+	margin: 0 auto;
+	&.highlighted {
+		border: 1px solid #f4d942;
+		background: #fff3b2;
+	}
+	...
+}
+```
+
+In our browser it looks like this:
+
+<div style="text-align: center;">
+  <img src="/img/vue-with-typescript/wordvue-conditional-css.png" class="image">
+</div>
+
+Note that we also have a shorter version of `v-bind:attributename` which is `:attributename`.
+So we can shorten `v-bind:class` to this:
+
+```html
+<div class="blogpost" :class="{ highlighted: post.highlighted }">...</div>
+```
+
+We end up with this as our BlogPost component:
+
+```vue
+{% raw %}
+<template>
+	<div class="blogpost" :class="{ highlighted: post.highlighted }">
+		<h2>{{ post.title }}</h2>
+		<p v-if="post.highlighted">This post is highlighted!</p>
+		<p>{{ post.body }}</p>
+		<p class="meta">Written by {{ post.author }} on {{ date }}</p>
+	</div>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+
+export interface Post {
+	title: string;
+	body: string;
+	author: string;
+	datePosted: Date;
+	highlighted?: boolean;
+}
+
+@Component
+export default class BlogPost extends Vue {
+	@Prop() private post!: Post;
+
+	get date() {
+		return `${this.post.datePosted.getDate()}/${this.post.datePosted.getMonth()}/${this.post.datePosted.getFullYear()}`;
+	}
+}
+</script>
+
+<style lang="scss">
+div.blogpost {
+	width: 400px;
+	margin: 0 auto;
+	&.highlighted {
+		border: 1px solid #f4d942;
+		background: #fff3b2;
+	}
+	h2 {
+		text-decoration: underline;
+	}
+	p.meta {
+		font-style: italic;
+	}
+}
+</style>
+{% endraw %}
+```
+
+## Using events in a component
+As a final extension to our blog, we also want to add some dynamic behaviour by reacting to events.
+For our example, we will bind a button to the click event in our App component with the `v-on:click` directive.
+
+```html
+<button v-on:click="toggleHighlightedPostsVisibility">Show/hide highlighted posts</button>
+```
+
+The syntax to bind to events is `v-on:eventname`.
+We can also use the shorthand version which is `@eventname`:
+
+```html
+<button @click="toggleHighlightedPostsVisibility">Show/hide highlighted posts</button>
+```
+
+After that we write the event handler along with some variables in our component and we'll explain after the code what we have done:
+
+```typescript
+export default class App extends Vue {
+	// ...
+	public showHighlighted: boolean = true;
+
+	private blogPosts: Post[] = [];
+
+	get visibleBlogPosts() {
+		return this.blogPosts.filter((post: Post) => post.highlighted === undefined ||  post.highlighted === this.showHighlighted);
+	}
+
+	public toggleHighlightedPostsVisibility() {
+		this.showHighlighted = !this.showHighlighted;
+	}
+	// ...
+}
+```
+
+First what we did was add the `showHighlighted` boolean.
+This is to keep track whether we should show or hide the highlighted blog posts.
+
+We also wrote a getter to only show the blog posts that are allowed to be shown.
+In our filter, we check if the `highlighted` member is defined and if so, we check if it equals our `showHighlighted` variable.
+
+The reason why we write this in a getter, is that we want to avoid putting business logic in our template.
+Thus we opt for writing a getter which is the equivalent of a computed property in Vue JavaScript.
+
+After this we have to adapt the `v-for` in our template so that we use the new getter:
+
+```html
+<BlogPost v-for="blogPost in visibleBlogPosts" :post="blogPost" :key="blogPost.title" />
+```
+
+As a small bonus, we will make the text in our button dynamic.
+Currently we have `Show/hide highlighted posts` as the text but it would be cleaner if we showed `Show highlighted posts` and `Hide highlighted posts` depending on the state of the component.
+We update the button to the following code:
+
+```html
+{% raw %}
+<button @click="toggleHighlightedPostsVisibility">{{ showHighlighted ? 'Hide' : 'Show' }} highlighted posts</button>
+{% endraw %}
+```
+
+In the end, we end up visually with this:
+
+<div style="text-align: center;">
+  <img src="/img/vue-with-typescript/wordvue-events-showhide.png" class="image">
+</div>
+
+And our App component looks like this:
+
+```vue
+{% raw %}
+<template>
+	<div id="app">
+		<h1>Elke's fantastic blog</h1>
+		<button @click="toggleHighlightedPostsVisibility">{{ showHighlighted ? 'Hide' : 'Show' }} highlighted posts</button>
+		<BlogPost v-for="blogPost in visibleBlogPosts" :post="blogPost" :key="blogPost.title" />
+	</div>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import BlogPost, { Post } from './components/BlogPost.vue';
+
+@Component({
+	components: {
+		BlogPost,
+	},
+})
+export default class App extends Vue {
+
+	public showHighlighted: boolean = true;
+
+	private blogPosts: Post[] = [
+		{
+			title: 'My first blogpost ever!',
+			body: 'Lorem ipsum dolor sit amet.',
+			author: 'Elke',
+			datePosted: new Date(2019, 1, 18),
+		},
+		{
+			title: 'Look I am blogging!',
+			body: 'Hurray for me, this is my second post!',
+			author: 'Elke',
+			datePosted: new Date(2019, 1, 19),
+			highlighted: true,
+		},
+		{
+			title: 'Another one?!',
+			body: 'Another one!',
+			author: 'Elke',
+			datePosted: new Date(2019, 1, 20),
+		},
+	];
+
+	get visibleBlogPosts() {
+		return this.blogPosts.filter((post: Post) => post.highlighted === undefined ||  post.highlighted === this.showHighlighted);
+	}
+
+	public toggleHighlightedPostsVisibility() {
+		this.showHighlighted = !this.showHighlighted;
+	}
+}
+</script>
+
+<style lang="scss">
+#app {
+	font-family: 'Avenir', Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+	color: #2c3e50;
+	margin-top: 60px;
+}
+</style>
+{% endraw %}
+```
 
 # Using your first plugin
 Vue comes without any libraries, it is a super clean and lean framework where even functionality for HTTP calls is not present.
@@ -755,6 +1099,7 @@ The Vue object will thus be ready to go but it will not yet be visible to the us
 The mounted hook is used for when the element is mounted into the HTML DOM, which means the rendering is performed by the browser.
 
 ```vue
+{% raw %}
 <template>
 	<div id="app">
 		...
@@ -781,6 +1126,7 @@ export default class App extends Vue {
   ...
 }
 </style>
+{% endraw %}
 ```
 
 There are 2 reasons why we want to start our HTTP calls in the created method.
@@ -789,64 +1135,96 @@ The second one is that the mounted hook is not called when we would use serversi
 To ensure that our code is compatible with all use cases, we place the HTTP calls in the created method of our App.vue which results in this component:
 
 ```vue
+{% raw %}
 <template>
 	<div id="app">
 		<h1>Elke's fantastic blog</h1>
-		<BlogPost v-for="blogPost in blogPosts" :post="blogPost" :key="blogPost.title" />
+		<button @click="toggleHighlightedPostsVisibility">{{ showHighlighted ? 'Hide' : 'Show' }} highlighted posts</button>
+		<BlogPost v-for="blogPost in visibleBlogPosts" :post="blogPost" :key="blogPost.title" />
 	</div>
 </template>
 
 <script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import BlogPost, { Post } from './components/BlogPost.vue';
+import { AxiosResponse } from 'axios';
+
 @Component({
 	components: {
 		BlogPost,
 	},
 })
 export default class App extends Vue {
+
+	public showHighlighted: boolean = true;
+
 	private blogPosts: Post[] = [];
+
+	get visibleBlogPosts() {
+		return this.blogPosts.filter((post: Post) => post.highlighted === undefined ||  post.highlighted === this.showHighlighted);
+	}
+
+	public toggleHighlightedPostsVisibility() {
+		this.showHighlighted = !this.showHighlighted;
+	}
 
 	private created() {
 		this.$http.get('http://localhost:3000/blogposts').then((response: AxiosResponse) => {
 			this.blogPosts = response.data.map((val: any) => ({
-			title: val.title,
-			body: val.body,
-			author: val.author,
-			datePosted: new Date(val.datePosted),
+				title: val.title,
+				body: val.body,
+				author: val.author,
+				datePosted: new Date(val.datePosted),
+				highlighted: val.highlighted,
 			}));
 		});
 	}
 }
 </script>
+
+<style lang="scss">
+#app {
+	font-family: 'Avenir', Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+	color: #2c3e50;
+	margin-top: 60px;
+}
+</style>
+{% endraw %}
 ```
 
 As you can see we have added a private created method since this should not be publicly available to other components.
 We call an API and map the response into our Post array.
+Now we need to set up our API.
 
 ## How we have set up a local API
-To simulate a real API call, we set up [json-server](https://github.com/typicode/json-server){:target="_blank" rel="noopener noreferrer"}, a small tool that launches a web server with a REST API that serves a json file present in our assets folder:
+To simulate a real API call, we set up [json-server](https://github.com/typicode/json-server){:target="_blank" rel="noopener noreferrer"}, a small tool that launches a web server with a REST API that serves a json file which we call `db.json` present in our assets folder:
 
 ```json
 {
-    "blogposts": [
-        {
-            "title": "My first blogpost ever!",
-            "body": "Lorem ipsum dolor sit amet.",
-            "author": "Elke",
-            "datePosted": "2019-01-18"
-        },
-        {
-            "title": "Look I am blogging!",
-            "body": "Hurray for me, this is my second post!",
-            "author": "Elke",
-            "datePosted": "2019-01-19"
-        },
-        {
-            "title": "Another one?!",
-            "body": "Another one!",
-            "author": "Elke",
-            "datePosted": "2019-01-20"
-        }
-    ]
+	"blogposts": [
+		{
+			"title": "My first blogpost ever!",
+			"body": "Lorem ipsum dolor sit amet.",
+			"author": "Elke",
+			"datePosted": "2019-01-18"
+		},
+		{
+			"title": "Look I am blogging!",
+			"body": "Hurray for me, this is my second post!",
+			"author": "Elke",
+			"datePosted": "2019-01-19",
+			"highlighted": true
+		},
+		{
+			"title": "Another one?!",
+			"body": "Another one!",
+			"author": "Elke",
+			"datePosted": "2019-01-20"
+		}
+	]
 }
 ```
 
@@ -856,6 +1234,10 @@ We install json-server with NPM and then we launch it with:
 $ npm i json-server
 $ json-server src/assets/db.json
 ```
+
+By default, json-server will launch on port 3000.
+When we launch wordvue and open it in the browser, we will see that the blog posts are now coming from our local API.
+Now you know how to install a plugin and retrieve data with axios over HTTP.
 
 # Your first deployment
 
@@ -886,7 +1268,7 @@ Now what is the difference between both modes?
 
 > *vendor.js*: Contains all the node_modules code that your project uses
 >
-> *eval()*: JavaScript function that executes strings as if it's a line of code
+> *eval()*: JavaScript function that executes strings as if it's a line of code and should [never be used in production](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#Do_not_ever_use_eval!)
 
 All the minification, avoiding the use of `eval()`, removing of warning checks and so on results in a much smaller size of the code.
 
