@@ -30,6 +30,7 @@ With the use of types, you inherently provide documentation to other developers 
 In this tutorial we will make a really simple blog system to showcase how you create a project, create a component, install a plugin and do calls via HTTP.
 Our little project will be called `wordvue`.
 At the same time we will explain some tips and tricks and background information about Vue with TypeScript so that you fully understand what the purpose is of each line of code.
+The project can be found in a [GitHub repository](https://github.com/ordina-jworks/vue-typescript-wordvue){:target="_blank" rel="noopener noreferrer"} so you can see a working version.
 
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-plus-typescript-small.png" class="image">
@@ -517,7 +518,7 @@ The basic project structure in Vue is very simple:
 ```
 
 The idea behind this is that you add all your custom components into /components and any assets that also need to be transpiled/compiled into /assets.
-For example a global stylesheet or an icon library that you want to [treeshake](https://webpack.js.org/guides/tree-shaking/) fits perfectly into /assets.
+For example a global stylesheet or an icon library that you want to [treeshake](https://webpack.js.org/guides/tree-shaking/){:target="_blank" rel="noopener noreferrer"} fits perfectly into /assets.
 In the public folder we put all things static that don't need to be parsed and treeshaked: the logo, the favicons, images, ...
 
 ### A more advanced structure
@@ -1047,7 +1048,7 @@ Vue comes without any libraries, it is a super clean and lean framework where ev
 However, every component is a Vue object and can be extended with a `$http` member that you can use in your code to perform HTTP calls.
 
 To provide this `$http` member, we have to add the correct plugin to our code.
-In the [awesome-vue project on GitHub](https://github.com/vuejs/awesome-vue), we can find an [extensive list of HTTP plugins](https://github.com/vuejs/awesome-vue#http-requests){:target="_blank" rel="noopener noreferrer"}.
+In the [awesome-vue project on GitHub](https://github.com/vuejs/awesome-vue){:target="_blank" rel="noopener noreferrer"}, we can find an [extensive list of HTTP plugins](https://github.com/vuejs/awesome-vue#http-requests){:target="_blank" rel="noopener noreferrer"}.
 We will use [axios](https://github.com/axios/axios){:target="_blank" rel="noopener noreferrer"} as our HTTP library but we will use [vue-axios](https://github.com/imcvampire/vue-axios){:target="_blank" rel="noopener noreferrer"} for the bindings with Vue in TypeScript as axios does not provide the necessary typings for axios in Vue.
 
 ## Installing a plugin
@@ -1085,7 +1086,7 @@ So we have added a plugin, but what does that actually mean?
 What is the effect on our Vue code?
 The main effect is that we now have `$http` accessible in every Vue component.
 This means that we can now have this.`$http` in our classes in which a unique instance of the axios library for the whole application will be plugged.
-When we check the [typings](https://github.com/axios/axios/blob/master/index.d.ts) from axios, we find that we now have methods like `get(...)`, `post(...)` and many more default REST methods available in our code through the \$http member in which an instance of axios is present.
+When we check the [typings](https://github.com/axios/axios/blob/master/index.d.ts){:target="_blank" rel="noopener noreferrer"}  from axios, we find that we now have methods like `get(...)`, `post(...)` and many more default REST methods available in our code through the \$http member in which an instance of axios is present.
 
 Methods like `get(...)` and `post(...)` will also exist on other HTTP libraries that we can add to Vue.
 It is not obliged by Vue to provide these same functionalities in another HTTP library.
@@ -1268,7 +1269,7 @@ Now what is the difference between both modes?
 
 > *vendor.js*: Contains all the node_modules code that your project uses
 >
-> *eval()*: JavaScript function that executes strings as if it's a line of code and should [never be used in production](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#Do_not_ever_use_eval!)
+> *eval()*: JavaScript function that executes strings as if it's a line of code and should [never be used in production](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#Do_not_ever_use_eval!){:target="_blank" rel="noopener noreferrer"} 
 
 All the minification, avoiding the use of `eval()`, removing of warning checks and so on results in a much smaller size of the code.
 
@@ -1304,7 +1305,7 @@ When running the `npm run build` command, you'll get the following output:
   <img src="/img/vue-with-typescript/vue-cli-build.png" class="image fit">
 </div>
 
-So what the Vue CLI does is take all the SCSS out of the components minifies it, compiles all the components into an app.js file and [treeshakes](https://webpack.js.org/guides/tree-shaking/) all used libraries into a chunk-vendors.js file.
+So what the Vue CLI does is take all the SCSS out of the components minifies it, compiles all the components into an app.js file and [treeshakes](https://webpack.js.org/guides/tree-shaking/){:target="_blank" rel="noopener noreferrer"}  all used libraries into a chunk-vendors.js file.
 After that, it Gzips all those files to ensure that everything is as light as possible.
 If you have any assets, it will also clone those into the dist folder.
 
@@ -1312,6 +1313,7 @@ The result is a dist folder which contents you can directly deploy onto your fav
 
 # Conclusion
 Congratulations, you have built your very first Vue application with TypeScript!
+The end result can be found in my [GitHub repository](https://github.com/ordina-jworks/vue-typescript-wordvue){:target="_blank" rel="noopener noreferrer"}  so you can see the working version.
 You now know how to write a basic component with the use of decorators, create a component structure and fill it with data coming from an API.
 After that you can also deploy it onto a server.
 A next step would be to add routing, add a store or an i18n library.
@@ -1326,3 +1328,4 @@ If you want to add more functionality, you will have to rely on plugins who eith
 * Vue styleguide: [vuejs.org/v2/style-guide](https://vuejs.org/v2/style-guide/){:target="_blank" rel="noopener noreferrer"}
 * Vue-class-component: [github.com/vuejs/vue-class-component](https://github.com/vuejs/vue-class-component){:target="_blank" rel="noopener noreferrer"} 
 * JSON server: [github.com/typicode/json-server](https://github.com/typicode/json-server){:target="_blank" rel="noopener noreferrer"} 
+* Wordvue repository: [github.com/ordina-jworks/vue-typescript-wordvue](https://github.com/ordina-jworks/vue-typescript-wordvue){:target="_blank" rel="noopener noreferrer"} 
