@@ -2,13 +2,24 @@
 layout: post
 authors: [pieter_van_hees, kristof_eekhaut]
 title: 'DDD Europe 2019'
-image: /img/ddd-europe.jpg
+image: /img/2019-02-16-ddd-europe/ddd-europe.jpg
 tags: [DDD, Domain Driven Design, conference]
 category: Conference
 comments: true
 ---
 
+> This year Pieter Van Hees and Kristof Eekhaut attended the [DDD Europe](https://dddeurope.com/) conference in Amsterdam.
+> The conference was all about Domain Driven Design and related topics, with loads of interesting talks from beginners and experts in their field.
+> In this post you can read about some of the talks and workshops we attended.
+
 # Table of content
+
+* [When-we-lose-sight-of-our-domain-by-Carola-Lilienthal](#when-we-lose-sight-of-our-domain-by-carola-lilienthal)
+* [Make-your-tests-tell-the-story-of-your-domain-by-Anne-Landro-and-Mads-Opheim](#make-your-tests-tell-the-story-of-your-domain-by-anne-landro-and-mads-opheim)
+* [Domain-modelling-towards-First-Principles-by-Cyrille-Martaire](#domain-modelling-towards-first-principles-by-cyrille-martaire)
+* [Collaborative-Modelling-hands-on-session-by-Marijn-Huizendveld](#collaborative-modelling-hands-on-session-by-marijn-huizendveld)
+* [Lost-in-transaction?-Strategies-to-manage-consistency-across-boundaries-by-Bernd-Ruecker](#lost-in-transaction?-strategies-to-manage-consistency-across-boundaries-by-bernd-ruecker)
+* [Estimates-or-No-Estimates,-Let's-explore-the-possibilities-by-Woody-Zuill](#estimates-or-no-estimates,-let's-explore-the-possibilities-by-woody-zuill)
 
 ## When we lose sight of our domain by Carola Lilienthal
 
@@ -30,7 +41,9 @@ As a consequence they either cannot give relevant feedback because they don't un
 
 A better way to communicate the model between users and developers is to use e.g. a schema with icons and descriptive names for actions.
 
- ### Trap 2: Only look at the future without taking into account the present
+<img class="image fit" src="{{ '/img/2019-02-16-ddd-europe/model-with-icons.jpg' | prepend: site.baseurl }}" alt="model with icons" />
+
+### Trap 2: Only look at the future without taking into account the present
  
 Look at how they are working today instead of only looking what you want to achieve in the future.
  
@@ -242,6 +255,8 @@ However, this compensation saga implemented with choreography might become compl
 E.g. a hotel booking triggers a car booking, which triggers a flight booking.
 If you have complex processes with a lot of services involved, this might become chaotic.
 
+<img class="image fit" src="{{ '/img/2019-02-16-ddd-europe/event-driven-choreography.jpg' | prepend: site.baseurl }}" alt="event driven choreography" />
+
 #### Orchestration
 
 By using an orchestration approach there would be one service responsible for managing the whole process.
@@ -252,6 +267,8 @@ You could for example define your business process and all compensating activiti
 
 Some libraries even provide quite nice DSL's where you can make your business process quite explicit.
 And the good thing is that this Business process or saga is even part of your domain logic.
+
+<img class="image fit" src="{{ '/img/2019-02-16-ddd-europe/orchestration.jpg' | prepend: site.baseurl }}" alt="orchestration" />
 
 ## Estimates or No Estimates, Let's explore the possibilities by Woody Zuill
 
