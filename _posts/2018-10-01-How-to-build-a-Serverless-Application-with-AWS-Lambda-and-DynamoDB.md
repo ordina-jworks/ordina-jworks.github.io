@@ -1,6 +1,7 @@
 ---
 layout: post
 authors: [nick_van_hoof]
+outbound: [tech_blog_infrastructure_as_code_with_terraform_and_aws_serverless]
 title: 'Create a Serverless Application with AWS Lambda and DynamoDB'
 image: /img/2018-10-01-How-to-Build-a-Serverless-Application/AWS-Lambda-and-DynamoDB.png
 tags: [AWS,Lambda,DynamoDB,API GateWay,Serverless]
@@ -558,7 +559,7 @@ Some suggestions to keep you busy:
 * Run locally with **SAM Local**
 
 # Extra resources
-* AWS Lambda: [AWS Lambda Introduction](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html){:target="_blank" rel="noopener noreferrer"}
+* AWS Lambda: [AWS Lambda Introduction](https://aws.amazon.com/lambda/getting-started/){:target="_blank" rel="noopener noreferrer"}
 * AWS DynamoDB: [AWS DynamoDB Introduction](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html){:target="_blank" rel="noopener noreferrer"}
 * AWS API Gateway: [AWS API Gateway](https://aws.amazon.com/api-gateway){:target="_blank" rel="noopener noreferrer"}
 * AWS IAM: [AWS IAM Introduction](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html){:target="_blank" rel="noopener noreferrer"}
