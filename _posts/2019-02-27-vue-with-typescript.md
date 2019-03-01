@@ -10,7 +10,7 @@ comments: true
 ---
 
 # Table of contents
-1. [Vue with TypeScript, an introduction](#1-introduction)
+1. [Vue with TypeScript, an introduction](#1-vue-with-typescript-an-introduction)
 2. [Creating a Vue project with TypeScript](#2-creating-a-vue-project-with-typescript)
 3. [A look into the files created by the Vue CLI](#3-a-look-into-the-files-created-by-the-vue-cli)
 4. [How to write your first component](#4-how-to-write-your-first-component)
