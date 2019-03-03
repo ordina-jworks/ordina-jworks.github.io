@@ -3,27 +3,28 @@ layout: post
 authors: [pieter_van_hees, kristof_eekhaut]
 title: 'DDD Europe 2019'
 image: /img/2019-02-16-ddd-europe/ddd-europe.jpg
-tags: [DDD, Domain Driven Design, conference]
+tags: [DDD, Domain-Driven Design, conference]
 category: Conference
 comments: true
 ---
 
-> This year Pieter Van Hees and Kristof Eekhaut attended the [DDD Europe](https://dddeurope.com/) conference in Amsterdam.
-> The conference was all about Domain Driven Design and related topics, with loads of interesting talks from beginners and experts in their field.
+> This year Pieter Van Hees and Kristof Eekhaut attended the [Domain-Driven Design Europe](https://dddeurope.com/){:target="_blank" rel="noopener noreferrer"}  conference in Amsterdam.
+> The conference was all about Domain-Driven Design and related topics, with loads of interesting talks from beginners and experts in their field.
 > In this post you can read about some of the talks and workshops we attended.
 
 # Table of content
 
-* [When-we-lose-sight-of-our-domain-by-Carola-Lilienthal](#when-we-lose-sight-of-our-domain-by-carola-lilienthal)
-* [Make-your-tests-tell-the-story-of-your-domain-by-Anne-Landro-and-Mads-Opheim](#make-your-tests-tell-the-story-of-your-domain-by-anne-landro-and-mads-opheim)
-* [Domain-modelling-towards-First-Principles-by-Cyrille-Martaire](#domain-modelling-towards-first-principles-by-cyrille-martaire)
-* [Collaborative-Modelling-hands-on-session-by-Marijn-Huizendveld](#collaborative-modelling-hands-on-session-by-marijn-huizendveld)
-* [Lost-in-transaction?-Strategies-to-manage-consistency-across-boundaries-by-Bernd-Ruecker](#lost-in-transaction?-strategies-to-manage-consistency-across-boundaries-by-bernd-ruecker)
-* [Estimates-or-No-Estimates,-Let's-explore-the-possibilities-by-Woody-Zuill](#estimates-or-no-estimates,-let's-explore-the-possibilities-by-woody-zuill)
+* [When we lose sight of our domain by Carola Lilienthal](#when-we-lose-sight-of-our-domain-by-carola-lilienthal)
+* [Make your tests tell the story of your domain by Anne Landro and Mads Opheim](#make-your-tests-tell-the-story-of-your-domain-by-anne-landro-and-mads-opheim)
+* [Domain modelling towards First Principles by Cyrille Martaire](#domain-modelling-towards-first-principles-by-cyrille-martaire)
+* [Collaborative Modelling hands on session by Marijn Huizendveld](#collaborative-modelling-hands-on-session-by-marijn-huizendveld)
+* [Lost in transaction? Strategies to manage consistency across boundaries by Bernd Ruecker](#lost-in-transaction?-strategies-to-manage-consistency-across-boundaries-by-bernd-ruecker)
+* [Estimates or No Estimates, Let's explore the possibilities by Woody Zuill](#estimates-or-no-estimates,-let's-explore-the-possibilities-by-woody-zuill)
 
-## When we lose sight of our domain by Carola Lilienthal
+## When we lose sight of our domain by [Carola Lilienthal](https://twitter.com/Cairolali){:target="_blank" rel="noopener noreferrer"}
 
-Carola discusses 9 traps that developers fall into, and which prevent us to focus on the important aspect of developing software, the domain.
+<span class="image left"><img class="p-image" alt="Carola Lilienthal" src="/img/2019-02-16-ddd-europe/carola-lilienthal.jpg"></span>
+Carola discusses nine traps that developers fall into, and which prevent us to focus on the important aspect of developing software, the domain.
 
 ### Trap 1: Model monopoly
 
@@ -35,7 +36,7 @@ By having one or more analysts who communicate with users, they have the monopol
 
 When developers do communicate with users, they should do so in a language and/or model that the users understand.
 
-Sharing class diagrams or database models with users is counter productive.
+Sharing class diagrams or database models with users is counterproductive.
 The users will not understand this complex model and think it took a lot of effort to create.
 As a consequence they either cannot give relevant feedback because they don't understand it, or they won't dare to because they don't want to discourage you.
 
@@ -75,26 +76,26 @@ The large business class could be the container that manages all stages the cont
 It would be better to model these stage as separate components.
 This is called functional decomposition.
 
-> "Dont' create big business classes that serve everybody."
+> "Don't create big business classes that serve everybody."
 
 
 ### Trap 7: How do we know what to build
 How do we split a big elephant into pieces?
 
-Let's say we have 4 different types of elephants in our business domain.
+Let's say we have four different types of elephants in our business domain.
 A common mistake would be to split elephant by different parts of the body. 
-Where one component would be all 4 types of feet, another would be all 4 types of heads, etc.
+Where one component would be all four types of feet, another would be all four types of heads, etc.
 
-This might nog necessarily be the best approach to split the 4 elephant types.
-The better approach would be to build 1 small elephant that is fully functioning, and then let it grow each iteration.
-This approach let's you learn from each iteration and allows for incremental growth and refactoring.
+This might not necessarily be the best approach to split the four elephant types.
+The better approach would be to build one small elephant that is fully functioning, and then let it grow each iteration.
+This approach lets you learn from each iteration and allows for incremental growth and refactoring.
 
 
 ### Trap 8: The expert trap
 
 The people who developed the elephant will start to think they are experts, and know everything there is to know about the elephant, because they built it from scratch.
 This assumption is false, because even the developers who built the elephant from scratch have assumptions, and assumptions can be false.
-The real experts are, and will remain the users.
+The real experts are, and will remain, the users.
 
 
 ### Trap 9: Everything is new, and therefore better
@@ -106,8 +107,9 @@ When the users will start to use the new system, they will feel like beginners a
 They will be less productive than with the old application, at least for a little while.
 
 
-## Make your tests tell the story of your domain by Anne Landro and Mads Opheim
+## Make your tests tell the story of your domain by [Anne Landro](https://twitter.com/annelandro){:target="_blank" rel="noopener noreferrer"} and Mads Opheim
 
+<span class="image left"><img class="p-image" alt="Anne Landro" src="/img/2019-02-16-ddd-europe/anne-landro.png"></span>
 Anne and Mads tell us how they drastically reformed the testing approach for the Norwegian Court Case Management system from constant repetitive manual verification to automated testing.
 
 They explain that Value Chain tests have helped their team document the domain:
@@ -128,11 +130,12 @@ From a  quick glance at this code you can learn a lot about how the domain works
 Their team also uses this technique to document special cases that they discover in the domain, so that bugs caused by these quirks don’t happen again.
 
 
-## Domain modelling towards First Principles by Cyrille Martaire
+## Domain modelling towards First Principles by [Cyrille Martraire](https://twitter.com/cyriux){:target="_blank" rel="noopener noreferrer"}
 
-In this great talk Cyrille explains us why he thinks that the Domain Driven mind set of most teams is _"too gentile"_ and we aim to _“raise the waterline”_.  
+<span class="image left"><img class="p-image" alt="Cyrille Martraire" src="/img/2019-02-16-ddd-europe/cyrille-martraire.jpg"></span>
+In this great talk Cyrille explains us why he thinks that the Domain-Driven mind set of most teams is _"too gentile"_ and we aim to _“raise the waterline”_.  
 
-With DDD we learned to immerse ourselves in the domain, use our domain driven skills to understand the domain and conceptualise the domain into conceptual models. 
+With DDD we learned to immerse ourselves in the domain, use our domain-driven skills to understand the domain and conceptualise the domain into conceptual models. 
 But we should go further by defining theories for our models and spot the First Principles that the theory consists of. 
 Then we can challenge them, so that we can suggest changes to the business instead of reproducing the domain as it is. 
 This way we get more involved and get to the next step, which is:  **Innovation!**
@@ -140,7 +143,7 @@ This way we get more involved and get to the next step, which is:  **Innovation!
 He points out a number of common problems that many teams have and suggest how we can improve them:
 
 ### The Human Compiler effect
-One thing we often see is that we are given requirements piece by piece: the first sprint we get 1 case, then the next sprint another case and so on...  
+One thing we often see is that we are given requirements piece by piece: the first sprint we get one case, then the next sprint another case and so on.  
 But most of the time it turns out that all of these cases are actually special cases of some general case that we haven't been told about.
 The reason for this is what Cyrill calls the Human Compiler effect:  someone behaving like a compiler, by taking the general problem and splitting it up and dumbing it down in separate simple solutions for every single consequence, so that a developer can implement them.
 
@@ -157,7 +160,7 @@ On the other hand, sometimes we are given an explanation about a problem and som
 
 This increases technical depth and make the code unmaintainable.
 
-The solution for this: refactoring and using TDD.
+The solution for this: refactoring and using Test-Driven Development.
 
 ### Theory vs Residual Mess
 When we start creating theories about the regular world of our domain, often someone from the teams asks: "But what about ALL the other business rules?". 
@@ -174,13 +177,16 @@ Cyrill advices us to:
 - Expect untold regularities
 - Practice TDD
 - Practice DDD
-- Build theories not just lists of business rules
+- Build theories, not just lists of business rules
 - Learn to think based on First Principles. Disrupt and become innovative!
 
 
-## Collaborative Modelling hands-on session by Marijn Huizendveld
+## Collaborative Modelling hands-on session by [Marijn Huizendveld](https://twitter.com/huizendveld){:target="_blank" rel="noopener noreferrer"}
  
-We are divided in groups of five with one team leader. The goal: to model an application for the maintenance team of a Car rental company in Amsterdam. The application must determine when a car is due and available for maintenance.
+<span class="image left"><img class="p-image" alt="Marijn Huizendveld" src="/img/2019-02-16-ddd-europe/marijn-huizendveld.jpg"></span>
+We are divided in groups of five with one team leader.
+The goal: to model an application for the maintenance team of a Car rental company in Amsterdam.
+The application must determine when a car is due and available for maintenance.
    
 New requirements are provided step by step on “requirement” cards, so that we have to adapt and reshape our model each time we discover a bit more about the domain. 
 We learn the importance of visualising the solution (model) and talking about the problem based on what we have visualized in front of us. 
@@ -193,8 +199,9 @@ Another card suggests to let someone go through the entire process that is model
 With this excellent workshop Marijn shows us how easy it can be to come up with a great domain model that is understood and agreed upon by everyone involved.
 
 
-## Lost in transaction? Strategies to manage consistency across boundaries by Bernd Ruecker
+## Lost in transaction? Strategies to manage consistency across boundaries by [Bernd Ruecker](https://twitter.com/berndruecker){:target="_blank" rel="noopener noreferrer"}
 
+<span class="image left"><img class="p-image" alt="Bernd Ruecker" src="/img/2019-02-16-ddd-europe/bernd-ruecker.jpg"></span>
 In this talk Bernd explains the challenges we face when using transactions in big applications and distributed systems.
 
 He starts by reminding us that our Aggregates in DDD are usually our transactional/consistency boundaries. 
@@ -215,7 +222,7 @@ An alternative solution is the alternative to ACID: BASE
 * Eventual consistency
 
 By applying Eventual Consistency you update one aggregate in one transaction and the other in a different transaction.
-This means that the system will be in an incosistent state for a short time, but eventually it will be consistent.
+This means that the system will be in an inconsistent state for a short time, but eventually it will be consistent.
 
 After that, Bernd explains different strategies how to implement this eventual consistency with an example.
 
@@ -270,8 +277,9 @@ And the good thing is that this Business process or saga is even part of your do
 
 <img class="image fit" src="{{ '/img/2019-02-16-ddd-europe/orchestration.jpg' | prepend: site.baseurl }}" alt="orchestration" />
 
-## Estimates or No Estimates, Let's explore the possibilities by Woody Zuill
+## Estimates or No Estimates, Let's explore the possibilities by [Woody Zuill](https://twitter.com/WoodyZuill){:target="_blank" rel="noopener noreferrer"}
 
+<span class="image left"><img class="p-image" alt="Woody Zuill" src="/img/2019-02-16-ddd-europe/woody-zuill.png"></span>
 Woody starts by pointing out that his workshop does not give answers, but does ask critical questions.
 His goal is to share some experience he had, and he realizes that what works in some companies, does not work in others.
 
@@ -318,10 +326,10 @@ Some reasons why we make estimates:
 * dependencies on other teams
 
 In software development estimates are often used to attempt to predict the future.
-when will it be done?
-how much will it cost?
-what can we get done this sprint?
-what can we get done for this money?
+When will it be done?
+How much will it cost?
+What can we get done this sprint?
+What can we get done for this amount of money?
 
 Basically we use estimates to help us make decisions.
 
@@ -330,11 +338,18 @@ But do we really want to choose between project A or B based on a guess?
 Wouldn't it be better to do an MVP of both and see which is working best?
 
 Is on time or on budget a good measure of the results of our decision?
-No, because you cut feature, make it unmaintainable, etc.
+No, because you cut features, make it unmaintainable, etc.
 Isn't it better to measure customer satisfaction as a metric for success?
 
 ### Conclusion
 After this workshop the audience was left with even more questions.
 But what we did realize is that often people make estimations without any good reason. 
 And sometimes it would be better to reflect on why we do estimations, and see if it really provides us value, and if there is no alternative solution for the problem we're actually trying to solve with estimations.
+
+
+## Summing it all up
+
+Domain-Driven Design Europe was a great conference where we got to learn more about software design and techniques that help us do what we love to do the most: creating great software for users.
+The organizers did an excellent job in creating a conference with great speakers.
+Next year's conference will take place in Amsterdam at the 6th and 7th of february 2020.
 
