@@ -8,7 +8,7 @@ category: Conference
 comments: true
 ---
 
-> This year Pieter Van Hees and Kristof Eekhaut attended the [Domain-Driven Design Europe](https://dddeurope.com/){:target="_blank" rel="noopener noreferrer"}  conference in Amsterdam.
+> This year, Pieter Van Hees and Kristof Eekhaut attended the [Domain-Driven Design Europe](https://dddeurope.com/){:target="_blank" rel="noopener noreferrer"}  conference in Amsterdam.
 > The conference was all about Domain-Driven Design and related topics, with loads of interesting talks from beginners and experts in their field.
 > In this post you can read about some of the talks and workshops we attended.
 
@@ -16,10 +16,10 @@ comments: true
 
 * [When we lose sight of our domain by Carola Lilienthal](#when-we-lose-sight-of-our-domain-by-carola-lilienthal)
 * [Make your tests tell the story of your domain by Anne Landro and Mads Opheim](#make-your-tests-tell-the-story-of-your-domain-by-anne-landro-and-mads-opheim)
-* [Domain modelling towards First Principles by Cyrille Martaire](#domain-modelling-towards-first-principles-by-cyrille-martaire)
+* [Domain modelling towards First Principles by Cyrille Martaire](#domain-modelling-towards-first-principles-by-cyrille-martraire)
 * [Collaborative Modelling hands on session by Marijn Huizendveld](#collaborative-modelling-hands-on-session-by-marijn-huizendveld)
-* [Lost in transaction? Strategies to manage consistency across boundaries by Bernd Ruecker](#lost-in-transaction?-strategies-to-manage-consistency-across-boundaries-by-bernd-ruecker)
-* [Estimates or No Estimates, Let's explore the possibilities by Woody Zuill](#estimates-or-no-estimates,-let's-explore-the-possibilities-by-woody-zuill)
+* [Lost in transaction? Strategies to manage consistency across boundaries by Bernd Ruecker](#lost-in-transaction-strategies-to-manage-consistency-across-boundaries-by-bernd-ruecker)
+* [Estimates or No Estimates, Let's explore the possibilities by Woody Zuill](#estimates-or-no-estimates-lets-explore-the-possibilities-by-woody-zuill)
 
 ## When we lose sight of our domain by [Carola Lilienthal](https://twitter.com/Cairolali){:target="_blank" rel="noopener noreferrer"}
 
@@ -185,16 +185,18 @@ Cyrill advices us to:
  
 <span class="image left"><img class="p-image" alt="Marijn Huizendveld" src="/img/2019-02-16-ddd-europe/marijn-huizendveld.jpg"></span>
 We are divided in groups of five with one team leader.
-The goal: to model an application for the maintenance team of a Car rental company in Amsterdam.
+The goal: to model an application for the maintenance team of a car rental company in Amsterdam.
 The application must determine when a car is due and available for maintenance.
    
 New requirements are provided step by step on “requirement” cards, so that we have to adapt and reshape our model each time we discover a bit more about the domain. 
 We learn the importance of visualising the solution (model) and talking about the problem based on what we have visualized in front of us. 
-Putting notes on the board with the different concepts that we identify, sparks interesting discussions that make use think further about the problem:  Is the given name correct and clear?  Do we mean the same thing when we talk about …?  Do 2 words on the board actually mean the same thing?
+Putting notes on the board with the different concepts that we identify, sparks interesting discussions that make use think further about the problem:  Is the given name correct and clear?  Do we mean the same thing when we talk about ...?  Do two words on the board actually mean the same thing?
    
 After each requirement card follows a card for the team leader to consider making changes to the way we work.
-One card tells the leader to look for someone who has been a bit quiet or outside of the discussion and move the group around so that he is next to the board.  This immediately make this person more involved in the discussion and we also start paying attention to his view.  
-Another card suggests to let someone go through the entire process that is modelled on the board and explain it step by step. We immediately find out that some definitions on the board are hard to explain and not as clear as we thought they were.
+One card tells the leader to look for someone who has been a bit quiet or outside of the discussion and move the group around so that he is next to the board.
+This immediately make this person more involved in the discussion and we also start paying attention to his view.  
+Another card suggests to let someone go through the entire process that is modelled on the board and explain it step by step.
+We immediately find out that some definitions on the board are hard to explain and not as clear as we thought they were.
 
 With this excellent workshop Marijn shows us how easy it can be to come up with a great domain model that is understood and agreed upon by everyone involved.
 
@@ -210,12 +212,12 @@ Meaning that within an Aggregate, you have an ACID transaction.
 If you were to have a transaction over multiple Aggregates, you would have a stronger coupling between them.
 For example you can't split them easily into multiple separate microservices.
 
-What you could do is use 2 phase commits to have you transaction over multiple Aggregates in separate services.
-But the problem is that 2 phase commits don't scale.
+What you could do is use two-phase commits to have you transaction over multiple Aggregates in separate services.
+But the problem is that two-phase commits don't scale.
 
 > Grown ups don't use distributed transactions
 
-An alternative solution is the alternative to ACID: BASE
+An alternative solution is the alternative to ACID: BASE.
 * Basically
 * Available
 * Soft-state
@@ -226,26 +228,26 @@ This means that the system will be in an inconsistent state for a short time, bu
 
 After that, Bernd explains different strategies how to implement this eventual consistency with an example.
 
-Let's say that we have an Credit card payment aggregate that charges a credit card aggregate, and that this communication happens through an asynchronous message. 
+Let's say that we have an credit card payment aggregate that charges a credit card aggregate, and that this communication happens through an asynchronous message. 
 This communication can go wrong in multiple ways: the message might never arrive at the credit card service, it might arrive but the payment service doesn't receive the feedback, etc. 
 
 ### Strategy 1: Cleanup
 
-If the payment service can't send the message, or if it doesn't receive feedback that the message was received, he can send a payment failed event.
+If the payment service can't send the message, or if it doesn't receive feedback that the message was received, it can send a payment failed event.
 The problem with this strategy is that this 'payment failed' event also might not arrive at the credit card service. 
-Which means that he won't be able to do his cleanup.
+Which means that it won't be able to do his cleanup.
 
 ### Strategy 2: Keep state
 
 #### Stateful retry
 
 By using a stateful retry the payment service would keep the state of whether or not the message was delivered to the credit card service.
-As long as the credit card service does not acknowledge that he processed the message, the payment service will keep sending the message.
+As long as the credit card service does not acknowledge that it processed the message, the payment service will keep sending the message.
 
 #### Stateful retry and cleanup
 
 With this strategy the payment service keeps retrying to send the message until a timeout has passed or after X retries.
-After that he will send a payment failed event for which the retry policy might also apply.
+After that it will send a payment failed event for which the retry policy might also apply.
 
 ### Strategy 3: Compensation/Sagas
 
@@ -253,7 +255,7 @@ After that he will send a payment failed event for which the retry policy might 
 
 Compensation means that if something in the asynchronous process fails, a compensating process will be triggered.
 A classic example is a system where you book a hotel in one service which will trigger a car booking.
-If the car booking fails, he will emit an event that will be picked up by the hotel service which will cancel the hotel room related to the car booking.
+If the car booking fails, it will emit an event that will be picked up by the hotel service which will cancel the hotel room related to the car booking.
 
 This system of services responding on events from each other is called orchestration. 
 We don't define in one place how the whole process works, but services know themselves on what to react on.
@@ -267,13 +269,13 @@ If you have complex processes with a lot of services involved, this might become
 #### Orchestration
 
 By using an orchestration approach there would be one service responsible for managing the whole process.
-In the hotel/car/flight example a Trip service could be this orchestrating service that calls the other services and tells them to book or cancel.
+In the hotel/car/flight example a trip service could be this orchestrating service that calls the other services and tells them to book or cancel.
 
 Bernd then argues that if you choose an orchestration strategy that BPMN tools and libraries can help a lot in defining these processes.
 You could for example define your business process and all compensating activities.
 
-Some libraries even provide quite nice DSL's where you can make your business process quite explicit.
-And the good thing is that this Business process or saga is even part of your domain logic.
+Some libraries even provide quite nice DSLs where you can make your business process quite explicit.
+And the good thing is that this business process or saga is even part of your domain logic.
 
 <img class="image fit" src="{{ '/img/2019-02-16-ddd-europe/orchestration.jpg' | prepend: site.baseurl }}" alt="orchestration" />
 
@@ -281,7 +283,7 @@ And the good thing is that this Business process or saga is even part of your do
 
 <span class="image left"><img class="p-image" alt="Woody Zuill" src="/img/2019-02-16-ddd-europe/woody-zuill.png"></span>
 Woody starts by pointing out that his workshop does not give answers, but does ask critical questions.
-His goal is to share some experience he had, and he realizes that what works in some companies, does not work in others.
+His goal is to share some experiences he had, and he realizes that what works in some companies, does not work in others.
 
 
 After this disclaimer he talks about a big project he worked on where they experienced sprint after sprint that their estimates were always plain wrong.
@@ -295,37 +297,36 @@ Wrong estimates are often not the problem itself, but a symptom of something els
 It could be that they are off because the requirements were unclear, or that requirements keep changing.
 
 
-### #No estimates
+### #NoEstimates
 
-\#No estimates was originally used to refer to reference a blog post Woody had written on a project where they did not use or make estimates.
+\#NoEstimates was originally used to refer to reference a blog post Woody had written on a project where they did not use or make estimates.
 But actually 'No estimates' is a placeholder for a larger conversation.
 
-Woody mentions that for some things in life we want estimates, but we never do because we know it's impossible 
-E.g.how long will this clinical trial take?
+Woody mentions that for some things in life we want estimates, but we never do because we know it's impossible.
+E.g. how long will this clinical trial take?
 How long till we find a cure for cancer?
 How long till you finish this work of art?
 In fact if we have enough data to definitively say how long something will take to develop, we already built it and we don't need to do it again.
 
-
 Next he asked the audience to explain in a single word what an estimate means. 
 Quite some different answers were given, but in general it came down to this list:
-* guess
-* expectation
-* lies
-* misunderstanding
-* approximation
+* Guess
+* Expectation
+* Lies
+* Misunderstanding
+* Approximation
 
 From these answers the following working definition could be extracted:
-> An estimate is a guess of the amount of work time to create a project, a feature or some bit of work in developing software
+> An estimate is a guess of the amount of work time to create a project, a feature or some bit of work in developing software.
 
 ### Why do we estimate?
 
 Some reasons why we make estimates:
-* planning / budget
-* which approach do we choose / in what order do we do things
-* dependencies on other teams
+* Planning / budget
+* Which approach do we choose / in what order do we do things
+* Dependencies on other teams
 
-In software development estimates are often used to attempt to predict the future.
+In software development, estimates are often used to attempt to predict the future.
 When will it be done?
 How much will it cost?
 What can we get done this sprint?
@@ -351,5 +352,5 @@ And sometimes it would be better to reflect on why we do estimations, and see if
 
 Domain-Driven Design Europe was a great conference where we got to learn more about software design and techniques that help us do what we love to do the most: creating great software for users.
 The organizers did an excellent job in creating a conference with great speakers.
-Next year's conference will take place in Amsterdam at the 6th and 7th of february 2020.
+Next year's conference will take place in Amsterdam on the 6th and 7th of February 2020.
 
