@@ -978,7 +978,7 @@ We update the button to the following code:
 In the end, we end up visually with this:
 
 <div style="text-align: center;">
-  <img src="/img/vue-with-typescript/wordvue-events-showhide.png" class="image">
+  <img src="/img/vue-with-typescript/wordvue-events-showhide.png" class="image fit">
 </div>
 
 And our App component looks like this:
