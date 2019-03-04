@@ -33,7 +33,7 @@ At the same time we will explain some tips and tricks and give some background i
 The project can be found in a [GitHub repository](https://github.com/ordina-jworks/vue-typescript-wordvue){:target="_blank" rel="noopener noreferrer"} so you can see a working version.
 
 <div style="text-align: center;">
-  <img src="/img/vue-with-typescript/vue-plus-typescript-small.png" class="image">
+  <img src="/img/vue-with-typescript/vue-plus-typescript-small.png" class="image fit">
 </div>
 
 # 2. Creating a Vue project with TypeScript
