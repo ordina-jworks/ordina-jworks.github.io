@@ -67,7 +67,7 @@ At the time of writing the current default language for Vue is JavaScript.
 We check the TypeScript option and for the purpose of this article we will not look in detail at the other features of this screen and fall back on the default values.
 I also checked CSS Pre-processors just because I like SCSS.
 Make sure you have Babel selected, Babel will automatically add multiple polyfills.
-The pollyfills will help with having backwards compatibility of ECMAScript features.
+The polyfills will help with having backwards compatibility of ECMAScript features.
 
 ### Using the class-style component syntax
 <div style="text-align: center;">
