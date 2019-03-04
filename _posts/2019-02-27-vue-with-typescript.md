@@ -74,7 +74,7 @@ The polyfills will help with having backwards compatibility of ECMAScript featur
   <img src="/img/vue-with-typescript/vue-cli-3-class-style-component-syntax.png" class="image fit">
 </div>
 
-In the next screen we will get the question if we want class-style component syntax, for which we answer yes.
+In the next screen we will get the question if we want class-style component syntax, for which we answer `Yes`.
 With this, we actually install the decorators that can be found in the [Vue Class Component package](https://github.com/vuejs/vue-class-component){:target="_blank" rel="noopener noreferrer"}.
 We will now explain the difference between using the class-style component syntax and using the classic Vue syntax.
 
@@ -226,7 +226,7 @@ It also contains your `index.html` which is very basic:
 ```
 
 It is only in rare cases that you should adapt the `index.html`.
-One example situation would be to add Google Analytics, add more meta tags or adapt the `title` tag.
+One example situation would be to add Google Analytics, add more `meta` tags or adapt the `title` tag.
 Vue will automatically inject the necessary generated JavaScript files right before the closing `body` tag.
 This will include the transpiled version of your own code as well as vendor code.
 The most important thing is the `div` tag with id `app`.
@@ -379,7 +379,7 @@ Vue.component('my-component-name', {
 
 A global component can be accessed anywhere.
 Try to avoid this as much as possible as it fills up the global namespace.
-An example of a use case that is justified would be an icon library like Font Awesome:
+An example of a use case that is justified would be an icon library like [Font Awesome](https://github.com/FortAwesome/vue-fontawesome){:target="_blank" rel="noopener noreferrer"}:
 
 ```typescript
 library.add(
@@ -390,7 +390,7 @@ library.add(
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 ```
 
-After this we can access the font-awesome-icon tag from everywhere.
+After this we can access the `font-awesome-icon` tag from everywhere.
 
 ```html
 <font-awesome-icon icon="arrow-down" />
@@ -431,26 +431,26 @@ export default class App extends Vue {}
 
 The standard way to write a Vue component is by using the `.vue` file extension.
 In a `.vue` file, we define three optional tags: `template`, `script` and `style`.
-According to the Vue documentation, you should always [order the tags consistently](https://vuejs.org/v2/style-guide/#Single-file-component-top-level-element-order-recommended){:target="_blank" rel="noopener noreferrer"} with style being the last one.
+According to the Vue documentation, you should always [order the tags consistently](https://vuejs.org/v2/style-guide/#Single-file-component-top-level-element-order-recommended){:target="_blank" rel="noopener noreferrer"} with `style` being the last one.
 
 ### \<template>...\</template>
 This is the visual part of your component, in here you define the HTML that will be used to display your component.
 Note that your custom HTML should always be surrounded by a `div` tag.
 The reason for this is that it allows Vue to encapsulate your custom CSS without unknowingly affecting the styling of your whole site.
 You can use this to add a custom id or class to the tag to help you identify the component in for example your e2e tests.
-Note that a `.vue` file can contain at most one template tag.
+Note that a `.vue` file can contain at most one `template` tag.
 
 ### \<script lang="ts">...\</script>
-In the script tag, you can add your custom TypeScript code.
+In the `script` tag, you can add your custom TypeScript code.
 The `lang` attribute is not required but if you do not add it, the default language will be JavaScript.
 In order for TypeScript to be available, you need to add `lang="ts"`.
 All of our TypeScript code should be present in this `script` tag, even the import statements.
-Note that a `.vue` file can contain at most one script tag.
+Note that a `.vue` file can contain at most one `script` tag.
 
 ### \<style>...\</style>
-In the style tag we can define our own SCSS specific for this component.
-By default, all the styles you define in a style tag are global.
-By adding the scoped attribute to our style tag, our custom SCSS will be specific for that component.
+In the `style` tag we can define our own SCSS specific for this component.
+By default, all the styles you define in a `style` tag are global.
+By adding the scoped attribute to our `style` tag, our custom SCSS will be specific for that component.
 
 ```vue
 {% raw %}
@@ -484,14 +484,14 @@ By adding the scoped attribute to our style tag, our custom SCSS will be specifi
 ```
 
 In the example above, the `style` tag with the scoped attribute will only affect the `p` tag in our component and not the one in our child component.
-The `color: red` styling however will affect also the styling of p tags in `ChildComponent`.
+The `color: red` styling however will affect also the styling of `p` tags in `ChildComponent`.
 So it is best to be aware of the implications as it can have unwanted side effects.
 For a good way to structure your CSS, check out the [BEM methodology](http://getbem.com){:target="_blank" rel="noopener noreferrer"} as it will help with avoiding conflicts and will guide you in having clean CSS selectors.
 
 Be careful though as the scoped attribute leads to a certain performance hit.
 Simply by adding the same class or id that we used in the template, we avoid this performance hit and still can have some scoped SCSS.
 Note that this will also style the child components.
-A `.vue` file can contain more than one style tag.
+A `.vue` file can contain more than one `style` tag.
 
 If you want to use global styles, you can either put them in `App.vue` or create your own CSS file that you import either directly in `index.html` or in `App.vue`.
 
