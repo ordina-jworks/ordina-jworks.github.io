@@ -52,7 +52,8 @@ After that we create our project:
 $ vue create wordvue
 ```
 
-The CLI knows some presets but we will go through the manual mode to be sure we select the TypeScript version, at the time of writing the current default language for Vue is JavaScript.
+The CLI knows some presets but we will go through the manual mode to be sure we select the TypeScript version.
+At the time of writing the current default language for Vue is JavaScript.
 
 <div style="text-align: center;">
   <img src="/img/vue-with-typescript/vue-cli-1-manually-select.png" class="image">
