@@ -64,7 +64,7 @@ At the time of writing the current default language for Vue is JavaScript.
   <img src="/img/vue-with-typescript/vue-cli-2-selected-features.png" class="image right fit">
 </div>
 
-We check the TypeScript option and for the purpose of this article we will not look in detail at the other features of this screen and leave on the defaults.
+We check the TypeScript option and for the purpose of this article we will not look in detail at the other features of this screen and fall back on the default values.
 I also checked CSS Pre-processors just because I like SCSS.
 Make sure you have Babel selected, Babel will automatically add multiple pollyfills.
 The pollyfills will help with having backwards compatibility of ECMAScript features.
