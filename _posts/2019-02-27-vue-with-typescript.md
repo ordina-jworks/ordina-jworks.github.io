@@ -32,9 +32,9 @@ Our little project will be called `wordvue`.
 At the same time we will explain some tips and tricks and give some background information about Vue with TypeScript so that you fully understand what the purpose is of each line of code.
 The project can be found in a [GitHub repository](https://github.com/ordina-jworks/vue-typescript-wordvue){:target="_blank" rel="noopener noreferrer"} so you can see a working version.
 
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/vue-plus-typescript-small.png" class="image fit">
-</div>
+</p>
 
 # 2. Creating a Vue project with TypeScript
 
@@ -55,14 +55,14 @@ $ vue create wordvue
 The CLI knows some presets but we will go through the manual mode to be sure we select the TypeScript version.
 At the time of writing the current default language for Vue is JavaScript.
 
-<div style="text-align: center;">
-  <img src="/img/vue-with-typescript/vue-cli-1-manually-select.png" class="image">
-</div>
+<p class="align-center">
+  <img src="/img/vue-with-typescript/vue-cli-1-manually-select.png" class="image fit-contain">
+</p>
 
 ### Babel + TypeScript
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-2-selected-features.png" class="image right fit">
-</div>
+</p>
 
 We check the TypeScript option and for the purpose of this article we will not look in detail at the other features of this screen and fall back on the default values.
 I also checked CSS Pre-processors just because I like SCSS.
@@ -70,9 +70,9 @@ Make sure you have Babel selected, Babel will automatically add multiple polyfil
 The polyfills will help with having backwards compatibility of ECMAScript features.
 
 ### Using the class-style component syntax
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-3-class-style-component-syntax.png" class="image fit">
-</div>
+</p>
 
 In the next screen we will get the question if we want class-style component syntax, for which we answer `Yes`.
 With this, we actually install the decorators that can be found in the [Vue Class Component package](https://github.com/vuejs/vue-class-component){:target="_blank" rel="noopener noreferrer"}.
@@ -136,36 +136,36 @@ After you've replied `Yes` to the "Use class-style component syntax?" question, 
 
 For the CSS pre-processor, you either choose between Stylus, Less and SCSS. We choose the default `Sass/SCSS (with node-sass)`.
 
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-4-css-preprocessor.png" class="image fit">
-</div>
+</p>
 
 As for the linter, you can either choose between TSLint or ESLint with a bunch of configurations.
 I opt for the default `TSLint` option as the support for TypeScript in ESLint is (at the time of writing) fairly recent.
 But ESLint is certainly a valid option as the TypeScript has announced in their [January to June 2019 roadmap](https://github.com/Microsoft/TypeScript/issues/29288){:target="_blank" rel="noopener noreferrer"} that ESLint will be their own focus.
 
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-5-linter.png" class="image fit">
-</div>
+</p>
 
 We can choose for the `Lint on save`option as we want to see immediately the effects of our linter.
 
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-6-lint-on-save.png" class="image fit">
-</div>
+</p>
 
 Finally we have to choose if we want the configurations in dedicated files or all bundled together in our `package.json`.
 We opt for `In dedicated config files` as we prefer to not clutter the `package.json` with a lot of configurations.
 
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-7-dedicated-config.png" class="image fit">
-</div>
+</p>
 
 The Vue CLI will now create the project with a Git repository, perform an NPM install and generate a README.
 
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-8-project-generated.png" class="image fit">
-</div>
+</p>
 
 ## Launching your first Vue project
 After the Vue CLI has created your Vue project, you can go with the terminal to the root folder of the project and launch it with:
@@ -174,9 +174,9 @@ After the Vue CLI has created your Vue project, you can go with the terminal to 
 $ npm run serve
 ```
 
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/vue-default-page.png" class="image fit">
-</div>
+</p>
 
 As you will see, the CLI starts the development server, starts the type checking and linting service.
 By default the project runs on `http://localhost:8080` but if there's already something running on port 8080, it will pick port 8081 or the next one available.
@@ -184,15 +184,15 @@ This way you don't need to specify a free port.
 
 A default Vue project looks like this:
 
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-serve.png" class="image fit">
-</div>
+</p>
 
 # 3. A look into the files created by the Vue CLI
 
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-generated-files.png" class="image right">
-</div>
+</p>
 
 The files that the Vue CLI generated are mainly all the configuration files that we wanted separately.
 So we have a configuration file for Babel with `babel.config.js`, PostCSS (which contains the configuration for SCSS) with `postcss.config.js`, TypeScript with `tsconfig.json` and TSLint with `tslint.json`.
@@ -710,9 +710,9 @@ A blog post title is a good start but when ordering, updating or other modifying
 It's best to use something of type `number` or `string` as the key.
 Vue will tell you this in the console of your browser if you would take for example the `datePosted` as your key:
 
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/vue-key-typing-error.png" class="image fit">
-</div>
+</p>
 
 The reason behind this is that Vue relies on the built-in sort and find functionalities of JavaScript.
 For objects, Vue can not do this natively.
@@ -723,9 +723,9 @@ $ npm run serve
 ```
 We see in our browser: 
 
-<div style="text-align: center;">
-  <img src="/img/vue-with-typescript/wordvue-first-impression.png" class="image">
-</div>
+<p class="align-center">
+  <img src="/img/vue-with-typescript/wordvue-first-impression.png" class="image fit-contain">
+</p>
 
 Great, you've written your first working component!
 Now it is time to extend it with some functionalities.
@@ -758,9 +758,9 @@ After that we add `highlighted: true,` to the second blog post in `App.vue`.
 
 In our browser it looks like this:
 
-<div style="text-align: center;">
-  <img src="/img/vue-with-typescript/wordvue-conditional-elements.png" class="image">
-</div>
+<p class="align-center">
+  <img src="/img/vue-with-typescript/wordvue-conditional-elements.png" class="image fit-contain">
+</p>
 
 We end up with this as our `BlogPost` component:
 
@@ -853,9 +853,9 @@ div.blogpost {
 
 In our browser it looks like this:
 
-<div style="text-align: center;">
-  <img src="/img/vue-with-typescript/wordvue-conditional-css.png" class="image">
-</div>
+<p class="align-center">
+  <img src="/img/vue-with-typescript/wordvue-conditional-css.png" class="image fit-contain">
+</p>
 
 Note that we also have a shorter version of `v-bind:attributename` which is `:attributename`.
 So we can shorten `v-bind:class` to this:
@@ -980,9 +980,9 @@ We update the button to the following code:
 
 In the end, we end up visually with this:
 
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/wordvue-events-showhide.png" class="image fit">
-</div>
+</p>
 
 And our `App` component looks like this:
 
@@ -1286,16 +1286,16 @@ All the minification, avoiding the use of `eval()`, removing of warning checks a
 
 If we do a `npm run serve` and check our Developer Tools in Chrome, we see the size of our application:
 
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/wordvue-size-serve.png" class="image fit">
-</div>
+</p>
 
 In development mode, our application is more than 2MB large. We see the `index.html` alongside a generated `app.js` that contains all our own code and all the `node_modules` that we are using.
 While when we build with the production mode via `npm run build`, we get an application that is in total less than 125KB: 
 
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/wordvue-size-build.png" class="image fit">
-</div>
+</p>
 
 The only thing we changed to get a `dist` folder that is so small, was adding a `vue.config.js` file in the root of our folder which exports an object with the settings we want:
 
@@ -1312,9 +1312,9 @@ More configurations can be found at [cli.vuejs.org](https://cli.vuejs.org/config
 ## Building for production
 When running the `npm run build` command, you'll get the following output:
 
-<div style="text-align: center;">
+<p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-build.png" class="image fit">
-</div>
+</p>
 
 So what the Vue CLI does is take all the SCSS out of the components and minifies it, compiles all the components into an `app.js` file and [treeshakes](https://webpack.js.org/guides/tree-shaking/){:target="_blank" rel="noopener noreferrer"}  all used libraries into a `chunk-vendors.js` file.
 After that, it Gzips all those files to ensure that everything is as light as possible.
