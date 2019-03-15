@@ -42,34 +42,57 @@ We got these glasses to analyze the wearers experience and see how we could inte
 
 - Assistance for field technicians
 - Order picking
-- TODO
-- TODO
+- Communications platforms
+- TODO: Extra business cases/fields
 
 In this blogpost we'll go a bit into detail what makes the Vuzix Blade tick and how our experience with it has been so far.
 Read on ahead for all the juicy details!
 
 ## The hardware
 
-TODO: The hardware
-
 <img alt="Vuzix Blade hardware overview" src="{{ '/img/2019-03-30-vuzix/vuzix-hardware-overview.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+The Vuzix Blade is well built, although somewhat uncomfortable when worn for longer periods.
+The hardware inside the glasses is alright but nothing special:
+- Projected display resolution of 480 by 853 pixels
+- Quad core ARM A53 cpu
+- WiFi, Bluetooth
+- 8MP camera up to 720 video recording
+- 470mAh
+
+The amount of RAM is not specified but it won't be too much as is evident from the the fluidity of the software.
+Overall the device works but the speed and fluidity is lacking in general.
+The display is bright and has good visibility but there is no audio on the device as no regular or bone conducting speaker is present.
+Audio can be provided through either Bluetooth or USB audio, but an included speaker would have been nicer.
+Video recording works but is barely usable because there is no OIS and the frame rate, even at only 720P, is abysmally low!
+
+For an additional markup it is possible to get prescription lenses with these glasses so people who wear glasses on daily basis can also use this device.
+
+Battery life is functional for an hour or 2-3 but for all day use an external battery pack is definitely a requirement.
 
 ## The software
 
-TODO: The software
+TODO: The software: some photos & videos about the built in software, what the experience is like...
 
 ## Using the Vuzix
 
-TODO: Using the Vuzix
+TODO: Using the Vuzix, add photos & videos
 
 ## Developing for the Vuzix
 
-TODO: Developing for the Vuzix
+TODO: Developing for the Vuzix: show work in progress on the heart rate app.
 
 ## Looking forward
 
-TODO: Looking forward
+What we have looks already promising even though a little rough right now.
+Vuzix rolled out a big software update for the device that included new features like Alexa support and improved camera performance, but we think it can still be improved upon a lot!
+
+If and when better battery technology is available these devices can have a definite positive influence on certain business cases.
+With the introduction of the second generation HoloLens from Microsoft it is clear what can be possible with these devices.
+Although the HoloLens is a much much more complicated product than the Vuzix Blade.
+
+TODO: Extend & finish up the blogpost with a nice conclusion
 
 ## Resources
 
 - [Vuzix Blade Smart Glasses](https://www.vuzix.com/products/blade-smart-glasses)
+- [Microsoft HoloLens 2](https://www.microsoft.com/en-us/hololens/buy)
