@@ -26,14 +26,33 @@ comments: true
 
 ## Introduction
 
-TODO: Introduction
+As we are strong believers in the potential that Augmented Reality has to offer in terms of business cases we were wanting to get our hands on some actual hardware.
+We acquired some budget and went looking for 'affordable' smart glasses to experiment with.
+
+We came across the Vuzix Blade on the Vuzix website and looked through the details and videos posted.
+After acquiring the required budget, thanks Ordina, we preordered one unit.
+
+<div class="responsive-video">
+    <iframe width="1164" height="655" src="https://www.youtube.com/embed/V-OxzjsB2s0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+It was a video like this one that had won us over to give the Vuzix Blade a try since the displayed features look very nice, if they all worked as promised...
+
+After a very very long wait, with several delays and a lot of mailing back and forth we got ourselves a preproduction hand built Vuzix Blade.
+We got these glasses to analyze the wearers experience and see how we could integrate it into the numerous business cases we can see it being used for:
+
+- Assistance for field technicians
+- Order picking
+- TODO
+- TODO
+
+In this blogpost we'll go a bit into detail what makes the Vuzix Blade tick and how our experience with it has been so far.
+Read on ahead for all the juicy details!
 
 ## The hardware
 
 TODO: The hardware
-<div class="responsive-video">
-    <iframe width="1164" height="655" src="https://www.youtube.com/embed/1zvohULpe_0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-</div>
+
+<img alt="Vuzix Blade hardware overview" src="{{ '/img/2019-03-30-vuzix/vuzix-hardware-overview.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 ## The software
 
@@ -53,4 +72,4 @@ TODO: Looking forward
 
 ## Resources
 
-TODO: Resources [Dummy-link](https://google.be)
+- [Vuzix Blade Smart Glasses](https://www.vuzix.com/products/blade-smart-glasses)
