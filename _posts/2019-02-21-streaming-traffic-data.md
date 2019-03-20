@@ -17,9 +17,10 @@ For that workshop I used traffic data, since especially in Belgium, traffic data
 3. [Native Java Processing](#native-java-stream-processing)
 4. [Kafka Streams with Spring Kafka](#spring-kafka)
 5. [Apache Storm](#apache-storm)
+6. [Conclusion](#conclusion)
 
 
-## Introduction
+# Introduction
 In this blog post we will use traffic data made available by the Flemish government.
 
 Several examples will be provided about how this data can be processed in various ways:
@@ -838,6 +839,28 @@ In the background it will convert the DSL to spouts and bolts though, so knowing
 * It is pretty mature
 * Low latency / high throughput
 * It does tend to feel pretty clunky thinking in Spouts and Bolts - for a developer it is not that big of a hassle, but for a data scientist I can imagine that at times it will be harder to wrap your head around it
+
+
+# Conclusion
+
+In order to get started with basic stream processing you do not need Kafka or Apache Storm, native java is good enough for you to take your very first steps when processing a stream of data.
+
+Using a dedicated streaming platform will become necessary in order to do more advanced streaming operations or when performance becomes more and more important.
+The existing platforms can easily scale up to the processing of thousands of messages a second, something which is going to be much harder to archieve when building your solution yourself.
+
+Do not make the mistake of re-inventing the wheel by writing your own streaming platform.
+Others have done that hard work for you.
+
+Kafka Streams is a no-brainer to use when you have a Kafka cluster lying around, stream processing there feels natural and it is easy to get going.
+If however you do not have a Kafka cluster available, it will come with an extra cost of setting and maintaining it.
+There do exist managed solutions in order to make your life easier.
+
+Apache Storm is a pretty robust framework which has been around for some time and used by many.
+However writing the processing logic feels quite clunky and I can imagine that for a non-developer it also might feel quite unnatural. 
+They are currently working on a new [streaming API](http://storm.apache.org/releases/2.0.0-SNAPSHOT/Stream-API.html) which should allevate that issue though.
+According to their [github](https://github.com/apache/storm/releases) a release of 2.0 has already happened, but that is not yet reflected on the their [website](http://storm.apache.org/index.html).
+
+
 
 
 
