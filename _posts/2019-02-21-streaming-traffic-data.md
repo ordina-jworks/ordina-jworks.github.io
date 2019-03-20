@@ -195,7 +195,10 @@ For every sensorpoint per vehicle we will extract one `TrafficEvent`.
          */
         private Boolean recentData;
 
-        private Boolean availableMeetpunt;
+        /* 
+        Indicate if the sensor (meetPunt) was available when trying to retrieve the data
+        */
+        private Boolean available;
 
         private Integer sensorDefect;
         private Integer sensorValid;
@@ -207,7 +210,7 @@ The VehicleClass is just an enum with the vehicle type.
 ``` java
     MOTO(1),
     CAR(2),
-    CAMIONET(3),
+    VAN(3),
     RIGGID_LORRIES(4),
     TRUCK_OR_BUS(5),
     UNKNOWN(0);
