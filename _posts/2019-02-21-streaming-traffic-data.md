@@ -844,12 +844,12 @@ In the background it will convert the DSL to spouts and bolts though, so knowing
 # Conclusion
 
 In order to get started with basic stream processing you do not need Kafka or Apache Storm, native java is good enough for you to take your very first steps when processing a stream of data.
+It is easy, everybody understands it and you will have less moving parts within your software landscape which can cause issues.
 
-Using a dedicated streaming platform will become necessary in order to do more advanced streaming operations or when performance becomes more and more important.
+Using a dedicated streaming platform will become necessary when you want to do more advanced streaming operations or when performance becomes more and more important.
 The existing platforms can easily scale up to the processing of thousands of messages a second, something which is going to be much harder to archieve when building your solution yourself.
 
-Do not make the mistake of re-inventing the wheel by writing your own streaming platform.
-Others have done that hard work for you.
+Do not make the mistake of re-inventing the wheel by writing your own streaming platform, others have done that hard work for you.
 
 Kafka Streams is a no-brainer to use when you have a Kafka cluster lying around, stream processing there feels natural and it is easy to get going.
 If however you do not have a Kafka cluster available, it will come with an extra cost of setting and maintaining it.
@@ -859,6 +859,10 @@ Apache Storm is a pretty robust framework which has been around for some time an
 However writing the processing logic feels quite clunky and I can imagine that for a non-developer it also might feel quite unnatural. 
 They are currently working on a new [streaming API](http://storm.apache.org/releases/2.0.0-SNAPSHOT/Stream-API.html) which should allevate that issue though.
 According to their [github](https://github.com/apache/storm/releases) a release of 2.0 has already happened, but that is not yet reflected on the their [website](http://storm.apache.org/index.html).
+
+When doing stream processing always think about how messages will be handled as most streaming or messaging platforms use an at-least-once approach, meaning that the same message can be processed more then once by the streaming pipeline. 
+Both Kafka Streams and Apache Storm can be configured to provide exactly-once processing within their streaming pipelines, for Kafka Streams it means using Kafka transactions while for Storm this can be achieved by [Trident](http://storm.apache.org/releases/1.2.2/Trident-API-Overview.html).
+Even then, that is only within the streaming pipeline itself, as soon as your processed results leaves the streaming platform you will be back to at-least-once guarantees.
 
 
 
