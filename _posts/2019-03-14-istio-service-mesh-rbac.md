@@ -2,21 +2,21 @@
 layout: post
 authors: [pieter_vincken]
 title: 'Istio Service Mesh'
-image: /img/2019-04-01-istio-service-mesh/istio.jpg
+image: /img/2019-04-01-istio-service-mesh/istio.jpeg
 tags: [Istio, Service Mesh, Kubernetes, Cloud]
-category: Microservices
+category: Cloud
 comments: true
 ---
 
-> Short summary of the post
->
->
+> This post will describe how to use the Istio service mesh to provide service to service authentication and authorization in a Kubernetes cluster.
+> It will show how ServiceRoles, ServiceRoleBindings and Identities in Istio can be used to achieve this. 
+> The post will also discusshow the IngressGateways and EgressGateways objects can be used to handle external traffic as internal traffic in the cluster.
 
-# Table of content
+# Table of content 
 
 * [What is a service mesh?](#what-is-a-service-mesh)
 * [What is Istio?](#what-is-istio)
-* [Why do I need RBAC for services?](#why-rbac-for-services)
+* [Why do I need RBAC for services?](#why-rbac-for-internal-services)
 * [How does this work in Istio?](#how-does-this-work-in-istio)
 * [What are ingress and egress?](#what-are-ingress-and-egress)
 * [Show me the code](#show-me-the-code)
@@ -40,7 +40,7 @@ comments: true
 * Sidecar proxy approach
    * All network traffic through the proxy
 
-## Why do I need RBAC for services?
+## Why do I need RBAC for internal services?
 
 * Good authorization is defined on 4 levels (find link!)
    * Who can access an endpoint
@@ -56,8 +56,28 @@ comments: true
 
 * Authentication -> mTLS -> citadel?
 * Authorization -> proxy policies -> mixer
-* Service Role
-* Service Role Binding
+* -Service Role-
+* -Service Role Binding-
+
+When using the Istio service mesh, all traffic is routed throught the service mesh. 
+This allows the Envoy proxy to inspect the traffic.
+
+
+There are two main features that we want to enable in the cluster: Service Authentication and Service Authorization.
+Service Authentication is provided by Kubernetes through a combination of the Kubernetes service account, Envoy and Istio Mutual TLS (mTLS). 
+When a deployment is created in Kubernetes, it's always associated with a service account.
+If no service account is specified, the default service account for the namespace is used.
+In the Istio setup, it is preferred to create and assign a service account to each service in the cluster. 
+When a connection is created between two service in the cluster, Istio authenticates the connection through a Mutual TLS. Since 
+
+### Service Roles
+Service Roles are used in Istio to describe which access a role provides. 
+It specifies which endpoints can be used of a specific service. 
+Currently this is described by specifying the full internal DNS name of the service and the methods that the role can access.
+
+### Service Role Bindings
+Service Role Bindings are used to connect identities (service accounts) or identity properties (namespaces) to actual roles. 
+When binding is created, the identities connect to it are allowed the access specified in the reference service role.
 
 ## What are ingress and egress?
 
@@ -105,8 +125,6 @@ Service 3 /-> Service 2
 * Apply the roles and bindings to the setup
 * Show that the access changed. 
 
-
-
 * Enable ingress objects
    * Create an ingress gateway
    * Create virtual services for the services (2)
@@ -119,4 +137,7 @@ Service 3 /-> Service 2
 
 ### Conclusion
 
-## Summing it all up
+## Summing it all up 
+
+
+
