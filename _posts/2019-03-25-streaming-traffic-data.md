@@ -133,7 +133,7 @@ Define a Spring Boot application - make sure to enable scheduling.
     }
 ```
 
-Define some input and output topics:
+Define some input and output topics.
 ``` java
     public interface Channels {
 
@@ -171,7 +171,7 @@ Create a bean to read in the events.
 ```
 
 Next we will retrieve the data out of the XML and split it out into something more event like.
-For every sensorpoint per vehicle we will extract one `TrafficEvent`.
+For every sensor point per vehicle we will extract one `TrafficEvent`.
 
 ``` java
     @Data
@@ -205,9 +205,9 @@ For every sensorpoint per vehicle we will extract one `TrafficEvent`.
         private Integer sensorValid;
 
     }
-``` java
+```
 
-The VehicleClass is just an enum with the vehicle type.
+The `VehicleClass` is just an enum with the vehicle type.
 ``` java
     MOTO(1),
     CAR(2),
@@ -328,7 +328,7 @@ That setup does not come for free and will need to be maintained in the future.
 ### Easy to get started
 With Spring Cloud Stream it is easy to start processing your stream of data in native Java.
 
-First define a [SubscribableChannel](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/messaging/SubscribableChannel.html){:target="_blank" rel="noopener noreferrer"}
+First define a [SubscribableChannel](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/messaging/SubscribableChannel.html){:target="_blank" rel="noopener noreferrer"}.
 ``` java
     @Input
     SubscribableChannel trafficEvents();
