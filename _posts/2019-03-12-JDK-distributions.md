@@ -8,7 +8,7 @@ category: Java
 comments: true
 ---
 
-> Recently we had a discussion in our chat group of developers which made use realise how much confusion there is on the new update cycle for the JVM.
+> Recently we had a discussion in our chat group of developers which made us realise how much confusion there is on the new update cycle for the JVM.
 > We decided it would be good idea to write a blog post that should clear up most of the confusion for our developers and clients
 
 # Table of content
@@ -19,7 +19,7 @@ comments: true
 
 ## Oracle's JDK distributions
 
-First we have to explain what changed to Oracle's JDK distributions recently, which have brought along allot of uncertainty withing the Java community, this blog post is going to try to explain these changes and more importantly tell you what you should know about licenses and options you have.
+First we have to explain what changed to Oracle's JDK distributions recently, which have brought along allot of uncertainty withing the Java community, this blog post is going to try to explain these changes and more importantly tell you what you should know about the licenses and options you have. At the end of this article you should know more about free updates and commercial support options from various JDK vendors and understand that the OpenJDK 8 and 11 are still being updated, even though Oracle is going to stop leading those projects, to focus on the new versions and providing commercial support.
 
 ### Six month release cycle
 
@@ -59,9 +59,9 @@ In the OpenJDK, LTS is an understanding between various contributors which are m
 
 Oracle leads the first six months of the OpenJDK LTS code line, providing updates and producing the Oracle OpenJDK builds, but afterwards as mentioned before provide updates under a paid support plan.
 
-There's a but however, Oracle will work with other OpenJDK vendors to hand over the OpenJDK LTS code line and allow those vendors to continue working on these updates together. Each vendor has the choice of providing updates and/or paid support for the binaries they produce. Handing over the openJDK code line has already occurred for both Java 8 and Java 11 with Red Hat taking over those update projects.
+There's a but however, Oracle will work with other OpenJDK vendors to hand over the OpenJDK LTS code line and allow those vendors to continue working on these updates together. Handing over the openJDK code line has already occurred for both Java 8 and Java 11 with Red Hat taking over those update projects, this doesn't mean that they are the only one contributing to the OpenJDK project, various people can still provide patches and add new features to new versions of the OpenJDK, you can read more about JDK 11 updates [here](https://wiki.openjdk.java.net/display/JDKUpdates/JDK11u) you'll see that there updates planned there for for at least Mid October 2019.
 
-This means that the Oracle's JDK could differ from the OpenJDK based binaries produces by other vendors. Most of the major vendors have continued to take efforts to keep them in sync as much as possible, but this does mean they you should develop, test, .. your applications on the binaries you plan on using in production.
+This means that the Oracle's JDK could differ from the OpenJDK based binaries and the JDK's provided by other vendors. Most of the major vendors have continued to take efforts to keep them in sync as much as possible, but this does mean they you should develop, test, .. your applications on the binaries you plan on using in production, or you might end op with some unexpected results during production.
 
 ## OpenJDK updates
 
@@ -90,24 +90,27 @@ One of the options you have is to build a jdk from source code this means OpenJD
 
 The most convenient options is to use binary distributions from other providers, that are providing public updates.
 
-#### Free binary distributions
+#### Free binary distributions & commercial support
 
-| Distribution                                                | Versions  | TCK  | Public updates           | Arch(*)       | Commercial Support              |
-| ----------------------------------------------------------- | --------- | ---- | -----------------------  | ------------- | ------------------------------- |
-| [AdoptOpenJDK](https://adoptopenjdk.net/)                   | 8, 11     | No   | Until at least Sep 2023  | Major + Minor | IBM, jClarity                   |
-| [Amazon Corretto](https://aws.amazon.com/corretto/)         | 8, 11     | Yes  | Until at least June 2023 | Major         | -                               |
-| [Azul Zulu](https://www.azul.com/downloads/zulu/)           | 8, 11     | Yes  | ?                        | Major + Minor | Azul                            |
-| [Bellsoft Liberica](https://www.bell-sw.com/pages/products) | 8, 11     | Yes  | Until at least 2023      | Major + Minor | BellSoft                        |
-| [Oracle OpenJDK](https://openjdk.java.net/)                 | 11        | Yes  | Until Mar 2019           | Major         | Oracle (through the Oracle JDK) |
-| [SapMachine](https://sap.github.io/SapMachine/)             | 11        | Yes  | ?                        | Major         | ?                               |
+| Distribution                                                | Versions  | TCK  | Public updates           | Arch(*)       | Commercial Support              | Commercial Support ended                          |
+| ----------------------------------------------------------- | --------- | ---- | -----------------------  | ------------- | ------------------------------- | --------------------------------------------------|
+| [AdoptOpenJDK](https://adoptopenjdk.net/)                   | 8, 11     | No   | Until at least Sep 2023  | Major + Minor | IBM, jClarity                   | ?                                                 |
+| [Amazon Corretto](https://aws.amazon.com/corretto/)         | 8, 11     | Yes  | Until at least June 2023 | Major         | -                               | ?                                                 |
+| [Azul Zulu](https://www.azul.com/downloads/zulu/)           | 8, 11     | Yes  | ?                        | Major + Minor | Azul                            | ?                                                 |
+| [Bellsoft Liberica](https://www.bell-sw.com/pages/products) | 8, 11     | Yes  | Until at least 2023      | Major + Minor | BellSoft                        | ?                                                 |
+| [Oracle OpenJDK](https://openjdk.java.net/)                 | 11        | Yes  | Until Mar 2019           | Major         | Oracle (through the Oracle JDK) | September 2023, September 2026 (extended support) |
+| [SapMachine](https://sap.github.io/SapMachine/)             | 11        | Yes  | ?                        | Major         | ?                               | ?                                                 |
 
 \* **Major** = Linux x86, Mac OS x, Windows x64, **Minor** = various other platforms
 
+***Notes:**
+As a general philosophy, AdoptOpenJDK will continue to build binaries for LTS releases as long as the corresponding upstream source is actively maintained. The Eclipse OpenJ9 Support Document covers extra support info for that VM.*
+
 ##### Technology Compatibility Kit for Java (TCK)
 
-The Java Compatibility Kit (a.k.a., the JCK or TCK for Java SE) is an extensive test suite used by Oracle and licensees to ensure compatible implementations of it's platform. This ensures that the OpenJDK implementation does not have major differences from the Oracle's JDK, it is still possible for there to be minor differences.
+The Java Compatibility Kit (a.k.a., the JCK or TCK for Java SE) is an extensive test suite used by Oracle and licensees to ensure compatible implementations of it's platform. This ensures that the OpenJDK implementation does not have major differences from the Oracle's JDK, but it is still possible for there to be minor differences in the binary distribution.
 
-Sun released a specific license to permit running the TCK in the OpenJDK context for any GPL implementation deriving substantially from OpenJDK, this also means to be TCK compliant the JDK distribution has to use the same GPL license, otherwise you cannot obtain legal access the TCK, it available at no charge to developers who are planning to deploy a compatible Java implementation based on code derived from OpenJDK, or are participating in OpenJDK research, bug fixes, code enhancement and/or ports to other hardware or software architectures.
+Sun released a specific license to permit running the TCK in the OpenJDK context for any GPL implementation deriving substantially from OpenJDK, this also means to be TCK compliant the JDK distribution is required to use the same GPL license, otherwise you cannot obtain legal access the TCK, it available at no charge to developers who are planning to deploy a compatible Java implementation based on code derived from OpenJDK, or are participating in OpenJDK research, bug fixes, code enhancement and/or ports to other hardware or software architectures.
 
 ### Using distributions provided by your linux distribution
 
@@ -123,7 +126,7 @@ As of Java version 11 both Oracle's JDK and Oracle's OpenJDK will no longer cont
 
 ### Java Packager
 
-The javapackager, which allowed you to bundle applications and their dependecies with the JVM is no longer part of the OpenJFX and has been removed from all of Oracle's JDK versions starting from version 11. There is [JEP](https://bugs.openjdk.java.net/browse/JDK-8200758) opened to added a Packaging tool to OpenJDK, but this is not yet ready for Java 11.
+The javapackager, which allowed you to bundle applications and their dependencies with the JVM is no longer part of the OpenJFX and has been removed from all of Oracle's JDK versions starting from version 11. There is [JEP](https://bugs.openjdk.java.net/browse/JDK-8200758) opened to add a new Packaging tool to OpenJDK, but this is not yet ready for Java 11.
 
 ### Java WebStart
 
@@ -133,3 +136,9 @@ Java WebStart has been removed from Oracle's JDK versions starting from versions
   * IBM will be supporting AdoptOpenJDK builds of OpenJDK with IcedTea-Web
   * Builds from Red hat include a simplified IcedTea-Web installer (ojdkbuild)
 * Karukun is working on an [OSS replacement for Web Start](https://dev.karakun.com/webstart/)
+
+## Sources
+The information in this blog posts comes from various sources which will be listed below, a huge thanks goes out to the creators of the Java Is Still Free document which granted us permissions to use their post for this blog post. We used these sources either because we were granted permissions to use them or the terms allowed us to use them.
+
+* [Java Is Still Free](https://docs.google.com/document/d/1nFGazvrCvHMZJgFstlbzoHjpAVwv5DEdnaBr_5pKuHo/edit?usp=sharing)
+* [The jdk-updates-dev Archives](https://mail.openjdk.java.net/pipermail/jdk-updates-dev/)
