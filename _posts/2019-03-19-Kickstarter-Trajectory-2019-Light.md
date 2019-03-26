@@ -47,28 +47,21 @@ The biggest enemy of clean code is pressure so Pieter advised us to take our tim
 ## Frontend 
 >during our first week we had multiple course about front-end. First we saw 
 
-## Spring course
-> [Ken Coenen](./author/ken-coenen) gave us a Spring and Spring Boot. The course was given in three days, on the first day we saw the basics of spring, then he transistioned to Srping boot and more indepth configuration. Ken made an application from scratch and explained al the steps taken, always showing us the best praticed ways of implementation.
+## Spring Framework
 
-### Day 1
+For a framework this big and popular, we followed a three-day course given by [Ken Coenen](./author/ken-coenen). On the first day, we received a brief explanation as to how the Spring magic works behind the scenes (dependency injection, beans, ...). We saw the basic of the most common components of the full Spring Framework such as Cloud, Security, ... . 
 
-On the first day we learned the basic's of spring, the origin and how its build up
+On the second day, we dived into the magic behind Spring Boot. It's remarkable how much Spring Boot does for you without any configuration needed, although you can fully configure Spring Boot to your needs and satisfactions.
 
-#### Full house
 
-<img class="image fit" alt="Pizza Time" src="/img/2019-Kickstarter-Trajectory-2019-light/spring-session.jpg">
+On the third day, [Ken](./author/ken-coenen) did a live coding session and created a Spring Boot application from scratch and explained how to fully initialize your Spring Boot project and get the most out of it through various steps and always showing the best practices for each implementation.
 
-### Day 2 
+#### Full House during the third day
+<img class="image fit" alt="Full house" src="/img/2019-Kickstarter-Trajectory-2019-light/spring-session.jpg">
 
-On the second day we went into spring-boot, how it makes spring easyer and how it makes the default configuration. We mainly focust on how the dependencies works in spring-boot. 
+Ofcourse, afterwards we had some time to relax after three days of exploring the Spring Framework. We closed our three-day session on Friday with the best combination: pizza and beer!
 
-### Day 3
-
-After we knew the basics, together with ken we made an simple application were we used the standard configuration but adjusted the configuration were needed to our needs.
-
-#### Pizza time 
-
-Of course there was time for relaxing after the sessions. After our session on friday we ordered some pizza. 
+#### Pizza & beer!
 
 <img class="image fit" alt="Pizza Time" src="/img/2019-Kickstarter-Trajectory-2019-light/pizza-time.jpg">
 
