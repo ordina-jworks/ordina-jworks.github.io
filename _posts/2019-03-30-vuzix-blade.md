@@ -43,7 +43,6 @@ We got these glasses to analyze the wearers experience and see how we could inte
 - Assistance for field technicians
 - Order picking
 - Communications platforms
-- Tracking performance for athletes
 
 In this blogpost we'll go a bit into detail what makes the Vuzix Blade tick and how our experience with it has been so far.
 Read on ahead for all the juicy details!
@@ -51,25 +50,67 @@ Read on ahead for all the juicy details!
 ## The hardware
 
 <img alt="Vuzix Blade hardware overview" src="{{ '/img/2019-03-30-vuzix/vuzix-hardware-overview.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
-The Vuzix Blade is well built, and pretty comfortable even when worn for longer durations.
-The hardware inside the glasses is alright but nothing special:
+
+The Vuzix Blade is an Android smartphone you can wear on your face. Well, it's more like an Android Smartwatch you can strap to your face.
+
+The device I received was a pre production build, which was hand assembled. So I can't really say much about what the final hardware will look like. 
+
+I have always found the idea of computing devices in the form factor of glasses quite intriguing as I have been cursed with nearsightedness and wear my glasses on a daily basis. 
+If I have to wear the bloody things every day, might as well put some intelligence into them.
+
+Below you can find some specs about the device, but for me these are quite irrelevant for the moment. 
+This device is all about showcasing innovation in 2 areas: form factor, display technology.
+
+And boy am I impressed. 
+The glasses actually feel comfortable enough to wear for longer periods. 
+The display technology made my jaw drop to the floor. Had to pick it up several times. 
+
+
+The Vuzix Blade is well built for a manually assembled device.
+It has been through some action like daily use as an office worker, running, biking, ... and still hasn't shown any faults. 
+
+But let's get down the mandatory spec overview!
+
+
+The internals inside the glasses are alright, maybe a bit underwhelming. But it's always a fine line to balance between power consumption and battery life. 
+
 - Projected display resolution of 480 by 853 pixels
 - Quad core ARM A53 cpu
 - WiFi, Bluetooth
-- 8MP camera up to 720 video recording
+- 8MP camera up to 1080p video recording
 - 470mAh
 
 The amount of RAM is not specified but seems to be just the right amount to get the job done.
-Overall the device works but the speed and fluidity could be better, although this was improved significantly with the latest software update.
-The display is bright and has good visibility but there is no audio on the device as no regular or bone conducting speaker is present.
+Overall the device works but the speed and fluidity could be better, although this was improved significantly with the latest software update. 
+There is no audio on the device as no regular or bone conducting speaker is present.
 Audio can be provided through either Bluetooth or USB audio, but an included speaker would have been nicer.
-Video recording works but is barely usable because there is no OIS and the frame rate, even at only 720P.
+Video recording works but is barely usable because there is no OIS and the frame rate, even at only 720P. The new software brings 1080p support, which I still need to test. TODO
+
+
+All of this is actually quite irrelevant to me. There is no innovation in fitting a better camera or having oodles of computing power on the device. 
+The technological marvel in this device is the display technology, named Cobra Display Engine. 
+
+It's difficult to explain how well this works. I'll just rip off the movie "Contact" and say: No words to describte, they should have sent a poet. So beautiful! I had no idea. 	
+
+The best description I could think of so far is: it's like someone is following behind you with a projector and is projecting the user interface on an invisible screen in front of you.
+Hold a smartwatch right in front of you in a readable position. It's kinda like that, but transparant and without you losing the functionality of 1 arm.
+
+
+So instead of describing it to people, I just put it on their face and they just are immediatly captivated by what they're are experiencing. It takes a moment to learn how to focus on the heads up display and back to your surroundings. Once you master this, it becomes very natural to interact with the display. 
+Seeing that transparent interface is something a lot of people really have to take time to wrap their heads around. 
+After this, I show them some pretty pictures with a variety of colors. Really brings everything to life and show off the unexpectedly good visual qualities of the display. 
+
+
+
 For a concept device it really shows what the technology is capable of.
-With some enhancements in the future this will certainly provide an added value in many uses cases.
+It's capable of running basic android apps. The same ones you would expect to run on a Smartwatch. Enough computing power to handle the video calling. 
+Running Tensorflow lite to do object detection and classification proved to be a bit too challenging.
+
 
 For an additional markup it is possible to get prescription lenses with these glasses so people who wear glasses on daily basis can also use this device.
 
 Battery life is functional for an hour or 2-3 but for all day use an external battery pack is definitely a requirement.
+I actually went running while wearing an external barrery pack. Did not experience any hinder. 
 
 ## The software
 
