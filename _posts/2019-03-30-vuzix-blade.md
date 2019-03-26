@@ -37,13 +37,13 @@ After acquiring the required budget, thanks Ordina, we preordered one unit.
 </div>
 It was a video like this one that had won us over to give the Vuzix Blade a try since the displayed features look very nice, if they all worked as promised...
 
-After a very very long wait, with several delays and a lot of mailing back and forth we got ourselves a preproduction hand built Vuzix Blade.
+After a very long wait, with several delays and a lot of mailing back and forth we got ourselves a preproduction hand built Vuzix Blade.
 We got these glasses to analyze the wearers experience and see how we could integrate it into the numerous business cases we can see it being used for:
 
 - Assistance for field technicians
 - Order picking
 - Communications platforms
-- TODO: Extra business cases/fields
+- Tracking performance for athletes
 
 In this blogpost we'll go a bit into detail what makes the Vuzix Blade tick and how our experience with it has been so far.
 Read on ahead for all the juicy details!
@@ -51,7 +51,7 @@ Read on ahead for all the juicy details!
 ## The hardware
 
 <img alt="Vuzix Blade hardware overview" src="{{ '/img/2019-03-30-vuzix/vuzix-hardware-overview.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
-The Vuzix Blade is well built, although somewhat uncomfortable when worn for longer periods.
+The Vuzix Blade is well built, and pretty comfortable even when worn for longer durations.
 The hardware inside the glasses is alright but nothing special:
 - Projected display resolution of 480 by 853 pixels
 - Quad core ARM A53 cpu
@@ -59,11 +59,13 @@ The hardware inside the glasses is alright but nothing special:
 - 8MP camera up to 720 video recording
 - 470mAh
 
-The amount of RAM is not specified but it won't be too much as is evident from the the fluidity of the software.
-Overall the device works but the speed and fluidity is lacking in general.
+The amount of RAM is not specified but seems to be just the right amount to get the job done.
+Overall the device works but the speed and fluidity could be better, although this was improved significantly with the latest software update.
 The display is bright and has good visibility but there is no audio on the device as no regular or bone conducting speaker is present.
 Audio can be provided through either Bluetooth or USB audio, but an included speaker would have been nicer.
-Video recording works but is barely usable because there is no OIS and the frame rate, even at only 720P, is abysmally low!
+Video recording works but is barely usable because there is no OIS and the frame rate, even at only 720P.
+For a concept device it really shows what the technology is capable of.
+With some enhancements in the future this will certainly provide an added value in many uses cases.
 
 For an additional markup it is possible to get prescription lenses with these glasses so people who wear glasses on daily basis can also use this device.
 
