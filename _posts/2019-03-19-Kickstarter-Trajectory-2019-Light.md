@@ -3,7 +3,7 @@ layout: post
 authors: [xxx, yyy]
 title: "Kickstarter Trajectory 2019 Light Edition"
 image: /img/kicks.png
-tags: [Spring, Spring Boot, Angular, Unit Test, Mocking, Microservices, Git, DevOps, Docker, Typescript, Kickstarter, Security]
+tags: [Spring, Spring Boot, Angular, Unit Test, Mocking, Microservices, Git, DevOps, Docker, Kubernetes, OpenShift, Typescript, Kickstarter, Security]
 category: Kickstarters
 comments: true
 ---
@@ -122,6 +122,8 @@ Of course, afterwards we had some time to relax after three days of exploring th
 
 ## Unit Testing and mocking in Java
 
+<img class="image right" alt="Junit + Java Image" src="/img/2019-Kickstarter-Trajectory-2019-light/unit-testing.jpg" />
+
 We got an introduction to Unit Testing in java from [Maarten Casteels](/author/maarten-casteels). 
 
 #### The red line:
@@ -138,6 +140,8 @@ In the morning we got a very interactive theory session where we learned how imp
 For lunch we went to a place called MOW’s were we were introduced to a whole other world of sandwiches. Once you’ve been there you will know what we mean by that, don’t go too often though.
 
 ## Kubernetes
+<img class="image left medium" alt="Kubernetes Logo" src="/img/2019-Kickstarter-Trajectory-2019-light/kubernetes-logo.png" />
+
 [Kubernetes](https://kubernetes.io/) is an open source container orchestration framework which was first introduced to us by [Tom Verelst](/author/tom-verelst) during the kickstarter traject. It is made by Google and is now maintained by the Cloud Native Computing Foundation. First they introduced us to all the features that Kubernetes possesses (service discovery, horizontal scaling, load balancing, ...). 
 
 Soon we learned how to deploy Docker containers in the cloud by using Kubernetes, and afterwards we had an hands-on exercise where we could deploy a full-stack application to a Kubernetes cluster using [Minikube](https://github.com/kubernetes/minikube). It's wonderful how you can deploy a full-stack application through Kubernetes with just one configuration file needed. Of course, it takes some time to get used to it, but once you get the hang of it, you can do outstanding stuff with this platform!
@@ -199,6 +203,8 @@ All these exercises help us prepare for a real project in the future.
 
 ## Agile Development 
  First we saw different approaches to work as a team which are not agile. Like the waterfall system that has some downsides, which doesn't give a lot of feedback. The feedback is only in the end of the life cycle of the project or when the project got tested. 
+
+<img class="image right medium" alt="Agile Methodology" src="/img/2019-Kickstarter-Trajectory-2019-light/agile-methodology.png">
 
 Another way of working was with Agile, this has more benefits:
 * Quicker risk reduction
