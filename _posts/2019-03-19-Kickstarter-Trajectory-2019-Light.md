@@ -10,18 +10,13 @@ comments: true
 
 ## Introduction
 
-We started this kickstarter trajectory with 4 kickstarters. Jago was freshly graduated from school, where Giel and Yolan already had working expierence in IT. Seppe had multiple years working expierence in Digital signage, but made a career change and was also new to the IT.
-The main goals of the kickstarter course was to give every kickstarter knowlegde of the best practiced within JWORKS and to intruduce them to the IT world.
-
-the shedule: 
-* One month of training: both back-end, front-end, Devops, tools, Clous, Agile. 
-* The second month we got a DevCase were we put everything we learned into practice.
+We started this kickstarter trajectory with four kickstarters. Jago was freshly graduated from school, where Giel and Yolan already had working expierence in IT. Seppe had multiple years working expierence in Digital signage, but made a career change and was also new to IT.
+The main goals of the kickstarter course was to give every kickstarter a knowlegdebase of the best practices within JWORKS and to introduce them to the IT world.
 
 ## First day
-
 #### Morning
 
-On the first day there we were welcomed by Robbe Struys and Angello Gallo. They gave us the basic information about the HR working of ordina. After recieving the keys to our new car and our laptop they showed us how to work with Ordina Connect. We made our first CV and filled in our first timesheet entry. They toured us arround the office and introduced us to the future colleuges. They were very friendly and all said that we made the right choise, this was very nice to hear and put us a ease. We had brunch together and the we had a group picture aswel as our profile pictures. 
+On the first day there we were welcomed by Robbe Struys and Angella Gallo. They gave us the basic information about the HR working of Ordina. After recieving the keys to our new car and our laptop they showed us how to work with Ordina Connect. We made our first CV and filled in our first timesheet entry. They toured us arround the office and introduced us to the future colleuges. They were very friendly and all said that we made the right choise, this was very nice to hear and put us a ease. We had brunch together and the we had a group picture aswel as our profile pictures. 
 
 <img class="image fit" alt="Group picture" src="/img/2019-Kickstarter-Trajectory-2019-light/group-picture.jpg">
 
@@ -31,21 +26,29 @@ With our new laptop's in hand we needed an introduction to what development envi
 
 ## Git
 
-A tool al developers use is version control, the preferred tool at ordina is Git. We learned to use git, the best pratices to use and al this used in the terminal of course. In the next course we needed to use git to get examples and test our skills. 
+<img class="image right" width="35%" alt="Git spaghetti vs linear" src="/img/2019-Kickstarter-Trajectory-2019-light/git-spaghetti-vs-linear.jpg">
 
-## Databases
+A tool al developers use is version control, the preferred tool at ordina is Git. We learned to use git, the best pratices to use and al this used in the terminal of course. If you woud like a program you can use Gitkraken. All allong the kickstarter traject we woud use git to get our code examples and presentations.
 
-
+We went over good practices and learned by doing this hands-on on our own machines. Creating our own repository’s and when needed branching and merging them. [Yannick](/author/yannick-de-turck/) our teacher for this course was very clear to avoid spaghetti history by rebasing and squashing your commits to give a clean linear overview that is readable by your co-workers.
 
 ## Clean Code
 
-[Pieter Van Hees](/author/pieter-van-hees) gave us a course of clean code. He taught us the best practices on how to write clean code based. This mainly focussed on the readaility of the code so other developpers can easely addopt your code and know how its set up. 
+[Pieter Van Hees](/author/pieter-van-hees) gave us a course of clean code, this course was not foccussed an creating new code but improving the way you write the code. 
+#### Improvements:
+- Readability
+- Maintainability
+- Avoid rewrites
+  
+The biggest enemy of clean code is pressure so Pieter advised us to take our time to write clean code. This course only gave an introduction and he recommended us to read the book by Robert Cecil Martin.
+
+## Databases
 
 ## Frontend 
 >during our first week we had multiple course about front-end. First we saw 
 
 ## Spring course
-> [Ken Coenen](./author/ken-counen) gave us a Spring and Spring Boot. The course was given in three days, on the first day we saw the basics of spring, then he transistioned to Srping boot and more indepth configuration. Ken made an application from scratch and explained al the steps taken, always showing us the best praticed ways of implementation.
+> [Ken Coenen](./author/ken-coenen) gave us a Spring and Spring Boot. The course was given in three days, on the first day we saw the basics of spring, then he transistioned to Srping boot and more indepth configuration. Ken made an application from scratch and explained al the steps taken, always showing us the best praticed ways of implementation.
 
 ### Day 1
 
@@ -71,12 +74,19 @@ Of course there was time for relaxing after the sessions. After our session on f
 
 ## Unit Testing and mocking in Java
 
-We got an introduction to testing and mocking by [Maarten Casteel](/author/maarten-casteels). 
-It was a very interactie theory session were we learned how important testing really is, its goals, and how to setup a testing enviroment. 
+We got an introduction to Unit Testing in java from [Maarten Casteel](/author/maarten-casteels). 
 
-After the lunch break we were given some excercies to make. Here Maarten went over them and showed us the pitfals and best practices. 
+#### The red line:
 
-We learned a lot in this course because it was al new for us. 
+- Goals of Testing
+- What to Test
+- Fixtures
+- Mocks
+- Assertions
+
+In the morning we got a very interactive theory session were we learned how important testing really is, the basics and what it all stands for. In the afternoon we learned to unit test our code, the best ways to do this, how to mock dependencies, use fixtures and a whole lot more. Maarten also showed us the most commen pitfalls to avoid, and some best practices like test-driven development(TDD) and how building test can help you with refactoring your code and lastly look at it with a different vision.
+
+For lunch we went to a place called Mo’s were we were introduced to a whole other world of sandwiches. Once you’ve been there you will know what we mean by that, don’t go to often tough.
 
 ## DevCase
 
