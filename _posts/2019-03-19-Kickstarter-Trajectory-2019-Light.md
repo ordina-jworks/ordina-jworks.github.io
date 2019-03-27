@@ -46,27 +46,24 @@ On day 3 [Tom Van den Bulck](/author/tom-van-den-bulck), Competence lead in Big 
 
 ### SQL
 
-#### PostgreSQL
-
-PostgreSQL or Postgres is an open-source object-relational database management system that is increasing in popularity across bigger enterprises for reasons such as high scalability in terms of the amount of data as well as the amount of users trying to access the data at the same time. It is free to use as it is completely open-source. Has additional security features such as a robust access-control system. Can store .JSON files. Is fully indexed and very performant because of these indexes and is very extensible with additional features provided by it's open-source community. Simply put, PostgreSQL is an advanced version of SQL which provides many additional features and works cross-platform where other alternatives such as SQL Server only work on Microsoft systems.
+For SQL database systems we had a look at PostgreSQL, an pen-source object-relational database management system that is increasing in popularity across bigger enterprises for reasons such as high scalability, extensive features and works cross-platform.
 
 ### NoSQL
 
-#### Redis
+* #### Redis
+Redis is an open-source key-value store that runs in-memory. Used where consistency and durability is less important than speed.
 
-Redis is an open-source key-value store that runs in-memory that is often ranked the most popular key-value database system. It is often used whe consistency and durability of data is less important than the time it should take to distribute data. Redis is often used by companies such as GitHub, Twitter, StackOverflow and Snapchat where extremely high numbers of queries are being executed over small amounts of time (for example 300,000 queries per second on Twitter).
+* #### Cassandra
+Cassandra is an open-source wide column store. Distributed across different nodes for high accessibility and low chance of downtime.
 
-#### Cassandra
+* #### MongoDB
 
-Originally developed by Facebook, later on released and picked up by Apache, Cassandra is an open-source wide column store. It is a distributed, meaning data is spread out across many different servers, these different nodes spread across different datacenters can each individually service any request meaning there are no master or slave nodes. Because the data can be spread and replicated across multiple datacenters the chance of data being lost in the case of unforseen events is extremely small and it also means nodes can be replaced without any downtime when something goes wrong in a specific datacenter. Cassandra uses it's own query language, Cassandra Query Language (CQL) which adds an abstraction layer which hides implementation details and provides syntax for collections and other encodings.
+MongoDB is a document-oriented database system. Data in MongoDB does not need to be consistent and the datastructure can change over time.
 
-#### MongoDB
+* #### Neo4j
 
-MongoDB is a document-oriented database system which uses JSON-like documents to store it's data. This has as advantages that data does not need to be consistent across documents and the data structure can be changed over time putting the focus on what you want to build rather than how to store it. MongoDB has support for many languages including Java but also Javascript, .NET, Python and many others. MongoDB makes extensive use of RAM, loading only the accessed data into your RAM. A goal for developers should be to fit all the frequently used data into the RAM, when this data exceeds the capacity of a single machine, sharding can be applied. This can be particularly usefull for cloud-based applications.
+Neo4j is a graph database management system. No index is required and data with a lot of relations to other data can be accessed faster when dealing with higher amounts.
 
-#### Neo4j
-
-Neo4j is a graph database management system and concidered the most popular one of it's kind. It comes in an open-source community edition having additional features such as online backup and high availability licenced under a commercial license. The difference between graph databases and other systems is that an index is not required. Every element contains a direct pointer to it's adjacent elements. This makes it faster to analyse data with lots of relations where traditional indexing might suffer when databases get bigger and bigger.
 
 ## Reactive programming with RxJS
  
