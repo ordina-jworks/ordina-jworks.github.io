@@ -65,7 +65,9 @@ Neo4j is a graph database management system and concidered the most popular one 
  
 A course given by [Orjan De Smet](/author/orjan-de-smet) covering reactive programming, the advantages it brings and how and where to use it and how to use it in combination with unit testing. In short, reactive programming offers a solution to handling asycnhronous calls with multiple events. Which means it offers more than one channel of communication so multi-step events can be handled efficiently. When coding in a traditional way you will often end up with a lot more code, could run into problems when for example a promise clogs a thread or you could end up with a mess of callbacks making your code extremely hard to read.
  
-
+##DevOps and Continuous Integration
+ 
+An introduction to DevOps & CI given by [Tim Vierbergen](/author/tim-vierbergen) explaining this way of working and how it increases the productivity of a team. We also covered some best practices concidering source control, building, testing and deploying with an example project to get a bit more familiar with the software used to do this. Software such as git for source control, Jenkins for building, Jasmine for testing and Docker/Spinnaker for deploying.
 
 ## Clean Code
 
