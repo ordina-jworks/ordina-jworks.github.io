@@ -243,20 +243,11 @@ By working with pair programming:
 
 ### The new JWorks colleagues
 
-<div class="row">
-  <div class="column">
-    <img class="p-image" width="20%" height="20%" alt="Seppe Berghmans" src="/img/2019-Kickstarter-Trajectory-2019-light/seppe-berghmans.jpg" />
-  </div>
-   <div class="column">
-          <img class="p-image" width="20%" height="20%" alt="Jago Staes" src="/img/2019-Kickstarter-Trajectory-2019-light/jago-staes.jpg"  />   
-   </div>
-  <div class="column">
-    <img class="p-image" width="20%" height="20%" alt="Yolan Vloeberghs " src="/img/2019-Kickstarter-Trajectory-2019-light/yolan-vloeberghs.jpg"  />   
-  </div>
-  <div class="column">
-        <img class="p-image" width="20%" height="20%" alt="Giel Reynders" src="/img/2019-Kickstarter-Trajectory-2019-light/giel-reynders.jpg"  />   
-   </div>    
-</div>
+<img class="p-image" width="300" height="300" alt="Seppe Berghmans" src="/img/2019-Kickstarter-Trajectory-2019-light/seppe-berghmans.jpg" />
+<img class="p-image" width="300" height="300" alt="Jago Staes" src="/img/2019-Kickstarter-Trajectory-2019-light/jago-staes.jpg"  />   
+<img class="p-image" width="300" height="300" alt="Yolan Vloeberghs " src="/img/2019-Kickstarter-Trajectory-2019-light/yolan-vloeberghs.jpg"  /> 
+<img class="p-image" width="300" height="300" alt="Giel Reynders" src="/img/2019-Kickstarter-Trajectory-2019-light/giel-reynders.jpg"  />  
+
 
 
 
