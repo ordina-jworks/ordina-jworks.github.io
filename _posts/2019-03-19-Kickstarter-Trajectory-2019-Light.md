@@ -159,6 +159,39 @@ As for cloud platforms, we got a very detailed explanation of how OpenShift (mad
 
 Overall, it was a very interesting session for cloud-enthousiasts and we definitely want to learn more about it!
 
+## TypeScript
+After the session HTLML5, CSS, JavaScript. [Dimitri De Kerf](/author/dimitri-de-kerf) learned us the benefits of TypeScript. 
+He told us some benefits of using TypeScript instead of JavaScript. This means that TypeScript is a wrapper around JavaScrip, 
+which means it has more methods to use to develop a application which you otherwise would not be possible.
+
+Like declaring declaring a colon and a type after the variable.
+
+[Dimitri De Kerf](/author/dimitri-de-kerf) showed how to configure our project to use TypeScript and to use these features.
+He explained us that it is important to know how to use TypeScript because it is used in popular frameworks Like Angular and React.
+
+
+## Angular
+[Ryan De Gruyter](/autor/Ryan-De-Gruyter) was our teacher for today, He quickly introduced us to Angular a platform that is designed to easily create browser applications build by Google. 
+The first version of Angular was AngularJS, it was very popular and used in by many companies. Google decided to update Angular and created Angular 2 which was not welcomed by the industry at that time
+because it removed all the AngularJS concepts. 
+
+It took some time for the industry to adapt and see the positive stuff of Angular2: Open Source Community, Improved Dependency injection, better performance, enc..
+Angular2 is not the holy grail of frameworks it still has some downsides like lot's of ceremony and boilerplate thanks to the use of Angular CLI.
+
+After the information session he showed us how easy it was to create an Angular project, were we learned how to create an Angular application using small reusable pieces called components.
+
+## Frontend hands-ondf
+
+Today [Jan De Wilde](/autor/Jan-De-Wilde)  asked if we still had question about the last Angular session. Because in this session we would create a Angular application using all the techniques we learned form the previous course
+We went deeper on some topics on how to write an API and to structure the project properly.
+
+After the lunchbreach (we went ot the MUZ) when we were still digesting our food, we started to write a comple Angular application. [Jan De Wilde](/autor/Jan-De-Wilde) guided us through the process and showed us when we were finished how to write tests for our functions and how to mock our receiving API data.
+
+
+[Jan De Wilde](/autor/Jan-De-Wilde) Would show us how to create a Angular application and use the design and best code practices but first we could ask some questions about the last session. 
+
+Finally we learned how to write a tests for our functions, API-service with mocked data.
+
 ## DevCase
 
 ### Introduction 
