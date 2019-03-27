@@ -107,22 +107,59 @@ It's capable of running basic android apps. The same ones you would expect to ru
 Running Tensorflow lite to do object detection and classification proved to be a bit too challenging.
 
 
-For an additional markup it is possible to get prescription lenses with these glasses so people who wear glasses on daily basis can also use this device.
 
-Battery life is functional for an hour or 2-3 but for all day use an external battery pack is definitely a requirement.
-I actually went running while wearing an external barrery pack. Did not experience any hinder. 
 
 ## The software
 
-TODO: The software: some photos & videos about the built in software, what the experience is like...
+The Vuzix Blade runs on Android 5.1. Due to the limited screen real estate of the device, the look and feel of the apps reminds me a lot of smart watch apps.
+
+There aren't many out of the box apps on the device installed: welcome dashboard, camera, gallery, music control, settings.
+
+One of the most important features of wearables is notification mirroring, which works out of the box.
+
+
+https://www.vuzix.com/products/Videos
+
+
+With the Vuzix Blade also comes a companion app for your Android or iOS Smartphone.
+This companion app allows you to configure settings, fetch images and videos from the device, manage installed apps and explore the Blade app store.
+
+As this device doesn't run the Google play store, a specific app store is needed.
+
+https://www.vuzix.com/appstore?deviceFilter=blade
+
+
+
 
 ## Using the Vuzix
 
 TODO: Using the Vuzix, add photos & videos
 
+The thing I like about the Blade is how comfortable it is to wear compared to other head mounted wearable solutions like for example the Hololens.
+Although Vuzix targets the Blade partially at the consumer market, I believe that there is much more potential in the enterprise market.
+Let's not make the same mistake Google Glass made! 
+
+However, because they target the consumer market, they thought about things like  ergonomics and making it work for normal people. 
+
+Sometimes I wear this device for a full day to get deeply immersed in the experience. As it is comfortable to wear this wasn't much of an issue.
+
+My first experiment was to check how many people look at me funny during my morning commute. The good news is that during my train ride and walk around the office, not many people were / kept staring at me. 
+However the people that knew me asked what I had on my face. 
+
+
+As I said before, I wear glasses. The image is sharp, but it's sharper when I put the Blade on top of my regular glasses.
+For an additional markup it is possible to get prescription lenses with these glasses so people who wear glasses on daily basis can also use this device.
+
+Battery life is functional for an hour or 2-3 but for all day use an external battery pack is definitely a requirement.
+I actually went running while wearing an external battery pack. Did not experience any hinder. 
+
 ## Developing for the Vuzix
 
 TODO: Developing for the Vuzix: show work in progress on the heart rate app.
+
+The Vuzix Blade is currently running Android 5.1. This means they can leverage the huge amounts of Android devs out there. 
+As an Android developer, I found the learning curve very low. 
+Having already developed 
 
 ## Looking forward
 
