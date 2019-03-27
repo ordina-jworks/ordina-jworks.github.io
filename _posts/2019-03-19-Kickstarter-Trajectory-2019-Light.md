@@ -35,10 +35,51 @@ We went over good practices and learned by doing this hands-on on our own machin
 ## Docker
 <img class="image right" alt="Docker logo" src="/img/2019-Kickstarter-Trajectory-2019-light/docker.png">
 
+As the era of containerization is rising, it only feels right to teach us the fundamentals about it and the importance of Docker in a project. That’s why they asked [Tom Verelst](./author/tom-verelst) to give us a detailed presentation about the mystical power of Docker. After the first introduction, we were soon ‘dockerizing’ our first full-stack application. We also combined everything together with Docker Compose, which made us start our whole full-stack application with just one command!
 
-As the era of containerization is rising, it only feels right to teach us the fundamentals about it and the importance of Docker in a project. That's why they asked [Tom Verelst](./author/tom-verelst) to give us a detailed presentation about the mystical power of Docker. After the first introduction, we were soon 'dockerizing' our first full-stack application. We also combined everything together with Docker Compose, which made us start our whole full-stack application with just one command!
+The session gave us an overview as to how Docker is used in the real world, and we couldn’t wait to use an orchestration framework to deploy our containers into the cloud!
 
-The session gave us an overview as to how Docker is used in the real world, and we couldn't wait to use an orchestration framework to deploy our containers into the cloud!
+
+## Databases
+
+On day 3 [Tom Van den Bulck](/author/tom-van-den-bulck), Competence lead in Big and Fast Data gave us a course on SQL and NoSQL database systems. As some of us were not familiar with NoSQL this was very interesting to see the difference in use and possibilities between normal SQL systems which we were all used to using before.
+
+### SQL
+
+#### PostgreSQL
+
+PostgreSQL or Postgres is an open-source object-relational database management system that is increasing in popularity across bigger enterprises for reasons such as high scalability in terms of the amount of data as well as the amount of users trying to access the data at the same time. It is free to use as it is completely open-source. Has additional security features such as a robust access-control system. Can store .JSON files. Is fully indexed and very performant because of these indexes and is very extensible with additional features provided by it's open-source community. Simply put, PostgreSQL is an advanced version of SQL which provides many additional features and works cross-platform where other alternatives such as SQL Server only work on Microsoft systems.
+
+### NoSQL
+
+#### Redis
+
+Redis is an open-source key-value store that runs in-memory that is often ranked the most popular key-value database system. It is often used whe consistency and durability of data is less important than the time it should take to distribute data. Redis is often used by companies such as GitHub, Twitter, StackOverflow and Snapchat where extremely high numbers of queries are being executed over small amounts of time (for example 300,000 queries per second on Twitter).
+
+#### Cassandra
+
+Originally developed by Facebook, later on released and picked up by Apache, Cassandra is an open-source wide column store. It is a distributed, meaning data is spread out across many different servers, these different nodes spread across different datacenters can each individually service any request meaning there are no master or slave nodes. Because the data can be spread and replicated across multiple datacenters the chance of data being lost in the case of unforseen events is extremely small and it also means nodes can be replaced without any downtime when something goes wrong in a specific datacenter. Cassandra uses it's own query language, Cassandra Query Language (CQL) which adds an abstraction layer which hides implementation details and provides syntax for collections and other encodings.
+
+#### MongoDB
+
+MongoDB is a document-oriented database system which uses JSON-like documents to store it's data. This has as advantages that data does not need to be consistent across documents and the data structure can be changed over time putting the focus on what you want to build rather than how to store it. MongoDB has support for many languages including Java but also Javascript, .NET, Python and many others. MongoDB makes extensive use of RAM, loading only the accessed data into your RAM. A goal for developers should be to fit all the frequently used data into the RAM, when this data exceeds the capacity of a single machine, sharding can be applied. This can be particularly usefull for cloud-based applications.
+
+#### Neo4j
+
+Neo4j is a graph database management system and concidered the most popular one of it's kind. It comes in an open-source community edition having additional features such as online backup and high availability licenced under a commercial license. The difference between graph databases and other systems is that an index is not required. Every element contains a direct pointer to it's adjacent elements. This makes it faster to analyse data with lots of relations where traditional indexing might suffer when databases get bigger and bigger.
+
+## Reactive programming with RxJS
+ 
+A course given by [Orjan De Smet](/author/orjan-de-smet) covering reactive programming, the advantages it brings and how and where to use it and how to use it in combination with unit testing. In short, reactive programming offers a solution to handling asycnhronous calls with multiple events. Which means it offers more than one channel of communication so multi-step events can be handled efficiently. When coding in a traditional way you will often end up with a lot more code, could run into problems when for example a promise clogs a thread or you could end up with a mess of callbacks making your code extremely hard to read.
+ 
+## DevOps and Continuous Integration
+ 
+An introduction to DevOps & CI given by [Tim Vierbergen](/author/tim-vierbergen) explaining this way of working and how it increases the productivity of a team. We also covered some best practices concidering source control, building, testing and deploying with an example project to get a bit more familiar with the software used to do this. Software such as git for source control, Jenkins for building, Jasmine for testing and Docker/Spinnaker for deploying.
+
+## Security Principles
+ 
+In this presentation we went over the basics on how to protect your application and the user data it stores from malicious intent. We went over some good practices regarding the storage of data and the verification of your users. For example the hashing of passwords, enabling 2 step authentication, deciding on the amount of allowed invalid login attempts before issueing a timeout. All of these things should be decided using a mix of guidelines and common sense.
+
 
 ## Clean Code
 
@@ -49,8 +90,6 @@ The session gave us an overview as to how Docker is used in the real world, and 
 - Avoid rewrites
   
 The biggest enemy of clean code is pressure so Pieter advised us to take our time to write clean code. This course only gave an introduction and he recommended us to read the book by Robert Cecil Martin.
-
-## Databases
 
 ## Frontend Build tools, testing, package managers and more
 
