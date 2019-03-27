@@ -61,9 +61,11 @@ MongoDB is a document-oriented database system which uses JSON-like documents to
 
 Neo4j is a graph database management system and concidered the most popular one of it's kind. It comes in an open-source community edition having additional features such as online backup and high availability licenced under a commercial license. The difference between graph databases and other systems is that an index is not required. Every element contains a direct pointer to it's adjacent elements. This makes it faster to analyse data with lots of relations where traditional indexing might suffer when databases get bigger and bigger.
 
-As the era of containerization is rising, it only feels right to teach us the fundamentals about it and the importance of Docker in a project. That's why they asked [Tom Verelst](./author/tom-verelst) to give us a detailed presentation about the mystical power of Docker. After the first introduction, we were soon 'dockerizing' our first full-stack application. We also combined everything together with Docker Compose, which made us start our whole full-stack application with just one command!
+## Reactive programming with RxJS
+ 
+A course given by [Orjan De Smet](/author/orjan-de-smet) covering reactive programming, the advantages it brings and how and where to use it and how to use it in combination with unit testing. In short, reactive programming offers a solution to handling asycnhronous calls with multiple events. Which means it offers more than one channel of communication so multi-step events can be handled efficiently. When coding in a traditional way you will often end up with a lot more code, could run into problems when for example a promise clogs a thread or you could end up with a mess of callbacks making your code extremely hard to read.
+ 
 
-The session gave us an overview as to how Docker is used in the real world, and we couldn't wait to use an orchestration framework to deploy our containers into the cloud!
 
 ## Clean Code
 
