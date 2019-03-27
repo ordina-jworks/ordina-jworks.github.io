@@ -32,6 +32,14 @@ A tool al developers use is version control, the preferred tool at ordina is Git
 
 We went over good practices and learned by doing this hands-on on our own machines. Creating our own repository’s and when needed branching and merging them. [Yannick](/author/yannick-de-turck/) our teacher for this course was very clear to avoid spaghetti history by rebasing and squashing your commits to give a clean linear overview that is readable by your co-workers.
 
+## Docker
+<img class="image right" alt="Docker logo" src="/img/2019-Kickstarter-Trajectory-2019-light/docker.png">
+
+
+As the era of containerization is rising, it only feels right to teach us the fundamentals about it and the importance of Docker in a project. That's why they asked [Tom Verelst](./author/tom-verelst) to give us a detailed presentation about the mystical power of Docker. After the first introduction, we were soon 'dockerizing' our first full-stack application. We also combined everything together with Docker Compose, which made us start our whole full-stack application with just one command!
+
+The session gave us an overview as to how Docker is used in the real world, and we couldn't wait to use an orchestration framework to deploy our containers into the cloud!
+
 ## Clean Code
 
 [Pieter Van Hees](/author/pieter-van-hees) gave us a course of clean code, this course was not foccussed an creating new code but improving the way you write the code. 
@@ -45,9 +53,17 @@ The biggest enemy of clean code is pressure so Pieter advised us to take our tim
 ## Databases
 
 ## Frontend 
->during our first week we had multiple course about front-end. First we saw 
+during our first week we had multiple course about front-end. First we saw 
+
+## Java Language Features
+Java is a pretty popular language in the bacekend development world, and is our preferred backend language here at JWorks. That's why [Yannick De Turck](./author/yannick-de-turck) explained us the newest features of Java versions 7, 8, 9, 10 and 11. Java 11 is the newest LTS version, so it was important for us to get a detailed explanation about its newest changes and features. 
+
+One of the most useful features that Java 10 introduced is the 'var' keyword. How great is it that you don't have to specify the type twice during the initialization of an object!?
+
+Other than that, there were alot of extra useful features that will certainly be nice to have once we need to use it. It was very entertaining to get a quick overview as to what is new, what is being removed or deprecated and what we can or should expect in the coming Java versions.
 
 ## Spring Framework
+<img class="image left" alt="Spring logo" src="/img/2019-Kickstarter-Trajectory-2019-light/spring-logo.png">
 
 For a framework this big and popular, we followed a three-day course given by [Ken Coenen](./author/ken-coenen). On the first day, we received a brief explanation as to how the Spring magic works behind the scenes (dependency injection, beans, ...). We saw the basic of the most common components of the full Spring Framework such as Cloud, Security, ... . 
 
