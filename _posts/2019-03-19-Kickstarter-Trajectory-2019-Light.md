@@ -97,6 +97,11 @@ In the morning we got a very interactive theory session were we learned how impo
 
 For lunch we went to a place called Mo’s were we were introduced to a whole other world of sandwiches. Once you’ve been there you will know what we mean by that, don’t go to often tough.
 
+## Kubernetes
+[Kubernetes](https://kubernetes.io/) is an open source container orchestration framework which was first introduced to us by [Tom Verelst](./author/tom-verelst) during the kickstarter traject. It is made by Google and is now maintained by the Cloud Native Computing Foundation. First they introduced us to all the features that Kubernetes possesses (service discovery, horizontal scaling, load balancing, ...). 
+
+Soon we learned how to deploy Docker containers in the cloud by using Kubernetes, and afterwards we had an hands-on exercise where we could deploy a full-stack application to a Kubernetes cluster using [Minikube](https://github.com/kubernetes/minikube). It's wonderful how you can deploy a full-stack application through Kubernetes with just one configuration file needed. Ofcourse, it takes some time to get used to it, but once you get the hang of it, you can do outstanding stuff with this platform!
+
 ## DevCase
 
 ### Introduction 
