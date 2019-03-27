@@ -10,27 +10,26 @@ comments: true
 
 ## Introduction
 
-We started this kickstarter trajectory with four kickstarters. Jago was freshly graduated from school, where Giel and Yolan already had working expierence in IT. Seppe had multiple years working expierence in Digital signage, but made a career change and was also new to IT.
-The main goals of the kickstarter course was to give every kickstarter a knowlegdebase of the best practices within JWORKS and to introduce them to the IT world.
+We started this kickstarter trajectory with four kickstarters. Jago was freshly graduated from school, where Giel and Yolan already had working experience in IT. Seppe had multiple years working experience in Digital Signage, but made a career change and was also new to IT.
+The main goals of the kickstarter course was to give every kickstarter a knowledge base of the best practices within JWorks and to introduce them to the IT world.
 
 ## First day
 #### Morning
 
-On the first day there we were welcomed by Robbe Struys and Angella Gallo. They gave us the basic information about the HR working of Ordina. After recieving the keys to our new car and our laptop they showed us how to work with Ordina Connect. We made our first CV and filled in our first timesheet entry. They toured us arround the office and introduced us to the future colleuges. They were very friendly and all said that we made the right choise, this was very nice to hear and put us a ease. We had brunch together and the we had a group picture aswel as our profile pictures. 
+On the first day there, we were welcomed by Robbe Struys and Angela Gallo. They gave us the basic information about the HR working of Ordina. After receiving the keys to our new car and our laptop they showed us how to work with Ordina Connect. We made our first CV and filled in our first timesheet entry. They toured us around the office and introduced us to our future colleagues. They were very friendly and they all said that we made the right choice. This was of course very nice to hear and put us at ease. We had brunch together and then we had a group picture as well as our profile pictures taken. 
 
 <img class="image fit" alt="Group picture" src="/img/2019-Kickstarter-Trajectory-2019-light/group-picture.jpg">
 
 #### Afternoon
-
-With our new laptop's in hand we needed an introduction to what development enviremont we needed to use, Kevind van den Abele showed us the ropes.
+With every developer comes his personal development environment. To help us pick the best tools to suite our needs, we had help from [Kevin van den Abeele](/author/kevin-van-den-abeele). He showed us the best IDE's for each language and best practices as to what we can do to improve our development experience.
 
 ## Git
 
 <img class="image right" width="35%" alt="Git spaghetti vs linear" src="/img/2019-Kickstarter-Trajectory-2019-light/git-spaghetti-vs-linear.jpg">
 
-A tool al developers use is version control, the preferred tool at ordina is Git. We learned to use git, the best pratices to use and al this used in the terminal of course. If you woud like a program you can use Gitkraken. All allong the kickstarter traject we woud use git to get our code examples and presentations.
+A tool all developers use is Version Control. At Ordina we prefer to use [Git](https://git-scm.com/) (this is preferred almost everywhere, who even uses SVN anymore?). So we learned to use Git, the best practices to get the best out of it and all this is done in the terminal of course. If you want to use a GUI for Git, they recommended GitKraken. Over the whole kickstarter traject, we would use Git to get our code examples and presentations.
 
-We went over good practices and learned by doing this hands-on on our own machines. Creating our own repository’s and when needed branching and merging them. [Yannick](/author/yannick-de-turck/) our teacher for this course was very clear to avoid spaghetti history by rebasing and squashing your commits to give a clean linear overview that is readable by your co-workers.
+We went over good practices and learned by doing this hands-on on our own machines. Creating our own repositories, branching, merging, ... .[Yannick](/author/yannick-de-turck/), our teacher for this course, was very clear to avoid spaghetti history by rebasing and squashing your commits to give a clean linear overview that is readable by your co-workers.
 
 ## Docker
 <img class="image right" alt="Docker logo" src="/img/2019-Kickstarter-Trajectory-2019-light/docker.png">
@@ -42,11 +41,11 @@ The session gave us an overview as to how Docker is used in the real world, and 
 
 ## Databases
 
-On day 3 [Tom Van den Bulck](/author/tom-van-den-bulck), Competence lead in Big and Fast Data gave us a course on SQL and NoSQL database systems. As some of us were not familiar with NoSQL this was very interesting to see the difference in use and possibilities between normal SQL systems which we were all used to using before.
+On day 3 [Tom Van den Bulck](/author/tom-van-den-bulck), Competence Lead in Big and Fast Data gave us a course on SQL and NoSQL database systems. As some of us were not familiar with NoSQL, this was very interesting to see the difference in use and possibilities between normal SQL systems which we were all used to using before.
 
 ### SQL
 
-For SQL database systems we had a look at PostgreSQL, an pen-source object-relational database management system that is increasing in popularity across bigger enterprises for reasons such as high scalability, extensive features and works cross-platform.
+For SQL database systems we had a look at PostgreSQL, an open-source object-relational database management system that is increasing in popularity across bigger enterprises for reasons such as high scalability, extensive features and works cross-platform.
 
 ### NoSQL
 
@@ -58,7 +57,7 @@ Cassandra is an open-source wide column store. Distributed across different node
 
 * #### MongoDB
 
-MongoDB is a document-oriented database system. Data in MongoDB does not need to be consistent and the datastructure can change over time.
+MongoDB is a document-oriented database system. Data in MongoDB does not need to be consistent and the data structure can change over time.
 
 * #### Neo4j
 
@@ -67,42 +66,40 @@ Neo4j is a graph database management system. No index is required and data with 
 
 ## Reactive programming with RxJS
  
-A course given by [Orjan De Smet](/author/orjan-de-smet) covering reactive programming, the advantages it brings and how and where to use it and how to use it in combination with unit testing. In short, reactive programming offers a solution to handling asycnhronous calls with multiple events. Which means it offers more than one channel of communication so multi-step events can be handled efficiently. When coding in a traditional way you will often end up with a lot more code, could run into problems when for example a promise clogs a thread or you could end up with a mess of callbacks making your code extremely hard to read.
+A course given by [Orjan De Smet](/author/orjan-de-smet) covering reactive programming, the advantages it brings and how and where to use it and how to use it in combination with unit testing. In short, reactive programming offers a solution to handling asynchronous calls with multiple events. Which means it offers more than one channel of communication so multi-step events can be handled efficiently. When coding in a traditional way you will often end up with a lot more code, could run into problems when for example a promise clogs a thread or you could end up with a mess of callbacks making your code extremely hard to read.
  
 ## DevOps and Continuous Integration
  
-An introduction to DevOps & CI given by [Tim Vierbergen](/author/tim-vierbergen) explaining this way of working and how it increases the productivity of a team. We also covered some best practices concidering source control, building, testing and deploying with an example project to get a bit more familiar with the software used to do this. Software such as git for source control, Jenkins for building, Jasmine for testing and Docker/Spinnaker for deploying.
+An introduction to DevOps & CI given by [Tim Vierbergen](/author/tim-vierbergen) explaining this way of working and how it increases the productivity of a team. We also covered some best practices considering version control, building, testing and deploying with an example project to get a bit more familiar with the software used to do this. Software such as Git for version control, Jenkins for building, Jasmine for testing and Docker/Spinnaker for deploying.
 
 ## Security Principles
  
-In this presentation we went over the basics on how to protect your application and the user data it stores from malicious intent. We went over some good practices regarding the storage of data and the verification of your users. For example the hashing of passwords, enabling 2 step authentication, deciding on the amount of allowed invalid login attempts before issueing a timeout. All of these things should be decided using a mix of guidelines and common sense.
+In this presentation we went over the basics on how to protect your application and the user data it stores from malicious intent. We went over some good practices regarding the storage of data and the verification of your users. For example the hashing of passwords, enabling 2 step authentication, deciding on the amount of allowed invalid login attempts before issuing a timeout. All of these things should be decided using a mix of guidelines and common sense.
 
 
 ## Clean Code
 
-[Pieter Van Hees](/author/pieter-van-hees) gave us a course of clean code, this course was not foccussed an creating new code but improving the way you write the code. 
+[Pieter Van Hees](/author/pieter-van-hees) gave us a course of clean code, this course was not focussed on writing new code but improving the way you write the code. 
+
 #### Improvements:
 - Readability
 - Maintainability
 - Avoid rewrites
   
-The biggest enemy of clean code is pressure so Pieter advised us to take our time to write clean code. This course only gave an introduction and he recommended us to read the book by Robert Cecil Martin.
+The biggest enemy of clean code is pressure so Pieter advised us to take our time to write clean code. During this course we also did some exercises through public code katas available on the internet. This course only gave an introduction and he recommended us to read the book by Robert Cecil Martin.
 
 ## Frontend Build tools, testing, package managers and more
 
-This course was led by [Michael Vervloet](/author/michael-vervloet) who is a full stack Javascript/Typescript developer at ordina. He gave us the know how on the building process, serving your application and doing this in an optimized way. He also showed us to use generators and build tools to create a whole lot of code and files in the terminal.
+This course was led by [Michael Vervloet](/author/michael-vervloet), who is a full stack JavaScript/TypeScript developer at Ordina. He gave us the know-how on the building process, serving your application and doing this in an optimized way. He also showed us to use generators and build tools to create a whole lot of code and files in the terminal.
 
-The main topics of this course were Node.js, package managers and ways to build & gerenate your code (gulp, webpack and Angular CLI). We went over them one by one and got the chance to test and install them on our machine's to get a hands-on expierence. In the end we created an Angular application from scratch and played arround with the generator to make some components and serving them to look at our work.
-
-## Frontend 
-during our first week we had multiple course about front-end. First we saw 
+The main topics of this course were Node.js, package managers and ways to build & generate your code (gulp, webpack and Angular CLI). We went over them one by one and got the chance to test and install them on our machine's to get a hands-on experience. In the end, we created an Angular application from scratch and played around with the generator to make some components and serving them to look at our work.
 
 ## Java Language Features
-Java is a pretty popular language in the bacekend development world, and is our preferred backend language here at JWorks. That's why [Yannick De Turck](/author/yannick-de-turck) explained us the newest features of Java versions 7, 8, 9, 10 and 11. Java 11 is the newest LTS version, so it was important for us to get a detailed explanation about its newest changes and features. 
+Java is a pretty popular language in the backend development world, and is our preferred backend language here at JWorks. That's why [Yannick De Turck](/author/yannick-de-turck) explained us the newest features of Java versions 7, 8, 9, 10 and 11. Java 11 is the newest LTS version, so it was important for us to get a detailed explanation about its newest changes and features. 
 
 One of the most useful features that Java 10 introduced is the 'var' keyword. How great is it that you don't have to specify the type twice during the initialization of an object!?
 
-Other than that, there were alot of extra useful features that will certainly be nice to have once we need to use it. It was very entertaining to get a quick overview as to what is new, what is being removed or deprecated and what we can or should expect in the coming Java versions.
+Other than that, there were a lot of extra useful features that will certainly be nice to have once we need to use it. It was very entertaining to get a quick overview as to what is new, what is being removed or deprecated and what we can or should expect in the coming Java versions.
 
 ## Spring Framework
 <img class="image left" alt="Spring logo" src="/img/2019-Kickstarter-Trajectory-2019-light/spring-logo.png">
@@ -117,7 +114,7 @@ On the third day, [Ken](/author/ken-coenen) did a live coding session and create
 #### Full House during the third day
 <img class="image fit" alt="Full house" src="/img/2019-Kickstarter-Trajectory-2019-light/spring-session.jpg">
 
-Ofcourse, afterwards we had some time to relax after three days of exploring the Spring Framework. We closed our three-day session on Friday with the best combination: pizza and beer!
+Of course, afterwards we had some time to relax after three days of exploring the Spring Framework. We closed our three-day session on Friday with the best combination: pizza and beer!
 
 #### Pizza & beer!
 
@@ -125,7 +122,7 @@ Ofcourse, afterwards we had some time to relax after three days of exploring the
 
 ## Unit Testing and mocking in Java
 
-We got an introduction to Unit Testing in java from [Maarten Casteel](/author/maarten-casteels). 
+We got an introduction to Unit Testing in java from [Maarten Casteels](/author/maarten-casteels). 
 
 #### The red line:
 
@@ -135,15 +132,15 @@ We got an introduction to Unit Testing in java from [Maarten Casteel](/author/ma
 - Mocks
 - Assertions
 
-In the morning we got a very interactive theory session were we learned how important testing really is, the basics and what it all stands for. In the afternoon we learned to unit test our code, the best ways to do this, how to mock dependencies, use fixtures and a whole lot more. Maarten also showed us the most commen pitfalls to avoid, and some best practices like test-driven development(TDD) and how building test can help you with refactoring your code and lastly look at it with a different vision.
+In the morning we got a very interactive theory session where we learned how important testing really is, the basics and what it all stands for. In the afternoon we learned to unit test our code, the best way to do this, how to mock dependencies, use fixtures and a whole lot more. Maarten also showed us the most common pitfalls to avoid, and some best practices like test-driven development (TDD) and how writing tests can help you with refactoring your code and lastly look at it with a different vision.
 
 
-For lunch we went to a place called Mo’s were we were introduced to a whole other world of sandwiches. Once you’ve been there you will know what we mean by that, don’t go to often tough.
+For lunch we went to a place called MOW’s were we were introduced to a whole other world of sandwiches. Once you’ve been there you will know what we mean by that, don’t go too often though.
 
 ## Kubernetes
 [Kubernetes](https://kubernetes.io/) is an open source container orchestration framework which was first introduced to us by [Tom Verelst](/author/tom-verelst) during the kickstarter traject. It is made by Google and is now maintained by the Cloud Native Computing Foundation. First they introduced us to all the features that Kubernetes possesses (service discovery, horizontal scaling, load balancing, ...). 
 
-Soon we learned how to deploy Docker containers in the cloud by using Kubernetes, and afterwards we had an hands-on exercise where we could deploy a full-stack application to a Kubernetes cluster using [Minikube](https://github.com/kubernetes/minikube). It's wonderful how you can deploy a full-stack application through Kubernetes with just one configuration file needed. Ofcourse, it takes some time to get used to it, but once you get the hang of it, you can do outstanding stuff with this platform!
+Soon we learned how to deploy Docker containers in the cloud by using Kubernetes, and afterwards we had an hands-on exercise where we could deploy a full-stack application to a Kubernetes cluster using [Minikube](https://github.com/kubernetes/minikube). It's wonderful how you can deploy a full-stack application through Kubernetes with just one configuration file needed. Of course, it takes some time to get used to it, but once you get the hang of it, you can do outstanding stuff with this platform!
 
 ## Cloud Providers & Platforms
 <img class="image left medium" alt="AWS Logo" src="/img/2019-Kickstarter-Trajectory-2019-light/aws-logo.png">
@@ -155,90 +152,68 @@ We quickly learned that AWS was very advanced and had lots of components to faci
 
 As for cloud platforms, we got a very detailed explanation of how OpenShift (made by RedHat) works and what its features and options are. We also got a high-level explanation as to how an application in the cloud works and what the best practices are to achieve deploying your application in the cloud.
 
-Overall, it was a very interesting session for cloud-enthousiasts and we definitely want to learn more about it!
+Overall, it was a very interesting session for cloud-enthusiasts and we definitely want to learn more about it!
 
 ## TypeScript
-After the session HTLML5, CSS, JavaScript. [Dimitri De Kerf](/author/dimitri-de-kerf) learned us the benefits of TypeScript. 
-He told us some benefits of using TypeScript instead of JavaScript. This means that TypeScript is a wrapper around JavaScrip, 
+After the session HTLML5, CSS3, JavaScript, [Dimitri De Kerf](/author/dimitri-de-kerf) learned us the benefits of TypeScript. 
+He told us some benefits of using TypeScript instead of JavaScript. This means that TypeScript is a wrapper around JavaScript, 
 which means it has more methods to use to develop a application which you otherwise would not be possible.
 
 Like declaring declaring a colon and a type after the variable.
 
 [Dimitri De Kerf](/author/dimitri-de-kerf) showed how to configure our project to use TypeScript and to use these features.
-He explained us that it is important to know how to use TypeScript because it is used in popular frameworks Like Angular and React.
+He explained us that it is important to know how to use TypeScript because it is used in popular frameworks like Angular and React.
 
 
 ## Angular
-[Ryan De Gruyter](/autor/Ryan-De-Gruyter) was our teacher for today, He quickly introduced us to Angular a platform that is designed to easily create browser applications build by Google. 
-The first version of Angular was AngularJS, it was very popular and used in by many companies. Google decided to update Angular and created Angular 2 which was not welcomed by the industry at that time
-because it removed all the AngularJS concepts. 
+[Ryan De Gruyter](/autor/Ryan-De-Gruyter) was our teacher for today. He quickly introduced us to Angular, a platform that is designed to easily create browser applications built by Google. 
+The first version of Angular was AngularJS, it was very popular and used by many companies. Google decided to update Angular and created Angular 2 which was not welcomed by the industry at that time because it removed all the AngularJS concepts. 
 
-It took some time for the industry to adapt and see the positive stuff of Angular2: Open Source Community, Improved Dependency injection, better performance, enc..
-Angular2 is not the holy grail of frameworks it still has some downsides like lot's of ceremony and boilerplate thanks to the use of Angular CLI.
+It took some time for the industry to adapt and see the positive stuff of Angular2: Open Source community, improved dependency injection, better performance, enc..
+Angular2 is not the holy grail of frameworks. It still has some downsides like lots of ceremony and boilerplate thanks to the use of Angular CLI.
 
-After the information session he showed us how easy it was to create an Angular project, were we learned how to create an Angular application using small reusable pieces called components.
+After the information session, he showed us how easy it was to create an Angular project where we learned how to create an Angular application using small reusable pieces called components.
 
-## Frontend hands-ondf
+## Frontend hands-on
 
 Today [Jan De Wilde](/autor/Jan-De-Wilde) asked if we still had question about the last Angular session. 
-Because in this session we would create a Angular application using all the techniques we learned form the previous course and he wanted to be sure we understood everything before we started
-So he went a bit deeper on some topics and showed us on how to write an API and to structure the project properly.
+Because in this session we would create an Angular application using all the techniques we learned form the previous course and he wanted to be sure we understood everything before we started. So he went a bit deeper on some topics and showed us on how to execute calls to an API and to structure the project properly.
 
-After the lunchbreach (we went ot the MUZ) when we were still digesting our food, we started to write a complete Angular application. 
+After the lunch break, when we were still digesting our food, we started to write a complete Angular application. 
 [Jan De Wilde](/autor/Jan-De-Wilde) guided us through the process showing us possible issues we could encounter and explained how we could solve those issues.
  
- 
 ## Intro to Cloud-Friendly Development
-The first things we learn is the goal of a cloud friendly platform:
-* Minimise time and cost for new developers joining the project.
-* Offer maximum portability between execution environments.
-* Enable continuous deployment for maximum agility.
-* Obviate the need for servers and systems administration.
-* Can scale up without significant changes in tooling, arch or development.
 
 [Kevin Van Houtte](/autor/Kevin-Van-Houtte) introduced us to contract testing. It is a tool to write a exact input en output of a API call, after we run our project our contract will generate tests for our controller checking if the controller output is the same as we expected in the contract.
-We can create 
+These files generated by the contract can be imported into Javadoc for documentation. 
 
-## agile
-We started flow to agile. First we saw different approaches to work as a team. Like the waterfall system that has some downsides, which doesn't give allot of feedback. The feedback is only in the end of life cycle of the project or when the project got tested. It also has more handouts which is when a team passes the product to another team.
-When something needed to be changed because the testers found a bug the process started again form the top or a client was not happy with the product and wanted to change some stuff.
+Afterwards we had some exercises were we could use all the skills we had learned in these courses.
+API driven programming with contract tests.
+Load those API docs into our Java docs
+Attach and database to our Spring Boot application
+Create migration scripts and use those to populate the database with FlyWay
+Create a config server and connect our Spring Boot application to it.
+Enable actuator and use it to generate metrics data
 
-Another way of working was with Agile this has more benefits:
+All these exercises help us prepare for a real project in the future.
+
+## Agile Development 
+ First we saw different approaches to work as a team which are not agile. Like the waterfall system that has some downsides, which doesn't give a lot of feedback. The feedback is only in the end of the life cycle of the project or when the project got tested. 
+
+Another way of working was with Agile, this has more benefits:
 * Quicker risk reduction
 * limit handovers
 * shorter term plans
   * to improve predicable, accuracy & reliability.
-  *to redone stress and unleash innovative emergent ideas
-* Fit for complex challenges
-* Tackling emergent changes
-* Building on emergent insight
+  * to redone stress and unleash innovative emergent ideas
+* and so on!
 
-Next she wanted to show us what difference between a push and pull system was. By giving a live example, 4 people were chosen to work in a factory which everybody had is own task.
-When we started the process using the push system we noticed that one of the person was the bottleneck of the system. Everything piled up next to him and the process slowed down. 
-Next we could see the flow was faster because the people had less stress and could work continuously. Because of this the product flow was faster which would make the client more happy at the end. 
+She proved her theory by doing a live exercise which involved folding paper airplanes as a team. At the end we would analyze the outcome.
 
-After this we learned some Agile practices, we got introduced into the SCRUM framework were the roles are split in to three roles: product owner, development team, scrum master.
-
-product owner: is the person that talks to to client or is the client. His responsibility is to communicate about the product, how it should look and what it should do.
-The scrum master: is the middle man between the product owner and the development team. He takes away the load of manager the tasks from the developers but also keeps track that the developers keep improving
-The developers: Build the product and if need be try to convince the product owner some ideas are not realistic for their needs.
-
-The next framework we got introduced into was Extreme programming.
-The main focus on extreme programming is on reviewing each other. That's why it uses pair programming allot, but many clients think pair programming is a bad investment but this is proven wrong.
-By working with pair programming:
-* Superior quality, less lines of code (better design)
-* Only 15% extra time ( after initiation phase)
-* Also 15% fewer defects
-
- 
-## DevCase
-
-### Introduction 
-
-### Technology 
+After this we learned some other Agile practices: we got introduced into the SCRUM framework and the practice of Extreme Programming, plus its benefits. 
 
 
-### The new JWorks colleagues
+## The new JWorks colleagues
 
 <img class="p-image" width="300" height="300" alt="Seppe Berghmans" src="/img/2019-Kickstarter-Trajectory-2019-light/seppe-berghmans.jpg" />
 <img class="p-image" width="300" height="300" alt="Jago Staes" src="/img/2019-Kickstarter-Trajectory-2019-light/jago-staes.jpg"  />   
