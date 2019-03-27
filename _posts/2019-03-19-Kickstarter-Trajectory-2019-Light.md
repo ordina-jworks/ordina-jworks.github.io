@@ -35,6 +35,13 @@ We went over good practices and learned by doing this hands-on on our own machin
 ## Docker
 <img class="image right" alt="Docker logo" src="/img/2019-Kickstarter-Trajectory-2019-light/docker.png">
 
+As the era of containerization is rising, it only feels right to teach us the fundamentals about it and the importance of Docker in a project. That’s why they asked [Tom Verelst](./author/tom-verelst) to give us a detailed presentation about the mystical power of Docker. After the first introduction, we were soon ‘dockerizing’ our first full-stack application. We also combined everything together with Docker Compose, which made us start our whole full-stack application with just one command!
+
+The session gave us an overview as to how Docker is used in the real world, and we couldn’t wait to use an orchestration framework to deploy our containers into the cloud!
+
+
+## Databases
+
 On day 3 [Tom Van den Bulck](/author/tom-van-den-bulck), Competence lead in Big and Fast Data gave us a course on SQL and NoSQL database systems. As some of us were not familiar with NoSQL this was very interesting to see the difference in use and possibilities between normal SQL systems which we were all used to using before.
 
 ### SQL
@@ -65,7 +72,7 @@ Neo4j is a graph database management system and concidered the most popular one 
  
 A course given by [Orjan De Smet](/author/orjan-de-smet) covering reactive programming, the advantages it brings and how and where to use it and how to use it in combination with unit testing. In short, reactive programming offers a solution to handling asycnhronous calls with multiple events. Which means it offers more than one channel of communication so multi-step events can be handled efficiently. When coding in a traditional way you will often end up with a lot more code, could run into problems when for example a promise clogs a thread or you could end up with a mess of callbacks making your code extremely hard to read.
  
-##DevOps and Continuous Integration
+## DevOps and Continuous Integration
  
 An introduction to DevOps & CI given by [Tim Vierbergen](/author/tim-vierbergen) explaining this way of working and how it increases the productivity of a team. We also covered some best practices concidering source control, building, testing and deploying with an example project to get a bit more familiar with the software used to do this. Software such as git for source control, Jenkins for building, Jasmine for testing and Docker/Spinnaker for deploying.
 
@@ -83,8 +90,6 @@ In this presentation we went over the basics on how to protect your application 
 - Avoid rewrites
   
 The biggest enemy of clean code is pressure so Pieter advised us to take our time to write clean code. This course only gave an introduction and he recommended us to read the book by Robert Cecil Martin.
-
-## Databases
 
 ## Frontend Build tools, testing, package managers and more
 
