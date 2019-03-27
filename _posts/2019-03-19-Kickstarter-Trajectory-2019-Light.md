@@ -101,16 +101,46 @@ After the information session he showed us how easy it was to create an Angular 
 
 ## Frontend hands-ondf
 
-Today [Jan De Wilde](/autor/Jan-De-Wilde)  asked if we still had question about the last Angular session. Because in this session we would create a Angular application using all the techniques we learned form the previous course
-We went deeper on some topics on how to write an API and to structure the project properly.
+Today [Jan De Wilde](/autor/Jan-De-Wilde) asked if we still had question about the last Angular session. 
+Because in this session we would create a Angular application using all the techniques we learned form the previous course and he wanted to be sure we understood everything before we started
+So he went a bit deeper on some topics and showed us on how to write an API and to structure the project properly.
 
-After the lunchbreach (we went ot the MUZ) when we were still digesting our food, we started to write a comple Angular application. [Jan De Wilde](/autor/Jan-De-Wilde) guided us through the process and showed us when we were finished how to write tests for our functions and how to mock our receiving API data.
+After the lunchbreach (we went ot the MUZ) when we were still digesting our food, we started to write a complete Angular application. 
+[Jan De Wilde](/autor/Jan-De-Wilde) guided us through the process showing us possible issues we could encounter and explained how we could solve those issues.
+ 
+ 
+## Intro to Cloud-Friendly Development
+The first things we learn is the goal of a cloud friendly platform:
+* Minimise time and cost for new developers joining the project.
+* Offer maximum portability between execution environments.
+* Enable continuous deployment for maximum agility.
+* Obviate the need for servers and systems administration.
+* Can scale up without significant changes in tooling, arch or development.
+
+[Kevin Van Houtte](/autor/Kevin-Van-Houtte) introduced us to contract testing. It is a tool to write a exact input en output of a API call, after we run our project our contract will generate tests for our controller checking if the controller output is the same as we expected in the contract.
+We can create 
+
+## agile
+We started flow to agile. First we saw different approaches to work as a team. Like the waterfall system that has some downsides, which doesn't give allot of feedback. The feedback is only in the end of life cycle of the project or when the project got tested. It also has more handouts which is when a team passes the product to another team.
+When something needed to be changed because the testers found a bug the process started again form the top or a client was not happy with the product and wanted to change some stuff.
+
+Another way of working was with Agile this has more benefits:
+* Quicker risk reduciton
+* limit handovers
+* shortterm plans
+  * to improve preditable, accuracy & reliability.
+  *to redouce stress and unleash innovative emergent ideas
+* Fit for complex challenges
+* Tackling emergent changes
+* Building on emergent insight
+
+Next she wanted to show us what difference between a push and pull system was. By giving a live example, 4 people were choosen to work in a factory which everybody had is own task.
+When we started the process using the push system we noticed that one of the person was the bottleneck of the system. Everything piled up next to him and the process slowed down. 
+Next we could see the flow was faster because the people had less stress and could work continuously. Because of this the product flow was faster which would make the client more happy at the end. 
 
 
-[Jan De Wilde](/autor/Jan-De-Wilde) Would show us how to create a Angular application and use the design and best code practices but first we could ask some questions about the last session. 
-
-Finally we learned how to write a tests for our functions, API-service with mocked data.
-
+[Kevin Van Houtte]
+ 
 ## DevCase
 
 ### Introduction 
