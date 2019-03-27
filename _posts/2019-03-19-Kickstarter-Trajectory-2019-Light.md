@@ -69,6 +69,11 @@ A course given by [Orjan De Smet](/author/orjan-de-smet) covering reactive progr
  
 An introduction to DevOps & CI given by [Tim Vierbergen](/author/tim-vierbergen) explaining this way of working and how it increases the productivity of a team. We also covered some best practices concidering source control, building, testing and deploying with an example project to get a bit more familiar with the software used to do this. Software such as git for source control, Jenkins for building, Jasmine for testing and Docker/Spinnaker for deploying.
 
+## Security Principles
+ 
+In this presentation we went over the basics on how to protect your application and the user data it stores from malicious intent. We went over some good practices regarding the storage of data and the verification of your users. For example the hashing of passwords, enabling 2 step authentication, deciding on the amount of allowed invalid login attempts before issueing a timeout. All of these things should be decided using a mix of guidelines and common sense.
+
+
 ## Clean Code
 
 [Pieter Van Hees](/author/pieter-van-hees) gave us a course of clean code, this course was not foccussed an creating new code but improving the way you write the code. 
