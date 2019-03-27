@@ -134,10 +134,22 @@ Another way of working was with Agile this has more benefits:
 * Tackling emergent changes
 * Building on emergent insight
 
-Next she wanted to show us what difference between a push and pull system was. By giving a live example, 4 people were choosen to work in a factory which everybody had is own task.
+Next she wanted to show us what difference between a push and pull system was. By giving a live example, 4 people were chosen to work in a factory which everybody had is own task.
 When we started the process using the push system we noticed that one of the person was the bottleneck of the system. Everything piled up next to him and the process slowed down. 
 Next we could see the flow was faster because the people had less stress and could work continuously. Because of this the product flow was faster which would make the client more happy at the end. 
 
+After this we learned some Agile practices, we got introduced into the SCRUM framework were the roles are split in to three roles: product owner, development team, scrum master.
+
+product owner: is the person that talks to to client or is the client. His responsibility is to communicate about the product, how it should look and what it should do.
+The scrum master: is the middle man between the product owner and the development team. He takes away the load of manager the tasks from the developers but also keeps track that the developers keep improving
+The developers: Build the product and if need be try to convince the product owner some ideas are not realistic for their needs.
+
+The next framework we got introduced into was Extreme programming.
+The main focus on extreme prgramming is on reviewing each other. That's why it uses pair programming allot, but many clients think pair programming is a bad investment but this is proven wrong.
+By working with pair programming:
+* Superoir quality, less lines of code (better design)
+* Only 15% extra time ( after initiation phase)
+* Also 15% fewer defects
 
 [Kevin Van Houtte]
  
