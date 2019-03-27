@@ -52,6 +52,12 @@ The biggest enemy of clean code is pressure so Pieter advised us to take our tim
 
 ## Databases
 
+## Frontend Build tools, testing, package managers and more
+
+This course was led by [Michael Vervloet](/author/michael-vervloet) who is a full stack Javascript/Typescript developer at ordina. He gave us the know how on the building process, serving your application and doing this in an optimized way. He also showed us to use generators and build tools to create a whole lot of code and files in the terminal.
+
+The main topics of this course were Node.js, package managers and ways to build & gerenate your code (gulp, webpack and Angular CLI). We went over them one by one and got the chance to test and install them on our machine's to get a hands-on expierence. In the end we created an Angular application from scratch and played arround with the generator to make some components and serving them to look at our work.
+
 ## Frontend 
 during our first week we had multiple course about front-end. First we saw 
 
