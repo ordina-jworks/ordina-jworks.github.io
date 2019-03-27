@@ -102,6 +102,18 @@ For lunch we went to a place called Mo’s were we were introduced to a whole ot
 
 Soon we learned how to deploy Docker containers in the cloud by using Kubernetes, and afterwards we had an hands-on exercise where we could deploy a full-stack application to a Kubernetes cluster using [Minikube](https://github.com/kubernetes/minikube). It's wonderful how you can deploy a full-stack application through Kubernetes with just one configuration file needed. Ofcourse, it takes some time to get used to it, but once you get the hang of it, you can do outstanding stuff with this platform!
 
+## Cloud Providers & Platforms
+<img class="image left medium" alt="AWS Logo" src="/img/2019-Kickstarter-Trajectory-2019-light/aws-logo.png">
+To get a bigger picture of all the cloud providers and platforms that are out there conquering the IT world, we had a dedicated session about this topic given by [Bas Moorkens](./author/bas-moorkens) and [Dieter Hubau](./author/dieter-hubau). Bas was focusing on Amazon Web Services and all its features that it has to offer.
+
+We quickly learned that AWS was very advanced and had lots of components to facilitate the life of a developer. It was a very interesting session and made me realise that AWS was a big part of the development scene. We are eager to use it and learn more of what is has to offer. 
+
+<img class="image right medium" alt="OpenShift Logo" src="/img/2019-Kickstarter-Trajectory-2019-light/openshift-logo.png">
+
+As for cloud platforms, we got a very detailed explanation of how OpenShift (made by RedHat) works and what its features and options are. We also got a high-level explanation as to how an application in the cloud works and what the best practices are to achieve deploying your application in the cloud.
+
+Overall, it was a very interesting session for cloud-enthousiasts and we definitely want to learn more about it!
+
 ## DevCase
 
 ### Introduction 
