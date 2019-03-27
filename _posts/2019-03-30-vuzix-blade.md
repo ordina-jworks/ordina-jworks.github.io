@@ -146,12 +146,27 @@ Sometimes I wear this device for a full day to get deeply immersed in the experi
 My first experiment was to check how many people look at me funny during my morning commute. The good news is that during my train ride and walk around the office, not many people were / kept staring at me. 
 However the people that knew me asked what I had on my face. 
 
+The interaction models are quite straightforward. 
+It's a good platform to consume push content. Your screen lights up, you get your info, the screen dims.
 
-As I said before, I wear glasses. The image is sharp, but it's sharper when I put the Blade on top of my regular glasses.
+If you want to actually interact with the app, you can use the touchpad located near your right temple. Using gestures like: swipes (up, down, left right),double finger swipes, tap, double finger tap, long taps, etc you can interact. Again, very similar to smart watches.
+
+Support for Amazon Alexa is currently in a Beta program for which I've signed up. 
+Really wondering how natural this voice interaction will be. 
+
+
+As I said before, I wear glasses. The Blade display is readable as I have only minor nearsightedness, but the display much sharper when I put the Blade on top of my regular glasses.
 For an additional markup it is possible to get prescription lenses with these glasses so people who wear glasses on daily basis can also use this device.
 
-Battery life is functional for an hour or 2-3 but for all day use an external battery pack is definitely a requirement.
-I actually went running while wearing an external battery pack. Did not experience any hinder. 
+
+Battery life is very much inline with smartwatches. It all depends on usage.
+
+I can easily keep an app running while keeping the screen on for about an hour or 2.
+If you work more in a notification mode with occasional use rather than "always on" mode, you can probably stretch it to a full day.
+
+It's quite non intrusive to equip a battery pack by using the usb port located on the side. Once you do this, battery life is not an issue at all anymore. 
+
+I actually went running and cycling while wearing an external battery pack and did not experience any hinder at all.
 
 ## Developing for the Vuzix
 
