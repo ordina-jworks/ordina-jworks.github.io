@@ -65,11 +65,15 @@ Neo4j is a graph database management system. No index is required and data with 
 
 
 ## Reactive programming with RxJS
- 
+
+<img class="image right medium" alt="RxJs logo" src="/img/2019-Kickstarter-Trajectory-2019-light/rxjs.jpg">
+
 A course given by [Orjan De Smet](/author/orjan-de-smet) covering reactive programming, the advantages it brings and how and where to use it and how to use it in combination with unit testing. In short, reactive programming offers a solution to handling asynchronous calls with multiple events. Which means it offers more than one channel of communication so multi-step events can be handled efficiently. When coding in a traditional way you will often end up with a lot more code, could run into problems when for example a promise clogs a thread or you could end up with a mess of callbacks making your code extremely hard to read.
  
 ## DevOps and Continuous Integration
  
+<img class="image left small" alt="devops logo" src="/img/2019-Kickstarter-Trajectory-2019-light/devops.png">
+
 An introduction to DevOps & CI given by [Tim Vierbergen](/author/tim-vierbergen) explaining this way of working and how it increases the productivity of a team. We also covered some best practices considering version control, building, testing and deploying with an example project to get a bit more familiar with the software used to do this. Software such as Git for version control, Jenkins for building, Jasmine for testing and Docker/Spinnaker for deploying.
 
 ## Security Principles
@@ -170,6 +174,9 @@ He explained us that it is important to know how to use TypeScript because it is
 
 
 ## Angular
+
+<img class="image right" width="300" height="300" alt="Angular logo" src="/img/2019-Kickstarter-Trajectory-2019-light/angular.png">
+
 [Ryan De Gruyter](/autor/Ryan-De-Gruyter) was our teacher for today. He quickly introduced us to Angular, a platform that is designed to easily create browser applications built by Google. 
 The first version of Angular was AngularJS, it was very popular and used by many companies. Google decided to update Angular and created Angular 2 which was not welcomed by the industry at that time because it removed all the AngularJS concepts. 
 
@@ -204,7 +211,7 @@ All these exercises help us prepare for a real project in the future.
 ## Agile Development 
  First we saw different approaches to work as a team which are not agile. Like the waterfall system that has some downsides, which doesn't give a lot of feedback. The feedback is only in the end of the life cycle of the project or when the project got tested. 
 
-<img class="image right medium" alt="Agile Methodology" src="/img/2019-Kickstarter-Trajectory-2019-light/agile-methodology.png">
+<img class="image right" alt="Agile Methodology" src="/img/2019-Kickstarter-Trajectory-2019-light/agile-methodology.png">
 
 Another way of working was with Agile, this has more benefits:
 * Quicker risk reduction
