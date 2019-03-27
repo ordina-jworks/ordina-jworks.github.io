@@ -140,6 +140,7 @@ We got an introduction to Unit Testing in java from [Maarten Casteel](/author/ma
 
 In the morning we got a very interactive theory session were we learned how important testing really is, the basics and what it all stands for. In the afternoon we learned to unit test our code, the best ways to do this, how to mock dependencies, use fixtures and a whole lot more. Maarten also showed us the most commen pitfalls to avoid, and some best practices like test-driven development(TDD) and how building test can help you with refactoring your code and lastly look at it with a different vision.
 
+
 For lunch we went to a place called Mo’s were we were introduced to a whole other world of sandwiches. Once you’ve been there you will know what we mean by that, don’t go to often tough.
 
 ## Kubernetes
@@ -231,6 +232,7 @@ By working with pair programming:
 * Superior quality, less lines of code (better design)
 * Only 15% extra time ( after initiation phase)
 * Also 15% fewer defects
+
  
 ## DevCase
 
