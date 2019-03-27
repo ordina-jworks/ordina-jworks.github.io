@@ -206,11 +206,11 @@ We started flow to agile. First we saw different approaches to work as a team. L
 When something needed to be changed because the testers found a bug the process started again form the top or a client was not happy with the product and wanted to change some stuff.
 
 Another way of working was with Agile this has more benefits:
-* Quicker risk reduciton
+* Quicker risk reduction
 * limit handovers
-* shortterm plans
-  * to improve preditable, accuracy & reliability.
-  *to redouce stress and unleash innovative emergent ideas
+* shorter term plans
+  * to improve predicable, accuracy & reliability.
+  *to redone stress and unleash innovative emergent ideas
 * Fit for complex challenges
 * Tackling emergent changes
 * Building on emergent insight
@@ -226,13 +226,11 @@ The scrum master: is the middle man between the product owner and the developmen
 The developers: Build the product and if need be try to convince the product owner some ideas are not realistic for their needs.
 
 The next framework we got introduced into was Extreme programming.
-The main focus on extreme prgramming is on reviewing each other. That's why it uses pair programming allot, but many clients think pair programming is a bad investment but this is proven wrong.
+The main focus on extreme programming is on reviewing each other. That's why it uses pair programming allot, but many clients think pair programming is a bad investment but this is proven wrong.
 By working with pair programming:
-* Superoir quality, less lines of code (better design)
+* Superior quality, less lines of code (better design)
 * Only 15% extra time ( after initiation phase)
 * Also 15% fewer defects
-
-[Kevin Van Houtte]
  
 ## DevCase
 
