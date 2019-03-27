@@ -35,7 +35,7 @@ We went over good practices and learned by doing this hands-on on our own machin
 ## Docker
 <img class="image right" alt="Docker logo" src="/img/2019-Kickstarter-Trajectory-2019-light/docker.png">
 
-As the era of containerization is rising, it only feels right to teach us the fundamentals about it and the importance of Docker in a project. That’s why they asked [Tom Verelst](./author/tom-verelst) to give us a detailed presentation about the mystical power of Docker. After the first introduction, we were soon ‘dockerizing’ our first full-stack application. We also combined everything together with Docker Compose, which made us start our whole full-stack application with just one command!
+As the era of containerization is rising, it only feels right to teach us the fundamentals about it and the importance of Docker in a project. That’s why they asked [Tom Verelst](/author/tom-verelst) to give us a detailed presentation about the mystical power of Docker. After the first introduction, we were soon ‘dockerizing’ our first full-stack application. We also combined everything together with Docker Compose, which made us start our whole full-stack application with just one command!
 
 The session gave us an overview as to how Docker is used in the real world, and we couldn’t wait to use an orchestration framework to deploy our containers into the cloud!
 
@@ -101,7 +101,7 @@ The main topics of this course were Node.js, package managers and ways to build 
 during our first week we had multiple course about front-end. First we saw 
 
 ## Java Language Features
-Java is a pretty popular language in the bacekend development world, and is our preferred backend language here at JWorks. That's why [Yannick De Turck](./author/yannick-de-turck) explained us the newest features of Java versions 7, 8, 9, 10 and 11. Java 11 is the newest LTS version, so it was important for us to get a detailed explanation about its newest changes and features. 
+Java is a pretty popular language in the bacekend development world, and is our preferred backend language here at JWorks. That's why [Yannick De Turck](/author/yannick-de-turck) explained us the newest features of Java versions 7, 8, 9, 10 and 11. Java 11 is the newest LTS version, so it was important for us to get a detailed explanation about its newest changes and features. 
 
 One of the most useful features that Java 10 introduced is the 'var' keyword. How great is it that you don't have to specify the type twice during the initialization of an object!?
 
@@ -110,12 +110,12 @@ Other than that, there were alot of extra useful features that will certainly be
 ## Spring Framework
 <img class="image left" alt="Spring logo" src="/img/2019-Kickstarter-Trajectory-2019-light/spring-logo.png">
 
-For a framework this big and popular, we followed a three-day course given by [Ken Coenen](./author/ken-coenen). On the first day, we received a brief explanation as to how the Spring magic works behind the scenes (dependency injection, beans, ...). We saw the basic of the most common components of the full Spring Framework such as Cloud, Security, ... . 
+For a framework this big and popular, we followed a three-day course given by [Ken Coenen](/author/ken-coenen). On the first day, we received a brief explanation as to how the Spring magic works behind the scenes (dependency injection, beans, ...). We saw the basic of the most common components of the full Spring Framework such as Cloud, Security, ... . 
 
 On the second day, we dived into the magic behind Spring Boot. It's remarkable how much Spring Boot does for you without any configuration needed, although you can fully configure Spring Boot to your needs and satisfactions.
 
 
-On the third day, [Ken](./author/ken-coenen) did a live coding session and created a Spring Boot application from scratch and explained how to fully initialize your Spring Boot project and get the most out of it through various steps and always showing the best practices for each implementation.
+On the third day, [Ken](/author/ken-coenen) did a live coding session and created a Spring Boot application from scratch and explained how to fully initialize your Spring Boot project and get the most out of it through various steps and always showing the best practices for each implementation.
 
 #### Full House during the third day
 <img class="image fit" alt="Full house" src="/img/2019-Kickstarter-Trajectory-2019-light/spring-session.jpg">
@@ -143,13 +143,13 @@ In the morning we got a very interactive theory session were we learned how impo
 For lunch we went to a place called Mo’s were we were introduced to a whole other world of sandwiches. Once you’ve been there you will know what we mean by that, don’t go to often tough.
 
 ## Kubernetes
-[Kubernetes](https://kubernetes.io/) is an open source container orchestration framework which was first introduced to us by [Tom Verelst](./author/tom-verelst) during the kickstarter traject. It is made by Google and is now maintained by the Cloud Native Computing Foundation. First they introduced us to all the features that Kubernetes possesses (service discovery, horizontal scaling, load balancing, ...). 
+[Kubernetes](https://kubernetes.io/) is an open source container orchestration framework which was first introduced to us by [Tom Verelst](/author/tom-verelst) during the kickstarter traject. It is made by Google and is now maintained by the Cloud Native Computing Foundation. First they introduced us to all the features that Kubernetes possesses (service discovery, horizontal scaling, load balancing, ...). 
 
 Soon we learned how to deploy Docker containers in the cloud by using Kubernetes, and afterwards we had an hands-on exercise where we could deploy a full-stack application to a Kubernetes cluster using [Minikube](https://github.com/kubernetes/minikube). It's wonderful how you can deploy a full-stack application through Kubernetes with just one configuration file needed. Ofcourse, it takes some time to get used to it, but once you get the hang of it, you can do outstanding stuff with this platform!
 
 ## Cloud Providers & Platforms
 <img class="image left medium" alt="AWS Logo" src="/img/2019-Kickstarter-Trajectory-2019-light/aws-logo.png">
-To get a bigger picture of all the cloud providers and platforms that are out there conquering the IT world, we had a dedicated session about this topic given by [Bas Moorkens](./author/bas-moorkens) and [Dieter Hubau](./author/dieter-hubau). Bas was focusing on Amazon Web Services and all its features that it has to offer.
+To get a bigger picture of all the cloud providers and platforms that are out there conquering the IT world, we had a dedicated session about this topic given by [Bas Moorkens](/author/bas-moorkens) and [Dieter Hubau](/author/dieter-hubau). Bas was focusing on Amazon Web Services and all its features that it has to offer.
 
 We quickly learned that AWS was very advanced and had lots of components to facilitate the life of a developer. It was a very interesting session and made me realise that AWS was a big part of the development scene. We are eager to use it and learn more of what is has to offer. 
 
