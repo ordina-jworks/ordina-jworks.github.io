@@ -63,7 +63,7 @@ If the build finishes successfully,
 Cloud Build will automatically upload the built images to the container registry.
 This is based on the images defined in the `images` array.
 
-Data usually needs be shared in between steps.
+Data usually needs be shared between steps.
 We might want to download dependencies in one step,
 and build your artifact in another step,
 or run tests in a separate step.
