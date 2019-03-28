@@ -146,6 +146,19 @@ Let's hope they don't make the same mistake Google made with Google Glass!
 
 But because they also target the consumer market, they thought about very important things like ergonomics and making for non tech people.
 
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2019-03-30-vuzix/wear1.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Wearing the Vuzix Blade 1">
+        <img alt="stack" src="{{ '/img/2019-03-30-vuzix/wear1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 55%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2019-03-30-vuzix/wear2.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Wearing the Vuzix Blade 2">
+        <img alt="stack" src="{{ '/img/2019-03-30-vuzix/wear2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 24%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2019-03-30-vuzix/wear3.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Wearing the Vuzix Blade 3">
+        <img alt="stack" src="{{ '/img/2019-03-30-vuzix/wear3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 17.5%; display: inline-block;">
+    </a>
+</div>
+<br/>
+
 Frederick tested the devices for a longer period of time:
 >
 > Sometimes I wear this device for a full day to get deeply immersed in the experience, as it is comfortable to wear this wasn't much of an issue.
@@ -153,6 +166,10 @@ Frederick tested the devices for a longer period of time:
 > My first experiment was to check how many people look at me funny during my morning commute.
 > The good news is that during my train ride and walk around the office, not many people were / kept staring at me.
 > However the people that knew me asked what I had on my face.
+
+<div class="responsive-video">
+    <iframe width="1164" height="655" src="https://www.youtube.com/embed/lAiAl370BA8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
 
 The interaction models are quite straightforward.
 It's a good platform to consume push content.
@@ -196,6 +213,10 @@ As an Android developer, we found the learning curve to be relatively low.
 Having already developed
 TODO: Developing for the Vuzix: show work in progress on the heart rate app.
 
+<div class="responsive-video">
+    <iframe width="1164" height="655" src="https://www.youtube.com/embed/FzUgWBVQCS8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+
 ## Looking forward
 
 What we got with the Vuzix Blade looks already very promising even though there are a few small rough edges.
@@ -210,4 +231,5 @@ For now we believe that devices like the Blade have the upper hand over other li
 
 - [Vuzix Blade Smart Glasses](https://www.vuzix.com/products/blade-smart-glasses)
 - [Vuzix product videos](https://www.vuzix.com/products/Videos)
+- [Vuzix app store](https://www.vuzix.com/appstore?deviceFilter=blade)
 - [Microsoft HoloLens 2](https://www.microsoft.com/en-us/hololens/buy)
