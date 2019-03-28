@@ -213,7 +213,7 @@ Example:
    /path/to/source
  ```
  
-Cloud build stores intermediary artifacts in the workspace folder.
+Cloud Build stores intermediary artifacts in the workspace folder.
 This workspace folder, 
 as mentioned before,
 will be removed after the build finishes.
