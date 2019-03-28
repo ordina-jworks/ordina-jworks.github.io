@@ -391,7 +391,7 @@ Here is an example:
 }
 ```
 
-Note that Cloud Build does not publish events in between steps, 
+Note that Cloud Build does not publish events between steps, 
 but only when the build is queued, starts or ends.
 
 | Event        | Build status  | 
