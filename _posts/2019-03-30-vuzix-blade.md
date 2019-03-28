@@ -117,7 +117,7 @@ Running TensorFlow lite to do object detection and classification proved to be a
 ## The software
 
 The Vuzix Blade runs on Android 5.1.
-Due to the limited screen real estate of the device, the look and feel of the apps reminds me a lot of smart watch apps.
+Due to the limited screen real estate of the device, the look and feel of the apps reminds a lot of smart watch apps.
 
 There aren't many out of the box apps on the device installed:
 
