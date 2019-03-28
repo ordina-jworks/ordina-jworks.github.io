@@ -12,7 +12,7 @@ In this post,
 I will give a quick overview on what is possible with Google Cloud Build.
 
 Google Cloud Build is a fully managed solution for building containers or other artifacts.
-It integrates with Google Storage, Cloud Source Repositories, GitHub or BitBucket.
+It can integrate with Google Storage, Cloud Source Repositories, GitHub and BitBucket.
 
 ## A simple YAML file
 
