@@ -52,7 +52,7 @@ You are free to use any image that you like.
 Cloud Build already [provides a set of base images (called Cloud Builders)](https://cloud.google.com/cloud-build/docs/cloud-builders),
 including images for Maven, Git, Docker, Bazel, npm, gcloud, kubectl and so on. 
 
-You can also customise some build options like the timeout time of the build,
+You can also customise some build options like the timeout of the build,
 or on which kind of node the build runs.
 Pricing is done based on the amount of build minutes. 
 However, 
