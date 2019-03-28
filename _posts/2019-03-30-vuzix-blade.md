@@ -170,6 +170,7 @@ Frederick tested the devices for a longer period of time:
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/lAiAl370BA8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+<br/>
 
 The interaction models are quite straightforward.
 It's a good platform to consume push content.
@@ -216,6 +217,7 @@ TODO: Developing for the Vuzix: show work in progress on the heart rate app.
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/FzUgWBVQCS8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+<br/>
 
 ## Looking forward
 
