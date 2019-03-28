@@ -60,7 +60,7 @@ if you use the default node,
 the first 120 build minutes are free every day!
 
 If the build finishes successfully,
-Cloud Build will automatically upload the built images to your project's container registry.
+Cloud Build will automatically upload the built images to the container registry.
 This is based on the images defined in the `images` array.
 
 Data usually needs be shared in between steps.
@@ -135,7 +135,7 @@ to your `...@cloudbuild.gserviceaccount.com` service account.
 Encrypt your secret with KMS:
 
 ```
-gcloud kms encrypt \
+$ gcloud kms encrypt \
   --plaintext-file=secrets.json \
   --ciphertext-file=secrets.json.enc \
   --location=global \
