@@ -89,6 +89,8 @@ All of this is actually quite irrelevant to us.
 There is no innovation in fitting a better camera or having oodles of computing power on the device.
 The technological marvel in this device is the display technology, named the `Cobra Display Engine`.
 
+<img alt="Vuzix Blade hardware overview" src="{{ '/img/2019-03-30-vuzix/ui1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+
 It's difficult to explain how well this works.
 So we'll just rip off the movie "Contact" and say:
 > No words to describe, they should have sent a poet.
@@ -130,8 +132,20 @@ One of the most important features of wearables is notification mirroring, which
 With the Vuzix Blade also comes a companion app for your Android or iOS Smartphone.
 This companion app allows you to configure settings, fetch images and videos from the device, manage installed apps and explore the Blade app store.
 
+<img alt="Vuzix Blade hardware overview" src="{{ '/img/2019-03-30-vuzix/vuzix-app.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 650px;">
+
 As this device doesn't run the Google Play Store, a specific app store is needed.
 [This app store](https://www.vuzix.com/appstore?deviceFilter=blade) allows Vuzix specific apps to be installed on the device.
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2019-03-30-vuzix/ui3.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="QR Scanner UI">
+        <img alt="stack" src="{{ '/img/2019-03-30-vuzix/ui3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
+    </a>
+     <a href="{{ '/img/2019-03-30-vuzix/ui2.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Our custom Polar Watch heart beat app">
+        <img alt="stack" src="{{ '/img/2019-03-30-vuzix/ui2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
+    </a>
+</div>
+<br/>
 
 TODO: Some screenshots of the software?
 
