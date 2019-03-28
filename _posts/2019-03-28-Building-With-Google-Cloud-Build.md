@@ -16,7 +16,7 @@ It can integrate with Google Storage, Cloud Source Repositories, GitHub and BitB
 
 ## A simple YAML file
 
-We can easily set up a build pipeline using a YAML file which you store in your source code.
+We can easily set up a build pipeline using a YAML file which we store in our source code repository.
 Each build step is defined using a container image and passing arguments to it.
 Here is an example:
 
