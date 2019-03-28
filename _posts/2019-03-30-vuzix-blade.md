@@ -26,53 +26,57 @@ comments: true
 
 ## Introduction
 
-As we are strong believers in the potential that Augmented Reality has to offer in terms of business cases we were wanting to get our hands on some actual hardware.
-We acquired some budget and went looking for 'affordable' smart glasses to experiment with.
+As I am a strong believer in the potential that Augmented Reality has to offer in terms of business cases I was wanting to get my hands on some actual hardware.
+I acquired some budget and went looking for 'affordable' smart glasses to experiment with.
 
-We came across the Vuzix Blade on the Vuzix website and looked through the details and videos posted.
-After acquiring the required budget, thanks Ordina, we preordered one unit.
+I came across the Vuzix Blade on their website and looked through the details and videos posted.
+After acquiring the required budget, thanks Ordina, I preordered one unit.
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/V-OxzjsB2s0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
-It was a video like this one that had won us over to give the Vuzix Blade a try since the displayed features look very nice, if they all worked as promised...
+It was a video like this one that had won me over to give the Vuzix Blade a try since the displayed features look very nice, if they all worked as promised...
 
-After a very long wait, with several delays and a lot of mailing back and forth we got ourselves a preproduction hand built Vuzix Blade.
-We got these glasses to analyze the wearers experience and see how we could integrate it into the numerous business cases we can see it being used for:
+After a very long wait, with several delays and a lot of mailing back and forth I got myself a preproduction hand built Vuzix Blade.
+I got these glasses to analyze the wearers experience and see how we could integrate it into the numerous business cases I can see it being used for:
 
 - Assistance for field technicians
 - Order picking
 - Communications platforms
 
-In this blogpost we'll go a bit into detail what makes the Vuzix Blade tick and how our experience with it has been so far.
+In this blogpost I'll go a bit into detail what makes the Vuzix Blade tick and how our experience with it has been so far.
 Read on ahead for all the juicy details!
 
 ## The hardware
 
 <img alt="Vuzix Blade hardware overview" src="{{ '/img/2019-03-30-vuzix/vuzix-hardware-overview.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
-The Vuzix Blade is an Android smartphone you can wear on your face. Well, it's more like an Android Smartwatch you can strap to your face.
+The Vuzix Blade is an Android smartphone you can wear on your face.
+Well, it's more like an Android Smartwatch you can strap to your face.
 
-The device I received was a pre production build, which was hand assembled. So I can't really say much about what the final hardware will look like. 
+The device I received was a pre production build, which was hand assembled.
+So I can't really say much about what the final hardware will look like.
 
-I have always found the idea of computing devices in the form factor of glasses quite intriguing as I have been cursed with nearsightedness and wear my glasses on a daily basis. 
+I have always found the idea of computing devices in the form factor of glasses quite intriguing as I have been cursed with nearsightedness and wear my glasses on a daily basis.
 If I have to wear the bloody things every day, might as well put some intelligence into them.
 
-Below you can find some specs about the device, but for me these are quite irrelevant for the moment. 
+Below you can find some specs about the device, but for me these are quite irrelevant for the moment.
 This device is all about showcasing innovation in 2 areas: form factor, display technology.
 
-And boy am I impressed. 
-The glasses actually feel comfortable enough to wear for longer periods. 
-The display technology made my jaw drop to the floor. Had to pick it up several times. 
+And boy am I impressed.
+The glasses actually feel comfortable enough to wear for longer periods.
+The display technology made my jaw drop to the floor.
+I had to pick it up several times.
 
 
 The Vuzix Blade is well built for a manually assembled device.
-It has been through some action like daily use as an office worker, running, biking, ... and still hasn't shown any faults. 
+It has been through some action like daily use as an office worker, running, biking, ... and still hasn't shown any faults.
 
 But let's get down the mandatory spec overview!
 
 
-The internals inside the glasses are alright, maybe a bit underwhelming. But it's always a fine line to balance between power consumption and battery life. 
+The internals inside the glasses are alright, maybe a bit underwhelming.
+But it's always a fine line to balance between power consumption and battery life.
 
 - Projected display resolution of 480 by 853 pixels
 - Quad core ARM A53 cpu
@@ -81,29 +85,39 @@ The internals inside the glasses are alright, maybe a bit underwhelming. But it'
 - 470mAh
 
 The amount of RAM is not specified but seems to be just the right amount to get the job done.
-Overall the device works but the speed and fluidity could be better, although this was improved significantly with the latest software update. 
+Overall the device works but the speed and fluidity could be better, although this was improved significantly with the latest software update.
 There is no audio on the device as no regular or bone conducting speaker is present.
 Audio can be provided through either Bluetooth or USB audio, but an included speaker would have been nicer.
-Video recording works but is barely usable because there is no OIS and the frame rate, even at only 720P. The new software brings 1080p support, which I still need to test. TODO
+Video recording works but is barely usable because there is no OIS and the frame rate, even at only 720P.
+The new software brings 1080p support, which I still need to test.
 
 
-All of this is actually quite irrelevant to me. There is no innovation in fitting a better camera or having oodles of computing power on the device. 
-The technological marvel in this device is the display technology, named Cobra Display Engine. 
+All of this is actually quite irrelevant to me.
+There is no innovation in fitting a better camera or having oodles of computing power on the device.
+The technological marvel in this device is the display technology, named Cobra Display Engine.
 
-It's difficult to explain how well this works. I'll just rip off the movie "Contact" and say: No words to describte, they should have sent a poet. So beautiful! I had no idea. 	
+It's difficult to explain how well this works.
+I'll just rip off the movie "Contact" and say: No words to describe, they should have sent a poet.
+So beautiful! I had no idea.
 
 The best description I could think of so far is: it's like someone is following behind you with a projector and is projecting the user interface on an invisible screen in front of you.
-Hold a smartwatch right in front of you in a readable position. It's kinda like that, but transparant and without you losing the functionality of 1 arm.
+Hold a smartwatch right in front of you in a readable position.
+It's kinda like that, but transparent and without you losing the functionality of 1 arm.
 
 
-So instead of describing it to people, I just put it on their face and they just are immediatly captivated by what they're are experiencing. It takes a moment to learn how to focus on the heads up display and back to your surroundings. Once you master this, it becomes very natural to interact with the display. 
-Seeing that transparent interface is something a lot of people really have to take time to wrap their heads around. 
-After this, I show them some pretty pictures with a variety of colors. Really brings everything to life and show off the unexpectedly good visual qualities of the display. 
+So instead of describing it to people, I just put it on their face and they just are immediately captivated by what they're are experiencing.
+It takes a moment to learn how to focus on the heads up display and back to your surroundings.
+Once you master this, it becomes very natural to interact with the display.
+Seeing that transparent interface is something a lot of people really have to take time to wrap their heads around.
+After this, I show them some pretty pictures with a variety of colors.
+Really brings everything to life and show off the unexpectedly good visual qualities of the display.
 
 
 
 For a concept device it really shows what the technology is capable of.
-It's capable of running basic android apps. The same ones you would expect to run on a Smartwatch. Enough computing power to handle the video calling. 
+It's capable of running basic android apps.
+The same ones you would expect to run on a Smartwatch.
+Enough computing power to handle the video calling.
 Running Tensorflow lite to do object detection and classification proved to be a bit too challenging.
 
 
@@ -111,7 +125,8 @@ Running Tensorflow lite to do object detection and classification proved to be a
 
 ## The software
 
-The Vuzix Blade runs on Android 5.1. Due to the limited screen real estate of the device, the look and feel of the apps reminds me a lot of smart watch apps.
+The Vuzix Blade runs on Android 5.1.
+Due to the limited screen real estate of the device, the look and feel of the apps reminds me a lot of smart watch apps.
 
 There aren't many out of the box apps on the device installed: welcome dashboard, camera, gallery, music control, settings.
 
@@ -139,32 +154,38 @@ The thing I like about the Blade is how comfortable it is to wear compared to ot
 Although Vuzix targets the Blade partially at the consumer market, I believe that there is much more potential in the enterprise market.
 Let's not make the same mistake Google Glass made! 
 
-However, because they target the consumer market, they thought about things like  ergonomics and making it work for normal people. 
+However, because they target the consumer market, they thought about things like  ergonomics and making it work for normal people.
 
-Sometimes I wear this device for a full day to get deeply immersed in the experience. As it is comfortable to wear this wasn't much of an issue.
+Sometimes I wear this device for a full day to get deeply immersed in the experience.
+As it is comfortable to wear this wasn't much of an issue.
 
-My first experiment was to check how many people look at me funny during my morning commute. The good news is that during my train ride and walk around the office, not many people were / kept staring at me. 
-However the people that knew me asked what I had on my face. 
+My first experiment was to check how many people look at me funny during my morning commute.
+The good news is that during my train ride and walk around the office, not many people were / kept staring at me.
+However the people that knew me asked what I had on my face.
 
-The interaction models are quite straightforward. 
-It's a good platform to consume push content. Your screen lights up, you get your info, the screen dims.
+The interaction models are quite straightforward.
+It's a good platform to consume push content.
+Your screen lights up, you get your info, the screen dims.
 
-If you want to actually interact with the app, you can use the touchpad located near your right temple. Using gestures like: swipes (up, down, left right),double finger swipes, tap, double finger tap, long taps, etc you can interact. Again, very similar to smart watches.
+If you want to actually interact with the app, you can use the touchpad located near your right temple.
+Using gestures like: swipes (up, down, left right),double finger swipes, tap, double finger tap, long taps, etc you can interact.
+Again, very similar to smart watches.
 
-Support for Amazon Alexa is currently in a Beta program for which I've signed up. 
-Really wondering how natural this voice interaction will be. 
+Support for Amazon Alexa is currently in a Beta program for which I've signed up.
+Really wondering how natural this voice interaction will be.
 
 
-As I said before, I wear glasses. The Blade display is readable as I have only minor nearsightedness, but the display much sharper when I put the Blade on top of my regular glasses.
+As I said before, I wear glasses, the Blade display is readable as I have only minor nearsightedness, but the display much sharper when I put the Blade on top of my regular glasses.
 For an additional markup it is possible to get prescription lenses with these glasses so people who wear glasses on daily basis can also use this device.
 
 
-Battery life is very much inline with smartwatches. It all depends on usage.
+Battery life is very much inline with smartwatches, It all depends on usage.
 
 I can easily keep an app running while keeping the screen on for about an hour or 2.
 If you work more in a notification mode with occasional use rather than "always on" mode, you can probably stretch it to a full day.
 
-It's quite non intrusive to equip a battery pack by using the usb port located on the side. Once you do this, battery life is not an issue at all anymore. 
+It's quite non intrusive to equip a battery pack by using the usb port located on the side.
+Once you do this, battery life is not an issue at all anymore.
 
 I actually went running and cycling while wearing an external battery pack and did not experience any hinder at all.
 
@@ -172,20 +193,20 @@ I actually went running and cycling while wearing an external battery pack and d
 
 TODO: Developing for the Vuzix: show work in progress on the heart rate app.
 
-The Vuzix Blade is currently running Android 5.1. This means they can leverage the huge amounts of Android devs out there. 
-As an Android developer, I found the learning curve very low. 
+The Vuzix Blade is currently running Android 5.1.
+This means they can leverage the huge amounts of Android devs out there.
+As an Android developer, I found the learning curve very low.
 Having already developed 
 
 ## Looking forward
 
-What we have looks already promising even though a little rough right now.
-Vuzix rolled out a big software update for the device that included new features like Alexa support and improved camera performance, but we think it can still be improved upon a lot!
+What I got with the Vuzix Blade looks already very promising even though there are a few small rough edges.
+Vuzix rolled out a big software update for the device that included new features like Alexa support and improved camera performance.
 
 If and when better battery technology is available these devices can have a definite positive influence on certain business cases.
 With the introduction of the second generation HoloLens from Microsoft it is clear what can be possible with these devices.
-Although the HoloLens is a much much more complicated product than the Vuzix Blade.
+Although the HoloLens is a much much more complicated product than the Vuzix Blade. Both serve a different market population.
 
-TODO: Extend & finish up the blogpost with a nice conclusion
 
 ## Resources
 
