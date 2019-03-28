@@ -1,5 +1,477 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-03-25T08:20:19+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Streaming Traffic Data with Spring Kafka &amp;amp; Apache Storm</title><link href="https://ordina-jworks.github.io/streaming/2019/03/25/streaming-traffic-data.html" rel="alternate" type="text/html" title="Streaming Traffic Data with Spring Kafka &amp; Apache Storm" /><published>2019-03-25T00:00:00+00:00</published><updated>2019-03-25T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/streaming/2019/03/25/streaming-traffic-data</id><content type="html" xml:base="https://ordina-jworks.github.io/streaming/2019/03/25/streaming-traffic-data.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-03-28T13:57:59+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Building with Google Cloud Build</title><link href="https://ordina-jworks.github.io/cloud/2019/03/28/Building-With-Google-Cloud-Build.html" rel="alternate" type="text/html" title="Building with Google Cloud Build" /><published>2019-03-28T00:00:00+00:00</published><updated>2019-03-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/03/28/Building-With-Google-Cloud-Build</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/03/28/Building-With-Google-Cloud-Build.html">&lt;p&gt;In this post, 
+we will have a quick overview on what is possible with Google Cloud Build.&lt;/p&gt;
+
+&lt;p&gt;Google Cloud Build is a fully managed solution for building containers or other artifacts.
+It can integrate with Google Storage, Cloud Source Repositories, GitHub and BitBucket.&lt;/p&gt;
+
+&lt;h2 id=&quot;a-simple-yaml-file&quot;&gt;A simple YAML file&lt;/h2&gt;
+
+&lt;p&gt;We can easily set up a build pipeline using a YAML file which we store in our source code repository.
+Each build step is defined using a container image and passing arguments to it.
+Here is an example:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;steps:
+  # Test Helm templates
+  - name: 'quay.io/helmpack/chart-testing:v2.2.0'
+    id: 'Helm Lint'
+    args: ['ct', 'lint', '--all', '--chart-dirs', '/workspace/helm', '--validate-maintainers=false']
+
+  # Build image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Building image'
+    args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/cloud-build-demo:$COMMIT_SHA', '.']
+
+  # Create custom image tag and write to file /workspace/_TAG
+  - name: 'ubuntu'
+    id: 'Setup'
+    args: ['bash', '-c', &quot;echo `echo $BRANCH_NAME | sed 's,/,-,g' | awk '{print tolower($0)}'`_$(date -u +%Y%m%dT%H%M)_$SHORT_SHA &amp;gt; _TAG; echo $(cat _TAG)&quot;]
+
+  # Tag image with custom tag
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Tagging image'
+    entrypoint: '/bin/bash'
+    args: ['-c', &quot;docker tag eu.gcr.io/$PROJECT_ID/cloud-build-demo:$COMMIT_SHA eu.gcr.io/$PROJECT_ID/ms-map-report:$(cat _TAG)&quot;]
+images: ['eu.gcr.io/$PROJECT_ID/cloud-build-demo']
+timeout: 15m
+options:
+  machineType: 'N1_HIGHCPU_8'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We are free to use any image that we like.
+Cloud Build already &lt;a href=&quot;https://cloud.google.com/cloud-build/docs/cloud-builders&quot;&gt;provides a set of base images (called Cloud Builders)&lt;/a&gt;,
+including images for Maven, Git, Docker, Bazel, npm, gcloud, kubectl, etc.&lt;/p&gt;
+
+&lt;p&gt;We can also customise some build options like the timeout of the build,
+or on which kind of node the build runs.
+Pricing is done based on the amount of build minutes. 
+However, 
+if we use the default node, 
+the first 120 build minutes are free every day!&lt;/p&gt;
+
+&lt;p&gt;If the build finishes successfully,
+Cloud Build will automatically upload the built images to the container registry.
+This is based on the images defined in the &lt;code class=&quot;highlighter-rouge&quot;&gt;images&lt;/code&gt; array.&lt;/p&gt;
+
+&lt;p&gt;Data usually needs be shared between steps.
+We might want to download dependencies in one step,
+and build your artifact in another step,
+or run tests in a separate step.
+Google has provided a simple solution for this.
+Each build step has access to the &lt;code class=&quot;highlighter-rouge&quot;&gt;/workspace&lt;/code&gt; folder, 
+which is mounted on the container of each step.
+Each build has access to its own workspace folder,
+which is deleted automatically after the build finishes.&lt;/p&gt;
+
+&lt;p&gt;In the above example, 
+a custom Docker tag is created and saved to the &lt;code class=&quot;highlighter-rouge&quot;&gt;/workspace/_TAG&lt;/code&gt; file,
+and then read from again in the next step.&lt;/p&gt;
+
+&lt;p&gt;To start the build, 
+we can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;gcloud builds submit&lt;/code&gt; command,
+or create an automatic trigger on the Google Cloud console that triggers the build on new commits in the Git repository.
+After adding a trigger, 
+we can also trigger the build manually in the Google Cloud console.&lt;/p&gt;
+
+&lt;h2 id=&quot;build-parameters-substitutions&quot;&gt;Build parameters (substitutions)&lt;/h2&gt;
+
+&lt;p&gt;It is possible to pass in parameters (called substitutions) to our build.&lt;/p&gt;
+
+&lt;p&gt;We can override substitutions when submitting a build:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; $ gcloud builds submit --config=cloudbuild.yaml \
+     --substitutions=TAG_NAME=&quot;test&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Cloud Build provides the following default substitutions:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$PROJECT_ID&lt;/code&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;build.ProjectId&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$BUILD_ID&lt;/code&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;build.BuildId&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$COMMIT_SHA&lt;/code&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;build.SourceProvenance.ResolvedRepoSource.Revision.CommitSha&lt;/code&gt; (only available for triggered builds)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$SHORT_SHA&lt;/code&gt; : The first seven characters of &lt;code class=&quot;highlighter-rouge&quot;&gt;COMMIT_SHA&lt;/code&gt; (only available for triggered builds)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$REPO_NAME&lt;/code&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;build.Source.RepoSource.RepoName&lt;/code&gt; (only available for triggered builds)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$BRANCH_NAME&lt;/code&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;build.Source.RepoSource.Revision.BranchName&lt;/code&gt; (only available for triggered builds)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$TAG_NAME&lt;/code&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;build.Source.RepoSource.Revision.TagName&lt;/code&gt; (only available for triggered builds)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$REVISION_ID&lt;/code&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;build.SourceProvenance.ResolvedRepoSource.Revision.CommitSha&lt;/code&gt; (only available for triggered builds)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We can use &lt;code class=&quot;highlighter-rouge&quot;&gt;substitions&lt;/code&gt; to define our own custom parameters.
+Note that the name of the substitution must start with an underscore (&lt;code class=&quot;highlighter-rouge&quot;&gt;_&lt;/code&gt;),
+and can only use uppercase alphanumeric characters. Example:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;substitutions:
+    _CUSTOM_PARAM_1: foo # default value
+    _CUSTOM_PARAM_2: bar # default value
+images: [
+    'gcr.io/$PROJECT_ID/myapp-${_CUSTOM_PARAM_1}',
+    'gcr.io/$PROJECT_ID/myapp-${_CUSTOM_PARAM_2}'
+]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;securing-your-build&quot;&gt;Securing your build&lt;/h2&gt;
+
+&lt;p&gt;If we require to use credentials in our builds,
+it is possible to do this securely using Google Cloud Key Management Service (KMS).
+We will not go into &lt;a href=&quot;https://cloud.google.com/kms/docs/quickstart&quot;&gt;how to use and to setup KMS&lt;/a&gt;,
+but once we have set it up,
+we can start encrypting our build secrets.&lt;/p&gt;
+
+&lt;p&gt;First, we will need to give Cloud Build access to KMS by adding the &lt;strong&gt;Cloud KMS CryptoKey Decrypter&lt;/strong&gt; role
+to our &lt;code class=&quot;highlighter-rouge&quot;&gt;...@cloudbuild.gserviceaccount.com&lt;/code&gt; service account.&lt;/p&gt;
+
+&lt;p&gt;Encrypt our secret with KMS:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ gcloud kms encrypt \
+  --plaintext-file=secrets.json \
+  --ciphertext-file=secrets.json.enc \
+  --location=global \
+  --keyring=[KEYRING-NAME] \
+  --key=[KEY-NAME]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will create an encrypted file which we can add to our application’s source code.
+Using KMS, we can decrypt this secret in our Cloud Build pipeline:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;steps:
+- name: gcr.io/cloud-builders/gcloud
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=secrets.json.enc
+  - --plaintext-file=secrets.json
+  - --location=global
+  - --keyring=[KEYRING-NAME]
+  - --key=[KEY-NAME]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will decrypt the secret into a file in our workspace folder,
+which then can be used in subsequent steps.&lt;/p&gt;
+
+&lt;h2 id=&quot;debugging-and-running-your-build-locally&quot;&gt;Debugging and running your build locally&lt;/h2&gt;
+
+&lt;p&gt;When creating a build pipeline, 
+we do not need to keep pushing our code to the source repository to trigger a build.
+We can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;cloud-build-local&lt;/code&gt; tool to run our build locally,
+using the Google Cloud SDK and Docker.&lt;/p&gt;
+
+&lt;p&gt;If we are using the Cloud Builder images (&lt;code class=&quot;highlighter-rouge&quot;&gt;gcr.io/cloud-builders/...&lt;/code&gt;),
+we must first configure our Google Cloud SDK to be able to pull the images:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Configure Docker
+$ gcloud components install docker-credential-gcr
+$ docker-credential-gcr configure-docker
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then install the &lt;code class=&quot;highlighter-rouge&quot;&gt;cloud-build-local&lt;/code&gt; tool:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ gcloud components install cloud-build-local
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we can use the tool to test our build pipeline locally!&lt;/p&gt;
+
+&lt;p&gt;To build locally, we run the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cloud-build-local --config=[CONFIG FILE] \
+  --dryrun=false \
+  --push \
+  [SOURCE_CODE]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CONFIG FILE&lt;/code&gt; is our Cloud Build YAML config file&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SOURCE_CODE&lt;/code&gt; is the path to our source code&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--dryrun=false&lt;/code&gt; will cause our build to actually run. 
+This is &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; by default and we must enable this explicitly to cause the containers to execute.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--push&lt;/code&gt; will cause the built images defined in &lt;code class=&quot;highlighter-rouge&quot;&gt;images&lt;/code&gt; to be pushed to the registry.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If we use some of the default substitions like &lt;code class=&quot;highlighter-rouge&quot;&gt;$COMMIT_SHA&lt;/code&gt; in our build,
+we must pass these in with the &lt;code class=&quot;highlighter-rouge&quot;&gt;--substitions&lt;/code&gt; flag in key=value pairs,
+separated by commas.
+Example:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; $ cloud-build-local --config=cloud-build.yaml \
+   --dryrun=false \
+   --substitutions COMMIT_SHA=$(git rev-parse HEAD),BRANCH_NAME=$(git rev-parse  --abbrev-ref HEAD) \ 
+   /path/to/source
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Cloud Build stores intermediary artifacts in the workspace folder.
+This workspace folder, 
+as mentioned before,
+will be removed after the build finishes.
+If we want to debug our build and check what happened in the workspace folder,
+then we can copy the artifacts to a path on our computer,
+using the &lt;code class=&quot;highlighter-rouge&quot;&gt;--write-workspace&lt;/code&gt; flag.
+Note that this path must reside outside of our source folder!&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cloud-build-local --config=cloud-build.yaml \
+   --dryrun=false \
+   --write-workspace=/path/on/computer \
+   /path/to/source
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;build-events&quot;&gt;Build events&lt;/h2&gt;
+
+&lt;p&gt;It is possible to trigger other actions when a build starts, finishes, or fails.
+Notifications to our team’s chat,
+triggering a deployment pipeline,
+monitoring our build. 
+These are just a few examples.
+Cloud Build pushes build events to Pub/Sub on the &lt;code class=&quot;highlighter-rouge&quot;&gt;cloud-builds&lt;/code&gt; topic.
+This topic is created automatically when Cloud Build is used.&lt;/p&gt;
+
+&lt;p&gt;We can easily create a subscription on this topic. 
+There are two kinds of subscriptions we can use.
+The first one is a push subscription, 
+which pushes the message to a HTTP endpoint you define.
+In this case messages are delivered the moment the event is published on the topic.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+  &quot;message&quot;: {
+    &quot;attributes&quot;: {
+      &quot;buildId&quot;: &quot;abcd-efgh...&quot;,
+      &quot;status&quot;: &quot;SUCCESS&quot;
+    },
+    &quot;data&quot;: &quot;SGVsbG8gQ2xvdWQgUHViL1N1YiEgSGVyZSBpcyBteSBtZXNzYWdlIQ==&quot;,
+    &quot;message_id&quot;: &quot;136969346945&quot;
+  },
+  &quot;subscription&quot;: &quot;projects/myproject/subscriptions/mysubscription&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Messages that are received using a pull subscription have the following format:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+  &quot;receivedMessages&quot;: [
+    {
+      &quot;ackId&quot;: &quot;dQNNHlAbEGEIBERNK0EPKVgUWQYyODM2LwgRHFEZDDsLRk1SK...&quot;,
+      &quot;message&quot;: {
+        &quot;attributes&quot;: {
+          &quot;buildId&quot;: &quot;abcd-efgh-...&quot;,
+          &quot;status&quot;: &quot;SUCCESS&quot;
+        },
+        &quot;data&quot;: &quot;SGVsbG8gQ2xvdWQgUHViL1N1YiEgSGVyZSBpcyBteSBtZXNzYWdlIQ==&quot;,
+        &quot;messageId&quot;: &quot;19917247034&quot;
+      }
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Each message contains the Base64 encoded event of the &lt;a href=&quot;https://cloud.google.com/cloud-build/docs/api/reference/rest/v1/projects.builds&quot;&gt;Build resource&lt;/a&gt;.
+Here is an example:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+  &quot;id&quot;: &quot;a0e322f2-5d8d-4d56-a2b5-05cc18a350af&quot;,
+  &quot;projectId&quot;: &quot;myproject&quot;,
+  &quot;status&quot;: &quot;SUCCESS&quot;,
+  &quot;source&quot;: {
+    &quot;repoSource&quot;: {
+      &quot;projectId&quot;: &quot;myproject&quot;,
+      &quot;repoName&quot;: &quot;mygitrepo&quot;,
+      &quot;branchName&quot;: &quot;feature/my-branch&quot;
+    }
+  },
+  &quot;steps&quot;: [
+    {
+      &quot;name&quot;: &quot;gcr.io/cloud-builders/mvn&quot;,
+      &quot;args&quot;: [
+        &quot;mvn&quot;,
+        &quot;clean&quot;,
+        &quot;--batch-mode&quot;
+      ],
+      &quot;id&quot;: &quot;Clean&quot;,
+      &quot;timing&quot;: {
+        &quot;startTime&quot;: &quot;2019-03-23T15:01:25.421160679Z&quot;,
+        &quot;endTime&quot;: &quot;2019-03-23T15:02:04.363792008Z&quot;
+      },
+      &quot;pullTiming&quot;: {
+        &quot;startTime&quot;: &quot;2019-03-23T15:01:25.421160679Z&quot;,
+        &quot;endTime&quot;: &quot;2019-03-23T15:01:59.834114283Z&quot;
+      },
+      &quot;status&quot;: &quot;SUCCESS&quot;
+    },
+    ... More steps
+  ],
+  &quot;results&quot;: {
+    &quot;images&quot;: [
+      {
+        &quot;name&quot;: &quot;eu.gcr.io/myproject/myapp:d76cce6d732e6edc01e65a547997caf107411468&quot;,
+        &quot;digest&quot;: &quot;sha256:0bb2f72d3d267c6bfebee8478d06dbf553d5932e01a0b86b7fc298c3a9b4a1f2&quot;,
+        &quot;pushTiming&quot;: {
+          &quot;startTime&quot;: &quot;2019-03-23T15:15:58.377229824Z&quot;,
+          &quot;endTime&quot;: &quot;2019-03-23T15:16:01.908997933Z&quot;
+        }
+      }
+    ],
+    &quot;buildStepImages&quot;: [
+      &quot;&quot;,
+      &quot;sha256:dbc62a5cd330fba4d092d83f64218f310ee1a61bdb49d889728091756bc38bac&quot;,
+      &quot;sha256:dbc62a5cd330fba4d092d83f64218f310ee1a61bdb49d889728091756bc38bac&quot;,
+      &quot;sha256:dbc62a5cd330fba4d092d83f64218f310ee1a61bdb49d889728091756bc38bac&quot;,
+      &quot;sha256:dbc62a5cd330fba4d092d83f64218f310ee1a61bdb49d889728091756bc38bac&quot;,
+      &quot;sha256:dbc62a5cd330fba4d092d83f64218f310ee1a61bdb49d889728091756bc38bac&quot;,
+      &quot;sha256:d30ca59f3315232f539955a6179f2b287445ec56db41e7d7a41a622c9faee575&quot;,
+      &quot;sha256:d30ca59f3315232f539955a6179f2b287445ec56db41e7d7a41a622c9faee575&quot;,
+      &quot;sha256:d30ca59f3315232f539955a6179f2b287445ec56db41e7d7a41a622c9faee575&quot;
+    ],
+    &quot;buildStepOutputs&quot;: []
+  },
+  &quot;createTime&quot;: &quot;2019-03-23T15:01:16.591984806Z&quot;,
+  &quot;startTime&quot;: &quot;2019-03-23T15:01:17.438509785Z&quot;,
+  &quot;finishTime&quot;: &quot;2019-03-23T15:16:02.968224Z&quot;,
+  &quot;timeout&quot;: &quot;1800s&quot;,
+  &quot;images&quot;: [
+    &quot;eu.gcr.io/myproject/myapp:d76cce6d732e6edc01e65a547997caf107411468&quot;
+  ],
+  &quot;artifacts&quot;: {
+    &quot;images&quot;: [
+      &quot;eu.gcr.io/myproject/myapp:d76cce6d732e6edc01e65a547997caf107411468&quot;
+    ]
+  },
+  &quot;logsBucket&quot;: &quot;gs://199957373521.cloudbuild-logs.googleusercontent.com&quot;,
+  &quot;sourceProvenance&quot;: {
+    &quot;resolvedRepoSource&quot;: {
+      &quot;projectId&quot;: &quot;mateco-map&quot;,
+      &quot;repoName&quot;: &quot;bitbucket_matecocloud_myapp&quot;,
+      &quot;commitSha&quot;: &quot;d76cce6d732e6edc01e65a547997caf107411468&quot;
+    }
+  },
+  &quot;buildTriggerId&quot;: &quot;9bd093c7-9de4-4eae-bfea-ce8e46afafa8&quot;,
+  &quot;options&quot;: {
+    &quot;substitutionOption&quot;: &quot;ALLOW_LOOSE&quot;,
+    &quot;logging&quot;: &quot;LEGACY&quot;
+  },
+  &quot;logUrl&quot;: &quot;https://console.cloud.google.com/gcr/builds/a0e322f2-5c8d-4e56-a2b5-05cc18a350af?project=199957373521&quot;,
+  &quot;substitutions&quot;: {
+    &quot;_MOD_BRANCH_NAME&quot;: &quot;$_tmpvar&quot;
+  },
+  &quot;tags&quot;: [
+    &quot;event-f2d96d7b-22f5-41d7-9ded-a98a2a6f43ca&quot;,
+    &quot;trigger-9bd093c7-9de4-4eae-bfea-ce8e46afafa8&quot;
+  ],
+  &quot;timing&quot;: {
+    &quot;BUILD&quot;: {
+      &quot;startTime&quot;: &quot;2019-03-23T15:01:25.421114358Z&quot;,
+      &quot;endTime&quot;: &quot;2019-03-23T15:15:58.377209942Z&quot;
+    },
+    &quot;FETCHSOURCE&quot;: {
+      &quot;startTime&quot;: &quot;2019-03-23T15:01:20.519103589Z&quot;,
+      &quot;endTime&quot;: &quot;2019-03-23T15:01:25.368505523Z&quot;
+    },
+    &quot;PUSH&quot;: {
+      &quot;startTime&quot;: &quot;2019-03-23T15:15:58.377226850Z&quot;,
+      &quot;endTime&quot;: &quot;2019-03-23T15:16:01.909032379Z&quot;
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Note that Cloud Build does not publish events between steps, 
+but only when the build is queued, starts or ends.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Event&lt;/th&gt;
+      &lt;th&gt;Build status&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;The build is queued&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;QUEUED&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;The build starts&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;WORKING&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;The build is successful&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SUCCESS&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Build is cancelled&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CANCELLED&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Build times out&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIMEOUT&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Step times out&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIMEOUT&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Build failed&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;FAILURE&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Internal error by Google Cloud Build&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;INTERNAL_ERROR&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Using Google Cloud Function, 
+we can easily trigger other actions based on these build events.&lt;/p&gt;
+
+&lt;p&gt;Here is a small, redacted snippet of a Google Cloud Function
+which sends build updates to a Slack webhook.&lt;/p&gt;
+
+&lt;p&gt;It receives the build event, reads the Base64 encoded data,
+converts it into a Slack message and triggers the webhook with the created message.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const IncomingWebhook = require('@slack/client').IncomingWebhook;
+const SLACK_WEBHOOK_URL = &quot;https://hooks.slack.com/services/XXXXXXXXXXXXXX&quot;;
+const WEBHOOK = new IncomingWebHook(SLACK_WEBHOOK_URL);
+
+// Main function called by Cloud Functions.
+module.exports.cloudBuildSlack = (event, callback) =&amp;gt; {
+    const build = eventToBuild(event.data.data);
+    WEBHOOK.send(createSlackMessage(build), callback);
+};
+    
+const createSlackMessage = (build) =&amp;gt; {
+    const app = getApplicationName(build);
+    const branch = build.source.repoSource.branchName;
+    const subject = createSubject(build);
+    const tag = getImagetag(build);
+
+    return {
+        attachments: [{
+            fallback: `${subject} - ${app} - ${branch} - &amp;lt;${build.logUrl}|Logs&amp;gt;`,
+            title: subject,
+            title_link: build.logUrl,
+            fields: getFields(app, branch, tag),
+            color: getMessageColor(build)
+        }],
+        mrkdwn: true
+    };
+};
+
+// eventToBuild transforms pubsub event message to a build object.
+const eventToBuild = (data) =&amp;gt; {
+    return JSON.parse(new Buffer(data, 'base64').toString());
+};
+
+...more functions
+    
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Cloud Build offers a simple solution and utilises the power of containers to offer a lot of possibilities.
+A build pipeline is set up in a few minutes, and your Docker images are uploaded automatically!&lt;/p&gt;
+
+&lt;p&gt;It saves you a lot of time and trouble in setting up build infrastructure, 
+because, well, you do not have to!&lt;/p&gt;
+
+&lt;p&gt;If you wish to try it yourself,
+we have provided &lt;a href=&quot;https://github.com/tomverelst/cloud-build-demo&quot;&gt;a demo application on GitHub&lt;/a&gt;.
+Enjoy Cloud Building!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tom&quot;, &quot;last_name&quot;=&gt;&quot;Verelst&quot;, &quot;permalink&quot;=&gt;&quot;/author/tom-verelst/&quot;, &quot;avatar&quot;=&gt;&quot;tom-verelst.png&quot;, &quot;twitter&quot;=&gt;&quot;tomverelst&quot;, &quot;linkedin&quot;=&gt;&quot;tomverelst&quot;, &quot;github&quot;=&gt;&quot;tomverelst&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Cloud Native Platforms&quot;, &quot;email&quot;=&gt;&quot;tom.verelst@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tom is a senior software engineer at Ordina Belgium. He is fond of all things Go and DevOps.&quot;}</name><email>tom.verelst@ordina.be</email></author><category term="Cloud" /><category term="GCP" /><category term="Docker" /><category term="DevOps" /><category term="Git" /><category term="Kubernetes" /><summary type="html">In this post, we will have a quick overview on what is possible with Google Cloud Build.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-03-28-cloudbuild/cloudbuild.png" /></entry><entry><title type="html">Streaming Traffic Data with Spring Kafka &amp;amp; Apache Storm</title><link href="https://ordina-jworks.github.io/streaming/2019/03/25/streaming-traffic-data.html" rel="alternate" type="text/html" title="Streaming Traffic Data with Spring Kafka &amp; Apache Storm" /><published>2019-03-25T00:00:00+00:00</published><updated>2019-03-25T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/streaming/2019/03/25/streaming-traffic-data</id><content type="html" xml:base="https://ordina-jworks.github.io/streaming/2019/03/25/streaming-traffic-data.html">&lt;blockquote&gt;
   &lt;p&gt;Earlier I did a workshop at Ordina in order to introduce my colleagues to the wonderful world of stream processing.
 For that workshop I used traffic data, since especially in Belgium, traffic data is something everybody can easily relate to as we all have to endure it every workday.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -4010,78 +4482,4 @@ You can check this with &lt;code class=&quot;highlighter-rouge&quot;&gt;document
 
 &lt;p&gt;We had an interesting two days at dotCSS and dotJS, and had a lot of fun engaging with the wonderful people at the conference.
 One thing we noticed is that the talks at dotCSS were way more technical than the ones given at dotJS and somehow that made us feel a little bit disappointed.
-Nonetheless we learned a lot of things and had a great time visiting the city of love.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Jan&quot;, &quot;last_name&quot;=&gt;&quot;De Wilde&quot;, &quot;github&quot;=&gt;&quot;MrJean&quot;, &quot;twitter&quot;=&gt;&quot;Mr_Jean&quot;, &quot;linkedin&quot;=&gt;&quot;jandewilde&quot;, &quot;permalink&quot;=&gt;&quot;/author/jan-de-wilde/&quot;, &quot;avatar&quot;=&gt;&quot;jan-de-wilde.jpg&quot;, &quot;title&quot;=&gt;&quot;Practice Lead Frontend&quot;, &quot;title2&quot;=&gt;&quot;Senior Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;jan.dewilde@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Jan De Wilde is a Senior Frontend Developer at Ordina Belgium, focussed on building quality mobile/hybrid applications that are accessible on a big collection of devices. His favorite technologies are Ionic Framework, Angular and TypeScript. Jan is also Practice Manager for the Frontend Practice where he takes care of the development and coaching of employees.&quot;}</name><email>jan.dewilde@ordina.be</email></author><category term="Conference" /><category term="Conference" /><category term="dotCSS" /><category term="dotJS" /><category term="dotConferences" /><summary type="html">Paris! This year for the first time Ordina JWorks travelled to Paris to attend a two day conference on CSS and JS, more exactly dotCSS and dotJS which are part of the dotConferences. dotConferences is a series of developer events in Paris that started in 2012.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-11-08-dot-css-dot-js-2018/dotjs.jpeg" /></entry><entry><title type="html">Visualising IoT data with tableau</title><link href="https://ordina-jworks.github.io/development/2018/12/11/stairway-to-health.html" rel="alternate" type="text/html" title="Visualising IoT data with tableau" /><published>2018-12-11T00:00:00+00:00</published><updated>2018-12-11T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2018/12/11/stairway-to-health</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2018/12/11/stairway-to-health.html">&lt;h1 id=&quot;visionworks-meets-jworks-stairwaytohealth&quot;&gt;VisionWorks meets JWorks: StairwayToHealth&lt;/h1&gt;
-&lt;p&gt;We, from &lt;a href=&quot;https://www.ordina.be/vakgebieden/bi-analytics/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;VisionWorks&lt;/a&gt;, were asked to rebuild the visualisation dashboard &lt;a href=&quot;https://ordina-jworks.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;JWorks&lt;/a&gt; used in the &lt;a href=&quot;https://stairwayto.health/dashboard&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;application&lt;/a&gt; they built as a result of the internal Stairway to Health project (you can find more information about that project &lt;a href=&quot;https://ordina-jworks.github.io/iot/2018/03/14/Stairway-To-Health-2.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;). 
-We decided to use &lt;a href=&quot;https://www.tableau.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Tableau&lt;/a&gt;, a popular BI Visualisation tool we largely use at our clients.
-We developed the dashboard working around some key questions while keeping the appearance of the dashboard in line with the dashboard JWorks developed.&lt;/p&gt;
-
-&lt;p&gt;In the following section we will explain how the dashboard is currently set up and how to use it properly.
-Next, we will go over the features we can add in future releases to allow the user to go even deeper in their analysis.&lt;/p&gt;
-
-&lt;h1 id=&quot;dashboard-overview&quot;&gt;Dashboard overview&lt;/h1&gt;
-
-&lt;p&gt;The dashboard is built to answer &lt;strong&gt;the following questions&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;What is the percentage of people taking the stairs or elevator at Ordina &lt;strong&gt;today&lt;/strong&gt;?&lt;/li&gt;
-  &lt;li&gt;How is the same metric on weekly, monthly or yearly basis? What is it in absolute numbers?&lt;/li&gt;
-  &lt;li&gt;How does it evolve over time based on each day, week, month or year?&lt;/li&gt;
-  &lt;li&gt;Are people taking the stairs more this week compared to last week?&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;The dashboard will try to provide answers to these questions using the following &lt;strong&gt;three main parts&lt;/strong&gt;.
-We will go over these parts and highlight which question(s) they try to answer.&lt;/p&gt;
-
-&lt;h2 id=&quot;part-one-the-title&quot;&gt;Part one: the Title&lt;/h2&gt;
-
-&lt;p&gt;The title is what the user sees first and answers the first question.
-By using the colors in the title, the dashboard shows the user - in a subtle way - what the colors in the next visuals represent.
-There is also an option to select another day as illustrated below.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2018-11-16-stairway-to-health/PartOne.gif&quot; alt=&quot;PartOne&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;part-two-the-horizontal-bar-comparison&quot;&gt;Part two: the horizontal bar comparison&lt;/h2&gt;
-
-&lt;p&gt;In part two the user can find an answer to questions two and three.
-The visual uses the selected day to show the division between people taking the stairs / elevator on a daily / weekly / monthly and yearly basis.
-When the user hovers over the chart he can also see the evolution of people taking the stairs / elevator within that day / week / month / year.
-Next to the chart, the total absolute number of all the observations measured is reported per period.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2018-11-16-stairway-to-health/PartTwo.gif&quot; alt=&quot;PartTwo&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;part-three-the-more-detailed-area-chart&quot;&gt;Part three: the more detailed area chart&lt;/h2&gt;
-
-&lt;p&gt;The third part visualises how the division stairs / elevator is evolving over time expressed in daily, weekly, monthly or yearly basis.
-This gives the user the possibility to look at trends and to see how the situation of today compares itself to past situations.&lt;/p&gt;
-
-&lt;p&gt;In the title the user has the option to change the appearance of the data (absolute or shares).
-The amount of periods shown (starting from the most recent period) can also be changed.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2018-11-16-stairway-to-health/PartThreeOne.gif&quot; alt=&quot;PartThreeOne&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;When the user hovers over the chart the same horizontal bar comparison can be seen. 
-Comparisons can be made with the period selected above.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2018-11-16-stairway-to-health/PartThreeTwo.gif&quot; alt=&quot;PartThreeTwo&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Last feature to discuss here is how the user can change which period the chart is showing.
-This can be done by clicking the chart above.
-When you click on the day bar on the top chart the bottom chart is expressed on a day level.
-This also applies to the other period bases in the chart.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2018-11-16-stairway-to-health/PartThreeThree.gif&quot; alt=&quot;PartThreeThree&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;what-can-we-do-next&quot;&gt;What can we do next?&lt;/h1&gt;
-
-&lt;p&gt;While this dashboard already gives an answer to the most important questions and gives the user the possibility to explore the data over time, there are still some extra things that can be developed.&lt;/p&gt;
-
-&lt;p&gt;The dashboard is currently built within a Tableau workbook which is using the data of the &lt;a href=&quot;https://www.mongodb.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MongoDB&lt;/a&gt; database JWorks set up as an extract.
-This means we don’t have a live connection to the actual database JWorks has in their app.
-This brings us to the first thing we can still explore: &lt;strong&gt;deployment&lt;/strong&gt;.
-In order to integrate the dashboard in the original application, we could publish the dashboard on the &lt;a href=&quot;https://www.tableau.com/trial/tableau-server&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Tableau server&lt;/a&gt; of Ordina which is running on &lt;a href=&quot;https://azure.microsoft.com/en-us/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Microsoft Azure&lt;/a&gt;.
-Running this instance is not free so when taking a decision we should also take the user relevance in consideration: does the user really need to have a live connection to the data or does a nightly update cover the load?&lt;/p&gt;
-
-&lt;p&gt;Secondly we can still do a lot on the &lt;strong&gt;analysis part&lt;/strong&gt;. What are the reasons why some patterns in the data exist? Do people take the stairs less when it is hot outside?
-JWorks recently tracked on which floor the observation is measured, allowing us to look into difference by floor. Do people take the elevator more when they need to go from floor 1 to floor 3?&lt;/p&gt;
-
-&lt;p&gt;We will keep you posted on further progress related to Stairway to Health. Thank you for reading and don’t forget: always take the stairs!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Gert-Jan&quot;, &quot;last_name&quot;=&gt;&quot;Schokkaert&quot;, &quot;linkedin&quot;=&gt;&quot;gert-jan-schokkaert-b87961b4&quot;, &quot;permalink&quot;=&gt;&quot;/author/gert-jan-schokkaert/&quot;, &quot;avatar&quot;=&gt;&quot;gert-jan-schokkaert.jpg&quot;, &quot;title&quot;=&gt;&quot;Data Visualisation Consultant&quot;, &quot;email&quot;=&gt;&quot;gert-jan.schokkaert@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Gert-Jan Schokkaert works as a Data Visualisation Consultant at Ordina Belgium. In his job he likes to build visualisations that helps the end user find relevant insights as easy as possible. He likes to work closely with the client to find the optimal solution that really makes the difference.&quot;}</name><email>gert-jan.schokkaert@ordina.be</email></author><category term="Development" /><category term="Tableau" /><category term="Visualisation" /><category term="Dashboard" /><category term="Internet of Things" /><category term="IoT" /><category term="LoRa" /><category term="NoSQL" /><category term="MongoDB" /><summary type="html">VisionWorks meets JWorks: StairwayToHealth We, from VisionWorks, were asked to rebuild the visualisation dashboard JWorks used in the application they built as a result of the internal Stairway to Health project (you can find more information about that project here). We decided to use Tableau, a popular BI Visualisation tool we largely use at our clients. We developed the dashboard working around some key questions while keeping the appearance of the dashboard in line with the dashboard JWorks developed.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-11-16-stairway-to-health/stairway-to-health.png" /></entry></feed>
+Nonetheless we learned a lot of things and had a great time visiting the city of love.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Jan&quot;, &quot;last_name&quot;=&gt;&quot;De Wilde&quot;, &quot;github&quot;=&gt;&quot;MrJean&quot;, &quot;twitter&quot;=&gt;&quot;Mr_Jean&quot;, &quot;linkedin&quot;=&gt;&quot;jandewilde&quot;, &quot;permalink&quot;=&gt;&quot;/author/jan-de-wilde/&quot;, &quot;avatar&quot;=&gt;&quot;jan-de-wilde.jpg&quot;, &quot;title&quot;=&gt;&quot;Practice Lead Frontend&quot;, &quot;title2&quot;=&gt;&quot;Senior Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;jan.dewilde@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Jan De Wilde is a Senior Frontend Developer at Ordina Belgium, focussed on building quality mobile/hybrid applications that are accessible on a big collection of devices. His favorite technologies are Ionic Framework, Angular and TypeScript. Jan is also Practice Manager for the Frontend Practice where he takes care of the development and coaching of employees.&quot;}</name><email>jan.dewilde@ordina.be</email></author><category term="Conference" /><category term="Conference" /><category term="dotCSS" /><category term="dotJS" /><category term="dotConferences" /><summary type="html">Paris! This year for the first time Ordina JWorks travelled to Paris to attend a two day conference on CSS and JS, more exactly dotCSS and dotJS which are part of the dotConferences. dotConferences is a series of developer events in Paris that started in 2012.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2018-11-08-dot-css-dot-js-2018/dotjs.jpeg" /></entry></feed>
