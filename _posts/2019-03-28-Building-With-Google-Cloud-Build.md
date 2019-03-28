@@ -9,14 +9,14 @@ comments: false
 ---
 
 In this post, 
-I will give a quick overview on what is possible with Google Cloud Build.
+we will have a quick overview on what is possible with Google Cloud Build.
 
 Google Cloud Build is a fully managed solution for building containers or other artifacts.
 It can integrate with Google Storage, Cloud Source Repositories, GitHub and BitBucket.
 
 ## A simple YAML file
 
-You can easily set up a build pipeline using a YAML file which you store in your source code.
+We can easily set up a build pipeline using a YAML file which you store in your source code.
 Each build step is defined using a container image and passing arguments to it.
 Here is an example:
 
@@ -48,15 +48,15 @@ options:
   machineType: 'N1_HIGHCPU_8'
 ```
 
-You are free to use any image that you like.
+We are free to use any image that we like.
 Cloud Build already [provides a set of base images (called Cloud Builders)](https://cloud.google.com/cloud-build/docs/cloud-builders),
 including images for Maven, Git, Docker, Bazel, npm, gcloud, kubectl, etc. 
 
-You can also customise some build options like the timeout of the build,
+We can also customise some build options like the timeout of the build,
 or on which kind of node the build runs.
 Pricing is done based on the amount of build minutes. 
 However, 
-if you use the default node, 
+if we use the default node, 
 the first 120 build minutes are free every day!
 
 If the build finishes successfully,
@@ -64,7 +64,7 @@ Cloud Build will automatically upload the built images to the container registry
 This is based on the images defined in the `images` array.
 
 Data usually needs be shared in between steps.
-You might want to download dependencies in one step,
+We might want to download dependencies in one step,
 and build your artifact in another step,
 or run tests in a separate step.
 Google has provided a simple solution for this.
@@ -77,17 +77,18 @@ In the above example,
 a custom Docker tag is created and saved to the `/workspace/_TAG` file,
 and then read from again in the next step.
 
-To start the build you can use the `gcloud builds submit` command,
+To start the build, 
+we can use the `gcloud builds submit` command,
 or create an automatic trigger on the Google Cloud console that triggers the build on new commits in the Git repository.
 After adding a trigger, 
-you can also trigger the build manually in the Google Cloud console.
+we can also trigger the build manually in the Google Cloud console.
 
 
 ## Build parameters (substitutions)
 
-It is possible to pass in parameters (called substitutions) to your build.
+It is possible to pass in parameters (called substitutions) to our build.
 
-You can override substitutions when submitting a build:
+We can override substitutions when submitting a build:
 
  ```
  $ gcloud builds submit --config=cloudbuild.yaml \
@@ -105,7 +106,7 @@ Cloud Build provides the following default substitutions:
  * `$TAG_NAME`: `build.Source.RepoSource.Revision.TagName` (only available for triggered builds)
  * `$REVISION_ID`: `build.SourceProvenance.ResolvedRepoSource.Revision.CommitSha` (only available for triggered builds)
 
-You can use `substitions` to define your own custom parameters.
+We can use `substitions` to define our own custom parameters.
 Note that the name of the substitution must start with an underscore (`_`),
 and can only use uppercase alphanumeric characters. Example:
 
@@ -121,18 +122,18 @@ images: [
  
 ## Securing your build
 
-If you require to use credentials in your builds,
+If we require to use credentials in our builds,
 it is possible to do this securely using Google Cloud Key Management Service (KMS).
-I will not go into [how to use and to setup KMS](https://cloud.google.com/kms/docs/quickstart),
-but once you have set it up,
-you can start encrypting your build secrets.
+We will not go into [how to use and to setup KMS](https://cloud.google.com/kms/docs/quickstart),
+but once we have set it up,
+we can start encrypting our build secrets.
 
 
-First, you will need to give Cloud Build access to KMS by adding the **Cloud KMS CryptoKey Decrypter** role
-to your `...@cloudbuild.gserviceaccount.com` service account.
+First, we will need to give Cloud Build access to KMS by adding the **Cloud KMS CryptoKey Decrypter** role
+to our `...@cloudbuild.gserviceaccount.com` service account.
 
 
-Encrypt your secret with KMS:
+Encrypt our secret with KMS:
 
 ```
 $ gcloud kms encrypt \
@@ -143,8 +144,8 @@ $ gcloud kms encrypt \
   --key=[KEY-NAME]
 ```
 
-This will create an encrypted file which you can add to your application's source code.
-Using KMS, you can decrypt this secret in your Cloud Build pipeline:
+This will create an encrypted file which we can add to our application's source code.
+Using KMS, we can decrypt this secret in our Cloud Build pipeline:
 
 ```
 steps:
@@ -159,18 +160,18 @@ steps:
   - --key=[KEY-NAME]
 ```
 
-This will decrypt the secret into a file in your workspace folder,
+This will decrypt the secret into a file in our workspace folder,
 which then can be used in subsequent steps.
 
 ## Debugging and running your build locally
 
 When creating a build pipeline, 
-you do not need to keep pushing your code to the source repository to trigger a build.
-You can use the `cloud-build-local` tool to run your build locally,
+we do not need to keep pushing our code to the source repository to trigger a build.
+We can use the `cloud-build-local` tool to run our build locally,
 using the Google Cloud SDK and Docker.
 
-If you are using the Cloud Builder images (`gcr.io/cloud-builders/...`),
-you must first configure your Google Cloud SDK to be able to pull the images:
+If we are using the Cloud Builder images (`gcr.io/cloud-builders/...`),
+we must first configure our Google Cloud SDK to be able to pull the images:
 
 ```
 # Configure Docker
@@ -184,9 +185,9 @@ Then install the `cloud-build-local` tool:
 $ gcloud components install cloud-build-local
 ```
 
-Now you can use the tool to test your build pipeline locally!
+Now we can use the tool to test our build pipeline locally!
 
-To build locally, run the following command:
+To build locally, we run the following command:
 
 ```
 $ cloud-build-local --config=[CONFIG FILE] \
@@ -195,14 +196,14 @@ $ cloud-build-local --config=[CONFIG FILE] \
   [SOURCE_CODE]
 ```
 
-* `CONFIG FILE` is your Cloud Build YAML config file
-* `SOURCE_CODE` is the path to your source code
-* `--dryrun=false` will cause your build to actually run. 
-This is `true` by default and you must enable this explicitly to cause the containers to execute.
+* `CONFIG FILE` is our Cloud Build YAML config file
+* `SOURCE_CODE` is the path to our source code
+* `--dryrun=false` will cause our build to actually run. 
+This is `true` by default and we must enable this explicitly to cause the containers to execute.
 * `--push` will cause the built images defined in `images` to be pushed to the registry.
 
-If you use some of the default substitions like `$COMMIT_SHA` in your build,
-you must pass these in with the `--substitions` flag in key=value pairs,
+If we use some of the default substitions like `$COMMIT_SHA` in our build,
+we must pass these in with the `--substitions` flag in key=value pairs,
 separated by commas.
 Example:
 
@@ -217,10 +218,10 @@ Cloud Build stores intermediary artifacts in the workspace folder.
 This workspace folder, 
 as mentioned before,
 will be removed after the build finishes.
-If you want to debug your build and check what happened in the workspace folder,
-then you can copy the artifacts to a path on your computer,
+If we want to debug our build and check what happened in the workspace folder,
+then we can copy the artifacts to a path on our computer,
 using the `--write-workspace` flag.
-Note that this path must reside outside of your source folder!
+Note that this path must reside outside of our source folder!
 
 ```
 $ cloud-build-local --config=cloud-build.yaml \
@@ -232,15 +233,15 @@ $ cloud-build-local --config=cloud-build.yaml \
 ## Build events
 
 It is possible to trigger other actions when a build starts, finishes, or fails.
-Notifications to your team's chat,
+Notifications to our team's chat,
 triggering a deployment pipeline,
-monitoring your build. 
+monitoring our build. 
 These are just a few examples.
 Cloud Build pushes build events to Pub/Sub on the `cloud-builds` topic.
-This topic is created automatically when you start using Cloud Build.
+This topic is created automatically when Cloud Build is used.
 
-You can easily create a subscription on this topic. 
-There are two kinds of subscriptions you can use.
+We can easily create a subscription on this topic. 
+There are two kinds of subscriptions we can use.
 The first one is a push subscription, 
 which pushes the message to a HTTP endpoint you define.
 In this case messages are delivered the moment the event is published on the topic.
@@ -464,5 +465,5 @@ It saves you a lot of time and trouble in setting up build infrastructure,
 because, well, you do not have to!
 
 If you wish to try it yourself,
-I have provided [a demo application on my GitHub](https://github.com/tomverelst/cloud-build-demo).
+we have provided [a demo application on GitHub](https://github.com/tomverelst/cloud-build-demo).
 Enjoy Cloud Building!
