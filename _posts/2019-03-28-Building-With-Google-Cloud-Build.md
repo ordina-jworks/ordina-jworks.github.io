@@ -22,35 +22,27 @@ Here is an example:
 
 ```
 steps:
+  # Test Helm templates
+  - name: 'quay.io/helmpack/chart-testing:v2.2.0'
+    id: 'Helm Lint'
+    args: ['ct', 'lint', '--all', '--chart-dirs', '/workspace/helm', '--validate-maintainers=false']
 
-# Build application
-- name: 'gcr.io/cloud-builders/mvn'
-  id: 'Build'
-  args: ['mvn', 'install', '--batch-mode']
+  # Build image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Building image'
+    args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/cloud-build-demo:$COMMIT_SHA', '.']
 
-# Test Helm templates
-- name: 'quay.io/helmpack/chart-testing:v2.2.0'
-  id: 'Helm Lint'
-  args: ['ct', 'lint', '--all', '--chart-dirs', '/workspace/helm']
+  # Create custom image tag and write to file /workspace/_TAG
+  - name: 'ubuntu'
+    id: 'Setup'
+    args: ['bash', '-c', "echo `echo $BRANCH_NAME | sed 's,/,-,g' | awk '{print tolower($0)}'`_$(date -u +%Y%m%dT%H%M)_$SHORT_SHA > _TAG; echo $(cat _TAG)"]
 
-# Build image
-- name: 'gcr.io/cloud-builders/docker'
-  id: 'Building image'
-  args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/myapp:$COMMIT_SHA', '.']
-
-# Create custom build tag and write to file _TAG
-- name: 'ubuntu'
-  id: 'Setup'
-  args: ['bash', '-c', "echo `echo $BRANCH_NAME | sed 's,/,-,g' | awk '{print tolower($0)}'`_$(date -u +%Y%m%dT%H%M)_$SHORT_SHA > _TAG; echo $(cat _TAG)"]
-
-# Tag image with custom tag
-- name: 'gcr.io/cloud-builders/docker'
-  id: 'Tagging image'
-  entrypoint: '/bin/bash'
-  args: ['-c', "docker tag eu.gcr.io/$PROJECT_ID/myapp:$COMMIT_SHA eu.gcr.io/$PROJECT_ID/myapp:$(cat _TAG)"]
-  
-# Define which images are uploaded to your project's container registry.
-images: ['eu.gcr.io/$PROJECT_ID/myapp']
+  # Tag image with custom tag
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Tagging image'
+    entrypoint: '/bin/bash'
+    args: ['-c', "docker tag eu.gcr.io/$PROJECT_ID/cloud-build-demo:$COMMIT_SHA eu.gcr.io/$PROJECT_ID/ms-map-report:$(cat _TAG)"]
+images: ['eu.gcr.io/$PROJECT_ID/cloud-build-demo']
 timeout: 15m
 options:
   machineType: 'N1_HIGHCPU_8'
@@ -84,6 +76,11 @@ which is deleted automatically after the build finishes.
 In the above example, 
 a custom Docker tag is created and saved to the `/workspace/_TAG` file,
 and then read from again in the next step.
+
+To start the build you can use the `gcloud builds submit` command,
+or create an automatic trigger on the Google Cloud console that triggers the build on new commits in the Git repository.
+After adding a trigger, 
+you can also trigger the build manually on the Google Cloud console.
 
 
 ## Build parameters (substitutions)
@@ -164,6 +161,73 @@ steps:
 
 This will decrypt the secret into a file in your workspace folder,
 which then can be used in subsequent steps.
+
+## Debugging and running your build locally
+
+When creating a build pipeline, 
+you do not need to keep pushing your code to the source repository to trigger a build.
+You can use the `cloud-build-local` tool to run your build locally,
+using the Google Cloud SDK and Docker.
+
+If you are using the Cloud Builder images (`gcr.io/cloud-builders/...`),
+you must first configure your Google Cloud SDK to be able to pull the images:
+
+```
+# Configure Docker
+$ gcloud components install docker-credential-gcr
+$ docker-credential-gcr configure-docker
+```
+
+Then install the `cloud-build-local` tool:
+
+```
+$ gcloud components install cloud-build-local
+```
+
+Now you can use the tool to test your build pipeline locally!
+
+To build locally, run the following command:
+
+```
+$ cloud-build-local --config=[CONFIG FILE] \
+  --dryrun=false \
+  --push \
+  [SOURCE_CODE]
+```
+
+* `CONFIG FILE` is your Cloud Build YAML config file
+* `SOURCE_CODE` is the path to your source code
+* `--dryrun=false` will cause your build to actually run. 
+This is `true` by default and you must enable this explicitly to cause the containers to execute.
+* `--push` will cause the built images defined in `images` to be pushed to the registry.
+
+If you use some of the default substitions like `$COMMIT_SHA` in your build,
+you must pass these in with the `--substitions` flag in key=value pairs,
+separated by commas.
+Example:
+
+ ```
+ $ cloud-build-local --config=cloud-build.yaml \
+   --dryrun=false \
+   --substitutions COMMIT_SHA=$(git rev-parse HEAD),BRANCH_NAME=$(git rev-parse  --abbrev-ref HEAD) \ 
+   /path/to/source
+ ```
+ 
+Cloud build stores intermediary artifacts in the workspace folder.
+This workspace folder, 
+as mentioned before,
+will be removed after the build finishes.
+If you want to debug your build and check what happened in the workspace folder,
+then you can copy the artifacts to a path on your computer,
+using the `--write-workspace` flag.
+Note that this path must reside outside of your source folder!
+
+```
+$ cloud-build-local --config=cloud-build.yaml \
+   --dryrun=false \
+   --write-workspace=/path/on/computer \
+   /path/to/source
+```
 
 ## Build events
 
@@ -398,3 +462,7 @@ A build pipeline is set up in a few minutes, and your Docker images are uploaded
 
 It saves you a lot of time and trouble of setting up build infrastructure, 
 because, well, you do not have to!
+
+If you wish to try it yourself,
+I have provided [a demo application on my GitHub](https://github.com/tomverelst/cloud-build-demo).
+Enjoy Cloud Building!
