@@ -69,7 +69,7 @@ and build your artifact in another step,
 or run tests in a separate step.
 Google has provided a simple solution for this.
 Each build step has access to the `/workspace` folder, 
-which is mounted on each step container.
+which is mounted on the container of each step.
 Each build has access to its own workspace folder,
 which is deleted automatically after the build finishes.
 
