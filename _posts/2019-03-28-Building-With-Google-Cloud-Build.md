@@ -460,7 +460,7 @@ const eventToBuild = (data) => {
 Cloud Build offers a simple solution and utilises the power of containers to offer a lot of possibilities.
 A build pipeline is set up in a few minutes, and your Docker images are uploaded automatically!
 
-It saves you a lot of time and trouble of setting up build infrastructure, 
+It saves you a lot of time and trouble in setting up build infrastructure, 
 because, well, you do not have to!
 
 If you wish to try it yourself,
