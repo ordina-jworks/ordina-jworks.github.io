@@ -80,7 +80,7 @@ and then read from again in the next step.
 To start the build you can use the `gcloud builds submit` command,
 or create an automatic trigger on the Google Cloud console that triggers the build on new commits in the Git repository.
 After adding a trigger, 
-you can also trigger the build manually on the Google Cloud console.
+you can also trigger the build manually in the Google Cloud console.
 
 
 ## Build parameters (substitutions)
