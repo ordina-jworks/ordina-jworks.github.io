@@ -221,17 +221,62 @@ We did some testing and actually went running and cycling while wearing an exter
 
 ## Developing for the Vuzix
 
-The Vuzix Blade is currently running Android 5.1.
-This means they can leverage the huge amounts of Android devs out there.
+Developing for the Blade is just like developing for any Android device. 
+You just develop in Android Studio, like you would normally would do.
+This means Vuzix can leverage the huge amounts of Android devs out there.
 As an Android developer, we found the learning curve to be relatively low.
 
-Having already developed
-TODO: Developing for the Vuzix: show work in progress on the heart rate app.
+
+You do need to take into account that the Blade comes with it's own design guidelines and UI components. 
+The interaction model and how apps are structured is quite elegant and straightforward. No surprises here!
+Just import 2 Blade specific libraries with the components and you're good to go. No other dependencies needed! 
+
+
+There is no Blade emulator available, but Vuzix has added support for the Android Studio design view. 
+Although the layout of most screens will be very basic, it was still very handy to quickly prototype UIs
+
+We brainstormed a bit about what would be a good app to leverage the innovative aspects of the Blade. 
+As Frederick was recently training to regain his once athletic body, he had bought a Polar H10 hearte rate sensor which connects to a smartphone using Bluetooth Low Energy (BLE) 
+
+A lot of runners already have smartwatches to monitor their heart rate. Some of these watches even vibrate when you're not running in the correct heart rate zone.
+More info heart rate zones can be found here:
+https://support.polar.com/en/support/tips/Polar_Sport_Zones
+
+Although runners already have access to this information on their watch, it's not the best form factor to consume the data. Ever tried reading your watch while running and bouncing around at 10+ km/h? 
+Having to shift your focus like this just completely gets you out of "the zone". 
+
+We thought this was a good showcase of the capabilities of the Blade: easily consume the information you need, enabling you to make the best decisions, while being as non-intrusive as possible. 
+
+Because Polar implements the official Heart Rate device specification it was very straightforward to set up a BLE connection between the sensor and the Blade.
+Every second or so the BLE device pushes an update of the current heartrate the BLE client.
+
+After tapping into this stream of sensor data, it wasn't too difficult to build the app. 
+Currently we only display the current time, heart rate and heart rate zone.
+
+The video below showcases the app. The user interface is still very minimalistic and the app itself is still a work in progress. Howevery it's already very functional. 
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/FzUgWBVQCS8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
 <br/>
+
+The video doesnt do the app justice as you don't get the experience the transparent display, allowing you to see the world around you.
+
+While experimenting with new technologies, we prefer to use the Minimal Viable Product (MVP) approach: focus on what brings most value and then validate this as soon as possible.
+This means fieldtesting the concept in the most representative and harsh environment you can think off.
+
+Frederick ventured forth to a place where not many developer dare venture: outdoor in the sun.
+
+And Frederick did this by taking the Blade for a 10km run. 
+
+In a future version of the app, we would like to add things like: average heartrate, max heart rate, calories burned.
+With the latest software upgrade we can also tap into the GPS data from the smartphone via the companion app. 
+This will allow us to also display things like: current speed, max speed, average speed, distance travelled, etc.
+
+It will be an interesting challenge getting all this data on the rather small display. 
+This is something we will probably outsource to our UX / UI wizkids over at https://clockwork.ordina.be/
+
+
 
 ## Looking forward
 
