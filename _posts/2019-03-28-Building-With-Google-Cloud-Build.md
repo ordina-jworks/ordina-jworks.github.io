@@ -49,7 +49,7 @@ options:
 ```
 
 We are free to use any image that we like.
-Cloud Build already [provides a set of base images (called Cloud Builders)](https://cloud.google.com/cloud-build/docs/cloud-builders),
+Cloud Build already [provides a set of base images (called Cloud Builders)](https://cloud.google.com/cloud-build/docs/cloud-builders){:target="_blank" rel="noopener noreferrer"},
 including images for Maven, Git, Docker, Bazel, npm, gcloud, kubectl, etc. 
 
 We can also customise some build options like the timeout of the build,
@@ -124,7 +124,7 @@ images: [
 
 If we require to use credentials in our builds,
 it is possible to do this securely using Google Cloud Key Management Service (KMS).
-We will not go into [how to use and to setup KMS](https://cloud.google.com/kms/docs/quickstart),
+We will not go into [how to use and to setup KMS](https://cloud.google.com/kms/docs/quickstart){:target="_blank" rel="noopener noreferrer"},
 but once we have set it up,
 we can start encrypting our build secrets.
 
@@ -281,7 +281,7 @@ Messages that are received using a pull subscription have the following format:
 ```
 
 
-Each message contains the Base64 encoded event of the [Build resource](https://cloud.google.com/cloud-build/docs/api/reference/rest/v1/projects.builds).
+Each message contains the Base64 encoded event of the [Build resource](https://cloud.google.com/cloud-build/docs/api/reference/rest/v1/projects.builds){:target="_blank" rel="noopener noreferrer"}.
 Here is an example:
 
 
@@ -465,5 +465,5 @@ It saves you a lot of time and trouble in setting up build infrastructure,
 because, well, you do not have to!
 
 If you wish to try it yourself,
-we have provided [a demo application on GitHub](https://github.com/tomverelst/cloud-build-demo).
+we have provided [a demo application on GitHub](https://github.com/tomverelst/cloud-build-demo){:target="_blank" rel="noopener noreferrer"}.
 Enjoy Cloud Building!
