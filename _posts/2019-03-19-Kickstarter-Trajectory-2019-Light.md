@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [xxx, yyy]
+authors: [yolan_vloeberghs, seppe_berghmans, giel_reynders, jago_staes]
 title: "Kickstarter Trajectory 2019 Light Edition"
 image: /img/kicks.png
 tags: [Spring, Spring Boot, Angular, Unit Test, Mocking, Microservices, Git, DevOps, Docker, Kubernetes, OpenShift, Typescript, Kickstarter, Security]
@@ -175,7 +175,7 @@ He explained us that it is important to know how to use TypeScript because it is
 
 ## Angular
 
-<img class="image right" width="300" height="300" alt="Angular logo" src="/img/2019-Kickstarter-Trajectory-2019-light/angular.png">
+<img class="image right" width="300" alt="Angular logo" src="/img/2019-Kickstarter-Trajectory-2019-light/angular.png">
 
 [Ryan De Gruyter](/autor/Ryan-De-Gruyter) was our teacher for today. He quickly introduced us to Angular, a platform that is designed to easily create browser applications built by Google. 
 The first version of Angular was AngularJS, it was very popular and used by many companies. Google decided to update Angular and created Angular 2 which was not welcomed by the industry at that time because it removed all the AngularJS concepts. 
