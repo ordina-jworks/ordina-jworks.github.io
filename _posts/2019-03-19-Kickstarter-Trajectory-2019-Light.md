@@ -123,7 +123,7 @@ All of these things should be decided using a mix of guidelines and common sense
   
 The biggest enemy of clean code is pressure, so Pieter advised us to take our time to write clean code.
 During this course we also did some exercises through public code katas available on the internet.
-This course only gave an introduction and he recommended us to read the book by Robert Cecil Martin.
+This course only gave an introduction and he recommended us to read the book Clean Code by Robert Cecil Martin.
 
 ## Frontend Build tools, testing, package managers and more
 
@@ -138,10 +138,13 @@ In the end, we created an Angular application from scratch and played around wit
 ## Java Language Features
 Java is a pretty popular language in the backend development world, and is our preferred backend language here at JWorks.
 That's why [Yannick De Turck](/author/yannick-de-turck) explained us the newest features of Java versions 7, 8, 9, 10 and 11.
-Java 11 is the newest LTS version, so it was important for us to get a detailed explanation about its newest changes and features. 
+Java 8 is currently the mostly used Java version.
+[Yannick](/author/yannick-de-turck) prepared some exercises for us so we could focus on the newest Java 8 features (streams, optionals, ...).
 
 One of the most useful features that Java 10 introduced is the 'var' keyword.
 How great is it that you don't have to specify the type twice during the initialization of an object!?
+
+Java 11 is the newest LTS version, so it was important for us to get a detailed explanation about its newest changes and features.
 
 Other than that, there were a lot of extra useful features that will certainly be nice to have once we can use them.
 It was very entertaining to get a quick overview as to what is new, what is being removed or deprecated and what we can or should expect in the coming Java versions.
