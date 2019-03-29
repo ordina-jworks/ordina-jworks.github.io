@@ -11,9 +11,9 @@ comments: true
 ## Introduction
 
 We started this kickstarter trajectory with four kickstarters.
-Jago was freshly graduated from school, where Giel and Yolan already had working experience in IT.
-Seppe had multiple years working experience in Digital Signage, but made a career change and was also new to IT.
-The main goals of the kickstarter course was to give every kickstarter a knowledge base of the best practices within JWorks and to introduce them to the IT world.
+Jago was freshly graduated from school, where as Giel and Yolan already had working experience in IT.
+Seppe had multiple years of working experience in Digital Signage but made a career change and was also new to IT.
+The main goals of the kickstarter course was to give every kickstarter a knowledge foundation of the best practices within JWorks and to introduce them to the IT world.
 
 ## First day
 #### Morning
@@ -30,16 +30,16 @@ We had brunch together and then we had a group picture as well as our profile pi
 <img class="image fit" alt="Group picture" src="/img/2019-Kickstarter-Trajectory-2019-light/group-picture.jpg">
 
 #### Afternoon
-With every developer comes his personal development environment.
-To help us pick the best tools to suite our needs, we had help from [Kevin van den Abeele](/author/kevin-van-den-abeele).
-He showed us the best IDE's for each language and best practices as to what we can do to improve our development experience.
+With every developer comes his/her personal development environment.
+To help us pick the best tools to suite our needs, we had help from [Kevin Van den Abeele](/author/kevin-van-den-abeele).
+He showed us the best IDEs for each language and best practices as to what we can do to improve our development experience.
 
 ## Git
 
 <img class="image right" width="35%" alt="Git spaghetti vs linear" src="/img/2019-Kickstarter-Trajectory-2019-light/git-spaghetti-vs-linear.jpg">
 
 A tool all developers use is Version Control.
-At Ordina we prefer to use [Git](https://git-scm.com/) (this is preferred almost everywhere, who even uses SVN anymore?).
+At Ordina we prefer to use [Git](https://git-scm.com/){:target="_blank" rel="noopener noreferrer"} (this is preferred almost everywhere, who even uses SVN anymore?).
 So we learned to use Git, the best practices to get the best out of it and all this is done in the terminal of course.
 If you want to use a GUI for Git, they recommended GitKraken.
 Over the whole kickstarter traject, we would use Git to get our code examples and presentations.
@@ -61,12 +61,12 @@ The session gave us an overview as to how Docker is used in the real world, and 
 
 ## Databases
 
-On day 3 [Tom Van den Bulck](/author/tom-van-den-bulck), Competence Lead in Big and Fast Data gave us a course on SQL and NoSQL database systems.
-As some of us were not familiar with NoSQL, this was very interesting to see the difference in use and possibilities between normal SQL systems which we were all used to using before.
+On day 3, [Tom Van den Bulck](/author/tom-van-den-bulck), Competence Lead in Big and Fast Data, gave us a course on SQL and NoSQL database systems.
+As some of us were not familiar with NoSQL, this was very interesting to see the difference in usage and possibilities between normal SQL systems which we were all used to using before.
 
 ### SQL
 
-For SQL database systems we had a look at PostgreSQL, an open-source object-relational database management system that is increasing in popularity across bigger enterprises for reasons such as high scalability, extensive features and works cross-platform.
+For SQL database systems we had a look at PostgreSQL, an open-source object-relational database management system that is increasing in popularity across bigger enterprises for reasons such as high scalability, extensive features and as it works cross-platform.
 
 ### NoSQL
 
@@ -108,7 +108,7 @@ Software such as Git for version control, Jenkins for building, Jasmine for test
  
 In this presentation we went over the basics on how to protect your application and the user data it stores from malicious intent.
 We went over some good practices regarding the storage of data and the verification of your users.
-For example the hashing of passwords, enabling 2 step authentication, deciding on the amount of allowed invalid login attempts before issuing a timeout.
+For example the hashing of passwords, enabling 2-factor authentication and deciding on the amount of allowed invalid login attempts before issuing a timeout.
 All of these things should be decided using a mix of guidelines and common sense.
 
 
@@ -121,7 +121,7 @@ All of these things should be decided using a mix of guidelines and common sense
 - Maintainability
 - Avoid rewrites
   
-The biggest enemy of clean code is pressure so Pieter advised us to take our time to write clean code.
+The biggest enemy of clean code is pressure, so Pieter advised us to take our time to write clean code.
 During this course we also did some exercises through public code katas available on the internet.
 This course only gave an introduction and he recommended us to read the book by Robert Cecil Martin.
 
@@ -132,7 +132,7 @@ He gave us the know-how on the building process, serving your application and do
 He also showed us to use generators and build tools to create a whole lot of code and files in the terminal.
 
 The main topics of this course were Node.js, package managers and ways to build & generate your code (gulp, webpack and Angular CLI).
-We went over them one by one and got the chance to test and install them on our machine's to get a hands-on experience.
+We went over them one by one and got the chance to test and install them on our machines to get a hands-on experience.
 In the end, we created an Angular application from scratch and played around with the generator to make some components and serving them to look at our work.
 
 ## Java Language Features
@@ -143,7 +143,7 @@ Java 11 is the newest LTS version, so it was important for us to get a detailed 
 One of the most useful features that Java 10 introduced is the 'var' keyword.
 How great is it that you don't have to specify the type twice during the initialization of an object!?
 
-Other than that, there were a lot of extra useful features that will certainly be nice to have once we need to use it.
+Other than that, there were a lot of extra useful features that will certainly be nice to have once we can use them.
 It was very entertaining to get a quick overview as to what is new, what is being removed or deprecated and what we can or should expect in the coming Java versions.
 
 ## Spring Framework
@@ -151,7 +151,7 @@ It was very entertaining to get a quick overview as to what is new, what is bein
 
 For a framework this big and popular, we followed a three-day course given by [Ken Coenen](/author/ken-coenen).
 On the first day, we received a brief explanation as to how the Spring magic works behind the scenes (dependency injection, beans, ...).
-We saw the basic of the most common components of the full Spring Framework such as Cloud, Security, ... . 
+We saw the basics of the most common components of the full Spring Framework such as Cloud, Security, ... . 
 
 On the second day, we dived into the magic behind Spring Boot.
 It's remarkable how much Spring Boot does for you without any configuration needed, although you can fully configure Spring Boot to your needs and satisfactions.
@@ -172,12 +172,12 @@ We closed our three-day session on Friday with the best combination: pizza and b
 
 <img class="image right" alt="Junit + Java Image" src="/img/2019-Kickstarter-Trajectory-2019-light/unit-testing.jpg" />
 
-We got an introduction to Unit Testing in java from [Maarten Casteels](/author/maarten-casteels).
+We got an introduction to Unit Testing in Java from [Maarten Casteels](/author/maarten-casteels).
 
 #### The red line:
 
 - Goals of Testing
-- What to Test
+- What to test
 - Fixtures
 - Mocks
 - Assertions
@@ -192,11 +192,11 @@ Once you’ve been there you will know what we mean by that, don’t go too ofte
 ## Kubernetes
 <img class="image left medium" alt="Kubernetes Logo" src="/img/2019-Kickstarter-Trajectory-2019-light/kubernetes-logo.png" />
 
-[Kubernetes](https://kubernetes.io/) is an open source container orchestration framework which was first introduced to us by [Tom Verelst](/author/tom-verelst) during the kickstarter traject.
+[Kubernetes](https://kubernetes.io/){:target="_blank" rel="noopener noreferrer"} is an open source container orchestration framework which was first introduced to us by [Tom Verelst](/author/tom-verelst) during the kickstarter traject.
 It is made by Google and is now maintained by the Cloud Native Computing Foundation.
 First they introduced us to all the features that Kubernetes possesses (service discovery, horizontal scaling, load balancing, ...). 
 
-Soon we learned how to deploy Docker containers in the cloud by using Kubernetes, and afterwards we had an hands-on exercise where we could deploy a full-stack application to a Kubernetes cluster using [Minikube](https://github.com/kubernetes/minikube).
+Soon we learned how to deploy Docker containers in the cloud by using Kubernetes, and afterwards we had an hands-on exercise where we could deploy a full-stack application to a Kubernetes cluster using [Minikube](https://github.com/kubernetes/minikube){:target="_blank" rel="noopener noreferrer"}.
 It's wonderful how you can deploy a full-stack application through Kubernetes with just one configuration file needed.
 Of course, it takes some time to get used to it, but once you get the hang of it, you can do outstanding stuff with this platform!
 
@@ -219,7 +219,8 @@ Overall, it was a very interesting session for cloud-enthusiasts and we definite
 
 ## TypeScript
 After the session HTLML5, CSS3, JavaScript, [Dimitri De Kerf](/author/dimitri-de-kerf) learned us the benefits of TypeScript. 
-He told us some benefits of using TypeScript instead of JavaScript. This means that TypeScript is a wrapper around JavaScript, 
+He told us some benefits of using TypeScript instead of JavaScript.
+TypeScript is a wrapper around JavaScript, 
 which means it has more methods to use to develop a application which you otherwise would not be possible.
 
 Like declaring declaring a colon and a type after the variable.
@@ -234,47 +235,49 @@ He explained us that it is important to know how to use TypeScript because it is
 
 [Ryan De Gruyter](/autor/Ryan-De-Gruyter) was our teacher for today.
 He quickly introduced us to Angular, a platform that is designed to easily create browser applications built by Google. 
-The first version of Angular was AngularJS, it was very popular and used by many companies.
+The first version of Angular was AngularJS
+It was very popular and used by many companies.
 Google decided to update Angular and created Angular 2 which was not welcomed by the industry at that time because it removed all the AngularJS concepts. 
 
-It took some time for the industry to adapt and see the positive stuff of Angular2: Open Source community, improved dependency injection, better performance, enc..
+It took some time for the industry to adapt and see the positive stuff of Angular 2: Open Source community, improved dependency injection, better performance, etc..
 Angular 2 is not the holy grail of frameworks. It still has some downsides like lots of ceremony and boilerplate thanks to the use of Angular CLI.
 
 After the information session, he showed us how easy it was to create an Angular project where we learned how to create an Angular application using small reusable pieces called components.
 
 ## Frontend hands-on
 
-Today [Jan De Wilde](/autor/Jan-De-Wilde) asked if we still had question about the last Angular session. 
-Because in this session we would create an Angular application using all the techniques we learned form the previous course and he wanted to be sure we understood everything before we started.
+[Jan De Wilde](/autor/Jan-De-Wilde) asked if we still had question about the Angular session. 
+Because in this session we would create an Angular application using all the techniques we learned from the previous course and he wanted to be sure we understood everything before we started.
 So he went a bit deeper on some topics and showed us on how to execute calls to an API and to structure the project properly.
 
 After the lunch break, when we were still digesting our food, we started to write a complete Angular application. 
-[Jan De Wilde](/autor/Jan-De-Wilde) guided us through the process showing us possible issues we could encounter and explained how we could solve those issues.
+[Jan De Wilde](/autor/Jan-De-Wilde) guided us through the process, showing us possible issues we could encounter and explained how we could solve those issues.
  
 ## Intro to Cloud-Friendly Development
 
 [Kevin Van Houtte](/autor/Kevin-Van-Houtte) introduced us to contract testing.
-It is a tool to write a exact input en output of a API call, after we run our project our contract will generate tests for our controller checking if the controller output is the same as we expected in the contract.
-These files generated by the contract can be imported into Javadoc for documentation. 
+It is a tool to write a exact input and output of an API call.
+After we run our project, our contract will generate tests for our controller, checking if the controller output is the same as we expected in the contract.
+The files, generated by the contract, can be imported into Javadoc for documentation. 
 
-Afterwards we had some exercises were we could use all the skills we had learned in these courses.
+Afterwards we had some exercises where we could use all the skills we had learned in these courses.
 * API driven programming with contract tests.
-* Load those API docs into our Java docs
-* Attach and database to our Spring Boot application
-* Create migration scripts and use those to populate the database with FlyWay
-* Create a config server and connect our Spring Boot application to it.
-* Enable actuator and use it to generate metrics data
+* Loading the API docs into our Java docs
+* Attaching a database to our Spring Boot application
+* Creating migration scripts and using these to populate the database with FlyWay
+* Creating a config server and connecting our Spring Boot application to it
+* Enabling actuator and using it to generate metrics data
 
 All these exercises help us prepare for a real project in the future.
 
 ## Agile Development 
-First we saw different approaches to work as a team which are not agile.
-Like the waterfall system that has some downsides, which doesn't give a lot of feedback.
+First we saw different approaches to work as a non-agile team.
+Like the waterfall system that has some downsides such as getting late feedback from the business or end user.
 The feedback is only in the end of the life cycle of the project or when the project got tested. 
 
 <img class="image right" alt="Agile Methodology" src="/img/2019-Kickstarter-Trajectory-2019-light/agile-methodology.png">
 
-Another way of working was with Agile, this has more benefits:
+Applying an Agile approach offers a lot of benefits:
 * Quicker risk reduction
 * limit handovers
 * shorter term plans
