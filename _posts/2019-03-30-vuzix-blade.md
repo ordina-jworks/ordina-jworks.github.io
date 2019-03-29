@@ -138,20 +138,26 @@ As this device doesn't run the Google Play Store, a specific app store is needed
 [This app store](https://www.vuzix.com/appstore?deviceFilter=blade) allows Vuzix specific apps to be installed on the device.
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2019-03-30-vuzix/ui3.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="QR Scanner UI">
+    <a href="{{ '/img/2019-03-30-vuzix/ui3.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="QR Scanner UI">
         <img alt="stack" src="{{ '/img/2019-03-30-vuzix/ui3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
     </a>
-     <a href="{{ '/img/2019-03-30-vuzix/ui2.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Our custom Polar Watch heart beat app">
+     <a href="{{ '/img/2019-03-30-vuzix/ui2.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Our custom Polar Watch heart beat app">
         <img alt="stack" src="{{ '/img/2019-03-30-vuzix/ui2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
     </a>
 </div>
 <br/>
 
-TODO: Some screenshots of the software?
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2019-03-30-vuzix/ui-anim1.gif' | prepend: site.baseurl }}" data-lightbox="ui-anim" data-title="Home menu with animation">
+        <img alt="stack" src="{{ '/img/2019-03-30-vuzix/ui-anim1.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
+    </a>
+     <a href="{{ '/img/2019-03-30-vuzix/ui-anim2.gif' | prepend: site.baseurl }}" data-lightbox="ui-anim" data-title="AR application">
+        <img alt="stack" src="{{ '/img/2019-03-30-vuzix/ui-anim2.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
+    </a>
+</div>
+<br/>
 
 ## Using the Vuzix
-
-TODO: Using the Vuzix, add photos & videos
 
 The thing we like about the Blade is how comfortable it is to wear compared to other head mounted wearable solutions like the HoloLens.
 The HoloLens is quite heavy and in our opinion not meant to be worn all day long, the Blade however is light enough to stay comfortable for long time wearing.
@@ -161,13 +167,13 @@ Let's hope they don't make the same mistake Google made with Google Glass!
 But because they also target the consumer market, they thought about very important things like ergonomics and making for non tech people.
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2019-03-30-vuzix/wear1.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Wearing the Vuzix Blade 1">
+    <a href="{{ '/img/2019-03-30-vuzix/wear1.jpg' | prepend: site.baseurl }}" data-lightbox="wearing" data-title="Wearing the Vuzix Blade 1">
         <img alt="stack" src="{{ '/img/2019-03-30-vuzix/wear1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 55%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2019-03-30-vuzix/wear2.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Wearing the Vuzix Blade 2">
+    <a href="{{ '/img/2019-03-30-vuzix/wear2.jpg' | prepend: site.baseurl }}" data-lightbox="wearing" data-title="Wearing the Vuzix Blade 2">
         <img alt="stack" src="{{ '/img/2019-03-30-vuzix/wear2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 24%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2019-03-30-vuzix/wear3.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Wearing the Vuzix Blade 3">
+    <a href="{{ '/img/2019-03-30-vuzix/wear3.jpg' | prepend: site.baseurl }}" data-lightbox="wearing" data-title="Wearing the Vuzix Blade 3">
         <img alt="stack" src="{{ '/img/2019-03-30-vuzix/wear3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 17.5%; display: inline-block;">
     </a>
 </div>
@@ -221,62 +227,65 @@ We did some testing and actually went running and cycling while wearing an exter
 
 ## Developing for the Vuzix
 
-Developing for the Blade is just like developing for any Android device. 
+Developing for the Blade is just like developing for any Android device.
 You just develop in Android Studio, like you would normally would do.
-This means Vuzix can leverage the huge amounts of Android devs out there.
-As an Android developer, we found the learning curve to be relatively low.
+This means Vuzix can leverage the huge amount of Android devs out there.
+Our android devs found the learning curve to be relatively low.
 
+You do need to take into account that the Blade comes with it's own design guidelines and UI components.
+The interaction model and how apps are structured is quite elegant and straightforward, no surprises here!
+Just import two Blade specific libraries with the components and you're good to go, no other dependencies are needed!
 
-You do need to take into account that the Blade comes with it's own design guidelines and UI components. 
-The interaction model and how apps are structured is quite elegant and straightforward. No surprises here!
-Just import 2 Blade specific libraries with the components and you're good to go. No other dependencies needed! 
+There is no Blade emulator available, but Vuzix has added support for the Android Studio design view.
+Although the layout of most screens will be very basic, it was still very handy to quickly prototype UIs.
 
+We brainstormed a bit about what would be a good app to leverage the innovative aspects of the Blade.
+As Frederick was recently training to regain his once athletic body, he bought a Polar H10 heart rate sensor which can connect to a smartphone using Bluetooth Low Energy (BLE).
 
-There is no Blade emulator available, but Vuzix has added support for the Android Studio design view. 
-Although the layout of most screens will be very basic, it was still very handy to quickly prototype UIs
+A lot of runners already have smartwatches to monitor their heart rate. 
+Some of these watches even vibrate when you're not running in the correct heart rate zone.
+More info heart rate zones can be found [here](https://support.polar.com/en/support/tips/Polar_Sport_Zones).
 
-We brainstormed a bit about what would be a good app to leverage the innovative aspects of the Blade. 
-As Frederick was recently training to regain his once athletic body, he had bought a Polar H10 hearte rate sensor which connects to a smartphone using Bluetooth Low Energy (BLE) 
+Although runners already have access to this information on their watch, it's not the best form factor to consume the data. 
+Ever tried reading your watch while running and bouncing around at 10+ km/h?
+Having to shift your focus like this just completely gets you out of "the zone".
 
-A lot of runners already have smartwatches to monitor their heart rate. Some of these watches even vibrate when you're not running in the correct heart rate zone.
-More info heart rate zones can be found here:
-https://support.polar.com/en/support/tips/Polar_Sport_Zones
-
-Although runners already have access to this information on their watch, it's not the best form factor to consume the data. Ever tried reading your watch while running and bouncing around at 10+ km/h? 
-Having to shift your focus like this just completely gets you out of "the zone". 
-
-We thought this was a good showcase of the capabilities of the Blade: easily consume the information you need, enabling you to make the best decisions, while being as non-intrusive as possible. 
+We thought this was a good showcase of the capabilities of the Blade: easily consume the information you need, enabling you to make the best decisions, while being as non-intrusive as possible.
 
 Because Polar implements the official Heart Rate device specification it was very straightforward to set up a BLE connection between the sensor and the Blade.
-Every second or so the BLE device pushes an update of the current heartrate the BLE client.
+Every second or so the BLE device pushes an update of the current heart rate the BLE client.
 
-After tapping into this stream of sensor data, it wasn't too difficult to build the app. 
+After tapping into this stream of sensor data, it wasn't too difficult to build the app.
 Currently we only display the current time, heart rate and heart rate zone.
 
-The video below showcases the app. The user interface is still very minimalistic and the app itself is still a work in progress. Howevery it's already very functional. 
+The video below showcases the app.
+The user interface is still very minimalistic and the app itself is still a work in progress. However it's already very functional.
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/FzUgWBVQCS8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
 <br/>
 
-The video doesnt do the app justice as you don't get the experience the transparent display, allowing you to see the world around you.
+The video doesn't do the app justice as you don't get the experience the transparent display, allowing you to see the world around you.
 
 While experimenting with new technologies, we prefer to use the Minimal Viable Product (MVP) approach: focus on what brings most value and then validate this as soon as possible.
-This means fieldtesting the concept in the most representative and harsh environment you can think off.
+This means field testing the concept in the most representative and harsh environment you can think off.
 
-Frederick ventured forth to a place where not many developer dare venture: outdoor in the sun.
+Frederick ventured forth to a place where not many developer dare venture: Outdoor in the sun.
 
-And Frederick did this by taking the Blade for a 10km run. 
+And Frederick did this by taking the Blade for a 10km run.
 
-In a future version of the app, we would like to add things like: average heartrate, max heart rate, calories burned.
-With the latest software upgrade we can also tap into the GPS data from the smartphone via the companion app. 
+In a future version of the app, we would like to add things like:
+
+- Average heart rate
+- Max heart rate
+- Calories burned
+
+With the latest software upgrade we can also tap into the GPS data from the smartphone via the companion app.
 This will allow us to also display things like: current speed, max speed, average speed, distance travelled, etc.
 
-It will be an interesting challenge getting all this data on the rather small display. 
-This is something we will probably outsource to our UX / UI wizkids over at https://clockwork.ordina.be/
-
-
+It will be an interesting challenge getting all this data on the rather small display.
+This is something we will probably outsource to our UX / UI wizkids over at [ClockWork](https://clockwork.ordina.be/).
 
 ## Looking forward
 
