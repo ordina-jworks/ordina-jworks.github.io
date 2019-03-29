@@ -138,8 +138,8 @@ In the end, we created an Angular application from scratch and played around wit
 ## Java Language Features
 Java is a pretty popular language in the backend development world, and is our preferred backend language here at JWorks.
 That's why [Yannick De Turck](/author/yannick-de-turck) explained us the newest features of Java versions 7, 8, 9, 10 and 11.
-Java 8 is currently the mostly used Java version.
-[Yannick](/author/yannick-de-turck) prepared some exercises for us so we could focus on the newest Java 8 features (streams, optionals, ...).
+Java 8 is currently the most used Java version.
+[Yannick](/author/yannick-de-turck) prepared some exercises for us so we could focus on the newest Java 8 features (lambdas, streams, optionals, ...).
 
 One of the most useful features that Java 10 introduced is the 'var' keyword.
 How great is it that you don't have to specify the type twice during the initialization of an object!?
@@ -238,7 +238,7 @@ He explained us that it is important to know how to use TypeScript because it is
 
 [Ryan De Gruyter](/autor/Ryan-De-Gruyter) was our teacher for today.
 He quickly introduced us to Angular, a platform that is designed to easily create browser applications built by Google. 
-The first version of Angular was AngularJS
+The first version of Angular was AngularJS.
 It was very popular and used by many companies.
 Google decided to update Angular and created Angular 2 which was not welcomed by the industry at that time because it removed all the AngularJS concepts. 
 
