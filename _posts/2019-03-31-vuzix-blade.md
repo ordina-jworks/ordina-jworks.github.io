@@ -2,7 +2,7 @@
 layout: post
 authors: [frederick_bousson, kevin_van_den_abeele]
 title: "The Vuzix Blade"
-image: /img/2019-03-30-vuzix/banner.jpg
+image: /img/2019-03-31-vuzix/banner.jpg
 tags: [internet of things, iot, AR, VR, MR, Augmented reality, smart tech, smart glasses, glasses, android, vuzix, blade, vuzix blade, CES, Consumer Technology Association]
 category: IoT, Smart tech, Smart glasses, Augmented reality
 comments: true
@@ -49,7 +49,7 @@ Read on ahead for all the juicy details!
 
 ## The hardware
 
-<img alt="Vuzix Blade hardware overview" src="{{ '/img/2019-03-30-vuzix/vuzix-hardware-overview.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="Vuzix Blade hardware overview" src="{{ '/img/2019-03-31-vuzix/vuzix-hardware-overview.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 The Vuzix Blade is essentially an Android smartphone you can wear on your face.
 Well actually, it's really more like an Android Smartwatch you can strap to your face, but you get the idea.
@@ -89,7 +89,7 @@ All of this is actually quite irrelevant to us.
 There is no innovation in fitting a better camera or having oodles of computing power on the device.
 The technological marvel in this device is the display technology, named the `Cobra Display Engine`.
 
-<img alt="Vuzix Blade hardware overview" src="{{ '/img/2019-03-30-vuzix/ui1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="Vuzix Blade hardware overview" src="{{ '/img/2019-03-31-vuzix/ui1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 It's difficult to explain how well this works.
 So we'll just rip off the movie "Contact" and say:
@@ -132,27 +132,27 @@ One of the most important features of wearables is notification mirroring, which
 With the Vuzix Blade also comes a companion app for your Android or iOS smartphone.
 This companion app allows you to configure settings, fetch images and videos from the device, manage installed apps and explore the Blade app store.
 
-<img alt="Vuzix Blade hardware overview" src="{{ '/img/2019-03-30-vuzix/vuzix-app.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 650px;">
+<img alt="Vuzix Blade hardware overview" src="{{ '/img/2019-03-31-vuzix/vuzix-app.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 650px;">
 
 As this device doesn't run the Google Play Store, a specific app store is needed.
 [This app store](https://www.vuzix.com/appstore?deviceFilter=blade){:target="_blank" rel="noopener noreferrer"} allows Vuzix specific apps to be installed on the device.
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2019-03-30-vuzix/ui3.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="QR Scanner UI">
-        <img alt="stack" src="{{ '/img/2019-03-30-vuzix/ui3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
+    <a href="{{ '/img/2019-03-31-vuzix/ui3.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="QR Scanner UI">
+        <img alt="stack" src="{{ '/img/2019-03-31-vuzix/ui3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
     </a>
-     <a href="{{ '/img/2019-03-30-vuzix/ui2.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Our custom Polar Watch heart beat app">
-        <img alt="stack" src="{{ '/img/2019-03-30-vuzix/ui2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
+     <a href="{{ '/img/2019-03-31-vuzix/ui2.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Our custom Polar Watch heart beat app">
+        <img alt="stack" src="{{ '/img/2019-03-31-vuzix/ui2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
     </a>
 </div>
 <br/>
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2019-03-30-vuzix/ui-anim1.gif' | prepend: site.baseurl }}" data-lightbox="ui-anim" data-title="Home menu with animation">
-        <img alt="stack" src="{{ '/img/2019-03-30-vuzix/ui-anim1.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
+    <a href="{{ '/img/2019-03-31-vuzix/ui-anim1.gif' | prepend: site.baseurl }}" data-lightbox="ui-anim" data-title="Home menu with animation">
+        <img alt="stack" src="{{ '/img/2019-03-31-vuzix/ui-anim1.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
     </a>
-     <a href="{{ '/img/2019-03-30-vuzix/ui-anim2.gif' | prepend: site.baseurl }}" data-lightbox="ui-anim" data-title="AR application">
-        <img alt="stack" src="{{ '/img/2019-03-30-vuzix/ui-anim2.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
+     <a href="{{ '/img/2019-03-31-vuzix/ui-anim2.gif' | prepend: site.baseurl }}" data-lightbox="ui-anim" data-title="AR application">
+        <img alt="stack" src="{{ '/img/2019-03-31-vuzix/ui-anim2.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
     </a>
 </div>
 <br/>
@@ -168,14 +168,14 @@ Let's hope they don't make the same mistake Google made with Google Glass!
 But because they also target the consumer market, they thought about very important things like ergonomics and making for non-tech people.
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2019-03-30-vuzix/wear1.jpg' | prepend: site.baseurl }}" data-lightbox="wearing" data-title="Wearing the Vuzix Blade 1">
-        <img alt="stack" src="{{ '/img/2019-03-30-vuzix/wear1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 55%; display: inline-block;">
+    <a href="{{ '/img/2019-03-31-vuzix/wear1.jpg' | prepend: site.baseurl }}" data-lightbox="wearing" data-title="Wearing the Vuzix Blade 1">
+        <img alt="stack" src="{{ '/img/2019-03-31-vuzix/wear1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 55%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2019-03-30-vuzix/wear2.jpg' | prepend: site.baseurl }}" data-lightbox="wearing" data-title="Wearing the Vuzix Blade 2">
-        <img alt="stack" src="{{ '/img/2019-03-30-vuzix/wear2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 24%; display: inline-block;">
+    <a href="{{ '/img/2019-03-31-vuzix/wear2.jpg' | prepend: site.baseurl }}" data-lightbox="wearing" data-title="Wearing the Vuzix Blade 2">
+        <img alt="stack" src="{{ '/img/2019-03-31-vuzix/wear2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 24%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2019-03-30-vuzix/wear3.jpg' | prepend: site.baseurl }}" data-lightbox="wearing" data-title="Wearing the Vuzix Blade 3">
-        <img alt="stack" src="{{ '/img/2019-03-30-vuzix/wear3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 17.5%; display: inline-block;">
+    <a href="{{ '/img/2019-03-31-vuzix/wear3.jpg' | prepend: site.baseurl }}" data-lightbox="wearing" data-title="Wearing the Vuzix Blade 3">
+        <img alt="stack" src="{{ '/img/2019-03-31-vuzix/wear3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 17.5%; display: inline-block;">
     </a>
 </div>
 <br/>
