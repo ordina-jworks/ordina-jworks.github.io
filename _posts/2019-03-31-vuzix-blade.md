@@ -35,9 +35,11 @@ Thanks to Ordina, we could preorder one unit.
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/V-OxzjsB2s0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+<br/>
+
 It was a video like this one that had won us over to give the Vuzix Blade a try since the displayed features look very nice, if they all worked as promised...
 
-After a very long wait, with several delays and a lot of mailing back and forth, we got ourselves a preproduction handbuilt Vuzix Blade.
+After a very long wait, with several delays and a lot of mailing back and forth, we got ourselves a pre-production handbuilt Vuzix Blade.
 We got these glasses to analyze the wearer's experience and see how we could integrate it into the numerous business cases we could see it being used for:
 
 - Assistance for field technicians
@@ -52,7 +54,7 @@ Read on ahead for all the juicy details!
 <img alt="Vuzix Blade hardware overview" src="{{ '/img/2019-03-31-vuzix/vuzix-hardware-overview.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 The Vuzix Blade is essentially an Android smartphone you can wear on your face.
-Well actually, it's really more like an Android Smartwatch you can strap to your face, but you get the idea.
+Well actually, it's really more like an Android smartwatch you can strap to your face, but you get the idea.
 
 The device we received was a pre-production build, which was assembled by hand.
 This means we can't really say much about what the final hardware will look like, if there will be any changes or if the build quality, which was very solid, will change.
@@ -183,7 +185,7 @@ But because they also target the consumer market, they thought about very import
 Our colleague, Frederick tested the device for a longer period of time:
 >
 > Sometimes I wear this device for a full day to get deeply immersed in the experience.
-> As it is comfortable to wear this wasn't much of an issue.
+> As it is comfortable to wear, this wasn't much of an issue.
 >
 > My first experiment was to check how many would look funny at me during my morning commute.
 > The good news is that during my train ride and walk around the office, not many people were or kept staring at me.
@@ -212,7 +214,7 @@ Using gestures like:
 - Long tap
 - etc
 
-Again, very similar to smart watches.
+Again, very similar to smartwatches.
 
 Support for Amazon Alexa is currently in a Beta program for which we've signed up.
 Really wondering how natural this voice interaction will be.
@@ -264,7 +266,7 @@ Currently we only display the current time, heart rate and heart rate zone.
 
 The video below showcases the app.
 The user interface is still very minimalistic and the app itself is still a work in progress.
-However it's already very functional.
+However, it's already very functional.
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/FzUgWBVQCS8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -300,7 +302,7 @@ Vuzix rolled out a big software update for the device that included new features
 If and when better battery technology is available these devices can have a definite positive influence on certain business cases.
 With the introduction of the second generation HoloLens from Microsoft it is clear what can be possible with these devices.
 Although the HoloLens is a much, much more complicated product than the Vuzix Blade, both serve a different market population.
-For now, we believe that devices like the Blade have the upper hand over other like the HoloLens, in price, wearer comfort, and day to day usability.
+For now, we believe that devices like the Blade have the upper hand over others like the HoloLens, in price, wearer comfort, and day to day usability.
 
 ## Resources
 
