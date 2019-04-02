@@ -94,7 +94,7 @@ The most convenient options is to use binary distributions from other providers,
 
 | Distribution                                                | Versions  | TCK  | Public updates           | Arch(*)       | Commercial Support              | Commercial Support ended                          |
 | ----------------------------------------------------------- | --------- | ---- | -----------------------  | ------------- | ------------------------------- | --------------------------------------------------|
-| [AdoptOpenJDK](https://adoptopenjdk.net/)                   | 8, 11     | No   | Until at least Sep 2023  | Major + Minor | IBM, jClarity                   | N/A                                                 |
+| [AdoptOpenJDK](https://adoptopenjdk.net/)                   | 8, 11     | No   | Until at least Sep 2023  | Major + Minor | IBM, jClarity                   | Indefinitely (source: IBM Support)                |
 | [Amazon Corretto](https://aws.amazon.com/corretto/)         | 8, 11     | Yes  | Until at least June 2023 | Major         | -                               | ?                                                 |
 | [Azul Zulu](https://www.azul.com/downloads/zulu/)           | 8, 11     | Yes  | ?                        | Major + Minor | Azul                            | ?                                                 |
 | [Bellsoft Liberica](https://www.bell-sw.com/pages/products) | 8, 11     | Yes  | Until at least 2023      | Major + Minor | BellSoft                        | ?                                                 |
@@ -104,7 +104,8 @@ The most convenient options is to use binary distributions from other providers,
 \* **Major** = Linux x86, Mac OS x, Windows x64, **Minor** = various other platforms
 
 ***Notes:**
-As a general philosophy, AdoptOpenJDK will continue to build binaries for LTS releases as long as the corresponding upstream source is actively maintained. The Eclipse OpenJ9 Support Document covers extra support info for that VM.*
+As a general philosophy, AdoptOpenJDK will continue to build binaries for LTS releases as long as the corresponding upstream source is actively maintained. The Eclipse OpenJ9 Support Document covers extra support info for that VM.
+This information might change overtime, contact vendors for the most recent information.*
 
 ##### Technology Compatibility Kit for Java (TCK)
 
