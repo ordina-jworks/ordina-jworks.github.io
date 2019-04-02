@@ -9,7 +9,7 @@ comments: true
 ---
 
 > Recently we had a discussion in our chat group of developers which made us realise how much confusion there is on the new update cycle for the JVM.
-> We decided it would be good idea to write a blog post that should clear up most of the confusion for our developers and clients
+> We decided it would be good idea to write a blog post that should clear up the confusion for our developers and clients
 
 # Table of content
 
@@ -25,9 +25,9 @@ First we have to explain what changed to Oracle's JDK distributions recently, wh
 
 Java SE now has new major versions released every six months since java version 9, prior to this version updates where provided by Oracle and other OpenJDK contributors, these releases such as 8u91, 8u111 and 8u131 where released every six months, you would not get further updates on 8u91 once 8u111 was release and no longer get updates for 8u111 once 8u131 was released.
 
-Since java version 9 however there is new six month release cycle for major versions similar to the old update cycle once 8u131 was release you would not get updates for 8u111, in the new version system you would no longer get updates for java 11 once java 12 is released.
+Since java version 9 however there is new six month release cycle for major versions similar to the old update cycle once 8u131 was release you would not get updates for 8u111, in the new version system you would no longer get updates for java 12 once java 13 is released, exceptions being long term support versions versions which will get updates beyond 6 months more about that later.
 
-Below is a table for free updates, each vendor can release their own openJDK distributions and decide for themselves how long they provide free updates. If you want pick a vendor make sure you research how long they will be providing free updates/support because this may vary from vendor to vendor.
+Below is a table for free updates, each vendor can release their own openJDK distributions and decide for themselves how long they provide free updates. If you want pick a vendor make sure you research how long they will be providing free updates/support because this may vary from vendor to vendor, further in the article we provide a table wit most of this information.
 
 | Version       | Release date  | Free updates ended or superseded                                                             |
 | ------------- | ------------- | -------------------------------------------------------------------------------------------- |
@@ -45,13 +45,13 @@ Below is a table for free updates, each vendor can release their own openJDK dis
 
 Before java 9 Oracle would provide updates for their JDK for 3 years, the license allowed you to use these updates personally and commercially. The updates had no support, if you wanted support you had to buy a license from Oracle and those licenses also came with longer update cycles. Starting April 2019 the new Oracle JDK 8 updates will be restricted and remain free for personal desktop use, development, testing, prototyping, demonstrating and for use with certain types of applications, commercial use of these updates requires you to get a license for a payed support plan, using older versions is allowed, but will not contain important security patches.
 
-Java 9 brings new update cycle which allows for new implementations like TLS 1.3 to be added to Java faster, Oracle also started producing Oracle OpenJDK builds which use the GNU General Public License, version 2, with the Classpath Exception. Every major java version has free updates for 6 months until the next major version is released. If you need new updates and support for these older versions you will have to buy a license from Oracle which will extend support and updates.
+Java 9 brings new update cycle which allows for new implementations like TLS 1.3 to be added to Java faster, Oracle also started producing Oracle OpenJDK builds which use the GNU General Public License, version 2, with the Classpath Exception. Every major java version has free updates for 6 months until the next major version is released. If you need new updates and support for these older versions you will have to buy a license from Oracle which will extend support and updates which is only provided for LTS releases.
 
 #### Support
 
 So what if I want support from Oracle? Support isn't free commitment to fix bugs and requiring to answer users their problems costs money, because of that Oracle has never provided free support. If you need the reassurance of bug fixes and somebody to answer your questions then you have to get commercial support, you aren't limited to Oracle's support, which vendor you choose to get this support from is up to you, but each vendor has their own JDK binaries so make sure you use the binaries of the vendor you want to get commercial support from and don't forget to check how long they will support your OpenJDK version, each vendor can decide for themselves how long they provide support for their OpenJDK libraries, so this isn't a decision you should make on a whim.
 
-You might also be thinking why would I pay for commercial support for open source JDK versions? Don't forget that Oracle and other vendors pour money in development of these JDK versions this money has to come for somewhere, you are not obliged to get paid support with one of the vendors providing OpenJDK versions, but I think it's worth thinking about supporting the Java ecosystem to ensure it's long lasting future. If there is no money to develop the JDK further then there won't be any progression to the future of the JDK ecosystem.
+You might also be thinking why would I pay for commercial support for (open source) JDK versions? Don't forget that Oracle and other vendors pour money in development of these JDK versions this money has to come for somewhere, you are not obliged to get paid support with one of the vendors providing OpenJDK versions, but I think it's worth thinking about supporting the Java ecosystem to ensure it's long lasting future. If there is no money to develop the JDK further then there won't be any progression to the future of the JDK ecosystem.
 
 ### Long Term Support (LTS)
 
@@ -71,7 +71,7 @@ The openJDK community works on a free, open-source implementations of the Java S
 
 Oracle is very receptive of the idea on having community maintenance and will continue to support handover of the OpenJDK to the community to qualified volunteering entities once they have moved on to working on the next version. Red Hat is currently globally leading and updating OpenJDK 6 and OpenJDK 7 projects after Oracle ended updates for them. After Read hat stopped updating OpenJDK 6, Azul Systems has taken over leading the project and continued to provide updates for the project to this day.
 
-Red Hat is now leading OpenJDK 8 and OpenJDK 11. This does not mean that they are the sole contributors the project they lead, other vendors are providing patches and updates as well. The biggest contribution is happening to the OpenJDK 8 project with contributions from not just Red Hat, but Amazon, Azul Systems, BellSoft, IBM, jClarity, Google, Sap and many other vendors.
+Red Hat will soon be leading OpenJDK 8 and OpenJDK 11. This does not mean that they are the sole contributors to the project they lead, other vendors are providing patches and updates as well. The biggest contribution are happening to the OpenJDK 8 project with contributions from not just Red Hat, but Amazon, Azul Systems, BellSoft, IBM, jClarity, Google, Sap and many other vendors.
 
 For consistency, these venders provide extended update cycles for their openJDK for the same versions that are deemed LTS for Oracle's JDK.
 
@@ -94,7 +94,7 @@ The most convenient options is to use binary distributions from other providers,
 
 | Distribution                                                | Versions  | TCK  | Public updates           | Arch(*)       | Commercial Support              | Commercial Support ended                          |
 | ----------------------------------------------------------- | --------- | ---- | -----------------------  | ------------- | ------------------------------- | --------------------------------------------------|
-| [AdoptOpenJDK](https://adoptopenjdk.net/)                   | 8, 11     | No   | Until at least Sep 2023  | Major + Minor | IBM, jClarity                   | ?                                                 |
+| [AdoptOpenJDK](https://adoptopenjdk.net/)                   | 8, 11     | No   | Until at least Sep 2023  | Major + Minor | IBM, jClarity                   | N/A                                                 |
 | [Amazon Corretto](https://aws.amazon.com/corretto/)         | 8, 11     | Yes  | Until at least June 2023 | Major         | -                               | ?                                                 |
 | [Azul Zulu](https://www.azul.com/downloads/zulu/)           | 8, 11     | Yes  | ?                        | Major + Minor | Azul                            | ?                                                 |
 | [Bellsoft Liberica](https://www.bell-sw.com/pages/products) | 8, 11     | Yes  | Until at least 2023      | Major + Minor | BellSoft                        | ?                                                 |
