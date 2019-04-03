@@ -15,7 +15,7 @@ Are we supposed to fill it?
 Could we grab it, put it on the wall and paint our image in it, the way we see it, the way it works for us?
 
 Probably, we can. 
-Seemingly, many organizations attempt to connect the numbers and dots in precisely that way, trying to get a hold on their portfolio planning, and using Scrum for metrics to fill their project reports - solely focusing on accelerating output and pushing velocity through the roof. 
+Seemingly, many organizations attempt to connect the numbers and dots in precisely that way, trying to get a hold on their portfolio planning and utilising Scrum for metrics to fill their project reports - solely focusing on accelerating output and pushing velocity through the roof. 
 But let's be careful, since we can easily get trapped in this. 
 A framework isn't there to just fill it and use it. 
 Did we take the time, or do the effort, to ponder over further possibilities, opportunities, that the frame might entail?
