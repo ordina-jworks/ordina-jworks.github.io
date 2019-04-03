@@ -14,17 +14,16 @@ What does that actually mean?
 Are we supposed to fill it? 
 Could we grab it, put it on the wall and paint our image in it, the way we see it, the way it works for us?
 
-Probably we can. 
-Ostensibly, many organizations attempt to connect the numbers and dots in precisely that way, trying to get a hold on their portfolio planning, and using Scrum for metrics to fill their project reports - solely focusing on accelerating output and pushing velocity through the roof. 
-But let's be careful. 
-How easily we get trapped in this. 
-Framework, fill it, use it. 
+Probably, we can. 
+Seemingly, many organizations attempt to connect the numbers and dots in precisely that way, trying to get a hold on their portfolio planning, and using Scrum for metrics to fill their project reports - solely focusing on accelerating output and pushing velocity through the roof. 
+But let's be careful, since we can easily get trapped in this. 
+A framework isn't there to just fill it and use it. 
 Did we take the time, or do the effort, to ponder over further possibilities, opportunities, that the frame might entail?
 
-Suppose the framework would not be meant to contain just our own painting, our own image, whatever it is that is known to us. 
-Suppose it is there to draw attention to something beyond... like the frame on the photo. 
+The framework is not meant to contain just our own painting, our own image, whatever it is that is known to us. 
+It is there to draw attention to something beyond... like the frame on the photo. 
 Let it be a window. 
-A transparent artifact, always representing a mere part of reality, depending on the spot from where we are and from where we are looking, not <em>at</em> it but <em>through</em> it, giving us an opportunity to inspect what we are spending our efforts on, or maybe...what we are wasting them on?
+A transparent artifact, always representing a mere part of reality, depending on the spot from where we are and from where we are looking, not <em>at</em> it but <em>through</em> it, giving us an opportunity to inspect what we are spending our efforts on, or maybe... what we are wasting them on?
 
 The power of the Scrum framework is in its simplicity. 
 The predictively recurring Scrum events form a synchronized pulse creating a steady heartbeat for the members of the Scrum team. 
@@ -47,8 +46,8 @@ What are we looking at?
 What are we seeing? 
 What area of the horizon are we exploring? 
 
-It will be hard to be aligned unless some hierarchy tells us where to look at and what to look for. 
-Then put the frame, the window on the beach. 
+It will be hard to be aligned unless someone or something tells us where to look and what to look for. 
+Then put the frame, the window, on the beach. 
 All of us are now looking through it – together exploring a far bigger wedge of the sea than we ever could if we were alone. 
 At the same time it is enabling us to jointly aim for what could be beyond the horizon, when we all look in the same direction.
 
