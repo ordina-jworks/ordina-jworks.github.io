@@ -32,7 +32,7 @@ We acquired some budget and went looking for 'affordable' smart glasses to exper
 
 We were following the Vuzix for quite some time as they seemed market leader in wearable head mounted technology. The type of devices they were producing didn't have the coolness factor we were hoping for.
 
-And along came the Vuzix Blade... This looked like a real gamechanger. Something someone would actually wear on their face!
+And along came the Vuzix Blade... This looked like a real game changer. Something someone would actually wear on their face!
 
 After acquiring the budget, ( thanks Ordina! ) we ordered one unit.
 
@@ -90,7 +90,7 @@ It's always a fine line to balance between power consumption and battery life.
 
 The amount of RAM is not specified but seems to be just the right amount to get the job done.
 
-Overall the device works fine for normal apps but the speed and fluidity could be better for some high-end apps (1080p capturing, Tensorflow lite, ...)
+Overall the device works fine for normal apps but the speed and fluidity could be better for some high-end apps (1080p video capture, TensorFlow Lite, ...)
 
 There is no audio on the device as no regular or bone conducting speaker is present.
 Audio can be provided through either Bluetooth or USB audio, but an included speaker would have been nicer.
@@ -123,7 +123,7 @@ Really shows off the unexpectedly good visual qualities of the display and bring
 
 For a concept device it really shows what the technology is capable of.
 We do hope that the final hardware specs will be a bit more beefy. 
-Imagine running Tensorflow lite object detection in full force on the device. So many cool things we could do with computer vision!
+Imagine running TensorFlow lite object detection in full force on the device. So many cool things we could do with computer vision!
 
 Adding a sim card slot and a GPS chip would also be awesome. 
 This would allow us completely sever the link to the companion smart phone.
@@ -299,28 +299,26 @@ The video doesn't do the app justice as you don't get to experience the transpar
 Seeing those numbers and letters float in open air is always a joy to see.
 
 While experimenting with new technologies, we prefer to use the Minimal Viable Product (MVP) approach: focus on what brings most value and then validate this as soon as possible.
-This also means fieldtesting the concept in the most representative and harsh environment you can think off.
+This also means field testing the concept in the most representative and harsh environment you can think off.
 
 So, Frederick ventured forth to a place where not many developer dare venture: outdoor in the sun.
 
-Everyone who has ever worked with a laptop, smartphone or tablet outside can agree that the readability of these screen drops to zero as on brighty and sunny days.
-The Blade solves this by having a very bright display. Apps also use the following 2 tricks to optimise readability:  
+Everyone who has ever worked with a laptop, smartphone or tablet outside can agree that the readability of these screen drops to zero as on bright and sunny days.
+The Blade solves this by having a very bright display. Apps also use the following 2 tricks to optimize readability:  
 
-* Use high contrast colors, like green.
-* Dynamically make the transparant part of display white to incease the contrast even more. 
- 
+- Use high contrast colors, like green.
+- Dynamically make the transparent part of display white to increase the contrast even more.
+
 Frederick took the Blade on a 10km run to validate if the app was usable, readable and useful... And it sure was!
 Seeing your live heart rate gives you a lot of insight into your performance. 
-It also makes everything into a game: Can I do better? How long can I keep doing at this pace? 
+It also makes everything into a game: Can I do better? How long can I keep doing at this pace?
 The glasses were comfortable enough to wear for the full run. And most importantly: the batteries didn't run out!
-
 
 All in all, it was such a positive experience that Frederick found it difficult to go running without these glasses.
 
-
 <img alt="Vuzix Blade Heart rate testing" src="{{ '/img/2019-03-30-vuzix/run.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
-We have sent a demo to the people of Vuzix and they were also very enthousiatic about the concept.
+We have sent a demo to the people of Vuzix and they were also very enthusiastic about the concept.
 We will now polish the app a bit more to make it consumer friendly and then publish it to the Vuzix app store.
 
 In a future version of the app, we would like to add things like:
@@ -338,7 +336,7 @@ This is something we will probably outsource to our UX / UI wizkids over at [Clo
 ## Looking forward
 
 What we got with the Vuzix Blade looks already very promising even though there are a few small rough edges.
-Vuzix keeps rolling out a signifcant software updates for the device that open up new possiblities.
+Vuzix keeps rolling out a significant software updates for the device that open up new possibilities.
 
 It is not a far stretch to think that devices like this will become common consumer electronics if you see what Focal's by North are 
 But certain hurdles still have to be taken such as making them look even more appealing to everyday users.
@@ -348,9 +346,9 @@ As such, we still see the Vuzix Blade as best in breed.
 The better battery technology that is just around the corner could also prove to be a total game changer for wearable devices. 
 Imagine your glasses as an all day long companion, augmenting all your senses and feeding you with on the spot contextual information.
 
-We do not believe this device will ever be direct competition to the Microsoft HoloLens as they serve 2 different purposes at a completely different pricepoint.
-Would €500 be a good enough pricepoint to appeal to the general public? 
-Would this cost be low enough to have compagnies build positive business cases to equip their technicians with Augmented Reality / Assisted Reality devices?
+We do not believe this device will ever be direct competition to the Microsoft HoloLens as they serve 2 different purposes at a completely different price point.
+Would €500 be a good enough price point to appeal to the general public? 
+Would this cost be low enough to have companies build positive business cases to equip their technicians with Augmented Reality / Assisted Reality devices?
 
 Let's hope so!
 
