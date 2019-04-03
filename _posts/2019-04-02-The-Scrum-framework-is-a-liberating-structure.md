@@ -48,7 +48,7 @@ What area of the horizon are we exploring?
 
 It will be hard to be aligned unless someone or something tells us where to look and what to look for. 
 Then put the frame, the window, on the beach. 
-All of us are now looking through it – together exploring a far bigger wedge of the sea than we ever could if we were alone. 
+All of us are looking through it – together, exploring a far bigger wedge of the sea than we ever could imagine doing alone.
 At the same time it is enabling us to jointly aim for what could be beyond the horizon, when we all look in the same direction.
 
 Mind you, it is just a framework. 
