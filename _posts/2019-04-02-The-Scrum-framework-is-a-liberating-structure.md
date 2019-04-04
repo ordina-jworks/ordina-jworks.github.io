@@ -79,7 +79,7 @@ These attributes help us to:
 * Adopt a habit of creative adaptability
 * Promote anti-fragility
 
-And on top of that, Scrum – being an Agile practice strongly rooted in Lean principles - reintroduces systems thinking and the routine of improvement in the process of co-creation.
+And on top of that, Scrum - being an Agile practice strongly rooted in Lean principles - reintroduces systems thinking and the routine of improvement in the process of co-creation.
 
 If there is one principle in the world that should never change, let it be this one.
 
