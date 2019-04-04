@@ -67,7 +67,7 @@ This means we can't really say much about what the final hardware will look like
 During our testing it has been through some light and heavy action, like daily commute use, office use, running, biking, etc, and still hasn't shown any faults or cracks.
 
 
-We've have always found the idea of computing devices in the form factor of glasses quite intriguing as some of us have been cursed with nearsightedness and already have to wear prescription glasses.
+We've always found the idea of computing devices in the form factor of glasses quite intriguing as some of us have been cursed with nearsightedness and already have to wear prescription glasses.
 
 If we have to wear the bloody things every day, might as well put some intelligence into them.
 
