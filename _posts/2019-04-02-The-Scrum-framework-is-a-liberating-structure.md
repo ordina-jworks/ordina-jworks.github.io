@@ -32,7 +32,7 @@ It's a minimalist frame, that vanishes after a while, and is merely setting the 
 
 <img alt="Together, we create" src="{{ '/img/scrum-is-a-liberating-structure/together-we-create.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
-Interhuman friction due to role shifts, adapting to new responsibilities and accountabilities, as well as difficulties with alignment of expectations are well known characteristics of a team's storming phase. 
+Interhuman friction due to role shifts, adapting to new responsibilities and accountabilities, as well as difficulties with alignment of expectations are well-known characteristics of a team's storming phase. 
 But Tuckman, with his forming, storming, norming and performing model of team dynamics was only partly right. 
 We now know that storming will always be there to some degree, accompanying the complexity and quickly-changing environment of today. 
 A team, in fact, is constantly hovering over its storming arrhythmia, longing for it to clear up, using the heartbeat of the framework to gradually pave the road to high performance, focusing on value and gradual improvement.
