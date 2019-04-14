@@ -26,16 +26,13 @@ comments: true
 
 ## Introduction
 
-
-As we are strong believers in the impact that Augmented Reality will have in a business setting, we were eager to get started building things. But this requires getting your hands on some actual hardware!
+As we are strong believers about the impact that Augmented Reality will have in a business setting, we were eager to get started building things. 
+But this required getting our hands on some actual hardware!
 We acquired some budget and went looking for 'affordable' smart glasses to experiment with.
 
 We were following the Vuzix for quite some time as they seemed market leader in wearable head mounted technology. The type of devices they were producing didn't have the coolness factor we were hoping for.
 
 And along came the Vuzix Blade... This looked like a real game changer. Something someone would actually wear on their face!
-
-After acquiring the budget, ( thanks Ordina! ) we ordered one unit.
-
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/V-OxzjsB2s0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -64,7 +61,7 @@ Well actually, it's really more like an Android smartwatch you can strap to your
 
 The device we received was a pre-production build, which was assembled by hand.
 This means we can't really say much about what the final hardware will look like, if there will be any changes or if the build quality, which was very solid, will change.
-During our testing it has been through some light and heavy action, like daily commute use, office use, running, biking, etc, and still hasn't shown any faults or cracks.
+During our testing it has been through some light and heavy action: like daily commute use, office use, running, biking, etc, and still hasn't shown any faults or cracks.
 
 
 We've always found the idea of computing devices in the form factor of glasses quite intriguing as some of us have been cursed with nearsightedness and already have to wear prescription glasses.
@@ -80,7 +77,7 @@ It's nowhere near the HoloLens, but they serve a completely different purpose.
 
 Let's get down the mandatory spec overview!
 The internals inside the glasses are alright, maybe a bit underwhelming.
-It's always a fine line to balance between power consumption and battery life.
+Knowing it's always a fine line to balance between power consumption and battery life, the internals inside the glasses are alright, maybe a bit underwhelming.
 
 - Projected display resolution of 480 by 853 pixels
 - Quad core ARM A53 CPU
@@ -114,18 +111,18 @@ Hold a smartwatch right in front of you in a readable position.
 It's kinda like that, but transparent and without losing the functionality of one of your arms.
 
 
-So instead of describing it to people, we just put it on their face and they are just immediately captivated by what they're experiencing.
-It takes a moment to learn how to switch your eyes's focus on the heads up display and back to your surroundings.
+So instead of describing it to people, we just put it on their head and they were just immediately captivated by what they're experiencing.
+It takes a moment to learn how to switch your eyes' focus on the heads up display and back to your surroundings.
 Once you master this it becomes very natural to interact with the display, however staring at it for prolonged periods is not what's it's meant for.
-Seeing that transparent interface for the first time is something a lot of people really have to take time to wrap their heads around the idea.
+A lot of people have difficulty in wrapping their heads around the idea of that transparent interface when trying out the glasses for the first time.
 After this we show them some pretty pictures with a variety of colors.
-Really shows off the unexpectedly good visual qualities of the display and brings everything to life!
+This really shows off the unexpectedly good visual qualities of the display and brings everything to life!
 
 For a concept device it really shows what the technology is capable of.
 We do hope that the final hardware specs will be a bit more beefy. 
 Imagine running TensorFlow lite object detection in full force on the device. So many cool things we could do with computer vision!
 
-Adding a sim card slot and a GPS chip would also be awesome. 
+Adding a sim card slot and a GPS chip would also be awesome, since this would allow us to autonomously use the glasses without a companion smartphone. 
 This would allow us completely sever the link to the companion smart phone.
 
 
@@ -175,7 +172,6 @@ As this device doesn't run the Google Play Store, a specific app store is needed
 <br/>
 
 ## Using the Vuzix
-
 
 The thing we like about the Blade is how comfortable it is to wear compared to other head mounted wearable solutions like the HoloLens.
 The HoloLens is quite heavy and in our opinion not meant to be worn all day long. 
@@ -238,7 +234,6 @@ Really wondering how natural this voice interaction will be!
 
 As we said before, some of us wear glasses and the Blade display is readable when you have only minor nearsightedness, but the display is much sharper when you put the Blade on top of your regular glasses.
 For an additional markup it is possible to get prescription lenses with the Blade so people who wear glasses on daily basis can also use this device.
-
 
 Battery life is very much inline with smart watches: it all depends on the usage.
 We can easily keep an app running with the screen on for almost two hours.
@@ -311,7 +306,7 @@ The Blade solves this by having a very bright display. Apps also use the followi
 
 Frederick took the Blade on a 10km run to validate if the app was usable, readable and useful... And it sure was!
 Seeing your live heart rate gives you a lot of insight into your performance. 
-It also makes everything into a game: Can I do better? How long can I keep doing at this pace?
+It also turns everything into a game: Can I do better? How long can I keep going at this pace?
 The glasses were comfortable enough to wear for the full run. And most importantly: the batteries didn't run out!
 
 All in all, it was such a positive experience that Frederick found it difficult to go running without these glasses.
@@ -336,11 +331,11 @@ This is something we will probably outsource to our UX / UI wizkids over at [Clo
 ## Looking forward
 
 What we got with the Vuzix Blade looks already very promising even though there are a few small rough edges.
-Vuzix keeps rolling out a significant software updates for the device that open up new possibilities.
+Vuzix keeps rolling out significant software updates for the device that open up new possibilities.
 
-It is not a far stretch to think that devices like this will become common consumer electronics if you see what Focal's by North are 
+It is not unthinkable that devices like this will become common consumer electronics if you see what [Focals by North](https://www.bynorth.com/) are.
 But certain hurdles still have to be taken such as making them look even more appealing to everyday users.
-[Focal's by North](https://www.bynorth.com/) is already taking a nice step in this direction. They however do this by sacrificing certain features (no camera, integrated touchpad, SD-card slot, ...) which we think are important for enterprise user.
+[Focals by North](https://www.bynorth.com/) is already taking a nice step in this direction. They however do this by sacrificing certain features (no camera, integrated touchpad, SD-card slot, ...) which we think are important for enterprise user.
 As such, we still see the Vuzix Blade as best in breed.
 
 The better battery technology that is just around the corner could also prove to be a total game changer for wearable devices. 
