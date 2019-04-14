@@ -2,8 +2,8 @@
 layout: post
 authors: [pieter_vincken]
 title: 'Istio Service Mesh: service to service communication'
-image: /img/2019-04-01-istio-service-mesh-s2s/istio.jpeg
-tags: [Istio, Service Mesh, Kubernetes, Cloud]
+image: /img/2019-04-14-istio-service-mesh-s2s/istio.jpeg
+tags: [Istio, Service Mesh, Kubernetes, Cloud, Microservices]
 category: Cloud
 comments: true
 ---
