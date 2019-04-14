@@ -30,7 +30,7 @@ As we are strong believers about the impact that Augmented Reality will have in 
 But this required getting our hands on some actual hardware!
 We acquired some budget and went looking for 'affordable' smart glasses to experiment with.
 
-We were following the Vuzix for quite some time as they seemed market leader in wearable head mounted technology. The type of devices they were producing didn't have the coolness factor we were hoping for.
+We were following the Vuzix for quite some time as they seemed market leader in wearable head-mounted technology. The type of devices they were producing didn't have the coolness factor we were hoping for.
 
 And along came the Vuzix Blade... This looked like a real game changer. Something someone would actually wear on their face!
 
@@ -41,7 +41,7 @@ And along came the Vuzix Blade... This looked like a real game changer. Somethin
 
 It was a video like this one that had won us over to give the Vuzix Blade a try since the displayed features look very nice, if they all worked as promised...
 
-After a long wait we finally got our hands on a pre-production hand built Vuzix Blade and joined the Edge Developer Program.
+After a long wait we finally got our hands on a pre-production hand-built Vuzix Blade and joined the Edge Developer Program.
 We got these glasses to analyze the wearers experience and see how we could integrate it into the numerous business cases:
 
 
@@ -173,7 +173,7 @@ As this device doesn't run the Google Play Store, a specific app store is needed
 
 ## Using the Vuzix
 
-The thing we like about the Blade is how comfortable it is to wear compared to other head mounted wearable solutions like the HoloLens.
+The thing we like about the Blade is how comfortable it is to wear compared to other head-mounted wearable solutions like the HoloLens.
 The HoloLens is quite heavy and in our opinion not meant to be worn all day long. 
 The Blade however is light enough to stay comfortable for long time wearing.
 
@@ -299,7 +299,7 @@ This also means field testing the concept in the most representative and harsh e
 So, Frederick ventured forth to a place where not many developer dare venture: outdoor in the sun.
 
 Everyone who has ever worked with a laptop, smartphone or tablet outside can agree that the readability of these screen drops to zero as on bright and sunny days.
-The Blade solves this by having a very bright display. Apps also use the following 2 tricks to optimize readability:  
+The Blade solves this by having a very bright display. Apps also use the following two tricks to optimize readability:  
 
 - Use high contrast colors, like green.
 - Dynamically make the transparent part of display white to increase the contrast even more.
