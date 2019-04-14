@@ -142,7 +142,7 @@ There aren't many out-of-the-box apps on the device installed:
 
 One of the most important features of wearables is notification mirroring, which works out-of-the-box.
 
-With the Vuzix Blade also comes a [companion app](https://play.google.com/store/apps/details?id=com.vuzix.companion) for your Android or iOS Smartphone.
+With the Vuzix Blade also comes a [companion app](https://play.google.com/store/apps/details?id=com.vuzix.companion){:target="_blank" rel="noopener noreferrer"} for your Android or iOS Smartphone.
 
 This companion app allows you to configure settings, fetch images and videos from the device, manage installed apps and explore the Blade app store.
 
@@ -266,7 +266,7 @@ A lot of runners already have smartwatches to monitor their heart rate.
 Some of these watches even vibrate when you're not running in the correct heart rate zone.
 More info on heart rate zones can be found [here](https://support.polar.com/en/support/tips/Polar_Sport_Zones){:target="_blank" rel="noopener noreferrer"}.
 
-A lot of runners already have smartwatches to monitor their heart rate. Some of these watches even vibrate when you're not running in the correct [heart rate zone](https://support.polar.com/en/support/tips/Polar_Sport_Zones).
+A lot of runners already have smartwatches to monitor their heart rate. Some of these watches even vibrate when you're not running in the correct [heart rate zone](https://support.polar.com/en/support/tips/Polar_Sport_Zones){:target="_blank" rel="noopener noreferrer"}.
 
 
 Although runners already have access to this information on their smart watch, it's not the best form factor to consume the data. Ever tried reading your watch while running and bouncing around at 10+ km/h? 
@@ -333,9 +333,9 @@ This is something we will probably outsource to our UX / UI wizkids over at [Clo
 What we got with the Vuzix Blade looks already very promising even though there are a few small rough edges.
 Vuzix keeps rolling out significant software updates for the device that open up new possibilities.
 
-It is not unthinkable that devices like this will become common consumer electronics if you see what [Focals by North](https://www.bynorth.com/) are.
+It is not unthinkable that devices like this will become common consumer electronics if you see what [Focals by North](https://www.bynorth.com/){:target="_blank" rel="noopener noreferrer"} are.
 But certain hurdles still have to be taken such as making them look even more appealing to everyday users.
-[Focals by North](https://www.bynorth.com/) is already taking a nice step in this direction. They however do this by sacrificing certain features (no camera, integrated touchpad, SD-card slot, ...) which we think are important for enterprise user.
+[Focals by North](https://www.bynorth.com/){:target="_blank" rel="noopener noreferrer"} is already taking a nice step in this direction. They however do this by sacrificing certain features (no camera, integrated touchpad, SD-card slot, ...) which we think are important for enterprise user.
 As such, we still see the Vuzix Blade as best in breed.
 
 The better battery technology that is just around the corner could also prove to be a total game changer for wearable devices. 
