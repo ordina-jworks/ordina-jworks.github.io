@@ -38,7 +38,7 @@ One option is to use the same credential flow for services as for end-users.
 A service would provide a username and password and receive a (temporarily valid) token to access a service.
 Unfortunaly this approach has some drawbacks.
 The first main issue is that services often need more broader access to services than end-users.
-This makes the credentials they hold very powerfull, which makes them dangerous to manage. 
+This makes the credentials they hold very powerful, which makes them dangerous to manage. 
 Secondly, the JWT is only valid for a predefined amount of time. 
 For a normal user, this is fine, since they can easily reauthenticate once the token expires.
 In services, reauthentication mechanisms tend to be a bit harder to setup and often result in hard to debug issues. 
@@ -110,7 +110,7 @@ Note that the code snippets have been shortened in this blogpost.
 This is denoted with three dots `...`.
 The full examples can be found in the accompanying repository on [Github](https://github.com/pietervincken/istio-service-to-service-demo){:target="_blank" rel="noopener noreferrer"}
 
-### Prerequisits 
+### Prerequisites
 
 This demo assumes that Istio is already installed in the cluster with the demo profile enabled. 
 See [Install Istio](https://istio.io/docs/setup/kubernetes/install/helm/#option-1-install-with-helm-via-helm-template){:target="_blank" rel="noopener noreferrer"} for more information on the installation of Istio.
@@ -329,7 +329,7 @@ spec:
 
 ### Enabling Role Based Access Control (RBAC) on the services
 
-Services can now communicate securly over mTLS.
+Services can now communicate securely over mTLS.
 To increase the security even further, RBAC can be added to the services.
 RBAC allows for roles to be defined that specify access to specific services in the cluster. 
 By attaching these roles to service accounts (which are connected to services) services can be premitted to access specific other services. 
@@ -354,7 +354,7 @@ spec:
 ```
 
 After this RBAC config is applied, requests to the test-app services will start failing again. 
-The test-app currently doesn't have a role attached to it's service account that allows it to access the Couchdb database. 
+The test-app currently doesn't have a role attached to its service account that allows it to access the Couchdb database. 
 Therefor all requests to the service will be rejected with an HTTP error code of 403.
 
 The following manifest creates a role that allows access to the Couchdb service for all GET requests on any given path.
