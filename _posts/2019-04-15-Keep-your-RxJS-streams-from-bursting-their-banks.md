@@ -34,7 +34,7 @@ But reactive programming allows to create streams that emit multiple values and 
 This will cause memory leaks, unexpected behaviour and therefor bugs.
 The solution is quite simple: just unsubscribe or take only the needed events!
 
-You can cancel a subscribtion by calling its **unsubscribe** function, but then you're skimming the power of reactive programming.
+You can cancel a subscription by calling its **unsubscribe** function, but then you're skimming the power of reactive programming.
 Operators like - but not limited to - [**first**](https://rxmarbles.com/#first){:target="_blank" rel="noopener noreferrer"}, [**take**](https://rxmarbles.com/#take){:target="_blank" rel="noopener noreferrer"}, [**takeWhile**](https://rxmarbles.com/#takeWhile){:target="_blank" rel="noopener noreferrer"} and [**takeUntil**](https://rxmarbles.com/#takeUntil){:target="_blank" rel="noopener noreferrer"} will close a subscription as soon as the condition is met.
 
 ```typescript
@@ -162,7 +162,7 @@ onDestroy() {
 This way, only 1 subscription will exist, canceling it will automatically cancel any inner streams.
 And when `param$` would emit a new value, the `switchMap` operator will automatically cancel its inner stream and create a new one.
 
-> RULE: NEVER SUBSCRIBE WITHIN A SUBSCRIPTION
+> RULE: NEVER SUBSCRIBE WITHIN A SUBSCRIPTION<br/>
 This also applies for calling a function inside a subscription when that function has a subscription.
 
 ## Sharing is caring
@@ -189,7 +189,7 @@ stream2.subscribe(models => console.log('The models for this make are', models.j
 
 But in your developer tools' network tab, you notice that **userCarMake** has been requested twice.
 The answer to why should be obvious by now: there are two subscriptions.
-To solve this whith minimal changes, make the source stream a hot Observable using [**shareReplay**](https://www.learnrxjs.io/operators/multicasting/sharereplay.html){:target="_blank" rel="noopener noreferrer"}.
+To solve this with minimal changes, make the source stream a hot Observable using [**shareReplay**](https://www.learnrxjs.io/operators/multicasting/sharereplay.html){:target="_blank" rel="noopener noreferrer"}.
 
 ```typescript
 stream1 = httpGet('userCarMake').pipe(shareReplay(1));
@@ -471,7 +471,7 @@ Just count the number of times the keyword **this** is used inside the functions
 This could get even better if we pass the service's function as a parameter too.
 Each of these custom operators can easily be tested with [marble testing](https://github.com/ReactiveX/rxjs/blob/master/docs_app/content/guide/testing/marble-testing.md){:target="_blank" rel="noopener noreferrer"}.
 It's more readable, because now you can know for each stream how its values are determined.
-For example, in line 5, we can already read that the **isFormValid** will be changed by a change of the first item in the list of ChildObjects and that it will react on the validitiy of that object.
+For example, in line 5, we can already read that the **isFormValid** will be changed by a change of the first item in the list of ChildObjects and that it will react on the validity of that object.
 We no longer need to sift through the code to find that out.
 
 You'll notice that there are a lot of streams now.
