@@ -20,7 +20,7 @@ Apparently those aren’t needed, because the biggest function - 48 lines - is t
 
 So without further ado, here are the most common bad practices and their solutions.
 
-**Note: unless explicitly mentioned, these are NOT Angular specific**
+**Note: Unless explicitly mentioned, these are NOT Angular specific.**
 
 ## Consuming all the RAM
 
@@ -29,13 +29,13 @@ So without further ado, here are the most common bad practices and their solutio
 </p>
 
 Developers who are new to RxJS will often forget that a subscription can live on during the whole life time of your application.
-Most of the time they have only worked with simple XHR requests and those will by default emit only 1 value and then complete.
+Most of the time they have only worked with simple XHR requests and those will by default emit only one value and then complete.
 But reactive programming allows to create streams that emit multiple values and might never complete.
 This will cause memory leaks, unexpected behaviour and therefor bugs.
 The solution is quite simple: just unsubscribe or take only the needed events!
 
 You can cancel a subscribtion by calling its **unsubscribe** function, but then you're skimming the power of reactive programming.
-Operators like - but not limited to - [**first**](https://rxmarbles.com/#first), [**take**](https://rxmarbles.com/#take), [**takeWhile**](https://rxmarbles.com/#takeWhile) and [**takeUntil**](https://rxmarbles.com/#takeUntil) will close a subscription as soon as the condition is met.
+Operators like - but not limited to - [**first**](https://rxmarbles.com/#first){:target="_blank" rel="noopener noreferrer"}, [**take**](https://rxmarbles.com/#take){:target="_blank" rel="noopener noreferrer"}, [**takeWhile**](https://rxmarbles.com/#takeWhile){:target="_blank" rel="noopener noreferrer"} and [**takeUntil**](https://rxmarbles.com/#takeUntil){:target="_blank" rel="noopener noreferrer"} will close a subscription as soon as the condition is met.
 
 ```typescript
 interval(1000)       // --0--1--2--3--4--5--6--7--8--9--...-->
@@ -43,13 +43,13 @@ interval(1000)       // --0--1--2--3--4--5--6--7--8--9--...-->
   .subscribe(tick => console.log(tick));
 ```
 
-**Note: When using mergeMap or another variant in combination with takeUntil, make sure you add the takeUntil pipe at the end**
+**Note: When using mergeMap or another variant in combination with takeUntil, make sure you add the takeUntil pipe at the end.**
 
 > RULE: CANCEL SUBSCRIPTIONS THAT DO NOT COMPLETE BY THEMSELVES
 
 ### Angular specific: Use the AsyncPipe
 
-Angular provides an [AsyncPipe](https://angular.io/api/common/AsyncPipe), which lets you subscribe to a stream from inside your component’s template.
+Angular provides an [AsyncPipe](https://angular.io/api/common/AsyncPipe){:target="_blank" rel="noopener noreferrer"}, which lets you subscribe to a stream from inside your component’s template.
 The great advantage is that this subscription will automatically be openend when the component or the element in which it's used is created and cancelled when the component is destroyed.
 A quick example of a counter of seconds:
 
@@ -124,10 +124,10 @@ So you could start keeping track of subscriptions and cancel them at the ‘righ
 
 ```typescript
 subscription1 = param$.subscribe(param => {
-  if (subscription2 && !subscription2.closed) subscription2.unsubscribe(); 
+  if (subscription2 && !subscription2.closed) subscription2.unsubscribe();
   subscription2 = apiService.getObject(param).subscribe(obj => {
     this.obj = obj;
-    if (subscription3 && !subscription3.closed) subscription3.unsubscribe(); 
+    if (subscription3 && !subscription3.closed) subscription3.unsubscribe();
     subscription3 = anotherApiService.getEvents(obj.busId).subscribe(events => {
       this.events = events;
     });
@@ -143,8 +143,7 @@ onDestroy() {
 
 Wow! That’s amazing!
 Except it isn’t.
-It’s even worse!
-Here are 3 subscriptions, while it could be done with just 1 when using the correct operators:
+There are still 3 subscriptions, while it could be done with just 1 when using the correct operators:
 
 ```typescript
 subscription1 = param$.pipe(
@@ -175,7 +174,7 @@ This also applies for calling a function inside a subscription when that functio
 When using a stream on multiple locations, remember that there is a difference between a cold and a hot Observable.
 In short: a cold Observable will restart its stream for each subscription, while a hot Observable will reuse an existing stream when a subscription is added.
 Think of a cold Observable as a HTTP request, which fires each time again, and a hot Observable as a keyPress stream which emits the same event no matter how many subscriptions exist on the stream.
-If you need more details, you can read this article by Ben Lesh [Hot vs Cold Observables](https://medium.com/@benlesh/hot-vs-cold-observables-f8094ed53339).
+If you need more details, you can read this article by Ben Lesh [Hot vs Cold Observables](https://medium.com/@benlesh/hot-vs-cold-observables-f8094ed53339){:target="_blank" rel="noopener noreferrer"}.
 
 Sometimes you'll need to react on a cold Observable in multiple separate streams.
 For example, you need to display the response, but you also need to initiate a new stream to get other data.
@@ -190,7 +189,7 @@ stream2.subscribe(models => console.log('The models for this make are', models.j
 
 But in your developer tools' network tab, you notice that **userCarMake** has been requested twice.
 The answer to why should be obvious by now: there are two subscriptions.
-To solve this whith minimal changes, make the source stream a hot Observable using [**shareReplay**](https://www.learnrxjs.io/operators/multicasting/sharereplay.html).
+To solve this whith minimal changes, make the source stream a hot Observable using [**shareReplay**](https://www.learnrxjs.io/operators/multicasting/sharereplay.html){:target="_blank" rel="noopener noreferrer"}.
 
 ```typescript
 stream1 = httpGet('userCarMake').pipe(shareReplay(1));
@@ -203,15 +202,15 @@ stream2.subscribe(models => console.log('The models for this make are', models.j
 
 Though be careful when using this operator.
 If the source doesn't complete by itself, it will keep emitting values.
-To prevent this behaviour, use an options object in the shareReplay operator and set the required property **refCount** to true:
+To prevent this behaviour, use an options object in the `shareReplay` operator and set the required property **refCount** to true:
 
 ```typescript
 sharedStream = source.pipe(shareReplay({bufferSize: 1, refCount: true}));
 ```
 
-See [this stackblitz](https://stackblitz.com/edit/using-sharereplay) for an example of the difference.
-You can set a tslint rule to make sure you always use shareReplay with options.
-Here you can find the configuration: [rxjs-tslint-rules: rxjs-no-sharereplay](https://github.com/cartant/rxjs-tslint-rules#rxjs-no-sharereplay).
+See [this stackblitz](https://stackblitz.com/edit/using-sharereplay){:target="_blank" rel="noopener noreferrer"} for an example of the difference.
+You can set a tslint rule to make sure you always use `shareReplay` with options.
+Here you can find the configuration: [rxjs-tslint-rules: rxjs-no-sharereplay](https://github.com/cartant/rxjs-tslint-rules#rxjs-no-sharereplay){:target="_blank" rel="noopener noreferrer"}.
 
 ### Angular specific: use shareReplay with AsyncPipe
 
@@ -243,11 +242,11 @@ One of the major advantages of using streams is that you can write declarative c
 Declarative code means that the code can explain itself without the need of comments.
 Great!
 Now developers don't need to worry about writing comments anymore.
-RxJS provides a lot of operators that are self-explanatory: map, filter, withLatestFrom, catchError, ...
+RxJS provides a lot of operators that are self-explanatory: `map`, `filter`, `withLatestFrom`, `catchError`, ...
 So what's the problem?
 It's something what I've noticed a lot lately.
 A stream with so many piped operators that it isn't even funny anymore.
-Let's look at the following stream: (*Note: this is a slightly modified stream from the file spoken of earlier, because I just can't come up with this stuff*)
+Let's look at the following stream: (*Note: this is a slightly modified stream from the file spoken of earlier, because I just can't come up with this stuff.*)
 
 ```typescript
 this.childObject$ = merge(
@@ -302,8 +301,9 @@ this.isLastChildObject$.subscribe(lastChildObject => console.log('Second object 
 Can anyone explain what is going on here?
 If you're reading this blog than you probably have some experience with RxJS and probably understand the meaning of the operators used in this example.
 And while it might be readable for an insightful developer, try to imagine a newbie getting thrown into a project where this is presented.
-When that happens, just like with functions, you have to split up the stream.
-This might mean more lines, but it would make the code a lot more readable.
+I bet they won't be very inspired or motivated to work on this.
+When that happens, you have to split up the stream, just like you'd split up functions that get too big.
+This might mean a bit more lines, but it would make the code a lot more readable.
 
 ```typescript
 isParentObjectValid(parentObject) {
@@ -359,8 +359,8 @@ this.isLastChildObject$.subscribe(lastChildObject => console.log('Second object 
 
 Now it's more possible to test various situations for each inner stream and mock the individual outcomes to be used in a test for the outer stream.
 We can even move parts to separate files or classes, but for the sake of this example we'll keep everything together.
-It's not yet perfect, but it gives some room to breath.
-At least we can now read quickly what the the outer stream is supposed to do.
+It's not yet perfect, but it gives some room to breathe.
+At least we can now read quickly what the outer stream is supposed to do.
 Notice that there are no longer pipe functions within other pipe functions.
 This makes a stream more streamlined (pun intended, really).
 
@@ -398,10 +398,14 @@ const betterScore$ = goals$.pipe(
 );
 ```
 
-I believe that a stream should always be a constant and never be reinitialized.
-Luckily it's possible to create [custom pipe operators](https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md#build-your-own-operators-easily) for these situations.
+Notice the use of the `scan` operator instead of a `map`.
+If you have side effects, you might be using the wrong operators.
+More about that a bit later in this post.
 
-Let's continue based on the previous example:
+I believe that a stream should always be a constant and never be reinitialized.
+Luckily it's possible to create [custom pipe operators](https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md#build-your-own-operators-easily){:target="_blank" rel="noopener noreferrer"} for these situations.
+
+Let's continue based on the example from the previous chapter:
 
 ```typescript
 this.nonCancelledParentObject$ = this.parentObject$.pipe(this.onlyNonCancelledParentObject(this.cancelled$));
@@ -463,16 +467,17 @@ this.isLastChildObject$.subscribe(lastChildObject => console.log('Second object 
 ```
 
 Now almost every part of the stream is created using a pure function as pipe operator.
-Just count the number of time the keyword **this** is used inside the functions (hint: we went from 10 times to only 1).
-Each of these custom operators can easily be tested with [marble testing](https://github.com/ReactiveX/rxjs/blob/master/docs_app/content/guide/testing/marble-testing.md).
+Just count the number of times the keyword **this** is used inside the functions (hint: we went from 10 times to only 1).
+This could get even better if we pass the service's function as a parameter too.
+Each of these custom operators can easily be tested with [marble testing](https://github.com/ReactiveX/rxjs/blob/master/docs_app/content/guide/testing/marble-testing.md){:target="_blank" rel="noopener noreferrer"}.
 It's more readable, because now you can know for each stream how its values are determined.
 For example, in line 5, we can already read that the **isFormValid** will be changed by a change of the first item in the list of ChildObjects and that it will react on the validitiy of that object.
 We no longer need to sift through the code to find that out.
 
 You'll notice that there are a lot of streams now.
-Most of them are intermediary, so they could be scoped inside a function.
+Most of them are intermediary, so they could be scoped inside a different block.
 Or they can be moved to separate files to keep the main file clean and the streams grouped by logical unit, but always keep subscriptions in your main file.
-For the sake of this example I kept them there.
+For the sake of this example I kept all streams together.
 
 > RULE: INSTANTIATE YOUR STREAMS WITH PURE FUNCTIONS SO THEY CAN BE TESTED AND MOVED EASILY
 
@@ -481,28 +486,28 @@ For the sake of this example I kept them there.
 ### Angular specific: handling @Input() properties
 
 A common question I get with this approach is that some streams can not be defined until an **@Input()** property is set.
-Ridiculous, there is no such thing as a "can not" in programming.
+Ridiculous, there is no such thing as a "can not" in programming!
 Consider this example:
 
 ```typescript
 @Component({
   selector: 'greet',
-  template: `<h1>{% raw %}{{ message$ | async }}{% endraw %}</h1>`
+  template: `<h1>{% raw %}{{ message }}{% endraw %}</h1>`
 })
 export class GreetingComponent implements OnInit, OnChanges {
   @Input() name: string;
 
-  message$: Subject<string>;
+  message: string;
 
   constructor(private service: APIService) { }
 
   ngOnInit() {
-      this.service.getMessage(name)).subscribe(name => this.message$.next(name));
+      this.service.getMessage(name)).subscribe(name => this.message = name);
   }
 
   ngOnChanges(changes: SimpleChanges) {
-      if (changes['name']) {
-          this.service.getMessage(changes['name'].currentValue).subscribe(name => this.message$.next(name));;
+      if (changes['name'] && changes['name'].previousValue !== changes['name'].currentValue) {
+          this.service.getMessage(changes['name'].currentValue).subscribe(name => this.message = name);
       }
   }
 }
@@ -526,7 +531,10 @@ export class GreetingComponent  {
   constructor(private service: APIService) { }
 
   private createMessageStream(name$: Observable<string>) {
-      return name$.pipe(switchMap(name => this.service.getMessage(name)));
+      return name$.pipe(
+        distinctUntilChanged(),
+        switchMap(name => this.service.getMessage(name))
+      );
   }
 }
 ```
@@ -547,7 +555,7 @@ Before creating a stream, like anything in programming, analyse what your stream
 Do this by drawing marble diagrams.
 If multiple streams are needed, make a diagram for each stream and place them under each other.
 Use marble testing to write easy to understand unit tests for streams.
-In my experience, the package [rxjs-marbles](https://cartant.github.io/rxjs-marbles/) can help a lot with that.
+In my experience, the package [rxjs-marbles](https://cartant.github.io/rxjs-marbles/){:target="_blank" rel="noopener noreferrer"} can help a lot with that.
 
 ```typescript
 it('should emit parentObject only if not cancelled', marbles((m) => {
@@ -570,15 +578,16 @@ it('should emit parentObject only if not cancelled', marbles((m) => {
 
 When you know what your stream should do, then it's time to build it.
 There is a big amount of operators available in RxJS.
-The most common are displayed in an interactive diagram at [rxmarbles.com](https://rxmarbles.com/).
+The most common are displayed in an interactive diagram at [rxmarbles.com](https://rxmarbles.com/){:target="_blank" rel="noopener noreferrer"}.
 
+It's important that you know the differences between them.
 Some examples:
 There's a difference between using **mergeMap**, **switchMap**, **concatMap** and **exhaustMap** when making substreams.
 There is a difference between using **combineLatest**, **withLatestFrom**, **zip** and **forkJoin** when combining streams.
 There is also a subtle difference between **first** and **take(1)** when a stream would never emit a value and just complete:
 
 ```typescript
-// The following will output 'error: no elements in sequence'
+// This will output 'error: no elements in sequence'
 EMPTY.pipe(first())
   .subscribe(
     event => console.log('event', event),
@@ -586,7 +595,7 @@ EMPTY.pipe(first())
     () => console.log('completed')
   );
 
-// The following will output 'completed'
+// This will output 'completed'
 EMPTY.pipe(take(1))
   .subscribe(
     event => console.log('event', event),
@@ -597,16 +606,17 @@ EMPTY.pipe(take(1))
 
 The following guides can help to find which operators to use:
 
-- [Which Operator to Use? - Creation Operators](http://xgrommx.github.io/rx-book/content/which_operator_do_i_use/creation_operators.html)
-- [Which Operator to Use? - Instance Operators](http://xgrommx.github.io/rx-book/content/which_operator_do_i_use/instance_operators.html)
+- [Which Operator to Use? - Creation Operators](http://xgrommx.github.io/rx-book/content/which_operator_do_i_use/creation_operators.html){:target="_blank" rel="noopener noreferrer"}
+- [Which Operator to Use? - Instance Operators](http://xgrommx.github.io/rx-book/content/which_operator_do_i_use/instance_operators.html){:target="_blank" rel="noopener noreferrer"}
 
-Once you know which operators to use, you can easily try out your stream using [StackBlitz](https://stackblitz.com/) or [Rx Visualizer](https://rxviz.com/).
+Once you know which operators to use, you can easily try out your stream using [StackBlitz](https://stackblitz.com/){:target="_blank" rel="noopener noreferrer"} or [Rx Visualizer](https://rxviz.com/){:target="_blank" rel="noopener noreferrer"}.
 
-Don't forget you can [build your own operators easily](https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md#build-your-own-operators-easily) to combine or quickhand other operators.
+Don't forget you can [build your own operators easily](https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md#build-your-own-operators-easily){:target="_blank" rel="noopener noreferrer"} to combine or quickhand other operators.
 
 > RULE: USE THE CORRECT PIPE OPERATORS
 
 ## Ending
 
 That's all folks.
-I hope this will help some of you to write better RxJS streams.
+Some of these rules are opinionated, but I hope they will help some of you to write better RxJS streams.
+Just remember: It's not because you know what you're doing that everyone knows what you're doing.
