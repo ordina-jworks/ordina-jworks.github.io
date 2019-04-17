@@ -25,7 +25,7 @@ So without further ado, here are the most common bad practices and their solutio
 ## Consuming all the RAM
 
 <p style="text-align: center;">
-  <img alt="Jack Sparrow: But why is the RAM gone" src="{{ '/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y7g2l.jpg' | prepend: site.baseurl }}">
+  <img alt="Jack Sparrow: But why is the RAM gone" src="{{ '/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y7g2l.jpg' | prepend: site.baseurl }}" class="image fit-contain">
 </p>
 
 Developers who are new to RxJS will often forget that a subscription can live on during the whole life time of your application.
@@ -94,7 +94,7 @@ export class AppComponent  {
 ## Yo dawg, I heard you like Subscriptions
 
 <p style="text-align: center;">
-  <img alt="Xzibit: I put a subscription inside your subscription" src="{{ '/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y7avi.jpg' | prepend: site.baseurl }}">
+  <img alt="Xzibit: I put a subscription inside your subscription" src="{{ '/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y7avi.jpg' | prepend: site.baseurl }}" class="image fit-contain">
 </p>
 
 This should be basic knowledge by anyone using the Observable pattern.
@@ -169,7 +169,7 @@ This also applies for calling a function inside a subscription when that functio
 ## Sharing is caring
 
 <p style="text-align: center;">
-  <img alt="Cat with big bowl of food: What do you mean, I have to share?" src="{{ '/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y7xld.jpg' | prepend: site.baseurl }}">
+  <img alt="Cat with big bowl of food: What do you mean, I have to share?" src="{{ '/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y7xld.jpg' | prepend: site.baseurl }}" class="image fit-contain">
 </p>
 
 When using a stream on multiple locations, remember that there is a difference between a cold and a hot Observable.
@@ -236,7 +236,7 @@ export class AppComponent  {
 ## My stream is too big
 
 <p style="text-align: center;">
-  <img alt="Boy with a giant spoon: My stream is too big" src="{{ '/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y7st6.jpg' | prepend: site.baseurl }}">
+  <img alt="Boy with a giant spoon: My stream is too big" src="{{ '/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y7st6.jpg' | prepend: site.baseurl }}" class="image fit-contain">
 </p>
 
 One of the major advantages of using streams is that you can write declarative code.
@@ -371,7 +371,7 @@ This makes a stream more streamlined (pun intended, really).
 ## Impurity and side effects
 
 <p style="text-align: center;">
-  <img alt="Boromir: One does not simply set a subject's next value inside a stream" src="{{ '/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y84y7.jpg' | prepend: site.baseurl }}">
+  <img alt="Boromir: One does not simply set a subject's next value inside a stream" src="{{ '/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y84y7.jpg' | prepend: site.baseurl }}" class="image fit-contain">
 </p>
 
 Pure functions are functions that will always return the same value for the same input parameters, keep state local and do not alter the input parameters.
@@ -538,7 +538,7 @@ Though it doesn't always have to.
 ## I have no idea what I'm doing
 
 <p style="text-align: center;">
-  <img alt="Dog on computer: I have no idea what I'm doing" src="{{ '/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/dog.jpg' | prepend: site.baseurl }}">
+  <img alt="Dog on computer: I have no idea what I'm doing" src="{{ '/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/dog.jpg' | prepend: site.baseurl }}" class="image fit-contain">
 </p>
 
 Last but not least, make sure you understand the flow of your streams.
