@@ -43,7 +43,7 @@ Secondly, the JWT is only valid for a predefined amount of time.
 For a normal user, this is fine, since they can easily reauthenticate once the token expires.
 In services, reauthentication mechanisms tend to be a bit harder to set up and often result in hard to debug issues. 
 
-Introducting service to service authentication through mutual trusted certificates. 
+Introducing service to service authentication through mutual trusted certificates. 
 This approach uses public certificate and private key pairs to generate trust between services.
 When a service is started, a service specific certificate is generated and provided to the service.
 The service exposes this certificate and connecting services (clients) can validate it.
