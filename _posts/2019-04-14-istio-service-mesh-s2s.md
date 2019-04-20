@@ -22,7 +22,7 @@ comments: true
 
 Istio is a service mesh created by Google, Lyft and IBM. 
 It aims to simplify some security and management aspects of a microservices software architecture.
-More information on Istio and it's feature can be found in it's [docs](https://istio.io/docs/).
+More information on Istio and its feature can be found in its [docs](https://istio.io/docs/){:target="_blank" rel="noopener noreferrer"}.
 In this blogpost we will highlight one of the key security features of Istio: service to service authentication and authorization.
 For the sake of simplicity, this post will focus on an Istio setup in Kubernetes.
 
