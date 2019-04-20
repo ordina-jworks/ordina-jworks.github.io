@@ -41,7 +41,7 @@ The first main issue is that services often need more broader access to services
 This makes the credentials they hold very powerful, which makes them dangerous to manage. 
 Secondly, the JWT is only valid for a predefined amount of time. 
 For a normal user, this is fine, since they can easily reauthenticate once the token expires.
-In services, reauthentication mechanisms tend to be a bit harder to setup and often result in hard to debug issues. 
+In services, reauthentication mechanisms tend to be a bit harder to set up and often result in hard to debug issues. 
 
 Introducting service to service authentication through mutual trusted certificates. 
 This approach uses public certificate and private key pairs to generate trust between services.
