@@ -96,10 +96,10 @@ The most convenient options is to use binary distributions from other providers,
 | ----------------------------------------------------------- | --------- | ---- | -----------------------  | ------------- | ------------------------------- | -------------------------------------------------- |
 | [AdoptOpenJDK](https://adoptopenjdk.net/)                   | 8, 11     | No   | Until at least Sep 2023  | Major + Minor | IBM, jClarity                   | Indefinitely (IBM), Until at least 2025 (jClarity) |
 | [Amazon Corretto](https://aws.amazon.com/corretto/)         | 8, 11     | Yes  | Until at least June 2023 | Major         | -                               | ?                                                  |
-| [Azul Zulu](https://www.azul.com/downloads/zulu/)           | 8, 11     | Yes  | ?                        | Major + Minor | Azul                            | ?                                                  |
-| [Bellsoft Liberica](https://www.bell-sw.com/pages/products) | 8, 11     | Yes  | Until at least 2023      | Major + Minor | BellSoft                        | ?                                                  |
+| [Azul Zulu](https://www.azul.com/downloads/zulu/)           | 8, 11     | Yes  |                          | Major + Minor | Azul                            | March 2025 (8), September 2026 (11)                |
+| [Bellsoft Liberica](https://www.bell-sw.com/pages/products) | 8, 11     | Yes  | Until at least 2023      | Major + Minor | BellSoft                        | until 2026                                         |
 | [Oracle OpenJDK](https://openjdk.java.net/)                 | 11        | Yes  | Until Mar 2019           | Major         | Oracle (through the Oracle JDK) | September 2023, September 2026 (extended support)  |
-| [SapMachine](https://sap.github.io/SapMachine/)             | 11        | Yes  | ?                        | Major         | ?                               | September 2022                                     |
+| [SapMachine](https://sap.github.io/SapMachine/)             | 11        | Yes  | September 2022           | Major         | SAP                             | September 2022                                     |
 
 \* **Major** = Linux x86, Mac OS x, Windows x64, **Minor** = various other platforms
 
