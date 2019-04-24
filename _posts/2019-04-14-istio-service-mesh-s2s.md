@@ -124,7 +124,7 @@ Our database is an Apache CouchDB instance.
 Both the database and the service run inside Kubernetes.
 The setup is shown in the image below.
 
-<img class="image fit" src="{{ '/img/2019-04-01-istio-service-mesh-s2s/setup.png' | prepend: site.baseurl }}" alt="demo setup" />
+<img class="image fit" src="{{ '/img/2019-04-14-istio-service-mesh-s2s/setup.png' | prepend: site.baseurl }}" alt="demo setup" />
 
 ### Create namespace
 
