@@ -16,6 +16,7 @@ comments: true
 * [Oracle's JDK distributions](#oracles-jdk-distributions)
 * [OpenJDK updates](#openjdk-updates)
 * [OpenJDK providers](#openjdk-providers)
+* [Java Desktop, Java Web Start and JavaFX](#java-desktop-java-web-start-and-javafx)
 
 ## Oracle's JDK distributions
 
@@ -61,17 +62,17 @@ Oracle leads the first six months of the OpenJDK LTS code line, providing update
 
 There's a but however, Oracle will work with other OpenJDK vendors to hand over the OpenJDK LTS code line and allow those vendors to continue working on these updates together. Handing over the openJDK code line has already occurred for both Java 8 and Java 11 with Red Hat taking over those update projects, this doesn't mean that they are the only one contributing to the OpenJDK project, various people can still provide patches and add new features to new versions of the OpenJDK, you can read more about JDK 11 updates [here](https://wiki.openjdk.java.net/display/JDKUpdates/JDK11u) you'll see that there updates planned there for for at least Mid October 2019.
 
-This means that the Oracle's JDK could differ from the OpenJDK based binaries and the JDK's provided by other vendors. Most of the major vendors have continued to take efforts to keep them in sync as much as possible, but this does mean they you should develop, test, .. your applications on the binaries you plan on using in production, or you might end op with some unexpected results during production.
+This means that the Oracle's JDK could differ from the OpenJDK based binaries and the JDK's provided by other vendors. Most of the major vendors have continued to take efforts to keep them in sync as much as possible, but this does mean you should develop, test, .. your applications on the binaries you plan on using in production, or you might end op with some unexpected results during production, to prevent big differences a TCK is provided by Oracle for OpenJDK distributions, more about that later in the article.
 
 ## OpenJDK updates
 
-The openJDK community works on a free, open-source implementations of the Java Se standard. Oracle contributes allot to this project, and forms the basis for both the Oracle JDK and OpenJDK builds. OpenJDK 11+ versions are interchangeable with Oracle's JDK for applications. Oracle will continue to contribute to OpenJDK while they provide updates for the corresponding Oracle OpenJDK build version. Once that version is superseded, Oracle will cease contributing to that version and start updating the next one.
+The openJDK community works on free, open-source implementations of the Java Se standard. Oracle contributes allot to these project, and forms the basis for both the Oracle JDK and OpenJDK builds. OpenJDK 11+ versions are interchangeable with Oracle's JDK for applications. Oracle will continue to contribute to OpenJDK while they provide updates for the corresponding Oracle OpenJDK build version. Once that version is superseded, Oracle will cease contributing to that version and start updating the next one.
 
 ### Updates from other vendors
 
-Oracle is very receptive of the idea on having community maintenance and will continue to support handover of the OpenJDK to the community to qualified volunteering entities once they have moved on to working on the next version. Red Hat is currently globally leading and updating OpenJDK 6 and OpenJDK 7 projects after Oracle ended updates for them. After Read hat stopped updating OpenJDK 6, Azul Systems has taken over leading the project and continued to provide updates for the project to this day.
+Oracle is very receptive of the idea on having community maintenance and will continue to support handover of the OpenJDK to the community to a qualified volunteering entity once they have moved on to working on the next version. Red Hat is currently globally leading and updating OpenJDK 6 and OpenJDK 7 projects after Oracle ended updates for them. After Red hat stopped updating OpenJDK 6, Azul Systems has taken over leading the project and continued to provide updates for the project to this day.
 
-Red Hat will soon be leading OpenJDK 8 and OpenJDK 11. This does not mean that they are the sole contributors to the project they lead, other vendors are providing patches and updates as well. The biggest contribution are happening to the OpenJDK 8 project with contributions from not just Red Hat, but Amazon, Azul Systems, BellSoft, IBM, jClarity, Google, Sap and many other vendors.
+Red Hat is currently leading OpenJDK 8 and OpenJDK 11 since April. This does not mean that they are the sole contributors to the project they lead, other vendors are providing patches and updates as well. The biggest contribution are happening to the OpenJDK 8 project with contributions from not just Red Hat, but Amazon, Azul Systems, BellSoft, IBM, jClarity, Google, Sap and many other vendors.
 
 For consistency, these venders provide extended update cycles for their openJDK for the same versions that are deemed LTS for Oracle's JDK.
 
@@ -79,7 +80,7 @@ For consistency, these venders provide extended update cycles for their openJDK 
 
 ### Build yourself from source providers
 
-One of the options you have is to build a jdk from source code this means OpenJDK, no commercial support and you need to build it yourself and keep it updated, this not suggested since this requires you to put resources in checking for updates and applying patches if needed, there also no on getting any commercial support if you ever need it.
+One of the options you have is to build a JDK from source code this means OpenJDK, no commercial support and you need to build it yourself and keep it updated, this not suggested since this requires you to put resources in checking for updates and applying patches if needed, there also no way of getting any commercial support if you ever need it.
 
 #### Source providers
 * [Mercurial](http://hg.openjdk.java.net/)
@@ -88,7 +89,7 @@ One of the options you have is to build a jdk from source code this means OpenJD
 
 ### Using binaries from providers
 
-The most convenient options is to use binary distributions from other providers, that are providing public updates.
+The most convenient option is to use binary distributions from other providers, that are providing public updates.
 
 #### Free binary distributions & commercial support
 
@@ -103,10 +104,13 @@ The most convenient options is to use binary distributions from other providers,
 
 \* **Major** = Linux x86, Mac OS x, Windows x64, **Minor** = various other platforms
 
-***Notes:**
-As a general philosophy, AdoptOpenJDK will continue to build binaries for LTS releases as long as the corresponding upstream source (Oracle OpenJDK) is actively maintained. The Eclipse OpenJ9 Support Document covers extra support info for that VM.
-This information might change overtime and was gathered from the vendors pages and support, contact vendors for the most recent information.
-jClarity will support their JDK binaries as long as produced that likely means 2028*
+***Notes:***
+
+*As a general philosophy, AdoptOpenJDK will continue to build binaries for LTS releases as long as the corresponding upstream source (Oracle OpenJDK) is actively maintained. The Eclipse OpenJ9 Support Document covers extra support info for that VM.*
+
+*This information might change overtime and was gathered from the vendors pages and support, contact vendors for the most recent information.*
+
+*jClarity will support their JDK binaries as long as produced that likely means 2028*
 
 ##### Technology Compatibility Kit for Java (TCK)
 
@@ -132,7 +136,7 @@ The javapackager, which allowed you to bundle applications and their dependencie
 
 ### Java WebStart
 
-Java WebStart has been removed from Oracle's JDK versions starting from versions 11.
+Java WebStart has been removed from Oracle's JDK versions starting from version 11.
 * Alternatively you can use [IcedTea-Web](https://icedtea.classpath.org/wiki/IcedTea-Web)
   * AdoptOpenJDK will be supporting OpenJDK binaries with IcedTea-Web
   * IBM will be supporting AdoptOpenJDK builds of OpenJDK with IcedTea-Web
