@@ -2,13 +2,13 @@
 layout: post
 authors: [duncan_casteleyn]
 title: 'JDK distributions'
-image: /img/2019-03-12-JDK-distributions/openjdk.png
+image: /img/2019-04-24-JDK-distributions/openjdk.png
 tags: [Java, OpenJDK, JDK]
 category: Java
 comments: true
 ---
 
-> Recently we had a discussion in our chat group of developers which made us realise how much confusion there is on the new update cycle for the JVM.
+> Around February we had a discussion in our chat group of developers which made us realise how much confusion there is on the new update cycle for the JVM.
 > We decided it would be good idea to write a blog post that should clear up the confusion for our developers and clients
 
 # Table of content
@@ -19,13 +19,13 @@ comments: true
 
 ## Oracle's JDK distributions
 
-First we have to explain what changed to Oracle's JDK distributions recently, which have brought along allot of uncertainty withing the Java community, this blog post is going to try to explain these changes and more importantly tell you what you should know about the licenses and options you have. At the end of this article you should know more about free updates and commercial support options from various JDK vendors and understand that the OpenJDK 8 and 11 are still being updated, even though Oracle is going to stop leading those projects, to focus on the new versions and providing commercial support.
+First we have to explain what changed to Oracle's JDK distributions recently, which have brought along allot of uncertainty within the Java community, this blog post is going to try to explain these changes and more importantly tell you what you should know about the licenses and options you have. At the end of this article you should know more about free updates and commercial support options from various JDK vendors and understand that OpenJDK 8 and 11 are still being updated, even though Oracle is going to stop leading those projects, to focus on the new versions and providing commercial support.
 
 ### Six month release cycle
 
-Java SE now has new major versions released every six months since java version 9, prior to this version updates where provided by Oracle and other OpenJDK contributors, these releases such as 8u91, 8u111 and 8u131 where released every six months, you would not get further updates on 8u91 once 8u111 was release and no longer get updates for 8u111 once 8u131 was released.
+Java SE now has new major versions released every six months since java version 9, prior to this version updates where provided by Oracle and other OpenJDK contributors, these releases such as 8u91, 8u111 and 8u131 where released every six months, you would not get further updates on 8u91 once 8u111 was released and no longer get updates for 8u111 once 8u131 was released.
 
-Since java version 9 however there is new six month release cycle for major versions similar to the old update cycle once 8u131 was release you would not get updates for 8u111, in the new version system you would no longer get updates for java 12 once java 13 is released, exceptions being long term support versions versions which will get updates beyond 6 months more about that later.
+Since java version 9 however there is new six month release cycle for major versions similar to the old update cycle once 8u131 was released you would not get updates for 8u111, in the new version system you would no longer get updates for java 12 once java 13 is released, exceptions being long term support versions versions which will get updates beyond 6 months more about that later.
 
 Below is a table for free updates, each vendor can release their own openJDK distributions and decide for themselves how long they provide free updates. If you want pick a vendor make sure you research how long they will be providing free updates/support because this may vary from vendor to vendor, further in the article we provide a table wit most of this information.
 
