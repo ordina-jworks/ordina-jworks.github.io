@@ -61,13 +61,17 @@ There are three main components responsible for making this possible in Istio: C
 Citadel is Istio's fortress of trust.
 It manages all certificates and acts as a Root CA in the Istio setup.
 
-Pilot is the main information manager.
-It is responsible for gathering all required information and communicating this to the sidecar proxies.
-Pilot will initialise the proxies during start-up with their configuration and the certificates from Citadel.
+Galley is the main information manager.
+It is responsible for gathering all required information from the underlying platform.
+
+Pilot manages all routing information and manages all the information for the proxies.
+It will initialise the proxies during start-up with their configuration and the certificates from Citadel.
 
 Mixer is responsible for all monitoring, logging and authorization information.
 Whenever a proxy performs an action, Mixer knows about it. 
 This allows it to both monitor and log connections, but also provide authorization information to the proxies. 
+
+<img class="image fit" src="{{ '/img/2019-04-14-istio-service-mesh-s2s/arch.svg' | prepend: site.baseurl }}" alt="Istio architecture drawing" />
 
 A final, optional component is the sidecar injector.
 This component is not mandatory for the service mesh to work, but makes using it a lot easier.
@@ -283,6 +287,10 @@ spec:
             ...
 ```
 
+The current setup is displayed in the following drawing.
+
+<img class="image fit" src="{{ '/img/2019-04-14-istio-service-mesh-s2s/istio-basic-setup.png' | prepend: site.baseurl }}" alt="Basic setup in Istio" />
+
 ### Enabling mutual TLS (mTLS)
 
 Currently the service can connect to the backend just fine. 
@@ -307,6 +315,9 @@ spec:
 
 Note, this policy only affects the incoming connections on the Envoy proxy.
 When a request would be sent to the test-app service now, it would be rejected with an HTTP 503 error code.
+This is shown in the following drawing.
+
+<img class="image fit" src="{{ '/img/2019-04-14-istio-service-mesh-s2s/istio-mtls-broken.png' | prepend: site.baseurl }}" alt="Broken mTLS drawing" />
 
 Next, the outgoing (client) connections needs to be configured to use mTLS.
 This can be done by specifying a destination rule for the services.
@@ -356,6 +367,9 @@ spec:
 After this RBAC config is applied, requests to the test-app services will start failing again. 
 The test-app currently doesn't have a role attached to its service account that allows it to access the CouchDB database. 
 Therefor all requests to the service will be rejected with an HTTP error code of 403.
+This is shown in the following drawing.
+
+<img class="image fit" src="{{ '/img/2019-04-14-istio-service-mesh-s2s/istio-rbac-refused.png' | prepend: site.baseurl }}" alt="RBAC refuses connection" />
 
 The following manifest creates a role that allows access to the CouchDB service for all GET requests on any given path.
 Note that the full service name is used in the services specification, this is currently required by Istio.
