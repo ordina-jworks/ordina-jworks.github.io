@@ -56,7 +56,7 @@ This is exactly where Istio pops up in the game.
 It makes using certificates for service to service encryption and authentication easy.
 Especially when using the automatic proxy injection, it's almost as easy as flipping a switch.
 
-There are three main components responsible for making this possible in Istio: Citadel, Pilot and Mixer. 
+There are five main components responsible for making this possible in Istio: Citadel, Pilot, Galley, Mixer and Envoy. 
 
 Citadel is Istio's fortress of trust.
 It manages all certificates and acts as a Root CA in the Istio setup.
@@ -70,6 +70,11 @@ It will initialise the proxies during start-up with their configuration and the 
 Mixer is responsible for all monitoring, logging and authorization information.
 Whenever a proxy performs an action, Mixer knows about it. 
 This allows it to both monitor and log connections, but also provide authorization information to the proxies. 
+
+The final piece to the puzzle is Envoy. 
+Envoy is the sidecar proxy responsible for handling the actual traffic between services in the service mesh.
+It will setup and manage the required mTLS connections and perform all required check with regards to the routing. 
+Envoy is managed as a separate project and in theory an other proxy could be used, but Envoy is most common.
 
 <img class="image fit" style="margin:0px auto; max-width: 600px;" src="{{ '/img/2019-04-14-istio-service-mesh-s2s/arch.svg' | prepend: site.baseurl }}" alt="Istio architecture drawing" />
 
