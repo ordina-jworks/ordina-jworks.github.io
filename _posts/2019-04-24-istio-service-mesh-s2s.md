@@ -353,12 +353,12 @@ RBAC allows for roles to be defined that specify access to specific services in 
 By attaching these roles to service accounts (which are connected to services) services can be premitted to access specific other services. 
 This limits the reach a single service has in the cluster and therefor adheres to the least privileges principle.
 
-The following manifest defines an cluster RBAC configuration.
+The following manifest defines a cluster RBAC configuration.
 Such configuration can only exist once in the entire service mesh and it needs to have the name `default`.
 The mode `ON_WITH_INCLUSION` specifies that all subjects that are listed in the inclusion section need to have RBAC enabled. 
-These subject can be namespace and/or specific services.
+These subjects can be namespaces and/or specific services.
 Specifying the namespace `with-istio` in the inclusion section, enables RBAC for all services in that namespace.
-By default the RBAC configuration will reject all requests which don't have the proper access defined with a HTTP 403 error code. 
+By default the RBAC configuration will reject all requests which don't have the proper access defined with an HTTP 403 error code. 
 
 ```yaml
 apiVersion: "rbac.istio.io/v1alpha1"
@@ -403,7 +403,7 @@ The role is the one that was created using the previous manifest.
 The subjects can be any identity known to Istio. 
 In the demo scenario, only the service accounts are known.
 Istio defines a service account as a user identity. 
-As with the services names, the service account reference needs to be the full reference scoped towards the cluster.
+As with the service names, the service account reference needs to be the full reference scoped towards the cluster.
 This allows services from outside of the namespaces to be specified as well.
 
 ```yaml
@@ -434,6 +434,6 @@ In a nutshell, Istio allows cluster admins to enable secure communication, and s
 The application developers don't need to adopt their application in order to communicate securly in the cluster, nor do they have to change their deployment configuration to enable the service mesh.
 
 This blogpost only highlighted a portion of the features of Istio. 
-Security is only a part of the featureset. 
+Security is only a part of the feature set. 
 Istio also allows advanced traffic management, monitoring and logging.
 Maybe something for a future blogpost.
