@@ -49,8 +49,10 @@ When a service is started, a service specific certificate is generated and provi
 The service exposes this certificate and connecting services (clients) can validate it.
 Because certificates can have a longer life span, this is easier to manage, compared to the JWT setup. 
 Setting up certificates, adopting the services to use them and rotating them over time, can be very challenging.
-Every services needs to expose a secure endpoint and serve the correct certificate.
+Every service needs to expose a secure endpoint and serve the correct certificate.
 This is a non-trivial step and can, again, introduce very hard to debug issues.
+
+// TODO section about 2 kinds of authZ and AuthN
 
 This is exactly where Istio pops up in the game.
 It makes using certificates for service to service encryption and authentication easy.
@@ -61,7 +63,7 @@ There are five main components responsible for making this possible in Istio: Ci
 Citadel is Istio's fortress of trust.
 It manages all certificates and acts as a Root CA in the Istio setup.
 
-Galley is the main information manager.
+Galley is the main configuration manager.
 It is responsible for gathering all required information from the underlying platform.
 
 Pilot manages all routing information and manages all the information for the proxies.
@@ -97,7 +99,7 @@ Policies can be scoped in two levels: mesh wide (Mesh Policies) and namespace wi
 
 ### Destination Rules
 
-[Destination rules](https://istio.io/docs/concepts/traffic-management/#destination-rules){:target="_blank" rel="noopener noreferrer"} are a set of rules that are evaluated when a services is called.
+[Destination rules](https://istio.io/docs/concepts/traffic-management/#destination-rules){:target="_blank" rel="noopener noreferrer"} are a set of rules that are evaluated when a service is called.
 They define multiple different routing options.
 For the scope of this blogpost, they will only be used to define which services require to be accessed using mTLS.
 
@@ -114,7 +116,7 @@ When a binding is created, the identities connected to it are allowed the access
 
 ## Show me the code
 
-Explaining the Istio service to service authentication and authorization will now be explain by using an example setup.
+The Istio service to service authentication and authorization will now be explained by using an example setup.
 Note that the code snippets have been shortened in this blogpost.
 This is denoted with three dots `...`.
 The full examples can be found in the accompanying repository on [Github](https://github.com/pietervincken/istio-service-to-service-demo){:target="_blank" rel="noopener noreferrer"}
@@ -159,11 +161,11 @@ This way, it can be used by the Istio proxy later on.
 Secondly, the probes have been adapted to work in Istio.
 Since Istio intercepts all traffic in the pod, it will also intercept requests from the Kube API to the service.
 Since the demo setup requires mTLS to be used, the probes would fail because the Kube API doesn't use mTLS.
-Instead of using changing the probes, Istio now has the option to rewrite the probes during the automatic proxy injection. 
+Instead of manually changing the probes, Istio now has the option to rewrite the probes during the automatic proxy injection. 
 More information on the probes can be found in the [Istio Docs](https://istio.io/help/ops/setup/app-health-check/#probe-rewrite){:target="_blank" rel="noopener noreferrer"}.
 
 Note that no Istio specific configuration is required in the service manifests.
-This is possible because the demo profile automatically enables the sidecar injection for all namespaces.
+This is possible because the demo profile automatically enables the sidecar injector and we enabled the injection on the `with-istio` namespace using the `istio-injection=enabled` label.
 The automatic sidecar injector will inject the Envoy sidecar into all pods.
 
 ```yaml
@@ -238,7 +240,7 @@ spec:
 ### Install the service: test-app
 
 A small NodeJS application was created for this demo.
-It exposes a HTTP GET endpoint which connects to the CouchDB database.
+It exposes an HTTP GET endpoint which connects to the CouchDB database.
 The manifests are very similar to the CouchDB versions.
 As with CouchDB, note that no Istio specific configuration is required on the manifests.
 A service account is created and linked to provide the service with a unique identity in Kubernetes and Istio.
@@ -352,7 +354,7 @@ By attaching these roles to service accounts (which are connected to services) s
 This limits the reach a single service has in the cluster and therefor adheres to the least privileges principle.
 
 The following manifest defines an cluster RBAC configuration.
-Only one such a configuration can exist in the entire service mesh and it needs to have the name `default`.
+Such configuration can only exist once in the entire service mesh and it needs to have the name `default`.
 The mode `ON_WITH_INCLUSION` specifies that all subjects that are listed in the inclusion section need to have RBAC enabled. 
 These subject can be namespace and/or specific services.
 Specifying the namespace `with-istio` in the inclusion section, enables RBAC for all services in that namespace.
@@ -369,7 +371,7 @@ spec:
     namespaces: ['with-istio']
 ```
 
-After this RBAC config is applied, requests to the test-app services will start failing again. 
+After this RBAC config is applied, requests to the test-app instance will start failing again. 
 The test-app currently doesn't have a role attached to its service account that allows it to access the CouchDB database. 
 Therefor all requests to the service will be rejected with an HTTP error code of 403.
 This is shown in the following drawing.
@@ -418,14 +420,15 @@ spec:
     name: "couchdb-role"
 ```
 
-After applying the last manifest, requests should again be authorized and allowed to CouchDB.
+After applying the last manifest, requests should again be authorized and allowed to connect to the CouchDB instance.
 
 ## Conclusion
 
-This demo showed how Istio can be used to enable strong authentication and authorization for services in a Kubernetes cluster. 
-It does this by enabling mTLS connections between the Envoy sidecar proxies.
-By creating roles, access to services can be granted or blocked. 
+This demo showed how Istio can be used to secure communication between service using mTLS.
+Moreover it showed how the service mesh level authentication can be used to grant or deny access to services in the mesh.
 A role can be connected to a service account to allow access. 
+Important to note is that the service mesh only allowes or denies traffic.
+It doesn't influence the application level access.
 
 In a nutshell, Istio allows cluster admins to enable secure communication, and strong authentication and authorization mechanisms on their Kubernetes cluster without having to manage all kinds of certificates, usernames and passwords. 
 The application developers don't need to adopt their application in order to communicate securly in the cluster, nor do they have to change their deployment configuration to enable the service mesh.
