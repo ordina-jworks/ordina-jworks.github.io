@@ -22,25 +22,25 @@ comments: true
 
 Istio is a service mesh created by Google, Lyft and IBM. 
 It aims to simplify some security and management aspects of a microservices software architecture.
-More information on Istio and its feature can be found in its [docs](https://istio.io/docs/){:target="_blank" rel="noopener noreferrer"}.
+More information on Istio and its features can be found in its [docs](https://istio.io/docs/){:target="_blank" rel="noopener noreferrer"}.
 In this blogpost we will highlight one of the key security features of Istio: service to service authentication and authorization.
 For the sake of simplicity, this post will focus on an Istio setup in Kubernetes.
 
 In a microservices architecture, managing access to services can be a challenging operation. 
-For end-user facing services, JWTs are used to add authenication information a request.
-They are used by the service to determine what end-user is making the request.
+For end-user facing services, JWTs are used to add authorization information to a request.
+They are used by the service to determine which end-user is making the request.
 These tokens can be generated based on information that the end-user provides to an identity provider.
 In most cases this information is a username and password, with some additional 2FA if possible.
-This setup can be achieved by using OpenId Connect as a protocol with the authorization code grant flow and an identity provider like Keycloak.
+This setup can be achieved by using OpenID Connect as a protocol with the authorization code grant flow and an identity provider like Keycloak.
 
 When services communicate with each other, they also need to provide an identity to each other.
-A common option to do this is using by using client credentials grant flow of OpenId Connect.
-In this flow, a service provides a client credentials to the identity provider to generate a token.
+A common option to do this is by using client credentials grant flow of OpenID Connect.
+In this flow a service provides its client credentials to authenticate against the identity provider, and to be able to generate an access token once authenticated.
 This token will be used to communicate to a service.
 
-Both of these types of authentication flows are application level authentication flows. 
+These are types of authorization flows on application level.
 They allow services to determine what resources an end-user or service can access.
-Istios service to service role based acccess control (RBAC) is not on an application level but on an communication level.
+Istio's service to service role based acccess control (RBAC) is not on application level but on communication level.
 It specifies which services can connect and communicate with each other. 
 In order to achieve this, Istio connects an identity to each service in the mesh and allows it to authenticate itself.
 The requested service can use this identity to determine if the service is allowed to connect or not.  
@@ -49,20 +49,20 @@ When using the automatic proxy injection, enabling Istio's service to service RB
 
 There are five main components responsible for making this possible in Istio: Citadel, Pilot, Galley, Mixer and Envoy. 
 
-Citadel is Istio's fortress of trust.
+*Citadel* is Istio's fortress of trust.
 It manages all certificates and acts as a Root CA in the Istio setup.
 
-Galley is the main configuration manager.
+*Galley* is the main configuration manager.
 It is responsible for gathering all required information from the underlying platform.
 
-Pilot manages all routing information and manages all the information for the proxies.
+*Pilot* manages all routing information and manages all the information for the proxies.
 It will initialise the proxies during start-up with their configuration and the certificates from Citadel.
 
-Mixer is responsible for all monitoring, logging and authorization information.
+*Mixer* is responsible for all monitoring, logging and authorization information.
 Whenever a proxy performs an action, Mixer knows about it. 
 This allows it to both monitor and log connections, but also provide authorization information to the proxies. 
 
-The final piece to the puzzle is Envoy. 
+The final piece to the puzzle is *Envoy*. 
 Envoy is the sidecar proxy responsible for handling the actual traffic between services in the service mesh.
 It will setup and manage the required mTLS connections and perform all required check with regards to the routing. 
 Envoy is managed as a separate project and in theory an other proxy could be used, but Envoy is most common.
@@ -339,7 +339,7 @@ spec:
 Services can now communicate securely over mTLS.
 To increase the security even further, RBAC can be added to the services.
 RBAC allows for roles to be defined that specify access to specific services in the cluster. 
-By attaching these roles to service accounts (which are connected to services) services can be premitted to access specific other services. 
+By attaching these roles to service accounts (which are connected to services) services can be permitted to access specific other services. 
 This limits the reach a single service has in the cluster and therefor adheres to the least privileges principle.
 
 The following manifest defines a cluster RBAC configuration.
@@ -413,14 +413,14 @@ After applying the last manifest, requests should again be authorized and allowe
 
 ## Conclusion
 
-This demo showed how Istio can be used to secure communication between service using mTLS.
+This demo showed how Istio can be used to secure communication between services using mTLS.
 Moreover it showed how the service mesh level authentication can be used to grant or deny access to services in the mesh.
 A role can be connected to a service account to allow access. 
 Important to note is that the service mesh only allowes or denies traffic.
 It doesn't influence the application level access.
 
 In a nutshell, Istio allows cluster admins to enable secure communication, and strong authentication and authorization mechanisms on their Kubernetes cluster without having to manage all kinds of certificates, usernames and passwords. 
-The application developers don't need to adopt their application in order to communicate securly in the cluster, nor do they have to change their deployment configuration to enable the service mesh.
+The application developers don't need to adopt their application in order to communicate securely in the cluster, nor do they have to change their deployment configuration to enable the service mesh.
 
 This blogpost only highlighted a portion of the features of Istio. 
 Security is only a part of the feature set. 
