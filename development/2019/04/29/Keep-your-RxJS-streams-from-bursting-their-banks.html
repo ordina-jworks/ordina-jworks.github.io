@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="How to keep your RxJS streams from bursting their banks - Orjan De Smet">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/speedlimit.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/development/2019/04/29/Keep-your-RxJS-streams-from-bursting-their-banks.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="How to keep your RxJS streams from bursting their banks - Orjan De Smet"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/speedlimit.jpg"/>
+
+    
+    <title>How to keep your RxJS streams from bursting their banks - Orjan De Smet &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>How to keep your RxJS streams from bursting their banks</h2>
+                
+
+                
+                    Posted Apr 29, 2019
+
+
+    in <a href="/categories/development/">Development</a>
+
+
+
+    by
+    
+        <a href="/author/orjan-de-smet">Orjan De Smet</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/rxjs/">RxJS</a>, 
+    
+        <a href="/tags/angular/">Angular</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <p>In my current role as Angular coach I try to help my colleagues as much as possible to make their applications in a logical and comprehensible way.
+I’m a huge supporter of RxJS for reactive programming and I ask others to consider using the technology to help them create declarative code and prevent them from going to Callback Hell.
+But as people start to embrace RxJS streams, the difficulties paired with using reactive programming start to surface and I’ve concluded that there also exists something I’d like to call <em>Observable Purgatory</em>.</p>
+
+<p>At the moment of writing this, I’m staring at an Angular component file having 548 lines - no inline template or styles - of which 64 lines are imports and 411 lines either are a declaration or instantiation of a stream or are a function in which a stream is used.
+Some of these functions are more than 20 lines, and 3 are even more than 40 lines.
+Holy nightmare, Batman!
+Imagine the unit tests needed to test all possible cases.
+Apparently those aren’t needed, because the biggest function - 48 lines - is tested in 2 unit tests and of course “everything works, doesn’t it?”</p>
+
+<p>So without further ado, here are the most common bad practices and their solutions.</p>
+
+<p><strong>Note: Unless explicitly mentioned, these are NOT Angular specific.</strong></p>
+
+<h2 id="consuming-all-the-ram">Consuming all the RAM</h2>
+
+<p style="text-align: center;">
+  <img alt="Jack Sparrow: But why is the RAM gone" src="/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y7g2l.jpg" class="image fit-contain" />
+</p>
+
+<p>Developers who are new to RxJS will often forget that a subscription can live on during the whole life time of your application.
+Most of the time they have only worked with simple XHR requests and those will by default emit only one value and then complete.
+But reactive programming allows to create streams that emit multiple values and might never complete.
+This will cause memory leaks, unexpected behaviour and therefor bugs.
+The solution is quite simple: just unsubscribe or take only the needed events!</p>
+
+<p>You can cancel a subscription by calling its <strong>unsubscribe</strong> function, but then you’re skimming the power of reactive programming.
+Operators like - but not limited to - <a href="https://rxmarbles.com/#first" target="_blank" rel="noopener noreferrer"><strong>first</strong></a>, <a href="https://rxmarbles.com/#take" target="_blank" rel="noopener noreferrer"><strong>take</strong></a>, <a href="https://rxmarbles.com/#takeWhile" target="_blank" rel="noopener noreferrer"><strong>takeWhile</strong></a> and <a href="https://rxmarbles.com/#takeUntil" target="_blank" rel="noopener noreferrer"><strong>takeUntil</strong></a> will close a subscription as soon as the condition is met.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">interval</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>       <span class="c1">// --0--1--2--3--4--5--6--7--8--9--...--&gt;</span>
+  <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">take</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>     <span class="c1">// --0--1--2--3--(4|)</span>
+  <span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">tick</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tick</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p><strong>Note: When using mergeMap or another variant in combination with takeUntil, make sure you add the takeUntil pipe at the end.</strong></p>
+
+<blockquote>
+  <p>RULE: CANCEL SUBSCRIPTIONS THAT DO NOT COMPLETE BY THEMSELVES</p>
+</blockquote>
+
+<h3 id="angular-specific-use-the-asyncpipe">Angular specific: Use the AsyncPipe</h3>
+
+<p>Angular provides an <a href="https://angular.io/api/common/AsyncPipe" target="_blank" rel="noopener noreferrer">AsyncPipe</a>, which lets you subscribe to a stream from inside your component’s template.
+The great advantage is that this subscription will automatically be openend when the component or the element in which it’s used is created and cancelled when the component is destroyed.
+A quick example of a counter of seconds:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'my-app'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`&lt;p&gt;
+      Tick: {{ tick }}
+    &lt;/p&gt;`</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span><span class="p">,</span> <span class="nx">OnDestroy</span> <span class="p">{</span>
+  <span class="nx">myStream$</span> <span class="o">=</span> <span class="nx">interval</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+  <span class="nl">subscription</span><span class="p">:</span> <span class="nx">Subscription</span><span class="p">;</span>
+  <span class="nl">tick</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+
+  <span class="nx">ngOnInit</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">subscription</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">myStream$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">tick</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">tick</span> <span class="o">=</span> <span class="nx">tick</span><span class="p">})</span>
+  <span class="p">}</span>
+
+  <span class="nx">ngOnDestroy</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">subscription</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This can be written a lot shorter and maintainable using the AsyncPipe:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'my-app'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`&lt;p&gt;
+      Tick: {{ myStream$ | async }}
+    &lt;/p&gt;`</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span>  <span class="p">{</span>
+  <span class="nx">myStream$</span> <span class="o">=</span> <span class="nx">interval</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>RULE: USE ANGULAR’S ASYNCPIPE WHERE POSSIBLE</p>
+</blockquote>
+
+<h2 id="yo-dawg-i-heard-you-like-subscriptions">Yo dawg, I heard you like Subscriptions</h2>
+
+<p style="text-align: center;">
+  <img alt="Xzibit: I put a subscription inside your subscription" src="/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y7avi.jpg" class="image fit-contain" />
+</p>
+
+<p>This should be basic knowledge by anyone using the Observable pattern.
+Apart from being extremely ugly to look at, it’s near impossible to keep track of what subscription is open at which moment.
+Consider the following example:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">subscription1</span> <span class="o">=</span> <span class="nx">param$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">param</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">subscription2</span> <span class="o">=</span> <span class="nx">apiService</span><span class="p">.</span><span class="nx">getObject</span><span class="p">(</span><span class="nx">param</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">obj</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+    <span class="nx">subscription3</span> <span class="o">=</span> <span class="nx">anotherApiService</span><span class="p">.</span><span class="nx">getEvents</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">busId</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">events</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">events</span> <span class="o">=</span> <span class="nx">events</span><span class="p">;</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="nx">onDestroy</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">subscription1</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">subscription2</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">subscription2</span><span class="p">.</span><span class="nx">closed</span><span class="p">)</span> <span class="nx">subscription2</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">subscription3</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">subscription3</span><span class="p">.</span><span class="nx">closed</span><span class="p">)</span> <span class="nx">subscription3</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In this case, when the <code class="highlighter-rouge">param$</code> stream emits a value, the <code class="highlighter-rouge">obj</code> is requested from an API endpoint and when received, it will in its turn request events occurring on a specific <code class="highlighter-rouge">busId</code>.
+But what happens when <code class="highlighter-rouge">param$</code> emits a new value? The <code class="highlighter-rouge">obj</code>property will be replaced eventually, but the event stream for the first object will still exist.
+So you could start keeping track of subscriptions and cancel them at the ‘right’ moment:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">subscription1</span> <span class="o">=</span> <span class="nx">param$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">param</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">subscription2</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">subscription2</span><span class="p">.</span><span class="nx">closed</span><span class="p">)</span> <span class="nx">subscription2</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+  <span class="nx">subscription2</span> <span class="o">=</span> <span class="nx">apiService</span><span class="p">.</span><span class="nx">getObject</span><span class="p">(</span><span class="nx">param</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">obj</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">subscription3</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">subscription3</span><span class="p">.</span><span class="nx">closed</span><span class="p">)</span> <span class="nx">subscription3</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+    <span class="nx">subscription3</span> <span class="o">=</span> <span class="nx">anotherApiService</span><span class="p">.</span><span class="nx">getEvents</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">busId</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">events</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">events</span> <span class="o">=</span> <span class="nx">events</span><span class="p">;</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="nx">onDestroy</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">subscription1</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">subscription2</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">subscription2</span><span class="p">.</span><span class="nx">closed</span><span class="p">)</span> <span class="nx">subscription2</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">subscription3</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">subscription3</span><span class="p">.</span><span class="nx">closed</span><span class="p">)</span> <span class="nx">subscription3</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Wow! That’s amazing!
+Except it isn’t.
+There are still 3 subscriptions, while it could be done with just 1 when using the correct operators:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">subscription1</span> <span class="o">=</span> <span class="nx">param$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+  <span class="nx">switchMap</span><span class="p">(</span><span class="nx">param</span> <span class="o">=&gt;</span> <span class="nx">apiService</span><span class="p">.</span><span class="nx">getObject</span><span class="p">(</span><span class="nx">param</span><span class="p">)),</span>
+  <span class="nx">tap</span><span class="p">(</span><span class="nx">obj</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">),</span>
+  <span class="nx">switchMap</span><span class="p">(</span><span class="nx">obj</span> <span class="o">=&gt;</span> <span class="nx">anotherApiService</span><span class="p">.</span><span class="nx">getEvents</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">busId</span><span class="p">))</span>
+<span class="p">).</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">events</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">events</span> <span class="o">=</span> <span class="nx">events</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="nx">onDestroy</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">subscription1</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This way, only 1 subscription will exist, canceling it will automatically cancel any inner streams.
+And when <code class="highlighter-rouge">param$</code> would emit a new value, the <code class="highlighter-rouge">switchMap</code> operator will automatically cancel its inner stream and create a new one.</p>
+
+<blockquote>
+  <p>RULE: NEVER SUBSCRIBE WITHIN A SUBSCRIPTION<br />
+This also applies for calling a function inside a subscription when that function has a subscription.</p>
+</blockquote>
+
+<h2 id="sharing-is-caring">Sharing is caring</h2>
+
+<p style="text-align: center;">
+  <img alt="Cat with big bowl of food: What do you mean, I have to share?" src="/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y7xld.jpg" class="image fit-contain" />
+</p>
+
+<p>When using a stream on multiple locations, remember that there is a difference between a cold and a hot Observable.
+In short: a cold Observable will restart its stream for each subscription, while a hot Observable will reuse an existing stream when a subscription is added.
+Think of a cold Observable as a HTTP request, which fires each time again, and a hot Observable as a keyPress stream which emits the same event no matter how many subscriptions exist on the stream.
+If you need more details, you can read this article by Ben Lesh <a href="https://medium.com/@benlesh/hot-vs-cold-observables-f8094ed53339" target="_blank" rel="noopener noreferrer">Hot vs Cold Observables</a>.</p>
+
+<p>Sometimes you’ll need to react on a cold Observable in multiple separate streams.
+For example, you need to display the response, but you also need to initiate a new stream to get other data.
+So you’ll create two subscriptions and use a <strong>mergeMap</strong>, because subscriptions inside subscriptions are not allowed:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">stream1</span> <span class="o">=</span> <span class="nx">httpGet</span><span class="p">(</span><span class="s1">'userCarMake'</span><span class="p">);</span>
+<span class="nx">stream2</span> <span class="o">=</span> <span class="nx">stream1</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">mergeMap</span><span class="p">(</span><span class="nx">make</span> <span class="o">=&gt;</span> <span class="nx">httpGet</span><span class="p">(</span><span class="s1">'userCarMake'</span><span class="p">,</span> <span class="nx">make</span><span class="p">)));</span>
+<span class="nx">stream1</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">make</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'The car make is'</span><span class="p">,</span> <span class="nx">make</span><span class="p">));</span>
+<span class="nx">stream2</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">models</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'The models for this make are'</span><span class="p">,</span> <span class="nx">models</span><span class="p">.</span><span class="nx">join</span><span class="p">()));</span>
+</code></pre></div></div>
+
+<p>But in your developer tools’ network tab, you notice that <strong>userCarMake</strong> has been requested twice.
+The answer to why should be obvious by now: there are two subscriptions.
+To solve this with minimal changes, make the source stream a hot Observable using <a href="https://www.learnrxjs.io/operators/multicasting/sharereplay.html" target="_blank" rel="noopener noreferrer"><strong>shareReplay</strong></a>.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">stream1</span> <span class="o">=</span> <span class="nx">httpGet</span><span class="p">(</span><span class="s1">'userCarMake'</span><span class="p">).</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">shareReplay</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+<span class="nx">stream2</span> <span class="o">=</span> <span class="nx">stream1</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">mergeMap</span><span class="p">(</span><span class="nx">make</span> <span class="o">=&gt;</span> <span class="nx">httpGet</span><span class="p">(</span><span class="s1">'userCarMake'</span><span class="p">,</span> <span class="nx">make</span><span class="p">)));</span>
+<span class="nx">stream1</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">make</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'The car make is'</span><span class="p">,</span> <span class="nx">make</span><span class="p">));</span>
+<span class="nx">stream2</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">models</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'The models for this make are'</span><span class="p">,</span> <span class="nx">models</span><span class="p">.</span><span class="nx">join</span><span class="p">()));</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>RULE: MAKE YOUR OBSERVABLES HOT WHEN NECESSARY</p>
+</blockquote>
+
+<p>Though be careful when using this operator.
+If the source doesn’t complete by itself, it will keep emitting values.
+To prevent this behaviour, use an options object in the <code class="highlighter-rouge">shareReplay</code> operator and set the required property <strong>refCount</strong> to true:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">sharedStream</span> <span class="o">=</span> <span class="nx">source</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">shareReplay</span><span class="p">({</span><span class="na">bufferSize</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">refCount</span><span class="p">:</span> <span class="kc">true</span><span class="p">}));</span>
+</code></pre></div></div>
+
+<p>See <a href="https://stackblitz.com/edit/using-sharereplay" target="_blank" rel="noopener noreferrer">this stackblitz</a> for an example of the difference.
+You can set a tslint rule to make sure you always use <code class="highlighter-rouge">shareReplay</code> with options.
+Here you can find the configuration: <a href="https://github.com/cartant/rxjs-tslint-rules#rxjs-no-sharereplay" target="_blank" rel="noopener noreferrer">rxjs-tslint-rules: rxjs-no-sharereplay</a>.</p>
+
+<h3 id="angular-specific-use-sharereplay-with-asyncpipe">Angular specific: use shareReplay with AsyncPipe</h3>
+
+<p>A point of note for Angular’s AsyncPipe is that each AsyncPipe will create a new subscription.
+Use <strong>shareReplay</strong> when multiple AsyncPipes are used on the same stream or a stream depending on it.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'my-app'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`&lt;ng-container *ngIf="hasItems$ | async"&gt;
+    &lt;p *ngFor="let item of items$ | async"&gt;
+      Tick: {{ item }}
+    &lt;/p&gt;
+    &lt;/ng-container&gt;`</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span>  <span class="p">{</span>
+  <span class="nx">items$</span> <span class="o">=</span> <span class="nx">getItems</span><span class="p">().</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">shareReplay</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+  <span class="nx">hasItems$</span> <span class="o">=</span> <span class="nx">items$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">map</span><span class="p">(</span><span class="nx">items</span> <span class="o">=&gt;</span> <span class="nx">items</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="my-stream-is-too-big">My stream is too big</h2>
+
+<p style="text-align: center;">
+  <img alt="Boy with a giant spoon: My stream is too big" src="/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y7st6.jpg" class="image fit-contain" />
+</p>
+
+<p>One of the major advantages of using streams is that you can write declarative code.
+Declarative code means that the code can explain itself without the need of comments.
+Great!
+Now developers don’t need to worry about writing comments anymore.
+RxJS provides a lot of operators that are self-explanatory: <code class="highlighter-rouge">map</code>, <code class="highlighter-rouge">filter</code>, <code class="highlighter-rouge">withLatestFrom</code>, <code class="highlighter-rouge">catchError</code>, …
+So what’s the problem?
+It’s something what I’ve noticed a lot lately.
+A stream with so many piped operators that it isn’t even funny anymore.
+Let’s look at the following stream: (<em>Note: this is a slightly modified stream from the file spoken of earlier, because I just can’t come up with this stuff.</em>)</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">childObject$</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">startFetch$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+        <span class="nx">switchMap</span><span class="p">(</span><span class="nx">_</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">parentObject$</span><span class="p">),</span>
+        <span class="nx">withLatestFrom</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">cancelled$</span><span class="p">),</span>
+        <span class="nx">filter</span><span class="p">(([</span><span class="nx">parentObject</span><span class="p">,</span> <span class="nx">cancelled</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="nx">cancelled</span> <span class="o">!==</span> <span class="kc">true</span><span class="p">),</span>
+        <span class="nx">map</span><span class="p">(([</span><span class="nx">parentObject</span><span class="p">,</span> <span class="nx">_</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="nx">parentObject</span><span class="p">),</span>
+        <span class="nx">filter</span><span class="p">(</span>
+            <span class="nx">parentObject</span> <span class="o">=&gt;</span>
+            <span class="o">!</span><span class="nx">isNullOrUndefined</span><span class="p">(</span><span class="nx">parentObject</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+            <span class="nx">parentObject</span><span class="p">.</span><span class="nx">subObjects</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span>
+            <span class="nx">parentObject</span><span class="p">.</span><span class="nx">errors</span><span class="p">.</span><span class="nx">findIndex</span><span class="p">(</span>
+                <span class="p">(</span><span class="nx">error</span><span class="p">:</span> <span class="nx">parentObjectError</span><span class="p">)</span> <span class="o">=&gt;</span>
+                <span class="nx">error</span><span class="p">.</span><span class="nx">errorCause</span> <span class="o">===</span> <span class="nx">parentObjectErrorCauseEnum</span><span class="p">.</span><span class="nx">HEIGHT_EXCEEDED</span>
+            <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="p">),</span>
+        <span class="nx">withLatestFrom</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">collectionId$</span><span class="p">),</span>
+        <span class="nx">switchMap</span><span class="p">(([</span><span class="nx">parentObject</span><span class="p">,</span> <span class="nx">collectionId</span><span class="p">])</span> <span class="o">=&gt;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">getChildObjectList</span><span class="p">(</span><span class="nx">parentObject</span><span class="p">.</span><span class="nx">subObjects</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span><span class="p">,</span> <span class="nx">collectionId</span><span class="p">).</span><span class="nx">pipe</span><span class="p">(</span>
+                <span class="nx">catchError</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'error while retrieving second object list'</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+                    <span class="k">return</span> <span class="nx">EMPTY</span><span class="p">;</span>
+                <span class="p">}),</span>
+                <span class="nx">take</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="nx">switchMap</span><span class="p">(</span><span class="nx">childObjectList</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">childObjectList</span> <span class="o">&amp;&amp;</span> <span class="nx">childObjectList</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">isLastChildObject$</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">childObjectList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">isLast</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">isValidChildObject</span><span class="p">(</span><span class="nx">childObjectList</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">isFormValid$</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">isFormValid$</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">return</span> <span class="k">of</span><span class="p">(</span><span class="nx">childObjectList</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">startFetch$</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+                <span class="k">return</span> <span class="nx">EMPTY</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}),</span>
+        <span class="nx">map</span><span class="p">(</span><span class="nx">childObjectList</span> <span class="o">=&gt;</span> <span class="nx">childObjectList</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="p">),</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">startFetch$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">mapTo</span><span class="p">(</span><span class="kc">null</span><span class="p">))</span>
+<span class="p">).</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">shareReplay</span><span class="p">({</span><span class="na">bufferSize</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">refCount</span><span class="p">:</span> <span class="kc">true</span><span class="p">}));</span>
+
+<span class="k">this</span><span class="p">.</span><span class="nx">childObject$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">childObject</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Second object is'</span><span class="p">,</span> <span class="nx">childObject</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">isFormValid$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">isFormValid</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Form valid?'</span><span class="p">,</span> <span class="nx">isFormValid</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">isLastChildObject$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">lastChildObject</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Second object is last from list'</span><span class="p">,</span> <span class="nx">lastChildObject</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Can anyone explain what is going on here?
+If you’re reading this blog than you probably have some experience with RxJS and probably understand the meaning of the operators used in this example.
+And while it might be readable for an insightful developer, try to imagine a newbie getting thrown into a project where this is presented.
+I bet they won’t be very inspired or motivated to work on this.
+When that happens, you have to split up the stream, just like you’d split up functions that get too big.
+This might mean a bit more lines, but it would make the code a lot more readable.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">isParentObjectValid</span><span class="p">(</span><span class="nx">parentObject</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">!</span><span class="nx">isNullOrUndefined</span><span class="p">(</span><span class="nx">parentObject</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+        <span class="nx">parentObject</span><span class="p">.</span><span class="nx">subObjects</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span>
+        <span class="nx">parentObject</span><span class="p">.</span><span class="nx">errors</span><span class="p">.</span><span class="nx">findIndex</span><span class="p">(</span>
+            <span class="p">(</span><span class="nx">error</span><span class="p">:</span> <span class="nx">parentObjectError</span><span class="p">)</span> <span class="o">=&gt;</span>
+            <span class="nx">error</span><span class="p">.</span><span class="nx">errorCause</span> <span class="o">===</span> <span class="nx">parentObjectErrorCauseEnum</span><span class="p">.</span><span class="nx">HEIGHT_EXCEEDED</span>
+        <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">getChildObjectList</span><span class="p">(</span><span class="nx">subObjectId</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">collectionId$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+        <span class="nx">take</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+        <span class="nx">switchMap</span><span class="p">(</span><span class="nx">collectionId</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">getChildObjectList</span><span class="p">(</span><span class="nx">subObjectId</span><span class="p">,</span> <span class="nx">collectionId</span><span class="p">)),</span>
+        <span class="nx">catchError</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'error while retrieving second object list'</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+            <span class="k">return</span> <span class="nx">EMPTY</span><span class="p">;</span>
+        <span class="p">}),</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">getFirstItemFromChildObjectList</span><span class="p">(</span><span class="nx">childObjectList</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">childObjectList</span> <span class="o">&amp;&amp;</span> <span class="nx">childObjectList</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">isLastChildObject$</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">childObjectList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">isLast</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">isValidChildObject</span><span class="p">(</span><span class="nx">childObjectList</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">isFormValid$</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">isFormValid$</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="k">of</span><span class="p">(</span><span class="nx">childObjectList</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">startFetch$</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nx">EMPTY</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">this</span><span class="p">.</span><span class="nx">childObject$</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">startFetch$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+        <span class="nx">switchMap</span><span class="p">(</span><span class="nx">_</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">parentObject$</span><span class="p">),</span>
+        <span class="nx">withLatestFrom</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">cancelled$</span><span class="p">),</span>
+        <span class="nx">filter</span><span class="p">(([</span><span class="nx">parentObject</span><span class="p">,</span> <span class="nx">cancelled</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="o">!</span><span class="nx">cancelled</span> <span class="o">&amp;&amp;</span> <span class="nx">isParentObjectValid</span><span class="p">(</span><span class="nx">parentObject</span><span class="p">)),</span>
+        <span class="nx">switchMap</span><span class="p">(([</span><span class="nx">parentObject</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="nx">getChildObjectList</span><span class="p">(</span><span class="nx">parentObject</span><span class="p">.</span><span class="nx">subObjects</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span><span class="p">)),</span>
+        <span class="nx">switchMap</span><span class="p">(</span><span class="nx">childObjectList</span> <span class="o">=&gt;</span> <span class="nx">getFirstItemFromChildObjectList</span><span class="p">(</span><span class="nx">childObjectList</span><span class="p">))</span>
+    <span class="p">),</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">startFetch$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">mapTo</span><span class="p">(</span><span class="kc">null</span><span class="p">))</span>
+<span class="p">).</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">shareReplay</span><span class="p">({</span><span class="na">bufferSize</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">refCount</span><span class="p">:</span> <span class="kc">true</span><span class="p">}));</span>
+
+<span class="k">this</span><span class="p">.</span><span class="nx">childObject$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">childObject</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Second object is'</span><span class="p">,</span> <span class="nx">childObject</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">isFormValid$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">isFormValid</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Form valid?'</span><span class="p">,</span> <span class="nx">isFormValid</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">isLastChildObject$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">lastChildObject</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Second object is last from list'</span><span class="p">,</span> <span class="nx">lastChildObject</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Now it’s more possible to test various situations for each inner stream and mock the individual outcomes to be used in a test for the outer stream.
+We can even move parts to separate files or classes, but for the sake of this example we’ll keep everything together.
+It’s not yet perfect, but it gives some room to breathe.
+At least we can now read quickly what the outer stream is supposed to do.
+Notice that there are no longer pipe functions within other pipe functions.
+This makes a stream more streamlined (pun intended, really).</p>
+
+<blockquote>
+  <p>RULE: SPLIT UP YOUR STREAMS AND USE DECLARATIVE FUNCTIONS INSIDE THE OPERATORS</p>
+</blockquote>
+
+<blockquote>
+  <p>RULE: TRY TO REDUCE THE USE OF PIPE INSIDE PIPE, UNLESS IT’S IN A SEPARATE FUNCTION</p>
+</blockquote>
+
+<h2 id="impurity-and-side-effects">Impurity and side effects</h2>
+
+<p style="text-align: center;">
+  <img alt="Boromir: One does not simply set a subject's next value inside a stream" src="/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/2y84y7.jpg" class="image fit-contain" />
+</p>
+
+<p>Pure functions are functions that will always return the same value for the same input parameters, keep state local and do not alter the input parameters.
+In the previous example the created function <strong>isParentObjectValid</strong> is pure, but <strong>getChildObjectList</strong> and <strong>getFirstItemFromChildObjectList</strong> aren’t.
+Of course not everything can be written in only pure functions, but we should at least try as much as possible.
+The same can apply for streams.
+A “pure” stream is a stream which produces the same value for the same source, does not alter the source and produces no side effects.
+This means that it should not set events on a different stream and should not set or read a value from outside its scope.
+For example, the following blocks will do the same, but one keeps its state inside the Observable scope, which is safer.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">_score</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="kd">const</span> <span class="nx">score$</span> <span class="o">=</span> <span class="nx">goals$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+    <span class="nx">map</span><span class="p">(</span><span class="nx">goalPoints</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">_score</span> <span class="o">+=</span> <span class="nx">goalPoints</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">_score</span><span class="p">;</span>
+    <span class="p">})</span>
+<span class="p">);</span>
+
+<span class="c1">// Keeping state within the stream is better:</span>
+
+<span class="kd">const</span> <span class="nx">betterScore$</span> <span class="o">=</span> <span class="nx">goals$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+    <span class="nx">scan</span><span class="p">((</span><span class="nx">totalScore</span><span class="p">,</span> <span class="nx">goalPoints</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">totalScore</span> <span class="o">+</span> <span class="nx">goalPoints</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Notice the use of the <code class="highlighter-rouge">scan</code> operator instead of a <code class="highlighter-rouge">map</code>.
+If you have side effects, you might be using the wrong operators.
+More about that a bit later in this post.</p>
+
+<p>I believe that a stream should always be a constant and never be reinitialized.
+Luckily it’s possible to create <a href="https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md#build-your-own-operators-easily" target="_blank" rel="noopener noreferrer">custom pipe operators</a> for these situations.</p>
+
+<p>Let’s continue based on the example from the previous chapter:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">nonCancelledParentObject$</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">parentObject$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">onlyNonCancelledParentObject</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">cancelled$</span><span class="p">));</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">childObjectList$</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">nonCancelledParentObject$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">childObjectListForCollection</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">collectionId$</span><span class="p">));</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">firstItemOfChildObjectList$</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">childObjectList$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">selectFirstItemOfList</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">isLastChildObject$</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstItemOfChildObjectList$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isChildObjectLastInList</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">isFormValid$</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstItemOfChildObjectList$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isChildObjectValid</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">startFetch$</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">childObjectList$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isListEmpty</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">childObject$</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstItemOfChildObjectList$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">createStreamOnTrigger</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">startFetch$</span><span class="p">));</span>
+
+<span class="nx">onlyNonCancelledParentObject</span> <span class="o">=</span> <span class="p">(</span><span class="nx">cancelled$</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">parentObject$</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">parentObject$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+        <span class="nx">withLatestFrom</span><span class="p">(</span><span class="nx">cancelled$</span><span class="p">),</span>
+        <span class="nx">filter</span><span class="p">(([</span><span class="nx">parentObject</span><span class="p">,</span> <span class="nx">cancelled</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="o">!</span><span class="nx">cancelled</span> <span class="o">&amp;&amp;</span> <span class="nx">isParentObjectValid</span><span class="p">(</span><span class="nx">parentObject</span><span class="p">)),</span>
+        <span class="nx">map</span><span class="p">(([</span><span class="nx">parentObject</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="nx">parentObject</span><span class="p">)</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">childObjectListForCollection</span> <span class="o">=</span> <span class="p">(</span><span class="nx">collectionId$</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">nonCancelledParentObject$</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">nonCancelledParentObject$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+        <span class="nx">take</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+        <span class="nx">map</span><span class="p">(</span><span class="nx">parentObject</span> <span class="o">=&gt;</span> <span class="nx">parentObject</span><span class="p">.</span><span class="nx">subObjects</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span><span class="p">),</span>
+        <span class="nx">withLatestFrom</span><span class="p">(</span><span class="nx">collectionId$</span><span class="p">)</span>
+        <span class="nx">switchMap</span><span class="p">(([</span><span class="nx">subObjectId</span><span class="p">,</span> <span class="nx">collectionId</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">getChildObjectList</span><span class="p">(</span><span class="nx">subObjectId</span><span class="p">,</span> <span class="nx">collectionId</span><span class="p">)),</span>
+        <span class="nx">catchError</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'error while retrieving second object list'</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+            <span class="k">return</span> <span class="nx">EMPTY</span><span class="p">;</span>
+        <span class="p">})</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">isListEmpty</span> <span class="o">=</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">list</span> <span class="o">=&gt;</span> <span class="nx">list</span> <span class="o">&amp;&amp;</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+
+<span class="nx">selectFirstItemOfList</span> <span class="o">=</span> <span class="p">(</span><span class="nx">childObjectList$</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">childObjectList$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+        <span class="nx">filter</span><span class="p">(</span><span class="nx">childObjectList</span> <span class="o">=&gt;</span> <span class="nx">childObjectList</span> <span class="o">&amp;&amp;</span> <span class="nx">childObjectList</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="nx">map</span><span class="p">(</span><span class="nx">childObjectList</span> <span class="o">=&gt;</span> <span class="nx">childObjectList</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+        <span class="nx">shareReplay</span><span class="p">({</span><span class="na">bufferSize</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">refCount</span><span class="p">:</span> <span class="kc">true</span><span class="p">})</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">isChildObjectLastInList</span> <span class="o">=</span> <span class="nx">map</span><span class="p">(</span><span class="nx">childObject</span> <span class="o">=&gt;</span> <span class="nx">childObject</span><span class="p">.</span><span class="nx">isLast</span><span class="p">);</span>
+
+<span class="nx">isChildObjectValid</span> <span class="o">=</span> <span class="nx">map</span><span class="p">(</span><span class="nx">childObject</span> <span class="o">=&gt;</span> <span class="nx">isValidChildObject</span><span class="p">(</span><span class="nx">childObject</span><span class="p">));</span>
+
+<span class="nx">createStreamOnTrigger</span> <span class="o">=</span> <span class="p">(</span><span class="nx">trigger$</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">source$</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">trigger$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+        <span class="nx">switchMap</span><span class="p">(</span><span class="nx">_</span> <span class="o">=&gt;</span> <span class="nx">source$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+            <span class="nx">take</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+            <span class="nx">startWith</span><span class="p">(</span><span class="kc">null</span><span class="p">))</span>
+        <span class="p">),</span>
+        <span class="nx">shareReplay</span><span class="p">({</span><span class="na">bufferSize</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">refCount</span><span class="p">:</span> <span class="kc">true</span><span class="p">})</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">this</span><span class="p">.</span><span class="nx">childObject$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">childObject</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Second object is'</span><span class="p">,</span> <span class="nx">childObject</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">isFormValid$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">isFormValid</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Form valid?'</span><span class="p">,</span> <span class="nx">isFormValid</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">isLastChildObject$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">lastChildObject</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Second object is last from list'</span><span class="p">,</span> <span class="nx">lastChildObject</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Now almost every part of the stream is created using a pure function as pipe operator.
+Just count the number of times the keyword <strong>this</strong> is used inside the functions (hint: we went from 10 times to only 1).
+This could get even better if we pass the service’s function as a parameter too.
+Each of these custom operators can easily be tested with <a href="https://github.com/ReactiveX/rxjs/blob/master/docs_app/content/guide/testing/marble-testing.md" target="_blank" rel="noopener noreferrer">marble testing</a>.
+It’s more readable, because now you can know for each stream how its values are determined.
+For example, in line 5, we can already read that the <strong>isFormValid</strong> will be changed by a change of the first item in the list of ChildObjects and that it will react on the validity of that object.
+We no longer need to sift through the code to find that out.</p>
+
+<p>You’ll notice that there are a lot of streams now.
+Most of them are intermediary, so they could be scoped inside a different block.
+Or they can be moved to separate files to keep the main file clean and the streams grouped by logical unit, but always keep subscriptions in your main file.
+For the sake of this example I kept all streams together.</p>
+
+<blockquote>
+  <p>RULE: INSTANTIATE YOUR STREAMS WITH PURE FUNCTIONS SO THEY CAN BE TESTED AND MOVED EASILY</p>
+</blockquote>
+
+<blockquote>
+  <p>RULE: TRY TO ELIMINATE THE USE OF SUBJECTS</p>
+</blockquote>
+
+<h3 id="angular-specific-handling-input-properties">Angular specific: handling @Input() properties</h3>
+
+<p>A common question I get with this approach is that some streams can not be defined until an <strong>@Input()</strong> property is set.
+Ridiculous, there is no such thing as a “can not” in programming!
+Consider this example:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'greet'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`&lt;h1&gt;{{ message }}&lt;/h1&gt;`</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">GreetingComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span><span class="p">,</span> <span class="nx">OnChanges</span> <span class="p">{</span>
+  <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="nl">message</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">service</span><span class="p">:</span> <span class="nx">APIService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+  <span class="nx">ngOnInit</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">getMessage</span><span class="p">(</span><span class="nx">name</span><span class="p">)).</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">name</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nx">name</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">ngOnChanges</span><span class="p">(</span><span class="nx">changes</span><span class="p">:</span> <span class="nx">SimpleChanges</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">changes</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">changes</span><span class="p">[</span><span class="s1">'name'</span><span class="p">].</span><span class="nx">previousValue</span> <span class="o">!==</span> <span class="nx">changes</span><span class="p">[</span><span class="s1">'name'</span><span class="p">].</span><span class="nx">currentValue</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">getMessage</span><span class="p">(</span><span class="nx">changes</span><span class="p">[</span><span class="s1">'name'</span><span class="p">].</span><span class="nx">currentValue</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">name</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nx">name</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This can be also be written as following:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'greet'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`&lt;h1&gt;{{ message$ | async }}&lt;/h1&gt;`</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">GreetingComponent</span>  <span class="p">{</span>
+  <span class="kr">private</span> <span class="nx">name$</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ReplaySubject</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="kd">set</span> <span class="nx">name</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name$</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="nx">message$</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">createMessageStream</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name$</span><span class="p">);</span>
+
+  <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">service</span><span class="p">:</span> <span class="nx">APIService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+  <span class="kr">private</span> <span class="nx">createMessageStream</span><span class="p">(</span><span class="nx">name$</span><span class="p">:</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">name$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+        <span class="nx">distinctUntilChanged</span><span class="p">(),</span>
+        <span class="nx">switchMap</span><span class="p">(</span><span class="nx">name</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">getMessage</span><span class="p">(</span><span class="nx">name</span><span class="p">))</span>
+      <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>RULE: EVERYTHING CAN BE A STREAM</p>
+</blockquote>
+
+<p>Though it doesn’t always have to.</p>
+
+<h2 id="i-have-no-idea-what-im-doing">I have no idea what I’m doing</h2>
+
+<p style="text-align: center;">
+  <img alt="Dog on computer: I have no idea what I'm doing" src="/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/dog.jpg" class="image fit-contain" />
+</p>
+
+<p>Last but not least, make sure you understand the flow of your streams.
+If it gets too confusing, it will be a pain in the behind to find bugs or make changes without breaking something.
+Before creating a stream, like anything in programming, analyse what your stream should exactly be doing.
+Do this by drawing marble diagrams.
+If multiple streams are needed, make a diagram for each stream and place them under each other.
+Use marble testing to write easy to understand unit tests for streams.
+In my experience, the package <a href="https://cartant.github.io/rxjs-marbles/" target="_blank" rel="noopener noreferrer">rxjs-marbles</a> can help a lot with that.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">it</span><span class="p">(</span><span class="s1">'should emit parentObject only if not cancelled'</span><span class="p">,</span> <span class="nx">marbles</span><span class="p">((</span><span class="nx">m</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">isParentObjectValidSpy</span><span class="p">.</span><span class="nx">mockImplementation</span><span class="p">((</span><span class="nx">parentObj</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">parentObj</span> <span class="o">!==</span> <span class="s1">'d'</span><span class="p">);</span>
+
+    <span class="kd">const</span> <span class="nx">parentObject</span>  <span class="o">=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">hot</span><span class="p">(</span><span class="s1">'--^-a--b--c--d-|'</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">cancelled</span>  <span class="o">=</span>    <span class="nx">m</span><span class="p">.</span><span class="nx">hot</span><span class="p">(</span><span class="s1">'--^f-t---f-----|'</span><span class="p">,</span> <span class="p">{</span><span class="na">t</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">f</span><span class="p">:</span> <span class="kc">false</span><span class="p">});</span>
+    <span class="kd">const</span> <span class="nx">subs</span> <span class="o">=</span>                  <span class="s1">'^------------!'</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">expected</span>  <span class="o">=</span>             <span class="s1">'--a-----c----|'</span><span class="p">;</span>
+
+    <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">onlyNonCancelledParentObject</span><span class="p">(</span><span class="nx">parentObject</span><span class="p">,</span> <span class="nx">cancelled</span><span class="p">);</span>
+
+    <span class="nx">m</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">).</span><span class="nx">toBeObservable</span><span class="p">(</span><span class="nx">expected</span><span class="p">);</span>
+    <span class="nx">m</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="nx">parentObject</span><span class="p">).</span><span class="nx">toHaveSubscriptions</span><span class="p">(</span><span class="nx">subs</span><span class="p">);</span>
+    <span class="nx">m</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="nx">cancelled</span><span class="p">).</span><span class="nx">toHaveSubscriptions</span><span class="p">(</span><span class="nx">subs</span><span class="p">);</span>
+<span class="p">}));</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>RULE: ANALYSE THE NEEDS OF YOUR STREAMS USING MARBLE DIAGRAMS</p>
+</blockquote>
+
+<p>When you know what your stream should do, then it’s time to build it.
+There is a big amount of operators available in RxJS.
+The most common are displayed in an interactive diagram at <a href="https://rxmarbles.com/" target="_blank" rel="noopener noreferrer">rxmarbles.com</a>.</p>
+
+<p>It’s important that you know the differences between them.
+Some examples:
+There’s a difference between using <strong>mergeMap</strong>, <strong>switchMap</strong>, <strong>concatMap</strong> and <strong>exhaustMap</strong> when making substreams.
+There is a difference between using <strong>combineLatest</strong>, <strong>withLatestFrom</strong>, <strong>zip</strong> and <strong>forkJoin</strong> when combining streams.
+There is also a subtle difference between <strong>first</strong> and <strong>take(1)</strong> when a stream would never emit a value and just complete:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// This will output 'error: no elements in sequence'</span>
+<span class="nx">EMPTY</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">first</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span>
+    <span class="nx">event</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'event'</span><span class="p">,</span> <span class="nx">event</span><span class="p">),</span>
+    <span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'error:'</span><span class="p">,</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">),</span>
+    <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'completed'</span><span class="p">)</span>
+  <span class="p">);</span>
+
+<span class="c1">// This will output 'completed'</span>
+<span class="nx">EMPTY</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">take</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span>
+    <span class="nx">event</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'event'</span><span class="p">,</span> <span class="nx">event</span><span class="p">),</span>
+    <span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'error:'</span><span class="p">,</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">),</span>
+    <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'completed'</span><span class="p">)</span>
+  <span class="p">);</span>
+</code></pre></div></div>
+
+<p>The following guides can help to find which operators to use:</p>
+
+<ul>
+  <li><a href="http://xgrommx.github.io/rx-book/content/which_operator_do_i_use/creation_operators.html" target="_blank" rel="noopener noreferrer">Which Operator to Use? - Creation Operators</a></li>
+  <li><a href="http://xgrommx.github.io/rx-book/content/which_operator_do_i_use/instance_operators.html" target="_blank" rel="noopener noreferrer">Which Operator to Use? - Instance Operators</a></li>
+</ul>
+
+<p>Once you know which operators to use, you can easily try out your stream using <a href="https://stackblitz.com/" target="_blank" rel="noopener noreferrer">StackBlitz</a> or <a href="https://rxviz.com/" target="_blank" rel="noopener noreferrer">Rx Visualizer</a>.</p>
+
+<p>Don’t forget you can <a href="https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md#build-your-own-operators-easily" target="_blank" rel="noopener noreferrer">build your own operators easily</a> to combine or quickhand other operators.</p>
+
+<blockquote>
+  <p>RULE: USE THE CORRECT PIPE OPERATORS</p>
+</blockquote>
+
+<h2 id="ending">Ending</h2>
+
+<p>That’s all folks.
+Some of these rules are opinionated, but I hope they will help some of you to write better RxJS streams.
+Just remember: It’s not because you know what you’re doing that everyone knows what you’re doing.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/development/2019/04/29/Keep-your-RxJS-streams-from-bursting-their-banks.html&title=How to keep your RxJS streams from bursting their banks&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=How to keep your RxJS streams from bursting their banks&url=https://ordina-jworks.github.io/development/2019/04/29/Keep-your-RxJS-streams-from-bursting-their-banks.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/development/2019/04/29/Keep-your-RxJS-streams-from-bursting-their-banks.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/orjan-de-smet" class="image spotlight-image" title="">
+            <img src="/img/author/orjan-de-smet.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Orjan is a Frontend Developer at Ordina Belgium, keen on building structured quality applications with a focus on Reactive Programming and dealing with it. He is always interested to try new technologies and to share his experiences. In his spare time, he enjoys a good game or movie or dining out.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/speedlimit.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
