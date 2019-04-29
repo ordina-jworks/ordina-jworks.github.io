@@ -8,8 +8,13 @@ category: Java
 comments: true
 ---
 
-> Around February we had a discussion in our chat group of developers which made us realise how much confusion there is on the new update cycle for the JVM.
-> We decided it would be good idea to write a blog post that should clear up the confusion for our developers and clients
+> Around February we had a discussion
+in our chat group of developers
+which made us realise how much confusion
+there is on the new update cycle for the JVM.
+> We decided it would be good idea to write
+a blog post that should clear up
+the confusion for our developers and clients.
 
 # Table of content
 
@@ -20,15 +25,55 @@ comments: true
 
 ## Oracle's JDK distributions
 
-First we have to explain what changed to Oracle's JDK distributions recently, which have brought along allot of uncertainty within the Java community, this blog post is going to try to explain these changes and more importantly tell you what you should know about the licenses and options you have. At the end of this article you should know more about free updates and commercial support options from various JDK vendors and understand that OpenJDK 8 and 11 are still being updated, even though Oracle is going to stop leading those projects, to focus on the new versions and providing commercial support.
+First we have to explain what changed
+to Oracle's JDK distributions recently,
+which have brought along allot of
+uncertainty within the Java community,
+this blog post is going to try to
+explain these changes and more importantly
+tell you what you should know
+about the licenses and options you have.
+
+At the end of this article you
+should know more about free updates
+and commercial support options from 
+various JDK vendors and understand
+that OpenJDK 8 and 11 are still being updated,
+even though Oracle is going to
+stop leading those projects,
+to focus on the new versions
+and providing commercial support.
 
 ### Six month release cycle
 
-Java SE now has new major versions released every six months since java version 9, prior to this version updates where provided by Oracle and other OpenJDK contributors, these releases such as 8u91, 8u111 and 8u131 where released every six months, you would not get further updates on 8u91 once 8u111 was released and no longer get updates for 8u111 once 8u131 was released.
+Java SE now has new major versions released
+every six months since java version 9,
+prior to this version updates where provided
+by Oracle and other OpenJDK contributors,
+these releases such as 8u91, 8u111 and 8u131
+where released every six months,
+you would not get further updates
+on 8u91 once 8u111 was released and
+no longer get updates for 8u111
+once 8u131 was released.
 
-Since java version 9 however there is new six month release cycle for major versions similar to the old update cycle once 8u131 was released you would not get updates for 8u111, in the new version system you would no longer get updates for java 12 once java 13 is released, exceptions being long term support versions versions which will get updates beyond 6 months more about that later.
+Since java version 9 however there is new
+six month release cycle for major versions
+similar to the old update cycle once 8u131 was
+released you would not get updates for 8u111,
+in the new version system you would no longer
+get updates for java 12 once java 13 is released,
+exceptions being long term support versions versions
+which will get updates beyond 6 months more about that later.
 
-Below is a table for free updates, each vendor can release their own openJDK distributions and decide for themselves how long they provide free updates. If you want pick a vendor make sure you research how long they will be providing free updates/support because this may vary from vendor to vendor, further in the article we provide a table wit most of this information.
+Below is a table for free updates,
+each vendor can release their own openJDK distributions and
+decide for themselves how long they provide free updates.
+If you want pick a vendor make sure you research how long
+they will be providing free updates/support
+because this may vary from vendor to vendor,
+further in the article
+we provide a table with most of this information.
 
 | Version       | Release date  | Free updates ended or superseded                                                             |
 | ------------- | ------------- | -------------------------------------------------------------------------------------------- |
@@ -44,43 +89,171 @@ Below is a table for free updates, each vendor can release their own openJDK dis
 
 ### Support and licenses
 
-Before java 9 Oracle would provide updates for their JDK for 3 years, the license allowed you to use these updates personally and commercially. The updates had no support, if you wanted support you had to buy a license from Oracle and those licenses also came with longer update cycles. Starting April 2019 the new Oracle JDK 8 updates will be restricted and remain free for personal desktop use, development, testing, prototyping, demonstrating and for use with certain types of applications, commercial use of these updates requires you to get a license for a payed support plan, using older versions is allowed, but will not contain important security patches.
+Before java 9 Oracle would provide
+updates for their JDK for 3 years,
+the license allowed you to use
+these updates personally and commercially.
+The updates had no support,
+if you wanted support you had
+to buy a license from Oracle
+and those licenses also came
+with longer update cycles.
+Starting April 2019 the new 
+Oracle JDK 8 updates will be restricted
+and remain free for personal desktop use,
+development, testing,
+prototyping, demonstrating and for use
+with certain types of applications,
+commercial use of these updates requires
+you to get a license for a payed support plan,
+using older versions is allowed,
+but will not contain important security patches.
 
-Java 9 brings new update cycle which allows for new implementations like TLS 1.3 to be added to Java faster, Oracle also started producing Oracle OpenJDK builds which use the GNU General Public License, version 2, with the Classpath Exception. Every major java version has free updates for 6 months until the next major version is released. If you need new updates and support for these older versions you will have to buy a license from Oracle which will extend support and updates which is only provided for LTS releases.
+Java 9 brings new update cycle
+which allows for new implementations
+like TLS 1.3 to be added to Java faster,
+Oracle also started producing Oracle OpenJDK builds
+which use the GNU General Public License,
+version 2, with the Classpath Exception.
+Every major java version has free updates for 6 months
+until the next major version is released.
+If you need new updates and support for these older versions
+you will have to buy a license from Oracle
+which will extend support and updates
+which is only provided for LTS releases.
 
 #### Support
 
-So what if I want support from Oracle? Support isn't free commitment to fix bugs and requiring to answer users their problems costs money, because of that Oracle has never provided free support. If you need the reassurance of bug fixes and somebody to answer your questions then you have to get commercial support, you aren't limited to Oracle's support, which vendor you choose to get this support from is up to you, but each vendor has their own JDK binaries so make sure you use the binaries of the vendor you want to get commercial support from and don't forget to check how long they will support your OpenJDK version, each vendor can decide for themselves how long they provide support for their OpenJDK libraries, so this isn't a decision you should make on a whim.
+So what if I want support from Oracle?
+Support isn't free commitment to fix bugs
+and requiring to answer users their problems costs money,
+because of that Oracle has never provided free support.
+If you need the reassurance of bug fixes
+and somebody to answer your questions then
+you have to get commercial support,
+you aren't limited to Oracle's support,
+which vendor you choose to get
+this support from is up to you,
+but each vendor has their own JDK binaries
+so make sure you use the binaries of the vendor
+you want to get commercial support from
+and don't forget to check how long they
+will support your OpenJDK version,
+each vendor can decide for themselves how long
+they provide support for their OpenJDK libraries,
+so this isn't a decision you should make on a whim.
 
-You might also be thinking why would I pay for commercial support for (open source) JDK versions? Don't forget that Oracle and other vendors pour money in development of these JDK versions this money has to come for somewhere, you are not obliged to get paid support with one of the vendors providing OpenJDK versions, but I think it's worth thinking about supporting the Java ecosystem to ensure it's long lasting future. If there is no money to develop the JDK further then there won't be any progression to the future of the JDK ecosystem.
+You might also be thinking why would I pay
+for commercial support for (open source) JDK versions?
+Don't forget that Oracle and other vendors
+pour money in development of these JDK versions
+this money has to come for somewhere,
+you are not obliged to get paid support with
+one of the vendors providing OpenJDK versions,
+but I think it's worth thinking about supporting
+the Java ecosystem to ensure it's long lasting future.
+If there is no money to develop the JDK further
+then there won't be any progression to the
+future of the JDK ecosystem.
 
 ### Long Term Support (LTS)
 
-In the OpenJDK, LTS is an understanding between various contributors which are mainly led by Oracle and Red Hat which means that the code line for Java SE 11, 17, 23... will be maintained for a longer period of time than six months.
+In the OpenJDK, LTS is an understanding
+between various contributors
+which are mainly led by Oracle
+and Red Hat which means that the code
+line for Java SE 11, 17, 23... will be maintained for a
+longer period of time than six months.
 
-Oracle leads the first six months of the OpenJDK LTS code line, providing updates and producing the Oracle OpenJDK builds, but afterwards as mentioned before provide updates under a paid support plan.
+Oracle leads the first six months of the OpenJDK LTS code line,
+providing updates and producing the Oracle OpenJDK builds,
+but afterwards as mentioned before provide
+updates under a paid support plan.
 
-There's a but however, Oracle will work with other OpenJDK vendors to hand over the OpenJDK LTS code line and allow those vendors to continue working on these updates together. Handing over the openJDK code line has already occurred for both Java 8 and Java 11 with Red Hat taking over those update projects, this doesn't mean that they are the only one contributing to the OpenJDK project, various people can still provide patches and add new features to new versions of the OpenJDK, you can read more about JDK 11 updates [here](https://wiki.openjdk.java.net/display/JDKUpdates/JDK11u) you'll see that there updates planned there for for at least Mid October 2019.
+There's a but however, Oracle will work with
+other OpenJDK vendors to hand over the OpenJDK
+LTS code line and allow those vendors to continue
+working on these updates together. Handing over
+the openJDK code line has already occurred for
+both Java 8 and Java 11 with Red Hat taking
+over those update projects,
+this doesn't mean that they are the only one
+contributing to the OpenJDK project,
+various people can still provide patches and
+add new features to new versions of the OpenJDK,
+you can read more about JDK 11 updates
+[here](https://wiki.openjdk.java.net/display/JDKUpdates/JDK11u)
+you'll see that there updates planned 
+there for for at least Mid October 2019.
 
-This means that the Oracle's JDK could differ from the OpenJDK based binaries and the JDK's provided by other vendors. Most of the major vendors have continued to take efforts to keep them in sync as much as possible, but this does mean you should develop, test, .. your applications on the binaries you plan on using in production, or you might end op with some unexpected results during production, to prevent big differences a TCK is provided by Oracle for OpenJDK distributions, more about that later in the article.
+This means that the Oracle's JDK could
+differ from the OpenJDK based binaries
+and the JDK's provided by other vendors.
+Most of the major vendors have continued
+to take efforts to keep them in sync as much as possible,
+but this does mean you should develop, test, ..
+your applications on the binaries you plan on using in production,
+or you might end op with some unexpected results during production,
+to prevent big differences a TCK is 
+provided by Oracle for OpenJDK distributions,
+more about that later in the article.
 
 ## OpenJDK updates
 
-The openJDK community works on free, open-source implementations of the Java Se standard. Oracle contributes allot to these project, and forms the basis for both the Oracle JDK and OpenJDK builds. OpenJDK 11+ versions are interchangeable with Oracle's JDK for applications. Oracle will continue to contribute to OpenJDK while they provide updates for the corresponding Oracle OpenJDK build version. Once that version is superseded, Oracle will cease contributing to that version and start updating the next one.
+The openJDK community works on free,
+open-source implementations of the Java Se standard.
+Oracle contributes allot to these project,
+and forms the basis for both the Oracle JDK
+and OpenJDK builds.
+OpenJDK 11+ versions are interchangeable
+with Oracle's JDK for applications.
+Oracle will continue to contribute to OpenJDK
+while they provide updates for the corresponding
+Oracle OpenJDK build version.
+Once that version is superseded,
+Oracle will cease contributing to that version
+and start updating the next one.
 
 ### Updates from other vendors
 
-Oracle is very receptive of the idea on having community maintenance and will continue to support handover of the OpenJDK to the community to a qualified volunteering entity once they have moved on to working on the next version. Red Hat is currently globally leading and updating OpenJDK 6 and OpenJDK 7 projects after Oracle ended updates for them. After Red hat stopped updating OpenJDK 6, Azul Systems has taken over leading the project and continued to provide updates for the project to this day.
+Oracle is very receptive of the idea on having
+community maintenanceand will continue to support
+handover of the OpenJDK to the community to
+a qualified volunteering entity once they have
+moved on to working on the next version.
+Red Hat is currently globally leading and
+updating OpenJDK 6 and OpenJDK 7 projects
+after Oracle ended updates for them.
+After Red hat stopped updating OpenJDK 6,
+Azul Systems has taken over leading the project
+and continued to provide updates for the project to this day.
 
-Red Hat is currently leading OpenJDK 8 and OpenJDK 11 since April. This does not mean that they are the sole contributors to the project they lead, other vendors are providing patches and updates as well. The biggest contribution are happening to the OpenJDK 8 project with contributions from not just Red Hat, but Amazon, Azul Systems, BellSoft, IBM, jClarity, Google, Sap and many other vendors.
+Red Hat is currently leading OpenJDK 8 and OpenJDK 11 since April.
+This does not mean that they are
+the sole contributors to the project they lead,
+other vendors are providing patches and updates as well.
+The biggest contribution are happening to the OpenJDK 8 project
+with contributions from not just Red Hat, but Amazon,
+Azul Systems, BellSoft, IBM, jClarity, Google, Sap
+and many other vendors.
 
-For consistency, these venders provide extended update cycles for their openJDK for the same versions that are deemed LTS for Oracle's JDK.
+For consistency, these venders provide extended update
+cycles for their openJDK for the same versions that are
+deemed LTS for Oracle's JDK.
 
 ## OpenJDK providers
 
 ### Build yourself from source providers
 
-One of the options you have is to build a JDK from source code this means OpenJDK, no commercial support and you need to build it yourself and keep it updated, this not suggested since this requires you to put resources in checking for updates and applying patches if needed, there also no way of getting any commercial support if you ever need it.
+One of the options you have is to build
+a JDK from source code this means OpenJDK,
+no commercial support and you need to build
+it yourself and keep it updated,
+this not suggested since this requires you
+to put resources in checking for updates
+and applying patches if needed,
+there also no way of getting any commercial support
+if you ever need it.
 
 #### Source providers
 * [Mercurial](http://hg.openjdk.java.net/)
@@ -89,7 +262,9 @@ One of the options you have is to build a JDK from source code this means OpenJD
 
 ### Using binaries from providers
 
-The most convenient option is to use binary distributions from other providers, that are providing public updates.
+The most convenient option is to use
+binary distributions from other providers,
+that are providing public updates.
 
 #### Free binary distributions & commercial support
 
@@ -102,49 +277,103 @@ The most convenient option is to use binary distributions from other providers, 
 | [Oracle OpenJDK](https://openjdk.java.net/)                 | 11        | Yes  | Until Mar 2019           | Major         | Oracle (through the Oracle JDK) | September 2023, September 2026 (extended support)  |
 | [SapMachine](https://sap.github.io/SapMachine/)             | 11        | Yes  | September 2022           | Major         | SAP                             | September 2022                                     |
 
-\* **Major** = Linux x86, Mac OS x, Windows x64, **Minor** = various other platforms
+\* **Major** = Linux x86, Mac OS x, Windows x64,
+**Minor** = various other platforms
 
 ***Notes:***
 
-*As a general philosophy, AdoptOpenJDK will continue to build binaries for LTS releases as long as the corresponding upstream source (Oracle OpenJDK) is actively maintained. The Eclipse OpenJ9 Support Document covers extra support info for that VM.*
+*As a general philosophy, AdoptOpenJDK will continue*
+*to build binaries for LTS releases as long as the*
+*corresponding upstream source (Oracle OpenJDK)*
+*is actively maintained. The Eclipse OpenJ9 Support*
+*Document covers extra support info for that VM.*
 
-*This information might change overtime and was gathered from the vendors pages and support, contact vendors for the most recent information.*
+*This information might change overtime and was*
+*gathered from the vendors pages and support,*
+*contact vendors for the most recent information.*
 
-*jClarity will support their JDK binaries as long as produced that likely means 2028*
+*jClarity will support their JDK binaries as*
+*long as produced that likely means 2028*
 
 ##### Technology Compatibility Kit for Java (TCK)
 
-The Java Compatibility Kit (a.k.a., the JCK or TCK for Java SE) is an extensive test suite used by Oracle and licensees to ensure compatible implementations of it's platform. This ensures that the OpenJDK implementation does not have major differences from the Oracle's JDK, but it is still possible for there to be minor differences in the binary distribution.
+The Java Compatibility Kit (a.k.a., the JCK or TCK for Java SE)
+is an extensive test suite used by Oracle and licensees to ensure
+compatible implementations of it's platform.
+This ensures that the OpenJDK implementation does
+not have major differences from the Oracle's JDK,
+but it is still possible for there to be minor differences
+in the binary distribution.
 
-Sun released a specific license to permit running the TCK in the OpenJDK context for any GPL implementation deriving substantially from OpenJDK, this also means to be TCK compliant the JDK distribution is required to use the same GPL license, otherwise you cannot obtain legal access the TCK, it available at no charge to developers who are planning to deploy a compatible Java implementation based on code derived from OpenJDK, or are participating in OpenJDK research, bug fixes, code enhancement and/or ports to other hardware or software architectures.
+Sun released a specific license to permit running the TCK
+in the OpenJDK context for any GPL implementation deriving
+substantially from OpenJDK,
+this also means to be TCK compliant the JDK distribution
+is required to use the same GPL license,
+otherwise you cannot obtain legal access the TCK,
+it available at no charge to developers who are planning
+to deploy a compatible Java implementation based on code
+derived from OpenJDK,
+or are participating in OpenJDK research, bug fixes,
+code enhancement and/or ports to other hardware
+or software architectures.
 
 ### Using distributions provided by your linux distribution
 
-Many various linux distributions will continue to provide OpenJDK binaries for theirs distributions through their package managers including and not limited to Debian, Ubuntu, CentOs, Fedora, Alpine, ...
+Many various linux distributions will continue to provide
+OpenJDK binaries for theirs distributions through their
+package managers including and not limited to
+Debian, Ubuntu, CentOs, Fedora, Alpine, ...
 
 ## Java Desktop, Java Web Start and JavaFX
 
-There are various changes with Desktop Java SE starting with the Oracle JDK 11 that you should be aware of.
+There are various changes with Desktop Java SE starting
+with the Oracle JDK 11 that you should be aware of.
 
 ### JavaFX and OpenJFX
 
-As of Java version 11 both Oracle's JDK and Oracle's OpenJDK will no longer contain the JavaFX or OpenJFX libraries, you will have to add these libraries yourself or through build tools. The update cycle is the same as OpenJDK if OpenJFX 12 is released, public updates are dropped for OpenJFX 11.
+As of Java version 11 both Oracle's JDK and Oracle's OpenJDK
+will no longer contain the JavaFX or OpenJFX libraries,
+you will have to add these libraries yourself or
+through build tools.
+The update cycle is the same as OpenJDK if OpenJFX 12 is released,
+public updates are dropped for OpenJFX 11.
 
 ### Java Packager
 
-The javapackager, which allowed you to bundle applications and their dependencies with the JVM is no longer part of the OpenJFX and has been removed from all of Oracle's JDK versions starting from version 11. There is [JEP](https://bugs.openjdk.java.net/browse/JDK-8200758) opened to add a new Packaging tool to OpenJDK, but this is not yet ready for Java 11.
+The javapackager,
+which allowed you to bundle applications
+and their dependencies with the JVM is no longer part
+of the OpenJFX and has been removed from all of Oracle's
+JDK versions starting from version 11.
+There is a
+[JEP](https://bugs.openjdk.java.net/browse/JDK-8200758)
+opened to add a new Packaging tool to OpenJDK,
+but this is not yet ready for Java 11.
 
 ### Java WebStart
 
-Java WebStart has been removed from Oracle's JDK versions starting from version 11.
-* Alternatively you can use [IcedTea-Web](https://icedtea.classpath.org/wiki/IcedTea-Web)
-  * AdoptOpenJDK will be supporting OpenJDK binaries with IcedTea-Web
-  * IBM will be supporting AdoptOpenJDK builds of OpenJDK with IcedTea-Web
-  * Builds from Red hat include a simplified IcedTea-Web installer (ojdkbuild)
-* Karukun is working on an [OSS replacement for Web Start](https://dev.karakun.com/webstart/)
+Java WebStart has been removed from Oracle's
+JDK versions starting from version 11.
+* Alternatively you can use
+[IcedTea-Web](https://icedtea.classpath.org/wiki/IcedTea-Web)
+  * AdoptOpenJDK will be supporting
+  OpenJDK binaries with IcedTea-Web
+  * IBM will be supporting AdoptOpenJDK
+  builds of OpenJDK with IcedTea-Web
+  * Builds from Red hat include a 
+  simplified IcedTea-Web installer (ojdkbuild)
+* Karukun is working on an 
+[OSS replacement for Web Start](https://dev.karakun.com/webstart/)
 
 ## Sources
-The information in this blog posts comes from various sources which will be listed below, a huge thanks goes out to the creators of the Java Is Still Free document which granted us permissions to use their post for this blog post. We used these sources either because we were granted permissions to use them or the terms allowed us to use them.
+The information in this blog posts comes from
+various sources which will be listed below,
+a huge thanks goes out to the creators of
+the Java Is Still Free document which granted
+us permissions to use their post for this blog post.
+We used these sources either because we were granted
+permissions to use them or the terms allowed us to use them.
 
 * [Java Is Still Free](https://docs.google.com/document/d/1nFGazvrCvHMZJgFstlbzoHjpAVwv5DEdnaBr_5pKuHo/edit?usp=sharing)
 * [The jdk-updates-dev Archives](https://mail.openjdk.java.net/pipermail/jdk-updates-dev/)
