@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Istio Service Mesh: service to service communication - Pieter Vincken">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2019-04-14-istio-service-mesh-s2s/istio.jpeg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/cloud/2019/05/03/istio-service-mesh-s2s.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Istio Service Mesh: service to service communication - Pieter Vincken"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2019-04-14-istio-service-mesh-s2s/istio.jpeg"/>
+
+    
+    <title>Istio Service Mesh: service to service communication - Pieter Vincken &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Istio Service Mesh: service to service communication</h2>
+                
+
+                
+                    Posted May 3, 2019
+
+
+    in <a href="/categories/cloud/">Cloud</a>
+
+
+
+    by
+    
+        <a href="/author/pieter_vincken/">Pieter Vincken</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/istio/">Istio</a>, 
+    
+        <a href="/tags/service-mesh/">Service Mesh</a>, 
+    
+        <a href="/tags/kubernetes/">Kubernetes</a>, 
+    
+        <a href="/tags/cloud/">Cloud</a>, 
+    
+        <a href="/tags/microservices/">Microservices</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>This post will describe how to use the Istio service mesh to provide service to service authentication and authorization in a Kubernetes cluster.
+It will show how ServiceRoles, ServiceRoleBindings and Identities in Istio can be used to achieve this.</p>
+</blockquote>
+
+<h1 id="table-of-content">Table of content</h1>
+
+<ul>
+  <li><a href="#what-is-istio">What is Istio?</a></li>
+  <li><a href="#istio-concepts">Istio concepts</a></li>
+  <li><a href="#show-me-the-code">Show me the code</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="what-is-istio">What is Istio?</h2>
+
+<p>Istio is a service mesh created by Google, Lyft and IBM. 
+It aims to simplify some security and management aspects of a microservices software architecture.
+More information on Istio and its features can be found in its <a href="https://istio.io/docs/" target="_blank" rel="noopener noreferrer">docs</a>.
+In this blogpost we will highlight one of the key security features of Istio: service to service authentication and authorization.
+For the sake of simplicity, this post will focus on an Istio setup in Kubernetes.</p>
+
+<p>In a microservices architecture, managing access to services can be a challenging operation. 
+For end-user facing services, JWTs are used to add authorization information to a request.
+They are used by the service to determine which end-user is making the request.
+These tokens can be generated based on information that the end-user provides to an identity provider.
+In most cases this information is a username and password, with some additional 2FA if possible.
+This setup can be achieved by using OpenID Connect as a protocol with the authorization code grant flow and an identity provider like Keycloak.</p>
+
+<p>When services communicate with each other, they also need to provide an identity to each other.
+A common option to do this is by using client credentials grant flow of OpenID Connect.
+In this flow a service provides its client credentials to authenticate against the identity provider, and to be able to generate an access token once authenticated.
+This token will be used to communicate to a service.</p>
+
+<p>These are types of authorization flows on application level.
+They allow services to determine what resources an end-user or service can access.
+Istio’s service to service role based acccess control (RBAC) is not on application level but on communication level.
+It specifies which services can connect and communicate with each other. 
+In order to achieve this, Istio connects an identity to each service in the mesh and allows it to authenticate itself.
+The requested service can use this identity to determine if the service is allowed to connect or not.<br />
+Istio makes use of proxies to handle all traffic (into and out of services) and using mutual trusted certificates to secure the connection and provide an identity to these proxies.
+When using the automatic proxy injection, enabling Istio’s service to service RBAC mechanism is almost as easy as flipping a switch.</p>
+
+<p>There are five main components responsible for making this possible in Istio: Citadel, Pilot, Galley, Mixer and Envoy.</p>
+
+<p><em>Citadel</em> is Istio’s fortress of trust.
+It manages all certificates and acts as a Root CA in the Istio setup.</p>
+
+<p><em>Galley</em> is the main configuration manager.
+It is responsible for gathering all required information from the underlying platform.</p>
+
+<p><em>Pilot</em> manages all routing information and manages all the information for the proxies.
+It will initialise the proxies during start-up with their configuration and the certificates from Citadel.</p>
+
+<p><em>Mixer</em> is responsible for all monitoring, logging and authorization information.
+Whenever a proxy performs an action, Mixer knows about it. 
+This allows it to both monitor and log connections, but also provide authorization information to the proxies.</p>
+
+<p>The final piece to the puzzle is <em>Envoy</em>. 
+Envoy is the sidecar proxy responsible for handling the actual traffic between services in the service mesh.
+It will setup and manage the required mTLS connections and perform all required check with regards to the routing. 
+Envoy is managed as a separate project and in theory an other proxy could be used, but Envoy is most common.</p>
+
+<p><img class="image fit" style="margin:0px auto; max-width: 600px;" src="/img/2019-04-14-istio-service-mesh-s2s/arch.svg" alt="Istio architecture drawing" /></p>
+
+<p>A final, optional component is the sidecar injector.
+This component is not mandatory for the service mesh to work, but makes using it a lot easier.
+The injector is set up as a mutating webhook admission controller. 
+In a nutshell, this allows the injector to inspect and update some specific objects in the Kubernetes API.
+It will automatically inject the Envoy sidecar proxy into every pod which needs it.</p>
+
+<h2 id="istio-concepts">Istio concepts</h2>
+
+<p>Istio stores all its configuration directly in the Kubernetes API through the use of Custom Resource Definitions (CRDs).
+Next, a small description of the ones relevant for our blog are explained.</p>
+
+<h3 id="policies">Policies</h3>
+
+<p><a href="https://istio.io/docs/concepts/security/#authentication-policies" target="_blank" rel="noopener noreferrer">Policies</a> are at the heart of the mTLS setup in Istio.
+They define when mTLS should be used and how.
+Policies can be scoped in two levels: mesh wide (Mesh Policies) and namespace wide.</p>
+
+<h3 id="destination-rules">Destination Rules</h3>
+
+<p><a href="https://istio.io/docs/concepts/traffic-management/#destination-rules" target="_blank" rel="noopener noreferrer">Destination rules</a> are a set of rules that are evaluated when a service is called.
+They define multiple different routing options.
+For the scope of this blogpost, they will only be used to define which services require to be accessed using mTLS.</p>
+
+<h3 id="service-roles">Service Roles</h3>
+
+<p><a href="https://istio.io/docs/concepts/security/#servicerole" target="_blank" rel="noopener noreferrer">Service Roles</a> are used in Istio to describe which access a role provides. 
+It specifies which endpoints of a specific service can be used.
+Currently this is described by specifying the full internal DNS name of the service, the methods and the paths that the role can access.</p>
+
+<h3 id="service-role-bindings">Service Role Bindings</h3>
+
+<p><a href="https://istio.io/docs/concepts/security/#servicerole" target="_blank" rel="noopener noreferrer">Service Role Bindings</a> are used to connect identities (service accounts) or identity properties (namespaces) to actual roles. 
+When a binding is created, the identities connected to it are allowed the access specified in the referenced service role.</p>
+
+<h2 id="show-me-the-code">Show me the code</h2>
+
+<p>The Istio service to service authentication and authorization will now be explained by using an example setup.
+Note that the code snippets have been shortened in this blogpost.
+This is denoted with three dots <code class="highlighter-rouge">...</code>.
+The full examples can be found in the accompanying repository on <a href="https://github.com/pietervincken/istio-service-to-service-demo" target="_blank" rel="noopener noreferrer">Github</a></p>
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<p>This demo assumes that Istio is already installed in the cluster with the demo profile enabled. 
+See <a href="https://istio.io/docs/setup/kubernetes/install/helm/#option-1-install-with-helm-via-helm-template" target="_blank" rel="noopener noreferrer">Install Istio</a> for more information on the installation of Istio.
+In the demo repository, a small <a href="https://github.com/pietervincken/istio-service-to-service-demo/blob/master/1-install-istio.sh" target="_blank" rel="noopener noreferrer">script</a> can be found that can assist in setting up the demo environment</p>
+
+<h3 id="setup">Setup</h3>
+
+<p>The setup of our application is a very simple service with a database backend. 
+Our service exposes one HTTP GET endpoint which will be accessed by the outside world. 
+Our database is an Apache CouchDB instance.
+Both the database and the service run inside Kubernetes.
+The setup is shown in the image below.</p>
+
+<p><img class="image fit" style="margin:0px auto; max-width: 600px;" src="/img/2019-04-14-istio-service-mesh-s2s/setup.png" alt="demo setup" /></p>
+
+<h3 id="create-namespace">Create namespace</h3>
+
+<p>First, a new namespace is created.
+The service and database will both be added to this namespace.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create namespace with-istio
+kubectl label namespace with-istio istio-injection<span class="o">=</span>enabled
+</code></pre></div></div>
+
+<h3 id="install-couchdb">Install CouchDB</h3>
+
+<p>Next, the database is installed.
+This looks like a normal stateful set for a CouchDB database.
+There are some important changes.</p>
+
+<p>First, a specific service account is created for CouchDB. 
+This is needed as Istio will use the service accounts in Kubernetes as its identities.
+The service account is linked to the podspec in the stateful set definition. 
+This way, it can be used by the Istio proxy later on.</p>
+
+<p>Secondly, the probes have been adapted to work in Istio.
+Since Istio intercepts all traffic in the pod, it will also intercept requests from the Kube API to the service.
+Since the demo setup requires mTLS to be used, the probes would fail because the Kube API doesn’t use mTLS.
+Instead of manually changing the probes, Istio now has the option to rewrite the probes during the automatic proxy injection. 
+More information on the probes can be found in the <a href="https://istio.io/help/ops/setup/app-health-check/#probe-rewrite" target="_blank" rel="noopener noreferrer">Istio Docs</a>.</p>
+
+<p>Note that no Istio specific configuration is required in the service manifests.
+This is possible because the demo profile automatically enables the sidecar injector and we enabled the injection on the <code class="highlighter-rouge">with-istio</code> namespace using the <code class="highlighter-rouge">istio-injection=enabled</code> label.
+The automatic sidecar injector will inject the Envoy sidecar into all pods.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="c1"># Source: couchdb/templates/serviceaccount.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceAccount</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">couchdb</span>
+<span class="nn">---</span>
+<span class="c1"># Source: couchdb/templates/service.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">couchdb</span>
+  <span class="na">labels</span><span class="pi">:</span>
+   <span class="s">...</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">ClusterIP</span>
+  <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">port</span><span class="pi">:</span> <span class="s">80</span>
+      <span class="na">targetPort</span><span class="pi">:</span> <span class="s">http</span>
+      <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">http</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="s">app.kubernetes.io/name</span><span class="pi">:</span> <span class="s">couchdb</span>
+    <span class="s">app.kubernetes.io/instance</span><span class="pi">:</span> <span class="s">couchdb</span>
+<span class="nn">---</span>
+<span class="c1"># Source: couchdb/templates/statefulset.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">StatefulSet</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">couchdb</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="s">...</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="s">1</span>
+  <span class="na">serviceName</span><span class="pi">:</span> <span class="s">couchdb</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="s">app.kubernetes.io/name</span><span class="pi">:</span> <span class="s">couchdb</span>
+      <span class="s">app.kubernetes.io/instance</span><span class="pi">:</span> <span class="s">couchdb</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="s">app.kubernetes.io/name</span><span class="pi">:</span> <span class="s">couchdb</span>
+        <span class="s">app.kubernetes.io/instance</span><span class="pi">:</span> <span class="s">couchdb</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">serviceAccountName</span><span class="pi">:</span> <span class="s">couchdb</span>
+      <span class="na">containers</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">couchdb</span>
+          <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">couchdb:2.3.0"</span>
+          <span class="na">imagePullPolicy</span><span class="pi">:</span> <span class="s">IfNotPresent</span>
+          <span class="na">ports</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">http</span>
+              <span class="na">containerPort</span><span class="pi">:</span> <span class="s">5984</span>
+              <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+          <span class="na">livenessProbe</span><span class="pi">:</span>
+            <span class="na">exec</span><span class="pi">:</span>
+              <span class="na">command</span><span class="pi">:</span>
+              <span class="pi">-</span> <span class="s">curl</span>
+              <span class="pi">-</span> <span class="s">http://localhost:5984/_up</span>
+          <span class="na">readinessProbe</span><span class="pi">:</span>
+            <span class="na">exec</span><span class="pi">:</span>
+              <span class="na">command</span><span class="pi">:</span>
+              <span class="pi">-</span> <span class="s">curl</span>
+              <span class="pi">-</span> <span class="s">http://localhost:5984/_up</span>
+          <span class="na">resources</span><span class="pi">:</span>
+            <span class="s">...</span>
+</code></pre></div></div>
+
+<h3 id="install-the-service-test-app">Install the service: test-app</h3>
+
+<p>A small NodeJS application was created for this demo.
+It exposes an HTTP GET endpoint which connects to the CouchDB database.
+The manifests are very similar to the CouchDB versions.
+As with CouchDB, note that no Istio specific configuration is required on the manifests.
+A service account is created and linked to provide the service with a unique identity in Kubernetes and Istio.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="c1"># Source: test-app-chart/templates/serviceaccount.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceAccount</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">test-app-test-app-chart</span>
+<span class="nn">---</span>
+<span class="c1"># Source: test-app-chart/templates/service.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">test-app-test-app-chart</span>
+  <span class="s">...</span>
+<span class="nn">---</span>
+<span class="c1"># Source: test-app-chart/templates/deployment.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">test-app-test-app-chart</span>
+  <span class="na">labels</span><span class="pi">:</span>
+   <span class="s">...</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="s">1</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="s">app.kubernetes.io/name</span><span class="pi">:</span> <span class="s">test-app-chart</span>
+      <span class="s">app.kubernetes.io/instance</span><span class="pi">:</span> <span class="s">test-app</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="s">app.kubernetes.io/name</span><span class="pi">:</span> <span class="s">test-app-chart</span>
+        <span class="s">app.kubernetes.io/instance</span><span class="pi">:</span> <span class="s">test-app</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">serviceAccountName</span><span class="pi">:</span> <span class="s">test-app-test-app-chart</span>
+      <span class="na">containers</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">test-app-chart</span>
+          <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">test-app:latest"</span>
+          <span class="na">imagePullPolicy</span><span class="pi">:</span> <span class="s">IfNotPresent</span>
+          <span class="na">ports</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">http</span>
+              <span class="na">containerPort</span><span class="pi">:</span> <span class="s">8080</span>
+              <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+          <span class="na">livenessProbe</span><span class="pi">:</span>
+            <span class="s">...</span>
+          <span class="na">resources</span><span class="pi">:</span>
+            <span class="s">...</span>
+</code></pre></div></div>
+
+<p>The current setup is displayed in the following drawing.</p>
+
+<p><img class="image fit" style="margin:0px auto; max-width: 446px;" src="/img/2019-04-14-istio-service-mesh-s2s/istio-basic-setup.png" alt="Basic setup in Istio" /></p>
+
+<h3 id="enabling-mutual-tls-mtls">Enabling mutual TLS (mTLS)</h3>
+
+<p>Currently the service can connect to the backend just fine. 
+TLS is currently not used to communicate between the service.</p>
+
+<p>The following manifest defines a policy which changes this. 
+It is a namespace scoped policy telling Istio that all services in the <code class="highlighter-rouge">with-istio</code> namespace should <strong>ONLY</strong> accept mTLS connections.
+This configuration will be picked up by Pilot and distributed to all Envoy proxies in the <code class="highlighter-rouge">with-istio</code> namespace.
+When this policy is applied, Envoy will drop any requests it gets that don’t use mTLS.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">authentication.istio.io/v1alpha1"</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Policy"</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">default"</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">with-istio</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">peers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">mtls</span><span class="pi">:</span> 
+      <span class="na">mode</span><span class="pi">:</span> <span class="s">STRICT</span>
+</code></pre></div></div>
+
+<p>Note, this policy only affects the incoming connections on the Envoy proxy.
+When a request would be sent to the test-app service now, it would be rejected with an HTTP 503 error code.
+This is shown in the following drawing.</p>
+
+<p><img class="image fit" style="margin:0px auto; max-width: 408px;" src="/img/2019-04-14-istio-service-mesh-s2s/istio-mtls-broken.png" alt="Broken mTLS drawing" /></p>
+
+<p>Next, the outgoing (client) connections needs to be configured to use mTLS.
+This can be done by specifying a destination rule for the services.
+A destination rule defines a set of rules that are evaluated for every outgoing request from a proxy.
+This rules defines that every proxy in <code class="highlighter-rouge">with-istio</code> namespace needs to use mutual TLS for every service that ends with <code class="highlighter-rouge">.local</code>.
+By applying this rule, the requests will succeed again on the test-app service.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">networking.istio.io/v1alpha3"</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">DestinationRule"</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">default"</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">with-istio</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">host</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*.local"</span>
+  <span class="na">trafficPolicy</span><span class="pi">:</span>
+    <span class="na">tls</span><span class="pi">:</span>
+      <span class="na">mode</span><span class="pi">:</span> <span class="s">ISTIO_MUTUAL</span>
+</code></pre></div></div>
+
+<h3 id="enabling-role-based-access-control-rbac-on-the-services">Enabling Role Based Access Control (RBAC) on the services</h3>
+
+<p>Services can now communicate securely over mTLS.
+To increase the security even further, RBAC can be added to the services.
+RBAC allows for roles to be defined that specify access to specific services in the cluster. 
+By attaching these roles to service accounts (which are connected to services) services can be permitted to access specific other services. 
+This limits the reach a single service has in the cluster and therefor adheres to the least privileges principle.</p>
+
+<p>The following manifest defines a cluster RBAC configuration.
+Such configuration can only exist once in the entire service mesh and it needs to have the name <code class="highlighter-rouge">default</code>.
+The mode <code class="highlighter-rouge">ON_WITH_INCLUSION</code> specifies that all subjects that are listed in the inclusion section need to have RBAC enabled. 
+These subjects can be namespaces and/or specific services.
+Specifying the namespace <code class="highlighter-rouge">with-istio</code> in the inclusion section, enables RBAC for all services in that namespace.
+By default the RBAC configuration will reject all requests which don’t have the proper access defined with an HTTP 403 error code.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">rbac.istio.io/v1alpha1"</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterRbacConfig</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">default</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">mode</span><span class="pi">:</span> <span class="s1">'</span><span class="s">ON_WITH_INCLUSION'</span>
+  <span class="na">inclusion</span><span class="pi">:</span>
+    <span class="na">namespaces</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">with-istio'</span><span class="pi">]</span>
+</code></pre></div></div>
+
+<p>After this RBAC config is applied, requests to the test-app instance will start failing again. 
+The test-app currently doesn’t have a role attached to its service account that allows it to access the CouchDB database. 
+Therefor all requests to the service will be rejected with an HTTP error code of 403.
+This is shown in the following drawing.</p>
+
+<p><img class="image fit" style="margin:0px auto; max-width: 417px;" src="/img/2019-04-14-istio-service-mesh-s2s/istio-rbac-refused.png" alt="RBAC refuses connection" /></p>
+
+<p>The following manifest creates a role that allows access to the CouchDB service for all GET requests on any given path.
+Note that the full service name is used in the services specification, this is currently required by Istio.
+This is only needed for Istio to identify the traffic, short names can still be used to access the service.
+By applying this service role, nothing will change to the requests to the test-app since the role is not yet connected to the service account of the test-app service.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">rbac.istio.io/v1alpha1"</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceRole</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">couchdb-role</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">with-istio</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">rules</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">services</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">couchdb.with-istio.svc.cluster.local"</span><span class="pi">]</span>
+    <span class="na">methods</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">GET"</span><span class="pi">]</span>
+    <span class="na">paths</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">*'</span><span class="pi">]</span>
+</code></pre></div></div>
+
+<p>So next, we link the new role to the service account of the test-app service.
+This is done through a service role binding.
+There are two sections to this binding: the role and the subjects.
+The role is the one that was created using the previous manifest. 
+The subjects can be any identity known to Istio. 
+In the demo scenario, only the service accounts are known.
+Istio defines a service account as a user identity. 
+As with the service names, the service account reference needs to be the full reference scoped towards the cluster.
+This allows services from outside of the namespaces to be specified as well.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">rbac.istio.io/v1alpha1"</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceRoleBinding</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">bind-test-app-service-couchdb-role</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">with-istio</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">subjects</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">user</span><span class="pi">:</span> <span class="s2">"</span><span class="s">cluster.local/ns/with-istio/sa/test-app-test-app-chart"</span>
+  <span class="na">roleRef</span><span class="pi">:</span>
+    <span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceRole</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">couchdb-role"</span>
+</code></pre></div></div>
+
+<p>After applying the last manifest, requests should again be authorized and allowed to connect to the CouchDB instance.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This demo showed how Istio can be used to secure communication between services using mTLS.
+Moreover it showed how the service mesh level authentication can be used to grant or deny access to services in the mesh.
+A role can be connected to a service account to allow access. 
+Important to note is that the service mesh only allowes or denies traffic.
+It doesn’t influence the application level access.</p>
+
+<p>In a nutshell, Istio allows cluster admins to enable secure communication, and strong authentication and authorization mechanisms on their Kubernetes cluster without having to manage all kinds of certificates, usernames and passwords. 
+The application developers don’t need to adopt their application in order to communicate securely in the cluster, nor do they have to change their deployment configuration to enable the service mesh.</p>
+
+<p>This blogpost only highlighted a portion of the features of Istio. 
+Security is only a part of the feature set. 
+Istio also allows advanced traffic management, monitoring and logging.
+Maybe something for a future blogpost.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/cloud/2019/05/03/istio-service-mesh-s2s.html&title=Istio Service Mesh: service to service communication&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Istio Service Mesh: service to service communication&url=https://ordina-jworks.github.io/cloud/2019/05/03/istio-service-mesh-s2s.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/cloud/2019/05/03/istio-service-mesh-s2s.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/pieter_vincken/" class="image spotlight-image" title="">
+            <img src="/img/author/pieter-vincken.jpeg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2019-04-14-istio-service-mesh-s2s/istio.jpeg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

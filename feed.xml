@@ -1,5 +1,418 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-04-29T13:09:46+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">How to keep your RxJS streams from bursting their banks</title><link href="https://ordina-jworks.github.io/development/2019/04/29/Keep-your-RxJS-streams-from-bursting-their-banks.html" rel="alternate" type="text/html" title="How to keep your RxJS streams from bursting their banks" /><published>2019-04-29T00:00:00+00:00</published><updated>2019-04-29T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2019/04/29/Keep-your-RxJS-streams-from-bursting-their-banks</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2019/04/29/Keep-your-RxJS-streams-from-bursting-their-banks.html">&lt;p&gt;In my current role as Angular coach I try to help my colleagues as much as possible to make their applications in a logical and comprehensible way.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-05-03T10:12:50+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Istio Service Mesh: service to service communication</title><link href="https://ordina-jworks.github.io/cloud/2019/05/03/istio-service-mesh-s2s.html" rel="alternate" type="text/html" title="Istio Service Mesh: service to service communication" /><published>2019-05-03T00:00:00+00:00</published><updated>2019-05-03T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/05/03/istio-service-mesh-s2s</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/05/03/istio-service-mesh-s2s.html">&lt;blockquote&gt;
+  &lt;p&gt;This post will describe how to use the Istio service mesh to provide service to service authentication and authorization in a Kubernetes cluster.
+It will show how ServiceRoles, ServiceRoleBindings and Identities in Istio can be used to achieve this.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;table-of-content&quot;&gt;Table of content&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-is-istio&quot;&gt;What is Istio?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#istio-concepts&quot;&gt;Istio concepts&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#show-me-the-code&quot;&gt;Show me the code&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;what-is-istio&quot;&gt;What is Istio?&lt;/h2&gt;
+
+&lt;p&gt;Istio is a service mesh created by Google, Lyft and IBM. 
+It aims to simplify some security and management aspects of a microservices software architecture.
+More information on Istio and its features can be found in its &lt;a href=&quot;https://istio.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;docs&lt;/a&gt;.
+In this blogpost we will highlight one of the key security features of Istio: service to service authentication and authorization.
+For the sake of simplicity, this post will focus on an Istio setup in Kubernetes.&lt;/p&gt;
+
+&lt;p&gt;In a microservices architecture, managing access to services can be a challenging operation. 
+For end-user facing services, JWTs are used to add authorization information to a request.
+They are used by the service to determine which end-user is making the request.
+These tokens can be generated based on information that the end-user provides to an identity provider.
+In most cases this information is a username and password, with some additional 2FA if possible.
+This setup can be achieved by using OpenID Connect as a protocol with the authorization code grant flow and an identity provider like Keycloak.&lt;/p&gt;
+
+&lt;p&gt;When services communicate with each other, they also need to provide an identity to each other.
+A common option to do this is by using client credentials grant flow of OpenID Connect.
+In this flow a service provides its client credentials to authenticate against the identity provider, and to be able to generate an access token once authenticated.
+This token will be used to communicate to a service.&lt;/p&gt;
+
+&lt;p&gt;These are types of authorization flows on application level.
+They allow services to determine what resources an end-user or service can access.
+Istio’s service to service role based acccess control (RBAC) is not on application level but on communication level.
+It specifies which services can connect and communicate with each other. 
+In order to achieve this, Istio connects an identity to each service in the mesh and allows it to authenticate itself.
+The requested service can use this identity to determine if the service is allowed to connect or not.&lt;br /&gt;
+Istio makes use of proxies to handle all traffic (into and out of services) and using mutual trusted certificates to secure the connection and provide an identity to these proxies.
+When using the automatic proxy injection, enabling Istio’s service to service RBAC mechanism is almost as easy as flipping a switch.&lt;/p&gt;
+
+&lt;p&gt;There are five main components responsible for making this possible in Istio: Citadel, Pilot, Galley, Mixer and Envoy.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Citadel&lt;/em&gt; is Istio’s fortress of trust.
+It manages all certificates and acts as a Root CA in the Istio setup.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Galley&lt;/em&gt; is the main configuration manager.
+It is responsible for gathering all required information from the underlying platform.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Pilot&lt;/em&gt; manages all routing information and manages all the information for the proxies.
+It will initialise the proxies during start-up with their configuration and the certificates from Citadel.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Mixer&lt;/em&gt; is responsible for all monitoring, logging and authorization information.
+Whenever a proxy performs an action, Mixer knows about it. 
+This allows it to both monitor and log connections, but also provide authorization information to the proxies.&lt;/p&gt;
+
+&lt;p&gt;The final piece to the puzzle is &lt;em&gt;Envoy&lt;/em&gt;. 
+Envoy is the sidecar proxy responsible for handling the actual traffic between services in the service mesh.
+It will setup and manage the required mTLS connections and perform all required check with regards to the routing. 
+Envoy is managed as a separate project and in theory an other proxy could be used, but Envoy is most common.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; src=&quot;/img/2019-04-14-istio-service-mesh-s2s/arch.svg&quot; alt=&quot;Istio architecture drawing&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A final, optional component is the sidecar injector.
+This component is not mandatory for the service mesh to work, but makes using it a lot easier.
+The injector is set up as a mutating webhook admission controller. 
+In a nutshell, this allows the injector to inspect and update some specific objects in the Kubernetes API.
+It will automatically inject the Envoy sidecar proxy into every pod which needs it.&lt;/p&gt;
+
+&lt;h2 id=&quot;istio-concepts&quot;&gt;Istio concepts&lt;/h2&gt;
+
+&lt;p&gt;Istio stores all its configuration directly in the Kubernetes API through the use of Custom Resource Definitions (CRDs).
+Next, a small description of the ones relevant for our blog are explained.&lt;/p&gt;
+
+&lt;h3 id=&quot;policies&quot;&gt;Policies&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://istio.io/docs/concepts/security/#authentication-policies&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Policies&lt;/a&gt; are at the heart of the mTLS setup in Istio.
+They define when mTLS should be used and how.
+Policies can be scoped in two levels: mesh wide (Mesh Policies) and namespace wide.&lt;/p&gt;
+
+&lt;h3 id=&quot;destination-rules&quot;&gt;Destination Rules&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://istio.io/docs/concepts/traffic-management/#destination-rules&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Destination rules&lt;/a&gt; are a set of rules that are evaluated when a service is called.
+They define multiple different routing options.
+For the scope of this blogpost, they will only be used to define which services require to be accessed using mTLS.&lt;/p&gt;
+
+&lt;h3 id=&quot;service-roles&quot;&gt;Service Roles&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://istio.io/docs/concepts/security/#servicerole&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Service Roles&lt;/a&gt; are used in Istio to describe which access a role provides. 
+It specifies which endpoints of a specific service can be used.
+Currently this is described by specifying the full internal DNS name of the service, the methods and the paths that the role can access.&lt;/p&gt;
+
+&lt;h3 id=&quot;service-role-bindings&quot;&gt;Service Role Bindings&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://istio.io/docs/concepts/security/#servicerole&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Service Role Bindings&lt;/a&gt; are used to connect identities (service accounts) or identity properties (namespaces) to actual roles. 
+When a binding is created, the identities connected to it are allowed the access specified in the referenced service role.&lt;/p&gt;
+
+&lt;h2 id=&quot;show-me-the-code&quot;&gt;Show me the code&lt;/h2&gt;
+
+&lt;p&gt;The Istio service to service authentication and authorization will now be explained by using an example setup.
+Note that the code snippets have been shortened in this blogpost.
+This is denoted with three dots &lt;code class=&quot;highlighter-rouge&quot;&gt;...&lt;/code&gt;.
+The full examples can be found in the accompanying repository on &lt;a href=&quot;https://github.com/pietervincken/istio-service-to-service-demo&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h3&gt;
+
+&lt;p&gt;This demo assumes that Istio is already installed in the cluster with the demo profile enabled. 
+See &lt;a href=&quot;https://istio.io/docs/setup/kubernetes/install/helm/#option-1-install-with-helm-via-helm-template&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Install Istio&lt;/a&gt; for more information on the installation of Istio.
+In the demo repository, a small &lt;a href=&quot;https://github.com/pietervincken/istio-service-to-service-demo/blob/master/1-install-istio.sh&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;script&lt;/a&gt; can be found that can assist in setting up the demo environment&lt;/p&gt;
+
+&lt;h3 id=&quot;setup&quot;&gt;Setup&lt;/h3&gt;
+
+&lt;p&gt;The setup of our application is a very simple service with a database backend. 
+Our service exposes one HTTP GET endpoint which will be accessed by the outside world. 
+Our database is an Apache CouchDB instance.
+Both the database and the service run inside Kubernetes.
+The setup is shown in the image below.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; src=&quot;/img/2019-04-14-istio-service-mesh-s2s/setup.png&quot; alt=&quot;demo setup&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;create-namespace&quot;&gt;Create namespace&lt;/h3&gt;
+
+&lt;p&gt;First, a new namespace is created.
+The service and database will both be added to this namespace.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create namespace with-istio
+kubectl label namespace with-istio istio-injection&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;enabled
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;install-couchdb&quot;&gt;Install CouchDB&lt;/h3&gt;
+
+&lt;p&gt;Next, the database is installed.
+This looks like a normal stateful set for a CouchDB database.
+There are some important changes.&lt;/p&gt;
+
+&lt;p&gt;First, a specific service account is created for CouchDB. 
+This is needed as Istio will use the service accounts in Kubernetes as its identities.
+The service account is linked to the podspec in the stateful set definition. 
+This way, it can be used by the Istio proxy later on.&lt;/p&gt;
+
+&lt;p&gt;Secondly, the probes have been adapted to work in Istio.
+Since Istio intercepts all traffic in the pod, it will also intercept requests from the Kube API to the service.
+Since the demo setup requires mTLS to be used, the probes would fail because the Kube API doesn’t use mTLS.
+Instead of manually changing the probes, Istio now has the option to rewrite the probes during the automatic proxy injection. 
+More information on the probes can be found in the &lt;a href=&quot;https://istio.io/help/ops/setup/app-health-check/#probe-rewrite&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Istio Docs&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Note that no Istio specific configuration is required in the service manifests.
+This is possible because the demo profile automatically enables the sidecar injector and we enabled the injection on the &lt;code class=&quot;highlighter-rouge&quot;&gt;with-istio&lt;/code&gt; namespace using the &lt;code class=&quot;highlighter-rouge&quot;&gt;istio-injection=enabled&lt;/code&gt; label.
+The automatic sidecar injector will inject the Envoy sidecar into all pods.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Source: couchdb/templates/serviceaccount.yaml&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ServiceAccount&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Source: couchdb/templates/service.yaml&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Service&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ClusterIP&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;80&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;targetPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/instance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Source: couchdb/templates/statefulset.yaml&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;apps/v1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;StatefulSet&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;replicas&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;1&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;serviceName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;matchLabels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/instance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/instance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;serviceAccountName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;containers&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;couchdb:2.3.0&quot;&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;imagePullPolicy&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;IfNotPresent&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;containerPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;5984&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;livenessProbe&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;curl&lt;/span&gt;
+              &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://localhost:5984/_up&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;readinessProbe&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;curl&lt;/span&gt;
+              &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://localhost:5984/_up&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;resources&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;install-the-service-test-app&quot;&gt;Install the service: test-app&lt;/h3&gt;
+
+&lt;p&gt;A small NodeJS application was created for this demo.
+It exposes an HTTP GET endpoint which connects to the CouchDB database.
+The manifests are very similar to the CouchDB versions.
+As with CouchDB, note that no Istio specific configuration is required on the manifests.
+A service account is created and linked to provide the service with a unique identity in Kubernetes and Istio.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Source: test-app-chart/templates/serviceaccount.yaml&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ServiceAccount&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app-test-app-chart&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Source: test-app-chart/templates/service.yaml&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Service&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app-test-app-chart&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Source: test-app-chart/templates/deployment.yaml&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;apps/v1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Deployment&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app-test-app-chart&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;replicas&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;1&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;matchLabels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app-chart&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/instance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app-chart&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/instance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;serviceAccountName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app-test-app-chart&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;containers&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app-chart&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;test-app:latest&quot;&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;imagePullPolicy&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;IfNotPresent&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;containerPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;8080&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;livenessProbe&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;resources&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The current setup is displayed in the following drawing.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 446px;&quot; src=&quot;/img/2019-04-14-istio-service-mesh-s2s/istio-basic-setup.png&quot; alt=&quot;Basic setup in Istio&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;enabling-mutual-tls-mtls&quot;&gt;Enabling mutual TLS (mTLS)&lt;/h3&gt;
+
+&lt;p&gt;Currently the service can connect to the backend just fine. 
+TLS is currently not used to communicate between the service.&lt;/p&gt;
+
+&lt;p&gt;The following manifest defines a policy which changes this. 
+It is a namespace scoped policy telling Istio that all services in the &lt;code class=&quot;highlighter-rouge&quot;&gt;with-istio&lt;/code&gt; namespace should &lt;strong&gt;ONLY&lt;/strong&gt; accept mTLS connections.
+This configuration will be picked up by Pilot and distributed to all Envoy proxies in the &lt;code class=&quot;highlighter-rouge&quot;&gt;with-istio&lt;/code&gt; namespace.
+When this policy is applied, Envoy will drop any requests it gets that don’t use mTLS.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;authentication.istio.io/v1alpha1&quot;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Policy&quot;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;default&quot;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;with-istio&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;peers&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;mtls&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; 
+      &lt;span class=&quot;na&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;STRICT&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Note, this policy only affects the incoming connections on the Envoy proxy.
+When a request would be sent to the test-app service now, it would be rejected with an HTTP 503 error code.
+This is shown in the following drawing.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 408px;&quot; src=&quot;/img/2019-04-14-istio-service-mesh-s2s/istio-mtls-broken.png&quot; alt=&quot;Broken mTLS drawing&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next, the outgoing (client) connections needs to be configured to use mTLS.
+This can be done by specifying a destination rule for the services.
+A destination rule defines a set of rules that are evaluated for every outgoing request from a proxy.
+This rules defines that every proxy in &lt;code class=&quot;highlighter-rouge&quot;&gt;with-istio&lt;/code&gt; namespace needs to use mutual TLS for every service that ends with &lt;code class=&quot;highlighter-rouge&quot;&gt;.local&lt;/code&gt;.
+By applying this rule, the requests will succeed again on the test-app service.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;networking.istio.io/v1alpha3&quot;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;DestinationRule&quot;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;default&quot;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;with-istio&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*.local&quot;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;trafficPolicy&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;tls&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ISTIO_MUTUAL&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;enabling-role-based-access-control-rbac-on-the-services&quot;&gt;Enabling Role Based Access Control (RBAC) on the services&lt;/h3&gt;
+
+&lt;p&gt;Services can now communicate securely over mTLS.
+To increase the security even further, RBAC can be added to the services.
+RBAC allows for roles to be defined that specify access to specific services in the cluster. 
+By attaching these roles to service accounts (which are connected to services) services can be permitted to access specific other services. 
+This limits the reach a single service has in the cluster and therefor adheres to the least privileges principle.&lt;/p&gt;
+
+&lt;p&gt;The following manifest defines a cluster RBAC configuration.
+Such configuration can only exist once in the entire service mesh and it needs to have the name &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt;.
+The mode &lt;code class=&quot;highlighter-rouge&quot;&gt;ON_WITH_INCLUSION&lt;/code&gt; specifies that all subjects that are listed in the inclusion section need to have RBAC enabled. 
+These subjects can be namespaces and/or specific services.
+Specifying the namespace &lt;code class=&quot;highlighter-rouge&quot;&gt;with-istio&lt;/code&gt; in the inclusion section, enables RBAC for all services in that namespace.
+By default the RBAC configuration will reject all requests which don’t have the proper access defined with an HTTP 403 error code.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;rbac.istio.io/v1alpha1&quot;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ClusterRbacConfig&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;default&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;ON_WITH_INCLUSION'&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;inclusion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;namespaces&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;with-istio'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After this RBAC config is applied, requests to the test-app instance will start failing again. 
+The test-app currently doesn’t have a role attached to its service account that allows it to access the CouchDB database. 
+Therefor all requests to the service will be rejected with an HTTP error code of 403.
+This is shown in the following drawing.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 417px;&quot; src=&quot;/img/2019-04-14-istio-service-mesh-s2s/istio-rbac-refused.png&quot; alt=&quot;RBAC refuses connection&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The following manifest creates a role that allows access to the CouchDB service for all GET requests on any given path.
+Note that the full service name is used in the services specification, this is currently required by Istio.
+This is only needed for Istio to identify the traffic, short names can still be used to access the service.
+By applying this service role, nothing will change to the requests to the test-app since the role is not yet connected to the service account of the test-app service.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;rbac.istio.io/v1alpha1&quot;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ServiceRole&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb-role&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;with-istio&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;rules&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;couchdb.with-istio.svc.cluster.local&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;GET&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;paths&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So next, we link the new role to the service account of the test-app service.
+This is done through a service role binding.
+There are two sections to this binding: the role and the subjects.
+The role is the one that was created using the previous manifest. 
+The subjects can be any identity known to Istio. 
+In the demo scenario, only the service accounts are known.
+Istio defines a service account as a user identity. 
+As with the service names, the service account reference needs to be the full reference scoped towards the cluster.
+This allows services from outside of the namespaces to be specified as well.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;rbac.istio.io/v1alpha1&quot;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ServiceRoleBinding&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;bind-test-app-service-couchdb-role&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;with-istio&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;subjects&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;cluster.local/ns/with-istio/sa/test-app-test-app-chart&quot;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;roleRef&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ServiceRole&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;couchdb-role&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After applying the last manifest, requests should again be authorized and allowed to connect to the CouchDB instance.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;This demo showed how Istio can be used to secure communication between services using mTLS.
+Moreover it showed how the service mesh level authentication can be used to grant or deny access to services in the mesh.
+A role can be connected to a service account to allow access. 
+Important to note is that the service mesh only allowes or denies traffic.
+It doesn’t influence the application level access.&lt;/p&gt;
+
+&lt;p&gt;In a nutshell, Istio allows cluster admins to enable secure communication, and strong authentication and authorization mechanisms on their Kubernetes cluster without having to manage all kinds of certificates, usernames and passwords. 
+The application developers don’t need to adopt their application in order to communicate securely in the cluster, nor do they have to change their deployment configuration to enable the service mesh.&lt;/p&gt;
+
+&lt;p&gt;This blogpost only highlighted a portion of the features of Istio. 
+Security is only a part of the feature set. 
+Istio also allows advanced traffic management, monitoring and logging.
+Maybe something for a future blogpost.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="Istio" /><category term="Service Mesh" /><category term="Kubernetes" /><category term="Cloud" /><category term="Microservices" /><summary type="html">This post will describe how to use the Istio service mesh to provide service to service authentication and authorization in a Kubernetes cluster. It will show how ServiceRoles, ServiceRoleBindings and Identities in Istio can be used to achieve this.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-04-14-istio-service-mesh-s2s/istio.jpeg" /></entry><entry><title type="html">How to keep your RxJS streams from bursting their banks</title><link href="https://ordina-jworks.github.io/development/2019/04/29/Keep-your-RxJS-streams-from-bursting-their-banks.html" rel="alternate" type="text/html" title="How to keep your RxJS streams from bursting their banks" /><published>2019-04-29T00:00:00+00:00</published><updated>2019-04-29T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2019/04/29/Keep-your-RxJS-streams-from-bursting-their-banks</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2019/04/29/Keep-your-RxJS-streams-from-bursting-their-banks.html">&lt;p&gt;In my current role as Angular coach I try to help my colleagues as much as possible to make their applications in a logical and comprehensible way.
 I’m a huge supporter of RxJS for reactive programming and I ask others to consider using the technology to help them create declarative code and prevent them from going to Callback Hell.
 But as people start to embrace RxJS streams, the difficulties paired with using reactive programming start to surface and I’ve concluded that there also exists something I’d like to call &lt;em&gt;Observable Purgatory&lt;/em&gt;.&lt;/p&gt;
 
@@ -4528,522 +4941,4 @@ I can accept, for simple applications, that you don’t want to ‘over-architec
 But in most cases, you want to control the distribution yourself.
 For those of you that know &lt;code class=&quot;highlighter-rouge&quot;&gt;Redux&lt;/code&gt; (RxJS), you can compare this implementation with effects and &lt;code class=&quot;highlighter-rouge&quot;&gt;store&lt;/code&gt;-subscriptions.
 If you trigger an effect, you will only see the result when you have subscribed to the ‘key’ that is responsible for providing you with the data,
-and not to the ‘key’ that is responsible for triggering the effect.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Vierbergen&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-vierbergen/&quot;, &quot;avatar&quot;=&gt;&quot;tim-vierbergen.jpg&quot;, &quot;twitter&quot;=&gt;&quot;vierbergentim&quot;, &quot;linkedin&quot;=&gt;&quot;tim-vierbergen-82557834&quot;, &quot;github&quot;=&gt;&quot;VeeTeeDev&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;title2&quot;=&gt;&quot;Principal Consultant &amp; Competence Lead CI/CD&quot;, &quot;email&quot;=&gt;&quot;tim.vierbergen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a senior developer and architect at JWorks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.&lt;br /&gt;&lt;br /&gt;Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learing how to snowboard.&quot;}</name><email>tim.vierbergen@ordina.be</email></author><category term="Frontend" /><category term="Angular" /><category term="rxjs" /><category term="Observables" /><category term="Nodejs" /><summary type="html">Table of contents Intro Setup Refactoring Example Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/observables-the-right-way/cover.png" /></entry><entry><title type="html">Infrastructure as code: Terraform and AWS Serverless</title><link href="https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless.html" rel="alternate" type="text/html" title="Infrastructure as code: Terraform and AWS Serverless" /><published>2019-01-14T00:00:00+00:00</published><updated>2019-01-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless.html">&lt;h1 id=&quot;table-of-content&quot;&gt;Table of content&lt;/h1&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#infrastructure-as-code&quot;&gt;Infrastructure as Code&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#introduction-and-demo&quot;&gt;Introduction and demo&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#creating-the-application&quot;&gt;Creating the application&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#prerequisites&quot;&gt;Prerequisites&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#terraform-the-basics&quot;&gt;Terraform: the basics&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#general&quot;&gt;General&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#database-dynamodb&quot;&gt;Database: DynamoDB&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#iam&quot;&gt;IAM&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#lambda-functions&quot;&gt;Lambda Functions&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#api-gateway&quot;&gt;API Gateway&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#endgame&quot;&gt;Endgame&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#resources-and-further-reading&quot;&gt;Resources and further reading&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;infrastructure-as-code&quot;&gt;Infrastructure as Code&lt;/h1&gt;
-&lt;p&gt;Infrastructure as Code (IaC) is a way of managing your devices and servers through machine-readable definition files. 
-Basically, you write down how you want your infrastructure to look like and what code should be run on that infrastructure. 
-Then, with the push of a button you say “Deploy my infrastructure”. 
-BAM, there is your application, running on a server, against a database, available through an API, ready to be used!
-And you just defined all of that infrastructure using IaC.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;IaC is a key practice of DEVOPS teams and integrates as part of the CI/CD pipeline.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;A great Infrastructure as Code tool is Terraform by HashiCorp.
-(&lt;a href=&quot;https://www.terraform.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://www.terraform.io/&lt;/a&gt;)&lt;br /&gt;
-Personally I use it to provide and maintain infrastructure on AWS.
-And I’ve had a great experience doing that.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/overview.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;introduction-and-demo&quot;&gt;Introduction and demo&lt;/h1&gt;
-&lt;p&gt;I will demonstrate IaC by working out an example. 
-We are going to set up an application on AWS.
-I provisioned the code on GitLab: &lt;a href=&quot;https://gitlab.com/nxtra/codingtips-blog&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://gitlab.com/nxtra/codingtips-blog&lt;/a&gt;.
-A user can enter a coding tip and see all the coding tips that other users have entered.
-The tips are stored in a NoSQL database which is AWS DynamoDB.
-Storing and retrieving these tips is done by the Lambda Functions which fetch or put the tips from and to the database.
-For the application to be useful, users have to be able to call these Lambda Functions.
-So we expose the Lambda Functions through AWS API Gateway. 
-Here is an architectural overview of the application:&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/AWS-Serverless-Architecture.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;You could couple these functions to a web page where users can enter tips and see all tips that have been given.
-Below you see the final result:&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/demo.gif&quot; width=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Let’s dive in!&lt;/p&gt;
-
-&lt;h1 id=&quot;creating-the-application&quot;&gt;Creating the application&lt;/h1&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-terraform.png&quot; width=&quot;15%&quot; height=&quot;15%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;I will now go over the steps to set up the application you see in the demo above.
-IaC is the main focus.
-I will show the code and AWS CLI commands that are necessary but I will not explain them in detail since that is not the purpose of this blog.
-I’ll focus on the Terraform definitions instead.
-You are welcome to follow along by cloning the repository that I linked to in this blog post.&lt;/p&gt;
-
-&lt;h1 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;Install Terraform&lt;/li&gt;
-  &lt;li&gt;Install AWS CLI&lt;/li&gt;
-  &lt;li&gt;Checkout the repository on GitLab: &lt;a href=&quot;https://gitlab.com/nxtra/codingtips-blog&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://gitlab.com/nxtra/codingtips-blog&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Be ready to get your mind blown by IaC&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;terraform-the-basics&quot;&gt;Terraform: the basics&lt;/h1&gt;
-&lt;p&gt;The main things you’ll be configuring with Terraform are resources.
-Resources are the components of your application infrastructure.
-E.g: a Lambda Function, an API Gateway Deployment, a DynamoDB database, …
-A resource is defined by using the keyword &lt;code class=&quot;highlighter-rouge&quot;&gt;resource&lt;/code&gt; followed by the &lt;code class=&quot;highlighter-rouge&quot;&gt;type&lt;/code&gt; and the &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt;.
-The name can be arbitrarily chosen.
-The type is fixed.
-For example:
-&lt;code class=&quot;highlighter-rouge&quot;&gt;resource &quot;aws_dynamodb_table&quot; &quot;codingtips-dynamodb-table&quot;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;To follow along with this blog post you have to know two basic Terraform commands.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;terraform apply&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Terraform apply will start provisioning all the infrastructure you defined.
-Your databases will be created.
-Your Lambda Functions will be set up.
-The API Gateway will be set in place.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;terraform destroy&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Terraform destroy will remove all the infrastructure that you have set up in the cloud.
-If you are using Terraform correctly you should not have to use this command.
-However should you want to start over, you can remove all the existing infrastructure with this command.
-No worries, you will still have all the infrastructure neatly described on your machine because you are using Infrastructure as Code.&lt;/p&gt;
-
-&lt;p&gt;We’ll put all infrastructure that is defined using Terraform in the same folder.
-The files need to have a &lt;code class=&quot;highlighter-rouge&quot;&gt;.tf&lt;/code&gt; extension.&lt;/p&gt;
-
-&lt;h1 id=&quot;general&quot;&gt;General&lt;/h1&gt;
-&lt;p&gt;Let’s start out by creating a file &lt;code class=&quot;highlighter-rouge&quot;&gt;general.tf&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-hcl-terraform&quot;&gt;provider &quot;aws&quot; {
-  region = &quot;eu-west-1&quot;
-}
-
-# variables
-variable &quot;lambda_version&quot;     { default = &quot;1.0.0&quot;}
-variable &quot;s3_bucket&quot;          { default = &quot;codingtips-node-bucket&quot;}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;provider&lt;/code&gt; block specifies that we are deploying on AWS.
-You also have the possibility to mention credentials that will be used for deploying here.
-If you have correctly set up the AWS CLI on your machine there will be default credentials in your &lt;code class=&quot;highlighter-rouge&quot;&gt;.aws&lt;/code&gt; folder.
-If no credentials are specified, Terraform will use these default credentials.&lt;/p&gt;
-
-&lt;p&gt;Variables have a name which we can reference from anywhere in our Terraform configuration. 
-For example we could reference the &lt;code class=&quot;highlighter-rouge&quot;&gt;s3_bucket&lt;/code&gt; variable with &lt;code class=&quot;highlighter-rouge&quot;&gt;${var.s3_bucket)&lt;/code&gt;.
-This is handy when you are using the same variable in multiple places.
-I will not use too many variables throughout this blog post since that will add more references to your Terraform configuration and I want it to be as clear as possible.&lt;/p&gt;
-
-&lt;h1 id=&quot;database-dynamodb&quot;&gt;Database: DynamoDB&lt;/h1&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-DynamoDB.png&quot; width=&quot;15%&quot; height=&quot;15%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Let’s start with the basis.
-Where will all our coding tips be stored? 
-That’s right, in the database.
-This database is part of our infrastructure and will be defined in a file I named &lt;code class=&quot;highlighter-rouge&quot;&gt;dynamo.tf&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-hcl-terraform&quot;&gt;resource &quot;aws_dynamodb_table&quot; &quot;codingtips-dynamodb-table&quot; {
-  name = &quot;CodingTips&quot;
-  read_capacity = 5
-  write_capacity = 5
-  hash_key = &quot;Author&quot;
-  range_key = &quot;Date&quot;
-
-  attribute = [
-    {
-      name = &quot;Author&quot;
-      type = &quot;S&quot;
-    },
-    {
-      name = &quot;Date&quot;
-      type = &quot;N&quot;
-    }]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Since Dynamo is a NoSQL database, we don’t have to specify all attributes upfront.
-The only thing we have to provide are the elements that AWS will use to build the partition key with.
-When you provide a hash key as well as a sort key, AWS will combine these to make a unique partition key.
-Mind the word UNIQUE.
-Make sure this combination is unique.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;DynamoDB uses the partition key value as input to an internal hash function. 
-The output from the hash function determines the partition (physical storage internal to DynamoDB) in which the item will be stored. 
-All items with the same partition key value are stored together, in sorted order by sort key value.
-– from AWS docs: &lt;a target=&quot;_blank&quot; href=&quot;https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html&quot;&gt;DynamoDB Core Components&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;From the attribute definitions in &lt;code class=&quot;highlighter-rouge&quot;&gt;dynamo.tf&lt;/code&gt; it is clear that &lt;code class=&quot;highlighter-rouge&quot;&gt;Author&lt;/code&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;S&lt;/code&gt;) is a string and &lt;code class=&quot;highlighter-rouge&quot;&gt;Date&lt;/code&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt;) should be a number.&lt;/p&gt;
-
-&lt;h1 id=&quot;iam&quot;&gt;IAM&lt;/h1&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-IAM.png&quot; width=&quot;15%&quot; height=&quot;15%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Before specifying the Lambda Functions we have to create permissions for our functions to use.
-This makes sure that our functions have permissions to access other resources (like DynamoDB).
-Without going too deep into it, the AWS permission model works as follows:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Provide a resource with a role&lt;/li&gt;
-  &lt;li&gt;Add permissions to this role&lt;/li&gt;
-  &lt;li&gt;These allow the role to access other resources:
-    &lt;ul&gt;
-      &lt;li&gt;permissions for triggering another resource (eg. Lambda Function forwards logs to CloudWatch)&lt;/li&gt;
-      &lt;li&gt;permissions for being triggered by another resource (eg. Lambda Function may be triggered by API Gateway)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-hcl-terraform&quot;&gt;# ROLES
-# IAM role which dictates what other AWS services the Lambda function
-# may access.
-resource &quot;aws_iam_role&quot; &quot;lambda-iam-role&quot; {
-  name = &quot;codingtips_lambda_role&quot;
-
-  assume_role_policy = &amp;lt;&amp;lt;EOF
-{
-  &quot;Version&quot;: &quot;2012-10-17&quot;,
-  &quot;Statement&quot;: [
-    {
-      &quot;Action&quot;: &quot;sts:AssumeRole&quot;,
-      &quot;Principal&quot;: {
-        &quot;Service&quot;: &quot;lambda.amazonaws.com&quot;
-      },
-      &quot;Effect&quot;: &quot;Allow&quot;,
-      &quot;Sid&quot;: &quot;&quot;
-    }
-  ]
-}
-EOF
-}
-
-# POLICIES
-resource &quot;aws_iam_role_policy&quot; &quot;dynamodb-lambda-policy&quot;{
-  name = &quot;dynamodb_lambda_policy&quot;
-  role = &quot;${aws_iam_role.lambda-iam-role.id}&quot;
-  policy = &amp;lt;&amp;lt;EOF
-{
-  &quot;Version&quot;: &quot;2012-10-17&quot;,
-  &quot;Statement&quot;: [
-    {
-      &quot;Effect&quot;: &quot;Allow&quot;,
-      &quot;Action&quot;: [
-        &quot;dynamodb:*&quot;
-      ],
-      &quot;Resource&quot;: &quot;${aws_dynamodb_table.codingtips-dynamodb-table.arn}&quot;
-    }
-  ]
-}
-EOF
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In the example above, the first resource that is defined is an &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role&lt;/code&gt;.
-This is the role that we will later give to our Lambda Functions.&lt;/p&gt;
-
-&lt;p&gt;We then create the &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role_policy&lt;/code&gt; resource which we link to the &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role&lt;/code&gt;.
-The first &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role_policy&lt;/code&gt; is giving this role permission to invoke any action on the specified DynamoDB resource.
-The second &lt;code class=&quot;highlighter-rouge&quot;&gt;role_policy&lt;/code&gt; allows a resource with this role to send logs to CloudWatch.&lt;/p&gt;
-
-&lt;p&gt;A couple of things to notice:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role&lt;/code&gt; and the &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role_policy&lt;/code&gt; are connected by the &lt;code class=&quot;highlighter-rouge&quot;&gt;role&lt;/code&gt; argument of the &lt;code class=&quot;highlighter-rouge&quot;&gt;role_policy&lt;/code&gt; resource&lt;/li&gt;
-  &lt;li&gt;In the &lt;code class=&quot;highlighter-rouge&quot;&gt;statement&lt;/code&gt; attribute of the &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role_policy&lt;/code&gt; we grant (&lt;code class=&quot;highlighter-rouge&quot;&gt;Effect&lt;/code&gt; attr.) permission to do some actions (&lt;code class=&quot;highlighter-rouge&quot;&gt;Action&lt;/code&gt; attr.) on a certain resource (&lt;code class=&quot;highlighter-rouge&quot;&gt;Resource&lt;/code&gt; attr.)&lt;/li&gt;
-  &lt;li&gt;A resource is referenced by its &lt;em&gt;ARN&lt;/em&gt; or &lt;em&gt;Amazon Resource Name&lt;/em&gt; which uniquely identifies this resource on AWS&lt;/li&gt;
-  &lt;li&gt;There are two ways to specify an &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role_policy&lt;/code&gt;:
-    &lt;ul&gt;
-      &lt;li&gt;using the &lt;em&gt;until EOF&lt;/em&gt; syntax (like I did here)&lt;/li&gt;
-      &lt;li&gt;using a separate Terraform &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_policy_document&lt;/code&gt; element that is coupled to the &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_iam_role_policy&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;dynamodb-lambda-policy&lt;/code&gt; allows all actions on the specified DynamoDB resource because under the &lt;code class=&quot;highlighter-rouge&quot;&gt;Action&lt;/code&gt; attribute it states &lt;code class=&quot;highlighter-rouge&quot;&gt;dynamodb:*&lt;/code&gt;
-You could make this more restricted and mention actions like&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;dynamodb:Scan&quot;, &quot;dynamodb:BatchWriteItem&quot;,&quot;dynamodb:PutItem&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;lambda-functions&quot;&gt;Lambda Functions&lt;/h1&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-Lambda.png&quot; width=&quot;30%&quot; height=&quot;30%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;There are two Lambda Functions that are part of this application.
-The first Lambda is used to get or retrieve the coding tips from the database further referenced as the &lt;code class=&quot;highlighter-rouge&quot;&gt;getLambda&lt;/code&gt;.
-The second Lambda is used to post or send the coding tips to the database further referenced as the &lt;code class=&quot;highlighter-rouge&quot;&gt;postlambda&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;I am not going to copy paste the code of the Lambda Functions in here.
-You can check it out in the repository linked to this blog 
-(GitLab repository: &lt;a href=&quot;https://gitlab.com/nxtra/codingtips-blog&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://gitlab.com/nxtra/codingtips-blog&lt;/a&gt;).&lt;/p&gt;
-
-&lt;p&gt;Here I will demonstrate the example of the &lt;code class=&quot;highlighter-rouge&quot;&gt;getLambda&lt;/code&gt; function.
-The &lt;code class=&quot;highlighter-rouge&quot;&gt;postLambda&lt;/code&gt; is deployed in the same way and you can find the Terraform definitions in the Git repository.
-A Lambda Function is a little different from the other infrastructure we defined here.
-Not only do we need a Lambda Function as infrastructure.
-We also need to specify the code that runs in this Lambda Function.
-But where will AWS find that specific code when deploying the Lambda Function?
-They don’t have access to your local machine, have they?
-That is why you first need to ship your code to a S3 Bucket on AWS where it can be found when your Function is being deployed.&lt;/p&gt;
-
-&lt;p&gt;That also means creating an S3 Bucket, which you can do with this command when you want it in region &lt;code class=&quot;highlighter-rouge&quot;&gt;eu-west-1&lt;/code&gt; (Ireland):&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;aws s3api create-bucket &lt;span class=&quot;nt&quot;&gt;--bucket&lt;/span&gt; codingtips-node-bucket &lt;span class=&quot;nt&quot;&gt;--region&lt;/span&gt; eu-west-1 &lt;span class=&quot;nt&quot;&gt;--create-bucket-configuration&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;LocationConstraint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;eu-west-1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now you have to zip the code of your Lambda Functions:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;zip &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; getLambda.zip index.js
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;And upload that file to s3:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;aws s3 &lt;span class=&quot;nb&quot;&gt;cp &lt;/span&gt;getLambda.zip s3://codingtips-node-bucket/v1.0.0/getLambda.zip
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Mind that I am sending it to a bucket named &lt;code class=&quot;highlighter-rouge&quot;&gt;codingtips-node-bucket&lt;/code&gt; in a folder &lt;code class=&quot;highlighter-rouge&quot;&gt;v1.0.0&lt;/code&gt; with filename &lt;code class=&quot;highlighter-rouge&quot;&gt;getLambda.zip&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Okay, the code is where it needs to be.
-Now let’s see how we specify these functions using Terraform.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-hcl-terraform&quot;&gt;resource &quot;aws_lambda_function&quot; &quot;get-tips-lambda&quot; {
-  function_name = &quot;codingTips-get&quot;
-
-  # The bucket name as created earlier with &quot;aws s3api create-bucket&quot;
-  s3_bucket = &quot;${var.s3_bucket}&quot;
-  s3_key = &quot;v${var.lambda_version}/getLambda.zip&quot;
-
-  # &quot;main&quot; is the filename within the zip file (index.js) and &quot;handler&quot;
-  # is the name of the property under which the handler function was
-  # exported in that file.
-  handler = &quot;index.handler&quot;
-  runtime = &quot;nodejs8.10&quot;
-  memory_size = 128
-
-  role = &quot;${aws_iam_role.lambda-iam-role.arn}&quot;
-}
-
-resource &quot;aws_lambda_permission&quot; &quot;api-gateway-invoke-get-lambda&quot; {
-  statement_id  = &quot;AllowAPIGatewayInvoke&quot;
-  action        = &quot;lambda:InvokeFunction&quot;
-  function_name = &quot;${aws_lambda_function.get-tips-lambda.arn}&quot;
-  principal     = &quot;apigateway.amazonaws.com&quot;
-
-  # The /*/* portion grants access from any method on any resource
-  # within the specified API Gateway.
-  source_arn = &quot;${aws_api_gateway_deployment.codingtips-api-gateway-deployment.execution_arn}/*/*&quot;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Notice that we tell Terraform the S3 Bucket and directory to look for the code&lt;/li&gt;
-  &lt;li&gt;We specify the runtime and memory for this Lambda Function&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;index.handler&lt;/code&gt; points to the file and function where to enter the code&lt;/li&gt;
-  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_lambda_permission&lt;/code&gt; resource is the permission that states that this Lambda Function may be invoked by the API Gateway that we created&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;api-gateway&quot;&gt;API Gateway&lt;/h1&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/icon-apigateway.png&quot; width=&quot;15%&quot; height=&quot;15%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;I kept the most difficult one for last.
-On the other hand, it is also the most interesting.
-I hand Terraform a &lt;em&gt;Swagger&lt;/em&gt; definition of my API.
-You can also do this without Swagger, but then you will have to specify a lot more resources.&lt;/p&gt;
-
-&lt;p&gt;The Swagger API definition looks as follows:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;swagger: '2.0'
-info:
-  version: '1.0'
-  title: &quot;CodingTips&quot;
-schemes:
-  - https
-paths:
-  &quot;/api&quot;:
-    get:
-      description: &quot;Get coding tips&quot;
-      produces:
-        - application/json
-      responses:
-        200:
-          description: &quot;The codingtips request successful.&quot;
-          schema:
-            type: array
-            items:
-              $ref: &quot;#/definitions/CodingTip&quot;
-      x-amazon-apigateway-integration:
-        uri: ${get_lambda_arn}
-        passthroughBehavior: &quot;when_no_match&quot;
-        httpMethod: &quot;POST&quot;
-        type: &quot;aws_proxy&quot;
-    post:
-      description: &quot;post a coding tip&quot;
-      consumes:
-        - application/json
-      responses:
-        200:
-          description: &quot;The codingtip was added successfully&quot;
-      x-amazon-apigateway-integration:
-        uri: ${post_lambda_arn}
-        passthroughBehavior: &quot;when_no_match&quot;
-        httpMethod: &quot;POST&quot;
-        type: &quot;aws_proxy&quot;
-
-definitions:
-  CodingTip:
-    type: object
-    description: &quot;A coding tip&quot;
-    properties:
-      tip:
-        type: string
-        description: &quot;The coding tip&quot;
-      date:
-        type: number
-        description: &quot;date in millis when tip was entered&quot;
-      author:
-        type: string
-        description: &quot;Author of the coding tip&quot;
-      category:
-        type: string
-        description: &quot;category of the coding tip&quot;
-    required:
-      - tip
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If you do not know Swagger yet, copy the above and paste it in the online (&lt;a href=&quot;https://editor.swagger.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Swagger Editor&lt;/a&gt;).&lt;/p&gt;
-
-&lt;p&gt;This will grant you a nice visual overview of the API definition.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/swagger.png&quot; width=&quot;60%&quot; height=&quot;60%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;There is only one AWS specific thing in the Swagger specification above and that is &lt;code class=&quot;highlighter-rouge&quot;&gt;x-amazon-apigateway-integration&lt;/code&gt;.
-This is specifying the details of how the API is integrating with the backend.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Remark that this is always a &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; even if the HTTP method of the resource path is a &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;aws_proxy&lt;/code&gt; means that the request is passed to the Lambda Function without manipulation&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;when_no_match&lt;/code&gt; passes the request body to the backend without tranforming it when no &lt;code class=&quot;highlighter-rouge&quot;&gt;requestTemplate&lt;/code&gt; is specified for the &lt;code class=&quot;highlighter-rouge&quot;&gt;Content-Type&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;uri&lt;/code&gt; is referencing a variable eg. &lt;code class=&quot;highlighter-rouge&quot;&gt;${get_lambda_arn}&lt;/code&gt; that Terraform passes to the Swagger definition.
-We’ll see this in a minute.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;As I already mentioned, using Swagger to define your API Gateway has some advantages:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;It keeps your Terraform more concise&lt;/li&gt;
-  &lt;li&gt;You can use this Swagger to get a nice representation of your API&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-hcl-terraform&quot;&gt;resource &quot;aws_api_gateway_rest_api&quot; &quot;codingtips-api-gateway&quot; {
-  name        = &quot;CodingTipsAPI&quot;
-  description = &quot;API to access codingtips application&quot;
-  body        = &quot;${data.template_file.codingtips_api_swagger.rendered}&quot;
-}
-
-data &quot;template_file&quot; codingtips_api_swagger{
-  template = &quot;${file(&quot;swagger.yaml&quot;)}&quot;
-
-  vars {
-    get_lambda_arn = &quot;${aws_lambda_function.get-tips-lambda.invoke_arn}&quot;
-    post_lambda_arn = &quot;${aws_lambda_function.post-tips-lambda.invoke_arn}&quot;
-  }
-}
-
-resource &quot;aws_api_gateway_deployment&quot; &quot;codingtips-api-gateway-deployment&quot; {
-  rest_api_id = &quot;${aws_api_gateway_rest_api.codingtips-api-gateway.id}&quot;
-  stage_name  = &quot;default&quot;
-}
-
-output &quot;url&quot; {
-  value = &quot;${aws_api_gateway_deployment.codingtips-api-gateway-deployment.invoke_url}/api&quot;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;We start by mentioning the &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_api_gateway_rest_api&lt;/code&gt; resource.
-It does what is says and provides an API Gateway REST API.
-    &lt;ul&gt;
-      &lt;li&gt;body references the Swagger file&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;template_file&lt;/code&gt; datasource allows Terraform to use information that is not defined in Terraform (Swagger in our case)
-    &lt;ul&gt;
-      &lt;li&gt;Variables are passed to this &lt;code class=&quot;highlighter-rouge&quot;&gt;template_file&lt;/code&gt; to fill the file&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;For a given &lt;code class=&quot;highlighter-rouge&quot;&gt;rest-api&lt;/code&gt; to be usable, it has to be deployed
-    &lt;ul&gt;
-      &lt;li&gt;This is done by the &lt;code class=&quot;highlighter-rouge&quot;&gt;aws_api_gateway_deployment&lt;/code&gt; resource&lt;/li&gt;
-      &lt;li&gt;It references the REST API&lt;/li&gt;
-      &lt;li&gt;It needs a stage which is like a ‘version’ or ‘snapshot’ of your API
-The stage name will be in the URL to invoke this API.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;At last the URL on which the API can be invoked is outputted to the terminal
-&lt;code class=&quot;highlighter-rouge&quot;&gt;/api&lt;/code&gt; is appended to have the correct resource path&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;endgame&quot;&gt;Endgame&lt;/h1&gt;
-&lt;p&gt;All right, let’s see it now.
-Does this actually work?
-Here I am running &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform apply&lt;/code&gt; within the repository linked to this blog.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/apply.gif&quot; width=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Nice, it worked.
-And I only told Terraform about the infrastructure I wanted.
-The whole setup process goes automatically!
-You can now use the outputted URL to GET and POST coding tips.
-The body of the POST should look like:&lt;/p&gt;
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Nick&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tip&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Short sessions with frequent brakes&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;category&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Empowerment&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;When you need to couple the API endpoints to a frontend of your own design, you need to set the CORS headers correctly.
-If you want this challenge, there is another branch in the repository (&lt;code class=&quot;highlighter-rouge&quot;&gt;cors-enabled&lt;/code&gt;) where I worked this out.&lt;/p&gt;
-
-&lt;p&gt;Happy coding folks, Code that Infrastructure!&lt;/p&gt;
-
-&lt;h1 id=&quot;resources-and-further-reading&quot;&gt;Resources and further reading&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;Terraform website: &lt;a href=&quot;https://www.terraform.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Terraform.io&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Terraform-Lambda-APIGateway: &lt;a href=&quot;https://learn.hashicorp.com/terraform/aws/lambda-api-gateway&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;learn.hashicorp.com&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Swagger editor: &lt;a href=&quot;https://editor.swagger.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;editor.swagger.io&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Swagger official website: &lt;a href=&quot;https://swagger.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;swagger.io&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nick&quot;, &quot;last_name&quot;=&gt;&quot;Van Hoof&quot;, &quot;permalink&quot;=&gt;&quot;/author/nick-van-hoof&quot;, &quot;avatar&quot;=&gt;&quot;nick-van-hoof.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;nick-van-hoof-45337914b&quot;, &quot;email&quot;=&gt;&quot;nick.vanhoof@ordina.be&quot;, &quot;github&quot;=&gt;&quot;Nxtra&quot;, &quot;bio&quot;=&gt;&quot;Nick is a Java &amp; JavaScript developer with a lot of hunger for knowledge. He is continuously looking for ways to improve. He wants to build his expertise by contributing to valuable projects. Serverless, microservices and IoT fascinate him the most.&quot;}</name><email>nick.vanhoof@ordina.be</email></author><category term="Cloud" /><category term="AWS" /><category term="Lambda" /><category term="DynamoDB" /><category term="API GateWay" /><category term="Serverless" /><category term="IaC" /><summary type="html">Table of content Infrastructure as Code Introduction and demo Creating the application Prerequisites Terraform: the basics General Database: DynamoDB IAM Lambda Functions API Gateway Endgame Resources and further reading</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/featured-image.png" /></entry></feed>
+and not to the ‘key’ that is responsible for triggering the effect.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Vierbergen&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-vierbergen/&quot;, &quot;avatar&quot;=&gt;&quot;tim-vierbergen.jpg&quot;, &quot;twitter&quot;=&gt;&quot;vierbergentim&quot;, &quot;linkedin&quot;=&gt;&quot;tim-vierbergen-82557834&quot;, &quot;github&quot;=&gt;&quot;VeeTeeDev&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;title2&quot;=&gt;&quot;Principal Consultant &amp; Competence Lead CI/CD&quot;, &quot;email&quot;=&gt;&quot;tim.vierbergen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a senior developer and architect at JWorks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.&lt;br /&gt;&lt;br /&gt;Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learing how to snowboard.&quot;}</name><email>tim.vierbergen@ordina.be</email></author><category term="Frontend" /><category term="Angular" /><category term="rxjs" /><category term="Observables" /><category term="Nodejs" /><summary type="html">Table of contents Intro Setup Refactoring Example Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/observables-the-right-way/cover.png" /></entry></feed>
