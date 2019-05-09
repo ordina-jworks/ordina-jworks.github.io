@@ -32,10 +32,10 @@ What follows below is an overview of some of these talks.
 She currently leads the BA practice at the University of Leeds.
 She is active in the BA professional community in the UK, attending and regularly speaking at local and national events and conferences. 
 
-This talk is purely soft skills related and depicts the sort of behaviours shown by business analysts when they face difficult situations.
+This talk was purely soft skills related and depicts the sort of behaviours shown by business analysts when they face difficult situations.
 Some typical BA behavioural mistakes are triggered by the way they see themselves in the team. 
-For instance, a BA could feel to be not part of the team: there are de facto less analysts than developers in a team which can lead to an « Us VS Them » mentality.
-It is also sometimes difficult to build a BA community and the BA role sometimes being sandwiched between IT and the business, might lead to negative self perceptions such as « I am just a BA » or « Neither the PO nor the Developers understand me ».
+For instance, a BA could feel to be not part of the team: there are de facto less analysts than developers in a team which can lead to an «Us VS Them» mentality.
+It is also sometimes difficult to build a BA community and the BA role sometimes being sandwiched between IT and the business, might lead to negative self perceptions such as «I am just a BA» or «Neither the PO nor the Developers understand me».
 
 Understanding that the BA is fully part of the team and is not the only one accountable for the communication between IT and Business, leads to better collaboration and is a great step towards agility, allowing all team members to be more confident and positive.
 Whatever your role in a project team; collaboration, transparency, confidence - in yourself and in your team mates - as well as clear communication are key factors to succeed together.
@@ -59,7 +59,7 @@ He has been an agile coach for almost 15 years and coaches all kind of teams in 
 
 This talk was a great eye-opener about a simple thing we all do every day in our scrum teams: sticking post-its! 
 Although this has become a very common habit, we might not know why post-its are used during scrum meetings and especially during retrospectives. 
-Here is an insight.
+Below are some insights.
 
 ### Psychological safety
 
