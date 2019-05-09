@@ -18,6 +18,13 @@ What follows below is an overview of some of these talks.
 
 ## Table of Contents
 
+* [When BAs go BAD - Christina Lovelock](#when-bas-go-bad---christina-lovelock)
+* [The 7 hidden layers behind agile techniques: Ever wondered why we use post-its during retrospectives? – Pieter Van Driessche](#the-7-hidden-layers-behind-agile-techniques-ever-wondered-why-we-use-post-its-during-retrospectives--pieter-van-driessche)
+* [You are doing it wrong: The truth about user stories – Pieter Hans](#you-are-doing-it-wrong-the-truth-about-user-stories--pieter-hens)
+* [Conclusion](#conclusion)
+
+****
+
 ## When BAs go BAD - Christina Lovelock
 
 <span class="image left"><img class="p-image" alt="Christina Lovelock" src="/img/2019-05-08-ba-and-beyond/christina-lovelock.jpeg"></span>
@@ -38,7 +45,11 @@ Talking with other analysts and contributing to the practice are important aspec
 Of course all those behaviours and feelings don’t just apply to business analyst but also to every team role: scrum master, developer, product owner, tester.
 This talk gave us the opportunity to identify and name some feelings we can face as business analysts while giving us the keys to find solutions to the difficult situations we could face.
 
+<img alt="wall-art" src="{{ '/img/2019-05-08-ba-and-beyond/bad-ba-behaviours.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+
 ## The 7 hidden layers behind agile techniques: Ever wondered why we use post-its during retrospectives? – Pieter Van Driessche
+
+<span class="image left"><img class="p-image" alt="Pieter Van Driessche" src="/img/2019-05-08-ba-and-beyond/pieter-van-driessche.jpg"></span>
 
 This talk was a great eye-opener about a simple thing we all do every day in our scrum teams: sticking post-its! 
 Although this has become a very common habit, we might not know why post-its are used during scrum meetings and especially during retrospectives. 
@@ -63,7 +74,15 @@ Getting out of our comfort zone promotes continuous improvement, and that’s wh
 Moving post-its on a white board allows us to make abstract things tangible. 
 As a consequence, we are more involved in our daily work as we, and the others, can see our progress in a physical way.
 
-## You are doing it wrong: The truth about user stories – Pieter Hans
+## You are doing it wrong: The truth about user stories – Pieter Hens
+
+<span class="image left"><img class="p-image" alt="Pieter Hens" src="/img/2019-05-08-ba-and-beyond/pieter-hens.jpg"></span>
+[Pieter Hens](https://www.linkedin.com/in/henspieter/){:target="_blank" rel="noopener noreferrer"} has been working for over 15 years in a software product development and analysis setting. 
+First as a researcher in the area of Business Process Modelling, later as an agile and lean practitioner. 
+He has taken up roles as a business and functional analyst, project manager, coach and team lead in projects of various sizes. 
+He currently specialises in the full range of software product management: product strategy, discovery and development.
+
+As an agile and lean adept he speaks and trains on a professional and academic level (at VUB and KULeuven): agile analysis, agile project management and lean product management.
 
 User stories are part of the root of our projects, we use them on a daily basis to achieve our goals, however the user stories are sometimes wrongly used, leading to counterproductive effects.
 Here are some myths about user stories.
@@ -86,6 +105,8 @@ Having a template for the user story is an good way to ease the understanding of
 Having our requirements standardized simplifies the processes.
 However, not all user stories fit the same strict template. 
 Even though a template is important, we should focus less on the template and more on the content itself.
+
+<img alt="wall-art" src="{{ '/img/2019-05-08-ba-and-beyond/template-zombie.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 ## Conclusion
 
