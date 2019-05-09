@@ -3,7 +3,7 @@ layout: post
 authors: [astrid_legrand]
 title: "BA & Beyond - an inspiring conference for keen business analysts"
 image: /img/2019-05-08-ba-and-beyond/main-image.png
-tags: [Agile, Conference, BA&Beyond, Business Analysis]
+tags: [Agile, Conference, BA&Beyond, Business Analysis, Scrum, User stories, Post-its, Crossfunctional teams]
 category: Agile
 comments: true
 ---
@@ -37,3 +37,58 @@ Talking with other analysts and contributing to the practice are important aspec
 
 Of course all those behaviours and feelings don’t just apply to business analyst but also to every team role: scrum master, developer, product owner, tester.
 This talk gave us the opportunity to identify and name some feelings we can face as business analysts while giving us the keys to find solutions to the difficult situations we could face.
+
+## The 7 hidden layers behind agile techniques: Ever wondered why we use post-its during retrospectives? – Pieter Van Driessche
+
+This talk was a great eye-opener about a simple thing we all do every day in our scrum teams: sticking post-its! 
+Although this has become a very common habit, we might not know why post-its are used during scrum meetings and especially during retrospectives. 
+Here is an insight.
+
+### Psychological safety
+
+Thanks to post-its, all participants get the same space. 
+Post-its give everybody a voice, everybody can express themselves without fear. 
+Moreover, post-its give a real chance to introvert people.
+
+### Team objectives and peer pressures
+
+By giving post-its to everybody attending the retrospective, peer pressure encourages everybody to participate and everybody will at least stick one post-it. 
+And the more post-its we have, the greater the outcome we build.
+This fact is closely linked to our comfort zone. 
+Although it is sometimes difficult to say what we really think, the post-its and the peer pressure force us to get out of our comfort zone by expressing ourselves, finding solutions and being confronted with our team mates.
+Getting out of our comfort zone promotes continuous improvement, and that’s what we all want.
+
+### The physical connection
+
+Moving post-its on a white board allows us to make abstract things tangible. 
+As a consequence, we are more involved in our daily work as we, and the others, can see our progress in a physical way.
+
+## You are doing it wrong: The truth about user stories – Pieter Hans
+
+User stories are part of the root of our projects, we use them on a daily basis to achieve our goals, however the user stories are sometimes wrongly used, leading to counterproductive effects.
+Here are some myths about user stories.
+
+### The analyst writes the user stories and the dev team implements them
+
+Writing a user story is not the BA responsibility, elaborating a user story is a team effort and everybody in the team is eligible to write user stories.
+Writing the user stories together reduces risk of misunderstanding. 
+Before implementing a user story, all team members should agree on and understand the user story content.
+
+### We don’t need documents or models anymore
+
+User stories have to be backed up by documents and models. 
+A user story alone is not enough, we need a context and the big picture.
+User stories are not meant o replace documents but to tell stories.
+
+### If it does not fit the 'As a \[role] I can \[do something]' - template, it is not a user story
+
+Having a template for the user story is an good way to ease the understanding of the common goal. 
+Having our requirements standardized simplifies the processes.
+However, not all user stories fit the same strict template. 
+Even though a template is important, we should focus less on the template and more on the content itself.
+
+## Conclusion
+
+I learned a lot during those two days and the conference gave me new keys to deal with my work every day.
+This great experience also gave me the opportunity to talk and share with other business analysts. 
+It was really inspiring.
