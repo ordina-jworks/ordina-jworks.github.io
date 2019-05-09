@@ -28,6 +28,9 @@ What follows below is an overview of some of these talks.
 ## When BAs go BAD - Christina Lovelock
 
 <span class="image left"><img class="p-image" alt="Christina Lovelock" src="/img/2019-05-08-ba-and-beyond/christina-lovelock.jpeg"></span>
+[Christina Lovelock](https://www.linkedin.com/in/christina-lovelock/){:target="_blank" rel="noopener noreferrer"} has built BA teams in several public sector organisations including the NHS, ranging in size from 5 to 120 Business Analysts. 
+She currently leads the BA practice at the University of Leeds.
+She is active in the BA professional community in the UK, attending and regularly speaking at local and national events and conferences. 
 
 This talk is purely soft skills related and depicts the sort of behaviours shown by business analysts when they face difficult situations.
 Some typical BA behavioural mistakes are triggered by the way they see themselves in the team. 
@@ -50,6 +53,9 @@ This talk gave us the opportunity to identify and name some feelings we can face
 ## The 7 hidden layers behind agile techniques: Ever wondered why we use post-its during retrospectives? – Pieter Van Driessche
 
 <span class="image left"><img class="p-image" alt="Pieter Van Driessche" src="/img/2019-05-08-ba-and-beyond/pieter-van-driessche.jpg"></span>
+[Pieter Van Driessche](https://www.linkedin.com/in/pietervandriessche/){:target="_blank" rel="noopener noreferrer"} has worked in IT for over 20 years and did most of the common software jobs: developer, analyst, team lead and project manager. 
+He experimented with cultural change management during 2 years, after which he returned to IT because of the faster speed of change. 
+He has been an agile coach for almost 15 years and coaches all kind of teams in all kinds of organisations: software, operation or marketing teams, in Belgium and abroad, in small and large organisations. 
 
 This talk was a great eye-opener about a simple thing we all do every day in our scrum teams: sticking post-its! 
 Although this has become a very common habit, we might not know why post-its are used during scrum meetings and especially during retrospectives. 
@@ -81,8 +87,6 @@ As a consequence, we are more involved in our daily work as we, and the others, 
 First as a researcher in the area of Business Process Modelling, later as an agile and lean practitioner. 
 He has taken up roles as a business and functional analyst, project manager, coach and team lead in projects of various sizes. 
 He currently specialises in the full range of software product management: product strategy, discovery and development.
-
-As an agile and lean adept he speaks and trains on a professional and academic level (at VUB and KULeuven): agile analysis, agile project management and lean product management.
 
 User stories are part of the root of our projects, we use them on a daily basis to achieve our goals, however the user stories are sometimes wrongly used, leading to counterproductive effects.
 Here are some myths about user stories.
