@@ -2,8 +2,8 @@
 layout: post
 authors: [astrid_legrand]
 title: "BA & Beyond - an inspiring conference for keen business analysts"
-image: /img/2019-05-08-ba-and-beyond/main-image.png
-tags: [Agile, Conference, BA&Beyond, Business Analysis, Scrum, User stories, Post-its, Crossfunctional teams]
+image: /img/ba-and-beyond-2019/main-image.png
+tags: [Agile, Conference, BA&Beyond, Business Analysis, Scrum, User stories, Post-its, Cross functional teams]
 category: Agile
 comments: true
 ---
@@ -27,15 +27,15 @@ What follows below is an overview of some of these talks.
 
 ## When BAs go BAD - Christina Lovelock
 
-<span class="image left"><img class="p-image" alt="Christina Lovelock" src="/img/2019-05-08-ba-and-beyond/christina-lovelock.jpeg"></span>
+<span class="image left"><img class="p-image" alt="Christina Lovelock" src="/img/ba-and-beyond-2019/christina-lovelock.jpeg"></span>
 [Christina Lovelock](https://www.linkedin.com/in/christina-lovelock/){:target="_blank" rel="noopener noreferrer"} has built BA teams in several public sector organisations including the NHS, ranging in size from 5 to 120 Business Analysts. 
 She currently leads the BA practice at the University of Leeds.
 She is active in the BA professional community in the UK, attending and regularly speaking at local and national events and conferences. 
 
-This talk was purely soft skills related and depicts the sort of behaviours shown by business analysts when they face difficult situations.
+Christina's talk was purely soft skills related and depicts the sort of behaviours shown by business analysts when they face difficult situations.
 Some typical BA behavioural mistakes are triggered by the way they see themselves in the team. 
-For instance, a BA could feel to be not part of the team: there are de facto less analysts than developers in a team which can lead to an «Us VS Them» mentality.
-It is also sometimes difficult to build a BA community and the BA role sometimes being sandwiched between IT and the business, might lead to negative self perceptions such as «I am just a BA» or «Neither the PO nor the Developers understand me».
+For instance, a BA could feel to not be part of the team: there are de facto less analysts than developers in a team which can lead to an «Us VS Them» mentality.
+It is also sometimes difficult to build a BA community and the BA role sometimes being sandwiched between IT and the business might lead to negative self perceptions such as «I am just a BA» or «Neither the PO nor the developers understand me».
 
 Understanding that the BA is fully part of the team and is not the only one accountable for the communication between IT and Business, leads to better collaboration and is a great step towards agility, allowing all team members to be more confident and positive.
 Whatever your role in a project team; collaboration, transparency, confidence - in yourself and in your team mates - as well as clear communication are key factors to succeed together.
@@ -45,14 +45,15 @@ Indeed it is sometimes difficult to have the right level of focus on the right t
 Moreover, being a good BA is also about sharing knowledge, tools and techniques. 
 Talking with other analysts and contributing to the practice are important aspects of the job.
 
-Of course all those behaviours and feelings don’t just apply to business analyst but also to every team role: scrum master, developer, product owner, tester.
+Of course all those behaviours and feelings don’t just apply to business analysts but also to every team role: scrum master, developer, product owner, tester.
 This talk gave us the opportunity to identify and name some feelings we can face as business analysts while giving us the keys to find solutions to the difficult situations we could face.
 
-<img alt="wall-art" src="{{ '/img/2019-05-08-ba-and-beyond/bad-ba-behaviours.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+<img alt="wall-art" src="{{ '/img/ba-and-beyond-2019/bad-ba-behaviours.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+<img alt="wall-art" src="{{ '/img/ba-and-beyond-2019/ba-behaviours.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 ## The 7 hidden layers behind agile techniques: Ever wondered why we use post-its during retrospectives? – Pieter Van Driessche
 
-<span class="image left"><img class="p-image" alt="Pieter Van Driessche" src="/img/2019-05-08-ba-and-beyond/pieter-van-driessche.jpg"></span>
+<span class="image left"><img class="p-image" alt="Pieter Van Driessche" src="/img/ba-and-beyond-2019/pieter-van-driessche.jpg"></span>
 [Pieter Van Driessche](https://www.linkedin.com/in/pietervandriessche/){:target="_blank" rel="noopener noreferrer"} has worked in IT for over 20 years and did most of the common software jobs: developer, analyst, team lead and project manager. 
 He experimented with cultural change management during 2 years, after which he returned to IT because of the faster speed of change. 
 He has been an agile coach for almost 15 years and coaches all kind of teams in all kinds of organisations: software, operation or marketing teams, in Belgium and abroad, in small and large organisations. 
@@ -82,7 +83,7 @@ As a consequence, we are more involved in our daily work as we, and the others, 
 
 ## You are doing it wrong: The truth about user stories – Pieter Hens
 
-<span class="image left"><img class="p-image" alt="Pieter Hens" src="/img/2019-05-08-ba-and-beyond/pieter-hens.jpg"></span>
+<span class="image left"><img class="p-image" alt="Pieter Hens" src="/img/ba-and-beyond-2019/pieter-hens.jpg"></span>
 [Pieter Hens](https://www.linkedin.com/in/henspieter/){:target="_blank" rel="noopener noreferrer"} has been working for over 15 years in a software product development and analysis setting. 
 First as a researcher in the area of Business Process Modelling, later as an agile and lean practitioner. 
 He has taken up roles as a business and functional analyst, project manager, coach and team lead in projects of various sizes. 
@@ -97,6 +98,8 @@ Writing a user story is not the BA responsibility, elaborating a user story is a
 Writing the user stories together reduces risk of misunderstanding. 
 Before implementing a user story, all team members should agree on and understand the user story content.
 
+<img alt="wall-art" src="{{ '/img/ba-and-beyond-2019/glad-we-all-agree.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+
 ### We don’t need documents or models anymore
 
 User stories have to be backed up by documents and models. 
@@ -110,10 +113,12 @@ Having our requirements standardized simplifies the processes.
 However, not all user stories fit the same strict template. 
 Even though a template is important, we should focus less on the template and more on the content itself.
 
-<img alt="wall-art" src="{{ '/img/2019-05-08-ba-and-beyond/template-zombie.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+<img alt="wall-art" src="{{ '/img/ba-and-beyond-2019/template-zombie.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 ## Conclusion
 
 I learned a lot during those two days and the conference gave me new keys to deal with my work every day.
 This great experience also gave me the opportunity to talk and share with other business analysts. 
 It was really inspiring.
+
+The slides for these presentations can be found on the website of [BA&Beyond](https://ba-beyond.eu/2019-programme.php){:target="_blank" rel="noopener noreferrer"}.
