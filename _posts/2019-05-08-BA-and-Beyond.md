@@ -108,7 +108,7 @@ User stories are not meant to replace documents, they are meant to tell stories.
 
 ### If it does not fit the 'As a \[role] I can \[do something]' - template, it is not a user story
 
-Having a template for the user story is an good way to ease the understanding of the common goal. 
+Having a template for the user story is a good way to ease the understanding of the common goal. 
 Having our requirements standardised simplifies the processes.
 However, not all user stories fit the same strict template. 
 Even though a template is important, we should focus less on the template and more on the content itself.
