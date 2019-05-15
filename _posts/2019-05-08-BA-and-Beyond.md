@@ -57,7 +57,7 @@ This talk gave us the opportunity to identify and name some feelings we can face
 <span class="image left"><img class="p-image" alt="Pieter Van Driessche" src="/img/ba-and-beyond-2019/pieter-van-driessche.jpg"></span>
 [Pieter Van Driessche](https://www.linkedin.com/in/pietervandriessche/){:target="_blank" rel="noopener noreferrer"} has worked in IT for over 20 years and did most of the common software jobs: developer, analyst, team lead and project manager. 
 He experimented with cultural change management for 2 years, after which he returned to IT because of the faster speed of change. 
-He has been an agile coach for almost 15 years and coaches all kind of teams in all kinds of organisations: software, operation or marketing teams, in Belgium and abroad, in small and large organisations. 
+He has been an agile coach for almost 15 years and coaches all kinds of teams in all kinds of organisations: software, operation or marketing teams, in Belgium and abroad, in small and large organisations. 
 
 This talk was a great eye-opener about a simple thing we all do every day in our scrum teams: sticking post-its! 
 Although this has become a very common habit, we might not know why post-its are used during scrum meetings and especially during retrospectives. 
