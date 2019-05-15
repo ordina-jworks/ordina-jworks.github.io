@@ -42,7 +42,7 @@ It is also sometimes difficult to build a BA community and the BA role sometimes
 Understanding that the BA is as much a member of the team as the others and that he or she is not the only one accountable for the communication between IT and Business, leads to better collaboration and is a great step towards agility, allowing all team members to be more confident and positive.
 Whatever your role in a project team; collaboration, transparency and confidence - in yourself and in your team mates - as well as clear communication are key factors to succeed together.
 
-Another difficulty in the BA role is having the right level of detail. 
+Another difficulty in the BA role is providing the right level of detail in your analysis. 
 Indeed it is sometimes difficult to have the right level of focus on the right things. 
 Moreover, being a good BA is also about sharing knowledge, tools and techniques. 
 Talking with other analysts and contributing to the practice are important aspects of the job.
