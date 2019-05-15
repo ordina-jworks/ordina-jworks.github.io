@@ -39,7 +39,7 @@ It is also sometimes difficult to build a BA community and the BA role sometimes
 
 <img alt="bad-ba-behaviours" src="{{ '/img/ba-and-beyond-2019/bad-ba-behaviours.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
 
-Understanding that the BA is fully part of the team and is not the only one accountable for the communication between IT and Business, leads to better collaboration and is a great step towards agility, allowing all team members to be more confident and positive.
+Understanding that the BA is as much a member of the team as the others and that he or she is not the only one accountable for the communication between IT and Business, leads to better collaboration and is a great step towards agility, allowing all team members to be more confident and positive.
 Whatever your role in a project team; collaboration, transparency, confidence - in yourself and in your team mates - as well as clear communication are key factors to succeed together.
 
 Another difficulty in the BA role is having the right level of detail. 
