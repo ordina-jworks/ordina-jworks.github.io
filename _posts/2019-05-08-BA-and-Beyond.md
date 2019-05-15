@@ -35,7 +35,7 @@ She is active in the BA professional community in the UK, attending and regularl
 Christina's talk was purely soft skills related and depicts the sort of behaviours shown by business analysts when they face difficult situations.
 Some typical BA behavioural mistakes are triggered by the way they see themselves in the team. 
 For instance, a BA could feel to not be part of the team: there are de facto less analysts than developers in a team which can lead to an «Us VS Them» mentality.
-It is also sometimes difficult to build a BA community and the BA role sometimes being sandwiched between IT and the business might lead to negative self perceptions such as «I am just a BA» or «Neither the PO nor the developers understand me».
+It is also sometimes difficult to build a BA community and being sandwiched between IT and the business can sometimes lead to negative self perceptions such as «I am just a BA» or «Neither the PO nor the developers understand me».
 
 <img alt="bad-ba-behaviours" src="{{ '/img/ba-and-beyond-2019/bad-ba-behaviours.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
 
