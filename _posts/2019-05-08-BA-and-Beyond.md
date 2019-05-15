@@ -104,7 +104,7 @@ Before implementing a user story, all team members should agree on and understan
 
 User stories have to be backed up by documents and models. 
 A user story alone is not enough, we need a context and the big picture.
-User stories are not meant to replace documents but to tell stories.
+User stories are not meant to replace documents, they are meant to tell stories.
 
 ### If it does not fit the 'As a \[role] I can \[do something]' - template, it is not a user story
 
