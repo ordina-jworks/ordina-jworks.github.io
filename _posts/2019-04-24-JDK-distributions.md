@@ -57,10 +57,10 @@ on 8u91 once 8u111 was released and
 no longer get updates for 8u111
 once 8u131 was released.
 
-Since Java version 9 however, there is new
-six month release cycle for major versions
+Since Java version 9 however, there is a new
+six month release cycle for major versions.
 Similar to the old update cycle.
-In the new version system, you would no longer
+In the new version system you will no longer
 get updates for Java 12 once Java 13 is released.
 Exceptions being long-term support versions
 which will get updates beyond six months.
@@ -77,13 +77,13 @@ we provide a table with most of this information.
 
 | Version       | Release date  | Free updates ended or superseded                                                             |
 | ------------- | ------------- | -------------------------------------------------------------------------------------------- |
-| OpenJDK 6     |               | Supported primarily by Azul systems                                                          |
-| OpenJDK 7     |               | Supported primarily by Red Hat until at least June 2020                                      |
+| OpenJDK 6     | December 2006 | Supported primarily by Azul systems                                                          |
+| OpenJDK 7     | July 2011     | Supported primarily by Red Hat until at least June 2020                                      |
 | OpenJDK 8     | March 2014    | Supported by Red Hat, Amazon, Azul Systems, BellSoft, Google, IBM, jClarity, SAP, and others.|
 | OpenJDK 9     | Sept 2017     | Superseded by OpenJDK 10                                                                     |
 | OpenJDK 10    | March 2018    | Superseded by OpenJDK 11                                                                     |
 | OpenJDK 11    | Sept 2018     | Supported by Red hat, Amazon, Azul Systems, BellSoft, Google, IBM, jClarity, SAP, and others.|
-| OpenJDK 12    | March 2019    | Will be superseded by OpenJDK 13                                                             |
+| OpenJDK 12    | March 2019    | Superseded by OpenJDK 13                                                                     |
 | OpenJDK 13    | Sept 2019     | Will be superseded by OpenJDK 14                                                             |
 
 
@@ -93,14 +93,13 @@ Before Java 9, Oracle would provide
 updates for their JDK for three years.
 The license allowed you to use
 these updates personally and commercially.
-The updates had no support.
-If you wanted support you had
+The updates had no support so if you wanted support you had
 to buy a license from Oracle
 and those licenses also came
 with longer update cycles.
 Starting April 2019, the new 
 Oracle JDK 8 updates will be restricted
-and remain free for personal desktop use,
+and will remain free for personal desktop use,
 development, testing,
 prototyping, demonstrating and for use
 with certain types of applications.
@@ -184,10 +183,9 @@ Various people can still provide patches and
 add new features to new versions of the OpenJDK.
 You can read more about JDK 11 updates
 on the [OpenJDK Wiki](https://wiki.openjdk.java.net/display/JDKUpdates/JDK11u){:target="_blank" rel="noopener noreferrer"}.
-You'll see that there updates planned 
-there for at least Mid October 2019.
+You'll see that there are updates planned until at least mid October 2019.
 
-This means that the Oracle's JDK could
+This means that the Oracle JDK could
 differ from the OpenJDK based binaries
 and the JDKs provided by other vendors.
 Most of the major vendors have continued
@@ -221,19 +219,19 @@ Oracle is very receptive of the idea on having
 community maintenance and will continue to support
 handover of the OpenJDK to the community to
 a qualified volunteering entity once they have
-moved on to working on the next version.
+moved on to work on the next version.
 Red Hat is currently globally leading and
 updating OpenJDK 6 and OpenJDK 7 projects
 after Oracle ended updates for them.
 After Red Hat stopped updating OpenJDK 6,
-Azul Systems has taken over leading the project
-and continued to provide updates for the project to this day.
+Azul Systems took over leading the project
+and continued to provide updates for the project to this day of writing.
 
 Red Hat is currently leading OpenJDK 8 and OpenJDK 11 since April 2019.
 This does not mean that they are
-the sole contributors to the project they lead.
+the sole contributors to the project.
 Other vendors are providing patches and updates as well. 
-The biggest contribution are happening to the OpenJDK 8 project
+The biggest contributions are happening to the OpenJDK 8 project
 with contributions from not just Red Hat, but Amazon,
 Azul Systems, BellSoft, IBM, jClarity, Google, Sap
 and many other vendors.
@@ -251,7 +249,7 @@ a JDK from source code meaning OpenJDK,
 no commercial support and you need to build
 it yourself and keep it updated.
 This is not something we would suggest doing since this requires you
-to put resources in checking for updates
+to put resources in, checking for updates
 and applying patches if needed.
 There is also no way of getting any commercial support
 if you ever need it.
@@ -322,7 +320,7 @@ or software architectures.
 
 ### Using distributions provided by your linux distribution
 
-Many various Linux distributions will continue to provide
+Many Linux distributions will continue to provide
 OpenJDK binaries for theirs distributions through their
 package managers including and not limited to
 Debian, Ubuntu, CentOs, Fedora, Alpine, ...
@@ -344,7 +342,7 @@ Public updates are dropped for OpenJFX 11.
 ### Java Packager
 
 The javapackager,
-which allowed you to bundle applications
+which allows you to bundle applications
 and their dependencies with the JVM, is no longer part
 of the OpenJFX and has been removed from all of Oracle's
 JDK versions starting from version 11.
@@ -369,7 +367,7 @@ JDK versions starting from version 11.
 [OSS replacement for Web Start](https://dev.karakun.com/webstart/){:target="_blank" rel="noopener noreferrer"}
 
 ## Sources
-The information in this blog posts comes from
+The information in this blog post comes from
 various sources which will be listed below.
 A huge thanks goes out to the creators of
 the "Java Is Still Free" document who granted
