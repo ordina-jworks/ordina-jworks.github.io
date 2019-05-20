@@ -80,7 +80,7 @@ Which vendor you choose to get this support from is up to you.
 But each vendor has their own JDK binaries so make sure you use the binaries of the vendor you want to get commercial support from and don't forget to check how long they will support your OpenJDK version.
 Each vendor can decide for themselves how long they provide support for their OpenJDK libraries, so this isn't a decision you should make on a whim.
 
-You might also be thinking: "why would I pay for commercial support for (open source) JDK versions?".
+You might also be thinking: "Why would I pay for commercial support for (open source) JDK versions?".
 Don't forget that Oracle and other vendors pour money in development of these JDK versions and this money has to come for somewhere.
 You are not obliged to get paid support with one of the vendors providing OpenJDK versions, but we think it's worth thinking about supporting the Java ecosystem to ensure its long-lasting future.
 If there is no money to develop the JDK further then there won't be any progression to the future of the JDK ecosystem.
@@ -176,7 +176,7 @@ It is available at no charge to developers who are planning to deploy a compatib
 
 ### Using distributions provided by your linux distribution
 
-Many Linux distributions will continue to provide OpenJDK binaries for theirs distributions through their package managers including and not limited to Debian, Ubuntu, CentOs, Fedora, Alpine, ...
+Many Linux distributions will continue to provide OpenJDK binaries for their distributions through their package managers including and not limited to Debian, Ubuntu, CentOS, Fedora, Alpine, ...
 
 ## Java Desktop, Java Web Start and JavaFX
 
@@ -186,12 +186,11 @@ There are various changes with Desktop Java SE starting with the Oracle JDK 11 t
 
 As of Java version 11, both Oracle's JDK and Oracle's OpenJDK will no longer contain the JavaFX or OpenJFX libraries.
 You will have to add these libraries yourself or through build tools.
-The update cycle is the same as OpenJDK if OpenJFX 12 is released.
-Public updates are dropped for OpenJFX 11.
+The update cycle is the same as OpenJDK: if OpenJFX 12 is released, public updates are dropped for OpenJFX 11.
 
 ### Java Packager
 
-The javapackager, which allows you to bundle applications and their dependencies with the JVM, is no longer part of the OpenJFX and has been removed from all of Oracle's JDK versions starting from version 11.
+The Java packager, which allows you to bundle applications and their dependencies with the JVM, is no longer part of the OpenJDK and has been removed from all of Oracle's JDK versions starting from version 11.
 There is a [JEP](https://bugs.openjdk.java.net/browse/JDK-8200758) to add a new packaging tool to OpenJDK but this is not yet ready for Java 11.
 
 ### Java WebStart
