@@ -2,7 +2,7 @@
 layout: post
 authors: [duncan_casteleyn]
 title: 'JDK distributions'
-image: /img/2019-04-24-JDK-distributions/openjdk.png
+image: /img/2019-05-20-JDK-distributions/openjdk.png
 tags: [Java, OpenJDK, JDK]
 category: Java
 comments: true
