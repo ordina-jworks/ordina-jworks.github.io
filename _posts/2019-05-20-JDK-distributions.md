@@ -72,7 +72,7 @@ If you need new updates and support for these older versions, you will have to b
 #### Support
 
 So what if I want support from Oracle?
-Support isn't free commitment to fix bugs and requiring to answer users their problems costs money.
+Support isn't free because Oracle and other companies have to hire employees and developers to provide these support services.
 Because of that, Oracle has never provided free support.
 If you need the reassurance of bug fixes and somebody to answer your questions then you have to get commercial support.
 You aren't limited to Oracle's support.
