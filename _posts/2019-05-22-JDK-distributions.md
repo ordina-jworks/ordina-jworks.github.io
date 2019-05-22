@@ -206,5 +206,5 @@ The information in this blog post comes from various sources which will be liste
 A huge thanks goes out to the creators of the "Java Is Still Free" document who granted us permissions to use their post for this blog post.
 We used these sources either because we were granted permissions to use them or the terms allowed us to use them.
 
-* [Java Is Still Free](https://docs.google.com/document/d/1nFGazvrCvHMZJgFstlbzoHjpAVwv5DEdnaBr_5pKuHo/edit?usp=sharing)
-* [The jdk-updates-dev Archives](https://mail.openjdk.java.net/pipermail/jdk-updates-dev/)
+* [Java Is Still Free](https://docs.google.com/document/d/1nFGazvrCvHMZJgFstlbzoHjpAVwv5DEdnaBr_5pKuHo/edit?usp=sharing){:target="_blank" rel="noopener noreferrer"}
+* [The jdk-updates-dev Archives](https://mail.openjdk.java.net/pipermail/jdk-updates-dev/){:target="_blank" rel="noopener noreferrer"}
