@@ -30,4 +30,26 @@ One of the major disadvantages of this product is that it is very verbose and it
 It can be quite complicated because you need to manage the entire jdbc process yourself. 
 Spring helps you a bit by providing the Jdbc Templates which makes it a little bit easier.
 
-### 
+### Spring data jpa
+Spring data jpa is a frequently used persistence framework. 
+It is very useful because it helps with keeping the state of entities persisted inside a database.
+Programs that use spring data jpa have an entity context which spring data jpa manages.
+This makes sure that when an entity is changed, this change will be saved into the database.
+Spring data jpa is a framework with many capabilities. This makes it also rather complex. 
+It is rather hard to understand what processes are done "under the hood" of spring data jpa.
+Because spring data jpa manages the entity context, you lose some control. 
+For example because changes in entities are saved automatically, you don't have control if and when you want to save this.
+
+### Spring data jdbc
+Spring data jdbc is created to help you with managing your persistence with jdbc but with less boiler plate code.
+The result is that now, instead of writing a lot of code, this can be replaced by annotations and a lot less code.
+This makes it a lot easier to work with and a new contender as a persistence framework. 
+Because you use jdbc almost directly this makes it much easier to understand when compared with spring data jpa and also gives you more control.
+
+## Current state
+### Annotations
+Spring data jdbc is managed mostly by annotations. The most important annotations are similar to other spring data packages.
+For example @OneToMany is also used in spring data jdbc.
+
+### Restrictions
+Because it is a rather new product, not all functionalities are implemented yet and some functionalities you know from other spring data products will never be implemented.
