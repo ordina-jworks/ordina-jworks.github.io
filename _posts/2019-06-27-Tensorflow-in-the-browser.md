@@ -17,8 +17,8 @@ comments: true
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Tensorflow](#tensorflow)
-4. [Tensorflow.js](#tensorflow.js)
+2. [TensorFlow](#tensorflow)
+4. [TensorFlow.js](#tensorflowjs)
 5. [Making it easier](#ml5)
 6. [Resources](#resources)
 
@@ -36,20 +36,24 @@ This blogpost serves as a quick introduction to TensorFlow.js and ML5 so you too
 
 ## Tensorflow
 
-<img alt="Tensorflow" src="{{ '/img/2019-06-27-tensorflowjs/todo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="Tensorflow" src="{{ '/img/2019-06-27-tensorflowjs/mnist.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 TODO
 
 
-## TensorFlow.JS
+## TensorFlowjs
 
-<img alt="ML5" src="{{ '/img/2019-06-27-tensorflowjs/todo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="ML5" src="{{ '/img/2019-06-27-tensorflowjs/tensorflowjs.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 TODO
 
 
 
 ## ML5
+
+<img alt="ML5" src="{{ '/img/2019-06-27-tensorflowjs/ml5-examples.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+
+TODO
 
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2019-06-27-tensorflowjs/todo.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="TODO">
@@ -59,8 +63,6 @@ TODO
         <img alt="stack" src="{{ '/img/2019-06-27-tensorflowjs/todo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
     </a>
 </div>
-
-TODO
 
 ## Resources
 
