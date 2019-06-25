@@ -1,9 +1,9 @@
 ---
 layout: post
 authors: [kevin_van_den_abeele]
-title: "Getting started with Tensorflow in the browser"
+title: "Getting started with TensorFlow in the browser"
 image: /img/2019-06-27-tensorflowjs/banner.jpg
-tags: [internet of things, iot, smart things, smart tech, machine learning, artificial intelligence, tensorflow, javascript, js, browser, node]
+tags: [internet of things, iot, smart things, smart tech, machine learning, artificial intelligence, tensorflow, javascript, js, browser, node, ml5, yolo, ml, ai]
 category: IoT, Smart tech, machine learning
 comments: true
 ---
@@ -241,7 +241,7 @@ tf.tidy(() => {
 This last code set the optimizer, sets up the training and validation, loads the data and then trains and validates the model.
 A working example of this code can be found [here](https://storage.googleapis.com/tfjs-examples/mnist/dist/index.html){:target="_blank" rel="noopener noreferrer"}.
 
-This is still not that complicated code, but it is a lot to figure out all by yourself.
+This is still not all that complicated code, but it is a lot to figure out all by yourself.
 There are pre-trained models available which can make your life easier, but what if there was an even easier way.
 What if there exists a library (or more than one) that allows you do to some commonly used machine learning techniques with very little code.
 It exists, read on below to find out all about it!
@@ -250,23 +250,81 @@ It exists, read on below to find out all about it!
 
 <img alt="ML5" src="{{ '/img/2019-06-27-tensorflowjs/ml5-examples.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
-TODO
+Enter ML5!
+This library provides ready to use building blocks, as their website describes:
+>ML5.js aims to make machine learning approachable for a broad audience of artists, creative coders, and students.
+>The library provides access to machine learning algorithms and models in the browser, building on top of TensorFlow.js with no other external dependencies.
 
-<div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2019-06-27-tensorflowjs/todo.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="TODO">
-        <img alt="stack" src="{{ '/img/2019-06-27-tensorflowjs/todo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
-    </a>
-     <a href="{{ '/img/2019-06-27-tensorflowjs/todo.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="TODO">
-        <img alt="stack" src="{{ '/img/2019-06-27-tensorflowjs/todo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
-    </a>
-</div>
+This gives us the ability to quickly use these machine learning techniques in prototypes, to experiment with and test viability in real world conditions without requiring a full model to be built up front.
+This is provided the machine learning technique is available within the ML5 library.
+
+Classifying an image becomes really simple:
+
+```javascript
+// Initialize the Image Classifier method with MobileNet. A callback needs to be passed.
+const classifier = ml5.imageClassifier('MobileNet', () => {
+    console.log(‘ready’);
+});
+let img;
+
+function setup() {
+    noCanvas();
+    img = createImg('images/bird.jpg', () => {
+        classifier.predict(img, gotResult);
+    });
+    img.size(400, 400);
+}
+
+function gotResult(err, results) {
+    if (err) {
+        console.error(err);
+    }
+    select('#result').html(results[0].className);
+    select('#probability').html(nf(results[0].probability, 0, 2));
+}
+```
+
+This small example also uses [p5.js](https://p5js.org/){:target="_blank" rel="noopener noreferrer"} for image handling/drawing.
+
+It has many different available machine learning techniques available:
+
+- Image classification
+- Pose estimation
+- Person segmentation
+- Biomedical image segmentation
+- Style transfer
+- Image to image translation
+- Feature extraction
+- Text sentiment detection
+- ...
+
+Detailed information and reference documentation can be found on [their website](https://ml5js.org/reference/){:target="_blank" rel="noopener noreferrer"}.
+The project is also fully open source and in active development.
 
 ### Some ML5 examples
 
-TODO
+We have written some small examples ourselves with ML5.
+You can run the examples by checking out [the repo](https://github.com/ordina-jworks/TensorFlow.js){:target="_blank" rel="noopener noreferrer"} and switching to any of the solution branches.
+Be sure to run it from a local webserver or the demos will not work correctly!
+
+The first example uses [YOLO (You Only Look Once)](https://pjreddie.com/darknet/yolo/){:target="_blank" rel="noopener noreferrer"}  and ImageNet to detect the contents of an image an classify it.
+The second example uses Style transfer to transfer styles from a base image to a provided target image.
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2019-06-27-tensorflowjs/yolo.jpg' | prepend: site.baseurl }}" data-lightbox="ML5 custom examples" data-title="YoLo and image classification">
+        <img alt="YoLo and image classification" src="{{ '/img/2019-06-27-tensorflowjs/yolo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 60%; display: inline-block;">
+    </a>
+     <a href="{{ '/img/2019-06-27-tensorflowjs/style.jpg' | prepend: site.baseurl }}" data-lightbox="ML5 custom examples" data-title="Style transfer">
+        <img alt="Style transfer" src="{{ '/img/2019-06-27-tensorflowjs/style.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 31%; display: inline-block;">
+    </a>
+</div>
+<br/>
 
 ## Resources
 
 - [TensorFlow.js](https://www.tensorflow.org/js){:target="_blank" rel="noopener noreferrer"}
+- [Model Zoo](https://modelzoo.co/){:target="_blank" rel="noopener noreferrer"}
 - [ML5](https://ml5js.org/){:target="_blank" rel="noopener noreferrer"}
-- [ML5 Examples](https://github.com/ordina-jworks/TensorFlow.js){:target="_blank" rel="noopener noreferrer"}
+- [ML5 Demos](https://github.com/ml5js/ml5-examples#examples-index){:target="_blank" rel="noopener noreferrer"}
+- [YOLO](https://pjreddie.com/darknet/yolo/){:target="_blank" rel="noopener noreferrer"}
+- [ML5 Custom Examples](https://github.com/ordina-jworks/TensorFlow.js){:target="_blank" rel="noopener noreferrer"}
