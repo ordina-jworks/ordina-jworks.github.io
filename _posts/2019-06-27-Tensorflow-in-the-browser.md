@@ -321,7 +321,7 @@ The second example uses Style transfer to transfer styles from a base image to a
 <br/>
 
 These are really simple to make and provide a real world value for quickly prototyping an application to include a machine learning technique.
-While not everything is perfect (The cat is a Holy Birman, not a Siamese) it can give you a rough view on how well it will work and if it merits further development effort.
+While not everything is perfect (The cat is a Holy Birman not a Siamese, but I'll excuse that one) it can give you a rough view on how well it will work and if it merits further development effort.
 
 Be sure to give it a try and see for yourself how easy it really is to get started with TensorFlow in the browser!
 
