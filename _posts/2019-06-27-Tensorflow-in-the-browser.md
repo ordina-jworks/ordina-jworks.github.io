@@ -49,11 +49,11 @@ Experimentation is key!
 There also a lot of very good online courses to get started with machine learning that can greatly aid your progress in understanding the key principles and concepts.
 
 <div class="responsive-video">
-    <iframe width="1164" height="655" src="https://www.youtube.com/watch?v=vq2nnJ4g6N0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <iframe width="1164" height="655" src="https://www.youtube.com/embed/vq2nnJ4g6N0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
 <br/>
 <div class="responsive-video">
-    <iframe width="1164" height="655" src="https://www.youtube.com/watch?v=tYYVSEHq-io" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <iframe width="1164" height="655" src="https://www.youtube.com/embed/tYYVSEHq-io" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
 <br/>
 
@@ -82,10 +82,169 @@ But there are a few limitations though.
 Browsers are a lot more memory constrained than when training a model 'offline' with python.
 This means that super complex models pose an issue when training in the browser, keep this in mind!
 You can however always train a model offline and only use TensorFlow.js to run the model in the browser and make predictions.
+Also keep in mind that the models you load tend to be on the larger side, especially when considering web pages.
+Some models are upwards of a 100 MegaBytes or more, so loading them can take a while, certainly when bandwidth is limited (mobile devices/3G/bad WiFi).
 
-### A small example
+Taking the TensorFlow.js variant of TensorFlow into account we can see that there are many options in the ecosystem to build, train and run models almost everywhere.
 
-TODO
+<img alt="TensorFlow ecosystem" src="{{ '/img/2019-06-27-tensorflowjs/overview.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+
+### A small JavaScript example
+
+The following example is one how to recognize digits from the the MNIST dataset (Modified National Institute of Standards and Technology).
+This is a large dataset of scanned handwritten digits.
+It contains 60,000 training images and 10,000 testing images.
+Each image is black and white spanning 28 by 28 pixels, for a total of 784 pixels, numbers you’ll get to know by heart ;)
+
+All the API calls used are documented on the [TensorFlow.js website](https://js.tensorflow.org/api/latest/){:target="_blank" rel="noopener noreferrer"}.
+
+```javascript
+// tf.sequential provides an API where the output from one layer is used as the input to the next layer.
+const model = tf.sequential();
+
+// The first layer of the convolutional neural network plays a dual role:
+// it is both the input layer of the neural network and a layer that performs the first convolution operation on the input.
+model.add(tf.layers.conv2d({
+    inputShape: [28, 28, 1],
+    kernelSize: 3,
+    filters: 16,
+    activation: 'relu'
+}));
+
+// MaxPooling layer for downsampling => https://www.quora.com/What-is-max-pooling-in-convolutional-neural-networks
+model.add(tf.layers.maxPooling2d({
+    poolSize: 2,
+    strides: 2
+}));
+
+// Our third layer is another convolution, this time with 32 filters.
+model.add(tf.layers.conv2d({
+    kernelSize: 3,
+    filters: 32,
+    activation: 'relu'
+}));
+
+// Max pooling again.
+model.add(tf.layers.maxPooling2d({
+    poolSize: 2,
+    strides: 2
+}));
+
+// Add another conv2d layer.
+model.add(tf.layers.conv2d({
+    kernelSize: 3,
+    filters: 32,
+    activation: 'relu'
+}));
+
+// Now we flatten the output from the 2D filters into a 1D vector to prepare
+// it for input into our last layer. This is common practice when feeding
+// higher dimensional data to a final classification output layer.
+model.add(tf.layers.flatten({}));
+
+ model.add(tf.layers.dense({
+    units: 64,
+    activation: 'relu'
+}));
+
+// Our last layer is a dense layer which has 10 output units, one for each
+// We use the softmax function as the activation for the output layer as it
+// creates a probability distribution over our 10 classes so their output values sum to 1.
+model.add(tf.layers.dense({
+    units: 10,
+    activation: 'softmax'
+}));
+```
+
+This concludes the code for creating the actual layers.
+Each layer has some comments explaining why it is used and what it's function is.
+As is, this code is not that complex, the complexity stems from knowing what layers to use, what parameters to give them and how to combine them all.
+This can only be learned up to some degree as a deep understanding is required to figure this out.
+Thankfully the internet has many many websites with resources for machine learning and there are even websites dedicated to providing ready to use models, like [Model Zoo](https://modelzoo.co/){:target="_blank" rel="noopener noreferrer"}.
+
+```javascript
+// An optimizer is an iterative method for minimizing an loss function.
+// It tries to find the minimum of our loss function with respect to the model's weight parameters.
+const optimizer = 'rmsprop';
+
+// We compile our model by specifying an optimizer, a loss function, and a
+// list of metrics that we will use for model evaluation. Here we're using a
+// categorical crossentropy loss.
+model.compile({
+    optimizer,
+    loss: 'categoricalCrossentropy',
+    metrics: ['accuracy'],
+});
+
+// Batch size is another important hyperparameter. It defines the number of
+// examples we group together, or batch, between updates to the model's
+// weights during training.
+const batchSize = 320;
+
+// Leave out the last 15% of the training data for validation, to monitor
+// overfitting during training.
+const validationSplit = 0.15;
+
+let trainBatchCount = 0;
+const trainData = data.getTrainData();
+const testData = data.getTestData();
+const totalNumBatches = Math.ceil(trainData.xs.shape[0] * (1 - validationSplit) / batchSize) * trainEpochs;
+
+// During the long-running fit() call for model training, we include callbacks.  
+let valAcc;
+await model.fit(trainData.xs, trainData.labels, {
+    batchSize,
+    validationSplit,
+    epochs: trainEpochs,
+    callbacks: {
+        onBatchEnd: async (batch, logs) => {
+            trainBatchCount++;
+            if (onIteration && batch % 10 === 0) {
+                onIteration('onBatchEnd', batch, logs);
+            }
+            await tf.nextFrame();
+        },
+        onEpochEnd: async (epoch, logs) => {
+            valAcc = logs.val_acc;
+            if (onIteration) {
+                onIteration('onEpochEnd', epoch, logs);
+            }
+            await tf.nextFrame();
+        }
+    }
+});
+
+
+const testResult = model.evaluate(testData.xs, testData.labels);
+const testAccPercent = testResult[1].dataSync()[0] * 100;
+const finalValAccPercent = valAcc * 100;
+
+const testExamples = 100;
+const examples = data.getTestData(testExamples);
+
+// Code wrapped in a tf.tidy() function callback will have their tensors freed
+// from GPU memory after execution without having to call dispose().
+tf.tidy(() => {
+    const output = model.predict(examples.xs);
+
+    // tf.argMax() returns the indices of the maximum values in the tensor along
+    // a specific axis. Categorical classification tasks like this one often
+    // represent classes as one-hot vectors. One-hot vectors are 1D vectors with
+    // one element for each output class. All values in the vector are 0
+    // except for one, which has a value of 1 (e.g. [0, 0, 0, 1, 0]). 
+    const axis = 1;
+    const labels = Array.from(examples.labels.argMax(axis).dataSync());
+    const predictions = Array.from(output.argMax(axis).dataSync());
+});
+```
+
+This last code set the optimizer, sets up the training and validation, loads the data and then trains and validates the model.
+A working example of this code can be found [here](https://storage.googleapis.com/tfjs-examples/mnist/dist/index.html){:target="_blank" rel="noopener noreferrer"}.
+
+This is still not that complicated code, but it is a lot to figure out all by yourself.
+There are pre-trained models available which can make your life easier, but what if there was an even easier way.
+What if there exists a library (or more than one) that allows you do to some commonly used machine learning techniques with very little code.
+It exists, read on below to find out all about it!
 
 ## ML5
 
@@ -102,7 +261,7 @@ TODO
     </a>
 </div>
 
-### Some examples
+### Some ML5 examples
 
 TODO
 
