@@ -51,5 +51,37 @@ Because you use jdbc almost directly this makes it much easier to understand whe
 Spring data jdbc is managed mostly by annotations. The most important annotations are similar to other spring data packages.
 For example @OneToMany is also used in spring data jdbc.
 
+### Mybatis
+
+### custom namingstrategy
+
 ### Restrictions
 Because it is a rather new product, not all functionalities are implemented yet and some functionalities you know from other spring data products will never be implemented.
+
+#### What can be expected
+Some functionalities are said to be implemented in a later date. 
+I haven't found a timeline so I don't know when certain functionalities will be implemented.
+##### Named queries
+Currently only a very small set of queries are added to the repositories. Some queries like findById are already added. 
+It is currently not possible to use power of the named queries like we know them from other spring data projects. 
+When you need a query that is not provided in the standard set than instead of defining the query inside the name of a method in the repository, you need to use the @Query annotation.
+
+## Why is it good
+### DDD principles
+Spring data jdbc uses the system of aggregates coming from DDD to help with modularisation of the application.
+Spring data jdbc only supports, and will only support, on-to-many relationships. This means that classes that are connected by many-to-many or many-to-one relationships can't be connected direcly.
+When you only use on-to-many relationships you will create some kind of tree with at top one class. 
+This class is called the aggregate root and because this it the only entrypoint to get to the other classes, this means that this class manages the entire tree. The tree is called an aggregate.
+It also means that when the aggregate root disappears the entire aggregate will disappear. If you want that some objects keep existing after that the aggregate root disappears, then this objects shouldn't be part of the aggregate.
+Of cource it is necessary to be able to represent such relations. But this is solved by not connecting the classes directly, so the classes aren't referenced direcly but instead, id's need to be used.
+
+### Advantages of these principles
+By using aggregates there will be modularisation of your application because only the classes that really depend on each other, which can't exist without each other, are connected directly.
+It makes it also more simple to understand how and when entities will be persisted. Because the aggregate root manages the entire aggregate, when the aggregate root gets persisted, the entire tree will be persisted. 
+So when he gets created, updated or deleted, the rest of the aggregate will follow. Because there is modularisation, only the necessary classes are in the aggregate.
+Because we use id's to represent connections to classes that are not parts of the aggregate, this helps with separating it from the aggregate and makes sure that it won't be changed when to aggregate changes.
+
+## Should I use it?
+Spring data jdbc is in my opinion a very nice addition to the spring data family with lot of potential. But currently I wouldn't yet recemmend to use it in a live project because it still has some "children diseases" like some bugs.
+It still doesn't offer named queries and some other functionalities that are very usefull when you want to use is.
+But I would recommend to already play with it a bit because I think that it will have a bright future and currently the basis is already laid so when it breaks through you will have an advantage because you looked at it.
